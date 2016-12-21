@@ -12,6 +12,8 @@
     *   expressive header and cell templates for particular data
     *   reach bindings
 * javascript api
+* column generation from data
+    * camel case to pretty form
 * virtualization of vertical & horizontal scrolls (handle large data sets)
 * sticky header
 * multi-column header
@@ -25,6 +27,7 @@
 * client/server side sorting
 * column ordering
 * cell, row and column selection
+    * disable api for particular data
 * header toolbar
 * grouping/hierarchy
 * aggregation
@@ -53,6 +56,7 @@
     *  password
     *  file
     *  image
+    *  autocomplete
 * checkable rows
     *  select all button on header
     *  select all with pagination?
@@ -67,7 +71,7 @@
     * csv
 * copy
     *  to excel
-*  frozen columns
+*  frozen/pinned columns
     *  from left and right
 *  keyboard navigation
 *  small screen support
@@ -76,4 +80,64 @@
 ## start point
 ```html
 <q-grid rows="data"></q-grid>
+```
+## sandbox
+```html
+<q-grid-toolbox></q-grid-toolbox>
+<!-- naming: q-grid vs qgrid vs q-table vs qtable -->
+<q-grid rows="data" 
+        columns="columns"
+        filter="filters"
+        filterChanged="onFilterChanged()"
+        sorting="sortings"
+        sortingChanged="onSortingChanged()"
+        selection="selections"
+        selectionChanged="onSelectionChanged()">
+        <!-- naming: q-grid:head vs q-head vs qhead 
+             do we really nead q-grid:head or can just write <q-grid:th key=...>?
+        -->
+        <q-grid:head> 
+            <!-- naming: q-grid:td vs q-grid:th vs q-th vs qtd  
+                 how to declare multi-column header?
+            -->
+            <q-grid:td key='zipCode'> 
+                <i>{{$value}}</i>
+            </q-grid:td>
+        </q-grid:head>
+        <!-- do we really need g-grid:body or can just write <q-grid:td key=...?
+             do we need to customization access for q-grid:tr?
+        -->
+        <q-grid:body>
+            <q-grid:td key='firstName'>
+                <b>{{$value}}</b>
+            </q-grid:td>
+        </q-grid:body>
+</q-grid>
+<q-grid-pager></q-grid-page>
+```
+```javascript
+controller.$inject = ['$scope'];
+function controller($scope){
+    $scope.data = [];
+    $scope.columns = [
+        {key: 'firstName', label: 'First Name', type: 'text', isVisible: true, isDefault: true},
+        {key: 'lastName', label: 'Last Name', type: 'text', isVisible: true, isDefault: true},
+        {key: 'birthDate', label: 'Date of Birth', type: 'date', isVisible: true, isDefault: true},
+        {key: 'location', label: 'Location', type: 'date', isVisible: true, isDefault: true},
+        {key: 'zipCode', label: 'Zip', type: 'number', isVisible: false, isDefault: false}
+    ];
+    
+    $scope.filters = {};
+    $scope.sortings = {};
+    $scope.selections = {};
+    
+    $scope.onFilterChanged = function(e){
+    };
+    
+    $scope.onSortingChanged = function(e){
+    };
+    
+    $scope.onSelectionChanged = function(e){
+    };
+}
 ```
