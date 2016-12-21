@@ -129,6 +129,8 @@
                 {{$value|date:'yyyy/mm/dd'}}
             </q-grid:td>
         </q-grid:body>
+        <q-grid:foot>
+        </q-grid:foot>
 </q-grid>
 <q-grid-pager model="scrollContext.container"></q-grid-page>
 ```
