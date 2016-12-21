@@ -112,8 +112,10 @@
                  should we have options like isVisible in markup?
             -->
             <q-grid:td key="zipCode"
-                       isVisible="false"> 
-                <i>{{$value}}</i>
+                       isVisible="false"
+                       isDefault="false"
+                       isPinned="false"> 
+                <i title="{{$value.name}}">{{$value.label}}</i>
             </q-grid:td>
         </q-grid:head>
         <!-- do we really need g-grid:body or can just write <q-grid:td key=...?
