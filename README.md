@@ -8,7 +8,7 @@ Angular grid
 * fully **customazable**: header, cells, rows, footer etc. should be templatable 
 * **clear javavascript**: no html templates in javascript
 
-##Licence
+##licence
 Code licensed under MIT license.
 
 ## examples
