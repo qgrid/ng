@@ -1,7 +1,7 @@
 # qgrid template
 ## markup
 ```html
-<q-grid rows="data" >
+<q-grid rows="data">
         <q-grid:head> 
             <q-grid:td> 
                 <i title="{{$column.name}}">{{$column.label}}</i>
