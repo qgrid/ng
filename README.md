@@ -14,19 +14,19 @@ Angular grid
 ```
 
 ## features in progress
-* exoressive templates
-* column generation from data
-* virtualization of vertical & horizontal scrolls (handle large data sets)
-* sticky header
-* column reordering and resizing
-* pagination
-* infinite scroll
-* filtering
-* sorting
-* selection
-* checkable rows
-* column chooser
-* keyboard navigation
+* [expressive templates](https://github.com/klumba12/qgrid/blob/master/docs/template.md)
+* [column generation from data](https://github.com/klumba12/qgrid/blob/master/docs/column.generation.md)
+* [virtualization of vertical & horizontal scrolls (handle large data sets](https://github.com/klumba12/qgrid/blob/master/docs/scroll.virtual.md)
+* [sticky header](https://github.com/klumba12/qgrid/blob/master/docs/header.sticky.md)
+* [column reordering and resizing](https://github.com/klumba12/qgrid/blob/master/docs/header.sticky.md)
+* [pagination](https://github.com/klumba12/qgrid/blob/master/docs/pagination.md)
+* [infinite scroll](https://github.com/klumba12/qgrid/blob/master/docs/sorting.md/scroll.infinite.md)
+* [filtering](https://github.com/klumba12/qgrid/blob/master/docs/filtering.md)
+* [sorting](https://github.com/klumba12/qgrid/blob/master/docs/sorting.md)
+* [selection](https://github.com/klumba12/qgrid/blob/master/docs/selection.md)
+* [checkable rows](https://github.com/klumba12/qgrid/blob/master/docs/row.checkable.md)
+* [column chooser](https://github.com/klumba12/qgrid/blob/master/docs/column.chooser.md)
+* [keyboard navigation](https://github.com/klumba12/qgrid/blob/master/docs/navigation.md)
 
 ## backlog
 * `component api`
