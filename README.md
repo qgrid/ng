@@ -36,6 +36,9 @@ in progress
 * [checkable rows](https://github.com/klumba12/qgrid/blob/master/docs/row.checkable.md) `Dmitry`
 * [column chooser](https://github.com/klumba12/qgrid/blob/master/docs/column.chooser.md) `Evgeniy`
 * [keyboard navigation](https://github.com/klumba12/qgrid/blob/master/docs/navigation.md) `Kate`
+* [frozen/pinned columns](https://github.com/klumba12/qgrid/blob/master/docs/column,pin.md) `Kate`
+* [export api](https://github.com/klumba12/qgrid/blob/master/docs/export.md) `Mikhail`
+* [table editing](https://github.com/klumba12/qgrid/blob/master/docs/table.editing.md) `Mikhail`
 
 ## backlog
 * `component api`
@@ -69,7 +72,7 @@ in progress
 * inline row editing
     * confirmation api
     * edit/save actions
-* table editing 
+* `table editing`
     *  add new rows
     *  delete rows
     *  confirmation api
@@ -94,13 +97,13 @@ in progress
     * `change column order by drag and drop`
     * `persistable model`
 * tooltips
-* export
+* `export`
     * excel
     * pdf
     * csv
 * copy
     *  to excel
-*  frozen/pinned columns
-    *  from left and right
-*  keyboard navigation
+*  `frozen/pinned columns`
+    *  `from left and right`
+*  `keyboard navigation`
 *  small screen support
