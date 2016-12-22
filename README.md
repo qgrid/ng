@@ -23,19 +23,19 @@ in progress
 [sandbox](https://github.com/klumba12/qgrid/blob/master/docs/sandbox.md)
 
 ## features in progress
-* [expressive templates](https://github.com/klumba12/qgrid/blob/master/docs/template.md)
-* [column generation from data](https://github.com/klumba12/qgrid/blob/master/docs/column.generation.md)
-* [virtualization of vertical & horizontal scrolls (handle large data sets)](https://github.com/klumba12/qgrid/blob/master/docs/scroll.virtual.md)
-* [sticky header](https://github.com/klumba12/qgrid/blob/master/docs/header.sticky.md)
-* [column reordering and resizing](https://github.com/klumba12/qgrid/blob/master/docs/header.sticky.md)
-* [pagination](https://github.com/klumba12/qgrid/blob/master/docs/pagination.md)
-* [infinite scroll](https://github.com/klumba12/qgrid/blob/master/docs/scroll.infinite.md)
-* [filtering](https://github.com/klumba12/qgrid/blob/master/docs/filter.md)
-* [sorting](https://github.com/klumba12/qgrid/blob/master/docs/sorting.md)
-* [selection](https://github.com/klumba12/qgrid/blob/master/docs/selection.md)
-* [checkable rows](https://github.com/klumba12/qgrid/blob/master/docs/row.checkable.md)
-* [column chooser](https://github.com/klumba12/qgrid/blob/master/docs/column.chooser.md)
-* [keyboard navigation](https://github.com/klumba12/qgrid/blob/master/docs/navigation.md)
+* [expressive templates](https://github.com/klumba12/qgrid/blob/master/docs/template.md) `Dmitry`
+* [column generation from data](https://github.com/klumba12/qgrid/blob/master/docs/column.generation.md) `Maxim`
+* [virtualization of vertical & horizontal scrolls (handle large data sets)](https://github.com/klumba12/qgrid/blob/master/docs/scroll.virtual.md) `Valentin`
+* [sticky header](https://github.com/klumba12/qgrid/blob/master/docs/header.sticky.md) `Maxim`
+* [column reordering and resizing](https://github.com/klumba12/qgrid/blob/master/docs/header.sticky.md) `Maxim`
+* [pagination](https://github.com/klumba12/qgrid/blob/master/docs/pagination.md) `Valentin`
+* [infinite scroll](https://github.com/klumba12/qgrid/blob/master/docs/scroll.infinite.md) `Valentin`
+* [filtering](https://github.com/klumba12/qgrid/blob/master/docs/filter.md) `Valentin`
+* [sorting](https://github.com/klumba12/qgrid/blob/master/docs/sorting.md) `Evgeniy`
+* [selection](https://github.com/klumba12/qgrid/blob/master/docs/selection.md) `Dmitry`
+* [checkable rows](https://github.com/klumba12/qgrid/blob/master/docs/row.checkable.md) `Dmitry`
+* [column chooser](https://github.com/klumba12/qgrid/blob/master/docs/column.chooser.md) `Evgeniy`
+* [keyboard navigation](https://github.com/klumba12/qgrid/blob/master/docs/navigation.md) `Kate`
 
 ## backlog
 * `component api`
