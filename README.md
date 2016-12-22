@@ -13,10 +13,14 @@ Code licensed under MIT license.
 
 ## examples
 in progress
+
 ## get started
 ```html
 <q-grid rows="data"></q-grid>
 ```
+
+## design
+[sandbox](https://github.com/klumba12/qgrid/blob/master/docs/sandbox.md)
 
 ## features in progress
 * [expressive templates](https://github.com/klumba12/qgrid/blob/master/docs/template.md)
