@@ -13,26 +13,40 @@ Angular grid
 <q-grid rows="data"></q-grid>
 ```
 
-## backlog
-* component api
-    *   expressive header and cell templates for particular data
-    *   reach bindings
-* javascript api
+## features in progress
+* exoressive templates
 * column generation from data
-    * camel case to pretty form
 * virtualization of vertical & horizontal scrolls (handle large data sets)
 * sticky header
+* column reordering and resizing
+* pagination
+* infinite scroll
+* filtering
+* sorting
+* selection
+* checkable rows
+* column chooser
+* keyboard navigation
+
+## backlog
+* `component api`
+    *   `expressive header and cell templates for particular data`
+    *   `reach bindings`
+* `javascript api`
+* `column generation from data`
+    * `camel case to pretty form`
+* `virtualization of vertical & horizontal scrolls (handle large data sets)`
+* `sticky header`
 * multi-column header
-* column reording and resizing
-* client/server side pagination
-* client/server side infinite scroll
+* `column reordering and resizing`
+* `client/server side pagination`
+* `client/server side infinite scroll`
 * client/server side filtering
     *  filter row
-    *  filter popup with checkboxes (like in excel)
-    *  expression-builder
-* client/server side sorting
-* column ordering
-* cell, row and column selection
+    *  `filter popup with checkboxes (like in excel)`
+    *  `expression-builder`
+* `client/server side sorting`
+* `cell, row and column selection`
     * disable api for particular data
 * header toolbar
 * grouping/hierarchy
@@ -40,8 +54,8 @@ Angular grid
     * by count
     * by expression
     * total footer
-* pager
-    * should reflect on infinite scroll
+* `pager`
+    * `should reflect on infinite scroll`
 * row details
 * inline row editing
     * confirmation api
@@ -63,13 +77,13 @@ Angular grid
     *  file
     *  image
     *  autocomplete
-* checkable rows
-    *  select all button on header
+* `checkable rows`
+    *  `select all button on header`
     *  select all with pagination?
-* column-chooser
-    * possibility to declare default set of columns
-    * change column order by drag and drop
-    * persistable model
+* `column-chooser`
+    * `possibility to declare default set of columns`
+    * `change column order by drag and drop`
+    * `persistable model`
 * tooltips
 * export
     * excel
