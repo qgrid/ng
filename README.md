@@ -115,6 +115,8 @@ in progress
 * [ngx-datatable](https://github.com/swimlane/ngx-datatable)
 * [ui-grid](http://ui-grid.info/docs/#/tutorial)
 * [ng-table](http://ng-table.com/#/)
+* [addazle react data grid](http://adazzle.github.io/react-data-grid/examples.html#/all-features)
+* [zippyui react data grid](http://zippyui.com/react-datagrid/#/examples/basic)
 * [ag-grid](https://www.ag-grid.com/example.php)
 * [kendo-ui grid](http://demos.telerik.com/kendo-ui/grid/index)
 * [ignite-ui grid](http://www.igniteui.com/grid/_ga=1.24026938.1636625595.1482499194)
