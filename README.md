@@ -110,3 +110,16 @@ in progress
     *  `from left and right`
 *  `keyboard navigation`
 *  small screen support
+
+## refernces
+* [ngx-datatable](https://github.com/swimlane/ngx-datatable)
+* [ui-grid](http://ui-grid.info/docs/#/tutorial)
+* [ng-table](http://ng-table.com/#/)
+* [kendo-ui grid](http://demos.telerik.com/kendo-ui/grid/index)
+* [ignite-ui grid](http://www.igniteui.com/grid/_ga=1.24026938.1636625595.1482499194)
+* [devexpress grid](https://js.devexpress.com/Demos/WidgetsGallery/Demo/Data_Grid/LocalDataSource/jQuery/Light/)
+* [devexpress asp.net grid](https://www.devexpress.com/Products/NET/Controls/ASP/Grid/demos.xml)
+* [devexpress silverlight grid](https://demos.devexpress.com/DemoCenter/Silverlight/?GridDemo#Page=Modules?Product=DXGrid.SL)
+* [wpf toolkit grid](http://wpftoolkit.codeplex.com/wikipage?title=DataGrid&referringTitle=Documentation)
+* [telerik silverlight grid](http://demos.telerik.com/silverlight/#GridView/FirstLook)
+* [infragistics silverlight grid](http://www.infragistics.com/samples/silverlight/grid/overview)
