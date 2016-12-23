@@ -14,6 +14,13 @@ Code licensed under MIT license.
 ## examples
 in progress
 
+## development
+`$ npm install` prerequisits
+`$ npm run build` create a JS bundle with Webpack:
+`$ npm run start` start the Webpack development server on 'localhost:3000'
+`$ npm run test` run tests
+`$ npm run lint` linting
+
 ## get started
 ```html
 <q-grid rows="data"></q-grid>
