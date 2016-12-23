@@ -39,6 +39,8 @@ in progress
 * [frozen/pinned columns](https://github.com/klumba12/qgrid/blob/master/docs/column,pin.md) `Kate`
 * [export api](https://github.com/klumba12/qgrid/blob/master/docs/export.md) `Mikhail`
 * [table editing](https://github.com/klumba12/qgrid/blob/master/docs/table.editing.md) `Mikhail`
+* [inline row editing](https://github.com/klumba12/qgrid/blob/master/docs/row.editing.inline.md) `Fedor`
+* [row details](https://github.com/klumba12/qgrid/blob/master/docs/row.details.md) `Fedor`
 
 ## backlog
 * `component api`
@@ -68,8 +70,8 @@ in progress
     * total footer
 * `pager`
     * `should reflect on infinite scroll`
-* row details
-* inline row editing
+* `row details`
+* `inline row editing`
     * confirmation api
     * edit/save actions
 * `table editing`
