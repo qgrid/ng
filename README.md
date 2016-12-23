@@ -118,6 +118,8 @@ in progress
 * [addazle react data grid](http://adazzle.github.io/react-data-grid/examples.html#/all-features)
 * [zippyui react data grid](http://zippyui.com/react-datagrid/#/examples/basic)
 * [ag-grid](https://www.ag-grid.com/example.php)
+* [js-grid](http://js-grid.com/demos/)
+* [backgridjs](http://backgridjs.com/index.html#complete-example)
 * [kendo-ui grid](http://demos.telerik.com/kendo-ui/grid/index)
 * [ignite-ui grid](http://www.igniteui.com/grid/_ga=1.24026938.1636625595.1482499194)
 * [devexpress grid](https://js.devexpress.com/Demos/WidgetsGallery/Demo/Data_Grid/LocalDataSource/jQuery/Light/)
