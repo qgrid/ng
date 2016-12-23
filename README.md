@@ -41,6 +41,7 @@ in progress
 * [table editing](https://github.com/klumba12/qgrid/blob/master/docs/table.editing.md) `Mikhail`
 * [inline row editing](https://github.com/klumba12/qgrid/blob/master/docs/row.editing.inline.md) `Fedor`
 * [row details](https://github.com/klumba12/qgrid/blob/master/docs/row.details.md) `Fedor`
+* [embeded editors](https://github.com/klumba12/qgrid/blob/master/docs/cell.editing.md) `Vladimir`
 
 ## backlog
 * `component api`
@@ -81,7 +82,7 @@ in progress
 *  edit api
     *  e.g. for modal dialog edit
     *  validation
-* embeded editors
+* `embeded editors`
     *  text
     *  number
     *  date
