@@ -1,4 +1,4 @@
-export default Controller
+export default Controller;
 
 Controller.$inject = ['$scope'];
 function Controller($scope) {

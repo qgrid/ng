@@ -1,4 +1,4 @@
-import sandbox from './sandbox/index'
+import Sandbox from './sandbox/index';
 
 require('../src/index');
 
@@ -17,7 +17,7 @@ require('../src/index');
 			})
 			.when('/sandbox', {
 				templateUrl: 'sandbox/index.html',
-				controller: sandbox
+				controller: Sandbox
 			});
 
 		$locationProvider
