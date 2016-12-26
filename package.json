@@ -76,7 +76,7 @@
 		"build:demo": "set NODE_ENV=demo && webpack -p",
 		"lint": "eslint src/ || true",
 		"lint:travis": "eslint src/",
-		"start": "webpack-dev-server --inline --port 3000 --content-base ./",
+		"start": "set NODE_ENV=demo && webpack -p && webpack-dev-server --port 3030 --inline --hot",
 		"test": "karma start",
 		"test:debug": "karma start karma.conf.js --log-level=debug --single-run=False",
 		"test:watch": "karma start karma.conf.js --auto-watch=true --single-run=False"

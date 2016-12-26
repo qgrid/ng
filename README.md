@@ -17,7 +17,7 @@ in progress
 ## development
 `$ npm install` prerequisits
 `$ npm run build` create a JS bundle with Webpack:
-`$ npm run start` start the Webpack development server on 'http:\\localhost:3000\demo'
+`$ npm run start` start the Webpack development server on 'http:\\localhost:3030\demo'
 `$ npm run test` run tests
 `$ npm run lint` linting
 

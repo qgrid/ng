@@ -5,7 +5,7 @@ require('../src/index');
 (function (angular) {
 	"use strict";
 
-	angular.module('demo', ['ngRoute', 'qgrid'])
+ 	angular.module('demo', ['ngRoute', 'qgrid'])
 		.config(Setup)
 		.controller('qgrid.demo.ctrl', Controller);
 
