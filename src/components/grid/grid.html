@@ -1,6 +1,20 @@
 <div class="qgrid">
 	<table>
-		<q-grid:head></q-grid:head>
-		<q-grid:body></q-grid:body>
+		<thead>
+		<tr>
+			<th ng-repeat="$column in $ctrl.columns track by $index">
+				<label>{{$column.title}}</label>
+			</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr ng-repeat="$row in $ctrl.rows">
+			<td ng-repeat="$column in $ctrl.columns track by $index">
+				{{$row[$column.key]}}
+			</td>
+		</tr>
+		</tbody>
+		<tfoot>
+		</tfoot>
 	</table>
 </div>

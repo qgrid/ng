@@ -61,7 +61,6 @@ module.exports = {
 	},
 	eslint: {
 		failOnWarning: false,
-		failOnError: true,
-		//configFile: '/.eslintrc'
+		failOnError: true
 	}
 };

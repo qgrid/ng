@@ -7,5 +7,9 @@ module.exports = webpackMerge(commonConfig, {
 		path: './demo/dist',
 		filename: 'bundle.js',
 		publicPath: '/scripts/'
+	},
+	eslint: {
+		failOnWarning: false,
+		failOnError: false
 	}
 });

@@ -3,6 +3,7 @@
 import Sandbox from './sandbox/index';
 
 require('../src/index');
+require('../src/themes/default/index');
 
 (function (angular) {
 	angular.module('demo', ['ngRoute', 'qgrid'])
@@ -22,7 +23,7 @@ require('../src/index');
 			});
 
 		$locationProvider
-			.html5Mode(true)
+			.html5Mode(false)
 			.hashPrefix('!');
 	}
 
