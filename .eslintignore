@@ -1,0 +1,7 @@
+node_modules/
+config/
+dist/
+demo/dist
+karma.conf.js
+spec.bundle.js
+webpack.config.js
