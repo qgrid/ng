@@ -8,15 +8,12 @@ Angular grid
 * fully **customizable**: header, cells, rows, footer etc. should be templatable
 * **clear javascript**: no html templates in javascript
 
-##licence
-Code licensed under MIT license.
-
 ## examples
 in progress
 
 ## development
 * `$ npm install` prerequisites
-* `$ npm run start` start the webpack development server on 'http:\\localhost:3030\demo'
+* `$ npm run start` start the webpack development server on `[http:\\localhost:3030\demo](http:\\localhost:3030\demo)`
 * `$ npm run build` create a js bundle with webpack and lint js code
 * `$ npm run lint` run code quality tests
 * `$ npm run test` run tests
@@ -117,6 +114,9 @@ in progress
     *  `from left and right`
 *  `keyboard navigation`
 *  small screen support
+
+##licence
+Code licensed under MIT license.
 
 ## refernces
 * [ngx-datatable](https://github.com/swimlane/ngx-datatable)
