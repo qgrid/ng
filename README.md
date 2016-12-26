@@ -1,12 +1,12 @@
 # qgrid
 Angular grid
 
-## core consepts
+## core concepts
 * **easy** to start: ```<q-grid rows="data"></grid>``` should be enought to start
 * **virtualization** everywhere: rows and columns should be virtualizable
 * **considered styles**: user should be able to make any css customization in easy format
-* fully **customazable**: header, cells, rows, footer etc. should be templatable 
-* **clear javavascript**: no html templates in javascript
+* fully **customizable**: header, cells, rows, footer etc. should be templatable
+* **clear javascript**: no html templates in javascript
 
 ##licence
 Code licensed under MIT license.
@@ -15,7 +15,7 @@ Code licensed under MIT license.
 in progress
 
 ## development
-`$ npm install` prerequisits
+`$ npm install` prerequisites
 `$ npm run build` create a JS bundle with Webpack:
 `$ npm run start` start the Webpack development server on 'http:\\localhost:3030\demo'
 `$ npm run test` run tests
@@ -89,7 +89,7 @@ in progress
 *  edit api
     *  e.g. for modal dialog edit
     *  validation
-* `embeded editors`
+* `embedded editors`
     *  text
     *  number
     *  date
