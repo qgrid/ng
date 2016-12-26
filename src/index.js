@@ -2,16 +2,13 @@ import Grid from './components/grid/grid';
 import Body from './components/body/body';
 import Head from './components/head/head';
 
-require('./components/grid/grid.scss');
-require('./components/body/body.scss');
-require('./components/head/head.scss');
-
 (function (angular) {
 
-	var app = angular.module('qgrid', [])
+	angular.module('qgrid', [])
 		.component('qGrid', Grid)
 		.component('qGridBody', Body)
-		.component('qGridHead', Head);
+		.component('qGridHead', Head)
+		.run(Setup);
 
 	Setup.$inject = ['$templateCache'];
 	function Setup($templateCache) {
@@ -20,6 +17,6 @@ require('./components/head/head.scss');
 		$templateCache.put('qgrid.body.html', require('./components/body/body.html'));
 	}
 
-	app.run(Setup);
+	require('./themes/default/index');
 
 })(angular);

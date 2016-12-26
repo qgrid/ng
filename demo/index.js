@@ -1,13 +1,13 @@
+'use strict';
+
 import Sandbox from './sandbox/index';
 
 require('../src/index');
 
 (function (angular) {
-	"use strict";
-
- 	angular.module('demo', ['ngRoute', 'qgrid'])
+	angular.module('demo', ['ngRoute', 'qgrid'])
 		.config(Setup)
-		.controller('qgrid.demo.ctrl', Controller);
+		.controller('Demo.Controller', Controller);
 
 	Setup.$inject = ['$routeProvider', '$locationProvider'];
 	function Setup($routeProvider, $locationProvider) {
@@ -17,7 +17,8 @@ require('../src/index');
 			})
 			.when('/sandbox', {
 				templateUrl: 'sandbox/index.html',
-				controller: Sandbox
+				controller: Sandbox,
+				controllerAs: '$ctrl'
 			});
 
 		$locationProvider
@@ -25,8 +26,8 @@ require('../src/index');
 			.hashPrefix('!');
 	}
 
-	Controller.$inject = ['$scope'];
-	function Controller($scope) {
+	Controller.$inject = [];
+	function Controller() {
 	}
 
 })(angular);
