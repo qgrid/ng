@@ -13,7 +13,7 @@ export default function Controller($http) {
 	];
 
 	$http.get('data/people/100.json')
-		.then(function (responce) {
-			ctrl.rows = responce.data;
+		.then(function (response) {
+			ctrl.rows = response.data;
 		});
 }
