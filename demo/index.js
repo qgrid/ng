@@ -1,5 +1,4 @@
 'use strict';
-
 import Sandbox from './sandbox/index';
 
 require('../src/index');
