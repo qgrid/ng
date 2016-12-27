@@ -1,14 +1,30 @@
 const path = require('path');
 const webpackMerge = require('webpack-merge');
-const commonConfig = require('./webpack.dev.js');
+const commonConfig = require('./webpack.common.js');
 
 // webpack plugins
 const WebpackMd5Hash = require('webpack-md5-hash');
 const DedupePlugin = require('webpack/lib/optimize/DedupePlugin');
 const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 
 module.exports = webpackMerge(commonConfig, {
+
+	entry: './src/index.js',
+	output: {
+		path: './dist',
+		filename: 'bundle.js'
+	},
+
+	module: {
+		loaders: [
+			{
+				test: /\.scss$/,
+				loader: ExtractTextPlugin.extract('style-loader', 'css-loader!sass-loader')
+			}
+		],
+	},
 
 	/**
 	 * Disable debug mode for production.
@@ -75,6 +91,7 @@ module.exports = webpackMerge(commonConfig, {
 	 * See: http://webpack.github.io/docs/configuration.html#plugins
 	 */
 	plugins: [
+		new ExtractTextPlugin('bundle.css'),
 
 		/**
 		 * Plugin: WebpackMd5Hash

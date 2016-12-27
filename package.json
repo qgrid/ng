@@ -72,10 +72,9 @@
 	"scripts": {
 		"analyze": "webpack --json | webpack-bundle-size-analyzer",
 		"clean": "npm cache clean && rimraf -- node_modules doc typings coverage dist",
-		"build": "set NODE_ENV=dev && webpack",
+		"build": "set NODE_ENV=dev && webpack -p",
 		"build:prod": "set NODE_ENV=prod && webpack -p",
-		"build:demo": "set NODE_ENV=demo && webpack -p",
-		"start": "set NODE_ENV=demo && webpack -p && webpack-dev-server --port 3030 --inline --hot",
+		"start": "set NODE_ENV=dev && webpack -p && webpack-dev-server --port 3030 --inline --hot",
 		"lint": "eslint ./",
 		"test": "karma start",
 		"test:debug": "karma start karma.conf.js --log-level=debug --single-run=False",

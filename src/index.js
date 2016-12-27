@@ -1,4 +1,7 @@
+'use strict';
+
 import Grid from './components/grid/grid';
+require('./themes/default/index');
 
 (function (angular) {
 	angular.module('qgrid', [])
