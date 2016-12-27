@@ -29,7 +29,8 @@
 		"browser": true,
 		"jasmine": true,
 		"mocha": true,
-		"amd": true
+		"amd": true,
+		"node": true
 	},
 	"ecmaFeatures": {
 		"modules": true

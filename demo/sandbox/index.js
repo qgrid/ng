@@ -1,12 +1,19 @@
 'use strict';
 
-export default function Controller() {
-	this.rows = [{firstName: 'Alex', lastName: 'Pre'}, {firstName: 'Pavel', lastName: 'Q'}];
-	this.columns = [
-		{key: 'firstName', title: 'First Name'},
-		{key: 'lastName', title: 'Last Name'},
-		{key: 'birthDate', title: 'Date of Birth'},
-		{key: 'location', title: 'Location'},
-		{key: 'zipCode', title: 'Zip'}
+Controller.$inject = ['$http'];
+export default function Controller($http) {
+	const ctrl = this;
+
+	ctrl.rows = [];
+	ctrl.columns = [
+		{key: 'gender', title: 'Gender'},
+		{key: 'birthday', title: 'Birthday'},
+		{key: 'region', title: 'Region'},
+		{key: 'memberSince', title: 'Member Since'}
 	];
+
+	$http.get('data/people/100.json')
+		.then(function (response) {
+			ctrl.rows = response.data;
+		});
 }
