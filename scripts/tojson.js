@@ -18,4 +18,4 @@ function main(args) {
 	}
 }
 
-main(process.argv.splice(2))
+main(process.argv.splice(2));

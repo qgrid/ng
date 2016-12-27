@@ -4,8 +4,8 @@ Controller.$inject = ['$http'];
 export default function Controller($http) {
 	const ctrl = this;
 
-	this.rows = [];
-	this.columns = [
+	ctrl.rows = [];
+	ctrl.columns = [
 		{key: 'gender', title: 'Gender'},
 		{key: 'birthday', title: 'Birthday'},
 		{key: 'region', title: 'Region'},
