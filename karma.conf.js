@@ -41,6 +41,8 @@ module.exports = function (config) {
 		// available reporters: https://npmjs.org/browse/keyword/karma-reporter
 		reporters: ['mocha'],
 
+
+		// uncomment that if you want to have pretty console without error stack traces
 		// mochaReporter: {
 		// 	output: 'noFailures'
 		// },
