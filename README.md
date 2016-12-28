@@ -17,6 +17,7 @@ in progress
 * `$ npm run build` create a js bundle with webpack and lint js code
 * `$ npm run lint` run code quality tests
 * `$ npm run test` run tests
+* `$ npm run test:debug` watch and debug tests
 
 ## get started
 ```html

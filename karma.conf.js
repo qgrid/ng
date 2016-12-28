@@ -22,11 +22,14 @@ module.exports = function (config) {
 			devtool: 'inline-source-map',
 			module: {
 				loaders: [
-					{test: /\.js/, exclude: [/app\/lib/, /node_modules/], loader: 'babel'},
-					{test: /\.html/, loader: 'raw'},
-					{test: /\.jade$/, loader: 'jade-loader'},
-					{test: /\.styl$/, loader: 'style!css!stylus'},
-					{test: /\.css$/, loader: 'style!css'}
+					{
+						test: /\.js/,
+						exclude: [/dist/, /node_modules/],
+						loader: 'babel',
+						query: {
+							presets: ['es2015']
+						}
+					}
 				]
 			}
 		},
@@ -66,15 +69,5 @@ module.exports = function (config) {
 		singleRun: true
 	};
 
-	if (process.env.TRAVIS) {
-		configuration.browsers = ['Chrome_travis_ci'];
-		// configuration.reporters = configuration.reporters.concat(['coverage', 'coveralls']);
-		// configuration.coverageReporter = {
-		//   type : 'lcovonly',
-		//   dir : 'coverage/'
-		// };
-	}
-
 	config.set(configuration);
-
 };
