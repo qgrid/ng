@@ -1,15 +1,16 @@
 'use strict';
 
+import angular from 'angular';
 require('./body.scss');
 
-(function (angular) {
+const theme = 'qgrid.theme.default';
+angular
+	.module(theme, [])
+	.run(Setup);
 
-	angular.module('qgrid')
-		.run(Setup);
+Setup.$inject = ['$templateCache'];
+function Setup(/*$templateCache*/) {
+	// here'll be custom templates
+}
 
-	Setup.$inject = ['$templateCache'];
-	function Setup(/*$templateCache*/) {
-		// here'll be custom templates
-	}
-
-})(angular);
+export default theme;
