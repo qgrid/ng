@@ -1,9 +1,10 @@
 # logs
-npm-debug.log
 *.log
 
 # dependencies
 node_modules
 
-# demo bundles
+# bundles
 demo/dist
+dist/vendor.js
+dist/vendor.map
