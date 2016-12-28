@@ -17,6 +17,7 @@ in progress
 * `$ npm run build` create a js bundle with webpack and lint js code
 * `$ npm run lint` run code quality tests
 * `$ npm run test` run tests
+* `$ npm run test:debug` watch and debug tests
 
 ## get started
 ```html
@@ -118,7 +119,24 @@ in progress
 ##licence
 Code licensed under MIT license.
 
-## refernces
+## references
+
+### markdown
+* [dillinger](http://dillinger.io/)
+
+### test
+* [chai](http://chaijs.com/api/bdd/)
+* [mocha](https://mochajs.org/#getting-started)
+* [karma](https://karma-runner.github.io/1.0/index.html)
+* [eslint](http://eslint.org/)
+
+### build
+
+* [webpack](http://webpack.github.io/docs/)
+* [babel](https://babeljs.io/)
+* [babel polyfill](http://babeljs.io/docs/usage/polyfill/)
+
+### grid
 * [ngx-datatable](https://github.com/swimlane/ngx-datatable)
 * [ui-grid](http://ui-grid.info/docs/#/tutorial)
 * [ng-table](http://ng-table.com/#/)
