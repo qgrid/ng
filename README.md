@@ -111,10 +111,11 @@ in progress
     * csv
 * copy
     *  to excel
-*  `frozen/pinned columns`
+* `frozen/pinned columns`
     *  `from left and right`
-*  `keyboard navigation`
-*  small screen support
+* `keyboard navigation`
+* small screen support
+* localization
 
 ##licence
 Code licensed under MIT license.

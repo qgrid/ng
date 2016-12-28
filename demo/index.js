@@ -2,23 +2,37 @@
 
 import angular from 'angular';
 import ngRoute from 'angular-route';
+import ngAnimate from 'angular-animate';
+import ngArea from 'angular-aria';
+import {} from 'angular-material';
 import qgrid from '../src/index';
 import theme from '../src/themes/default/index';
-import Sandbox from './sandbox/index';
+import Sandbox from './examples/sandbox/index';
+require('./index.scss');
+require('angular-material/angular-material.scss');
 
-angular.module('demo', [ngRoute, qgrid, theme])
+const dependencies = [
+	ngRoute,
+	ngAnimate,
+	ngArea,
+	'ngMaterial', // WTF?
+	qgrid,
+	theme
+];
+
+export default angular.module('demo', dependencies)
 	.config(Setup)
-	.controller('Demo.Controller', Controller);
-
+	.controller('Demo.Controller', Controller)
+	.name;
 
 Setup.$inject = ['$routeProvider', '$locationProvider'];
 function Setup($routeProvider, $locationProvider) {
 	$routeProvider
 		.when('/', {
-			template: 'qgrid demo page'
+			templateUrl: 'examples/home/index.html'
 		})
 		.when('/sandbox', {
-			templateUrl: 'sandbox/index.html',
+			templateUrl: 'examples/sandbox/index.html',
 			controller: Sandbox,
 			controllerAs: '$ctrl'
 		});

@@ -10,11 +10,16 @@ const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 
-
 module.exports = webpackMerge(commonConfig, {
 	entry: {
 		qgrid: './src/build.js',
-		vendor: ['angular', 'angular-route']
+		vendor: [
+			'angular',
+			'angular-route',
+			'angular-animate',
+			'angular-aria',
+			'angular-material'
+		]
 	},
 	output: {
 		path: './dist',
