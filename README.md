@@ -119,7 +119,21 @@ in progress
 ##licence
 Code licensed under MIT license.
 
-## refernces
+## references
+
+### test
+* [chai](http://chaijs.com/api/bdd/)
+* [mocha](https://mochajs.org/#getting-started)
+* [karma](https://karma-runner.github.io/1.0/index.html)
+* [eslint]
+
+### build
+
+* [webpack](http://webpack.github.io/docs/)
+* [babel](https://babeljs.io/)
+* [babel polyfill](http://babeljs.io/docs/usage/polyfill/)
+
+### grid
 * [ngx-datatable](https://github.com/swimlane/ngx-datatable)
 * [ui-grid](http://ui-grid.info/docs/#/tutorial)
 * [ng-table](http://ng-table.com/#/)
