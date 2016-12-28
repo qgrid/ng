@@ -121,11 +121,14 @@ Code licensed under MIT license.
 
 ## references
 
+### markdown
+* [dillinger](http://dillinger.io/)
+
 ### test
 * [chai](http://chaijs.com/api/bdd/)
 * [mocha](https://mochajs.org/#getting-started)
 * [karma](https://karma-runner.github.io/1.0/index.html)
-* [eslint]
+* [eslint](http://eslint.org/)
 
 ### build
 
