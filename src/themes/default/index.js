@@ -1,5 +1,6 @@
 'use strict';
 
+require('./layout.scss');
 require('./body.scss');
 
 (function (angular) {
