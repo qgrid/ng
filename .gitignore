@@ -5,6 +5,5 @@
 node_modules
 
 # bundles
-demo/dist
 dist/vendor.*
 dist/demo.*
