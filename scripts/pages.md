@@ -2,7 +2,7 @@
 
 generate metadata from list of directories
 
-## node pages /demo/pages
+## node pages `some-directory-path`
 ### input 
 `directory name`
 ### output

@@ -2,7 +2,7 @@
 
 converts custom formats to json
 
-## node tojson `line` some-path.json
+## node tojson `line` `some-path.json`
 ### input 
 https://github.com/arangodb/example-datasets/tree/master/RandomUsers
 ```json
