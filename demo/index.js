@@ -20,7 +20,7 @@ const dependencies = [
 	theme
 ];
 
-const pages = require('./pages/list.json');
+const pages = require('./pages/pages.json');
 const controllers = pages.reduce((memo, p) => {
 	// TODO: use es6 imports
 	memo[p.path] = require('./pages/' + p.path + '/index').default;
