@@ -20,11 +20,10 @@
     "url": "https://github.com/klumba12/qgrid/issues"
   },
   "homepage": "https://github.com/klumba12/qgrid#readme",
-  "dependendencies": {
-    "angular": "^1.5.0"
+  "dependencies": {
+    "angular": "^1.6.1"
   },
   "devDependencies": {
-    "angular": "^1.6.1",
     "angular-animate": "^1.6.1",
     "angular-aria": "^1.6.1",
     "angular-material": "^1.1.1",
