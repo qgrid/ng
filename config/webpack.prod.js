@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 const commonConfig = require('./webpack.common.js');
 
@@ -7,11 +8,14 @@ const WebpackMd5Hash = require('webpack-md5-hash');
 const DedupePlugin = require('webpack/lib/optimize/DedupePlugin');
 const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 
 
 module.exports = webpackMerge(commonConfig, {
-
-	entry: './src/build.js',
+	entry: {
+		qgrid: './src/build.js',
+		vendor: ['angular', 'angular-route']
+	},
 	output: {
 		path: './dist',
 		filename: 'bundle.js'
@@ -42,7 +46,7 @@ module.exports = webpackMerge(commonConfig, {
 	 * See: http://webpack.github.io/docs/configuration.html#devtool
 	 * See: https://github.com/webpack/docs/wiki/build-performance#sourcemaps
 	 */
-	devtool: '#source-map',
+	devtool: 'source-map',
 
 
 	/**
@@ -65,7 +69,7 @@ module.exports = webpackMerge(commonConfig, {
 		 *
 		 * See: http://webpack.github.io/docs/configuration.html#output-filename
 		 */
-		filename: '[name].[chunkhash].bundle.js',
+		filename: '[name].js',
 
 		/**
 		 * The filename of the SourceMaps for the JavaScript files.
@@ -73,7 +77,7 @@ module.exports = webpackMerge(commonConfig, {
 		 *
 		 * See: http://webpack.github.io/docs/configuration.html#output-sourcemapfilename
 		 */
-		sourceMapFilename: '[name].[chunkhash].bundle.map',
+		sourceMapFilename: '[name].map',
 
 		/**
 		 * The filename of non-entry chunks as relative path
@@ -81,7 +85,7 @@ module.exports = webpackMerge(commonConfig, {
 		 *
 		 * See: http://webpack.github.io/docs/configuration.html#output-chunkfilename
 		 */
-		chunkFilename: '[id].[chunkhash].chunk.js'
+		chunkFilename: '[id].chunk.js'
 
 	},
 
@@ -91,7 +95,8 @@ module.exports = webpackMerge(commonConfig, {
 	 * See: http://webpack.github.io/docs/configuration.html#plugins
 	 */
 	plugins: [
-		new ExtractTextPlugin('bundle.css'),
+		new ExtractTextPlugin('qgrid.css'),
+		new CommonsChunkPlugin('vendor', 'vendor.js'),
 
 		/**
 		 * Plugin: WebpackMd5Hash

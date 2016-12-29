@@ -19,5 +19,6 @@ module.exports = webpackMerge(commonConfig, {
 	eslint: {
 		failOnWarning: false,
 		failOnError: false
-	}
+	},
+	devtool: 'inline-source-map',
 });

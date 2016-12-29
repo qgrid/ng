@@ -6,13 +6,9 @@ import qgrid from '../src/index';
 import theme from '../src/themes/default/index';
 import Sandbox from './sandbox/index';
 
-// angular
-// 	.element(document)
-// 	.ready(() => {
 angular.module('demo', [ngRoute, qgrid, theme])
 	.config(Setup)
 	.controller('Demo.Controller', Controller);
-//	});
 
 
 Setup.$inject = ['$routeProvider', '$locationProvider'];
