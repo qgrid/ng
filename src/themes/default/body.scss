@@ -1,4 +1,7 @@
 .qgrid.theme-default {
+	max-height: 100%;
+	overflow: auto;
+
 	> table {
 		thead {
 			tr > th {

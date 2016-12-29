@@ -1,24 +1,28 @@
+const webpack = require('webpack');
+const path = require('path');
 const webpackMerge = require('webpack-merge');
 const commonConfig = require('./webpack.common.js');
+const CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = webpackMerge(commonConfig, {
-	entry: './demo/index.js',
-	output: {
-		path: './demo/dist',
-		filename: 'bundle.js',
-		publicPath: '/scripts/'
-	},
-	module: {
-		loaders: [
-			{
-				test: /\.scss$/,
-				loaders: ['style', 'css?sourceMap', 'sass?sourceMap']
-			}
-		],
+	entry: {
+		demo: './demo/index.js',
+		vendor: [
+			'angular',
+			'angular-route',
+			'angular-animate',
+			'angular-aria',
+			'angular-material'
+		]
 	},
 	eslint: {
 		failOnWarning: false,
 		failOnError: false
 	},
 	devtool: 'inline-source-map',
+	plugins: [
+		new ExtractTextPlugin('demo.css'),
+		new CommonsChunkPlugin('vendor', 'vendor.js'),
+	]
 });

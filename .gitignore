@@ -6,5 +6,5 @@ node_modules
 
 # bundles
 demo/dist
-dist/vendor.js
-dist/vendor.map
+dist/vendor.*
+dist/demo.*

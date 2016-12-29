@@ -6,14 +6,15 @@
 	<meta name="description" content="">
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no"/>
 	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,700">
-	<link  rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="http://localhost:3030/scripts/demo.css">
 	<style>
 		body[ng-cloak] {
 			display: none;
 		}
 	</style>
 </head>
-<body ng-cloak layout="column" ng-controller="Demo.Controller as $ctrl">
+<body ng-cloak layout="column" ng-controller="Demo.App.Controller as $ctrl">
 
 <md-toolbar layout="row" class="md-toolbar-tools">
 	<md-button class="menu md-icon-button"
@@ -23,7 +24,9 @@
 				  aria-label="Show example list">
 		<md-icon>menu</md-icon>
 	</md-button>
-	<h1>qgrid examples</h1>
+	<h1>
+		<a href=".">qgrid examples</a>
+	</h1>
 </md-toolbar>
 
 <div flex layout="row">
@@ -32,20 +35,22 @@
 					md-is-locked-open="$mdMedia('gt-sm')"
 					md-component-id="left"
 					ng-click="$ctrl.toggleMenu()">
-		<example-list
-			model="$ctrl.examples"
-			selection="$ctrl.selection"
-			on-selected="app.select(example)">
-		</example-list>
+		<!--TODO: make page-list component-->
+		<ul>
+			<li ng-repeat="page in ::$ctrl.pages">
+				<a href="#!/{{::page.path}}">{{::page.title}}</a>
+			</li>
+		</ul>
 	</md-sidenav>
 
-	<ng-view></ng-view>
 	<md-content flex id="content">
-		<example-details model="$ctrl.selection"></example-details>
+		<!--TODO: make page-details component-->
+		<ng-view></ng-view>
 	</md-content>
 </div>
 
 </body>
 </html>
 
-<script src="http://localhost:3030/scripts/bundle.js"></script>
+<script src="http://localhost:3030/scripts/vendor.js"></script>
+<script src="http://localhost:3030/scripts/demo.js"></script>

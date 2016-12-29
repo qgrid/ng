@@ -16,41 +16,19 @@ html, body {
 
 md-toolbar h1 {
 	margin: auto;
-}
-
-md-list .md-button {
-	color: inherit;
-	font-weight: 500;
-	text-align: left;
-	width: 100%;
-}
-
-md-list .md-button.selected {
-	color: #03a9f4;
-}
-
-md-sidenav md-list {
-	padding: 0 0 8px 0;
-}
-
-md-toolbar h1 {
 	font-size: 1.250em;
 	font-weight: 400;
 }
 
-md-bottom-sheet md-icon {
-	margin-right: 20px;
-}
-
-span.name {
-	font-weight: bold;
-	font-size: 1.1em;
-	padding-left: 5px;
-}
-
 #content {
 	overflow: hidden;
-	padding-left: 40px;
-	padding-right: 40px;
-	padding-top: 5px;
+	padding: 10px 40px;
+}
+
+.qgrid{
+	margin: -10px -40px;
+	max-height: calc(100% + 20px) !important;
+	table{
+		padding: 10px 10px 10px 40px;
+	}
 }
