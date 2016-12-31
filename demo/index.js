@@ -2,32 +2,30 @@
 
 import angular from 'angular';
 import ngRoute from 'angular-route';
+import ngAnimate from 'angular-animate';
+import ngArea from 'angular-aria';
+import {} from 'angular-material';
 import qgrid from '../src/index';
 import theme from '../src/themes/default/index';
-import Sandbox from './sandbox/index';
+import App from './components/app/app';
+import setup from './setup';
 
-angular.module('demo', [ngRoute, qgrid, theme])
+require('./index.scss');
+require('angular-material/angular-material.css');
+
+const dependencies = [
+	ngRoute,
+	ngAnimate,
+	ngArea,
+	'ngMaterial', // WTF?
+	qgrid,
+	theme
+];
+const pages = require('./pages/pages.json');
+const Setup = setup(pages);
+
+export default angular.module('demo', dependencies)
 	.config(Setup)
-	.controller('Demo.Controller', Controller);
-
-
-Setup.$inject = ['$routeProvider', '$locationProvider'];
-function Setup($routeProvider, $locationProvider) {
-	$routeProvider
-		.when('/', {
-			template: 'qgrid demo page'
-		})
-		.when('/sandbox', {
-			templateUrl: 'sandbox/index.html',
-			controller: Sandbox,
-			controllerAs: '$ctrl'
-		});
-
-	$locationProvider
-		.html5Mode(false)
-		.hashPrefix('!');
-}
-
-Controller.$inject = [];
-function Controller() {
-}
+	.controller('Demo.App.Controller', App)
+	.constant('Demo.PAGES', pages)
+	.name;

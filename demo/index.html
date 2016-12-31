@@ -1,21 +1,57 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="demo">
 <head>
-	<meta charset="UTF-8">
-	<base href="."/>
-	<!--<link rel="stylesheet" href="./dist/bundle.css">-->
-	<title>QGrid Demo</title>
+	<title>qgrid examples</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no"/>
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,700">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="http://localhost:3030/scripts/demo.css">
+	<style>
+		body[ng-cloak] {
+			display: none;
+		}
+	</style>
 </head>
-<body ng-controller="Demo.Controller">
+<body ng-cloak layout="column" ng-controller="Demo.App.Controller as $ctrl">
 
-<ul>
-	<li><a href="#!/">Home</a></li>
-	<li><a href="#!/sandbox">Sandbox</a></li>
-</ul>
+<md-toolbar layout="row" class="md-toolbar-tools">
+	<md-button class="menu md-icon-button"
+				  ng-cloak
+				  hide-gt-sm
+				  ng-click="$ctrl.toggleMenu()"
+				  aria-label="Show example list">
+		<md-icon>menu</md-icon>
+	</md-button>
+	<h1>
+		<a href=".">qgrid examples</a>
+	</h1>
+</md-toolbar>
 
-<ng-view></ng-view>
+<div flex layout="row">
+
+	<md-sidenav class="md-whiteframe-4dp"
+					md-is-locked-open="$mdMedia('gt-sm')"
+					md-component-id="left"
+					ng-click="$ctrl.toggleMenu()">
+		<!--TODO: make page-list component-->
+		<ul>
+			<li ng-repeat="page in ::$ctrl.pages">
+				<a href="#!/{{::page.path}}">{{::page.title}}</a>
+			</li>
+		</ul>
+	</md-sidenav>
+
+	<md-content flex id="content">
+		<!--TODO: make page-details component-->
+		<ng-view></ng-view>
+	</md-content>
+</div>
 
 </body>
 </html>
 
-<script src="http://localhost:3030/scripts/bundle.js"></script>
+<script src="http://localhost:3030/scripts/vendor.js"></script>
+<script src="http://localhost:3030/scripts/demo.js"></script>

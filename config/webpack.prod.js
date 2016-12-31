@@ -10,24 +10,16 @@ const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 
-
 module.exports = webpackMerge(commonConfig, {
 	entry: {
 		qgrid: './src/build.js',
-		vendor: ['angular', 'angular-route']
+		vendor: [
+			'angular'
+		]
 	},
 	output: {
 		path: './dist',
-		filename: 'bundle.js'
-	},
-
-	module: {
-		loaders: [
-			{
-				test: /\.scss$/,
-				loader: ExtractTextPlugin.extract('style-loader', 'css-loader!sass-loader')
-			}
-		],
+		filename: 'qgrid.js'
 	},
 
 	/**
@@ -47,47 +39,6 @@ module.exports = webpackMerge(commonConfig, {
 	 * See: https://github.com/webpack/docs/wiki/build-performance#sourcemaps
 	 */
 	devtool: 'source-map',
-
-
-	/**
-	 * Options affecting the output of the compilation.
-	 *
-	 * See: http://webpack.github.io/docs/configuration.html#output
-	 */
-	output: {
-
-		/**
-		 * The output directory as absolute path (required).
-		 *
-		 * See: http://webpack.github.io/docs/configuration.html#output-path
-		 */
-		path: path.join(__dirname, '..', 'dist'),
-
-		/**
-		 * Specifies the name of each output file on disk.
-		 * IMPORTANT: You must not specify an absolute path here!
-		 *
-		 * See: http://webpack.github.io/docs/configuration.html#output-filename
-		 */
-		filename: '[name].js',
-
-		/**
-		 * The filename of the SourceMaps for the JavaScript files.
-		 * They are inside the output.path directory.
-		 *
-		 * See: http://webpack.github.io/docs/configuration.html#output-sourcemapfilename
-		 */
-		sourceMapFilename: '[name].map',
-
-		/**
-		 * The filename of non-entry chunks as relative path
-		 * inside the output.path directory.
-		 *
-		 * See: http://webpack.github.io/docs/configuration.html#output-chunkfilename
-		 */
-		chunkFilename: '[id].chunk.js'
-
-	},
 
 	/**
 	 * Add additional plugins to the compiler.

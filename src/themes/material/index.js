@@ -3,14 +3,12 @@
 import angular from 'angular';
 require('./body.scss');
 
-const theme = 'qgrid.theme.material';
-angular
-	.module(theme, [])
-	.run(Setup);
+export default angular
+	.module('qgrid.theme.material', [])
+	.run(Setup)
+	.name;
 
 Setup.$inject = ['$templateCache'];
 function Setup(/*$templateCache*/) {
 	// here'll be custom templates
 }
-
-export default theme;

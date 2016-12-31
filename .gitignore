@@ -1,10 +1,12 @@
-# logs
+#dev
+.idea
+
+#logs
 *.log
 
-# dependencies
+#dependencies
 node_modules
 
-# bundles
-demo/dist
-dist/vendor.js
-dist/vendor.map
+#bundles
+dist/vendor.*
+dist/demo.*
