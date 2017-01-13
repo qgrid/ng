@@ -5,7 +5,7 @@ import ModelBinder from '../core/infrastructure/model.bind';
 import {noop} from '../core/services/utility';
 
 export default class RootComponent {
-	constructor(name) {
+	constructor(...names) {
 		const self = this;
 		const binder = new ModelBinder(self);
 		let commit = noop;
@@ -17,7 +17,7 @@ export default class RootComponent {
 				run = false;
 			}
 
-			return binder.bind(self.model, name, run);
+			return binder.bind(self.model, names, run);
 		}
 
 		self.$onChanges = function (e) {
@@ -29,8 +29,17 @@ export default class RootComponent {
 			commit();
 		};
 
+		self.$onInit = self.onInit;
+
 		self.$onDestroy = function () {
 			binder.bind(null);
+			self.onDestroy();
 		};
+	}
+
+	onInit() {
+	}
+
+	onDestroy() {
 	}
 }

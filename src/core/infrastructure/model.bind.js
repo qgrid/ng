@@ -1,6 +1,6 @@
 'use strict';
 
-import {noop} from '../services/utility';
+import {noop, toCamelCase, isUndefined} from '../services/utility';
 
 export default class ModelBinder {
 	constructor(source) {
@@ -8,43 +8,53 @@ export default class ModelBinder {
 		this.off = noop;
 	}
 
-	bind(model, name, run = true) {
+	bind(model, names, run = true) {
 		this.off();
 		const source = this.source;
 
 		if (model) {
-			const doBind = e => {
-				for (let key of Object.keys(e.changes)) {
-					if (!source.hasOwnProperty(key)) {
-						throw new Error(
-							`model.${name}`,
-							`"${key}" is not a valid key, only ${Object.keys(source).join(', ')} keys are supported`
-						);
+			const commits = [];
+			for (let name of names) {
+				const doBind = e => {
+					for (let key of Object.keys(e.changes)) {
+						const sourceKey = toCamelCase(name, key);
+						if (!source.hasOwnProperty(sourceKey)) {
+							throw new Error(
+								`model.${name}`,
+								`"${key}" is not a valid key, only ${Object.keys(source).join(', ')} keys are supported`
+							);
+						}
+
+						source[sourceKey] = e.changes[key];
+					}
+				};
+
+				const state = model[name];
+
+				if (run) {
+					doBind({changes: state()});
+				}
+
+				this.off = model[name + 'Changed'].on(doBind);
+
+				commits.push(() => {
+					const oldState = state();
+					const newState = {};
+					for (let key of Object.keys(oldState)) {
+						const sourceKey = toCamelCase(name, key);
+						if (source.hasOwnProperty(sourceKey)) {
+							let value = source[sourceKey];
+							if (!isUndefined(value)) {
+								newState[key] = value;
+							}
+						}
 					}
 
-					source[key] = e.changes[key];
-				}
-			};
-
-			const state = model[name];
-
-			if (run) {
-				doBind({changes: state()});
+					state(newState);
+				});
 			}
 
-			this.off = model[name + 'Changed'].on(doBind);
-
-			return () => {
-				const oldState = state();
-				const newState = {};
-				for (let key of Object.keys(oldState)) {
-					if (source.hasOwnProperty(key)) {
-						newState[key] = source[key];
-					}
-				}
-
-				state(newState);
-			};
+			return () => commits.forEach(commit => commit());
 		}
 
 		this.off = noop;
