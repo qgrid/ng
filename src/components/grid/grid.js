@@ -1,6 +1,6 @@
 'use strict';
 
-import RootComponent from '../component.root';
+import RootComponent from '../root.component';
 
 class Component extends RootComponent {
 	constructor() {
