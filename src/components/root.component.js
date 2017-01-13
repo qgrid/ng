@@ -21,7 +21,7 @@ export default class RootComponent {
 		}
 
 		self.$onChanges = function (e) {
-			if (e.model.currentValue !== e.model.previousValue) {
+			if (e.hasOwnProperty('model')) {
 				commit = setup();
 				return;
 			}
