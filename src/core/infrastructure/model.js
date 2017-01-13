@@ -66,5 +66,6 @@ export default class Model {
 		}
 
 		models[name] = model;
+		return Model;
 	}
 }

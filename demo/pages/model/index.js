@@ -1,7 +1,7 @@
 'use strict';
 
-Controller.$inject = ['$http', 'qgrid'];
-export default function Controller($http, qgrid) {
+Controller.$inject = ['$http', 'qgrid', '$log'];
+export default function Controller($http, qgrid, $log) {
 	const ctrl = this;
 	ctrl.gridModel = qgrid();
 
@@ -64,8 +64,20 @@ export default function Controller($http, qgrid) {
 		columns: columns
 	});
 
+	ctrl.gridModel
+		.selectionChanged
+		.on(function (e) {
+			if(e.changes.items) {
+				$log.log(`qgrid.demo: selection changed ${e.changes.items.length} on ${e.state.mode} mode`);
+			}
+		});
+
 	$http.get('data/people/100.json')
 		.then(function (response) {
 			ctrl.gridModel.data({rows: response.data});
+			ctrl.gridModel.selection({
+				mode: 'cell',
+				items: response.data.slice(0, 4)
+			});
 		});
 }
