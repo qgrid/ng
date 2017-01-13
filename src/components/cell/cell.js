@@ -3,21 +3,24 @@
 import Component from '../component';
 
 class Cell extends Component {
-	constructor() {
+	constructor($element) {
 		super('body');
+		this.$elment = $element;
 	}
 
 	onInit() {
+		this.root.model({
+			template: this.$element.innerHTML
+		});
 	}
 }
 
-Cell.$inject = [];
+Cell.$inject = ['$element'];
 
 export default {
 	require: {
 		root: '^^qGrid'
 	},
 	controller: Cell,
-	bindings: {
-	}
+	bindings: {}
 };

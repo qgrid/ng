@@ -2,5 +2,6 @@
 
 export default class CellModel {
 	constructor() {
+		this.template = null;
 	}
 }

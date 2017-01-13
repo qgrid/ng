@@ -1,7 +1,7 @@
 'use strict';
 
-Controller.$inject = ['$http', '$log'];
-export default function Controller($http, $log) {
+Controller.$inject = ['$http'];
+export default function Controller($http) {
 	const ctrl = this;
 
 	this.rows = [];
