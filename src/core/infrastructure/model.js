@@ -1,5 +1,5 @@
 import Event from '../services/event';
-import {isObject, isFunction} from '../services/utility';
+import {isObject, isFunction, isUndefined} from '../services/utility';
 import Error from './error';
 
 const models = {};
@@ -33,6 +33,13 @@ export default class Model {
 						const newValue = state[key];
 						const oldValue = model[key];
 						if (newValue !== oldValue) {
+							if (isUndefined(newValue)) {
+								throw new Error(
+									`model.${name}`,
+									`"${key}" expected value, got undefined`
+								);
+							}
+
 							model[key] = newValue;
 							hasChanges = true;
 							changes[key] = newValue;
