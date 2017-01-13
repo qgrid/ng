@@ -3,6 +3,7 @@
 import Model from '../core/infrastructure/model';
 import ModelBinder from '../core/infrastructure/model.bind';
 import {noop} from '../core/services/utility';
+import Event from '../core/services/event';
 
 export default class RootComponent {
 	constructor(...names) {
@@ -20,9 +21,12 @@ export default class RootComponent {
 			return binder.bind(self.model, names, run);
 		}
 
-		self.$onChanges = function (e) {
+		self.modelChanged = new Event();
+
+		self.$onChanges = (e) => {
 			if (e.hasOwnProperty('model')) {
 				commit = setup();
+				self.modelChanged.emit(self.model);
 				return;
 			}
 
@@ -31,7 +35,7 @@ export default class RootComponent {
 
 		self.$onInit = self.onInit;
 
-		self.$onDestroy = function () {
+		self.$onDestroy = () => {
 			binder.bind(null);
 			self.onDestroy();
 		};

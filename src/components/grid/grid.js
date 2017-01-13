@@ -2,7 +2,7 @@
 
 import RootComponent from '../root.component';
 
-class Component extends RootComponent {
+class Grid extends RootComponent {
 	constructor() {
 		super('data', 'selection');
 	}
@@ -20,14 +20,14 @@ class Component extends RootComponent {
 	}
 }
 
-Component.$inject = [];
+Grid.$inject = [];
 
 /**
  * By convention all binding should be named in camelCase like: modelname + [P]ropertyname
  */
 export default {
 	templateUrl: 'qgrid.html',
-	controller: Component,
+	controller: Grid,
 	bindings: {
 		model: '<',
 		dataRows: '<rows',
