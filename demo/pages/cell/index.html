@@ -1,0 +1,11 @@
+<q-grid columns="$ctrl.columns"
+		  rows="$ctrl.rows">
+	<q-grid:body>
+		<q-grid:td key="name.last">
+			<b>{{$value}}</b>
+		</q-grid:td>
+		<q-grid:td key="birthday">
+			{{$value | date:'yyyy/mm/dd'}}
+		</q-grid:td>
+	</q-grid:body>
+</q-grid>

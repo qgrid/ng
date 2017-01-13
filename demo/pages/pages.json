@@ -14,5 +14,9 @@
 	{
 		"path": "model",
 		"title": "Model"
+	},
+	{
+		"path": "cell",
+		"title": "Cell"
 	}
 ]
