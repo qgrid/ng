@@ -9,16 +9,12 @@ export default function Controller($http, qgrid) {
 		{
 			key: 'name.last',
 			title: 'Last Name',
-			value: function (item) {
-				return item.name.last;
-			}
+			value: item => item.name.last
 		},
 		{
 			key: 'name.first',
 			title: 'First Name',
-			value: function (item) {
-				return item.name.first;
-			}
+			value: item => item.name.first
 		},
 		{
 			key: 'gender',
@@ -31,44 +27,32 @@ export default function Controller($http, qgrid) {
 		{
 			key: 'contact.address.zip',
 			title: 'Zip',
-			value: function (item) {
-				return item.contact.address.zip;
-			}
+			value: item => item.contact.address.zip
 		},
 		{
 			key: 'contact.address.state',
 			title: 'State',
-			value: function (item) {
-				return item.contact.address.state;
-			}
+			value: item => item.contact.address.state
 		},
 		{
 			key: 'contact.address.city',
 			title: 'City',
-			value: function (item) {
-				return item.contact.address.city;
-			}
+			value: item => item.contact.address.city
 		},
 		{
 			key: 'contact.phone.primary',
 			title: 'Primary Phone',
-			value: function (item) {
-				return item.contact.phone[0];
-			}
+			value: item => item.contact.phone[0]
 		},
 		{
 			key: 'contact.email.primary',
 			title: 'Primary Email',
-			value: function (item) {
-				return item.contact.email[0];
-			}
+			value: item => item.contact.email[0]
 		},
 		{
 			key: 'likes',
 			title: 'Likes',
-			value: function (item) {
-				return item.likes.join(', ');
-			}
+			value: item => item.likes.join(', ')
 		},
 		{
 			key: 'memberSince',
