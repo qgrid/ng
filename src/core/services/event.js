@@ -1,14 +1,14 @@
 'use strict';
 
 export default class Event {
-	constructor(){
+	constructor() {
 		this.handlers = [];
 	}
 
 	on(f) {
 		const handlers = this.handlers;
 		handlers.push(f);
-		return function () {
+		return () => {
 			const index = handlers.indexOf(f);
 			if (index >= 0) {
 				handlers.splice(index, 1);
