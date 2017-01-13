@@ -8,12 +8,12 @@ export default class ModelBinder {
 		this.off = noop;
 	}
 
-	bind(model, name) {
+	bind(model, name, run = true) {
 		this.off();
 		const source = this.source;
 
 		if (model) {
-			this.off = model[name + 'Changed'].on(function (e) {
+			const doBind = e => {
 				for (let key of Object.keys(e.changes)) {
 					if (!source.hasOwnProperty(key)) {
 						throw new Error(
@@ -24,9 +24,16 @@ export default class ModelBinder {
 
 					source[key] = e.changes[key];
 				}
-			});
+			};
 
 			const state = model[name];
+
+			if (run) {
+				doBind({changes: state()});
+			}
+
+			this.off = model[name + 'Changed'].on(doBind);
+
 			return () => {
 				const oldState = state();
 				const newState = {};
