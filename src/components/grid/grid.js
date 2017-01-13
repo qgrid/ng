@@ -1,21 +1,39 @@
 'use strict';
 
-// import GridModel from './grid.model';
-// import Utility from '../../services/utility';
+import RootComponent from '../root.component';
 
+class Component extends RootComponent {
+	constructor() {
+		super('data', 'selection');
+	}
+
+	onInit() {
+		this.model.selectionChanged.on(e => {
+			if (e.changes.hasOwnProperty('items')) {
+				this.onSelectionChanged({
+					$event: {
+						state: this.model.selection()
+					}
+				});
+			}
+		});
+	}
+}
+
+Component.$inject = [];
+
+/**
+ * By convention all binding should be named in camelCase like: modelname + [P]ropertyname
+ */
 export default {
 	templateUrl: 'qgrid.html',
-	controller: Controller,
+	controller: Component,
 	bindings: {
-		rows: '<',
-		columns: '<'
+		model: '<',
+		dataRows: '<rows',
+		dataColumns: '<columns',
+		selectionItems: '<selection',
+		selectionMode: '<',
+		onSelectionChanged: '&'
 	}
 };
-
-Controller.$inject = [];
-function Controller() {
-	//this.model = new GridModel();
-	// TODO: investigate how to track changes in this case
-	// or get rid of $scope or of GridModel
-	//Utility.assign(this.model, $scope);
-}

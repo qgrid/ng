@@ -4,7 +4,15 @@
 		"title": "Home"
 	},
 	{
+		"path": "selection",
+		"title": "Selection"
+	},
+	{
 		"path": "sandbox",
 		"title": "Sandbox"
+	},
+	{
+		"path": "model",
+		"title": "Model"
 	}
 ]

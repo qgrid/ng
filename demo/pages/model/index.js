@@ -1,11 +1,11 @@
 'use strict';
 
-Controller.$inject = ['$http'];
-export default function Controller($http) {
+Controller.$inject = ['$http', 'qgrid', '$log'];
+export default function Controller($http, qgrid, $log) {
 	const ctrl = this;
+	ctrl.gridModel = qgrid();
 
-	this.rows = [];
-	this.columns = [
+	const columns = [
 		{
 			key: 'name.last',
 			title: 'Last Name',
@@ -60,8 +60,24 @@ export default function Controller($http) {
 		}
 	];
 
+	ctrl.gridModel.data({
+		columns: columns
+	});
+
+	ctrl.gridModel
+		.selectionChanged
+		.on(function (e) {
+			if(e.changes.items) {
+				$log.log(`qgrid.demo: selection changed ${e.changes.items.length} on ${e.state.mode} mode`);
+			}
+		});
+
 	$http.get('data/people/100.json')
 		.then(function (response) {
-			ctrl.rows = response.data;
+			ctrl.gridModel.data({rows: response.data});
+			ctrl.gridModel.selection({
+				mode: 'cell',
+				items: response.data.slice(0, 4)
+			});
 		});
 }
