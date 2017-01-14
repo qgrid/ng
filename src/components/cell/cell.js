@@ -20,7 +20,8 @@ class Cell extends Directive('qGridCell', {root: '^^qGrid'}) {
 				? resource[column.key]
 				: '<span ng-bind="$cell.value()"></span>';
 
-			const content = this.$compile(template)(this.$scope);
+			const linkTo = this.$compile(template);
+			const content = linkTo(this.$scope);
 			this.$element.append(content);
 		}
 	}
