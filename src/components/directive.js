@@ -19,9 +19,6 @@ export default function (name, require = {}) {
 		onInit() {
 		}
 
-		onDestroy() {
-		}
-
 		static link($scope, $element, $attrs, $ctrls) {
 			const ctrl = $ctrls[0];
 
@@ -32,7 +29,9 @@ export default function (name, require = {}) {
 			}
 
 			ctrl.onInit();
-			//$scope.$on('$destroy', ctrl.onDestroy);
+			if (ctrl.onDestroy) {
+				$scope.$on('$destroy', ctrl.onDestroy);
+			}
 		}
 	}
 
