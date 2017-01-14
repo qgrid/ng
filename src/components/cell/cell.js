@@ -1,36 +1,48 @@
 'use strict';
 
+import angular from 'angular';
 import Component from '../component';
-import Error from '../../core/infrastructure/error';
-import {clone} from '../../core/services/utility';
 
 class Cell extends Component {
-	constructor($element) {
+	constructor($scope, $element, $compile) {
 		super();
+
+		this.$scope = $scope;
 		this.$element = $element;
+		this.$compile = $compile;
+		this.$scope.$value = this.$value;
+	}
+
+	$value() {
+		const column = this.column;
+		const row = this.row;
+
+		return column.value ? column.value(row) : row[column.key];
 	}
 
 	onInit() {
-		const model = this.root.model;
-		const templates = clone(model.cell().templates);
-		if(templates.hasOwnProperty(this.key)){
-			throw new Error('cell', `template ${this.key} is exists already`);
-		}
+		if (this.column) {
+			const cell = this.root.model.cell();
+			const templates = cell.templates;
+			const markup = templates.hasOwnProperty(this.column.key)
+				? templates[this.column.key]
+				: '{{$ctrl.$value()}}';
 
-		templates[this.key] = this.$element[0].innerHTML;
-		model.cell({templates: templates});
+			this.$element.html(markup);
+			this.$compile(this.$element)(this.$scope);
+		}
 	}
 }
 
-Cell.$inject = ['$element'];
+Cell.$inject = ['$scope', '$element', '$compile'];
 
 export default {
 	require: {
-		root: '^^qGrid',
-		body: '^qGridBody'
+		root: '^^qGrid'
 	},
 	controller: Cell,
 	bindings: {
-		key: '@'
+		column: '<',
+		row: '<'
 	}
 };

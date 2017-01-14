@@ -10,7 +10,10 @@
 		<tbody>
 		<tr ng-repeat="$row in $ctrl.dataRows track by $index">
 			<td ng-repeat="$column in $ctrl.dataColumns track by $index" class="{{::$column.key}}">
-				{{$column.value ? $column.value($row) : $row[$column.key]}}
+				<q-grid:cell
+					column="$column"
+					row="$row">
+				</q-grid:cell>
 			</td>
 		</tr>
 		</tbody>

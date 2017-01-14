@@ -1,6 +1,7 @@
 import angular from 'angular';
 import Grid from './components/grid/grid';
 import Body from './components/body/body';
+import CellTemplate from './components/cell/cell.template';
 import Cell from './components/cell/cell';
 import Model from './core/infrastructure/model';
 import DataModel from './core/grid/data.model';
@@ -17,7 +18,8 @@ export default angular
 	.module('qgrid', [])
 	.component('qGrid', Grid)
 	.component('qGridBody', Body)
-	.component('qGridTd', Cell)
+	.component('qGridTd', CellTemplate)
+	.component('qGridCell', Cell)
 	.service('qgrid', () => () => new Model())
 	.run(Setup)
 	.name;
