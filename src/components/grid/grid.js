@@ -1,13 +1,21 @@
 'use strict';
 
+//import angular from 'angular';
 import RootComponent from '../root.component';
 
 class Grid extends RootComponent {
-	constructor() {
+	constructor($element, $transclude) {
 		super('data', 'selection');
+
+		this.$element = $element;
+		this.$transclude = $transclude;
 	}
 
 	onInit() {
+		this.$transclude((clone) => {
+			this.$element.append(clone);
+		});
+
 		this.model.selectionChanged.on(e => {
 			if (e.changes.hasOwnProperty('items')) {
 				this.onSelectionChanged({
@@ -20,12 +28,13 @@ class Grid extends RootComponent {
 	}
 }
 
-Grid.$inject = [];
+Grid.$inject = ['$element', '$transclude'];
 
 /**
  * By convention all binding should be named in camelCase like: modelname + [P]ropertyname
  */
 export default {
+	transclude: true,
 	templateUrl: 'qgrid.html',
 	controller: Grid,
 	bindings: {

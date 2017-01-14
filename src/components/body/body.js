@@ -11,11 +11,11 @@ class Body extends Component {
 	}
 }
 
-Body.$inject = [];
+Body.$inject = ['$element', '$transclude'];
 
 export default {
 	require: {
-		root: '^^qGrid'
+		root: '^qGrid'
 	},
 	controller: Body,
 	bindings: {

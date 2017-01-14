@@ -2,6 +2,7 @@
 
 import ModelBinder from '../core/infrastructure/model.bind';
 import {noop} from '../core/services/utility';
+import * as guard from '../core/infrastructure/guard';
 
 export default class Component {
 	constructor(...names) {
@@ -18,11 +19,13 @@ export default class Component {
 		};
 
 		self.$onInit = () => {
+			guard.notNull(self.root, 'root');
+
 			if (self.root.model) {
 				commit = setup(self.root.model);
 			}
 
-			root.modelChanged.on(model => commit = setup(model));
+			self.root.modelChanged.on(model => commit = setup(model));
 			self.onInit();
 		};
 
