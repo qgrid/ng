@@ -2,18 +2,17 @@
 	<table>
 		<thead>
 		<tr>
-			<th ng-repeat="$column in $ctrl.dataColumns track by $index" class="{{::$column.key}}">
+			<th ng-repeat="$column in $ctrl.dataColumns track by $index"
+				 class="{{::$column.key}}">
 				<label>{{$column.title}}</label>
 			</th>
 		</tr>
 		</thead>
 		<tbody>
 		<tr ng-repeat="$row in $ctrl.dataRows track by $index">
-			<td ng-repeat="$column in $ctrl.dataColumns track by $index" class="{{::$column.key}}">
-				<q-grid:cell
-					column="$column"
-					row="$row">
-				</q-grid:cell>
+			<td ng-repeat="$column in $ctrl.dataColumns track by $index"
+				 class="{{::$column.key}}"
+				 q-grid:cell>
 			</td>
 		</tr>
 		</tbody>

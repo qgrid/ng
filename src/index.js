@@ -19,7 +19,7 @@ export default angular
 	.component('qGrid', Grid)
 	.component('qGridBody', Body)
 	.component('qGridTd', CellTemplate)
-	.component('qGridCell', Cell)
+	.directive('qGridCell', () => Cell)
 	.service('qgrid', () => () => new Model())
 	.run(Setup)
 	.name;
