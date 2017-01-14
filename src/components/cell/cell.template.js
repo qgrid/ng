@@ -12,13 +12,13 @@ class CellTemplate extends Component {
 
 	onInit() {
 		const model = this.root.model;
-		const templates = clone(model.cell().templates);
-		if(templates.hasOwnProperty(this.key)){
+		const resource = clone(model.cell().resource);
+		if(resource.hasOwnProperty(this.key)){
 			throw new Error('cell', `ambiguous template key ${this.key}`);
 		}
 
-		templates[this.key] = this.$element[0].innerHTML;
-		model.cell({templates: templates});
+		resource[this.key] = this.$element[0].innerHTML;
+		model.cell({resource: resource});
 	}
 }
 

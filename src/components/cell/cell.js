@@ -21,12 +21,12 @@ class Cell extends Component {
 	onInit() {
 		if (this.column) {
 			const cell = this.root.model.cell();
-			const templates = cell.templates;
-			const markup = templates.hasOwnProperty(this.column.key)
-				? templates[this.column.key]
-				: '{{$cell.value()}}';
+			const resource = cell.resource;
+			const template = resource.hasOwnProperty(this.column.key)
+				? resource[this.column.key]
+				: '<span ng-bind="$cell.value()"></span>';
 
-			this.$element.html(markup);
+			this.$element.html(template);
 			this.$compile(this.$element)(this.$scope);
 		}
 	}
@@ -35,6 +35,7 @@ class Cell extends Component {
 Cell.$inject = ['$scope', '$element', '$compile'];
 
 export default {
+	//template: ,
 	controllerAs: '$cell',
 	require: {
 		root: '^^qGrid'
