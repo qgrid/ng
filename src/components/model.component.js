@@ -1,0 +1,40 @@
+'use strict';
+
+import Component from './component';
+import ModelBinder from '../core/infrastructure/model.bind';
+import {noop} from '../core/services/utility';
+import * as guard from '../core/infrastructure/guard';
+
+export default class ModelComponent extends Component {
+	constructor(...names) {
+		super();
+
+		const self = this;
+		const binder = new ModelBinder(self);
+		let commit = noop;
+
+		function setup(model) {
+			return binder.bind(model, names);
+		}
+
+		self.$onChanges = () => {
+			commit();
+		};
+
+		self.$onInit = () => {
+			guard.notNull(self.root, 'root');
+
+			if (self.root.model) {
+				commit = setup(self.root.model);
+			}
+
+			self.root.modelChanged.on(model => commit = setup(model));
+			self.onInit();
+		};
+
+		self.$onDestroy = () => {
+			binder.bind(null);
+			self.onDestroy();
+		};
+	}
+}

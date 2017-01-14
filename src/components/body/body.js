@@ -1,13 +1,10 @@
 'use strict';
 
-import Component from '../component';
+import ModelComponent from '../model.component';
 
-class Body extends Component {
+class Body extends ModelComponent {
 	constructor() {
 		super('body');
-	}
-
-	onInit() {
 	}
 }
 

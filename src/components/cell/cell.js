@@ -1,6 +1,5 @@
 'use strict';
 
-import angular from 'angular';
 import Component from '../component';
 
 class Cell extends Component {
@@ -10,10 +9,9 @@ class Cell extends Component {
 		this.$scope = $scope;
 		this.$element = $element;
 		this.$compile = $compile;
-		this.$scope.$value = this.$value;
 	}
 
-	$value() {
+	value() {
 		const column = this.column;
 		const row = this.row;
 
@@ -26,7 +24,7 @@ class Cell extends Component {
 			const templates = cell.templates;
 			const markup = templates.hasOwnProperty(this.column.key)
 				? templates[this.column.key]
-				: '{{$ctrl.$value()}}';
+				: '{{$cell.value()}}';
 
 			this.$element.html(markup);
 			this.$compile(this.$element)(this.$scope);
@@ -37,6 +35,7 @@ class Cell extends Component {
 Cell.$inject = ['$scope', '$element', '$compile'];
 
 export default {
+	controllerAs: '$cell',
 	require: {
 		root: '^^qGrid'
 	},
