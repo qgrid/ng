@@ -1,20 +1,24 @@
 'use strict';
 
 import Component from '../component';
+import Error from '../../core/infrastructure/error';
+import {clone} from '../../core/services/utility';
 
 class Cell extends Component {
 	constructor($element) {
-		super('body');
+		super();
 		this.$element = $element;
 	}
 
 	onInit() {
-		this.root
-			.model
-			.cell({
-				key: this.key,
-				template: this.$element[0].innerHTML
-			});
+		const model = this.root.model;
+		const templates = clone(model.cell().templates);
+		if(templates.hasOwnProperty(this.key)){
+			throw new Error('cell', `template ${this.key} is exists already`);
+		}
+
+		templates[this.key] = this.$element[0].innerHTML;
+		model.cell({templates: templates});
 	}
 }
 

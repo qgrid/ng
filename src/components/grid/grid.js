@@ -1,6 +1,5 @@
 'use strict';
 
-//import angular from 'angular';
 import RootComponent from '../root.component';
 
 class Grid extends RootComponent {
@@ -12,7 +11,7 @@ class Grid extends RootComponent {
 	}
 
 	onInit() {
-		this.$transclude((clone) => {
+		this.$transclude(clone => {
 			this.$element.append(clone);
 		});
 
