@@ -2,7 +2,7 @@
 
 import Directive from '../directive';
 
-class Cell extends Directive('qGridCell', {root: '^^qGrid'}) {
+class Cell extends Directive('qGridCoreTd', {root: '^^qGrid'}) {
 	constructor($scope, $element, $compile) {
 		super();
 

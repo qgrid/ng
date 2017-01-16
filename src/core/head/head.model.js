@@ -1,6 +1,6 @@
 'use strict';
 
-export default class CellModel {
+export default class HeadModel {
 	constructor() {
 		this.sticky = true;
 	}

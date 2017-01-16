@@ -14,7 +14,7 @@ export default class ModelComponent extends Component {
 		let commit = noop;
 
 		function setup(model) {
-			return binder.bind(model, names);
+			return binder.bind(model, names, false);
 		}
 
 		self.$onChanges = () => {
@@ -26,6 +26,7 @@ export default class ModelComponent extends Component {
 
 			if (self.root.model) {
 				commit = setup(self.root.model);
+				commit();
 			}
 
 			self.root.modelChanged.on(model => commit = setup(model));

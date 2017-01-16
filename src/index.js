@@ -3,6 +3,7 @@ import Grid from './components/grid/grid';
 import Body from './components/body/body';
 import CellTemplate from './components/cell/cell.template';
 import Cell from './components/cell/cell';
+import HeadTemplate from './components/head/head.template';
 import Head from './components/head/head';
 import Model from './core/infrastructure/model';
 import DataModel from './core/grid/data.model';
@@ -20,10 +21,11 @@ Model.register('data', DataModel)
 export default angular
 	.module('qgrid', [])
 	.component('qGrid', Grid)
+	.component('qGridHead', HeadTemplate)
+	.directive('qGridCoreHead', () => Head)
 	.component('qGridBody', Body)
 	.component('qGridTd', CellTemplate)
-	.directive('qGridCell', () => Cell)
-	.directive('qGridHead', () => Head)
+	.directive('qGridCoreTd', () => Cell)
 	.service('qgrid', () => () => new Model())
 	.run(Setup)
 	.name;
