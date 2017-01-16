@@ -10,3 +10,4 @@ node_modules
 #bundles
 dist/vendor.*
 dist/demo.*
+demo/dist
