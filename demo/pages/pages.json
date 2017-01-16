@@ -18,5 +18,9 @@
 	{
 		"path": "cell",
 		"title": "Cell"
+	},
+	{
+		"path": "head",
+		"title": "Head"
 	}
 ]
