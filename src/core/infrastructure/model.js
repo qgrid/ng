@@ -1,6 +1,7 @@
 import Event from '../services/event';
-import {isObject, isFunction, isUndefined} from '../services/utility';
+import {isObject, isFunction} from '../services/utility';
 import Error from './error';
+import * as guard from './guard';
 
 const models = {};
 let close = false;
@@ -26,19 +27,14 @@ export default class Model {
 						if (!model.hasOwnProperty(key)) {
 							throw new Error(
 								`model.${name}`,
-								`"${key}" is not a valid key, only ${Object.keys(model).join(', ')} keys are supported`
+								`"${key}" is not a valid key, only [${Object.keys(model).join(', ')}] keys are supported`
 							);
 						}
 
 						const newValue = state[key];
 						const oldValue = model[key];
 						if (newValue !== oldValue) {
-							if (isUndefined(newValue)) {
-								throw new Error(
-									`model.${name}`,
-									`"${key}" expected value, got undefined`
-								);
-							}
+							guard.notUndefined(newValue, `model.${name}`);
 
 							model[key] = newValue;
 							hasChanges = true;

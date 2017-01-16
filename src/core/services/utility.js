@@ -2,6 +2,7 @@
 
 import isObject from 'lodash/isObject';
 import isFunction from 'lodash/isFunction';
+import clone from 'lodash/clone';
 import isUndefined from 'lodash/isUndefined';
 
 const noop = () => {
@@ -23,6 +24,7 @@ const toCamelCase = (...names) => {
 export {
 	isObject,
 	isFunction,
+	clone,
 	isUndefined,
 	toCamelCase,
 	noop

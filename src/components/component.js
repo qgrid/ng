@@ -1,6 +1,14 @@
 'use strict';
 
 export default class Component {
-	constructor(name) {
+	constructor() {
+		this.$onInit = this.onInit;
+		this.$onDestroy = this.onDestroy;
+	}
+
+	onInit() {
+	}
+
+	onDestroy() {
 	}
 }

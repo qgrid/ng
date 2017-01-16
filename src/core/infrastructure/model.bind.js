@@ -21,7 +21,7 @@ export default class ModelBinder {
 						if (!source.hasOwnProperty(sourceKey)) {
 							throw new Error(
 								`model.${name}`,
-								`"${key}" is not a valid key, only ${Object.keys(source).join(', ')} keys are supported`
+								`"${key}" is not a valid key, only [${Object.keys(source).join(', ')}] keys are supported`
 							);
 						}
 

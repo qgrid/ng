@@ -1,0 +1,13 @@
+<q-grid columns="$ctrl.columns"
+		  rows="$ctrl.rows">
+	<q-grid:body>
+		<q-grid:td key="name.last">
+			<!-- bold text -->
+			<b>{{$cell.value()}}</b>
+		</q-grid:td>
+		<q-grid:td key="birthday">
+			<!-- custom date format -->
+			{{$cell.value() | date:'yyyy/mm/dd'}}
+		</q-grid:td>
+	</q-grid:body>
+</q-grid>
