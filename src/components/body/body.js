@@ -1,20 +1,24 @@
 'use strict';
 
-import ModelComponent from '../model.component';
+import Directive from '../directive';
+import {GRID_NAME, BODY_NAME} from '../../defenition';
 
-class Body extends ModelComponent {
+class Body extends Directive(BODY_NAME, {root: `^^${GRID_NAME}`}) {
 	constructor() {
-		super('body');
+		super();
+	}
+
+	onInit() {
 	}
 }
 
-Body.$inject = ['$element', '$transclude'];
+Body.$inject = [];
 
 export default {
-	require: {
-		root: '^qGrid'
-	},
+	restrict: 'A',
+	bindToController: true,
+	controllerAs: 'body',
 	controller: Body,
-	bindings: {
-	}
+	require: Body.require,
+	link: Body.link
 };

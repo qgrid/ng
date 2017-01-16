@@ -3,21 +3,20 @@
 import ModelComponent from '../model.component';
 import {GRID_NAME} from '../../defenition';
 
-class HeadTemplate extends ModelComponent {
+class BodyTemplate extends ModelComponent {
 	constructor() {
-		super('head');
+		super('body');
 	}
 }
 
-HeadTemplate.$inject = [];
+BodyTemplate.$inject = ['$element', '$transclude'];
 
 export default {
 	require: {
 		root: `^${GRID_NAME}`
 	},
-	controller: HeadTemplate,
+	controller: BodyTemplate,
 	bindings: {
-		headSticky: '<sticky',
-		headResource: '<resource'
+		'bodyResource': '<resource'
 	}
 };

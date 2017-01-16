@@ -1,8 +1,9 @@
 'use strict';
 
 import Directive from '../directive';
+import {GRID_NAME, HEAD_NAME} from '../../defenition';
 
-class Head extends Directive('qGridCoreHead', {root: '^^qGrid'}) {
+class Head extends Directive(HEAD_NAME, {root: `^^${GRID_NAME}`}) {
 	constructor() {
 		super();
 
