@@ -1,0 +1,9 @@
+export const MODULE_NAME = 'qgrid';
+export const SERVICE_NAME = 'qgrid';
+export const GRID_NAME = 'qGrid';
+export const HEAD_NAME = 'qGridCoreHead';
+export const HEAD_TEMPLATE_NAME = 'qGridHead';
+export const BODY_NAME = 'qGridCoreBody';
+export const BODY_TEMPLATE_NAME = 'qGridBody';
+export const CELL_NAME = 'qGridCoreTd';
+export const CELL_TEMPLATE_NAME = 'qGridTd';

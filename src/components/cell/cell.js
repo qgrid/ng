@@ -1,26 +1,29 @@
 'use strict';
 
 import Directive from '../directive';
+import {GRID_NAME, CELL_NAME} from '../../definition';
 
-class Cell extends Directive('qGridCoreTd', {root: '^^qGrid'}) {
-	constructor($scope, $element, $compile) {
+class Cell extends Directive(CELL_NAME, {root: `^^${GRID_NAME}`}) {
+	constructor($scope, $element, $compile, $templateCache) {
 		super();
 
 		this.$scope = $scope;
 		this.$element = $element;
 		this.$compile = $compile;
+		this.$templateCache = $templateCache;
 	}
 
-	onInit() {
+	onInit($attrs) {
 		const column = this.$scope.$column;
 		if (column) {
-			const cell = this.root.model.cell();
-			const resource = cell.resource;
+			const sourceKey = $attrs[CELL_NAME];
+			const source = this.root.model[sourceKey]();
+			const resource = source.resource;
 			const template = resource.hasOwnProperty(column.key)
 				? resource[column.key]
-				: '<span ng-bind="$cell.value()"></span>';
+				: this.$templateCache.get(`qgrid.${sourceKey}.cell.html`);
 
-			const linkTo = this.$compile(template);
+			const linkTo = this.$compile('<!--qgrid: cell template-->' + template);
 			const content = linkTo(this.$scope);
 			this.$element.append(content);
 		}
@@ -34,7 +37,12 @@ class Cell extends Directive('qGridCoreTd', {root: '^^qGrid'}) {
 	}
 }
 
-Cell.$inject = ['$scope', '$element', '$compile'];
+Cell.$inject = [
+	'$scope',
+	'$element',
+	'$compile',
+	'$templateCache'
+];
 
 export default {
 	restrict: 'A',

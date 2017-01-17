@@ -22,13 +22,12 @@ export default function (name, require = {}) {
 		static link($scope, $element, $attrs, $ctrls) {
 			const ctrl = $ctrls[0];
 
-			ctrl.$attrs = $attrs;
 			for (let i = 0, length = dependencies.length; i < length; i++) {
 				const d = dependencies[i];
 				ctrl[d.key] = $ctrls[i + 1];
 			}
 
-			ctrl.onInit();
+			ctrl.onInit($attrs);
 			if (ctrl.onDestroy) {
 				$scope.$on('$destroy', ctrl.onDestroy);
 			}
