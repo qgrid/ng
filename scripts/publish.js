@@ -6,7 +6,7 @@ function main() {
 	const dir = path.resolve(path.join(__dirname, '..', 'demo'));
 
 	ghpages.publish(dir, {
-		branch: 'gh-pages-test',
+		//branch: 'gh-pages-test',
 		user: {
 			name: 'Dmitry Sitnov',
 			email: 'dimitry.sitnov@gmail.com'
