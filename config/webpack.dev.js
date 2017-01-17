@@ -18,7 +18,8 @@ module.exports = webpackMerge(commonConfig, {
 	},
 	output: {
 		path: path.join(__dirname, '..', 'demo', 'dist'),
-		filename: 'demo.js'
+		filename: 'demo.js',
+		publicPath: '/demo/dist/'
 	},
 	eslint: {
 		failOnWarning: false,

@@ -38,8 +38,6 @@ module.exports = {
 		 * See: http://webpack.github.io/docs/configuration.html#output-chunkfilename
 		 */
 		chunkFilename: '[id].chunk.js',
-
-		publicPath: '/dist/'
 	},
 	/**
 	 * Developer tool to enhance debugging.
