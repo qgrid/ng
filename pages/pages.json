@@ -1,0 +1,26 @@
+[
+	{
+		"path": "home",
+		"title": "Home"
+	},
+	{
+		"path": "selection",
+		"title": "Selection"
+	},
+	{
+		"path": "sandbox",
+		"title": "Sandbox"
+	},
+	{
+		"path": "model",
+		"title": "Model"
+	},
+	{
+		"path": "cell",
+		"title": "Cell"
+	},
+	{
+		"path": "head",
+		"title": "Head"
+	}
+]
