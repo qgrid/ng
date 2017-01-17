@@ -16,6 +16,10 @@ module.exports = webpackMerge(commonConfig, {
 			'angular-material'
 		]
 	},
+	output: {
+		path: path.join(__dirname, '..', 'dist'),
+		filename: 'demo.js'
+	},
 	eslint: {
 		failOnWarning: false,
 		failOnError: false
