@@ -1,12 +1,4 @@
-# qgrid 
-## markup
-```html
-<q-grid rows='data'></q-grid>
-```
-## script
-```javascript
-controller.$inject = ['$scope'];
-function controller($scope){
-	$scope.data = [];
-}
-```
+# qgrid filtering interface
+## switch between server and client side filtering
+
+Filtering is tightly coupled 
