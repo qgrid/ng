@@ -11,7 +11,7 @@ import CellTemplate from './components/cell/cell.template';
 import HeadModel from './core/head/head.model';
 import Head from './components/head/head';
 import HeadTemplate from './components/head/head.template';
-import * as def from './defenition';
+import * as def from './definition';
 
 Model.register('data', DataModel)
 	.register('selection', SelectionModel)

@@ -3,7 +3,7 @@
 import Component from '../component';
 import Error from '../../core/infrastructure/error';
 import {clone} from '../../core/services/utility';
-import {GRID_NAME, CELL_TEMPLATE_NAME, BODY_TEMPLATE_NAME, HEAD_TEMPLATE_NAME} from '../../defenition';
+import {GRID_NAME, CELL_TEMPLATE_NAME, BODY_TEMPLATE_NAME, HEAD_TEMPLATE_NAME} from '../../definition';
 
 class CellTemplate extends Component {
 	constructor($element) {

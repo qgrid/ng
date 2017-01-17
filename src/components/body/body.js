@@ -1,7 +1,7 @@
 'use strict';
 
 import Directive from '../directive';
-import {GRID_NAME, BODY_NAME} from '../../defenition';
+import {GRID_NAME, BODY_NAME} from '../../definition';
 
 class Body extends Directive(BODY_NAME, {root: `^^${GRID_NAME}`}) {
 	constructor() {

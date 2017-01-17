@@ -1,7 +1,7 @@
 'use strict';
 
 import ModelComponent from '../model.component';
-import {GRID_NAME} from '../../defenition';
+import {GRID_NAME} from '../../definition';
 
 class HeadTemplate extends ModelComponent {
 	constructor() {

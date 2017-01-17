@@ -1,7 +1,7 @@
 'use strict';
 
 import Directive from '../directive';
-import {GRID_NAME, CELL_NAME} from '../../defenition';
+import {GRID_NAME, CELL_NAME} from '../../definition';
 
 class Cell extends Directive(CELL_NAME, {root: `^^${GRID_NAME}`}) {
 	constructor($scope, $element, $compile, $templateCache) {
