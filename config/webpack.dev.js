@@ -17,16 +17,15 @@ module.exports = webpackMerge(commonConfig, {
 		]
 	},
 	output: {
-		path: path.join(__dirname, '..', 'dist'),
+		path: path.join(__dirname, '..', 'demo', 'dist'),
 		filename: 'demo.js'
 	},
 	eslint: {
 		failOnWarning: false,
 		failOnError: false
 	},
-	devtool: 'inline-source-map',
 	plugins: [
 		new ExtractTextPlugin('demo.css'),
-		new CommonsChunkPlugin('vendor', 'vendor.js'),
+		new CommonsChunkPlugin('vendor', 'vendor.js')
 	]
 });

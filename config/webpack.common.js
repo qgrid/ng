@@ -39,8 +39,18 @@ module.exports = {
 		 */
 		chunkFilename: '[id].chunk.js',
 
-		publicPath: '/scripts/'
+		publicPath: '/dist/'
 	},
+	/**
+	 * Developer tool to enhance debugging.
+	 *
+	 * The 'source-map' settings is meant to be used in production only. It
+	 * splits the source map in a separate file and it is slow to compute.
+	 *
+	 * See: http://webpack.github.io/docs/configuration.html#devtool
+	 * See: https://github.com/webpack/docs/wiki/build-performance#sourcemaps
+	 */
+	devtool: 'source-map',
 	module: {
 		preLoaders: [
 			{
@@ -55,7 +65,8 @@ module.exports = {
 				loader: 'babel-loader',
 				exclude: /node_modules/,
 				query: {
-					presets: ['es2015']
+					presets: ['es2015'],
+					compact: false
 				}
 			},
 			{

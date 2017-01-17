@@ -84,6 +84,6 @@
     "test": "karma start",
     "test:debug": "karma start karma.conf.js --log-level=debug --single-run=False",
     "test:watch": "karma start karma.conf.js --auto-watch=true --single-run=False",
-	 "publish": "node ./scripts/publish.js"
+	 "publish": "npm run test && npm run build:demo && node ./scripts/publish.js"
   }
 }
