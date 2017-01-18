@@ -1,12 +1,50 @@
 page-details {
 
-	.home {
-		.page-details-content {
-			height: inherit;
-		}
-	}
+	> div {
+		height: calc(100% - 20px);
+		width: 100%;
 
-	.page-details-content {
-		height: 400px;
+		h2 {
+			margin-top: 0;
+		}
+
+		&.home {
+			.page-details-content {
+				height: inherit;
+				border: none;
+			}
+		}
+
+		.page-details-content {
+			border: 1px dashed #dfdfdf;
+			height: 400px;
+		}
+
+		.page-details-code {
+			height: calc(100% - 430px);
+
+			> div {
+				margin: 20px;
+				min-height: 300px !important;
+				position: relative;
+
+				label {
+					margin: 0;
+					position: absolute;
+					right: 15px;
+					top: 4px;
+					color: #999;
+					font-size: 10px;
+				}
+
+				pre {
+					margin: 0;
+					padding: 10px;
+					height: 100%;
+					overflow: auto;
+					background: #f5f2f0;
+				}
+			}
+		}
 	}
 }

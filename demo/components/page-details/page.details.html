@@ -1,16 +1,23 @@
-<div flex="100" layout="column" class="{{$ctrl.selection.path}}">
-	<div flex="none">
+<div class="{{$ctrl.selection.path}}">
+	<div>
 		<h2 ng-bind="$ctrl.selection.title"></h2>
 	</div>
-	<div flex="none" class="page-details-content">
+	<div class="page-details-content">
 		<ng-view></ng-view>
 	</div>
-	<div flex="100" layout="row" ng-if="$ctrl.selection.code">
+	<div flex="100"
+		  layout="row"
+		  layout-xs="column"
+		  layout-sm="column"
+		  ng-if="$ctrl.selection.code"
+		  class="page-details-code">
 		<div flex>
-			HTML
+			<label>HTML</label>
+			<pre ng-bind-html="$ctrl.selection.code['html'] | html"></pre>
 		</div>
 		<div flex>
-			JAVASCRIPT
+			<label>JAVASCRIPT</label>
+			<pre ng-bind-html="$ctrl.selection.code['js'] | js"></pre>
 		</div>
 	</div>
 </div>
