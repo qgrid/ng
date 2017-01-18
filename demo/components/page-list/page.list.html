@@ -1,5 +1,5 @@
-<ul>
-	<li ng-repeat="page in ::$ctrl.items">
-		<a href="#!/{{::page.path}}">{{::page.title}}</a>
-	</li>
-</ul>
+<md-list>
+	<md-list-item ng-repeat="page in ::$ctrl.items" ng-class="{selected: page === $ctrl.selection}">
+		<md-button ng-click="$ctrl.select(page)">{{::page.title}}</md-button>
+	</md-list-item>
+</md-list>
