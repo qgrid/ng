@@ -1,9 +1,24 @@
 'use strict';
 
+const fs = require('fs');
+const path = require('path');
+const ghpages = require('gh-pages');
+
+function exists(path) {
+	try {
+		return fs.statSync(path).isFile();
+	}
+	catch (ex) {
+		return false;
+	}
+}
+
 function main() {
-	const path = require('path');
-	const ghpages = require('gh-pages');
 	const dir = path.resolve(path.join(__dirname, '..', 'demo'));
+	const entry = path.join(dir, 'dist', 'demo.js');
+	if (!exists(entry)) {
+		throw new Error(`publish: ${entry} is not exists, check build status`);
+	}
 
 	ghpages.publish(dir, {
 		user: {

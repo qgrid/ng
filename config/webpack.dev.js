@@ -7,7 +7,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = webpackMerge(commonConfig, {
 	entry: {
-		demo: './demo/index.js',
+		demo: path.join(__dirname, '..', 'demo', 'index.js'),
 		vendor: [
 			'angular',
 			'angular-route',
