@@ -1,4 +1,5 @@
 import Component from '../../../src/components/component';
+require('./page.details.scss');
 
 class PageDetails extends Component {
 	constructor() {

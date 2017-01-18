@@ -1,3 +1,16 @@
-<h2 ng-bind="$ctrl.selection.title"></h2>
-
-<ng-view></ng-view>
+<div flex="100" layout="column" class="{{$ctrl.selection.path}}">
+	<div flex="none">
+		<h2 ng-bind="$ctrl.selection.title"></h2>
+	</div>
+	<div flex="none" class="page-details-content">
+		<ng-view></ng-view>
+	</div>
+	<div flex="100" layout="row" ng-if="$ctrl.selection.code">
+		<div flex>
+			HTML
+		</div>
+		<div flex>
+			JAVASCRIPT
+		</div>
+	</div>
+</div>
