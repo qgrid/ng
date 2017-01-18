@@ -1,0 +1,25 @@
+page-list {
+
+	md-list-item {
+		min-height: 36px;
+
+		&:before {
+			min-height: 36px;
+		}
+
+		.md-button {
+			color: inherit;
+			font-weight: 500;
+			text-align: left;
+			width: 100%;
+			margin-top: 0;
+			margin-bottom: 0;
+		}
+
+		&.selected {
+			.md-button {
+				color: #03a9f4;;
+			}
+		}
+	}
+}
