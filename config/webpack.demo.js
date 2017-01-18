@@ -5,5 +5,6 @@ module.exports = webpackMerge(devConfig, {
 	eslint: {
 		failOnWarning: false,
 		failOnError: true
-	}
+	},
+	devtool: 'source-map'
 });
