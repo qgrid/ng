@@ -10,7 +10,7 @@ class PageList extends Component {
 		this.select = item => {
 			this.selection = item;
 			this.selectionChanged({$selection: item});
-		}
+		};
 	}
 }
 

@@ -36,13 +36,13 @@
 					md-is-locked-open="$mdMedia('gt-sm')"
 					md-component-id="left"
 					ng-click="$ctrl.toggleMenu()">
-		<!--TODO: make page-list component-->
-		<page-list items="$ctrl.pages"></page-list>
+		<page-list items="$ctrl.pages"
+					  selection-changed="$ctrl.onSelectionChanged($selection)">
+		</page-list>
 	</md-sidenav>
 
 	<md-content flex id="content">
-		<!--TODO: make page-details component-->
-		<ng-view></ng-view>
+		<page-details selection="$ctrl.page"></page-details>
 	</md-content>
 </div>
 
