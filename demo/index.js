@@ -9,6 +9,7 @@ import qgrid from '../src/index';
 import theme from '../src/themes/default/index';
 import App from './components/app/app';
 import setup from './setup';
+import PageList from './components/page-list/page.list';
 
 require('./index.scss');
 require('angular-material/angular-material.css');
@@ -28,4 +29,5 @@ export default angular.module('demo', dependencies)
 	.config(Setup)
 	.controller('Demo.App.Controller', App)
 	.constant('Demo.PAGES', pages)
+	.component('pageList', PageList)
 	.name;

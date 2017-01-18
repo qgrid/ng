@@ -37,11 +37,7 @@
 					md-component-id="left"
 					ng-click="$ctrl.toggleMenu()">
 		<!--TODO: make page-list component-->
-		<ul>
-			<li ng-repeat="page in ::$ctrl.pages">
-				<a href="#!/{{::page.path}}">{{::page.title}}</a>
-			</li>
-		</ul>
+		<page-list items="$ctrl.pages"></page-list>
 	</md-sidenav>
 
 	<md-content flex id="content">
