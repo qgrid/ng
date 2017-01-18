@@ -1,9 +1,9 @@
 'use strict';
 
 import Directive from '../directive';
-import {GRID_NAME, CELL_NAME} from '../../definition';
+import {GRID_NAME, CELL_CORE_NAME} from '../../definition';
 
-class Cell extends Directive(CELL_NAME, {root: `^^${GRID_NAME}`}) {
+class CellCore extends Directive(CELL_CORE_NAME, {root: `^^${GRID_NAME}`}) {
 	constructor($scope, $element, $compile, $templateCache) {
 		super();
 
@@ -16,12 +16,14 @@ class Cell extends Directive(CELL_NAME, {root: `^^${GRID_NAME}`}) {
 	onInit($attrs) {
 		const column = this.$scope.$column;
 		if (column) {
-			const sourceKey = $attrs[CELL_NAME];
-			const source = this.root.model[sourceKey]();
-			const resource = source.resource;
+			const sourceKey = $attrs[CELL_CORE_NAME];
+			const state = this.root.model[sourceKey]();
+			const resource = state.resource;
 			const template = resource.hasOwnProperty(column.key)
 				? resource[column.key]
-				: this.$templateCache.get(`qgrid.${sourceKey}.cell.html`);
+				: resource.hasOwnProperty('$default')
+					? resource['$default']
+					: this.$templateCache.get(`qgrid.${sourceKey}.cell.tpl.html`);
 
 			const linkTo = this.$compile('<!--qgrid: cell template-->' + template);
 			const content = linkTo(this.$scope);
@@ -37,7 +39,7 @@ class Cell extends Directive(CELL_NAME, {root: `^^${GRID_NAME}`}) {
 	}
 }
 
-Cell.$inject = [
+CellCore.$inject = [
 	'$scope',
 	'$element',
 	'$compile',
@@ -48,7 +50,7 @@ export default {
 	restrict: 'A',
 	bindToController: true,
 	controllerAs: '$cell',
-	controller: Cell,
-	require: Cell.require,
-	link: Cell.link
+	controller: CellCore,
+	require: CellCore.require,
+	link: CellCore.link
 };

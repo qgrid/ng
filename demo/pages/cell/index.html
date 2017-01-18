@@ -1,19 +1,21 @@
 <q-grid columns="$ctrl.columns"
 		  rows="$ctrl.rows">
-	<q-grid:head>
-		<q-grid:td key="name.last">
-			<span style="background: #f00;">{{$column.title}}</span>
-		</q-grid:td>
-		<q-grid:td key="birthday">
-			<span style="background: #faa;">{{$column.title}}</span>
-		</q-grid:td>
-	</q-grid:head>
-	<q-grid:body>
-		<q-grid:td key="name.last">
-			<b>{{$cell.value()}}</b>
-		</q-grid:td>
-		<q-grid:td key="birthday">
-			{{$cell.value() | date:'yyyy/mm/dd'}}
-		</q-grid:td>
-	</q-grid:body>
+	<q-grid:columns>
+		<q-grid:column key="name.last">
+			<q-grid:template for="head">
+				<span style="background: #f00;">{{$column.title}}</span>
+			</q-grid:template>
+			<q-grid:template for="body">
+				<b>{{$cell.value()}}</b>
+			</q-grid:template>
+		</q-grid:column>
+		<q-grid:column key="birthday">
+			<q-grid:template for="head">
+				<span style="background: #0f0;">{{$column.title}}</span>
+			</q-grid:template>
+			<q-grid:template for="body">
+				<i>{{$cell.value() | date:'yyyy/mm/dd'}}</i>
+			</q-grid:template>
+		</q-grid:column>
+	</q-grid:columns>
 </q-grid>
