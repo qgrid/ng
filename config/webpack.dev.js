@@ -7,7 +7,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = webpackMerge(commonConfig, {
 	entry: {
-		demo: './demo/index.js',
+		demo: path.join(__dirname, '..', 'demo', 'index.js'),
 		vendor: [
 			'angular',
 			'angular-route',
@@ -16,13 +16,17 @@ module.exports = webpackMerge(commonConfig, {
 			'angular-material'
 		]
 	},
+	output: {
+		path: path.join(__dirname, '..', 'demo', 'dist'),
+		filename: 'demo.js',
+		publicPath: '/demo/dist/'
+	},
 	eslint: {
 		failOnWarning: false,
 		failOnError: false
 	},
-	devtool: 'inline-source-map',
 	plugins: [
 		new ExtractTextPlugin('demo.css'),
-		new CommonsChunkPlugin('vendor', 'vendor.js'),
+		new CommonsChunkPlugin('vendor', 'vendor.js')
 	]
 });
