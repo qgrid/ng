@@ -2,14 +2,17 @@
 
 import Sticky from './head.sticky';
 
+const TABLE_TAG = 'TABLE';
 const THEAD_TAG = 'THEAD';
 const TR_TAG = 'TR';
 const TH_TAG = 'TH';
+const DIV_TAG = 'DIV';
 
 describe('Sticky', () => {
 	describe('init', () => {
 		const origin = createEmptyHead();
-		const sticky = new Sticky(origin);
+		const table = createTable(origin);
+		const sticky = new Sticky(table, createView());
 
 		it('should create header property', () => {
 			expect(sticky.header).to.exist;
@@ -38,12 +41,14 @@ describe('Sticky', () => {
 	describe('header', () => {
 		let columnCount,
 			origin,
+			table,
 			header;
 
 		beforeEach(() => {
 			columnCount = 10;
 			origin = createHead(columnCount);
-			header = new Sticky(origin).header;
+			table = createTable(origin);
+			header = new Sticky(table, createView()).header;
 		});
 
 		it('should has the same th count', () => {
@@ -93,6 +98,16 @@ function createHead(columnCount) {
 	return thead;
 }
 
+function createTable(head) {
+	const table = document.createElement(TABLE_TAG);
+	table.appendChild(head);
+	return table;
+}
+
 function thLength(head) {
 	return Array.from(head.querySelectorAll(TH_TAG)).length;
+}
+
+function createView() {
+	return document.createElement(DIV_TAG);
 }

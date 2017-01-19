@@ -1,20 +1,22 @@
 import {css} from '../services/dom';
-// import {debounce} from '../services/utility';
 
 export default class Sticky {
 	/**
-	 * @param {Node} origin - Original thead node
+	 * @param {Node} table - table node
+	 * @param {Node} scrollView - view container which causes scroll
 	 */
-	constructor(origin) {
+	constructor(table, scrollView) {
 		const self = this;
-		this.origin = origin;
-		this.header = origin.cloneNode(true);
+		this.table = table;
+		this.origin = table.querySelector('thead');
+		this.scrollView = scrollView;
+		this.header = this.origin.cloneNode(true);
 		
 		this.header.classList.add('sticky');
 		css(this.header, 'position', 'absolute');
 		css(this.header, 'overflow-x', 'hidden');
 		
-		watchChildren(origin, () => {
+		watchChildren(this.origin, () => {
 			const stickyTh = th(self.header);
 			const originTh = th(self.origin);
 
@@ -25,13 +27,24 @@ export default class Sticky {
 			});
 			self.invalidate();
 		});
+
+		watchStyle(this.origin, (oldValue, newValue) => {
+			if (!oldValue || oldValue.width !== newValue.width) {
+				setTimeout(() => self.invalidate(), 0);
+			}
+		});
 	}
 	
 	invalidate() {
-		const style = window.getComputedStyle(this.origin);
+		const style = window.getComputedStyle(this.scrollView);
 
 		css(this.header, 'min-width', style.width);
 		css(this.header, 'max-width', style.width);
+
+		const offset = `${this.origin.offsetHeight}px`;
+		css(this.header, 'margin-top', `-${offset}`);
+		css(this.scrollView, 'margin-top', offset);
+		css(this.table, 'margin-top', `-${offset}`);
 
 		const stickyTh = th(this.header);
 		const originTh = th(this.origin);
@@ -40,6 +53,11 @@ export default class Sticky {
 			css(column, 'min-width', thStyle.width);
 			css(column, 'max-width', thStyle.width);
 		});
+	}
+
+	destroy() {
+		this.header.remove();
+		css(this.scrollView, 'margin-top', '');
 	}
 }
 
@@ -54,6 +72,22 @@ function watchChildren(element, handler) {
 	const config = {
 		childList: true,
 		subtree: true
+	};
+	observer.observe(element, config);
+}
+
+function watchStyle(element, handler) {
+	const observer = new MutationObserver((mutations) => {
+		mutations.forEach((mutation) => {
+			if (mutation.attributeName) {
+				handler(mutation.oldValue, mutation.target.style);
+			}
+		});
+	});
+	const config = {
+		attributes: true,
+		attributeOldValue: true,
+		attributeFilter: ['style']
 	};
 	observer.observe(element, config);
 }
