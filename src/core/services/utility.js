@@ -4,6 +4,7 @@ import isObject from 'lodash/isObject';
 import isFunction from 'lodash/isFunction';
 import clone from 'lodash/clone';
 import isUndefined from 'lodash/isUndefined';
+import debounce from 'lodash/debounce';
 
 const noop = () => {
 };
@@ -26,6 +27,7 @@ export {
 	isFunction,
 	clone,
 	isUndefined,
+	debounce,
 	toCamelCase,
 	noop
 };
