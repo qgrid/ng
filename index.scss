@@ -6,7 +6,6 @@ html, body {
 	padding: 0;
 }
 
-
 .menu {
 	background-color: transparent;
 	border: none;
@@ -21,9 +20,15 @@ md-toolbar h1 {
 	font-weight: 400;
 }
 
+@media (max-width: 959px) {
+	#content {
+		padding: 5px 10px !important;
+	}
+}
+
 #content {
 	overflow-y: auto;
-	padding: 10px 40px;
+	padding: 10px 20px;
 
 	::-webkit-scrollbar {
 		width: 8px;
@@ -47,9 +52,9 @@ md-toolbar h1 {
 	}
 }
 
-.qgrid{
+.qgrid {
 	margin: 0px -10px;
-	table{
+	table {
 		padding: 10px 10px 10px 40px;
 	}
 }

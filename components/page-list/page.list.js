@@ -21,6 +21,7 @@ export default {
 	controller: PageList,
 	bindings: {
 		'items': '<',
-		'selectionChanged': '&'
+		'selectionChanged': '&',
+		'selection': '<'
 	}
 };

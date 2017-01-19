@@ -37,6 +37,7 @@
 					md-component-id="left"
 					ng-click="$ctrl.toggleMenu()">
 		<page-list items="$ctrl.pages"
+					  selection="$ctrl.page"
 					  selection-changed="$ctrl.onSelectionChanged($selection)">
 		</page-list>
 	</md-sidenav>
