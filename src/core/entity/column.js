@@ -1,6 +1,4 @@
-'use strict';
-
-export default class ColumnModel {
+export default class Column {
 	constructor() {
 		this.key = null;
 		this.title = null;

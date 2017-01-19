@@ -1,14 +1,15 @@
-'use strict';
-
 import Component from '../component';
 import Error from '../../core/infrastructure/error';
-import {clone, isUndefined} from '../../core/services/utility';
+import Resource from '../../core/entity/resource';
+import {isUndefined} from '../../core/services/utility';
 import {GRID_NAME, TEMPLATE_NAME, COLUMN_NAME} from '../../definition';
 
 class Template extends Component {
-	constructor($element) {
+	constructor($scope, $element) {
 		super();
+
 		this.$element = $element;
+		this.$scope = $scope;
 	}
 
 	key() {
@@ -40,19 +41,38 @@ class Template extends Component {
 		}
 
 		const key = this.key();
-		const resource = clone(state.resource);
-		if (resource.hasOwnProperty(key)) {
+		const resourceData = state.resource.data;
+		if (resourceData.hasOwnProperty(key)) {
 			throw new Error(
 				'template',
 				`Ambiguous key "${key}" for "${this.for}"`);
 		}
 
-		resource[key] = this.$element[0].innerHTML;
-		model({resource: resource});
+		resourceData[key] = this.$element[0].innerHTML;
+		const resourceScope = {};
+		if (!isUndefined(this.let)) {
+			if (isUndefined(this.$scope[this.let])) {
+				throw new Error(
+					'template',
+					`"${this.let}" is not defined for "${this.for}.${key}"`
+				);
+			}
+
+			const letScope = this.findLetScope();
+			resourceScope[this.let] = letScope[this.let];
+		}
+
+		model({
+			resource: new Resource(resourceData, resourceScope)
+		});
+	}
+
+	findLetScope() {
+		return this.$scope.$parent.$parent;
 	}
 }
 
-Template.$inject = ['$element'];
+Template.$inject = ['$scope', '$element'];
 
 export default {
 	require: {
@@ -61,6 +81,7 @@ export default {
 	},
 	controller: Template,
 	bindings: {
-		for: '@'
+		for: '@',
+		let: '@'
 	}
 };

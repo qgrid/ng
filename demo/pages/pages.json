@@ -26,5 +26,9 @@
 	{
 		"path": "selection",
 		"title": "Selection"
+	},
+	{
+		"path": "summary",
+		"title": "Summary"
 	}
 ]
