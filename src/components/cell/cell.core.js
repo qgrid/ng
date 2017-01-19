@@ -35,7 +35,11 @@ class CellCore extends Directive(CELL_CORE_NAME, {root: `^^${GRID_NAME}`}) {
 		const column = this.$scope.$column;
 		const row = this.$scope.$row;
 
-		return column.value ? column.value(row) : row[column.key];
+		return column.$value
+			? column.$value({$row: row})
+			: column.value
+				? column.value(row)
+				: row[column.key];
 	}
 }
 

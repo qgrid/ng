@@ -20,6 +20,10 @@
 		"title": "Cell"
 	},
 	{
+		"path": "column",
+		"title": "Column"
+	},
+	{
 		"path": "head",
 		"title": "Head"
 	}

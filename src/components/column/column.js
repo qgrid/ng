@@ -28,7 +28,8 @@ class Column extends Component {
 		}
 
 		if (this.$attrs.hasOwnProperty('value')) {
-			source.value = isUndefined(this.value) ? null : this.value;
+			// HACK: to understand if need to pass {$row: row} instead of just row in cell.core.js
+			source.$value = isUndefined(this.value) ? null : this.value;
 		}
 	}
 
