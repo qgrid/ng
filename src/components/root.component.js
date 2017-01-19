@@ -1,15 +1,12 @@
 'use strict';
 
-import Component from './component';
 import Model from '../core/infrastructure/model';
 import ModelBinder from '../core/infrastructure/model.bind';
 import {noop} from '../core/services/utility';
 import Event from '../core/services/event';
 
-export default class RootComponent extends Component {
+export default class RootComponent {
 	constructor(...names) {
-		super();
-
 		const self = this;
 		const binder = new ModelBinder(self);
 		let commit = noop;
@@ -29,18 +26,25 @@ export default class RootComponent extends Component {
 		self.$onChanges = (e) => {
 			if (e.hasOwnProperty('model')) {
 				commit = setup();
+				commit();
+
 				self.modelChanged.emit(self.model);
+				self.onInit();
 				return;
 			}
 
 			commit();
 		};
 
-		self.$onInit = self.onInit;
-
 		self.$onDestroy = () => {
 			binder.bind(null);
 			self.onDestroy();
 		};
+	}
+
+	onInit() {
+	}
+
+	onDestroy() {
 	}
 }

@@ -2,7 +2,7 @@
 
 import Component from '../component';
 import {GRID_NAME, COLUMN_LIST_NAME} from '../../definition';
-import {clone, assignWith, isUndefined} from '../../core/services/utility';
+import {clone, isUndefined} from '../../core/services/utility';
 import ColumnModel from '../../core/column/column.model';
 
 class Column extends Component {
@@ -12,19 +12,35 @@ class Column extends Component {
 		this.$attrs = $attrs;
 	}
 
-	copy(source, target){
+	copy(source, target) {
+// TODO: automate
 		source.key = target.key;
-		source.title = target.title;
-		source.isDefault = target.isDefault;
-		source.isVisible = target.isVisible;
-		source.value = this.$attrs.hasOwnProperty('value') ? this.value : null;
+		if (!isUndefined(target.title)) {
+			source.title = target.title;
+		}
+
+		if (!isUndefined(target.isDefault)) {
+			source.isDefault = target.isDefault;
+		}
+
+		if (!isUndefined(target.isVisible)) {
+			source.isVisible = target.isVisible;
+		}
+
+		if (this.$attrs.hasOwnProperty('value')) {
+			source.value = isUndefined(this.value) ? null : this.value;
+		}
 	}
 
 	onInit() {
+		if (isUndefined(this.key)) {
+			this.key = '$default';
+		}
+
 		const data = this.root.model.data;
 		const state = data();
 		const columns = clone(state.columns);
-		const key = this.key || '$default';
+		const key = this.key;
 		let column = columns.filter(c => c.key === key)[0];
 		if (!column) {
 			column = new ColumnModel();
