@@ -1,13 +1,15 @@
 # qgrid filtering interface
 
-## Concepts
-* From API point of view filters should allow user following things in runtime: save filters and get filters.
+## Core filtering concepts
 
-* Configuration of filter includes a function `match(row, filter)` which is responsible for filtering.
+* Core should only allow to get, set filters and notify user when filters are changed. 
 
-* Filter should allow user to choose between client-side and server-side filtering as well as ordering and pagination.
+## Angular-specific filtering
 
-* By default filter must be a simple list of distinct values with checkboxes. This filter is easily serialized to a list of values.
+* Filters should be displayed as popup windows like in MS Excel.
 
-* Filter should be opened as a popup window. Inspired by MS Excel filters. But in general, user can render it in any way. 
- 
+* Popups' content should be configurable.
+
+* Default implementations of filters: checkbox list of distinct values and `expression-builder` tree-like filters.
+
+* Default templates are serialized to AST which is described detailed in [filter.expression.md]()
