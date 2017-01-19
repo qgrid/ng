@@ -29,6 +29,7 @@
     "angular-material": "^1.1.1",
     "angular-mocks": "^1.6.1",
     "angular-route": "^1.6.1",
+    "angular-sanitize": "^1.6.1",
     "babel": {
       "presets": [
         "es2015"
@@ -62,6 +63,7 @@
     "lodash": "^4.17.4",
     "mocha": "~2.3.0",
     "node-sass": "^4.1.1",
+    "prismjs": "^1.6.0",
     "raw-loader": "0.5.1",
     "rimraf": "~2.5.2",
     "sass-loader": "^4.1.1",
@@ -77,12 +79,14 @@
   "scripts": {
     "analyze": "webpack --json | webpack-bundle-size-analyzer",
     "clean": "npm cache clean && rimraf -- node_modules doc typings coverage dist",
-    "build:demo": "set NODE_ENV=dev && webpack -p",
+    "build:dev": "set NODE_ENV=dev && webpack -p",
+    "build:demo": "set NODE_ENV=demo && webpack -p",
     "build:prod": "set NODE_ENV=prod && webpack -p",
     "start": "set NODE_ENV=dev && webpack-dev-server --port 3030 --inline --hot",
     "lint": "eslint ./",
     "test": "karma start",
     "test:debug": "karma start karma.conf.js --log-level=debug --single-run=False",
-    "test:watch": "karma start karma.conf.js --auto-watch=true --single-run=False"
+    "test:watch": "karma start karma.conf.js --auto-watch=true --single-run=False",
+    "publish": "npm run test && node ./scripts/remove.js ./demo/dist && npm run build:demo && node ./scripts/publish.js"
   }
 }

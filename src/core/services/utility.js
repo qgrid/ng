@@ -25,8 +25,8 @@ const toCamelCase = (...names) => {
 export {
 	isObject,
 	isFunction,
-	clone,
 	isUndefined,
+	clone,
 	debounce,
 	toCamelCase,
 	noop

@@ -8,7 +8,7 @@
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no"/>
 	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,700">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	<link rel="stylesheet" href="http://localhost:3030/scripts/demo.css">
+	<link rel="stylesheet" href="./dist/demo.css">
 	<style>
 		body[ng-cloak] {
 			display: none;
@@ -36,22 +36,19 @@
 					md-is-locked-open="$mdMedia('gt-sm')"
 					md-component-id="left"
 					ng-click="$ctrl.toggleMenu()">
-		<!--TODO: make page-list component-->
-		<ul>
-			<li ng-repeat="page in ::$ctrl.pages">
-				<a href="#!/{{::page.path}}">{{::page.title}}</a>
-			</li>
-		</ul>
+		<page-list items="$ctrl.pages"
+					  selection="$ctrl.page"
+					  selection-changed="$ctrl.onSelectionChanged($selection)">
+		</page-list>
 	</md-sidenav>
 
 	<md-content flex id="content">
-		<!--TODO: make page-details component-->
-		<ng-view></ng-view>
+		<page-details selection="$ctrl.page"></page-details>
 	</md-content>
 </div>
 
 </body>
 </html>
 
-<script src="http://localhost:3030/scripts/vendor.js"></script>
-<script src="http://localhost:3030/scripts/demo.js"></script>
+<script src="./dist/vendor.js"></script>
+<script src="./dist/demo.js"></script>
