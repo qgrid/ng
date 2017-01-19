@@ -11,9 +11,18 @@ class Grid extends RootComponent {
 	}
 
 	onInit() {
-		this.$transclude(clone => {
+		let template = null;
+		let templateScope = null;
+
+		this.$transclude((clone, scope) => {
+			template = clone;
+			templateScope = scope;
+
 			this.$element.append(clone);
 		});
+
+		template.remove();
+		templateScope.$destroy();
 
 		this.model.selectionChanged.on(e => {
 			if (e.changes.hasOwnProperty('items')) {
