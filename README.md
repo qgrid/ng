@@ -9,7 +9,7 @@ Angular grid
 * **clear javascript**: no html templates in javascript
 
 ## examples
-in progress
+https://klumba12.github.io/qgrid/
 
 ## development
 * `$ npm install` prerequisites
