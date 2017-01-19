@@ -47,7 +47,7 @@ in progress
 * [inline row editing](https://github.com/klumba12/qgrid/blob/master/docs/row.editing.inline.md) `Fedor`
 * [row details](https://github.com/klumba12/qgrid/blob/master/docs/row.details.md) `Fedor`
 * [embeded editors](https://github.com/klumba12/qgrid/blob/master/docs/cell.editing.md) `Vladimir`
-* [multi-column header](https://github.com/klumba12/qgrid/blob/master/docs/cell.editing.md) `Dmitry K.`
+* [multi-column header](https://github.com/klumba12/qgrid/blob/master/docs/header.multi-column.md) `Dmitry K.`
 
 ## backlog
 * `component api`
@@ -140,6 +140,7 @@ Code licensed under MIT license.
 
 ### grid
 * [ngx-datatable](https://github.com/swimlane/ngx-datatable)
+* [kendo-ng grid](http://www.telerik.com/kendo-angular-ui/components/grid/)
 * [ui-grid](http://ui-grid.info/docs/#/tutorial)
 * [ng-table](http://ng-table.com/#/)
 * [addazle react data grid](http://adazzle.github.io/react-data-grid/examples.html#/all-features)
