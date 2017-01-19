@@ -16,6 +16,7 @@ module.exports = webpackMerge(commonConfig, {
 			'angular-material'
 		]
 	},
+	devtool: 'inline-source-map',
 	output: {
 		path: path.join(__dirname, '..', 'demo', 'dist'),
 		filename: 'demo.js',
