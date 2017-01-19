@@ -8,7 +8,7 @@ page-details {
 
 			> div:last-child {
 				margin-left: 0 !important;
-				margin-top: 30px !important;
+				margin-top: 40px !important;
 			}
 		}
 	}
@@ -34,7 +34,7 @@ page-details {
 		}
 
 		.page-details-code {
-			height: calc(100% - 440px);
+			height: calc(100% - 450px);
 
 			> div {
 				min-height: 300px !important;
@@ -60,7 +60,7 @@ page-details {
 
 				pre {
 					margin: 0;
-					padding: 10px;
+					padding: 15px;
 					height: 100%;
 					overflow: auto;
 					background: #f5f2f0;

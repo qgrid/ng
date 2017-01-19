@@ -4,10 +4,6 @@
 		"title": "Home"
 	},
 	{
-		"path": "selection",
-		"title": "Selection"
-	},
-	{
 		"path": "sandbox",
 		"title": "Sandbox"
 	},
@@ -20,7 +16,15 @@
 		"title": "Cell"
 	},
 	{
+		"path": "column",
+		"title": "Column"
+	},
+	{
 		"path": "head",
 		"title": "Head"
+	},
+	{
+		"path": "selection",
+		"title": "Selection"
 	}
 ]
