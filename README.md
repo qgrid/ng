@@ -28,7 +28,7 @@ in progress
 [sandbox](https://github.com/klumba12/qgrid/blob/master/docs/sandbox.md)
 
 ## features in progress
-* [expressive templates](https://github.com/klumba12/qgrid/blob/master/docs/template.md) `Dmitry`
+* [expressive templates](https://github.com/klumba12/qgrid/blob/master/docs/template.md) `Dmitry S.`
 * [column generation from data](https://github.com/klumba12/qgrid/blob/master/docs/column.generation.md) `Maxim`
 * [virtualization of vertical & horizontal scrolls (handle large data sets)](https://github.com/klumba12/qgrid/blob/master/docs/scroll.virtual.md) `Valentin`
 * [sticky header](https://github.com/klumba12/qgrid/blob/master/docs/header.sticky.md) `Maxim`
@@ -37,8 +37,8 @@ in progress
 * [infinite scroll](https://github.com/klumba12/qgrid/blob/master/docs/scroll.infinite.md) `Valentin`
 * [filtering](https://github.com/klumba12/qgrid/blob/master/docs/filter.md) `Valentin`
 * [sorting](https://github.com/klumba12/qgrid/blob/master/docs/sorting.md) `Evgeniy`
-* [selection](https://github.com/klumba12/qgrid/blob/master/docs/selection.md) `Dmitry`
-* [checkable rows](https://github.com/klumba12/qgrid/blob/master/docs/row.checkable.md) `Dmitry`
+* [selection](https://github.com/klumba12/qgrid/blob/master/docs/selection.md) `Ivan`
+* [checkable rows](https://github.com/klumba12/qgrid/blob/master/docs/row.checkable.md) `Dmitry K.`
 * [column chooser](https://github.com/klumba12/qgrid/blob/master/docs/column.chooser.md) `Evgeniy`
 * [keyboard navigation](https://github.com/klumba12/qgrid/blob/master/docs/navigation.md) `Kate`
 * [frozen/pinned columns](https://github.com/klumba12/qgrid/blob/master/docs/column,pin.md) `Kate`
@@ -47,6 +47,7 @@ in progress
 * [inline row editing](https://github.com/klumba12/qgrid/blob/master/docs/row.editing.inline.md) `Fedor`
 * [row details](https://github.com/klumba12/qgrid/blob/master/docs/row.details.md) `Fedor`
 * [embeded editors](https://github.com/klumba12/qgrid/blob/master/docs/cell.editing.md) `Vladimir`
+* [multi-column header](https://github.com/klumba12/qgrid/blob/master/docs/cell.editing.md) `Dmitry K.`
 
 ## backlog
 * `component api`
@@ -57,7 +58,7 @@ in progress
     * `camel case to pretty form`
 * `virtualization of vertical & horizontal scrolls (handle large data sets)`
 * `sticky header`
-* multi-column header
+* `multi-column header`
 * `column reordering and resizing`
 * `client/server side pagination`
 * `client/server side infinite scroll`
