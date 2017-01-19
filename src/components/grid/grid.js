@@ -2,7 +2,7 @@
 
 import RootComponent from '../root.component';
 
-class Grid extends RootComponent {
+export class Grid extends RootComponent {
 	constructor($element, $transclude) {
 		super('data', 'selection');
 

@@ -1,4 +1,5 @@
 import Component from '../component';
+import {Grid} from '../grid/grid';
 import Error from '../../core/infrastructure/error';
 import Resource from '../../core/entity/resource';
 import {isUndefined} from '../../core/services/utility';
@@ -59,6 +60,12 @@ class Template extends Component {
 			}
 
 			const letScope = this.findLetScope();
+			if (letScope === null) {
+				throw new Error(
+					'template',
+					`Environment scope is not found for "${this.for}.${key}"`
+				);
+			}
 			resourceScope[this.let] = letScope[this.let];
 		}
 
@@ -68,7 +75,28 @@ class Template extends Component {
 	}
 
 	findLetScope() {
-		return this.$scope.$parent.$parent;
+		// When trasclusion applies, transclusion scope is a sibling for the owner scope,
+		// so we searching in siblings of parents
+		const test = this.testLetScope;
+		let current = this.$scope;
+		while (current) {
+			const letScope = test(current.$$prevSibling) || test(current.$$nextSibling);
+			if (letScope) {
+				return letScope;
+			}
+
+			current = current.$parent;
+		}
+
+		return null;
+	}
+
+	testLetScope(scope) {
+		if (scope && scope.hasOwnProperty('$ctrl') && scope.$ctrl instanceof Grid) {
+			return scope.$parent;
+		}
+
+		return null;
 	}
 }
 
