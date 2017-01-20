@@ -33,6 +33,10 @@ export default class Sticky {
 				setTimeout(() => self.invalidate(), 0);
 			}
 		});
+
+		scrollView.addEventListener('scroll', () => {
+			self.header.scrollLeft = self.scrollView.scrollLeft;
+		});
 	}
 	
 	invalidate() {
@@ -41,10 +45,13 @@ export default class Sticky {
 		css(this.header, 'min-width', style.width);
 		css(this.header, 'max-width', style.width);
 
-		const offset = `${this.origin.offsetHeight}px`;
-		css(this.header, 'margin-top', `-${offset}`);
-		css(this.scrollView, 'margin-top', offset);
-		css(this.table, 'margin-top', `-${offset}`);
+		const tableStyle = window.getComputedStyle(this.table);
+		const tableOffset = 0; // parseInt(tableStyle.paddingTop, 10);
+		const offset = this.origin.offsetHeight;
+		css(this.scrollView, 'margin-top', `${offset + tableOffset}px`);
+		css(this.header, 'margin-top', `-${offset + tableOffset}px`);
+		css(this.table, 'margin-top', `-${offset}px`);
+		// css(this.table, 'padding-top', '0');
 
 		const stickyTh = th(this.header);
 		const originTh = th(this.origin);
