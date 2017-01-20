@@ -1,15 +1,19 @@
 'use strict';
 
+import setup from './setup';
+import ExceptionHandler from './exception';
+
 import angular from 'angular';
 import ngRoute from 'angular-route';
 import ngAnimate from 'angular-animate';
 import ngArea from 'angular-aria';
 import ngSanitize from 'angular-sanitize';
 import {} from 'angular-material';
+
 import qgrid from '../src/index';
 import theme from '../src/themes/default/index';
+
 import App from './components/app/app';
-import setup from './setup';
 import PageList from './components/page-list/page.list';
 import PageDetails from './components/page-details/page.details';
 import JsFilter from './filters/js';
@@ -50,6 +54,7 @@ const Setup = setup(pages);
 
 export default angular.module('demo', dependencies)
 	.config(Setup)
+	.factory('$exceptionHandler', ExceptionHandler)
 	.controller('Demo.App.Controller', App)
 	.constant('Demo.PAGES', pages)
 	.component('pageList', PageList)
