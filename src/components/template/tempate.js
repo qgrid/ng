@@ -80,7 +80,7 @@ class Template extends Component {
 		const test = this.testLetScope;
 		let current = this.$scope;
 		while (current) {
-			const letScope = test(current.$$prevSibling) || test(current.$$nextSibling);
+			const letScope = test(current.$$prevSibling) || test(current.$$nextSibling); // eslint-disable-line angular/no-private-call
 			if (letScope) {
 				return letScope;
 			}
@@ -92,7 +92,7 @@ class Template extends Component {
 	}
 
 	testLetScope(scope) {
-		if (scope && scope.hasOwnProperty('$ctrl') && scope.$ctrl instanceof Grid) {
+		if (scope && scope.hasOwnProperty('$grid') && scope.$grid instanceof Grid) {
 			return scope.$parent;
 		}
 

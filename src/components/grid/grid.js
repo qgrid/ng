@@ -45,6 +45,7 @@ export default {
 	transclude: true,
 	templateUrl: 'qgrid.tpl.html',
 	controller: Grid,
+	controllerAs: '$grid',
 	bindings: {
 		model: '<',
 		dataRows: '<rows',
