@@ -6,7 +6,7 @@ export default function Handler($log, $injector) {
 
 	function getToast() {
 		if (!toast) {
-			toast = $injector.get("$mdToast");
+			toast = $injector.get('$mdToast');
 		}
 
 		return toast;
