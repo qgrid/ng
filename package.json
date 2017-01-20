@@ -5,7 +5,7 @@
   "main": "dist/qgrid.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/klumba12/qgrid.git"
+    "url": "git+https://github.com/qgrid/ng/.git"
   },
   "keywords": [
     "angular",
@@ -17,9 +17,9 @@
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/klumba12/qgrid/issues"
+    "url": "https://github.com/qgrid/ng/issues"
   },
-  "homepage": "https://github.com/klumba12/qgrid#readme",
+  "homepage": "https://github.com/qgrid/ng#readme",
   "dependencies": {
     "angular": "^1.6.1"
   },
@@ -87,6 +87,6 @@
     "test": "karma start",
     "test:debug": "karma start karma.conf.js --log-level=debug --single-run=False",
     "test:watch": "karma start karma.conf.js --auto-watch=true --single-run=False",
-    "publish": "npm run test && node ./scripts/remove.js ./demo/dist && npm run build:demo && node ./scripts/publish.js"
+    "publish": "npm run test && node ./scripts/remove.js ./demo/dist && npm run build:demo && node ./scripts/publish.js && node ./scripts/remove.js ./demo/dist"
   }
 }
