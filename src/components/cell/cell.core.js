@@ -18,12 +18,24 @@ class CellCore extends Directive(CELL_CORE_NAME, {root: `^^${GRID_NAME}`}) {
 		if (column) {
 			const sourceKey = $attrs[CELL_CORE_NAME];
 			const state = this.root.model[sourceKey]();
-			const resource = state.resource;
-			const template = resource.hasOwnProperty(column.key)
-				? resource[column.key]
-				: resource.hasOwnProperty('$default')
-					? resource['$default']
+			const resourceData = state.resource.data;
+			const template = resourceData.hasOwnProperty(column.key)
+				? resourceData[column.key]
+				: resourceData.hasOwnProperty('$default')
+					? resourceData['$default']
 					: this.$templateCache.get(`qgrid.${sourceKey}.cell.tpl.html`);
+
+			const resourceScope = state.resource.scope;
+
+			for (let key of Object.keys(resourceScope)) {
+				if (this.$scope.hasOwnProperty(key)) {
+					throw new Error(
+						'cell.core',
+						`"${key}" is reserved, use another name`
+					);
+				}
+				this.$scope[key] = resourceScope[key];
+			}
 
 			const linkTo = this.$compile('<!--qgrid: cell template-->' + template);
 			const content = linkTo(this.$scope);

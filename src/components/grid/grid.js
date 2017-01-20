@@ -2,7 +2,7 @@
 
 import RootComponent from '../root.component';
 
-class Grid extends RootComponent {
+export class Grid extends RootComponent {
 	constructor($element, $transclude) {
 		super('data', 'selection');
 
@@ -11,9 +11,18 @@ class Grid extends RootComponent {
 	}
 
 	onInit() {
-		this.$transclude(clone => {
+		let template = null;
+		let templateScope = null;
+
+		this.$transclude((clone, scope) => {
+			template = clone;
+			templateScope = scope;
+
 			this.$element.append(clone);
 		});
+
+		template.remove();
+		templateScope.$destroy();
 
 		this.model.selectionChanged.on(e => {
 			if (e.changes.hasOwnProperty('items')) {
@@ -36,6 +45,7 @@ export default {
 	transclude: true,
 	templateUrl: 'qgrid.tpl.html',
 	controller: Grid,
+	controllerAs: '$grid',
 	bindings: {
 		model: '<',
 		dataRows: '<rows',

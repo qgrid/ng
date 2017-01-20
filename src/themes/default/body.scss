@@ -10,6 +10,13 @@
 			}
 		}
 
+		tfoot {
+			tr > td {
+				border-top: 1px solid #000;
+				white-space: nowrap;
+			}
+		}
+
 		tbody {
 			overflow-y: auto;
 			overflow-x: scroll;

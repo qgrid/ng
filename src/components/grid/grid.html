@@ -1,16 +1,24 @@
-<div class="qgrid theme-default" ng-cloak>
+<div q-grid-core:view class="qgrid theme-default" ng-cloak>
 	<table>
 		<thead q-grid-core:head>
 		<tr>
-			<th ng-repeat="$column in $ctrl.dataColumns track by $index"
+			<th ng-repeat="$column in $grid.dataColumns track by $index"
 				 class="{{::$column.key}}"
 				 q-grid-core:td="head">
 			</th>
 		</tr>
 		</thead>
+		<tfoot q-grid-core:foot>
+		<tr>
+			<td ng-repeat="$column in $grid.dataColumns track by $index"
+				 class="{{::$column.key}}"
+				 q-grid-core:td="foot">
+			</td>
+		</tr>
+		</tfoot>
 		<tbody q-grid-core:body>
-		<tr ng-repeat="$row in $ctrl.dataRows track by $index">
-			<td ng-repeat="$column in $ctrl.dataColumns track by $index"
+		<tr ng-repeat="$row in $grid.dataRows track by $index">
+			<td ng-repeat="$column in $grid.dataColumns track by $index"
 				 class="{{::$column.key}}"
 				 q-grid-core:td="body">
 			</td>
