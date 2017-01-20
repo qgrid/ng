@@ -41,13 +41,15 @@ https://qgrid.github.io/ng/
 * [checkable rows](https://github.com/qgrid/ng/blob/master/docs/row.checkable.md) `Dmitry K.`
 * [column chooser](https://github.com/qgrid/ng/blob/master/docs/column.chooser.md) `Evgeniy`
 * [keyboard navigation](https://github.com/qgrid/ng/blob/master/docs/navigation.md) `Kate`
-* [frozen/pinned columns](https://github.com/qgrid/ng/blob/master/docs/column,pin.md) `Kate`
+* [frozen/pinned columns](https://github.com/qgrid/ng/blob/master/docs/column.pin.md) `Kate`
 * [export api](https://github.com/qgrid/ng/blob/master/docs/export.md) `Mikhail`
 * [table editing](https://github.com/qgrid/ng/blob/master/docs/table.editing.md) `Mikhail`
 * [inline row editing](https://github.com/qgrid/ng/blob/master/docs/row.editing.inline.md) `Fedor`
 * [row details](https://github.com/qgrid/ng/blob/master/docs/row.details.md) `Fedor`
 * [embeded editors](https://github.com/qgrid/ng/blob/master/docs/cell.editing.md) `Vladimir`
 * [multi-column header](https://github.com/qgrid/ng/blob/master/docs/header.multi-column.md) `Dmitry K.`
+* [predefined aggregations](https://github.com/qgrid/ng/blob/master/docs/column.aggregation.md) `Stepan`
+ 
 
 ## backlog
 * `component api`
@@ -117,6 +119,8 @@ https://qgrid.github.io/ng/
 * `keyboard navigation`
 * small screen support
 * localization
+* predefined aggregations
+* pivoting
 
 ##licence
 Code licensed under MIT license.
