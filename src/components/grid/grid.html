@@ -9,7 +9,7 @@
 		</tr>
 		</thead>
 		<tfoot q-grid-core:foot>
-		<tr>
+		<tr ng-if="$foot.isVisible">
 			<td ng-repeat="$column in $grid.dataColumns track by $index"
 				 class="{{::$column.key}}"
 				 q-grid-core:td="foot">
