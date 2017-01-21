@@ -1,22 +1,28 @@
 import Directive from '../directive';
 import {GRID_NAME, FOOT_CORE_NAME} from '../../definition';
 
-class HeadCore extends Directive(FOOT_CORE_NAME, {root: `^^${GRID_NAME}`}) {
+class FootCore extends Directive(FOOT_CORE_NAME, {root: `^^${GRID_NAME}`}) {
 	constructor() {
 		super();
 	}
 
 	onInit() {
 	}
+
+	get isVisible() {
+		const model = this.root.model.foot;
+		const resourceData = model().resource.data;
+		return Object.keys(resourceData).length > 0;
+	}
 }
 
-HeadCore.$inject = [];
+FootCore.$inject = [];
 
 export default {
 	restrict: 'A',
 	bindToController: true,
-	controllerAs: '$head',
-	controller: HeadCore,
-	require: HeadCore.require,
-	link: HeadCore.link
+	controllerAs: '$foot',
+	controller: FootCore,
+	require: FootCore.require,
+	link: FootCore.link
 };

@@ -21,7 +21,7 @@ export default function Handler($log, $injector) {
 				.textContent(`${cause}: ${exception}`)
 				.position('right')
 				.toastClass('error')
-				.hideDelay(30000)
+				.hideDelay(10000)
 		);
 	};
 }
