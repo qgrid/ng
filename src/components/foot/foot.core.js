@@ -9,10 +9,9 @@ class FootCore extends Directive(FOOT_CORE_NAME, {root: `^^${GRID_NAME}`}) {
 	onInit() {
 	}
 
-	get isVisible() {
-		const model = this.root.model.foot;
-		const resourceData = model().resource.data;
-		return Object.keys(resourceData).length > 0;
+	get count() {
+		const state = this.root.model.foot();
+		return state.count;
 	}
 }
 

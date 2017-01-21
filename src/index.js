@@ -13,7 +13,9 @@ import ColumnList from './components/column/column.list';
 import Column from './components/column/column';
 
 import ViewCore from './components/grid/view.core';
-import CellCore from './components/cell/cell.core';
+import TdCore from './components/body/td.core';
+import ThCore from './components/head/th.core';
+import TfCore from './components/foot/tf.core';
 import HeadCore from './components/head/head.core';
 import BodyCore from './components/body/body.core';
 import FootCore from './components/foot/foot.core';
@@ -30,7 +32,9 @@ export default angular
 	.module(def.MODULE_NAME, [])
 	.component(def.GRID_NAME, Grid)
 	.directive(def.VIEW_CORE_NAME, () => ViewCore)
-	.directive(def.CELL_CORE_NAME, () => CellCore)
+	.directive(def.TD_CORE_NAME, () => TdCore)
+	.directive(def.TH_CORE_NAME, () => ThCore)
+	.directive(def.TF_CORE_NAME, () => TfCore)
 	.directive(def.HEAD_CORE_NAME, () => HeadCore)
 	.directive(def.BODY_CORE_NAME, () => BodyCore)
 	.directive(def.FOOT_CORE_NAME, () => FootCore)

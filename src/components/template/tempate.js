@@ -41,9 +41,21 @@ class Template extends Component {
 			);
 		}
 
-		const key = this.key();
+		const newState = {};
 		const resourceData = state.resource.data;
-		if (resourceData.hasOwnProperty(key)) {
+		let key = this.key();
+		if (state.hasOwnProperty('count')) {
+			let keyIndex = 1;
+			const originKey = key;
+			while (resourceData.hasOwnProperty(key)) {
+				key = originKey + keyIndex++;
+			}
+
+			if(state.count < keyIndex){
+				newState.count = keyIndex;
+			}
+		}
+		else if (resourceData.hasOwnProperty(key)) {
 			throw new Error(
 				'template',
 				`Ambiguous key "${key}" for "${this.for}"`);
@@ -69,9 +81,8 @@ class Template extends Component {
 			resourceScope[this.let] = letScope[this.let];
 		}
 
-		model({
-			resource: new Resource(resourceData, resourceScope)
-		});
+		newState.resource = new Resource(resourceData, resourceScope);
+		model(newState);
 	}
 
 	findLetScope() {

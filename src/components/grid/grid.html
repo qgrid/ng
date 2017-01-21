@@ -4,15 +4,15 @@
 		<tr>
 			<th ng-repeat="$column in $grid.dataColumns track by $index"
 				 class="{{::$column.key}}"
-				 q-grid-core:td="head">
+				 q-grid-core:th>
 			</th>
 		</tr>
 		</thead>
 		<tfoot q-grid-core:foot>
-		<tr ng-if="$foot.isVisible">
+		<tr ng-repeat="index in $foot.count track by $index">
 			<td ng-repeat="$column in $grid.dataColumns track by $index"
 				 class="{{::$column.key}}"
-				 q-grid-core:td="foot">
+				 q-grid-core:tf>
 			</td>
 		</tr>
 		</tfoot>
@@ -20,7 +20,7 @@
 		<tr ng-repeat="$row in $grid.dataRows track by $index">
 			<td ng-repeat="$column in $grid.dataColumns track by $index"
 				 class="{{::$column.key}}"
-				 q-grid-core:td="body">
+				 q-grid-core:td>
 			</td>
 		</tr>
 		</tbody>
