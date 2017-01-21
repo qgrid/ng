@@ -53,6 +53,11 @@ class CellCore extends Directive(CELL_CORE_NAME, {root: `^^${GRID_NAME}`}) {
 				? column.value(row)
 				: row[column.key];
 	}
+
+	get rowIndex() {
+		// in the feature vrow.index + vscroll.position
+		return this.$scope.$parent.$index;
+	}
 }
 
 CellCore.$inject = [
