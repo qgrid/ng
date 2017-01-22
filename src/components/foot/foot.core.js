@@ -13,6 +13,10 @@ class FootCore extends Directive(FOOT_CORE_NAME, {root: `^^${GRID_NAME}`}) {
 		const state = this.root.model.foot();
 		return state.count;
 	}
+
+	range(count) {
+		return new Array(count);
+	}
 }
 
 FootCore.$inject = [];
