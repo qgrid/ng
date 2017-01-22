@@ -6,7 +6,7 @@
 				<span style="background: #f00;">{{$column.title}}</span>
 			</q-grid:template>
 			<q-grid:template for="body">
-				<b>{{$cell.value()}}</b>
+				<b>{{$cell.value}}</b>
 			</q-grid:template>
 		</q-grid:column>
 		<q-grid:column key="birthday">
@@ -14,7 +14,7 @@
 				<span style="background: #0f0;">{{$column.title}}</span>
 			</q-grid:template>
 			<q-grid:template for="body">
-				<i>{{$cell.value() | date:'yyyy/mm/dd'}}</i>
+				<i>{{$cell.value | date:'yyyy/mm/dd'}}</i>
 			</q-grid:template>
 		</q-grid:column>
 	</q-grid:columns>

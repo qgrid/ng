@@ -43,7 +43,7 @@ class CellCore extends Directive(CELL_CORE_NAME, {root: `^^${GRID_NAME}`}) {
 		}
 	}
 
-	value() {
+	get value() {
 		const column = this.$scope.$column;
 		const row = this.$scope.$row;
 
