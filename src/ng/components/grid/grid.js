@@ -1,5 +1,3 @@
-'use strict';
-
 import RootComponent from '../root.component';
 
 export class Grid extends RootComponent {

@@ -1,7 +1,5 @@
-'use strict';
-
 import Directive from '../directive';
-import {GRID_NAME, TF_CORE_NAME} from '../../definition';
+import {GRID_NAME, TF_CORE_NAME} from '../../../definition';
 import TemplateCore from '../template/template.core';
 
 class TfCore extends Directive(TF_CORE_NAME, {root: `^^${GRID_NAME}`}) {
@@ -16,13 +14,18 @@ class TfCore extends Directive(TF_CORE_NAME, {root: `^^${GRID_NAME}`}) {
 	onInit() {
 		const state = this.root.model.foot();
 		const key = this.$scope.$column.key;
+		const index = this.rowIndex;
 		const link = this.template.link(
 			'qgrid.foot.cell.tpl.html',
 			state.resource,
-			key
+			index === 0 ? key : key + index
 		);
 
 		link(this.$element, this.$scope);
+	}
+
+	get rowIndex() {
+		return this.$scope.$parent.$index;
 	}
 }
 

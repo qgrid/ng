@@ -1,5 +1,3 @@
-'use strict';
-
 export default class TemplateCore {
 	constructor($compile, $templateCache) {
 		this.$compile = $compile;

@@ -11,3 +11,4 @@ export const TH_CORE_NAME = 'qGridCoreTh';
 export const HEAD_CORE_NAME = 'qGridCoreHead';
 export const BODY_CORE_NAME = 'qGridCoreBody';
 export const FOOT_CORE_NAME = 'qGridCoreFoot';
+export const RANGE_NAME = 'qGridRange';

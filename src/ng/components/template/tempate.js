@@ -1,9 +1,9 @@
 import Component from '../component';
 import {Grid} from '../grid/grid';
-import Error from '../../core/infrastructure/error';
-import Resource from '../../core/entity/resource';
-import {isUndefined} from '../../core/services/utility';
-import {GRID_NAME, TEMPLATE_NAME, COLUMN_NAME} from '../../definition';
+import Error from '../../../core/infrastructure/error';
+import Resource from '../../../core/entity/resource';
+import {isUndefined} from '../../../core/services/utility';
+import {GRID_NAME, TEMPLATE_NAME, COLUMN_NAME} from '../../../definition';
 
 class Template extends Component {
 	constructor($scope, $element) {

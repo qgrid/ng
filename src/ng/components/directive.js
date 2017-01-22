@@ -1,5 +1,3 @@
-'use strict';
-
 export default function (name, require = {}) {
 	const dependencies =
 		Object.keys(require)

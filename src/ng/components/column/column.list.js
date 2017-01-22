@@ -1,7 +1,5 @@
-'use strict';
-
 import Component from '../component';
-import {GRID_NAME} from '../../definition';
+import {GRID_NAME} from '../../../definition';
 
 class ColumnList extends Component {
 	constructor() {

@@ -1,7 +1,5 @@
-'use strict';
-
 import Directive from '../directive';
-import {GRID_NAME, HEAD_CORE_NAME} from '../../definition';
+import {GRID_NAME, HEAD_CORE_NAME} from '../../../definition';
 
 class HeadCore extends Directive(HEAD_CORE_NAME, {root: `^^${GRID_NAME}`}) {
 	constructor() {

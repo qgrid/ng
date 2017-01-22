@@ -1,7 +1,5 @@
-'use strict';
-
 import Directive from '../directive';
-import {GRID_NAME, TD_CORE_NAME} from '../../definition';
+import {GRID_NAME, TD_CORE_NAME} from '../../../definition';
 import TemplateCore from '../template/template.core';
 
 class TdCore extends Directive(TD_CORE_NAME, {root: `^^${GRID_NAME}`}) {
@@ -25,7 +23,7 @@ class TdCore extends Directive(TD_CORE_NAME, {root: `^^${GRID_NAME}`}) {
 		link(this.$element, this.$scope);
 	}
 
-	value() {
+	get value() {
 		const column = this.$scope.$column;
 		const row = this.$scope.$row;
 
@@ -34,6 +32,10 @@ class TdCore extends Directive(TD_CORE_NAME, {root: `^^${GRID_NAME}`}) {
 			: column.value
 				? column.value(row)
 				: row[column.key];
+	}
+
+	get rowIndex() {
+		return this.$scope.$parent.$index;
 	}
 }
 
