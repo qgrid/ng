@@ -1,7 +1,7 @@
 import Component from '../component';
-import {GRID_NAME, COLUMN_LIST_NAME} from '../../definition';
-import {clone, isUndefined} from '../../core/services/utility';
-import ColumnModel from '../../core/entity/column';
+import {GRID_NAME, COLUMN_LIST_NAME} from '../../../definition';
+import {clone, isUndefined} from '../../../core/services/utility';
+import ColumnModel from '../../../core/entity/column';
 
 class Column extends Component {
 	constructor($attrs) {

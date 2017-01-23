@@ -1,5 +1,5 @@
 import Directive from '../directive';
-import {GRID_NAME, VIEW_CORE_NAME} from '../../definition';
+import {GRID_NAME, VIEW_CORE_NAME} from '../../../definition';
 
 class ViewCore extends Directive(VIEW_CORE_NAME, {root: `^^${GRID_NAME}`}) {
 	constructor() {

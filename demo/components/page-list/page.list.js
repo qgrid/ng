@@ -1,4 +1,4 @@
-import Component from '../../../src/components/component';
+import Component from '../../../src/ng/components/component';
 require('./page.list.scss');
 
 class PageList extends Component {
