@@ -1,5 +1,3 @@
-'use strict';
-
 Controller.$inject = ['$http'];
 export default function Controller($http) {
 	const ctrl = this;

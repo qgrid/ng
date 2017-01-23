@@ -65,7 +65,7 @@ export default class Model {
 		if (close) {
 			throw new Error(
 				`model.${name}`,
-				`can't register, registration was closed `);
+				'can\'t register, registration was closed');
 		}
 
 		models[name] = model;

@@ -1,5 +1,3 @@
-'use strict';
-
 import Directive from '../directive';
 import {GRID_NAME, BODY_CORE_NAME} from '../../../definition';
 

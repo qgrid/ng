@@ -35,6 +35,7 @@ class TdCore extends Directive(TD_CORE_NAME, {root: `^^${GRID_NAME}`}) {
 	}
 
 	get rowIndex() {
+		// use vscroll.row + vscroll.position in the future
 		return this.$scope.$parent.$index;
 	}
 }

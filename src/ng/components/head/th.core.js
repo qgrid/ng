@@ -1,5 +1,3 @@
-'use strict';
-
 import Directive from '../directive';
 import {GRID_NAME, TH_CORE_NAME} from '../../../definition';
 import TemplateCore from '../template/template.core';
