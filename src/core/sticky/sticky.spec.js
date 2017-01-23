@@ -1,6 +1,6 @@
 'use strict';
 
-import Sticky from './head.sticky';
+import Sticky from './sticky';
 
 const TABLE_TAG = 'TABLE';
 const THEAD_TAG = 'THEAD';
@@ -14,27 +14,27 @@ describe('Sticky', () => {
 		const table = createTable(origin);
 		const sticky = new Sticky(table, createView());
 
-		it('should create header property', () => {
-			expect(sticky.header).to.exist;
+		it('should create head property', () => {
+			expect(sticky.head).to.exist;
 		});
 
 		it('should create cloned element', () => {
-			expect(sticky.header).to.not.equal(origin);
+			expect(sticky.head).to.not.equal(origin);
 		});
 
 		it('should create thead element', () => {
-			expect(sticky.header.tagName).to.equal(THEAD_TAG);
+			expect(sticky.head.tagName).to.equal(THEAD_TAG);
 		});
 
 		it('should add specific class', () => {
 			const className = 'sticky';
 
-			const hasSpecificClass = sticky.header.classList.contains(className);
+			const hasSpecificClass = sticky.head.classList.contains(className);
 			expect(hasSpecificClass).to.be.true;
 		});
 
 		it('should set position to absolute', () => {
-			expect(sticky.header.style.position).to.equal('absolute');
+			expect(sticky.head.style.position).to.equal('absolute');
 		});
 	});
 
@@ -48,7 +48,7 @@ describe('Sticky', () => {
 			columnCount = 10;
 			origin = createHead(columnCount);
 			table = createTable(origin);
-			header = new Sticky(table, createView()).header;
+			header = new Sticky(table, createView()).head;
 		});
 
 		it('should has the same th count', () => {
