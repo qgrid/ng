@@ -1,5 +1,3 @@
-'use strict';
-
 export default function (pages) {
 	const routes = pages.reduce((memo, p) => {
 		// TODO: use es6 imports
@@ -19,7 +17,8 @@ export default function (pages) {
 				.when('/' + page.path, {
 					templateUrl: route.templateUrl,
 					controller: route.controller,
-					controllerAs: '$ctrl'
+					controllerAs: '$ctrl',
+					reloadOnSearch: false
 				});
 		});
 
@@ -27,7 +26,8 @@ export default function (pages) {
 			.when('/', {
 				templateUrl: 'pages/home/index.html',
 				controllers: routes.home.controller,
-				controllerAs: '$ctrl'
+				controllerAs: '$ctrl',
+				reloadOnSearch: false
 			})
 			.otherwise({
 				redirectTo: '/'

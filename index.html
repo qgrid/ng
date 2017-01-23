@@ -6,7 +6,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="description" content="">
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no"/>
-	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,700">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link rel="stylesheet" href="./dist/demo.css">
 	<style>
@@ -38,12 +38,16 @@
 					ng-click="$ctrl.toggleMenu()">
 		<page-list items="$ctrl.pages"
 					  selection="$ctrl.page"
-					  selection-changed="$ctrl.onSelectionChanged($selection)">
+					  selection-changed="$ctrl.onPageChanged($selection)">
 		</page-list>
 	</md-sidenav>
 
 	<md-content flex id="content">
 		<page-details selection="$ctrl.page"></page-details>
+		<theme-selector items="$ctrl.themes"
+							 selection="$ctrl.theme"
+							 selection-changed="$ctrl.onThemeChanged($selection)">
+		</theme-selector>
 	</md-content>
 </div>
 
