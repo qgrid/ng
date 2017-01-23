@@ -1,5 +1,3 @@
-'use strict';
-
 Controller.$inject = [
 	'Demo.PAGES',
 	'Demo.THEMES',
@@ -15,6 +13,7 @@ export default function Controller(pages, themes, defaults, themeProvider, $mdSi
 	this.themes = themes;
 	themeProvider.name =
 		this.theme =
+			$location.search().theme ||
 			defaults.theme;
 
 	this.toggleMenu = () => {
@@ -27,6 +26,7 @@ export default function Controller(pages, themes, defaults, themeProvider, $mdSi
 
 	this.onThemeChanged = theme => {
 		themeProvider.name = this.theme = theme;
+		$location.search('theme', theme);
 	};
 
 	const path = ($location.path() || defaults.path).toLowerCase().substring(1);
