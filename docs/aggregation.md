@@ -1,4 +1,4 @@
-# qgrid 
+# qgrid
 ## markup
 ```html
 <q-grid rows='data'>
