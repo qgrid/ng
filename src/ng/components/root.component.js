@@ -1,9 +1,7 @@
-'use strict';
-
-import Model from '../core/infrastructure/model';
-import ModelBinder from '../core/infrastructure/model.bind';
-import {noop} from '../core/services/utility';
-import Event from '../core/services/event';
+import Model from '../../core/infrastructure/model';
+import ModelBinder from '../../core/infrastructure/model.bind';
+import {noop} from '../../core/services/utility';
+import Event from '../../core/services/event';
 
 export default class RootComponent {
 	constructor(...names) {

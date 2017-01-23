@@ -1,9 +1,7 @@
-'use strict';
-
 import Component from './component';
-import ModelBinder from '../core/infrastructure/model.bind';
-import {noop} from '../core/services/utility';
-import * as guard from '../core/infrastructure/guard';
+import ModelBinder from '../../core/infrastructure/model.bind';
+import {noop} from '../../core/services/utility';
+import * as guard from '../../core/infrastructure/guard';
 
 export default class ModelComponent extends Component {
 	constructor(...names) {
