@@ -11,7 +11,9 @@ import ngSanitize from 'angular-sanitize';
 import {} from 'angular-material';
 
 import qgrid from '../src/index';
-import theme from '../src/themes/default/index';
+
+import themeDefault from '../src/themes/default';
+import themeMaterial from '../src/themes/material';
 
 import App from './components/app/app';
 import PageList from './components/page-list/page.list';
@@ -31,7 +33,8 @@ const dependencies = [
 	ngSanitize,
 	'ngMaterial', // WTF?
 	qgrid,
-	theme
+	themeDefault,
+	themeMaterial
 ];
 
 const pages =

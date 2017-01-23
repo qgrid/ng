@@ -4,15 +4,18 @@ Controller.$inject = [
 	'Demo.PAGES',
 	'Demo.THEMES',
 	'Demo.DEFAULTS',
+	'qgridTheme',
 	'$mdSidenav',
 	'$location'
 ];
 
-export default function Controller(pages, themes, defaults, $mdSidenav, $location) {
+export default function Controller(pages, themes, defaults, themeProvider, $mdSidenav, $location) {
 	this.pages = pages;
 	this.page = null;
 	this.themes = themes;
-	this.theme = defaults.theme;
+	themeProvider.name =
+		this.theme =
+			defaults.theme;
 
 	this.toggleMenu = () => {
 		$mdSidenav('left').toggle();
@@ -23,7 +26,7 @@ export default function Controller(pages, themes, defaults, $mdSidenav, $locatio
 	};
 
 	this.onThemeChanged = theme => {
-		this.theme = theme;
+		themeProvider.name = this.theme = theme;
 	};
 
 	const path = ($location.path() || defaults.path).toLowerCase().substring(1);

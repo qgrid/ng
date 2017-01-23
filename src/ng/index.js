@@ -14,6 +14,7 @@ import HeadCore from './components/head/head.core';
 import BodyCore from './components/body/body.core';
 import FootCore from './components/foot/foot.core';
 
+import Theme from './services/theme';
 import Range from './filters/range';
 
 import * as def from '../definition';
@@ -32,6 +33,7 @@ export default angular
 	.component(def.COLUMN_LIST_NAME, () => ColumnList)
 	.component(def.COLUMN_NAME, Column)
 	.service(def.SERVICE_NAME, () => () => new Model())
+	.service(def.THEME_NAME, () => new Theme())
 	.filter(def.RANGE_NAME, () => Range)
 	.run(Setup)
 	.name;
