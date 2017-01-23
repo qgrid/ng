@@ -30,5 +30,9 @@
 	{
 		"path": "summary",
 		"title": "Summary"
+	},
+	{
+		"path": "foot",
+		"title": "foot"
 	}
 ]
