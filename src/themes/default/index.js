@@ -1,7 +1,7 @@
 'use strict';
 
 import angular from 'angular';
-require('./body.scss');
+require('./index.scss');
 
 export default angular
 	.module('qgrid.theme.default', [])
