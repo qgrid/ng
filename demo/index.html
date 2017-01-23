@@ -38,12 +38,16 @@
 					ng-click="$ctrl.toggleMenu()">
 		<page-list items="$ctrl.pages"
 					  selection="$ctrl.page"
-					  selection-changed="$ctrl.onSelectionChanged($selection)">
+					  selection-changed="$ctrl.onPageChanged($selection)">
 		</page-list>
 	</md-sidenav>
 
 	<md-content flex id="content">
 		<page-details selection="$ctrl.page"></page-details>
+		<theme-selector items="$ctrl.themes"
+							 selection="$ctrl.theme"
+							 selection-changed="$ctrl.onThemeChanged($selection)">
+		</theme-selector>
 	</md-content>
 </div>
 

@@ -1,0 +1,10 @@
+[
+	{
+		"path": "default",
+		"label": "Default"
+	},
+	{
+		"path": "material",
+		"label": "Material Design"
+	}
+]

@@ -16,6 +16,7 @@ import theme from '../src/themes/default/index';
 import App from './components/app/app';
 import PageList from './components/page-list/page.list';
 import PageDetails from './components/page-details/page.details';
+import ThemeSelector from './components/theme-selector/theme.selector';
 import JsFilter from './filters/js';
 import HtmlFilter from './filters/html';
 
@@ -32,6 +33,7 @@ const dependencies = [
 	qgrid,
 	theme
 ];
+
 const pages =
 	require('./pages/pages.json')
 		.map(page => {
@@ -50,6 +52,8 @@ const pages =
 			return p;
 		});
 
+const themes = require('../src/themes/themes.json');
+const defaults = require('./defaults.json');
 const Setup = setup(pages);
 
 export default angular.module('demo', dependencies)
@@ -57,8 +61,11 @@ export default angular.module('demo', dependencies)
 	.factory('$exceptionHandler', ExceptionHandler)
 	.controller('Demo.App.Controller', App)
 	.constant('Demo.PAGES', pages)
+	.constant('Demo.THEMES', themes)
+	.constant('Demo.DEFAULTS', defaults)
 	.component('pageList', PageList)
 	.component('pageDetails', PageDetails)
+	.component('themeSelector', ThemeSelector)
 	.filter('html', HtmlFilter)
 	.filter('js', JsFilter)
 	.name;
