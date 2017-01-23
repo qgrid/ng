@@ -1,5 +1,3 @@
-'use strict';
-
 import setup from './setup';
 import ExceptionHandler from './exception';
 
@@ -15,6 +13,7 @@ import qgrid from '../src/index';
 import themeDefault from '../src/themes/default';
 import themeMaterial from '../src/themes/material';
 
+import Run from './run';
 import App from './components/app/app';
 import PageList from './components/page-list/page.list';
 import PageDetails from './components/page-details/page.details';
@@ -61,6 +60,7 @@ const Setup = setup(pages);
 
 export default angular.module('demo', dependencies)
 	.config(Setup)
+	.run(Run)
 	.factory('$exceptionHandler', ExceptionHandler)
 	.controller('Demo.App.Controller', App)
 	.constant('Demo.PAGES', pages)
