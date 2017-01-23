@@ -1,5 +1,3 @@
-'use strict';
-
 import {noop, toCamelCase, isUndefined} from '../services/utility';
 
 export default class ModelBinder {
