@@ -1,5 +1,3 @@
-'use strict';
-
 import angular from 'angular';
 require('./index.scss');
 
@@ -10,5 +8,4 @@ export default angular
 
 Setup.$inject = ['$templateCache'];
 function Setup(/*$templateCache*/) {
-	// here'll be custom templates
 }
