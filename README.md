@@ -48,8 +48,7 @@ https://qgrid.github.io/ng/
 * [row details](https://github.com/qgrid/ng/blob/master/docs/row.details.md) `Fedor`
 * [embeded editors](https://github.com/qgrid/ng/blob/master/docs/cell.editing.md) `Vladimir`
 * [multi-column header](https://github.com/qgrid/ng/blob/master/docs/header.multi-column.md) `Dmitry K.`
-* [predefined aggregations](https://github.com/qgrid/ng/blob/master/docs/column.aggregation.md) `Stepan`
- 
+* [predefined aggregations](https://github.com/qgrid/ng/blob/master/docs/column.aggregation.md) `Stepan` 
 
 ## backlog
 * `component api`
@@ -71,7 +70,7 @@ https://qgrid.github.io/ng/
 * `client/server side sorting`
 * `cell, row and column selection`
     * disable api for particular data
-* header toolbar
+* grid toolbar
 * grouping/hierarchy
 * aggregation
     * by count
@@ -84,7 +83,7 @@ https://qgrid.github.io/ng/
     * confirmation api
     * edit/save actions
 * `table editing`
-    *  add new rows
+    *  add new rows(placeholder row?)
     *  delete rows
     *  confirmation api
 *  edit api
@@ -119,8 +118,12 @@ https://qgrid.github.io/ng/
 * `keyboard navigation`
 * small screen support
 * localization
-* predefined aggregations
+* `predefined aggregations`
 * pivoting
+* row index column
+* master details grid
+* floating rows (set several footer/header fixed rows)
+
 
 ##licence
 Code licensed under MIT license.
@@ -164,3 +167,7 @@ Code licensed under MIT license.
 * [wpf toolkit grid](http://wpftoolkit.codeplex.com/wikipage?title=DataGrid&referringTitle=Documentation)
 * [telerik silverlight grid](http://demos.telerik.com/silverlight/#GridView/FirstLook)
 * [infragistics silverlight grid](http://www.infragistics.com/samples/silverlight/grid/overview)
+* [ng2-supertable](https://andyperlitch.github.io/ng2-super-table/demo/)
+* [valor grid](http://valor-software.com/ng2-table/)
+* [iron data table](https://saulis.github.io/iron-data-table/demo/)
+
