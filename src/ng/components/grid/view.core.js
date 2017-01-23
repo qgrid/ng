@@ -2,8 +2,11 @@ import Directive from '../directive';
 import {GRID_NAME, VIEW_CORE_NAME} from '../../../definition';
 
 class ViewCore extends Directive(VIEW_CORE_NAME, {root: `^^${GRID_NAME}`}) {
-	constructor() {
+	constructor(theme) {
 		super();
+
+		this.theme = theme;
+		this.rows = [];
 	}
 
 	onInit() {
@@ -17,7 +20,7 @@ class ViewCore extends Directive(VIEW_CORE_NAME, {root: `^^${GRID_NAME}`}) {
 	}
 }
 
-ViewCore.$inject = [];
+ViewCore.$inject = ['qgridTheme'];
 
 export default {
 	restrict: 'A',

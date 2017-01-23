@@ -1,17 +1,15 @@
 @import "variables";
 
-$row-height: 48px;
-
 .qgrid.theme-material {
 	> table {
-		tbody {
-			> tr {
-				height: $row-height;
-				td {
-					color: $dark;
-					font-size: 13px;
-					border-top: 1px $dark-divider solid;
-
+		thead {
+			tr {
+				height: 56px;
+				th {
+					color: $dark-secondary;
+					font-size: 12px;
+					font-weight: bold;
+					white-space: nowrap;
 					vertical-align: middle;
 					text-align: left;
 
@@ -22,6 +20,7 @@ $row-height: 48px;
 					&:last-child {
 						padding: 0 24px 0 0;
 					}
+
 				}
 			}
 		}

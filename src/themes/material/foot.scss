@@ -1,12 +1,11 @@
-@import "variables";
-
-$row-height: 48px;
+@import "body";
 
 .qgrid.theme-material {
 	> table {
-		tbody {
+		tfoot {
 			> tr {
 				height: $row-height;
+
 				td {
 					color: $dark;
 					font-size: 13px;
