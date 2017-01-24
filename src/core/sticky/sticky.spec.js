@@ -1,5 +1,3 @@
-'use strict';
-
 import Sticky from './sticky';
 
 const TABLE_TAG = 'TABLE';

@@ -1,19 +1,23 @@
 {
-	"extends": ["eslint:recommended"],
+	"extends": [
+		"eslint:recommended"
+	],
 	"rules": {
 		"indent": [
 			2,
 			"tab",
-			{ "SwitchCase": 1 }
+			{
+				"SwitchCase": 1
+			}
 		],
 		"quotes": [
 			2,
 			"single"
 		],
-		"linebreak-style": [
-			2,
-			"unix"
-		],
+		//		"linebreak-style": [
+		//			2,
+		//			"unix"
+		//		],
 		"semi": [
 			2,
 			"always"
@@ -27,9 +31,6 @@
 		"amd": true,
 		"node": true
 	},
-	"ecmaFeatures": {
-		"modules": true
-	},
 	"globals" : {
 		"chai"       : false,
 		"describe"   : false,
@@ -38,5 +39,9 @@
 		"beforeEach" : false,
 		"after"      : false,
 		"afterEach"  : false
+	},
+	"parserOptions": {
+		"ecmaVersion": 6,
+		"sourceType": "module"
 	}
 }

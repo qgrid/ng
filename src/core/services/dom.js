@@ -1,5 +1,3 @@
-'use strict';
-
 import {isUndefined} from './utility';
 
 export {

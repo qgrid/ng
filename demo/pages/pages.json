@@ -20,11 +20,23 @@
 		"title": "Column"
 	},
 	{
+		"path": "row-index",
+		"title": "Row Index"
+	},
+	{
 		"path": "head",
 		"title": "Head"
 	},
 	{
 		"path": "selection",
 		"title": "Selection"
+	},
+	{
+		"path": "summary",
+		"title": "Summary"
+	},
+	{
+		"path": "foot",
+		"title": "foot"
 	}
 ]

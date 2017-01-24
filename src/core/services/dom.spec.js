@@ -1,5 +1,3 @@
-'use strict';
-
 import {css} from './dom';
 
 describe('dom utility', () => {

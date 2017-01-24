@@ -21,13 +21,13 @@ module.exports = function (config) {
 		webpack: {
 			devtool: 'inline-source-map',
 			module: {
-				loaders: [
+				rules: [
 					{
 						test: /\.js/,
 						exclude: [/dist/, /node_modules/],
 						loader: 'babel',
-						query: {
-							presets: ['es2015']
+						options: {
+							presets: ['es2015', {modules: false}]
 						}
 					}
 				]
