@@ -57,25 +57,25 @@ class ViewCore extends Directive(VIEW_CORE_NAME, {root: `^^${GRID_NAME}`}) {
 	}
 
 	initGroup(model) {
-		const groupState = model.group();
 		const view = model.view;
-		view({
-			nodes: nodeBuilder(
+		const build = () =>
+			nodeBuilder(
 				getColumnMap(this.columns),
-				groupState.by,
+				model.group().by,
 				valueFactory
-			)(this.rows)
-		});
+			)(this.rows);
+
+		view({nodes: build()});
 
 		model.groupChanged.on(e => {
 			if (e.changes.hasOwnProperty('by')) {
-				view({
-					nodes: nodeBuilder(
-						getColumnMap(this.columns),
-						e.state.by,
-						valueFactory
-					)(this.rows)
-				});
+				view({nodes: build()});
+			}
+		});
+
+		model.viewChanged.on(e => {
+			if (e.changes.hasOwnProperty('rows') || e.changes.hasOwnProperty('rows')) {
+				view({nodes: build()});
 			}
 		});
 	}

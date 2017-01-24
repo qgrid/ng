@@ -30,7 +30,7 @@ export default angular
 	.directive(def.BODY_CORE_NAME, () => BodyCore)
 	.directive(def.FOOT_CORE_NAME, () => FootCore)
 	.component(def.TEMPLATE_NAME, Template)
-	.component(def.COLUMN_LIST_NAME, () => ColumnList)
+	.component(def.COLUMN_LIST_NAME, ColumnList)
 	.component(def.COLUMN_NAME, Column)
 	.service(def.SERVICE_NAME, () => () => new Model())
 	.service(def.THEME_NAME, () => new Theme())

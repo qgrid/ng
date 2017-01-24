@@ -14,6 +14,8 @@
 		</thead>
 		<tfoot q-grid-core:foot>
 		<tr ng-repeat="index in $foot.count | qgridRange track by $index">
+			<th ng-if="$view.nodes.length"></th>
+			<th ng-if="$view.nodes.length"></th>
 			<td ng-repeat="$column in $view.columns track by $index"
 				 class="{{::$column.key}}"
 				 q-grid-core:tf>
@@ -23,9 +25,12 @@
 		<tbody q-grid-core:body
 				 ng-switch="$view.nodes.length > 0">
 		<tr ng-switch-when="true"
-			 ng-repeat="node in $view.nodes">
-			<th>+</th>
-			<th>{{node.key}}</th>
+			 ng-repeat="$node in $view.nodes">
+			<td>+</td>
+			<td>{{$node.key}}</td>
+			<td ng-repeat="$column in $view.columns track by $index"
+				 class="{{::$column.key}}">
+			</td>
 		</tr>
 		<tr ng-switch-default
 			 ng-repeat="$row in $view.rows track by $index">

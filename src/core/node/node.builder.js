@@ -1,4 +1,5 @@
 import Error from '../infrastructure/error';
+import Node from './node';
 
 export default function nodeBuilder(columnMap, groupBy, valueFactory) {
 	if (groupBy.length === 0) {

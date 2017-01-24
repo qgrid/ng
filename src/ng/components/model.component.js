@@ -20,9 +20,9 @@ export default class ModelComponent extends Component {
 		};
 
 		self.$onInit = () => {
-			guard.notNull(self.view, 'view');
+			guard.notNull(self.root, 'root');
 
-			const model = self.view.model;
+			const model = self.root.model;
 			if (model) {
 				commit = setup(model);
 				commit();
