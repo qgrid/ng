@@ -1,6 +1,7 @@
 <div q-grid-core:view
 	  class="qgrid theme-{{$view.theme.name}}"
 	  ng-cloak>
+	<div q-grid-core:toolbar="top"></div>
 	<table>
 		<thead q-grid-core:head>
 		<tr>
@@ -43,4 +44,5 @@
 		<tfoot>
 		</tfoot>
 	</table>
+	<div q-grid-core:toolbar="bottom"></div>
 </div>
