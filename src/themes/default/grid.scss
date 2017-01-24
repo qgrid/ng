@@ -1,4 +1,7 @@
 .qgrid.theme-default {
-	max-height: 100%;
-	overflow: auto;
+	.viewport {
+		max-height: 100%;
+		overflow: auto;
+		display: block;
+	}
 }

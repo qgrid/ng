@@ -1,19 +1,20 @@
 import Directive from '../directive';
-import {STICKY_CORE_NAME, VIEW_CORE_NAME} from '../../../definition';
+import {STICKY_CORE_NAME, VIEW_CORE_NAME, VIEWPORT_CORE_NAME} from '../../../definition';
 import Sticky from '../../../core/sticky/sticky';
 import angular from 'angular';
 
-class StickyCore extends Directive(STICKY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
-	constructor($scope, $element) {
+class StickyCore extends Directive(STICKY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, viewport: `^^${VIEWPORT_CORE_NAME}`}) {
+	constructor($scope, $element, $attrs) {
 		super();
 
 		this.$scope = $scope;
 		this.$element = $element;
+		this.$attrs = $attrs;
 	}
 
-	onInit($attrs) {
+	onInit() {
 		const model = this.view.model;
-		const target = $attrs[STICKY_CORE_NAME];
+		const target = this.$attrs[STICKY_CORE_NAME];
 
 		if (!model.hasOwnProperty(target)) {
 			throw new Error(
@@ -40,7 +41,7 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}
 
 		const self = this;
 		const table = this.$element[0];
-		const scrollView = this.view.$element[0];
+		const scrollView = this.viewport.$element[0];
 		const sticky = new Sticky(table, scrollView);
 
 		sticky.invalidated.on(() => {
@@ -59,11 +60,9 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}
 		originElement.after(clonedElement);
 		originElement.css('visibility', 'hidden');
 	}
-
 }
 
-StickyCore.$inject = ['$scope',
-	'$element'];
+StickyCore.$inject = ['$scope', '$element', '$attrs'];
 
 export default {
 	restrict: 'A',

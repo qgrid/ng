@@ -1,10 +1,6 @@
 import {isUndefined} from './utility';
 
-export {
-	css
-};
-
-function css(element, property, value) {
+export function css(element, property, value) {
 	const normalizedProperty = normalize(property);
 	if (isUndefined(value)) {
 		return element.style[normalizedProperty];

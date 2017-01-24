@@ -1,6 +1,6 @@
 import {css} from '../services/dom';
 import {debounce} from '../services/utility';
-import Event from '../services/event';
+import Event from '../infrastructure/event';
 
 export default class Sticky {
 	/**

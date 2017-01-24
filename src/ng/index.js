@@ -8,6 +8,7 @@ import ColumnList from './components/column/column.list';
 import Column from './components/column/column';
 
 import ViewCore from './components/grid/view.core';
+import ViewportCore from './components/grid/viewport.core';
 import TdCore from './components/body/td.core';
 import ThCore from './components/head/th.core';
 import TfCore from './components/foot/tf.core';
@@ -24,7 +25,8 @@ import * as def from '../definition';
 export default angular
 	.module(def.MODULE_NAME, [])
 	.component(def.GRID_NAME, Grid)
-	.directive(def.VIEW_CORE_NAME, () => ViewCore)
+	.component(def.VIEW_CORE_NAME, ViewCore)
+	.directive(def.VIEWPORT_CORE_NAME, () => ViewportCore)
 	.directive(def.TD_CORE_NAME, () => TdCore)
 	.directive(def.TH_CORE_NAME, () => ThCore)
 	.directive(def.TF_CORE_NAME, () => TfCore)
@@ -44,7 +46,8 @@ export default angular
 
 Setup.$inject = ['$templateCache'];
 function Setup($templateCache) {
-	$templateCache.put('qgrid.tpl.html', require('./components/grid/grid.html'));
+	$templateCache.put('qgrid.grid.tpl.html', require('./components/grid/grid.html'));
+	$templateCache.put('qgrid.view.tpl.html', require('./components/grid/view.html'));
 	$templateCache.put('qgrid.head.cell.tpl.html', require('./components/head/cell.html'));
 	$templateCache.put('qgrid.body.cell.tpl.html', require('./components/body/cell.html'));
 	$templateCache.put('qgrid.foot.cell.tpl.html', require('./components/foot/cell.html'));

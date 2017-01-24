@@ -1,15 +1,16 @@
-import Directive from '../directive';
+import Component from '../component';
 import {map as getColumnMap} from '../../../core/column/column.service';
 import {getFactory as valueFactory} from '../../services/value';
 import nodeBuilder from '../../../core/node/node.builder';
-import {GRID_NAME, VIEW_CORE_NAME} from '../../../definition';
+import {GRID_NAME} from '../../../definition';
 
-class ViewCore extends Directive(VIEW_CORE_NAME, {root: `^^${GRID_NAME}`}) {
+class ViewCore extends Component {
 	constructor($element, theme) {
 		super();
 
 		this.$element = $element;
 		this.theme = theme;
+		this.initTheme();
 	}
 
 	onInit() {
@@ -32,6 +33,15 @@ class ViewCore extends Directive(VIEW_CORE_NAME, {root: `^^${GRID_NAME}`}) {
 
 	get nodes() {
 		return this.model.view().nodes;
+	}
+
+	initTheme() {
+		this.$element[0].classList.add(`theme-${this.theme.name}`);
+
+		this.theme.changed.on(e => {
+			this.$element[0].classList.remove(`theme-${e.oldValue}`);
+			this.$element[0].classList.add(`theme-${e.newValue}`);
+		});
 	}
 
 	initData(model) {
@@ -85,10 +95,10 @@ class ViewCore extends Directive(VIEW_CORE_NAME, {root: `^^${GRID_NAME}`}) {
 ViewCore.$inject = ['$element', 'qgridTheme'];
 
 export default {
-	restrict: 'A',
-	bindToController: true,
-	controllerAs: '$view',
 	controller: ViewCore,
-	require: ViewCore.require,
-	link: ViewCore.link
-};
+	controllerAs: '$view',
+	templateUrl: 'qgrid.grid.tpl.html',
+	require: {
+		'root': `^^${GRID_NAME}`
+	}
+}
