@@ -10,9 +10,6 @@ class ViewCore extends Directive(VIEW_CORE_NAME, {root: `^^${GRID_NAME}`}) {
 		super();
 
 		this.theme = theme;
-		this.rows = [];
-		this.columns = [];
-		this.nodes = [];
 	}
 
 	onInit() {
@@ -25,38 +22,59 @@ class ViewCore extends Directive(VIEW_CORE_NAME, {root: `^^${GRID_NAME}`}) {
 		return this.root.model;
 	}
 
-	initData(model) {
-		const data = model.data();
+	get rows() {
+		return this.model.view().rows;
+	}
 
-		this.rows = data.rows;
-		this.columns = data.columns;
+	get columns() {
+		return this.model.view().columns;
+	}
+
+	get nodes() {
+		return this.model.view().nodes;
+	}
+
+	initData(model) {
+		const dataState = model.data();
+		const view = model.view;
+		// TODO: should we protect by guard here or on the model level?
+		view({
+			rows: dataState.rows.slice(),
+			columns: dataState.columns.slice()
+		});
 
 		model.dataChanged.on(e => {
+			const newState = {};
 			if (e.changes.hasOwnProperty('rows')) {
-				this.rows = e.state.rows;
+				newState.rows = e.state.rows.slice();
 			}
 
 			if (e.changes.hasOwnProperty('columns')) {
-				this.columns = e.state.columns;
+				newState.clumns = e.state.columns.slice();
 			}
+
+			view(newState);
 		});
 	}
 
 	initGroup(model) {
-		const group = model.group();
-		this.nodes =
-			this.nodeBuilder(
+		const groupState = model.group();
+		const view = model.view;
+		view({
+			nodes: this.nodeBuilder(
 				getColumnMap(this.columns),
-				group.by
-			)(this.rows);
+				groupState.by
+			)(this.rows)
+		});
 
 		model.groupChanged.on(e => {
 			if (e.changes.hasOwnProperty('by')) {
-				this.nodes =
-					this.nodeBuilder(
+				view({
+					nodes: this.nodeBuilder(
 						getColumnMap(this.columns),
 						e.state.by
-					)(this.rows);
+					)(this.rows)
+				});
 			}
 		});
 	}

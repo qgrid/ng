@@ -1,4 +1,5 @@
 import Model from './core/infrastructure/model';
+import ViewModel from './core/view/view.model';
 import DataModel from './core/grid/data.model';
 import HeadModel from './core/head/head.model';
 import BodyModel from './core/body/body.model';
@@ -7,7 +8,8 @@ import FootModel from './core/foot/foot.model';
 import GroupModel from './core/group/group.model';
 import ng from './ng';
 
-Model.register('data', DataModel)
+Model.register('view', ViewModel)
+	.register('data', DataModel)
 	.register('selection', SelectionModel)
 	.register('head', HeadModel)
 	.register('body', BodyModel)
