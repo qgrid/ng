@@ -59,6 +59,61 @@ export default class Sticky {
 	}
 }
 
+function buildHead(sticky) {
+	if (!sticky.origin.head) {
+		return null;
+	}
+	const header = sticky.origin.head.cloneNode(true);
+
+	header.classList.add('sticky');
+	css(header, 'position', 'absolute');
+	css(header, 'overflow-x', 'hidden');
+
+	watchChildren(sticky.origin.head, () => {
+		const stickyTh = th(header);
+		const originTh = th(sticky.origin.head);
+
+		stickyTh.forEach(column => column.remove());
+		originTh.forEach(column => {
+			const clone = column.cloneNode(true);
+			header.querySelector('tr').appendChild(clone);
+		});
+		sticky.invalidate();
+	});
+
+	watchStyle(sticky.origin.head, (oldValue, newValue) => {
+		if (!oldValue || oldValue.width !== newValue.width) {
+			setTimeout(() => sticky.invalidate(), 0);
+		}
+	});
+
+	watchClass(sticky.scrollView, (oldValue, newValue) => {
+		if ((oldValue || oldValue === '')
+			&& oldValue !== newValue) {
+			setTimeout(() => sticky.invalidate(), 0);
+		}
+	});
+
+	sticky.scrollView.addEventListener('scroll', () => {
+		header.scrollLeft = sticky.scrollView.scrollLeft;
+	});
+
+	window.addEventListener('resize', () => {
+		debounce(() => sticky.invalidate(), 200)();
+	});
+
+	return header;
+}
+
+function buildFoot(sticky) {
+	// ToDo: implement for foot
+	if (!sticky.origin.foot) {
+		return null;
+	}
+	const footer = sticky.origin.foot.cloneNode(true);
+	return footer;
+}
+
 function watchChildren(element, handler) {
 	const observer = new MutationObserver((mutations) => {
 		mutations.forEach((mutation) => {
@@ -94,52 +149,23 @@ function watchStyle(element, handler) {
 	return observer.disconnect;
 }
 
-function buildHead(sticky) {
-	if (!sticky.origin.head) {
-		return null;
-	}
-	const header = sticky.origin.head.cloneNode(true);
-
-	header.classList.add('sticky');
-	css(header, 'position', 'absolute');
-	css(header, 'overflow-x', 'hidden');
-
-	watchChildren(sticky.origin.head, () => {
-		const stickyTh = th(header);
-		const originTh = th(sticky.origin.head);
-
-		stickyTh.forEach(column => column.remove());
-		originTh.forEach(column => {
-			const clone = column.cloneNode(true);
-			header.querySelector('tr').appendChild(clone);
+function watchClass(element, handler) {
+	const observer = new MutationObserver((mutations) => {
+		mutations.forEach((mutation) => {
+			if (mutation.attributeName) {
+				const newValue = Array.from(mutation.target.classList).join(' ');
+				handler(mutation.oldValue, newValue);
+			}
 		});
-		sticky.invalidate();
 	});
+	const config = {
+		attributes: true,
+		attributeOldValue: true,
+		attributeFilter: ['class']
+	};
+	observer.observe(element, config);
 
-	watchStyle(sticky.origin.head, (oldValue, newValue) => {
-		if (!oldValue || oldValue.width !== newValue.width) {
-			setTimeout(() => sticky.invalidate(), 0);
-		}
-	});
-
-	sticky.scrollView.addEventListener('scroll', () => {
-		header.scrollLeft = sticky.scrollView.scrollLeft;
-	});
-
-	window.addEventListener('resize', () => {
-		debounce(() => sticky.invalidate(), 200)();
-	});
-
-	return header;
-}
-
-function buildFoot(sticky) {
-	// ToDo: implement for foot
-	if (!sticky.origin.foot) {
-		return null;
-	}
-	const footer = sticky.origin.foot.cloneNode(true);
-	return footer;
+	return observer.disconnect;
 }
 
 function th(head) {
