@@ -38,5 +38,9 @@
 	{
 		"path": "foot",
 		"title": "foot"
+	},
+	{
+		"path": "group",
+		"title": "group"
 	}
 ]

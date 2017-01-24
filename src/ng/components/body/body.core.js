@@ -1,7 +1,7 @@
 import Directive from '../directive';
-import {GRID_NAME, BODY_CORE_NAME} from '../../../definition';
+import {VIEW_CORE_NAME, BODY_CORE_NAME} from '../../../definition';
 
-class BodyCore extends Directive(BODY_CORE_NAME, {root: `^^${GRID_NAME}`}) {
+class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	constructor() {
 		super();
 	}

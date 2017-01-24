@@ -22,12 +22,12 @@ export default class ModelComponent extends Component {
 		self.$onInit = () => {
 			guard.notNull(self.root, 'root');
 
-			if (self.root.model) {
-				commit = setup(self.root.model);
+			const model = self.root.model;
+			if (model) {
+				commit = setup(model);
 				commit();
 			}
 
-			self.root.modelChanged.on(model => commit = setup(model));
 			self.onInit();
 		};
 
