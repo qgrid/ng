@@ -25,7 +25,7 @@ module.exports = function (config) {
 					{
 						test: /\.js/,
 						exclude: [/dist/, /node_modules/],
-						loader: 'babel',
+						loader: 'babel-loader',
 						options: {
 							presets: ['es2015', {modules: false}]
 						}
