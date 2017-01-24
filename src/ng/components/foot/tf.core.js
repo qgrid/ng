@@ -1,8 +1,8 @@
 import Directive from '../directive';
-import {GRID_NAME, TF_CORE_NAME} from '../../../definition';
+import {VIEW_CORE_NAME, TF_CORE_NAME} from '../../../definition';
 import TemplateCore from '../template/template.core';
 
-class TfCore extends Directive(TF_CORE_NAME, {root: `^^${GRID_NAME}`}) {
+class TfCore extends Directive(TF_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	constructor($scope, $element, $compile, $templateCache) {
 		super();
 
@@ -12,7 +12,7 @@ class TfCore extends Directive(TF_CORE_NAME, {root: `^^${GRID_NAME}`}) {
 	}
 
 	onInit() {
-		const state = this.root.model.foot();
+		const state = this.view.model.foot();
 		const key = this.$scope.$column.key;
 		const index = this.rowIndex;
 		const link = this.template.link(

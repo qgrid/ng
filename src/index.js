@@ -4,12 +4,14 @@ import HeadModel from './core/head/head.model';
 import BodyModel from './core/body/body.model';
 import SelectionModel from './core/grid/selection.model';
 import FootModel from './core/foot/foot.model';
+import GroupModel from './core/group/group.model';
 import ng from './ng';
 
 Model.register('data', DataModel)
 	.register('selection', SelectionModel)
 	.register('head', HeadModel)
 	.register('body', BodyModel)
-	.register('foot', FootModel);
+	.register('foot', FootModel)
+	.register('group', GroupModel);
 
 export default ng;
