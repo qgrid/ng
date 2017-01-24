@@ -4,7 +4,9 @@
 	<table q-grid-core:sticky="head">
 		<thead q-grid-core:head>
 		<tr>
-			<th ng-repeat="$column in $grid.dataColumns track by $index"
+			<th ng-if="$view.nodes.length">+</th>
+			<th ng-if="$view.nodes.length">Group</th>
+			<th ng-repeat="$column in $view.columns track by $index"
 				 class="{{::$column.key}}"
 				 q-grid-core:th>
 			</th>
@@ -12,15 +14,27 @@
 		</thead>
 		<tfoot q-grid-core:foot>
 		<tr ng-repeat="index in $foot.count | qgridRange track by $index">
-			<td ng-repeat="$column in $grid.dataColumns track by $index"
+			<th ng-if="$view.nodes.length"></th>
+			<th ng-if="$view.nodes.length"></th>
+			<td ng-repeat="$column in $view.columns track by $index"
 				 class="{{::$column.key}}"
 				 q-grid-core:tf>
 			</td>
 		</tr>
 		</tfoot>
-		<tbody q-grid-core:body>
-		<tr ng-repeat="$row in $grid.dataRows track by $index">
-			<td ng-repeat="$column in $grid.dataColumns track by $index"
+		<tbody q-grid-core:body
+				 ng-switch="$view.nodes.length > 0">
+		<tr ng-switch-when="true"
+			 ng-repeat="$node in $view.nodes">
+			<td>+</td>
+			<td>{{$node.key}}</td>
+			<td ng-repeat="$column in $view.columns track by $index"
+				 class="{{::$column.key}}">
+			</td>
+		</tr>
+		<tr ng-switch-default
+			 ng-repeat="$row in $view.rows track by $index">
+			<td ng-repeat="$column in $view.columns track by $index"
 				 class="{{::$column.key}}"
 				 q-grid-core:td>
 			</td>

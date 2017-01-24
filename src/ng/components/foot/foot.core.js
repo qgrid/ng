@@ -1,7 +1,7 @@
 import Directive from '../directive';
-import {GRID_NAME, FOOT_CORE_NAME} from '../../../definition';
+import {VIEW_CORE_NAME, FOOT_CORE_NAME} from '../../../definition';
 
-class FootCore extends Directive(FOOT_CORE_NAME, {root: `^^${GRID_NAME}`}) {
+class FootCore extends Directive(FOOT_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	constructor() {
 		super();
 	}
@@ -10,7 +10,7 @@ class FootCore extends Directive(FOOT_CORE_NAME, {root: `^^${GRID_NAME}`}) {
 	}
 
 	get count() {
-		const state = this.root.model.foot();
+		const state = this.view.model.foot();
 		return state.count;
 	}
 }

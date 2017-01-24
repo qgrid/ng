@@ -1,9 +1,9 @@
 import Directive from '../directive';
-import {GRID_NAME, STICKY_CORE_NAME, VIEW_CORE_NAME} from '../../../definition';
+import {STICKY_CORE_NAME, VIEW_CORE_NAME} from '../../../definition';
 import Sticky from '../../../core/sticky/sticky';
 import angular from 'angular';
 
-class StickyCore extends Directive(STICKY_CORE_NAME, {root: `^^${GRID_NAME}`, view: `^^${VIEW_CORE_NAME}`}) {
+class StickyCore extends Directive(STICKY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	constructor($scope, $element) {
 		super();
 
@@ -12,7 +12,7 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {root: `^^${GRID_NAME}`, vi
 	}
 
 	onInit($attrs) {
-		const model = this.root.model;
+		const model = this.view.model;
 		const target = $attrs[STICKY_CORE_NAME];
 
 		if (!model.hasOwnProperty(target)) {

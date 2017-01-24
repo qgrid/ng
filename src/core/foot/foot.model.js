@@ -1,4 +1,4 @@
-import Resource from '../entity/resource';
+import Resource from '../resource/resource';
 
 export default class FootModel {
 	constructor() {
