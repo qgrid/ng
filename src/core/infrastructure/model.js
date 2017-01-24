@@ -1,4 +1,4 @@
-import Event from '../services/event';
+import Event from './event';
 import {isObject, isFunction} from '../services/utility';
 import Error from './error';
 import * as guard from './guard';
