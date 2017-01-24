@@ -10,6 +10,7 @@ Here is a list of features we should support:
 
 When qgrid works in server side pagination mode we might face a trouble with `selection`.
 Just a simple case:
+
 1. First page loaded
 2. User clicks on select all checkbox
 3. Only first page is presented in `selection` array
