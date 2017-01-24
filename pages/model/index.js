@@ -1,5 +1,3 @@
-'use strict';
-
 Controller.$inject = ['$http', 'qgrid', '$log'];
 export default function Controller($http, qgrid, $log) {
 	const ctrl = this;
