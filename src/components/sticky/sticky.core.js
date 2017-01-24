@@ -6,12 +6,11 @@ import Sticky from '../../core/sticky/sticky';
 import angular from 'angular';
 
 class StickyCore extends Directive(STICKY_CORE_NAME, {root: `^^${GRID_NAME}`, view: `^^${VIEW_CORE_NAME}`}) {
-	constructor($scope, $element, $window) {
+	constructor($scope, $element) {
 		super();
 
 		this.$scope = $scope;
 		this.$element = $element;
-		this.$window = $window;
 	}
 
 	onInit($attrs) {
@@ -45,6 +44,7 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {root: `^^${GRID_NAME}`, vi
 		const table = this.$element[0];
 		const scrollView = this.view.$element[0];
 		const sticky = new Sticky(table, scrollView);
+
 		sticky.invalidated.on(() => {
 			self.$scope.$apply();
 		});
@@ -65,8 +65,7 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {root: `^^${GRID_NAME}`, vi
 }
 
 StickyCore.$inject = ['$scope',
-	'$element',
-	'$window'];
+	'$element'];
 
 export default {
 	restrict: 'A',

@@ -1,4 +1,5 @@
 import {css} from '../services/dom';
+import {debounce} from '../services/utility';
 import Event from '../services/event';
 
 export default class Sticky {
@@ -16,6 +17,7 @@ export default class Sticky {
 		this.invalidated = new Event();
 		this.head = buildHead(this);
 		this.foot = buildFoot(this);
+		// ToDo: make it private
 		this.height = 0;
 	}
 	
@@ -33,15 +35,10 @@ export default class Sticky {
 			this.height = parseInt(window.getComputedStyle(this.scrollView).height, 10);
 		}
 
-		css(this.scrollView, 'height', `${this.height - offset}px`);
+		css(this.scrollView, 'height', `${this.height - offset - tableOffset}px`);
 		css(this.scrollView, 'margin-top', `${offset + tableOffset}px`);
-		// css(this.scrollView, 'margin-left', `${tableOffset}px`);
-		css(this.head, 'margin-top', `-${offset + tableOffset}px`);
-		// css(this.head, 'margin-left', `-${tableOffset}px`);
-		css(this.table, 'margin-top', `-${offset}px`);
-		css(this.table, 'padding-top', '0');
-		// css(this.table, 'margin-left', `${tableOffset}px`);
-		// css(this.table, 'padding-left', '0');
+		css(this.head, 'margin-top', `-${offset}px`);
+		css(this.table, 'margin-top', `-${offset + tableOffset}px`);
 
 		const stickyTh = th(this.head);
 		const originTh = th(this.origin.head);
@@ -130,13 +127,14 @@ function buildHead(sticky) {
 	});
 
 	window.addEventListener('resize', () => {
-		sticky.invalidate();
+		debounce(() => sticky.invalidate(), 200)();
 	});
 
 	return header;
 }
 
 function buildFoot(sticky) {
+	// ToDo: implement for foot
 	if (!sticky.origin.foot) {
 		return null;
 	}
