@@ -1,3 +1,5 @@
+import Error from '../../../core/infrastructure/error';
+
 export default class TemplateCore {
 	constructor($compile, $templateCache) {
 		this.$compile = $compile;

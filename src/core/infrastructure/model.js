@@ -38,15 +38,18 @@ export default class Model {
 
 							model[key] = newValue;
 							hasChanges = true;
-							changes[key] = newValue;
+							changes[key] = {
+								newValue: newValue,
+								oldValue: oldValue
+							};
 						}
+					}
 
-						if (hasChanges) {
-							event.emit({
-								state: model,
-								changes: changes
-							});
-						}
+					if (hasChanges) {
+						event.emit({
+							state: model,
+							changes: changes
+						});
 					}
 				}
 

@@ -1,9 +1,9 @@
-Controller.$inject = ['$http', 'qgrid', '$log'];
-export default function Controller($http, qgrid, $log) {
+Controller.$inject = ['$http'];
+export default function Controller($http) {
 	const ctrl = this;
-	ctrl.gridModel = qgrid();
 
-	const columns = [
+	this.rows = [];
+	this.columns = [
 		{
 			key: 'name.last',
 			title: 'Last Name',
@@ -58,24 +58,11 @@ export default function Controller($http, qgrid, $log) {
 		}
 	];
 
-	ctrl.gridModel.data({
-		columns: columns
-	});
-
-	ctrl.gridModel
-		.selectionChanged
-		.on(function (e) {
-			if (e.changes.hasOwnProperty('items')) {
-				$log.log(`qgrid.demo: selection changed ${e.changes.items.newValue.length} on ${e.state.mode} mode`);
-			}
-		});
-
-	$http.get('data/people/100.json')
-		.then(function (response) {
-			ctrl.gridModel.data({rows: response.data});
-			ctrl.gridModel.selection({
-				mode: 'cell',
-				items: response.data.slice(0, 4)
+	this.load = () =>
+		$http.get('data/people/100.json')
+			.then(function (response) {
+				ctrl.rows = response.data;
 			});
-		});
+
+	this.clear = () => ctrl.rows = [];
 }

@@ -23,7 +23,7 @@ export default class ModelBinder {
 							);
 						}
 
-						source[sourceKey] = e.changes[key];
+						source[sourceKey] = e.changes[key].newValue;
 					}
 				};
 
