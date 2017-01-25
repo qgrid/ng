@@ -2,39 +2,49 @@
 
 Filtering is tightly coupled with ordering, paging and virtualization.
 
-Data fetch process is going to be a pipline of ordered operations:
+Data fetch process is going to be a pipeline of ordered operations which can be configured by user.
 
- 1. **Fetch** - returns a promise which returns data.
- 2. **Filter** (optional) - filters data according to `match` function. Gets data from `Fetch` stage.
- 3. **Order** (optional) - orders data according to `comparator` function provided by user. Gets data from `Filter` stage. 
- 4. **Page** (optional) - defines current page and page size  
- 5. **Virtualize** (optional) - defines number of rendered items.
-
-Every operation gets data from previous stage and handles it properly.
+Every operation gets data from previous stage and handles and passes to the next stage.
 If user wants to perform some of this actions on client-side, he modifies pipeline by adding a function to corresponding model.
+
+Pipeline requires a function with following signature: `(data, model, next) => { }`
+where `data` is data array from previous stage, 
+`model` is grid model and 
+`next` is function that finishes current stage and passes data to the next one.     
 
 ## Common cases
 1. All data is filtered and ordered on server-side.
 ```javascript
 gridModel
     .data({
-        fetch: (model) => {
-            return $http({
-                filter: model.filter,
-                order: model.filter
-            })
-        }
+        pipeline: [
+            (data, model, next) => {
+                $http({
+                    filter: model.filter,
+                    order: model.filter
+                })
+                .then((data) => next(data))
+            }
+        ]
     });
 ```
 
-2. Data is fetched from server but filtering, ordering and pagination is performed on server.
+2. Data is fetched from server but filtering, ordering and pagination is performed on client.
 
 ```javascript
 gridModel
     .data({
-        fetch: (model) => {
-            return $http();
-        }
+        pipeline: [
+            (data, model, next) => {
+                $http({
+                    filter: model.filter,
+                    order: model.filter
+                })
+                .then((data) => next(data))
+            },
+            qGrid.filter,
+            gGrid.order
+        ]
     })
     .filter({
         match: (model, row) => {
@@ -59,24 +69,46 @@ Such pipeline allows cache data and invalidate it using grid notifications:
 ```javascript
 gridModel
     .data({
-        fetch: (model) => {
-            var deferred = $q.defer();
-
-            if (invalidate) {
-                $http().then(function (res) {
-                    data = res.data;
-                    deferred.resolve(data);
-                });
-            } else {
-                deferred.resolve(data);
-            }
-
-            return deferred.promise;
-        }
+        pipeline: []
+            (data, model, next) => {
+                if (invalidate) {
+                    $http({
+                        filter: model.filter,
+                        order: model.filter
+                    })
+                    .then((res) => { data = res.data; next(data); })
+                } else {
+                    next(data);
+                }
+            },
+            qGrid.filter,
+            gGrid.order
+        ]
     })
     .order({
         onModelChanged: () => {
             invalidate = true;
         }
+    });
+```
+
+User can provide his own middleware by adding a function to pipeline:
+
+```javascript
+gridModel
+    .data({
+        pipeline: [
+            (data, model, next) => {
+                $http({
+                    filter: model.filter,
+                    order: model.filter
+                })
+                .then((res) => next(res.data))
+            },
+            (data, model, next) => {
+                var filteredData = someFilteringFunctiono();
+                next(filteredData);
+            }         
+        ]
     });
 ```
