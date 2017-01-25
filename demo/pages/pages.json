@@ -42,5 +42,9 @@
 	{
 		"path": "group",
 		"title": "group"
+	},
+	{
+		"path": "toolbar",
+		"title": "toolbar"
 	}
 ]
