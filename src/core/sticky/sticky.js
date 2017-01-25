@@ -19,7 +19,8 @@ export default class Sticky {
 		this.head = buildHead(this);
 		this.foot = buildFoot(this);
 		// ToDo: make it private
-		this.height = 0;
+		this._height = 0;
+		this._oldHeight = 0;
 	}
 	
 	invalidate() {
@@ -29,14 +30,13 @@ export default class Sticky {
 		css(this.head, 'max-width', style.width);
 
 		const tableStyle = window.getComputedStyle(this.table);
-		const tableOffset = parseInt(tableStyle.paddingTop, 10);
+		const tableOffset = parseInt(tableStyle.paddingTop || 0, 10);
 		const offset = this.origin.head.offsetHeight;
 
-		if (!this.height) {
-			this.height = parseInt(window.getComputedStyle(this.scrollView).height, 10);
-		}
+		css(this.scrollView, 'height', '100%');
+		const height = parseInt(window.getComputedStyle(this.scrollView).height);
+		css(this.scrollView, 'height', `${height - offset - tableOffset}px`);
 
-		css(this.scrollView, 'height', `${this.height - offset - tableOffset}px`);
 		css(this.scrollView, 'margin-top', `${offset + tableOffset}px`);
 		css(this.head, 'margin-top', `-${offset}px`);
 		css(this.table, 'margin-top', `-${offset + tableOffset}px`);
@@ -54,6 +54,7 @@ export default class Sticky {
 	destroy() {
 		if (this.head !== null) {
 			this.head.remove();
+			this.head = null;
 		}
 		css(this.scrollView, 'margin-top', '');
 	}

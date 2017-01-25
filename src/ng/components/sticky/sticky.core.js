@@ -45,12 +45,7 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}
 		const scrollView = this.viewport.$element[0];
 		const sticky = new Sticky(table, scrollView);
 
-		this.view.theme.changed.on(() => self.$timeout(() => sticky.invalidate()));
-
-		sticky.invalidated.on(() => self.$scope.$apply());
-
-		this.$scope.$on('$destroy', () => sticky.destroy());
-
+		// this.view.theme.changed.on(() => self.$timeout(() => sticky.invalidate()));
 		const cloned = sticky[target];
 
 		const originElement = angular.element(sticky.origin[target]);
@@ -58,6 +53,24 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}
 		clonedElement.removeAttr(`q-grid-core:${target}`);
 		originElement.after(clonedElement);
 		originElement.css('visibility', 'hidden');
+
+		const unwatches = [];
+		unwatches.push(this.view.theme.changed.on(
+			() => self.$timeout(() => sticky.invalidate())
+		));
+
+		unwatches.push(this.view.model.dataChanged.on(
+			() => self.$timeout(() => sticky.invalidate())
+		));
+
+		unwatches.push(sticky.invalidated.on(
+			() => self.$scope.$apply()
+		));
+
+		this.$scope.$on('$destroy', () => {
+			unwatches.forEach(u => u());
+			sticky.destroy();
+		});
 	}
 }
 
