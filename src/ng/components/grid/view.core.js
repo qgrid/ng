@@ -97,7 +97,7 @@ ViewCore.$inject = ['$element', 'qgridTheme'];
 export default {
 	controller: ViewCore,
 	controllerAs: '$view',
-	templateUrl: 'qgrid.grid.tpl.html',
+	templateUrl: 'qgrid.view.tpl.html',
 	require: {
 		'root': `^^${GRID_NAME}`
 	}
