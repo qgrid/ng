@@ -19,5 +19,6 @@ export default {
 	controllerAs: '$head',
 	controller: HeadCore,
 	require: HeadCore.require,
-	link: HeadCore.link
+	link: HeadCore.link,
+	scope: {}
 };
