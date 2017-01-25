@@ -27,5 +27,5 @@ export default {
 	controller: FootCore,
 	require: FootCore.require,
 	link: FootCore.link,
-	scope: {}
+	scope: true
 };

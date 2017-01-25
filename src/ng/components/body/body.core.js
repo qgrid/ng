@@ -19,5 +19,5 @@ export default {
 	controller: BodyCore,
 	require: BodyCore.require,
 	link: BodyCore.link,
-	scope: {}
+	scope: true
 };

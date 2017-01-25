@@ -2,16 +2,19 @@ import Directive from '../directive';
 import {VIEW_CORE_NAME, HEAD_CORE_NAME} from '../../../definition';
 
 class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
-	constructor() {
+	constructor($scope) {
 		super();
+
+		$scope.foo = 'bar';
 	}
 
 	onInit() {
-		
 	}
+
+
 }
 
-HeadCore.$inject = [];
+HeadCore.$inject = ['$scope'];
 
 export default {
 	restrict: 'A',
@@ -20,5 +23,5 @@ export default {
 	controller: HeadCore,
 	require: HeadCore.require,
 	link: HeadCore.link,
-	scope: {}
+	scope: true
 };
