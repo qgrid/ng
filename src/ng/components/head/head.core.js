@@ -8,8 +8,6 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 
 	onInit() {
 	}
-
-
 }
 
 HeadCore.$inject = [];
