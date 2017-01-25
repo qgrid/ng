@@ -7,6 +7,7 @@ import Head from './components/head/head';
 import ColumnList from './components/column/column.list';
 import Column from './components/column/column';
 import Toolbar from './components/toolbar/toolbar';
+import Pager from './components/pager/pager';
 
 import ViewCore from './components/grid/view.core';
 import ViewportCore from './components/grid/viewport.core';
@@ -33,6 +34,7 @@ export default angular
 	.component(def.COLUMN_NAME, Column)
 	.component(def.TOOLBAR_NAME, Toolbar)
 	.component(def.VIEW_CORE_NAME, ViewCore)
+	.component(def.PAGER_NAME, Pager)
 	.directive(def.VIEWPORT_CORE_NAME, () => ViewportCore)
 	.directive(def.TD_CORE_NAME, () => TdCore)
 	.directive(def.TH_CORE_NAME, () => ThCore)
@@ -57,5 +59,5 @@ function Setup($templateCache) {
 	$templateCache.put('qgrid.foot.cell.tpl.html', require('./components/foot/cell.html'));
 	$templateCache.put('qgrid.toolbar.top.tpl.html', require('./components/toolbar/toolbar.top.html'));
 	$templateCache.put('qgrid.toolbar.bottom.tpl.html', require('./components/toolbar/toolbar.bottom.html'));
-
+	$templateCache.put('qgrid.pager.tpl.html', require('./components/pager/pager.html'));
 }

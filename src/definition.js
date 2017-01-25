@@ -20,3 +20,4 @@ export const HEAD_CORE_NAME = 'qGridCoreHead';
 export const BODY_CORE_NAME = 'qGridCoreBody';
 export const FOOT_CORE_NAME = 'qGridCoreFoot';
 export const TOOLBAR_CORE_NAME = 'qGridCoreToolbar';
+export const PAGER_NAME = 'qGridPager';
