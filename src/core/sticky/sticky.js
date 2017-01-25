@@ -1,6 +1,6 @@
 import {css} from '../services/dom';
 import {debounce} from '../services/utility';
-import * as observe from '../services/observe';
+import * as observe from '../services/dom.observe';
 import Event from '../infrastructure/event';
 
 export default class Sticky {
@@ -54,7 +54,6 @@ export default class Sticky {
 	destroy() {
 		if (this.head !== null) {
 			this.head.remove();
-			this.head = null;
 		}
 		css(this.scrollView, 'margin-top', '');
 	}
@@ -70,30 +69,33 @@ function buildHead(sticky) {
 	css(header, 'position', 'absolute');
 	css(header, 'overflow-x', 'hidden');
 
-	observe.children(sticky.origin.head, () => {
-		const stickyTh = th(header);
-		const originTh = th(sticky.origin.head);
+	observe.children(sticky.origin.head)
+		.on(() => {
+			const stickyTh = th(header);
+			const originTh = th(sticky.origin.head);
 
-		stickyTh.forEach(column => column.remove());
-		originTh.forEach(column => {
-			const clone = column.cloneNode(true);
-			header.querySelector('tr').appendChild(clone);
+			stickyTh.forEach(column => column.remove());
+			originTh.forEach(column => {
+				const clone = column.cloneNode(true);
+				header.querySelector('tr').appendChild(clone);
+			});
+			sticky.invalidate();
 		});
-		sticky.invalidate();
-	});
 
-	observe.style(sticky.origin.head, (oldValue, newValue) => {
-		if (!oldValue || oldValue.width !== newValue.width) {
-			setTimeout(() => sticky.invalidate(), 0);
-		}
-	});
+	observe.style(sticky.origin.head)
+		.on(e => {
+			if (!e.oldValue || e.oldValue.width !== e.newValue.width) {
+				setTimeout(() => sticky.invalidate(), 0);
+			}
+		});
 
-	observe.className(sticky.scrollView, (oldValue, newValue) => {
-		if ((oldValue || oldValue === '')
-			&& oldValue !== newValue) {
-			setTimeout(() => sticky.invalidate(), 0);
-		}
-	});
+	observe.className(sticky.scrollView)
+		.on(e => {
+			if ((e.oldValue || e.oldValue === '')
+				&& e.oldValue !== e.newValue) {
+				setTimeout(() => sticky.invalidate(), 0);
+			}
+		});
 
 	sticky.scrollView.addEventListener('scroll', () => {
 		header.scrollLeft = sticky.scrollView.scrollLeft;
