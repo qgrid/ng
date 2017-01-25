@@ -3,36 +3,25 @@ import TemplateCore from '../template/template.core';
 import {VIEW_CORE_NAME, TOOLBAR_CORE_NAME} from '../../../definition';
 
 class TdCore extends Directive(TOOLBAR_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
-	constructor($scope, $element, $compile, $templateCache) {
+	constructor($scope, $element, $compile, $templateCache, $attrs) {
 		super();
 
 		this.$element = $element;
 		this.$scope = $scope;
+		this.$attrs = $attrs;
 		this.template = new TemplateCore($compile, $templateCache);
 	}
 
 	onInit() {
-		const state = this.view.model.body();
-		const key = this.$scope.$column.key;
+		const target = this.$attrs[TOOLBAR_CORE_NAME];
+		const state = this.view.model.toolbar();
 		const link = this.template.link(
-			'qgrid.toolbar.tpl.html',
+			`qgrid.toolbar.${target}.tpl.html`,
 			state.resource,
-			key
+			target
 		);
 
 		link(this.$element, this.$scope);
-	}
-
-	get value() {
-		const column = this.$scope.$column;
-		const row = this.$scope.$row;
-
-		return getValue(row, column);
-	}
-
-	get rowIndex() {
-		// use vscroll.row + vscroll.position in the future
-		return this.$scope.$parent.$index;
 	}
 }
 
@@ -40,14 +29,16 @@ TdCore.$inject = [
 	'$scope',
 	'$element',
 	'$compile',
-	'$templateCache'
+	'$templateCache',
+	'$attrs'
 ];
 
 export default {
 	restrict: 'A',
 	bindToController: true,
-	controllerAs: '$cell',
+	controllerAs: '$toolbar',
 	controller: TdCore,
 	require: TdCore.require,
-	link: TdCore.link
+	link: TdCore.link,
+	scope: {}
 };
