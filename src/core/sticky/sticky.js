@@ -18,9 +18,6 @@ export default class Sticky {
 		this.invalidated = new Event();
 		this.head = buildHead(this);
 		this.foot = buildFoot(this);
-		// ToDo: make it private
-		this._height = 0;
-		this._oldHeight = 0;
 	}
 	
 	invalidate() {
