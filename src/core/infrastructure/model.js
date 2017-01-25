@@ -43,13 +43,13 @@ export default class Model {
 								oldValue: oldValue
 							};
 						}
+					}
 
-						if (hasChanges) {
-							event.emit({
-								state: model,
-								changes: changes
-							});
-						}
+					if (hasChanges) {
+						event.emit({
+							state: model,
+							changes: changes
+						});
 					}
 				}
 
