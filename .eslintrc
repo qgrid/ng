@@ -1,10 +1,6 @@
 {
-	"plugins": [
-		"angular"
-	],
 	"extends": [
-		"eslint:recommended",
-		"angular"
+		"eslint:recommended"
 	],
 	"rules": {
 		"indent": [
@@ -25,10 +21,6 @@
 		"semi": [
 			2,
 			"always"
-		],
-		"angular/di": [
-			2,
-			"$inject"
 		]
 	},
 	"env": {
@@ -39,15 +31,14 @@
 		"amd": true,
 		"node": true
 	},
-	"globals": {
-		"chai": false,
-		"describe": false,
-		"it": false,
-		"before": false,
-		"beforeEach": false,
-		"after": false,
-		"afterEach": false,
-		"inject": false
+	"globals" : {
+		"chai"       : false,
+		"describe"   : false,
+		"it"         : false,
+		"before"     : false,
+		"beforeEach" : false,
+		"after"      : false,
+		"afterEach"  : false
 	},
 	"parserOptions": {
 		"ecmaVersion": 6,
