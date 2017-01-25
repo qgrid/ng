@@ -2,7 +2,7 @@ import Directive from '../directive';
 import TemplateCore from '../template/template.core';
 import {VIEW_CORE_NAME, TOOLBAR_CORE_NAME} from '../../../definition';
 
-class TdCore extends Directive(TOOLBAR_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
+class ToolbarCore extends Directive(TOOLBAR_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	constructor($scope, $element, $compile, $templateCache, $attrs) {
 		super();
 
@@ -25,7 +25,7 @@ class TdCore extends Directive(TOOLBAR_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`})
 	}
 }
 
-TdCore.$inject = [
+ToolbarCore.$inject = [
 	'$scope',
 	'$element',
 	'$compile',
@@ -37,8 +37,8 @@ export default {
 	restrict: 'A',
 	bindToController: true,
 	controllerAs: '$toolbar',
-	controller: TdCore,
-	require: TdCore.require,
-	link: TdCore.link,
-	scope: {}
+	controller: ToolbarCore,
+	require: ToolbarCore.require,
+	link: ToolbarCore.link,
+	scope: true
 };

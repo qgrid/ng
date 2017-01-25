@@ -15,7 +15,7 @@ BodyCore.$inject = [];
 export default {
 	restrict: 'A',
 	bindToController: true,
-	controllerAs: 'body',
+	controllerAs: '$body',
 	controller: BodyCore,
 	require: BodyCore.require,
 	link: BodyCore.link
