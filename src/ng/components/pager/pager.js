@@ -44,6 +44,7 @@ Pager.$inject = [
 export default {
 	controller: Pager,
 	controllerAs: '$pager',
+	template: '<div></div>',
 	require: {
 		'view': `^^${VIEW_CORE_NAME}`
 	},

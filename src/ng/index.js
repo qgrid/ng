@@ -3,6 +3,7 @@ import Model from '../core/infrastructure/model';
 import Grid from './components/grid/grid';
 
 import Template from './components/template/tempate';
+import TemplatePath from './components/template/template.path';
 import Head from './components/head/head';
 import ColumnList from './components/column/column.list';
 import Column from './components/column/column';
@@ -46,12 +47,17 @@ export default angular
 	.directive(def.TOOLBAR_CORE_NAME, () => ToolbarCore)
 	.service(def.SERVICE_NAME, () => () => new Model())
 	.service(def.THEME_NAME, () => new Theme())
+	.service(def.TEMPLATE_PATH_NAME, () => new TemplatePath())
 	.filter(def.RANGE_NAME, () => Range)
 	.run(Setup)
 	.name;
 
-Setup.$inject = ['$templateCache'];
-function Setup($templateCache) {
+Setup.$inject = [
+	'$templateCache',
+	def.TEMPLATE_PATH_NAME
+];
+
+function Setup($templateCache, templatePath) {
 	$templateCache.put('qgrid.grid.tpl.html', require('./components/grid/grid.html'));
 	$templateCache.put('qgrid.view.tpl.html', require('./components/grid/view.html'));
 	$templateCache.put('qgrid.head.cell.tpl.html', require('./components/head/cell.html'));
@@ -60,4 +66,26 @@ function Setup($templateCache) {
 	$templateCache.put('qgrid.toolbar.top.tpl.html', require('./components/toolbar/toolbar.top.html'));
 	$templateCache.put('qgrid.toolbar.bottom.tpl.html', require('./components/toolbar/toolbar.bottom.html'));
 	$templateCache.put('qgrid.pager.tpl.html', require('./components/pager/pager.html'));
+
+	templatePath
+		.register(source => {
+			if (!source.column) {
+				return null;
+			}
+
+			return {
+				name: source.for,
+				key: source.column.key
+			};
+		})
+		.register(source => {
+			if (!source.toolbar) {
+				return null;
+			}
+
+			return {
+				name: 'toolbar',
+				key: source.for
+			};
+		});
 }

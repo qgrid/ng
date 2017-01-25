@@ -1,6 +1,7 @@
 export const MODULE_NAME = 'qgrid';
 
 export const SERVICE_NAME = 'qgrid';
+export const TEMPLATE_PATH_NAME = 'qgridTemplatePath';
 export const THEME_NAME = 'qgridTheme';
 export const RANGE_NAME = 'qgridRange';
 
