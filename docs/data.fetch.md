@@ -7,10 +7,23 @@ Data fetch process is going to be a pipeline of ordered operations which can be 
 Every operation gets data from previous stage and handles and passes to the next stage.
 If user wants to perform some of this actions on client-side, he modifies pipeline by adding a function to corresponding model.
 
+By default the whole pipeline is triggered when some pipeline-related property is changed (e.g. filters, order etc.).
+User also has an ability to trigger data refresh.
+
 Pipeline requires a function with following signature: `(data, model, next) => { }`
 where `data` is data array from previous stage, 
 `model` is grid model and 
-`next` is function that finishes current stage and passes data to the next one.     
+`next` is function that finishes current stage and passes data to the next one.
+
+## gridService
+
+Along with `qGridModel` `qGridService` must be exported too to encapsulate some operations on model.
+```javascript
+var model = qGridModel(),
+    service = qGridService(model);
+
+service.invalidate();
+```  
 
 ## Common cases
 1. All data is filtered and ordered on server-side.
@@ -111,4 +124,12 @@ gridModel
             }         
         ]
     });
+```
+
+User needs an ability to manually trigger data refresh:
+```javascript
+var model = qGridModel(),
+    service = qGridService(model);
+
+invalidateButton.on('click', () => service.invalidate());
 ```
