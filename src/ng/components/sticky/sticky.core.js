@@ -4,12 +4,13 @@ import Sticky from '../../../core/sticky/sticky';
 import angular from 'angular';
 
 class StickyCore extends Directive(STICKY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, viewport: `^^${VIEWPORT_CORE_NAME}`}) {
-	constructor($scope, $element, $attrs) {
+	constructor($scope, $element, $attrs, $timeout) {
 		super();
 
 		this.$scope = $scope;
 		this.$element = $element;
 		this.$attrs = $attrs;
+		this.$timeout = $timeout;
 	}
 
 	onInit() {
@@ -44,13 +45,11 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}
 		const scrollView = this.viewport.$element[0];
 		const sticky = new Sticky(table, scrollView);
 
-		sticky.invalidated.on(() => {
-			self.$scope.$apply();
-		});
+		this.view.theme.changed.on(() => self.$timeout(() => sticky.invalidate()));
 
-		this.$scope.$on('$destroy', () => {
-			sticky.destroy();
-		});
+		sticky.invalidated.on(() => self.$scope.$apply());
+
+		this.$scope.$on('$destroy', () => sticky.destroy());
 
 		const cloned = sticky[target];
 
@@ -62,7 +61,7 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}
 	}
 }
 
-StickyCore.$inject = ['$scope', '$element', '$attrs'];
+StickyCore.$inject = ['$scope', '$element', '$attrs', '$timeout'];
 
 export default {
 	restrict: 'A',

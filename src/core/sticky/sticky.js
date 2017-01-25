@@ -1,5 +1,6 @@
 import {css} from '../services/dom';
 import {debounce} from '../services/utility';
+import * as observe from '../services/observe';
 import Event from '../infrastructure/event';
 
 export default class Sticky {
@@ -69,7 +70,7 @@ function buildHead(sticky) {
 	css(header, 'position', 'absolute');
 	css(header, 'overflow-x', 'hidden');
 
-	watchChildren(sticky.origin.head, () => {
+	observe.children(sticky.origin.head, () => {
 		const stickyTh = th(header);
 		const originTh = th(sticky.origin.head);
 
@@ -81,13 +82,13 @@ function buildHead(sticky) {
 		sticky.invalidate();
 	});
 
-	watchStyle(sticky.origin.head, (oldValue, newValue) => {
+	observe.style(sticky.origin.head, (oldValue, newValue) => {
 		if (!oldValue || oldValue.width !== newValue.width) {
 			setTimeout(() => sticky.invalidate(), 0);
 		}
 	});
 
-	watchClass(sticky.scrollView, (oldValue, newValue) => {
+	observe.className(sticky.scrollView, (oldValue, newValue) => {
 		if ((oldValue || oldValue === '')
 			&& oldValue !== newValue) {
 			setTimeout(() => sticky.invalidate(), 0);
@@ -112,60 +113,6 @@ function buildFoot(sticky) {
 	}
 	const footer = sticky.origin.foot.cloneNode(true);
 	return footer;
-}
-
-function watchChildren(element, handler) {
-	const observer = new MutationObserver((mutations) => {
-		mutations.forEach((mutation) => {
-			if (mutation.removedNodes.length || mutation.addedNodes.length) {
-				handler();
-			}
-		});
-	});
-	const config = {
-		childList: true,
-		subtree: true
-	};
-	observer.observe(element, config);
-
-	return observer.disconnect;
-}
-
-function watchStyle(element, handler) {
-	const observer = new MutationObserver((mutations) => {
-		mutations.forEach((mutation) => {
-			if (mutation.attributeName) {
-				handler(mutation.oldValue, mutation.target.style);
-			}
-		});
-	});
-	const config = {
-		attributes: true,
-		attributeOldValue: true,
-		attributeFilter: ['style']
-	};
-	observer.observe(element, config);
-
-	return observer.disconnect;
-}
-
-function watchClass(element, handler) {
-	const observer = new MutationObserver((mutations) => {
-		mutations.forEach((mutation) => {
-			if (mutation.attributeName) {
-				const newValue = Array.from(mutation.target.classList).join(' ');
-				handler(mutation.oldValue, newValue);
-			}
-		});
-	});
-	const config = {
-		attributes: true,
-		attributeOldValue: true,
-		attributeFilter: ['class']
-	};
-	observer.observe(element, config);
-
-	return observer.disconnect;
 }
 
 function th(head) {
