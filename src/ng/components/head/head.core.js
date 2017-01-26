@@ -7,7 +7,6 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	}
 
 	onInit() {
-		
 	}
 }
 
@@ -19,5 +18,6 @@ export default {
 	controllerAs: '$head',
 	controller: HeadCore,
 	require: HeadCore.require,
-	link: HeadCore.link
+	link: HeadCore.link,
+	scope: true
 };
