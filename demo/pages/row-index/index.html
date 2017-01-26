@@ -1,0 +1,12 @@
+<q-grid rows="$ctrl.rows">
+	<q-grid:columns>
+		<q-grid:column key="#" title="#">
+			<q-grid:template for="body">
+				{{$cell.rowIndex + 1}}
+			</q-grid:template>
+		</q-grid:column>
+		<q-grid:column key="name.last" title="Last Name" value="$ctrl.getLastName($row)"></q-grid:column>
+		<q-grid:column key="birthday" title="Birthday"></q-grid:column>
+		<q-grid:column key="gender" title="Gender"></q-grid:column>
+	</q-grid:columns>
+</q-grid>

@@ -13,21 +13,37 @@ module.exports = webpackMerge(commonConfig, {
 			'angular-route',
 			'angular-animate',
 			'angular-aria',
-			'angular-material'
+			'angular-material',
+			'angular-sanitize'
 		]
 	},
 	devtool: 'inline-source-map',
+	devServer: {
+		compress: true,
+		hot: true,
+		publicPath: '/demo/dist'
+	},
 	output: {
 		path: path.join(__dirname, '..', 'demo', 'dist'),
-		filename: 'demo.js',
-		publicPath: '/demo/dist/'
-	},
-	eslint: {
-		failOnWarning: false,
-		failOnError: false
+		filename: '[name].js',
+		publicPath: '/demo/dist'
 	},
 	plugins: [
-		new ExtractTextPlugin('demo.css'),
-		new CommonsChunkPlugin('vendor', 'vendor.js')
+		new webpack.LoaderOptionsPlugin({
+			options: {
+				eslint: {
+					failOnWarning: false,
+					failOnError: false
+				}
+			}
+		}),
+		new ExtractTextPlugin({
+			filename: 'demo.css',
+			disable: false,
+			allChunks: true
+		}),
+		new CommonsChunkPlugin({
+			name: 'vendor'
+		})
 	]
 });

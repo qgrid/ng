@@ -1,0 +1,21 @@
+<q-grid columns="$ctrl.columns"
+		  rows="$ctrl.rows">
+	<q-grid:columns>
+		<q-grid:column key="contact.address.zip">
+			<q-grid:template for="foot" let="$ctrl">
+				<b>even zip codes count: {{$ctrl.getCountEvenZip($view.rows, $column.value)}}</b>
+			</q-grid:template>
+			<q-grid:template for="foot" let="$ctrl">
+				<b>odd zip codes count: {{$view.rows.length - $ctrl.getCountEvenZip($view.rows, $column.value)}}</b>
+			</q-grid:template>
+		</q-grid:column>
+		<q-grid:column key="gender">
+			<q-grid:template for="foot" let="$ctrl">
+				<b>male: {{100*$ctrl.getCountGender($view.rows, 'male')/$view.rows.length}}%</b>
+			</q-grid:template>
+			<q-grid:template for="foot" let="$ctrl">
+				<b>female: {{100*$ctrl.getCountGender($view.rows, 'female')/$view.rows.length}}%</b>
+			</q-grid:template>
+		</q-grid:column>
+	</q-grid:columns>
+</q-grid>

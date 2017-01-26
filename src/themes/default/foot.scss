@@ -1,0 +1,10 @@
+.qgrid.theme-default {
+	table {
+		tfoot {
+			tr > td {
+				border-top: 1px solid #000;
+				white-space: nowrap;
+			}
+		}
+	}
+}

@@ -1,0 +1,7 @@
+<md-input-container>
+	<md-select aria-label="Select theme"
+				  ng-model="$ctrl.selection"
+				  ng-change="$ctrl.select($ctrl.selection)">
+		<md-option ng-repeat="item in $ctrl.items" ng-value="item.path">{{item.label}}</md-option>
+	</md-select>
+</md-input-container>

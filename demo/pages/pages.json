@@ -20,6 +20,10 @@
 		"title": "Column"
 	},
 	{
+		"path": "row-index",
+		"title": "Row Index"
+	},
+	{
 		"path": "head",
 		"title": "Head"
 	},
@@ -30,5 +34,17 @@
 	{
 		"path": "summary",
 		"title": "Summary"
+	},
+	{
+		"path": "foot",
+		"title": "foot"
+	},
+	{
+		"path": "group",
+		"title": "group"
+	},
+	{
+		"path": "toolbar",
+		"title": "toolbar"
 	}
 ]
