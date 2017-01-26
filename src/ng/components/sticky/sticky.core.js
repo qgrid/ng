@@ -95,5 +95,6 @@ export default {
 	controllerAs: '$sticky',
 	controller: StickyCore,
 	require: StickyCore.require,
-	link: StickyCore.link
+	link: StickyCore.link,
+	scope: {}
 };

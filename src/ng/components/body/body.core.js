@@ -18,5 +18,6 @@ export default {
 	controllerAs: '$body',
 	controller: BodyCore,
 	require: BodyCore.require,
-	link: BodyCore.link
+	link: BodyCore.link,
+	scope: true
 };
