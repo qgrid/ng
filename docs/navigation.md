@@ -8,14 +8,5 @@
 controller.$inject = ['$scope'];
 function controller($scope){
 	$scope.data = [];
-	$scope.settings = {
-          navigation: {
-            {
-               key: '3',
-               action: function(options) {
-                          //smth to do
-               }
-            }
-        };
 }
 ```
