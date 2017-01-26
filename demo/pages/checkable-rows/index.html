@@ -1,0 +1,13 @@
+<q-grid columns="$ctrl.columns"
+		  rows="$ctrl.rows"
+		  selection="$ctrl.selection"
+		  selection-mode="$ctrl.selectionMode"
+		  on:selection-changed="$ctrl.selectionChanged($event)">
+	<q-grid:toolbar>
+		<q-grid:template for="top" let="$ctrl">
+			<button ng-click="$ctrl.selectAll()">Select all</button>
+			<button ng-click="$ctrl.selectTop10()">Select top 10</button>
+			<button ng-click="$ctrl.diselectAll()">Diselect all</button>
+		</q-grid:template>
+	</q-grid:toolbar>
+</q-grid>

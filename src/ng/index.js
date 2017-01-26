@@ -18,6 +18,10 @@ import BodyCore from './components/body/body.core';
 import FootCore from './components/foot/foot.core';
 import StickyCore from './components/sticky/sticky.core';
 import ToolbarCore from './components/toolbar/toolbar.core';
+import SelectionAll from './components/selection/selection.all';
+import SelectionItem from './components/selection/selection.item';
+import SelectionCore from './components/selection/selection.core';
+
 
 import Theme from './services/theme';
 import Range from './filters/range';
@@ -42,6 +46,9 @@ export default angular
 	.directive(def.FOOT_CORE_NAME, () => FootCore)
 	.directive(def.STICKY_CORE_NAME, () => StickyCore)
 	.directive(def.TOOLBAR_CORE_NAME, () => ToolbarCore)
+	.directive(def.SELECTION_ALL_NAME, () => SelectionAll)
+	.directive(def.SELECTION_ITEM_NAME, () => SelectionItem)
+	.directive(def.SELECTION_CORE_NAME, () => SelectionCore)
 	.service(def.SERVICE_NAME, () => () => new Model())
 	.service(def.THEME_NAME, () => new Theme())
 	.filter(def.RANGE_NAME, () => Range)

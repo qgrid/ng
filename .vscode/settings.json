@@ -1,0 +1,10 @@
+{
+	"vsicons.presets.angular": false,
+	"editor.quickSuggestions": true,
+	"editor.tabSize": 3,
+	"editor.detectIndentation": false,
+	"editor.insertSpaces": false,
+	"files.exclude": {
+   	"node_modules/": true
+	}
+}
