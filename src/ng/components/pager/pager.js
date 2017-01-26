@@ -17,8 +17,7 @@ class Pager extends Component {
 		const state = this.model.pager();
 		const link = this.template.link(
 			'qgrid.pager.tpl.html',
-			state.resource,
-			''
+			state.resource
 		);
 
 		link(this.$element, this.$scope);
@@ -44,7 +43,6 @@ Pager.$inject = [
 export default {
 	controller: Pager,
 	controllerAs: '$pager',
-	template: '<div></div>',
 	require: {
 		'view': `^^${VIEW_CORE_NAME}`
 	},

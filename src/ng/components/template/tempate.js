@@ -110,6 +110,7 @@ Template.$inject = [
 export default {
 	require: {
 		root: `^^${GRID_NAME}`,
+		// TODO: how we can move that to template.path?
 		column: `?^^${COLUMN_NAME}`,
 		toolbar: `?^^${TOOLBAR_NAME}`,
 		pager: `?^^${PAGER_NAME}`

@@ -87,5 +87,15 @@ function Setup($templateCache, templatePath) {
 				name: 'toolbar',
 				key: source.for
 			};
+		})
+		.register(source => {
+			if (!source.pager) {
+				return null;
+			}
+
+			return {
+				name: 'pager',
+				key: 'template'
+			}
 		});
 }
