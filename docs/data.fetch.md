@@ -10,17 +10,20 @@ If user wants to perform some of this actions on client-side, he modifies pipeli
 By default the whole pipeline is triggered when some pipeline-related property is changed (e.g. filters, order etc.).
 User also has an ability to trigger data refresh.
 
-Pipeline requires a function with following signature: `(data, model, next) => { }`
-where `data` is data array from previous stage, 
-`model` is grid model and 
-`next` is function that finishes current stage and passes data to the next one.
+Pipeline requires a function with following signature: `(data, model, next) => { }`where 
+* `data` is data array from previous stage, 
+* `context` is an event, which consists of following fields:
+    * `source` - where changes occured
+    * `model` - current qgrid model
+    * `diff` - what was changed
+* `next` is function that finishes current stage and passes data to the next one.
 
 ## gridService
 
 Along with `qGridModel` `qGridService` must be exported too to encapsulate some operations on model.
 ```javascript
-var model = qGridModel(),
-    service = qGridService(model);
+var model = qgrid.model(),
+    service = qgrid.service(model);
 
 service.invalidate();
 ```  
@@ -31,10 +34,10 @@ service.invalidate();
 gridModel
     .data({
         pipeline: [
-            (data, model, next) => {
+            (data, ctx, next) => {
                 $http({
-                    filter: model.filter,
-                    order: model.filter
+                    filter: ctx.model.filter,
+                    order: ctx.model.filter
                 })
                 .then((data) => next(data))
             }
@@ -48,15 +51,15 @@ gridModel
 gridModel
     .data({
         pipeline: [
-            (data, model, next) => {
+            (data, ctx, next) => {
                 $http({
-                    filter: model.filter,
-                    order: model.filter
+                    filter: ctx.model.filter,
+                    order: ctx.model.filter
                 })
                 .then((data) => next(data))
             },
-            qGrid.filter,
-            gGrid.order
+            qgrid.pipe.filter,
+            qgrid.pipe.order
         ]
     })
     .filter({
@@ -83,19 +86,19 @@ Such pipeline allows cache data and invalidate it using grid notifications:
 gridModel
     .data({
         pipeline: []
-            (data, model, next) => {
+            (data, ctx, next) => {
                 if (invalidate) {
                     $http({
-                        filter: model.filter,
-                        order: model.filter
+                        filter: ctx.model.filter,
+                        order: ctx.model.filter
                     })
                     .then((res) => { data = res.data; next(data); })
                 } else {
                     next(data);
                 }
             },
-            qGrid.filter,
-            gGrid.order
+            qgrid.pipe.filter,
+            qgrid.pipe.order
         ]
     })
     .order({
@@ -111,14 +114,14 @@ User can provide his own middleware by adding a function to pipeline:
 gridModel
     .data({
         pipeline: [
-            (data, model, next) => {
+            (data, ctx, next) => {
                 $http({
-                    filter: model.filter,
-                    order: model.filter
+                    filter: ctx.model.filter,
+                    order: ctx.model.filter
                 })
                 .then((res) => next(res.data))
             },
-            (data, model, next) => {
+            (data, ctx, next) => {
                 var filteredData = someFilteringFunctiono();
                 next(filteredData);
             }         
@@ -128,8 +131,8 @@ gridModel
 
 User needs an ability to manually trigger data refresh:
 ```javascript
-var model = qGridModel(),
-    service = qGridService(model);
+var model = qgrid.model(),
+    service = qgrid.service(model);
 
 invalidateButton.on('click', () => service.invalidate());
 ```
