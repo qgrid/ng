@@ -1,4 +1,4 @@
-import ModelComponent from './component';
+import ModelComponent from './model.component';
 import Error from '../../core/infrastructure/error';
 import {merge} from '../../core/services/utility';
 import TemplateCore from './template/template.core';

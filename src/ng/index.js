@@ -94,7 +94,7 @@ function Setup($templateCache, templatePath) {
 			}
 
 			return {
-				name: 'pager',
+				name: 'pagination',
 				key: 'content'
 			}
 		});
