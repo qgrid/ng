@@ -16,5 +16,6 @@ export default {
 	controllerAs: '$viewport',
 	controller: ViewportCore,
 	require: ViewportCore.require,
-	link: ViewportCore.link
+	link: ViewportCore.link,
+	scope: {}
 };

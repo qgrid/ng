@@ -10,6 +10,8 @@ class ToolbarCore extends Directive(TOOLBAR_CORE_NAME, {view: `^^${VIEW_CORE_NAM
 		this.$scope = $scope;
 		this.$attrs = $attrs;
 		this.template = new TemplateCore($compile, $templateCache);
+
+		Object.defineProperty(this.$scope, '$view', {get: () => this.view});
 	}
 
 	onInit() {
@@ -40,5 +42,5 @@ export default {
 	controller: ToolbarCore,
 	require: ToolbarCore.require,
 	link: ToolbarCore.link,
-	scope: true
+	scope: {}
 };
