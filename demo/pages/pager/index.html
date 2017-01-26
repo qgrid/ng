@@ -2,14 +2,20 @@
 		  rows="$ctrl.rows">
 	<q-grid:pager>
 		<q-grid:template>
-			<div class="cutom-pager">
-				<label class="page-size">Rows per page:</label>
-				<select class="page-size" ng-model="$pager.pageSize"
+			<div class="custom-pager">
+				<label>Rows per page:</label>
+				<select ng-model="$pager.pageSize"
 						  ng-options="pageSize for pageSize in $pager.pageSizeList">
 				</select>
-				<label class="page">{{$pager.page * $pager.pageSize + 1}}-{{$pager.math.min($pager.total, ($pager.page + 1)*$pager.pageSize)}} of {{$pager.total}}</label>
-				<button class="prev-page" ng-disabled="$pager.page === 0" ng-click="$pager.prev()">&lt;</button>
-				<button class="next-page" ng-disabled="($pager.page + 1) * $pager.pageSize >= $pager.total" ng-click="$pager.next()">&gt;</button>
+				<label>{{$pager.from}}-{{$pager.to}} of {{$pager.total}}</label>
+				<button ng-disabled="!$pager.prev.canExecute()"
+						  ng-click="$pager.prev.execute();">
+					&lt;
+				</button>
+				<button ng-disabled="!$pager.next.canExecute()"
+						  ng-click="$pager.next.execute();">
+					&gt;
+				</button>
 			</div>
 		</q-grid:template>
 	</q-grid:pager>

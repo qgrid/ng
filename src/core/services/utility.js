@@ -5,8 +5,9 @@ import isUndefined from 'lodash/isUndefined';
 import debounce from 'lodash/debounce';
 import merge from 'lodash/merge';
 
-const noop = () => {
-};
+const noop = () => {};
+const yes = () => true;
+const no = () => false;
 
 const toCamelCase = (...names) => {
 	const length = names.length;
@@ -28,6 +29,8 @@ export {
 	clone,
 	debounce,
 	merge,
+	yes,
+	no,
 	toCamelCase,
 	noop
 };

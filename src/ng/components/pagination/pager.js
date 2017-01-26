@@ -1,11 +1,22 @@
 import PluginComponent from '../plugin.component';
+import Command from '../../../core/infrastructure/command'
 
 class Pager extends PluginComponent('qgrid.pager.tpl.html', ['pager']) {
 	constructor() {
 		super(...arguments);
 
-		this.math = Math;
+		const ctrl = this;
 		this._page = 0; // while don't have vscroll
+
+		this.next = new Command({
+			execute: () => ctrl.page = ctrl.page + 1,
+			canExecute: () => (ctrl.page + 1) * ctrl.pageSize < ctrl.total
+		});
+
+		this.prev = new Command({
+			execute: () => ctrl.page = ctrl.page - 1,
+			canExecute: () => ctrl.page > 0
+		});
 	}
 
 	get resource() {
@@ -32,16 +43,16 @@ class Pager extends PluginComponent('qgrid.pager.tpl.html', ['pager']) {
 		this._page = value;
 	}
 
+	get from() {
+		return this.page * this.pageSize + 1;
+	}
+
+	get to() {
+		return Math.min(this.total, (this.page + 1) * this.pageSize)
+	}
+
 	get total() {
 		return this.model.view().rows.length;
-	}
-
-	next() {
-		this.page = this.page + 1;
-	}
-
-	prev() {
-		this.page = this.page - 1;
 	}
 }
 
