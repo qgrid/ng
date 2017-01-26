@@ -1,5 +1,5 @@
 import {css} from '../services/dom';
-import {debounce} from '../services/utility';
+import * as observe from '../services/dom.observe';
 import Event from '../infrastructure/event';
 
 export default class Sticky {
@@ -17,8 +17,6 @@ export default class Sticky {
 		this.invalidated = new Event();
 		this.head = buildHead(this);
 		this.foot = buildFoot(this);
-		// ToDo: make it private
-		this.height = 0;
 	}
 	
 	invalidate() {
@@ -28,14 +26,13 @@ export default class Sticky {
 		css(this.head, 'max-width', style.width);
 
 		const tableStyle = window.getComputedStyle(this.table);
-		const tableOffset = parseInt(tableStyle.paddingTop, 10);
+		const tableOffset = parseInt(tableStyle.paddingTop || 0, 10);
 		const offset = this.origin.head.offsetHeight;
 
-		if (!this.height) {
-			this.height = parseInt(window.getComputedStyle(this.scrollView).height, 10);
-		}
+		css(this.scrollView, 'height', '100%');
+		const height = parseInt(window.getComputedStyle(this.scrollView).height);
+		css(this.scrollView, 'height', `${height - offset - tableOffset}px`);
 
-		css(this.scrollView, 'height', `${this.height - offset - tableOffset}px`);
 		css(this.scrollView, 'margin-top', `${offset + tableOffset}px`);
 		css(this.head, 'margin-top', `-${offset}px`);
 		css(this.table, 'margin-top', `-${offset + tableOffset}px`);
@@ -69,38 +66,33 @@ function buildHead(sticky) {
 	css(header, 'position', 'absolute');
 	css(header, 'overflow-x', 'hidden');
 
-	watchChildren(sticky.origin.head, () => {
-		const stickyTh = th(header);
-		const originTh = th(sticky.origin.head);
+	observe.children(sticky.origin.head)
+		.on(() => {
+			const stickyTh = th(header);
+			const originTh = th(sticky.origin.head);
 
-		stickyTh.forEach(column => column.remove());
-		originTh.forEach(column => {
-			const clone = column.cloneNode(true);
-			header.querySelector('tr').appendChild(clone);
+			stickyTh.forEach(column => column.remove());
+			originTh.forEach(column => {
+				const clone = column.cloneNode(true);
+				header.querySelector('tr').appendChild(clone);
+			});
+			sticky.invalidate();
 		});
-		sticky.invalidate();
-	});
 
-	watchStyle(sticky.origin.head, (oldValue, newValue) => {
-		if (!oldValue || oldValue.width !== newValue.width) {
-			setTimeout(() => sticky.invalidate(), 0);
-		}
-	});
+	observe.style(sticky.origin.head)
+		.on(e => {
+			if (!e.oldValue || e.oldValue.width !== e.newValue.width) {
+				setTimeout(() => sticky.invalidate(), 0);
+			}
+		});
 
-	watchClass(sticky.scrollView, (oldValue, newValue) => {
-		if ((oldValue || oldValue === '')
-			&& oldValue !== newValue) {
-			setTimeout(() => sticky.invalidate(), 0);
-		}
-	});
-
-	sticky.scrollView.addEventListener('scroll', () => {
-		header.scrollLeft = sticky.scrollView.scrollLeft;
-	});
-
-	window.addEventListener('resize', () => {
-		debounce(() => sticky.invalidate(), 200)();
-	});
+	observe.className(sticky.scrollView)
+		.on(e => {
+			if ((e.oldValue || e.oldValue === '')
+				&& e.oldValue !== e.newValue) {
+				setTimeout(() => sticky.invalidate(), 0);
+			}
+		});
 
 	return header;
 }
@@ -112,60 +104,6 @@ function buildFoot(sticky) {
 	}
 	const footer = sticky.origin.foot.cloneNode(true);
 	return footer;
-}
-
-function watchChildren(element, handler) {
-	const observer = new MutationObserver((mutations) => {
-		mutations.forEach((mutation) => {
-			if (mutation.removedNodes.length || mutation.addedNodes.length) {
-				handler();
-			}
-		});
-	});
-	const config = {
-		childList: true,
-		subtree: true
-	};
-	observer.observe(element, config);
-
-	return observer.disconnect;
-}
-
-function watchStyle(element, handler) {
-	const observer = new MutationObserver((mutations) => {
-		mutations.forEach((mutation) => {
-			if (mutation.attributeName) {
-				handler(mutation.oldValue, mutation.target.style);
-			}
-		});
-	});
-	const config = {
-		attributes: true,
-		attributeOldValue: true,
-		attributeFilter: ['style']
-	};
-	observer.observe(element, config);
-
-	return observer.disconnect;
-}
-
-function watchClass(element, handler) {
-	const observer = new MutationObserver((mutations) => {
-		mutations.forEach((mutation) => {
-			if (mutation.attributeName) {
-				const newValue = Array.from(mutation.target.classList).join(' ');
-				handler(mutation.oldValue, newValue);
-			}
-		});
-	});
-	const config = {
-		attributes: true,
-		attributeOldValue: true,
-		attributeFilter: ['class']
-	};
-	observer.observe(element, config);
-
-	return observer.disconnect;
 }
 
 function th(head) {
