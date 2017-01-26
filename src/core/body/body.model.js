@@ -1,7 +1,7 @@
-'use strict';
+import Resource from '../resource/resource';
 
 export default class BodyModel {
 	constructor() {
-		this.resource = {};
+		this.resource = new Resource();
 	}
 }

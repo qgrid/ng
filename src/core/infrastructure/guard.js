@@ -8,7 +8,7 @@ import {isUndefined} from '../services/utility';
  */
 export function notUndefined(value, name){
 	if (isUndefined(value)) {
-		throw new Error('guard', name);
+		throw new Error('guard.notUndefined', name);
 	}
 }
 
@@ -20,7 +20,7 @@ export function notUndefined(value, name){
  */
 export function notNull(value, name){
 	if (value === null || isUndefined(value)) {
-		throw new Error('guard', name);
+		throw new Error('guard.notNull', name);
 	}
 }
 
@@ -31,6 +31,6 @@ export function notNull(value, name){
  */
 export function notNullOrEmpty(value, name){
 	if (value === null || isUndefined(value) || value === '') {
-		throw new Error('guard', name);
+		throw new Error('guard.notNullOrEmpty', name);
 	}
 }

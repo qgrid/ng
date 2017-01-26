@@ -14,6 +14,10 @@ html, body {
 	width: 36px;
 }
 
+md-sidenav {
+	width: 200px !important;
+}
+
 md-toolbar h1 {
 	margin: auto;
 	font-size: 1.250em;
@@ -49,12 +53,5 @@ md-toolbar h1 {
 
 	::-webkit-scrollbar-corner {
 		background-color: transparent;
-	}
-}
-
-.qgrid {
-	margin: 0px -10px;
-	table {
-		padding: 10px 10px 10px 40px;
 	}
 }

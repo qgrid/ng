@@ -50,38 +50,43 @@ module.exports = {
 	 */
 	devtool: 'source-map',
 	module: {
-		preLoaders: [
+		rules: [
 			{
+				enforce: 'pre',
 				test: /\.js?$/,
-				loader: 'eslint',
+				loader: 'eslint-loader',
 				exclude: /node_modules/
-			}
-		],
-		loaders: [
+			},
 			{
 				test: /\.js$/,
 				loader: 'babel-loader',
-				exclude: /node_modules/,
-				query: {
-					presets: ['es2015']
-				}
+				exclude: /node_modules/
 			},
 			{
 				test: /\.scss$/,
-				loader: ExtractTextPlugin.extract('style-loader', 'css-loader!sass-loader')
+				loader: ExtractTextPlugin.extract({
+					fallbackLoader: 'style-loader',
+					loader: [
+						{
+							loader: 'css-loader',
+						}, {
+							loader: 'sass-loader'
+						}],
+				})
 			},
 			{
 				test: /\.css$/,
-				loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
+				loader: ExtractTextPlugin.extract({
+					fallbackLoader: 'style-loader',
+					loader: [
+						{
+							loader: 'css-loader',
+						}],
+				})
 			},
 			{
 				test: /\.html$/,
-				loader: 'raw'
-			},
-			{
-				test: /\.json$/,
-				exclude: /node_modules/,
-				loader: 'json'
+				loader: 'raw-loader'
 			},
 			{// inline base64 URLs for <=8k images, direct URLs for the rest
 				test: /\.(png|jpg)$/,
@@ -108,9 +113,5 @@ module.exports = {
 				loader: 'url?limit=10000&minetype=image/svg+xml'
 			}
 		],
-	},
-	eslint: {
-		failOnWarning: false,
-		failOnError: true
 	}
 };

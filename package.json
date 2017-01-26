@@ -5,7 +5,7 @@
   "main": "dist/qgrid.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/klumba12/qgrid.git"
+    "url": "git+https://github.com/qgrid/ng/.git"
   },
   "keywords": [
     "angular",
@@ -17,9 +17,9 @@
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/klumba12/qgrid/issues"
+    "url": "https://github.com/qgrid/ng/issues"
   },
-  "homepage": "https://github.com/klumba12/qgrid#readme",
+  "homepage": "https://github.com/qgrid/ng#readme",
   "dependencies": {
     "angular": "^1.6.1"
   },
@@ -35,46 +35,46 @@
         "es2015"
       ]
     },
-    "babel-core": "6.3.26",
-    "babel-loader": "6.1.0",
-    "babel-polyfill": "6.3.14",
-    "babel-preset-es2015": "6.1.18",
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
+    "babel-polyfill": "^6.22.0",
+    "babel-preset-es2015": "^6.22.0",
     "chai": "^3.5.0",
     "css-loader": "^0.26.0",
-    "eslint": "1.7.3",
-    "eslint-config-angular": "0.4.0",
+    "eslint": "^3.14.0",
+    "eslint-config-angular": "^0.5.0",
     "eslint-loader": "^1.6.1",
-    "eslint-plugin-angular": "0.12.0",
-    "extract-text-webpack-plugin": "*",
+    "eslint-plugin-angular": "^1.6.1",
+    "extract-text-webpack-plugin": "^2.0.0-beta.5",
     "file-loader": "^0.9.0",
     "gh-pages": "^0.12.0",
     "html-loader": "^0.4.4",
     "html-webpack-plugin": "^2.21.0",
-    "imports-loader": "^0.6.5",
+    "imports-loader": "^0.7.0",
     "json-loader": "^0.5.4",
     "karma": "^1.2.0",
-    "karma-chai": "0.1.0",
+    "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^2.0.0",
-    "karma-mocha": "1.1.1",
-    "karma-mocha-reporter": "^2.0.0",
+    "karma-mocha": "^1.3.0",
+    "karma-mocha-reporter": "^2.2.2",
     "karma-sourcemap-loader": "^0.3.7",
-    "karma-webpack": "1.8.0",
+    "karma-webpack": "^2.0.1",
     "link": "^0.1.5",
     "lodash": "^4.17.4",
-    "mocha": "~2.3.0",
+    "mocha": "^3.2.0",
     "node-sass": "^4.1.1",
     "prismjs": "^1.6.0",
     "raw-loader": "0.5.1",
     "rimraf": "~2.5.2",
     "sass-loader": "^4.1.1",
-    "script-loader": "~0.6.1",
+    "script-loader": "^0.7.0",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
-    "webpack": "~1.14.0",
+    "webpack": "^2.2.0",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-dev-server": "^1.16.2",
     "webpack-md5-hash": "^0.0.5",
-    "webpack-merge": "~1.0.1"
+    "webpack-merge": "^2.4.0"
   },
   "scripts": {
     "analyze": "webpack --json | webpack-bundle-size-analyzer",
@@ -87,6 +87,6 @@
     "test": "karma start",
     "test:debug": "karma start karma.conf.js --log-level=debug --single-run=False",
     "test:watch": "karma start karma.conf.js --auto-watch=true --single-run=False",
-    "publish": "npm run test && node ./scripts/remove.js ./demo/dist && npm run build:demo && node ./scripts/publish.js"
+    "publish": "npm run test && node ./scripts/remove.js ./demo/dist && npm run build:demo && node ./scripts/publish.js && node ./scripts/remove.js ./demo/dist"
   }
 }

@@ -1,22 +1,2 @@
 .qgrid.theme-default {
-	max-height: 100%;
-	overflow: auto;
-
-	> table {
-		thead {
-			tr > th {
-				border-bottom: 1px solid #000;
-				white-space: nowrap;
-			}
-		}
-
-		tbody {
-			overflow-y: auto;
-			overflow-x: scroll;
-		}
-
-		tfoot {
-
-		}
-	}
 }

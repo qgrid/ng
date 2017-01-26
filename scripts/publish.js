@@ -1,5 +1,3 @@
-'use strict';
-
 const fs = require('fs');
 const path = require('path');
 const ghpages = require('gh-pages');
@@ -22,8 +20,8 @@ function main() {
 
 	ghpages.publish(dir, {
 		user: {
-			name: 'Dmitry Sitnov',
-			email: 'dimitry.sitnov@gmail.com'
+			name: 'qgrid',
+			email: 'qgrid.team@gmail.com'
 		},
 		message: '(deploy): CI',
 		logger: function (message) {

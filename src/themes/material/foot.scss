@@ -1,0 +1,30 @@
+@import "body";
+
+.qgrid.theme-material {
+	.viewport {
+		table {
+			tfoot {
+				> tr {
+					height: $row-height;
+
+					td {
+						color: $dark;
+						font-size: 13px;
+						border-top: 1px $dark-divider solid;
+
+						vertical-align: middle;
+						text-align: left;
+
+						> * {
+							vertical-align: middle;
+						}
+
+						&:last-child {
+							padding: 0 24px 0 0;
+						}
+					}
+				}
+			}
+		}
+	}
+}
