@@ -20,6 +20,10 @@
 		"title": "Column"
 	},
 	{
+		"path": "column-add",
+		"title": "Column Add"
+	},
+	{
 		"path": "row-index",
 		"title": "Row Index"
 	},
