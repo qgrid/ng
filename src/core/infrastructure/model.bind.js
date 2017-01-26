@@ -1,5 +1,4 @@
 import {noop, toCamelCase, isUndefined} from '../services/utility';
-import Error from '../infrastructure/error';
 
 export default class ModelBinder {
 	constructor(source) {
@@ -17,9 +16,14 @@ export default class ModelBinder {
 				const doBind = e => {
 					for (let key of Object.keys(e.changes)) {
 						const sourceKey = toCamelCase(name, key);
-						if (source.hasOwnProperty(sourceKey)) {
-							source[sourceKey] = e.changes[key].newValue;
+						if (!source.hasOwnProperty(sourceKey)) {
+							throw new Error(
+								`model.${name}`,
+								`"${key}" is not a valid key, only [${Object.keys(source).join(', ')}] keys are supported`
+							);
 						}
+
+						source[sourceKey] = e.changes[key].newValue;
 					}
 				};
 
