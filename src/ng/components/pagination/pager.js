@@ -1,7 +1,7 @@
 import PluginComponent from '../plugin.component';
 import Command from '../../../core/infrastructure/command'
 
-class Pager extends PluginComponent('qgrid.pager.tpl.html', ['pager']) {
+class Pager extends PluginComponent('qgrid.pager.tpl.html', ['pagination']) {
 	constructor() {
 		super(...arguments);
 
@@ -9,46 +9,46 @@ class Pager extends PluginComponent('qgrid.pager.tpl.html', ['pager']) {
 		this._page = 0; // while don't have vscroll
 
 		this.next = new Command({
-			execute: () => ctrl.page = ctrl.page + 1,
-			canExecute: () => (ctrl.page + 1) * ctrl.pageSize < ctrl.total
+			execute: () => ctrl.current = ctrl.current + 1,
+			canExecute: () => (ctrl.current + 1) * ctrl.size < ctrl.total
 		});
 
 		this.prev = new Command({
-			execute: () => ctrl.page = ctrl.page - 1,
-			canExecute: () => ctrl.page > 0
+			execute: () => ctrl.current = ctrl.current - 1,
+			canExecute: () => ctrl.current > 0
 		});
 	}
 
 	get resource() {
-		return this.model.pager().resource;
+		return this.model.pagination().resource;
 	}
 
-	get pageSize() {
-		return this.model.pager().pageSize;
+	get size() {
+		return this.model.pagination().size;
 	}
 
-	set pageSize(value) {
-		this.model.pager({pageSize: value});
+	set size(value) {
+		this.model.pagination({size: value});
 	}
 
-	get pageSizeList() {
-		return this.model.pager().pageSizeList;
+	get sizeList() {
+		return this.model.pagination().sizeList;
 	}
 
-	get page() {
+	get current() {
 		return this._page;
 	}
 
-	set page(value) {
+	set current(value) {
 		this._page = value;
 	}
 
 	get from() {
-		return this.page * this.pageSize + 1;
+		return Math.min(this.total, this.current * this.size + 1);
 	}
 
 	get to() {
-		return Math.min(this.total, (this.page + 1) * this.pageSize)
+		return Math.min(this.total, (this.current + 1) * this.size)
 	}
 
 	get total() {
@@ -60,7 +60,7 @@ export default Pager.component({
 	controller: Pager,
 	controllerAs: '$pager',
 	bindings: {
-		'pagerPageSize': '<pageSize',
-		'pagerPageSizeList': '<pageSizeList'
+		'paginationSize': '<size',
+		'paginationSizeList': '<sizeList'
 	}
 });

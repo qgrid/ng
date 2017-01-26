@@ -7,7 +7,7 @@ import SelectionModel from './core/grid/selection.model';
 import FootModel from './core/foot/foot.model';
 import GroupModel from './core/group/group.model';
 import ToolbarModel from './core/toolbar/toolbar.model';
-import PagerModel from './core/pagination/pager.model';
+import PaginationModel from './core/pagination/pagination.model';
 import ng from './ng';
 
 Model.register('view', ViewModel)
@@ -18,6 +18,6 @@ Model.register('view', ViewModel)
 	.register('foot', FootModel)
 	.register('group', GroupModel)
 	.register('toolbar', ToolbarModel)
-	.register('pager', PagerModel);
+	.register('pagination', PaginationModel);
 
 export default ng;
