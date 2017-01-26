@@ -2,11 +2,11 @@ import {TEMPLATE_NAME} from '../../../definition';
 
 export default class TemplatePath {
 	constructor() {
-		this.visitors = [];
+		this.resolvers = [];
 	}
 
-	register(visit) {
-		this.visitors.push(visit);
+	register(resolver) {
+		this.resolvers.push(resolver);
 		return this;
 	}
 
@@ -22,8 +22,8 @@ export default class TemplatePath {
 	}
 
 	find(source) {
-		for (let visit of this.visitors) {
-			const path = visit(source);
+		for (let resolve of this.resolvers) {
+			const path = resolve(source);
 			if (path) {
 				return path;
 			}
