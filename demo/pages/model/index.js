@@ -1,5 +1,3 @@
-'use strict';
-
 Controller.$inject = ['$http', 'qgrid', '$log'];
 export default function Controller($http, qgrid, $log) {
 	const ctrl = this;
@@ -67,8 +65,8 @@ export default function Controller($http, qgrid, $log) {
 	ctrl.gridModel
 		.selectionChanged
 		.on(function (e) {
-			if(e.changes.items) {
-				$log.log(`qgrid.demo: selection changed ${e.changes.items.length} on ${e.state.mode} mode`);
+			if (e.changes.hasOwnProperty('items')) {
+				$log.log(`qgrid.demo: selection changed ${e.changes.items.newValue.length} on ${e.state.mode} mode`);
 			}
 		});
 

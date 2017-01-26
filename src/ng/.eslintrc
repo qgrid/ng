@@ -1,0 +1,18 @@
+{
+	"plugins": [
+		"angular"
+	],
+	"extends": [
+		"eslint:recommended",
+		"angular"
+	],
+	"rules": {
+		"angular/di": [
+			2,
+			"$inject"
+		]
+	},
+	"globals": {
+		"inject": false
+	}
+}

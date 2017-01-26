@@ -10,7 +10,7 @@ export default function Run($rootScope, $location) {
 		});
 
 	const routChangeOff =
-		$rootScope.$on("$routeChangeSuccess", () => $location.search(search));
+		$rootScope.$on('$routeChangeSuccess', () => $location.search(search));
 
 	$rootScope.$on('$destroy', () => {
 		locationChangedOff();

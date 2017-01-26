@@ -1,9 +1,8 @@
-'use strict';
-
 import isObject from 'lodash/isObject';
 import isFunction from 'lodash/isFunction';
 import clone from 'lodash/clone';
 import isUndefined from 'lodash/isUndefined';
+import debounce from 'lodash/debounce';
 
 const noop = () => {
 };
@@ -26,6 +25,7 @@ export {
 	isFunction,
 	isUndefined,
 	clone,
+	debounce,
 	toCamelCase,
 	noop
 };

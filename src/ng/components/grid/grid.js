@@ -41,7 +41,7 @@ Grid.$inject = ['$element', '$transclude'];
  */
 export default {
 	transclude: true,
-	templateUrl: 'qgrid.tpl.html',
+	templateUrl: 'qgrid.grid.tpl.html',
 	controller: Grid,
 	controllerAs: '$grid',
 	bindings: {

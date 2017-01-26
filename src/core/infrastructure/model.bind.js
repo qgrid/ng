@@ -1,5 +1,3 @@
-'use strict';
-
 import {noop, toCamelCase, isUndefined} from '../services/utility';
 
 export default class ModelBinder {
@@ -25,7 +23,7 @@ export default class ModelBinder {
 							);
 						}
 
-						source[sourceKey] = e.changes[key];
+						source[sourceKey] = e.changes[key].newValue;
 					}
 				};
 

@@ -6,6 +6,6 @@ export default angular
 	.run(Setup)
 	.name;
 
-Setup.$inject = ['$templateCache'];
+Setup.$inject = [];
 function Setup(/*$templateCache*/) {
 }
