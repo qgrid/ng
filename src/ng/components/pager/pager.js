@@ -1,55 +1,20 @@
-import Component from '../component';
-import Error from '../../../core/infrastructure/error';
-import TemplateCore from '../template/template.core';
-import {VIEW_CORE_NAME, GRID_NAME} from '../../../definition';
+import PluginComponent from '../plugin.component';
 
-class Pager extends Component {
-	constructor($scope, $element, $compile, $templateCache) {
-		super();
-
-		this.$scope = $scope;
-		this.$element = $element;
-
-		this.template = new TemplateCore($compile, $templateCache);
+class Pager extends PluginComponent('qgrid.pager.tpl.html', ['pager']) {
+	constructor() {
+		super(...arguments);
 	}
 
-	onInit() {
-		if(this.view) {
-			const state = this.model.pager();
-			const link = this.template.link(
-				'qgrid.pager.tpl.html',
-				state.resource
-			);
-
-			link(this.$element, this.$scope);
-		}
-	}
-
-	get model() {
-		const model = this.gridModel || (this.view && this.view.model) || (this.root && this.root.model);
-		if (!model) {
-			throw new Error('pager', 'Model is not defined');
-		}
-
-		return model;
+	get resource() {
+		return this.model.pager().resource;
 	}
 }
 
-Pager.$inject = [
-	'$scope',
-	'$element',
-	'$compile',
-	'$templateCache'
-];
-
-export default {
+export default Pager.component({
 	controller: Pager,
 	controllerAs: '$pager',
-	require: {
-		'view': `^^?${VIEW_CORE_NAME}`,
-		'root': `^^?${GRID_NAME}`
-	},
 	bindings: {
-		'gridModel': '<model'
+		'pagerPageSize': '<pageSize',
+		'pagerPageSizeList': '<pageSizeList'
 	}
-}
+});

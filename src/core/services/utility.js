@@ -3,6 +3,7 @@ import isFunction from 'lodash/isFunction';
 import clone from 'lodash/clone';
 import isUndefined from 'lodash/isUndefined';
 import debounce from 'lodash/debounce';
+import merge from 'lodash/merge';
 
 const noop = () => {
 };
@@ -26,6 +27,7 @@ export {
 	isUndefined,
 	clone,
 	debounce,
+	merge,
 	toCamelCase,
 	noop
 };
