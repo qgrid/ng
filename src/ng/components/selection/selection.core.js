@@ -1,9 +1,9 @@
 import Directive from '../directive';
-import {GRID_NAME, SELECTION_CORE_NAME} from '../../../definition';
+import {VIEW_CORE_NAME, SELECTION_CORE_NAME} from '../../../definition';
 import Event from '../../../core/infrastructure/event';
 //import angular from 'angular';
 
-class SelectionCore extends Directive(SELECTION_CORE_NAME, {'root': `^^${GRID_NAME}`}) {
+class SelectionCore extends Directive(SELECTION_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	constructor($scope, $element, $attrs) {
 		super();
 
@@ -15,48 +15,34 @@ class SelectionCore extends Directive(SELECTION_CORE_NAME, {'root': `^^${GRID_NA
 		this.selectionChanged = new Event();
 	}
 
-	get model() {
-		return this.root.model;
-	}
-
-	get rows() {
-		return this.model.data().rows;
-	}
-
 	onInit() {
-		this.model.dataChanged.on(e => {
+		this.view.model.dataChanged.on(e => {
 			if (e.changes.hasOwnProperty('rows')) {
-				this.selectedItems.clear();
+				this.selectedItems = new Set();
 			}
 		});
 
-		this.model.selectionChanged.on(e => {
+		this.view.model.selectionChanged.on(e => {
 			if (e.changes.hasOwnProperty('items')) {
 				this.selectedItems = new Set(e.state.items);
-				this.emitSelectionChanged();
 			}
 		});
 	}
 
-	get selectAllState() {
-		const rows = this.rows;
-		const rowsCount = rows ? rows.length : 0;
+	state(row) {
+		if (!row) {
+			return this.selectedItems.size === this.view.rows.length;
+		}
 
-		return this.selectedItems.size === rowsCount && rowsCount > 0;
+		return this.selectedItems.has(row);
 	}
 
-	emitSelectionChanged() {
-		this.selectionChanged.emit({
-			selected: this.selectedItems,
-			selectAllState: this.selectAllState
-		});
+	indeterminate() {
+		return this.selectedItems.size !== this.view.rows.length && this.selectedItems.size > 0;
 	}
 
 	updateSelection() {
-
-		this.emitSelectionChanged();
-
-		const selection = this.model.selection;
+		const selection = this.view.model.selection;
 
 		selection({
 			items: Array.from(this.selectedItems)
@@ -75,10 +61,10 @@ class SelectionCore extends Directive(SELECTION_CORE_NAME, {'root': `^^${GRID_NA
 	}
 
 	toggleAll() {
-		if (this.selectAllState) {
+		if (this.state()) {
 			this.selectedItems.clear();
 		} else {
-			this.selectedItems = new Set(this.rows);
+			this.selectedItems = new Set(this.view.rows);
 		}
 
 		this.updateSelection();
@@ -89,9 +75,8 @@ SelectionCore.$inject = ['$scope', '$element', '$attrs'];
 
 export default {
 	restrict: 'A',
-	scope: true,
 	bindToController: true,
-	controllerAs: '$selectionCore',
+	controllerAs: '$selection',
 	controller: SelectionCore,
 	require: SelectionCore.require,
 	link: SelectionCore.link

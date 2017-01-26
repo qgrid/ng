@@ -3,6 +3,7 @@
 		  selection="$ctrl.selection"
 		  selection-mode="$ctrl.selectionMode"
 		  on:selection-changed="$ctrl.selectionChanged($event)">
+	<q-grid:head sticky="false"></q-grid:head>
 	<q-grid:toolbar>
 		<q-grid:template for="top" let="$ctrl">
 			<button ng-click="$ctrl.selectAll()">Select all</button>
