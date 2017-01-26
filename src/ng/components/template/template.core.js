@@ -6,7 +6,7 @@ export default class TemplateCore {
 		this.$templateCache = $templateCache;
 	}
 
-	link(templateUrl, resource, key = 'template') {
+	link(templateUrl, resource, key = 'content') {
 		const resourceData = resource.data;
 		const template = resourceData.hasOwnProperty(key)
 			? resourceData[key]
@@ -27,7 +27,7 @@ export default class TemplateCore {
 				scope[name] = resourceScope[name];
 			}
 
-			 element.html('<!--qgrid: template-->' + template);
+			element.html('<!--qgrid: template-->' + template);
 			const linkTo = this.$compile(element.contents());
 			linkTo(scope);
 		};

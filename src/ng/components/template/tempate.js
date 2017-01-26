@@ -51,7 +51,7 @@ class Template extends Component {
 				`Ambiguous key "${key}" for "${path.name}"`);
 		}
 
-		resourceData[key] = this.$element[0].innerHTML;
+		resourceData[key] = this.$element[0].innerHTML || this.$element[0].textContent;
 		const resourceScope = {};
 		if (!isUndefined(this.let)) {
 			if (isUndefined(this.$scope[this.let])) {
