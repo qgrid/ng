@@ -7,7 +7,7 @@ import SelectionModel from './core/grid/selection.model';
 import FootModel from './core/foot/foot.model';
 import GroupModel from './core/group/group.model';
 import ToolbarModel from './core/toolbar/toolbar.model';
-import PagerModel from './core/pager/pager.model';
+import PagerModel from './core/pagination/pager.model';
 import ng from './ng';
 
 Model.register('view', ViewModel)

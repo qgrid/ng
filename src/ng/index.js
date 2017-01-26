@@ -8,7 +8,7 @@ import Head from './components/head/head';
 import ColumnList from './components/column/column.list';
 import Column from './components/column/column';
 import Toolbar from './components/toolbar/toolbar';
-import Pager from './components/pager/pager';
+import Pager from './components/pagination/pager';
 
 import ViewCore from './components/grid/view.core';
 import ViewportCore from './components/grid/viewport.core';
@@ -65,7 +65,7 @@ function Setup($templateCache, templatePath) {
 	$templateCache.put('qgrid.foot.cell.tpl.html', require('./components/foot/cell.html'));
 	$templateCache.put('qgrid.toolbar.top.tpl.html', require('./components/toolbar/toolbar.top.html'));
 	$templateCache.put('qgrid.toolbar.bottom.tpl.html', require('./components/toolbar/toolbar.bottom.html'));
-	$templateCache.put('qgrid.pager.tpl.html', require('./components/pager/pager.html'));
+	$templateCache.put('qgrid.pager.tpl.html', require('./components/pagination/pager.html'));
 
 	templatePath
 		.register(source => {
