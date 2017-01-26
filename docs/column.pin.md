@@ -7,6 +7,6 @@
 ```javascript
 controller.$inject = ['$scope'];
 function controller($scope){
-  $scope.data = [];
+	$scope.data = [];
 }
 ```
