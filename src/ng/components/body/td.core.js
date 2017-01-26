@@ -10,6 +10,8 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 		this.$element = $element;
 		this.$scope = $scope;
 		this.template = new TemplateCore($compile, $templateCache);
+
+		Object.defineProperty(this.$scope, '$view', {get: () => this.view});
 	}
 
 	onInit() {

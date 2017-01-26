@@ -2,11 +2,14 @@ import Directive from '../directive';
 import {VIEW_CORE_NAME, FOOT_CORE_NAME} from '../../../definition';
 
 class FootCore extends Directive(FOOT_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
-	constructor() {
+	constructor($scope) {
 		super();
+
+		this.$scope = $scope;
 	}
 
 	onInit() {
+		this.$scope.$view = this.view;
 	}
 
 	get count() {
@@ -15,7 +18,7 @@ class FootCore extends Directive(FOOT_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	}
 }
 
-FootCore.$inject = [];
+FootCore.$inject = ['$scope'];
 
 export default {
 	restrict: 'A',
@@ -23,5 +26,6 @@ export default {
 	controllerAs: '$foot',
 	controller: FootCore,
 	require: FootCore.require,
-	link: FootCore.link
+	link: FootCore.link,
+	scope: true
 };

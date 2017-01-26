@@ -4,12 +4,14 @@ import Sticky from '../../../core/sticky/sticky';
 import angular from 'angular';
 
 class StickyCore extends Directive(STICKY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, viewport: `^^${VIEWPORT_CORE_NAME}`}) {
-	constructor($scope, $element, $attrs) {
+	constructor($scope, $element, $attrs, $timeout, $window) {
 		super();
 
 		this.$scope = $scope;
 		this.$element = $element;
 		this.$attrs = $attrs;
+		this.$timeout = $timeout;
+		this.$window = $window;
 	}
 
 	onInit() {
@@ -44,14 +46,7 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}
 		const scrollView = this.viewport.$element[0];
 		const sticky = new Sticky(table, scrollView);
 
-		sticky.invalidated.on(() => {
-			self.$scope.$apply();
-		});
-
-		this.$scope.$on('$destroy', () => {
-			sticky.destroy();
-		});
-
+		// this.view.theme.changed.on(() => self.$timeout(() => sticky.invalidate()));
 		const cloned = sticky[target];
 
 		const originElement = angular.element(sticky.origin[target]);
@@ -59,10 +54,40 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}
 		clonedElement.removeAttr(`q-grid-core:${target}`);
 		originElement.after(clonedElement);
 		originElement.css('visibility', 'hidden');
+
+		const unwatches = [];
+		unwatches.push(this.view.theme.changed.on(
+			() => self.$timeout(() => sticky.invalidate())
+		));
+
+		unwatches.push(this.view.model.dataChanged.on(
+			() => self.$timeout(() => sticky.invalidate())
+		));
+
+		unwatches.push(sticky.invalidated.on(
+			() => self.$scope.$apply()
+		));
+
+		const onScroll = () => sticky.head.scrollLeft = sticky.scrollView.scrollLeft;
+		sticky.scrollView.addEventListener('scroll', onScroll);
+
+		const onResize = () => sticky.invalidate();
+		this.$window.addEventListener('resize', onResize);
+
+		this.$scope.$on('$destroy', () => {
+			unwatches.forEach(u => u());
+			sticky.scrollView.removeEventListener('scroll', onScroll);
+			self.$window.removeEventListener('resize', onResize);
+			sticky.destroy();
+		});
 	}
 }
 
-StickyCore.$inject = ['$scope', '$element', '$attrs'];
+StickyCore.$inject = ['$scope',
+	'$element',
+	'$attrs',
+	'$timeout',
+	'$window'];
 
 export default {
 	restrict: 'A',
@@ -70,5 +95,6 @@ export default {
 	controllerAs: '$sticky',
 	controller: StickyCore,
 	require: StickyCore.require,
-	link: StickyCore.link
+	link: StickyCore.link,
+	scope: {}
 };
