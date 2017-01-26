@@ -4,13 +4,14 @@ import Sticky from '../../../core/sticky/sticky';
 import angular from 'angular';
 
 class StickyCore extends Directive(STICKY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, viewport: `^^${VIEWPORT_CORE_NAME}`}) {
-	constructor($scope, $element, $attrs, $timeout) {
+	constructor($scope, $element, $attrs, $timeout, $window) {
 		super();
 
 		this.$scope = $scope;
 		this.$element = $element;
 		this.$attrs = $attrs;
 		this.$timeout = $timeout;
+		this.$window = $window;
 	}
 
 	onInit() {
@@ -67,14 +68,26 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}
 			() => self.$scope.$apply()
 		));
 
+		const onScroll = () => sticky.head.scrollLeft = sticky.scrollView.scrollLeft;
+		sticky.scrollView.addEventListener('scroll', onScroll);
+
+		const onResize = () => sticky.invalidate();
+		this.$window.addEventListener('resize', onResize);
+
 		this.$scope.$on('$destroy', () => {
 			unwatches.forEach(u => u());
+			sticky.scrollView.removeEventListener('scroll', onScroll);
+			self.$window.removeEventListener('resize', onResize);
 			sticky.destroy();
 		});
 	}
 }
 
-StickyCore.$inject = ['$scope', '$element', '$attrs', '$timeout'];
+StickyCore.$inject = ['$scope',
+	'$element',
+	'$attrs',
+	'$timeout',
+	'$window'];
 
 export default {
 	restrict: 'A',

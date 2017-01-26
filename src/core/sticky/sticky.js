@@ -1,5 +1,4 @@
 import {css} from '../services/dom';
-import {debounce} from '../services/utility';
 import * as observe from '../services/dom.observe';
 import Event from '../infrastructure/event';
 
@@ -94,14 +93,6 @@ function buildHead(sticky) {
 				setTimeout(() => sticky.invalidate(), 0);
 			}
 		});
-
-	sticky.scrollView.addEventListener('scroll', () => {
-		header.scrollLeft = sticky.scrollView.scrollLeft;
-	});
-
-	window.addEventListener('resize', () => {
-		debounce(() => sticky.invalidate(), 200)();
-	});
 
 	return header;
 }
