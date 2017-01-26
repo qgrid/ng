@@ -1,7 +1,15 @@
+@import "variables";
+
 .qgrid.theme-default {
 	.viewport {
 		max-height: 100%;
 		overflow: auto;
-		display: block;
+		font-family: $font-family;
+
+		table {
+			width: 100%;
+			border-spacing: 0;
+			overflow: hidden;
+		}
 	}
 }
