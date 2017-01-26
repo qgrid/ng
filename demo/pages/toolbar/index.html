@@ -1,0 +1,9 @@
+<q-grid columns="$ctrl.columns"
+		  rows="$ctrl.rows">
+	<q-grid:toolbar>
+		<q-grid:template for="top" let="$ctrl">
+			<button ng-click="$ctrl.load()">Load Rows</button>
+			<button ng-click="$ctrl.clear()">Clear Rows</button>
+		</q-grid:template>
+	</q-grid:toolbar>
+</q-grid>

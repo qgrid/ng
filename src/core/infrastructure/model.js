@@ -1,4 +1,4 @@
-import Event from '../services/event';
+import Event from './event';
 import {isObject, isFunction} from '../services/utility';
 import Error from './error';
 import * as guard from './guard';
@@ -38,15 +38,18 @@ export default class Model {
 
 							model[key] = newValue;
 							hasChanges = true;
-							changes[key] = newValue;
+							changes[key] = {
+								newValue: newValue,
+								oldValue: oldValue
+							};
 						}
+					}
 
-						if (hasChanges) {
-							event.emit({
-								state: model,
-								changes: changes
-							});
-						}
+					if (hasChanges) {
+						event.emit({
+							state: model,
+							changes: changes
+						});
 					}
 				}
 
@@ -65,7 +68,7 @@ export default class Model {
 		if (close) {
 			throw new Error(
 				`model.${name}`,
-				`can't register, registration was closed `);
+				'can\'t register, registration was closed');
 		}
 
 		models[name] = model;

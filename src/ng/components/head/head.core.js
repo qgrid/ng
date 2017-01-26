@@ -1,14 +1,12 @@
 import Directive from '../directive';
-import {GRID_NAME, HEAD_CORE_NAME} from '../../../definition';
+import {VIEW_CORE_NAME, HEAD_CORE_NAME} from '../../../definition';
 
-class HeadCore extends Directive(HEAD_CORE_NAME, {root: `^^${GRID_NAME}`}) {
+class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	constructor() {
 		super();
-
 	}
 
 	onInit() {
-		//const head = this.root.model.head();
 	}
 }
 
@@ -20,5 +18,6 @@ export default {
 	controllerAs: '$head',
 	controller: HeadCore,
 	require: HeadCore.require,
-	link: HeadCore.link
+	link: HeadCore.link,
+	scope: true
 };

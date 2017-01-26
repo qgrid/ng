@@ -1,21 +1,24 @@
 import Directive from '../directive';
-import {GRID_NAME, FOOT_CORE_NAME} from '../../../definition';
+import {VIEW_CORE_NAME, FOOT_CORE_NAME} from '../../../definition';
 
-class FootCore extends Directive(FOOT_CORE_NAME, {root: `^^${GRID_NAME}`}) {
-	constructor() {
+class FootCore extends Directive(FOOT_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
+	constructor($scope) {
 		super();
+
+		this.$scope = $scope;
 	}
 
 	onInit() {
+		this.$scope.$view = this.view;
 	}
 
 	get count() {
-		const state = this.root.model.foot();
+		const state = this.view.model.foot();
 		return state.count;
 	}
 }
 
-FootCore.$inject = [];
+FootCore.$inject = ['$scope'];
 
 export default {
 	restrict: 'A',
@@ -23,5 +26,6 @@ export default {
 	controllerAs: '$foot',
 	controller: FootCore,
 	require: FootCore.require,
-	link: FootCore.link
+	link: FootCore.link,
+	scope: true
 };

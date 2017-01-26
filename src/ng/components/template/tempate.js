@@ -1,9 +1,9 @@
 import Component from '../component';
 import {Grid} from '../grid/grid';
 import Error from '../../../core/infrastructure/error';
-import Resource from '../../../core/entity/resource';
+import Resource from '../../../core/resource/resource';
 import {isUndefined} from '../../../core/services/utility';
-import {GRID_NAME, TEMPLATE_NAME, COLUMN_NAME} from '../../../definition';
+import {GRID_NAME, TEMPLATE_NAME, COLUMN_NAME, TOOLBAR_NAME} from '../../../definition';
 
 class Template extends Component {
 	constructor($scope, $element) {
@@ -13,37 +13,26 @@ class Template extends Component {
 		this.$scope = $scope;
 	}
 
-	key() {
-		const key = (this.column && this.column.key);
-		if (isUndefined(key)) {
-			throw new Error(
-				'template',
-				`Controller "${COLUMN_NAME}", required by directive "${TEMPLATE_NAME}" can't be found`);
-		}
-
-		return key;
-	}
-
 	onInit() {
-		if (!this.root.model.hasOwnProperty(this.for)) {
+		const path = this.path();
+		if (!this.root.model.hasOwnProperty(path.name)) {
 			throw new Error(
 				'template',
-				`Appropriate model for "${this.for}" is not found`);
+				`Appropriate model for "${path.name}" is not found`);
 		}
 
-		const model = this.root.model[this.for];
+		const model = this.root.model[path.name];
 		const state = model();
-
 		if (!state.hasOwnProperty('resource')) {
 			throw new Error(
 				'template',
-				`Can't use "${this.for}" model, resource property is missed`
+				`Can't use "${path.name}" model, resource property is missed`
 			);
 		}
 
 		const newState = {};
 		const resourceData = state.resource.data;
-		let key = this.key();
+		let key = path.key;
 		if (state.hasOwnProperty('count')) {
 			let keyIndex = 1;
 			const originKey = key;
@@ -51,14 +40,14 @@ class Template extends Component {
 				key = originKey + keyIndex++;
 			}
 
-			if(state.count < keyIndex){
+			if (state.count < keyIndex) {
 				newState.count = keyIndex;
 			}
 		}
 		else if (resourceData.hasOwnProperty(key)) {
 			throw new Error(
 				'template',
-				`Ambiguous key "${key}" for "${this.for}"`);
+				`Ambiguous key "${key}" for "${path.name}"`);
 		}
 
 		resourceData[key] = this.$element[0].innerHTML;
@@ -67,7 +56,7 @@ class Template extends Component {
 			if (isUndefined(this.$scope[this.let])) {
 				throw new Error(
 					'template',
-					`"${this.let}" is not defined for "${this.for}.${key}"`
+					`"${this.let}" is not defined for "${path.name}.${key}"`
 				);
 			}
 
@@ -75,7 +64,7 @@ class Template extends Component {
 			if (letScope === null) {
 				throw new Error(
 					'template',
-					`Environment scope is not found for "${this.for}.${key}"`
+					`Environment scope is not found for "${path.name}.${key}"`
 				);
 			}
 			resourceScope[this.let] = letScope[this.let];
@@ -83,6 +72,26 @@ class Template extends Component {
 
 		newState.resource = new Resource(resourceData, resourceScope);
 		model(newState);
+	}
+
+	path(){
+		if(this.column){
+			return {
+				name: this.for,
+				key: this.column.key
+			};
+		}
+
+		if(this.toolbar){
+			return {
+				name: 'toolbar',
+				key: this.for
+			};
+		}
+
+		throw new Error(
+			'template',
+			`Templating controller, required by directive "${TEMPLATE_NAME}" can't be found`);
 	}
 
 	findLetScope() {
@@ -116,7 +125,8 @@ Template.$inject = ['$scope', '$element'];
 export default {
 	require: {
 		root: `^^${GRID_NAME}`,
-		column: `?^^${COLUMN_NAME}`
+		column: `?^^${COLUMN_NAME}`,
+		toolbar: `?^^${TOOLBAR_NAME}`
 	},
 	controller: Template,
 	bindings: {

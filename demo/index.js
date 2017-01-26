@@ -47,7 +47,7 @@ const pages =
 			if (p.path !== 'home') {
 				p.code = {
 					html: require(`./pages/${page.path}/index.html`),
-					js: require(`raw!./pages/${page.path}/index.js`)
+					js: require(`raw-loader!./pages/${page.path}/index.js`)
 				};
 			}
 

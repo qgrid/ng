@@ -1,13 +1,12 @@
-import Component from '../component';
+import ModelComponent from '../model.component';
 import {GRID_NAME} from '../../../definition';
 
-class ColumnList extends Component {
+class ColumnList extends ModelComponent {
 	constructor() {
-		super();
+		super('group');
 	}
 
-	onInit(){
-
+	onInit() {
 	}
 }
 
@@ -19,6 +18,6 @@ export default {
 	},
 	controller: ColumnList,
 	bindings: {
-		autoGenerate: '@'
+		groupBy: '<',
 	}
 };
