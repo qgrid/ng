@@ -25,6 +25,10 @@ class Column extends Component {
 			source.isVisible = target.isVisible;
 		}
 
+		if (!isUndefined(target.aggregation)) {
+			source.aggregation = target.aggregation;
+		}
+
 		if (this.$attrs.hasOwnProperty('value')) {
 			// HACK: to understand if need to pass {$row: row} instead of just row in cell.core.js
 			source.$value = isUndefined(this.value) ? null : this.value;
@@ -64,6 +68,7 @@ export default {
 		title: '@',
 		value: '&',
 		isDefault: '@',
-		isVisible: '@'
+		isVisible: '@',
+		aggregation: '@'
 	}
 };

@@ -14,6 +14,5 @@ export default class Grid {
 	}
 
 	get pipe() {
-
 	}
 }
