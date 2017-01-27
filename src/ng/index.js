@@ -7,6 +7,7 @@ import Head from './components/head/head';
 import ColumnList from './components/column/column.list';
 import Column from './components/column/column';
 import Toolbar from './components/toolbar/toolbar';
+import Check from './components/selection/check';
 
 import ViewCore from './components/grid/view.core';
 import ViewportCore from './components/grid/viewport.core';
@@ -20,6 +21,7 @@ import StickyCore from './components/sticky/sticky.core';
 import ToolbarCore from './components/toolbar/toolbar.core';
 import SelectionCore from './components/selection/selection.core';
 import Indeterminate from './components/selection/indeterminate';
+import CheckCore from './components/selection/check.core';
 
 
 import Theme from './services/theme';
@@ -36,6 +38,7 @@ export default angular
 	.component(def.COLUMN_NAME, Column)
 	.component(def.TOOLBAR_NAME, Toolbar)
 	.component(def.VIEW_CORE_NAME, ViewCore)
+	.component(def.CHECK_NAME, Check)
 	.directive(def.VIEWPORT_CORE_NAME, () => ViewportCore)
 	.directive(def.TD_CORE_NAME, () => TdCore)
 	.directive(def.TH_CORE_NAME, () => ThCore)
@@ -46,6 +49,7 @@ export default angular
 	.directive(def.STICKY_CORE_NAME, () => StickyCore)
 	.directive(def.TOOLBAR_CORE_NAME, () => ToolbarCore)
 	.directive(def.SELECTION_CORE_NAME, () => SelectionCore)
+	.directive(def.CHECK_CORE_NAME, () => CheckCore)
 	.directive(def.INDETERMINATE_NAME, () => Indeterminate)
 	.service(def.SERVICE_NAME, () => () => new Model())
 	.service(def.THEME_NAME, () => new Theme())
@@ -62,5 +66,7 @@ function Setup($templateCache) {
 	$templateCache.put('qgrid.foot.cell.tpl.html', require('./components/foot/cell.html'));
 	$templateCache.put('qgrid.toolbar.top.tpl.html', require('./components/toolbar/toolbar.top.html'));
 	$templateCache.put('qgrid.toolbar.bottom.tpl.html', require('./components/toolbar/toolbar.bottom.html'));
+	$templateCache.put('qgrid.check.head.tpl.html', require('./components/selection/check.head.html'));
+	$templateCache.put('qgrid.check.body.tpl.html', require('./components/selection/check.body.html'));
 
 }

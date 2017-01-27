@@ -11,7 +11,7 @@ class Indeterminate extends Directive(INDETERMINATE_NAME) {
 	}
 
 	onInit() {
-		this.$scope.$watch(this.$attrs.qGridIndeterminate, (newVal) => {
+		this.$scope.$watch(this.$attrs[INDETERMINATE_NAME], (newVal) => {
 			this.$element[0].indeterminate = !!newVal;
 		});
 	}

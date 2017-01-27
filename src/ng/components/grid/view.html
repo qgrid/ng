@@ -3,9 +3,7 @@
 	<table q-grid-core:sticky="head">
 		<thead q-grid-core:head>
 			<tr>
-				<th ng-if="$view.selection.mode === 'check'">
-					<input type="checkbox" q-grid:indeterminate="$selection.indeterminate()" ng-checked="$selection.state()" ng-click="$selection.toggleAll()"/>
-				</th>
+				<th ng-if="$view.selection.mode === 'check'" q-grid-core:check="head"></th>
 				<th ng-if="$view.nodes.length">+</th>
 				<th ng-if="$view.nodes.length">Group</th>
 				<th ng-repeat="$column in $view.columns track by $index"
@@ -36,9 +34,7 @@
 			</tr>
 			<tr ng-switch-default
 				ng-repeat="$row in $view.rows track by $index">
-				<td ng-if="$view.selection.mode === 'check'">
-					<input type="checkbox" ng-checked="$selection.state($row)" ng-click="$selection.toggle($row)"/>
-				</td>
+				<td ng-if="$view.selection.mode === 'check'" q-grid-core:check="body"></td>
 				<td ng-repeat="$column in $view.columns track by $index"
 					class="{{::$column.key}}"
 					q-grid-core:td>

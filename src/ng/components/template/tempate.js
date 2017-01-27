@@ -3,7 +3,7 @@ import {Grid} from '../grid/grid';
 import Error from '../../../core/infrastructure/error';
 import Resource from '../../../core/resource/resource';
 import {isUndefined} from '../../../core/services/utility';
-import {GRID_NAME, TEMPLATE_NAME, COLUMN_NAME, TOOLBAR_NAME} from '../../../definition';
+import {GRID_NAME, TEMPLATE_NAME, COLUMN_NAME, TOOLBAR_NAME, CHECK_NAME} from '../../../definition';
 
 class Template extends Component {
 	constructor($scope, $element) {
@@ -89,6 +89,13 @@ class Template extends Component {
 			};
 		}
 
+		if (this.check){
+			return {
+				name: 'check',
+				key: this.for
+			};
+		}
+
 		throw new Error(
 			'template',
 			`Templating controller, required by directive "${TEMPLATE_NAME}" can't be found`);
@@ -126,7 +133,8 @@ export default {
 	require: {
 		root: `^^${GRID_NAME}`,
 		column: `?^^${COLUMN_NAME}`,
-		toolbar: `?^^${TOOLBAR_NAME}`
+		toolbar: `?^^${TOOLBAR_NAME}`,
+		check: `?^^${CHECK_NAME}`
 	},
 	controller: Template,
 	bindings: {

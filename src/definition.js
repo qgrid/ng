@@ -20,5 +20,7 @@ export const HEAD_CORE_NAME = 'qGridCoreHead';
 export const BODY_CORE_NAME = 'qGridCoreBody';
 export const FOOT_CORE_NAME = 'qGridCoreFoot';
 export const TOOLBAR_CORE_NAME = 'qGridCoreToolbar';
+export const CHECK_NAME = 'qGridCheck';
 export const SELECTION_CORE_NAME = 'qGridCoreSelection';
+export const CHECK_CORE_NAME = 'qGridCoreCheck';
 export const INDETERMINATE_NAME = 'qGridIndeterminate';

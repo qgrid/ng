@@ -3,6 +3,22 @@
 		  selection="$ctrl.selection"
 		  selection-mode="$ctrl.selectionMode"
 		  on:selection-changed="$ctrl.selectionChanged($event)">
+	<q-grid:check>
+		<q-grid:template for="head">
+			<label>
+				<input type="checkbox" q-grid:indeterminate="$selection.indeterminate()" 
+					ng-checked="$selection.state()" 
+					ng-click="$selection.toggleAll()"/>
+				Select All
+			</label>
+		</q-grid:template>
+		<q-grid:template for="body">
+			<label>
+				<input type="checkbox" ng-checked="$selection.state($row)" ng-click="$selection.toggle($row)"/>
+				Select {{$row.name.last}}
+			</label>
+		</q-grid:template>
+	</q-grid:check>
 	<q-grid:head sticky="false"></q-grid:head>
 	<q-grid:toolbar>
 		<q-grid:template for="top" let="$ctrl">
