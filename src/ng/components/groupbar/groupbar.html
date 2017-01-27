@@ -1,0 +1,13 @@
+<div class="groupbar">
+	<ul>
+		<li ng-repeat="group in $groupbar.groups">
+			<span ng-bind="$groupbar.title(group)"></span>
+			<button ng-click="$groupbar.remove(group)">x</button>
+		</li>
+		<li>
+			<select ng-options="column.title of column in $groupbar.columns track by column.key"
+					  ng-change="$groupbar.add()">
+			</select>
+		</li>
+	</ul>
+</div>

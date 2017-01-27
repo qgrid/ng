@@ -22,3 +22,4 @@ export const BODY_CORE_NAME = 'qGridCoreBody';
 export const FOOT_CORE_NAME = 'qGridCoreFoot';
 export const TOOLBAR_CORE_NAME = 'qGridCoreToolbar';
 export const PAGER_NAME = 'qGridPager';
+export const GROUPBAR_NAME = 'qGridGroupbar';
