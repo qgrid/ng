@@ -1,27 +1,32 @@
 export const MODULE_NAME = 'qgrid';
 
-export const SERVICE_NAME = 'qgrid';
-export const TEMPLATE_PATH_NAME = 'qgridTemplatePath';
-export const THEME_NAME = 'qgridTheme';
-export const RANGE_NAME = 'qgridRange';
+export const SERVICE_NAME = MODULE_NAME;
+export const TEMPLATE_PATH_NAME = `${MODULE_NAME}TemplatePath`;
+export const THEME_NAME = `${MODULE_NAME}Theme`;
+export const RANGE_NAME = `${MODULE_NAME}Range`;
 
-export const GRID_NAME = 'qGrid';
-export const VIEW_CORE_NAME = 'qGridCoreView';
-export const VIEWPORT_CORE_NAME = 'qGridCoreViewport';
-export const TABLE_CORE_NAME = 'qGridCoreTable';
-export const HEAD_NAME = 'qGridHead';
-export const TEMPLATE_NAME = 'qGridTemplate';
-export const COLUMN_LIST_NAME = 'qGridColumns';
-export const COLUMN_NAME = 'qGridColumn';
-export const TOOLBAR_NAME = 'qGridToolbar';
-export const TD_CORE_NAME = 'qGridCoreTd';
-export const TF_CORE_NAME = 'qGridCoreTf';
-export const TH_CORE_NAME = 'qGridCoreTh';
-export const STICKY_CORE_NAME = 'qGridCoreSticky';
-export const HEAD_CORE_NAME = 'qGridCoreHead';
-export const BODY_CORE_NAME = 'qGridCoreBody';
-export const FOOT_CORE_NAME = 'qGridCoreFoot';
-export const FOOT_NAME = 'qGridFoot'
-export const TOOLBAR_CORE_NAME = 'qGridCoreToolbar';
-export const PAGER_NAME = 'qGridPager';
-export const GROUPBAR_NAME = 'qGridGroupbar';
+const GRID = 'qGrid';
+const GRID_CORE = `${GRID}Core`;
+
+export const GRID_NAME = GRID;
+export const VIEW_CORE_NAME = `${GRID_CORE}View`;
+export const VIEWPORT_CORE_NAME = `${GRID_CORE}Viewport`;
+export const TABLE_CORE_NAME = `${GRID_CORE}Table`;
+export const TD_CORE_NAME = `${GRID_CORE}Td`;
+export const TF_CORE_NAME = `${GRID_CORE}Tf`;
+export const TH_CORE_NAME = `${GRID_CORE}Th`;
+export const STICKY_CORE_NAME = `${GRID_CORE}Sticky`;
+export const HEAD_CORE_NAME = `${GRID_CORE}Head`;
+export const BODY_CORE_NAME = `${GRID_CORE}Body`;
+export const FOOT_CORE_NAME = `${GRID_CORE}Foot`;
+export const NODE_CORE_NAME = `${GRID_CORE}Node`;
+export const TOOLBAR_CORE_NAME = `${GRID_CORE}Toolbar`;
+
+export const HEAD_NAME = `${GRID}Head`;
+export const TEMPLATE_NAME = `${GRID}Template`;
+export const COLUMN_LIST_NAME = `${GRID}Columns`;
+export const COLUMN_NAME = `${GRID}Column`;
+export const TOOLBAR_NAME = `${GRID}Toolbar`;
+export const FOOT_NAME = `${GRID}Foot`;
+export const PAGER_NAME = `${GRID}Pager`;
+export const GROUPBAR_NAME = `${GRID}Groupbar`;
