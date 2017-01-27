@@ -32,6 +32,9 @@ Setup.$inject = ['$templateCache'];
 export default function Setup($templateCache) {
 	$templateCache.put('qgrid.grid.tpl.html', require('./components/grid/grid.html'));
 	$templateCache.put('qgrid.view.tpl.html', require('./components/grid/view.html'));
+	$templateCache.put('qgrid.head.tpl.html', require('./components/head/head.html'));
+	$templateCache.put('qgrid.body.tpl.html', require('./components/body/body.html'));
+	$templateCache.put('qgrid.foot.tpl.html', require('./components/foot/foot.html'));
 	$templateCache.put('qgrid.head.cell.tpl.html', require('./components/head/cell.html'));
 	$templateCache.put('qgrid.body.cell.tpl.html', require('./components/body/cell.html'));
 	$templateCache.put('qgrid.foot.cell.tpl.html', require('./components/foot/cell.html'));
