@@ -1,6 +1,7 @@
 import Directive from '../directive';
 import {STICKY_CORE_NAME, VIEW_CORE_NAME, VIEWPORT_CORE_NAME} from '../../../definition';
 import Sticky from '../../../core/sticky/sticky';
+import AppError from '../../../core/infrastructure/error';
 import angular from 'angular';
 
 class StickyCore extends Directive(STICKY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, viewport: `^^${VIEWPORT_CORE_NAME}`}) {
@@ -19,7 +20,7 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}
 		const target = this.$attrs[STICKY_CORE_NAME];
 
 		if (!model.hasOwnProperty(target)) {
-			throw new Error(
+			throw new AppError(
 				'sticky',
 				`Appropriate model for "${target}" is not found`);
 		}

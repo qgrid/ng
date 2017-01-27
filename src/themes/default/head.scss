@@ -1,9 +1,27 @@
-.qgrid.theme-default {
+@import "variables";
+
+.viewport {
 	table {
 		thead {
-			tr > th {
-				border-bottom: 1px solid #000;
-				white-space: nowrap;
+			tr {
+				height: 56px;
+				th {
+					color: $dark-secondary;
+					font-size: 12px;
+					font-weight: bold;
+					white-space: nowrap;
+					vertical-align: middle;
+					text-align: left;
+
+					> * {
+						vertical-align: middle;
+					}
+
+					&:last-child {
+						padding: 0 24px 0 0;
+					}
+
+				}
 			}
 		}
 	}

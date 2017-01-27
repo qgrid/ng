@@ -2,7 +2,7 @@ import RootComponent from '../root.component';
 
 export class Grid extends RootComponent {
 	constructor($element, $transclude) {
-		super('data', 'selection');
+		super('data', 'selection', 'group');
 
 		this.$element = $element;
 		this.$transclude = $transclude;
@@ -50,6 +50,7 @@ export default {
 		dataColumns: '<columns',
 		selectionItems: '<selection',
 		selectionMode: '<',
-		onSelectionChanged: '&'
+		onSelectionChanged: '&',
+		groupBy: '<'
 	}
 };

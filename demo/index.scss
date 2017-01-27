@@ -1,5 +1,5 @@
 html, body {
-	font-family: 'Roboto', sans-serif;
+	font-family: Roboto, 'Helvetica Neue', sans-serif;
 	font-size: 14px;
 	height: 100%;
 	margin: 0;
@@ -18,10 +18,17 @@ md-sidenav {
 	width: 200px !important;
 }
 
-md-toolbar h1 {
-	margin: auto;
-	font-size: 1.250em;
-	font-weight: 400;
+md-toolbar {
+	h1 {
+		margin: auto;
+		font-size: 1.250em;
+		font-weight: 400;
+
+		&.title {
+			position: absolute;
+			right: 30px;
+		}
+	}
 }
 
 @media (max-width: 959px) {

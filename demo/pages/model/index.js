@@ -1,7 +1,7 @@
 Controller.$inject = ['$http', 'qgrid', '$log'];
 export default function Controller($http, qgrid, $log) {
 	const ctrl = this;
-	ctrl.gridModel = qgrid();
+	ctrl.gridModel = qgrid.model();
 
 	const columns = [
 		{
