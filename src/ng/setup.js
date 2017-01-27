@@ -25,6 +25,12 @@ TemplatePath
 			name: 'group',
 			key: 'key'
 		};
+	})
+	.register(def.CHECK_NAME, source => {
+		return {
+			name: 'check',
+			key: source.for
+		};
 	});
 
 
@@ -39,4 +45,6 @@ export default function Setup($templateCache) {
 	$templateCache.put('qgrid.toolbar.bottom.tpl.html', require('./components/toolbar/toolbar.bottom.html'));
 	$templateCache.put('qgrid.pager.tpl.html', require('./plugins/pagination/pager.html'));
 	$templateCache.put('qgrid.groupbar.tpl.html', require('./plugins/groupbar/groupbar.html'));
+	$templateCache.put('qgrid.check.head.tpl.html', require('./components/selection/check.head.html'));
+	$templateCache.put('qgrid.check.body.tpl.html', require('./components/selection/check.body.html'));
 }
