@@ -1,5 +1,6 @@
 #dev
 .idea
+.vscode
 
 #logs
 *.log
