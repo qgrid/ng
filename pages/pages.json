@@ -37,10 +37,18 @@
 	},
 	{
 		"path": "foot",
-		"title": "foot"
+		"title": "Foot"
 	},
 	{
 		"path": "group",
-		"title": "group"
+		"title": "Group"
+	},
+	{
+		"path": "toolbar",
+		"title": "Toolbar"
+	},
+	{
+		"path": "pager",
+		"title": "Pager"
 	}
 ]
