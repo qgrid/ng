@@ -1,1 +1,7 @@
-{{$node.title}}
+<button ng-click="$row.toggleStatus.execute($node)"
+		  ng-if="$row.toggleStatus.canExecute($node)"
+		  ng-switch="$row.status">
+	<span ng-switch-when="expand">-</span>
+	<span ng-switch-default>+</span>
+</button>
+<span ng-bind="$row.title"></span>

@@ -35,6 +35,10 @@ class ViewCore extends Component {
 		return this.model.view().nodes;
 	}
 
+	get mode() {
+		return this.model.view().nodes.length ? 'node' : 'row';
+	}
+
 	initTheme() {
 		this.$element[0].classList.add(`theme-${this.theme.name}`);
 

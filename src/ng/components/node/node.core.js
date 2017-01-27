@@ -1,6 +1,12 @@
 import Directive from '../directive';
 import TemplateCore from '../template/template.core';
+import Command from 'core/infrastructure/command';
 import {VIEW_CORE_NAME, NODE_CORE_NAME} from 'src/definition';
+
+const toggleStatus = new Command({
+	execute: node => node.state.expand = !node.state.expand,
+	canExecute: node => node.children.length > 0 || node.rows.length > 0
+});
 
 class NodeCore extends Directive(NODE_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	constructor($scope, $element, $compile, $templateCache) {
@@ -10,6 +16,7 @@ class NodeCore extends Directive(NODE_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 		this.$scope = $scope;
 		this.template = new TemplateCore($compile, $templateCache);
 
+		this.toggleStatus = toggleStatus;
 		Object.defineProperty(this.$scope, '$view', {get: () => this.view});
 	}
 
@@ -24,7 +31,11 @@ class NodeCore extends Directive(NODE_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	}
 
 	get title() {
-		return this.$scope.$row.key;
+		return this.$scope.$node.key;
+	}
+
+	get status() {
+		return this.$scope.$node.state.expand ? 'expand' : 'collapse';
 	}
 }
 
@@ -38,7 +49,7 @@ NodeCore.$inject = [
 export default {
 	restrict: 'A',
 	bindToController: true,
-	controllerAs: '$node',
+	controllerAs: '$row',
 	controller: NodeCore,
 	require: NodeCore.require,
 	link: NodeCore.link
