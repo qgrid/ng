@@ -3,7 +3,7 @@ import {GRID_NAME} from 'src/definition';
 
 class Head extends ModelComponent {
 	constructor() {
-		super('head');
+		super('foot');
 	}
 }
 
@@ -15,6 +15,6 @@ export default {
 	},
 	controller: Head,
 	bindings: {
-		headSticky: '<sticky'
+		footSticky: '<sticky'
 	}
 };

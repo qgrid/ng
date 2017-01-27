@@ -1,6 +1,6 @@
 import Component from '../component';
 import TemplateCore from '../template/template.core';
-import {VIEW_CORE_NAME} from '../../../definition';
+import {VIEW_CORE_NAME} from 'src/definition';
 
 class ToolbarCore extends Component {
 	constructor($scope, $element, $compile, $templateCache) {

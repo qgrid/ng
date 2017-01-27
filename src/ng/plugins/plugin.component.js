@@ -1,8 +1,8 @@
-import ModelComponent from '../components/model.component';
-import AppError from '../../core/infrastructure/error';
-import {merge} from '../../core/services/utility';
-import TemplateCore from '../components/template/template.core';
-import {VIEW_CORE_NAME, GRID_NAME} from '../../definition';
+import ModelComponent from 'ng/components/model.component';
+import AppError from 'core/infrastructure/error';
+import {merge} from 'core/services/utility';
+import TemplateCore from 'ng/components/template/template.core';
+import {VIEW_CORE_NAME, GRID_NAME} from 'src/definition';
 
 export default function (templateUrl = '', modelNames = []) {
 	class Plugin extends ModelComponent {

@@ -1,5 +1,5 @@
-import Model from '../../core/infrastructure/model';
-import GridService from '../../core/services/grid';
+import Model from 'core/infrastructure/model';
+import GridService from 'core/services/grid';
 
 export default class Grid {
 	constructor() {

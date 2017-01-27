@@ -1,5 +1,5 @@
 import PluginComponent from '../plugin.component';
-import Command from '../../../core/infrastructure/command'
+import Command from 'core/infrastructure/command'
 
 class Pager extends PluginComponent('qgrid.pager.tpl.html', ['pagination']) {
 	constructor() {
