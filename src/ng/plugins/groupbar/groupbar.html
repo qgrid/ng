@@ -13,7 +13,7 @@
 					  ng-change="$groupbar.add.execute($groupbar.newGroup)">
 				<option value="" disabled>Add Group</option>
 				<option value="{{column.key}}"
-						  ng-repeat="column in $groupbar.columns track by column.key"
+						  ng-repeat="column in $groupbar.columns track by $index"
 						  ng-bind="column.title">
 				</option>
 			</select>

@@ -9,8 +9,8 @@ import Head from './components/head/head';
 import ColumnList from './components/column/column.list';
 import Column from './components/column/column';
 import Toolbar from './components/toolbar/toolbar';
-import Pager from './components/pagination/pager';
-import Groupbar from './components/groupbar/groupbar';
+import Pager from './plugins/pagination/pager';
+import Groupbar from './plugins/groupbar/groupbar';
 
 import ViewCore from './components/grid/view.core';
 import ViewportCore from './components/grid/viewport.core';
