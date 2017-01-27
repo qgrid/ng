@@ -1,11 +1,11 @@
 import Component from '../component';
 import {Grid} from '../grid/grid';
-import AppError from '../../../core/infrastructure/error';
-import Resource from '../../../core/resource/resource';
-import {isUndefined} from '../../../core/services/utility';
+import AppError from 'core/infrastructure/error';
+import Resource from 'core/resource/resource';
+import {isUndefined} from 'core/services/utility';
 import TemplatePath from '../template/template.path';
-import {merge} from '../../../core/services/utility';
-import {GRID_NAME} from '../../../definition';
+import {merge} from 'core/services/utility';
+import {GRID_NAME} from 'src/definition';
 
 class Template extends Component {
 	constructor($scope, $element) {

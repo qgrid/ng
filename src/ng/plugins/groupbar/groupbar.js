@@ -1,5 +1,5 @@
 import PluginComponent from '../plugin.component';
-import Command from '../../../core/infrastructure/command'
+import Command from 'core/infrastructure/command'
 
 class Groupbar extends PluginComponent('qgrid.groupbar.tpl.html') {
 	constructor() {
