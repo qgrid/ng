@@ -1,8 +1,8 @@
 import Component from '../component';
-import {map as getColumnMap} from '../../../core/column/column.service';
-import {getFactory as valueFactory} from '../../services/value';
-import nodeBuilder from '../../../core/node/node.builder';
-import {GRID_NAME} from '../../../definition';
+import {map as getColumnMap} from 'core/column/column.service';
+import {getFactory as valueFactory} from 'ng/services/value';
+import nodeBuilder from 'core/node/node.builder';
+import {GRID_NAME} from 'src/definition';
 
 class ViewCore extends Component {
 	constructor($element, theme) {
@@ -64,7 +64,7 @@ class ViewCore extends Component {
 			}
 
 			if (e.changes.hasOwnProperty('columns')) {
-				newState.clumns = e.state.columns.slice();
+				newState.columns = e.state.columns.slice();
 			}
 
 			view(newState);

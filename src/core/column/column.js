@@ -5,6 +5,7 @@ export default class Column {
 		this.value = null;
 		this.isDefault = true;
 		this.isVisible = true;
+		this.aggregation = null;
 		this.resource = {};
 	}
 }

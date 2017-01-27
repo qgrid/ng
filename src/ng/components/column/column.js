@@ -1,7 +1,7 @@
 import Component from '../component';
-import {GRID_NAME, COLUMN_LIST_NAME} from '../../../definition';
-import {clone, isUndefined} from '../../../core/services/utility';
-import ColumnModel from '../../../core/column/column';
+import {GRID_NAME, COLUMN_LIST_NAME} from 'src/definition';
+import {clone, isUndefined} from 'core/services/utility';
+import ColumnModel from 'core/column/column';
 
 class Column extends Component {
 	constructor($attrs) {
@@ -23,6 +23,10 @@ class Column extends Component {
 
 		if (!isUndefined(target.isVisible)) {
 			source.isVisible = target.isVisible;
+		}
+
+		if (!isUndefined(target.aggregation)) {
+			source.aggregation = target.aggregation;
 		}
 
 		if (this.$attrs.hasOwnProperty('value')) {
@@ -64,6 +68,7 @@ export default {
 		title: '@',
 		value: '&',
 		isDefault: '@',
-		isVisible: '@'
+		isVisible: '@',
+		aggregation: '@'
 	}
 };

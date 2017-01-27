@@ -1,10 +1,11 @@
 <div class="{{$ctrl.selection.path}}">
-	<div>
-		<h2 ng-bind="$ctrl.selection.title"></h2>
-	</div>
-	<div class="page-details-content">
-		<ng-view></ng-view>
-	</div>
+	<md-card>
+		<md-card-content>
+			<div class="page-details-content">
+				<ng-view></ng-view>
+			</div>
+		</md-card-content>
+	</md-card>
 	<div flex="100"
 		  layout="row"
 		  layout-xs="column"

@@ -1,5 +1,5 @@
 import ModelComponent from '../model.component';
-import {GRID_NAME} from '../../../definition';
+import {GRID_NAME} from 'src/definition';
 
 class Head extends ModelComponent {
 	constructor() {
