@@ -37,14 +37,18 @@
 	},
 	{
 		"path": "foot",
-		"title": "foot"
+		"title": "Foot"
+	},
+	{
+		"path": "aggregation",
+		"title": "Aggregation"
 	},
 	{
 		"path": "group",
-		"title": "group"
+		"title": "Group"
 	},
 	{
 		"path": "toolbar",
-		"title": "toolbar"
+		"title": "Toolbar"
 	}
 ]

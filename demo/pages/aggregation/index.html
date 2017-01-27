@@ -1,0 +1,9 @@
+<q-grid columns="$ctrl.columns"
+		  rows="$ctrl.rows">
+	<q-grid:columns>
+		<q-grid:column key="name.last" aggregation="count"></q-grid:column>
+		<q-grid:column key="contact.address.zip" aggregation="max"></q-grid:column>
+		<q-grid:column key="birthday" aggregation="first"></q-grid:column>
+		<q-grid:column key="gender" aggregation="last"></q-grid:column>
+	</q-grid:columns>
+</q-grid>

@@ -1,6 +1,8 @@
 import Directive from '../directive';
 import {VIEW_CORE_NAME, TF_CORE_NAME} from '../../../definition';
 import TemplateCore from '../template/template.core';
+import aggregation from '../../../core/services/aggregation';
+import {get as getValue} from '../../services/value';
 
 class TfCore extends Directive(TF_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	constructor($scope, $element, $compile, $templateCache) {
@@ -24,6 +26,12 @@ class TfCore extends Directive(TF_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 		);
 
 		link(this.$element, this.$scope);
+	}
+
+	get aggregation(){
+		if (this.$scope.$column.hasOwnProperty('aggregation')) {
+			return aggregation[this.$scope.$column.aggregation](this.$scope.$column, getValue);
+		}
 	}
 
 	get rowIndex() {
