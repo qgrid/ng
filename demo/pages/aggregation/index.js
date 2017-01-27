@@ -1,5 +1,3 @@
-import aggregation from '../../../src/core/services/aggregation.js';
-
 Controller.$inject = ['$http'];
 
 export default function Controller($http) {
@@ -72,6 +70,5 @@ export default function Controller($http) {
 	$http.get('data/people/100.json')
 		.then(function (response) {
 			ctrl.rows = response.data;
-			aggregation.saveRows(ctrl.rows);
 		});
 }

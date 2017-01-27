@@ -1,46 +1,38 @@
 export default class Aggregation {
 	constructor() {
-		this.rows = null;
 	}
 
-	static first(column, getValue) {
-		if (this.rows == null) {
-			return;
+	static first(rows, getValue) {
+		if(!rows.length){
+			return null;
 		}
 
-		return 'first: ' + getValue(this.rows[0], column);
+		return getValue(rows[0]);
 	}
 
-	static last(column, getValue) {
-		if (this.rows == null) {
-			return;
+	static last(rows, getValue) {
+		if(!rows.length){
+			return null;
 		}
 
-		return 'last: ' + getValue(this.rows[this.rows.length - 1], column);
+		return getValue(rows[rows.length - 1]);
 	}
 
-	static max(column, getValue) {
-		if (this.rows == null) {
-			return;
+	static max(rows, getValue) {
+		if(!rows.length){
+			return null;
 		}
 
-		var max = Math.max.apply(Math, this.rows.map(function (d) {
-			return getValue(d, column);
-		}));
-
-		return 'Max: ' + max;
+		var max = Math.max.apply(Math, rows.map(getValue));
+		return max;
 	}
 
-	static saveRows(rows) {
-		this.rows = rows;
-	}
-
-	static count() {
-		if (this.rows == null) {
-			return;
+	static count(rows) {
+		if(!rows.length){
+			return null;
 		}
 
-		return 'Count: ' + this.rows.length;
+		return rows.length;
 	}
 
 }
