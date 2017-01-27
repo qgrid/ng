@@ -1,0 +1,22 @@
+<q-grid columns="$ctrl.columns"
+		  rows="$ctrl.rows">
+	<q-grid:pager size="11" size-list="[11,12,13]">
+		<q-grid:template>
+			<div style="padding-top: 20px;">
+				<label>Rows per page:</label>
+				<select ng-model="$pager.size"
+						  ng-options="size for size in $pager.sizeList">
+				</select>
+				<label>{{$pager.from}}-{{$pager.to}} of {{$pager.total}}</label>
+				<button ng-disabled="!$pager.prev.canExecute()"
+						  ng-click="$pager.prev.execute();">
+					&lt;
+				</button>
+				<button ng-disabled="!$pager.next.canExecute()"
+						  ng-click="$pager.next.execute();">
+					&gt;
+				</button>
+			</div>
+		</q-grid:template>
+	</q-grid:pager>
+</q-grid>

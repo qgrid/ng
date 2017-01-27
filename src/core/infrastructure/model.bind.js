@@ -16,19 +16,13 @@ export default class ModelBinder {
 				const doBind = e => {
 					for (let key of Object.keys(e.changes)) {
 						const sourceKey = toCamelCase(name, key);
-						if (!source.hasOwnProperty(sourceKey)) {
-							throw new Error(
-								`model.${name}`,
-								`"${key}" is not a valid key, only [${Object.keys(source).join(', ')}] keys are supported`
-							);
+						if (source.hasOwnProperty(sourceKey)) {
+							source[sourceKey] = e.changes[key].newValue;
 						}
-
-						source[sourceKey] = e.changes[key].newValue;
 					}
 				};
 
 				const state = model[name];
-
 				if (run) {
 					doBind({changes: state()});
 				}

@@ -60,7 +60,7 @@ class ViewCore extends Component {
 			}
 
 			if (e.changes.hasOwnProperty('columns')) {
-				newState.clumns = e.state.columns.slice();
+				newState.columns = e.state.columns.slice();
 			}
 
 			view(newState);

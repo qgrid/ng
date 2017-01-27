@@ -1,5 +1,12 @@
 page-details {
 
+	md-card {
+		margin: 0;
+		md-card-content {
+			padding: 0;
+		}
+	}
+
 	@media (max-width: 959px) {
 		.page-details-code {
 			> div:first-child {
@@ -17,10 +24,6 @@ page-details {
 		height: calc(100% - 20px);
 		width: 100%;
 
-		h2 {
-			margin-top: 0;
-		}
-
 		&.home {
 			.page-details-content {
 				height: inherit;
@@ -29,8 +32,7 @@ page-details {
 		}
 
 		.page-details-content {
-			border: 1px dashed #dfdfdf;
-			height: 400px;
+			height: 445px;
 			padding: 0 10px;
 		}
 
