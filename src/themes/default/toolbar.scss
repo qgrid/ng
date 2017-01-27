@@ -1,0 +1,12 @@
+
+.qgrid.theme-default {
+	.toolbar{
+		&.toolbar-top{
+			height: 64px;
+		}
+
+		&.toolbar-bottom{
+			height: 56px;
+		}
+	}
+}

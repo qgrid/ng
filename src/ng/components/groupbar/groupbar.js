@@ -23,8 +23,10 @@ class Groupbar extends PluginComponent('qgrid.groupbar.tpl.html') {
 				const state = group();
 				const index = state.by.findIndex(g => g === key);
 				if(index >= 0){
+					const temp = state.by.slice();
+					temp.splice(index, 1);
 					group({
-						by: state.by.slice().splice(index, 1)
+						by: temp
 					});
 				}
 			}
