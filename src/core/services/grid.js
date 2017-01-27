@@ -4,5 +4,6 @@ export default class GridService {
 	}
 
 	invalidate() {
+
 	}
 }
