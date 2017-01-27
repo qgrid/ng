@@ -1,9 +1,9 @@
-import ModelComponent from '../model.component';
+import Component from '../component';
 import {GRID_NAME} from '../../../definition';
 
-class ColumnList extends ModelComponent {
+class ColumnList extends Component {
 	constructor() {
-		super('group');
+		super();
 	}
 
 	onInit() {
@@ -16,8 +16,5 @@ export default {
 	require: {
 		root: `^^${GRID_NAME}`
 	},
-	controller: ColumnList,
-	bindings: {
-		groupBy: '<',
-	}
+	controller: ColumnList
 };

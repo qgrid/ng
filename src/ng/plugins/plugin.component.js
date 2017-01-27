@@ -1,13 +1,18 @@
-import ModelComponent from './model.component';
-import Error from '../../core/infrastructure/error';
+import ModelComponent from '../components/model.component';
+import AppError from '../../core/infrastructure/error';
 import {merge} from '../../core/services/utility';
-import TemplateCore from './template/template.core';
+import TemplateCore from '../components/template/template.core';
 import {VIEW_CORE_NAME, GRID_NAME} from '../../definition';
 
 export default function (templateUrl = '', modelNames = []) {
 	class Plugin extends ModelComponent {
 		constructor($scope, $element, $compile, $templateCache) {
-			super(modelNames);
+			if(modelNames.length) {
+				super(modelNames);
+			}
+			else{
+				super();
+			}
 
 			this.$scope = $scope;
 			this.$element = $element;
@@ -39,7 +44,7 @@ export default function (templateUrl = '', modelNames = []) {
 				(this._root && this._root.model);
 
 			if (!model) {
-				throw new Error(
+				throw new AppError(
 					'plugin.component',
 					'Model is not defined');
 			}

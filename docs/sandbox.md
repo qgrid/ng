@@ -4,17 +4,17 @@
 ```html
 <q-grid rows="$ctrl.data" 
         columns="$ctrl.columns"        
-        filter="$ctrl.filters"
-        sorting="$ctrl.sortings"
+        pipe="$ctrl.pipe"
         selection="$ctrl.selections"
-        grouping="$ctrl.groupings"
-        on:sortingChanged="$ctrl.onSortingChanged()"
+        filter-by="$ctrl.filters"
+        sort-by="['last-name']"
+        group-by="['country', 'gender']"
+        on:sort-changed="$ctrl.onSortingChanged()"
         on:selection-changed="$ctrl.onSelectionChanged()"
         on:filter-changed="$ctrl.onFilterChanged()"
-        on:grouping-changed="$ctrl.onGroupingChanged()">
+        on:group-changed="$ctrl.onGroupingChanged()">
         
-        <q-grid:columns auto-generate="true"
-        						group-by="['country', 'gender']">
+        <q-grid:columns auto-generate="true">
         		<q-grid:column key="last-name" 
         							title="Last Name" 
         							path="name.last">
