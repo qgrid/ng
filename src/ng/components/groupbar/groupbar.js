@@ -40,7 +40,13 @@ class Groupbar extends PluginComponent('qgrid.groupbar.tpl.html') {
 	}
 
 	get groups(){
-		return this.model.grooup().by;
+		return this.model.group().by;
+	}
+
+	title(key){
+		const columns = this.model.view().columns;
+		const index = columns.findIndex(c => c.key === key);
+		return index >= 0 ? columns[index].title : '';
 	}
 }
 

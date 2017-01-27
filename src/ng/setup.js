@@ -38,4 +38,5 @@ export default function Setup($templateCache) {
 	$templateCache.put('qgrid.toolbar.top.tpl.html', require('./components/toolbar/toolbar.top.html'));
 	$templateCache.put('qgrid.toolbar.bottom.tpl.html', require('./components/toolbar/toolbar.bottom.html'));
 	$templateCache.put('qgrid.pager.tpl.html', require('./components/pagination/pager.html'));
+	$templateCache.put('qgrid.groupbar.tpl.html', require('./components/groupbar/groupbar.html'));
 }

@@ -7,7 +7,12 @@ import {VIEW_CORE_NAME, GRID_NAME} from '../../definition';
 export default function (templateUrl = '', modelNames = []) {
 	class Plugin extends ModelComponent {
 		constructor($scope, $element, $compile, $templateCache) {
-			super(modelNames);
+			if(modelNames.length) {
+				super(modelNames);
+			}
+			else{
+				super();
+			}
 
 			this.$scope = $scope;
 			this.$element = $element;

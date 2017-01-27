@@ -10,6 +10,7 @@ import ColumnList from './components/column/column.list';
 import Column from './components/column/column';
 import Toolbar from './components/toolbar/toolbar';
 import Pager from './components/pagination/pager';
+import Groupbar from './components/groupbar/groupbar';
 
 import ViewCore from './components/grid/view.core';
 import ViewportCore from './components/grid/viewport.core';
@@ -30,6 +31,7 @@ import * as def from '../definition';
 export default angular
 	.module(def.MODULE_NAME, [])
 	.component(def.GRID_NAME, Grid)
+	.component(def.VIEW_CORE_NAME, ViewCore)
 	.component(def.HEAD_NAME, Head)
 	.component(def.TEMPLATE_NAME, Template)
 	.component(def.COLUMN_LIST_NAME, ColumnList)
@@ -37,7 +39,7 @@ export default angular
 	.component(def.TOOLBAR_NAME, Toolbar)
 	.component(def.TOOLBAR_CORE_NAME, ToolbarCore)
 	.component(def.PAGER_NAME, Pager)
-	.component(def.VIEW_CORE_NAME, ViewCore)
+	.component(def.GROUPBAR_NAME, Groupbar)
 	.directive(def.VIEWPORT_CORE_NAME, () => ViewportCore)
 	.directive(def.TD_CORE_NAME, () => TdCore)
 	.directive(def.TH_CORE_NAME, () => ThCore)
