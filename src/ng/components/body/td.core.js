@@ -1,7 +1,7 @@
 import Directive from '../directive';
 import TemplateCore from '../template/template.core';
-import {get as getValue} from '../../services/value';
-import {VIEW_CORE_NAME, TD_CORE_NAME} from '../../../definition';
+import {get as getValue} from 'ng/services/value';
+import {VIEW_CORE_NAME, TD_CORE_NAME} from 'src/definition';
 
 class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	constructor($scope, $element, $compile, $templateCache) {
@@ -10,6 +10,8 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 		this.$element = $element;
 		this.$scope = $scope;
 		this.template = new TemplateCore($compile, $templateCache);
+
+		Object.defineProperty(this.$scope, '$view', {get: () => this.view});
 	}
 
 	onInit() {

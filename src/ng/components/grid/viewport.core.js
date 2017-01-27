@@ -1,5 +1,5 @@
 import Directive from '../directive';
-import {VIEWPORT_CORE_NAME} from '../../../definition';
+import {VIEWPORT_CORE_NAME} from 'src/definition';
 
 class ViewportCore extends Directive(VIEWPORT_CORE_NAME) {
 	constructor($element) {
@@ -16,5 +16,6 @@ export default {
 	controllerAs: '$viewport',
 	controller: ViewportCore,
 	require: ViewportCore.require,
-	link: ViewportCore.link
+	link: ViewportCore.link,
+	scope: {}
 };

@@ -1,12 +1,14 @@
 export const MODULE_NAME = 'qgrid';
 
 export const SERVICE_NAME = 'qgrid';
+export const TEMPLATE_PATH_NAME = 'qgridTemplatePath';
 export const THEME_NAME = 'qgridTheme';
 export const RANGE_NAME = 'qgridRange';
 
 export const GRID_NAME = 'qGrid';
 export const VIEW_CORE_NAME = 'qGridCoreView';
 export const VIEWPORT_CORE_NAME = 'qGridCoreViewport';
+export const TABLE_CORE_NAME = 'qGridCoreTable';
 export const HEAD_NAME = 'qGridHead';
 export const TEMPLATE_NAME = 'qGridTemplate';
 export const COLUMN_LIST_NAME = 'qGridColumns';
@@ -19,4 +21,7 @@ export const STICKY_CORE_NAME = 'qGridCoreSticky';
 export const HEAD_CORE_NAME = 'qGridCoreHead';
 export const BODY_CORE_NAME = 'qGridCoreBody';
 export const FOOT_CORE_NAME = 'qGridCoreFoot';
+export const FOOT_NAME = 'qGridFoot'
 export const TOOLBAR_CORE_NAME = 'qGridCoreToolbar';
+export const PAGER_NAME = 'qGridPager';
+export const GROUPBAR_NAME = 'qGridGroupbar';

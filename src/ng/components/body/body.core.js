@@ -1,5 +1,5 @@
 import Directive from '../directive';
-import {VIEW_CORE_NAME, BODY_CORE_NAME} from '../../../definition';
+import {VIEW_CORE_NAME, BODY_CORE_NAME} from 'src/definition';
 
 class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	constructor() {
@@ -18,5 +18,6 @@ export default {
 	controllerAs: '$body',
 	controller: BodyCore,
 	require: BodyCore.require,
-	link: BodyCore.link
+	link: BodyCore.link,
+	scope: true
 };

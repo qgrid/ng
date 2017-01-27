@@ -3,9 +3,11 @@ import isFunction from 'lodash/isFunction';
 import clone from 'lodash/clone';
 import isUndefined from 'lodash/isUndefined';
 import debounce from 'lodash/debounce';
+import merge from 'lodash/merge';
 
-const noop = () => {
-};
+const noop = () => {};
+const yes = () => true;
+const no = () => false;
 
 const toCamelCase = (...names) => {
 	const length = names.length;
@@ -26,6 +28,9 @@ export {
 	isUndefined,
 	clone,
 	debounce,
+	merge,
+	yes,
+	no,
 	toCamelCase,
 	noop
 };

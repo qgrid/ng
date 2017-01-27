@@ -1,19 +1,18 @@
-import Directive from '../directive';
+import Component from '../component';
 import TemplateCore from '../template/template.core';
-import {VIEW_CORE_NAME, TOOLBAR_CORE_NAME} from '../../../definition';
+import {VIEW_CORE_NAME} from 'src/definition';
 
-class ToolbarCore extends Directive(TOOLBAR_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
-	constructor($scope, $element, $compile, $templateCache, $attrs) {
+class ToolbarCore extends Component {
+	constructor($scope, $element, $compile, $templateCache) {
 		super();
 
 		this.$element = $element;
 		this.$scope = $scope;
-		this.$attrs = $attrs;
 		this.template = new TemplateCore($compile, $templateCache);
 	}
 
 	onInit() {
-		const target = this.$attrs[TOOLBAR_CORE_NAME];
+		const target = this.position;
 		const state = this.view.model.toolbar();
 		const link = this.template.link(
 			`qgrid.toolbar.${target}.tpl.html`,
@@ -34,11 +33,12 @@ ToolbarCore.$inject = [
 ];
 
 export default {
-	restrict: 'A',
-	bindToController: true,
 	controllerAs: '$toolbar',
 	controller: ToolbarCore,
-	require: ToolbarCore.require,
-	link: ToolbarCore.link,
-	scope: true
+	require: {
+		view: `^^${VIEW_CORE_NAME}`
+	},
+	bindings: {
+		position: '@'
+	}
 };

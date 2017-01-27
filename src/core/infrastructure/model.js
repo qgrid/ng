@@ -1,6 +1,6 @@
 import Event from './event';
 import {isObject, isFunction} from '../services/utility';
-import Error from './error';
+import AppError from './error';
 import * as guard from './guard';
 
 const models = {};
@@ -16,7 +16,7 @@ export default class Model {
 			this[name] = function (state) {
 				if (arguments.length) {
 					if (!isObject(state)) {
-						throw new Error(
+						throw new AppError(
 							`model.${name}`,
 							`"${state}" is not a valid type, should be an object`);
 					}
@@ -25,7 +25,7 @@ export default class Model {
 					const changes = {};
 					for (let key of Object.keys(state)) {
 						if (!model.hasOwnProperty(key)) {
-							throw new Error(
+							throw new AppError(
 								`model.${name}`,
 								`"${key}" is not a valid key, only [${Object.keys(model).join(', ')}] keys are supported`
 							);
@@ -59,14 +59,20 @@ export default class Model {
 	}
 
 	static register(name, model) {
+		if (models.hasOwnProperty(name)) {
+			throw new AppError(
+				'model',
+				`"${name}" is already registered`);
+		}
+
 		if (!isFunction(model)) {
-			throw new Error(
+			throw new AppError(
 				`model.${name}`,
 				`"${model}" is not a valid type, should be an constructor function`);
 		}
 
 		if (close) {
-			throw new Error(
+			throw new AppError(
 				`model.${name}`,
 				'can\'t register, registration was closed');
 		}
