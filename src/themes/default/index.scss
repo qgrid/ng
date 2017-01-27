@@ -1,7 +1,9 @@
-@import "grid";
-@import "head";
-@import "body";
-@import "foot";
-@import "pagination";
-@import "groupbar";
-@import "toolbar";
+.qgrid.theme-default {
+	@import "grid";
+	@import "head";
+	@import "body";
+	@import "foot";
+	@import "toolbar";
+	@import "pagination";
+	@import "groupbar";
+}

@@ -1,38 +1,36 @@
 @import "variables";
 
-.qgrid.theme-material {
-	.pager {
-		font-family: $font-family;
-		height: 24px;
-		color: $dark-secondary;
-		float: right;
-		padding: 16px 0;
-		font-size: 12px;
+.pager {
+	font-family: $font-family;
+	height: 24px;
+	color: $dark-secondary;
+	float: right;
+	padding: 16px 0;
+	font-size: 12px;
 
-		select {
-			min-width: 64px;
-			margin-left: 12px;
-			background: transparent;
-			border: 0;
-		}
+	select {
+		min-width: 64px;
+		margin-left: 12px;
+		background: transparent;
+		border: 0;
+	}
 
-		.page {
+	.page {
+		margin-left: 32px;
+	}
+
+	button {
+		background: transparent;
+		border: none;
+		font-size: 20px;
+		&.prev-page {
 			margin-left: 32px;
+			margin-right: 12px;
 		}
 
-		button {
-			background: transparent;
-			border: none;
-			font-size: 20px;
-			&.prev-page {
-				margin-left: 32px;
-				margin-right: 12px;
-			}
-
-			&.next_page {
-				margin-left: 12px;
-				margin-right: 14px;
-			}
+		&.next_page {
+			margin-left: 12px;
+			margin-right: 14px;
 		}
 	}
 }

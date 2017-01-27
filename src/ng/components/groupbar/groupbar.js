@@ -5,13 +5,16 @@ class Groupbar extends PluginComponent('qgrid.groupbar.tpl.html') {
 	constructor() {
 		super(...arguments);
 
+		this.newGroup = null;
 		this.add = new Command({
-				execute: () => {
+				execute: key => {
 					const group = this.model.group;
 					const state = group();
 					group({
-						by: state.by.concat('foo')
+						by: state.by.concat(key)
 					});
+
+					this.newGroup = null;
 				},
 				canExecute: () => this.columns.length > 0
 			}
