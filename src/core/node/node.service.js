@@ -1,10 +1,27 @@
+import Node from './node';
+
 export function flatView(nodes, result = []) {
-	for (let i = 0, length = nodes.length; i < length; i++) {
+	for (let i = 0, nodesLength = nodes.length; i < nodesLength; i++) {
 		const node = nodes[i];
 		result.push(node);
+
 		if (node.state.expand) {
-			flatView(node.children, result);
+			const children = node.children;
+			if (children.length) {
+				flatView(children, result);
+			}
+			else{
+				const rows = node.rows;
+				for (let j = 0, rowsLength = rows.length; j < rowsLength; j++) {
+					const row = rows[j];
+					const rowNode = new Node(node.key);
+					rowNode.rows = [row];
+					children.push(rowNode);
+					result.push(rowNode);
+				}
+			}
 		}
 	}
+
 	return result;
 }

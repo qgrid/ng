@@ -30,6 +30,11 @@ class NodeCore extends Directive(NODE_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 		link(this.$element, this.$scope);
 	}
 
+	get count(){
+		const node = this.$scope.$node;
+		return node.children.length || node.rows.length;
+	}
+
 	get title() {
 		return this.$scope.$node.key;
 	}
