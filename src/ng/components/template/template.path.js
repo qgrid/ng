@@ -1,6 +1,6 @@
-import AppError from '../../../core/infrastructure/error';
-import {isUndefined} from '../../../core/services/utility';
-import {TEMPLATE_NAME} from '../../../definition';
+import AppError from 'core/infrastructure/error';
+import {isUndefined} from 'core/services/utility';
+import {TEMPLATE_NAME} from 'src/definition';
 
 const resolvers = {};
 export default class TemplatePath {

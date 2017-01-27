@@ -1,5 +1,5 @@
 import Directive from '../directive';
-import {VIEWPORT_CORE_NAME} from '../../../definition';
+import {VIEWPORT_CORE_NAME} from 'src/definition';
 
 class ViewportCore extends Directive(VIEWPORT_CORE_NAME) {
 	constructor($element) {

@@ -1,8 +1,8 @@
 import Directive from '../directive';
 import {STICKY_CORE_NAME, VIEW_CORE_NAME, VIEWPORT_CORE_NAME,
-	TABLE_CORE_NAME, HEAD_CORE_NAME, FOOT_CORE_NAME} from '../../../definition';
-import AppError from '../../../core/infrastructure/error';
-import StickyFactory from '../../../core/sticky/sticky.factory';
+	TABLE_CORE_NAME, HEAD_CORE_NAME, FOOT_CORE_NAME} from 'src/definition';
+import AppError from 'core/infrastructure/error';
+import StickyFactory from 'core/sticky/sticky.factory';
 import angular from 'angular';
 
 class StickyCore extends Directive(STICKY_CORE_NAME, {
