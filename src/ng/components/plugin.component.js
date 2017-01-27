@@ -1,5 +1,5 @@
 import ModelComponent from './model.component';
-import Error from '../../core/infrastructure/error';
+import AppError from '../../core/infrastructure/error';
 import {merge} from '../../core/services/utility';
 import TemplateCore from './template/template.core';
 import {VIEW_CORE_NAME, GRID_NAME} from '../../definition';
@@ -39,7 +39,7 @@ export default function (templateUrl = '', modelNames = []) {
 				(this._root && this._root.model);
 
 			if (!model) {
-				throw new Error(
+				throw new AppError(
 					'plugin.component',
 					'Model is not defined');
 			}

@@ -1,4 +1,4 @@
-import Error from '../../../core/infrastructure/error';
+import AppError from '../../../core/infrastructure/error';
 
 export default class TemplateCore {
 	constructor($compile, $templateCache) {
@@ -18,7 +18,7 @@ export default class TemplateCore {
 			const resourceScope = resource.scope;
 			for (let name of Object.keys(resourceScope)) {
 				if (scope.hasOwnProperty(name)) {
-					throw new Error(
+					throw new AppError(
 						'template.core',
 						`"${name}" is reserved, use another name`
 					);

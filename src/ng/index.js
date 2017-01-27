@@ -1,6 +1,7 @@
 import angular from 'angular';
 import Model from '../core/infrastructure/model';
 import Grid from './components/grid/grid';
+import Setup from './setup';
 
 import Template from './components/template/tempate';
 import TemplatePath from './components/template/template.path';
@@ -47,55 +48,7 @@ export default angular
 	.directive(def.STICKY_CORE_NAME, () => StickyCore)
 	.service(def.SERVICE_NAME, () => () => new Model())
 	.service(def.THEME_NAME, () => new Theme())
-	.service(def.TEMPLATE_PATH_NAME, () => new TemplatePath())
+	.service(def.TEMPLATE_PATH_NAME, () => () => TemplatePath)
 	.filter(def.RANGE_NAME, () => Range)
 	.run(Setup)
 	.name;
-
-Setup.$inject = [
-	'$templateCache',
-	def.TEMPLATE_PATH_NAME
-];
-
-function Setup($templateCache, templatePath) {
-	$templateCache.put('qgrid.grid.tpl.html', require('./components/grid/grid.html'));
-	$templateCache.put('qgrid.view.tpl.html', require('./components/grid/view.html'));
-	$templateCache.put('qgrid.head.cell.tpl.html', require('./components/head/cell.html'));
-	$templateCache.put('qgrid.body.cell.tpl.html', require('./components/body/cell.html'));
-	$templateCache.put('qgrid.foot.cell.tpl.html', require('./components/foot/cell.html'));
-	$templateCache.put('qgrid.toolbar.top.tpl.html', require('./components/toolbar/toolbar.top.html'));
-	$templateCache.put('qgrid.toolbar.bottom.tpl.html', require('./components/toolbar/toolbar.bottom.html'));
-	$templateCache.put('qgrid.pager.tpl.html', require('./components/pagination/pager.html'));
-
-	templatePath
-		.register(source => {
-			if (!source.column) {
-				return null;
-			}
-
-			return {
-				name: source.for,
-				key: source.column.key
-			};
-		})
-		.register(source => {
-			if (!source.toolbar) {
-				return null;
-			}
-
-			return {
-				name: 'toolbar',
-				key: source.for
-			};
-		})
-		.register(source => {
-			if (!source.pager) {
-				return null;
-			}
-
-			return {
-				name: 'pagination',
-				key: 'content'
-			}
-		});
-}
