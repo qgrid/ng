@@ -1,7 +1,7 @@
 import Model from '../../core/infrastructure/model';
-import QGridService from '../../core/services/qgrid';
+import GridService from '../../core/services/grid';
 
-export default class QGrid {
+export default class Grid {
 	constructor() {
 	}
 
@@ -10,7 +10,7 @@ export default class QGrid {
     }
 
     service(model) {
-        return new QGridService(model);
+        return new GridService(model);
     }
 
     get pipe() {

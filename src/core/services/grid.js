@@ -1,4 +1,4 @@
-export default class QGridService {
+export default class GridService {
     constructor(model) {
         this.model = model;
     }

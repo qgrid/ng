@@ -1,6 +1,6 @@
 import angular from 'angular';
 import Grid from './components/grid/grid';
-import QGrid from './services/qgrid';
+import GridService from './services/grid';
 
 import Template from './components/template/tempate';
 import Head from './components/head/head';
@@ -42,7 +42,7 @@ export default angular
 	.directive(def.FOOT_CORE_NAME, () => FootCore)
 	.directive(def.STICKY_CORE_NAME, () => StickyCore)
 	.directive(def.TOOLBAR_CORE_NAME, () => ToolbarCore)
-	.service(def.SERVICE_NAME, () => new QGrid())
+	.service(def.SERVICE_NAME, () => new GridService())
 	.service(def.THEME_NAME, () => new Theme())
 	.filter(def.RANGE_NAME, () => Range)
 	.run(Setup)
