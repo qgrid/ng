@@ -8,6 +8,7 @@ export const RANGE_NAME = 'qgridRange';
 export const GRID_NAME = 'qGrid';
 export const VIEW_CORE_NAME = 'qGridCoreView';
 export const VIEWPORT_CORE_NAME = 'qGridCoreViewport';
+export const TABLE_CORE_NAME = 'qGridCoreTable';
 export const HEAD_NAME = 'qGridHead';
 export const TEMPLATE_NAME = 'qGridTemplate';
 export const COLUMN_LIST_NAME = 'qGridColumns';

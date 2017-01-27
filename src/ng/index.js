@@ -14,6 +14,7 @@ import Groupbar from './plugins/groupbar/groupbar';
 
 import ViewCore from './components/grid/view.core';
 import ViewportCore from './components/grid/viewport.core';
+import TableCore from './components/grid/table.core';
 import TdCore from './components/body/td.core';
 import ThCore from './components/head/th.core';
 import TfCore from './components/foot/tf.core';
@@ -41,6 +42,7 @@ export default angular
 	.component(def.PAGER_NAME, Pager)
 	.component(def.GROUPBAR_NAME, Groupbar)
 	.directive(def.VIEWPORT_CORE_NAME, () => ViewportCore)
+	.directive(def.TABLE_CORE_NAME, () => TableCore)
 	.directive(def.TD_CORE_NAME, () => TdCore)
 	.directive(def.TH_CORE_NAME, () => ThCore)
 	.directive(def.TF_CORE_NAME, () => TfCore)

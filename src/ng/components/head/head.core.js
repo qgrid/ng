@@ -2,15 +2,17 @@ import Directive from '../directive';
 import {VIEW_CORE_NAME, HEAD_CORE_NAME} from '../../../definition';
 
 class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
-	constructor() {
+	constructor($scope) {
 		super();
+
+		this.$scope = $scope;
 	}
 
 	onInit() {
 	}
 }
 
-HeadCore.$inject = [];
+HeadCore.$inject = ['$scope'];
 
 export default {
 	restrict: 'A',
