@@ -6,6 +6,7 @@ import Setup from './setup';
 import Template from './components/template/tempate';
 import TemplatePath from './components/template/template.path';
 import Head from './components/head/head';
+import Foot from './components/foot/foot';
 import ColumnList from './components/column/column.list';
 import Column from './components/column/column';
 import Toolbar from './components/toolbar/toolbar';
@@ -34,6 +35,7 @@ export default angular
 	.component(def.GRID_NAME, Grid)
 	.component(def.VIEW_CORE_NAME, ViewCore)
 	.component(def.HEAD_NAME, Head)
+	.component(def.FOOT_NAME, Foot)
 	.component(def.TEMPLATE_NAME, Template)
 	.component(def.COLUMN_LIST_NAME, ColumnList)
 	.component(def.COLUMN_NAME, Column)
