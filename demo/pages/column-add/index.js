@@ -3,7 +3,7 @@ export default function Controller(qgrid) {
 	const ctrl = this;
 	this.rows = [];
 	this.columns = [];
-	this.gridModel = qgrid();
+	this.gridModel = qgrid.model();
 
 	this.init = () => {
 		let n = 100;
