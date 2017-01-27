@@ -1,6 +1,6 @@
 import angular from 'angular';
-import Model from '../core/infrastructure/model';
 import Grid from './components/grid/grid';
+import GridService from './services/grid';
 import Setup from './setup';
 
 import Template from './components/template/tempate';
@@ -48,7 +48,12 @@ export default angular
 	.directive(def.BODY_CORE_NAME, () => BodyCore)
 	.directive(def.FOOT_CORE_NAME, () => FootCore)
 	.directive(def.STICKY_CORE_NAME, () => StickyCore)
+<<<<<<< HEAD
+	.directive(def.TOOLBAR_CORE_NAME, () => ToolbarCore)
+	.service(def.SERVICE_NAME, () => new GridService())
+=======
 	.service(def.SERVICE_NAME, () => () => new Model())
+>>>>>>> master
 	.service(def.THEME_NAME, () => new Theme())
 	.service(def.TEMPLATE_PATH_NAME, () => () => TemplatePath)
 	.filter(def.RANGE_NAME, () => Range)
