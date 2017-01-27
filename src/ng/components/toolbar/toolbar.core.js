@@ -1,4 +1,4 @@
-import Component from '../Component';
+import Component from '../component';
 import TemplateCore from '../template/template.core';
 import {VIEW_CORE_NAME} from '../../../definition';
 

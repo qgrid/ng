@@ -5,15 +5,14 @@ export default class Grid {
 	constructor() {
 	}
 
-    model() {
-        return new Model();
-    }
+	model() {
+		return new Model();
+	}
 
-    service(model) {
-        return new GridService(model);
-    }
+	service(model) {
+		return new GridService(model);
+	}
 
-    get pipe() {
-
-    }
+	get pipe() {
+	}
 }

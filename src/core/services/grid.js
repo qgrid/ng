@@ -1,9 +1,8 @@
 export default class GridService {
-    constructor(model) {
-        this.model = model;
-    }
+	constructor(model) {
+		this.model = model;
+	}
 
-    invalidate() {
-        
-    }
+	invalidate() {
+	}
 }
