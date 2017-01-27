@@ -1,4 +1,4 @@
-import Error from '../infrastructure/error';
+import AppError from '../infrastructure/error';
 import Node from './node';
 
 export default function nodeBuilder(columnMap, groupBy, valueFactory) {
@@ -8,7 +8,7 @@ export default function nodeBuilder(columnMap, groupBy, valueFactory) {
 
 	const groupKey = groupBy[0];
 	if (!columnMap.hasOwnProperty(groupKey)) {
-		throw new Error('node.builder', `can't find column "${groupKey}"`);
+		throw new AppError('node.builder', `can't find column "${groupKey}"`);
 	}
 
 	const column = columnMap[groupKey];

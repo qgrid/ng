@@ -1,4 +1,10 @@
-@import 'grid';
-@import 'head';
-@import 'body';
-@import 'foot';
+.qgrid.theme-default {
+	@import "grid";
+	@import "head";
+	@import "body";
+	@import "foot";
+	@import "toolbar";
+	@import "pagination";
+	@import "groupbar";
+	@import "options";
+}

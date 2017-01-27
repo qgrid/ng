@@ -50,5 +50,9 @@
 	{
 		"path": "toolbar",
 		"title": "Toolbar"
+	},
+	{
+		"path": "pager",
+		"title": "Pager"
 	}
 ]
