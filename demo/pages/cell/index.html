@@ -17,5 +17,11 @@
 				<i>{{$cell.value | date:'yyyy/mm/dd'}}</i>
 			</q-grid:template>
 		</q-grid:column>
+		<q-grid:column key="contact.email.primary">
+			<q-grid:template for="body">
+				<a ng-href="mailto: {{$cell.value}}" ng-bind="$cell.value"></a>
+			</q-grid:template>
+		</q-grid:column>
+
 	</q-grid:columns>
 </q-grid>
