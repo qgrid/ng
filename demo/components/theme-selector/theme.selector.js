@@ -1,4 +1,4 @@
-import Component from '../../../src/ng/components/component';
+import Component from 'ng/components/component';
 require('./theme.selector.scss');
 
 class ThemeSelector extends Component {
