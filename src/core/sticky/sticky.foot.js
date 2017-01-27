@@ -23,6 +23,7 @@ export default class StickyHead extends Sticky {
 		css(this.element, 'margin-top', `${this.scrollView.offsetHeight}px`);
 		css(this.origin, 'margin-top', `-${offset}px`);
 		css(this.table, 'margin-bottom', `-${offset}px`);
+		css(this.scrollView, 'margin-bottom', `${offset}px`);
 
 		const stickyTd = td(this.element);
 		const originTd = td(this.origin);
