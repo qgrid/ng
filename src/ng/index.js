@@ -48,7 +48,6 @@ export default angular
 	.directive(def.BODY_CORE_NAME, () => BodyCore)
 	.directive(def.FOOT_CORE_NAME, () => FootCore)
 	.directive(def.STICKY_CORE_NAME, () => StickyCore)
-	.directive(def.TOOLBAR_CORE_NAME, () => ToolbarCore)
 	.service(def.SERVICE_NAME, () => new GridService())
 	.service(def.THEME_NAME, () => new Theme())
 	.service(def.TEMPLATE_PATH_NAME, () => () => TemplatePath)
