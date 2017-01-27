@@ -40,6 +40,10 @@
 		"title": "Foot"
 	},
 	{
+		"path": "aggregation",
+		"title": "Aggregation"
+	},
+	{
 		"path": "group",
 		"title": "Group"
 	},
