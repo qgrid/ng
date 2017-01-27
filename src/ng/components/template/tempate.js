@@ -3,18 +3,19 @@ import {Grid} from '../grid/grid';
 import Error from '../../../core/infrastructure/error';
 import Resource from '../../../core/resource/resource';
 import {isUndefined} from '../../../core/services/utility';
-import {GRID_NAME, TEMPLATE_NAME, COLUMN_NAME, TOOLBAR_NAME} from '../../../definition';
+import {GRID_NAME, COLUMN_NAME, TOOLBAR_NAME, PAGER_NAME, TEMPLATE_PATH_NAME} from '../../../definition';
 
 class Template extends Component {
-	constructor($scope, $element) {
+	constructor($scope, $element, templatePath) {
 		super();
 
 		this.$element = $element;
 		this.$scope = $scope;
+		this.templatePath = templatePath;
 	}
 
 	onInit() {
-		const path = this.path();
+		const path = this.templatePath.get(this);
 		if (!this.root.model.hasOwnProperty(path.name)) {
 			throw new Error(
 				'template',
@@ -50,7 +51,7 @@ class Template extends Component {
 				`Ambiguous key "${key}" for "${path.name}"`);
 		}
 
-		resourceData[key] = this.$element[0].innerHTML;
+		resourceData[key] = this.$element[0].innerHTML || this.$element[0].textContent;
 		const resourceScope = {};
 		if (!isUndefined(this.let)) {
 			if (isUndefined(this.$scope[this.let])) {
@@ -72,26 +73,6 @@ class Template extends Component {
 
 		newState.resource = new Resource(resourceData, resourceScope);
 		model(newState);
-	}
-
-	path(){
-		if(this.column){
-			return {
-				name: this.for,
-				key: this.column.key
-			};
-		}
-
-		if(this.toolbar){
-			return {
-				name: 'toolbar',
-				key: this.for
-			};
-		}
-
-		throw new Error(
-			'template',
-			`Templating controller, required by directive "${TEMPLATE_NAME}" can't be found`);
 	}
 
 	findLetScope() {
@@ -120,13 +101,19 @@ class Template extends Component {
 	}
 }
 
-Template.$inject = ['$scope', '$element'];
+Template.$inject = [
+	'$scope',
+	'$element',
+	TEMPLATE_PATH_NAME
+];
 
 export default {
 	require: {
 		root: `^^${GRID_NAME}`,
+		// TODO: how we can move that to template.path?
 		column: `?^^${COLUMN_NAME}`,
-		toolbar: `?^^${TOOLBAR_NAME}`
+		toolbar: `?^^${TOOLBAR_NAME}`,
+		pager: `?^^${PAGER_NAME}`
 	},
 	controller: Template,
 	bindings: {

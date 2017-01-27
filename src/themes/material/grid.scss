@@ -2,7 +2,7 @@
 
 .qgrid.theme-material {
 	.viewport {
-		max-height: 100%;
+		max-height: calc(100% - 56px);
 		overflow: auto;
 		font-family: $font-family;
 

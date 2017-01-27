@@ -3,10 +3,12 @@ import Model from '../core/infrastructure/model';
 import Grid from './components/grid/grid';
 
 import Template from './components/template/tempate';
+import TemplatePath from './components/template/template.path';
 import Head from './components/head/head';
 import ColumnList from './components/column/column.list';
 import Column from './components/column/column';
 import Toolbar from './components/toolbar/toolbar';
+import Pager from './components/pagination/pager';
 
 import ViewCore from './components/grid/view.core';
 import ViewportCore from './components/grid/viewport.core';
@@ -32,6 +34,8 @@ export default angular
 	.component(def.COLUMN_LIST_NAME, ColumnList)
 	.component(def.COLUMN_NAME, Column)
 	.component(def.TOOLBAR_NAME, Toolbar)
+	.component(def.TOOLBAR_CORE_NAME, ToolbarCore)
+	.component(def.PAGER_NAME, Pager)
 	.component(def.VIEW_CORE_NAME, ViewCore)
 	.directive(def.VIEWPORT_CORE_NAME, () => ViewportCore)
 	.directive(def.TD_CORE_NAME, () => TdCore)
@@ -41,15 +45,19 @@ export default angular
 	.directive(def.BODY_CORE_NAME, () => BodyCore)
 	.directive(def.FOOT_CORE_NAME, () => FootCore)
 	.directive(def.STICKY_CORE_NAME, () => StickyCore)
-	.directive(def.TOOLBAR_CORE_NAME, () => ToolbarCore)
 	.service(def.SERVICE_NAME, () => () => new Model())
 	.service(def.THEME_NAME, () => new Theme())
+	.service(def.TEMPLATE_PATH_NAME, () => new TemplatePath())
 	.filter(def.RANGE_NAME, () => Range)
 	.run(Setup)
 	.name;
 
-Setup.$inject = ['$templateCache'];
-function Setup($templateCache) {
+Setup.$inject = [
+	'$templateCache',
+	def.TEMPLATE_PATH_NAME
+];
+
+function Setup($templateCache, templatePath) {
 	$templateCache.put('qgrid.grid.tpl.html', require('./components/grid/grid.html'));
 	$templateCache.put('qgrid.view.tpl.html', require('./components/grid/view.html'));
 	$templateCache.put('qgrid.head.cell.tpl.html', require('./components/head/cell.html'));
@@ -57,5 +65,37 @@ function Setup($templateCache) {
 	$templateCache.put('qgrid.foot.cell.tpl.html', require('./components/foot/cell.html'));
 	$templateCache.put('qgrid.toolbar.top.tpl.html', require('./components/toolbar/toolbar.top.html'));
 	$templateCache.put('qgrid.toolbar.bottom.tpl.html', require('./components/toolbar/toolbar.bottom.html'));
+	$templateCache.put('qgrid.pager.tpl.html', require('./components/pagination/pager.html'));
 
+	templatePath
+		.register(source => {
+			if (!source.column) {
+				return null;
+			}
+
+			return {
+				name: source.for,
+				key: source.column.key
+			};
+		})
+		.register(source => {
+			if (!source.toolbar) {
+				return null;
+			}
+
+			return {
+				name: 'toolbar',
+				key: source.for
+			};
+		})
+		.register(source => {
+			if (!source.pager) {
+				return null;
+			}
+
+			return {
+				name: 'pagination',
+				key: 'content'
+			}
+		});
 }

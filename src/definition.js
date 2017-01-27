@@ -1,6 +1,7 @@
 export const MODULE_NAME = 'qgrid';
 
 export const SERVICE_NAME = 'qgrid';
+export const TEMPLATE_PATH_NAME = 'qgridTemplatePath';
 export const THEME_NAME = 'qgridTheme';
 export const RANGE_NAME = 'qgridRange';
 
@@ -20,3 +21,4 @@ export const HEAD_CORE_NAME = 'qGridCoreHead';
 export const BODY_CORE_NAME = 'qGridCoreBody';
 export const FOOT_CORE_NAME = 'qGridCoreFoot';
 export const TOOLBAR_CORE_NAME = 'qGridCoreToolbar';
+export const PAGER_NAME = 'qGridPager';

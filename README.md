@@ -1,5 +1,8 @@
 # qgrid
-Angular grid
+Angularjs data grid
+
+## examples
+https://qgrid.github.io/ng/
 
 ## core concepts
 * **easy** to start: ```<q-grid rows="data"></grid>``` should be enought to start
@@ -7,9 +10,6 @@ Angular grid
 * **considered styles**: user should be able to make any css customization in easy format
 * fully **customizable**: header, cells, rows, footer etc. should be templatable
 * **clear javascript**: no html templates in javascript
-
-## examples
-https://qgrid.github.io/ng/
 
 ## development
 * `$ npm install` prerequisites
@@ -19,25 +19,23 @@ https://qgrid.github.io/ng/
 * `$ npm run test` run tests
 * `$ npm run test:debug` watch and debug tests
 
-## get started
-```html
-<q-grid rows="data"></q-grid>
-```
-
 ## design
 [sandbox](https://github.com/qgrid/ng/blob/master/docs/sandbox.md)
 
-## features in progress
+# featires in review
 * [expressive templates](https://github.com/qgrid/ng/blob/master/docs/template.md) `Dmitry S.`
+* [plugin components](https://github.com/qgrid/ng/blob/master/docs/plugin.md) `Dmitry S.`
+* [sticky header/footer](https://github.com/qgrid/ng/blob/master/docs/header.sticky.md) `Maxim`
+
+## features in progress
 * [column generation from data](https://github.com/qgrid/ng/blob/master/docs/column.generation.md) `Maxim`
 * [virtualization of vertical & horizontal scrolls (handle large data sets)](https://github.com/qgrid/ng/blob/master/docs/scroll.virtual.md) `Valentin`
-* [sticky header](https://github.com/qgrid/ng/blob/master/docs/header.sticky.md) `Maxim`
 * [column reordering and resizing](https://github.com/qgrid/ng/blob/master/docs/header.sticky.md) `Maxim`
 * [pagination](https://github.com/qgrid/ng/blob/master/docs/pagination.md) `Valentin`
 * [infinite scroll](https://github.com/qgrid/ng/blob/master/docs/scroll.infinite.md) `Valentin`
 * [filtering](https://github.com/qgrid/ng/blob/master/docs/filter.md) `Valentin`
 * [sorting](https://github.com/qgrid/ng/blob/master/docs/sorting.md) `Evgeniy`
-* [selection](https://github.com/qgrid/ng/blob/master/docs/selection.md) `Ivan`
+* [selection](https://github.com/qgrid/ng/blob/master/docs/selection.md) `Dmitry K.`
 * [checkable rows](https://github.com/qgrid/ng/blob/master/docs/row.checkable.md) `Dmitry K.`
 * [column chooser](https://github.com/qgrid/ng/blob/master/docs/column.chooser.md) `Evgeniy`
 * [keyboard navigation](https://github.com/qgrid/ng/blob/master/docs/navigation.md) `Kate`
@@ -49,6 +47,7 @@ https://qgrid.github.io/ng/
 * [embeded editors](https://github.com/qgrid/ng/blob/master/docs/cell.editing.md) `Vladimir`
 * [multi-column header](https://github.com/qgrid/ng/blob/master/docs/header.multi-column.md) `Dmitry K.`
 * [predefined aggregations](https://github.com/qgrid/ng/blob/master/docs/column.aggregation.md) `Stepan` 
+* [column path](https://github.com/qgrid/ng/blob/master/docs/column.path.md) `Ivan`
 
 ## backlog
 * `component api`
