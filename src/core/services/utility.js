@@ -4,6 +4,8 @@ import clone from 'lodash/clone';
 import isUndefined from 'lodash/isUndefined';
 import debounce from 'lodash/debounce';
 import merge from 'lodash/merge';
+import maxBy from 'lodash/maxBy';
+import minBy from 'lodash/minBy';
 
 const noop = () => {};
 const yes = () => true;
@@ -32,5 +34,7 @@ export {
 	yes,
 	no,
 	toCamelCase,
-	noop
+	noop,
+	maxBy,
+	minBy
 };
