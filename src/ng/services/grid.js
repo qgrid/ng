@@ -1,5 +1,6 @@
 import Model from 'core/infrastructure/model';
 import GridService from 'core/services/grid';
+import Pipe from 'core/pipeline/pipe';
 
 export default class Grid {
 	constructor() {
@@ -14,5 +15,6 @@ export default class Grid {
 	}
 
 	get pipe() {
+		return Pipe;
 	}
 }
