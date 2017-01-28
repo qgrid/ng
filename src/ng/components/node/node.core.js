@@ -8,7 +8,9 @@ import {VIEW_CORE_NAME, NODE_CORE_NAME} from 'src/definition';
 
 const toggleStatus = new Command({
 	execute: node => node.state.expand = !node.state.expand,
-	canExecute: node => node.type === 'group'
+	canExecute: node => {
+		return node.type === 'group'
+	}
 });
 
 class NodeCore extends Directive(NODE_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
