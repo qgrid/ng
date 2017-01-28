@@ -14,18 +14,22 @@ Here is a list of features we should support:
 <q-grid rows="data"
         selection="selections"
         selection-mode="check">
-	<q-grid:check>
-		<q-grid:template for="head">
+	<q-grid:selection>
+		<q-grid:template for="select-all">
 			<label>
-				<input type="checkbox" q-grid:indeterminate="$selection.indeterminate()" ng-checked="$selection.state()" ng-click="$selection.toggleAll()"/>
+				<input type="checkbox" q-grid:indeterminate="$selection.indeterminate()" 
+					ng-checked="$selection.state()" 
+					ng-click="$selection.toggleAll()"/>
+				Select All
 			</label>
 		</q-grid:template>
-		<q-grid:template for="body">
+		<q-grid:template for="select">
 			<label>
 				<input type="checkbox" ng-checked="$selection.state($row)" ng-click="$selection.toggle($row)"/>
+				Select {{$row.name.last}}
 			</label>
 		</q-grid:template>
-	</q-grid:check>
+	</q-grid:selection>
 </q-grid>
 ```
 ## script
