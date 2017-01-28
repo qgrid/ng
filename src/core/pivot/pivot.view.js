@@ -3,10 +3,8 @@ import {flatten} from 'core/services/utility';
 function injectData(schema, source, target) {
 	return Object
 		.keys(source)
-		.filter(function (key) {
-			return !schema.hasOwnProperty(key);
-		})
-		.reduce(function (memo, key) {
+		.filter(key => !schema.hasOwnProperty(key))
+		.reduce((memo, key) => {
 			memo[key] = source[key];
 			return memo;
 		}, target);
@@ -32,15 +30,16 @@ function liftSchema(schema) {
 
 	function lift(schema, depth) {
 		const derivatives =
-			Object
-				.keys(schema)
-				.map(schema, function (value, key) {
-					const value = schema[key];
-					return {
-						key: key,
-						value: lift(value, depth + 1)
-					};
-				});
+			schema
+				? Object.keys(schema)
+					.map((value, key) => {
+						const node = schema[key];
+						return {
+							key: key,
+							value: lift(node, depth + 1)
+						};
+					})
+				: [];
 
 		if (derivatives.length > 0)
 			if (!baseline[depth]) {
@@ -70,8 +69,7 @@ function sortSchema(schema, comparator) {
 export default function view(source, comparator) {
 	if (source.schema && source.data) {
 		const schema = sortSchema(source.schema, comparator);
-		const source = source.data;
-		const data = source.map(row => injectData(schema, row, expandData(schema, row)));
+		const data = source.data.map(row => injectData(schema, row, expandData(schema, row)));
 		const header = liftSchema(schema);
 		return {headers: header, rows: data};
 	}

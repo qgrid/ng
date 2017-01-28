@@ -1,5 +1,5 @@
 <tr ng-repeat="index in $foot.count | qgridRange track by $index">
-	<td ng-if="$view.mode === 'group'"></td>
+	<td class="group"></td>
 	<td ng-repeat="$column in $view.columns track by $index"
 		 class="{{::$column.key}}"
 		 q-grid-core:tf>

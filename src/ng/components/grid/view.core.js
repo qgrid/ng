@@ -22,6 +22,10 @@ class ViewCore extends Component {
 		this.initPivot(model);
 	}
 
+	templateUrl(key){
+		return `qgrid.${key}.${this.mode}.tpl.html`;
+	}
+
 	get model() {
 		return this.root.model;
 	}

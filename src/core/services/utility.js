@@ -6,10 +6,13 @@ import debounce from 'lodash/debounce';
 import merge from 'lodash/merge';
 import extend from 'lodash/extend';
 import flatten from 'lodash/flatten';
+import uniq from 'lodash/uniq';
+import groupBy from 'lodash/groupBy';
 
 const noop = () => {};
 const yes = () => true;
 const no = () => false;
+const identity = arg => arg;
 
 const toCamelCase = (...names) => {
 	const length = names.length;
@@ -33,6 +36,9 @@ export {
 	merge,
 	extend,
 	flatten,
+	uniq,
+	groupBy,
+	identity,
 	yes,
 	no,
 	toCamelCase,

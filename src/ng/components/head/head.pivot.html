@@ -1,0 +1,6 @@
+<tr ng-repeat="$row in $head.rows">
+	<th data-ng-repeat="$column in $row"
+		 colspan="{{$column.value}}">
+		{{$column.key}}
+	</th>
+</tr>

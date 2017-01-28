@@ -3,17 +3,16 @@ import {extend} from 'core/services/utility';
 class Plan {
 	constructor(schema) {
 		this.isRoot = !arguments.length;
-		this.schema = schema;
-		this.pointer = schema || {};
+		this.current = this.schema = schema || {};
 	}
 
 	branch() {
-		return new Plan(this.pointer);
+		return new Plan(this.current);
 	}
 
 	cursor(name) {
 		const schema = this.schema;
-		this.pointer =
+		this.current =
 			schema.hasOwnProperty(name)
 				? schema[name]
 				: schema[name] = {};
@@ -29,45 +28,46 @@ class Plan {
 		else {
 			return data;
 		}
-	};
+	}
 }
 
 class Settings {
 	constructor() {
 	}
 
-	factory(item) {return {};}
-	selector(source) {return source;}
-	name(_) {return null;}
+	factory() {return {};}
+	selector(row) {return row;}
+	name() {return null;}
 	value(item) {return item;}
 }
 
 function factory(plan) {
 	return name => {
 		plan.cursor(name);
-		return function (settings) {
+		return settings => {
 			return pivot(settings, plan.branch());
 		};
 	};
 }
 
 export default function pivot(settings, plan) {
-	const settings = extend(new Settings(), settings);
-	const plan = plan || new Plan(null);
+	settings = extend(new Settings(), settings);
+	plan = plan || new Plan();
+
 	const pivot = factory(plan);
-	const aggregate = source => {
+	const aggregate = row => {
 		return settings
-			.selector(source)
+			.selector(row)
 			.reduce((memo, selection) => {
 				const name = settings.name(selection);
-				memo[name] = settings.value(selection, source, pivot(name));
+				memo[name] = settings.value(selection, row, pivot(name));
 				return memo;
-			}, settings.factory(source));
+			}, settings.factory(row));
 	};
 
-	return source =>
+	return rows =>
 		plan.compile(
 			plan.isRoot
-				? source.map(aggregate)
-				: aggregate(source));
+				? rows.map(aggregate)
+				: aggregate(rows));
 }

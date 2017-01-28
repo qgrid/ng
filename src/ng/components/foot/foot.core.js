@@ -29,7 +29,6 @@ FootCore.$inject = ['$scope'];
 
 export default {
 	restrict: 'A',
-	templateUrl: 'qgrid.foot.tpl.html',
 	bindToController: true,
 	controllerAs: '$foot',
 	controller: FootCore,

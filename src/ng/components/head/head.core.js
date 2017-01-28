@@ -10,13 +10,22 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 
 	onInit() {
 	}
+
+	get rows() {
+		const view = this.view.model.view();
+		const pivot = view.pivot;
+		if(pivot){
+			return pivot.headers;
+		}
+
+		return [];
+	}
 }
 
 HeadCore.$inject = ['$scope'];
 
 export default {
 	restrict: 'A',
-	templateUrl: 'qgrid.head.tpl.html',
 	bindToController: true,
 	controllerAs: '$head',
 	controller: HeadCore,
