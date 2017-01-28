@@ -3,8 +3,8 @@
 		  selection="$ctrl.selection"
 		  selection-mode="$ctrl.selectionMode"
 		  on:selection-changed="$ctrl.selectionChanged($event)">
-	<q-grid:check>
-		<q-grid:template for="head">
+	<q-grid:selection>
+		<q-grid:template for="select-all">
 			<label>
 				<input type="checkbox" q-grid:indeterminate="$selection.indeterminate()" 
 					ng-checked="$selection.state()" 
@@ -12,7 +12,7 @@
 				Select All
 			</label>
 		</q-grid:template>
-		<q-grid:template for="body">
+		<q-grid:template for="select">
 			<label>
 				<input type="checkbox" ng-checked="$selection.state($row)" ng-click="$selection.toggle($row)"/>
 				Select {{$row.name.last}}
@@ -24,7 +24,7 @@
 		<q-grid:template for="top" let="$ctrl">
 			<button ng-click="$ctrl.selectAll()">Select all</button>
 			<button ng-click="$ctrl.selectTop10()">Select top 10</button>
-			<button ng-click="$ctrl.diselectAll()">Diselect all</button>
+			<button ng-click="$ctrl.deselectAll()">Deselect all</button>
 		</q-grid:template>
 	</q-grid:toolbar>
 </q-grid>

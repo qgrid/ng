@@ -1,20 +1,20 @@
 import Component from '../component';
-import {GRID_NAME} from '../../../definition';
+import {GRID_NAME} from 'src/definition';
 
-class Check extends Component {
+class Selection extends Component {
 	constructor() {
-		super('group');
+		super();
 	}
 
 	onInit() {
 	}
 }
 
-Check.$inject = [];
+Selection.$inject = [];
 
 export default {
 	require: {
 		root: `^^${GRID_NAME}`
 	},
-	controller: Check
+	controller: Selection
 };

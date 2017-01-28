@@ -10,7 +10,7 @@ import Foot from './components/foot/foot';
 import ColumnList from './components/column/column.list';
 import Column from './components/column/column';
 import Toolbar from './components/toolbar/toolbar';
-import Check from './components/selection/check';
+import Selection from './components/selection/selection';
 import Pager from './plugins/pagination/pager';
 import Groupbar from './plugins/groupbar/groupbar';
 
@@ -48,7 +48,7 @@ export default angular
 	.component(def.TOOLBAR_CORE_NAME, ToolbarCore)
 	.component(def.PAGER_NAME, Pager)
 	.component(def.GROUPBAR_NAME, Groupbar)
-	.component(def.CHECK_NAME, Check)
+	.component(def.SELECTION_NAME, Selection)
 	.directive(def.VIEWPORT_CORE_NAME, () => ViewportCore)
 	.directive(def.TABLE_CORE_NAME, () => TableCore)
 	.directive(def.SELECTION_CORE_NAME, () => SelectionCore)

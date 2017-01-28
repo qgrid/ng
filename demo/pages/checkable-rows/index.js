@@ -73,7 +73,7 @@ export default function Controller($http, $log) {
 		ctrl.selection = ctrl.rows.slice(0, 10);
 	};
 
-	this.diselectAll = () => {
+	this.deselectAll = () => {
 		ctrl.selection = [];
 	};
 

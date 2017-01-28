@@ -1,5 +1,5 @@
 import Directive from '../directive';
-import {INDETERMINATE_NAME} from '../../../definition';
+import {INDETERMINATE_NAME} from 'src/definition';
 
 class Indeterminate extends Directive(INDETERMINATE_NAME) {
 	constructor($scope, $element, $attrs) {

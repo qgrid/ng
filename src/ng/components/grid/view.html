@@ -6,7 +6,7 @@
 				 q-grid-core:sticky>
 		<tr>
 			<th ng-if="$view.selection.mode === 'check'"
-				 q-grid-core:check="head">
+				 q-grid-core:check="select-all">
 			</th>
 			<th ng-if="$view.nodes.length">+</th>
 			<th ng-if="$view.nodes.length">Group</th>
@@ -38,9 +38,9 @@
 			</td>
 		</tr>
 		<tr ng-switch-default
-			 ng-repeat="$row in $view.rows track by $index">
+			ng-repeat="$row in $view.rows track by $index">
 			<td ng-if="$view.selection.mode === 'check'"
-				 q-grid-core:check="body">
+				 q-grid-core:check="select">
 			</td>
 			<td ng-repeat="$column in $view.columns track by $index"
 				 class="{{::$column.key}}"

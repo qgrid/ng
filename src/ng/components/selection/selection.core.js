@@ -1,7 +1,5 @@
 import Directive from '../directive';
-import {VIEW_CORE_NAME, SELECTION_CORE_NAME} from '../../../definition';
-import Event from '../../../core/infrastructure/event';
-//import angular from 'angular';
+import {VIEW_CORE_NAME, SELECTION_CORE_NAME} from 'src/definition';
 
 class SelectionCore extends Directive(SELECTION_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	constructor($scope, $element, $attrs) {
@@ -12,7 +10,6 @@ class SelectionCore extends Directive(SELECTION_CORE_NAME, {view: `^^${VIEW_CORE
 		this.$attrs = $attrs;
 		
 		this.selectedItems = new Set();
-		this.selectionChanged = new Event();
 	}
 
 	onInit() {

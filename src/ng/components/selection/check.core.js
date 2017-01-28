@@ -1,6 +1,6 @@
 import Directive from '../directive';
 import TemplateCore from '../template/template.core';
-import {VIEW_CORE_NAME, CHECK_CORE_NAME} from '../../../definition';
+import {VIEW_CORE_NAME, CHECK_CORE_NAME} from 'src/definition';
 
 class CheckCore extends Directive(CHECK_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	constructor($scope, $element, $compile, $templateCache, $attrs) {
@@ -16,7 +16,7 @@ class CheckCore extends Directive(CHECK_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}
 
 	onInit() {
 		const target = this.$attrs[CHECK_CORE_NAME];
-		const state = this.view.model.check();
+		const state = this.view.model.selection();
 		const link = this.template.link(
 			`qgrid.check.${target}.tpl.html`,
 			state.resource,
