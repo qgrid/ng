@@ -23,11 +23,16 @@ TemplatePath
 	.register(def.GROUPBAR_NAME, () => {
 		return {
 			model: 'group',
-			resource: 'key'
+			resource: 'content'
+		};
+	})
+	.register(def.PIVOTBAR_NAME, () => {
+		return {
+			model: 'pivot',
+			resource: 'content'
 		};
 	})
 	.register(def.NODE_NAME, () => {
-		"use strict";
 		return {
 			model: 'node',
 			resource: 'content'
@@ -50,4 +55,5 @@ export default function Setup($templateCache) {
 	$templateCache.put('qgrid.toolbar.bottom.tpl.html', require('./components/toolbar/toolbar.bottom.html'));
 	$templateCache.put('qgrid.pager.tpl.html', require('./plugins/pagination/pager.html'));
 	$templateCache.put('qgrid.groupbar.tpl.html', require('./plugins/groupbar/groupbar.html'));
+	$templateCache.put('qgrid.pivotbar.tpl.html', require('./plugins/pivotbar/pivotbar.html'));
 }

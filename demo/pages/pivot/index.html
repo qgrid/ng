@@ -1,0 +1,7 @@
+<q-grid columns="$ctrl.columns"
+		  rows="$ctrl.rows"
+		  pivot-by="['contact.address.state', 'gender']">
+	<q-grid:columns>
+		<q-grid:column key="contact.address.zip" aggregation="max"></q-grid:column>
+	</q-grid:columns>
+</q-grid>
