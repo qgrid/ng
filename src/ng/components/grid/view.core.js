@@ -2,6 +2,7 @@ import Component from '../component';
 import {map as getColumnMap} from 'core/column/column.service';
 import {getFactory as valueFactory} from 'ng/services/value';
 import nodeBuilder from 'core/node/node.builder';
+import pivotBuilder from 'core/pivot/pivot.builder';
 import {flatView} from 'core/node/node.service';
 import {GRID_NAME} from 'src/definition';
 
@@ -18,6 +19,7 @@ class ViewCore extends Component {
 		const model = this.model;
 		this.initData(model);
 		this.initGroup(model);
+		this.initPivot(model);
 	}
 
 	get model() {
@@ -38,7 +40,16 @@ class ViewCore extends Component {
 	}
 
 	get mode() {
-		return this.model.view().nodes.length ? 'node' : 'row';
+		const state = this.model.view();
+		if(state.pivot){
+			return 'pivot';
+		}
+
+		if(state.nodes.length){
+			return 'group';
+		}
+
+		return 'row';
 	}
 
 	initTheme() {
@@ -95,6 +106,31 @@ class ViewCore extends Component {
 				view({nodes: build()});
 			}
 		});
+	}
+
+	initPivot(model){
+		const view = model.view;
+		const build = () =>
+			pivotBuilder(
+				getColumnMap(this.columns),
+				model.pivot().by,
+				valueFactory
+			)(this.rows);
+
+		view({pivot: build()});
+
+		model.pivotChanged.on(e => {
+			if (e.changes.hasOwnProperty('by')) {
+				view({pivot: build()});
+			}
+		});
+
+		model.viewChanged.on(e => {
+			if (e.changes.hasOwnProperty('rows') || e.changes.hasOwnProperty('rows')) {
+				view({pivot: build()});
+			}
+		});
+
 	}
 }
 
