@@ -5,7 +5,7 @@ import {VIEW_CORE_NAME, NODE_CORE_NAME} from 'src/definition';
 
 const toggleStatus = new Command({
 	execute: node => node.state.expand = !node.state.expand,
-	canExecute: node => node.children.length > 0 || node.rows.length > 0
+	canExecute: node => node.type === 'group'
 });
 
 class NodeCore extends Directive(NODE_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
@@ -33,10 +33,6 @@ class NodeCore extends Directive(NODE_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	get count(){
 		const node = this.$scope.$node;
 		return node.children.length || node.rows.length;
-	}
-
-	get title() {
-		return this.$scope.$node.key;
 	}
 
 	get status() {

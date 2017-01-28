@@ -14,7 +14,7 @@ export function flatView(nodes, result = []) {
 				const rows = node.rows;
 				for (let j = 0, rowsLength = rows.length; j < rowsLength; j++) {
 					const row = rows[j];
-					const rowNode = new Node(node.key);
+					const rowNode = new Node(node.key, node.level + 1, 'row');
 					rowNode.rows = [row];
 					children.push(rowNode);
 					result.push(rowNode);

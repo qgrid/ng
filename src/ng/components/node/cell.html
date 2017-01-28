@@ -4,4 +4,5 @@
 	<span ng-switch-when="expand">-</span>
 	<span ng-switch-default>+</span>
 </button>
-<span>{{$row.title}}({{$row.count}})</span>
+<span>{{$node.key}}</span>
+<span ng-if="$row.toggleStatus.canExecute($node)">({{$row.count}})</span>
