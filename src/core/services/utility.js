@@ -4,6 +4,8 @@ import clone from 'lodash/clone';
 import isUndefined from 'lodash/isUndefined';
 import debounce from 'lodash/debounce';
 import merge from 'lodash/merge';
+import extend from 'lodash/extend';
+import flatten from 'lodash/flatten';
 
 const noop = () => {};
 const yes = () => true;
@@ -29,6 +31,8 @@ export {
 	clone,
 	debounce,
 	merge,
+	extend,
+	flatten,
 	yes,
 	no,
 	toCamelCase,
