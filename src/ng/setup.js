@@ -4,26 +4,33 @@ import * as def from '../definition';
 TemplatePath
 	.register(def.COLUMN_NAME, (template, column) => {
 		return {
-			name: template.for,
-			key: column.key
+			model: template.for,
+			resource: column.key
 		};
 	})
 	.register(def.TOOLBAR_NAME, template => {
 		return {
-			name: 'toolbar',
-			key: template.for
+			model: 'toolbar',
+			resource: template.for
 		};
 	})
 	.register(def.PAGER_NAME, () => {
 		return {
-			name: 'pagination',
-			key: 'content'
+			model: 'pagination',
+			resource: 'content'
 		};
 	})
 	.register(def.GROUPBAR_NAME, () => {
 		return {
-			name: 'group',
-			key: 'key'
+			model: 'group',
+			resource: 'key'
+		};
+	})
+	.register(def.NODE_NAME, () => {
+		"use strict";
+		return {
+			model: 'node',
+			resource: 'content'
 		};
 	});
 

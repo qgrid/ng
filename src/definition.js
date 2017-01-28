@@ -26,6 +26,7 @@ export const HEAD_NAME = `${GRID}Head`;
 export const TEMPLATE_NAME = `${GRID}Template`;
 export const COLUMN_LIST_NAME = `${GRID}Columns`;
 export const COLUMN_NAME = `${GRID}Column`;
+export const NODE_NAME = `${GRID}Node`;
 export const TOOLBAR_NAME = `${GRID}Toolbar`;
 export const FOOT_NAME = `${GRID}Foot`;
 export const PAGER_NAME = `${GRID}Pager`;

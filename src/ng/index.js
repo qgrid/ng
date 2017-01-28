@@ -9,6 +9,7 @@ import Head from './components/head/head';
 import Foot from './components/foot/foot';
 import ColumnList from './components/column/column.list';
 import Column from './components/column/column';
+import Node from './components/node/node';
 import Toolbar from './components/toolbar/toolbar';
 import Pager from './plugins/pagination/pager';
 import Groupbar from './plugins/groupbar/groupbar';
@@ -40,6 +41,7 @@ export default angular
 	.component(def.TEMPLATE_NAME, Template)
 	.component(def.COLUMN_LIST_NAME, ColumnList)
 	.component(def.COLUMN_NAME, Column)
+	.component(def.NODE_NAME, Node)
 	.component(def.TOOLBAR_NAME, Toolbar)
 	.component(def.TOOLBAR_CORE_NAME, ToolbarCore)
 	.component(def.PAGER_NAME, Pager)
