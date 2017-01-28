@@ -66,7 +66,7 @@ class NodeCore extends Directive(NODE_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 
 				return null;
 			case 'row':
-				return valueService.get(column, node.rows[0]);
+				return valueService.get(node.rows[0], column);
 			default:
 				throw new AppError(
 					'node.core',

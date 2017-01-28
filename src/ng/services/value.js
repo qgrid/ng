@@ -1,5 +1,7 @@
+import {isFunction} from 'core/services/utility';
+
 export function get(row, column) {
-	return row.value
+	return row.value && isFunction(row.value)
 		? row.value(column)
 		: column.$value
 			? column.$value({$row: row})
