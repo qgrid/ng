@@ -39,7 +39,14 @@ class NodeCore extends Directive(NODE_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	}
 
 	get status() {
-		return this.$scope.$node.state.expand ? 'expand' : 'collapse';
+		const node = this.$scope.$node;
+		return node.state.expand ? 'expand' : 'collapse';
+	}
+
+	get offset(){
+		const state = this.view.model.node();
+		const node = this.$scope.$node;
+		return state.offset * node.level;
 	}
 
 	value(column) {
