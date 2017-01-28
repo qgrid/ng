@@ -1,6 +1,10 @@
 <tr ng-if="$view.mode === 'node'"
-	 ng-repeat="$node in $view.nodes track by $index"
-	 q-grid-core:node>
+	 ng-repeat="$node in $view.nodes track by $index">
+	<td q-grid-core:node></td>
+	<td ng-repeat="$column in $view.columns track by $index"
+		 class="{{::$column.key}}"
+		 q-grid-core:td>
+	</td>
 </tr>
 <tr ng-if="$view.mode === 'row'"
 	 ng-repeat="$row in $view.rows track by $index">
