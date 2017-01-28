@@ -53,10 +53,10 @@ class NodeCore extends Directive(NODE_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 							`Aggregation ${column.aggregation} is not registered`);
 					}
 
-					const rows = this.view.model.view().rows;
 					const getValue = valueService.getFactory(column);
-					return Aggregation[column.aggregation](rows, getValue);
+					return Aggregation[column.aggregation](node.rows, getValue);
 				}
+
 				return null;
 			case 'row':
 				return valueService.get(column, node.rows[0]);
