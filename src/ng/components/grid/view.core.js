@@ -4,6 +4,7 @@ import {getFactory as valueFactory} from 'ng/services/value';
 import nodeBuilder from 'core/node/node.builder';
 import pivotBuilder from 'core/pivot/pivot.builder';
 import {flatView} from 'core/node/node.service';
+import Pivot from './view.pivot';
 import {GRID_NAME} from 'src/definition';
 
 class ViewCore extends Component {
@@ -12,6 +13,7 @@ class ViewCore extends Component {
 
 		this.$element = $element;
 		this.theme = theme;
+		this.pivot = new Pivot(this);
 		this.initTheme();
 	}
 
@@ -22,7 +24,7 @@ class ViewCore extends Component {
 		this.initPivot(model);
 	}
 
-	templateUrl(key){
+	templateUrl(key) {
 		return `qgrid.${key}.${this.mode}.tpl.html`;
 	}
 
@@ -32,6 +34,9 @@ class ViewCore extends Component {
 
 	get rows() {
 		return this.model.view().rows;
+	}
+
+	get pivotRows() {
 	}
 
 	get columns() {
@@ -45,11 +50,11 @@ class ViewCore extends Component {
 
 	get mode() {
 		const state = this.model.view();
-		if(state.pivot){
+		if (state.pivot) {
 			return 'pivot';
 		}
 
-		if(state.nodes.length){
+		if (state.nodes.length) {
 			return 'group';
 		}
 
@@ -112,7 +117,7 @@ class ViewCore extends Component {
 		});
 	}
 
-	initPivot(model){
+	initPivot(model) {
 		const view = model.view;
 		const build = () =>
 			pivotBuilder(

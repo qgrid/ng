@@ -8,20 +8,6 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 
 	onInit() {
 	}
-
-	get templateUrl(){
-		return 'qgrid.body.group.tpl.html';
-	}
-
-	get rows() {
-		const view = this.view.model.view();
-		const pivot = view.pivot;
-		if(pivot){
-			return pivot.rows;
-		}
-
-		return [];
-	}
 }
 
 BodyCore.$inject = [];

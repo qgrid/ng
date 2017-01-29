@@ -1,8 +1,40 @@
-.mode-group {
-	td.group {
-		button {
-			background: transparent;
-			border: none;
+@import "variables";
+$border: 1px solid $dark-divider;
+
+.viewport {
+	.mode-pivot {
+		thead {
+			tr {
+				height: 28px;
+				&:last-child{
+					th{
+						border-bottom: $border;
+					}
+				}
+
+				th {
+					text-align: center;
+					border-top: $border;
+					border-right: $border;
+					padding-left: 4px;
+					padding-right: 4px;
+					&:first-child{
+						border-left: $border;
+					}
+				}
+			}
+		}
+
+		td {
+			text-align: center;
+		}
+
+		tbody{
+			tr:first-child{
+				td{
+					border: none;
+				}
+			}
 		}
 	}
 }
