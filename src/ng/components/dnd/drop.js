@@ -1,4 +1,5 @@
 import Directive from '../directive';
+import EventListener from 'core/infrastructure/event.listener';
 import {GRID_NAME, DROP_NAME, CAN_DROP_NAME, DROP_EFFECT_NAME, ON_DROP_NAME} from 'src/definition';
 
 class Drop extends Directive(DROP_NAME) {
@@ -7,26 +8,20 @@ class Drop extends Directive(DROP_NAME) {
 
 		this.$scope = $scope;
 		this.element = $element[0];
+		this.listener = new EventListener(this, this.element);
 	}
 
 	onInit() {
-		const element = this.element;
-
-		element.classList.add('can-drop');
-		element.addEventListener('dragenter', this.enter.bind(this), false);
-		element.addEventListener('dragover', this.over.bind(this), false);
-		element.addEventListener('dragleave', this.leave.bind(this), false);
-		element.addEventListener('drop', this.drop.bind(this), false);
+		this.element.classList.add('can-drop');
+		this.listener.on('dragenter', this.enter);
+		this.listener.on('dragover', this.over);
+		this.listener.on('dragleave', this.leave);
+		this.listener.on('drop', this.drop);
 	}
 
 	onDestroy() {
-		const element = this.element;
-
-		element.classList.remove('can-drop');
-		element.removeEventListener('drop');
-		element.removeEventListener('dragenter');
-		element.removeEventListener('dragover');
-		element.removeEventListener('dragleave');
+		this.element.classList.remove('can-drop');
+		this.listener.off();
 	}
 
 	drop(e) {

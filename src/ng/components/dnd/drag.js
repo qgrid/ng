@@ -1,4 +1,5 @@
 import Directive from '../directive';
+import EventListener from 'core/infrastructure/event.listener';
 import {GRID_NAME, DRAG_NAME, DROP_EFFECT_NAME} from 'src/definition';
 
 class Drag extends Directive(DRAG_NAME) {
@@ -6,22 +7,18 @@ class Drag extends Directive(DRAG_NAME) {
 		super();
 
 		this.element = $element[0];
+		this.listener = new EventListener(this, this.element);
 	}
 
 	onInit() {
-		const element = this.element;
-
-		element.classList.add('can-drag');
-		element.addEventListener('dragstart', this.start.bind(this), false);
-		element.addEventListener('dragend', this.end.bind(this), false);
+		this.element.classList.add('can-drag');
+		this.listener.on('dragstart', this.start);
+		this.listener.on('dragend', this.end.bind(this));
 	}
 
 	onDestroy() {
-		const element = this.element;
-
-		element.classList.remove('can-drag');
-		element.removeEventListener('dragstart');
-		element.removeEventListener('dragend');
+		this.element.classList.remove('can-drag');
+		this.listener.off()
 	}
 
 	start(e) {
