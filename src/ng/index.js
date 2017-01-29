@@ -13,7 +13,6 @@ import Node from './components/node/node';
 import Toolbar from './components/toolbar/toolbar';
 import Drag from './components/dnd/drag';
 import Drop from './components/dnd/drop';
-import CanDrop from './components/dnd/drop.can';
 
 import Pager from './plugins/pagination/pager';
 import Groupbar from './plugins/groupbar/groupbar';
@@ -54,7 +53,6 @@ export default angular
 	.component(def.PIVOTBAR_NAME, Pivotbar)
 	.directive(def.DRAG_NAME, () => Drag)
 	.directive(def.DROP_NAME, () => Drop)
-	.directive(def.CAN_DROP_NAME, () => CanDrop)
 	.directive(def.VIEWPORT_CORE_NAME, () => ViewportCore)
 	.directive(def.TABLE_CORE_NAME, () => TableCore)
 	.directive(def.TD_CORE_NAME, () => TdCore)

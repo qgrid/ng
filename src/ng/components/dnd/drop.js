@@ -1,5 +1,7 @@
 import Directive from '../directive';
-import {DROP_NAME} from 'src/definition';
+import {yes} from 'core/services/utility';
+import {DROP_NAME, CAN_DROP_NAME} from 'src/definition';
+
 
 class Drop extends Directive(DROP_NAME) {
 	constructor($element) {
@@ -28,7 +30,7 @@ class Drop extends Directive(DROP_NAME) {
 		element.removeEventListener('dragleave');
 	}
 
-	drop(){
+	drop() {
 		this.element.classList.remove('dragover');
 	}
 
@@ -41,7 +43,11 @@ class Drop extends Directive(DROP_NAME) {
 			e.preventDefault();
 		}
 
-		e.dataTransfer.dropEffect = 'move';
+		e.dataTransfer.dropEffect =
+			this.canDrop({$event: e}) === false
+				? 'none'
+				: 'move';
+
 		return false;
 	}
 
@@ -54,7 +60,9 @@ Drop.$inject = ['$element'];
 
 export default {
 	restrict: 'A',
-	bindToController: true,
+	bindToController: {
+		'canDrop': `&${CAN_DROP_NAME}`
+	},
 	controllerAs: '$drop',
 	controller: Drop,
 	require: Drop.require,
