@@ -1,6 +1,6 @@
 <button ng-click="$row.toggleStatus.execute($node)"
 		  ng-if="$row.toggleStatus.canExecute($node)">
-	<span ng-bind="$row.state === 'expand' ? '-' : '+'"></span>
+	<span ng-bind="$row.status === 'expand' ? '-' : '+'"></span>
 </button>
 <span>{{$node.key}}</span>
 <span ng-if="$row.toggleStatus.canExecute($node)">({{$row.count}})</span>

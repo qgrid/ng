@@ -3,8 +3,8 @@ import {map as getColumnMap} from 'core/column/column.service';
 import {getFactory as valueFactory} from 'ng/services/value';
 import nodeBuilder from 'core/node/node.builder';
 import pivotBuilder from 'core/pivot/pivot.builder';
-import {flatView} from 'core/node/node.service';
 import Pivot from './view.pivot';
+import Group from './view.group';
 import {GRID_NAME} from 'src/definition';
 
 class ViewCore extends Component {
@@ -14,6 +14,8 @@ class ViewCore extends Component {
 		this.$element = $element;
 		this.theme = theme;
 		this.pivot = new Pivot(this);
+		this.group = new Group(this);
+
 		this.initTheme();
 	}
 
@@ -36,16 +38,11 @@ class ViewCore extends Component {
 		return this.model.view().rows;
 	}
 
-	get pivotRows() {
-	}
-
 	get columns() {
 		return this.model.view().columns;
 	}
 
 	get nodes() {
-		const nodes = this.model.view().nodes;
-		return flatView(nodes);
 	}
 
 	get mode() {

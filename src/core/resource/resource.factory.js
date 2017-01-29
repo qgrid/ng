@@ -1,5 +1,5 @@
 import Resource from 'core/resource/resource';
-import EnumerableResource from 'core/resource/enumerable.resource';
+import EnumerableResource from 'core/resource/resource.enumerable';
 import AppError from 'core/infrastructure/error';
 
 export default function(resource, key) {

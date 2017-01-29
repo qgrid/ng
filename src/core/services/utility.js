@@ -5,8 +5,6 @@ import isUndefined from 'lodash/isUndefined';
 import debounce from 'lodash/debounce';
 import merge from 'lodash/merge';
 import flatten from 'lodash/flatten';
-import uniq from 'lodash/uniq';
-import groupBy from 'lodash/groupBy';
 
 const noop = () => {};
 const yes = () => true;
@@ -34,8 +32,6 @@ export {
 	debounce,
 	merge,
 	flatten,
-	uniq,
-	groupBy,
 	identity,
 	yes,
 	no,

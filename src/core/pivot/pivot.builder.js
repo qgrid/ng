@@ -1,4 +1,4 @@
-import {identity, uniq, groupBy} from 'core/services/utility';
+import {identity} from 'core/services/utility';
 import pivot from './pivot';
 import view from './pivot.view';
 
@@ -8,7 +8,7 @@ function build(pivot, columnMap, pivotBy, valueFactory, level = 0) {
 	const getValue = valueFactory(column);
 
 	return pivot({
-		factory: row => ({}),
+		factory: identity,
 		selector: row => [getValue(row)],
 		name: identity,
 		value: (parent, row, pivot) => {

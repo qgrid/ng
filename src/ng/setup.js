@@ -43,7 +43,7 @@ TemplatePath
 Setup.$inject = ['$templateCache'];
 export default function Setup($templateCache) {
 	$templateCache.put('qgrid.grid.tpl.html', require('./components/grid/grid.html'));
-	$templateCache.put('qgrid.view.tpl.html', require('./components/grid/view.html'));
+	$templateCache.put('qgrid.view.tpl.html', require('./components/view/view.html'));
 	$templateCache.put('qgrid.head.cell.tpl.html', require('./components/head/head.cell.html'));
 	$templateCache.put('qgrid.head.row.tpl.html', require('./components/head/head.row.html'));
 	$templateCache.put('qgrid.head.group.tpl.html', require('./components/head/head.group.html'));

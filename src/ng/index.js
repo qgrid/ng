@@ -16,7 +16,7 @@ import Pager from './plugins/pagination/pager';
 import Groupbar from './plugins/groupbar/groupbar';
 import Pivotbar from './plugins/pivotbar/pivotbar';
 
-import ViewCore from './components/grid/view.core';
+import ViewCore from './components/view/view.core';
 import ViewportCore from './components/grid/viewport.core';
 import TableCore from './components/grid/table.core';
 import TdCore from './components/body/td.core';
