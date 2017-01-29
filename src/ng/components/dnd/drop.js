@@ -1,12 +1,11 @@
 import Directive from '../directive';
-import {yes} from 'core/services/utility';
-import {DROP_NAME, CAN_DROP_NAME} from 'src/definition';
-
+import {GRID_NAME, DROP_NAME, CAN_DROP_NAME, DROP_EFFECT_NAME, ON_DROP_NAME} from 'src/definition';
 
 class Drop extends Directive(DROP_NAME) {
-	constructor($element) {
+	constructor($scope, $element) {
 		super();
 
+		this.$scope = $scope;
 		this.element = $element[0];
 	}
 
@@ -14,10 +13,10 @@ class Drop extends Directive(DROP_NAME) {
 		const element = this.element;
 
 		element.classList.add('can-drop');
-		element.addEventListener('drop', this.drop.bind(this), false);
 		element.addEventListener('dragenter', this.enter.bind(this), false);
 		element.addEventListener('dragover', this.over.bind(this), false);
 		element.addEventListener('dragleave', this.leave.bind(this), false);
+		element.addEventListener('drop', this.drop.bind(this), false);
 	}
 
 	onDestroy() {
@@ -30,38 +29,59 @@ class Drop extends Directive(DROP_NAME) {
 		element.removeEventListener('dragleave');
 	}
 
-	drop() {
+	drop(e) {
+		e.stopPropagation();
+
 		this.element.classList.remove('dragover');
+		const event = this.event(e.dataTransfer)
+		if (this.canDrop(event)) {
+			this.$scope.$evalAsync(() => this.onDrop(event));
+		}
+
+		return false;
 	}
 
-	enter() {
+	enter(e) {
+		e.preventDefault();
+
 		this.element.classList.add('dragover');
+		e.dataTransfer.dropEffect = 'move';
+		return false;
 	}
 
 	over(e) {
-		if (e.preventDefault) {
-			e.preventDefault();
-		}
+		e.preventDefault();
 
-		e.dataTransfer.dropEffect =
-			this.canDrop({$event: e}) === false
-				? 'none'
-				: 'move';
-
+		e.dataTransfer.dropEffect = 'move';
 		return false;
 	}
 
 	leave() {
 		this.element.classList.remove('dragover');
 	}
+
+	event(transfer) {
+		const source = transfer.getData(`application/x-${GRID_NAME}+json`);
+		const target = this.transfer();
+
+		return {
+			$event: {
+				source: JSON.parse(source), // eslint-disable-line angular/json-functions
+				target: target
+			}
+		};
+	}
 }
 
-Drop.$inject = ['$element'];
+Drop.$inject = ['$scope', '$element'];
 
 export default {
 	restrict: 'A',
 	bindToController: {
-		'canDrop': `&${CAN_DROP_NAME}`
+		'transfer': `&${DROP_NAME}`,
+		'onDrop': `&${ON_DROP_NAME}`,
+		'canDrop': `&${CAN_DROP_NAME}`,
+		'effect': `@${DROP_EFFECT_NAME}`
 	},
 	controllerAs: '$drop',
 	controller: Drop,

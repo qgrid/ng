@@ -35,3 +35,5 @@ export const PIVOTBAR_NAME = `${GRID}Pivotbar`;
 export const DRAG_NAME = `${GRID}Drag`;
 export const DROP_NAME = `${GRID}Drop`;
 export const CAN_DROP_NAME = `${GRID}CanDrop`;
+export const DROP_EFFECT_NAME = `${GRID}DropEffect`;
+export const ON_DROP_NAME = `${GRID}OnDrop`;

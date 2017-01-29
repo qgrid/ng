@@ -26,7 +26,7 @@ class Pivotbar extends PluginComponent('qgrid.pivotbar.tpl.html') {
 				const state = pivot();
 				const index = state.by.findIndex(g => g === key);
 				if(index >= 0){
-					const temp = state.by.slice();
+					const temp = Array.from(state.by);
 					temp.splice(index, 1);
 					pivot({
 						by: temp
