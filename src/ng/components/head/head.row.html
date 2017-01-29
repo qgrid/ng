@@ -1,6 +1,6 @@
 <tr>
-	<th ng-if="$view.mode === 'group'">Group</th>
 	<th ng-repeat="$column in $view.columns track by $index"
+		 draggable
 		 class="{{::$column.key}}"
 		 q-grid-core:th>
 	</th>
