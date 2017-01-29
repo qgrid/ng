@@ -1,4 +1,4 @@
-import Pipeline from './pipeline';
+import Pipeline from './pipe.midleware';
 
 describe('pipeline', () => {
 	it('should have default value for stages', () => {
