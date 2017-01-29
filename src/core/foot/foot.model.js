@@ -1,4 +1,4 @@
-import EnumerableResource from '../resource/enumerable.resource';
+import EnumerableResource from '../resource/resource.enumerable';
 
 export default class FootModel {
 	constructor() {

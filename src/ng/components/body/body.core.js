@@ -14,7 +14,6 @@ BodyCore.$inject = [];
 
 export default {
 	restrict: 'A',
-	templateUrl: 'qgrid.body.tpl.html',
 	bindToController: true,
 	controllerAs: '$body',
 	controller: BodyCore,

@@ -11,10 +11,12 @@ import ColumnList from './components/column/column.list';
 import Column from './components/column/column';
 import Node from './components/node/node';
 import Toolbar from './components/toolbar/toolbar';
+
 import Pager from './plugins/pagination/pager';
 import Groupbar from './plugins/groupbar/groupbar';
+import Pivotbar from './plugins/pivotbar/pivotbar';
 
-import ViewCore from './components/grid/view.core';
+import ViewCore from './components/view/view.core';
 import ViewportCore from './components/grid/viewport.core';
 import TableCore from './components/grid/table.core';
 import TdCore from './components/body/td.core';
@@ -46,6 +48,7 @@ export default angular
 	.component(def.TOOLBAR_CORE_NAME, ToolbarCore)
 	.component(def.PAGER_NAME, Pager)
 	.component(def.GROUPBAR_NAME, Groupbar)
+	.component(def.PIVOTBAR_NAME, Pivotbar)
 	.directive(def.VIEWPORT_CORE_NAME, () => ViewportCore)
 	.directive(def.TABLE_CORE_NAME, () => TableCore)
 	.directive(def.TD_CORE_NAME, () => TdCore)

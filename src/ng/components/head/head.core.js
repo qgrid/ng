@@ -16,7 +16,6 @@ HeadCore.$inject = ['$scope'];
 
 export default {
 	restrict: 'A',
-	templateUrl: 'qgrid.head.tpl.html',
 	bindToController: true,
 	controllerAs: '$head',
 	controller: HeadCore,
