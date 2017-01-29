@@ -1,7 +1,9 @@
 <tr>
 	<th ng-repeat="$column in $view.columns track by $index"
-		 draggable
-		 class="{{::$column.key}}"
+		 q-grid:drag="{source: 'column', key: $column.key}"
+		 q-grid:drop="$head.drop.execute($event)"
+		 q-grid:can-drop="$head.drop.canExecute($event)"
+		 ng-class="$column.key"
 		 q-grid-core:th>
 	</th>
 </tr>
