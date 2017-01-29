@@ -5,15 +5,32 @@ class Drag extends Directive(DRAG_NAME) {
 	constructor($element) {
 		super();
 
-		this.$element = $element;
+		this.element = $element[0];
 	}
 
 	onInit() {
-		this.$element[0].classList.add('can-drag');
+		const element = this.element;
+
+		element.classList.add('can-drag');
+		element.addEventListener('dragstart', this.start.bind(this), false);
+		element.addEventListener('dragend', this.end.bind(this), false);
 	}
 
 	onDestroy() {
-		this.$element[0].classList.remove('can-drag');
+		const element = this.element;
+
+		element.classList.remove('can-drag');
+		element.removeEventListener('dragstart');
+		element.removeEventListener('dragend');
+	}
+
+	start(e) {
+		e.dataTransfer.effectAllowed  = 'move';
+		this.element.classList.add('drag');
+	}
+
+	end() {
+		this.element.classList.remove('drag');
 	}
 }
 

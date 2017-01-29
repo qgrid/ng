@@ -1,19 +1,52 @@
 import Directive from '../directive';
-import {DRAG_NAME} from 'src/definition';
+import {DROP_NAME} from 'src/definition';
 
-class Drop extends Directive(DRAG_NAME) {
+class Drop extends Directive(DROP_NAME) {
 	constructor($element) {
 		super();
 
-		this.$element = $element;
+		this.element = $element[0];
 	}
 
 	onInit() {
-		this.$element.addClass('can-drop');
+		const element = this.element;
+
+		element.classList.add('can-drop');
+		element.addEventListener('drop', this.drop.bind(this), false);
+		element.addEventListener('dragenter', this.enter.bind(this), false);
+		element.addEventListener('dragover', this.over.bind(this), false);
+		element.addEventListener('dragleave', this.leave.bind(this), false);
 	}
 
 	onDestroy() {
-		this.$element.removeClass('can-drop');
+		const element = this.element;
+
+		element.classList.remove('can-drop');
+		element.removeEventListener('drop');
+		element.removeEventListener('dragenter');
+		element.removeEventListener('dragover');
+		element.removeEventListener('dragleave');
+	}
+
+	drop(){
+		this.element.classList.remove('dragover');
+	}
+
+	enter() {
+		this.element.classList.add('dragover');
+	}
+
+	over(e) {
+		if (e.preventDefault) {
+			e.preventDefault();
+		}
+
+		e.dataTransfer.dropEffect = 'move';
+		return false;
+	}
+
+	leave() {
+		this.element.classList.remove('dragover');
 	}
 }
 
