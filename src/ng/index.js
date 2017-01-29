@@ -9,6 +9,7 @@ import Head from './components/head/head';
 import Foot from './components/foot/foot';
 import ColumnList from './components/column/column.list';
 import Column from './components/column/column';
+import Node from './components/node/node';
 import Toolbar from './components/toolbar/toolbar';
 import Pager from './plugins/pagination/pager';
 import Groupbar from './plugins/groupbar/groupbar';
@@ -19,6 +20,7 @@ import TableCore from './components/grid/table.core';
 import TdCore from './components/body/td.core';
 import ThCore from './components/head/th.core';
 import TfCore from './components/foot/tf.core';
+import NodeCore from './components/node/node.core';
 import HeadCore from './components/head/head.core';
 import BodyCore from './components/body/body.core';
 import FootCore from './components/foot/foot.core';
@@ -39,6 +41,7 @@ export default angular
 	.component(def.TEMPLATE_NAME, Template)
 	.component(def.COLUMN_LIST_NAME, ColumnList)
 	.component(def.COLUMN_NAME, Column)
+	.component(def.NODE_NAME, Node)
 	.component(def.TOOLBAR_NAME, Toolbar)
 	.component(def.TOOLBAR_CORE_NAME, ToolbarCore)
 	.component(def.PAGER_NAME, Pager)
@@ -48,6 +51,7 @@ export default angular
 	.directive(def.TD_CORE_NAME, () => TdCore)
 	.directive(def.TH_CORE_NAME, () => ThCore)
 	.directive(def.TF_CORE_NAME, () => TfCore)
+	.directive(def.NODE_CORE_NAME, () => NodeCore)
 	.directive(def.HEAD_CORE_NAME, () => HeadCore)
 	.directive(def.BODY_CORE_NAME, () => BodyCore)
 	.directive(def.FOOT_CORE_NAME, () => FootCore)

@@ -29,7 +29,6 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	get value() {
 		const column = this.$scope.$column;
 		const row = this.$scope.$row;
-
 		return getValue(row, column);
 	}
 

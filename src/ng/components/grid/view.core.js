@@ -2,6 +2,7 @@ import Component from '../component';
 import {map as getColumnMap} from 'core/column/column.service';
 import {getFactory as valueFactory} from 'ng/services/value';
 import nodeBuilder from 'core/node/node.builder';
+import {flatView} from 'core/node/node.service';
 import {GRID_NAME} from 'src/definition';
 
 class ViewCore extends Component {
@@ -32,7 +33,12 @@ class ViewCore extends Component {
 	}
 
 	get nodes() {
-		return this.model.view().nodes;
+		const nodes = this.model.view().nodes;
+		return flatView(nodes);
+	}
+
+	get mode() {
+		return this.model.view().nodes.length ? 'node' : 'row';
 	}
 
 	initTheme() {
