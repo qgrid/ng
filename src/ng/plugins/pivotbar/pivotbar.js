@@ -1,5 +1,6 @@
 import PluginComponent from '../plugin.component';
 import Command from 'core/infrastructure/command'
+import {TH_CORE_NAME} from 'src/definition';
 
 class Pivotbar extends PluginComponent('qgrid.pivotbar.tpl.html') {
 	constructor() {
@@ -33,6 +34,11 @@ class Pivotbar extends PluginComponent('qgrid.pivotbar.tpl.html') {
 					});
 				}
 			}
+		});
+
+		this.drop = new Command({
+			canExecute: e => e.source.key === TH_CORE_NAME && this.add.canExecute(e.source.value),
+			execute: e => this.add.execute(e.source.value)
 		});
 	}
 

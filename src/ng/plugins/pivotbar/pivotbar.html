@@ -1,4 +1,7 @@
-<div class="pivotbar">
+<div class="pivotbar"
+	  q-grid:drop
+	  q-grid:on-drop="$pivotbar.drop.execute($event)"
+	  q-grid:can-drop="$pivotbar.drop.canExecute($event)">
 	<label>Pivot By: </label>
 	<ul>
 		<li ng-repeat="group in $pivotbar.groups track by $index">
