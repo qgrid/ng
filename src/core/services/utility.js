@@ -4,7 +4,6 @@ import clone from 'lodash/clone';
 import isUndefined from 'lodash/isUndefined';
 import debounce from 'lodash/debounce';
 import merge from 'lodash/merge';
-import extend from 'lodash/extend';
 import flatten from 'lodash/flatten';
 import uniq from 'lodash/uniq';
 import groupBy from 'lodash/groupBy';
@@ -34,7 +33,6 @@ export {
 	clone,
 	debounce,
 	merge,
-	extend,
 	flatten,
 	uniq,
 	groupBy,

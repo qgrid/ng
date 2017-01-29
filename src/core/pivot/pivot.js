@@ -1,5 +1,3 @@
-import {extend} from 'core/services/utility';
-
 class Plan {
 	constructor(schema) {
 		this.isRoot = !arguments.length;
@@ -31,16 +29,6 @@ class Plan {
 	}
 }
 
-class Settings {
-	constructor() {
-	}
-
-	factory() {return {};}
-	selector(row) {return row;}
-	name() {return null;}
-	value(item) {return item;}
-}
-
 function factory(plan) {
 	return name => {
 		plan.cursor(name);
@@ -51,7 +39,6 @@ function factory(plan) {
 }
 
 export default function pivot(settings, plan) {
-	settings = extend(new Settings(), settings);
 	plan = plan || new Plan();
 
 	const pivot = factory(plan);

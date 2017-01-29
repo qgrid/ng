@@ -3,28 +3,28 @@ import pivot from './pivot';
 import view from './pivot.view';
 
 function build(pivot, columnMap, pivotBy, valueFactory, level = 0) {
-	if(pivotBy.length) {
-		const key = pivotBy[0];
-		const column = columnMap[key];
-		const getValue = valueFactory(column);
+	const key = pivotBy[0];
+	const column = columnMap[key];
+	const getValue = valueFactory(column);
 
-		return pivot({
-			factory: row => ({}),
-			selector: row => [getValue(row)],
-			name: identity,
-			//value: () => 'X'
-			// value: (group, row, pivot) =>
-			// 	build(
-			// 		pivot,
-			// 		columnMap,
-			// 		pivotBy.slice(1),
-			// 		valueFactory,
-			// 		level + 1)
-		});
-	}
-	else{
-		return 'x';
-	}
+	return pivot({
+		factory: row => ({}),
+		selector: row => [getValue(row)],
+		name: identity,
+		value: (parent, row, pivot) => {
+			const nextPivotBy = pivotBy.slice(1);
+			if(nextPivotBy.length) {
+				return build(
+					pivot,
+					columnMap,
+					nextPivotBy,
+					valueFactory,
+					level + 1)(row);
+			}
+
+			return true;
+		}
+	});
 }
 
 export default function pivotBuilder(columnMap, pivotBy, valueFactory) {

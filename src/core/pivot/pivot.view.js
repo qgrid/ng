@@ -32,7 +32,7 @@ function liftSchema(schema) {
 		const derivatives =
 			schema
 				? Object.keys(schema)
-					.map((value, key) => {
+					.map(key => {
 						const node = schema[key];
 						return {
 							key: key,
@@ -69,9 +69,9 @@ function sortSchema(schema, comparator) {
 export default function view(source, comparator) {
 	if (source.schema && source.data) {
 		const schema = sortSchema(source.schema, comparator);
-		const data = source.data.map(row => injectData(schema, row, expandData(schema, row)));
-		const header = liftSchema(schema);
-		return {headers: header, rows: data};
+		const rows = source.data.map(row => injectData(schema, row, expandData(schema, row)));
+		const headers = liftSchema(schema);
+		return {headers, rows};
 	}
 
 	return source;
