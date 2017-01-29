@@ -3,7 +3,7 @@
 		 q-grid-core:node>
 	</td>
 	<td ng-repeat="$column in $view.columns track by $index"
-		 class="{{::$column.key}}"
+		 ng-class="$column.key"
 		 q-grid-core:td>
 	</td>
 </tr>
