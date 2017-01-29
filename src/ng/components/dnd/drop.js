@@ -45,14 +45,17 @@ class Drop extends Directive(DROP_NAME) {
 		e.preventDefault();
 
 		this.element.classList.add('dragover');
-		e.dataTransfer.dropEffect = 'move';
+		e.dataTransfer.dropEffect = this.effect || 'move';
 		return false;
 	}
 
 	over(e) {
 		e.preventDefault();
 
-		e.dataTransfer.dropEffect = 'move';
+		e.dataTransfer.dropEffect =
+			this.element.classList.contains('drag')
+				? 'none' : this.effect || 'move';
+
 		return false;
 	}
 

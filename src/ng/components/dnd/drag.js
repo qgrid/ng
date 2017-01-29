@@ -1,5 +1,5 @@
 import Directive from '../directive';
-import {GRID_NAME, DRAG_NAME} from 'src/definition';
+import {GRID_NAME, DRAG_NAME, DROP_EFFECT_NAME} from 'src/definition';
 
 class Drag extends Directive(DRAG_NAME) {
 	constructor($element) {
@@ -27,7 +27,7 @@ class Drag extends Directive(DRAG_NAME) {
 	start(e) {
 		const source = this.transfer();
 		e.dataTransfer.setData(`application/x-${GRID_NAME}+json`, JSON.stringify(source)); // eslint-disable-line angular/json-functions
-		e.dataTransfer.effectAllowed  = 'move';
+		e.dataTransfer.effectAllowed = this.effect || 'move';
 		this.element.classList.add('drag');
 	}
 
@@ -41,7 +41,8 @@ Drag.$inject = ['$element'];
 export default {
 	restrict: 'A',
 	bindToController: {
-		'transfer': `&${DRAG_NAME}`
+		'transfer': `&${DRAG_NAME}`,
+		'effect': `@${DROP_EFFECT_NAME}`
 	},
 	controllerAs: '$drag',
 	controller: Drag,
