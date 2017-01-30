@@ -21,6 +21,8 @@ export const BODY_CORE_NAME = `${GRID_CORE}Body`;
 export const FOOT_CORE_NAME = `${GRID_CORE}Foot`;
 export const NODE_CORE_NAME = `${GRID_CORE}Node`;
 export const TOOLBAR_CORE_NAME = `${GRID_CORE}Toolbar`;
+export const SELECTION_CORE_NAME = `${GRID_CORE}Selection`;
+export const CHECK_CORE_NAME = `${GRID_CORE}Check`;
 
 export const HEAD_NAME = `${GRID}Head`;
 export const TEMPLATE_NAME = `${GRID}Template`;
@@ -37,3 +39,5 @@ export const DROP_NAME = `${GRID}Drop`;
 export const CAN_DROP_NAME = `${GRID}CanDrop`;
 export const DROP_EFFECT_NAME = `${GRID}DropEffect`;
 export const ON_DROP_NAME = `${GRID}OnDrop`;
+export const SELECTION_NAME = `${GRID}Selection`;
+export const INDETERMINATE_NAME = `${GRID}Indeterminate`;
