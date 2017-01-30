@@ -1,4 +1,4 @@
-import Event from '../../core/infrastructure/event';
+import Event from 'core/infrastructure/event';
 
 export default class Theme {
 	constructor() {

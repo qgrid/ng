@@ -40,12 +40,16 @@
 		"title": "Foot"
 	},
 	{
+		"path": "aggregation",
+		"title": "Aggregation"
+	},
+	{
 		"path": "group",
 		"title": "Group"
 	},
 	{
-		"path": "sort",
-		"title": "Sort"
+		"path": "pivot",
+		"title": "Pivot"
 	},
 	{
 		"path": "toolbar",
@@ -54,5 +58,17 @@
 	{
 		"path": "pager",
 		"title": "Pager"
+	},
+	{
+		"path": "checkable-rows",
+		"title": "Checkable rows"
+	},
+	{
+		"path": "dnd",
+		"title": "Drag and Drop"
+	},
+	{
+		"path": "sort",
+		"title": "Sort"
 	}
 ]

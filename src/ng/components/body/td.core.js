@@ -1,7 +1,7 @@
 import Directive from '../directive';
 import TemplateCore from '../template/template.core';
-import {get as getValue} from '../../services/value';
-import {VIEW_CORE_NAME, TD_CORE_NAME} from '../../../definition';
+import {get as getValue} from 'ng/services/value';
+import {VIEW_CORE_NAME, TD_CORE_NAME} from 'src/definition';
 
 class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	constructor($scope, $element, $compile, $templateCache) {
@@ -29,7 +29,6 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	get value() {
 		const column = this.$scope.$column;
 		const row = this.$scope.$row;
-
 		return getValue(row, column);
 	}
 

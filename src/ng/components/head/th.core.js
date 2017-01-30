@@ -1,5 +1,5 @@
 import Directive from '../directive';
-import {VIEW_CORE_NAME, TH_CORE_NAME} from '../../../definition';
+import {VIEW_CORE_NAME, TH_CORE_NAME} from 'src/definition';
 import TemplateCore from '../template/template.core';
 
 class ThCore extends Directive(TH_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {

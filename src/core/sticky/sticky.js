@@ -6,80 +6,49 @@ export default class Sticky {
 	/**
 	 * @param {Node} table - table node
 	 * @param {Node} scrollView - view container which causes scroll
+	 * @param {Node} origin - view container which causes scroll
 	 */
-	constructor(table, scrollView) {
+	constructor(table, scrollView, origin) {
 		this.table = table;
 		this.scrollView = scrollView;
-		this.origin = {
-			head: table.querySelector('thead'),
-			foot: table.querySelector('tfoot')
-		};
+		this.origin = origin;
 		this.invalidated = new Event();
-		this.head = buildHead(this);
-		this.foot = buildFoot(this);
+		this.element = build(this);
 	}
-	
-	invalidate() {
-		const style = window.getComputedStyle(this.scrollView);
 
-		css(this.head, 'min-width', style.width);
-		css(this.head, 'max-width', style.width);
-
-		const tableStyle = window.getComputedStyle(this.table);
-		const tableOffset = parseInt(tableStyle.paddingTop || 0, 10);
-		const offset = this.origin.head.offsetHeight;
-
+	invalidateHeight() {
+		const stickies = Array.from(this.table.querySelectorAll('.sticky'));
+		let offsetHeight = 0;
+		stickies.forEach(s => offsetHeight += s.offsetHeight);
 		css(this.scrollView, 'height', '100%');
-		const height = parseInt(window.getComputedStyle(this.scrollView).height);
-		css(this.scrollView, 'height', `${height - offset - tableOffset}px`);
+		const viewHeight = parseInt(window.getComputedStyle(this.scrollView).height);
+		css(this.scrollView, 'height', `${viewHeight - offsetHeight}px`);
+	}
 
-		css(this.scrollView, 'margin-top', `${offset + tableOffset}px`);
-		css(this.head, 'margin-top', `-${offset}px`);
-		css(this.table, 'margin-top', `-${offset + tableOffset}px`);
-
-		const stickyTh = th(this.head);
-		const originTh = th(this.origin.head);
-		stickyTh.forEach((column, index) => {
-			const thStyle = window.getComputedStyle(originTh[index]);
-			css(column, 'min-width', thStyle.width);
-			css(column, 'max-width', thStyle.width);
-		});
-		this.invalidated.emit();
+	scrollSync() {
+		this.element.scrollLeft = this.scrollView.scrollLeft;
 	}
 	
 	destroy() {
-		if (this.head !== null) {
-			this.head.remove();
-			this.head = null;
+		if (this.element !== null) {
+			this.element.remove();
+			this.element = null;
 		}
 		css(this.scrollView, 'margin-top', '');
 	}
 }
 
-function buildHead(sticky) {
-	if (!sticky.origin.head) {
+function build(sticky) {
+	if (!sticky.origin) {
 		return null;
 	}
-	const header = sticky.origin.head.cloneNode(true);
+	const cloned = sticky.origin.cloneNode(true);
 
-	header.classList.add('sticky');
-	css(header, 'position', 'absolute');
-	css(header, 'overflow-x', 'hidden');
+	cloned.classList.add('sticky');
+	css(cloned, 'position', 'absolute');
+	css(cloned, 'overflow-x', 'hidden');
 
-	observe.children(sticky.origin.head)
-		.on(() => {
-			const stickyTh = th(header);
-			const originTh = th(sticky.origin.head);
-
-			stickyTh.forEach(column => column.remove());
-			originTh.forEach(column => {
-				const clone = column.cloneNode(true);
-				header.querySelector('tr').appendChild(clone);
-			});
-			sticky.invalidate();
-		});
-
-	observe.style(sticky.origin.head)
+	observe.style(sticky.origin)
 		.on(e => {
 			if (!e.oldValue || e.oldValue.width !== e.newValue.width) {
 				setTimeout(() => sticky.invalidate(), 0);
@@ -94,18 +63,5 @@ function buildHead(sticky) {
 			}
 		});
 
-	return header;
-}
-
-function buildFoot(sticky) {
-	// ToDo: implement for foot
-	if (!sticky.origin.foot) {
-		return null;
-	}
-	const footer = sticky.origin.foot.cloneNode(true);
-	return footer;
-}
-
-function th(head) {
-	return Array.from(head.querySelectorAll('th'));
+	return cloned;
 }

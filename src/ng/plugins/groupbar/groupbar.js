@@ -1,5 +1,6 @@
 import PluginComponent from '../plugin.component';
-import Command from '../../../core/infrastructure/command'
+import Command from 'core/infrastructure/command'
+import {TH_CORE_NAME} from 'src/definition';
 
 class Groupbar extends PluginComponent('qgrid.groupbar.tpl.html') {
 	constructor() {
@@ -25,7 +26,7 @@ class Groupbar extends PluginComponent('qgrid.groupbar.tpl.html') {
 				const group = this.model.group;
 				const state = group();
 				const index = state.by.findIndex(g => g === key);
-				if(index >= 0){
+				if (index >= 0) {
 					const temp = state.by.slice();
 					temp.splice(index, 1);
 					group({
@@ -33,6 +34,11 @@ class Groupbar extends PluginComponent('qgrid.groupbar.tpl.html') {
 					});
 				}
 			}
+		});
+
+		this.drop = new Command({
+			canExecute: e => e.source.key === TH_CORE_NAME && this.add.canExecute(e.source.value),
+			execute: e => this.add.execute(e.source.value)
 		});
 	}
 
@@ -44,11 +50,11 @@ class Groupbar extends PluginComponent('qgrid.groupbar.tpl.html') {
 		return this.model.view().columns;
 	}
 
-	get groups(){
+	get groups() {
 		return this.model.group().by;
 	}
 
-	title(key){
+	title(key) {
 		const columns = this.model.view().columns;
 		const index = columns.findIndex(c => c.key === key);
 		return index >= 0 ? columns[index].title : '';

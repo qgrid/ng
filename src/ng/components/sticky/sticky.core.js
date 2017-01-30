@@ -1,11 +1,18 @@
 import Directive from '../directive';
-import {STICKY_CORE_NAME, VIEW_CORE_NAME, VIEWPORT_CORE_NAME} from '../../../definition';
-import Sticky from '../../../core/sticky/sticky';
-import AppError from '../../../core/infrastructure/error';
+import {STICKY_CORE_NAME, VIEW_CORE_NAME, VIEWPORT_CORE_NAME,
+	TABLE_CORE_NAME, HEAD_CORE_NAME, FOOT_CORE_NAME} from 'src/definition';
+import AppError from 'core/infrastructure/error';
+import StickyFactory from 'core/sticky/sticky.factory';
 import angular from 'angular';
 
-class StickyCore extends Directive(STICKY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, viewport: `^^${VIEWPORT_CORE_NAME}`}) {
-	constructor($scope, $element, $attrs, $timeout, $window) {
+class StickyCore extends Directive(STICKY_CORE_NAME, {
+	view: `^^${VIEW_CORE_NAME}`,
+	viewport: `^^${VIEWPORT_CORE_NAME}`,
+	table: `^^${TABLE_CORE_NAME}`,
+	head: `?${HEAD_CORE_NAME}`,
+	foot: `?${FOOT_CORE_NAME}`
+}) {
+	constructor($scope, $element, $attrs, $timeout, $window, $compile) {
 		super();
 
 		this.$scope = $scope;
@@ -13,11 +20,18 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}
 		this.$attrs = $attrs;
 		this.$timeout = $timeout;
 		this.$window = $window;
+		this.$compile = $compile;
 	}
 
 	onInit() {
 		const model = this.view.model;
-		const target = this.$attrs[STICKY_CORE_NAME];
+		const target =
+			this.head ? 'head' :
+				this.foot ? 'foot' : null;
+
+		if (target === null) {
+			return;
+		}
 
 		if (!model.hasOwnProperty(target)) {
 			throw new AppError(
@@ -28,12 +42,13 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}
 		model[target + 'Changed']
 			.on(e => {
 				if (e.changes.hasOwnProperty('sticky')) {
-					this.apply();
+					this.apply(target);
 				}
 			});
 
+		const self = this;
 		if (model[target]().sticky) {
-			this.apply(target);
+			this.$timeout(() => self.apply(target));
 		}
 	}
 
@@ -43,16 +58,16 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}
 		}
 
 		const self = this;
-		const table = this.$element[0];
+		const table = this.table.$element[0];
 		const scrollView = this.viewport.$element[0];
-		const sticky = new Sticky(table, scrollView);
+		const sticky = StickyFactory.create(target, table, scrollView, this.$element[0]);
 
-		// this.view.theme.changed.on(() => self.$timeout(() => sticky.invalidate()));
-		const cloned = sticky[target];
+		const cloned = sticky.element;
 
-		const originElement = angular.element(sticky.origin[target]);
+		const originElement = angular.element(sticky.origin);
 		const clonedElement = angular.element(cloned);
 		clonedElement.removeAttr(`q-grid-core:${target}`);
+		clonedElement.removeAttr('q-grid-core:sticky');
 		originElement.after(clonedElement);
 		originElement.css('visibility', 'hidden');
 
@@ -69,7 +84,7 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}
 			() => self.$scope.$apply()
 		));
 
-		const onScroll = () => sticky.head.scrollLeft = sticky.scrollView.scrollLeft;
+		const onScroll = () => sticky.scrollSync();
 		sticky.scrollView.addEventListener('scroll', onScroll);
 
 		const onResize = () => sticky.invalidate();
@@ -88,7 +103,8 @@ StickyCore.$inject = ['$scope',
 	'$element',
 	'$attrs',
 	'$timeout',
-	'$window'];
+	'$window',
+	'$compile'];
 
 export default {
 	restrict: 'A',
@@ -96,6 +112,5 @@ export default {
 	controllerAs: '$sticky',
 	controller: StickyCore,
 	require: StickyCore.require,
-	link: StickyCore.link,
-	scope: {}
+	link: StickyCore.link
 };
