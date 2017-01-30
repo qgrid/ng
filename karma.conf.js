@@ -1,6 +1,8 @@
+const path = require('path');
+
 module.exports = function (config) {
 
-	var configuration = {
+	const configuration = {
 		// base path used to resolve all patterns
 		basePath: '',
 
@@ -19,6 +21,14 @@ module.exports = function (config) {
 		preprocessors: {'spec.bundle.js': ['webpack', 'sourcemap']},
 
 		webpack: {
+			resolve: {
+				alias: {
+					src: path.resolve(__dirname, 'src'),
+					core: path.resolve(__dirname, 'src/core'),
+					ng: path.resolve(__dirname, 'src/ng'),
+					themes: path.resolve(__dirname, 'src/themes')
+				}
+			},
 			devtool: 'inline-source-map',
 			module: {
 				rules: [
