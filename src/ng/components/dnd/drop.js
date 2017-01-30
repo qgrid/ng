@@ -1,6 +1,7 @@
 import Directive from '../directive';
 import EventListener from 'core/infrastructure/event.listener';
-import {GRID_NAME, DROP_NAME, CAN_DROP_NAME, DROP_EFFECT_NAME, ON_DROP_NAME} from 'src/definition';
+import DragService from './drag.service';
+import {DROP_NAME, CAN_DROP_NAME, DROP_EFFECT_NAME, ON_DROP_NAME} from 'src/definition';
 
 class Drop extends Directive(DROP_NAME) {
 	constructor($scope, $element) {
@@ -47,10 +48,13 @@ class Drop extends Directive(DROP_NAME) {
 	over(e) {
 		e.preventDefault();
 
-		e.dataTransfer.dropEffect =
-			this.element.classList.contains('drag')
-				? 'none' : this.effect || 'move';
+		let effect = this.effect || 'move';
+		if(this.element.classList.contains('drag') ||
+				this.canDrop(this.event()) === false){
+			effect = 'none';
+		}
 
+		e.dataTransfer.dropEffect = effect;
 		return false;
 	}
 
@@ -59,12 +63,14 @@ class Drop extends Directive(DROP_NAME) {
 	}
 
 	event(transfer) {
-		const source = transfer.getData(`application/x-${GRID_NAME}+json`);
 		const target = this.transfer();
+		const source = arguments.length
+			? DragService.decode(transfer.getData(DragService.mimeType))
+			: DragService.transfer;
 
 		return {
 			$event: {
-				source: JSON.parse(source), // eslint-disable-line angular/json-functions
+				source: source,
 				target: target
 			}
 		};

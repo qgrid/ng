@@ -1,6 +1,7 @@
 import Directive from '../directive';
 import EventListener from 'core/infrastructure/event.listener';
-import {GRID_NAME, DRAG_NAME, DROP_EFFECT_NAME} from 'src/definition';
+import DragService from './drag.service';
+import {DRAG_NAME, DROP_EFFECT_NAME} from 'src/definition';
 
 class Drag extends Directive(DRAG_NAME) {
 	constructor($element) {
@@ -22,14 +23,17 @@ class Drag extends Directive(DRAG_NAME) {
 	}
 
 	start(e) {
-		const source = this.transfer();
-		e.dataTransfer.setData(`application/x-${GRID_NAME}+json`, JSON.stringify(source)); // eslint-disable-line angular/json-functions
-		e.dataTransfer.effectAllowed = this.effect || 'move';
 		this.element.classList.add('drag');
+		const source = this.transfer();
+		const transfer = e.dataTransfer;
+		transfer.setData(DragService.mimeType, DragService.encode(source));
+		transfer.effectAllowed = this.effect || 'move';
+		DragService.transfer = source;
 	}
 
 	end() {
 		this.element.classList.remove('drag');
+		DragService.transfer = null;
 	}
 }
 
