@@ -14,7 +14,7 @@
 		<li>
 			<select ng-disabled="!$groupbar.add.canExecute()"
 					  ng-model="$groupbar.newGroup"
-					  ng-change="$groupbar.add.execute($groupbar.newGroup)">
+					  ng-change="$groupbar.add.execute($groupbar.newSort)">
 				<option value="" disabled>Add Group</option>
 				<option value="{{column.key}}"
 						  ng-repeat="column in $groupbar.columns track by column.key"

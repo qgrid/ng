@@ -16,6 +16,7 @@ import Drag from './components/dnd/drag';
 import Drop from './components/dnd/drop';
 
 import Pager from './plugins/pagination/pager';
+import Sortbar from './plugins/sortbar/sortbar';
 import Groupbar from './plugins/groupbar/groupbar';
 import Pivotbar from './plugins/pivotbar/pivotbar';
 
@@ -55,6 +56,7 @@ export default angular
 	.component(def.TOOLBAR_NAME, Toolbar)
 	.component(def.TOOLBAR_CORE_NAME, ToolbarCore)
 	.component(def.PAGER_NAME, Pager)
+	.component(def.SORTBAR_NAME, Sortbar)
 	.component(def.GROUPBAR_NAME, Groupbar)
 	.component(def.SELECTION_NAME, Selection)
 	.component(def.PIVOTBAR_NAME, Pivotbar)

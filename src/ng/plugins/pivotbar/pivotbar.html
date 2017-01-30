@@ -14,7 +14,7 @@
 		<li>
 			<select ng-disabled="!$pivotbar.add.canExecute()"
 					  ng-model="$pivotbar.newGroup"
-					  ng-change="$pivotbar.add.execute($pivotbar.newGroup)">
+					  ng-change="$pivotbar.add.execute($pivotbar.newSort)">
 				<option value="" disabled>Add Pivot</option>
 				<option value="{{column.key}}"
 						  ng-repeat="column in $pivotbar.columns track by column.key"

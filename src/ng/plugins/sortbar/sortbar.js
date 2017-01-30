@@ -1,18 +1,21 @@
 import PluginComponent from '../plugin.component';
 import Command from 'core/infrastructure/command'
+import * as SortSevice from 'core/sort/sort.service';
 import {TH_CORE_NAME} from 'src/definition';
 
-class Groupbar extends PluginComponent('qgrid.groupbar.tpl.html') {
+class Sortbar extends PluginComponent('qgrid.sortbar.tpl.html') {
 	constructor() {
 		super(...arguments);
 
 		this.newSort = null;
 		this.add = new Command({
 				execute: key => {
-					const group = this.model.group;
-					const state = group();
-					group({
-						by: state.by.concat(key)
+					const sort = this.model.sort;
+					const state = sort();
+					const entry = {};
+					entry[key] = 'asc';
+					sort({
+						by: state.by.concat(entry)
 					});
 
 					this.newSort = null;
@@ -22,17 +25,17 @@ class Groupbar extends PluginComponent('qgrid.groupbar.tpl.html') {
 		);
 
 		this.remove = new Command({
-			execute: key => {
-				const group = this.model.group;
-				const state = group();
-				const index = state.by.findIndex(g => g === key);
-				if (index >= 0) {
-					const temp = state.by.slice();
-					temp.splice(index, 1);
-					group({
-						by: temp
-					});
-				}
+			execute: entry => {
+				const sort = this.model.sort;
+				const state = sort();
+				const key = SortSevice.key(entry);
+				const index = SortSevice.index(state.by, key);
+				const temp = Array.from(state.by);
+				temp.splice(index, 1);
+
+				sort({
+					by: temp
+				});
 			}
 		});
 
@@ -43,25 +46,26 @@ class Groupbar extends PluginComponent('qgrid.groupbar.tpl.html') {
 	}
 
 	get resource() {
-		return this.model.group().resource;
+		return this.model.sort().resource;
 	}
 
 	get columns() {
 		return this.model.view().columns;
 	}
 
-	get groups() {
-		return this.model.group().by;
+	get sorts() {
+		return this.model.sort().by;
 	}
 
-	title(key) {
+	title(entry) {
+		const key = SortSevice.key(entry);
 		const columns = this.model.view().columns;
 		const index = columns.findIndex(c => c.key === key);
 		return index >= 0 ? columns[index].title : '';
 	}
 }
 
-export default Groupbar.component({
-	controller: Groupbar,
-	controllerAs: '$groupbar'
+export default Sortbar.component({
+	controller: Sortbar,
+	controllerAs: '$sortbar'
 });
