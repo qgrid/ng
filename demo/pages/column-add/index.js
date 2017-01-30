@@ -4,16 +4,16 @@ export default function Controller(qgrid) {
 	this.rows = [];
 	this.columns = [];
 	this.gridModel = qgrid.model();
+	let n = 100;
 
-	this.init = () => {
-		let n = 100;
+	this.addRows = () => {
 		for (var i = 0; i < n; i++)
 			ctrl.rows.push({});
 	};
 
 	var getHex = () => "#"+((1<<24)*Math.random()|0).toString(16);
 
-	this.add = () => {
+	this.addColumn = () => {
 		var hex = getHex();
 
 		this.columns = this.columns.concat({
@@ -21,7 +21,6 @@ export default function Controller(qgrid) {
 			title: hex
 		});
 
-		let n = 100;
 		for (var i = 0; i < n; i++) {
 			ctrl.rows[i][hex] = hex;
 		}
@@ -34,5 +33,5 @@ export default function Controller(qgrid) {
 
 	this.clear = () => ctrl.columns = [];
 
-	this.init();
+	this.addRows();
 }
