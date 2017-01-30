@@ -1,17 +1,17 @@
 import * as guard from '../infrastructure/guard';
 
 export default function (data, ctx, next) {
-	let model = ctx.model;
+	const model = ctx.model;
 	guard.notUndefined(model.filter, 'model.filter');
 
-	let filter = model.filter();
+	const filter = model.filter();
 	guard.invokable(filter.match, 'model.filter.match');
 
-	let result = [],
+	const result = [],
 		match = filter.match(ctx);
 
 	for (let i = 0, length = data.length; i < length; i++) {
-		var item = data[i];
+		const item = data[i];
 		if (match(item)) {
 			result.push(item);
 		}
