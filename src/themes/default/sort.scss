@@ -1,0 +1,16 @@
+table{
+	th:hover{
+		.sort{
+			visibility: visible !important;
+		}
+	}
+}
+
+.sort{
+	display: inline;
+	cursor: pointer;
+	visibility: hidden;
+	&.active{
+		visibility: visible;
+	}
+}

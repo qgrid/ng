@@ -5,6 +5,7 @@ import HeadModel from './core/head/head.model';
 import BodyModel from './core/body/body.model';
 import SelectionModel from './core/grid/selection.model';
 import FootModel from './core/foot/foot.model';
+import SortModel from './core/sort/sort.model';
 import GroupModel from './core/group/group.model';
 import ToolbarModel from './core/toolbar/toolbar.model';
 import PaginationModel from './core/pagination/pagination.model';
@@ -17,6 +18,7 @@ Model.register('view', ViewModel)
 	.register('body', BodyModel)
 	.register('foot', FootModel)
 	.register('group', GroupModel)
+	.register('sort', SortModel)
 	.register('toolbar', ToolbarModel)
 	.register('pagination', PaginationModel);
 

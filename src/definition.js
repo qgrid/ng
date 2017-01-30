@@ -16,6 +16,7 @@ export const TOOLBAR_NAME = 'qGridToolbar';
 export const TD_CORE_NAME = 'qGridCoreTd';
 export const TF_CORE_NAME = 'qGridCoreTf';
 export const TH_CORE_NAME = 'qGridCoreTh';
+export const SORT_CORE_NAME = 'qGridCoreSort';
 export const STICKY_CORE_NAME = 'qGridCoreSticky';
 export const HEAD_CORE_NAME = 'qGridCoreHead';
 export const BODY_CORE_NAME = 'qGridCoreBody';

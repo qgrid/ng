@@ -1,1 +1,10 @@
+<div class="sort"
+	  ng-init="dir = $head.sortDirection($column)"
+	  ng-class="{active: !!dir}"
+	  ng-switch="dir"
+	  ng-click="$head.nextDirection(dir)">
+	<span ng-switch-when="asc">&#8595;</span>
+	<span ng-switch-when="desc">&#8593;</span>
+	<span ng-switch-default>&#9776;</span>
+</div>
 <label ng-bind="$column.title"></label>

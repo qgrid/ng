@@ -44,6 +44,10 @@
 		"title": "Group"
 	},
 	{
+		"path": "sort",
+		"title": "Sort"
+	},
+	{
 		"path": "toolbar",
 		"title": "Toolbar"
 	},
