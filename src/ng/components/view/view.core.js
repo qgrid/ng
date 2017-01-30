@@ -43,8 +43,8 @@ class ViewCore extends Component {
 		const groupBy = new Set(model.group().by);
 		const pivotBy = new Set(model.pivot().by);
 		const columns = model.view().columns;
-		return columns;
-//		return columns.filter(c => !groupBy.has(c.key) && !pivotBy.has(c.key));
+	//	return columns;
+		return columns.filter(c => !groupBy.has(c.key) && !pivotBy.has(c.key));
 	}
 
 	get mode() {
@@ -133,10 +133,13 @@ class ViewCore extends Component {
 				valueFactory
 			)(state.rows);
 
-			const groupBy = model.group().by;
-			if (groupBy.length) {
-
-			}
+			// const groupBy = model.group().by;
+			// if (groupBy.length) {
+			// 	return {
+			// 		heads: pivot.heads,
+			// 		rows: pivot.rows
+			// 	}
+			// }
 
 			return pivot;
 		};
