@@ -11,7 +11,7 @@ export default function Controller(qgrid) {
 			ctrl.rows.push({});
 	};
 
-	const getHex = () => '#'+((1<<24)*Math.random()|0).toString(16);
+	const getHex = () => '#' + ((1 << 24) * Math.random() | 0).toString(16);
 
 	this.addColumn = () => {
 		let hex = getHex();
