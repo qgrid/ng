@@ -56,9 +56,6 @@ class ViewCore extends Component {
 		}
 	}
 
-	get nodes() {
-	}
-
 	get mode() {
 		const state = this.model.view();
 		if (state.pivot) {
@@ -110,12 +107,14 @@ class ViewCore extends Component {
 
 	initGroup(model) {
 		const view = model.view;
-		const build = () =>
-			nodeBuilder(
-				getColumnMap(view().columns),
+		const build = () => {
+			const state = view();
+			return nodeBuilder(
+				getColumnMap(state.columns),
 				model.group().by,
 				valueFactory
-			)(this.rows);
+			)(state.rows);
+		};
 
 		view({nodes: build()});
 
@@ -134,12 +133,14 @@ class ViewCore extends Component {
 
 	initPivot(model) {
 		const view = model.view;
-		const build = () =>
-			pivotBuilder(
-				getColumnMap(view().columns),
+		const build = () => {
+			const state = view();
+			return pivotBuilder(
+				getColumnMap(state.columns),
 				model.pivot().by,
 				valueFactory
-			)(this.rows);
+			)(state.rows);
+		};
 
 		view({pivot: build()});
 
