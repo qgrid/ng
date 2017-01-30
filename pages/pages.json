@@ -48,11 +48,27 @@
 		"title": "Group"
 	},
 	{
+		"path": "pivot",
+		"title": "Pivot"
+	},
+	{
 		"path": "toolbar",
 		"title": "Toolbar"
 	},
 	{
 		"path": "pager",
 		"title": "Pager"
+	},
+	{
+		"path": "checkable-rows",
+		"title": "Checkable rows"
+	},
+	{
+		"path": "dnd",
+		"title": "Drag and Drop"
+	},
+	{
+		"path": "sort",
+		"title": "Sort"
 	}
 ]
