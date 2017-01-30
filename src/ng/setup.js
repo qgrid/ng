@@ -20,6 +20,12 @@ TemplatePath
 			resource: 'content'
 		};
 	})
+	.register(def.SORTBAR_NAME, () => {
+		return {
+			model: 'sort',
+			resource: 'content'
+		};
+	})
 	.register(def.GROUPBAR_NAME, () => {
 		return {
 			model: 'group',
@@ -36,6 +42,12 @@ TemplatePath
 		return {
 			model: 'node',
 			resource: 'content'
+		};
+	})
+	.register(def.SELECTION_NAME, template => {
+		return {
+			model: 'selection',
+			resource: template.for
 		};
 	});
 
@@ -60,6 +72,9 @@ export default function Setup($templateCache) {
 	$templateCache.put('qgrid.toolbar.top.tpl.html', require('./components/toolbar/toolbar.top.html'));
 	$templateCache.put('qgrid.toolbar.bottom.tpl.html', require('./components/toolbar/toolbar.bottom.html'));
 	$templateCache.put('qgrid.pager.tpl.html', require('./plugins/pagination/pager.html'));
+	$templateCache.put('qgrid.sortbar.tpl.html', require('./plugins/sortbar/sortbar.html'));
 	$templateCache.put('qgrid.groupbar.tpl.html', require('./plugins/groupbar/groupbar.html'));
+	$templateCache.put('qgrid.check.select-all.tpl.html', require('./components/selection/check.select-all.html'));
+	$templateCache.put('qgrid.check.select.tpl.html', require('./components/selection/check.select.html'));
 	$templateCache.put('qgrid.pivotbar.tpl.html', require('./plugins/pivotbar/pivotbar.html'));
 }
