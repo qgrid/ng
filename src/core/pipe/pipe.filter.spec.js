@@ -22,7 +22,7 @@ describe('pipe filter', () => {
 			[1, 2, 3], {
 				model: {
 					filter: () => {
-						return {match: () => true}
+						return {match: ctx => item => true}
 					}
 				}
 			},

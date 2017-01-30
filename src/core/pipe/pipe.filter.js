@@ -7,11 +7,12 @@ export default function (data, ctx, next) {
 	let filter = model.filter();
 	guard.invokable(filter.match, 'model.filter.match');
 
-	let result = [];
+	let result = [],
+		match = filter.match(ctx);
 
 	for (let i = 0, length = data.length; i < length; i++) {
 		var item = data[i];
-		if (filter.match(item, ctx)) {
+		if (match(item)) {
 			result.push(item);
 		}
 	}
