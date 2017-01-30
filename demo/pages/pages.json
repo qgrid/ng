@@ -66,5 +66,9 @@
 	{
 		"path": "dnd",
 		"title": "Drag and Drop"
+	},
+	{
+		"path": "sort",
+		"title": "Sort"
 	}
 ]
