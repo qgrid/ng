@@ -122,7 +122,9 @@ https://qgrid.github.io/ng/
 * row index column
 * master details grid
 * floating rows (set several footer/header fixed rows)
-
+* range selection
+* status bar
+* legend bar
 
 ##licence
 Code licensed under MIT license.

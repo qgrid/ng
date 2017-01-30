@@ -1,7 +1,7 @@
 import AppError from '../infrastructure/error';
 import Node from './node';
 
-export default function nodeBuilder(columnMap, groupBy, valueFactory) {
+export default function nodeBuilder(columnMap, groupBy, valueFactory, level = 0) {
 	if (groupBy.length === 0) {
 		return () => [];
 	}
@@ -22,7 +22,7 @@ export default function nodeBuilder(columnMap, groupBy, valueFactory) {
 			const row = rows[i];
 			const key = getValue(row);
 			if (!groups.hasOwnProperty(key)) {
-				const node = new Node(key);
+				const node = new Node(key, level);
 				node.rows.push(row);
 				keys.push(key);
 				nodes.push(node);
@@ -37,7 +37,7 @@ export default function nodeBuilder(columnMap, groupBy, valueFactory) {
 
 		const nextGroupBy = groupBy.slice(1);
 		if (nextGroupBy.length) {
-			const build = nodeBuilder(columnMap, nextGroupBy, valueFactory);
+			const build = nodeBuilder(columnMap, nextGroupBy, valueFactory, level + 1);
 			for (let i = 0, length = keys.length; i < length; i++) {
 				const key = keys[i];
 				const node = groups[key];
