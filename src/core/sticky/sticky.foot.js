@@ -9,9 +9,13 @@ export default class StickyHead extends Sticky {
 	 */
 	constructor(table, scrollView, origin) {
 		super(table, scrollView, origin);
+		this.invalidate();
 	}
 
 	invalidate() {
+		if (!this.element) {
+			return;
+		}
 		const style = window.getComputedStyle(this.scrollView);
 
 		css(this.element, 'min-width', style.width);

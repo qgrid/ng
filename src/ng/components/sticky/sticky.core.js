@@ -80,6 +80,14 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {
 			() => self.$timeout(() => sticky.invalidate())
 		));
 
+		unwatches.push(this.view.model.groupChanged.on(
+			() => self.$timeout(() => sticky.invalidate())
+		));
+
+		unwatches.push(this.view.model.pivotChanged.on(
+			() => self.$timeout(() => sticky.invalidate())
+		));
+
 		unwatches.push(sticky.invalidated.on(
 			() => self.$scope.$apply()
 		));
@@ -89,6 +97,13 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {
 
 		const onResize = () => sticky.invalidate();
 		this.$window.addEventListener('resize', onResize);
+
+		this.$scope.$watch(() => {
+			const tagName = target === 'head' ? 'th' : 'td';
+			return Array.from(originElement.find(tagName))
+				.map(col => col.offsetWidth);
+		}, () => self.$timeout(() => sticky.invalidate()),
+			true);
 
 		this.$scope.$on('$destroy', () => {
 			unwatches.forEach(u => u());
