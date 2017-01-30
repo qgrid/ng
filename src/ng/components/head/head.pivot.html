@@ -1,4 +1,9 @@
 <tr>
+	<th ng-if="$view.group.nodes.length"
+		 class="group"
+		 rowspan="{{$view.pivot.heads.length}}">
+		Group
+	</th>
 	<th ng-repeat="$column in $view.columns"
 		 rowspan="{{$view.pivot.heads.length}}"
 		 ng-class="$column.key"

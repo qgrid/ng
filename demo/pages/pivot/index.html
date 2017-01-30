@@ -1,10 +1,11 @@
 <q-grid columns="$ctrl.columns"
 		  rows="$ctrl.rows"
-		  pivot-by="['age', 'gender']"
+		  pivot-by="['age.interval', 'gender']"
 		  group-by="['state']">
 	<q-grid:columns>
 		<q-grid:column key="state" title="State" value="$ctrl.getState($row)"></q-grid:column>
 		<q-grid:column key="age" title="Age" value="$ctrl.getAge($row)"></q-grid:column>
+		<q-grid:column key="age.interval" title="Age Interval" value="$ctrl.getAgeInterval($row)"></q-grid:column>
 		<q-grid:column key="gender" title="Gender"></q-grid:column>
 	</q-grid:columns>
 	<q-grid:head sticky="false"></q-grid:head>

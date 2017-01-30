@@ -39,21 +39,12 @@ class ViewCore extends Component {
 	}
 
 	get columns() {
-		const columns = this.model.view().columns;
-		switch (this.mode) {
-			case 'pivot': {
-				const by = this.model.pivot().by;
-				const bySet = new Set(by);
-				return columns.filter(c => !bySet.has(c.key));
-			}
-			case 'group': {
-				const by = this.model.group().by;
-				const bySet = new Set(by);
-				return columns.filter(c => !bySet.has(c.key));
-			}
-			default:
-				return columns;
-		}
+		const model = this.model;
+		const groupBy = new Set(model.group().by);
+		const pivotBy = new Set(model.pivot().by);
+		const columns = model.view().columns;
+		return columns;
+//		return columns.filter(c => !groupBy.has(c.key) && !pivotBy.has(c.key));
 	}
 
 	get mode() {
@@ -125,7 +116,8 @@ class ViewCore extends Component {
 		});
 
 		model.viewChanged.on(e => {
-			if (e.changes.hasOwnProperty('rows') || e.changes.hasOwnProperty('rows')) {
+			if (e.changes.hasOwnProperty('columns') ||
+				e.changes.hasOwnProperty('rows')) {
 				view({nodes: build()});
 			}
 		});
@@ -135,11 +127,18 @@ class ViewCore extends Component {
 		const view = model.view;
 		const build = () => {
 			const state = view();
-			return pivotBuilder(
+			const pivot = pivotBuilder(
 				getColumnMap(state.columns),
 				model.pivot().by,
 				valueFactory
 			)(state.rows);
+
+			const groupBy = model.group().by;
+			if (groupBy.length) {
+
+			}
+
+			return pivot;
 		};
 
 		view({pivot: build()});
@@ -151,11 +150,12 @@ class ViewCore extends Component {
 		});
 
 		model.viewChanged.on(e => {
-			if (e.changes.hasOwnProperty('rows') || e.changes.hasOwnProperty('rows')) {
+			if (e.changes.hasOwnProperty('columns') ||
+				e.changes.hasOwnProperty('rows') ||
+				e.changes.hasOwnProperty('nodes')) {
 				view({pivot: build()});
 			}
 		});
-
 	}
 }
 

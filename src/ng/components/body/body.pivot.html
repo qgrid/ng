@@ -1,9 +1,25 @@
-<tr ng-repeat="$row in $view.pivot.rows track by $index">
+<tr ng-if="!$view.group.nodes.length"
+	 ng-repeat="$row in $view.rows track by $index">
 	<td ng-repeat="$column in $view.columns track by $index"
 		 ng-class="$column.key"
 		 q-grid-core:td>
 	</td>
-	<td ng-repeat="$value in $row track by $index">
+	<td ng-repeat="$value in $view.pivot.rows[$index] track by $index">
+		{{$value}}
+	</td>
+</tr>
+
+<tr ng-if="$view.group.nodes.length"
+	 ng-repeat="$node in $view.group.nodes track by $index">
+	<td ng-style="{'padding-left': $row.offset + 'px'}"
+		 class="group"
+		 q-grid-core:node>
+	</td>
+	<td ng-repeat="$column in $view.columns track by $index"
+		 ng-class="$column.key"
+		 q-grid-core:td>
+	</td>
+	<td ng-repeat="$value in $view.pivot.rows[$index] track by $index">
 		{{$value}}
 	</td>
 </tr>
