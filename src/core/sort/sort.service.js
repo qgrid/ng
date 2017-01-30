@@ -9,14 +9,14 @@ export function index(by, entryKey) {
 }
 
 export function direction(entry) {
-	const key = key(entry);
-	if (!key) {
+	const entryKey = key(entry);
+	if (!entryKey) {
 		throw new AppError(
 			'sort.service',
 			`Sort key is not defined in "${entry}"`);
 	}
 
-	return entry[key];
+	return entry[entryKey];
 }
 
 export function map(by) {

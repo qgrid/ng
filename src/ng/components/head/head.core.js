@@ -1,7 +1,7 @@
 import Directive from '../directive';
 import Command from 'core/infrastructure/command';
 import AppError from 'core/infrastructure/error';
-import * as sort from 'core/sort/sort.service';
+import * as sortService from 'core/sort/sort.service';
 import {VIEW_CORE_NAME, HEAD_CORE_NAME, TH_CORE_NAME} from 'src/definition';
 
 class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
@@ -29,9 +29,9 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 			execute: key => {
 				const sort = this.view.model.sort;
 				const by = Array.from(sort().by);
-				const index = sort.index(by, key);
+				const index = sortService.index(by, key);
 				if (index >= 0) {
-					const dir = sort.direction(by[index]);
+					const dir = sortService.direction(by[index]);
 					switch (dir) {
 						case 'desc': {
 							by.splice(index, 1);
@@ -68,13 +68,13 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	sortDirection(key) {
 		const state = this.view.model.sort();
 		const by = state.by;
-		return sort.map(by)[key];
+		return sortService.map(by)[key];
 	}
 
-	sortOrder(key){
+	sortOrder(key) {
 		const state = this.view.model.sort();
 		const by = state.by;
-		return sort.index(by, key);
+		return sortService.index(by, key);
 	}
 
 	transfer(cell) {

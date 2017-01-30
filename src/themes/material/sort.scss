@@ -1,19 +1,31 @@
-table{
-	th:hover{
-		.sort{
+@import "variables";
+
+table {
+	th:hover {
+		.sort {
 			visibility: visible !important;
 		}
 	}
 }
 
-.sort{
+.sort {
 	display: inline;
 	cursor: pointer;
 	visibility: hidden;
 	width: 10px;
 	outline: none;
+	border: none;
+	background: transparent;
+	padding: 0;
 
-	&.active{
+	&.active {
 		visibility: visible;
+		span {
+			color: $dark;
+		}
+	}
+
+	span {
+		color: $dark-secondary;
 	}
 }
