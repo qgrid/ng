@@ -53,6 +53,7 @@ class NodeCore extends Directive(NODE_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 
 	value(column) {
 		const node = this.$scope.$node;
+		const rows = this.view.model.view().rows;
 		switch (node.type) {
 			case 'group':
 				if (column.aggregation) {
@@ -63,12 +64,12 @@ class NodeCore extends Directive(NODE_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 					}
 
 					const getValue = valueService.getFactory(column);
-					return Aggregation[column.aggregation](node.rows, getValue);
+					return Aggregation[column.aggregation](node.rows.map(i => rows[i]), getValue);
 				}
 
 				return null;
 			case 'row':
-				return valueService.get(node.rows[0], column);
+				return valueService.get(rows[node.rows[0]], column);
 			default:
 				throw new AppError(
 					'node.core',
