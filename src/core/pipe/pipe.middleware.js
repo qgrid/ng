@@ -1,10 +1,10 @@
-export default class Pipeline {
+export default class Middleware {
 
 	constructor(stages) {
 		this.stages = stages || [];
 	}
 
-	fetch(ctx, data = []) {
+	run(ctx, data = []) {
 		return pipeline(
 			this.stages.map(s => data => new Promise(resolve => {
 				s(data, ctx, resolve);
@@ -29,6 +29,8 @@ function pipeline(stages, initialData) {
 				} else {
 					resolve(data);
 				}
+			}).catch((e) => {
+				reject(e);
 			});
 		}
 	});
