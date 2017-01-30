@@ -6,7 +6,7 @@ class Pivotbar extends PluginComponent('qgrid.pivotbar.tpl.html') {
 	constructor() {
 		super(...arguments);
 
-		this.newSort = null;
+		this.newGroup = null;
 		this.add = new Command({
 				execute: key => {
 					const pivot = this.model.pivot;
@@ -15,7 +15,7 @@ class Pivotbar extends PluginComponent('qgrid.pivotbar.tpl.html') {
 						by: state.by.concat(key)
 					});
 
-					this.newSort = null;
+					this.newGroup = null;
 				},
 				canExecute: () => this.columns.length > 0
 			}

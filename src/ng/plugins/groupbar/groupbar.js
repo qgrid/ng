@@ -6,7 +6,7 @@ class Groupbar extends PluginComponent('qgrid.groupbar.tpl.html') {
 	constructor() {
 		super(...arguments);
 
-		this.newSort = null;
+		this.newGroup = null;
 		this.add = new Command({
 				execute: key => {
 					const group = this.model.group;
@@ -15,7 +15,7 @@ class Groupbar extends PluginComponent('qgrid.groupbar.tpl.html') {
 						by: state.by.concat(key)
 					});
 
-					this.newSort = null;
+					this.newGroup = null;
 				},
 				canExecute: () => this.columns.length > 0
 			}
