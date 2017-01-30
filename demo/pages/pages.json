@@ -60,6 +60,10 @@
 		"title": "Pager"
 	},
 	{
+		"path": "checkable-rows",
+		"title": "Checkable rows"
+	},
+	{
 		"path": "dnd",
 		"title": "Drag and Drop"
 	}
