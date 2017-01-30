@@ -7,13 +7,14 @@ export default class Sticky {
 	 * @param {Node} table - table node
 	 * @param {Node} scrollView - view container which causes scroll
 	 * @param {Node} origin - view container which causes scroll
+	 * @param {boolean} withClone - defines source for sticky element
 	 */
-	constructor(table, scrollView, origin) {
+	constructor(table, scrollView, origin, withClone=true) {
 		this.table = table;
 		this.scrollView = scrollView;
 		this.origin = origin;
 		this.invalidated = new Event();
-		this.element = build(this);
+		this.element = build(this, withClone);
 	}
 
 	invalidateHeight() {
@@ -38,11 +39,11 @@ export default class Sticky {
 	}
 }
 
-function build(sticky) {
+function build(sticky, withClone) {
 	if (!sticky.origin) {
 		return null;
 	}
-	const cloned = sticky.origin.cloneNode(true);
+	const cloned = withClone ? sticky.origin.cloneNode(true) : sticky.origin;
 
 	cloned.classList.add('sticky');
 	css(cloned, 'position', 'absolute');

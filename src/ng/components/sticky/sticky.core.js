@@ -4,7 +4,6 @@ import {STICKY_CORE_NAME, VIEW_CORE_NAME, VIEWPORT_CORE_NAME,
 import AppError from 'core/infrastructure/error';
 import StickyFactory from 'core/sticky/sticky.factory';
 import angular from 'angular';
-import TemplateCore from '../template/template.core';
 
 class StickyCore extends Directive(STICKY_CORE_NAME, {
 	view: `^^${VIEW_CORE_NAME}`,
@@ -13,16 +12,15 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {
 	head: `?${HEAD_CORE_NAME}`,
 	foot: `?${FOOT_CORE_NAME}`
 }) {
-	constructor($scope, $element, $attrs, $timeout, $window, $compile, $templateCache) {
+	constructor($scope, $element, $window, $timeout, $compile, $templateCache) {
 		super();
 
 		this.$scope = $scope;
 		this.$element = $element;
-		this.$attrs = $attrs;
-		this.$timeout = $timeout;
 		this.$window = $window;
+		this.$timeout = $timeout;
 		this.$compile = $compile;
-		this.template = new TemplateCore($compile, $templateCache);
+		this.$templateCache = $templateCache;
 	}
 
 	onInit() {
@@ -61,23 +59,36 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {
 		const self = this;
 		const table = this.table.$element[0];
 		const scrollView = this.viewport.$element[0];
-		const sticky = StickyFactory.create(target, table, scrollView, this.$element[0]);
+		const sticky = StickyFactory.create(target, table, scrollView, this.$element[0], false);
 
 		const templateUrl = this.view.templateUrl(target);
-		const link = this.template.link(
-			templateUrl,
-			this.view.model[target]().resource
-		);
-		const clonedElement = angular.element(sticky.element);
-		clonedElement.removeAttr('q-grid-core:sticky');
-		link(clonedElement, this.$scope);
+		const stickySync = angular.element(`<t${target}>${this.$templateCache.get(templateUrl)}</t${target}>`);
 
-		const originElement = angular.element(sticky.origin);
-		originElement.after(clonedElement);
-		originElement.css('visibility', 'hidden');
+		const removeGridAttrs = element => {
+			const attributes = Array.from(element.attributes);
+			attributes.forEach(attr => {
+				const name = attr.name;
+				if (name && name.indexOf('q-grid') === 0) {
+					element.removeAttribute(name);
+				}
+			});
+			Array.from(element.children).forEach(removeGridAttrs);
+		};
+
+		removeGridAttrs(stickySync[0]);
+
+		sticky.origin = stickySync[0];
+		this.$element.after(stickySync);
+		stickySync.css('visibility', 'hidden');
+
+		this.$compile(stickySync.contents())(this.$scope);
 
 		const unwatches = [];
 		unwatches.push(this.view.theme.changed.on(
+			() => self.$timeout(() => sticky.invalidate())
+		));
+
+		unwatches.push(this.view.model.viewChanged.on(
 			() => self.$timeout(() => sticky.invalidate())
 		));
 
@@ -105,7 +116,7 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {
 
 		unwatches.push(this.$scope.$watch(() => {
 			const tagName = target === 'head' ? 'th' : 'td';
-			return Array.from(originElement.find(tagName))
+			return Array.from(stickySync.find(tagName))
 				.map(col => col.offsetWidth);
 		}, () => self.$timeout(() => sticky.invalidate()),
 			true));
@@ -121,9 +132,8 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {
 
 StickyCore.$inject = ['$scope',
 	'$element',
-	'$attrs',
-	'$timeout',
 	'$window',
+	'$timeout',
 	'$compile',
 	'$templateCache'];
 

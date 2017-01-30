@@ -6,9 +6,10 @@ export default class StickyHead extends Sticky {
 	 * @param {Node} table - table node
 	 * @param {Node} scrollView - view container which causes scroll
 	 * @param {Node} origin - view container which causes scroll
+	 * @param {boolean} withClone - defines source for sticky element
 	 */
-	constructor(table, scrollView, origin) {
-		super(table, scrollView, origin);
+	constructor(table, scrollView, origin, withClone) {
+		super(table, scrollView, origin, withClone);
 		this.invalidate();
 	}
 
