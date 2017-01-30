@@ -4,14 +4,14 @@ export default function Controller(qgrid) {
 	this.rows = [];
 	this.columns = [];
 	this.gridModel = qgrid.model();
-	let n = 100;
+	const n = 100;
 
 	this.addRows = () => {
 		for (var i = 0; i < n; i++)
 			ctrl.rows.push({});
 	};
 
-	var getHex = () => "#"+((1<<24)*Math.random()|0).toString(16);
+	const getHex = () => "#"+((1<<24)*Math.random()|0).toString(16);
 
 	this.addColumn = () => {
 		var hex = getHex();
@@ -21,7 +21,7 @@ export default function Controller(qgrid) {
 			title: hex
 		});
 
-		for (var i = 0; i < n; i++) {
+		for (let i = 0; i < n; i++) {
 			ctrl.rows[i][hex] = hex;
 		}
 
