@@ -23,6 +23,7 @@ export const NODE_CORE_NAME = `${GRID_CORE}Node`;
 export const TOOLBAR_CORE_NAME = `${GRID_CORE}Toolbar`;
 export const SELECTION_CORE_NAME = `${GRID_CORE}Selection`;
 export const CHECK_CORE_NAME = `${GRID_CORE}Check`;
+export const SORT_CORE_NAME = `${GRID_CORE}Sort`;
 
 export const HEAD_NAME = `${GRID}Head`;
 export const TEMPLATE_NAME = `${GRID}Template`;
@@ -32,6 +33,7 @@ export const NODE_NAME = `${GRID}Node`;
 export const TOOLBAR_NAME = `${GRID}Toolbar`;
 export const FOOT_NAME = `${GRID}Foot`;
 export const PAGER_NAME = `${GRID}Pager`;
+export const SORTBAR_NAME = `${GRID}Sortbar`;
 export const GROUPBAR_NAME = `${GRID}Groupbar`;
 export const PIVOTBAR_NAME = `${GRID}Pivotbar`;
 export const DRAG_NAME = `${GRID}Drag`;
