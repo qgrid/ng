@@ -20,10 +20,6 @@
 		"title": "Column"
 	},
 	{
-		"path": "column-add",
-		"title": "Column Add"
-	},
-	{
 		"path": "row-index",
 		"title": "Row Index"
 	},
@@ -52,11 +48,19 @@
 		"title": "Group"
 	},
 	{
+		"path": "pivot",
+		"title": "Pivot"
+	},
+	{
 		"path": "toolbar",
 		"title": "Toolbar"
 	},
 	{
 		"path": "pager",
 		"title": "Pager"
+	},
+	{
+		"path": "dnd",
+		"title": "Drag and Drop"
 	}
 ]

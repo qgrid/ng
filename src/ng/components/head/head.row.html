@@ -1,0 +1,10 @@
+<tr>
+	<th ng-repeat="$column in $view.columns track by $index"
+		 q-grid:drag="$head.transfer($cell)"
+		 q-grid:drop="$head.transfer($cell)"
+		 q-grid:on-drop="$head.drop.execute($event)"
+		 q-grid:can-drop="$head.drop.canExecute($event)"
+		 ng-class="$column.key"
+		 q-grid-core:th>
+	</th>
+</tr>
