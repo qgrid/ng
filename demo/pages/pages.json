@@ -48,11 +48,19 @@
 		"title": "Group"
 	},
 	{
+		"path": "pivot",
+		"title": "Pivot"
+	},
+	{
 		"path": "toolbar",
 		"title": "Toolbar"
 	},
 	{
 		"path": "pager",
 		"title": "Pager"
+	},
+	{
+		"path": "dnd",
+		"title": "Drag and Drop"
 	}
 ]

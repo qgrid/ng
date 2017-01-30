@@ -3,7 +3,7 @@ import {GRID_NAME} from 'src/definition';
 
 class Toolbar extends Component {
 	constructor() {
-		super('group');
+		super();
 	}
 
 	onInit() {
