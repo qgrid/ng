@@ -1,4 +1,8 @@
 <tr ng-repeat="$row in $view.pivot.rows track by $index">
+	<td ng-repeat="$column in $view.columns track by $index"
+		 ng-class="$column.key"
+		 q-grid-core:td>
+	</td>
 	<td ng-repeat="$value in $row track by $index">
 		{{$value}}
 	</td>
