@@ -1,5 +1,6 @@
 import filter from './pipe.filter';
 import pagination from './pipe.pagination';
+import sort from './pipe.sort';
 
 export default class Pipe {
 	static get filter() {
@@ -8,5 +9,9 @@ export default class Pipe {
 
 	static get pagination() {
 		return pagination;
+	}
+
+	static get sort() {
+		return sort;
 	}
 }
