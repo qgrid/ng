@@ -7,14 +7,14 @@ export default function Controller(qgrid) {
 	const n = 100;
 
 	this.addRows = () => {
-		for (var i = 0; i < n; i++)
+		for (let i = 0; i < n; i++)
 			ctrl.rows.push({});
 	};
 
 	const getHex = () => "#"+((1<<24)*Math.random()|0).toString(16);
 
 	this.addColumn = () => {
-		var hex = getHex();
+		let hex = getHex();
 
 		this.columns = this.columns.concat({
 			key: hex,
