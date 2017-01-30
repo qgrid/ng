@@ -39,7 +39,21 @@ class ViewCore extends Component {
 	}
 
 	get columns() {
-		return this.model.view().columns;
+		const columns = this.model.view().columns;
+		switch (this.mode) {
+			case 'pivot': {
+				const by = this.model.pivot().by;
+				const bySet = new Set(by);
+				return columns.filter(c => !bySet.has(c.key));
+			}
+			case 'group': {
+				const by = this.model.group().by;
+				const bySet = new Set(by);
+				return columns.filter(c => !bySet.has(c.key));
+			}
+			default:
+				return columns;
+		}
 	}
 
 	get nodes() {
@@ -61,7 +75,7 @@ class ViewCore extends Component {
 	get selection() {
 		return this.model.selection();
 	}
-	
+
 	initTheme() {
 		this.$element[0].classList.add(`theme-${this.theme.name}`);
 
@@ -98,7 +112,7 @@ class ViewCore extends Component {
 		const view = model.view;
 		const build = () =>
 			nodeBuilder(
-				getColumnMap(this.columns),
+				getColumnMap(view().columns),
 				model.group().by,
 				valueFactory
 			)(this.rows);
@@ -122,7 +136,7 @@ class ViewCore extends Component {
 		const view = model.view;
 		const build = () =>
 			pivotBuilder(
-				getColumnMap(this.columns),
+				getColumnMap(view().columns),
 				model.pivot().by,
 				valueFactory
 			)(this.rows);
