@@ -11,6 +11,8 @@ import ColumnList from './components/column/column.list';
 import Column from './components/column/column';
 import Node from './components/node/node';
 import Toolbar from './components/toolbar/toolbar';
+import Drag from './components/dnd/drag';
+import Drop from './components/dnd/drop';
 
 import Pager from './plugins/pagination/pager';
 import Groupbar from './plugins/groupbar/groupbar';
@@ -49,6 +51,8 @@ export default angular
 	.component(def.PAGER_NAME, Pager)
 	.component(def.GROUPBAR_NAME, Groupbar)
 	.component(def.PIVOTBAR_NAME, Pivotbar)
+	.directive(def.DRAG_NAME, () => Drag)
+	.directive(def.DROP_NAME, () => Drop)
 	.directive(def.VIEWPORT_CORE_NAME, () => ViewportCore)
 	.directive(def.TABLE_CORE_NAME, () => TableCore)
 	.directive(def.TD_CORE_NAME, () => TdCore)
