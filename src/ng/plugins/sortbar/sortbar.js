@@ -2,7 +2,7 @@ import PluginComponent from '../plugin.component';
 import Command from 'core/infrastructure/command'
 import * as SortSevice from 'core/sort/sort.service';
 import {TH_CORE_NAME, SORTBAR_NAME} from 'src/definition';
-import TemplatePath from 'ng/components/template/template.path';
+import TemplatePath from 'core/template/template.path';
 
 TemplatePath
 	.register(SORTBAR_NAME, () => {
@@ -21,12 +21,8 @@ class Sortbar extends PluginComponent('qgrid.plugins.sortbar.tpl.html') {
 				execute: key => {
 					const sort = this.model.sort;
 					const state = sort();
-					const entry = {};
-					entry[key] = 'asc';
-					sort({
-						by: state.by.concat(entry)
-					});
-
+					const entry = {[key]: 'asc'};
+					sort({by: state.by.concat(entry)});
 					this.newSort = null;
 				},
 				canExecute: () => this.columns.length > 0

@@ -2,7 +2,7 @@ import Component from '../component';
 import {GRID_NAME, COLUMN_NAME, COLUMN_LIST_NAME} from 'src/definition';
 import {clone, isUndefined} from 'core/services/utility';
 import TextColumn from 'core/column/column.text';
-import TemplatePath from '../template/template.path';
+import TemplatePath from 'core/template/template.path';
 
 TemplatePath
 	.register(COLUMN_NAME, (template, column) => {
