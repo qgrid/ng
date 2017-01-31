@@ -15,7 +15,7 @@ class ThCore extends Directive(TH_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 
 	onInit() {
 		const state = this.view.model.head();
-		const key = this.$scope.$column.key;
+		const key = this.column.key;
 		const link = this.template.link(
 			'qgrid.head.cell.tpl.html',
 			state.resource,
@@ -23,6 +23,10 @@ class ThCore extends Directive(TH_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 		);
 
 		link(this.$element, this.$scope);
+	}
+
+	get column() {
+		return this.$scope.$column.model;
 	}
 }
 

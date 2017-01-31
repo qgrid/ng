@@ -1,5 +1,6 @@
 export default class Column {
 	constructor() {
+		this.type = 'text';
 		this.key = null;
 		this.title = null;
 		this.value = null;

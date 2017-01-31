@@ -27,7 +27,7 @@ class Groupbar extends PluginComponent('qgrid.groupbar.tpl.html') {
 				const state = group();
 				const index = state.by.findIndex(g => g === key);
 				if (index >= 0) {
-					const temp = state.by.slice();
+					const temp = Array.from(state.by);
 					temp.splice(index, 1);
 					group({
 						by: temp
@@ -47,7 +47,7 @@ class Groupbar extends PluginComponent('qgrid.groupbar.tpl.html') {
 	}
 
 	get columns() {
-		return this.model.view().columns;
+		return this.model.data().columns;
 	}
 
 	get groups() {
@@ -55,7 +55,7 @@ class Groupbar extends PluginComponent('qgrid.groupbar.tpl.html') {
 	}
 
 	title(key) {
-		const columns = this.model.view().columns;
+		const columns = this.columns;
 		const index = columns.findIndex(c => c.key === key);
 		return index >= 0 ? columns[index].title : '';
 	}

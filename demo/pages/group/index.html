@@ -1,6 +1,7 @@
 <q-grid columns="$ctrl.columns"
 		  rows="$ctrl.rows"
 		  group-by="['contact.address.state', 'gender']">
+	<q-grid:head sticky="false"></q-grid:head>
 	<q-grid:columns>
 		<q-grid:column key="contact.address.zip" aggregation="max"></q-grid:column>
 	</q-grid:columns>
@@ -14,4 +15,6 @@
 			<span>{{$node.key}}</span>
 		</q-grid:template>
 	</q-grid:node>
+
+	<q-grid:head sticky="false"></q-grid:head>
 </q-grid>
