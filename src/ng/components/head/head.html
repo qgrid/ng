@@ -1,9 +1,8 @@
-<tr>
-	<th ng-if="$view.selection.mode === 'check'"
-		 q-grid-core:check="select-all">
-	</th>
-	<th ng-repeat="$column in $view.columns track by $index"
-		 ng-class="$column.key"
+<tr ng-repeat="$row in $view.head.rows">
+	<th ng-repeat="$column in $row.columns"
+		 ng-class="$column.model.key"
+		 rowspan="{{$column.rowspan}}"
+		 colspan="{{$column.colspan}}"
 		 q-grid:drag="$head.transfer($cell)"
 		 q-grid:drop="$head.transfer($cell)"
 		 q-grid:on-drop="$head.drop.execute($event)"

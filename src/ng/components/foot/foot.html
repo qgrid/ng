@@ -1,0 +1,8 @@
+<tr ng-repeat="$row in $view.foot.rows">
+	<th ng-repeat="$column in $row.columns"
+		 ng-class="$column.model.key"
+		 rowspan="{{$column.rowspan}}"
+		 colspan="{{$column.colspan}}"
+		 q-grid-core:tf>
+	</th>
+</tr>

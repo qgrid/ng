@@ -15,7 +15,7 @@ export default class Event {
 	}
 
 	emit(e) {
-		const temp = this.handlers.slice();
+		const temp = Array.from(this.handlers);
 		for (let i = 0, length = temp.length; i < length; i++) {
 			temp[i](e);
 		}
