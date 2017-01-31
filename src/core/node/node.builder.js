@@ -17,20 +17,23 @@ export default function nodeBuilder(columnMap, groupBy, valueFactory, level = 0)
 		const keys = [];
 		const nodes = [];
 		const groups = {};
-
 		for (let i = 0, length = rows.length; i < length; i++) {
 			const row = rows[i];
 			const key = getValue(row);
 			if (!groups.hasOwnProperty(key)) {
 				const node = new Node(key, level);
-				node.rows.push(row);
+				node.rows.push(i);
 				keys.push(key);
 				nodes.push(node);
-				groups[key] = node;
+				groups[key] = {
+					node,
+					rows: [row]
+				};
 			}
 			else {
-				const node = groups[key];
-				node.rows.push(row);
+				const group = groups[key];
+				group.node.rows.push(i);
+				group.rows.push(row);
 				keys.push(key);
 			}
 		}
@@ -40,8 +43,8 @@ export default function nodeBuilder(columnMap, groupBy, valueFactory, level = 0)
 			const build = nodeBuilder(columnMap, nextGroupBy, valueFactory, level + 1);
 			for (let i = 0, length = keys.length; i < length; i++) {
 				const key = keys[i];
-				const node = groups[key];
-				node.children = build(node.rows);
+				const group = groups[key];
+				group.node.children = build(group.rows);
 			}
 		}
 

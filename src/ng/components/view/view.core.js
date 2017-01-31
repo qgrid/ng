@@ -39,10 +39,12 @@ class ViewCore extends Component {
 	}
 
 	get columns() {
-		return this.model.view().columns;
-	}
-
-	get nodes() {
+		const model = this.model;
+		const groupBy = new Set(model.group().by);
+		const pivotBy = new Set(model.pivot().by);
+		const columns = model.view().columns;
+	//	return columns;
+		return columns.filter(c => !groupBy.has(c.key) && !pivotBy.has(c.key));
 	}
 
 	get mode() {
@@ -61,7 +63,7 @@ class ViewCore extends Component {
 	get selection() {
 		return this.model.selection();
 	}
-	
+
 	initTheme() {
 		this.$element[0].classList.add(`theme-${this.theme.name}`);
 
@@ -96,12 +98,14 @@ class ViewCore extends Component {
 
 	initGroup(model) {
 		const view = model.view;
-		const build = () =>
-			nodeBuilder(
-				getColumnMap(this.columns),
+		const build = () => {
+			const state = view();
+			return nodeBuilder(
+				getColumnMap(state.columns),
 				model.group().by,
 				valueFactory
-			)(this.rows);
+			)(state.rows);
+		};
 
 		view({nodes: build()});
 
@@ -112,7 +116,8 @@ class ViewCore extends Component {
 		});
 
 		model.viewChanged.on(e => {
-			if (e.changes.hasOwnProperty('rows') || e.changes.hasOwnProperty('rows')) {
+			if (e.changes.hasOwnProperty('columns') ||
+				e.changes.hasOwnProperty('rows')) {
 				view({nodes: build()});
 			}
 		});
@@ -120,12 +125,24 @@ class ViewCore extends Component {
 
 	initPivot(model) {
 		const view = model.view;
-		const build = () =>
-			pivotBuilder(
-				getColumnMap(this.columns),
+		const build = () => {
+			const state = view();
+			const pivot = pivotBuilder(
+				getColumnMap(state.columns),
 				model.pivot().by,
 				valueFactory
-			)(this.rows);
+			)(state.rows);
+
+			// const groupBy = model.group().by;
+			// if (groupBy.length) {
+			// 	return {
+			// 		heads: pivot.heads,
+			// 		rows: pivot.rows
+			// 	}
+			// }
+
+			return pivot;
+		};
 
 		view({pivot: build()});
 
@@ -136,11 +153,12 @@ class ViewCore extends Component {
 		});
 
 		model.viewChanged.on(e => {
-			if (e.changes.hasOwnProperty('rows') || e.changes.hasOwnProperty('rows')) {
+			if (e.changes.hasOwnProperty('columns') ||
+				e.changes.hasOwnProperty('rows') ||
+				e.changes.hasOwnProperty('nodes')) {
 				view({pivot: build()});
 			}
 		});
-
 	}
 }
 

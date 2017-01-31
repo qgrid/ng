@@ -1,6 +1,8 @@
 <tr ng-repeat="$node in $view.nodes track by $index">
-	<td ng-style="{'padding-left': $row.offset + 'px'}"
-		 q-grid-core:node>
+	<td ng-if="$view.group.nodes.length" class="group"></td>
+	<td ng-repeat="$column in $view.columns track by $index"
+		 ng-class="$column.key"
+		 q-grid-core:tf>
 	</td>
 	<td ng-repeat="$column in $view.columns track by $index"
 		 ng-class="$column.key"

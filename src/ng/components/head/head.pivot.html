@@ -1,5 +1,25 @@
-<tr ng-repeat="$row in $view.pivot.heads">
-	<th data-ng-repeat="$column in $row"
+<tr>
+	<th ng-if="$view.group.nodes.length"
+		 class="group"
+		 rowspan="{{$view.pivot.heads.length}}">
+		Group
+	</th>
+	<th ng-repeat="$column in $view.columns"
+		 rowspan="{{$view.pivot.heads.length}}"
+		 ng-class="$column.key"
+		 q-grid:drag="$head.transfer($cell)"
+		 q-grid:drop="$head.transfer($cell)"
+		 q-grid:on-drop="$head.drop.execute($event)"
+		 q-grid:can-drop="$head.drop.canExecute($event)"
+		 q-grid-core:th>
+	</th>
+	<th ng-repeat="$column in $view.pivot.heads[0]"
+		 colspan="{{$column.value}}">
+		{{$column.key}}
+	</th>
+</tr>
+<tr ng-repeat="$row in $view.pivot.heads | limitTo: 1 - $view.pivot.heads.length">
+	<th ng-repeat="$column in $row"
 		 colspan="{{$column.value}}">
 		{{$column.key}}
 	</th>
