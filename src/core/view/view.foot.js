@@ -12,7 +12,20 @@ export default class FootView extends View {
 	invalidate(model) {
 		const columns = columnView(model.view().columns, model);
 		const row = {columns: columns};
-		const length = 1;
-		this.rows = new Array(length).fill(row);
+		this.rows = new Array(this.count).fill(row);
+	}
+
+	get count() {
+		const model = this.model;
+		const columns = model.data().columns;
+		const resourceCount = model.foot().resource.count;
+
+		for (let i = 0, length = columns.length; i < length; i++) {
+			if (columns[i].hasOwnProperty('aggregation')) {
+				return Math.max(resourceCount, 1);
+			}
+		}
+
+		return resourceCount;
 	}
 }
