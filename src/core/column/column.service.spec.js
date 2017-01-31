@@ -1,4 +1,5 @@
 import {getValue} from './column.service';
+import {find} from './column.service';
 
 describe('column service', () => {
 	describe('value', function () {
@@ -10,6 +11,29 @@ describe('column service', () => {
 		it('should return value according to value function', () => {
 			let value = getValue({key: 'name', value: row => row.name + ' Jr.'})({name: 'John'});
 			expect(value).to.be.equal('John Jr.');
+		});
+	});
+
+	describe('find', () => {
+		const columns = [
+			{
+				key: 'name'
+			},
+			{
+				key: 'age',
+				title: 'Age'
+			},
+			{
+				key: 'gender'
+			}
+		];
+
+		it('should return column object', () => {
+			expect(find(columns, 'age')).to.be.eqls({key: 'age', title: 'Age'});
+		});
+
+		it('should throw an exception if is not found', () => {
+			expect(() => find(columns, 'missingKey')).to.throw(/missingKey is not found/);
 		});
 	});
 });
