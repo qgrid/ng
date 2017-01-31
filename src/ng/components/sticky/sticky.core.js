@@ -68,7 +68,7 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {
 			const attributes = Array.from(element.attributes);
 			attributes.forEach(attr => {
 				const name = attr.name;
-				if (name && name.indexOf('q-grid') === 0) {
+				if (name && name.indexOf('q-grid') === 0 && name !== 'q-grid-core:th') {
 					element.removeAttribute(name);
 				}
 			});
