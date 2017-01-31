@@ -9,7 +9,7 @@ TemplatePath.register('text-cell', (template, column) => {
 	};
 });
 
-export default class ColumnText extends ColumnView {
+export default class TextColumn extends ColumnView {
 	constructor(model) {
 		super(model);
 	}

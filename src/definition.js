@@ -19,7 +19,6 @@ export const STICKY_CORE_NAME = `${GRID_CORE}Sticky`;
 export const HEAD_CORE_NAME = `${GRID_CORE}Head`;
 export const BODY_CORE_NAME = `${GRID_CORE}Body`;
 export const FOOT_CORE_NAME = `${GRID_CORE}Foot`;
-export const NODE_CORE_NAME = `${GRID_CORE}Node`;
 export const TOOLBAR_CORE_NAME = `${GRID_CORE}Toolbar`;
 export const SELECTION_CORE_NAME = `${GRID_CORE}Selection`;
 export const SORT_CORE_NAME = `${GRID_CORE}Sort`;
