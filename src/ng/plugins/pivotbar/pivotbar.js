@@ -2,7 +2,7 @@ import PluginComponent from '../plugin.component';
 import Command from 'core/infrastructure/command'
 import {TH_CORE_NAME} from 'src/definition';
 
-class Pivotbar extends PluginComponent('qgrid.pivotbar.tpl.html') {
+class Pivotbar extends PluginComponent('qgrid.plugins.pivotbar.tpl.html') {
 	constructor() {
 		super(...arguments);
 

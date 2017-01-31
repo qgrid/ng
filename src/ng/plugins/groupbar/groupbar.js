@@ -2,7 +2,7 @@ import PluginComponent from '../plugin.component';
 import Command from 'core/infrastructure/command'
 import {TH_CORE_NAME} from 'src/definition';
 
-class Groupbar extends PluginComponent('qgrid.groupbar.tpl.html') {
+class Groupbar extends PluginComponent('qgrid.plugins.groupbar.tpl.html') {
 	constructor() {
 		super(...arguments);
 

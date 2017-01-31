@@ -3,7 +3,7 @@ import Command from 'core/infrastructure/command'
 import * as SortSevice from 'core/sort/sort.service';
 import {TH_CORE_NAME} from 'src/definition';
 
-class Sortbar extends PluginComponent('qgrid.sortbar.tpl.html') {
+class Sortbar extends PluginComponent('qgrid.plugins.sortbar.tpl.html') {
 	constructor() {
 		super(...arguments);
 

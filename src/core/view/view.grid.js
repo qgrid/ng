@@ -46,7 +46,15 @@ export default class GridView extends View {
 	}
 
 	buildColumns(columns) {
-		return columns.map(c => columnFactory(c.type || 'text', c));
+		const result = [];
+		const model = this.model;
+		const selectionState = model.selection();
+		if (selectionState.mode === 'check') {
+			result.push(columnFactory('select', {type: 'select'}));
+		}
+
+		result.push(...columns.map(c => columnFactory(c.type || 'text', c)));
+		return result;
 	}
 
 	buildRows(rows) {

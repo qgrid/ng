@@ -16,8 +16,9 @@ class ThCore extends Directive(TH_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	onInit() {
 		const state = this.view.model.head();
 		const key = this.column.key;
+		const type = this.column.type || 'text';
 		const link = this.template.link(
-			'qgrid.head.cell.tpl.html',
+			`qgrid.head.${type}.cell.tpl.html`,
 			state.resource,
 			key
 		);
