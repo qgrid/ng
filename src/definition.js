@@ -22,7 +22,6 @@ export const FOOT_CORE_NAME = `${GRID_CORE}Foot`;
 export const NODE_CORE_NAME = `${GRID_CORE}Node`;
 export const TOOLBAR_CORE_NAME = `${GRID_CORE}Toolbar`;
 export const SELECTION_CORE_NAME = `${GRID_CORE}Selection`;
-export const CHECK_CORE_NAME = `${GRID_CORE}Check`;
 export const SORT_CORE_NAME = `${GRID_CORE}Sort`;
 
 export const HEAD_NAME = `${GRID}Head`;

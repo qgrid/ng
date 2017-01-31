@@ -50,7 +50,7 @@ export default class GridView extends View {
 		const model = this.model;
 		const selectionState = model.selection();
 		if (selectionState.mode === 'check') {
-			result.push(columnFactory('select', {type: 'select'}));
+			result.push(columnFactory('select', {type: 'select', model: 'selection'}));
 		}
 
 		result.push(...columns.map(c => columnFactory(c.type || 'text', c)));

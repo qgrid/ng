@@ -35,8 +35,6 @@ import StickyCore from './components/sticky/sticky.core';
 import ToolbarCore from './components/toolbar/toolbar.core';
 import SelectionCore from './components/selection/selection.core';
 import Indeterminate from './components/selection/indeterminate';
-import CheckCore from './components/selection/check.core';
-
 
 import Theme from './services/theme';
 import Range from './filters/range';
@@ -74,7 +72,6 @@ export default angular
 	.directive(def.FOOT_CORE_NAME, () => FootCore)
 	.directive(def.SORT_CORE_NAME, () => SortCore)
 	.directive(def.STICKY_CORE_NAME, () => StickyCore)
-	.directive(def.CHECK_CORE_NAME, () => CheckCore)
 	.directive(def.INDETERMINATE_NAME, () => Indeterminate)
 	.service(def.SERVICE_NAME, () => new GridService())
 	.service(def.THEME_NAME, () => new Theme())

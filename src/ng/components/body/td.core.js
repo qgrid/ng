@@ -15,16 +15,18 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	}
 
 	onInit() {
-		const state = this.view.model.body();
-		const key = this.column.key;
-		const type = this.column.type || 'text';
+		const model = this.view.model;
+		const column = this.column;
+		const state = model[column.model || 'body']();
+		const type = column.type || 'text';
+
 		const link = this.template.link(
 			`qgrid.body.${type}.cell.tpl.html`,
 			state.resource,
-			key
+			column.key
 		);
 
-		link(this.$element, this.$scope);
+		link(this.$element, this.$scope, `body-cell-${type}`);
 	}
 
 	get value() {
