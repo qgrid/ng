@@ -1,5 +1,7 @@
 import {getValue} from '../column/column.service';
 import {orderBy} from '../services/utility';
+import {key as getKey, direction as getDirection} from '../sort/sort.service';
+import {find} from '../column/column.service';
 
 export default function (data, ctx, next) {
 	const values = [],
@@ -12,9 +14,9 @@ export default function (data, ctx, next) {
 
 	for (let i = 0, length = by.length; i < length; i++) {
 		let item = by[i],
-			key = Object.keys(item)[0],
-			value = item[key],
-			column = columns.find(c => c.key == key);
+			key = getKey(item),
+			value = getDirection(item),
+			column = find(columns, key);
 
 		values.push(getValue(column));
 		directions.push(value);

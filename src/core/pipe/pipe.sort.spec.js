@@ -2,16 +2,16 @@ import sort from './pipe.sort';
 
 describe('sort pipe', () => {
 	const list = [{
-		name: 'Alan',
-		age: 30
-	}, {
 		name: 'Bob',
 		age: 45
 	}, {
-		name: 'Bob',
-		age: 40
+		name: 'Alan',
+		age: 30
 	}, {
 		name: 'James',
+		age: 40
+	}, {
+		name: 'Bob',
 		age: 40
 	}];
 

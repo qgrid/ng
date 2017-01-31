@@ -13,23 +13,23 @@ export default class Middleware {
 	}
 }
 
-function pipeline(stages, initialData) {
+function pipeline(stages, rows) {
 	let index = 0;
 
 	return new Promise((resolve, reject) => {
-		invoke(initialData);
+		invoke(rows);
 
-		function invoke(data) {
+		function invoke(rows) {
 			let stage = stages[index++];
-			let p = stage(data);
+			let p = stage(rows);
 
-			p.then(function (data) {
+			p.then(function (rows) {
 				if (index < stages.length) {
-					invoke(data);
+					invoke(rows);
 				} else {
-					resolve(data);
+					resolve(rows);
 				}
-			}).catch((e) => {
+			}).catch(e => {
 				reject(e);
 			});
 		}
