@@ -3,6 +3,7 @@ import {map as getColumnMap} from 'core/column/column.service';
 import columnFactory from 'core/column/column.factory';
 import nodeBuilder from 'core/node/node.builder';
 import pivotBuilder from 'core/pivot/pivot.builder';
+import {flatView as nodeFlatView} from 'core/node/node.service';
 import SelectColumn from 'core/column/column.select';
 import GroupColumn from 'core/column/column.group';
 
@@ -18,31 +19,41 @@ export default class GridView extends View {
 		const view = model.view;
 
 		model.dataChanged.watch(e => {
-			const viewState = {};
-			if (e.changes.hasOwnProperty('rows')) {
-				viewState.rows = this.buildRows(e.state.rows);
-			}
+			const rowsChanged = e.changes.hasOwnProperty('rows');
+			const columnsChanged = e.changes.hasOwnProperty('columns');
 
-			if (e.changes.hasOwnProperty('columns')) {
-				viewState.columns = this.buildColumns(e.state.columns);
-			}
+			if (rowsChanged || columnsChanged) {
+				view({
+					nodes: this.buildNodes(),
+					pivot: this.buildPivot()
+				});
 
-			if (Object.keys(viewState).length) {
-				viewState.nodes = this.buildNodes();
-				viewState.pivot = this.buildPivot();
-				view(viewState);
+				view({
+					rows: this.buildRows(e.state.rows),
+					columns: this.buildColumns(e.state.columns)
+				});
 			}
 		});
 
 		model.groupChanged.watch(e => {
 			if (e.changes.hasOwnProperty('by')) {
+				const dataState = model.data();
 				view({nodes: this.buildNodes()});
+				view({
+					rows: this.buildRows(dataState.rows),
+					columns: this.buildColumns(dataState.columns)
+				});
 			}
 		});
 
 		model.pivotChanged.watch(e => {
 			if (e.changes.hasOwnProperty('by')) {
-				view({pivot: this.buildPivot()});
+				const dataState = model.data();
+				view({
+					pivot: this.buildPivot(),
+					rows: this.buildRows(dataState.rows),
+					columns: this.buildColumns(dataState.columns)
+				});
 			}
 		});
 	}
@@ -60,12 +71,18 @@ export default class GridView extends View {
 			result.push(columnFactory('group', GroupColumn.model()));
 		}
 
-
 		result.push(...columns.map(c => columnFactory(c.type || 'text', c)));
 		return result;
 	}
 
 	buildRows(rows) {
+		const model = this.model;
+		const groupBy = model.group().by;
+		if (groupBy.length) {
+			const nodes = model.view().nodes;
+			return nodeFlatView(nodes);
+		}
+
 		return Array.from(rows);
 	}
 
