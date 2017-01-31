@@ -14,8 +14,8 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 			execute: e => {
 				const view = this.view.model.view;
 				const columns = view().columns;
-				const targetIndex = columns.findIndex(c => c.key === e.target.value);
-				const sourceIndex = columns.findIndex(c => c.key === e.source.value);
+				const targetIndex = columns.findIndex(c => c.model.key === e.target.value);
+				const sourceIndex = columns.findIndex(c => c.model.key === e.source.value);
 				if (targetIndex >= 0 && sourceIndex >= 0) {
 					const newColumns = Array.from(columns);
 					newColumns.splice(sourceIndex, 1);
