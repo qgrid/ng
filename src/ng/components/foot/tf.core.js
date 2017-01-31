@@ -18,7 +18,7 @@ class TfCore extends Directive(TF_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 
 	onInit() {
 		const state = this.view.model.foot();
-		const key = this.$scope.$column.key;
+		const key = this.column.key;
 		const index = this.rowIndex;
 		const link = this.template.link(
 			'qgrid.foot.cell.tpl.html',
@@ -30,7 +30,7 @@ class TfCore extends Directive(TF_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	}
 
 	get value() {
-		const column = this.$scope.$column;
+		const column = this.column;
 		if (column.aggregation) {
 			if (!Aggregation.hasOwnProperty(column.aggregation)) {
 				throw new AppError(
@@ -47,6 +47,10 @@ class TfCore extends Directive(TF_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 
 	get rowIndex() {
 		return this.$scope.$parent.$index;
+	}
+
+	get column() {
+		return this.$scope.$column.model;
 	}
 }
 

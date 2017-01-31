@@ -50,7 +50,7 @@ class Sortbar extends PluginComponent('qgrid.sortbar.tpl.html') {
 	}
 
 	get columns() {
-		return this.model.view().columns;
+		return this.model.data().columns;
 	}
 
 	get sorts() {
@@ -59,7 +59,7 @@ class Sortbar extends PluginComponent('qgrid.sortbar.tpl.html') {
 
 	title(entry) {
 		const key = SortSevice.key(entry);
-		const columns = this.model.view().columns;
+		const columns = this.columns;
 		const index = columns.findIndex(c => c.key === key);
 		return index >= 0 ? columns[index].title : '';
 	}

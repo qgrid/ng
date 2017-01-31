@@ -47,7 +47,7 @@ class Pivotbar extends PluginComponent('qgrid.pivotbar.tpl.html') {
 	}
 
 	get columns() {
-		return this.model.view().columns;
+		return this.model.data().columns;
 	}
 
 	get groups(){
@@ -55,7 +55,7 @@ class Pivotbar extends PluginComponent('qgrid.pivotbar.tpl.html') {
 	}
 
 	title(key){
-		const columns = this.model.view().columns;
+		const columns = this.columns;
 		const index = columns.findIndex(c => c.key === key);
 		return index >= 0 ? columns[index].title : '';
 	}
