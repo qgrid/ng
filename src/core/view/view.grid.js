@@ -1,5 +1,6 @@
 import View from './view';
 import {map as getColumnMap} from 'core/column/column.service';
+import columnFactory from 'core/column/column.factory';
 import nodeBuilder from 'core/node/node.builder';
 import pivotBuilder from 'core/pivot/pivot.builder';
 
@@ -8,86 +9,76 @@ export default class GridView extends View {
 		super(model);
 
 		this.valueFactory = valueFactory;
-
-		this.initData(model);
-		this.initGroup(model);
-		this.initPivot(model);
+		this.onInit(model);
 	}
 
-	initData(model) {
-		const dataState = model.data();
+	onInit(model) {
 		const view = model.view;
-		view({
-			rows: Array.from(dataState.rows),
-			columns: Array.from(dataState.columns)
-		});
 
-		model.dataChanged.on(e => {
-			const newState = {};
+		model.dataChanged.watch(e => {
+			const viewState = {};
 			if (e.changes.hasOwnProperty('rows')) {
-				newState.rows = Array.from(e.state.rows);
+				viewState.rows = this.buildRows(e.state.rows);
 			}
 
 			if (e.changes.hasOwnProperty('columns')) {
-				newState.columns = Array.from(e.state.columns);
+				viewState.columns = this.buildColumns(e.state.columns);
 			}
 
-			view(newState);
+			if (Object.keys(viewState).length) {
+				viewState.nodes = this.buildNodes();
+				viewState.pivot = this.buildPivot();
+				view(viewState);
+			}
 		});
-	}
 
-	initGroup(model) {
-		const view = model.view;
-		const build = () => {
-			const state = view();
-			return nodeBuilder(
-				getColumnMap(state.columns),
-				model.group().by,
-				this.valueFactory
-			)(state.rows);
-		};
-
-		view({nodes: build()});
-
-		model.groupChanged.on(e => {
+		model.groupChanged.watch(e => {
 			if (e.changes.hasOwnProperty('by')) {
-				view({nodes: build()});
+				view({nodes: this.buildNodes()});
 			}
 		});
 
-		model.viewChanged.on(e => {
-			if (e.changes.hasOwnProperty('columns') ||
-				e.changes.hasOwnProperty('rows')) {
-				view({nodes: build()});
+		model.pivotChanged.watch(e => {
+			if (e.changes.hasOwnProperty('by')) {
+				view({pivot: this.buildPivot()});
 			}
 		});
 	}
 
-	initPivot(model) {
-		const view = model.view;
-		const build = () => {
-			const state = view();
-			return pivotBuilder(
-				getColumnMap(state.columns),
-				model.pivot().by,
-				this.valueFactory
-			)(state.rows);
-		};
+	buildColumns(columns) {
+		return columns.map(c => columnFactory(c.type || 'text', c));
+	}
 
-		view({pivot: build()});
+	buildRows(rows) {
+		return Array.from(rows);
+	}
 
-		model.pivotChanged.on(e => {
-			if (e.changes.hasOwnProperty('by')) {
-				view({pivot: build()});
-			}
-		});
+	buildNodes() {
+		const model = this.model;
+		const dataState = model.data();
+		const groupState = model.group();
 
-		model.viewChanged.on(e => {
-			if (e.changes.hasOwnProperty('columns') ||
-				e.changes.hasOwnProperty('rows')) {
-				view({pivot: build()});
-			}
-		});
+		const build = nodeBuilder(
+			getColumnMap(dataState.columns),
+			groupState.by,
+			this.valueFactory
+		);
+
+		return build(dataState.rows);
+	}
+
+	buildPivot() {
+		const model = this.model;
+		const dataState = model.data();
+		const pivotState = model.pivot();
+
+		const build = pivotBuilder(
+			getColumnMap(dataState.columns),
+			pivotState.by,
+			this.valueFactory
+		);
+
+		return build(dataState.rows);
 	}
 
 	get selection() {

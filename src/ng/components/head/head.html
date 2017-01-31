@@ -1,5 +1,5 @@
-<tr ng-repeat="$row in $view.head.rows">
-	<th ng-repeat="$column in $row.columns"
+<tr ng-repeat="$row in $view.head.rows track by $index">
+	<th ng-repeat="$column in $row.columns track by $index"
 		 ng-class="$column.model.key"
 		 rowspan="{{$column.rowspan}}"
 		 colspan="{{$column.colspan}}"

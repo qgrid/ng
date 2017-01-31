@@ -34,10 +34,6 @@ class ViewCore extends Component {
 		return `qgrid.${key}.tpl.html`;
 	}
 
-	get model() {
-		return this.root.model;
-	}
-
 	initTheme() {
 		this.$element[0].classList.add(`theme-${this.theme.name}`);
 
@@ -46,6 +42,15 @@ class ViewCore extends Component {
 			this.$element[0].classList.add(`theme-${e.newValue}`);
 		});
 	}
+
+	get model() {
+		return this.root.model;
+	}
+
+	get rows() {
+		return this.model.view().rows;
+	}
+
 }
 
 ViewCore.$inject = ['$element', 'qgridTheme'];

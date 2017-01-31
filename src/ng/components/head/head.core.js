@@ -80,7 +80,7 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	transfer(cell) {
 		return {
 			key: TH_CORE_NAME,
-			value: cell.$scope.$column.key
+			value: cell.column.key
 		}
 	}
 }

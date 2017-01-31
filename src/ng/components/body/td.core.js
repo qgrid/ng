@@ -16,7 +16,7 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 
 	onInit() {
 		const state = this.view.model.body();
-		const key = this.$scope.$column.key;
+		const key = this.column.key;
 		const link = this.template.link(
 			'qgrid.body.cell.tpl.html',
 			state.resource,
@@ -27,14 +27,22 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	}
 
 	get value() {
-		const column = this.$scope.$column;
-		const row = this.$scope.$row;
+		const column = this.column;
+		const row = this.row;
 		return getValue(row, column);
 	}
 
 	get rowIndex() {
 		// use vscroll.row + vscroll.position in the future
 		return this.$scope.$parent.$index;
+	}
+
+	get column() {
+		return this.$scope.$column.model;
+	}
+
+	get row() {
+		return this.$scope.$row;
 	}
 }
 
