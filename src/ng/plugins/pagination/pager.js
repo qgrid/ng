@@ -1,7 +1,17 @@
 import PluginComponent from '../plugin.component';
-import Command from 'core/infrastructure/command'
+import {PAGER_NAME} from 'src/definition';
+import Command from 'core/infrastructure/command';
+import TemplatePath from 'ng/components/template/template.path';
 
-class Pager extends PluginComponent('qgrid.pager.tpl.html', ['pagination']) {
+TemplatePath
+	.register(PAGER_NAME, () => {
+		return {
+			model: 'pagination',
+			resource: 'content'
+		};
+	});
+
+class Pager extends PluginComponent('qgrid.plugins.pager.tpl.html', ['pagination']) {
 	constructor() {
 		super(...arguments);
 

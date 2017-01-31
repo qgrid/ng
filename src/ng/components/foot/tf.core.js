@@ -17,16 +17,19 @@ class TfCore extends Directive(TF_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	}
 
 	onInit() {
-		const state = this.view.model.foot();
-		const key = this.column.key;
+		const model = this.view.model;
+		const column = this.column;
+		const state = model[column.model || 'foot']();
+		const type = column.type || 'text';
 		const index = this.rowIndex;
+
 		const link = this.template.link(
-			'qgrid.foot.cell.tpl.html',
+			`qgrid.foot.${type}.cell.tpl.html`,
 			state.resource,
-			index === 0 ? key : key + index
+			index === 0 ? column.key : column.key + index
 		);
 
-		link(this.$element, this.$scope);
+		link(this.$element, this.$scope, `foot-cell-${type}`);
 	}
 
 	get value() {

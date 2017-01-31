@@ -1,8 +1,17 @@
 import PluginComponent from '../plugin.component';
 import Command from 'core/infrastructure/command'
-import {TH_CORE_NAME} from 'src/definition';
+import {TH_CORE_NAME, GROUPBAR_NAME} from 'src/definition';
+import TemplatePath from 'ng/components/template/template.path';
 
-class Groupbar extends PluginComponent('qgrid.groupbar.tpl.html') {
+TemplatePath
+	.register(GROUPBAR_NAME, () => {
+		return {
+			model: 'group',
+			resource: 'content'
+		};
+	});
+
+class Groupbar extends PluginComponent('qgrid.plugins.groupbar.tpl.html') {
 	constructor() {
 		super(...arguments);
 

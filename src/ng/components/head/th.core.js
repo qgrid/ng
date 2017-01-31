@@ -14,15 +14,18 @@ class ThCore extends Directive(TH_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	}
 
 	onInit() {
-		const state = this.view.model.head();
-		const key = this.column.key;
+		const model = this.view.model;
+		const column = this.column;
+		const state = model[column.model || 'head']();
+		const type = column.type || 'text';
+
 		const link = this.template.link(
-			'qgrid.head.cell.tpl.html',
+			`qgrid.head.${type}.cell.tpl.html`,
 			state.resource,
-			key
+			column.key
 		);
 
-		link(this.$element, this.$scope);
+		link(this.$element, this.$scope, `head-cell-${type}`);
 	}
 
 	get column() {
