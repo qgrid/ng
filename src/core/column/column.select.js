@@ -4,4 +4,11 @@ export default class ColumnSelect extends ColumnView {
 	constructor(model) {
 		super(model);
 	}
+
+	static  model() {
+		return {
+			key: 'select',
+			model: 'selection'
+		};
+	}
 }
