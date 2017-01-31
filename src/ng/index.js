@@ -1,9 +1,7 @@
 import angular from 'angular';
 import Grid from './components/grid/grid';
 import GridService from './services/grid';
-import Setup from './setup';
 
-import Template from './components/template/tempate';
 import TemplatePath from './components/template/template.path';
 import Head from './components/head/head';
 import Foot from './components/foot/foot';
@@ -40,6 +38,11 @@ import Theme from './services/theme';
 import Range from './filters/range';
 
 import * as def from '../definition';
+
+// For now should be the last in import list cause use TemplatePath.require
+// that should be filled before importing this
+// TODO: get rid of static require
+import Template from './components/template/tempate';
 
 export default angular
 	.module(def.MODULE_NAME, [])
@@ -79,3 +82,29 @@ export default angular
 	.filter(def.RANGE_NAME, () => Range)
 	.run(Setup)
 	.name;
+
+Setup.$inject = ['$templateCache'];
+function Setup($templateCache) {
+	const EMPTY = '';
+
+	$templateCache.put('qgrid.grid.tpl.html', require('./components/grid/grid.html'));
+	$templateCache.put('qgrid.view.tpl.html', require('./components/view/view.html'));
+	$templateCache.put('qgrid.head.tpl.html', require('./components/head/head.html'));
+	$templateCache.put('qgrid.body.tpl.html', require('./components/body/body.html'));
+	$templateCache.put('qgrid.foot.tpl.html', require('./components/foot/foot.html'));
+	$templateCache.put('qgrid.node.cell.tpl.html', require('./components/node/node.cell.html'));
+	$templateCache.put('qgrid.toolbar.top.tpl.html', require('./components/toolbar/toolbar.top.html'));
+	$templateCache.put('qgrid.toolbar.bottom.tpl.html', require('./components/toolbar/toolbar.bottom.html'));
+
+	$templateCache.put('qgrid.head.text.cell.tpl.html', require('./components/head/head.text.cell.html'));
+	$templateCache.put('qgrid.body.text.cell.tpl.html', require('./components/body/body.text.cell.html'));
+	$templateCache.put('qgrid.foot.text.cell.tpl.html', require('./components/foot/foot.text.cell.html'));
+	$templateCache.put('qgrid.head.select.cell.tpl.html', require('./components/selection/head.select.cell.html'));
+	$templateCache.put('qgrid.body.select.cell.tpl.html', require('./components/selection/body.select.cell.html'));
+	$templateCache.put('qgrid.foot.select.cell.tpl.html', EMPTY);
+
+	$templateCache.put('qgrid.plugins.pager.tpl.html', require('./plugins/pagination/pager.html'));
+	$templateCache.put('qgrid.plugins.sortbar.tpl.html', require('./plugins/sortbar/sortbar.html'));
+	$templateCache.put('qgrid.plugins.groupbar.tpl.html', require('./plugins/groupbar/groupbar.html'));
+	$templateCache.put('qgrid.plugins.pivotbar.tpl.html', require('./plugins/pivotbar/pivotbar.html'));
+}

@@ -1,5 +1,14 @@
 import Component from '../component';
-import {GRID_NAME} from 'src/definition';
+import {GRID_NAME, TOOLBAR_NAME} from 'src/definition';
+import TemplatePath from '../template/template.path';
+
+TemplatePath
+	.register(TOOLBAR_NAME, template => {
+		return {
+			model: 'toolbar',
+			resource: template.for
+		};
+	});
 
 class Toolbar extends Component {
 	constructor() {

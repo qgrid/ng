@@ -1,7 +1,16 @@
 import PluginComponent from '../plugin.component';
 import Command from 'core/infrastructure/command'
 import * as SortSevice from 'core/sort/sort.service';
-import {TH_CORE_NAME} from 'src/definition';
+import {TH_CORE_NAME, SORTBAR_NAME} from 'src/definition';
+import TemplatePath from 'ng/components/template/template.path';
+
+TemplatePath
+	.register(SORTBAR_NAME, () => {
+		return {
+			model: 'sort',
+			resource: 'content'
+		};
+	});
 
 class Sortbar extends PluginComponent('qgrid.plugins.sortbar.tpl.html') {
 	constructor() {
