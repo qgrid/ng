@@ -3,8 +3,8 @@ import TemplatePath from 'core/template/template.path';
 
 TemplatePath.register('group-cell', (template) => {
 	return {
-		model: 'group',
-		resource: template.for === 'head' ? 'group-all' : 'group'
+		model: 'node',
+		resource: template.for === 'body' ? 'content' : null
 	};
 });
 
@@ -16,7 +16,8 @@ export default class GroupColumn extends ColumnView {
 	static  model() {
 		return {
 			key: '$group',
-			type: 'group'
+			type: 'group',
+			title: 'Group'
 		};
 	}
 }

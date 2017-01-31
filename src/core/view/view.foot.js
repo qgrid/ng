@@ -1,11 +1,15 @@
 import View from './view';
 import {view as columnView} from 'core/column/column.service';
+import Aggregation from 'core/services/aggregation';
+import AppError from 'core/infrastructure/error';
 
 export default class FootView extends View {
-	constructor(model) {
+	constructor(model, valueFactory) {
 		super(model);
 
 		this.rows = [];
+		this.valueFactory = valueFactory;
+
 		model.viewChanged.watch(() => this.invalidate(model));
 	}
 
@@ -27,5 +31,20 @@ export default class FootView extends View {
 		}
 
 		return resourceCount;
+	}
+
+	value(column){
+		if (column.aggregation) {
+			if (!Aggregation.hasOwnProperty(column.aggregation)) {
+				throw new AppError(
+					'foot',
+					`Aggregation ${column.aggregation} is not registered`);
+			}
+
+			const rows = this.model.data().rows;
+			const getValue = this.valueFactory(column);
+			return Aggregation[column.aggregation](rows, getValue);
+		}
+		return null;
 	}
 }

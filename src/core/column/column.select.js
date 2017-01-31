@@ -16,7 +16,8 @@ export default class SelectColumn extends ColumnView {
 	static  model() {
 		return {
 			key: '$select',
-			type: 'select'
+			type: 'select',
+			title: 'Select'
 		};
 	}
 }

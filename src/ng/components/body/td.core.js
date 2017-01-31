@@ -1,6 +1,5 @@
 import Directive from '../directive';
 import TemplateCore from '../template/template.core';
-import {get as getValue} from 'ng/services/value';
 import cellBuilder from '../cell/cell.build';
 import {VIEW_CORE_NAME, TD_CORE_NAME} from 'src/definition';
 
@@ -24,7 +23,7 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	get value() {
 		const column = this.column;
 		const row = this.row;
-		return getValue(row, column);
+		return this.view.body.value(row, column);
 	}
 
 	get rowIndex() {

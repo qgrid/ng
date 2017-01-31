@@ -28,8 +28,8 @@ class ViewCore extends Component {
 
 		this.grid = new GridView(model, valueFactory);
 		this.head = new HeadView(model);
-		this.body = new BodyView(model);
-		this.foot = new FootView(model);
+		this.body = new BodyView(model, valueFactory);
+		this.foot = new FootView(model, valueFactory);
 		this.group = new GroupView(model, valueFactory);
 	}
 
@@ -51,9 +51,8 @@ class ViewCore extends Component {
 	}
 
 	get rows() {
-		return this.model.view().rows;
+		return this.model.data().rows;
 	}
-
 }
 
 ViewCore.$inject = ['$element', 'qgridTheme'];

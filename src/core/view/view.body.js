@@ -2,11 +2,13 @@ import View from './view';
 import {view as columnView} from 'core/column/column.service';
 
 export default class BodyView extends View {
-	constructor(model) {
+	constructor(model, valueFactory) {
 		super(model);
 
 		this.rows = [];
 		this.columns = [];
+		this.valueFactory = valueFactory;
+
 		model.viewChanged.watch(() => this.invalidate(model));
 	}
 
@@ -22,5 +24,9 @@ export default class BodyView extends View {
 	invalidateColumns(model) {
 		const columns = columnView(model.view().columns, model);
 		this.columns = columns;
+	}
+
+	value(row, column){
+		return null;
 	}
 }
