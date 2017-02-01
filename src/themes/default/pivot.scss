@@ -1,40 +1,27 @@
 @import "variables";
+
 $border: 1px solid $dark-divider;
 
 .viewport {
-	.mode-pivot {
-		thead {
-			tr {
-				height: 28px;
-				&:last-child{
-					th{
-						border-bottom: $border;
-					}
-				}
-
-				th {
-					text-align: center;
-					border-top: $border;
-					border-right: $border;
-					padding-left: 4px;
-					padding-right: 4px;
-					&:first-child{
-						border-left: $border;
-					}
-				}
+	thead {
+		tr:last-child {
+			th.pivot {
+				border-bottom: $border;
 			}
 		}
 
-		td {
+		th.pivot {
 			text-align: center;
+			border-top: $border;
+			border-left: $border;
+
+			&:last-child{
+				border-right: $border;
+			}
 		}
 
-		tbody{
-			tr:first-child{
-				td{
-					border: none;
-				}
-			}
+		td.pivot {
+			text-align: center;
 		}
 	}
 }
