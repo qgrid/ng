@@ -1,7 +1,8 @@
 import View from './view';
-import {view as columnView} from 'core/column/column.service';
+import * as columnService from 'core/column/column.service';
 import Aggregation from 'core/services/aggregation';
 import AppError from 'core/infrastructure/error';
+import {flatView as nodeFlatView} from 'core/node/node.service';
 
 export default class BodyView extends View {
 	constructor(model, valueFactory) {
@@ -14,6 +15,17 @@ export default class BodyView extends View {
 		model.viewChanged.watch(() => this.invalidate(model));
 	}
 
+	static build(model) {
+		return (nodes, pivot) => {
+			if (nodes.length) {
+				return nodeFlatView(nodes);
+			}
+
+			const rows = model.data().rows;
+			return Array.from(rows);
+		};
+	}
+
 	invalidate(model) {
 		this.invalidateRows(model);
 		this.invalidateColumns(model);
@@ -24,8 +36,8 @@ export default class BodyView extends View {
 	}
 
 	invalidateColumns(model) {
-		const columns = columnView(model.view().columns, model);
-		this.columns = columns;
+		const columns = model.view().columns;
+		this.columns = columnService.lineView(columns);
 	}
 
 	value(row, column) {
@@ -50,14 +62,14 @@ export default class BodyView extends View {
 					return null;
 				}
 				case 'row': {
-					const rowIndex = node.rows[0]
+					const rowIndex = node.rows[0];
 					return getValue(rows[rowIndex], column);
 				}
 				default:
 					throw new AppError(
 						'view.body',
 						`Invalid node type ${node.type}`
-					)
+					);
 			}
 
 		}

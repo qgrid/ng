@@ -1,6 +1,8 @@
 import View from './view';
 import Command from 'core/infrastructure/command';
 import {flatView as nodeFlatView} from 'core/node/node.service';
+import {map as getColumnMap} from 'core/column/column.service';
+import nodeBuilder from 'core/node/node.builder';
 
 export default class GroupView extends View {
 	constructor(model, valueFactory) {
@@ -16,6 +18,21 @@ export default class GroupView extends View {
 			},
 			canExecute: node => node.type === 'group'
 		});
+	}
+
+	static build(model, valueFactory) {
+		return () => {
+			const dataState = model.data();
+			const groupState = model.group();
+
+			const build = nodeBuilder(
+				getColumnMap(dataState.columns),
+				groupState.by,
+				valueFactory
+			);
+
+			return build(dataState.rows);
+		};
 	}
 
 	count(node) {

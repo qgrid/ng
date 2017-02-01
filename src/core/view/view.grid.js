@@ -1,11 +1,8 @@
 import View from './view';
-import {map as getColumnMap} from 'core/column/column.service';
-import columnFactory from 'core/column/column.factory';
-import nodeBuilder from 'core/node/node.builder';
-import pivotBuilder from 'core/pivot/pivot.builder';
-import {flatView as nodeFlatView} from 'core/node/node.service';
-import SelectColumn from 'core/column/column.select';
-import GroupColumn from 'core/column/column.group';
+import HeadView from './view.head';
+import BodyView from './view.body';
+import GroupView from './view.group';
+import PivotView from './view.pivot';
 
 export default class GridView extends View {
 	constructor(model, valueFactory) {
@@ -16,33 +13,33 @@ export default class GridView extends View {
 	}
 
 	onInit(model) {
-		const view = model.view;
-
 		model.dataChanged.watch(e => {
 			if (e.changes.hasOwnProperty('rows') ||
 				e.changes.hasOwnProperty('columns')) {
-				invalidate();
+				this.invalidate();
 			}
 		});
 
 		model.groupChanged.watch(e => {
 			if (e.changes.hasOwnProperty('by')) {
-				invalidate({pivot: model.view().pivot});
+				this.invalidate({pivot: model.view().pivot});
 			}
 		});
 
 		model.pivotChanged.watch(e => {
 			if (e.changes.hasOwnProperty('by')) {
-				invalidate({nodes: model.view().nodes});
+				this.invalidate({nodes: model.view().nodes});
 			}
 		});
 	}
 
 	invalidate(context = {}) {
-		const nodes = context.nodes || this.buildNodes();
-		const pivot = context.pivot || this.buildPivot();
-		const rows = context.rows || this.buildRows(nodes, pivot);
-		const columns = context.columns || this.buildColumns(nodes, pivot);
+		const model = this.model;
+		const valueFactory  = this.valueFactory;
+		const nodes = context.nodes || GroupView.build(model, valueFactory)();
+		const pivot = context.pivot || PivotView.build(model, valueFactory)();
+		const rows = context.rows || BodyView.build(model)(nodes, pivot);
+		const columns = context.columns || HeadView.build(model)(nodes, pivot);
 
 		this.model.view({
 			nodes: nodes,
@@ -50,61 +47,6 @@ export default class GridView extends View {
 			rows: rows,
 			columns: columns
 		});
-	}
-
-	buildColumns(nodes, pivot) {
-		const model = this.model;
-		const columns = [];
-
-		if (model.selection().mode === 'check') {
-			columns.push(columnFactory('select', SelectColumn.model()));
-		}
-
-		if (nodes.length) {
-			columns.push(columnFactory('group', GroupColumn.model()));
-		}
-
-		const dataColumns = model.data().columns;
-		columns.push(...dataColumns.map(c => columnFactory(c.type || 'text', c)));
-
-		return columns;
-	}
-
-	buildRows(nodes, pivot) {
-		if (nodes.length) {
-			return nodeFlatView(nodes);
-		}
-
-		const rows = this.model.data().rows;
-		return Array.from(rows);
-	}
-
-	buildNodes() {
-		const model = this.model;
-		const dataState = model.data();
-		const groupState = model.group();
-
-		const build = nodeBuilder(
-			getColumnMap(dataState.columns),
-			groupState.by,
-			this.valueFactory
-		);
-
-		return build(dataState.rows);
-	}
-
-	buildPivot() {
-		const model = this.model;
-		const dataState = model.data();
-		const pivotState = model.pivot();
-
-		const build = pivotBuilder(
-			getColumnMap(dataState.columns),
-			pivotState.by,
-			this.valueFactory
-		);
-
-		return build(dataState.rows);
 	}
 
 	get selection() {
