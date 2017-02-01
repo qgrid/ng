@@ -16,7 +16,7 @@ export default class FootView extends View {
 
 	invalidate(model) {
 		const columns = model.view().columns;
- 		this.columns = columnService.lineView(columns);
+		this.columns = columnService.lineView(columns);
 		this.rows = new Array(this.count);
 	}
 
