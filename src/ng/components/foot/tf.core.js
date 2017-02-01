@@ -1,8 +1,9 @@
 import Directive from '../directive';
-import {VIEW_CORE_NAME, TF_CORE_NAME} from '../../../definition';
+import {VIEW_CORE_NAME, TF_CORE_NAME} from 'src/definition';
 import TemplateCore from '../template/template.core';
-import aggregation from '../../../core/services/aggregation';
-import {getFactory as getValueFactory} from '../../services/value';
+import Aggregation from 'core/services/aggregation';
+import AppError from 'core/infrastructure/error';
+import {getFactory as getValueFactory} from 'ng/services/value';
 
 class TfCore extends Directive(TF_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	constructor($scope, $element, $compile, $templateCache) {
@@ -16,29 +17,43 @@ class TfCore extends Directive(TF_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	}
 
 	onInit() {
-		const state = this.view.model.foot();
-		const key = this.$scope.$column.key;
+		const model = this.view.model;
+		const column = this.column;
+		const state = model[column.model || 'foot']();
+		const type = column.type || 'text';
 		const index = this.rowIndex;
+
 		const link = this.template.link(
-			'qgrid.foot.cell.tpl.html',
+			`qgrid.foot.${type}.cell.tpl.html`,
 			state.resource,
-			index === 0 ? key : key + index
+			index === 0 ? column.key : column.key + index
 		);
 
-		link(this.$element, this.$scope);
+		link(this.$element, this.$scope, `foot-cell-${type}`);
 	}
 
-	get value(){
-		const column = this.$scope.$column;
-		if (column.hasOwnProperty('aggregation')) {
+	get value() {
+		const column = this.column;
+		if (column.aggregation) {
+			if (!Aggregation.hasOwnProperty(column.aggregation)) {
+				throw new AppError(
+					'foot',
+					`Aggregation ${column.aggregation} is not registered`);
+			}
+
 			const rows = this.view.model.view().rows;
 			const getValue = getValueFactory(column);
-			return aggregation[column.aggregation](rows, getValue);
+			return Aggregation[column.aggregation](rows, getValue);
 		}
+
 	}
 
 	get rowIndex() {
 		return this.$scope.$parent.$index;
+	}
+
+	get column() {
+		return this.$scope.$column.model;
 	}
 }
 

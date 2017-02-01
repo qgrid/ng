@@ -1,9 +1,8 @@
-import Resource from '../resource/resource';
+import EnumerableResource from '../resource/resource.enumerable';
 
 export default class FootModel {
 	constructor() {
-		this.resource = new Resource();
-		this.sticky = true;
-		this.count = 0;
+		this.resource = new EnumerableResource();
+		this.sticky = false;
 	}
 }

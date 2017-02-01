@@ -1,7 +1,7 @@
 import Directive from '../directive';
 import TemplateCore from '../template/template.core';
-import {get as getValue} from '../../services/value';
-import {VIEW_CORE_NAME, TD_CORE_NAME} from '../../../definition';
+import {get as getValue} from 'ng/services/value';
+import {VIEW_CORE_NAME, TD_CORE_NAME} from 'src/definition';
 
 class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	constructor($scope, $element, $compile, $templateCache) {
@@ -15,27 +15,37 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	}
 
 	onInit() {
-		const state = this.view.model.body();
-		const key = this.$scope.$column.key;
+		const model = this.view.model;
+		const column = this.column;
+		const state = model[column.model || 'body']();
+		const type = column.type || 'text';
+
 		const link = this.template.link(
-			'qgrid.body.cell.tpl.html',
+			`qgrid.body.${type}.cell.tpl.html`,
 			state.resource,
-			key
+			column.key
 		);
 
-		link(this.$element, this.$scope);
+		link(this.$element, this.$scope, `body-cell-${type}`);
 	}
 
 	get value() {
-		const column = this.$scope.$column;
-		const row = this.$scope.$row;
-
+		const column = this.column;
+		const row = this.row;
 		return getValue(row, column);
 	}
 
 	get rowIndex() {
 		// use vscroll.row + vscroll.position in the future
 		return this.$scope.$parent.$index;
+	}
+
+	get column() {
+		return this.$scope.$column.model;
+	}
+
+	get row() {
+		return this.$scope.$row;
 	}
 }
 

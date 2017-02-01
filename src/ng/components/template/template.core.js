@@ -1,4 +1,4 @@
-import AppError from '../../../core/infrastructure/error';
+import AppError from 'core/infrastructure/error';
 
 export default class TemplateCore {
 	constructor($compile, $templateCache) {
@@ -14,7 +14,7 @@ export default class TemplateCore {
 				? resourceData['$default']
 				: this.$templateCache.get(templateUrl);
 
-		return (element, scope) => {
+		return (element, scope, type) => {
 			const resourceScope = resource.scope;
 			for (let name of Object.keys(resourceScope)) {
 				if (scope.hasOwnProperty(name)) {
@@ -27,7 +27,11 @@ export default class TemplateCore {
 				scope[name] = resourceScope[name];
 			}
 
-			element.html('<!--qgrid: template-->' + template);
+			const $node = element.html('<!--qgrid: template-->' + template);
+			if (type) {
+				$node[0].setAttribute(`q-grid-core:${type}`, '');
+			}
+
 			const linkTo = this.$compile(element.contents());
 			linkTo(scope);
 		};

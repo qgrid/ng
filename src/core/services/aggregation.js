@@ -23,8 +23,7 @@ export default class Aggregation {
 			return null;
 		}
 
-		var max = Math.max.apply(Math, rows.map(getValue));
-		return max;
+		return Math.max.apply(Math, rows.map(getValue));
 	}
 
 	static count(rows) {

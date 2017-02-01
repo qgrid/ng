@@ -1,4 +1,8 @@
-<div class="groupbar">
+<div class="groupbar"
+	  q-grid:drop
+	  q-grid:on-drop="$groupbar.drop.execute($event)"
+	  q-grid:can-drop="$groupbar.drop.canExecute($event)">
+	<label>Group By: </label>
 	<ul>
 		<li ng-repeat="group in $groupbar.groups track by $index">
 			<span ng-bind="$groupbar.title(group)"></span>

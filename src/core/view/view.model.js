@@ -3,5 +3,6 @@ export default class ViewModel {
 		this.rows = [];
 		this.columns = [];
 		this.nodes = [];
+		this.pivot = null;
 	}
 }

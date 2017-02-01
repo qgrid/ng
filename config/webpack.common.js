@@ -2,6 +2,14 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
+	resolve: {
+		alias: {
+			src: path.resolve(__dirname, '../src'),
+			core: path.resolve(__dirname, '../src/core'),
+			ng: path.resolve(__dirname, '../src/ng'),
+			themes: path.resolve(__dirname, '../src/themes')
+		}
+	},
 	/**
 	 * Options affecting the output of the compilation.
 	 *
