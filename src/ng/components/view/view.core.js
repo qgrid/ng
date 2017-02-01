@@ -53,6 +53,11 @@ class ViewCore extends Component {
 		return this.root.model;
 	}
 
+	get visibility(){
+		return this.model.visibility();
+	}
+
+
 	get rows() {
 		return this.model.data().rows;
 	}

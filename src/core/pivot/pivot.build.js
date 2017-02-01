@@ -40,6 +40,6 @@ export default function (columnMap, pivotBy, valueFactory) {
 			return view(data);
 		}
 
-		return null;
+		return {heads: [], rows: []};
 	};
 }

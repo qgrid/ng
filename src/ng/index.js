@@ -17,6 +17,7 @@ import Pager from './plugins/pagination/pager';
 import Sortbar from './plugins/sortbar/sortbar';
 import Groupbar from './plugins/groupbar/groupbar';
 import Pivotbar from './plugins/pivotbar/pivotbar';
+import Visibility from './plugins/visibility/visibility';
 
 import ViewCore from './components/view/view.core';
 import ViewportCore from './components/grid/viewport.core';
@@ -60,6 +61,7 @@ export default angular
 	.component(def.GROUPBAR_NAME, Groupbar)
 	.component(def.SELECTION_NAME, Selection)
 	.component(def.PIVOTBAR_NAME, Pivotbar)
+	.component(def.VISIBILITY_NAME, Visibility)
 	.directive(def.DRAG_NAME, () => Drag)
 	.directive(def.DROP_NAME, () => Drop)
 	.directive(def.VIEWPORT_CORE_NAME, () => ViewportCore)
@@ -92,6 +94,7 @@ function Setup($templateCache) {
 	$templateCache.put('qgrid.foot.tpl.html', require('./components/foot/foot.html'));
 	$templateCache.put('qgrid.toolbar.top.tpl.html', require('./components/toolbar/toolbar.top.html'));
 	$templateCache.put('qgrid.toolbar.bottom.tpl.html', require('./components/toolbar/toolbar.bottom.html'));
+	$templateCache.put('qgrid.toolbar.right.tpl.html', require('./components/toolbar/toolbar.right.html'));
 
 	$templateCache.put('qgrid.head.pivot.cell.tpl.html', require('./components/pivot/head.pivot.cell.html'));
 	$templateCache.put('qgrid.body.pivot.cell.tpl.html', require('./components/pivot/body.pivot.cell.html'));
@@ -113,4 +116,5 @@ function Setup($templateCache) {
 	$templateCache.put('qgrid.plugins.sortbar.tpl.html', require('./plugins/sortbar/sortbar.html'));
 	$templateCache.put('qgrid.plugins.groupbar.tpl.html', require('./plugins/groupbar/groupbar.html'));
 	$templateCache.put('qgrid.plugins.pivotbar.tpl.html', require('./plugins/pivotbar/pivotbar.html'));
+	$templateCache.put('qgrid.plugins.visibility.tpl.html', require('./plugins/visibility/visibility.html'));
 }

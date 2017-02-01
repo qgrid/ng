@@ -11,6 +11,8 @@ import PivotModel from 'core/pivot/pivot.model';
 import ToolbarModel from 'core/toolbar/toolbar.model';
 import PaginationModel from 'core/pagination/pagination.model';
 import NodeModel from 'core/node/node.model';
+import VisibilityModel from 'core/visibility/visibility.model';
+
 import ng from './ng';
 
 Model.register('view', ViewModel)
@@ -24,6 +26,7 @@ Model.register('view', ViewModel)
 	.register('pivot', PivotModel)
 	.register('toolbar', ToolbarModel)
 	.register('pagination', PaginationModel)
-	.register('node', NodeModel);
+	.register('node', NodeModel)
+	.register('visibility', VisibilityModel);
 
 export default ng;
