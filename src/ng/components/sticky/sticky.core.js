@@ -56,7 +56,6 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {
 			return;
 		}
 
-		const self = this;
 		const table = this.table.$element[0];
 		const scrollView = this.viewport.$element[0];
 		const sticky = StickyFactory.create(target, table, scrollView, this.$element[0], false);
@@ -85,27 +84,15 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {
 
 		const unwatches = [];
 		unwatches.push(this.view.theme.changed.on(
-			() => self.$timeout(() => sticky.invalidate())
+			() => this.$timeout(() => sticky.invalidate())
 		));
 
 		unwatches.push(this.view.model.viewChanged.on(
-			() => self.$timeout(() => sticky.invalidate())
-		));
-
-		unwatches.push(this.view.model.dataChanged.on(
-			() => self.$timeout(() => sticky.invalidate())
-		));
-
-		unwatches.push(this.view.model.groupChanged.on(
-			() => self.$timeout(() => sticky.invalidate())
-		));
-
-		unwatches.push(this.view.model.pivotChanged.on(
-			() => self.$timeout(() => sticky.invalidate())
+			() => this.$timeout(() => sticky.invalidate())
 		));
 
 		unwatches.push(sticky.invalidated.on(
-			() => self.$scope.$apply()
+			() => this.$scope.$apply()
 		));
 
 		const onScroll = () => sticky.scrollSync();
@@ -118,13 +105,13 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {
 			const tagName = target === 'head' ? 'th' : 'td';
 			return Array.from(stickySync.find(tagName))
 				.map(col => col.offsetWidth);
-		}, () => self.$timeout(() => sticky.invalidate()),
+		}, () => this.$timeout(() => sticky.invalidate()),
 			true));
 
 		this.$scope.$on('$destroy', () => {
 			unwatches.forEach(u => u());
 			sticky.scrollView.removeEventListener('scroll', onScroll);
-			self.$window.removeEventListener('resize', onResize);
+			this.$window.removeEventListener('resize', onResize);
 			sticky.destroy();
 		});
 	}
