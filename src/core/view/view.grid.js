@@ -3,7 +3,9 @@ import {map as getColumnMap} from 'core/column/column.service';
 import columnFactory from 'core/column/column.factory';
 import nodeBuilder from 'core/node/node.builder';
 import pivotBuilder from 'core/pivot/pivot.builder';
+import {flatView as nodeFlatView} from 'core/node/node.service';
 import SelectColumn from 'core/column/column.select';
+import GroupColumn from 'core/column/column.group';
 
 export default class GridView extends View {
 	constructor(model, valueFactory) {
@@ -17,48 +19,63 @@ export default class GridView extends View {
 		const view = model.view;
 
 		model.dataChanged.watch(e => {
-			const viewState = {};
-			if (e.changes.hasOwnProperty('rows')) {
-				viewState.rows = this.buildRows(e.state.rows);
-			}
-
-			if (e.changes.hasOwnProperty('columns')) {
-				viewState.columns = this.buildColumns(e.state.columns);
-			}
-
-			if (Object.keys(viewState).length) {
-				viewState.nodes = this.buildNodes();
-				viewState.pivot = this.buildPivot();
-				view(viewState);
+			if (e.changes.hasOwnProperty('rows') ||
+				e.changes.hasOwnProperty('columns')) {
+				invalidate();
 			}
 		});
 
 		model.groupChanged.watch(e => {
 			if (e.changes.hasOwnProperty('by')) {
-				view({nodes: this.buildNodes()});
+				invalidate({pivot: model.view().pivot});
 			}
 		});
 
 		model.pivotChanged.watch(e => {
 			if (e.changes.hasOwnProperty('by')) {
-				view({pivot: this.buildPivot()});
+				invalidate({nodes: model.view().nodes});
 			}
 		});
 	}
 
-	buildColumns(columns) {
-		const result = [];
-		const model = this.model;
-		const selectionState = model.selection();
-		if (selectionState.mode === 'check') {
-			result.push(columnFactory('select', SelectColumn.model()));
-		}
+	invalidate(context = {}) {
+		const nodes = context.nodes || this.buildNodes();
+		const pivot = context.pivot || this.buildPivot();
+		const rows = context.rows || this.buildRows(nodes, pivot);
+		const columns = context.columns || this.buildColumns(nodes, pivot);
 
-		result.push(...columns.map(c => columnFactory(c.type || 'text', c)));
-		return result;
+		this.model.view({
+			nodes: nodes,
+			pivot: pivot,
+			rows: rows,
+			columns: columns
+		});
 	}
 
-	buildRows(rows) {
+	buildColumns(nodes, pivot) {
+		const model = this.model;
+		const columns = [];
+
+		if (model.selection().mode === 'check') {
+			columns.push(columnFactory('select', SelectColumn.model()));
+		}
+
+		if (nodes.length) {
+			columns.push(columnFactory('group', GroupColumn.model()));
+		}
+
+		const dataColumns = model.data().columns;
+		columns.push(...dataColumns.map(c => columnFactory(c.type || 'text', c)));
+
+		return columns;
+	}
+
+	buildRows(nodes, pivot) {
+		if (nodes.length) {
+			return nodeFlatView(nodes);
+		}
+
+		const rows = this.model.data().rows;
 		return Array.from(rows);
 	}
 

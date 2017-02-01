@@ -8,7 +8,7 @@ TemplatePath.register('select-cell', (template) => {
 	};
 });
 
-export default class ColumnSelect extends ColumnView {
+export default class SelectColumn extends ColumnView {
 	constructor(model) {
 		super(model);
 	}
@@ -16,7 +16,8 @@ export default class ColumnSelect extends ColumnView {
 	static  model() {
 		return {
 			key: '$select',
-			type: 'select'
+			type: 'select',
+			title: 'Select'
 		};
 	}
 }

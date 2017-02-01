@@ -4,6 +4,7 @@ import GridView from 'core/view/view.grid';
 import BodyView from 'core/view/view.body';
 import HeadView from 'core/view/view.head';
 import FootView from 'core/view/view.foot';
+import GroupView from 'core/view/view.group';
 import {GRID_NAME} from 'src/definition';
 
 class ViewCore extends Component {
@@ -17,6 +18,7 @@ class ViewCore extends Component {
 		this.head = null;
 		this.body = null;
 		this.foot = null;
+		this.group = null;
 
 		this.initTheme();
 	}
@@ -26,8 +28,9 @@ class ViewCore extends Component {
 
 		this.grid = new GridView(model, valueFactory);
 		this.head = new HeadView(model);
-		this.body = new BodyView(model);
-		this.foot = new FootView(model);
+		this.body = new BodyView(model, valueFactory);
+		this.foot = new FootView(model, valueFactory);
+		this.group = new GroupView(model, valueFactory);
 	}
 
 	templateUrl(key) {
@@ -48,9 +51,8 @@ class ViewCore extends Component {
 	}
 
 	get rows() {
-		return this.model.view().rows;
+		return this.model.data().rows;
 	}
-
 }
 
 ViewCore.$inject = ['$element', 'qgridTheme'];
