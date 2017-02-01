@@ -1,6 +1,6 @@
 import Model from 'core/infrastructure/model';
 import ViewModel from 'core/view/view.model';
-import DataModel from 'core/grid/data.model';
+import DataModel from 'core/data/data.model';
 import HeadModel from 'core/head/head.model';
 import BodyModel from 'core/body/body.model';
 import SelectionModel from 'core/selection/selection.model';
