@@ -3,6 +3,7 @@ import {map as getColumnMap} from 'core/column/column.service';
 import columnFactory from 'core/column/column.factory';
 import nodeBuilder from 'core/node/node.builder';
 import pivotBuilder from 'core/pivot/pivot.builder';
+import SelectColumn from 'core/column/column.select';
 
 export default class GridView extends View {
 	constructor(model, valueFactory) {
@@ -50,7 +51,7 @@ export default class GridView extends View {
 		const model = this.model;
 		const selectionState = model.selection();
 		if (selectionState.mode === 'check') {
-			result.push(columnFactory('select', {type: 'select', model: 'selection'}));
+			result.push(columnFactory('select', SelectColumn.model()));
 		}
 
 		result.push(...columns.map(c => columnFactory(c.type || 'text', c)));

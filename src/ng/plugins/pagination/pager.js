@@ -1,7 +1,7 @@
 import PluginComponent from '../plugin.component';
 import {PAGER_NAME} from 'src/definition';
 import Command from 'core/infrastructure/command';
-import TemplatePath from 'ng/components/template/template.path';
+import TemplatePath from 'core/template/template.path';
 
 TemplatePath
 	.register(PAGER_NAME, () => {

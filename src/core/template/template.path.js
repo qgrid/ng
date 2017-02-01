@@ -1,6 +1,5 @@
 import AppError from 'core/infrastructure/error';
 import {isUndefined} from 'core/services/utility';
-import {TEMPLATE_NAME} from 'src/definition';
 
 const resolvers = {};
 export default class TemplatePath {
@@ -10,7 +9,7 @@ export default class TemplatePath {
 	static register(name, resolve) {
 		if (resolvers.hasOwnProperty(name)) {
 			throw new AppError(
-				`template.path`,
+				'template.path',
 				`"${name}" is already registered`);
 		}
 
@@ -24,15 +23,16 @@ export default class TemplatePath {
 		if (!path) {
 			throw new AppError(
 				'template.path',
-				`Template path, required by directive "${TEMPLATE_NAME}" can't be found`);
+				'Template path can\'t be found');
 		}
 
 		return path;
 	}
 
 	static find(source) {
+		const getName = this.name;
 		for (let key of Object.keys(resolvers)) {
-			const name = '_' + key;
+			const name = getName(key);
 			const value = source[name];
 			if (!isUndefined(value) && value !== null) {
 				const path = resolvers[key](source, value);
@@ -45,10 +45,15 @@ export default class TemplatePath {
 		return null;
 	}
 
+	static name(name) {
+		return '_' + name;
+	}
+
 	static get require() {
+		const getName = this.name;
 		return Object.keys(resolvers)
 			.reduce((memo, key) => {
-				memo['_' + key] = `^^?${key}`;
+				memo[getName(key)] = `^^?${key}`;
 				return memo;
 			}, {});
 	}

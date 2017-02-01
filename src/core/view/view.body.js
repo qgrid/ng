@@ -1,4 +1,5 @@
 import View from './view';
+import {view as columnView} from 'core/column/column.service';
 
 export default class BodyView extends View {
 	constructor(model) {
@@ -19,9 +20,7 @@ export default class BodyView extends View {
 	}
 
 	invalidateColumns(model) {
-		const groupBy = new Set(model.group().by);
-		const pivotBy = new Set(model.pivot().by);
-		const columns = model.view().columns;
-		this.columns = columns.filter(c => !groupBy.has(c.model.key) && !pivotBy.has(c.model.key));
+		const columns = columnView(model.view().columns, model);
+		this.columns = columns;
 	}
 }

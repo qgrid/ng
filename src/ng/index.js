@@ -2,7 +2,7 @@ import angular from 'angular';
 import Grid from './components/grid/grid';
 import GridService from './services/grid';
 
-import TemplatePath from './components/template/template.path';
+import TemplatePath from 'core/template/template.path';
 import Head from './components/head/head';
 import Foot from './components/foot/foot';
 import ColumnList from './components/column/column.list';

@@ -1,6 +1,7 @@
 import Directive from '../directive';
 import TemplateCore from '../template/template.core';
 import {get as getValue} from 'ng/services/value';
+import cellBuilder from '../cell/cell.build';
 import {VIEW_CORE_NAME, TD_CORE_NAME} from 'src/definition';
 
 class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
@@ -15,18 +16,9 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	}
 
 	onInit() {
-		const model = this.view.model;
-		const column = this.column;
-		const state = model[column.model || 'body']();
-		const type = column.type || 'text';
-
-		const link = this.template.link(
-			`qgrid.body.${type}.cell.tpl.html`,
-			state.resource,
-			column.key
-		);
-
-		link(this.$element, this.$scope, `body-cell-${type}`);
+		const build = cellBuilder(this.template);
+		const link = build('body', this.view.model, this.column);
+		link(this.$element, this.$scope);
 	}
 
 	get value() {
