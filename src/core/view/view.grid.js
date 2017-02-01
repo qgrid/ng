@@ -53,20 +53,21 @@ export default class GridView extends View {
 	}
 
 	buildColumns(nodes, pivot) {
-		const result = [];
 		const model = this.model;
-		const columns = model.data().columns;
-		const selectionMode = model.selection().mode;
-		if (selectionMode === 'check') {
-			result.push(columnFactory('select', SelectColumn.model()));
+		const columns = [];
+
+		if (model.selection().mode === 'check') {
+			columns.push(columnFactory('select', SelectColumn.model()));
 		}
 
 		if (nodes.length) {
-			result.push(columnFactory('group', GroupColumn.model()));
+			columns.push(columnFactory('group', GroupColumn.model()));
 		}
 
-		result.push(...columns.map(c => columnFactory(c.type || 'text', c)));
-		return result;
+		const dataColumns = model.data().columns;
+		columns.push(...dataColumns.map(c => columnFactory(c.type || 'text', c)));
+
+		return columns;
 	}
 
 	buildRows(nodes, pivot) {
