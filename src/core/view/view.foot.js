@@ -1,5 +1,5 @@
 import View from './view';
-import {view as columnView} from 'core/column/column.service';
+import * as columnService from 'core/column/column.service';
 import Aggregation from 'core/services/aggregation';
 import AppError from 'core/infrastructure/error';
 
@@ -8,15 +8,16 @@ export default class FootView extends View {
 		super(model);
 
 		this.rows = [];
-		this.valueFactory = valueFactory;
+		this.columns = [];
 
+		this.valueFactory = valueFactory;
 		model.viewChanged.watch(() => this.invalidate(model));
 	}
 
 	invalidate(model) {
-		const columns = columnView(model.view().columns, model);
-		const row = {columns: columns};
-		this.rows = new Array(this.count).fill(row);
+		const columns = model.view().columns;
+ 		this.columns = columnService.lineView(columns);
+		this.rows = new Array(this.count);
 	}
 
 	get count() {
@@ -33,7 +34,7 @@ export default class FootView extends View {
 		return resourceCount;
 	}
 
-	value(column){
+	value(column) {
 		if (column.aggregation) {
 			if (!Aggregation.hasOwnProperty(column.aggregation)) {
 				throw new AppError(

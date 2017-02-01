@@ -28,13 +28,6 @@ export default class TemplateCore {
 			}
 
 			element.html('<!--qgrid: template-->' + template);
-
-			// Uncomment that if custom template controller is need
-			//const $node = element.html('<!--qgrid: template-->' + template);
-			// if (type) {
-			// 	$node[0].setAttribute(`q-grid-core:${type}`, '');
-			// }
-
 			const linkTo = this.$compile(element.contents());
 			linkTo(scope);
 		};
