@@ -1,7 +1,7 @@
 import PluginComponent from '../plugin.component';
 import Command from 'core/infrastructure/command';
 import {VISIBILITY_NAME} from 'src/definition';
-import TemplatePath from 'ng/components/template/template.path';
+import TemplatePath from 'core/template/template.path';
 
 TemplatePath
 	.register(VISIBILITY_NAME, () => {

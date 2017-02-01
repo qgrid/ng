@@ -74,5 +74,5 @@ export default function view(source, comparator) {
 		return {heads, rows};
 	}
 
-	return source;
+	return {heads: [], rows: []};
 }
