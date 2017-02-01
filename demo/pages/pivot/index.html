@@ -1,7 +1,7 @@
 <q-grid columns="$ctrl.columns"
 		  rows="$ctrl.rows"
 		  pivot-by="['age.interval', 'age']"
-		  group-by="['gender']">
+		  group-by="['state', 'gender']">
 	<q-grid:columns>
 		<q-grid:column key="state" title="State" value="$ctrl.getState($row)"></q-grid:column>
 		<q-grid:column key="age" title="Age" value="$ctrl.getAge($row)"></q-grid:column>
