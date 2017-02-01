@@ -6,7 +6,7 @@
 				<b>count: </b> {{$cell.value}}
 			</q-grid:template>
 		</q-grid:column>
-		<q-grid:column key="contact.address.zip" aggregation="sum"></q-grid:column>
+		<q-grid:column key="contact.address.zip" aggregation="avg"></q-grid:column>
 		<q-grid:column key="birthday" aggregation="first"></q-grid:column>
 		<q-grid:column key="gender" aggregation="last"></q-grid:column>
 		<q-grid:column key="memberSince" aggregation="minMax"></q-grid:column>
