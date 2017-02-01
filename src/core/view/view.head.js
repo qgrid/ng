@@ -47,6 +47,8 @@ export default class HeadView extends View {
 						const pivotColumn = columnFactory('pivot');
 						pivotColumn.colspan = headColumn.value;
 						pivotColumn.model.title = headColumn.key;
+						pivotColumn.model.rowIndex = i;
+						pivotColumn.model.columnIndex = j;
 						row[j] = pivotColumn;
 					}
 

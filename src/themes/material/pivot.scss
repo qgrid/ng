@@ -19,7 +19,9 @@ $border: 1px solid $dark-divider;
 				border-right: $border;
 			}
 		}
+	}
 
+	tbody{
 		td.pivot {
 			text-align: center;
 		}

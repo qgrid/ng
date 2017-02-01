@@ -17,7 +17,9 @@ export default class PivotColumn extends ColumnView {
 		return {
 			key: '$pivot',
 			type: 'pivot',
-			title: 'Pivot'
+			title: 'Pivot',
+			rowIndex: 0,
+			columnIndex: 0
 		};
 	}
 }
