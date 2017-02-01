@@ -35,6 +35,7 @@ export const PAGER_NAME = `${GRID}Pager`;
 export const SORTBAR_NAME = `${GRID}Sortbar`;
 export const GROUPBAR_NAME = `${GRID}Groupbar`;
 export const PIVOTBAR_NAME = `${GRID}Pivotbar`;
+export const VISIBILITY_NAME = `${GRID}Visibility`;
 export const DRAG_NAME = `${GRID}Drag`;
 export const DROP_NAME = `${GRID}Drop`;
 export const CAN_DROP_NAME = `${GRID}CanDrop`;

@@ -1,20 +1,23 @@
+<q-grid-core:toolbar position="right">
+</q-grid-core:toolbar>
 <q-grid-core:toolbar position="top">
 </q-grid-core:toolbar>
 <div q-grid-core:viewport
-	  class="viewport">
+     class="viewport">
 	<table q-grid-core:table
-			 q-grid-core:selection
-			 class="mode-{{$view.mode}}">
-		<thead q-grid-core:head
-				 q-grid-core:sticky
-				 ng-include="$view.templateUrl('head')">
+	       q-grid-core:selection
+	       class="mode-{{$view.mode}}">
+		<thead ng-if="$view.visibility.head"
+		       q-grid-core:head
+		       q-grid-core:sticky
+		       ng-include="$view.templateUrl('head')">
 		</thead>
 		<tfoot q-grid-core:foot
-				 q-grid-core:sticky
-				 ng-include="$view.templateUrl('foot')">
+		       q-grid-core:sticky
+		       ng-include="$view.templateUrl('foot')">
 		</tfoot>
 		<tbody q-grid-core:body
-				 ng-include="$view.templateUrl('body')">
+		       ng-include="$view.templateUrl('body')">
 		</tbody>
 	</table>
 </div>
