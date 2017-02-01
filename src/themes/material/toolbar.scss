@@ -1,6 +1,16 @@
 .toolbar {
 	&.toolbar-top {
 		height: 64px;
+
+		.sortbar,
+		.pivotbar,
+		.groupbar {
+			float: left;
+			margin-right: 20px;
+			label{
+				font-weight: bold;
+			}
+		}
 	}
 
 	&.toolbar-bottom {

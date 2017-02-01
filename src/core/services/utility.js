@@ -4,12 +4,12 @@ import clone from 'lodash/clone';
 import isUndefined from 'lodash/isUndefined';
 import debounce from 'lodash/debounce';
 import merge from 'lodash/merge';
-import maxBy from 'lodash/maxBy';
-import minBy from 'lodash/minBy';
+import flatten from 'lodash/flatten';
 
 const noop = () => {};
 const yes = () => true;
 const no = () => false;
+const identity = arg => arg;
 
 const toCamelCase = (...names) => {
 	const length = names.length;
@@ -31,10 +31,10 @@ export {
 	clone,
 	debounce,
 	merge,
+	flatten,
+	identity,
 	yes,
 	no,
 	toCamelCase,
-	noop,
-	maxBy,
-	minBy
+	noop
 };

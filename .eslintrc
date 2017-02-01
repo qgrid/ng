@@ -21,6 +21,9 @@
 		"semi": [
 			2,
 			"always"
+		],
+		"no-var": [
+			2
 		]
 	},
 	"env": {
@@ -31,14 +34,14 @@
 		"amd": true,
 		"node": true
 	},
-	"globals" : {
-		"chai"       : false,
-		"describe"   : false,
-		"it"         : false,
-		"before"     : false,
-		"beforeEach" : false,
-		"after"      : false,
-		"afterEach"  : false
+	"globals": {
+		"chai": false,
+		"describe": false,
+		"it": false,
+		"before": false,
+		"beforeEach": false,
+		"after": false,
+		"afterEach": false
 	},
 	"parserOptions": {
 		"ecmaVersion": 6,

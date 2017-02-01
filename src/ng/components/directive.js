@@ -27,7 +27,7 @@ export default function (name, require = {}) {
 
 			ctrl.onInit($attrs);
 			if (ctrl.onDestroy) {
-				$scope.$on('$destroy', ctrl.onDestroy);
+				$scope.$on('$destroy', ctrl.onDestroy.bind(ctrl));
 			}
 		}
 	}

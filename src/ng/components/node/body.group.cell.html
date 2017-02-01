@@ -1,0 +1,6 @@
+<button ng-click="$view.group.toggleStatus.execute($row)"
+		  ng-if="$view.group.toggleStatus.canExecute($row)">
+	<span ng-bind="$view.group.status($row) === 'expand' ? '-' : '+'"></span>
+</button>
+<span>{{$view.group.value($row)}}</span>
+<span ng-if="$view.group.toggleStatus.canExecute($row)">({{$view.group.count($row)}})</span>

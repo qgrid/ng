@@ -10,18 +10,6 @@ class FootCore extends Directive(FOOT_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 
 	onInit(){
 	}
-	
-	get count() {
-		const columns = this.view.columns;
-		const state = this.view.model.foot();
-
-		for (let i = 0, length = columns.length; i < length; i++) {
-			if (columns[i].hasOwnProperty('aggregation')) {
-				return Math.max(state.count, 1);
-			}
-		}
-		return state.count;
-	}
 }
 
 FootCore.$inject = ['$scope'];

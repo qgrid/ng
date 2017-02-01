@@ -11,6 +11,7 @@ describe('Sticky Head', () => {
 		const origin = createEmptyHead();
 		const table = createTable(origin);
 		const sticky = new StickyHead(createView(), table, origin);
+		const stickyWithoutClone = new StickyHead(createView(), table, origin, false);
 
 		it('should create element property', () => {
 			expect(sticky.element).to.exist;
@@ -33,6 +34,10 @@ describe('Sticky Head', () => {
 
 		it('should set position to absolute', () => {
 			expect(sticky.element.style.position).to.equal('absolute');
+		});
+
+		it('should copy reference to origin for case without clone', () => {
+			expect(stickyWithoutClone.element).to.equal(origin);
 		});
 	});
 

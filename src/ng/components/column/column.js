@@ -1,7 +1,16 @@
 import Component from '../component';
-import {GRID_NAME, COLUMN_LIST_NAME} from 'src/definition';
+import {GRID_NAME, COLUMN_NAME, COLUMN_LIST_NAME} from 'src/definition';
 import {clone, isUndefined} from 'core/services/utility';
-import ColumnModel from 'core/column/column';
+import TextColumn from 'core/column/column.text';
+import TemplatePath from 'core/template/template.path';
+
+TemplatePath
+	.register(COLUMN_NAME, (template, column) => {
+		return {
+			model: template.for,
+			resource: column.key
+		};
+	});
 
 class Column extends Component {
 	constructor($attrs) {
@@ -46,7 +55,7 @@ class Column extends Component {
 		const key = this.key;
 		let column = columns.filter(c => c.key === key)[0];
 		if (!column) {
-			column = new ColumnModel();
+			column = TextColumn.model();
 			columns.push(column);
 		}
 
