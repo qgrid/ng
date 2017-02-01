@@ -7,12 +7,14 @@
 	</q-grid:columns>
 	<q-grid:node offset="0">
 		<q-grid:template>
-			<button ng-click="$row.toggleStatus.execute($node)"
+			<button ng-click="$view.group.toggleStatus.execute($row)"
 					  style="font-size: 20px;"
-					  ng-disabled="!$row.toggleStatus.canExecute($node)">
-				<span ng-bind="$row.status === 'expand' ? '&#x25BE' : '&#x25B8'"></span>
+					  ng-disabled="!$view.group.toggleStatus.canExecute($row)">
+				<span ng-bind="$view.group.status($row) === 'expand' ? '&#x25BE' : '&#x25B8'"></span>
 			</button>
-			<span>{{$node.key}}</span>
+			<span>{{$view.group.value($row)}}</span>
 		</q-grid:template>
 	</q-grid:node>
+
+	<q-grid:head sticky="false"></q-grid:head>
 </q-grid>

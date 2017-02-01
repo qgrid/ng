@@ -14,8 +14,8 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 			execute: e => {
 				const view = this.view.model.view;
 				const columns = view().columns;
-				const targetIndex = columns.findIndex(c => c.key === e.target.value);
-				const sourceIndex = columns.findIndex(c => c.key === e.source.value);
+				const targetIndex = columns.findIndex(c => c.model.key === e.target.value);
+				const sourceIndex = columns.findIndex(c => c.model.key === e.source.value);
 				if (targetIndex >= 0 && sourceIndex >= 0) {
 					const newColumns = Array.from(columns);
 					newColumns.splice(sourceIndex, 1);
@@ -38,9 +38,7 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 							break;
 						}
 						case 'asc': {
-							const entry = {};
-							entry[key] = 'desc';
-
+							const entry = {[key]: 'desc'};
 							by.splice(index, 1);
 							by.splice(index, 0, entry);
 							break;
@@ -52,8 +50,7 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 					}
 				}
 				else {
-					const entry = {};
-					entry[key] = 'asc';
+					const entry = {[key]: 'asc'};
 					by.push(entry);
 				}
 
@@ -80,7 +77,7 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	transfer(cell) {
 		return {
 			key: TH_CORE_NAME,
-			value: cell.$scope.$column.key
+			value: cell.column.key
 		}
 	}
 }

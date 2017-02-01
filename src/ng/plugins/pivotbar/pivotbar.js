@@ -1,8 +1,17 @@
 import PluginComponent from '../plugin.component';
 import Command from 'core/infrastructure/command'
-import {TH_CORE_NAME} from 'src/definition';
+import {TH_CORE_NAME, PIVOTBAR_NAME} from 'src/definition';
+import TemplatePath from 'core/template/template.path';
 
-class Pivotbar extends PluginComponent('qgrid.pivotbar.tpl.html') {
+TemplatePath
+	.register(PIVOTBAR_NAME, () => {
+		return {
+			model: 'pivot',
+			resource: 'content'
+		};
+	});
+
+class Pivotbar extends PluginComponent('qgrid.plugins.pivotbar.tpl.html') {
 	constructor() {
 		super(...arguments);
 
@@ -26,7 +35,7 @@ class Pivotbar extends PluginComponent('qgrid.pivotbar.tpl.html') {
 				const pivot = this.model.pivot;
 				const state = pivot();
 				const index = state.by.findIndex(g => g === key);
-				if(index >= 0){
+				if (index >= 0) {
 					const temp = Array.from(state.by);
 					temp.splice(index, 1);
 					pivot({
@@ -47,15 +56,15 @@ class Pivotbar extends PluginComponent('qgrid.pivotbar.tpl.html') {
 	}
 
 	get columns() {
-		return this.model.view().columns;
+		return this.model.data().columns;
 	}
 
-	get groups(){
+	get groups() {
 		return this.model.pivot().by;
 	}
 
-	title(key){
-		const columns = this.model.view().columns;
+	title(key) {
+		const columns = this.columns;
 		const index = columns.findIndex(c => c.key === key);
 		return index >= 0 ? columns[index].title : '';
 	}

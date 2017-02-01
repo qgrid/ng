@@ -1,9 +1,0 @@
-<tr ng-repeat="$row in $view.rows track by $index">
-	<td ng-if="$view.selection.mode === 'check'"
-		 q-grid-core:check="select">
-	</td>
-	<td ng-repeat="$column in $view.columns track by $index"
-		 ng-class="$column.key"
-		 q-grid-core:td>
-	</td>
-</tr>
