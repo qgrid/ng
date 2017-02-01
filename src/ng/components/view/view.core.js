@@ -57,7 +57,6 @@ class ViewCore extends Component {
 		return this.model.visibility();
 	}
 
-
 	get rows() {
 		return this.model.data().rows;
 	}

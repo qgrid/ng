@@ -1,7 +1,9 @@
 import Directive from '../directive';
 import Command from 'core/infrastructure/command';
 import AppError from 'core/infrastructure/error';
+import {noop} from 'core/services/utility';
 import * as sortService from 'core/sort/sort.service';
+import * as columnService from 'core/column/column.service';
 import {VIEW_CORE_NAME, HEAD_CORE_NAME, TH_CORE_NAME} from 'src/definition';
 
 class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
@@ -10,19 +12,41 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 
 		this.$scope = $scope;
 		this.drop = new Command({
-			canExecute: e => e.source.key === TH_CORE_NAME,
+			canExecute: e => {
+				if (e.source.key === TH_CORE_NAME) {
+					const map = columnService.map(this.view.model.data().columns);
+					return map.hasOwnProperty(e.target.value);
+				}
+
+				return false;
+			},
 			execute: e => {
 				const view = this.view.model.view;
-				const columns = view().columns;
-				const targetIndex = columns.findIndex(c => c.model.key === e.target.value);
-				const sourceIndex = columns.findIndex(c => c.model.key === e.source.value);
-				if (targetIndex >= 0 && sourceIndex >= 0) {
-					const newColumns = Array.from(columns);
-					newColumns.splice(sourceIndex, 1);
-					newColumns.splice(targetIndex, 0, columns[sourceIndex]);
-					view({columns: newColumns});
+				const columnRows = view().columns;
+				for (let columns of columnRows) {
+					const targetIndex = columns.findIndex(c => c.model.key === e.target.value);
+					const sourceIndex = columns.findIndex(c => c.model.key === e.source.value);
+					if (targetIndex >= 0 && sourceIndex >= 0) {
+						// TODO: full copy? impacting pef. on pivoting?
+						const sourceColumn = columns[sourceIndex];
+						columns.splice(sourceIndex, 1);
+						columns.splice(targetIndex, 0, sourceColumn);
+						view({columns: Array.from(columnRows)});
+					}
 				}
 			}
+		});
+
+		this.drag = new Command({
+			canExecute: e => {
+				if (e.source.key === TH_CORE_NAME) {
+					const map = columnService.map(this.view.model.data().columns);
+					return map.hasOwnProperty(e.source.value);
+				}
+
+				return false;
+			},
+			execute: noop
 		});
 
 		this.sortToggle = new Command({
