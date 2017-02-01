@@ -12,15 +12,15 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {
 	head: `?${HEAD_CORE_NAME}`,
 	foot: `?${FOOT_CORE_NAME}`
 }) {
-	constructor($scope, $element, $attrs, $timeout, $window, $compile) {
+	constructor($scope, $element, $window, $timeout, $compile, $templateCache) {
 		super();
 
 		this.$scope = $scope;
 		this.$element = $element;
-		this.$attrs = $attrs;
-		this.$timeout = $timeout;
 		this.$window = $window;
+		this.$timeout = $timeout;
 		this.$compile = $compile;
+		this.$templateCache = $templateCache;
 	}
 
 	onInit() {
@@ -41,14 +41,13 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {
 
 		model[target + 'Changed']
 			.on(e => {
-				if (e.changes.hasOwnProperty('sticky')) {
+				if (e.changes.hasOwnProperty('sticky') && e.changes.sticky) {
 					this.apply(target);
 				}
 			});
 
-		const self = this;
 		if (model[target]().sticky) {
-			this.$timeout(() => self.apply(target));
+			this.apply(target)
 		}
 	}
 
@@ -60,23 +59,48 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {
 		const self = this;
 		const table = this.table.$element[0];
 		const scrollView = this.viewport.$element[0];
-		const sticky = StickyFactory.create(target, table, scrollView, this.$element[0]);
+		const sticky = StickyFactory.create(target, table, scrollView, this.$element[0], false);
 
-		const cloned = sticky.element;
+		const templateUrl = this.view.templateUrl(target);
+		const stickySync = angular.element(`<t${target}>${this.$templateCache.get(templateUrl)}</t${target}>`);
 
-		const originElement = angular.element(sticky.origin);
-		const clonedElement = angular.element(cloned);
-		clonedElement.removeAttr(`q-grid-core:${target}`);
-		clonedElement.removeAttr('q-grid-core:sticky');
-		originElement.after(clonedElement);
-		originElement.css('visibility', 'hidden');
+		const removeGridAttrs = element => {
+			const attributes = Array.from(element.attributes);
+			attributes.forEach(attr => {
+				const name = attr.name;
+				if (name && name.indexOf('q-grid') === 0) {
+					element.removeAttribute(name);
+				}
+			});
+			Array.from(element.children).forEach(removeGridAttrs);
+		};
+
+		removeGridAttrs(stickySync[0]);
+
+		sticky.origin = stickySync[0];
+		this.$element.after(stickySync);
+		stickySync.css('visibility', 'hidden');
+
+		this.$compile(stickySync.contents())(this.$scope);
 
 		const unwatches = [];
 		unwatches.push(this.view.theme.changed.on(
 			() => self.$timeout(() => sticky.invalidate())
 		));
 
+		unwatches.push(this.view.model.viewChanged.on(
+			() => self.$timeout(() => sticky.invalidate())
+		));
+
 		unwatches.push(this.view.model.dataChanged.on(
+			() => self.$timeout(() => sticky.invalidate())
+		));
+
+		unwatches.push(this.view.model.groupChanged.on(
+			() => self.$timeout(() => sticky.invalidate())
+		));
+
+		unwatches.push(this.view.model.pivotChanged.on(
 			() => self.$timeout(() => sticky.invalidate())
 		));
 
@@ -90,6 +114,13 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {
 		const onResize = () => sticky.invalidate();
 		this.$window.addEventListener('resize', onResize);
 
+		unwatches.push(this.$scope.$watch(() => {
+			const tagName = target === 'head' ? 'th' : 'td';
+			return Array.from(stickySync.find(tagName))
+				.map(col => col.offsetWidth);
+		}, () => self.$timeout(() => sticky.invalidate()),
+			true));
+
 		this.$scope.$on('$destroy', () => {
 			unwatches.forEach(u => u());
 			sticky.scrollView.removeEventListener('scroll', onScroll);
@@ -101,10 +132,10 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {
 
 StickyCore.$inject = ['$scope',
 	'$element',
-	'$attrs',
-	'$timeout',
 	'$window',
-	'$compile'];
+	'$timeout',
+	'$compile',
+	'$templateCache'];
 
 export default {
 	restrict: 'A',

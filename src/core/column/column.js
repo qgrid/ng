@@ -1,5 +1,6 @@
 export default class Column {
-	constructor() {
+	constructor(type = 'text') {
+		this.type = type;
 		this.key = null;
 		this.title = null;
 		this.value = null;
@@ -7,5 +8,6 @@ export default class Column {
 		this.isVisible = true;
 		this.aggregation = null;
 		this.resource = {};
+		this.pin = false;
 	}
 }

@@ -34,7 +34,7 @@ export default class Model {
 						const newValue = state[key];
 						const oldValue = model[key];
 						if (newValue !== oldValue) {
-							guard.notUndefined(newValue, `model.${name}`);
+							guard.notUndefined(newValue, `model.${name}.${key}`);
 
 							model[key] = newValue;
 							hasChanges = true;
