@@ -19,55 +19,49 @@ export default class GridView extends View {
 		const view = model.view;
 
 		model.dataChanged.watch(e => {
-			const rowsChanged = e.changes.hasOwnProperty('rows');
-			const columnsChanged = e.changes.hasOwnProperty('columns');
-
-			if (rowsChanged || columnsChanged) {
-				view({
-					nodes: this.buildNodes(),
-					pivot: this.buildPivot()
-				});
-
-				view({
-					rows: this.buildRows(e.state.rows),
-					columns: this.buildColumns(e.state.columns)
-				});
+			if (e.changes.hasOwnProperty('rows') ||
+				e.changes.hasOwnProperty('columns')) {
+				invalidate();
 			}
 		});
 
 		model.groupChanged.watch(e => {
 			if (e.changes.hasOwnProperty('by')) {
-				const dataState = model.data();
-				view({nodes: this.buildNodes()});
-				view({
-					rows: this.buildRows(dataState.rows),
-					columns: this.buildColumns(dataState.columns)
-				});
+				invalidate({pivot: model.view().pivot});
 			}
 		});
 
 		model.pivotChanged.watch(e => {
 			if (e.changes.hasOwnProperty('by')) {
-				const dataState = model.data();
-				view({
-					pivot: this.buildPivot(),
-					rows: this.buildRows(dataState.rows),
-					columns: this.buildColumns(dataState.columns)
-				});
+				invalidate({nodes: model.view().nodes});
 			}
 		});
 	}
 
-	buildColumns(columns) {
+	invalidate(context = {}) {
+		const nodes = context.nodes || this.buildNodes();
+		const pivot = context.pivot || this.buildPivot();
+		const rows = context.rows || this.buildRows(nodes, pivot);
+		const columns = context.columns || this.buildColumns(nodes, pivot);
+
+		this.model.view({
+			nodes: nodes,
+			pivot: pivot,
+			rows: rows,
+			columns: columns
+		});
+	}
+
+	buildColumns(nodes, pivot) {
 		const result = [];
 		const model = this.model;
-		const selectionState = model.selection();
-		if (selectionState.mode === 'check') {
+		const columns = model.data().columns;
+		const selectionMode = model.selection().mode;
+		if (selectionMode === 'check') {
 			result.push(columnFactory('select', SelectColumn.model()));
 		}
 
-		const groupBy = model.group().by;
-		if (groupBy.length) {
+		if (nodes.length) {
 			result.push(columnFactory('group', GroupColumn.model()));
 		}
 
@@ -75,14 +69,12 @@ export default class GridView extends View {
 		return result;
 	}
 
-	buildRows(rows) {
-		const model = this.model;
-		const groupBy = model.group().by;
-		if (groupBy.length) {
-			const nodes = model.view().nodes;
+	buildRows(nodes, pivot) {
+		if (nodes.length) {
 			return nodeFlatView(nodes);
 		}
 
+		const rows = this.model.data().rows;
 		return Array.from(rows);
 	}
 

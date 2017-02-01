@@ -1,6 +1,4 @@
 import View from './view';
-import Aggregation from 'core/services/aggregation';
-import AppError from 'core/infrastructure/error';
 import Command from 'core/infrastructure/command';
 import {flatView as nodeFlatView} from 'core/node/node.service';
 
