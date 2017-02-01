@@ -24,7 +24,7 @@ export default class PivotView extends View {
 			);
 
 			return build(dataState.rows);
-		}
+		};
 	}
 
 	invalidate(model) {

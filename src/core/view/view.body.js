@@ -16,7 +16,7 @@ export default class BodyView extends View {
 	}
 
 	static build(model) {
-		return (nodes, pivot) => {
+		return (nodes) => {
 			if (nodes.length) {
 				return nodeFlatView(nodes);
 			}
