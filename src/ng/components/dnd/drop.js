@@ -62,10 +62,10 @@ class Drop extends Directive(DROP_NAME) {
 		this.element.classList.remove('dragover');
 	}
 
-	event(transfer) {
+	event(e) {
 		const target = this.transfer();
 		const source = arguments.length
-			? DragService.decode(transfer.getData(DragService.mimeType))
+			? DragService.decode(e.getData(DragService.mimeType))
 			: DragService.transfer;
 
 		return {

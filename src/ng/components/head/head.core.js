@@ -1,6 +1,7 @@
 import Directive from '../directive';
 import Command from 'core/infrastructure/command';
 import AppError from 'core/infrastructure/error';
+import {noop} from 'core/services/utility';
 import * as sortService from 'core/sort/sort.service';
 import * as columnService from 'core/column/column.service';
 import {VIEW_CORE_NAME, HEAD_CORE_NAME, TH_CORE_NAME} from 'src/definition';
@@ -34,6 +35,18 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 					}
 				}
 			}
+		});
+
+		this.drag = new Command({
+			canExecute: e => {
+				if (e.source.key === TH_CORE_NAME) {
+					const map = columnService.map(this.view.model.data().columns);
+					return map.hasOwnProperty(e.source.value);
+				}
+
+				return false;
+			},
+			execute: noop
 		});
 
 		this.sortToggle = new Command({
