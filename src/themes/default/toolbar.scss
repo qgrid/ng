@@ -1,18 +1,34 @@
 .toolbar {
-	&.toolbar-top {
-		height: 64px;
+  &.toolbar-top {
+    height: 64px;
 
-		.pivotbar,
-		.groupbar {
-			float: left;
-			margin-right: 20px;
-			label{
-				font-weight: bold;
-			}
-		}
-	}
+    .pivotbar,
+    .groupbar {
+      float: left;
+      margin-right: 20px;
+      label {
+        font-weight: bold;
+      }
+    }
+  }
 
-	&.toolbar-bottom {
-		height: 56px;
-	}
+  &.toolbar-bottom {
+    height: 56px;
+  }
+
+  &.toolbar-right {
+    box-sizing: border-box;
+    float: right;
+    width: 200px;
+    padding: 0 10px;
+    ul {
+      list-style: none;
+      li > label {
+        text-transform: capitalize;
+        > input[type=checkbox] {
+          margin-right: 10px;
+        }
+      }
+    }
+  }
 }

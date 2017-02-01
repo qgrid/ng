@@ -1,5 +1,5 @@
 import PluginComponent from '../plugin.component';
-import Command from 'core/infrastructure/command';
+// import Command from 'core/infrastructure/command';
 import {VISIBILITY_NAME} from 'src/definition';
 import TemplatePath from 'core/template/template.path';
 

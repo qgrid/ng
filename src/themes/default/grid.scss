@@ -1,13 +1,17 @@
 @import "variables";
 
 .viewport {
-	max-height: calc(100% - 120px);
-	overflow: auto;
-	font-family: $font-family;
+  max-height: calc(100% - 120px);
+  overflow: auto;
+  font-family: $font-family;
 
-	table {
-		width: 100%;
-		border-spacing: 0;
-		overflow: hidden;
-	}
+  table {
+    width: 100%;
+    border-spacing: 0;
+    overflow: hidden;
+  }
+  &-inline {
+    float: left;
+    width: calc(100% - 200px);
+  }
 }

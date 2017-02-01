@@ -16,4 +16,19 @@
 	&.toolbar-bottom {
 		height: 56px;
 	}
+	&.toolbar-right {
+		box-sizing: border-box;
+		float: right;
+		width: 200px;
+		padding: 0 10px;
+		ul {
+			list-style: none;
+			li > label {
+				text-transform: capitalize;
+				> input[type=checkbox] {
+					margin-right: 10px;
+				}
+			}
+		}
+	}
 }
