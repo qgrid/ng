@@ -16,7 +16,7 @@ export default class BodyView extends View {
 	}
 
 	static build(model) {
-		return (nodes, pivot) => {
+		return (nodes) => {
 			if (nodes.length) {
 				return nodeFlatView(nodes);
 			}
@@ -49,14 +49,16 @@ export default class BodyView extends View {
 			const rows = model.data().rows;
 			switch (node.type) {
 				case 'group': {
-					if (column.aggregation) {
-						if (!Aggregation.hasOwnProperty(column.aggregation)) {
+					const aggregation = column.aggregation;
+					if (aggregation) {
+						if (!Aggregation.hasOwnProperty(aggregation)) {
 							throw new AppError(
 								'view.body',
-								`Aggregation ${column.aggregation} is not registered`);
+								`Aggregation ${aggregation} is not registered`);
 						}
 
-						return Aggregation[column.aggregation](node.rows.map(i => rows[i]), getValue);
+						const groupRows =  node.rows.map(i => rows[i]);
+						return Aggregation[aggregation](groupRows, getValue);
 					}
 
 					return null;
