@@ -1,11 +1,14 @@
 <b>Visibillity: </b>
 <ul>
 	<li ng-repeat="(key, value) in $visibility.model.visibility() track by $index" ng-if="key !== 'resource'">
-		<input type="checkbox" ng-model="$visibility.model.visibility()[key]" ng-if="key !== 'toolbar'"/>
+		<input type="checkbox" ng-model="$visibility.model.visibility()[key]"
+		       ng-change="$visibility.change.execute($visibility.model.visibility()[key])"
+		       ng-if="key !== 'toolbar'"/>
 		<label>{{key}}</label>
 		<ul ng-if="key === 'toolbar'">
 			<li ng-repeat="(prop, values) in $visibility.model.visibility().toolbar track by $index">
-				<input type="checkbox" ng-model="$visibility.model.visibility().toolbar[prop]"/>
+				<input type="checkbox" ng-model="$visibility.model.visibility().toolbar[prop]"
+				       ng-change="$visibility.change.execute($visibility.model.visibility().toolbar[prop])"/>
 				<label>{{prop}}</label>
 			</li>
 		</ul>

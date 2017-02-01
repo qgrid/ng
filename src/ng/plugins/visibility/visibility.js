@@ -1,5 +1,5 @@
 import PluginComponent from '../plugin.component';
-// import Command from 'core/infrastructure/command';
+import Command from 'core/infrastructure/command';
 import {VISIBILITY_NAME} from 'src/definition';
 import TemplatePath from 'core/template/template.path';
 
@@ -14,8 +14,10 @@ TemplatePath
 class Visibility extends PluginComponent('qgrid.plugins.visibility.tpl.html') {
 	constructor() {
 		super(...arguments);
-
-
+		this.change = new Command({
+			execute: key => true,
+			canExecute: () => true
+		});
 	}
 
 	get resource() {
