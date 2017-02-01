@@ -20,13 +20,24 @@
     box-sizing: border-box;
     float: right;
     width: 200px;
-    padding: 0 10px;
+    padding: 0 20px;
     ul {
       list-style: none;
-      li > label {
-        text-transform: capitalize;
-        > input[type=checkbox] {
+      padding: 0;
+      li {
+        label {
+          text-transform: capitalize;
+          line-height: 20px;
+          margin-left: 30px;
+        }
+        input[type=checkbox] {
           margin-right: 10px;
+          + label {
+            margin-left: 0;
+          }
+        }
+        ul {
+          margin-left: 30px;
         }
       }
     }

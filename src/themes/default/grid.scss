@@ -1,7 +1,7 @@
 @import "variables";
 
 .viewport {
-  max-height: calc(100% - 120px);
+  max-height: calc(50vh - 160px);
   overflow: auto;
   font-family: $font-family;
 
@@ -10,8 +10,12 @@
     border-spacing: 0;
     overflow: hidden;
   }
-  &-inline {
-    float: left;
-    width: calc(100% - 200px);
+}
+
+.wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  .viewport {
+    flex: 3 0 auto;
   }
 }

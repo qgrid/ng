@@ -1,34 +1,45 @@
 .toolbar {
-	&.toolbar-top {
-		height: 64px;
+  &.toolbar-top {
+    height: 64px;
 
-		.sortbar,
-		.pivotbar,
-		.groupbar {
-			float: left;
-			margin-right: 20px;
-			label{
-				font-weight: bold;
-			}
-		}
-	}
+    .sortbar,
+    .pivotbar,
+    .groupbar {
+      float: left;
+      margin-right: 20px;
+      label {
+        font-weight: bold;
+      }
+    }
+  }
 
-	&.toolbar-bottom {
-		height: 56px;
-	}
-	&.toolbar-right {
-		box-sizing: border-box;
-		float: right;
-		width: 200px;
-		padding: 0 10px;
-		ul {
-			list-style: none;
-			li > label {
-				text-transform: capitalize;
-				> input[type=checkbox] {
-					margin-right: 10px;
-				}
-			}
-		}
-	}
+  &.toolbar-bottom {
+    height: 56px;
+  }
+  &.toolbar-right {
+    box-sizing: border-box;
+    float: right;
+    width: 200px;
+    padding: 0 20px;
+    ul {
+      list-style: none;
+      padding: 0;
+      li {
+        label {
+          text-transform: capitalize;
+          line-height: 20px;
+          margin-left: 30px;
+        }
+        input[type=checkbox] {
+          margin-right: 10px;
+          + label {
+            margin-left: 0;
+          }
+        }
+        ul {
+          margin-left: 30px;
+        }
+      }
+    }
+  }
 }
