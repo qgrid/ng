@@ -38,9 +38,7 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 							break;
 						}
 						case 'asc': {
-							const entry = {};
-							entry[key] = 'desc';
-
+							const entry = {[key]: 'desc'};
 							by.splice(index, 1);
 							by.splice(index, 0, entry);
 							break;
@@ -52,8 +50,7 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 					}
 				}
 				else {
-					const entry = {};
-					entry[key] = 'asc';
+					const entry = {[key]: 'asc'};
 					by.push(entry);
 				}
 

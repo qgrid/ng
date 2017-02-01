@@ -2,7 +2,7 @@ import angular from 'angular';
 import Grid from './components/grid/grid';
 import GridService from './services/grid';
 
-import TemplatePath from './components/template/template.path';
+import TemplatePath from 'core/template/template.path';
 import Head from './components/head/head';
 import Foot from './components/foot/foot';
 import ColumnList from './components/column/column.list';
@@ -25,7 +25,6 @@ import TableCore from './components/grid/table.core';
 import TdCore from './components/body/td.core';
 import ThCore from './components/head/th.core';
 import TfCore from './components/foot/tf.core';
-import NodeCore from './components/node/node.core';
 import HeadCore from './components/head/head.core';
 import BodyCore from './components/body/body.core';
 import FootCore from './components/foot/foot.core';
@@ -71,7 +70,6 @@ export default angular
 	.directive(def.TD_CORE_NAME, () => TdCore)
 	.directive(def.TH_CORE_NAME, () => ThCore)
 	.directive(def.TF_CORE_NAME, () => TfCore)
-	.directive(def.NODE_CORE_NAME, () => NodeCore)
 	.directive(def.HEAD_CORE_NAME, () => HeadCore)
 	.directive(def.BODY_CORE_NAME, () => BodyCore)
 	.directive(def.FOOT_CORE_NAME, () => FootCore)
@@ -94,14 +92,22 @@ function Setup($templateCache) {
 	$templateCache.put('qgrid.head.tpl.html', require('./components/head/head.html'));
 	$templateCache.put('qgrid.body.tpl.html', require('./components/body/body.html'));
 	$templateCache.put('qgrid.foot.tpl.html', require('./components/foot/foot.html'));
-	$templateCache.put('qgrid.node.cell.tpl.html', require('./components/node/node.cell.html'));
 	$templateCache.put('qgrid.toolbar.top.tpl.html', require('./components/toolbar/toolbar.top.html'));
 	$templateCache.put('qgrid.toolbar.bottom.tpl.html', require('./components/toolbar/toolbar.bottom.html'));
 	$templateCache.put('qgrid.toolbar.right.tpl.html', require('./components/toolbar/toolbar.right.html'));
 
+	$templateCache.put('qgrid.head.pivot.cell.tpl.html', require('./components/pivot/head.pivot.cell.html'));
+	$templateCache.put('qgrid.body.pivot.cell.tpl.html', require('./components/pivot/body.pivot.cell.html'));
+	$templateCache.put('qgrid.foot.pivot.cell.tpl.html', EMPTY);
+
+	$templateCache.put('qgrid.head.group.cell.tpl.html', require('./components/node/head.group.cell.html'));
+	$templateCache.put('qgrid.body.group.cell.tpl.html', require('./components/node/body.group.cell.html'));
+	$templateCache.put('qgrid.foot.group.cell.tpl.html', EMPTY);
+
 	$templateCache.put('qgrid.head.text.cell.tpl.html', require('./components/head/head.text.cell.html'));
 	$templateCache.put('qgrid.body.text.cell.tpl.html', require('./components/body/body.text.cell.html'));
 	$templateCache.put('qgrid.foot.text.cell.tpl.html', require('./components/foot/foot.text.cell.html'));
+
 	$templateCache.put('qgrid.head.select.cell.tpl.html', require('./components/selection/head.select.cell.html'));
 	$templateCache.put('qgrid.body.select.cell.tpl.html', require('./components/selection/body.select.cell.html'));
 	$templateCache.put('qgrid.foot.select.cell.tpl.html', EMPTY);

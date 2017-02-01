@@ -1,7 +1,7 @@
 import PluginComponent from '../plugin.component';
 import Command from 'core/infrastructure/command'
 import {TH_CORE_NAME, PIVOTBAR_NAME} from 'src/definition';
-import TemplatePath from 'ng/components/template/template.path';
+import TemplatePath from 'core/template/template.path';
 
 TemplatePath
 	.register(PIVOTBAR_NAME, () => {

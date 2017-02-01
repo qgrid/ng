@@ -1,6 +1,6 @@
 import ModelComponent from '../model.component';
 import {GRID_NAME, NODE_NAME} from 'src/definition';
-import TemplatePath from '../template/template.path';
+import TemplatePath from 'core/template/template.path';
 
 TemplatePath
 	.register(NODE_NAME, () => {

@@ -14,7 +14,7 @@ export default class TemplateCore {
 				? resourceData['$default']
 				: this.$templateCache.get(templateUrl);
 
-		return (element, scope, type) => {
+		return (element, scope/*, type*/) => {
 			const resourceScope = resource.scope;
 			for (let name of Object.keys(resourceScope)) {
 				if (scope.hasOwnProperty(name)) {
@@ -27,11 +27,7 @@ export default class TemplateCore {
 				scope[name] = resourceScope[name];
 			}
 
-			const $node = element.html('<!--qgrid: template-->' + template);
-			if (type) {
-				$node[0].setAttribute(`q-grid-core:${type}`, '');
-			}
-
+			element.html('<!--qgrid: template-->' + template);
 			const linkTo = this.$compile(element.contents());
 			linkTo(scope);
 		};
