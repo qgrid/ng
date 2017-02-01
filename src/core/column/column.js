@@ -7,7 +7,6 @@ export default class Column {
 		this.isDefault = true;
 		this.isVisible = true;
 		this.aggregation = null;
-		this.resource = {};
-		this.pin = false;
+		this.pin = null;
 	}
 }

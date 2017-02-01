@@ -71,8 +71,8 @@
 		"path": "sort",
 		"title": "Sort"
 	},
-    {
-        "path": "column-frozen",
-        "title": "Column-frozen"
-    }
+	{
+		"path": "column-pin",
+		"title": "Column pin"
+	}
 ]
