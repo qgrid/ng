@@ -1,5 +1,4 @@
 import View from './view';
-import {view as columnView} from 'core/column/column.service';
 import columnFactory from 'core/column/column.factory';
 
 export default class HeadView extends View {
@@ -24,7 +23,7 @@ export default class HeadView extends View {
 			if (nodes.length) {
 				const groupColumn = columnFactory('group');
 				groupColumn.rowspan = heads.length;
-				columns.push(columnFactory('group'));
+				columns.push(groupColumn);
 			}
 
 			const dataColumns = model.data().columns;
@@ -37,8 +36,29 @@ export default class HeadView extends View {
 					}));
 			}
 
-			if (pivot.heads.length) {
+			if (heads.length) {
 				const rows = [columns];
+				for (let i = 0, length = heads.length; i < length; i++) {
+					const head = heads[i];
+					const headLength = head.length;
+					const row = new Array(headLength);
+					for(let j = 0; j < headLength; j++){
+						const headColumn = head[j];
+						const pivotColumn = columnFactory('pivot');
+						pivotColumn.colspan = headColumn.value;
+						pivotColumn.model.title = headColumn.key;
+						row[j] = pivotColumn;
+					}
+
+					if(i === 0){
+						rows[0].push(...row);
+					}
+					else{
+						rows.push(row);
+					}
+				}
+
+				return rows;
 			}
 
 			return [columns];

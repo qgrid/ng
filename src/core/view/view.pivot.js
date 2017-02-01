@@ -24,8 +24,8 @@ export default class PivotView extends View {
 		}
 	}
 
-	title() {
-		return 'P'
+	title(column) {
+		return column.model.title;
 	}
 
 	value() {

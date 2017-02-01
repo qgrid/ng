@@ -1,17 +1,20 @@
 import AppError from 'core/infrastructure/error';
 import Column from './column';
-import ColumnText from './column.text';
-import ColumnSelect from './column.select';
-import ColumnGroup from './column.group';
+import TextColumn from './column.text';
+import SelectColumn from './column.select';
+import GroupColumn from './column.group';
+import PivotColumn from './column.pivot';
 
 export default function (type, model = null) {
 	switch (type) {
 		case 'text':
-			return new ColumnText(model || new Column());
+			return new TextColumn(model || new Column());
 		case 'select':
-			return new ColumnSelect(model || ColumnSelect.model());
+			return new SelectColumn(model || SelectColumn.model());
 		case 'group':
-			return new ColumnGroup(model || ColumnGroup.model());
+			return new GroupColumn(model || GroupColumn.model());
+		case 'pivot':
+			return new PivotColumn(model || PivotColumn.model());
 		default:
 			throw  new AppError(
 				'column.factory',

@@ -13,6 +13,6 @@ export default function (template) {
 			path.resource
 		);
 
-		return (element, scope) => link(element, scope, key);
+		return (element, scope) => link(element, scope);
 	};
 }

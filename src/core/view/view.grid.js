@@ -36,6 +36,7 @@ export default class GridView extends View {
 	invalidate(context = {}) {
 		const model = this.model;
 		const valueFactory  = this.valueFactory;
+
 		const nodes = context.nodes || GroupView.build(model, valueFactory)();
 		const pivot = context.pivot || PivotView.build(model, valueFactory)();
 		const rows = context.rows || BodyView.build(model)(nodes, pivot);
