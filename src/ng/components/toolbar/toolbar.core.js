@@ -1,5 +1,5 @@
 import Component from '../component';
-import TemplateCore from '../template/template.core';
+import TemplateCore from '../template/template.link';
 import {VIEW_CORE_NAME} from 'src/definition';
 
 class ToolbarCore extends Component {

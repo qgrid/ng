@@ -1,5 +1,5 @@
 import Directive from '../directive';
-import TemplateCore from '../template/template.core';
+import TemplateCore from '../template/template.link';
 import cellBuilder from '../cell/cell.build';
 import {VIEW_CORE_NAME, TD_CORE_NAME} from 'src/definition';
 
