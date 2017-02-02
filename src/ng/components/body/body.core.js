@@ -1,9 +1,8 @@
 import Directive from '../directive';
 import {VIEW_CORE_NAME, BODY_CORE_NAME} from 'src/definition';
 import EventListener from 'core/infrastructure/event.listener';
-import Command from 'core/infrastructure/Command';
+import CellEdit from '../cell/cell.edit';
 import * as pathFinder from 'ng/services/path.find';
-import Log from 'core/infrastructure/log';
 
 class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	constructor($scope, $element) {
@@ -11,38 +10,12 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 
 		this.element = $element[0];
 		this.listener = new EventListener(this, this.element);
+		this.cellEdit = null;
 		Object.defineProperty($scope, '$view', {get: () => this.view});
-
-		let mode = 'view';
-		this.cellEdit = new Command({
-			canExecute: cell => {
-				const model = this.view.model;
-				if (mode !== 'edit' && model.edit().mode === 'cell') {
-					// use shouldn't explicitly set it in the template, cause we have here canEdit !== false
-					return cell.column.canEdit !== false;
-				}
-
-				return false;
-			},
-			execute: cell => {
-				Log.info('body.core', 'edit mode on');
-
-				mode = 'edit';
-				cell.mode(mode);
-			}
-		});
-
-		this.cellEditSubmit = new Command({
-			execute: cell => {
-				Log.info('body.core', 'edit mode off');
-
-				mode = 'view';
-				cell.mode(mode);
-			}
-		});
 	}
 
 	onInit() {
+		this.cellEdit = new CellEdit(this.view.model);
 		this.listener.on('click', this.onClick);
 	}
 
@@ -52,8 +25,8 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 
 	onClick(e) {
 		const cell = pathFinder.cell(e.path);
-		if (cell && this.cellEdit.canExecute(cell)) {
-			this.cellEdit.execute(cell);
+		if (cell && this.cellEdit.enter.canExecute(cell)) {
+			this.cellEdit.enter.execute(cell);
 		}
 	}
 }
