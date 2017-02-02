@@ -79,7 +79,7 @@ export default angular
 	.directive(def.STICKY_CORE_NAME, () => StickyCore)
 	.directive(def.INDETERMINATE_NAME, () => Indeterminate)
 	.directive(def.FOCUS_NAME, () => Focus)
-	.service(def.SERVICE_NAME, () => new GridService())
+	.factory(def.SERVICE_NAME, () => GridService)
 	.service(def.THEME_NAME, () => new Theme())
 	.service(def.TEMPLATE_PATH_NAME, () => () => TemplatePath)
 	.filter(def.RANGE_NAME, () => Range)
@@ -98,6 +98,7 @@ function Setup($templateCache) {
 	$templateCache.put('qgrid.toolbar.top.tpl.html', require('./components/toolbar/toolbar.top.html'));
 	$templateCache.put('qgrid.toolbar.bottom.tpl.html', require('./components/toolbar/toolbar.bottom.html'));
 	$templateCache.put('qgrid.toolbar.right.tpl.html', require('./components/toolbar/toolbar.right.html'));
+    $templateCache.put('qgrid.toolbar.left.tpl.html', require('./components/toolbar/toolbar.left.html'));
 
 	$templateCache.put('qgrid.head.pivot.cell.tpl.html', require('./components/pivot/head.pivot.cell.html'));
 	$templateCache.put('qgrid.body.pivot.cell.tpl.html', require('./components/pivot/body.pivot.cell.html'));
@@ -110,8 +111,6 @@ function Setup($templateCache) {
 	$templateCache.put('qgrid.head.text.cell.tpl.html', require('./components/head/head.text.cell.html'));
 	$templateCache.put('qgrid.body.text.cell.tpl.html', require('./components/body/body.text.cell.html'));
 	$templateCache.put('qgrid.foot.text.cell.tpl.html', require('./components/foot/foot.text.cell.html'));
-
-	$templateCache.put('qgrid.body.text.cell.edit.tpl.html', require('./components/body/body.text.cell.edit.html'));
 
 	$templateCache.put('qgrid.head.select.cell.tpl.html', require('./components/selection/head.select.cell.html'));
 	$templateCache.put('qgrid.body.select.cell.tpl.html', require('./components/selection/body.select.cell.html'));

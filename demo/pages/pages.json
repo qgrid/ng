@@ -82,5 +82,9 @@
 	{
 		"path": "sort",
 		"title": "Sort"
+	},
+	{
+		"path": "pipe",
+		"title": "Pipe"
 	}
 ]
