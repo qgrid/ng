@@ -1,4 +1,5 @@
 import Directive from '../directive';
+import Command from 'core/infrastructure/command';
 import {VIEW_CORE_NAME, SELECTION_CORE_NAME} from 'src/definition';
 
 class SelectionCore extends Directive(SELECTION_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
@@ -9,62 +10,68 @@ class SelectionCore extends Directive(SELECTION_CORE_NAME, {view: `^^${VIEW_CORE
 		this.$element = $element;
 		this.$attrs = $attrs;
 		
-		this.selectedItems = new Set();
+		this.selectionSet = new Set();
+
+		this.toggle = new Command({
+			execute: row => {
+				if (row) {
+					if (this.selectionSet.has(row)) {
+						this.selectionSet.delete(row);
+					} else {
+						this.selectionSet.add(row);
+					}
+					
+				} else {
+					if (this.state()) {
+						this.selectionSet.clear();
+					} else {
+						this.selectionSet = new Set(this.view.rows);
+					}
+				}
+
+				this.invalidate();
+			},
+			canExecute: () => {
+				return true;
+			}
+		});
 	}
 
 	onInit() {
 		this.view.model.dataChanged.on(e => {
 			if (e.changes.hasOwnProperty('rows')) {
-				this.selectedItems = new Set();
+				this.selectionSet.clear();
 			}
 		});
 
 		this.view.model.selectionChanged.on(e => {
 			if (e.changes.hasOwnProperty('items')) {
-				this.selectedItems = new Set(e.state.items);
+				let items = e.state.items;
+
+				this.selectionSet.clear();
+				items.forEach((item) => { this.selectionSet.add(item); });
 			}
 		});
 	}
 
 	state(row) {
 		if (!row) {
-			return this.selectedItems.size === this.view.rows.length;
+			return this.selectionSet.size === this.view.rows.length;
 		}
 
-		return this.selectedItems.has(row);
+		return this.selectionSet.has(row);
 	}
 
 	indeterminate() {
-		return this.selectedItems.size !== this.view.rows.length && this.selectedItems.size > 0;
+		return this.selectionSet.size !== this.view.rows.length && this.selectionSet.size > 0;
 	}
 
-	updateSelection() {
+	invalidate() {
 		const selection = this.view.model.selection;
 
 		selection({
-			items: Array.from(this.selectedItems)
+			items: Array.from(this.selectionSet)
 		});
-	}
-
-	toggle(row) {
-
-		if (this.selectedItems.has(row)) {
-			this.selectedItems.delete(row);
-		} else {
-			this.selectedItems.add(row);
-		}
-		
-		this.updateSelection();
-	}
-
-	toggleAll() {
-		if (this.state()) {
-			this.selectedItems.clear();
-		} else {
-			this.selectedItems = new Set(this.view.rows);
-		}
-
-		this.updateSelection();
 	}
 }
 
