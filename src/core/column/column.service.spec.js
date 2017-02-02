@@ -32,8 +32,8 @@ describe('column service', () => {
 			expect(find(columns, 'age')).to.be.eqls({key: 'age', title: 'Age'});
 		});
 
-		it('should throw an exception if is not found', () => {
-			expect(() => find(columns, 'missingKey')).to.throw(/missingKey is not found/);
+		it('should return null if key is not found', () => {
+			expect(find(columns, 'missingKey')).to.be.null;
 		});
 	});
 });

@@ -8,13 +8,13 @@ export default class GridService {
 	invalidate() {
 		const model = this.model;
 		const stages = model.data().pipe;
-		const ctx = {
+		const middleware = new Middleware(stages);
+		const context = {
 			model: model,
 			source: 'invalidate'
 		};
-		const middleware = new Middleware(stages);
 		middleware
-			.run(ctx, model.data().rows)
+			.run(context, model.data().rows)
 			.then(result => model.data({rows: result}));
 	}
 }

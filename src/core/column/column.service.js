@@ -1,5 +1,4 @@
 import {isFunction} from '../services/utility';
-import AppError from '../infrastructure/error';
 
 export function map(columns) {
 	return columns.reduce((memo, column) => {
@@ -15,12 +14,16 @@ export function getValue(column) {
 }
 
 export function find(columns, key) {
-	for (let i = 0, length = columns.length; i < length; i++) {
-		if (columns[i].key == key) {
-			return columns[i];
+	let length = columns.length;
+
+	while(length--) {
+		const column = columns[length];
+		if (column.key == key) {
+			return column;
 		}
 	}
-	throw new AppError('Not Found', `column ${key} is not found`);
+
+	return null;
 }
 
 export function dataView(columns, model) {
