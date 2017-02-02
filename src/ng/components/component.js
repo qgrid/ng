@@ -1,6 +1,7 @@
 export default class Component {
 	constructor() {
 		this.$onInit = this.onInitCore;
+		this.$onChanges = this.onChangeCore;
 		this.$onDestroy = this.onDestroyCore;
 	}
 
@@ -8,11 +9,18 @@ export default class Component {
 		this.onInit();
 	}
 
+	onChangeCore() {
+		this.onChange();
+	}
+
 	onDestroyCore() {
-		this.onDestroy()
+		this.onDestroy();
 	}
 
 	onInit() {
+	}
+
+	onChange() {
 	}
 
 	onDestroy() {

@@ -11,6 +11,8 @@ export default class ModelComponent extends Component {
 		this.binder = new ModelBinder(self);
 		this.commit = noop;
 
+		this.$onChanges = this.onChangeCore();
+
 		this.setup = () => this.binder.bind(this.model, names, false);
 	}
 
@@ -19,6 +21,11 @@ export default class ModelComponent extends Component {
 		this.commit();
 
 		super.onInitCore();
+	}
+
+	onChangeCore() {
+		this.commit();
+		super.onChangeCore();
 	}
 
 	onDestroyCore() {
