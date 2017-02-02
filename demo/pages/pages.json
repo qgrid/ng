@@ -74,5 +74,9 @@
 	{
 		"path": "column-pin",
 		"title": "Column pin"
+	},
+	{
+		"path": "pipe",
+		"title": "Pipe"
 	}
 ]
