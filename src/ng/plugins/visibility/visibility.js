@@ -14,10 +14,16 @@ TemplatePath
 class Visibility extends PluginComponent('qgrid.plugins.visibility.tpl.html') {
 	constructor() {
 		super(...arguments);
-		this.change = new Command({
+		this.toggle = new Command({
 			execute: key => true,
 			canExecute: () => true
 		});
+
+	}
+
+	get items() {
+		let data = this.model.visibility();
+		return data;
 	}
 
 	get resource() {
