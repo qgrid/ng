@@ -6,6 +6,7 @@ class FootCore extends Directive(FOOT_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 		super();
 
 		this.$scope = $scope;
+		Object.defineProperty($scope, '$view', {get: () => this.view});
 	}
 
 	onInit(){

@@ -108,6 +108,8 @@ function Setup($templateCache) {
 	$templateCache.put('qgrid.body.text.cell.tpl.html', require('./components/body/body.text.cell.html'));
 	$templateCache.put('qgrid.foot.text.cell.tpl.html', require('./components/foot/foot.text.cell.html'));
 
+	$templateCache.put('qgrid.body.text.cell.edit.tpl.html', require('./components/body/body.text.cell.edit.html'));
+
 	$templateCache.put('qgrid.head.select.cell.tpl.html', require('./components/selection/head.select.cell.html'));
 	$templateCache.put('qgrid.body.select.cell.tpl.html', require('./components/selection/body.select.cell.html'));
 	$templateCache.put('qgrid.foot.select.cell.tpl.html', EMPTY);

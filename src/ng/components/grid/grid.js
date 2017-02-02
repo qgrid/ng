@@ -2,7 +2,7 @@ import RootComponent from '../root.component';
 
 export class Grid extends RootComponent {
 	constructor($element, $transclude) {
-		super('data', 'selection', 'sort', 'group', 'pivot');
+		super('data', 'selection', 'sort', 'group', 'pivot', 'edit');
 
 		this.$element = $element;
 		this.$transclude = $transclude;
@@ -53,6 +53,7 @@ export default {
 		onSelectionChanged: '&',
 		groupBy: '<',
 		pivotBy: '<',
-		sortBy: '<'
+		sortBy: '<',
+		editMode: '<'
 	}
 };
