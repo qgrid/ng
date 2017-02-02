@@ -12,6 +12,7 @@ import ToolbarModel from 'core/toolbar/toolbar.model';
 import PaginationModel from 'core/pagination/pagination.model';
 import NodeModel from 'core/node/node.model';
 import VisibilityModel from 'core/visibility/visibility.model';
+import FilterModel from 'core/filter/filter.model';
 
 import ng from './ng';
 
@@ -27,6 +28,7 @@ Model.register('view', ViewModel)
 	.register('toolbar', ToolbarModel)
 	.register('pagination', PaginationModel)
 	.register('node', NodeModel)
-	.register('visibility', VisibilityModel);
+	.register('visibility', VisibilityModel)
+	.register('filter', FilterModel);
 
 export default ng;

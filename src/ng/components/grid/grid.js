@@ -14,7 +14,7 @@ export class Grid extends RootComponent {
 		let templateScope = null;
 		let invalidate = pipeInvalidateFactory(this.model);
 
-		const invalidateList = ['pagination', 'sort'];
+		const invalidateList = ['pagination', 'sort', 'filter'];
 
 		this.$transclude((clone, scope) => {
 			template = clone;
