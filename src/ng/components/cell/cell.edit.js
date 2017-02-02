@@ -1,4 +1,4 @@
-import Command from 'core/infrastructure/Command';
+import Command from 'core/infrastructure/command';
 import Log from 'core/infrastructure/log';
 import {set as setValue} from 'ng/services/value';
 
