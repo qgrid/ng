@@ -3,6 +3,10 @@
                          position="top"
                          class="dock-top">
     </q-grid-core:toolbar>
+    <q-grid-core:toolbar ng-if="$view.visibility.toolbar.left"
+                         position="left"
+                         class="dock-left">
+    </q-grid-core:toolbar>
     <div q-grid-core:viewport
          class="viewport dock-center">
         <table q-grid-core:table

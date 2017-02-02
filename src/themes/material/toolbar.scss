@@ -12,9 +12,14 @@
       }
     }
   }
-
   &.toolbar-bottom {
     height: 56px;
+  }
+  &.toolbar-left {
+    box-sizing: border-box;
+    float: left;
+    width: 200px;
+    padding: 0 20px;
   }
   &.toolbar-right {
     box-sizing: border-box;
