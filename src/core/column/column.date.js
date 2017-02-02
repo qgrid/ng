@@ -16,9 +16,11 @@ TemplatePath.register('date-cell-edit', (template, column) => {
 	};
 });
 
-class DateColumnModel extends DataColumnModel{
-	constructor(){
+class DateColumnModel extends DataColumnModel {
+	constructor() {
 		super('date');
+
+		this.format = 'yyyy/MM/dd';
 	}
 }
 

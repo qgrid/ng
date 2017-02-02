@@ -58,13 +58,12 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	}
 
 	setup() {
-		return this.$scope;
-		// if (this.$templateScope) {
-		// 	this.$templateScope.$destroy();
-		// }
-		//
-		// this.$templateScope = this.$scope.$new();
-		// return this.$templateScope;
+		if (this.$templateScope) {
+			this.$templateScope.$destroy();
+		}
+
+		this.$templateScope = this.$scope.$new();
+		return this.$templateScope;
 	}
 
 	get value() {
