@@ -1,5 +1,5 @@
 import Directive from '../directive';
-import TemplateCore from '../template/template.core';
+import TemplateLink from '../template/template.link';
 import cellBuilder from '../cell/cell.build';
 import {VIEW_CORE_NAME, TH_CORE_NAME} from 'src/definition';
 
@@ -9,14 +9,20 @@ class ThCore extends Directive(TH_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 
 		this.$element = $element;
 		this.$scope = $scope;
-		this.template = new TemplateCore($compile, $templateCache);
-
-		Object.defineProperty(this.$scope, '$view', {get: () => this.view});
+		this.template = new TemplateLink($compile, $templateCache);
 	}
 
 	onInit() {
-		const build = cellBuilder(this.template);
-		const link = build('head', this.view.model, this.column);
+		const model = this.view.model;
+		const column = this.column;
+		const cache = model.head().cache;
+		let link = cache.find(column.key);
+		if (!link) {
+			const build = cellBuilder(this.template);
+			link = build('head', this.view.model, this.column);
+			cache.set(column.key, link);
+		}
+
 		link(this.$element, this.$scope);
 	}
 

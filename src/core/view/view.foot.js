@@ -2,6 +2,7 @@ import View from './view';
 import * as columnService from 'core/column/column.service';
 import Aggregation from 'core/services/aggregation';
 import AppError from 'core/infrastructure/error';
+import Log from 'core/infrastructure/log';
 
 export default class FootView extends View {
 	constructor(model, valueFactory) {
@@ -15,6 +16,8 @@ export default class FootView extends View {
 	}
 
 	invalidate(model) {
+		Log.info('view.foot', 'invalidate');
+
 		const columns = model.view().columns;
 		this.columns = columnService.lineView(columns);
 		this.rows = new Array(this.count);

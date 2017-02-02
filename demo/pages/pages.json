@@ -16,8 +16,20 @@
 		"title": "Cell"
 	},
 	{
+		"path": "cell-edit",
+		"title": "Cell Edit"
+	},
+	{
 		"path": "column",
 		"title": "Column"
+	},
+	{
+		"path": "column-add",
+		"title": "Column Add"
+	},
+	{
+		"path": "column-pin",
+		"title": "Column pin"
 	},
 	{
 		"path": "row-index",
@@ -70,10 +82,6 @@
 	{
 		"path": "sort",
 		"title": "Sort"
-	},
-	{
-		"path": "column-pin",
-		"title": "Column pin"
 	},
 	{
 		"path": "pipe",

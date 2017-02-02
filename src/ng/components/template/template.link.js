@@ -1,6 +1,6 @@
 import AppError from 'core/infrastructure/error';
 
-export default class TemplateCore {
+export default class TemplateLink {
 	constructor($compile, $templateCache) {
 		this.$compile = $compile;
 		this.$templateCache = $templateCache;

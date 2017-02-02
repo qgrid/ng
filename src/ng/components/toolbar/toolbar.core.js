@@ -1,5 +1,5 @@
 import Component from '../component';
-import TemplateCore from '../template/template.core';
+import TemplateLink from '../template/template.link';
 import {VIEW_CORE_NAME} from 'src/definition';
 
 class ToolbarCore extends Component {
@@ -8,7 +8,7 @@ class ToolbarCore extends Component {
 
 		this.$element = $element;
 		this.$scope = $scope;
-		this.template = new TemplateCore($compile, $templateCache);
+		this.template = new TemplateLink($compile, $templateCache);
 	}
 
 	onInit() {

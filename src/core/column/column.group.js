@@ -1,5 +1,6 @@
 import ColumnView from 'core/view/view.column';
 import TemplatePath from 'core/template/template.path';
+import ColumnModel from './column.model';
 
 TemplatePath.register('group-cell', (template) => {
 	return {
@@ -8,16 +9,22 @@ TemplatePath.register('group-cell', (template) => {
 	};
 });
 
+class GroupColumnModel extends ColumnModel {
+	constructor() {
+		super('group');
+
+		this.key = '$group';
+		this.title = 'Group';
+		this.canEdit = false;
+	}
+}
+
 export default class GroupColumn extends ColumnView {
 	constructor(model) {
 		super(model);
 	}
 
 	static  model() {
-		return {
-			key: '$group',
-			type: 'group',
-			title: 'Group'
-		};
+		return new GroupColumnModel();
 	}
 }
