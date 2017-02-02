@@ -1,4 +1,4 @@
-import Directive from '../directive';
+import Directive from '../components/directive';
 import {INDETERMINATE_NAME} from 'src/definition';
 
 class Indeterminate extends Directive(INDETERMINATE_NAME) {

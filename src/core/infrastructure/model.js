@@ -2,6 +2,7 @@ import Event from './event';
 import {isObject, isFunction} from '../services/utility';
 import AppError from './error';
 import * as guard from './guard';
+import Log from 'core/infrastructure/log';
 
 const models = {};
 let close = false;
@@ -34,6 +35,7 @@ export default class Model {
 						const newValue = state[key];
 						const oldValue = model[key];
 						if (newValue !== oldValue) {
+							Log.info('model', `value changed - "${name}.${key}"`);
 							guard.notUndefined(newValue, `model.${name}.${key}`);
 
 							model[key] = newValue;

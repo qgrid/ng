@@ -11,6 +11,8 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 		super();
 
 		this.$scope = $scope;
+		Object.defineProperty($scope, '$view', {get: () => this.view});
+
 		this.drop = new Command({
 			canExecute: e => {
 				if (e.source.key === TH_CORE_NAME) {

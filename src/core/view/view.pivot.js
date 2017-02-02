@@ -2,6 +2,7 @@ import View from './view';
 import {map as getColumnMap} from 'core/column/column.service';
 import groupBuilder from 'core/group/group.build';
 import pivotBuilder from 'core/pivot/pivot.build';
+import Log from 'core/infrastructure/log';
 
 export default class PivotView extends View {
 	constructor(model, valueFactory) {
@@ -29,6 +30,8 @@ export default class PivotView extends View {
 	}
 
 	invalidate(model) {
+		Log.info('view.pivot', 'invalidate');
+
 		const pivot = model.view().pivot;
 		const pivotRows = pivot.rows;
 		if (pivotRows.length && model.group().by.length) {
