@@ -15,7 +15,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 		this.cellEdit = new Command({
 			canExecute: cell => this.view.model.edit().mode === 'cell',
 			execute: cell => {
-				alert('edit');
+				cell.mode('edit');
 			}
 		});
 	}
