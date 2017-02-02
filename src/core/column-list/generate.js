@@ -1,6 +1,6 @@
 import {startCase, isObject, isArray, isUndefined} from '../services/utility';
 
-export function generate(rows, deep, path='') {
+export function generate(rows, deep=true, path='') {
 	if (!rows || rows.length === 0) {
 		return [];
 	}
@@ -14,11 +14,11 @@ export function generate(rows, deep, path='') {
 
 		if (deep && isObject(source[prop])) {
 			if (isArray(source[prop])) {
+				const parts = path !== '' ? path.split('.') : [];
 				acc.push({
 					key: key,
 					title: startCase(prop),
 					value: (item) => {
-						const parts = path !== '' ? path.split('.') : [];
 						let accessor = item;
 						parts.forEach(part => {
 							accessor = accessor[part];
@@ -31,11 +31,11 @@ export function generate(rows, deep, path='') {
 				acc.push(...mergeColumns);
 			}
 		} else {
+			const parts = path !== '' ? path.split('.') : [];
 			acc.push({
 				key: key,
 				title: startCase(prop),
 				value: (item, value) => {
-					const parts = path !== '' ? path.split('.') : [];
 					let accessor = item;
 					parts.forEach(part => {
 						accessor = accessor[part];
