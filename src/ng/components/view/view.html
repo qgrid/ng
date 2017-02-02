@@ -1,32 +1,35 @@
-<q-grid-core:toolbar ng-if="$view.visibility.toolbar.top"
-                     position="top">
-</q-grid-core:toolbar>
-<div class="flexible">
+<div class="wrapper">
+	<q-grid-core:toolbar ng-if="$view.visibility.toolbar.top"
+								position="top"
+								class="dock-top">
+	</q-grid-core:toolbar>
 	<div q-grid-core:viewport
-	     class="viewport">
+		  class="viewport">
 		<table q-grid-core:table
-		       q-grid-core:selection
-		       class="mode-{{$view.mode}}">
+				 q-grid-core:selection
+				 class="mode-{{$view.mode}}">
 			<thead ng-if="$view.visibility.head"
-			       q-grid-core:head
-			       q-grid-core:sticky
-			       ng-include="$view.templateUrl('head')">
+					 q-grid-core:head
+					 q-grid-core:sticky
+					 ng-include="$view.templateUrl('head')">
 			</thead>
 			<tfoot ng-if="$view.visibility.foot"
-			       q-grid-core:foot
-			       q-grid-core:sticky
-			       ng-include="$view.templateUrl('foot')">
+					 q-grid-core:foot
+					 q-grid-core:sticky
+					 ng-include="$view.templateUrl('foot')">
 			</tfoot>
 			<tbody ng-if="$view.visibility.body"
-			       q-grid-core:body
-			       ng-include="$view.templateUrl('body')">
+					 q-grid-core:body
+					 ng-include="$view.templateUrl('body')">
 			</tbody>
 		</table>
 	</div>
 	<q-grid-core:toolbar ng-if="$view.visibility.toolbar.right"
-	                     position="right">
+								position="right"
+								class="dock-right">
+	</q-grid-core:toolbar>
+	<q-grid-core:toolbar ng-if="$view.visibility.toolbar.bottom"
+								position="bottom"
+								class="dock-bottom">
 	</q-grid-core:toolbar>
 </div>
-<q-grid-core:toolbar ng-if="$view.visibility.toolbar.bottom"
-                     position="bottom">
-</q-grid-core:toolbar>
