@@ -18,6 +18,10 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	}
 
 	mode(value) {
+		const model = this.view.model;
+		const column = this.column;
+		const cache = model.body().cache;
+
 		switch (value) {
 			case 'init':
 			case 'view': {
@@ -25,9 +29,6 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 					this.clear();
 				}
 
-				const model = this.view.model;
-				const column = this.column;
-				const cache = model.body().cache;
 				let link = cache.find(column.key);
 				if (!link) {
 					const build = cellBuilder(this.template);
@@ -41,9 +42,6 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 			case 'edit': {
 				this.clear();
 
-				const model = this.view.model;
-				const column = this.column;
-				const cache = model.body().cache;
 				let link = cache.find(`${column.key}.edit`);
 				if (!link) {
 					const build = cellBuilder(this.template, 'edit');
@@ -55,15 +53,13 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 			}
 				break;
 			default:
-				throw new AppError(
-					'td.core',
-					`Invalid mode ${value}`
-				)
+				throw new AppError('td.core', `Invalid mode ${value}`);
 		}
 	}
 
 	clear() {
-
+		// TODO: do we need  to create own scope for each td-core?
+		// just to have possibility to destroy it
 	}
 
 	get value() {
