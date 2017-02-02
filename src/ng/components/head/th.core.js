@@ -1,6 +1,7 @@
 import Directive from '../directive';
-import {VIEW_CORE_NAME, TH_CORE_NAME} from 'src/definition';
 import TemplateCore from '../template/template.core';
+import cellBuilder from '../cell/cell.build';
+import {VIEW_CORE_NAME, TH_CORE_NAME} from 'src/definition';
 
 class ThCore extends Directive(TH_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	constructor($scope, $element, $compile, $templateCache) {
@@ -14,14 +15,8 @@ class ThCore extends Directive(TH_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	}
 
 	onInit() {
-		const state = this.view.model.head();
-		const key = this.column.key;
-		const link = this.template.link(
-			'qgrid.head.cell.tpl.html',
-			state.resource,
-			key
-		);
-
+		const build = cellBuilder(this.template);
+		const link = build('head', this.view.model, this.column);
 		link(this.$element, this.$scope);
 	}
 

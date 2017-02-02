@@ -14,7 +14,7 @@ export default class TemplateCore {
 				? resourceData['$default']
 				: this.$templateCache.get(templateUrl);
 
-		return (element, scope) => {
+		return (element, scope/*, type*/) => {
 			const resourceScope = resource.scope;
 			for (let name of Object.keys(resourceScope)) {
 				if (scope.hasOwnProperty(name)) {

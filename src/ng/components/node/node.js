@@ -1,5 +1,14 @@
 import ModelComponent from '../model.component';
-import {GRID_NAME} from 'src/definition';
+import {GRID_NAME, NODE_NAME} from 'src/definition';
+import TemplatePath from 'core/template/template.path';
+
+TemplatePath
+	.register(NODE_NAME, () => {
+		return {
+			model: 'node',
+			resource: 'content'
+		};
+	});
 
 class Node extends ModelComponent {
 	constructor() {

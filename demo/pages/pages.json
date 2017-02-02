@@ -70,5 +70,9 @@
 	{
 		"path": "sort",
 		"title": "Sort"
+	},
+	{
+		"path": "column-pin",
+		"title": "Column pin"
 	}
 ]

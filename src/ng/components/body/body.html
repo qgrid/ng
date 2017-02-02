@@ -1,6 +1,6 @@
 <tr ng-repeat="$row in $view.body.rows track by $index">
-	<td ng-repeat="$column in $view.body.columns track by $index"
-		 ng-class="$column.model.key"
+	<td ng-repeat="$column in $view.body.columns track by $column.model.key"
+		 ng-class="[$column.model.key, $column.model.type]"
 		 q-grid-core:td>
 	</td>
 </tr>

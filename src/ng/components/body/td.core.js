@@ -1,6 +1,6 @@
 import Directive from '../directive';
 import TemplateCore from '../template/template.core';
-import {get as getValue} from 'ng/services/value';
+import cellBuilder from '../cell/cell.build';
 import {VIEW_CORE_NAME, TD_CORE_NAME} from 'src/definition';
 
 class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
@@ -15,21 +15,15 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	}
 
 	onInit() {
-		const state = this.view.model.body();
-		const key = this.column.key;
-		const link = this.template.link(
-			'qgrid.body.cell.tpl.html',
-			state.resource,
-			key
-		);
-
+		const build = cellBuilder(this.template);
+		const link = build('body', this.view.model, this.column);
 		link(this.$element, this.$scope);
 	}
 
 	get value() {
 		const column = this.column;
 		const row = this.row;
-		return getValue(row, column);
+		return this.view.body.value(row, column);
 	}
 
 	get rowIndex() {

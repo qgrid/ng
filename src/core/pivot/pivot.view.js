@@ -70,9 +70,9 @@ export default function view(source, comparator) {
 	if (source.schema && source.data) {
 		const schema = sortSchema(source.schema, comparator);
 		const rows = source.data.map(row => injectData(schema, row, expandData(schema, row)));
-		const headers = liftSchema(schema);
-		return {headers, rows};
+		const heads = liftSchema(schema);
+		return {heads, rows};
 	}
 
-	return source;
+	return {heads: [], rows: []};
 }

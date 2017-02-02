@@ -1,8 +1,8 @@
 <tr ng-repeat="$row in $view.foot.rows track by $index">
-	<th ng-repeat="$column in $row.columns track by $index"
-		 ng-class="$column.model.key"
+	<td ng-repeat="$column in $view.foot.columns track by $column.model.key"
+		 ng-class="[$column.model.key, $column.model.type]"
 		 rowspan="{{$column.rowspan}}"
 		 colspan="{{$column.colspan}}"
 		 q-grid-core:tf>
-	</th>
+	</td>
 </tr>
