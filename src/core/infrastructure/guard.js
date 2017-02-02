@@ -1,5 +1,5 @@
 import AppError from  './error';
-import {isUndefined} from '../services/utility';
+import {isUndefined, isFunction} from '../services/utility';
 
 /**
  * If value is undefined exception will be thrown
@@ -32,5 +32,16 @@ export function notNull(value, name){
 export function notNullOrEmpty(value, name){
 	if (value === null || isUndefined(value) || value === '') {
 		throw new AppError('guard.notNullOrEmpty', name);
+	}
+}
+
+/**
+ * If value is not a function exception will be thrown
+ * @param {any} value - Value to check
+ * @param {string} name - Argument name
+ */
+export function invokable(value, name){
+	if (!isFunction(value)) {
+		throw new AppError('guard.invokable', name);
 	}
 }

@@ -6,6 +6,7 @@ import isUndefined from 'lodash/isUndefined';
 import debounce from 'lodash/debounce';
 import merge from 'lodash/merge';
 import flatten from 'lodash/flatten';
+import orderBy from 'lodash/orderBy';
 import startCase from 'lodash/startCase';
 
 const noop = () => {};
@@ -40,5 +41,6 @@ export {
 	yes,
 	no,
 	toCamelCase,
-	noop
+	noop,
+	orderBy
 };

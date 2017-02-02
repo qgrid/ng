@@ -1,13 +1,32 @@
 @import "variables";
 
 .viewport {
-	max-height: calc(100% - 120px);
-	overflow: auto;
-	font-family: $font-family;
+  overflow: auto;
+  font-family: $font-family;
 
-	table {
-		width: 100%;
-		border-spacing: 0;
-		overflow: hidden;
-	}
+  table {
+    width: 100%;
+    border-spacing: 0;
+    overflow: hidden;
+  }
+}
+
+.view {
+  height: calc(100% - 120px);
+  display: flex;
+  flex-flow: row wrap;
+  .dock {
+    &-center {
+      flex-flow: row wrap;
+      flex: 1 60%;
+    }
+    &-top,
+    &-bottom {
+      flex: 1 100%;
+    }
+    &-right,
+    &-left {
+      flex: 1 0 0;
+    }
+  }
 }
