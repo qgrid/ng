@@ -9,7 +9,7 @@ class ThCore extends Directive(TH_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 
 		this.$element = $element;
 		this.$scope = $scope;
-		this.template = new TemplateCore($compile, $templateCache);
+		this.template = new TemplateLink($compile, $templateCache);
 	}
 
 	onInit() {

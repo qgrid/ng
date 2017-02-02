@@ -24,7 +24,13 @@ export default class ModelBinder {
 
 				const state = model[name];
 				if (run) {
-					doBind({changes: state()});
+					const value = state();
+					doBind({
+						changes: {
+							newValue: value,
+							oldValue: value
+						}
+					});
 				}
 
 				this.off = model[name + 'Changed'].on(doBind);

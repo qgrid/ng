@@ -24,6 +24,14 @@
 		"title": "Column"
 	},
 	{
+		"path": "column-add",
+		"title": "Column Add"
+	},
+	{
+		"path": "column-pin",
+		"title": "Column pin"
+	},
+	{
 		"path": "row-index",
 		"title": "Row Index"
 	},
@@ -74,9 +82,5 @@
 	{
 		"path": "sort",
 		"title": "Sort"
-	},
-	{
-		"path": "column-pin",
-		"title": "Column pin"
 	}
 ]
