@@ -1,7 +1,7 @@
 import ModelComponent from 'ng/components/model.component';
 import AppError from 'core/infrastructure/error';
 import {merge} from 'core/services/utility';
-import TemplateCore from 'ng/components/template/template.link';
+import TemplateLink from 'ng/components/template/template.link';
 import {VIEW_CORE_NAME, GRID_NAME} from 'src/definition';
 
 export default function (templateUrl = '', modelNames = []) {
@@ -16,7 +16,7 @@ export default function (templateUrl = '', modelNames = []) {
 
 			this.$scope = $scope;
 			this.$element = $element;
-			this.template = new TemplateCore($compile, $templateCache);
+			this.template = new TemplateLink($compile, $templateCache);
 		}
 
 		onInitCore() {
