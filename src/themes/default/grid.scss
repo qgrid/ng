@@ -1,7 +1,6 @@
 @import "variables";
 
 .viewport {
-  max-height: calc(50vh - 160px);
   overflow: auto;
   font-family: $font-family;
 
@@ -13,9 +12,21 @@
 }
 
 .wrapper {
+  height: calc(100% - 120px);
   display: flex;
   flex-flow: row wrap;
-  .viewport {
-    flex: 3 0 auto;
+  .dock {
+    &-center {
+      flex-flow: row wrap;
+      flex: 1 60%;
+    }
+    &-top,
+    &-bottom {
+      flex: 1 100%;
+    }
+    &-right,
+    &-left {
+      flex: 1 0 0;
+    }
   }
 }
