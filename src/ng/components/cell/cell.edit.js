@@ -4,12 +4,12 @@ import {set as setValue} from 'ng/services/value';
 
 export default class CellEdit {
 	constructor(model) {
-		let mode = 'view';
+		this.mode = 'view';
 		this._value = null;
 
 		this.enter = new Command({
 			canExecute: cell => {
-				if (mode !== 'edit' && model.edit().mode === 'cell') {
+				if (this.mode !== 'edit' && model.edit().mode === 'cell') {
 					// use shouldn't explicitly set it in the template, cause we have here canEdit !== false
 					return cell.column.canEdit !== false;
 				}
@@ -19,9 +19,9 @@ export default class CellEdit {
 			execute: cell => {
 				Log.info('cell.edit', 'edit mode');
 
-				mode = 'edit';
+				this.mode = 'edit';
 				this.value = cell.value;
-				cell.mode(mode);
+				cell.mode(this.mode);
 			}
 		});
 
@@ -33,9 +33,9 @@ export default class CellEdit {
 				const row = cell.row;
 				setValue(row, column, this.value);
 
-				mode = 'view';
+				this.mode = 'view';
 				this.value = null;
-				cell.mode(mode);
+				cell.mode(this.mode);
 			}
 		});
 
@@ -43,9 +43,9 @@ export default class CellEdit {
 			execute: cell => {
 				Log.info('cell.edit', 'cancel');
 
-				mode = 'view';
+				this.mode = 'view';
 				this.value = null;
-				cell.mode(mode);
+				cell.mode(this.mode);
 			}
 		});
 
@@ -54,7 +54,7 @@ export default class CellEdit {
 				Log.info('cell.edit', 'reset');
 
 				this.value = cell.value;
-				cell.mode(mode);
+				cell.mode(this.mode);
 			}
 		});
 	}
