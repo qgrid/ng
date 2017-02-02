@@ -1,4 +1,4 @@
-import Middleware from '../pipe/pipe.middleware';
+import {pipeInvalidateFactory} from '../pipe/pipe.invalidate.factory';
 
 export default class GridService {
 	constructor(model) {
@@ -6,15 +6,6 @@ export default class GridService {
 	}
 
 	invalidate() {
-		const model = this.model;
-		const stages = model.data().pipe;
-		const middleware = new Middleware(stages);
-		const context = {
-			model: model,
-			source: 'invalidate'
-		};
-		middleware
-			.run(context, model.data().rows)
-			.then(result => model.data({rows: result}));
+		pipeInvalidateFactory(this.model)('invalidate');
 	}
 }
