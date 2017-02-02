@@ -16,6 +16,10 @@
 		"title": "Cell"
 	},
 	{
+		"path": "cell-edit",
+		"title": "Cell Edit"
+	},
+	{
 		"path": "column",
 		"title": "Column"
 	},
