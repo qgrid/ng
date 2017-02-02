@@ -13,8 +13,12 @@ export default class Sticky {
 		this.scrollView = scrollView;
 		this.origin = origin;
 		this.invalidated = new Event();
-		this.element = build(this, withClone);
-		this._unbuild = unbuildFactory(this, withClone);
+		const builder = build(this, withClone);
+		this.element = builder.element;
+		this.destroy = () => {
+			builder.destroy();
+			css(this.scrollView, 'margin-top', '');
+		};
 	}
 
 	invalidateHeight() {
@@ -29,11 +33,6 @@ export default class Sticky {
 	scrollSync() {
 		this.element.scrollLeft = this.scrollView.scrollLeft;
 	}
-	
-	destroy() {
-		this._unbuild();
-		css(this.scrollView, 'margin-top', '');
-	}
 }
 
 function build(sticky, withClone) {
@@ -46,11 +45,7 @@ function build(sticky, withClone) {
 	css(cloned, 'position', 'absolute');
 	css(cloned, 'overflow-x', 'hidden');
 
-	return cloned;
-}
-
-function unbuildFactory(sticky, withClone) {
-	return withClone ? () => {
+	const destroy = withClone ? () => {
 		if (sticky.element !== null) {
 			sticky.element.remove();
 			sticky.element = null;
@@ -64,5 +59,10 @@ function unbuildFactory(sticky, withClone) {
 		sticky.element.classList.remove('sticky');
 		css(sticky.element, 'position', null);
 		css(sticky.element, 'overflow-x', null);
+	};
+
+	return {
+		element: cloned,
+		destroy: destroy
 	};
 }
