@@ -41,6 +41,6 @@ export default {
 	controller: ColumnList,
 	bindings: {
 		generate: '<',
-		generateMode: '<'
+		generateMode: '@'
 	}
 };

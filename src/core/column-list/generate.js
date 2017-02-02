@@ -1,4 +1,4 @@
-import {startCase, isObject, isArray} from '../services/utility';
+import {startCase, isObject, isArray, isUndefined} from '../services/utility';
 
 export function generate(rows, deep, path='') {
 	if (!rows || rows.length === 0) {
@@ -23,7 +23,7 @@ export function generate(rows, deep, path='') {
 						parts.forEach(part => {
 							accessor = accessor[part];
 						});
-						return accessor[prop].join('\n');
+						return accessor[prop].join('; ');
 					}
 				});
 			} else {
@@ -34,13 +34,17 @@ export function generate(rows, deep, path='') {
 			acc.push({
 				key: key,
 				title: startCase(prop),
-				value: (item) => {
+				value: (item, value) => {
 					const parts = path !== '' ? path.split('.') : [];
 					let accessor = item;
 					parts.forEach(part => {
 						accessor = accessor[part];
 					});
-					return accessor[prop];
+					if (!isUndefined(value)) {
+						accessor[prop] = value;
+					} else {
+						return accessor[prop];
+					}
 				}
 			});
 		}
