@@ -8,8 +8,9 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	constructor($scope, $element, $compile, $templateCache) {
 		super();
 
-		this.$element = $element;
 		this.$scope = $scope;
+		this.$element = $element;
+		this.$templateScope = null;
 		this.template = new TemplateLink($compile, $templateCache);
 	}
 
@@ -20,15 +21,12 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	mode(value) {
 		const model = this.view.model;
 		const column = this.column;
+		const templateScope = this.setup();
 		const cache = model.body().cache;
 
 		switch (value) {
 			case 'init':
 			case 'view': {
-				if (value === 'view') {
-					this.clear();
-				}
-
 				let link = cache.find(column.key);
 				if (!link) {
 					const build = cellBuilder(this.template);
@@ -36,12 +34,10 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 					cache.set(column.key, link);
 				}
 
-				link(this.$element, this.$scope);
+				link(this.$element, templateScope);
 				break;
 			}
 			case 'edit': {
-				this.clear();
-
 				let link = cache.find(`${column.key}.edit`);
 				if (!link) {
 					const build = cellBuilder(this.template, 'edit');
@@ -49,7 +45,7 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 					cache.set(`${column.key}.edit`, link);
 				}
 
-				link(this.$element, this.$scope);
+				link(this.$element, templateScope);
 			}
 				break;
 			default:
@@ -57,9 +53,14 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 		}
 	}
 
-	clear() {
-		// TODO: do we need  to create own scope for each td-core?
-		// just to have possibility to destroy it
+	setup() {
+		return this.$scope;
+		// if (this.$templateScope) {
+		// 	this.$templateScope.$destroy();
+		// }
+		//
+		// this.$templateScope = this.$scope.$new();
+		// return this.$templateScope;
 	}
 
 	get value() {

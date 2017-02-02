@@ -3,6 +3,7 @@ import {VIEW_CORE_NAME, BODY_CORE_NAME} from 'src/definition';
 import EventListener from 'core/infrastructure/event.listener';
 import Command from 'core/infrastructure/Command';
 import * as pathFinder from 'ng/services/path.find';
+import Log from 'core/infrastructure/log';
 
 class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	constructor($scope, $element) {
@@ -23,12 +24,16 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 				return false;
 			},
 			execute: cell => {
+				Log.info('body.core', 'edit mode on');
+
 				cell.mode('edit');
 			}
 		});
 
 		this.cellEditSubmit = new Command({
 			execute: cell => {
+				Log.info('body.core', 'edit mode off');
+
 				cell.mode('view');
 			}
 		});
