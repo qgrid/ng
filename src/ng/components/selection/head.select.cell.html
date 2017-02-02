@@ -2,5 +2,7 @@
 	<input type="checkbox"
 			 q-grid:indeterminate="{{$selection.indeterminate()}}"
 			 ng-checked="$selection.state()"
-			 ng-click="$selection.toggleAll()"/>
+			 ng-click="$selection.toggle.execute()"
+			 ng-disabled="!$selection.toggle.canExecute()"
+			 />
 </label>
