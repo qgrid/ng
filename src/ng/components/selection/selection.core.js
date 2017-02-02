@@ -20,10 +20,9 @@ class SelectionCore extends Directive(SELECTION_CORE_NAME, {view: `^^${VIEW_CORE
 					} else {
 						this.selectionSet.add(row);
 					}
-					
 				} else {
 					if (this.state()) {
-						this.selectionSet.clear();
+						this.selectionSet = new Set();
 					} else {
 						this.selectionSet = new Set(this.view.rows);
 					}
@@ -40,16 +39,13 @@ class SelectionCore extends Directive(SELECTION_CORE_NAME, {view: `^^${VIEW_CORE
 	onInit() {
 		this.view.model.dataChanged.on(e => {
 			if (e.changes.hasOwnProperty('rows')) {
-				this.selectionSet.clear();
+				this.selectionSet = new Set();
 			}
 		});
 
 		this.view.model.selectionChanged.on(e => {
 			if (e.changes.hasOwnProperty('items')) {
-				let items = e.state.items;
-
-				this.selectionSet.clear();
-				items.forEach((item) => { this.selectionSet.add(item); });
+				this.selectionSet = new Set(e.state.items);
 			}
 		});
 	}
