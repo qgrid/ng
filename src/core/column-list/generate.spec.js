@@ -9,8 +9,12 @@ describe('column generate', () => {
 		expect(generate([])).to.eql([]);
 	});
 
-	it('should prettify keys of passed object', () => {
-		
-		expect(generate()).to.be.false;
+	it('should return prettified keys of passed rows', () => {
+		const rows = [{
+			lastName: 'Doe',
+			firstName: 'John',
+			birthday: '1/1/1970'
+		}];
+		expect(generate(rows)).to.eql(['Last Name', 'First Name', 'Birthday']);
 	});
 });

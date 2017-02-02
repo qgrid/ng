@@ -74,5 +74,9 @@
 	{
 		"path": "column-pin",
 		"title": "Column pin"
+	},
+	{
+		"path": "column-auto",
+		"title": "Column auto"
 	}
 ]

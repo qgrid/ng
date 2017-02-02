@@ -1,10 +1,12 @@
 import isObject from 'lodash/isObject';
 import isFunction from 'lodash/isFunction';
+import isArray from 'lodash/isArray';
 import clone from 'lodash/clone';
 import isUndefined from 'lodash/isUndefined';
 import debounce from 'lodash/debounce';
 import merge from 'lodash/merge';
 import flatten from 'lodash/flatten';
+import startCase from 'lodash/startCase';
 
 const noop = () => {};
 const yes = () => true;
@@ -27,11 +29,13 @@ const toCamelCase = (...names) => {
 export {
 	isObject,
 	isFunction,
+	isArray,
 	isUndefined,
 	clone,
 	debounce,
 	merge,
 	flatten,
+	startCase,
 	identity,
 	yes,
 	no,
