@@ -17,7 +17,8 @@ export default class GroupColumn extends ColumnView {
 		return {
 			key: '$group',
 			type: 'group',
-			title: 'Group'
+			title: 'Group',
+			isVisible: true
 		};
 	}
 }

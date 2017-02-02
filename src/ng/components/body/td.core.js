@@ -1,5 +1,5 @@
 import Directive from '../directive';
-import TemplateCore from '../template/template.core';
+import TemplateLink from '../template/template.link';
 import cellBuilder from '../cell/cell.build';
 import {VIEW_CORE_NAME, TD_CORE_NAME} from 'src/definition';
 
@@ -13,8 +13,16 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	}
 
 	onInit() {
-		const build = cellBuilder(this.template);
-		const link = build('body', this.view.model, this.column);
+		const model = this.view.model;
+		const column = this.column;
+		const cache = model.body().cache;
+		let link = cache.find(column.key);
+		if (!link) {
+			const build = cellBuilder(this.template);
+			link = build('body', model, column);
+			cache.set(column.key, link);
+		}
+
 		link(this.$element, this.$scope);
 	}
 
