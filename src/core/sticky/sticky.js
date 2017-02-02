@@ -1,5 +1,4 @@
 import {css} from '../services/dom';
-import * as observe from '../services/dom.observe';
 import Event from '../infrastructure/event';
 
 export default class Sticky {
@@ -15,6 +14,7 @@ export default class Sticky {
 		this.origin = origin;
 		this.invalidated = new Event();
 		this.element = build(this, withClone);
+		this._unbuild = unbuildFactory(this, withClone);
 	}
 
 	invalidateHeight() {
@@ -31,10 +31,7 @@ export default class Sticky {
 	}
 	
 	destroy() {
-		if (this.element !== null) {
-			this.element.remove();
-			this.element = null;
-		}
+		this._unbuild();
 		css(this.scrollView, 'margin-top', '');
 	}
 }
@@ -49,20 +46,23 @@ function build(sticky, withClone) {
 	css(cloned, 'position', 'absolute');
 	css(cloned, 'overflow-x', 'hidden');
 
-	observe.style(sticky.origin)
-		.on(e => {
-			if (!e.oldValue || e.oldValue.width !== e.newValue.width) {
-				setTimeout(() => sticky.invalidate(), 0);
-			}
-		});
-
-	observe.className(sticky.scrollView)
-		.on(e => {
-			if ((e.oldValue || e.oldValue === '')
-				&& e.oldValue !== e.newValue) {
-				setTimeout(() => sticky.invalidate(), 0);
-			}
-		});
-
 	return cloned;
+}
+
+function unbuildFactory(sticky, withClone) {
+	return withClone ? () => {
+		if (sticky.element !== null) {
+			sticky.element.remove();
+			sticky.element = null;
+		}
+	}
+	: () => {
+		if (sticky.origin !== null) {
+			sticky.origin.remove();
+			sticky.origin = null;
+		}
+		sticky.element.classList.remove('sticky');
+		css(sticky.element, 'position', null);
+		css(sticky.element, 'overflow-x', null);
+	};
 }
