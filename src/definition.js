@@ -38,9 +38,11 @@ export const VISIBILITY_NAME = `${GRID}Visibility`;
 export const DRAG_NAME = `${GRID}Drag`;
 export const DROP_NAME = `${GRID}Drop`;
 export const SELECTION_NAME = `${GRID}Selection`;
-export const INDETERMINATE_NAME = `${GRID}Indeterminate`;
 
 export const CAN_DROP_NAME = `${GRID}CanDrop`;
 export const CAN_DRAG_NAME = `${GRID}CanDrag`;
 export const DROP_EFFECT_NAME = `${GRID}DropEffect`;
 export const ON_DROP_NAME = `${GRID}OnDrop`;
+
+export const INDETERMINATE_NAME = `${GRID}Indeterminate`;
+export const FOCUS_NAME = `${GRID}Focus`;

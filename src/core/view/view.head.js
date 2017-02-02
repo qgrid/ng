@@ -1,7 +1,7 @@
 import View from './view';
 import columnFactory from 'core/column/column.factory';
 import * as columnService from 'core/column/column.service';
-
+import Log from 'core/infrastructure/log';
 
 export default class HeadView extends View {
 	constructor(model) {
@@ -77,6 +77,8 @@ export default class HeadView extends View {
 	}
 
 	invalidate(model) {
+		Log.info('view.head', 'invalidate');
+
 		const columns = model.view().columns;
 		this.rows = columns;
 	}

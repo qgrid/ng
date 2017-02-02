@@ -3,6 +3,7 @@ import HeadView from './view.head';
 import BodyView from './view.body';
 import GroupView from './view.group';
 import PivotView from './view.pivot';
+import Log from 'core/infrastructure/log';
 
 export default class GridView extends View {
 	constructor(model, valueFactory) {
@@ -34,8 +35,10 @@ export default class GridView extends View {
 	}
 
 	invalidate(context = {}) {
+		Log.info('view.grid', 'invalidate');
+
 		const model = this.model;
-		const valueFactory  = this.valueFactory;
+		const valueFactory = this.valueFactory;
 
 		model.head().cache.clear();
 		model.body().cache.clear();
