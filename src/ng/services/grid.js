@@ -3,18 +3,15 @@ import GridService from 'core/services/grid';
 import Pipe from 'core/pipe/pipe';
 
 export default class Grid {
-	constructor() {
-	}
-
-	model() {
+	static model() {
 		return new Model();
 	}
 
-	service(model) {
+	static service(model) {
 		return new GridService(model);
 	}
 
-	get pipe() {
+	static get pipe() {
 		return Pipe;
 	}
 }

@@ -76,7 +76,7 @@ export default angular
 	.directive(def.SORT_CORE_NAME, () => SortCore)
 	.directive(def.STICKY_CORE_NAME, () => StickyCore)
 	.directive(def.INDETERMINATE_NAME, () => Indeterminate)
-	.service(def.SERVICE_NAME, () => new GridService())
+	.factory(def.SERVICE_NAME, () => GridService)
 	.service(def.THEME_NAME, () => new Theme())
 	.service(def.TEMPLATE_PATH_NAME, () => () => TemplatePath)
 	.filter(def.RANGE_NAME, () => Range)
