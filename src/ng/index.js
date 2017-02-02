@@ -98,6 +98,7 @@ function Setup($templateCache) {
 	$templateCache.put('qgrid.toolbar.top.tpl.html', require('./components/toolbar/toolbar.top.html'));
 	$templateCache.put('qgrid.toolbar.bottom.tpl.html', require('./components/toolbar/toolbar.bottom.html'));
 	$templateCache.put('qgrid.toolbar.right.tpl.html', require('./components/toolbar/toolbar.right.html'));
+    $templateCache.put('qgrid.toolbar.left.tpl.html', require('./components/toolbar/toolbar.left.html'));
 
 	$templateCache.put('qgrid.head.pivot.cell.tpl.html', require('./components/pivot/head.pivot.cell.html'));
 	$templateCache.put('qgrid.body.pivot.cell.tpl.html', require('./components/pivot/body.pivot.cell.html'));
