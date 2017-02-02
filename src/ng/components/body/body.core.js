@@ -13,10 +13,11 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 		this.listener = new EventListener(this, this.element);
 		Object.defineProperty($scope, '$view', {get: () => this.view});
 
+		let mode = 'view';
 		this.cellEdit = new Command({
 			canExecute: cell => {
 				const model = this.view.model;
-				if (model.edit().mode === 'cell') {
+				if (mode !== 'edit' && model.edit().mode === 'cell') {
 					// use shouldn't explicitly set it in the template, cause we have here canEdit !== false
 					return cell.column.canEdit !== false;
 				}
@@ -26,7 +27,8 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 			execute: cell => {
 				Log.info('body.core', 'edit mode on');
 
-				cell.mode('edit');
+				mode = 'edit';
+				cell.mode(mode);
 			}
 		});
 
@@ -34,7 +36,8 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 			execute: cell => {
 				Log.info('body.core', 'edit mode off');
 
-				cell.mode('view');
+				mode = 'view';
+				cell.mode(mode);
 			}
 		});
 	}

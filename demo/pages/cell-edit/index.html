@@ -1,4 +1,16 @@
 <q-grid columns="$ctrl.columns"
 		  rows="$ctrl.rows"
 		  edit-mode="'cell'">
+	<q-grid:columns>
+		<q-grid:column key="name.first">
+			<q-grid:template for="edit">
+				<input type="text"
+						 style="border-color: #ff0;"
+						 ng-blur="$body.cellEditSubmit.execute($cell)"
+						 ng-model="$cell.value"
+						 tabindex="0"
+						 autofocus/>
+			</q-grid:template>
+		</q-grid:column>
+	</q-grid:columns>
 </q-grid>

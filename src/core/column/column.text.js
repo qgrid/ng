@@ -9,12 +9,18 @@ TemplatePath.register('text-cell', (template, column) => {
 	};
 });
 
+TemplatePath.register('text-cell-edit', (template, column) => {
+	return {
+		model: 'edit',
+		resource: column.key
+	};
+});
+
 class TextColumnModel extends DataColumnModel{
 	constructor(){
 		super('text');
 	}
 }
-
 
 export default class TextColumn extends ColumnView {
 	constructor(model) {
