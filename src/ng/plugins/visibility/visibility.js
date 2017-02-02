@@ -3,6 +3,8 @@ import Command from 'core/infrastructure/command';
 import Node from 'core/node/node'
 import {VISIBILITY_NAME} from 'src/definition';
 import TemplatePath from 'core/template/template.path';
+import {isObject} from 'core/services/utility';
+
 
 TemplatePath
 	.register(VISIBILITY_NAME, () => {
@@ -23,14 +25,14 @@ class Visibility extends PluginComponent('qgrid.plugins.visibility.tpl.html') {
 					this.model.visibility()[key] = !this.model.visibility()[key];
 				}
 			},
-			canExecute: (key) => typeof this.model.visibility()[key] != "object"
+			canExecute: (key) => !isObject(this.model.visibility()[key])
 		});
-		this.iterate = (obj) => {
+		this.build = (graph) => {
 			let nodes = [];
-			for (let [property, value] of Object.entries(obj)) {
-				let node = new Node(property);
-				if (typeof obj[property] == "object") {
-					node.children = node.children.concat(this.iterate(value));
+			for (let [key, value] of Object.entries(graph)) {
+				let node = new Node(key);
+				if (isObject(value)) {
+					node.children = node.children.concat(this.build(value));
 				}
 				nodes.push(node);
 			}
@@ -47,8 +49,7 @@ class Visibility extends PluginComponent('qgrid.plugins.visibility.tpl.html') {
 				delete items[key];
 			}
 		}
-		console.log(this.iterate(items));
-		return this.iterate(items);
+		return this.build(items);
 	}
 
 	get resource() {
