@@ -1,11 +1,12 @@
 import {pipeInvalidateFactory} from '../pipe/pipe.invalidate.factory';
 
 export default class GridService {
-	constructor(model) {
+	constructor(model, valueFactory) {
 		this.model = model;
+		this.valueFactory = valueFactory;
 	}
 
-	invalidate() {
-		pipeInvalidateFactory(this.model)('invalidate');
+	invalidate(source = 'invalidate', diff = {}) {
+		pipeInvalidateFactory(this.model, this.valueFactory)(source, diff);
 	}
 }

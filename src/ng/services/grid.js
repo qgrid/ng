@@ -1,6 +1,7 @@
 import Model from 'core/infrastructure/model';
 import GridService from 'core/services/grid';
 import Pipe from 'core/pipe/pipe';
+import {getFactory} from './value';
 
 export default class Grid {
 	static model() {
@@ -8,7 +9,7 @@ export default class Grid {
 	}
 
 	static service(model) {
-		return new GridService(model);
+		return new GridService(model, getFactory);
 	}
 
 	static get pipe() {

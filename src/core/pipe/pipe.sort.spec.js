@@ -25,8 +25,11 @@ describe('sort pipe', () => {
 		}
 	};
 
+	const valueFactory = column => row => row[column.key];
+
 	it('should sort by asc', () => {
 		let ctx = {
+			valueFactory: valueFactory,
 			model: {
 				data: data,
 
@@ -46,6 +49,7 @@ describe('sort pipe', () => {
 
 	it('should sort by desc', () => {
 		let ctx = {
+			valueFactory: valueFactory,
 			model: {
 				data: data,
 
@@ -66,6 +70,7 @@ describe('sort pipe', () => {
 
 	it('should sort by asc then by desc', () => {
 		let ctx = {
+			valueFactory: valueFactory,
 			model: {
 				data: data,
 
@@ -85,6 +90,7 @@ describe('sort pipe', () => {
 
 	it('should sort by desc then by asc', () => {
 		let ctx = {
+			valueFactory: valueFactory,
 			model: {
 				data: data,
 

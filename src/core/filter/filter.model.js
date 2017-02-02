@@ -1,5 +1,5 @@
 import Resource from '../resource/resource';
-import {noop} from 'core/utility/noop'
+import {noop} from '../services/utility';
 
 export default class FilterModel {
 	constructor() {

@@ -59,7 +59,7 @@ export default function Controller($http, qgrid) {
 		(data, ctx, next) =>
 			$http.get('data/people/100.json')
 				.then(function (response) {
-					next(response.data)
+					next(response.data);
 				}),
 		qgrid.pipe.sort
 	];

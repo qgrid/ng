@@ -1,5 +1,4 @@
 import AppError from '../infrastructure/error';
-import {getValue} from '../column/column.service';
 import {orderBy} from '../services/utility';
 import {key as getKey, direction as getDirection} from '../sort/sort.service';
 import {find} from '../column/column.service';
@@ -23,7 +22,7 @@ export default function (data, ctx, next) {
 			throw new AppError('column.service', `Column "${key}" is not found`);
 		}
 
-		values.push(getValue(column));
+		values.push(ctx.valueFactory(column));
 		directions.push(value);
 	}
 

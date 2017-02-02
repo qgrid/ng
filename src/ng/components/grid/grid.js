@@ -1,19 +1,19 @@
 import RootComponent from '../root.component';
-import {pipeInvalidateFactory} from 'core/pipe/pipe.invalidate.factory';
 
 export class Grid extends RootComponent {
-	constructor($element, $transclude) {
+	constructor($element, $transclude, qgrid) {
 		super('data', 'selection', 'sort', 'group', 'pivot', 'edit');
 
 		this.$element = $element;
 		this.$transclude = $transclude;
+		this.qgrid = qgrid;
 	}
 
 	onInit() {
 		let template = null;
 		let templateScope = null;
-		let invalidate = pipeInvalidateFactory(this.model);
 
+		const service = this.qgrid.service(this.model);
 		const invalidateList = ['pagination', 'sort', 'filter'];
 
 		this.$transclude((clone, scope) => {
@@ -39,13 +39,13 @@ export class Grid extends RootComponent {
 		invalidateList
 			.forEach(i =>
 				this.model[i + 'Changed']
-					.on(e => invalidate(i, e.changes)));
+					.on(e => service.invalidate(i, e.changes)));
 
-		invalidate('invalidate');
+		service.invalidate();
 	}
 }
 
-Grid.$inject = ['$element', '$transclude'];
+Grid.$inject = ['$element', '$transclude', 'qgrid'];
 
 /**
  * By convention all binding should be named in camelCase like: modelname + [P]ropertyname
