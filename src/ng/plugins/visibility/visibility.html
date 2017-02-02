@@ -1,8 +1,19 @@
 <b>Visibillity:</b>
 <ul>
-	<li ng-repeat="(prop, value) in $visibility.items">
-		<input type="checkbox" ng-model="$visibility.items[prop]"
-				 ng-change="$visibility.toggle.execute($visibility.items[prop])"/>
-		<label>{{prop}}</label>
+	<li ng-repeat="item in $visibility.items">
+		<input type="checkbox"
+				 ng-checked="$visibility.itemModel(item.key)"
+				 ng-if="$visibility.toggle.canExecute(item.key)"
+				 ng-click="$visibility.toggle.execute(item.key)"/>
+		<label>{{item.key}}</label>
+		<ul ng-if="item.children.length">
+			<li ng-repeat="child in item.children">
+				<input type="checkbox"
+						 ng-if="$visibility.toggle.canExecute(child.key)"
+						 ng-checked="$visibility.itemModel(child.key, item.key)"
+						 ng-click="$visibility.toggle.execute(child.key, item.key)"/>
+				<label>{{child.key}}</label>
+			</li>
+		</ul>
 	</li>
 </ul>

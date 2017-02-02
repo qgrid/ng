@@ -9,7 +9,8 @@ export default class VisibilityModel {
 		this.toolbar = {
 			top: true,
 			bottom: true,
-			right: true
+			right: true,
+			left: false
 		};
 	}
 }
