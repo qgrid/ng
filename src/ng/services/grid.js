@@ -1,18 +1,18 @@
 import Model from 'core/infrastructure/model';
 import GridService from 'core/services/grid';
+import Pipe from 'core/pipe/pipe';
+import {getFactory} from './value';
 
 export default class Grid {
-	constructor() {
-	}
-
-	model() {
+	static model() {
 		return new Model();
 	}
 
-	service(model) {
-		return new GridService(model);
+	static service(model) {
+		return new GridService(model, getFactory);
 	}
 
-	get pipe() {
+	static get pipe() {
+		return Pipe;
 	}
 }
