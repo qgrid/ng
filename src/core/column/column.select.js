@@ -17,7 +17,8 @@ export default class SelectColumn extends ColumnView {
 		return {
 			key: '$select',
 			type: 'select',
-			title: 'Select'
+			title: 'Select',
+			isVisible: true
 		};
 	}
 }
