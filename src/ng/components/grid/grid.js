@@ -1,4 +1,5 @@
 import RootComponent from '../root.component';
+import {pipeInvalidateFactory} from 'core/pipe/pipe.invalidate.factory';
 
 export class Grid extends RootComponent {
 	constructor($element, $transclude) {
@@ -11,6 +12,9 @@ export class Grid extends RootComponent {
 	onInit() {
 		let template = null;
 		let templateScope = null;
+		let invalidate = pipeInvalidateFactory(this.model);
+
+		const invalidateList = ['pagination', 'sort'];
 
 		this.$transclude((clone, scope) => {
 			template = clone;
@@ -31,6 +35,13 @@ export class Grid extends RootComponent {
 				});
 			}
 		});
+
+		invalidateList
+			.forEach(i =>
+				this.model[i + 'Changed']
+					.on(e => invalidate(i, e.changes)));
+
+		invalidate('invalidate');
 	}
 }
 
@@ -48,6 +59,7 @@ export default {
 		model: '<',
 		dataRows: '<rows',
 		dataColumns: '<columns',
+		dataPipe: '<pipe',
 		selectionItems: '<selection',
 		selectionMode: '<',
 		onSelectionChanged: '&',

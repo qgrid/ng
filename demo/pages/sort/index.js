@@ -1,7 +1,5 @@
-Controller.$inject = ['$http'];
-export default function Controller($http) {
-	const ctrl = this;
-
+Controller.$inject = ['$http', 'qgrid'];
+export default function Controller($http, qgrid) {
 	this.rows = [];
 	this.columns = [
 		{
@@ -57,9 +55,12 @@ export default function Controller($http) {
 			title: 'Member Since'
 		}
 	];
-
-	$http.get('data/people/100.json')
-		.then(function (response) {
-			ctrl.rows = response.data;
-		});
+	this.pipe = [
+		(data, ctx, next) =>
+			$http.get('data/people/100.json')
+				.then(function (response) {
+					next(response.data)
+				}),
+		qgrid.pipe.sort
+	];
 }
