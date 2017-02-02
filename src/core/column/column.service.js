@@ -1,8 +1,29 @@
+import {isFunction} from '../services/utility';
+
 export function map(columns) {
 	return columns.reduce((memo, column) => {
 		memo[column.key] = column;
 		return memo;
 	}, {});
+}
+
+export function getValue(column) {
+	return isFunction(column.value)
+		? row => column.value(row)
+		: row => row[column.key];
+}
+
+export function find(columns, key) {
+	let length = columns.length;
+
+	while(length--) {
+		const column = columns[length];
+		if (column.key == key) {
+			return column;
+		}
+	}
+
+	return null;
 }
 
 export function dataView(columns, model) {

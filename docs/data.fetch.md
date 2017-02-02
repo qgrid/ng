@@ -33,7 +33,7 @@ service.invalidate();
 ```javascript
 gridModel
     .data({
-        pipeline: [
+        pipe: [
             (data, ctx, next) => {
                 $http({
                     filter: ctx.model.filter,
@@ -50,7 +50,7 @@ gridModel
 ```javascript
 gridModel
     .data({
-        pipeline: [
+        pipe: [
             (data, ctx, next) => {
                 $http({
                     filter: ctx.model.filter,
@@ -85,7 +85,7 @@ Such pipeline allows cache data and invalidate it using grid notifications:
 ```javascript
 gridModel
     .data({
-        pipeline: []
+        pipe: []
             (data, ctx, next) => {
                 if (invalidate) {
                     $http({
@@ -113,7 +113,7 @@ User can provide his own middleware by adding a function to pipeline:
 ```javascript
 gridModel
     .data({
-        pipeline: [
+        pipe: [
             (data, ctx, next) => {
                 $http({
                     filter: ctx.model.filter,

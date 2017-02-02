@@ -1,16 +1,20 @@
 import RootComponent from '../root.component';
 
 export class Grid extends RootComponent {
-	constructor($element, $transclude) {
-		super('data', 'selection', 'sort', 'group', 'pivot');
+	constructor($element, $transclude, qgrid) {
+		super('data', 'selection', 'sort', 'group', 'pivot', 'edit');
 
 		this.$element = $element;
 		this.$transclude = $transclude;
+		this.qgrid = qgrid;
 	}
 
 	onInit() {
 		let template = null;
 		let templateScope = null;
+
+		const service = this.qgrid.service(this.model);
+		const invalidateList = ['pagination', 'sort', 'filter'];
 
 		this.$transclude((clone, scope) => {
 			template = clone;
@@ -31,10 +35,17 @@ export class Grid extends RootComponent {
 				});
 			}
 		});
+
+		invalidateList
+			.forEach(i =>
+				this.model[i + 'Changed']
+					.on(e => service.invalidate(i, e.changes)));
+
+		service.invalidate();
 	}
 }
 
-Grid.$inject = ['$element', '$transclude'];
+Grid.$inject = ['$element', '$transclude', 'qgrid'];
 
 /**
  * By convention all binding should be named in camelCase like: modelname + [P]ropertyname
@@ -48,11 +59,13 @@ export default {
 		model: '<',
 		dataRows: '<rows',
 		dataColumns: '<columns',
+		dataPipe: '<pipe',
 		selectionItems: '<selection',
 		selectionMode: '<',
 		onSelectionChanged: '&',
 		groupBy: '<',
 		pivotBy: '<',
-		sortBy: '<'
+		sortBy: '<',
+		editMode: '<'
 	}
 };

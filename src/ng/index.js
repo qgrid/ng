@@ -32,7 +32,9 @@ import SortCore from './components/sort/sort.core';
 import StickyCore from './components/sticky/sticky.core';
 import ToolbarCore from './components/toolbar/toolbar.core';
 import SelectionCore from './components/selection/selection.core';
-import Indeterminate from './components/selection/indeterminate';
+
+import Indeterminate from './directives/indeterminate';
+import Focus from './directives/focus';
 
 import Theme from './services/theme';
 import Range from './filters/range';
@@ -76,7 +78,8 @@ export default angular
 	.directive(def.SORT_CORE_NAME, () => SortCore)
 	.directive(def.STICKY_CORE_NAME, () => StickyCore)
 	.directive(def.INDETERMINATE_NAME, () => Indeterminate)
-	.service(def.SERVICE_NAME, () => new GridService())
+	.directive(def.FOCUS_NAME, () => Focus)
+	.factory(def.SERVICE_NAME, () => GridService)
 	.service(def.THEME_NAME, () => new Theme())
 	.service(def.TEMPLATE_PATH_NAME, () => () => TemplatePath)
 	.filter(def.RANGE_NAME, () => Range)
@@ -95,6 +98,7 @@ function Setup($templateCache) {
 	$templateCache.put('qgrid.toolbar.top.tpl.html', require('./components/toolbar/toolbar.top.html'));
 	$templateCache.put('qgrid.toolbar.bottom.tpl.html', require('./components/toolbar/toolbar.bottom.html'));
 	$templateCache.put('qgrid.toolbar.right.tpl.html', require('./components/toolbar/toolbar.right.html'));
+    $templateCache.put('qgrid.toolbar.left.tpl.html', require('./components/toolbar/toolbar.left.html'));
 
 	$templateCache.put('qgrid.head.pivot.cell.tpl.html', require('./components/pivot/head.pivot.cell.html'));
 	$templateCache.put('qgrid.body.pivot.cell.tpl.html', require('./components/pivot/body.pivot.cell.html'));

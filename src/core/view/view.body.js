@@ -3,6 +3,7 @@ import * as columnService from 'core/column/column.service';
 import Aggregation from 'core/services/aggregation';
 import AppError from 'core/infrastructure/error';
 import {flatView as nodeFlatView} from 'core/node/node.service';
+import Log from 'core/infrastructure/log';
 
 export default class BodyView extends View {
 	constructor(model, valueFactory) {
@@ -27,6 +28,8 @@ export default class BodyView extends View {
 	}
 
 	invalidate(model) {
+		Log.info('view.body', 'invalidate');
+
 		this.invalidateRows(model);
 		this.invalidateColumns(model);
 	}
@@ -57,7 +60,7 @@ export default class BodyView extends View {
 								`Aggregation ${aggregation} is not registered`);
 						}
 
-						const groupRows =  node.rows.map(i => rows[i]);
+						const groupRows = node.rows.map(i => rows[i]);
 						return Aggregation[aggregation](groupRows, getValue);
 					}
 
