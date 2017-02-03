@@ -1,14 +1,9 @@
 import Directive from './directive';
-import {RESIZABLE_NAME, STICKY_CORE_NAME,
-	TH_CORE_NAME, DRAG_NAME} from 'src/definition';
+import {RESIZABLE_NAME, STICKY_CORE_NAME, TH_CORE_NAME, DRAG_NAME} from 'src/definition';
 import angular from 'angular';
 import EventListener from 'core/infrastructure/event.listener';
-import {debounce} from 'core/services/utility';
 
-class Resizable extends Directive(RESIZABLE_NAME, {
-	stickyCore: `^^?${STICKY_CORE_NAME}`,
-	th: `${TH_CORE_NAME}`
-}) {
+class Resizable extends Directive(RESIZABLE_NAME, {stickyCore: `^^?${STICKY_CORE_NAME}`, th: `${TH_CORE_NAME}`}) {
 	constructor($element, $attrs, $document) {
 		super();
 
@@ -20,7 +15,8 @@ class Resizable extends Directive(RESIZABLE_NAME, {
 			divider: new EventListener(this, this.divider[0]),
 			document: new EventListener(this, this.$document[0])
 		};
-		this.settings = {
+
+		this.context = {
 			width: {
 				min: null,
 				max: null
@@ -43,7 +39,6 @@ class Resizable extends Directive(RESIZABLE_NAME, {
 		}
 
 		this.$element.after(this.divider);
-
 		this.listener.divider.on('mousedown', this.dragStart);
 	}
 
@@ -56,40 +51,49 @@ class Resizable extends Directive(RESIZABLE_NAME, {
 		e.preventDefault();
 
 		const sticky = this.stickyCore.sticky;
-		const settings = this.settings;
-		if (sticky && !settings.originColumn) {
-			settings.originColumn = sticky.th(sticky.origin)
+		const context = this.context;
+
+		if (sticky && !context.originColumn) {
+			context.originColumn = sticky
+				.th(sticky.origin)
 				.find(th => th.classList.contains(this.th.column.key));
 		}
-		if (settings.width.min == null) {
-			settings.width.min = parseInt(this.$element.css('min-width'), 10) || settings.defaultWidth.min;
-		}
-		settings.width.max = parseInt(this.$element.css('max-width'), 10) || settings.defaultWidth.max;
 
-		settings.state.width = parseInt(this.$element[0].clientWidth);
-		settings.state.x = e.screenX;
+		if (context.width.min === null) {
+			context.width.min =
+				parseInt(this.$element.css('min-width'), 10) ||
+				context.defaultWidth.min;
+		}
+
+		context.width.max =
+			parseInt(this.$element.css('max-width'), 10) ||
+			context.defaultWidth.max;
+
+		context.state.width = parseInt(this.$element[0].clientWidth);
+		context.state.x = e.screenX;
 
 		this.listener.document.on('mousemove', this.drag);
 		this.listener.document.on('mouseup', this.dragEnd);
 	}
 
 	drag(e) {
-		const settings = this.settings;
-		const newWidth = settings.state.width + e.screenX - settings.state.x;
+		const context = this.context;
+		const newWidth = Math.max(
+			context.width.min,
+			context.state.width + e.screenX - context.state.x
+		);
 
-		if (newWidth >= settings.width.min) {
-			const width = `${newWidth}px`;
-			const style = {
-				'max-width': width,
-				'min-width': width,
-				'width': width
-			};
-			this.$element.css(style);
+		const width = `${newWidth}px`;
+		const style = {
+			'max-width': width,
+			'min-width': width,
+			'width': width
+		};
 
-			if (settings.originColumn) {
-				angular.element(settings.originColumn).css(style);
-				this.stickyCore.sticky.invalidate();
-			}
+		this.$element.css(style);
+		if (context.originColumn) {
+			angular.element(context.originColumn).css(style);
+			this.stickyCore.sticky.invalidate(/*'sticky'*/);
 		}
 	}
 
