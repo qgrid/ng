@@ -3,7 +3,7 @@ import Command from 'core/infrastructure/command';
 import Node from 'core/node/node'
 import {VISIBILITY_NAME} from 'src/definition';
 import TemplatePath from 'core/template/template.path';
-import {isObject} from 'core/services/utility';
+import {isObject, cloneDeep} from 'core/services/utility';
 
 TemplatePath
 	.register(VISIBILITY_NAME, () => {
@@ -20,34 +20,39 @@ class Visibility extends PluginComponent('visibility') {
 			execute: (node) => {
 				node.value = !node.value;
 				node.setValue(node.value);
+
+				// Trigger change event for the visibility model
+				// TODO: trigger only changed parts
+				const visibility = this.model.visibility;
+				visibility(cloneDeep(visibility()));
 			},
 			canExecute: (node) => !node.children.length
 		});
+	}
 
-		this.build = (graph) => {
-			let nodes = [];
-			for (let [key, value] of Object.entries(graph)) {
-				let node = new Node(key);
-				node.setValue = value => {
-					graph[key] = value;
-				};
-				if (isObject(value)) {
-					node.children = node.children.concat(this.build(value));
-				} else {
-
-					node.value = value;
-				}
-				if (key !== 'resource') {
-					nodes.push(node);
-				}
+	build(graph) {
+		const nodes = [];
+		for (let [key, value] of Object.entries(graph())) {
+			if (key === 'resource') {
+				continue;
 			}
-			return nodes;
-		};
 
+			const node = new Node(key);
+			node.setValue = value => graph()[key] = value;
+			if (isObject(value)) {
+				node.children = this.build(() => graph()[key]);
+			} else {
+				node.value = value;
+			}
+
+			nodes.push(node);
+		}
+
+		return nodes;
 	}
 
 	onInit() {
-		this.items = this.build(this.model.visibility());
+		this.items = this.build(() => this.model.visibility());
 	}
 
 	get resource() {

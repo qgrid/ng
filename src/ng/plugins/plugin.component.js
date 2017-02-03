@@ -21,22 +21,27 @@ export default function (pluginName, modelNames = []) {
 			this.$scope = $scope;
 			this.$element = $element;
 			this.template = new TemplateLink($compile, $templateCache);
+			this.templateScope = null;
 		}
 
 		onInitCore() {
 			const inTransclusion = !this._view && this._root;
 			if (!inTransclusion) {
-				const templateUrl = `qgrid.plugins.${pluginName}.tpl.html`
-				const link = this.template.link(
-					templateUrl,
-					this.resource
-				);
-
-				link(this.$element, this.$scope);
 				const visibility = this.model.visibility;
 				const plugins = clone(visibility().plugin);
-				plugins[pluginName] = true;
-				this.model.visibility({plugin: plugins});
+				if (!plugins.hasOwnProperty(pluginName)) {
+					plugins[pluginName] = true;
+					this.model.visibility({plugin: plugins});
+				}
+
+				this.model.visibilityChanged.watch(e => {
+					if (e.state.plugin[pluginName]) {
+						this.templateScope = this.show();
+					}
+					else {
+						this.templateScope = this.hide();
+					}
+				});
 			}
 
 			super.onInitCore();
@@ -69,8 +74,25 @@ export default function (pluginName, modelNames = []) {
 			return model;
 		}
 
-		get isVisible() {
-			return this.model.visibility().plugin[pluginName];
+		show() {
+			const templateUrl = `qgrid.plugins.${pluginName}.tpl.html`
+			const templateScope = this.$scope.$new();
+			const link = this.template.link(
+				templateUrl,
+				this.resource
+			);
+
+			link(this.$element, templateScope);
+			return templateScope;
+		}
+
+		hide() {
+			if (this.templateScope) {
+				this.templateScope.$destroy();
+				this.$element[0].innerHTML = '';
+			}
+
+			return null;
 		}
 	}
 
