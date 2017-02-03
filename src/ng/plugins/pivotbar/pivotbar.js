@@ -11,7 +11,7 @@ TemplatePath
 		};
 	});
 
-class Pivotbar extends PluginComponent('qgrid.plugins.pivotbar.tpl.html') {
+class Pivotbar extends PluginComponent('pivotbar') {
 	constructor() {
 		super(...arguments);
 

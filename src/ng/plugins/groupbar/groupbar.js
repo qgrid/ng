@@ -11,7 +11,7 @@ TemplatePath
 		};
 	});
 
-class Groupbar extends PluginComponent('qgrid.plugins.groupbar.tpl.html') {
+class Groupbar extends PluginComponent('groupbar') {
 	constructor() {
 		super(...arguments);
 
