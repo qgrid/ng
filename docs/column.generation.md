@@ -10,19 +10,19 @@ User doesn't have to provide columns using model service or markup. Columns can 
 ```
 
 Column generation has two modes:
-- flat: get first-level keys of passed rows and use it for columns
+- shallow: get first-level keys of passed rows and use it for columns
 - deep: more complex mode which will handle nested objects untill doesn't find primitive type or array; it'll create getter/setter using handled path to column as well
 
 > Note that array is converted to string joined by semicolon
 
-User should set attribute generate to true for columns and generate-mode to deep|flat (deep by default) to switch on column autogeneration.
+User should set attribute generation on q-grid:columns element. This supports values ```deep|shallow``` and switches on appropriate mode. Generation'll work in deep mode if user doesn't pass parameters.
 
 ## Examples
 
 ### markup
 ```html
 <q-grid rows='$ctrl.rows'>
-	<q-grid:columns generate="true" generate-mode="deep"></q-grid:columns>
+	<q-grid:columns generation="deep"></q-grid:columns>
 </q-grid>
 ```
 

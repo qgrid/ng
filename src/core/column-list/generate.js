@@ -1,4 +1,5 @@
-import {startCase, isObject, isArray, isUndefined} from '../services/utility';
+import {startCase, isObject, isArray} from '../services/utility';
+import Path from '../services/path';
 
 export function generate(rows, deep=true, path='') {
 	if (!rows || rows.length === 0) {
@@ -7,48 +8,30 @@ export function generate(rows, deep=true, path='') {
 
 	const source = rows[0];
 	const props = Object.getOwnPropertyNames(source);
-	return props.reduce((acc, prop) => {
-		const key = path !== '' ?
-			`${path}.${prop}` :
-			prop;
+	return props.reduce((memo, prop) => {
+		const key = path !== '' ? `${path}.${prop}` : prop;
 
 		if (deep && isObject(source[prop])) {
 			if (isArray(source[prop])) {
-				const parts = path !== '' ? path.split('.') : [];
-				acc.push({
+				const value = Path.compile(key);
+				memo.push({
 					key: key,
 					title: startCase(prop),
-					value: (item) => {
-						let accessor = item;
-						parts.forEach(part => {
-							accessor = accessor[part];
-						});
-						return accessor[prop].join('; ');
-					}
+					value: item => value(item).join('; ')
 				});
 			} else {
 				const mergeColumns = generate([source[prop]], true, key);
-				acc.push(...mergeColumns);
+				memo.push(...mergeColumns);
 			}
 		} else {
-			const parts = path !== '' ? path.split('.') : [];
-			acc.push({
+			const value = Path.compile(key);
+			memo.push({
 				key: key,
 				title: startCase(prop),
-				value: (item, value) => {
-					let accessor = item;
-					parts.forEach(part => {
-						accessor = accessor[part];
-					});
-					if (!isUndefined(value)) {
-						accessor[prop] = value;
-					} else {
-						return accessor[prop];
-					}
-				}
+				value: value
 			});
 		}
 
-		return acc;
+		return memo;
 	}, []);
 }

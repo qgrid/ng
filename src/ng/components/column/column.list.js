@@ -1,8 +1,8 @@
 import Component from '../component';
 import {GRID_NAME} from 'src/definition';
 import {generate} from 'core/column-list/generate';
-import {isUndefined} from 'core/services/utility';
 import AppError from 'core/infrastructure/error';
+import {isUndefined} from 'core/services/utility';
 
 class ColumnList extends Component {
 	constructor() {
@@ -14,17 +14,24 @@ class ColumnList extends Component {
 		const data = model.data;
 		const state = data();
 		
-		if (state.columns.length === 0 && this.generate) {
+		if (state.columns.length === 0 && !isUndefined(this.generation)) {
 			model.dataChanged.on(e => {
 				if (e.changes.hasOwnProperty('rows')) {
-					const deep = this.generateMode === 'deep' || isUndefined(this.generateMode);
-					if (!deep && this.generateMode !== 'flat') {
-						throw new AppError(
-							'template.core',
-							`"${name}" is reserved, use another name`
-						);
+					const deep = this.generation || 'deep';
+					let columns;
+					switch (deep) {
+						case 'deep':
+							columns = generate(e.changes.rows.newValue, true);
+							break;
+						case 'shallow':
+							columns = generate(e.changes.rows.newValue, false);
+							break;
+						default:
+							throw new AppError(
+								'column.list',
+								`Invalid generation mode "${this.generation}"`
+							);
 					}
-					const columns = generate(e.changes.rows.newValue, deep);
 					data({columns: columns});
 				}
 			});
@@ -40,7 +47,6 @@ export default {
 	},
 	controller: ColumnList,
 	bindings: {
-		generate: '<',
-		generateMode: '@'
+		generation: '@'
 	}
 };
