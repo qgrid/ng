@@ -12,7 +12,7 @@ TemplatePath
 		};
 	});
 
-class Sortbar extends PluginComponent('qgrid.plugins.sortbar.tpl.html') {
+class Sortbar extends PluginComponent('sortbar') {
 	constructor() {
 		super(...arguments);
 

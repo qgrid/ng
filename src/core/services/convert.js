@@ -6,7 +6,7 @@ export function parseFactory(type) {
 		case 'currency':
 			return parseText;
 		case 'integer':
-			return parseIngeger;
+			return parseInteger;
 		case 'number':
 			return parseNumber;
 		case 'date':
@@ -38,7 +38,7 @@ function parseNumber(value) {
 	return null;
 }
 
-function parseIngeger(value) {
+function parseInteger(value) {
 	const number = parseInt(value);
 	if (!isNaN(number) && isFinite(number)) {
 		return number;

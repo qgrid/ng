@@ -11,7 +11,7 @@ TemplatePath
 		};
 	});
 
-class Pager extends PluginComponent('qgrid.plugins.pager.tpl.html', ['pagination']) {
+class Pager extends PluginComponent('pager', ['pagination']) {
 	constructor() {
 		super(...arguments);
 
