@@ -25,6 +25,7 @@ require('./index.scss');
 require('angular-material/angular-material.css');
 require('prismjs/themes/prism.css');
 
+// TODO: more generic code
 const theme = (window.location.hash || '')
 	.toLowerCase()
 	.indexOf('?theme=default') >= 0
