@@ -4,10 +4,11 @@ Controller.$inject = [
 	'Demo.DEFAULTS',
 	'qgridTheme',
 	'$mdSidenav',
-	'$location'
+	'$location',
+	'$window'
 ];
 
-export default function Controller(pages, themes, defaults, themeProvider, $mdSidenav, $location) {
+export default function Controller(pages, themes, defaults, themeProvider, $mdSidenav, $location, $window) {
 	this.pages = pages;
 	this.page = null;
 	this.themes = themes;
@@ -27,6 +28,7 @@ export default function Controller(pages, themes, defaults, themeProvider, $mdSi
 	this.onThemeChanged = theme => {
 		themeProvider.name = this.theme = theme;
 		$location.search('theme', theme);
+		$window.location.reload();
 	};
 
 	const path = ($location.path() || defaults.path).toLowerCase().substring(1);

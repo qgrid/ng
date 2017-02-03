@@ -52,8 +52,8 @@
 		"title": "Foot"
 	},
 	{
-		"path": "grid-filter",
-		"title": "Grid Filter"
+		"path": "filter",
+		"title": "Filter"
 	},
 	{
 		"path": "aggregation",
