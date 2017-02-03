@@ -1,4 +1,4 @@
-import Directive from '../directive';
+import Directive from 'ng/directives/directive';
 import {VIEWPORT_CORE_NAME} from 'src/definition';
 
 class ViewportCore extends Directive(VIEWPORT_CORE_NAME) {

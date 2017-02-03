@@ -1,4 +1,4 @@
-import Directive from '../directive';
+import Directive from 'ng/directives/directive';
 import EventListener from 'core/infrastructure/event.listener';
 import DragService from './drag.service';
 import {DRAG_NAME, DROP_EFFECT_NAME, CAN_DRAG_NAME} from 'src/definition';

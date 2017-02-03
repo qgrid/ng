@@ -1,20 +1,21 @@
 import RootComponent from '../root.component';
+import Service from 'core/services/grid';
+import {getFactory} from 'ng/services/value';
 
 export class Grid extends RootComponent {
-	constructor($element, $transclude, qgrid) {
+	constructor($element, $transclude) {
 		super('data', 'selection', 'sort', 'group', 'pivot', 'edit');
 
 		this.$element = $element;
 		this.$transclude = $transclude;
-		this.qgrid = qgrid;
 	}
 
 	onInit() {
+		const model = this.model;
+		const service = new Service(model, getFactory);
+
 		let template = null;
 		let templateScope = null;
-
-		const service = this.qgrid.service(this.model);
-		const invalidateList = ['pagination', 'sort', 'filter'];
 
 		this.$transclude((clone, scope) => {
 			template = clone;
@@ -26,26 +27,30 @@ export class Grid extends RootComponent {
 		template.remove();
 		templateScope.$destroy();
 
-		this.model.selectionChanged.on(e => {
+		model.selectionChanged.on(e => {
 			if (e.changes.hasOwnProperty('items')) {
 				this.onSelectionChanged({
 					$event: {
-						state: this.model.selection()
+						state: model.selection(),
+						changes: e.changes
 					}
 				});
 			}
 		});
 
-		invalidateList
-			.forEach(i =>
-				this.model[i + 'Changed']
-					.on(e => service.invalidate(i, e.changes)));
+		// TODO: batch invalidate ?
+		// TODO: rebind on triggers changed
+		model.data()
+			.triggers
+			.forEach(name =>
+				model[name + 'Changed']
+					.on(e => service.invalidate(name, e.changes)));
 
 		service.invalidate();
 	}
 }
 
-Grid.$inject = ['$element', '$transclude', 'qgrid'];
+Grid.$inject = ['$element', '$transclude'];
 
 /**
  * By convention all binding should be named in camelCase like: modelname + [P]ropertyname
@@ -66,6 +71,7 @@ export default {
 		groupBy: '<',
 		pivotBy: '<',
 		sortBy: '<',
-		editMode: '<'
+		sortMode: '@',
+		editMode: '@'
 	}
 };

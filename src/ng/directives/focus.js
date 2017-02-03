@@ -1,4 +1,4 @@
-import Directive from '../components/directive';
+import Directive from './directive';
 import {FOCUS_NAME} from 'src/definition';
 
 class Focus extends Directive(FOCUS_NAME) {

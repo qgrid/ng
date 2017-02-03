@@ -1,4 +1,4 @@
-import Directive from '../directive';
+import Directive from 'ng/directives/directive';
 import TemplateLink from '../template/template.link';
 import cellBuilder from '../cell/cell.build';
 import {VIEW_CORE_NAME, TH_CORE_NAME} from 'src/definition';

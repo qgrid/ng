@@ -1,4 +1,4 @@
-import Directive from '../directive';
+import Directive from 'ng/directives/directive';
 import Command from 'core/infrastructure/command';
 import AppError from 'core/infrastructure/error';
 import {noop} from 'core/services/utility';
@@ -54,7 +54,8 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 		this.sortToggle = new Command({
 			execute: key => {
 				const sort = this.view.model.sort;
-				const by = Array.from(sort().by);
+				const sortState = sort();
+				const by = Array.from(sortState.by);
 				const index = sortService.index(by, key);
 				if (index >= 0) {
 					const dir = sortService.direction(by[index]);
@@ -76,6 +77,10 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 					}
 				}
 				else {
+					if (sortState.mode === 'single') {
+						by.length = 0;
+					}
+
 					const entry = {[key]: 'asc'};
 					by.push(entry);
 				}
