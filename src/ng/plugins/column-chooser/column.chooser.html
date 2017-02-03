@@ -1,9 +1,22 @@
-<b>Columns:</b>
-<ul>
-	<li ng-repeat="column in $columnChooser.columns">
-		<input type="checkbox"
-		       ng-checked="$columnChooser.state(column)"
-		       ng-click="$columnChooser.toggle.execute(column)"/>
-		<label>{{column.title}}</label>
-	</li>
-</ul>
+<div class="columns-chooser">
+	<label>Columns:</label>
+	<ul>
+		<li ng-repeat="column in $columnChooser.columns">
+			<label>
+				<input type="checkbox"
+				       ng-checked="$columnChooser.state(column)"
+				       ng-if="$columnChooser.toggle.canExecute(column)"
+				       ng-click="$columnChooser.toggle.execute(column)"/>
+				{{column.title}}:
+			</label>
+			<select ng-model="column.aggregation"
+			        ng-change="$columnChooser.toggleAggregation.execute(column)">
+				<option value="" disabled>Aggregation</option>
+				<option value="{{aggregation}}"
+				        ng-repeat="aggregation in $columnChooser.aggregations"
+				        ng-bind="aggregation">
+				</option>
+			</select>
+		</li>
+	</ul>
+</div>

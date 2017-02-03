@@ -86,7 +86,7 @@ export default class Aggregation {
 			return null;
 		}
 
-		return this.sum(rows, getValue) / rows.length;
+		return Aggregation.sum(rows, getValue) / rows.length;
 	}
 
 	static sum(rows, getValue) {
