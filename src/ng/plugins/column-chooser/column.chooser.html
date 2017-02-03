@@ -1,0 +1,10 @@
+<b>Columns:</b>
+<ul>
+	<li ng-repeat="item in $columnChooser.columns">
+		<!--{{item}}-->
+		<input type="checkbox"
+		       ng-checked="item.value"
+		       ng-click="$columnChooser.toggle.execute(item)"/>
+		<label>{{item.title}}</label>
+	</li>
+</ul>
