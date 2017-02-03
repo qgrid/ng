@@ -1,5 +1,6 @@
 import Directive from './directive';
-import {RESIZABLE_NAME, STICKY_CORE_NAME, TH_CORE_NAME} from 'src/definition';
+import {RESIZABLE_NAME, STICKY_CORE_NAME,
+	TH_CORE_NAME, DRAG_NAME} from 'src/definition';
 import angular from 'angular';
 import EventListener from 'core/infrastructure/event.listener';
 import {debounce} from 'core/services/utility';
@@ -37,6 +38,10 @@ class Resizable extends Directive(RESIZABLE_NAME, {
 	}
 
 	onInit() {
+		if (!this.canResize(this.event())) {
+			return;
+		}
+
 		this.$element.after(this.divider);
 
 		this.listener.divider.on('mousedown', this.dragStart);
@@ -84,7 +89,6 @@ class Resizable extends Directive(RESIZABLE_NAME, {
 			if (settings.originColumn) {
 				angular.element(settings.originColumn).css(style);
 				this.stickyCore.sticky.invalidate();
-				// // debounce(() => this.stickyCore.sticky.invalidate(), 100)();
 			}
 		}
 	}
@@ -92,13 +96,26 @@ class Resizable extends Directive(RESIZABLE_NAME, {
 	dragEnd() {
 		this.listener.document.off();
 	}
+
+	event() {
+		const source = this.transfer();
+		return {
+			$event: {
+				source: source,
+				target: null
+			}
+		};
+	}
 }
 
 Resizable.$inject = ['$element', '$attrs', '$document'];
 
 export default {
 	restrict: 'A',
-	bindToController: true,
+	bindToController: {
+		'canResize': `&${RESIZABLE_NAME}`,
+		'transfer': `&${DRAG_NAME}`,
+	},
 	controllerAs: '$resizable',
 	controller: Resizable,
 	require: Resizable.require,
