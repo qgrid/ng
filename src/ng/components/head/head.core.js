@@ -51,6 +51,18 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 			execute: noop
 		});
 
+		this.resize = new Command({
+			canExecute: e => {
+				if (e.source.key === TH_CORE_NAME) {
+					const map = columnService.map(this.view.model.data().columns);
+					return map.hasOwnProperty(e.source.value);
+				}
+
+				return false;
+			},
+			execute: noop
+		});
+
 		this.sortToggle = new Command({
 			execute: key => {
 				const sort = this.view.model.sort;
@@ -117,7 +129,7 @@ HeadCore.$inject = ['$scope'];
 
 export default {
 	restrict: 'A',
-	bindToController: true,
+	bindToController: {},
 	controllerAs: '$head',
 	controller: HeadCore,
 	require: HeadCore.require,
