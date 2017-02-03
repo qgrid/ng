@@ -79,5 +79,5 @@ export default function Controller($http, $filter, qgrid) {
 
 	ctrl.gridModel.filter({
 		match: () => item => filter([item], ctrl.state.filter).length
-	})
+	});
 }

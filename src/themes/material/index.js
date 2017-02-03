@@ -8,9 +8,9 @@ export default angular
 
 Setup.$inject = ['$templateCache'];
 function Setup($templateCache) {
-	$templateCache.put('qgrid.body.text.cell.edit.tpl.html', require('./templates/body.text.cell.edit.html'));
-	$templateCache.put('qgrid.body.bool.cell.edit.tpl.html', require('./templates/body.bool.cell.edit.html'));
-	$templateCache.put('qgrid.body.date.cell.edit.tpl.html', require('./templates/body.date.cell.edit.html'));
-	$templateCache.put('qgrid.body.number.cell.edit.tpl.html', require('./templates/body.number.cell.edit.html'));
-	$templateCache.put('qgrid.body.array.cell.edit.tpl.html', require('./templates/body.array.cell.edit.html'));
+	$templateCache.put('qgrid.body.text.cell.edit.tpl.html', require('themes/material/templates/body.text.cell.edit.html'));
+	$templateCache.put('qgrid.body.bool.cell.edit.tpl.html', require('themes/material/templates/body.bool.cell.edit.html'));
+	$templateCache.put('qgrid.body.date.cell.edit.tpl.html', require('themes/material/templates/body.date.cell.edit.html'));
+	$templateCache.put('qgrid.body.number.cell.edit.tpl.html', require('themes/material/templates/body.number.cell.edit.html'));
+	$templateCache.put('qgrid.body.array.cell.edit.tpl.html', require('themes/material/templates/body.array.cell.edit.html'));
 }
