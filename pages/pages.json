@@ -52,6 +52,10 @@
 		"title": "Foot"
 	},
 	{
+		"path": "filter",
+		"title": "Filter"
+	},
+	{
 		"path": "aggregation",
 		"title": "Aggregation"
 	},
@@ -90,5 +94,9 @@
 	{
 		"path": "visibility",
 		"title": "Visibility"
+	},
+	{
+		"path": "column-chooser",
+		"title": "Column Chooser"
 	}
 ]
