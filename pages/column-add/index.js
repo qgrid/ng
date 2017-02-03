@@ -11,7 +11,7 @@ export default function Controller(qgrid) {
 			ctrl.rows.push({});
 	};
 
-	const getHex = () => '#'+((1<<24)*Math.random()|0).toString(16);
+	const getHex = () => '#' + ((1 << 24) * Math.random() | 0).toString(16);
 
 	this.addColumn = () => {
 		let hex = getHex();
@@ -25,7 +25,7 @@ export default function Controller(qgrid) {
 			ctrl.rows[i][hex] = hex;
 		}
 
-		ctrl.rows = ctrl.rows.slice();
+		ctrl.rows = Array.from(ctrl.rows);
 		const body = this.gridModel.body;
 		const bodyResource = body().resource;
 		bodyResource.data[hex] = `<div style="background-color: ${hex}; width: 10px; height: 10px;"></div>`;
