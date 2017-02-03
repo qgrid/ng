@@ -32,6 +32,10 @@
 		"title": "Column pin"
 	},
 	{
+		"path": "column-auto",
+		"title": "Column auto"
+	},
+	{
 		"path": "row-index",
 		"title": "Row Index"
 	},
