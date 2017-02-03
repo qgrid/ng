@@ -2,6 +2,15 @@ td.edit {
 	position: relative;
 
 	input {
+		border: none;
+		box-sizing: border-box;
+		box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+	}
+
+	input[type="text"],
+	input[type="number"]{
 		position: absolute;
 		display: block;
 		top:0;

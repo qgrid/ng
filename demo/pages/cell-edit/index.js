@@ -50,7 +50,7 @@ export default function Controller($http) {
 		},
 		{
 			key: 'contact.phone.primary',
-			title: 'Primary Phone',
+			title: 'Contact Phones',
 			type: 'array',
 			value: item => item.contact.phone,
 			canEdit: false

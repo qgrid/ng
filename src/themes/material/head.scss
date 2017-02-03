@@ -11,6 +11,14 @@
 				white-space: nowrap;
 				vertical-align: middle;
 				text-align: left;
+				padding: 0 12px;
+				position: relative;
+
+				&:hover{
+					label {
+						font-weight: bold;
+					}
+				}
 
 				> * {
 					vertical-align: middle;

@@ -9,14 +9,17 @@ table {
 }
 
 .sort {
+	position: absolute;
 	display: inline;
 	cursor: pointer;
 	visibility: hidden;
+	font-size: 12px;
 	width: 10px;
 	outline: none;
 	border: none;
 	background: transparent;
 	padding: 0;
+	left: 0;
 
 	&.active {
 		visibility: visible;
