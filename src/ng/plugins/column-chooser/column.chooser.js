@@ -1,6 +1,5 @@
 import PluginComponent from '../plugin.component';
 import Command from 'core/infrastructure/command';
-import Node from 'core/node/node'
 import {COLUMNCHOOSER_NAME} from 'src/definition';
 import TemplatePath from 'core/template/template.path';
 import {isObject} from 'core/services/utility';
@@ -17,12 +16,16 @@ class ColumnChooser extends PluginComponent('qgrid.plugins.columnchooser.tpl.htm
 	constructor() {
 		super(...arguments);
 		this.toggle = new Command({
-			execute: (node) => true,
-			canExecute: (node) => !node.children.length
+			execute: column => column.isVisible = !this.state(column),
 		});
+	}
+
+	onInit() {
 
 	}
-	onInit() {
+
+	state(column){
+		return column.isVisible !== false;
 	}
 
 	get columns(){
