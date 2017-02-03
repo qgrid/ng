@@ -1,6 +1,7 @@
 import RootComponent from '../root.component';
 import Service from 'core/services/grid';
 import {getFactory} from 'ng/services/value';
+import pipeSetup from 'core/pipe/pipe.setup';
 
 export class Grid extends RootComponent {
 	constructor($element, $transclude) {
@@ -38,6 +39,8 @@ export class Grid extends RootComponent {
 			}
 		});
 
+		pipeSetup(this.model, service);
+
 		// TODO: batch invalidate ?
 		// TODO: rebind on triggers changed
 		model.data()
@@ -45,8 +48,6 @@ export class Grid extends RootComponent {
 			.forEach(name =>
 				model[name + 'Changed']
 					.on(e => service.invalidate(name, e.changes)));
-
-		service.invalidate();
 	}
 }
 
