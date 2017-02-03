@@ -9,8 +9,10 @@ export default class VisibilityModel {
 		this.toolbar = {
 			top: true,
 			bottom: true,
-			right: true,
+			right: false,
 			left: false
+		};
+		this.plugin = {
 		};
 	}
 }

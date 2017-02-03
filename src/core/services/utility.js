@@ -2,6 +2,7 @@ import isObject from 'lodash/isObject';
 import isFunction from 'lodash/isFunction';
 import isArray from 'lodash/isArray';
 import clone from 'lodash/clone';
+import cloneDeep from 'lodash/cloneDeep';
 import isUndefined from 'lodash/isUndefined';
 import debounce from 'lodash/debounce';
 import merge from 'lodash/merge';
@@ -33,6 +34,7 @@ export {
 	isArray,
 	isUndefined,
 	clone,
+	cloneDeep,
 	debounce,
 	merge,
 	flatten,

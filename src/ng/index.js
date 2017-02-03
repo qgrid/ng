@@ -18,6 +18,7 @@ import Sortbar from './plugins/sortbar/sortbar';
 import Groupbar from './plugins/groupbar/groupbar';
 import Pivotbar from './plugins/pivotbar/pivotbar';
 import Visibility from './plugins/visibility/visibility';
+import ColumnChooser from './plugins/column-chooser/column.chooser';
 
 import ViewCore from './components/view/view.core';
 import ViewportCore from './components/grid/viewport.core';
@@ -28,13 +29,13 @@ import TfCore from './components/foot/tf.core';
 import HeadCore from './components/head/head.core';
 import BodyCore from './components/body/body.core';
 import FootCore from './components/foot/foot.core';
-import SortCore from './components/sort/sort.core';
 import StickyCore from './components/sticky/sticky.core';
 import ToolbarCore from './components/toolbar/toolbar.core';
 import SelectionCore from './components/selection/selection.core';
 
 import Indeterminate from './directives/indeterminate';
 import Focus from './directives/focus';
+import Resizable from './directives/resizable';
 
 import Theme from './services/theme';
 import Range from './filters/range';
@@ -64,6 +65,7 @@ export default angular
 	.component(def.SELECTION_NAME, Selection)
 	.component(def.PIVOTBAR_NAME, Pivotbar)
 	.component(def.VISIBILITY_NAME, Visibility)
+	.component(def.COLUMNCHOOSER_NAME, ColumnChooser)
 	.directive(def.DRAG_NAME, () => Drag)
 	.directive(def.DROP_NAME, () => Drop)
 	.directive(def.VIEWPORT_CORE_NAME, () => ViewportCore)
@@ -75,10 +77,10 @@ export default angular
 	.directive(def.HEAD_CORE_NAME, () => HeadCore)
 	.directive(def.BODY_CORE_NAME, () => BodyCore)
 	.directive(def.FOOT_CORE_NAME, () => FootCore)
-	.directive(def.SORT_CORE_NAME, () => SortCore)
 	.directive(def.STICKY_CORE_NAME, () => StickyCore)
 	.directive(def.INDETERMINATE_NAME, () => Indeterminate)
 	.directive(def.FOCUS_NAME, () => Focus)
+	.directive(def.RESIZABLE_NAME, () => Resizable)
 	.factory(def.SERVICE_NAME, () => GridService)
 	.service(def.THEME_NAME, () => new Theme())
 	.service(def.TEMPLATE_PATH_NAME, () => () => TemplatePath)
@@ -98,7 +100,7 @@ function Setup($templateCache) {
 	$templateCache.put('qgrid.toolbar.top.tpl.html', require('./components/toolbar/toolbar.top.html'));
 	$templateCache.put('qgrid.toolbar.bottom.tpl.html', require('./components/toolbar/toolbar.bottom.html'));
 	$templateCache.put('qgrid.toolbar.right.tpl.html', require('./components/toolbar/toolbar.right.html'));
-    $templateCache.put('qgrid.toolbar.left.tpl.html', require('./components/toolbar/toolbar.left.html'));
+	$templateCache.put('qgrid.toolbar.left.tpl.html', require('./components/toolbar/toolbar.left.html'));
 
 	$templateCache.put('qgrid.head.pivot.cell.tpl.html', require('./components/pivot/head.pivot.cell.html'));
 	$templateCache.put('qgrid.body.pivot.cell.tpl.html', require('./components/pivot/body.pivot.cell.html'));
@@ -111,6 +113,36 @@ function Setup($templateCache) {
 	$templateCache.put('qgrid.head.text.cell.tpl.html', require('./components/head/head.text.cell.html'));
 	$templateCache.put('qgrid.body.text.cell.tpl.html', require('./components/body/body.text.cell.html'));
 	$templateCache.put('qgrid.foot.text.cell.tpl.html', require('./components/foot/foot.text.cell.html'));
+	$templateCache.put('qgrid.body.text.cell.edit.tpl.html', require('./components/body/body.text.cell.edit.html'));
+
+
+	$templateCache.put('qgrid.head.date.cell.tpl.html', require('./components/head/head.text.cell.html'));
+	$templateCache.put('qgrid.body.date.cell.tpl.html', require('./components/body/body.date.cell.html'));
+	$templateCache.put('qgrid.foot.date.cell.tpl.html', require('./components/foot/foot.text.cell.html'));
+	$templateCache.put('qgrid.body.date.cell.edit.tpl.html', require('./components/body/body.date.cell.edit.html'));
+
+
+	$templateCache.put('qgrid.head.bool.cell.tpl.html', require('./components/head/head.text.cell.html'));
+	$templateCache.put('qgrid.body.bool.cell.tpl.html', require('./components/body/body.bool.cell.html'));
+	$templateCache.put('qgrid.foot.bool.cell.tpl.html', require('./components/foot/foot.text.cell.html'));
+	$templateCache.put('qgrid.body.bool.cell.edit.tpl.html', require('./components/body/body.bool.cell.edit.html'));
+
+
+	$templateCache.put('qgrid.head.number.cell.tpl.html', require('./components/head/head.text.cell.html'));
+	$templateCache.put('qgrid.body.number.cell.tpl.html', require('./components/body/body.text.cell.html'));
+	$templateCache.put('qgrid.foot.number.cell.tpl.html', require('./components/foot/foot.text.cell.html'));
+	$templateCache.put('qgrid.body.number.cell.edit.tpl.html', require('./components/body/body.number.cell.edit.html'));
+
+	$templateCache.put('qgrid.head.array.cell.tpl.html', require('./components/head/head.text.cell.html'));
+	$templateCache.put('qgrid.body.array.cell.tpl.html', require('./components/body/body.array.cell.html'));
+	$templateCache.put('qgrid.foot.array.cell.tpl.html', require('./components/foot/foot.text.cell.html'));
+	$templateCache.put('qgrid.body.array.cell.edit.tpl.html', require('./components/body/body.array.cell.edit.html'));
+
+
+	$templateCache.put('qgrid.head.email.cell.tpl.html', require('./components/head/head.text.cell.html'));
+	$templateCache.put('qgrid.body.email.cell.tpl.html', require('./components/body/body.email.cell.html'));
+	$templateCache.put('qgrid.foot.email.cell.tpl.html', require('./components/foot/foot.text.cell.html'));
+	$templateCache.put('qgrid.body.email.cell.edit.tpl.html', require('./components/body/body.text.cell.edit.html'));
 
 	$templateCache.put('qgrid.head.select.cell.tpl.html', require('./components/selection/head.select.cell.html'));
 	$templateCache.put('qgrid.body.select.cell.tpl.html', require('./components/selection/body.select.cell.html'));
@@ -121,4 +153,5 @@ function Setup($templateCache) {
 	$templateCache.put('qgrid.plugins.groupbar.tpl.html', require('./plugins/groupbar/groupbar.html'));
 	$templateCache.put('qgrid.plugins.pivotbar.tpl.html', require('./plugins/pivotbar/pivotbar.html'));
 	$templateCache.put('qgrid.plugins.visibility.tpl.html', require('./plugins/visibility/visibility.html'));
+	$templateCache.put('qgrid.plugins.columnchooser.tpl.html', require('./plugins/column-chooser/column.chooser.html'));
 }

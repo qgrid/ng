@@ -1,5 +1,6 @@
 <q-grid columns="$ctrl.columns"
 		  rows="$ctrl.rows"
+		  model="$ctrl.gridModel"
 		  pivot-by="['age.interval', 'age']"
 		  group-by="['state', 'gender']">
 	<q-grid:columns>
@@ -9,5 +10,10 @@
 		<q-grid:column key="gender" title="Gender" aggregation="count"></q-grid:column>
 	</q-grid:columns>
 
-	<q-grid:head sticky="false"></q-grid:head>
+	<q-grid:toolbar>
+		<q-grid:template for="right">
+			<q-grid:column-chooser>
+			</q-grid:column-chooser>
+		</q-grid:template>
+	</q-grid:toolbar>
 </q-grid>

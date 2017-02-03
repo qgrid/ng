@@ -1,6 +1,7 @@
-import Command from 'core/infrastructure/Command';
+import Command from 'core/infrastructure/command';
 import Log from 'core/infrastructure/log';
 import {set as setValue} from 'ng/services/value';
+import {parseFactory} from 'core/services/convert';
 
 export default class CellEdit {
 	constructor(model) {
@@ -19,8 +20,9 @@ export default class CellEdit {
 			execute: cell => {
 				Log.info('cell.edit', 'edit mode');
 
+				const parse = parseFactory(cell.column.type);
+				this.value = parse(cell.value);
 				this.mode = 'edit';
-				this.value = cell.value;
 				cell.mode(this.mode);
 			}
 		});
@@ -33,8 +35,8 @@ export default class CellEdit {
 				const row = cell.row;
 				setValue(row, column, this.value);
 
-				this.mode = 'view';
 				this.value = null;
+				this.mode = 'view';
 				cell.mode(this.mode);
 			}
 		});
@@ -43,8 +45,8 @@ export default class CellEdit {
 			execute: cell => {
 				Log.info('cell.edit', 'cancel');
 
-				this.mode = 'view';
 				this.value = null;
+				this.mode = 'view';
 				cell.mode(this.mode);
 			}
 		});
@@ -53,7 +55,8 @@ export default class CellEdit {
 			execute: cell => {
 				Log.info('cell.edit', 'reset');
 
-				this.value = cell.value;
+				const parse = parseFactory(cell.column.type);
+				this.value = parse(cell.value);
 				cell.mode(this.mode);
 			}
 		});

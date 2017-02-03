@@ -1,4 +1,4 @@
-import Directive from '../directive';
+import Directive from 'ng/directives/directive';
 import {STICKY_CORE_NAME, VIEW_CORE_NAME, VIEWPORT_CORE_NAME,
 	TABLE_CORE_NAME, HEAD_CORE_NAME, FOOT_CORE_NAME} from 'src/definition';
 import AppError from 'core/infrastructure/error';
@@ -21,6 +21,7 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {
 		this.$timeout = $timeout;
 		this.$compile = $compile;
 		this.$templateCache = $templateCache;
+		this.sticky = null;
 	}
 
 	onInit() {
@@ -39,15 +40,23 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {
 				`Appropriate model for "${target}" is not found`);
 		}
 
-		model[target + 'Changed']
+		model[`${target}Changed`]
 			.on(e => {
 				if (e.changes.hasOwnProperty('sticky') && e.changes.sticky) {
 					this.apply(target);
+				} else {
+					if (this.sticky !== null) {
+						this.sticky.destroy();
+					}
 				}
 			});
 
 		if (model[target]().sticky) {
-			this.apply(target)
+			this.apply(target);
+		} else {
+			if (this.sticky !== null) {
+				this.sticky.destroy();
+			}
 		}
 	}
 
@@ -56,7 +65,6 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {
 			return;
 		}
 
-		const self = this;
 		const table = this.table.$element[0];
 		const scrollView = this.viewport.$element[0];
 		const sticky = StickyFactory.create(target, table, scrollView, this.$element[0], false);
@@ -85,27 +93,15 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {
 
 		const unwatches = [];
 		unwatches.push(this.view.theme.changed.on(
-			() => self.$timeout(() => sticky.invalidate())
+			() => this.$timeout(() => sticky.invalidate())
 		));
 
 		unwatches.push(this.view.model.viewChanged.on(
-			() => self.$timeout(() => sticky.invalidate())
-		));
-
-		unwatches.push(this.view.model.dataChanged.on(
-			() => self.$timeout(() => sticky.invalidate())
-		));
-
-		unwatches.push(this.view.model.groupChanged.on(
-			() => self.$timeout(() => sticky.invalidate())
-		));
-
-		unwatches.push(this.view.model.pivotChanged.on(
-			() => self.$timeout(() => sticky.invalidate())
+			() => this.$timeout(() => sticky.invalidate())
 		));
 
 		unwatches.push(sticky.invalidated.on(
-			() => self.$scope.$apply()
+			() => this.$scope.$apply()
 		));
 
 		const onScroll = () => sticky.scrollSync();
@@ -114,19 +110,21 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {
 		const onResize = () => sticky.invalidate();
 		this.$window.addEventListener('resize', onResize);
 
-		unwatches.push(this.$scope.$watch(() => {
+		this.$scope.$watch(() => {
 			const tagName = target === 'head' ? 'th' : 'td';
 			return Array.from(stickySync.find(tagName))
 				.map(col => col.offsetWidth);
-		}, () => self.$timeout(() => sticky.invalidate()),
-			true));
+		}, () => this.$timeout(() => sticky.invalidate()),
+			true);
 
 		this.$scope.$on('$destroy', () => {
 			unwatches.forEach(u => u());
 			sticky.scrollView.removeEventListener('scroll', onScroll);
-			self.$window.removeEventListener('resize', onResize);
+			this.$window.removeEventListener('resize', onResize);
 			sticky.destroy();
 		});
+
+		this.sticky = sticky;
 	}
 }
 

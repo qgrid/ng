@@ -90,5 +90,13 @@
 	{
 		"path": "pipe",
 		"title": "Pipe"
+	},
+	{
+		"path": "visibility",
+		"title": "Visibility"
+	},
+	{
+		"path": "column-chooser",
+		"title": "Column Chooser"
 	}
 ]

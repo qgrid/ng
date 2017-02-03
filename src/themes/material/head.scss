@@ -11,15 +11,19 @@
 				white-space: nowrap;
 				vertical-align: middle;
 				text-align: left;
+				padding: 0 12px;
+				position: relative;
+				overflow: hidden;
+
+				&:hover{
+					label {
+						font-weight: bold;
+					}
+				}
 
 				> * {
 					vertical-align: middle;
 				}
-
-				&:last-child {
-					padding: 0 24px 0 0;
-				}
-
 			}
 		}
 	}

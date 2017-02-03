@@ -1,4 +1,4 @@
-import Directive from '../directive';
+import Directive from 'ng/directives/directive';
 import TemplateLink from '../template/template.link';
 import cellBuilder from '../cell/cell.build';
 import AppError from 'core/infrastructure/error'
@@ -58,13 +58,12 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	}
 
 	setup() {
-		return this.$scope;
-		// if (this.$templateScope) {
-		// 	this.$templateScope.$destroy();
-		// }
-		//
-		// this.$templateScope = this.$scope.$new();
-		// return this.$templateScope;
+		if (this.$templateScope) {
+			this.$templateScope.$destroy();
+		}
+
+		this.$templateScope = this.$scope.$new();
+		return this.$templateScope;
 	}
 
 	get value() {

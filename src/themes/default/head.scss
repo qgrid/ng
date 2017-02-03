@@ -11,15 +11,40 @@
 				white-space: nowrap;
 				vertical-align: middle;
 				text-align: left;
+				padding: 0 12px;
+				position: relative;
+
+				&:hover{
+					label {
+						font-weight: bold;
+					}
+				}
 
 				> * {
 					vertical-align: middle;
 				}
+			}
 
-				&:last-child {
-					padding: 0 24px 0 0;
-				}
+			.divider {
+				top: 15px;
+				height: 50%;
+				width: 8px;
+				margin-left: -4px;
+				z-index: 2;
+				background: transparent;
+				position: absolute;
+				visibility: hidden;
+			}
 
+			th + .divider {
+				border-left: 1px solid rgba(0, 0, 0, 0.12);
+				cursor: col-resize;
+			}
+		}
+
+		tr:hover {
+			.divider {
+				visibility: visible;
 			}
 		}
 	}
