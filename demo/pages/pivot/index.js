@@ -1,6 +1,16 @@
-Controller.$inject = ['$http'];
-export default function Controller($http) {
+Controller.$inject = ['$http', 'qgrid'];
+export default function Controller($http, qgrid) {
 	const ctrl = this;
+
+	ctrl.gridModel = qgrid.model();
+	ctrl.gridModel.visibility({
+		toolbar: {
+			left: false,
+			right: true,
+			top: true,
+			bottom: true
+		}
+	});
 
 	this.rows = [];
 
