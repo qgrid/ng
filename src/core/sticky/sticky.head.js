@@ -32,8 +32,8 @@ export default class StickyHead extends Sticky {
 		css(this.element, 'margin-top', `-${offset}px`);
 		css(this.table, 'margin-top', `-${offset + tableOffset}px`);
 
-		const stickyTh = th(this.element);
-		const originTh = th(this.origin);
+		const stickyTh = this.th(this.element);
+		const originTh = this.th(this.origin);
 		stickyTh.forEach((column, index) => {
 			const thStyle = window.getComputedStyle(originTh[index]);
 			css(column, 'min-width', thStyle.width);
@@ -41,8 +41,8 @@ export default class StickyHead extends Sticky {
 		});
 		this.invalidated.emit();
 	}
-}
 
-function th(head) {
-	return Array.from(head.querySelectorAll('th'));
+	th(head) {
+		return Array.from(head.querySelectorAll('th'));
+	}
 }
