@@ -40,7 +40,6 @@ export default class StickyHead extends Sticky {
 					const thStyle = window.getComputedStyle(originTh[index]);
 					css(column, 'min-width', thStyle.width);
 					css(column, 'max-width', thStyle.width);
-					console.log('sticky: ' + thStyle.width);
 				});
 			}
 				break;
@@ -49,7 +48,6 @@ export default class StickyHead extends Sticky {
 					const thStyle = window.getComputedStyle(stickyTh[index]);
 					css(column, 'min-width', thStyle.width);
 					css(column, 'max-width', thStyle.width);
-					console.log('sticky: ' + thStyle.width);
 				});
 				break;
 			}

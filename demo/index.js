@@ -25,6 +25,12 @@ require('./index.scss');
 require('angular-material/angular-material.css');
 require('prismjs/themes/prism.css');
 
+const theme = (window.location.hash || '')
+	.toLowerCase()
+	.indexOf('?theme=default') >= 0
+	? themeDefault
+	: themeMaterial;
+
 const dependencies = [
 	ngRoute,
 	ngAnimate,
@@ -32,8 +38,7 @@ const dependencies = [
 	ngSanitize,
 	'ngMaterial', // WTF?
 	qgrid,
-	themeDefault,
-	themeMaterial
+	theme
 ];
 
 const pages =

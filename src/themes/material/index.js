@@ -6,6 +6,7 @@ export default angular
 	.run(Setup)
 	.name;
 
-Setup.$inject = [];
-function Setup(/*$templateCache*/) {
+Setup.$inject = ['$templateCache'];
+function Setup($templateCache) {
+	$templateCache.put('qgrid.body.text.cell.edit.tpl.html', require('./templates/body.text.cell.edit.html'));
 }
