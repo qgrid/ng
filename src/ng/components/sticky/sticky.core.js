@@ -1,4 +1,4 @@
-import Directive from '../directive';
+import Directive from 'ng/directives/directive';
 import {STICKY_CORE_NAME, VIEW_CORE_NAME, VIEWPORT_CORE_NAME,
 	TABLE_CORE_NAME, HEAD_CORE_NAME, FOOT_CORE_NAME} from 'src/definition';
 import AppError from 'core/infrastructure/error';

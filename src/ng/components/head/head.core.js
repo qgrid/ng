@@ -1,4 +1,4 @@
-import Directive from '../directive';
+import Directive from 'ng/directives/directive';
 import Command from 'core/infrastructure/command';
 import AppError from 'core/infrastructure/error';
 import {noop} from 'core/services/utility';

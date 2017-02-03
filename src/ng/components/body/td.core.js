@@ -1,4 +1,4 @@
-import Directive from '../directive';
+import Directive from 'ng/directives/directive';
 import TemplateLink from '../template/template.link';
 import cellBuilder from '../cell/cell.build';
 import AppError from 'core/infrastructure/error'

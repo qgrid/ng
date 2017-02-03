@@ -1,4 +1,4 @@
-import Directive from '../directive';
+import Directive from 'ng/directives/directive';
 import {TABLE_CORE_NAME, VIEW_CORE_NAME, VIEWPORT_CORE_NAME} from 'src/definition';
 
 class TableCore extends Directive(TABLE_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, viewport: `^^${VIEWPORT_CORE_NAME}`}) {

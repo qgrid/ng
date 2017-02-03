@@ -1,4 +1,4 @@
-import Directive from '../directive';
+import Directive from 'ng/directives/directive';
 import {VIEW_CORE_NAME, BODY_CORE_NAME} from 'src/definition';
 import EventListener from 'core/infrastructure/event.listener';
 import CellEdit from '../cell/cell.edit';
