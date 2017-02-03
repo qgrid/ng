@@ -1,16 +1,20 @@
 import ModelComponent from 'ng/components/model.component';
 import AppError from 'core/infrastructure/error';
-import {merge} from 'core/services/utility';
+import * as guard from 'core/infrastructure/guard';
+import {merge, clone} from 'core/services/utility';
 import TemplateLink from 'ng/components/template/template.link';
 import {VIEW_CORE_NAME, GRID_NAME} from 'src/definition';
 
-export default function (templateUrl = '', modelNames = []) {
+export default function (pluginName, modelNames = []) {
+	guard.notNullOrEmpty(pluginName, 'pluginName');
+	pluginName = pluginName.toLowerCase();
+
 	class Plugin extends ModelComponent {
 		constructor($scope, $element, $compile, $templateCache) {
-			if(modelNames.length) {
+			if (modelNames.length) {
 				super(modelNames);
 			}
-			else{
+			else {
 				super();
 			}
 
@@ -22,19 +26,32 @@ export default function (templateUrl = '', modelNames = []) {
 		onInitCore() {
 			const inTransclusion = !this._view && this._root;
 			if (!inTransclusion) {
+				const templateUrl = `qgrid.plugins.${pluginName}.tpl.html`
 				const link = this.template.link(
 					templateUrl,
 					this.resource
 				);
 
 				link(this.$element, this.$scope);
+				const visibility = this.model.visibility;
+				const plugins = clone(visibility().plugin);
+				plugins[pluginName] = true;
+				this.model.visibility({plugin: plugins});
 			}
 
 			super.onInitCore();
 		}
 
-		get resource(){
-			return this.model.plugin().resource;
+		get resource() {
+			const model = this.model;
+			if (model.hasOwnProperty(pluginName)) {
+				const pluginState = model[pluginName]();
+				if (pluginState.hasOwnProperty('resource')) {
+					return pluginState.resource;
+				}
+			}
+
+			return model.plugin().resource;
 		}
 
 		get model() {
@@ -50,6 +67,10 @@ export default function (templateUrl = '', modelNames = []) {
 			}
 
 			return model;
+		}
+
+		get isVisible() {
+			return this.model.visibility().plugin[pluginName];
 		}
 	}
 

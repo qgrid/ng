@@ -13,7 +13,7 @@ TemplatePath
 		};
 	});
 
-class Visibility extends PluginComponent('qgrid.plugins.visibility.tpl.html') {
+class Visibility extends PluginComponent('visibility') {
 	constructor() {
 		super(...arguments);
 		this.toggle = new Command({
@@ -37,7 +37,7 @@ class Visibility extends PluginComponent('qgrid.plugins.visibility.tpl.html') {
 
 					node.value = value;
 				}
-				if (key !== 'resource'){
+				if (key !== 'resource') {
 					nodes.push(node);
 				}
 			}
@@ -45,6 +45,7 @@ class Visibility extends PluginComponent('qgrid.plugins.visibility.tpl.html') {
 		};
 
 	}
+
 	onInit() {
 		this.items = this.build(this.model.visibility());
 	}
