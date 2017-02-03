@@ -28,7 +28,6 @@ import TfCore from './components/foot/tf.core';
 import HeadCore from './components/head/head.core';
 import BodyCore from './components/body/body.core';
 import FootCore from './components/foot/foot.core';
-import SortCore from './components/sort/sort.core';
 import StickyCore from './components/sticky/sticky.core';
 import ToolbarCore from './components/toolbar/toolbar.core';
 import SelectionCore from './components/selection/selection.core';
@@ -75,7 +74,6 @@ export default angular
 	.directive(def.HEAD_CORE_NAME, () => HeadCore)
 	.directive(def.BODY_CORE_NAME, () => BodyCore)
 	.directive(def.FOOT_CORE_NAME, () => FootCore)
-	.directive(def.SORT_CORE_NAME, () => SortCore)
 	.directive(def.STICKY_CORE_NAME, () => StickyCore)
 	.directive(def.INDETERMINATE_NAME, () => Indeterminate)
 	.directive(def.FOCUS_NAME, () => Focus)

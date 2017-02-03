@@ -71,6 +71,7 @@ export default {
 		groupBy: '<',
 		pivotBy: '<',
 		sortBy: '<',
-		editMode: '<'
+		sortMode: '@',
+		editMode: '@'
 	}
 };
