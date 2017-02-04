@@ -1,7 +1,7 @@
 <q-grid columns="$ctrl.columns"
 		  rows="$ctrl.rows"
 		  selection="$ctrl.selection"
-		  selection-mode="$ctrl.selectionMode"
+		  selection-mode="check"
 		  on:selection-changed="$ctrl.selectionChanged($event)">
 	<q-grid:selection>
 		<q-grid:template for="select-all">

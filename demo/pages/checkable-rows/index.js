@@ -59,8 +59,6 @@ export default function Controller($http, $log) {
 		}
 	];
 
-	this.selectionMode = 'check';
-	
 	this.selectionChanged = function (e) {
 		$log.log(`qgrid.demo: selection changed ${e.state.items.length} on ${e.state.mode} mode`);
 	};

@@ -84,10 +84,6 @@
 		"title": "Checkable rows"
 	},
 	{
-		"path": "group-checkable-rows",
-		"title": "Group checkable rows"
-	},
-	{
 		"path": "dnd",
 		"title": "Drag and Drop"
 	},

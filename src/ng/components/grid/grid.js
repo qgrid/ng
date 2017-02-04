@@ -66,7 +66,7 @@ export default {
 		dataColumns: '<columns',
 		dataPipe: '<pipe',
 		selectionItems: '<selection',
-		selectionMode: '<',
+		selectionMode: '@',
 		onSelectionChanged: '&',
 		groupBy: '<',
 		pivotBy: '<',

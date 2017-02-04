@@ -1,6 +1,7 @@
 <q-grid columns="$ctrl.columns"
 		  rows="$ctrl.rows"
-		  group-by="['contact.address.state', 'gender']">
+		  group-by="['contact.address.state', 'gender']"
+		  selection-mode="check">
 	<q-grid:columns>
 		<q-grid:column key="contact.address.zip" aggregation="max"></q-grid:column>
 	</q-grid:columns>
