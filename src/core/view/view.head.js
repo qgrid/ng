@@ -16,18 +16,18 @@ export default class HeadView extends View {
 			const heads = pivot.heads;
 			const columns = [];
 
-			if (model.selection().mode === 'check') {
-				const selectColumn = columnFactory('select');
-				selectColumn.model.key = selectColumn.model.key + `[0][${columns.length}]`;
-				selectColumn.rowspan = heads.length;
-				columns.push(selectColumn);
-			}
-
 			if (nodes.length) {
 				const groupColumn = columnFactory('group');
 				groupColumn.model.key = groupColumn.model.key + `[0][${columns.length}]`;
 				groupColumn.rowspan = heads.length;
 				columns.push(groupColumn);
+			}
+
+			if (model.selection().mode === 'check') {
+				const selectColumn = columnFactory('select');
+				selectColumn.model.key = selectColumn.model.key + `[0][${columns.length}]`;
+				selectColumn.rowspan = heads.length;
+				columns.push(selectColumn);
 			}
 
 			const dataColumns = model.data().columns;
