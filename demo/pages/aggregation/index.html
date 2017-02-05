@@ -1,0 +1,15 @@
+<q-grid columns="$ctrl.columns"
+		  rows="$ctrl.rows">
+	<q-grid:columns>
+		<q-grid:column key="name.last" aggregation="count">
+			<q-grid:template for="foot">
+				<b>count: </b> {{$cell.value}}
+			</q-grid:template>
+		</q-grid:column>
+		<q-grid:column key="contact.address.zip" aggregation="avg"></q-grid:column>
+		<q-grid:column key="birthday" aggregation="first"></q-grid:column>
+		<q-grid:column key="gender" aggregation="last"></q-grid:column>
+		<q-grid:column key="memberSince" aggregation="minMax"></q-grid:column>
+	</q-grid:columns>
+	<q-grid:foot sticky="true"></q-grid:foot>
+</q-grid>

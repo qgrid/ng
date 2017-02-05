@@ -1,5 +1,8 @@
 # qgrid
-Angular grid
+Angularjs data grid
+
+## examples
+https://qgrid.github.io/ng/
 
 ## core concepts
 * **easy** to start: ```<q-grid rows="data"></grid>``` should be enought to start
@@ -8,44 +11,43 @@ Angular grid
 * fully **customizable**: header, cells, rows, footer etc. should be templatable
 * **clear javascript**: no html templates in javascript
 
-## examples
-in progress
-
 ## development
 * `$ npm install` prerequisites
 * `$ npm run start` start the webpack development server on [http:\\\\localhost:3030\demo](http:\\localhost:3030\demo)
-* `$ npm run build` create a js bundle with webpack and lint js code
+* `$ npm run build:prod` create a js bundle with webpack
 * `$ npm run lint` run code quality tests
 * `$ npm run test` run tests
-
-## get started
-```html
-<q-grid rows="data"></q-grid>
-```
+* `$ npm run test:debug` watch and debug tests
 
 ## design
-[sandbox](https://github.com/klumba12/qgrid/blob/master/docs/sandbox.md)
+[sandbox](https://github.com/qgrid/ng/blob/master/docs/sandbox.md)
+
+# featires in review
+* [expressive templates](https://github.com/qgrid/ng/blob/master/docs/template.md) `Dmitry S.`
+* [plugin components](https://github.com/qgrid/ng/blob/master/docs/plugin.md) `Dmitry S.`
+* [sticky header/footer](https://github.com/qgrid/ng/blob/master/docs/header.sticky.md) `Maxim`
 
 ## features in progress
-* [expressive templates](https://github.com/klumba12/qgrid/blob/master/docs/template.md) `Dmitry`
-* [column generation from data](https://github.com/klumba12/qgrid/blob/master/docs/column.generation.md) `Maxim`
-* [virtualization of vertical & horizontal scrolls (handle large data sets)](https://github.com/klumba12/qgrid/blob/master/docs/scroll.virtual.md) `Valentin`
-* [sticky header](https://github.com/klumba12/qgrid/blob/master/docs/header.sticky.md) `Maxim`
-* [column reordering and resizing](https://github.com/klumba12/qgrid/blob/master/docs/header.sticky.md) `Maxim`
-* [pagination](https://github.com/klumba12/qgrid/blob/master/docs/pagination.md) `Valentin`
-* [infinite scroll](https://github.com/klumba12/qgrid/blob/master/docs/scroll.infinite.md) `Valentin`
-* [filtering](https://github.com/klumba12/qgrid/blob/master/docs/filter.md) `Valentin`
-* [sorting](https://github.com/klumba12/qgrid/blob/master/docs/sorting.md) `Evgeniy`
-* [selection](https://github.com/klumba12/qgrid/blob/master/docs/selection.md) `Dmitry`
-* [checkable rows](https://github.com/klumba12/qgrid/blob/master/docs/row.checkable.md) `Dmitry`
-* [column chooser](https://github.com/klumba12/qgrid/blob/master/docs/column.chooser.md) `Evgeniy`
-* [keyboard navigation](https://github.com/klumba12/qgrid/blob/master/docs/navigation.md) `Kate`
-* [frozen/pinned columns](https://github.com/klumba12/qgrid/blob/master/docs/column,pin.md) `Kate`
-* [export api](https://github.com/klumba12/qgrid/blob/master/docs/export.md) `Mikhail`
-* [table editing](https://github.com/klumba12/qgrid/blob/master/docs/table.editing.md) `Mikhail`
-* [inline row editing](https://github.com/klumba12/qgrid/blob/master/docs/row.editing.inline.md) `Fedor`
-* [row details](https://github.com/klumba12/qgrid/blob/master/docs/row.details.md) `Fedor`
-* [embeded editors](https://github.com/klumba12/qgrid/blob/master/docs/cell.editing.md) `Vladimir`
+* [column generation from data](https://github.com/qgrid/ng/blob/master/docs/column.generation.md) `Maxim`
+* [virtualization of vertical & horizontal scrolls (handle large data sets)](https://github.com/qgrid/ng/blob/master/docs/scroll.virtual.md) `Valentin`
+* [column reordering and resizing](https://github.com/qgrid/ng/blob/master/docs/header.sticky.md) `Maxim`
+* [pagination](https://github.com/qgrid/ng/blob/master/docs/pagination.md) `Valentin`
+* [infinite scroll](https://github.com/qgrid/ng/blob/master/docs/scroll.infinite.md) `Valentin`
+* [filtering](https://github.com/qgrid/ng/blob/master/docs/filter.md) `Valentin`
+* [sorting](https://github.com/qgrid/ng/blob/master/docs/sorting.md) `Evgeniy`
+* [selection](https://github.com/qgrid/ng/blob/master/docs/selection.md) `Dmitry K.`
+* [checkable rows](https://github.com/qgrid/ng/blob/master/docs/row.checkable.md) `Dmitry K.`
+* [column chooser](https://github.com/qgrid/ng/blob/master/docs/column.chooser.md) `Evgeniy`
+* [keyboard navigation](https://github.com/qgrid/ng/blob/master/docs/navigation.md) `Kate`
+* [frozen/pinned columns](https://github.com/qgrid/ng/blob/master/docs/column.pin.md) `Kate`
+* [export api](https://github.com/qgrid/ng/blob/master/docs/export.md) `Mikhail`
+* [table editing](https://github.com/qgrid/ng/blob/master/docs/table.editing.md) `Mikhail`
+* [inline row editing](https://github.com/qgrid/ng/blob/master/docs/row.editing.inline.md) `Fedor`
+* [row details](https://github.com/qgrid/ng/blob/master/docs/row.details.md) `Fedor`
+* [embeded editors](https://github.com/qgrid/ng/blob/master/docs/cell.editing.md) `Vladimir`
+* [multi-column header](https://github.com/qgrid/ng/blob/master/docs/header.multi-column.md) `Dmitry K.`
+* [predefined aggregations](https://github.com/qgrid/ng/blob/master/docs/column.aggregation.md) `Stepan` 
+* [column path](https://github.com/qgrid/ng/blob/master/docs/column.path.md) `Ivan`
 
 ## backlog
 * `component api`
@@ -56,7 +58,7 @@ in progress
     * `camel case to pretty form`
 * `virtualization of vertical & horizontal scrolls (handle large data sets)`
 * `sticky header`
-* multi-column header
+* `multi-column header`
 * `column reordering and resizing`
 * `client/server side pagination`
 * `client/server side infinite scroll`
@@ -67,7 +69,7 @@ in progress
 * `client/server side sorting`
 * `cell, row and column selection`
     * disable api for particular data
-* header toolbar
+* grid toolbar
 * grouping/hierarchy
 * aggregation
     * by count
@@ -80,7 +82,7 @@ in progress
     * confirmation api
     * edit/save actions
 * `table editing`
-    *  add new rows
+    *  add new rows(placeholder row?)
     *  delete rows
     *  confirmation api
 *  edit api
@@ -110,16 +112,46 @@ in progress
     * csv
 * copy
     *  to excel
-*  `frozen/pinned columns`
+* `frozen/pinned columns`
     *  `from left and right`
-*  `keyboard navigation`
-*  small screen support
+* `keyboard navigation`
+* small screen support
+* localization
+* `predefined aggregations`
+* pivoting
+* row index column
+* master details grid
+* floating rows (set several footer/header fixed rows)
+* range selection
+* status bar
+* legend bar
 
 ##licence
 Code licensed under MIT license.
 
-## refernces
+## references
+
+### themes
+* [material design](https://material.io/guidelines/components/data-tables.html)
+
+### markdown
+* [dillinger](http://dillinger.io/)
+
+### test
+* [chai](http://chaijs.com/api/bdd/)
+* [mocha](https://mochajs.org/#getting-started)
+* [karma](https://karma-runner.github.io/1.0/index.html)
+* [eslint](http://eslint.org/)
+
+### build
+
+* [webpack](http://webpack.github.io/docs/)
+* [babel](https://babeljs.io/)
+* [babel polyfill](http://babeljs.io/docs/usage/polyfill/)
+
+### grid
 * [ngx-datatable](https://github.com/swimlane/ngx-datatable)
+* [kendo-ng grid](http://www.telerik.com/kendo-angular-ui/components/grid/)
 * [ui-grid](http://ui-grid.info/docs/#/tutorial)
 * [ng-table](http://ng-table.com/#/)
 * [addazle react data grid](http://adazzle.github.io/react-data-grid/examples.html#/all-features)
@@ -136,3 +168,7 @@ Code licensed under MIT license.
 * [wpf toolkit grid](http://wpftoolkit.codeplex.com/wikipage?title=DataGrid&referringTitle=Documentation)
 * [telerik silverlight grid](http://demos.telerik.com/silverlight/#GridView/FirstLook)
 * [infragistics silverlight grid](http://www.infragistics.com/samples/silverlight/grid/overview)
+* [ng2-supertable](https://andyperlitch.github.io/ng2-super-table/demo/)
+* [valor grid](http://valor-software.com/ng2-table/)
+* [iron data table](https://saulis.github.io/iron-data-table/demo/)
+

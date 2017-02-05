@@ -1,16 +1,11 @@
-'use strict';
+import angular from 'angular';
+require('./index.scss');
 
-require('./layout.scss');
-require('./body.scss');
+export default angular
+	.module('qgrid.theme.default', [])
+	.run(Setup)
+	.name;
 
-(function (angular) {
-
-	angular.module('qgrid')
-		.run(Setup);
-
-	Setup.$inject = ['$templateCache'];
-	function Setup(/*$templateCache*/) {
-		// here'll be custom templates
-	}
-
-})(angular);
+Setup.$inject = [];
+function Setup(/*$templateCache*/) {
+}

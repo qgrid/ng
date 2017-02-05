@@ -1,42 +1,105 @@
-'use strict';
-
-//const path = require('path');
-//const webpack = require('webpack');
+const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-//const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-	plugins: [
-		new ExtractTextPlugin('bundle.css'),
-		// 	new HtmlWebpackPlugin({
-		// 		title: 'qgrid',
-		// 		template: './demo/index.html',
-		// 		minify: {
-		// 			collapseWhitespace: true,
-		// 			removeComments: true,
-		// 			removeRedundantAttributes: true,
-		// 			removeScriptTypeAttributes: true,
-		// 			removeStyleLinkTypeAttributes: true
-		// 		}
-		// 	})
-	],
-	// plugins: [
-	// ],
-	devtool: '#inline-source-map',
+	resolve: {
+		alias: {
+			src: path.resolve(__dirname, '../src'),
+			core: path.resolve(__dirname, '../src/core'),
+			ng: path.resolve(__dirname, '../src/ng'),
+			themes: path.resolve(__dirname, '../src/themes')
+		}
+	},
+	/**
+	 * Options affecting the output of the compilation.
+	 *
+	 * See: http://webpack.github.io/docs/configuration.html#output
+	 */
+	output: {
+		/**
+		 * The output directory as absolute path (required).
+		 *
+		 * See: http://webpack.github.io/docs/configuration.html#output-path
+		 */
+		path: path.join(__dirname, '..', 'dist'),
+
+		/**
+		 * Specifies the name of each output file on disk.
+		 * IMPORTANT: You must not specify an absolute path here!
+		 *
+		 * See: http://webpack.github.io/docs/configuration.html#output-filename
+		 */
+		filename: '[name].js',
+
+		/**
+		 * The filename of the SourceMaps for the JavaScript files.
+		 * They are inside the output.path directory.
+		 *
+		 * See: http://webpack.github.io/docs/configuration.html#output-sourcemapfilename
+		 */
+		sourceMapFilename: '[name].map',
+
+		/**
+		 * The filename of non-entry chunks as relative path
+		 * inside the output.path directory.
+		 *
+		 * See: http://webpack.github.io/docs/configuration.html#output-chunkfilename
+		 */
+		chunkFilename: '[id].chunk.js',
+	},
+	/**
+	 * Developer tool to enhance debugging.
+	 *
+	 * The 'source-map' settings is meant to be used in production only. It
+	 * splits the source map in a separate file and it is slow to compute.
+	 *
+	 * See: http://webpack.github.io/docs/configuration.html#devtool
+	 * See: https://github.com/webpack/docs/wiki/build-performance#sourcemaps
+	 */
+	devtool: 'source-map',
 	module: {
-		preLoaders: [
-			// Javascript
-			{test: /\.js?$/, loader: 'eslint', exclude: /node_modules/}
-		],
-		loaders: [
-			{test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/, query: {presets: ['es2015']}},
-			{test: /\.css$/, loader: 'style-loader!css-loader'},
-			{test: /\.scss$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader!sass-loader')},
-			//{test: /\.scss$/, loaders: ['style', 'css?sourceMap', 'sass?sourceMap']},
-			{test: /\.html$/, loader: 'raw'},
-			// inline base64 URLs for <=8k images, direct URLs for the rest
-			{test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'},
-			// helps to load bootstrap's css.
+		rules: [
+			{
+				enforce: 'pre',
+				test: /\.js?$/,
+				loader: 'eslint-loader',
+				exclude: /node_modules/
+			},
+			{
+				test: /\.js$/,
+				loader: 'babel-loader',
+				exclude: /node_modules/
+			},
+			{
+				test: /\.scss$/,
+				loader: ExtractTextPlugin.extract({
+					fallbackLoader: 'style-loader',
+					loader: [
+						{
+							loader: 'css-loader',
+						}, {
+							loader: 'sass-loader'
+						}],
+				})
+			},
+			{
+				test: /\.css$/,
+				loader: ExtractTextPlugin.extract({
+					fallbackLoader: 'style-loader',
+					loader: [
+						{
+							loader: 'css-loader',
+						}],
+				})
+			},
+			{
+				test: /\.html$/,
+				loader: 'raw-loader'
+			},
+			{// inline base64 URLs for <=8k images, direct URLs for the rest
+				test: /\.(png|jpg)$/,
+				loader: 'url-loader?limit=8192'
+			},
 			{
 				test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
 				loader: 'url?limit=10000&minetype=application/font-woff'
@@ -58,9 +121,5 @@ module.exports = {
 				loader: 'url?limit=10000&minetype=image/svg+xml'
 			}
 		],
-	},
-	eslint: {
-		failOnWarning: false,
-		failOnError: true
 	}
 };

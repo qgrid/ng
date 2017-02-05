@@ -1,0 +1,28 @@
+td.edit {
+	position: relative;
+
+	input {
+		border: none;
+		box-sizing: border-box;
+		box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+	}
+
+	.editor {
+		position: absolute;
+		width: 160px;
+		height: 30px;
+		background: #fefefe;
+		border: 1px solid #ddd;
+		padding: 20px 24px 10px 24px;
+		left: 0;
+		top: 0;
+		input[type="text"],
+		input[type="number"] {
+			border-bottom: 1px solid #000;
+			background: transparent;
+			width: 100%;
+		}
+	}
+}

@@ -1,0 +1,20 @@
+.qgrid.theme-default {
+	@import "grid";
+	@import "head";
+	@import "body";
+	@import "foot";
+	@import "sortbar";
+	@import "toolbar";
+	@import "pivotbar";
+	@import "pagination";
+	@import "groupbar";
+	@import "options";
+	@import "node";
+	@import "pivot";
+	@import "sort";
+	@import "dnd";
+	@import "cell.edit";
+	@import "visibility";
+	@import "column.chooser";
+	@import "resize";
+}

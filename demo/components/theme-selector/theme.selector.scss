@@ -1,0 +1,15 @@
+@media (max-width: 959px) {
+	theme-selector {
+		top: 0 !important;
+		right: 10px !important;
+	}
+}
+
+theme-selector {
+	position: absolute;
+	right: 20px;
+	top: 5px;
+	md-input-container {
+		margin: 0;
+	}
+}

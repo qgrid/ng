@@ -1,0 +1,25 @@
+<div class="visibility">
+	<label>Visibility:</label>
+	<ul>
+		<li ng-repeat="item in $visibility.items">
+			<label>
+				<input type="checkbox"
+						 ng-checked="item.value"
+						 ng-if="$visibility.toggle.canExecute(item)"
+						 ng-click="$visibility.toggle.execute(item)"/>
+				{{item.key}}
+			</label>
+			<ul ng-if="item.children.length">
+				<li ng-repeat="child in item.children">
+					<label>
+						<input type="checkbox"
+								 ng-if="$visibility.toggle.canExecute(child)"
+								 ng-checked="child.value"
+								 ng-click="$visibility.toggle.execute(child)"/>
+						{{child.key}}
+					</label>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</div>

@@ -1,6 +1,7 @@
 node_modules/
 config/
 dist/
+scripts/
 demo/dist
 karma.conf.js
 spec.bundle.js

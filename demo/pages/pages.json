@@ -1,0 +1,106 @@
+[
+	{
+		"path": "home",
+		"title": "Home"
+	},
+	{
+		"path": "sandbox",
+		"title": "Sandbox"
+	},
+	{
+		"path": "model",
+		"title": "Model"
+	},
+	{
+		"path": "cell",
+		"title": "Cell"
+	},
+	{
+		"path": "cell-edit",
+		"title": "Cell Edit"
+	},
+	{
+		"path": "column",
+		"title": "Column"
+	},
+	{
+		"path": "column-add",
+		"title": "Column Add"
+	},
+	{
+		"path": "column-pin",
+		"title": "Column pin"
+	},
+	{
+		"path": "column-auto",
+		"title": "Column auto"
+	},
+	{
+		"path": "row-index",
+		"title": "Row Index"
+	},
+	{
+		"path": "head",
+		"title": "Head"
+	},
+	{
+		"path": "selection",
+		"title": "Selection"
+	},
+	{
+		"path": "summary",
+		"title": "Summary"
+	},
+	{
+		"path": "foot",
+		"title": "Foot"
+	},
+	{
+		"path": "filter",
+		"title": "Filter"
+	},
+	{
+		"path": "aggregation",
+		"title": "Aggregation"
+	},
+	{
+		"path": "group",
+		"title": "Group"
+	},
+	{
+		"path": "pivot",
+		"title": "Pivot"
+	},
+	{
+		"path": "toolbar",
+		"title": "Toolbar"
+	},
+	{
+		"path": "pager",
+		"title": "Pager"
+	},
+	{
+		"path": "checkable-rows",
+		"title": "Checkable rows"
+	},
+	{
+		"path": "dnd",
+		"title": "Drag and Drop"
+	},
+	{
+		"path": "sort",
+		"title": "Sort"
+	},
+	{
+		"path": "pipe",
+		"title": "Pipe"
+	},
+	{
+		"path": "visibility",
+		"title": "Visibility"
+	},
+	{
+		"path": "column-chooser",
+		"title": "Column Chooser"
+	}
+]

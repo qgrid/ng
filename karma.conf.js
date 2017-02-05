@@ -1,6 +1,8 @@
+const path = require('path');
+
 module.exports = function (config) {
 
-	var configuration = {
+	const configuration = {
 		// base path used to resolve all patterns
 		basePath: '',
 
@@ -19,14 +21,22 @@ module.exports = function (config) {
 		preprocessors: {'spec.bundle.js': ['webpack', 'sourcemap']},
 
 		webpack: {
+			resolve: {
+				alias: {
+					src: path.resolve(__dirname, 'src'),
+					core: path.resolve(__dirname, 'src/core'),
+					ng: path.resolve(__dirname, 'src/ng'),
+					themes: path.resolve(__dirname, 'src/themes')
+				}
+			},
 			devtool: 'inline-source-map',
 			module: {
-				loaders: [
-					{test: /\.js/, exclude: [/app\/lib/, /node_modules/], loader: 'babel'},
-					{test: /\.html/, loader: 'raw'},
-					{test: /\.jade$/, loader: 'jade-loader'},
-					{test: /\.styl$/, loader: 'style!css!stylus'},
-					{test: /\.css$/, loader: 'style!css'}
+				rules: [
+					{
+						test: /\.js/,
+						exclude: [/dist/, /node_modules/],
+						loader: 'babel-loader'
+					}
 				]
 			}
 		},
@@ -37,6 +47,18 @@ module.exports = function (config) {
 
 		// available reporters: https://npmjs.org/browse/keyword/karma-reporter
 		reporters: ['mocha'],
+
+
+		// uncomment that if you want to have pretty console without error stack traces
+		// mochaReporter: {
+		// 	output: 'noFailures'
+		// },
+
+		client: {
+			mocha: {
+				reporter: 'html'
+			}
+		},
 
 		// web server port
 		port: 9876,
@@ -66,15 +88,5 @@ module.exports = function (config) {
 		singleRun: true
 	};
 
-	if (process.env.TRAVIS) {
-		configuration.browsers = ['Chrome_travis_ci'];
-		// configuration.reporters = configuration.reporters.concat(['coverage', 'coveralls']);
-		// configuration.coverageReporter = {
-		//   type : 'lcovonly',
-		//   dir : 'coverage/'
-		// };
-	}
-
 	config.set(configuration);
-
 };

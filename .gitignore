@@ -1,9 +1,13 @@
-# logs
-npm-debug.log
+#dev
+.idea
+.vscode
+
+#logs
 *.log
 
-# dependencies
+#dependencies
 node_modules
 
-# demo bundles
+#bundles
+dist/vendor.*
 demo/dist

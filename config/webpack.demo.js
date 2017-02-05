@@ -1,15 +1,17 @@
+const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
-const commonConfig = require('./webpack.common.js');
+const devConfig = require('./webpack.dev.js');
 
-module.exports = webpackMerge(commonConfig, {
-	entry: './demo/index.js',
-	output: {
-		path: './demo/dist',
-		filename: 'bundle.js',
-		publicPath: '/scripts/'
-	},
-	eslint: {
-		failOnWarning: false,
-		failOnError: false
-	}
+module.exports = webpackMerge(devConfig, {
+	devtool: 'source-map',
+	plugins: [
+		new webpack.LoaderOptionsPlugin({
+			options: {
+				eslint: {
+					failOnWarning: false,
+					failOnError: true
+				}
+			}
+		})
+	]
 });
