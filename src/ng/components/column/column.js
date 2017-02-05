@@ -3,6 +3,8 @@ import {GRID_NAME, COLUMN_NAME, COLUMN_LIST_NAME} from 'src/definition';
 import {clone, isUndefined} from 'core/services/utility';
 import TextColumn from 'core/column/column.text';
 import TemplatePath from 'core/template/template.path';
+import * as ng from 'ng/services/ng';
+import * as path from 'core/services/path'
 
 TemplatePath
 	.register(COLUMN_NAME, (template, column) => {
@@ -20,28 +22,12 @@ class Column extends Component {
 	}
 
 	copy(source, target) {
-// TODO: automate
-		source.key = target.key;
-		if (!isUndefined(target.title)) {
-			source.title = target.title;
-		}
-
-		if (!isUndefined(target.isDefault)) {
-			source.isDefault = target.isDefault;
-		}
-
-		if (!isUndefined(target.isVisible)) {
-			source.isVisible = target.isVisible;
-		}
-
-		if (!isUndefined(target.aggregation)) {
-			source.aggregation = target.aggregation;
-		}
-
-		if (this.$attrs.hasOwnProperty('value')) {
-			// HACK: to understand if need to pass {$row: row} instead of just row in cell.core.js
-			source.$value = isUndefined(this.value) ? null : this.value;
-		}
+		Object.keys(target)
+			.filter(key => !ng.isSystem(key))
+			.forEach(attr => {
+				const accessor = path.compile(attr);
+				accessor(source, target[attr]);
+			});
 	}
 
 	onInit() {
@@ -59,7 +45,7 @@ class Column extends Component {
 			columns.push(column);
 		}
 
-		this.copy(column, this);
+		this.copy(column, this.$attrs);
 		data({columns: columns});
 	}
 }
@@ -73,11 +59,6 @@ export default {
 	},
 	controller: Column,
 	bindings: {
-		key: '@',
-		title: '@',
-		value: '&',
-		isDefault: '@',
-		isVisible: '@',
-		aggregation: '@'
+		value: '&'
 	}
 };
