@@ -25,11 +25,40 @@ class Selectionbar extends PluginComponent('selectionbar') {
 				const selection = this.model.selection;
 				selection({ mode: mode });
 			}
-		})
+		});
+
+		this.toggleCheckbox = new Command({
+			execute: (checkbox) => {
+				const selection = this.model.selection;
+				
+				selection({ checkbox: checkbox });
+				//TODO: how to invalidate grid without this hack?
+				this._view.grid.invalidate();
+			},
+			canExecute: () => {
+				return this.mode === 'row';
+			}
+		});
+
+	}
+
+	get selection() {
+		return this.model.selection();
 	}
 
 	onInit() {
-		this.mode = this.model.selection().mode;
+		this.mode = this.selection.mode;
+		this.checkbox = this.selection.checkbox;
+
+		this.model.selectionChanged.on(e => {
+			if (e.changes.hasOwnProperty('checkbox')) {
+				this.checkbox = e.state.checkbox;
+			}
+
+			if (e.changes.hasOwnProperty('mode')) {
+				this.mode = e.state.mode;
+			}
+		});
 	}
 	
 	get resource() {

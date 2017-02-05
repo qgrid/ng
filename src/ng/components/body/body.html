@@ -1,6 +1,6 @@
 <tr ng-repeat="$row in $view.body.rows track by $index"
-	 ng-class="{'selected': $selection.mode('row') && $selection.state($row)}"
-	 ng-click="$selection.mode('row') && $selection.toggle.execute($row)">
+	 ng-class="{'selected': $selection.mode('row') && !$selection.checkbox && $selection.state($row)}"
+	 ng-click="$selection.mode('row') && !$selection.checkbox && $selection.toggle.execute($row)">
 	<td ng-repeat="$column in $view.body.columns track by $column.model.key"
 		 ng-class="[
 			$column.model.key, 

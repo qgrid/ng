@@ -16,7 +16,7 @@ export default class HeadView extends View {
 			const heads = pivot.heads;
 			const columns = [];
 
-			if (model.selection().mode === 'check') {
+			if (model.selection().checkbox) {
 				const selectColumn = columnFactory('select');
 				selectColumn.model.key = selectColumn.model.key + `[0][${columns.length}]`;
 				selectColumn.rowspan = heads.length;

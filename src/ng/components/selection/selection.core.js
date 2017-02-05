@@ -42,10 +42,13 @@ class SelectionCore extends Directive(SELECTION_CORE_NAME, {view: `^^${VIEW_CORE
 		return mode === currentMode;
 	}
 
+	get checkbox() {
+		return  this.view.model.selection().checkbox;
+	}
+
 	get items() {
 		switch (this.mode()) {
 			case 'row':
-			case 'check':
 				return this.view.rows;
 			case 'column':
 				return this.view.body.columns;
@@ -62,8 +65,12 @@ class SelectionCore extends Directive(SELECTION_CORE_NAME, {view: `^^${VIEW_CORE
 		});
 
 		this.view.model.selectionChanged.on(e => {
-			if (e.changes.hasOwnProperty('items') || e.changes.hasOwnProperty('mode')) {
+			if (e.changes.hasOwnProperty('items')) {
 				this.selectionSet = new Set(e.state.items);
+			}
+
+			if (e.changes.hasOwnProperty('mode')) {
+				this.selectionSet = new Set();
 			}
 		});
 	}
