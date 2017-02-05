@@ -19,6 +19,7 @@ import Groupbar from './plugins/groupbar/groupbar';
 import Pivotbar from './plugins/pivotbar/pivotbar';
 import Visibility from './plugins/visibility/visibility';
 import ColumnChooser from './plugins/column-chooser/column.chooser';
+import Selectionbar from './plugins/selectionbar/selectionbar';
 
 import ViewCore from './components/view/view.core';
 import ViewportCore from './components/grid/viewport.core';
@@ -66,6 +67,7 @@ export default angular
 	.component(def.PIVOTBAR_NAME, Pivotbar)
 	.component(def.VISIBILITY_NAME, Visibility)
 	.component(def.COLUMNCHOOSER_NAME, ColumnChooser)
+	.component(def.SELECTIONBAR_NAME, Selectionbar)
 	.directive(def.DRAG_NAME, () => Drag)
 	.directive(def.DROP_NAME, () => Drop)
 	.directive(def.VIEWPORT_CORE_NAME, () => ViewportCore)
@@ -154,4 +156,5 @@ function Setup($templateCache) {
 	$templateCache.put('qgrid.plugins.pivotbar.tpl.html', require('./plugins/pivotbar/pivotbar.html'));
 	$templateCache.put('qgrid.plugins.visibility.tpl.html', require('./plugins/visibility/visibility.html'));
 	$templateCache.put('qgrid.plugins.columnchooser.tpl.html', require('./plugins/column-chooser/column.chooser.html'));
+	$templateCache.put('qgrid.plugins.selectionbar.tpl.html', require('./plugins/selectionbar/selectionbar.html'));
 }

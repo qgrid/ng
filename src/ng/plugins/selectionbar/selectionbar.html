@@ -1,0 +1,10 @@
+<div class="selectionbar">
+	<label>Mode:</label>
+	<select ng-model="$selectionbar.mode" 
+			  ng-change="$selectionbar.toggleMode.execute($selectionbar.mode)">
+		<option value="{{mode}}"
+					ng-repeat="mode in $selectionbar.modes"
+					ng-bind="mode">
+		</option>
+	</select>
+</div>

@@ -15,6 +15,7 @@ import PaginationModel from 'core/pagination/pagination.model';
 import NodeModel from 'core/node/node.model';
 import VisibilityModel from 'core/visibility/visibility.model';
 import ColumnChooserModel from 'core/column-chooser/column.chooser.model';
+import SelectionbarModel from 'core/selectionbar/selectionbar.model';
 import FilterModel from 'core/filter/filter.model';
 
 import ng from './ng';
@@ -35,6 +36,7 @@ Model.register('view', ViewModel)
 	.register('pagination', PaginationModel)
 	.register('visibility', VisibilityModel)
 	.register('columnChooser', ColumnChooserModel)
+	.register('selectionbar', SelectionbarModel)
 	.register('filter', FilterModel);
 
 export default ng;

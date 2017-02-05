@@ -3,4 +3,10 @@
 		  selection="$ctrl.selection"
 		  selection-mode="cell"
 		  on:selection-changed="$ctrl.selectionChanged($event)">
+	<q-grid:toolbar>
+		<q-grid:template for="top">
+			<q-grid:selectionbar>
+			</q-grid:selectionbar>
+		</q-grid:template>
+	</q-grid:toolbar>
 </q-grid>

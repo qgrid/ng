@@ -36,6 +36,7 @@ export const GROUPBAR_NAME = `${GRID}Groupbar`;
 export const PIVOTBAR_NAME = `${GRID}Pivotbar`;
 export const VISIBILITY_NAME = `${GRID}Visibility`;
 export const COLUMNCHOOSER_NAME = `${GRID}ColumnChooser`;
+export const SELECTIONBAR_NAME = `${GRID}Selectionbar`;
 export const DRAG_NAME = `${GRID}Drag`;
 export const DROP_NAME = `${GRID}Drop`;
 export const SELECTION_NAME = `${GRID}Selection`;
