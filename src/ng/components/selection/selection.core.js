@@ -2,6 +2,7 @@ import Directive from 'ng/directives/directive';
 import Command from 'core/infrastructure/command';
 import {VIEW_CORE_NAME, SELECTION_CORE_NAME} from 'src/definition';
 import Node from 'core/node/node';
+import AppError from 'core/infrastructure/error';
 
 class SelectionCore extends Directive(SELECTION_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	constructor($scope, $element, $attrs) {
@@ -20,7 +21,7 @@ class SelectionCore extends Directive(SELECTION_CORE_NAME, {view: `^^${VIEW_CORE
 				} else if (item instanceof Node) {
 					this.toggleNode(item, state);
 				} else {
-					this.toggleRow(item, state);
+					this.toggleItem(item, state);
 				}
 
 				this.invalidate();
@@ -31,6 +32,28 @@ class SelectionCore extends Directive(SELECTION_CORE_NAME, {view: `^^${VIEW_CORE
 		});
 	}
 
+	mode(mode) {
+		const currentMode = this.view.model.selection().mode;
+
+		if (!mode) {
+			return currentMode; 
+		}
+
+		return mode === currentMode;
+	}
+
+	get items() {
+		switch (this.mode()) {
+			case 'row':
+			case 'check':
+				return this.view.rows;
+			case 'column':
+				return this.view.body.columns;
+			default:
+				throw new AppError('selection.core', `Invalid mode "${this.mode()}"`);
+		}
+	}
+
 	onInit() {
 		this.view.model.dataChanged.on(e => {
 			if (e.changes.hasOwnProperty('rows')) {
@@ -39,7 +62,7 @@ class SelectionCore extends Directive(SELECTION_CORE_NAME, {view: `^^${VIEW_CORE
 		});
 
 		this.view.model.selectionChanged.on(e => {
-			if (e.changes.hasOwnProperty('items')) {
+			if (e.changes.hasOwnProperty('items') || e.changes.hasOwnProperty('mode')) {
 				this.selectionSet = new Set(e.state.items);
 			}
 		});
@@ -47,9 +70,9 @@ class SelectionCore extends Directive(SELECTION_CORE_NAME, {view: `^^${VIEW_CORE
 
 	state(item) {
 		if (!item) {
-			return this.selectionSet.size === this.view.rows.length;
+			return this.selectionSet.size === this.items.length;
 		} else if (item instanceof Node) {
-			return item.rows.every((index) => this.state(this.view.rows[index]));
+			return item.rows.every((index) => this.state(this.items[index]));
 		} else {
 			return this.selectionSet.has(item);
 		}
@@ -57,7 +80,7 @@ class SelectionCore extends Directive(SELECTION_CORE_NAME, {view: `^^${VIEW_CORE
 
 	indeterminate(item) {
 		if (!item) {
-			return this.selectionSet.size !== this.view.rows.length && this.selectionSet.size > 0;
+			return this.selectionSet.size !== this.items.length && this.selectionSet.size > 0;
 		} 
 		
 		if (item instanceof Node) {
@@ -65,18 +88,18 @@ class SelectionCore extends Directive(SELECTION_CORE_NAME, {view: `^^${VIEW_CORE
 				return false;
 			}
 
-			return item.rows.some((index) => !this.state(this.view.rows[index])) 
-				&& item.rows.some((index) => this.state(this.view.rows[index]))
+			return item.rows.some((index) => !this.state(this.items[index])) 
+				&& item.rows.some((index) => this.state(this.items[index]))
 		} 
 
 		return false;
 	}
 
-	toggleRow(row, state = !this.selectionSet.has(row)) {
+	toggleItem(item, state = !this.selectionSet.has(item)) {
 		if (!state) {
-			this.selectionSet.delete(row);
+			this.selectionSet.delete(item);
 		} else {
-			this.selectionSet.add(row);
+			this.selectionSet.add(item);
 		}
 	}
 
@@ -84,12 +107,12 @@ class SelectionCore extends Directive(SELECTION_CORE_NAME, {view: `^^${VIEW_CORE
 		if (!state) {
 			this.selectionSet = new Set();
 		} else {
-			this.selectionSet = new Set(this.view.rows);
+			this.selectionSet = new Set(this.items);
 		}
 	}
 
 	toggleNode(node, state = !this.state(node)) {
-		node.rows.forEach((index) => this.toggleRow(this.view.rows[index], state));
+		node.rows.forEach((index) => this.toggleItem(this.items[index], state));
 	}
 
 	invalidate() {

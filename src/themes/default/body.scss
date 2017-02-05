@@ -12,6 +12,10 @@ $row-height: 48px;
 					background-color: #eee;
 				}
 
+				&.selected {
+					background-color: $selected;
+				}
+
 				td {
 					color: $dark;
 					font-size: 13px;
@@ -31,6 +35,10 @@ $row-height: 48px;
 
 					&.bool {
 						text-align: center;
+					}
+
+					&.selected {
+						background-color: $selected;
 					}
 				}
 			}
