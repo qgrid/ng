@@ -6,6 +6,6 @@ export default class HeadModel {
 		this.resource = new Resource();
 		this.cache = new Cache();
 
-		this.sticky = true;
+		this.isSticky = true;
 	}
 }

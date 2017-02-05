@@ -8,10 +8,10 @@ export function generate(rows, deep = true) {
 		return [];
 	}
 
-	return drilldown(rows[0], null, deep);
+	return build(rows[0], null, deep);
 }
 
-function drilldown(graph, path, deep) {
+function build(graph, path, deep) {
 	const props = Object.getOwnPropertyNames(graph);
 	return props.reduce((columns, prop) => {
 		const value = graph[prop];
@@ -21,9 +21,10 @@ function drilldown(graph, path, deep) {
 			case 'array': {
 				const column = columnFactory(type).model;
 				column.key = propPath;
-				column.title = startCase(prop);
+				column.title = startCase(propPath);
 				column.path = propPath;
 				column.value = compile(propPath);
+				column.source = 'generation';
 				columns.push(column);
 				break;
 			}
@@ -31,17 +32,18 @@ function drilldown(graph, path, deep) {
 				break;
 			}
 			case 'object': {
-				if(deep) {
-					columns.push(...drilldown(value, propPath, true));
+				if (deep) {
+					columns.push(...build(value, propPath, true));
 				}
 				break;
 			}
 			default: {
 				const column = columnFactory(type).model;
 				column.key = propPath;
-				column.title = startCase(prop);
+				column.title = startCase(propPath);
 				column.path = propPath;
 				column.value = compile(propPath);
+				column.source = 'generation';
 				columns.push(column);
 				break;
 			}

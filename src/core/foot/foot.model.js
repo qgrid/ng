@@ -6,6 +6,6 @@ export default class FootModel {
 		this.resource = new EnumerableResource();
 		this.cache = new Cache();
 
-		this.sticky = false;
+		this.isSticky = true;
 	}
 }

@@ -10,6 +10,7 @@ import merge from 'lodash/merge';
 import flatten from 'lodash/flatten';
 import orderBy from 'lodash/orderBy';
 import startCase from 'lodash/startCase';
+import assignWith from 'lodash/assignWith';
 
 const noop = () => {
 };
@@ -52,6 +53,7 @@ export {
 	merge,
 	flatten,
 	startCase,
+	assignWith,
 	identity,
 	yes,
 	no,

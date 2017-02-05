@@ -1,4 +1,4 @@
-import {generate} from './generate';
+import {generate} from './column.list.generate';
 
 describe('column generate', () => {
 	it('should return empty array without parameters', () => {
