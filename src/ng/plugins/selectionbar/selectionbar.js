@@ -2,8 +2,6 @@ import PluginComponent from '../plugin.component';
 import Command from 'core/infrastructure/command';
 import {SELECTIONBAR_NAME} from 'src/definition';
 import TemplatePath from 'core/template/template.path';
-// import {isFunction} from 'core/services/utility';
-// import Aggregation from 'core/services/aggregation';
 
 TemplatePath
 	.register(SELECTIONBAR_NAME, () => {
@@ -17,6 +15,7 @@ class Selectionbar extends PluginComponent('selectionbar') {
 	constructor() {
 		super(...arguments);
 		
+		this.checkbox = false;
 		this.mode = 'row';
 		this.modes = ['row', 'column', 'cell'];
 		
@@ -24,16 +23,15 @@ class Selectionbar extends PluginComponent('selectionbar') {
 			execute: (mode) => {
 				const selection = this.model.selection;
 				selection({ mode: mode });
+				this.invalidateGrid();
 			}
 		});
 
 		this.toggleCheckbox = new Command({
 			execute: (checkbox) => {
 				const selection = this.model.selection;
-				
 				selection({ checkbox: checkbox });
-				//TODO: how to invalidate grid without this hack?
-				this._view.grid.invalidate();
+				this.invalidateGrid();
 			},
 			canExecute: () => {
 				return this.mode === 'row';
@@ -44,6 +42,11 @@ class Selectionbar extends PluginComponent('selectionbar') {
 
 	get selection() {
 		return this.model.selection();
+	}
+
+	invalidateGrid(){
+		//TODO: how to invalidate grid without this hack?
+		this._view.grid.invalidate();
 	}
 
 	onInit() {
