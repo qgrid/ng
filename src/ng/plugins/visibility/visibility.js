@@ -1,6 +1,8 @@
 import PluginComponent from '../plugin.component';
 import Command from 'core/infrastructure/command';
 import Node from 'core/node/node'
+import * as path from 'core/services/path'
+import * as ng from 'ng/services/ng';
 import {VISIBILITY_NAME} from 'src/definition';
 import TemplatePath from 'core/template/template.path';
 import {isObject, cloneDeep} from 'core/services/utility';
@@ -52,7 +54,17 @@ class Visibility extends PluginComponent('visibility') {
 	}
 
 	onInit() {
-		this.items = this.build(() => this.model.visibility());
+		const visibility = this.model.visibility;
+		const visibilityState = cloneDeep(visibility());
+		Object.keys(this.$attrs)
+			.filter(key => !ng.isSystem(key) && key !== 'model')
+			.forEach(attr => {
+				const accessor = path.compile(attr);
+				accessor(visibilityState, this.$attrs[attr] === 'true');
+			});
+
+		visibility(visibilityState);
+		this.items = this.build(() => visibility());
 	}
 
 	get resource() {

@@ -139,6 +139,6 @@ describe('column generate', () => {
 		expect(columns.length).to.equal(3);
 		expect(columns[2].key).to.equal('likes');
 		expect(columns[2].title).to.equal('Likes');
-		expect(columns[2].value(row)).to.equal('chatting; boxing; swimming');
+		expect(columns[2].value(row)).to.equal(row.likes);
 	});
 });

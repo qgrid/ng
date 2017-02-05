@@ -1,37 +1,52 @@
-import {startCase, isObject, isArray} from '../services/utility';
-import Path from '../services/path';
+import columnFactory from 'core/column/column.factory';
+import {startCase} from 'core/services/utility';
+import {compile} from 'core/services/path';
+import {getType} from 'core/services/convert';
 
-export function generate(rows, deep=true, path='') {
+export function generate(rows, deep = true) {
 	if (!rows || rows.length === 0) {
 		return [];
 	}
 
-	const source = rows[0];
-	const props = Object.getOwnPropertyNames(source);
-	return props.reduce((memo, prop) => {
-		const key = path !== '' ? `${path}.${prop}` : prop;
+	return drilldown(rows[0], null, deep);
+}
 
-		if (deep && isObject(source[prop])) {
-			if (isArray(source[prop])) {
-				const value = Path.compile(key);
-				memo.push({
-					key: key,
-					title: startCase(prop),
-					value: item => value(item).join('; ')
-				});
-			} else {
-				const mergeColumns = generate([source[prop]], true, key);
-				memo.push(...mergeColumns);
+function drilldown(graph, path, deep) {
+	const props = Object.getOwnPropertyNames(graph);
+	return props.reduce((columns, prop) => {
+		const value = graph[prop];
+		const propPath = path ? `${path}.${prop}` : prop;
+		const type = getType(value);
+		switch (type) {
+			case 'array': {
+				const column = columnFactory(type).model;
+				column.key = propPath;
+				column.title = startCase(prop);
+				column.path = propPath;
+				column.value = compile(propPath);
+				columns.push(column);
+				break;
 			}
-		} else {
-			const value = Path.compile(key);
-			memo.push({
-				key: key,
-				title: startCase(prop),
-				value: value
-			});
+			case 'collection': {
+				break;
+			}
+			case 'object': {
+				if(deep) {
+					columns.push(...drilldown(value, propPath, true));
+				}
+				break;
+			}
+			default: {
+				const column = columnFactory(type).model;
+				column.key = propPath;
+				column.title = startCase(prop);
+				column.path = propPath;
+				column.value = compile(propPath);
+				columns.push(column);
+				break;
+			}
 		}
 
-		return memo;
+		return columns;
 	}, []);
 }

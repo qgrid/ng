@@ -1,22 +1,31 @@
-import {isUndefined} from './utility';
+export function compile(path) {
+	const parts = path.split('.');
+	const last = parts.length - 1;
+	const accessor =
+		parts.filter((part, index) => index !== last)
+			.reduce((accessor, part) =>
+					accessor
+						? entry => accessor(entry)[part]
+						: entry => entry[part],
+				null);
 
-export default class Path {
-	static compile(path) {
-		const parts = path ? path.split('.') : [];
-		return (item, value) => {
-			let accessor = item;
-			const length = parts.length;
-			const last = length - 1;
-			for (let i = 0; i < last; i++) {
-				accessor = accessor[parts[i]];
+	const key = parts[last];
+	if (accessor) {
+		return function (entry, value) {
+			if (arguments.length === 2) {
+				accessor(entry)[key] = value;
 			}
 
-			const property = parts[last];
-			if (!isUndefined(value)) {
-				accessor[property] = value;
-			} else {
-				return accessor[property];
-			}
+			return accessor(entry)[key];
 		};
 	}
+
+	return function (entry, value) {
+		if (arguments.length === 2) {
+			entry[key] = value;
+		}
+
+		return entry[key];
+	};
+
 }
