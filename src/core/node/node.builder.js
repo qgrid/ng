@@ -13,13 +13,13 @@ export default function nodeBuilder(columnMap, groupBy, valueFactory, level = 0)
 
 	const column = columnMap[groupKey];
 	const getValue = valueFactory(column);
-	return (rows, rowsIndexes) => {
+	return (rows, getIdentity = (i) => i) => {
 		const keys = [];
 		const nodes = [];
 		const groups = {};
 		for (let i = 0, length = rows.length; i < length; i++) {
 			const row = rows[i];
-			const index = rowsIndexes ? rowsIndexes[i] : i;
+			const index = getIdentity(i);
 			const key = getValue(row);
 			if (!groups.hasOwnProperty(key)) {
 				const node = new Node(key, level);
@@ -45,7 +45,7 @@ export default function nodeBuilder(columnMap, groupBy, valueFactory, level = 0)
 			for (let i = 0, length = keys.length; i < length; i++) {
 				const key = keys[i];
 				const group = groups[key];
-				group.node.children = build(group.rows, group.node.rows);
+				group.node.children = build(group.rows, i => group.node.rows[i]);
 			}
 		}
 

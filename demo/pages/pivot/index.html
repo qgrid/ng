@@ -1,6 +1,7 @@
 <q-grid columns="$ctrl.columns"
 		  rows="$ctrl.rows"
 		  model="$ctrl.gridModel"
+		  selection-mode="check"
 		  pivot-by="['age.interval', 'age']"
 		  group-by="['state', 'gender']">
 	<q-grid:columns>
