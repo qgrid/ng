@@ -1,17 +1,16 @@
-<div class="view" layout="column">
+<div class="view" flex="100" layout="column">
 	<div flex="auto" ng-if="$view.visibility.toolbar.top">
 		<q-grid-core:toolbar position="top"></q-grid-core:toolbar>
 	</div>
-	<div flex layout="row">
+	<div flex="100" layout="row">
 		<div flex="auto" ng-if="$view.visibility.toolbar.left">
 			<q-grid-core:toolbar position="left"></q-grid-core:toolbar>
 		</div>
 		<div q-grid-core:viewport
 			  class="viewport"
-			  flex>
+			  flex="100">
 			<table q-grid-core:table
-					 q-grid-core:selection
-					 class="mode-{{$view.mode}}">
+					 q-grid-core:selection>
 				<thead ng-if="$view.visibility.head"
 						 q-grid-core:head
 						 q-grid-core:sticky
