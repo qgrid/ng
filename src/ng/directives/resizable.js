@@ -84,7 +84,6 @@ class Resizable extends Directive(RESIZABLE_NAME, {stickyCore: `^^?${STICKY_CORE
 			context.width.min,
 			context.state.width + e.screenX - context.state.x
 		);
-
 		const width = `${newWidth}px`;
 		const style = {
 			'max-width': width,
