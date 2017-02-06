@@ -2,22 +2,20 @@
 
 export default function (settings) {
 	const context = assignWith({
-			equals: (l, r) => l === r,
-			update: (l, r /*left, i*/) => {
-				assignWith(l, r);
-				return 0;
-			},
-			remove: (l, left, i) => {
-				left.splice(i, 1);
-				return -1;
-			},
-			insert: (r, left) => {
-				left.push(r);
-				return 1;
-			}
+		equals: (l, r) => l === r,
+		update: (l, r /*left, i*/) => {
+			assignWith(l, r);
+			return 0;
 		},
-		settings
-	);
+		remove: (l, left, i) => {
+			left.splice(i, 1);
+			return -1;
+		},
+		insert: (r, left) => {
+			left.push(r);
+			return 1;
+		}
+	}, settings);
 
 	return (left, right, result) => {
 		const ls = left.slice();
