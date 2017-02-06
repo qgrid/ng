@@ -1,9 +1,8 @@
-<q-grid columns="$ctrl.columns"
-		  rows="$ctrl.rows"
+<q-grid rows="$ctrl.rows"
 		  selection="$ctrl.selection"
 		  selection-mode="$ctrl.selectionMode"
 		  on:selection-changed="$ctrl.selectionChanged($event)">
-	<q-grid:selection>
+	<q-grid:selection generation="deep">
 		<q-grid:template for="select-all">
 			<label style="background-color: #f00;">
 				<input type="checkbox" q-grid:indeterminate="$selection.indeterminate()"

@@ -42,14 +42,16 @@ class ColumnList extends ModelComponent {
 				}
 			});
 		}
-
-		data({columns: this.merge(data().columns, this.columns)});
+		else {
+			data({columns: this.merge(data().columns, this.columns)});
+		}
 	}
 
 	merge(left, right) {
 		const doMerge = merge({
 			equals: (l, r) => l.key === r.key,
 			update: (l, r) => assignWith(l, r, (source, target) => !isUndefined(target) && target !== null ? target : source),
+			insert: (r, left) => left.unshift(r),
 			remove: noop
 		});
 
