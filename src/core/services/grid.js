@@ -10,7 +10,12 @@ export default class GridService {
 	invalidate(source = 'invalidate', changes = {}) {
 		Log.info('invalidate', source);
 
-		const run = buildPipe(this.model, this.valueFactory);
+		const model = this.model;
+		model.head().cache.clear();
+		model.body().cache.clear();
+		model.foot().cache.clear();
+
+		const run = buildPipe(model, this.valueFactory);
 		return run(source, changes);
 	}
 }

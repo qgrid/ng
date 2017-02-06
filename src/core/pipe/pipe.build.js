@@ -13,7 +13,6 @@ export default function build(model, valueFactory) {
 
 		// TODO: add progress
 		return middleware
-			.run(context)
-			.then(rows => model.view({rows: rows}));
+			.run(context);
 	};
 }

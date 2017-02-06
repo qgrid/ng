@@ -9,13 +9,21 @@ export default class DataModel {
 			Pipe.data,
 			Pipe.filter,
 			Pipe.sort,
-			Pipe.pagination
+			Pipe.pagination,
+			Pipe.memo,
+			Pipe.group,
+			Pipe.pivot,
+			Pipe.column,
+			Pipe.view
 		];
 
 		this.triggers = [
+			'data',
 			'pagination',
 			'sort',
-			'filter'
+			'filter',
+			'group',
+			'pivot'
 		];
 	}
 }
