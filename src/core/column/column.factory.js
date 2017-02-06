@@ -8,6 +8,7 @@ import EmailColumn from 'core/column-type/column.email';
 import SelectColumn from 'core/column-type/column.select';
 import GroupColumn from 'core/column-type/column.group';
 import PivotColumn from 'core/column-type/column.pivot';
+import RowNumberColumn from 'core/column-type/column.row.number';
 
 export default function (type, model = null) {
 	switch (type) {
@@ -29,8 +30,10 @@ export default function (type, model = null) {
 			return new GroupColumn(model || GroupColumn.model());
 		case 'pivot':
 			return new PivotColumn(model || PivotColumn.model());
+		case 'row-number':
+			return new RowNumberColumn(model || RowNumberColumn.model());
 		default:
-			throw  new AppError(
+			throw new AppError(
 				'column.factory',
 				`Invalid type "${type}"`);
 	}

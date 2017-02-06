@@ -115,6 +115,9 @@ function Setup($templateCache) {
 	$templateCache.put('qgrid.foot.text.cell.tpl.html', require('./components/foot/foot.text.cell.html'));
 	$templateCache.put('qgrid.body.text.cell.edit.tpl.html', require('./components/body/body.text.cell.edit.html'));
 
+	$templateCache.put('qgrid.head.row-number.cell.tpl.html', require('./components/head/head.row.number.cell.html'));
+	$templateCache.put('qgrid.body.row-number.cell.tpl.html', require('./components/body/body.row.number.cell.html'));
+	$templateCache.put('qgrid.foot.row-number.cell.tpl.html', EMPTY);
 
 	$templateCache.put('qgrid.head.date.cell.tpl.html', require('./components/head/head.text.cell.html'));
 	$templateCache.put('qgrid.body.date.cell.tpl.html', require('./components/body/body.date.cell.html'));
