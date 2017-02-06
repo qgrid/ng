@@ -4,12 +4,14 @@ import angular from 'angular';
 import EventListener from 'core/infrastructure/event.listener';
 
 class Resizable extends Directive(RESIZABLE_NAME, {stickyCore: `^^?${STICKY_CORE_NAME}`, th: `${TH_CORE_NAME}`}) {
-	constructor($element, $attrs, $document) {
+	constructor($scope, $element, $attrs, $document, $timeout) {
 		super();
 
+		this.$scope = $scope;
 		this.$element = $element;
 		this.$attrs = $attrs;
 		this.$document = $document;
+		this.$timeout = $timeout;
 		this.divider = angular.element('<div class="divider"></div>');
 		this.listener = {
 			divider: new EventListener(this, this.divider[0]),
@@ -25,7 +27,7 @@ class Resizable extends Directive(RESIZABLE_NAME, {stickyCore: `^^?${STICKY_CORE
 				width: 0,
 				x: 0
 			},
-			originColumn: null,
+			sourceColumn: null,
 			defaultWidth: {
 				min: 20,
 				max: 200
@@ -38,8 +40,8 @@ class Resizable extends Directive(RESIZABLE_NAME, {stickyCore: `^^?${STICKY_CORE
 			return;
 		}
 
-		this.$element.after(this.divider);
 		this.listener.divider.on('mousedown', this.dragStart);
+		this.$timeout(() => this.$element.append(this.divider));
 	}
 
 	onDestroy() {
@@ -53,9 +55,9 @@ class Resizable extends Directive(RESIZABLE_NAME, {stickyCore: `^^?${STICKY_CORE
 		const sticky = this.stickyCore.sticky;
 		const context = this.context;
 
-		if (sticky && !context.originColumn) {
-			context.originColumn = sticky
-				.th(sticky.origin)
+		if (sticky && !context.sourceColumn) {
+			context.sourceColumn = sticky
+				.th(sticky.source)
 				.find(th => th.classList.contains(this.th.column.key));
 		}
 
@@ -91,9 +93,9 @@ class Resizable extends Directive(RESIZABLE_NAME, {stickyCore: `^^?${STICKY_CORE
 		};
 
 		this.$element.css(style);
-		if (context.originColumn) {
-			angular.element(context.originColumn).css(style);
-			this.stickyCore.sticky.invalidate(/*'sticky'*/);
+		if (context.sourceColumn) {
+			angular.element(context.sourceColumn).css(style);
+			this.stickyCore.sticky.invalidate();
 		}
 	}
 
@@ -112,7 +114,7 @@ class Resizable extends Directive(RESIZABLE_NAME, {stickyCore: `^^?${STICKY_CORE
 	}
 }
 
-Resizable.$inject = ['$element', '$attrs', '$document'];
+Resizable.$inject = ['$scope', '$element', '$attrs', '$document', '$timeout'];
 
 export default {
 	restrict: 'A',

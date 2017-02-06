@@ -85,7 +85,7 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {
 
 		removeGridAttrs(stickySync[0]);
 
-		sticky.origin = stickySync[0];
+		sticky.source = stickySync[0];
 		this.$element.after(stickySync);
 		stickySync.css('visibility', 'hidden');
 

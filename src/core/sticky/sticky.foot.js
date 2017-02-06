@@ -5,11 +5,11 @@ export default class StickyHead extends Sticky {
 	/**
 	 * @param {Node} table - table node
 	 * @param {Node} scrollView - view container which causes scroll
-	 * @param {Node} origin - view container which causes scroll
+	 * @param {Node} source - source thead for synchronization
 	 * @param {boolean} withClone - defines source for sticky element
 	 */
-	constructor(table, scrollView, origin, withClone) {
-		super(table, scrollView, origin, withClone);
+	constructor(table, scrollView, source, withClone) {
+		super(table, scrollView, source, withClone);
 		this.invalidate();
 	}
 
@@ -24,16 +24,16 @@ export default class StickyHead extends Sticky {
 
 		super.invalidateHeight();
 
-		const offset = this.origin.offsetHeight;
+		const offset = this.source.offsetHeight;
 		css(this.element, 'margin-top', `${this.scrollView.offsetHeight}px`);
-		css(this.origin, 'margin-top', `-${offset}px`);
+		css(this.source, 'margin-top', `-${offset}px`);
 		css(this.table, 'margin-bottom', `-${offset}px`);
 		css(this.scrollView, 'margin-bottom', `${offset}px`);
 
 		const stickyTd = td(this.element);
-		const originTd = td(this.origin);
+		const sourceTd = td(this.source);
 		stickyTd.forEach((column, index) => {
-			const tdStyle = window.getComputedStyle(originTd[index]);
+			const tdStyle = window.getComputedStyle(sourceTd[index]);
 			css(column, 'min-width', tdStyle.width);
 			css(column, 'max-width', tdStyle.width);
 		});
