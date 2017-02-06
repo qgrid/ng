@@ -29,7 +29,7 @@ export default class FootView extends View {
 		const resourceCount = model.foot().resource.count;
 
 		for (let i = 0, length = columns.length; i < length; i++) {
-			if (columns[i].hasOwnProperty('aggregation')) {
+			if (columns[i].aggregation) {
 				return Math.max(resourceCount, 1);
 			}
 		}

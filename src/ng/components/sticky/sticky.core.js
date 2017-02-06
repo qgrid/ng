@@ -1,6 +1,8 @@
 import Directive from 'ng/directives/directive';
-import {STICKY_CORE_NAME, VIEW_CORE_NAME, VIEWPORT_CORE_NAME,
-	TABLE_CORE_NAME, HEAD_CORE_NAME, FOOT_CORE_NAME} from 'src/definition';
+import {
+	STICKY_CORE_NAME, VIEW_CORE_NAME, VIEWPORT_CORE_NAME,
+	TABLE_CORE_NAME, HEAD_CORE_NAME, FOOT_CORE_NAME
+} from 'src/definition';
 import AppError from 'core/infrastructure/error';
 import StickyFactory from 'core/sticky/sticky.factory';
 import angular from 'angular';
@@ -42,16 +44,16 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {
 
 		model[`${target}Changed`]
 			.on(e => {
-				if (e.changes.hasOwnProperty('sticky') && e.changes.sticky) {
+				if (e.changes.hasOwnProperty('isSticky') &&
+					e.state.isSticky) {
 					this.apply(target);
-				} else {
-					if (this.sticky !== null) {
-						this.sticky.destroy();
-					}
+				}
+				else if (this.sticky) {
+					this.sticky.destroy();
 				}
 			});
 
-		if (model[target]().sticky) {
+		if (model[target]().isSticky) {
 			this.apply(target);
 		} else {
 			if (this.sticky !== null) {
@@ -111,10 +113,10 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {
 		this.$window.addEventListener('resize', onResize);
 
 		this.$scope.$watch(() => {
-			const tagName = target === 'head' ? 'th' : 'td';
-			return Array.from(stickySync.find(tagName))
-				.map(col => col.offsetWidth);
-		}, () => this.$timeout(() => sticky.invalidate()),
+				const tagName = target === 'head' ? 'th' : 'td';
+				return Array.from(stickySync.find(tagName))
+					.map(col => col.offsetWidth);
+			}, () => this.$timeout(() => sticky.invalidate()),
 			true);
 
 		this.$scope.$on('$destroy', () => {

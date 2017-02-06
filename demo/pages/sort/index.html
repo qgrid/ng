@@ -1,5 +1,8 @@
-<q-grid columns="$ctrl.columns"
-		  rows="$ctrl.rows"
+<q-grid rows="$ctrl.rows"
 		  pipe="$ctrl.pipe"
 		  sort-by="[{birthday: 'desc'}, {gender: 'asc'}]">
+	<q-grid:columns generation="deep">
+		<q-grid:column key="birthday"></q-grid:column>
+		<q-grid:column key="gender"></q-grid:column>
+	</q-grid:columns>
 </q-grid>

@@ -1,16 +1,17 @@
 import ModelComponent from 'ng/components/model.component';
 import AppError from 'core/infrastructure/error';
 import * as guard from 'core/infrastructure/guard';
+import * as pair from 'core/services/pair';
 import {merge, clone} from 'core/services/utility';
 import TemplateLink from 'ng/components/template/template.link';
 import {VIEW_CORE_NAME, GRID_NAME} from 'src/definition';
 
-export default function (pluginName, modelNames = []) {
+export default function (pluginName, modelNames = [], inject = []) {
 	guard.notNullOrEmpty(pluginName, 'pluginName');
 	pluginName = pluginName.toLowerCase();
 
 	class Plugin extends ModelComponent {
-		constructor($scope, $element, $compile, $templateCache) {
+		constructor($scope, $element, $attrs, $compile, $templateCache) {
 			if (modelNames.length) {
 				super(modelNames);
 			}
@@ -20,8 +21,11 @@ export default function (pluginName, modelNames = []) {
 
 			this.$scope = $scope;
 			this.$element = $element;
+			this.$attrs = $attrs;
 			this.template = new TemplateLink($compile, $templateCache);
 			this.templateScope = null;
+
+			this.inject = pair.map(inject);
 		}
 
 		onInitCore() {
@@ -96,12 +100,13 @@ export default function (pluginName, modelNames = []) {
 		}
 	}
 
-	Plugin.$inject = [
+	Plugin.$inject = ([
 		'$scope',
 		'$element',
+		'$attrs',
 		'$compile',
 		'$templateCache'
-	];
+	]).concat(inject);
 
 	Plugin.component = settings => {
 		const pluginSettings = {
