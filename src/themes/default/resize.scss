@@ -6,11 +6,10 @@
 				right: 0;
 				height: 50%;
 				width: 4px;
-				margin-left: 4px;
 				z-index: 2;
 				background: transparent;
 				position: absolute;
-				border-left: 1px solid rgba(0, 0, 0, 0.12);
+				border-right: 1px solid rgba(0, 0, 0, 0.12);
 				cursor: col-resize;
 				visibility: hidden;
 			}
