@@ -19,6 +19,7 @@ import Groupbar from './plugins/groupbar/groupbar';
 import Pivotbar from './plugins/pivotbar/pivotbar';
 import Visibility from './plugins/visibility/visibility';
 import ColumnChooser from './plugins/column-chooser/column.chooser';
+import Progress from './plugins/progress/progress';
 
 import ViewCore from './components/view/view.core';
 import ViewportCore from './components/grid/viewport.core';
@@ -66,6 +67,7 @@ export default angular
 	.component(def.PIVOTBAR_NAME, Pivotbar)
 	.component(def.VISIBILITY_NAME, Visibility)
 	.component(def.COLUMNCHOOSER_NAME, ColumnChooser)
+	.component(def.PROGRESS_NAME, Progress)
 	.directive(def.DRAG_NAME, () => Drag)
 	.directive(def.DROP_NAME, () => Drop)
 	.directive(def.VIEWPORT_CORE_NAME, () => ViewportCore)
@@ -149,6 +151,7 @@ function Setup($templateCache) {
 	$templateCache.put('qgrid.foot.select.cell.tpl.html', EMPTY);
 
 	$templateCache.put('qgrid.plugins.pager.tpl.html', require('./plugins/pagination/pager.html'));
+	$templateCache.put('qgrid.plugins.progress.tpl.html', require('./plugins/progress/progress.html'));
 	$templateCache.put('qgrid.plugins.sortbar.tpl.html', require('./plugins/sortbar/sortbar.html'));
 	$templateCache.put('qgrid.plugins.groupbar.tpl.html', require('./plugins/groupbar/groupbar.html'));
 	$templateCache.put('qgrid.plugins.pivotbar.tpl.html', require('./plugins/pivotbar/pivotbar.html'));

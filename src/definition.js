@@ -31,6 +31,7 @@ export const NODE_NAME = `${GRID}Node`;
 export const TOOLBAR_NAME = `${GRID}Toolbar`;
 export const FOOT_NAME = `${GRID}Foot`;
 export const PAGER_NAME = `${GRID}Pager`;
+export const PROGRESS_NAME = `${GRID}Progress`;
 export const SORTBAR_NAME = `${GRID}Sortbar`;
 export const GROUPBAR_NAME = `${GRID}Groupbar`;
 export const PIVOTBAR_NAME = `${GRID}Pivotbar`;
