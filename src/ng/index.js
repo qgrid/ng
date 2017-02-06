@@ -119,17 +119,19 @@ function Setup($templateCache) {
 	$templateCache.put('qgrid.body.row-number.cell.tpl.html', require('./components/cell/row-number/body.row.number.cell.html'));
 	$templateCache.put('qgrid.foot.row-number.cell.tpl.html', EMPTY);
 
+	$templateCache.put('qgrid.head.row-indicator.cell.tpl.html', EMPTY);
+	$templateCache.put('qgrid.body.row-indicator.cell.tpl.html', require('./components/cell/row-indicator/body.row.indicator.cell.html'));
+	$templateCache.put('qgrid.foot.row-indicator.cell.tpl.html', EMPTY);
+
 	$templateCache.put('qgrid.head.date.cell.tpl.html', require('./components/cell/text/head.text.cell.html'));
 	$templateCache.put('qgrid.body.date.cell.tpl.html', require('./components/cell/date/body.date.cell.html'));
 	$templateCache.put('qgrid.foot.date.cell.tpl.html', require('./components/cell/text/foot.text.cell.html'));
 	$templateCache.put('qgrid.body.date.cell.edit.tpl.html', require('./components/cell/date/body.date.cell.edit.html'));
 
-
 	$templateCache.put('qgrid.head.bool.cell.tpl.html', require('./components/cell/text/head.text.cell.html'));
 	$templateCache.put('qgrid.body.bool.cell.tpl.html', require('./components/cell/bool/body.bool.cell.html'));
 	$templateCache.put('qgrid.foot.bool.cell.tpl.html', require('./components/cell/text/foot.text.cell.html'));
 	$templateCache.put('qgrid.body.bool.cell.edit.tpl.html', require('./components/cell/bool/body.bool.cell.edit.html'));
-
 
 	$templateCache.put('qgrid.head.number.cell.tpl.html', require('./components/cell/text/head.text.cell.html'));
 	$templateCache.put('qgrid.body.number.cell.tpl.html', require('./components/cell/text/body.text.cell.html'));
@@ -140,7 +142,6 @@ function Setup($templateCache) {
 	$templateCache.put('qgrid.body.array.cell.tpl.html', require('./components/cell/array/body.array.cell.html'));
 	$templateCache.put('qgrid.foot.array.cell.tpl.html', require('./components/cell/text/foot.text.cell.html'));
 	$templateCache.put('qgrid.body.array.cell.edit.tpl.html', require('./components/cell/array/body.array.cell.edit.html'));
-
 
 	$templateCache.put('qgrid.head.email.cell.tpl.html', require('./components/cell/text/head.text.cell.html'));
 	$templateCache.put('qgrid.body.email.cell.tpl.html', require('./components/cell/email/body.email.cell.html'));

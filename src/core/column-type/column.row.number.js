@@ -4,8 +4,8 @@ import ColumnModel from './column.model';
 
 TemplatePath.register('row-number-cell', (template) => {
 	return {
-		model: 'row',
-		resource: template.for === 'head' ? 'number-head' : 'number'
+		model: template.for,
+		resource: `${template.for}.${template.type}`
 	};
 });
 

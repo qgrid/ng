@@ -4,8 +4,8 @@ import ColumnModel from './column.model';
 
 TemplatePath.register('row-indicator-cell', (template) => {
 	return {
-		model: 'row',
-		resource: template.for === 'head' ? 'indicator-head' : 'indicator'
+		model: template.for,
+		resource: `${template.for}.${template.type}`
 	};
 });
 
