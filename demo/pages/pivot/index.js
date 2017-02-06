@@ -1,10 +1,8 @@
 Controller.$inject = ['$http'];
 export default function Controller($http) {
 	const ctrl = this;
-
 	this.rows = [];
 
-	this.getState = item => item.contact.address.state;
 	this.getAgeInterval = item => {
 		const age = this.getAge(item);
 		const from = Math.floor(age / 10) * 10;

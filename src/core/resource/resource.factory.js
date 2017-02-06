@@ -24,9 +24,7 @@ export default function(resource, key) {
 	}
 
 	if (data.hasOwnProperty(key)) {
-		throw new AppError(
-			'template',
-			`Ambiguous key "${key}"`);
+		throw new AppError('resource.factory', `Ambiguous key "${key}"`);
 	}
 
 	return (content, scope) => {

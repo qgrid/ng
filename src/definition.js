@@ -35,6 +35,7 @@ export const SORTBAR_NAME = `${GRID}Sortbar`;
 export const GROUPBAR_NAME = `${GRID}Groupbar`;
 export const PIVOTBAR_NAME = `${GRID}Pivotbar`;
 export const VISIBILITY_NAME = `${GRID}Visibility`;
+export const COLUMNCHOOSER_NAME = `${GRID}ColumnChooser`;
 export const DRAG_NAME = `${GRID}Drag`;
 export const DROP_NAME = `${GRID}Drop`;
 export const SELECTION_NAME = `${GRID}Selection`;
@@ -46,3 +47,4 @@ export const ON_DROP_NAME = `${GRID}OnDrop`;
 
 export const INDETERMINATE_NAME = `${GRID}Indeterminate`;
 export const FOCUS_NAME = `${GRID}Focus`;
+export const RESIZABLE_NAME = `${GRID}Resizable`;

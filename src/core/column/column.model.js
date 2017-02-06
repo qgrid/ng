@@ -7,5 +7,6 @@ export default class ColumnModel {
 		this.isVisible = true;
 		this.canEdit = true;
 		this.pin = null;
+		this.source = 'user';
 	}
 }

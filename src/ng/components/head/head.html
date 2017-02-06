@@ -1,6 +1,7 @@
 <tr ng-repeat="$row in $view.head.rows track by $index">
 	<th ng-repeat="$column in $row track by $column.model.key"
 		 ng-class="[$column.model.key, $column.model.type]"
+		 ng-if="$column.model.isVisible !== false"
 		 rowspan="{{$column.rowspan}}"
 		 colspan="{{$column.colspan}}"
 		 q-grid:drag="$head.transfer($cell)"
@@ -8,6 +9,7 @@
 		 q-grid:on-drop="$head.drop.execute($event)"
 		 q-grid:can-drop="$head.drop.canExecute($event)"
 		 q-grid:can-drag="$head.drag.canExecute($event)"
+		 q-grid:resizable="$head.resize.canExecute($event)"
 		 q-grid-core:th>
 	</th>
 </tr>

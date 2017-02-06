@@ -12,5 +12,7 @@ export default class VisibilityModel {
 			right: false,
 			left: false
 		};
+		this.plugin = {
+		};
 	}
 }

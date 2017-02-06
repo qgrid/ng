@@ -1,0 +1,12 @@
+.column-chooser {
+	height: 100%;
+	overflow: auto;
+
+	ul {
+		list-style-type: none;
+	}
+	select {
+		background-color: transparent;
+		border: none;
+	}
+}

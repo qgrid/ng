@@ -1,4 +1,5 @@
 .qgrid.theme-default {
+	@import "layout";
 	@import "grid";
 	@import "head";
 	@import "body";
@@ -14,4 +15,7 @@
 	@import "sort";
 	@import "dnd";
 	@import "cell.edit";
+	@import "visibility";
+	@import "column.chooser";
+	@import "resize";
 }

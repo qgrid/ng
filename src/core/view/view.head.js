@@ -19,6 +19,7 @@ export default class HeadView extends View {
 			if (model.selection().mode === 'check') {
 				const selectColumn = columnFactory('select');
 				selectColumn.model.key = selectColumn.model.key + `[0][${columns.length}]`;
+				selectColumn.model.source = 'generation';
 				selectColumn.rowspan = heads.length;
 				columns.push(selectColumn);
 			}
@@ -26,6 +27,7 @@ export default class HeadView extends View {
 			if (nodes.length) {
 				const groupColumn = columnFactory('group');
 				groupColumn.model.key = groupColumn.model.key + `[0][${columns.length}]`;
+				groupColumn.model.source = 'generation';
 				groupColumn.rowspan = heads.length;
 				columns.push(groupColumn);
 			}
@@ -56,6 +58,7 @@ export default class HeadView extends View {
 						const pivotColumnModel = pivotColumn.model;
 						pivotColumnModel.key = pivotColumnModel.key + `[${i}][${j}]`;
 						pivotColumnModel.title = headColumn.key;
+						pivotColumnModel.source = 'generation';
 						pivotColumnModel.rowIndex = i;
 						pivotColumnModel.columnIndex = j;
 						row[j] = pivotColumn;

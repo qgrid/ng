@@ -1,9 +1,11 @@
 import PluginComponent from '../plugin.component';
 import Command from 'core/infrastructure/command';
 import Node from 'core/node/node'
+import * as path from 'core/services/path'
+import * as ng from 'ng/services/ng';
 import {VISIBILITY_NAME} from 'src/definition';
 import TemplatePath from 'core/template/template.path';
-import {isObject} from 'core/services/utility';
+import {isObject, cloneDeep} from 'core/services/utility';
 
 TemplatePath
 	.register(VISIBILITY_NAME, () => {
@@ -13,40 +15,56 @@ TemplatePath
 		};
 	});
 
-class Visibility extends PluginComponent('qgrid.plugins.visibility.tpl.html') {
+class Visibility extends PluginComponent('visibility') {
 	constructor() {
 		super(...arguments);
 		this.toggle = new Command({
 			execute: (node) => {
 				node.value = !node.value;
 				node.setValue(node.value);
+
+				// Trigger change event for the visibility model
+				// TODO: trigger only changed parts
+				const visibility = this.model.visibility;
+				visibility(cloneDeep(visibility()));
 			},
 			canExecute: (node) => !node.children.length
 		});
-
-		this.build = (graph) => {
-			let nodes = [];
-			for (let [key, value] of Object.entries(graph)) {
-				let node = new Node(key);
-				node.setValue = value => {
-					graph[key] = value;
-				};
-				if (isObject(value)) {
-					node.children = node.children.concat(this.build(value));
-				} else {
-
-					node.value = value;
-				}
-				if (key !== 'resource'){
-					nodes.push(node);
-				}
-			}
-			return nodes;
-		};
-
 	}
+
+	build(graph) {
+		const nodes = [];
+		for (let [key, value] of Object.entries(graph())) {
+			if (key === 'resource') {
+				continue;
+			}
+
+			const node = new Node(key);
+			node.setValue = value => graph()[key] = value;
+			if (isObject(value)) {
+				node.children = this.build(() => graph()[key]);
+			} else {
+				node.value = value;
+			}
+
+			nodes.push(node);
+		}
+
+		return nodes;
+	}
+
 	onInit() {
-		this.items = this.build(this.model.visibility());
+		const visibility = this.model.visibility;
+		const visibilityState = cloneDeep(visibility());
+		Object.keys(this.$attrs)
+			.filter(key => !ng.isSystem(key) && key !== 'model')
+			.forEach(attr => {
+				const accessor = path.compile(attr);
+				accessor(visibilityState, this.$attrs[attr] === 'true');
+			});
+
+		visibility(visibilityState);
+		this.items = this.build(() => visibility());
 	}
 
 	get resource() {
