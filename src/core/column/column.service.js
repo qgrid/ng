@@ -29,7 +29,7 @@ export function find(columns, key) {
 export function dataView(columns, model) {
 	const groupBy = new Set(model.group().by);
 	const pivotBy = new Set(model.pivot().by);
-	return columns.filter(c => !groupBy.has(c.model.key) && !pivotBy.has(c.model.key));
+	return columns.filter(c => !groupBy.has(c.model.key) && !pivotBy.has(c.model.key) && c.model.isVisible !== false);
 }
 
 export function lineView(columnRows){

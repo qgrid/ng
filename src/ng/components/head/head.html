@@ -1,7 +1,6 @@
 <tr ng-repeat="$row in $view.head.rows track by $index">
 	<th ng-repeat="$column in $row track by $column.model.key"
 		 ng-class="[$column.model.key, $column.model.type]"
-		 ng-if="$column.model.isVisible !== false"
 		 rowspan="{{$column.rowspan}}"
 		 colspan="{{$column.colspan}}"
 		 q-grid:drag="$head.transfer($cell)"
