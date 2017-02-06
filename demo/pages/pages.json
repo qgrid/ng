@@ -32,6 +32,10 @@
 		"title": "Column pin"
 	},
 	{
+		"path": "column-auto",
+		"title": "Column auto"
+	},
+	{
 		"path": "row-index",
 		"title": "Row Index"
 	},
@@ -50,6 +54,10 @@
 	{
 		"path": "foot",
 		"title": "Foot"
+	},
+	{
+		"path": "filter",
+		"title": "Filter"
 	},
 	{
 		"path": "aggregation",
@@ -94,5 +102,9 @@
 	{
 		"path": "column-chooser",
 		"title": "Column Chooser"
+	},
+	{
+		"path": "layout",
+		"title": "Layout"
 	}
 ]

@@ -1,12 +1,12 @@
-<div ng-class="$ctrl.selection.path">
-	<md-card>
+<div layout="column" ng-class="$ctrl.selection.path">
+	<md-card flex="100">
 		<md-card-content>
 			<div class="page-details-content">
 				<ng-view></ng-view>
 			</div>
 		</md-card-content>
 	</md-card>
-	<div flex="100"
+	<div flex="none"
 		  layout="row"
 		  layout-xs="column"
 		  layout-sm="column"

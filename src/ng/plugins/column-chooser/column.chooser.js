@@ -2,7 +2,7 @@ import PluginComponent from '../plugin.component';
 import Command from 'core/infrastructure/command';
 import {COLUMNCHOOSER_NAME} from 'src/definition';
 import TemplatePath from 'core/template/template.path';
-import {isObject, isFunction} from 'core/services/utility';
+import {isFunction} from 'core/services/utility';
 import Aggregation from 'core/services/aggregation';
 
 TemplatePath

@@ -1,13 +1,14 @@
 import {isFunction} from 'core/services/utility';
+import {compile} from 'core/services/path';
 import AppError from 'core/infrastructure/error';
 
 export function get(row, column) {
-	return row.value && isFunction(row.value)
-		? row.value(column)
-		: column.$value
-			? column.$value({$row: row})
-			: column.value
-				? column.value(row)
+	return column.$value
+		? column.$value({$row: row})
+		: column.value
+			? column.value(row)
+			: column.path
+				? compile(column.path)(row)
 				: row[column.key];
 }
 
@@ -16,7 +17,9 @@ export function getFactory(column) {
 		? row => column.$value({$row: row})
 		: column.value
 			? row => column.value(row)
-			: row => row[column.key];
+			: column.path
+				? compile(column.path)
+				: row => row[column.key];
 
 	return row => get(row);
 }
@@ -32,10 +35,16 @@ export function set(row, column, value) {
 		return;
 	}
 
+	if (column.path) {
+		compile(column.path)(row, value);
+	}
+
 	if (row.hasOwnProperty(column.key)) {
 		row[column.key] = value;
 		return;
 	}
 
-	throw  new AppError('value', `Row can't be edit on "${column.key}" column`);
+	throw new AppError(
+		'value',
+		`Row can't be edit on "${column.key}" column`);
 }
