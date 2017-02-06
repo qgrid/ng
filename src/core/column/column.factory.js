@@ -1,13 +1,13 @@
 import AppError from 'core/infrastructure/error';
-import TextColumn from './column.text';
-import NumberColumn from './column.number';
-import BoolColumn from './column.bool';
-import DateColumn from './column.date';
-import ArrayColumn from './column.array';
-import EmailColumn from './column.email';
-import SelectColumn from './column.select';
-import GroupColumn from './column.group';
-import PivotColumn from './column.pivot';
+import TextColumn from 'core/column-type/column.text';
+import NumberColumn from 'core/column-type/column.number';
+import BoolColumn from 'core/column-type/column.bool';
+import DateColumn from 'core/column-type/column.date';
+import ArrayColumn from 'core/column-type/column.array';
+import EmailColumn from 'core/column-type/column.email';
+import SelectColumn from 'core/column-type/column.select';
+import GroupColumn from 'core/column-type/column.group';
+import PivotColumn from 'core/column-type/column.pivot';
 
 export default function (type, model = null) {
 	switch (type) {
