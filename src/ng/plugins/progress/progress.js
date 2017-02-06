@@ -14,17 +14,21 @@ TemplatePath
 class Progress extends PluginComponent('progress') {
 	constructor() {
 		super(...arguments);
-
 	}
 
 	onInit() {
 
 	}
 
-
+	get busy() {
+		return this.model.progress().isBusy;
+	}
 }
 
 export default Progress.component({
 	controller: Progress,
-	controllerAs: '$progress'
+	controllerAs: '$progress',
+	bindings: {
+		'isBusy': '='
+	}
 });
