@@ -2,7 +2,8 @@
 		  selection="$ctrl.selection"
 		  selection-mode="$ctrl.selectionMode"
 		  on:selection-changed="$ctrl.selectionChanged($event)">
-	<q-grid:selection generation="deep">
+	<q-grid:columns generation="deep"></q-grid:columns>
+	<q-grid:selection>
 		<q-grid:template for="select-all">
 			<label style="background-color: #f00;">
 				<input type="checkbox" q-grid:indeterminate="$selection.indeterminate()"
@@ -14,10 +15,10 @@
 		</q-grid:template>
 		<q-grid:template for="select">
 			<label style="background-color: #0f0;">
-				<input type="checkbox" 
-					ng-checked="$selection.state($row)" 
-					ng-click="$selection.toggle.execute($row)"
-					ng-disabled="!$selection.toggle.canExecute($row)"/>
+				<input type="checkbox"
+						 ng-checked="$selection.state($row)"
+						 ng-click="$selection.toggle.execute($row)"
+						 ng-disabled="!$selection.toggle.canExecute($row)"/>
 				Select {{$row.name.last}}
 			</label>
 		</q-grid:template>
