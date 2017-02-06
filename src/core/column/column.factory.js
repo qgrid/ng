@@ -9,6 +9,7 @@ import SelectColumn from 'core/column-type/column.select';
 import GroupColumn from 'core/column-type/column.group';
 import PivotColumn from 'core/column-type/column.pivot';
 import RowNumberColumn from 'core/column-type/column.row.number';
+import RowIndicatorColumn from 'core/column-type/column.row.indicator';
 
 export default function (type, model = null) {
 	switch (type) {
@@ -32,6 +33,8 @@ export default function (type, model = null) {
 			return new PivotColumn(model || PivotColumn.model());
 		case 'row-number':
 			return new RowNumberColumn(model || RowNumberColumn.model());
+		case 'row-indicator':
+			return new RowIndicatorColumn(model || RowIndicatorColumn.model());
 		default:
 			throw new AppError(
 				'column.factory',

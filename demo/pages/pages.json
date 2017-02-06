@@ -40,6 +40,10 @@
 		"title": "Row Number"
 	},
 	{
+		"path": "row-indicator",
+		"title": "Row Indicator"
+	},
+	{
 		"path": "head",
 		"title": "Head"
 	},
