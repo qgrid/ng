@@ -1,7 +1,9 @@
 <q-grid model="$ctrl.gridModel">
+	<q-grid:columns generation="deep"></q-grid:columns>
 	<q-grid:toolbar>
 		<q-grid:template for="right">
-			<q-grid:visibility>
+			<q-grid:visibility toolbar.left="true"
+									 toolbar.right="true">
 			</q-grid:visibility>
 		</q-grid:template>
 	</q-grid:toolbar>

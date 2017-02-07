@@ -11,13 +11,13 @@ export default function Controller($http) {
 			key: 'name.last',
 			title: 'Last Name',
 			type: 'text',
-			value: (item, value) => isUndef(value) ? item.name.last : item.name.last = value
+			path: 'name.last'
 		},
 		{
 			key: 'name.first',
 			title: 'First Name',
 			type: 'text',
-			value: (item, value) => isUndef(value) ? item.name.first : item.name.first = value
+			path: 'name.first'
 		},
 		{
 			key: 'gender',
@@ -31,29 +31,41 @@ export default function Controller($http) {
 			type: 'date'
 		},
 		{
+			key: 'comment',
+			title: 'Comment',
+			type: 'text',
+			value: (item, value) => isUndef(value) ? item.comment || '' : item.comment = value,
+			editor: 'text-area'
+		},
+		{
+			key: 'password',
+			title: 'Password',
+			type: 'password',
+			value: (item, value) => isUndef(value) ? item.password || '' : item.password = value
+		},
+		{
 			key: 'contact.address.zip',
 			title: 'Zip',
 			type: 'number',
-			value: (item, value) => isUndef(value) ? item.contact.address.zip : item.contact.address.zip = value
+			path: 'contact.address.zip'
 		},
 		{
 			key: 'contact.address.state',
 			title: 'State',
 			type: 'text',
-			value: (item, value) => isUndef(value) ? item.contact.address.state : item.contact.address.state = value
+			path: 'contact.address.state'
 		},
 		{
 			key: 'contact.address.city',
 			title: 'City',
 			type: 'text',
-			value: (item, value) => isUndef(value) ? item.contact.address.city : item.contact.address.city = value
+			path: 'contact.address.city'
 		},
 		{
-			key: 'contact.phone.primary',
+			key: 'contact.phone',
 			title: 'Contact Phones',
 			type: 'array',
-			value: item => item.contact.phone,
-			canEdit: false
+			path: 'contact.phone',
 		},
 		{
 			key: 'contact.email.primary',
@@ -65,8 +77,7 @@ export default function Controller($http) {
 		{
 			key: 'likes',
 			title: 'Likes',
-			type: 'array',
-			canEdit: false
+			type: 'array'
 		},
 		{
 			key: 'memberSince',
@@ -78,5 +89,9 @@ export default function Controller($http) {
 	$http.get('data/people/100.json')
 		.then(function (response) {
 			ctrl.rows = response.data;
+
+			ctrl.rows[0].password = 'foo';
+			ctrl.rows[3].password = 'bar';
+			ctrl.rows[4].comment = 'Johnson Creek is a 25-mile (40 km) tributary of the Willamette River in the Portland.';
 		});
 }

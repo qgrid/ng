@@ -1,5 +1,8 @@
 <md-list>
 	<md-list-item ng-repeat="page in $ctrl.items" ng-class="{selected: page === $ctrl.selection}">
+		<md-tooltip md-delay="500">
+			{{::page.title}}
+		</md-tooltip>
 		<a class="md-button" href="#!/{{::page.path}}" ng-click="$ctrl.select(page)">{{::page.title}}</a>
 	</md-list-item>
 </md-list>

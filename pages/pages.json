@@ -29,15 +29,19 @@
 	},
 	{
 		"path": "column-pin",
-		"title": "Column pin"
+		"title": "Column Pin"
 	},
 	{
-		"path": "column-auto",
-		"title": "Column auto"
+		"path": "column-generation",
+		"title": "Column Generation"
 	},
 	{
-		"path": "row-index",
-		"title": "Row Index"
+		"path": "row-number",
+		"title": "Row Number"
+	},
+	{
+		"path": "row-indicator",
+		"title": "Row Indicator"
 	},
 	{
 		"path": "head",
@@ -102,5 +106,13 @@
 	{
 		"path": "column-chooser",
 		"title": "Column Chooser"
+	},
+	{
+		"path": "layout",
+		"title": "Layout"
+	},
+	{
+		"path": "progress",
+		"title": "Progress"
 	}
 ]
