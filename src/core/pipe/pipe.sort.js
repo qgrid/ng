@@ -3,10 +3,10 @@ import {orderBy} from '../services/utility';
 import {key as getKey, direction as getDirection} from '../sort/sort.service';
 import {find} from '../column/column.service';
 
-export default function (data, ctx, next) {
+export default function pipeSort(data, context, next) {
 	const values = [];
 	const directions = [];
-	const model = ctx.model;
+	const model = context.model;
 	const dataState = model.data();
 	const columns = dataState.columns;
 	const sort = model.sort();
@@ -22,7 +22,7 @@ export default function (data, ctx, next) {
 			throw new AppError('column.service', `Column "${key}" is not found`);
 		}
 
-		values.push(ctx.valueFactory(column));
+		values.push(context.valueFactory(column));
 		directions.push(value);
 	}
 

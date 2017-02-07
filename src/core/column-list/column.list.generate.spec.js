@@ -36,9 +36,9 @@ describe('column generate', () => {
 
 		expect(columns.length).to.equal(2);
 		expect(columns[0].key).to.equal('name.last');
-		expect(columns[0].title).to.equal('Last');
+		expect(columns[0].title).to.equal('Name Last');
 		expect(columns[1].key).to.equal('name.first');
-		expect(columns[1].title).to.equal('First');
+		expect(columns[1].title).to.equal('Name First');
 	});
 
 	it('should assign getter by row', () => {
@@ -75,10 +75,10 @@ describe('column generate', () => {
 		const row = rows[0];
 		expect(columns.length).to.equal(4);
 		expect(columns[2].key).to.equal('contacts.address.street');
-		expect(columns[2].title).to.equal('Street');
+		expect(columns[2].title).to.equal('Contacts Address Street');
 		expect(columns[2].value(row)).to.equal('Lenina');
 		expect(columns[3].key).to.equal('contacts.address.zip');
-		expect(columns[3].title).to.equal('Zip');
+		expect(columns[3].title).to.equal('Contacts Address Zip');
 		expect(columns[3].value(row)).to.equal('123456');
 	});
 
@@ -118,7 +118,7 @@ describe('column generate', () => {
 		const row = rows[0];
 
 		expect(street.key).to.equal('contacts.address.street');
-		expect(street.title).to.equal('Street');
+		expect(street.title).to.equal('Contacts Address Street');
 		expect(street.value(row)).to.equal('Lenina');
 
 		const newValue = 'Main';

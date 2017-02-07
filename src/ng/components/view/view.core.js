@@ -1,6 +1,5 @@
 import Component from '../component';
 import {getFactory as valueFactory} from 'ng/services/value';
-import GridView from 'core/view/view.grid';
 import BodyView from 'core/view/view.body';
 import HeadView from 'core/view/view.head';
 import FootView from 'core/view/view.foot';
@@ -15,7 +14,6 @@ class ViewCore extends Component {
 		this.$element = $element;
 		this.theme = theme;
 
-		this.grid = null;
 		this.head = null;
 		this.body = null;
 		this.foot = null;
@@ -28,7 +26,6 @@ class ViewCore extends Component {
 	onInit() {
 		const model = this.model;
 
-		this.grid = new GridView(model, valueFactory);
 		this.head = new HeadView(model);
 		this.body = new BodyView(model, valueFactory);
 		this.foot = new FootView(model, valueFactory);

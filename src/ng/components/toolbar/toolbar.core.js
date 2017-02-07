@@ -17,7 +17,7 @@ class ToolbarCore extends Component {
 		const link = this.template.link(
 			`qgrid.toolbar.${target}.tpl.html`,
 			state.resource,
-			target
+			[target, '$default']
 		);
 
 		link(this.$element, this.$scope);

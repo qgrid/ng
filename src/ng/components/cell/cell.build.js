@@ -10,6 +10,7 @@ export default function (template, mode = 'view') {
 		const pathSource = {[TemplatePath.name(key)]: column, 'for': source};
 		const path = TemplatePath.get(pathSource);
 		const state = model[path.model]();
+		const defaults = [`$default.${type}`, '$default'];
 
 		const templateUrl = mode === 'view'
 			? `qgrid.${source}.${type}.cell.tpl.html`
@@ -18,7 +19,8 @@ export default function (template, mode = 'view') {
 		const link = template.link(
 			templateUrl,
 			state.resource,
-			path.resource
+			[path.resource]
+				.concat(defaults)
 		);
 
 		return (element, scope) => link(element, scope);
