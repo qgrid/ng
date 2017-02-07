@@ -1,50 +1,59 @@
 .toolbar {
-  &.toolbar-top {
-    height: 64px;
+	&.toolbar-top {
+		height: 64px;
+		padding-top: 30px;
+		position: relative;
 
-    .sortbar,
-    .pivotbar,
-    .groupbar {
-      float: left;
-      margin-right: 20px;
-      label {
-        font-weight: bold;
-      }
-    }
-  }
-  &.toolbar-bottom {
-    height: 56px;
-  }
-  &.toolbar-left {
-    box-sizing: border-box;
-    float: left;
-    width: 150px;
-    padding: 0 20px;
-  }
-  &.toolbar-right {
-    box-sizing: border-box;
-    float: right;
-    width: 150px;
-    padding: 0 20px;
-    ul {
-      list-style: none;
-      padding: 0;
-      li {
-        label {
-          text-transform: capitalize;
-          line-height: 20px;
-          margin-left: 30px;
-        }
-        input[type=checkbox] {
-          margin-right: 10px;
-          + label {
-            margin-left: 0;
-          }
-        }
-        ul {
-          margin-left: 30px;
-        }
-      }
-    }
-  }
+		.actions {
+			.md-icon-button:last-child {
+				margin-right: -15px;
+			}
+		}
+
+		.sortbar,
+		.pivotbar,
+		.groupbar {
+			margin-right: 20px;
+			white-space: nowrap;
+			label {
+				font-weight: bold;
+			}
+		}
+	}
+
+	&.toolbar-bottom {
+		height: 56px;
+	}
+	&.toolbar-left {
+		box-sizing: border-box;
+		float: left;
+		width: 150px;
+		padding: 0 20px;
+	}
+	&.toolbar-right {
+		box-sizing: border-box;
+		float: right;
+		width: 150px;
+		padding: 0 20px;
+		ul {
+			list-style: none;
+			padding: 0;
+			li {
+				label {
+					text-transform: capitalize;
+					line-height: 20px;
+					margin-left: 30px;
+				}
+				input[type=checkbox] {
+					margin-right: 10px;
+					+ label {
+						margin-left: 0;
+					}
+				}
+				ul {
+					margin-left: 30px;
+				}
+			}
+		}
+	}
 }
