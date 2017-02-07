@@ -1,20 +1,21 @@
 import {css} from '../services/dom';
 import Sticky from './sticky';
-import AppError from 'core/infrastructure/error';
 
 export default class StickyHead extends Sticky {
 	/**
 	 * @param {Node} table - table node
 	 * @param {Node} scrollView - view container which causes scroll
-	 * @param {Node} origin - view container which causes scroll
+	 * @param {Node} source - thead for synchronization
 	 * @param {boolean} withClone - defines source for sticky element
 	 */
-	constructor(table, scrollView, origin, withClone) {
-		super(table, scrollView, origin, withClone);
+	constructor(table, scrollView, source, withClone) {
+		super(table, scrollView, source, withClone);
+		this._tableOffset = 0;
+		this._offset = 0;
 		this.invalidate();
 	}
 
-	invalidate(source = 'origin') {
+	invalidate() {
 		if (!this.element) {
 			return;
 		}
@@ -25,36 +26,24 @@ export default class StickyHead extends Sticky {
 
 		const tableStyle = window.getComputedStyle(this.table);
 		const tableOffset = parseInt(tableStyle.paddingTop || 0, 10);
-		const offset = this.origin.offsetHeight;
-		super.invalidateHeight();
+		const offset = this.source.offsetHeight;
+		if (tableOffset !== this._tableOffset || offset !== this._offset) {
+			super.invalidateHeight();
 
-		css(this.scrollView, 'margin-top', `${offset + tableOffset}px`);
-		css(this.element, 'margin-top', `-${offset}px`);
-		css(this.table, 'margin-top', `-${offset + tableOffset}px`);
-
-		const stickyTh = this.th(this.element);
-		const originTh = this.th(this.origin);
-		switch (source) {
-			case 'origin': {
-				stickyTh.forEach((column, index) => {
-					const thStyle = window.getComputedStyle(originTh[index]);
-					css(column, 'min-width', thStyle.width);
-					css(column, 'max-width', thStyle.width);
-				});
-			}
-				break;
-			case 'sticky': {
-				originTh.forEach((column, index) => {
-					const thStyle = window.getComputedStyle(stickyTh[index]);
-					css(column, 'min-width', thStyle.width);
-					css(column, 'max-width', thStyle.width);
-				});
-				break;
-			}
-			default:
-				throw new AppError('stick.head', `Invalid source ${source}`);
+			css(this.scrollView, 'margin-top', `${offset + tableOffset}px`);
+			css(this.element, 'margin-top', `-${offset}px`);
+			css(this.table, 'margin-top', `-${offset + tableOffset}px`);
+			this._tableOffset = tableOffset;
+			this._offset = offset;
 		}
 
+		const stickyTh = this.th(this.element);
+		const sourceTh = this.th(this.source);
+		stickyTh.forEach((column, index) => {
+			const thStyle = window.getComputedStyle(sourceTh[index]);
+			css(column, 'min-width', thStyle.width);
+			css(column, 'max-width', thStyle.width);
+		});
 		this.invalidated.emit();
 	}
 
