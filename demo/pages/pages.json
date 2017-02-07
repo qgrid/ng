@@ -110,5 +110,9 @@
 	{
 		"path": "layout",
 		"title": "Layout"
+	},
+	{
+		"path": "progress",
+		"title": "Progress"
 	}
 ]
