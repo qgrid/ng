@@ -35,7 +35,8 @@ export default function Controller($http) {
 			title: 'Comment',
 			type: 'text',
 			value: (item, value) => isUndef(value) ? item.comment || '' : item.comment = value,
-			editor: 'text-area'
+			editor: 'text-area',
+			width: 200
 		},
 		{
 			key: 'password',
@@ -47,13 +48,15 @@ export default function Controller($http) {
 			key: 'contact.address.zip',
 			title: 'Zip',
 			type: 'number',
-			path: 'contact.address.zip'
+			path: 'contact.address.zip',
+			width: 40
 		},
 		{
 			key: 'contact.address.state',
 			title: 'State',
 			type: 'text',
-			path: 'contact.address.state'
+			path: 'contact.address.state',
+			width: 30
 		},
 		{
 			key: 'contact.address.city',
@@ -66,6 +69,7 @@ export default function Controller($http) {
 			title: 'Contact Phones',
 			type: 'array',
 			path: 'contact.phone',
+			width: 100
 		},
 		{
 			key: 'contact.email.primary',
