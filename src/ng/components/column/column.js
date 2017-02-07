@@ -37,11 +37,16 @@ class Column extends Component {
 	}
 
 	onInit() {
-		if(isUndefined(this.key)) {
-			this.key = '$default';
+		const $attrs = this.$attrs;
+		if (isUndefined(this.key)) {
+			if ($attrs.hasOwnProperty('type')) {
+				this.key = `$default.${$attrs.type}`;
+			}
+			else {
+				this.key = '$default';
+			}
 		}
 
-		const $attrs = this.$attrs;
 		const data = this.root.model.data;
 		const dataState = data();
 		const columns = clone(dataState.columns);
