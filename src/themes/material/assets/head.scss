@@ -14,8 +14,33 @@
 				padding: 0 16px;
 				position: relative;
 				overflow: hidden;
+				width: 100px;
 
-				&:hover{
+				&.email {
+					width: 180px;
+				}
+
+				&.password {
+					width: 60px;
+				}
+
+				&.bool {
+					width: 55px;
+				}
+
+				&.date {
+					width: 70px;
+				}
+
+				&.number {
+					width: 60px;
+				}
+
+				&.array {
+					width: 200px;
+				}
+
+				&:hover {
 					label {
 						font-weight: bold;
 					}

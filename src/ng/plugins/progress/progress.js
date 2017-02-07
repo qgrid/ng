@@ -16,30 +16,12 @@ class Progress extends PluginComponent('progress', ['progress']) {
 		super(...arguments);
 	}
 
-	get busy() {
+	get isBusy() {
 		return this.model.progress().isBusy;
 	}
-
-	onInitCore() {
-		this.model.progressChanged.watch(e => {
-			if (e.changes.hasOwnProperty('isBusy')){
-				if (e.state.isBusy) {
-					this.show();
-				} else {
-					this.hide();
-				}
-			}
-		});
-
-		super.onInitCore();
-	}
-
 }
 
 export default Progress.component({
 	controller: Progress,
-	controllerAs: '$progress',
-	bindings: {
-		'isBusy': '='
-	}
+	controllerAs: '$progress'
 });

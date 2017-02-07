@@ -160,11 +160,11 @@ function Setup($templateCache) {
 	$templateCache.put('qgrid.body.select.cell.tpl.html', require('./components/cell/select/body.select.cell.html'));
 	$templateCache.put('qgrid.foot.select.cell.tpl.html', EMPTY);
 
-	$templateCache.put('qgrid.plugins.pager.tpl.html', require('./plugins/pagination/pager.html'));
-	$templateCache.put('qgrid.plugins.progress.tpl.html', require('./plugins/progress/progress.html'));
-	$templateCache.put('qgrid.plugins.sortbar.tpl.html', require('./plugins/sortbar/sortbar.html'));
-	$templateCache.put('qgrid.plugins.groupbar.tpl.html', require('./plugins/groupbar/groupbar.html'));
-	$templateCache.put('qgrid.plugins.pivotbar.tpl.html', require('./plugins/pivotbar/pivotbar.html'));
-	$templateCache.put('qgrid.plugins.visibility.tpl.html', require('./plugins/visibility/visibility.html'));
-	$templateCache.put('qgrid.plugins.columnchooser.tpl.html', require('./plugins/column-chooser/column.chooser.html'));
+	$templateCache.put('qgrid.plugin.pager.tpl.html', require('./plugins/pagination/pager.html'));
+	$templateCache.put('qgrid.plugin.progress.tpl.html', require('./plugins/progress/progress.html'));
+	$templateCache.put('qgrid.plugin.sortbar.tpl.html', require('./plugins/sortbar/sortbar.html'));
+	$templateCache.put('qgrid.plugin.groupbar.tpl.html', require('./plugins/groupbar/groupbar.html'));
+	$templateCache.put('qgrid.plugin.pivotbar.tpl.html', require('./plugins/pivotbar/pivotbar.html'));
+	$templateCache.put('qgrid.plugin.visibility.tpl.html', require('./plugins/visibility/visibility.html'));
+	$templateCache.put('qgrid.plugin.columnchooser.tpl.html', require('./plugins/column-chooser/column.chooser.html'));
 }

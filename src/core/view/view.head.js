@@ -15,8 +15,9 @@ export default class HeadView extends View {
 		const columns = model.view().columns;
 		this.rows = columns;
 	}
-	
+
 	width(column) {
-		return column.width || 100;
+		const width = column.width;
+		return width || width === 0 ? width + 'px' : null;
 	}
 }
