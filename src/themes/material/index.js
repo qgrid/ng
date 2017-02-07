@@ -13,4 +13,6 @@ function Setup($templateCache) {
 	$templateCache.put('qgrid.body.date.cell.edit.tpl.html', require('themes/material/templates/body.date.cell.edit.html'));
 	$templateCache.put('qgrid.body.number.cell.edit.tpl.html', require('themes/material/templates/body.number.cell.edit.html'));
 	$templateCache.put('qgrid.body.array.cell.edit.tpl.html', require('themes/material/templates/body.array.cell.edit.html'));
+	$templateCache.put('qgrid.plugins.progress.tpl.html', require('themes/material/templates/progress.html'));
+
 }

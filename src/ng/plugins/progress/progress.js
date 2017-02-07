@@ -11,18 +11,27 @@ TemplatePath
 		};
 	});
 
-class Progress extends PluginComponent('progress') {
+class Progress extends PluginComponent('progress', ['progress']) {
 	constructor() {
 		super(...arguments);
-	}
-
-	onInit() {
-
 	}
 
 	get busy() {
 		return this.model.progress().isBusy;
 	}
+
+	onInitCore() {
+		this.model.progressChanged.on(() => {
+			if (this.model.progress().isBusy) {
+				this.show();
+			} else {
+				this.hide();
+			}
+		});
+
+		super.onInitCore();
+	}
+
 }
 
 export default Progress.component({
