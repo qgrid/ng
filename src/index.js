@@ -14,6 +14,7 @@ import PluginModel from 'core/plugin/plugin.model';
 import EditModel from 'core/edit/edit.model';
 import ToolbarModel from 'core/toolbar/toolbar.model';
 import PaginationModel from 'core/pagination/pagination.model';
+import ProgressModel from 'core/progress/progress.model';
 import NodeModel from 'core/node/node.model';
 import VisibilityModel from 'core/visibility/visibility.model';
 import ColumnChooserModel from 'core/column-chooser/column.chooser.model';
@@ -37,6 +38,7 @@ Model.register('view', ViewModel)
 	.register('plugin', PluginModel)
 	.register('toolbar', ToolbarModel)
 	.register('pagination', PaginationModel)
+	.register('progress', ProgressModel)
 	.register('visibility', VisibilityModel)
 	.register('columnChooser', ColumnChooserModel)
 	.register('filter', FilterModel);

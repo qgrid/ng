@@ -8,7 +8,6 @@ export default function Controller($http) {
 		const props = prop.split('.');
 		let result = item;
 		for (let value of props) {
-			// alert(item.pin);
 			result = result[value];
 		}
 		return result;
