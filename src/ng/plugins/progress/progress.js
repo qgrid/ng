@@ -21,8 +21,8 @@ class Progress extends PluginComponent('progress', ['progress']) {
 	}
 
 	onInitCore() {
-		this.model.progressChanged.on(() => {
-			if (this.model.progress().isBusy) {
+		this.model.progressChanged.watch(e => {
+			if (e.changes.isBusy.newValue !== e.changes.isBusy.oldValue && e.state.isBusy) {
 				this.show();
 			} else {
 				this.hide();
