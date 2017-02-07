@@ -16,6 +16,7 @@ class RowNumberColumnModel extends ColumnModel {
 		this.key = '$row.number';
 		this.title = '#';
 		this.canEdit = false;
+		this.canResize = false;
 	}
 }
 

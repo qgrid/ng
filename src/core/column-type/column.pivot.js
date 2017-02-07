@@ -16,6 +16,7 @@ class PivotColumnModel extends ColumnModel {
 		this.key = '$pivot';
 		this.title = 'Pivot';
 		this.canEdit = false;
+		this.canSort = false;
 		this.rowIndex = 0;
 		this.columnIndex = 0;
 	}

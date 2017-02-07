@@ -4,10 +4,14 @@ export default class ColumnModel {
 		this.key = null;
 		this.title = null;
 		this.value = null;
-		this.isVisible = true;
-		this.canEdit = true;
 		this.pin = null;
 		this.width = null;
 		this.source = 'user';
+
+		this.canEdit = true;
+		this.canResize = true;
+		this.canSort = true;
+
+		this.isVisible = true;
 	}
 }
