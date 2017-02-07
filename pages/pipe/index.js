@@ -72,9 +72,9 @@ export default function Controller($http, $interval, $timeout, qgrid) {
 							next(response.data);
 							ctrl.state.progress = false;
 						}, 1000);
-					});
-			}
-		]
+					})
+			}]
+			.concat(ctrl.gridModel.data().pipe)
 	});
 
 	$interval(() => {
