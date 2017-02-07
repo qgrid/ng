@@ -21,14 +21,15 @@ td.edit {
 			margin: 0;
 		}
 
-		&.text-area{
+		&.text-area {
 			height: 120px;
 		}
 
-		&.array{
+		&.array {
 			h2 {
 				margin-top: 0;
 			}
+
 			height: 120px;
 			width: 300px;
 			.actions {
@@ -38,10 +39,17 @@ td.edit {
 				}
 			}
 
-			md-chips-wrap {
+			md-chips {
+				display: inline-flex;
 				overflow-x: auto;
-				height: 40px;
 				overflow-y: hidden;
+				width: 100%;
+
+				md-chips-wrap {
+					width: auto;
+					box-shadow: none;
+					display: flex;
+				}
 			}
 		}
 	}
