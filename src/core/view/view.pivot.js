@@ -1,7 +1,5 @@
 import View from './view';
-import {map as getColumnMap} from 'core/column/column.service';
 import groupBuilder from 'core/group/group.build';
-import pivotBuilder from 'core/pivot/pivot.build';
 import Log from 'core/infrastructure/log';
 
 export default class PivotView extends View {
@@ -12,21 +10,6 @@ export default class PivotView extends View {
 		this.valueFactory = valueFactory;
 
 		model.viewChanged.on(() => this.invalidate(model));
-	}
-
-	static build(model, valueFactory) {
-		return () => {
-			const dataState = model.data();
-			const pivotState = model.pivot();
-
-			const build = pivotBuilder(
-				getColumnMap(dataState.columns),
-				pivotState.by,
-				valueFactory
-			);
-
-			return build(dataState.rows);
-		};
 	}
 
 	invalidate(model) {
