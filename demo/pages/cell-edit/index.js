@@ -34,7 +34,7 @@ export default function Controller($http) {
 			key: 'Comment',
 			title: 'Comment',
 			type: 'text',
-			value: (item, value) => isUndef(value) ? item.comment : item.comment = value,
+			value: (item, value) => isUndef(value) ? item.comment || '' : item.comment = value,
 			editor: 'text-area'
 		},
 		{

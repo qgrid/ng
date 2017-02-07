@@ -1,0 +1,9 @@
+<div class="editor text-area">
+	<md-input-container>
+		<textarea type="text"
+					 rows="4"
+					 q-grid:focus
+					 ng-blur="$body.cellEdit.commit.execute($cell)"
+					 ng-model="$body.cellEdit.value"/>
+	</md-input-container>
+</div>

@@ -20,14 +20,12 @@ td.edit {
 			padding: 0;
 			margin: 0;
 		}
-	}
 
-	md-checkbox {
-		margin: 0;
-	}
+		&.text-area{
+			height: 120px;
+		}
 
-	&.array {
-		.editor {
+		&.array{
 			h2 {
 				margin-top: 0;
 			}
@@ -46,5 +44,9 @@ td.edit {
 				overflow-y: hidden;
 			}
 		}
+	}
+
+	md-checkbox {
+		margin: 0;
 	}
 }

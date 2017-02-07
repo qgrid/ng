@@ -1,26 +1,44 @@
 import TemplatePath from 'core/template/template.path';
+import AppError from 'core/infrastructure/error';
+
+function buildView(source, mode, column) {
+	switch (mode) {
+		case 'view': {
+			const type = column.type || 'text';
+			return {
+				key: `${type}-cell`,
+				url: `qgrid.${source}.${type}.cell.tpl.html`,
+				defaults: [`$default.${type}`, '$default']
+			};
+		}
+		case 'edit': {
+			const type = column.editor || column.type || 'text';
+
+			return {
+				key: `${type}-cell-${mode}`,
+				url: `qgrid.${source}.${type}.cell.${mode}.tpl.html`,
+				defaults: column.editor
+					? [`$default.${column.editor}`, `$default.${column.type}`, '$default']
+					: [`$default.${type}`, '$default']
+			};
+		}
+		default:
+			throw new AppError('cell.build', `Invalid key "${mode}"`);
+	}
+}
 
 export default function (template, mode = 'view') {
 	return function (source, model, column) {
-		const type = column.type || 'text';
-		const key = mode === 'view'
-			? `${type}-cell`
-			: `${type}-cell-${mode}`;
-
-		const pathSource = {[TemplatePath.name(key)]: column, 'for': source};
+		const view = buildView(source, mode, column);
+		const pathSource = {[TemplatePath.name(view.key)]: column, 'for': source};
 		const path = TemplatePath.get(pathSource);
 		const state = model[path.model]();
-		const defaults = [`$default.${type}`, '$default'];
-
-		const templateUrl = mode === 'view'
-			? `qgrid.${source}.${type}.cell.tpl.html`
-			: `qgrid.${source}.${type}.cell.${mode}.tpl.html`;
 
 		const link = template.link(
-			templateUrl,
+			view.url,
 			state.resource,
 			[path.resource]
-				.concat(defaults)
+				.concat(view.defaults)
 		);
 
 		return (element, scope) => link(element, scope);

@@ -16,6 +16,13 @@ TemplatePath.register('text-cell-edit', (template, column) => {
 	};
 });
 
+TemplatePath.register('text-area-cell-edit', (template, column) => {
+	return {
+		model: 'edit',
+		resource: column.key
+	};
+});
+
 class TextColumnModel extends DataColumnModel{
 	constructor(){
 		super('text');

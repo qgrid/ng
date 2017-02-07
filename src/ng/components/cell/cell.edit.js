@@ -2,7 +2,7 @@ import Command from 'core/infrastructure/command';
 import Log from 'core/infrastructure/log';
 import {set as setValue} from 'ng/services/value';
 import {parseFactory} from 'core/services/convert';
-import {clone} from 'core/services/utility';
+import {clone, isUndefined} from 'core/services/utility';
 
 export default class CellEdit {
 	constructor(model) {
@@ -25,7 +25,7 @@ export default class CellEdit {
 				}
 
 				const parse = parseFactory(cell.column.type);
-				this.value = parse(clone(cell.value));
+				this.value = isUndefined(cell.value) ? null : parse(clone(cell.value));
 				this.mode = 'edit';
 				cell.mode(this.mode);
 			}
