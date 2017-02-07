@@ -22,10 +22,12 @@ class Progress extends PluginComponent('progress', ['progress']) {
 
 	onInitCore() {
 		this.model.progressChanged.watch(e => {
-			if (e.changes.isBusy.newValue !== e.changes.isBusy.oldValue && e.state.isBusy) {
-				this.show();
-			} else {
-				this.hide();
+			if (e.changes.hasOwnProperty('isBusy')){
+				if (e.state.isBusy) {
+					this.show();
+				} else {
+					this.hide();
+				}
 			}
 		});
 
