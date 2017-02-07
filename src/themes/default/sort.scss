@@ -26,6 +26,10 @@ table {
 		span {
 			color: $dark;
 		}
+
+		& + label {
+			color: $dark;
+		}
 	}
 
 	span {

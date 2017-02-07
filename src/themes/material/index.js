@@ -14,4 +14,11 @@ function Setup($templateCache) {
 	$templateCache.put('qgrid.body.date.cell.edit.tpl.html', require('themes/material/templates/body.date.cell.edit.html'));
 	$templateCache.put('qgrid.body.number.cell.edit.tpl.html', require('themes/material/templates/body.number.cell.edit.html'));
 	$templateCache.put('qgrid.body.array.cell.edit.tpl.html', require('themes/material/templates/body.array.cell.edit.html'));
+
+	$templateCache.put('qgrid.head.text.cell.tpl.html', require('themes/material/templates/head.text.cell.html'));
+	$templateCache.put('qgrid.head.bool.cell.tpl.html', require('themes/material/templates/head.text.cell.html'));
+	$templateCache.put('qgrid.head.date.cell.tpl.html', require('themes/material/templates/head.text.cell.html'));
+	$templateCache.put('qgrid.head.number.cell.tpl.html', require('themes/material/templates/head.text.cell.html'));
+	$templateCache.put('qgrid.head.array.cell.tpl.html', require('themes/material/templates/head.text.cell.html'));
+	$templateCache.put('qgrid.head.email.cell.tpl.html', require('themes/material/templates/head.text.cell.html'));
 }
