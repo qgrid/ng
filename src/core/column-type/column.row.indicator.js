@@ -16,6 +16,8 @@ class RowIndicatorColumnModel extends ColumnModel {
 		this.key = '$row.indicator';
 		this.title = 'Row Indicator';
 		this.canEdit = false;
+		this.canSort = false;
+		this.canResize = false;
 	}
 }
 

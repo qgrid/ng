@@ -14,6 +14,7 @@
 				padding: 0 16px;
 				position: relative;
 				overflow: hidden;
+				text-overflow: ellipsis;
 				width: 100px;
 
 				&.email {
@@ -38,6 +39,12 @@
 
 				&.array {
 					width: 200px;
+				}
+
+				&.row-indicator {
+					width: 20px;
+					min-width: 20px;
+					max-width: 20px;
 				}
 
 				&:hover {

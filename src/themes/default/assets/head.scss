@@ -13,6 +13,9 @@
 				text-align: left;
 				padding: 0 12px;
 				position: relative;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				width: 100px;
 
 				&:hover{
 					label {
@@ -22,6 +25,30 @@
 
 				> * {
 					vertical-align: middle;
+				}
+
+				&.email {
+					width: 180px;
+				}
+
+				&.password {
+					width: 60px;
+				}
+
+				&.bool {
+					width: 55px;
+				}
+
+				&.date {
+					width: 80px;
+				}
+
+				&.number {
+					width: 60px;
+				}
+
+				&.array {
+					width: 200px;
 				}
 			}
 

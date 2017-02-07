@@ -16,6 +16,7 @@ class GroupColumnModel extends ColumnModel {
 		this.key = '$group';
 		this.title = 'Group';
 		this.canEdit = false;
+		this.canSort = false;
 	}
 }
 

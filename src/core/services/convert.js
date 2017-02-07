@@ -26,7 +26,7 @@ export function getType(value) {
 		return 'array';
 	}
 
-	if (parseNumber(value) !== null) {
+	if (parseNumber(value) !== null && !isNaN(value)) {
 		return 'number';
 	}
 

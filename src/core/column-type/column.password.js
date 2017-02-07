@@ -19,6 +19,8 @@ TemplatePath.register('password-cell-edit', (template, column) => {
 class PasswordColumnModel extends DataColumnModel {
 	constructor() {
 		super('password');
+
+		this.canSort = false;
 	}
 }
 
