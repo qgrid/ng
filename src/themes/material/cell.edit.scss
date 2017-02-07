@@ -25,4 +25,26 @@ td.edit {
 	md-checkbox {
 		margin: 0;
 	}
+
+	&.array {
+		.editor {
+			h2 {
+				margin-top: 0;
+			}
+			height: 120px;
+			width: 300px;
+			.actions {
+				.md-button {
+					margin: 8px 0 8px 8px;
+					float: right;
+				}
+			}
+
+			md-chips-wrap {
+				overflow-x: auto;
+				height: 40px;
+				overflow-y: hidden;
+			}
+		}
+	}
 }

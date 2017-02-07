@@ -31,6 +31,13 @@ export default function Controller($http) {
 			type: 'date'
 		},
 		{
+			key: 'Comment',
+			title: 'Comment',
+			type: 'text',
+			value: (item, value) => isUndef(value) ? item.comment : item.comment = value,
+			editor: 'text-area'
+		},
+		{
 			key: 'contact.address.zip',
 			title: 'Zip',
 			type: 'number',
@@ -49,10 +56,10 @@ export default function Controller($http) {
 			path: 'contact.address.city'
 		},
 		{
-			key: 'contact.phone.primary',
+			key: 'contact.phone',
 			title: 'Contact Phones',
 			type: 'array',
-			path: 'contact.phone.primary',
+			path: 'contact.phone',
 		},
 		{
 			key: 'contact.email.primary',
