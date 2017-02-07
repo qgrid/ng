@@ -6,6 +6,7 @@
 	<md-icon class="desc" ng-switch-when="desc">arrow_upward</md-icon>
 	<md-icon ng-switch-default>arrow_downward</md-icon>
 </button>
-<label ng-click="$head.sortToggle.execute($cell.column.key)"
-		 ng-bind="$cell.column.title">
+<label ng-click="$head.sortToggle.execute($cell.column.key)">
+	<md-tooltip md-delay="1000">{{$cell.column.title}}</md-tooltip>
+	{{$cell.column.title}}
 </label>
