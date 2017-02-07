@@ -6,16 +6,16 @@ Header and footer models looks like:
 
 ```javascript
 head: {				// |foot
-	sticky: true,
+	isSticky: true,
 	...
 }
 ```
 
-Sticky behaviour is managed by head (foot) model property **sticky** which is set to true by default.
+Sticky behaviour is managed by head (foot) model property **isSticky** which is set to true by default.
 
 User has two ways to switch off sticky behaviour:
-- from template via qGridHead (qGridFoot) component with attribute sticky="false"
-- from controller via gridModel.head(model) (gridModel.foot(model)) function call where model is object which has property **sticky** (set to false if it need).
+- from template via qGridHead (qGridFoot) component with attribute is-sticky="false"
+- from controller via gridModel.head(model) (gridModel.foot(model)) function call where model is object which has property **isSticky** (set to false if it need).
 
 ## Examples
 
@@ -24,7 +24,7 @@ User has two ways to switch off sticky behaviour:
 ### markup
 ```html
 <q-grid rows='data'>
-  <q-grid:head sticky="false"></q-grid:head>
+  <q-grid:head is-sticky="false"></q-grid:head>
 </q-grid>
 ```
 
@@ -42,7 +42,7 @@ controller.$inject = ['$scope', 'qgrid'];
 function controller($scope, qgrid){
     this.gridModel = qgrid();
     this.gridModel.head({
-      sticky: false
+      isSticky: false
     });
     this.gridModel.data({rows: [...]});
 }

@@ -87,7 +87,7 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {
 
 		removeGridAttrs(stickySync[0]);
 
-		sticky.origin = stickySync[0];
+		sticky.source = stickySync[0];
 		this.$element.after(stickySync);
 		stickySync.css('visibility', 'hidden');
 
@@ -112,11 +112,11 @@ class StickyCore extends Directive(STICKY_CORE_NAME, {
 		const onResize = () => sticky.invalidate();
 		this.$window.addEventListener('resize', onResize);
 
+		const tagName = target === 'head' ? 'th' : 'td';
 		this.$scope.$watch(() => {
-				const tagName = target === 'head' ? 'th' : 'td';
-				return Array.from(stickySync.find(tagName))
-					.map(col => col.offsetWidth);
-			}, () => this.$timeout(() => sticky.invalidate()),
+			return Array.from(stickySync.find(tagName))
+				.map(col => col.offsetWidth);
+		}, () => this.$timeout(() => sticky.invalidate()),
 			true);
 
 		this.$scope.$on('$destroy', () => {

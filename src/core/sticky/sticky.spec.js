@@ -8,17 +8,17 @@ const DIV_TAG = 'DIV';
 
 describe('Sticky Head', () => {
 	describe('init', () => {
-		const origin = createEmptyHead();
-		const table = createTable(origin);
-		const sticky = new StickyHead(createView(), table, origin);
-		const stickyWithoutClone = new StickyHead(createView(), table, origin, false);
+		const source = createEmptyHead();
+		const table = createTable(source);
+		const sticky = new StickyHead(createView(), table, source);
+		const stickyWithoutClone = new StickyHead(createView(), table, source, false);
 
 		it('should create element property', () => {
 			expect(sticky.element).to.exist;
 		});
 
 		it('should create cloned element', () => {
-			expect(sticky.element).to.not.equal(origin);
+			expect(sticky.element).to.not.equal(source);
 		});
 
 		it('should create thead element', () => {
@@ -36,22 +36,22 @@ describe('Sticky Head', () => {
 			expect(sticky.element.style.position).to.equal('absolute');
 		});
 
-		it('should copy reference to origin for case without clone', () => {
-			expect(stickyWithoutClone.element).to.equal(origin);
+		it('should copy reference to source for case without clone', () => {
+			expect(stickyWithoutClone.element).to.equal(source);
 		});
 	});
 
 	describe('header', () => {
 		let columnCount,
-			origin,
+			source,
 			table,
 			header;
 
 		beforeEach(() => {
 			columnCount = 10;
-			origin = createHead(columnCount);
-			table = createTable(origin);
-			header = new StickyHead(createView(), table, origin).element;
+			source = createHead(columnCount);
+			table = createTable(source);
+			header = new StickyHead(createView(), table, source).element;
 		});
 
 		it('should has the same th count', () => {
@@ -60,10 +60,10 @@ describe('Sticky Head', () => {
 			expect(thLength(header)).to.equal(expected);
 		});
 
-		xit('should observe origin header column removing', (done) => {
+		xit('should observe source header column removing', (done) => {
 			const expected = columnCount - 1;
 
-			origin.querySelector(TH_TAG).remove();
+			source.querySelector(TH_TAG).remove();
 
 			setTimeout(() => {
 				expect(thLength(header)).to.equal(expected);
@@ -71,11 +71,11 @@ describe('Sticky Head', () => {
 			}, 0);
 		});
 
-		xit('should observe origin header column adding', (done) => {
+		xit('should observe source header column adding', (done) => {
 			const expected = columnCount + 1;
 
 			const newTh = document.createElement(TH_TAG);
-			origin.querySelector(TR_TAG).appendChild(newTh);
+			source.querySelector(TR_TAG).appendChild(newTh);
 
 			setTimeout(() => {
 				expect(thLength(header)).to.equal(expected);

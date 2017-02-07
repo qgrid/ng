@@ -18,7 +18,12 @@ class ColumnChooser extends PluginComponent('columnchooser') {
 		super(...arguments);
 
 		this.toggle = new Command({
-			execute: column => column.isVisible = !this.state(column),
+			execute: column => {
+				column.isVisible = !this.state(column);
+
+				const data = this.model.data;
+				data({columns: Array.from(data().columns)});
+			}
 		});
 
 		this.toggleAggregation = new Command({
@@ -31,15 +36,15 @@ class ColumnChooser extends PluginComponent('columnchooser') {
 
 	onInit() {
 		this.aggregations = Object
-				.getOwnPropertyNames(Aggregation)
-				.filter(key => isFunction(Aggregation[key]));
+			.getOwnPropertyNames(Aggregation)
+			.filter(key => isFunction(Aggregation[key]));
 	}
 
-	state(column){
+	state(column) {
 		return column.isVisible !== false;
 	}
 
-	get columns(){
+	get columns() {
 		return this.model.data().columns;
 	}
 
