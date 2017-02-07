@@ -1,6 +1,8 @@
 <div class="editor">
-	<input type="text"
-			 q-grid:focus
-			 ng-blur="$body.cellEdit.commit.execute($cell)"
-			 ng-model="$body.cellEdit.value"/>
+	<md-input-container>
+		<input type="text"
+				 q-grid:focus
+				 ng-blur="$body.cellEdit.commit.execute($cell)"
+				 ng-model="$body.cellEdit.value"/>
+	</md-input-container>
 </div>

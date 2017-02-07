@@ -9,22 +9,22 @@ TemplatePath.register('row-indicator-cell', (template) => {
 	};
 });
 
-class RowNumberColumnModel extends ColumnModel {
+class RowIndicatorColumnModel extends ColumnModel {
 	constructor() {
-		super('row-number');
+		super('row-indicator');
 
-		this.key = '$row.number';
-		this.title = '#';
+		this.key = '$row.indicator';
+		this.title = 'Row Indicator';
 		this.canEdit = false;
 	}
 }
 
-export default class RowNumberColumn extends ColumnView {
+export default class RowIndicatorColumn extends ColumnView {
 	constructor(model) {
 		super(model);
 	}
 
 	static  model() {
-		return new RowNumberColumnModel();
+		return new RowIndicatorColumnModel();
 	}
 }
