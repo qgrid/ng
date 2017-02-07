@@ -92,6 +92,6 @@ export default function Controller($http) {
 
 			ctrl.rows[0].password = 'foo';
 			ctrl.rows[3].password = 'bar';
-			ctrl.rows[4].comment = 'Johnson Creek is a 25-mile (40 km) tributary of the Willamette River in the Portland metropolitan area of the U.S. state of Oregon. Part of the drainage basin of the Columbia River, its watershed covers 54 square miles (140 km2) of mostly urban land occupied by about 180,000 people.';
+			ctrl.rows[4].comment = 'Johnson Creek is a 25-mile (40 km) tributary of the Willamette River in the Portland.';
 		});
 }
