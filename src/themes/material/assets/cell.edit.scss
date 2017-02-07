@@ -23,6 +23,10 @@ td.edit {
 
 		&.text-area {
 			height: 120px;
+			width: 200px;
+			textarea{
+				height: 110px !important;
+			}
 		}
 
 		&.array {

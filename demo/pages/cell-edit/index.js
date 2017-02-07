@@ -31,11 +31,17 @@ export default function Controller($http) {
 			type: 'date'
 		},
 		{
-			key: 'Comment',
+			key: 'comment',
 			title: 'Comment',
 			type: 'text',
 			value: (item, value) => isUndef(value) ? item.comment || '' : item.comment = value,
 			editor: 'text-area'
+		},
+		{
+			key: 'password',
+			title: 'Password',
+			type: 'password',
+			value: (item, value) => isUndef(value) ? item.password || '' : item.password = value
 		},
 		{
 			key: 'contact.address.zip',
@@ -83,5 +89,9 @@ export default function Controller($http) {
 	$http.get('data/people/100.json')
 		.then(function (response) {
 			ctrl.rows = response.data;
+
+			ctrl.rows[0].password = 'foo';
+			ctrl.rows[3].password = 'bar';
+			ctrl.rows[4].comment = 'Johnson Creek is a 25-mile (40 km) tributary of the Willamette River in the Portland metropolitan area of the U.S. state of Oregon. Part of the drainage basin of the Columbia River, its watershed covers 54 square miles (140 km2) of mostly urban land occupied by about 180,000 people.';
 		});
 }

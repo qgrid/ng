@@ -129,6 +129,11 @@ function Setup($templateCache) {
 	$templateCache.put('qgrid.foot.date.cell.tpl.html', require('./components/cell/text/foot.text.cell.html'));
 	$templateCache.put('qgrid.body.date.cell.edit.tpl.html', require('./components/cell/date/body.date.cell.edit.html'));
 
+	$templateCache.put('qgrid.head.password.cell.tpl.html', require('./components/cell/text/head.text.cell.html'));
+	$templateCache.put('qgrid.body.password.cell.tpl.html', require('./components/cell/password/body.password.cell.html'));
+	$templateCache.put('qgrid.foot.password.cell.tpl.html', require('./components/cell/text/foot.text.cell.html'));
+	$templateCache.put('qgrid.body.password.cell.edit.tpl.html', require('./components/cell/password/body.password.cell.edit.html'));
+
 	$templateCache.put('qgrid.head.bool.cell.tpl.html', require('./components/cell/text/head.text.cell.html'));
 	$templateCache.put('qgrid.body.bool.cell.tpl.html', require('./components/cell/bool/body.bool.cell.html'));
 	$templateCache.put('qgrid.foot.bool.cell.tpl.html', require('./components/cell/text/foot.text.cell.html'));
