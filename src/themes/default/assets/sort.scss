@@ -1,4 +1,4 @@
-@import "variables";
+@import "assets/variables";
 
 table {
 	th:hover {
@@ -14,7 +14,7 @@ table {
 	cursor: pointer;
 	visibility: hidden;
 	font-size: 12px;
-	width: 16px;
+	width: 10px;
 	outline: none;
 	border: none;
 	background: transparent;
@@ -23,7 +23,7 @@ table {
 
 	&.active {
 		visibility: visible;
-		md-icon {
+		span {
 			color: $dark;
 		}
 
@@ -32,12 +32,7 @@ table {
 		}
 	}
 
-	md-icon {
+	span {
 		color: $dark-secondary;
-		font-size: 16px;
-		height: 16px;
-		width: 16px;
-		min-height: 16px;
-		min-width: 16px;
 	}
 }

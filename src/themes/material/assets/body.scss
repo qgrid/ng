@@ -1,15 +1,22 @@
-@import "body";
+@import "variables";
+
+$row-height: 48px;
 
 .viewport {
 	table {
-		tfoot {
+		tbody {
 			> tr {
 				height: $row-height;
+
+				&:hover {
+					background-color: #eee;
+				}
 
 				td {
 					color: $dark;
 					font-size: 13px;
 					border-top: 1px $dark-divider solid;
+					padding: 0 16px;
 
 					vertical-align: middle;
 					text-align: left;
@@ -18,8 +25,12 @@
 						vertical-align: middle;
 					}
 
-					&:last-child {
-						padding: 0 24px 0 0;
+					&.number {
+						text-align: right;
+					}
+
+					&.bool {
+						text-align: center;
 					}
 				}
 			}

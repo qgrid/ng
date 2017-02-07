@@ -1,4 +1,4 @@
-@import "body";
+@import "assets/body";
 
 .viewport {
 	table {
@@ -13,13 +13,10 @@
 
 					vertical-align: middle;
 					text-align: left;
+					padding: 0 16px;
 
 					> * {
 						vertical-align: middle;
-					}
-
-					&:last-child {
-						padding: 0 24px 0 0;
 					}
 				}
 			}
