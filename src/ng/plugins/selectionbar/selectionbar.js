@@ -45,8 +45,9 @@ class Selectionbar extends PluginComponent('selectionbar') {
 	}
 
 	invalidateGrid(){
-		//TODO: how to invalidate grid without this hack?
-		this._view.grid.invalidate();
+		this.model.data({
+			columns: Array.from(this.model.data().columns)
+		});
 	}
 
 	onInit() {

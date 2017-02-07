@@ -16,8 +16,6 @@ class Pager extends PluginComponent('pager', ['pagination']) {
 		super(...arguments);
 
 		const ctrl = this;
-		this._page = 0; // while don't have vscroll
-
 		this.next = new Command({
 			execute: () => ctrl.current = ctrl.current + 1,
 			canExecute: () => (ctrl.current + 1) * ctrl.size < ctrl.total
@@ -46,11 +44,11 @@ class Pager extends PluginComponent('pager', ['pagination']) {
 	}
 
 	get current() {
-		return this._page;
+		return this.model.pagination().current;
 	}
 
 	set current(value) {
-		this._page = value;
+		return this.model.pagination({current: value});
 	}
 
 	get from() {
@@ -62,7 +60,7 @@ class Pager extends PluginComponent('pager', ['pagination']) {
 	}
 
 	get total() {
-		return this.model.view().rows.length;
+		return this.model.data().rows.length;
 	}
 }
 

@@ -1,41 +1,66 @@
-import Component from '../component';
-import {GRID_NAME} from 'src/definition';
-import {generate} from 'core/column-list/generate';
+import ModelComponent from '../model.component';
+import {generate} from 'core/column-list/column.list.generate';
 import AppError from 'core/infrastructure/error';
-import {isUndefined} from 'core/services/utility';
+import {isUndefined, assignWith, noop} from 'core/services/utility';
+import merge from 'core/services/merge';
+import * as columnService from 'core/column/column.service'
+import {GRID_NAME} from 'src/definition';
 
-class ColumnList extends Component {
+class ColumnList extends ModelComponent {
 	constructor() {
-		super();
+		super('columnList');
+		this.columns = [];
 	}
 
-	onInit() {
+	// Use onLink to wait while this.columns will be filled by column components
+	onLink() {
 		const model = this.root.model;
 		const data = model.data;
-		const state = data();
-		
-		if (state.columns.length === 0 && !isUndefined(this.generation)) {
-			model.dataChanged.on(e => {
+		const generation = this.columnListGeneration;
+		if (generation) {
+			model.dataChanged.watch(e => {
 				if (e.changes.hasOwnProperty('rows')) {
-					const deep = this.generation || 'deep';
-					let columns;
-					switch (deep) {
+					const generatedColumns = [];
+					switch (generation) {
 						case 'deep':
-							columns = generate(e.changes.rows.newValue, true);
+							generatedColumns.push(...generate(e.state.rows, true));
 							break;
 						case 'shallow':
-							columns = generate(e.changes.rows.newValue, false);
+							generatedColumns.push(...generate(e.state.rows, false));
 							break;
 						default:
 							throw new AppError(
 								'column.list',
-								`Invalid generation mode "${this.generation}"`
+								`Invalid generation mode "${generation}"`
 							);
 					}
-					data({columns: columns});
+
+					const generatedColumnMap = columnService.map(generatedColumns);
+					const templateColumnMap = columnService.map(this.columns);
+					const dataColumns = data().columns.filter(c => !generatedColumnMap.hasOwnProperty(c.key) && !templateColumnMap.hasOwnProperty(c.key));
+					data({columns: this.merge(this.merge(generatedColumns, dataColumns), this.columns)});
 				}
 			});
 		}
+		else {
+			data({columns: this.merge(data().columns, this.columns)});
+		}
+	}
+
+	merge(left, right) {
+		const doMerge = merge({
+			equals: (l, r) => l.key === r.key,
+			update: (l, r) => assignWith(l, r, (source, target) => !isUndefined(target) && target !== null ? target : source),
+			insert: (r, left) => left.unshift(r),
+			remove: noop
+		});
+
+		doMerge(left, right);
+		return left;
+	}
+
+	add(column) {
+		this.columns.push(column);
 	}
 }
 
@@ -47,6 +72,6 @@ export default {
 	},
 	controller: ColumnList,
 	bindings: {
-		generation: '@'
+		columnListGeneration: '@generation'
 	}
 };

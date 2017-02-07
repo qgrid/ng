@@ -16,11 +16,13 @@ class TfCore extends Directive(TF_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 		const model = this.view.model;
 		const column = this.column;
 		const cache = model.foot().cache;
-		let link = cache.find(column.key);
+		const rowIndex = this.rowIndex;
+		const key = rowIndex > 0 ? column.key + rowIndex : column.key;
+		let link = cache.find(key);
 		if (!link) {
 			const build = cellBuilder(this.template);
 			link = build('foot', this.view.model, this.column);
-			cache.set(column.key, link);
+			cache.set(key, link);
 		}
 
 		link(this.$element, this.$scope);

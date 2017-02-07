@@ -3,10 +3,15 @@ export default class Component {
 		this.$onInit = this.onInitCore;
 		this.$onChanges = this.onChangeCore;
 		this.$onDestroy = this.onDestroyCore;
+		this.$postLink = this.onLinkCore;
 	}
 
 	onInitCore() {
 		this.onInit();
+	}
+
+	onLinkCore() {
+		this.onLink();
 	}
 
 	onChangeCore() {
@@ -18,6 +23,9 @@ export default class Component {
 	}
 
 	onInit() {
+	}
+
+	onLink() {
 	}
 
 	onChange() {

@@ -6,13 +6,12 @@ export default class TemplateLink {
 		this.$templateCache = $templateCache;
 	}
 
-	link(templateUrl, resource, key = 'content') {
+	link(templateUrl, resource, keys = ['content', '$default']) {
 		const resourceData = resource.data;
-		const template = resourceData.hasOwnProperty(key)
-			? resourceData[key]
-			: resourceData.hasOwnProperty('$default')
-				? resourceData['$default']
-				: this.$templateCache.get(templateUrl);
+		const resourceKey = this.findResourceKey(resourceData, keys);
+		const template = resourceKey !== null
+			? resourceData[resourceKey]
+			: this.$templateCache.get(templateUrl);
 
 		return (element, scope/*, type*/) => {
 			const resourceScope = resource.scope;
@@ -31,5 +30,15 @@ export default class TemplateLink {
 			const linkTo = this.$compile(element.contents());
 			linkTo(scope);
 		};
+	}
+
+	findResourceKey(resourceData, keys) {
+		for (let key of keys) {
+			if (resourceData.hasOwnProperty(key)) {
+				return key;
+			}
+		}
+
+		return null;
 	}
 }

@@ -1,13 +1,8 @@
-import Middleware from './pipe.middleware';
+import Middleware from './middleware';
 
 describe('Middleware', () => {
-	it('should have default value for stages', () => {
-		let pipeline = new Middleware();
-		expect(pipeline.stages).to.be.an('array').and.to.be.empty;
-	});
-
 	it('should return promise', () => {
-		let pipeline = new Middleware();
+		let pipeline = new Middleware([]);
 		expect(pipeline.run()).to.be.a('promise');
 	});
 

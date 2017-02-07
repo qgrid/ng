@@ -1,8 +1,11 @@
 import Component from '../component';
 import {GRID_NAME, COLUMN_NAME, COLUMN_LIST_NAME} from 'src/definition';
 import {clone, isUndefined} from 'core/services/utility';
-import TextColumn from 'core/column/column.text';
 import TemplatePath from 'core/template/template.path';
+import * as ng from 'ng/services/ng';
+import * as path from 'core/services/path'
+import * as columnService from 'core/column/column.service';
+import columnFactory from 'core/column/column.factory';
 
 TemplatePath
 	.register(COLUMN_NAME, (template, column) => {
@@ -20,47 +23,43 @@ class Column extends Component {
 	}
 
 	copy(source, target) {
-// TODO: automate
-		source.key = target.key;
-		if (!isUndefined(target.title)) {
-			source.title = target.title;
-		}
+		Object.keys(target)
+			.filter(key => !ng.isSystem(key) && key != 'value')
+			.forEach(attr => {
+				const accessor = path.compile(attr);
+				accessor(source, target[attr]);
+			});
 
-		if (!isUndefined(target.isDefault)) {
-			source.isDefault = target.isDefault;
-		}
-
-		if (!isUndefined(target.isVisible)) {
-			source.isVisible = target.isVisible;
-		}
-
-		if (!isUndefined(target.aggregation)) {
-			source.aggregation = target.aggregation;
-		}
-
-		if (this.$attrs.hasOwnProperty('value')) {
+		if (target.hasOwnProperty('value')) {
 			// HACK: to understand if need to pass {$row: row} instead of just row in cell.core.js
 			source.$value = isUndefined(this.value) ? null : this.value;
 		}
 	}
 
 	onInit() {
+		const $attrs = this.$attrs;
 		if (isUndefined(this.key)) {
-			this.key = '$default';
+			if ($attrs.hasOwnProperty('type')) {
+				this.key = `$default.${$attrs.type}`;
+			}
+			else {
+				this.key = '$default';
+			}
 		}
 
 		const data = this.root.model.data;
-		const state = data();
-		const columns = clone(state.columns);
-		const key = this.key;
-		let column = columns.filter(c => c.key === key)[0];
+		const dataState = data();
+		const columns = clone(dataState.columns);
+		let column = columnService.find(columns, this.key);
 		if (!column) {
-			column = TextColumn.model();
+			column = columnFactory($attrs.type || 'text').model;
+			column.key = this.key;
+			columns.source = 'template';
 			columns.push(column);
 		}
 
-		this.copy(column, this);
-		data({columns: columns});
+		this.copy(column, $attrs);
+		this.columnList.add(column);
 	}
 }
 
@@ -69,15 +68,11 @@ Column.$inject = ['$attrs'];
 export default {
 	require: {
 		root: `^^${GRID_NAME}`,
-		columns: `^^${COLUMN_LIST_NAME}`
+		columnList: `^^${COLUMN_LIST_NAME}`
 	},
 	controller: Column,
 	bindings: {
-		key: '@',
-		title: '@',
 		value: '&',
-		isDefault: '@',
-		isVisible: '@',
-		aggregation: '@'
+		key: '@'
 	}
 };

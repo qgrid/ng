@@ -1,6 +1,4 @@
 import View from './view';
-import columnFactory from 'core/column/column.factory';
-import * as columnService from 'core/column/column.service';
 import Log from 'core/infrastructure/log';
 
 export default class HeadView extends View {
