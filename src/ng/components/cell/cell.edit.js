@@ -2,6 +2,7 @@ import Command from 'core/infrastructure/command';
 import Log from 'core/infrastructure/log';
 import {set as setValue} from 'ng/services/value';
 import {parseFactory} from 'core/services/convert';
+import {clone, isUndefined} from 'core/services/utility';
 
 export default class CellEdit {
 	constructor(model) {
@@ -17,11 +18,14 @@ export default class CellEdit {
 
 				return false;
 			},
-			execute: cell => {
+			execute: (cell, e) => {
 				Log.info('cell.edit', 'edit mode');
+				if (e) {
+					e.stopImmediatePropagation();
+				}
 
 				const parse = parseFactory(cell.column.type);
-				this.value = parse(cell.value);
+				this.value = isUndefined(cell.value) ? null : parse(clone(cell.value));
 				this.mode = 'edit';
 				cell.mode(this.mode);
 			}
@@ -29,8 +33,12 @@ export default class CellEdit {
 
 		this.commit = new Command({
 			// TODO: add validation support
-			execute: cell => {
+			execute: (cell, e) => {
 				Log.info('cell.edit', 'commit');
+				if (e) {
+					e.stopImmediatePropagation();
+				}
+
 				const column = cell.column;
 				const row = cell.row;
 				setValue(row, column, this.value);
@@ -42,8 +50,11 @@ export default class CellEdit {
 		});
 
 		this.cancel = new Command({
-			execute: cell => {
+			execute: (cell, e) => {
 				Log.info('cell.edit', 'cancel');
+				if (e) {
+					e.stopImmediatePropagation();
+				}
 
 				this.value = null;
 				this.mode = 'view';
@@ -52,12 +63,16 @@ export default class CellEdit {
 		});
 
 		this.reset = new Command({
-			execute: cell => {
+			execute: (cell, e) => {
 				Log.info('cell.edit', 'reset');
+				if (e) {
+					e.stopImmediatePropagation();
+				}
 
 				const parse = parseFactory(cell.column.type);
 				this.value = parse(cell.value);
 				cell.mode(this.mode);
+				return false;
 			}
 		});
 	}

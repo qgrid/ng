@@ -37,6 +37,7 @@ export function set(row, column, value) {
 
 	if (column.path) {
 		compile(column.path)(row, value);
+		return;
 	}
 
 	if (row.hasOwnProperty(column.key)) {

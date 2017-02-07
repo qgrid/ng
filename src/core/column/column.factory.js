@@ -3,6 +3,7 @@ import TextColumn from 'core/column-type/column.text';
 import NumberColumn from 'core/column-type/column.number';
 import BoolColumn from 'core/column-type/column.bool';
 import DateColumn from 'core/column-type/column.date';
+import PasswordColumn from 'core/column-type/column.password';
 import ArrayColumn from 'core/column-type/column.array';
 import EmailColumn from 'core/column-type/column.email';
 import SelectColumn from 'core/column-type/column.select';
@@ -25,6 +26,8 @@ export default function (type, model = null) {
 			return new ArrayColumn(model || ArrayColumn.model());
 		case 'email':
 			return new EmailColumn(model || EmailColumn.model());
+		case 'password':
+			return new PasswordColumn(model || PasswordColumn.model());
 		case 'select':
 			return new SelectColumn(model || SelectColumn.model());
 		case 'group':

@@ -1,6 +1,6 @@
-<div class="editor">
-	<input type="checkbox"
-			 q-grid:focus
-			 ng-blur="$body.cellEdit.commit.execute($cell)"
-			 ng-model="$body.cellEdit.value"/>
-</div>
+<md-checkbox aria-label="Bool cell edit"
+				 class="md-primary"
+				 q-grid:focus
+				 ng-blur="$body.cellEdit.commit.execute($cell)"
+				 ng-model="$body.cellEdit.value">
+</md-checkbox>

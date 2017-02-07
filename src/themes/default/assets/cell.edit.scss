@@ -10,11 +10,12 @@ td.edit {
 	}
 
 	input[type="text"],
-	input[type="number"]{
+	input[type="number"],
+	input[type="password"] {
 		position: absolute;
 		display: block;
-		top:0;
-		left:0;
+		top: 0;
+		left: 0;
 		margin: 0;
 		padding: 0;
 		height: 100%;

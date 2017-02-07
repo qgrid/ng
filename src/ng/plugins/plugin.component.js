@@ -79,7 +79,7 @@ export default function (pluginName, modelNames = [], inject = []) {
 		}
 
 		show() {
-			const templateUrl = `qgrid.plugins.${pluginName}.tpl.html`
+			const templateUrl = `qgrid.plugin.${pluginName}.tpl.html`
 			const templateScope = this.$scope.$new();
 			const link = this.template.link(
 				templateUrl,

@@ -1,4 +1,4 @@
-@import "variables";
+@import "assets/variables";
 
 table {
 	th:hover {
@@ -24,6 +24,10 @@ table {
 	&.active {
 		visibility: visible;
 		span {
+			color: $dark;
+		}
+
+		& + label {
 			color: $dark;
 		}
 	}

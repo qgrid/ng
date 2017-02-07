@@ -2,9 +2,9 @@
 		  ng-class="{active: $head.sortOrder($cell.column.key) >= 0}"
 		  ng-click="$head.sortToggle.execute($cell.column.key)"
 		  ng-switch="$head.sortDirection($cell.column.key)">
-	<span class="asc" ng-switch-when="asc">&#8595;</span>
-	<span class="desc" ng-switch-when="desc">&#8593;</span>
-	<span ng-switch-default>&#8595;</span>
+	<md-icon class="asc" ng-switch-when="asc">arrow_downward</md-icon>
+	<md-icon class="desc" ng-switch-when="desc">arrow_upward</md-icon>
+	<md-icon ng-switch-default>arrow_downward</md-icon>
 </button>
 <label ng-click="$head.sortToggle.execute($cell.column.key)"
 		 ng-bind="$cell.column.title">
