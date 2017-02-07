@@ -15,7 +15,7 @@ Column generation has two modes:
 
 > Note that array is converted to string joined by semicolon
 
-User should set attribute generation on q-grid:columns element. This supports values ```deep|shallow``` and switches on appropriate mode. Generation'll work in deep mode if user doesn't pass parameters.
+User should set attribute generation on q-grid:columns element. This supports values ```deep|shallow``` and switches on appropriate mode. One of this must be set for correct work.
 
 ## Examples
 
