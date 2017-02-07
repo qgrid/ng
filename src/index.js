@@ -4,6 +4,7 @@ import DataModel from 'core/data/data.model';
 import HeadModel from 'core/head/head.model';
 import BodyModel from 'core/body/body.model';
 import ColumnListModel from 'core/column-list/column.list.model';
+import RowModel from 'core/row/row.model';
 import SelectionModel from 'core/selection/selection.model';
 import FootModel from 'core/foot/foot.model';
 import SortModel from './core/sort/sort.model';
@@ -27,6 +28,7 @@ Model.register('view', ViewModel)
 	.register('head', HeadModel)
 	.register('body', BodyModel)
 	.register('foot', FootModel)
+	.register('row', RowModel)
 	.register('columnList', ColumnListModel)
 	.register('sort', SortModel)
 	.register('group', GroupModel)

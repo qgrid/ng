@@ -1,8 +1,11 @@
 <q-grid rows="$ctrl.rows">
 	<q-grid:columns generation="shallow">
-		<q-grid:column key="#" title="#">
+		<q-grid:column type="row-indicator">
+			<q-grid:template for="head">
+				<b>Row Indicator</b>
+			</q-grid:template>
 			<q-grid:template for="body">
-				{{$cell.rowIndex + 1}}
+				<i>&gt;</i>
 			</q-grid:template>
 		</q-grid:column>
 	</q-grid:columns>

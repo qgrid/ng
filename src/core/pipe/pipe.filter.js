@@ -1,8 +1,8 @@
-export default function (data, ctx, next) {
-	const model = ctx.model;
-	const filter = model.filter();
+export default function pipeFilter(data, context, next) {
+	const model = context.model;
+	const filterState = model.filter();
+	const match = filterState.match(context);
 	const result = [];
-	const match = filter.match(ctx);
 
 	for (let i = 0, length = data.length; i < length; i++) {
 		const item = data[i];
