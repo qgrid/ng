@@ -21,6 +21,10 @@
 					outline: none;
 				}
 
+				&.last {
+					width: 100%;
+				}
+
 				&.email {
 					width: 180px;
 				}

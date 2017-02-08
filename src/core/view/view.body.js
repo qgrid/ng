@@ -3,7 +3,7 @@ import * as columnService from 'core/column/column.service';
 import Aggregation from 'core/services/aggregation';
 import AppError from 'core/infrastructure/error';
 import Log from 'core/infrastructure/log';
-import Node from 'core/node/node'
+import Node from 'core/node/node';
 
 export default class BodyView extends View {
 	constructor(model, valueFactory) {
