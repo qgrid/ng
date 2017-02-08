@@ -15,6 +15,10 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	}
 
 	onInit() {
+		const column = this.column;
+		this.$element[0].classList.add(column.key);
+		this.$element[0].classList.add(column.type);
+
 		this.mode('init');
 	}
 
@@ -35,7 +39,7 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 				}
 
 				link(this.$element, templateScope);
-				if(value !== 'init') {
+				if (value !== 'init') {
 					this.$element[0].classList.remove('edit');
 				}
 				break;
