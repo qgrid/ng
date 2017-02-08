@@ -1,18 +1,25 @@
 import RootComponent from '../root.component';
 import Service from 'core/services/grid';
 import {getFactory} from 'ng/services/value';
+import Shortcut from 'core/infrastructure/shortcut';
+import Navigation from 'core/navigation/navigation';
 
 export class Grid extends RootComponent {
-	constructor($element, $transclude) {
+	constructor($element, $transclude, $document) {
 		super('data', 'selection', 'sort', 'group', 'pivot', 'edit');
 
 		this.$element = $element;
 		this.$transclude = $transclude;
+		this.$document = $document;
 	}
 
 	onInit() {
 		const model = this.model;
 		const service = new Service(model, getFactory);
+
+		const register = new Shortcut(this.$document);
+		const navigation = new Navigation(model.navigation);
+		register('navigation', navigation.commands);
 
 		let template = null;
 		let templateScope = null;
@@ -48,7 +55,7 @@ export class Grid extends RootComponent {
 	}
 }
 
-Grid.$inject = ['$element', '$transclude'];
+Grid.$inject = ['$element', '$transclude', '$document'];
 
 /**
  * By convention all binding should be named in camelCase like: modelname + [P]ropertyname

@@ -16,6 +16,13 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 
 	onInit() {
 		this.mode('init');
+
+		this.view.model.navigationChanged.on(e => {
+			if (e.row === this.rowIndex && e.column === this.columnIndex) {
+				this.$element[0].focus();
+			}
+		});
+
 	}
 
 	mode(value) {
@@ -35,7 +42,7 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 				}
 
 				link(this.$element, templateScope);
-				if(value !== 'init') {
+				if (value !== 'init') {
 					this.$element[0].classList.remove('edit');
 				}
 				break;
