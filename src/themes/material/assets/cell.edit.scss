@@ -1,5 +1,4 @@
 td.edit {
-	position: relative;
 	overflow: visible !important;
 
 	.editor {
@@ -17,6 +16,8 @@ td.edit {
 		-webkit-box-direction: normal;
 		-webkit-flex-direction: column;
 		flex-direction: column;
+		z-index: 1;
+
 		md-input-container {
 			padding: 0;
 			margin: 0;
