@@ -13,11 +13,15 @@
 				text-align: left;
 				padding: 0 12px;
 				position: relative;
-				overflow: hidden;
-				text-overflow: ellipsis;
 				width: 100px;
 
-				&:hover{
+				> div {
+					overflow: hidden;
+					text-overflow: ellipsis;
+					outline: none;
+				}
+
+				&:hover {
 					label {
 						font-weight: bold;
 					}
