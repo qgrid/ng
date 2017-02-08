@@ -1,4 +1,4 @@
-import Command from '../infrastructure/command';
+import Command from 'core/infrastructure/command';
 
 export default class Navigation {
 	constructor(model) {
