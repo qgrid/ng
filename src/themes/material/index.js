@@ -27,7 +27,7 @@ function Setup($templateCache) {
 	$templateCache.put('qgrid.head.array.cell.tpl.html', require('themes/material/templates/head.text.cell.html'));
 	$templateCache.put('qgrid.head.email.cell.tpl.html', require('themes/material/templates/head.text.cell.html'));
 	$templateCache.put('qgrid.head.password.cell.tpl.html', require('themes/material/templates/head.text.cell.html'));
-	$templateCache.put('qgrid.head.pivot.cell.tpl.html', require('themes/material/templates/head.text.cell.html'));
+	$templateCache.put('qgrid.head.pivot.cell.tpl.html', require('themes/material/templates/head.pivot.cell.html'));
 
 	$templateCache.put('qgrid.toolbar.top.tpl.html', require('themes/material/templates/toolbar.top.html'));
 }
