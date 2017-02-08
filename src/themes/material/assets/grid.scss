@@ -13,21 +13,5 @@
 }
 
 .view {
-	height: calc(100% - 120px);
-	display: flex;
-	flex-flow: row wrap;
-	.dock {
-		&-center {
-			flex-flow: row wrap;
-			flex: 1 70%;
-		}
-		&-top,
-		&-bottom {
-			flex: 1 100%;
-		}
-		&-right,
-		&-left {
-			flex: 1 0 0;
-		}
-	}
+	height: 100%;
 }
