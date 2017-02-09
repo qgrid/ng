@@ -82,7 +82,7 @@ export default angular
 	.directive(def.INDETERMINATE_NAME, () => Indeterminate)
 	.directive(def.FOCUS_NAME, () => Focus)
 	.directive(def.RESIZABLE_NAME, () => Resizable)
-	.factory(def.SERVICE_NAME, () => GridService)
+	.service(def.SERVICE_NAME, GridService)
 	.provider(def.THEME_NAME, () => new ThemeProvider())
 	.service(def.TEMPLATE_PATH_NAME, () => () => TemplatePath)
 	.filter(def.RANGE_NAME, () => Range)

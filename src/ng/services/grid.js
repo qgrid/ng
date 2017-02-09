@@ -1,18 +1,31 @@
 import Model from 'core/infrastructure/model';
 import GridService from 'core/services/grid';
 import Pipe from 'core/pipe/pipe';
+import Log from 'core/infrastructure/log';
 import {getFactory} from './value';
 
 export default class Grid {
-	static model() {
+	constructor($rootScope) {
+		this.$rootScope = $rootScope;
+	}
+
+	model() {
 		return new Model();
 	}
 
-	static service(model) {
-		return new GridService(model, getFactory);
+	service(model) {
+		const $rootScope = this.$rootScope;
+		const apply = () => {
+			Log.info('service', '$digest apply');
+			$rootScope.$evalAsync(angular.noop);
+		};
+
+		return new GridService(model, getFactory, apply);
 	}
 
-	static get pipe() {
+	get pipe() {
 		return Pipe;
 	}
 }
+
+Grid.$inject = ['$rootScope'];
