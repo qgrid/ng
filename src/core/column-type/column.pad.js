@@ -14,7 +14,7 @@ class PadColumnModel extends ColumnModel {
 		super('pad');
 
 		this.key = '$pad';
-		this.title = 'Pad';
+		this.title = '';
 		this.canEdit = false;
 		this.canSort = false;
 		this.canResize = false;

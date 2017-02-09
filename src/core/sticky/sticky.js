@@ -44,6 +44,7 @@ function build(sticky, withClone) {
 	cloned.classList.add('sticky');
 	css(cloned, 'position', 'absolute');
 	css(cloned, 'overflow-x', 'hidden');
+	css(cloned, 'visibility', 'hidden');
 
 	const destroy = withClone ? () => {
 		if (sticky.element !== null) {

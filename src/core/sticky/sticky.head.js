@@ -32,7 +32,9 @@ export default class StickyHead extends Sticky {
 
 			css(this.scrollView, 'margin-top', `${offset + tableOffset}px`);
 			css(this.element, 'margin-top', `-${offset}px`);
+			css(this.element, 'visibility', 'visible');
 			css(this.table, 'margin-top', `-${offset + tableOffset}px`);
+
 			this._tableOffset = tableOffset;
 			this._offset = offset;
 		}
