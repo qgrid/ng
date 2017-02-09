@@ -74,7 +74,6 @@ export function widthFactory(model) {
 
 				const columnRows = view().columns;
 				return columnRows[rowIndex][column.columnIndex].colspan  * column.width + 'px';
-				return childCount(columnRows, column) * column.width + 'px';
 			}
 			default: {
 				const width = column.width;

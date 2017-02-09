@@ -37,11 +37,6 @@ export default function pipeColumn(memo, context, next) {
 				model));
 	}
 
-	// Add special column type that fills remaining place (width = 100%)
-	const padColumn = columnFactory('pad');
-	padColumn.rowspan = heads.length;
-	columns.push(padColumn);
-
 	if (heads.length) {
 		const rows = [columns];
 
@@ -84,6 +79,11 @@ export default function pipeColumn(memo, context, next) {
 		memo.columns = rows;
 	}
 	else {
+		// Add special column type that fills remaining place (width = 100%)
+		const padColumn = columnFactory('pad');
+		padColumn.rowspan = heads.length;
+		columns.push(padColumn);
+
 		memo.columns = [columns];
 	}
 
