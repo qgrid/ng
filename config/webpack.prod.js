@@ -18,7 +18,8 @@ module.exports = webpackMerge(commonConfig, {
 	output: {
 		path: path.join(__dirname, 'dist'),
 		filename: '[name].js',
-		sourceMapFilename: '[name].map'
+		sourceMapFilename: '[name].map',
+		// library: 'qgrid'
 	},
 
 	/**

@@ -9,18 +9,25 @@
 		<div q-grid-core:viewport
 			  class="viewport"
 			  flex="100">
+			<table style="position: absolute" ;
+					 ng-if="$view.visibility.head">
+				<thead ng-include="$view.templateUrl('head')">
+				</thead>
+			</table>
 			<table q-grid-core:table
 					 q-grid-core:selection>
-				<thead ng-if="$view.visibility.head"
-						 q-grid-core:head
-						 q-grid-core:sticky
-						 ng-include="$view.templateUrl('head')">
+				<thead style="visibility: hidden;">
+				<tr>
+					<td rowspan="{{$view.head.columns.length}}"
+						 ng-repeat="$column in $view.body.columns track by $column.model.key">
+					</td>
+				</tr>
 				</thead>
-				<tfoot ng-if="$view.visibility.foot"
-						 q-grid-core:foot
-						 q-grid-core:sticky
-						 ng-include="$view.templateUrl('foot')">
-				</tfoot>
+				<!--<tfoot ng-if="$view.visibility.foot"-->
+				<!--q-grid-core:foot-->
+				<!--q-grid-core:sticky-->
+				<!--ng-include="$view.templateUrl('foot')">-->
+				<!--</tfoot>-->
 				<tbody ng-if="$view.visibility.body"
 						 q-grid-core:body
 						 ng-include="$view.templateUrl('body')">

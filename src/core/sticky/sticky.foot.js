@@ -17,10 +17,7 @@ export default class StickyHead extends Sticky {
 		if (!this.element) {
 			return;
 		}
-		const style = window.getComputedStyle(this.scrollView);
 
-		css(this.element, 'min-width', style.width);
-		css(this.element, 'max-width', style.width);
 		const offset = this.source.offsetHeight;
 		css(this.element, 'margin-top', `${this.scrollView.offsetHeight}px`);
 		css(this.element, 'visibility', 'visible');
