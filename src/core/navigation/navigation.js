@@ -22,25 +22,19 @@ export default class Navigation {
 						model({row: model().row - 1});
 					}
 				}),
-				expand: new Command({
+				goRight: new Command({
 					shortcut: 'tab|right',
 					canExecute: () => model().column < model().columnCount,
 					execute: () => {
 						model({column: model().column + 1});
 					}
 				}),
-				collapse: new Command({
+				goLeft: new Command({
 					shortcut: 'left',
 					canExecute: () => model().column > 0,
 					execute: () => {
 						model({column: model().column - 1});
 					}
-				}),
-				submit: new Command({
-					shortcut: 'enter',
-				}),
-				find: new Command({
-					shortcut: 'ctrl+f',
 				})
 			};
 		return new Map(
