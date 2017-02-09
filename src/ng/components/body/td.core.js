@@ -16,10 +16,11 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 
 	onInit() {
 		this.mode('init');
-
 		this.view.model.navigationChanged.on(e => {
-			if (e.row === this.rowIndex && e.column === this.columnIndex) {
-				this.$element[0].focus();
+			if (e.state.row === this.rowIndex && e.state.column === this.columnIndex) {
+				this.$element[0].classList.add('focused');
+			} else {
+				this.$element[0].classList.remove('focused');
 			}
 		});
 

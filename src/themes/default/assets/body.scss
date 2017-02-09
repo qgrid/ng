@@ -15,7 +15,12 @@ $row-height: 48px;
 				td {
 					color: $dark;
 					font-size: 13px;
-					border-top: 1px $dark-divider solid;
+					border:{
+						width: 1px;
+						color: transparent;
+						style: solid;
+						top-color: $dark-divider
+					}
 					padding: 0 12px;
 
 					vertical-align: middle;
@@ -36,6 +41,9 @@ $row-height: 48px;
 
 					&.password {
 						text-align: center;
+					}
+					&.focused {
+						border-color: blue;
 					}
 				}
 			}

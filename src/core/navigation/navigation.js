@@ -9,7 +9,7 @@ export default class Navigation {
 		const model = this.model,
 			commands = {
 				goDown: new Command({
-					shortcut: 'tab|down',
+					shortcut: 'down',
 					canExecute: () => model().row < model().rowCount,
 					execute: () => {
 						model({row: model().row + 1});
@@ -17,12 +17,24 @@ export default class Navigation {
 				}),
 				goUp: new Command({
 					shortcut: 'shift+tab|up',
+					canExecute: () => model().row > 0,
+					execute: () => {
+						model({row: model().row - 1});
+					}
 				}),
 				expand: new Command({
-					shortcut: 'right',
+					shortcut: 'tab|right',
+					canExecute: () => model().column < model().columnCount,
+					execute: () => {
+						model({column: model().column + 1});
+					}
 				}),
 				collapse: new Command({
 					shortcut: 'left',
+					canExecute: () => model().column > 0,
+					execute: () => {
+						model({column: model().column - 1});
+					}
 				}),
 				submit: new Command({
 					shortcut: 'enter',
