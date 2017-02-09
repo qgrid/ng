@@ -1,18 +1,17 @@
 import RootComponent from '../root.component';
-import Service from 'core/services/grid';
-import {getFactory} from 'ng/services/value';
 
 export class Grid extends RootComponent {
-	constructor($element, $transclude) {
+	constructor($element, $transclude, serviceFactory) {
 		super('data', 'selection', 'sort', 'group', 'pivot', 'edit');
 
 		this.$element = $element;
 		this.$transclude = $transclude;
+		this.serviceFactory = model => serviceFactory.service(model);
 	}
 
 	onInit() {
 		const model = this.model;
-		const service = new Service(model, getFactory);
+		const service = this.serviceFactory(model);
 
 		let template = null;
 		let templateScope = null;
@@ -48,7 +47,7 @@ export class Grid extends RootComponent {
 	}
 }
 
-Grid.$inject = ['$element', '$transclude'];
+Grid.$inject = ['$element', '$transclude', 'qgrid'];
 
 /**
  * By convention all binding should be named in camelCase like: modelname + [P]ropertyname
