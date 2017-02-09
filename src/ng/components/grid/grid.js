@@ -44,7 +44,7 @@ export class Grid extends RootComponent {
 			.triggers
 			.forEach(name =>
 				model[name + 'Changed']
-					.on(e => service.invalidate(name, e.changes)));
+					.watch(e => service.invalidate(name, e.changes)));
 	}
 }
 

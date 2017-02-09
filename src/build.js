@@ -1,2 +1,2 @@
 require('./index');
-require('./themes/default/index');
+require('./themes/material');
