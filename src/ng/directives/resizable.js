@@ -1,6 +1,5 @@
 import Directive from './directive';
 import {RESIZABLE_NAME, STICKY_CORE_NAME, TH_CORE_NAME, DRAG_NAME} from 'src/definition';
-import angular from 'angular';
 import EventListener from 'core/infrastructure/event.listener';
 
 class Resizable extends Directive(RESIZABLE_NAME, {stickyCore: `^^?${STICKY_CORE_NAME}`, th: `${TH_CORE_NAME}`}) {

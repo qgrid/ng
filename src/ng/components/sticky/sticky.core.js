@@ -5,7 +5,6 @@ import {
 } from 'src/definition';
 import AppError from 'core/infrastructure/error';
 import StickyFactory from 'core/sticky/sticky.factory';
-import angular from 'angular';
 
 class StickyCore extends Directive(STICKY_CORE_NAME, {
 	view: `^^${VIEW_CORE_NAME}`,
