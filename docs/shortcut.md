@@ -37,5 +37,5 @@ To bind shortcuts with navigation commands you should create new instance of Sho
 ## Bind shortcut to navigation
 Pass new id for this shortcut and commands for bind to
 ```javascript
-    shortcut('navigation', commands);
+    shortcut.register('navigation', commands);
 ```

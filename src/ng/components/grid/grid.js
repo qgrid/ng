@@ -17,9 +17,9 @@ export class Grid extends RootComponent {
 		const model = this.model;
 		const service = new Service(model, getFactory);
 
-		const register = new Shortcut(this.$document);
+		const shortcut = new Shortcut(this.$document[0]);
 		const navigation = new Navigation(model.navigation);
-		register('navigation', navigation.commands);
+		shortcut.register('navigation', navigation.commands);
 
 		let template = null;
 		let templateScope = null;
