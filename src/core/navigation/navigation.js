@@ -16,7 +16,7 @@ export default class Navigation {
 					}
 				}),
 				goUp: new Command({
-					shortcut: 'shift+tab|up',
+					shortcut: 'up',
 					canExecute: () => model().row > 0,
 					execute: () => {
 						model({row: model().row - 1});
@@ -30,7 +30,7 @@ export default class Navigation {
 					}
 				}),
 				goLeft: new Command({
-					shortcut: 'left',
+					shortcut: 'shift+tab|left',
 					canExecute: () => model().column > 0,
 					execute: () => {
 						model({column: model().column - 1});
