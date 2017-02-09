@@ -1,7 +1,7 @@
-.viewport {
+.q-grid-viewport {
 	thead {
 		tr {
-			.divider {
+			.q-grid-divider {
 				top: 15px;
 				right: 0;
 				height: 50%;
@@ -16,7 +16,7 @@
 		}
 
 		&:hover {
-			.divider {
+			.q-grid-divider {
 				visibility: visible;
 			}
 		}

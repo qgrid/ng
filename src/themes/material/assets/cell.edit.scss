@@ -1,7 +1,7 @@
-td.edit {
+td.q-grid-edit {
 	overflow: visible !important;
 
-	.editor {
+	.q-grid-editor {
 		position: absolute;
 		width: 160px;
 		height: 30px;
@@ -23,7 +23,7 @@ td.edit {
 			margin: 0;
 		}
 
-		&.text-area {
+		&.q-grid-text-area {
 			height: 160px;
 			width: 300px;
 			textarea{
@@ -31,14 +31,14 @@ td.edit {
 			}
 		}
 
-		&.array {
+		&.q-grid-array {
 			h2 {
 				margin-top: 0;
 			}
 
 			height: 120px;
 			width: 300px;
-			.actions {
+			.q-grid-actions {
 				.md-button {
 					margin: 8px 0 8px 8px;
 					float: right;

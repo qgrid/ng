@@ -1,8 +1,11 @@
 @import "variables";
+@import "scroll";
 
-.view {
+@include scroll();
+
+.q-grid-view {
 	height: 100%;
-	.viewport {
+	.q-grid-viewport {
 		overflow: auto;
 		font-family: $font-family;
 

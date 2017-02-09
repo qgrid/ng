@@ -1,6 +1,6 @@
 @import "variables";
 
-.pager {
+.q-grid-pager {
 	font-family: $font-family;
 	height: 24px;
 	color: $dark-secondary;
@@ -15,7 +15,7 @@
 		border: 0;
 	}
 
-	.page {
+	.q-grid-page {
 		margin-left: 32px;
 	}
 
@@ -23,12 +23,12 @@
 		background: transparent;
 		border: none;
 		font-size: 20px;
-		&.prev-page {
+		&.q-grid-prev-page {
 			margin-left: 32px;
 			margin-right: 12px;
 		}
 
-		&.next_page {
+		&.q-grid-next_page {
 			margin-left: 12px;
 			margin-right: 14px;
 		}

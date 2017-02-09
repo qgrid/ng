@@ -1,6 +1,6 @@
 @import "variables";
 
-.viewport {
+.q-grid-viewport {
 	thead {
 		tr {
 			height: 56px;
@@ -21,35 +21,35 @@
 					outline: none;
 				}
 
-				&.pad {
+				&.q-grid-pad {
 					width: 100%;
 				}
 
-				&.email {
+				&.q-grid-email {
 					width: 180px;
 				}
 
-				&.password {
+				&.q-grid-password {
 					width: 60px;
 				}
 
-				&.bool {
+				&.q-grid-bool {
 					width: 55px;
 				}
 
-				&.date {
+				&.q-grid-date {
 					width: 80px;
 				}
 
-				&.number {
+				&.q-grid-number {
 					width: 60px;
 				}
 
-				&.array {
+				&.q-grid-array {
 					width: 200px;
 				}
 
-				&.row-indicator {
+				&.q-grid-row-indicator {
 					width: 20px;
 					min-width: 20px;
 					max-width: 20px;
