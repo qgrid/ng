@@ -1,4 +1,7 @@
 @import "variables";
+@import "scroll";
+
+@include scroll();
 
 .q-grid-viewport {
 	overflow: auto;

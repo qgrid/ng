@@ -1,7 +1,7 @@
 import Directive from 'ng/directives/directive';
 import TemplateLink from '../template/template.link';
 import cellBuilder from '../cell/cell.build';
-import {VIEW_CORE_NAME, TH_CORE_NAME, GRID_NAME} from 'src/definition';
+import {VIEW_CORE_NAME, TH_CORE_NAME, GRID_PREFIX} from 'src/definition';
 
 class ThCore extends Directive(TH_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	constructor($scope, $element, $compile, $templateCache) {
@@ -14,8 +14,8 @@ class ThCore extends Directive(TH_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 
 	onInit() {
 		const column = this.column;
-		this.$element[0].classList.add(`${GRID_NAME}-${column.key}`);
-		this.$element[0].classList.add(`${GRID_NAME}-${column.type}`);
+		this.$element[0].classList.add(`${GRID_PREFIX}-${column.key}`);
+		this.$element[0].classList.add(`${GRID_PREFIX}-${column.type}`);
 
 		const model = this.view.model;
 		const cache = model.head().cache;

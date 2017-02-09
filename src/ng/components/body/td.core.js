@@ -2,7 +2,7 @@ import Directive from 'ng/directives/directive';
 import TemplateLink from '../template/template.link';
 import cellBuilder from '../cell/cell.build';
 import AppError from 'core/infrastructure/error'
-import {VIEW_CORE_NAME, TD_CORE_NAME, GRID_NAME} from 'src/definition';
+import {VIEW_CORE_NAME, TD_CORE_NAME, GRID_PREFIX} from 'src/definition';
 
 class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	constructor($scope, $element, $compile, $templateCache) {
@@ -16,10 +16,10 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 
 	onInit() {
 		const column = this.column;
-		this.$element[0].classList.add(`${GRID_NAME}-${column.key}`);
-		this.$element[0].classList.add(`${GRID_NAME}-${column.type}`);
+		this.$element[0].classList.add(`${GRID_PREFIX}-${column.key}`);
+		this.$element[0].classList.add(`${GRID_PREFIX}-${column.type}`);
 		if(column.hasOwnProperty('editor')) {
-			this.$element[0].classList.add(`${GRID_NAME}-${column.editor}`);
+			this.$element[0].classList.add(`${GRID_PREFIX}-${column.editor}`);
 		}
 
 		this.mode('init');
@@ -43,7 +43,7 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 
 				link(this.$element, templateScope);
 				if (value !== 'init') {
-					this.$element[0].classList.remove(`${GRID_NAME}-edit`);
+					this.$element[0].classList.remove(`${GRID_PREFIX}-edit`);
 				}
 				break;
 			}
@@ -56,7 +56,7 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 				}
 
 				link(this.$element, templateScope);
-				this.$element[0].classList.add(`${GRID_NAME}-edit`);
+				this.$element[0].classList.add(`${GRID_PREFIX}-edit`);
 			}
 				break;
 			default:

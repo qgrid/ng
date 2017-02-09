@@ -1,7 +1,7 @@
 import Directive from 'ng/directives/directive';
 import EventListener from 'core/infrastructure/event.listener';
 import DragService from './drag.service';
-import {DROP_NAME, CAN_DROP_NAME, DROP_EFFECT_NAME, ON_DROP_NAME, GRID_NAME} from 'src/definition';
+import {DROP_NAME, CAN_DROP_NAME, DROP_EFFECT_NAME, ON_DROP_NAME, GRID_PREFIX} from 'src/definition';
 
 class Drop extends Directive(DROP_NAME) {
 	constructor($scope, $element) {
@@ -13,7 +13,7 @@ class Drop extends Directive(DROP_NAME) {
 	}
 
 	onInit() {
-		this.element.classList.add(`${GRID_NAME}-can-drop`);
+		this.element.classList.add(`${GRID_PREFIX}-can-drop`);
 		this.listener.on('dragenter', this.enter);
 		this.listener.on('dragover', this.over);
 		this.listener.on('dragleave', this.leave);
@@ -21,14 +21,14 @@ class Drop extends Directive(DROP_NAME) {
 	}
 
 	onDestroy() {
-		this.element.classList.remove(`${GRID_NAME}-can-drop`);
+		this.element.classList.remove(`${GRID_PREFIX}-can-drop`);
 		this.listener.off();
 	}
 
 	drop(e) {
 		e.stopPropagation();
 
-		this.element.classList.remove(`${GRID_NAME}-dragover`);
+		this.element.classList.remove(`${GRID_PREFIX}-dragover`);
 		const event = this.event(e.dataTransfer)
 		if (this.canDrop(event)) {
 			this.$scope.$evalAsync(() => this.onDrop(event));
@@ -40,7 +40,7 @@ class Drop extends Directive(DROP_NAME) {
 	enter(e) {
 		e.preventDefault();
 
-		this.element.classList.add(`${GRID_NAME}-dragover`);
+		this.element.classList.add(`${GRID_PREFIX}-dragover`);
 		e.dataTransfer.dropEffect = this.effect || 'move';
 		return false;
 	}
@@ -49,7 +49,7 @@ class Drop extends Directive(DROP_NAME) {
 		e.preventDefault();
 
 		let effect = this.effect || 'move';
-		if(this.element.classList.contains(`${GRID_NAME}-drag`) ||
+		if(this.element.classList.contains(`${GRID_PREFIX}-drag`) ||
 				this.canDrop(this.event()) === false){
 			effect = 'none';
 		}
@@ -59,7 +59,7 @@ class Drop extends Directive(DROP_NAME) {
 	}
 
 	leave() {
-		this.element.classList.remove(`${GRID_NAME}-dragover`);
+		this.element.classList.remove(`${GRID_PREFIX}-dragover`);
 	}
 
 	event(e) {
