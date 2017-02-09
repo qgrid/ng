@@ -11,7 +11,12 @@ export default class ColumnModel {
 		this.canEdit = true;
 		this.canResize = true;
 		this.canSort = true;
+		this.canMove = true;
 
 		this.isVisible = true;
+	}
+
+	toString() {
+		return `${this.type}: ${this.title}`;
 	}
 }

@@ -14,25 +14,22 @@ table {
 	cursor: pointer;
 	visibility: hidden;
 	font-size: 12px;
-	width: 10px;
+	width: 16px;
 	outline: none;
 	border: none;
 	background: transparent;
 	padding: 0;
 	left: 0;
+	margin-top: -1px;
 
 	&.active {
 		visibility: visible;
-		span {
+		md-icon {
 			color: $dark;
 		}
 
 		& + label {
 			color: $dark;
 		}
-	}
-
-	span {
-		color: $dark-secondary;
 	}
 }

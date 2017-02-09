@@ -13,8 +13,11 @@ class TfCore extends Directive(TF_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	}
 
 	onInit() {
-		const model = this.view.model;
 		const column = this.column;
+		this.$element[0].classList.add(column.key);
+		this.$element[0].classList.add(column.type);
+
+		const model = this.view.model;
 		const cache = model.foot().cache;
 		const rowIndex = this.rowIndex;
 		const key = rowIndex > 0 ? column.key + rowIndex : column.key;
