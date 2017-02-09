@@ -1,4 +1,3 @@
-import angular from 'angular';
 import Grid from './components/grid/grid';
 import GridService from './services/grid';
 

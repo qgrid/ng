@@ -10,15 +10,13 @@ const CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 
 module.exports = webpackMerge(commonConfig, {
 	entry: {
-		qgrid: './src/build.js',
-		vendor: [
-			'angular'
-		]
+		qgrid: './src/build.js'
 	},
 	output: {
-		path: path.join(__dirname, 'dist'),
+		path: path.join(__dirname, '..', 'dist'),
 		filename: '[name].js',
-		sourceMapFilename: '[name].map'
+		sourceMapFilename: '[name].map',
+		library: 'qgrid'
 	},
 
 	/**
@@ -35,13 +33,10 @@ module.exports = webpackMerge(commonConfig, {
 				}
 			}
 		}),
-		new ExtractTextPlugin(new ExtractTextPlugin({
+		new ExtractTextPlugin({
 			filename: 'qgrid.css',
 			disable: false,
 			allChunks: true
-		})),
-		new CommonsChunkPlugin({
-			name: 'vendor'
 		}),
 
 		/**
