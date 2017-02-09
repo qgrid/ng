@@ -43,7 +43,7 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 			canExecute: e => {
 				if (e.source.key === TH_CORE_NAME) {
 					const map = columnService.map(this.view.model.data().columns);
-					return map.hasOwnProperty(e.source.value);
+					return map.hasOwnProperty(e.source.value) && map[e.source.value].canMove !== false;
 				}
 
 				return false;
@@ -55,7 +55,7 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 			canExecute: e => {
 				if (e.source.key === TH_CORE_NAME) {
 					const map = columnService.map(this.view.model.data().columns);
-					return map.hasOwnProperty(e.source.value);
+					return map.hasOwnProperty(e.source.value) && map[e.source.value].canResize !== false;
 				}
 
 				return false;
@@ -64,6 +64,10 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 		});
 
 		this.sortToggle = new Command({
+			canExecute: key => {
+				const map = columnService.map(this.view.model.data().columns);
+				return map.hasOwnProperty(key) && map[key].canSort !== false;
+			},
 			execute: key => {
 				const sort = this.view.model.sort;
 				const sortState = sort();
