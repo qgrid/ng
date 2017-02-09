@@ -2,13 +2,13 @@
 
 export default function Shortcut(document) {
 	let shortcuts = new Map(),
-		dictionary = new Map();
-	dictionary.set(9, 'tab');
-	dictionary.set(13, 'enter');
-	dictionary.set(37, 'left');
-	dictionary.set(38, 'up');
-	dictionary.set(39, 'right');
-	dictionary.set(40, 'down');
+		dictionary = new Map()
+			.set(9, 'tab')
+			.set(13, 'enter')
+			.set(37, 'left')
+			.set(38, 'up')
+			.set(39, 'right')
+			.set(40, 'down');
 
 	return function (id, commands) {
 		for (let [, value] of commands) {
