@@ -11,6 +11,7 @@ import GroupColumn from 'core/column-type/column.group';
 import PivotColumn from 'core/column-type/column.pivot';
 import RowNumberColumn from 'core/column-type/column.row.number';
 import RowIndicatorColumn from 'core/column-type/column.row.indicator';
+import PadColumn from 'core/column-type/column.pad';
 
 export default function (type, model = null) {
 	switch (type) {
@@ -38,6 +39,8 @@ export default function (type, model = null) {
 			return new RowNumberColumn(model || RowNumberColumn.model());
 		case 'row-indicator':
 			return new RowIndicatorColumn(model || RowIndicatorColumn.model());
+		case 'pad':
+			return new PadColumn(model || PadColumn.model());
 		default:
 			throw new AppError(
 				'column.factory',

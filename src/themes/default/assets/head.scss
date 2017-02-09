@@ -21,6 +21,10 @@
 					outline: none;
 				}
 
+				&.pad {
+					width: 100%;
+				}
+
 				&:hover {
 					label {
 						font-weight: bold;

@@ -104,6 +104,10 @@ function Setup($templateCache) {
 	$templateCache.put('qgrid.toolbar.right.tpl.html', require('./components/toolbar/toolbar.right.html'));
 	$templateCache.put('qgrid.toolbar.left.tpl.html', require('./components/toolbar/toolbar.left.html'));
 
+	$templateCache.put('qgrid.head.pad.cell.tpl.html', EMPTY);
+	$templateCache.put('qgrid.body.pad.cell.tpl.html', EMPTY);
+	$templateCache.put('qgrid.foot.pad.cell.tpl.html', EMPTY);
+
 	$templateCache.put('qgrid.head.pivot.cell.tpl.html', require('./components/cell/pivot/head.pivot.cell.html'));
 	$templateCache.put('qgrid.body.pivot.cell.tpl.html', require('./components/cell/pivot/body.pivot.cell.html'));
 	$templateCache.put('qgrid.foot.pivot.cell.tpl.html', EMPTY);
