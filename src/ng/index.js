@@ -1,3 +1,4 @@
+import angular from 'angular';
 import Grid from './components/grid/grid';
 import GridService from './services/grid';
 
@@ -82,7 +83,7 @@ export default angular
 	.directive(def.INDETERMINATE_NAME, () => Indeterminate)
 	.directive(def.FOCUS_NAME, () => Focus)
 	.directive(def.RESIZABLE_NAME, () => Resizable)
-	.factory(def.SERVICE_NAME, () => GridService)
+	.service(def.SERVICE_NAME, GridService)
 	.service(def.THEME_NAME, () => new Theme())
 	.service(def.TEMPLATE_PATH_NAME, () => () => TemplatePath)
 	.filter(def.RANGE_NAME, () => Range)
