@@ -18,6 +18,9 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 		const column = this.column;
 		this.$element[0].classList.add(column.key);
 		this.$element[0].classList.add(column.type);
+		if(column.hasOwnProperty('editor')) {
+			this.$element[0].classList.add(column.editor);
+		}
 
 		this.mode('init');
 	}

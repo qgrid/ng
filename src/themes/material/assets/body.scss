@@ -11,6 +11,13 @@ $row-height: 48px;
 
 				&:hover {
 					background-color: #eee;
+					td{
+						&.text-area {
+							> span {
+								@include multiLine($lineCount: 3, $bgColor: #eee);
+							}
+						}
+					}
 				}
 
 				td {
@@ -41,11 +48,13 @@ $row-height: 48px;
 						text-align: center;
 					}
 
-					//&.text{
-					//	> div{
-					//		@include multiLine($lineCount: 3);
-					//	}
-					//}
+					&.text-area {
+						> span {
+							display: block;
+							white-space: normal;
+							@include multiLine($lineCount: 3);
+						}
+					}
 				}
 			}
 		}
