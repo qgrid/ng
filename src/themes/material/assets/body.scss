@@ -61,7 +61,7 @@ $row-height: 48px;
 						}
 					}
 					&.focused {
-						border-color: blue;
+						border-color: $focused;
 					}
 				}
 			}
