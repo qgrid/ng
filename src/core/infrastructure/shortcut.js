@@ -2,14 +2,14 @@
 
 export default function Shortcut(document) {
 	let shortcuts = new Map(),
-		dictionary = new Map(Object.entries({
-			9: 'tab',
-			13: 'enter',
-			37: 'left',
-			38: 'up',
-			39: 'right',
-			40: 'down'
-		}));
+		dictionary = new Map();
+	dictionary.set(9, 'tab');
+	dictionary.set(13, 'enter');
+	dictionary.set(37, 'left');
+	dictionary.set(38, 'up');
+	dictionary.set(39, 'right');
+	dictionary.set(40, 'down');
+
 	return function (id, commands) {
 		for (let [, value] of commands) {
 			if (value.shortcut) {
