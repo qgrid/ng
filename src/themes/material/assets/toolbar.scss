@@ -1,18 +1,18 @@
-.toolbar {
-	&.toolbar-top {
+.q-grid-toolbar {
+	&.q-grid-toolbar-top {
 		height: 64px;
 		padding-top: 30px;
 		position: relative;
 
-		.actions {
+		.q-grid-actions {
 			.md-icon-button:last-child {
 				margin-right: -15px;
 			}
 		}
 
-		.sortbar,
-		.pivotbar,
-		.groupbar {
+		.q-grid-sortbar,
+		.q-grid-pivotbar,
+		.q-grid-groupbar {
 			margin-right: 20px;
 			white-space: nowrap;
 			label {
@@ -21,16 +21,16 @@
 		}
 	}
 
-	&.toolbar-bottom {
+	&.q-grid-toolbar-bottom {
 		height: 56px;
 	}
-	&.toolbar-left {
+	&.q-grid-toolbar-left {
 		box-sizing: border-box;
 		float: left;
 		width: 150px;
 		padding: 0 20px;
 	}
-	&.toolbar-right {
+	&.q-grid-toolbar-right {
 		box-sizing: border-box;
 		float: right;
 		width: 150px;

@@ -1,6 +1,6 @@
 @import "variables";
 
-.pager {
+.q-grid-pager {
 	font-family: $font-family;
 	height: 24px;
 	color: $dark-secondary;
@@ -15,7 +15,7 @@
 		border: 0;
 	}
 
-	.page {
+	.q-grid-page {
 		margin-left: 32px;
 	}
 

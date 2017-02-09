@@ -5,7 +5,7 @@ import HeadView from 'core/view/view.head';
 import FootView from 'core/view/view.foot';
 import GroupView from 'core/view/view.group';
 import PivotView from 'core/view/view.pivot';
-import {GRID_NAME} from 'src/definition';
+import {GRID_PREFIX} from 'src/definition';
 
 class ViewCore extends Component {
 	constructor($element, theme) {
@@ -45,11 +45,11 @@ class ViewCore extends Component {
 	}
 
 	initTheme() {
-		this.$element[0].classList.add(`theme-${this.theme.name}`);
+		this.$element[0].classList.add(`${GRID_PREFIX}-theme-${this.theme.name}`);
 
 		this.theme.changed.on(e => {
-			this.$element[0].classList.remove(`theme-${e.oldValue}`);
-			this.$element[0].classList.add(`theme-${e.newValue}`);
+			this.$element[0].classList.remove(`${GRID_PREFIX}-theme-${e.oldValue}`);
+			this.$element[0].classList.add(`${GRID_PREFIX}-theme-${e.newValue}`);
 		});
 	}
 
@@ -73,6 +73,6 @@ export default {
 	controllerAs: '$view',
 	templateUrl: 'qgrid.view.tpl.html',
 	require: {
-		'root': `^^${GRID_NAME}`
+		'root': `^^${GRID_PREFIX}`
 	}
 }

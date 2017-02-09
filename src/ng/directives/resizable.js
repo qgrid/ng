@@ -1,6 +1,5 @@
 import Directive from './directive';
-import {RESIZABLE_NAME, STICKY_CORE_NAME, TH_CORE_NAME, DRAG_NAME} from 'src/definition';
-import angular from 'angular';
+import {RESIZABLE_NAME, STICKY_CORE_NAME, TH_CORE_NAME, DRAG_NAME, GRID_PREFIX} from 'src/definition';
 import EventListener from 'core/infrastructure/event.listener';
 
 class Resizable extends Directive(RESIZABLE_NAME, {stickyCore: `^^?${STICKY_CORE_NAME}`, th: `${TH_CORE_NAME}`}) {
@@ -13,7 +12,7 @@ class Resizable extends Directive(RESIZABLE_NAME, {stickyCore: `^^?${STICKY_CORE
 		this.$document = $document;
 		this.$window = $window;
 		this.$timeout = $timeout;
-		this.divider = angular.element('<div class="divider"></div>');
+		this.divider = angular.element(`<div class="${GRID_PREFIX}-divider"></div>`);
 		this.listener = {
 			divider: new EventListener(this, this.divider[0]),
 			document: new EventListener(this, this.$document[0])
@@ -49,7 +48,7 @@ class Resizable extends Directive(RESIZABLE_NAME, {stickyCore: `^^?${STICKY_CORE
 		if (sticky) {
 			context.source = sticky
 				.th(sticky.source)
-				.find(th => th.classList.contains(this.th.column.key));
+				.find(th => th.classList.contains(`${GRID_PREFIX}-${this.th.column.key}`));
 		}
 
 		const style = this.$window.getComputedStyle(this.$element[0], null);

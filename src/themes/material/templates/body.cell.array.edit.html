@@ -1,10 +1,10 @@
-<div ng-cloak class="editor array">
+<div ng-cloak class="q-grid-editor q-grid-array">
 	<h2 class="md-title">Edit {{::$cell.column.title}}</h2>
 	<md-chips ng-model="$body.cellEdit.value"
 				 md-removable="'true'"
 				 md-enable-chip-edit="'true'">
 	</md-chips>
-	<div class="actions">
+	<div class="q-grid-actions">
 		<md-button class="md-primary md-confirm-button" ng-click="$body.cellEdit.commit.execute($cell, $event)">Save</md-button>
 		<md-button class="md-primary md-cancel-button" ng-click="$body.cellEdit.cancel.execute($cell, $event)">Cancel</md-button>
 	</div>

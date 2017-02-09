@@ -1,21 +1,20 @@
 import RootComponent from '../root.component';
-import Service from 'core/services/grid';
-import {getFactory} from 'ng/services/value';
 import Shortcut from 'core/infrastructure/shortcut';
 import Navigation from 'core/navigation/navigation';
 
 export class Grid extends RootComponent {
-	constructor($element, $transclude, $document) {
+	constructor($element, $transclude, $document, serviceFactory) {
 		super('data', 'selection', 'sort', 'group', 'pivot', 'edit');
 
 		this.$element = $element;
 		this.$transclude = $transclude;
 		this.$document = $document;
+		this.serviceFactory = model => serviceFactory.service(model);
 	}
 
 	onInit() {
 		const model = this.model;
-		const service = new Service(model, getFactory);
+		const service = this.serviceFactory(model);
 
 		const shortcut = new Shortcut(this.$document[0]);
 		const navigation = new Navigation(model.navigation);
@@ -51,11 +50,11 @@ export class Grid extends RootComponent {
 			.triggers
 			.forEach(name =>
 				model[name + 'Changed']
-					.on(e => service.invalidate(name, e.changes)));
+					.watch(e => service.invalidate(name, e.changes)));
 	}
 }
 
-Grid.$inject = ['$element', '$transclude', '$document'];
+Grid.$inject = ['$element', '$transclude', '$document', 'qgrid'];
 
 /**
  * By convention all binding should be named in camelCase like: modelname + [P]ropertyname

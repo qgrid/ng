@@ -3,7 +3,7 @@
 
 $row-height: 48px;
 
-.viewport {
+.q-grid-viewport {
 	table {
 		tbody {
 			> tr {
@@ -11,8 +11,8 @@ $row-height: 48px;
 
 				&:hover {
 					background-color: #eee;
-					td{
-						&.text-area {
+					td {
+						&.q-grid-text-area {
 							> span {
 								@include multiLine($lineCount: 3, $bgColor: #eee);
 							}
@@ -41,19 +41,19 @@ $row-height: 48px;
 						vertical-align: middle;
 					}
 
-					&.number {
+					&.q-grid-number {
 						text-align: right;
 					}
 
-					&.bool {
+					&.q-grid-bool {
 						text-align: center;
 					}
 
-					&.password {
+					&.q-grid-password {
 						text-align: center;
 					}
 
-					&.text-area {
+					&.q-grid-text-area {
 						> span {
 							display: block;
 							white-space: normal;

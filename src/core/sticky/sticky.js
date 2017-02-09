@@ -21,15 +21,6 @@ export default class Sticky {
 		};
 	}
 
-	invalidateHeight() {
-		const stickies = Array.from(this.table.querySelectorAll('.sticky'));
-		let offsetHeight = 0;
-		stickies.forEach(s => offsetHeight += s.offsetHeight);
-		css(this.scrollView, 'height', '100%');
-		const viewHeight = parseInt(window.getComputedStyle(this.scrollView).height);
-		css(this.scrollView, 'height', `${viewHeight - offsetHeight}px`);
-	}
-
 	scrollSync() {
 		this.element.scrollLeft = this.scrollView.scrollLeft;
 	}
@@ -41,7 +32,7 @@ function build(sticky, withClone) {
 	}
 	const cloned = withClone ? sticky.source.cloneNode(true) : sticky.source;
 
-	cloned.classList.add('sticky');
+	cloned.classList.add('q-grid-sticky');
 	css(cloned, 'position', 'absolute');
 	css(cloned, 'overflow-x', 'hidden');
 
@@ -56,7 +47,7 @@ function build(sticky, withClone) {
 			sticky.source.remove();
 			sticky.source = null;
 		}
-		sticky.element.classList.remove('sticky');
+		sticky.element.classList.remove('q-grid-sticky');
 		css(sticky.element, 'position', null);
 		css(sticky.element, 'overflow-x', null);
 	};
