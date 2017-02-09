@@ -39,7 +39,8 @@ const dependencies = [
 	ngSanitize,
 	'ngMaterial', // WTF?
 	qgrid,
-	theme
+	theme,
+	'qgrid.theme.material'
 ];
 
 const pages =
