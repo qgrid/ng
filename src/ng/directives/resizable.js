@@ -19,9 +19,10 @@ class Resizable extends Directive(RESIZABLE_NAME, {stickyCore: `^^?${STICKY_CORE
 		};
 
 		this.context = {
-			defaultMin: 20,
-			startX: 0,
-			sourceColumn: null
+			min: 10,
+			x: 0,
+			width: 0,
+			source: null
 		};
 	}
 
@@ -44,26 +45,28 @@ class Resizable extends Directive(RESIZABLE_NAME, {stickyCore: `^^?${STICKY_CORE
 
 		const sticky = this.stickyCore.sticky;
 		const context = this.context;
-
-		if (sticky && !context.sourceColumn) {
-			context.sourceColumn = sticky
+		if (sticky) {
+			context.source = sticky
 				.th(sticky.source)
 				.find(th => th.classList.contains(this.th.column.key));
 		}
 
-		const width = parseInt(this.$element[0].clientWidth);
-		context.startX = e.screenX - width;
-
+		const style = window.getComputedStyle(this.$element[0], null);
+		//context.min = parseFloat(style.getPropertyValue('min-width'));
+		context.width = parseFloat(style.getPropertyValue('width'));
+		context.x = e.screenX;
 		this.listener.document.on('mousemove', this.drag);
 		this.listener.document.on('mouseup', this.dragEnd);
 	}
 
 	drag(e) {
 		const context = this.context;
+		const offsetX = e.screenX - context.x;
 		const newWidth = Math.max(
-			context.defaultMin,
-			e.screenX - context.startX
+			context.min,
+			context.width + offsetX
 		);
+
 		const width = `${newWidth}px`;
 		const style = {
 			'max-width': width,
@@ -72,14 +75,15 @@ class Resizable extends Directive(RESIZABLE_NAME, {stickyCore: `^^?${STICKY_CORE
 		};
 
 		this.$element.css(style);
-		if (context.sourceColumn) {
-			angular.element(context.sourceColumn).css(style);
+		if (context.source) {
+			angular.element(context.source).css(style);
 			this.stickyCore.sticky.invalidate();
 		}
 	}
 
 	dragEnd() {
 		this.listener.document.off();
+		this.context.source = null;
 	}
 
 	event() {
