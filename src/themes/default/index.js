@@ -1,4 +1,3 @@
-import angular from 'angular';
 require('./index.scss');
 
 export default angular
