@@ -28,8 +28,6 @@ export default class StickyHead extends Sticky {
 		const tableOffset = parseInt(tableStyle.paddingTop || 0, 10);
 		const offset = this.source.offsetHeight;
 		if (tableOffset !== this._tableOffset || offset !== this._offset) {
-			super.invalidateHeight();
-
 			css(this.scrollView, 'margin-top', `${offset + tableOffset}px`);
 			css(this.element, 'margin-top', `-${offset}px`);
 			css(this.table, 'margin-top', `-${offset + tableOffset}px`);

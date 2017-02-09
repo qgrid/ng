@@ -21,15 +21,6 @@ export default class Sticky {
 		};
 	}
 
-	invalidateHeight() {
-		const stickies = Array.from(this.table.querySelectorAll('.sticky'));
-		let offsetHeight = 0;
-		stickies.forEach(s => offsetHeight += s.offsetHeight);
-		css(this.scrollView, 'height', '100%');
-		const viewHeight = parseInt(window.getComputedStyle(this.scrollView).height);
-		css(this.scrollView, 'height', `${viewHeight - offsetHeight}px`);
-	}
-
 	scrollSync() {
 		this.element.scrollLeft = this.scrollView.scrollLeft;
 	}
