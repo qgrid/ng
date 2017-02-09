@@ -61,8 +61,7 @@ $row-height: 48px;
             }
           }
           &.focused {
-            background-color: $gray;
-            border-color: darken($gray, 10%)
+            background-color: lighten($gray, 4%);
           }
         }
       }
