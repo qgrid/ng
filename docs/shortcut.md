@@ -16,6 +16,18 @@ Shortcut maps keyboard button shortcut with the command, which should be invoked
 
 ```
 
+Your command can contain several shortcuts. The delimeter is '|' symbol. I.E.
+```
+    shortcut: 'tab|right',
+    canExecute: () => {
+        //condition
+    },
+    execute: () => {
+       //execution
+    }
+```
+In this case will be created mappings for every of the delimetered values.
+
 ## Create new shortcut instance
 To bind shortcuts with navigation commands you should create new instance of Shortcut object and pass document object to it
 ```javascript
