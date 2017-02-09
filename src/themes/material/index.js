@@ -10,24 +10,23 @@ Setup.$inject = ['$templateCache'];
 function Setup($templateCache) {
 	$templateCache.put('qgrid.plugin.progress.tpl.html', require('themes/material/templates/plugin.progress.html'));
 
-	$templateCache.put('qgrid.body.text.cell.edit.tpl.html', require('themes/material/templates/body.text.cell.edit.html'));
-	$templateCache.put('qgrid.body.text-area.cell.edit.tpl.html', require('themes/material/templates/body.text.area.cell.edit.html'));
-	$templateCache.put('qgrid.body.bool.cell.edit.tpl.html', require('themes/material/templates/body.bool.cell.edit.html'));
-	$templateCache.put('qgrid.body.date.cell.edit.tpl.html', require('themes/material/templates/body.date.cell.edit.html'));
-	$templateCache.put('qgrid.body.number.cell.edit.tpl.html', require('themes/material/templates/body.number.cell.edit.html'));
-	$templateCache.put('qgrid.body.array.cell.edit.tpl.html', require('themes/material/templates/body.array.cell.edit.html'));
-	$templateCache.put('qgrid.body.password.cell.edit.tpl.html', require('themes/material/templates/body.password.cell.edit.html'));
+	$templateCache.put('qgrid.body.cell.text.edit.tpl.html', require('themes/material/templates/body.cell.text.edit.html'));
+	$templateCache.put('qgrid.body.cell.text-area.edit.tpl.html', require('themes/material/templates/body.cell.text.area.edit.html'));
+	$templateCache.put('qgrid.body.cell.bool.edit.tpl.html', require('themes/material/templates/body.cell.bool.edit.html'));
+	$templateCache.put('qgrid.body.cell.date.edit.tpl.html', require('themes/material/templates/body.cell.date.edit.html'));
+	$templateCache.put('qgrid.body.cell.number.edit.tpl.html', require('themes/material/templates/body.cell.number.edit.html'));
+	$templateCache.put('qgrid.body.cell.array.edit.tpl.html', require('themes/material/templates/body.cell.array.edit.html'));
+	$templateCache.put('qgrid.body.cell.password.edit.tpl.html', require('themes/material/templates/body.cell.password.edit.html'));
+	$templateCache.put('qgrid.body.cell.bool.tpl.html', require('themes/material/templates/body.cell.bool.html'));
 
-	$templateCache.put('qgrid.body.bool.cell.tpl.html', require('themes/material/templates/body.bool.cell.html'));
-
-	$templateCache.put('qgrid.head.text.cell.tpl.html', require('themes/material/templates/head.text.cell.html'));
-	$templateCache.put('qgrid.head.bool.cell.tpl.html', require('themes/material/templates/head.text.cell.html'));
-	$templateCache.put('qgrid.head.date.cell.tpl.html', require('themes/material/templates/head.text.cell.html'));
-	$templateCache.put('qgrid.head.number.cell.tpl.html', require('themes/material/templates/head.text.cell.html'));
-	$templateCache.put('qgrid.head.array.cell.tpl.html', require('themes/material/templates/head.text.cell.html'));
-	$templateCache.put('qgrid.head.email.cell.tpl.html', require('themes/material/templates/head.text.cell.html'));
-	$templateCache.put('qgrid.head.password.cell.tpl.html', require('themes/material/templates/head.text.cell.html'));
-	$templateCache.put('qgrid.head.pivot.cell.tpl.html', require('themes/material/templates/head.pivot.cell.html'));
+	$templateCache.put('qgrid.head.cell.text.tpl.html', require('themes/material/templates/head.cell.text.html'));
+	$templateCache.put('qgrid.head.cell.bool.tpl.html', require('themes/material/templates/head.cell.text.html'));
+	$templateCache.put('qgrid.head.cell.date.tpl.html', require('themes/material/templates/head.cell.text.html'));
+	$templateCache.put('qgrid.head.cell.number.tpl.html', require('themes/material/templates/head.cell.text.html'));
+	$templateCache.put('qgrid.head.cell.array.tpl.html', require('themes/material/templates/head.cell.text.html'));
+	$templateCache.put('qgrid.head.cell.email.tpl.html', require('themes/material/templates/head.cell.text.html'));
+	$templateCache.put('qgrid.head.cell.password.tpl.html', require('themes/material/templates/head.cell.text.html'));
+	$templateCache.put('qgrid.head.cell.pivot.tpl.html', require('themes/material/templates/head.cell.pivot.html'));
 
 	$templateCache.put('qgrid.toolbar.top.tpl.html', require('themes/material/templates/toolbar.top.html'));
 }

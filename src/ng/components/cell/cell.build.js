@@ -7,7 +7,7 @@ function buildView(source, mode, column) {
 			const type = column.type || 'text';
 			return {
 				key: `${type}-cell`,
-				url: `qgrid.${source}.${type}.cell.tpl.html`,
+				url: `qgrid.${source}.cell.${type}.tpl.html`,
 				defaults: [`$default.${type}`, '$default']
 			};
 		}
@@ -16,7 +16,7 @@ function buildView(source, mode, column) {
 
 			return {
 				key: `${type}-cell-${mode}`,
-				url: `qgrid.${source}.${type}.cell.${mode}.tpl.html`,
+				url: `qgrid.${source}.cell.${type}.${mode}.tpl.html`,
 				defaults: column.editor
 					? [`$default.${column.editor}`, `$default.${column.type}`, '$default']
 					: [`$default.${type}`, '$default']
