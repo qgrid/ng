@@ -26,7 +26,7 @@ describe('Sticky Head', () => {
 		});
 
 		it('should add specific class', () => {
-			const className = 'sticky';
+			const className = 'q-grid-sticky';
 
 			const hasSpecificClass = sticky.element.classList.contains(className);
 			expect(hasSpecificClass).to.be.true;

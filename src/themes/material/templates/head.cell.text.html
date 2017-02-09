@@ -1,10 +1,10 @@
 <div ng-click="$head.sortToggle.execute($cell.column.key)">
-	<div class="sort"
-		  ng-class="{active: $head.sortOrder($cell.column.key) >= 0}"
+	<div class="q-grid-sort"
+		  ng-class="{'q-grid-active': $head.sortOrder($cell.column.key) >= 0}"
 
 		  ng-switch="$head.sortDirection($cell.column.key)">
-		<md-icon class="asc" ng-switch-when="asc">arrow_downward</md-icon>
-		<md-icon class="desc" ng-switch-when="desc">arrow_upward</md-icon>
+		<md-icon class="q-grid-asc" ng-switch-when="asc">arrow_downward</md-icon>
+		<md-icon class="q-grid-desc" ng-switch-when="desc">arrow_upward</md-icon>
 		<md-icon ng-switch-default>arrow_downward</md-icon>
 	</div>
 	<label>
