@@ -1,6 +1,6 @@
 @import "variables";
 
-.viewport {
+.q-grid-viewport {
 	overflow: auto;
 	font-family: $font-family;
 
@@ -12,6 +12,6 @@
 	}
 }
 
-.view {
+.q-grid-view {
 	height: 100%;
 }

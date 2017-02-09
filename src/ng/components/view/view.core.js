@@ -38,11 +38,11 @@ class ViewCore extends Component {
 	}
 
 	initTheme() {
-		this.$element[0].classList.add(`theme-${this.theme.name}`);
+		this.$element[0].classList.add(`${GRID_NAME}-theme-${this.theme.name}`);
 
 		this.theme.changed.on(e => {
-			this.$element[0].classList.remove(`theme-${e.oldValue}`);
-			this.$element[0].classList.add(`theme-${e.newValue}`);
+			this.$element[0].classList.remove(`${GRID_NAME}-theme-${e.oldValue}`);
+			this.$element[0].classList.add(`${GRID_NAME}-theme-${e.newValue}`);
 		});
 	}
 

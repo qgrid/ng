@@ -2,7 +2,7 @@
 
 $border: 1px solid $dark-divider;
 
-.viewport {
+.q-grid-viewport {
 	thead {
 		tr:last-child {
 			th.pivot {
@@ -10,7 +10,7 @@ $border: 1px solid $dark-divider;
 			}
 		}
 
-		th.pivot {
+		th.q-grid-pivot {
 			text-align: center;
 			border-top: $border;
 			border-left: $border;
@@ -23,7 +23,7 @@ $border: 1px solid $dark-divider;
 	}
 
 	tbody{
-		td.pivot {
+		td.q-grid-pivot {
 			text-align: center;
 		}
 	}

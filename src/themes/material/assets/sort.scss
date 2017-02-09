@@ -2,13 +2,13 @@
 
 table {
 	th:hover {
-		.sort {
+		.q-grid-sort {
 			visibility: visible;
 		}
 	}
 }
 
-.sort {
+.q-grid-sort {
 	position: absolute;
 	display: inline;
 	cursor: pointer;
@@ -22,7 +22,7 @@ table {
 	left: 0;
 	margin-top: -1px;
 
-	&.active {
+	&.q-grid-active {
 		visibility: visible;
 		md-icon {
 			color: $dark;

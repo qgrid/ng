@@ -41,7 +41,7 @@ function build(sticky, withClone) {
 	}
 	const cloned = withClone ? sticky.source.cloneNode(true) : sticky.source;
 
-	cloned.classList.add('sticky');
+	cloned.classList.add('q-grid-sticky');
 	css(cloned, 'position', 'absolute');
 	css(cloned, 'overflow-x', 'hidden');
 
@@ -56,7 +56,7 @@ function build(sticky, withClone) {
 			sticky.source.remove();
 			sticky.source = null;
 		}
-		sticky.element.classList.remove('sticky');
+		sticky.element.classList.remove('q-grid-sticky');
 		css(sticky.element, 'position', null);
 		css(sticky.element, 'overflow-x', null);
 	};

@@ -1,7 +1,7 @@
 import Directive from 'ng/directives/directive';
 import EventListener from 'core/infrastructure/event.listener';
 import DragService from './drag.service';
-import {DRAG_NAME, DROP_EFFECT_NAME, CAN_DRAG_NAME} from 'src/definition';
+import {DRAG_NAME, DROP_EFFECT_NAME, CAN_DRAG_NAME, GRID_NAME} from 'src/definition';
 
 class Drag extends Directive(DRAG_NAME) {
 	constructor($element) {
@@ -12,13 +12,13 @@ class Drag extends Directive(DRAG_NAME) {
 	}
 
 	onInit() {
-		this.element.classList.add('can-drag');
+		this.element.classList.add(`${GRID_NAME}-can-drag`);
 		this.listener.on('dragstart', this.start);
 		this.listener.on('dragend', this.end.bind(this));
 	}
 
 	onDestroy() {
-		this.element.classList.remove('can-drag');
+		this.element.classList.remove(`${GRID_NAME}-can-drag`);
 		this.listener.off()
 	}
 
@@ -31,14 +31,14 @@ class Drag extends Directive(DRAG_NAME) {
 		}
 
 		const source = this.transfer();
-		this.element.classList.add('drag');
+		this.element.classList.add(`${GRID_NAME}-drag`);
 		transfer.setData(DragService.mimeType, DragService.encode(source));
 		transfer.effectAllowed = this.effect || 'move';
 		DragService.transfer = source;
 	}
 
 	end() {
-		this.element.classList.remove('drag');
+		this.element.classList.remove(`${GRID_NAME}-drag`);
 		DragService.transfer = null;
 	}
 
