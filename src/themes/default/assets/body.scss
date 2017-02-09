@@ -4,70 +4,70 @@
 $row-height: 48px;
 
 .viewport {
-  table {
-    tbody {
-      > tr {
-        height: $row-height;
+	table {
+		tbody {
+			> tr {
+				height: $row-height;
 
-        &:hover {
-          background-color: $gray;
-          &:hover {
-            background-color: $gray;
-            td {
-              &.text-area {
-                > span {
-                  @include multiLine($lineCount: 3, $bgColor: $gray);
-                }
-              }
-            }
-          }
-        }
+				&:hover {
+					background-color: #eee;
+					&:hover {
+						background-color: #eee;
+						td{
+							&.text-area {
+								> span {
+									@include multiLine($lineCount: 3, $bgColor: #eee);
+								}
+							}
+						}
+					}
+				}
 
-        td {
-          color: $dark;
-          font-size: 13px;
-          border: {
-            width: 1px;
-            color: transparent;
-            style: solid;
-            top-color: $dark-divider
-          }
-          padding: 0 12px;
+				td {
+					color: $dark;
+					font-size: 13px;
+					border:{
+						width: 1px;
+						color: transparent;
+						style: solid;
+						top-color: $dark-divider
+					}
+					padding: 0 12px;
 
-          vertical-align: middle;
-          text-align: left;
-          overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis;
+					vertical-align: middle;
+					text-align: left;
+					overflow: hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
 
-          > * {
-            vertical-align: middle;
-          }
+					> * {
+						vertical-align: middle;
+					}
 
-          &.number {
-            text-align: right;
-          }
+					&.number {
+						text-align: right;
+					}
 
-          &.bool {
-            text-align: center;
-          }
+					&.bool {
+						text-align: center;
+					}
 
-          &.password {
-            text-align: center;
-          }
+					&.password {
+						text-align: center;
+					}
 
-          &.text-area {
-            > span {
-              display: block;
-              white-space: normal;
-              @include multiLine($lineCount: 3);
-            }
-          }
-          &.focused {
-            background-color: lighten($gray, 4%);
-          }
-        }
-      }
-    }
-  }
+					&.text-area {
+						> span {
+							display: block;
+							white-space: normal;
+							@include multiLine($lineCount: 3);
+						}
+					}
+					&.q-grid-focused {
+                      background-color: lighten($gray, 4%);
+					}
+				}
+			}
+		}
+	}
 }

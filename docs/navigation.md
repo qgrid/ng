@@ -1,5 +1,5 @@
 # Navigation
-Current navigation based on DHTML Style Guide Working Group (DSGWG)reccomendation for keyboard shortcuts
+Current navigation based on DHTML Style Guide Working Group (DSGWG) reccomendation for keyboard shortcuts
 http://access.aol.com/dhtml-style-guide-working-group/
 
 ## New Navigation
@@ -37,12 +37,12 @@ Option the author may choose to implement `Enter` or `F2` as a toggle such that 
 ### Selection
 We have rows, cells and columns which we want to select either individually or contiguously.
 
-|   Object      | Individual      | Contiguous                                                                        |
-| ------------- |:-------------:  | -----                                                                             |
-| Rows          | `shift+space`   | `shift+arrows` from current position (up/right and down/left functional equivalent) |
-| Cells         | 	`space`       | `shift+arrows` from current position                                                |
-| Columns       | `control+space` | `shift+arrows` from current position (up/right and down/left functional equivalent) |
-| Grid          | `control+A` to select the entire grid                                                               |
+|   Object      | Individual      | Contiguous                                                                         |
+| ------------- |:-------------:  | -----                                                                              |
+| Rows          | `shift+space`   | `shift+arrows` from current position (up/right and down/left functional equivalent)|
+| Cells         | 	`space`       | `shift+arrows` from current position                                               |
+| Columns       | `control+space` | `shift+arrows` from current position (up/right and down/left functional equivalent)|
+| Grid          | `control+A` to select the entire grid                                                                |
 
 ### `Shift+F8`
 Adds additional discontinuous items to the selection set. If the user has already selected a column then shift+f8 will add additional columns to the set. Similar behavior for rows and cells.

@@ -1,5 +1,4 @@
-# qgrid
-## Shortcut
+# Shortcut
 
 
 Shortcut maps keyboard button shortcut with the command, which should be invoked on pushing this button. I.E.
