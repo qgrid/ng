@@ -15,6 +15,13 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	}
 
 	onInit() {
+		const column = this.column;
+		this.$element[0].classList.add(column.key);
+		this.$element[0].classList.add(column.type);
+		if(column.hasOwnProperty('editor')) {
+			this.$element[0].classList.add(column.editor);
+		}
+
 		this.mode('init');
 		this.view.model.navigationChanged.on(e => {
 			if (e.state.row === this.rowIndex && e.state.column === this.columnIndex) {

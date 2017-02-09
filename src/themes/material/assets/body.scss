@@ -1,4 +1,5 @@
 @import "variables";
+@import "mixins";
 
 $row-height: 48px;
 
@@ -10,6 +11,13 @@ $row-height: 48px;
 
 				&:hover {
 					background-color: #eee;
+					td{
+						&.text-area {
+							> span {
+								@include multiLine($lineCount: 3, $bgColor: #eee);
+							}
+						}
+					}
 				}
 
 				td {
@@ -22,10 +30,12 @@ $row-height: 48px;
 						top-color: $dark-divider
 					}
 					padding: 0 16px;
-
+					position: relative;
 					vertical-align: middle;
 					text-align: left;
-					//overflow: hidden;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
 
 					> * {
 						vertical-align: middle;
@@ -41,6 +51,14 @@ $row-height: 48px;
 
 					&.password {
 						text-align: center;
+					}
+
+					&.text-area {
+						> span {
+							display: block;
+							white-space: normal;
+							@include multiLine($lineCount: 3);
+						}
 					}
 					&.focused {
 						border-color: blue;

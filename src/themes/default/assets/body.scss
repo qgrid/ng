@@ -10,6 +10,16 @@ $row-height: 48px;
 
 				&:hover {
 					background-color: #eee;
+					&:hover {
+						background-color: #eee;
+						td{
+							&.text-area {
+								> span {
+									@include multiLine($lineCount: 3, $bgColor: #eee);
+								}
+							}
+						}
+					}
 				}
 
 				td {
@@ -25,7 +35,9 @@ $row-height: 48px;
 
 					vertical-align: middle;
 					text-align: left;
-					//overflow: hidden;
+					overflow: hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
 
 					> * {
 						vertical-align: middle;
@@ -41,6 +53,14 @@ $row-height: 48px;
 
 					&.password {
 						text-align: center;
+					}
+
+					&.text-area {
+						> span {
+							display: block;
+							white-space: normal;
+							@include multiLine($lineCount: 3);
+						}
 					}
 					&.focused {
 						border-color: blue;

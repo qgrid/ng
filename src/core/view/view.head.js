@@ -1,11 +1,14 @@
 import View from './view';
 import Log from 'core/infrastructure/log';
+import * as columnService from 'core/column/column.service';
 
 export default class HeadView extends View {
 	constructor(model) {
 		super(model);
 
 		this.rows = [];
+		this.width = columnService.widthFactory(this.model);
+
 		model.viewChanged.watch(() => this.invalidate(model));
 	}
 
@@ -14,10 +17,5 @@ export default class HeadView extends View {
 
 		const columns = model.view().columns;
 		this.rows = columns;
-	}
-
-	width(column) {
-		const width = column.width;
-		return width || width === 0 ? width + 'px' : null;
 	}
 }

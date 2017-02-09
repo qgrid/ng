@@ -1,14 +1,27 @@
-<div class="toolbar toolbar-top">
-	<q-grid:sortbar></q-grid:sortbar>
-	<q-grid:groupbar></q-grid:groupbar>
-	<q-grid:pivotbar></q-grid:pivotbar>
-	<q-grid:progress></q-grid:progress>
-	<!--<q-grid:filter>-->
-		<!--&lt;!&ndash; filter placeholder &ndash;&gt;-->
-		<!--<div class="filter"></div>-->
-	<!--</q-grid:filter>-->
-	<q-grid:options>
-		<!-- options placeholder -->
-		<div class="options">&#8942;</div>
-	</q-grid:options>
+<div class="toolbar toolbar-top" layout="column">
+	<div layout="row">
+		<div flex="100"
+			  layout="row"
+			  layout-align="start center"
+			  layout-align-xs="start start"
+			  layout-align-sm="start start"
+			  layout-xs="column"
+			  layout-sm="column">
+			<div>
+				<q-grid:sortbar></q-grid:sortbar>
+			</div>
+			<div>
+				<q-grid:groupbar></q-grid:groupbar>
+			</div>
+			<div>
+				<q-grid:pivotbar></q-grid:pivotbar>
+			</div>
+		</div>
+		<div class="actions" flex="none" layout="row" layout-align="end center">
+			<div class="options">&#8942;</div>
+		</div>
+	</div>
+	<div class="progress">
+		<q-grid:progress></q-grid:progress>
+	</div>
 </div>

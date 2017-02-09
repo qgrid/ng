@@ -13,8 +13,11 @@ class ThCore extends Directive(TH_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	}
 
 	onInit() {
-		const model = this.view.model;
 		const column = this.column;
+		this.$element[0].classList.add(column.key);
+		this.$element[0].classList.add(column.type);
+
+		const model = this.view.model;
 		const cache = model.head().cache;
 		let link = cache.find(column.key);
 		if (!link) {
