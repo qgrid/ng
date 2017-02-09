@@ -19,7 +19,7 @@ class Resizable extends Directive(RESIZABLE_NAME, {stickyCore: `^^?${STICKY_CORE
 		};
 
 		this.context = {
-			min: 10,
+			min: 15,
 			x: 0,
 			width: 0,
 			source: null

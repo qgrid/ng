@@ -1,4 +1,5 @@
 @import "variables";
+@import "mixins";
 
 $row-height: 48px;
 
@@ -21,6 +22,8 @@ $row-height: 48px;
 					vertical-align: middle;
 					text-align: left;
 					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
 
 					> * {
 						vertical-align: middle;
@@ -37,6 +40,12 @@ $row-height: 48px;
 					&.password {
 						text-align: center;
 					}
+
+					//&.text{
+					//	> div{
+					//		@include multiLine($lineCount: 3);
+					//	}
+					//}
 				}
 			}
 		}
