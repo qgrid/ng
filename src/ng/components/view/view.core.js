@@ -6,6 +6,7 @@ import FootView from 'core/view/view.foot';
 import GroupView from 'core/view/view.group';
 import PivotView from 'core/view/view.pivot';
 import NavigationView from 'core/view/view.navigation';
+import HighlightView from 'core/view/view.highlight';
 import {GRID_PREFIX} from 'src/definition';
 
 class ViewCore extends Component {
@@ -33,6 +34,7 @@ class ViewCore extends Component {
 		this.group = new GroupView(model, valueFactory);
 		this.pivot = new PivotView(model, valueFactory);
 		this.nav = new NavigationView(model, this.$element[0]);
+		this.highlight = new HighlightView(model, this.$element[0]);
 
 		model.viewChanged.on(e => {
 			model.navigation({
@@ -59,7 +61,7 @@ class ViewCore extends Component {
 		return this.root.model;
 	}
 
-	get visibility(){
+	get visibility() {
 		return this.model.visibility();
 	}
 

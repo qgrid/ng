@@ -1,5 +1,5 @@
 import View from './view';
-import Command from '../infrastructure/command';
+import Command from 'core/infrastructure/command';
 
 export default class NavigationView extends View {
 	constructor(model, document) {
