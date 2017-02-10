@@ -5,9 +5,10 @@ import * as columnService from 'core/column/column.service';
 import {VIEW_CORE_NAME, HEAD_CORE_NAME, TH_CORE_NAME} from 'src/definition';
 
 class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
-	constructor($scope) {
+	constructor($scope, $element) {
 		super();
 
+		this.element = $element[0];
 		this.$scope = $scope;
 		Object.defineProperty($scope, '$view', {get: () => this.view});
 
@@ -63,6 +64,11 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	}
 
 	onInit() {
+		this.view.model.layoutChanged.watch(e => {
+			if (e.changes.hasOwnProperty('scroll')) {
+				this.element.parentNode.parentNode.scrollLeft = e.state.scroll.left;
+			}
+		});
 	}
 
 	transfer(cell) {
@@ -73,7 +79,7 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	}
 }
 
-HeadCore.$inject = ['$scope'];
+HeadCore.$inject = ['$scope', '$element'];
 
 export default {
 	restrict: 'A',
