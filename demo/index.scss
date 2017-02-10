@@ -35,13 +35,22 @@ md-toolbar {
 	}
 }
 
+.q-grid {
+	.q-grid-toolbar-top {
+		padding-left: 150px;;
+	}
+}
+
 #content {
 	overflow-y: auto;
 	padding: 10px 20px;
 
 	> .md-title {
 		position: absolute;
-		margin: 13px 0 0 25px;
+		margin: 8px 0 0 25px;
+		max-width: 110px;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 
 	::-webkit-scrollbar {
