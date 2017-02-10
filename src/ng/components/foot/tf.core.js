@@ -34,6 +34,21 @@ class TfCore extends Directive(TF_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 		}
 
 		link(this.$element, this.$scope);
+
+		model.layoutChanged.on(e => {
+			if (e.changes.hasOwnProperty('columns')) {
+				const columns = e.state.columns;
+				for (let [key, context] of Object.entries(columns)) {
+					if(key === column.key) {
+						this.$element.css({
+							'width': context.width + 'px',
+							'max-width': context.width + 'px',
+							'min-width': context.width + 'px'
+						});
+					}
+				}
+			}
+		});
 	}
 
 	get value() {

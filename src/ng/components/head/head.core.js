@@ -63,12 +63,6 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	}
 
 	onInit() {
-		const model = this.view.model;
-		model.layoutChanged.on(e => {
-			if (e.hasOwnProperty('columns')) {
-
-			}
-		});
 	}
 
 	transfer(cell) {
