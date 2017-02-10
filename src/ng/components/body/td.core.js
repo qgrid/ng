@@ -21,7 +21,7 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 		element.classList.add(`${GRID_PREFIX}-${column.key}`);
 		element.classList.add(`${GRID_PREFIX}-${column.type}`);
 		if(column.hasOwnProperty('editor')) {
-			this.$element[0].classList.add(`${GRID_PREFIX}-${column.editor}`);
+			element.classList.add(`${GRID_PREFIX}-${column.editor}`);
 		}
 
 		this.mode('init');
