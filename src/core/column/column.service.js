@@ -43,7 +43,6 @@ export function findView(columns, key) {
 	return null;
 }
 
-
 export function dataView(columns, model) {
 	const groupBy = new Set(model.group().by);
 	const pivotBy = new Set(model.pivot().by);

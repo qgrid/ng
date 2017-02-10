@@ -1,6 +1,4 @@
 import RootComponent from '../root.component';
-import Shortcut from 'core/infrastructure/shortcut';
-import Navigation from 'core/navigation/navigation';
 
 export class Grid extends RootComponent {
 	constructor($element, $transclude, $document, serviceFactory) {
@@ -15,10 +13,6 @@ export class Grid extends RootComponent {
 	onInit() {
 		const model = this.model;
 		const service = this.serviceFactory(model);
-
-		const shortcut = new Shortcut(this.$document[0]);
-		const navigation = new Navigation(model.navigation);
-		shortcut.register('navigation', navigation.commands);
 
 		let template = null;
 		let templateScope = null;

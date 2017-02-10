@@ -1,4 +1,5 @@
 import Command from 'core/infrastructure/command';
+import * as columnService from 'core/column/column.service';
 
 export default class Navigation {
 	constructor(model) {
@@ -10,30 +11,30 @@ export default class Navigation {
 		const commands = {
 			goDown: new Command({
 				shortcut: 'down',
-				canExecute: () => model().row < model().rowCount,
+				canExecute: () => model.navigation().row < model.view().rows.length - 1,
 				execute: () => {
-					model({row: model().row + 1});
+					model.navigation({row: model.navigation().row + 1});
 				}
 			}),
 			goUp: new Command({
 				shortcut: 'up',
-				canExecute: () => model().row > 0,
+				canExecute: () => model.navigation().row > 0,
 				execute: () => {
-					model({row: model().row - 1});
+					model.navigation({row: model.navigation().row - 1});
 				}
 			}),
 			goRight: new Command({
 				shortcut: 'tab|right',
-				canExecute: () => model().column < model().columnCount,
+				canExecute: () => model.navigation().column < columnService.lineView(model.view().columns).length - 1,
 				execute: () => {
-					model({column: model().column + 1});
+					model.navigation({column: model.navigation().column + 1});
 				}
 			}),
 			goLeft: new Command({
 				shortcut: 'shift+tab|left',
-				canExecute: () => model().column > 0,
+				canExecute: () => model.navigation().column > 0,
 				execute: () => {
-					model({column: model().column - 1});
+					model.navigation({column: model.navigation().column - 1});
 				}
 			})
 		};
