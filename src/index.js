@@ -3,6 +3,7 @@ import ViewModel from 'core/view/view.model';
 import DataModel from 'core/data/data.model';
 import HeadModel from 'core/head/head.model';
 import BodyModel from 'core/body/body.model';
+import NavigationModel from 'core/navigation/navigation.model';
 import ColumnListModel from 'core/column-list/column.list.model';
 import RowModel from 'core/row/row.model';
 import SelectionModel from 'core/selection/selection.model';
@@ -27,6 +28,7 @@ Model.register('view', ViewModel)
 	.register('selection', SelectionModel)
 	.register('head', HeadModel)
 	.register('body', BodyModel)
+	.register('navigation', NavigationModel)
 	.register('foot', FootModel)
 	.register('row', RowModel)
 	.register('columnList', ColumnListModel)

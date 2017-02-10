@@ -31,6 +31,13 @@ class ViewCore extends Component {
 		this.foot = new FootView(model, valueFactory);
 		this.group = new GroupView(model, valueFactory);
 		this.pivot = new PivotView(model, valueFactory);
+
+		model.viewChanged.on(e => {
+			model.navigation({
+				rowCount: e.state.rows.length,
+				columnCount: e.state.columns[0].length
+			})
+		});
 	}
 
 	templateUrl(key) {
