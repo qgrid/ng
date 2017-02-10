@@ -1,8 +1,6 @@
 import Directive from 'ng/directives/directive';
 import Command from 'core/infrastructure/command';
-import AppError from 'core/infrastructure/error';
 import {noop} from 'core/services/utility';
-import * as sortService from 'core/sort/sort.service';
 import * as columnService from 'core/column/column.service';
 import {VIEW_CORE_NAME, HEAD_CORE_NAME, TH_CORE_NAME} from 'src/definition';
 
@@ -62,63 +60,15 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 			},
 			execute: noop
 		});
-
-		this.sortToggle = new Command({
-			canExecute: key => {
-				const map = columnService.map(this.view.model.data().columns);
-				return map.hasOwnProperty(key) && map[key].canSort !== false;
-			},
-			execute: key => {
-				const sort = this.view.model.sort;
-				const sortState = sort();
-				const by = Array.from(sortState.by);
-				const index = sortService.index(by, key);
-				if (index >= 0) {
-					const dir = sortService.direction(by[index]);
-					switch (dir) {
-						case 'desc': {
-							by.splice(index, 1);
-							break;
-						}
-						case 'asc': {
-							const entry = {[key]: 'desc'};
-							by.splice(index, 1);
-							by.splice(index, 0, entry);
-							break;
-						}
-						default:
-							throw AppError(
-								'head.core',
-								`Invalid sort direction ${dir}`);
-					}
-				}
-				else {
-					if (sortState.mode === 'single') {
-						by.length = 0;
-					}
-
-					const entry = {[key]: 'asc'};
-					by.push(entry);
-				}
-
-				sort({by: by});
-			}
-		});
 	}
 
 	onInit() {
-	}
+		const model = this.view.model;
+		model.layoutChanged.on(e => {
+			if (e.hasOwnProperty('columns')) {
 
-	sortDirection(key) {
-		const state = this.view.model.sort();
-		const by = state.by;
-		return sortService.map(by)[key];
-	}
-
-	sortOrder(key) {
-		const state = this.view.model.sort();
-		const by = state.by;
-		return sortService.index(by, key);
+			}
+		});
 	}
 
 	transfer(cell) {

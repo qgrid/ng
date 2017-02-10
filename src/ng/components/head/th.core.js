@@ -15,10 +15,10 @@ class ThCore extends Directive(TH_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 
 	onInit() {
 		const column = this.column;
-		const element = this.$element[0]
+		const element = this.$element[0];
 		element.classList.add(`${GRID_PREFIX}-${column.key}`);
 		element.classList.add(`${GRID_PREFIX}-${column.type}`);
-		if(column.hasOwnProperty('editor')) {
+		if (column.hasOwnProperty('editor')) {
 			element.classList.add(`${GRID_PREFIX}-${column.editor}`);
 		}
 
@@ -28,7 +28,7 @@ class ThCore extends Directive(TH_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 			let link = cache.find(column.key);
 			if (!link) {
 				const build = cellBuilder(this.template);
-				link = build('head', this.view.model, this.column);
+				link = build('head', model, this.column);
 				cache.set(column.key, link);
 			}
 

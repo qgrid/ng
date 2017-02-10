@@ -1,14 +1,14 @@
 import Directive from './directive';
-import {RESIZABLE_NAME, STICKY_CORE_NAME, TH_CORE_NAME, DRAG_NAME, GRID_PREFIX} from 'src/definition';
+import {RESIZE_NAME, VIEW_CORE_NAME, DRAG_NAME, GRID_PREFIX, GRID_NAME} from 'src/definition';
 import EventListener from 'core/infrastructure/event.listener';
+import {clone} from 'core/services/utility';
 
-class Resizable extends Directive(RESIZABLE_NAME, {stickyCore: `^^?${STICKY_CORE_NAME}`, th: `${TH_CORE_NAME}`}) {
-	constructor($scope, $element, $attrs, $document, $timeout, $window) {
+class Resize extends Directive(RESIZE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
+	constructor($scope, $element, $document, $timeout, $window) {
 		super();
 
 		this.$scope = $scope;
 		this.$element = $element;
-		this.$attrs = $attrs;
 		this.$document = $document;
 		this.$window = $window;
 		this.$timeout = $timeout;
@@ -20,7 +20,6 @@ class Resizable extends Directive(RESIZABLE_NAME, {stickyCore: `^^?${STICKY_CORE
 		};
 
 		this.context = {
-			min: 15,
 			x: 0,
 			width: 0
 		};
@@ -29,7 +28,7 @@ class Resizable extends Directive(RESIZABLE_NAME, {stickyCore: `^^?${STICKY_CORE
 	onInit() {
 		if (this.canResize(this.event())) {
 			this.listener.divider.on('mousedown', this.dragStart);
-			this.$timeout(() => this.$element.append(this.divider));
+			this.$timeout(() => this.$element.append(this.divider)); // TODO: WTF?
 		}
 	}
 
@@ -40,30 +39,23 @@ class Resizable extends Directive(RESIZABLE_NAME, {stickyCore: `^^?${STICKY_CORE
 
 	dragStart(e) {
 		e.preventDefault();
+
 		const context = this.context;
 		const style = this.$window.getComputedStyle(this.$element[0], null);
 		context.width = parseFloat(style.getPropertyValue('width'));
 		context.x = e.screenX;
+
 		this.listener.document.on('mousemove', this.drag);
 		this.listener.document.on('mouseup', this.dragEnd);
 	}
 
 	drag(e) {
 		const context = this.context;
-		const offsetX = e.screenX - context.x;
-		const newWidth = Math.max(
-			context.min,
-			context.width + offsetX
-		);
+		const layout = this.view.model.layout;
+		const state = clone(layout()[this.path]);
 
-		const width = `${newWidth}px`;
-		const style = {
-			'max-width': width,
-			'min-width': width,
-			'width': width
-		};
-
-		this.$element.css(style);
+		state[this.key] = {width: context.width + e.screenX - context.x};
+		layout({[this.path]: state});
 	}
 
 	dragEnd() {
@@ -81,16 +73,18 @@ class Resizable extends Directive(RESIZABLE_NAME, {stickyCore: `^^?${STICKY_CORE
 	}
 }
 
-Resizable.$inject = ['$scope', '$element', '$attrs', '$document', '$timeout', '$window'];
+Resize.$inject = ['$scope', '$element', '$document', '$timeout', '$window'];
 
 export default {
 	restrict: 'A',
 	bindToController: {
-		'canResize': `&${RESIZABLE_NAME}`,
-		'transfer': `&${DRAG_NAME}`,
+		'key': `<${RESIZE_NAME}`,
+		'path': `@${RESIZE_NAME}Path`,
+		'canResize': `&${GRID_NAME}CanResize`,
+		'transfer': `&${DRAG_NAME}`
 	},
-	controllerAs: '$resizable',
-	controller: Resizable,
-	require: Resizable.require,
-	link: Resizable.link
+	controllerAs: '$resize',
+	controller: Resize,
+	require: Resize.require,
+	link: Resize.link
 };

@@ -5,6 +5,7 @@ import HeadView from 'core/view/view.head';
 import FootView from 'core/view/view.foot';
 import GroupView from 'core/view/view.group';
 import PivotView from 'core/view/view.pivot';
+import SortView from 'core/view/view.sort';
 import {GRID_NAME} from 'src/definition';
 
 class ViewCore extends Component {
@@ -12,11 +13,6 @@ class ViewCore extends Component {
 		super();
 
 		this.$element = $element;
-		this.head = null;
-		this.body = null;
-		this.foot = null;
-		this.group = null;
-		this.pivot = null;
 	}
 
 	onInit() {
@@ -27,6 +23,7 @@ class ViewCore extends Component {
 		this.foot = new FootView(model, valueFactory);
 		this.group = new GroupView(model, valueFactory);
 		this.pivot = new PivotView(model, valueFactory);
+		this.sort = new SortView(model);
 	}
 
 	templateUrl(key) {
@@ -37,7 +34,7 @@ class ViewCore extends Component {
 		return this.root.model;
 	}
 
-	get visibility(){
+	get visibility() {
 		return this.model.visibility();
 	}
 

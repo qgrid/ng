@@ -36,7 +36,7 @@ import SelectionCore from './components/selection/selection.core';
 
 import Indeterminate from './directives/indeterminate';
 import Focus from './directives/focus';
-import Resizable from './directives/resizable';
+import Resize from './directives/resize';
 
 import ThemeProvider from './services/theme';
 import Range from './filters/range';
@@ -83,7 +83,7 @@ export default angular
 	.directive(def.STICKY_CORE_NAME, () => StickyCore)
 	.directive(def.INDETERMINATE_NAME, () => Indeterminate)
 	.directive(def.FOCUS_NAME, () => Focus)
-	.directive(def.RESIZABLE_NAME, () => Resizable)
+	.directive(def.RESIZE_NAME, () => Resize)
 	.service(def.SERVICE_NAME, GridService)
 	.provider(def.THEME_NAME, () => new ThemeProvider())
 	.service(def.TEMPLATE_PATH_NAME, () => () => TemplatePath)
