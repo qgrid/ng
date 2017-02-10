@@ -5,7 +5,6 @@ export default class NavigationView extends View {
 	constructor(model, document) {
 		super(model);
 		this.document = document;
-		this.model = model;
 		this.blur = new Command({
 			execute: (row, column) => {
 				this.rows[row].cells[column].classList.remove('q-grid-focused');
@@ -22,11 +21,7 @@ export default class NavigationView extends View {
 				return this.rows.length > this.newRow && this.rows[this.newRow].cells.length > this.newColumn;
 			}
 		});
-		this.onInit(this.model);
 
-	}
-
-	onInit(model) {
 		model.navigationChanged.on(e => {
 			this.newRow = e.state.row;
 			this.newColumn = e.state.column;
@@ -43,7 +38,7 @@ export default class NavigationView extends View {
 	}
 
 	get rows() {
-		return this.document.querySelector('tbody').rows;
+		return this.document.querySelector('tbody').rows || [];
 	}
 
 }
