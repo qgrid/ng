@@ -12,7 +12,15 @@
 		"scripts",
 		"src",
 		".babelrc",
-		".editorconfig"
+		".editorconfig",
+		".eslintignore",
+		".eslintrc",
+		".gitattributes",
+		".gitignore",
+		"karma.conf.js",
+		"package.json",
+		"spec.bundle.js",
+		"webpack.config.js"
 	],
 	"keywords": [
 		"angular",
