@@ -1,11 +1,10 @@
 import Command from 'core/infrastructure/command';
 import Log from 'core/infrastructure/log';
-import {set as setValue} from 'ng/services/value';
 import {parseFactory} from 'core/services/convert';
 import {clone, isUndefined} from 'core/services/utility';
 
-export default class CellEdit {
-	constructor(model) {
+export default class EditCellView {
+	constructor(model, setValue) {
 		this.mode = 'view';
 		this._value = null;
 

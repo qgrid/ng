@@ -1,11 +1,12 @@
 import Component from '../component';
-import {getFactory as valueFactory} from 'ng/services/value';
+import {getFactory as valueFactory, set as setValue} from 'ng/services/value';
 import BodyView from 'core/view/view.body';
 import HeadView from 'core/view/view.head';
 import FootView from 'core/view/view.foot';
 import GroupView from 'core/view/view.group';
 import PivotView from 'core/view/view.pivot';
 import SortView from 'core/view/view.sort';
+import EditView from 'core/view/view.edit';
 import {GRID_NAME} from 'src/definition';
 
 class ViewCore extends Component {
@@ -24,6 +25,7 @@ class ViewCore extends Component {
 		this.group = new GroupView(model, valueFactory);
 		this.pivot = new PivotView(model, valueFactory);
 		this.sort = new SortView(model);
+		this.edit = new EditView(model, setValue);
 	}
 
 	templateUrl(key) {
