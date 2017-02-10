@@ -32,6 +32,16 @@ class SelectionCore extends Directive(SELECTION_CORE_NAME, {view: `^^${VIEW_CORE
 		});
 	}
 
+	unit(unit) {
+		const currentUnit = this.view.model.selection().unit;
+
+		if (!unit) {
+			return currentUnit; 
+		}
+
+		return unit === currentUnit;
+	}
+
 	mode(mode) {
 		const currentMode = this.view.model.selection().mode;
 
@@ -42,18 +52,14 @@ class SelectionCore extends Directive(SELECTION_CORE_NAME, {view: `^^${VIEW_CORE
 		return mode === currentMode;
 	}
 
-	get checkbox() {
-		return  this.view.model.selection().checkbox;
-	}
-
 	get items() {
-		switch (this.mode()) {
+		switch (this.unit()) {
 			case 'row':
 				return this.view.rows;
 			case 'column':
 				return this.view.body.columns;
 			default:
-				throw new AppError('selection.core', `Invalid mode "${this.mode()}"`);
+				throw new AppError('selection.core', `Invalid unit "${this.unit()}"`);
 		}
 	}
 
@@ -69,7 +75,7 @@ class SelectionCore extends Directive(SELECTION_CORE_NAME, {view: `^^${VIEW_CORE
 				this.selectionSet = new Set(e.state.items);
 			}
 
-			if (e.changes.hasOwnProperty('mode')) {
+			if (e.changes.hasOwnProperty('unit') || e.changes.hasOwnProperty('mode')) {
 				this.selectionSet = new Set();
 			}
 		});

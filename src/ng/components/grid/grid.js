@@ -65,7 +65,7 @@ export default {
 		dataPipe: '<pipe',
 		selectionItems: '<selection',
 		selectionMode: '@',
-		selectionCheckbox: '@',
+		selectionUnit: '@',
 		onSelectionChanged: '&',
 		groupBy: '<',
 		pivotBy: '<',

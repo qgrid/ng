@@ -15,9 +15,11 @@ class Selectionbar extends PluginComponent('selectionbar') {
 	constructor() {
 		super(...arguments);
 		
-		this.checkbox = false;
-		this.mode = 'row';
-		this.modes = ['row', 'column', 'cell'];
+		this.unit = 'row';
+		this.units = ['row', 'column', 'cell'];
+
+		this.mode = 'single';
+		this.modes = ['single', 'multiple', 'checkbox'];
 		
 		this.toggleMode = new Command({
 			execute: (mode) => {
@@ -27,14 +29,14 @@ class Selectionbar extends PluginComponent('selectionbar') {
 			}
 		});
 
-		this.toggleCheckbox = new Command({
-			execute: (checkbox) => {
+		this.toggleUnit = new Command({
+			execute: (unit) => {
 				const selection = this.model.selection;
-				selection({ checkbox: checkbox });
+				selection({ unit: unit });
 				this.invalidateGrid();
 			},
 			canExecute: () => {
-				return this.mode === 'row';
+				return true;
 			}
 		});
 
@@ -52,11 +54,11 @@ class Selectionbar extends PluginComponent('selectionbar') {
 
 	onInit() {
 		this.mode = this.selection.mode;
-		this.checkbox = this.selection.checkbox;
+		this.unit = this.selection.unit;
 
 		this.model.selectionChanged.on(e => {
-			if (e.changes.hasOwnProperty('checkbox')) {
-				this.checkbox = e.state.checkbox;
+			if (e.changes.hasOwnProperty('unit')) {
+				this.unit = e.state.unit;
 			}
 
 			if (e.changes.hasOwnProperty('mode')) {

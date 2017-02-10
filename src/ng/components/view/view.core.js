@@ -5,6 +5,7 @@ import HeadView from 'core/view/view.head';
 import FootView from 'core/view/view.foot';
 import GroupView from 'core/view/view.group';
 import PivotView from 'core/view/view.pivot';
+import SelectionView from 'core/view/view.selection';
 import {GRID_NAME} from 'src/definition';
 
 class ViewCore extends Component {
@@ -19,6 +20,7 @@ class ViewCore extends Component {
 		this.foot = null;
 		this.group = null;
 		this.pivot = null;
+		this.selection = null;
 
 		this.initTheme();
 	}
@@ -31,6 +33,7 @@ class ViewCore extends Component {
 		this.foot = new FootView(model, valueFactory);
 		this.group = new GroupView(model, valueFactory);
 		this.pivot = new PivotView(model, valueFactory);
+		this.selection = new SelectionView(model);
 	}
 
 	templateUrl(key) {

@@ -1,4 +1,13 @@
 <div class="selectionbar">
+	<label>Unit:</label>
+	<select ng-model="$selectionbar.unit" 
+			  ng-change="$selectionbar.toggleUnit.execute($selectionbar.unit)"
+			  ng-disabled="!$selectionbar.toggleUnit.canExecute()">
+		<option value="{{unit}}"
+					ng-repeat="unit in $selectionbar.units"
+					ng-bind="unit">
+		</option>
+	</select>
 	<label>Mode:</label>
 	<select ng-model="$selectionbar.mode" 
 			  ng-change="$selectionbar.toggleMode.execute($selectionbar.mode)"
@@ -8,11 +17,11 @@
 					ng-bind="mode">
 		</option>
 	</select>
-	<label>
+	<!--<label>
 		<input type="checkbox" 
 				 ng-model="$selectionbar.checkbox" 
 				 ng-change="$selectionbar.toggleCheckbox.execute($selectionbar.checkbox)"
 				 ng-disabled="!$selectionbar.toggleCheckbox.canExecute()"/>
 		Use checkboxes
-	</label>
+	</label>-->
 </div>

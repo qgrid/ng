@@ -1,16 +1,16 @@
 <tr ng-repeat="$row in $view.body.rows track by $index"
-	 ng-class="{'selected': $selection.mode('row') && !$selection.checkbox && $selection.state($row)}"
-	 ng-click="$selection.mode('row') && !$selection.checkbox && $selection.toggle.execute($row)">
+	 ng-class="{'selected': $selection.unit('row') && !$selection.mode('checkbox') && $selection.state($row)}"
+	 ng-click="$selection.unit('row') && !$selection.mode('checkbox') && $selection.toggle.execute($row)">
 	<td ng-repeat="$column in $view.body.columns track by $column.model.key"
 		 ng-class="[
 			$column.model.key, 
 			$column.model.type, 
 		 	{
-				 'selected': $selection.mode('column') && $selection.state($column) ||
-								 $selection.mode('cell') && $selection.state($cell),
+				 'selected': $selection.unit('column') && $selection.state($column) ||
+								 $selection.unit('cell') && $selection.state($cell),
 			}]"
-		 ng-click="$selection.mode('column') && $selection.toggle.execute($column) || 
-		 			  $selection.mode('cell') && $selection.toggle.execute($cell)"
+		 ng-click="$selection.unit('column') && $selection.toggle.execute($column) || 
+		 			  $selection.unit('cell') && $selection.toggle.execute($cell)"
 		 ng-if="$column.model.isVisible !== false"
 		 q-grid-core:td>
 	</td>

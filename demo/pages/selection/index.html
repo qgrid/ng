@@ -1,6 +1,7 @@
 <q-grid rows="$ctrl.rows"
 		  selection="$ctrl.selection"
-		  selection-mode="row"
+		  selection-mode="single"
+		  selection-unit="row"
 		  on:selection-changed="$ctrl.selectionChanged($event)">
 	<q-grid:toolbar>
 		<q-grid:template for="top">

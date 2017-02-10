@@ -4,10 +4,11 @@ export default function Controller($http, $log) {
 
 	this.selection = [];
 	this.rows = [];
-	this.selectionMode = 'check';
+	this.selectionUnit = 'row';
+	this.selectionMode = 'single';
 	
 	this.selectionChanged = function (e) {
-		$log.log(`qgrid.demo: selection changed ${e.state.items.length} on ${e.state.mode} mode`);
+		$log.log(`qgrid.demo: selection changed ${e.state.items.length} on ${e.state.unit} unit and ${e.state.mode} mode`);
 	};
 
 	this.selectAll = () => {
