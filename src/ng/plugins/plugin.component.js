@@ -4,10 +4,11 @@ import * as guard from 'core/infrastructure/guard';
 import * as pair from 'core/services/pair';
 import {merge, clone} from 'core/services/utility';
 import TemplateLink from 'ng/components/template/template.link';
-import {VIEW_CORE_NAME, GRID_NAME} from 'src/definition';
+import {BOX_CORE_NAME, GRID_NAME} from 'src/definition';
 
 export default function (pluginName, modelNames = [], inject = []) {
 	guard.notNullOrEmpty(pluginName, 'pluginName');
+
 	pluginName = pluginName.toLowerCase();
 
 	class Plugin extends ModelComponent {
@@ -29,8 +30,7 @@ export default function (pluginName, modelNames = [], inject = []) {
 		}
 
 		onInitCore() {
-			const inTransclusion = !this._view && this._root;
-			if (!inTransclusion) {
+			if (this.isReady()) {
 				const visibility = this.model.visibility;
 				const plugins = clone(visibility().plugin);
 				if (!plugins.hasOwnProperty(pluginName)) {
@@ -51,6 +51,11 @@ export default function (pluginName, modelNames = [], inject = []) {
 			super.onInitCore();
 		}
 
+		isReady() {
+			// not in transclusion
+			return this._box || !this._root;
+		}
+
 		get resource() {
 			const model = this.model;
 			if (model.hasOwnProperty(pluginName)) {
@@ -66,7 +71,7 @@ export default function (pluginName, modelNames = [], inject = []) {
 		get model() {
 			const model =
 				this._model ||
-				(this._view && this._view.model) ||
+				(this._box && this._box.model) ||
 				(this._root && this._root.model);
 
 			if (!model) {
@@ -111,7 +116,7 @@ export default function (pluginName, modelNames = [], inject = []) {
 	Plugin.component = settings => {
 		const pluginSettings = {
 			require: {
-				'_view': `^^?${VIEW_CORE_NAME}`,
+				'_box': `^^?${BOX_CORE_NAME}`,
 				'_root': `^^?${GRID_NAME}`
 			},
 			bindings: {

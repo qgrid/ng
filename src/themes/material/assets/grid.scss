@@ -3,18 +3,16 @@
 
 @include scroll();
 
-.q-grid-viewport {
-	overflow: auto;
+.q-grid-box {
+	height: 100%;
 	font-family: $font-family;
 
-	table {
-		width: 100%;
-		border-spacing: 0;
-		overflow: hidden;
-		table-layout: fixed;
+	.q-grid-view{
+		table {
+			width: 100%;
+			border-spacing: 0;
+			overflow: hidden;
+			table-layout: fixed;
+		}
 	}
-}
-
-.q-grid-view {
-	height: 100%;
 }

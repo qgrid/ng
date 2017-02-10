@@ -20,6 +20,7 @@ import Visibility from './plugins/visibility/visibility';
 import ColumnChooser from './plugins/column-chooser/column.chooser';
 import Progress from './plugins/progress/progress';
 
+import BoxCore from './components/grid/box.core';
 import ViewCore from './components/view/view.core';
 import ViewportCore from './components/grid/viewport.core';
 import TableCore from './components/grid/table.core';
@@ -50,6 +51,7 @@ import Template from './components/template/tempate';
 export default angular
 	.module(def.MODULE_NAME, [])
 	.component(def.GRID_NAME, Grid)
+	.component(def.BOX_CORE_NAME, BoxCore)
 	.component(def.VIEW_CORE_NAME, ViewCore)
 	.component(def.HEAD_NAME, Head)
 	.component(def.FOOT_NAME, Foot)

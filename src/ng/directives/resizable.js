@@ -13,6 +13,7 @@ class Resizable extends Directive(RESIZABLE_NAME, {stickyCore: `^^?${STICKY_CORE
 		this.$window = $window;
 		this.$timeout = $timeout;
 		this.divider = angular.element(`<div class="${GRID_PREFIX}-divider"></div>`);
+
 		this.listener = {
 			divider: new EventListener(this, this.divider[0]),
 			document: new EventListener(this, this.$document[0])
@@ -21,18 +22,15 @@ class Resizable extends Directive(RESIZABLE_NAME, {stickyCore: `^^?${STICKY_CORE
 		this.context = {
 			min: 15,
 			x: 0,
-			width: 0,
-			source: null
+			width: 0
 		};
 	}
 
 	onInit() {
-		if (!this.canResize(this.event())) {
-			return;
+		if (this.canResize(this.event())) {
+			this.listener.divider.on('mousedown', this.dragStart);
+			this.$timeout(() => this.$element.append(this.divider));
 		}
-
-		this.listener.divider.on('mousedown', this.dragStart);
-		this.$timeout(() => this.$element.append(this.divider));
 	}
 
 	onDestroy() {
@@ -42,17 +40,8 @@ class Resizable extends Directive(RESIZABLE_NAME, {stickyCore: `^^?${STICKY_CORE
 
 	dragStart(e) {
 		e.preventDefault();
-
-		const sticky = this.stickyCore.sticky;
 		const context = this.context;
-		if (sticky) {
-			context.source = sticky
-				.th(sticky.source)
-				.find(th => th.classList.contains(`${GRID_PREFIX}-${this.th.column.key}`));
-		}
-
 		const style = this.$window.getComputedStyle(this.$element[0], null);
-		//context.min = parseFloat(style.getPropertyValue('min-width'));
 		context.width = parseFloat(style.getPropertyValue('width'));
 		context.x = e.screenX;
 		this.listener.document.on('mousemove', this.drag);
@@ -75,15 +64,10 @@ class Resizable extends Directive(RESIZABLE_NAME, {stickyCore: `^^?${STICKY_CORE
 		};
 
 		this.$element.css(style);
-		if (context.source) {
-			angular.element(context.source).css(style);
-			this.stickyCore.sticky.invalidate();
-		}
 	}
 
 	dragEnd() {
 		this.listener.document.off();
-		this.context.source = null;
 	}
 
 	event() {

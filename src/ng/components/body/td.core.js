@@ -16,8 +16,10 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 
 	onInit() {
 		const column = this.column;
-		this.$element[0].classList.add(`${GRID_PREFIX}-${column.key}`);
-		this.$element[0].classList.add(`${GRID_PREFIX}-${column.type}`);
+		const element = this.$element[0];
+
+		element.classList.add(`${GRID_PREFIX}-${column.key}`);
+		element.classList.add(`${GRID_PREFIX}-${column.type}`);
 		if(column.hasOwnProperty('editor')) {
 			this.$element[0].classList.add(`${GRID_PREFIX}-${column.editor}`);
 		}
@@ -30,6 +32,7 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 		const column = this.column;
 		const templateScope = this.setup();
 		const cache = model.body().cache;
+		const element = this.$element[0];
 
 		switch (value) {
 			case 'view':
@@ -43,7 +46,7 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 
 				link(this.$element, templateScope);
 				if (value !== 'init') {
-					this.$element[0].classList.remove(`${GRID_PREFIX}-edit`);
+					element.classList.remove(`${GRID_PREFIX}-edit`);
 				}
 				break;
 			}
@@ -56,7 +59,7 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 				}
 
 				link(this.$element, templateScope);
-				this.$element[0].classList.add(`${GRID_PREFIX}-edit`);
+				element.classList.add(`${GRID_PREFIX}-edit`);
 			}
 				break;
 			default:

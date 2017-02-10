@@ -5,22 +5,18 @@ import HeadView from 'core/view/view.head';
 import FootView from 'core/view/view.foot';
 import GroupView from 'core/view/view.group';
 import PivotView from 'core/view/view.pivot';
-import {GRID_PREFIX} from 'src/definition';
+import {GRID_NAME} from 'src/definition';
 
 class ViewCore extends Component {
-	constructor($element, theme) {
+	constructor($element) {
 		super();
 
 		this.$element = $element;
-		this.theme = theme;
-
 		this.head = null;
 		this.body = null;
 		this.foot = null;
 		this.group = null;
 		this.pivot = null;
-
-		this.initTheme();
 	}
 
 	onInit() {
@@ -37,15 +33,6 @@ class ViewCore extends Component {
 		return `qgrid.${key}.tpl.html`;
 	}
 
-	initTheme() {
-		this.$element[0].classList.add(`${GRID_PREFIX}-theme-${this.theme.name}`);
-
-		this.theme.changed.on(e => {
-			this.$element[0].classList.remove(`${GRID_PREFIX}-theme-${e.oldValue}`);
-			this.$element[0].classList.add(`${GRID_PREFIX}-theme-${e.newValue}`);
-		});
-	}
-
 	get model() {
 		return this.root.model;
 	}
@@ -59,13 +46,13 @@ class ViewCore extends Component {
 	}
 }
 
-ViewCore.$inject = ['$element', 'qgridTheme'];
+ViewCore.$inject = ['$element'];
 
 export default {
 	controller: ViewCore,
 	controllerAs: '$view',
 	templateUrl: 'qgrid.view.tpl.html',
 	require: {
-		'root': `^^${GRID_PREFIX}`
+		'root': `^^${GRID_NAME}`
 	}
 }

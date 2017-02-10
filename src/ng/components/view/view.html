@@ -1,44 +1,29 @@
-<div class="q-grid-view" flex="100" layout="column">
-	<div flex="auto" ng-if="$view.visibility.toolbar.top">
-		<q-grid-core:toolbar position="top"></q-grid-core:toolbar>
-	</div>
-	<div flex="100" layout="row">
-		<div flex="auto" ng-if="$view.visibility.toolbar.left">
-			<q-grid-core:toolbar position="left"></q-grid-core:toolbar>
-		</div>
-		<div q-grid-core:viewport
-			  class="q-grid-viewport"
-			  flex="100">
-			<table style="position: absolute" ;
-					 ng-if="$view.visibility.head">
-				<thead ng-include="$view.templateUrl('head')">
-				</thead>
-			</table>
-			<table q-grid-core:table
-					 q-grid-core:selection>
-				<thead style="visibility: hidden;">
-				<tr>
-					<td rowspan="{{$view.head.columns.length}}"
-						 ng-repeat="$column in $view.body.columns track by $column.model.key">
-					</td>
-				</tr>
-				</thead>
-				<!--<tfoot ng-if="$view.visibility.foot"-->
-				<!--q-grid-core:foot-->
-				<!--q-grid-core:sticky-->
-				<!--ng-include="$view.templateUrl('foot')">-->
-				<!--</tfoot>-->
-				<tbody ng-if="$view.visibility.body"
-						 q-grid-core:body
-						 ng-include="$view.templateUrl('body')">
-				</tbody>
-			</table>
-		</div>
-		<div flex="auto" ng-if="$view.visibility.toolbar.right">
-			<q-grid-core:toolbar position="right"></q-grid-core:toolbar>
-		</div>
-	</div>
-	<div flex="auto" ng-if="$view.visibility.toolbar.bottom">
-		<q-grid-core:toolbar position="bottom"></q-grid-core:toolbar>
-	</div>
+<div class="q-grid-head flex-auto">
+	<table ng-if="$view.visibility.head">
+		<thead ng-include="$view.templateUrl('head')"
+				 q-grid-core:head>
+		</thead>
+	</table>
+</div>
+<div class="q-grid-body flex-100"
+	  q-grid-core:viewport>
+	<table ng-if="$view.visibility.body">
+		<thead style="visibility: hidden;">
+		<tr style="height: 0;">
+			<th ng-repeat="$column in $view.body.columns track by $column.model.key"
+				 ng-style="{width: $view.head.width($column.model)}"
+				 q-grid-core:th="body">
+			</th>
+		</tr>
+		<tbody ng-include="$view.templateUrl('body')"
+				 q-grid-core:body>
+		</tbody>
+	</table>
+</div>
+<div class="q-grid-foot flex-auto">
+	<table ng-if="$view.visibility.foot">
+		<tfoot ng-include="$view.templateUrl('foot')"
+				 q-grid-core:foot>
+		</tfoot>
+	</table>
 </div>

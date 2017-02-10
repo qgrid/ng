@@ -1,6 +1,10 @@
 @import "variables";
 
-.q-grid-viewport {
+.q-grid-head {
+	overflow: hidden;
+}
+
+.q-grid-view {
 	thead {
 		tr {
 			height: 56px;
