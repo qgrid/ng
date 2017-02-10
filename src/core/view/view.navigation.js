@@ -5,32 +5,45 @@ export default class NavigationView extends View {
 	constructor(model, document) {
 		super(model);
 		this.document = document;
+		this.model = model;
 		this.blur = new Command({
-			execute: (row, column, element) => element.rows[row].cells[column].classList.remove('q-grid-focused')
-		});
-		this.focus = new Command({
-			execute: (row, column, element) => element.rows[row].cells[column].classList.add('q-grid-focused')
-		});
-
-		model.navigationChanged.on(e => {
-			let element = this.document.querySelector('tbody');
-			const newRow = e.state.row;
-			const newColumn = e.state.column;
-
-			const oldRow = e.changes.hasOwnProperty('row') ? e.changes.row.oldValue : newRow;
-			const oldColumn = e.changes.hasOwnProperty('column') ? e.changes.column.oldValue : newColumn;
-
-			const rows = element.rows;
-			if (rows.length > newRow && rows[newRow].cells.length > newColumn) {
-				if (this.blur.canExecute()) {
-					this.blur.execute(oldRow, oldColumn, element);
-				}
-				if (this.focus.canExecute()) {
-					this.focus.execute(newRow, newColumn, element);
-				}
+			execute: (row, column) => {
+				this.rows[row].cells[column].classList.remove('q-grid-focused');
+			},
+			canExecute: () => {
+				return this.rows.length > this.newRow && this.rows[this.newRow].cells.length > this.newColumn;
 			}
 		});
+		this.focus = new Command({
+			execute: (row, column) => {
+				this.rows[row].cells[column].classList.add('q-grid-focused');
+			},
+			canExecute: () => {
+				return this.rows.length > this.newRow && this.rows[this.newRow].cells.length > this.newColumn;
+			}
+		});
+		this.onInit(this.model);
 
+	}
+
+	onInit(model) {
+		model.navigationChanged.on(e => {
+			this.newRow = e.state.row;
+			this.newColumn = e.state.column;
+			this.oldRow = e.changes.hasOwnProperty('row') ? e.changes.row.oldValue : this.newRow;
+			this.oldColumn = e.changes.hasOwnProperty('column') ? e.changes.column.oldValue : this.newColumn;
+
+			if (this.blur.canExecute()) {
+				this.blur.execute(this.oldRow, this.oldColumn);
+			}
+			if (this.focus.canExecute()) {
+				this.focus.execute(this.newRow, this.newColumn);
+			}
+		});
+	}
+
+	get rows() {
+		return this.document.querySelector('tbody').rows;
 	}
 
 }
