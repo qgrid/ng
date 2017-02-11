@@ -63,25 +63,31 @@ export default class HighlightView extends View {
 		const index = this.columnIndex(key);
 
 		const head = this.markup.head;
-		for (let row of head.rows) {
-			row.cells[index].classList.add(`q-grid-${cls}`);
-			if(index > 0){
-				row.cells[index - 1].classList.add(`q-grid-${cls}-prev`);
-			}
+		if (head) {
+			for (let row of head.rows) {
+				row.cells[index].classList.add(`q-grid-${cls}`);
+				if (index > 0) {
+					row.cells[index - 1].classList.add(`q-grid-${cls}-prev`);
+				}
 
-			if(index < head.rows.length - 1){
-				row.cells[index + 1].classList.add(`q-grid-${cls}-next`);
+				if (index < head.rows.length - 1) {
+					row.cells[index + 1].classList.add(`q-grid-${cls}-next`);
+				}
 			}
 		}
 
 		const body = this.markup.body;
-		for (let row of body.rows) {
-			row.cells[index].classList.add(`q-grid-${cls}`);
+		if (body) {
+			for (let row of body.rows) {
+				row.cells[index].classList.add(`q-grid-${cls}`);
+			}
 		}
 
 		const foot = this.markup.foot;
-		for (let row of foot.rows) {
-			row.cells[index].classList.add(`q-grid-${cls}`);
+		if (foot) {
+			for (let row of foot.rows) {
+				row.cells[index].classList.add(`q-grid-${cls}`);
+			}
 		}
 
 		return () => this.blur(key, cls);
@@ -91,25 +97,31 @@ export default class HighlightView extends View {
 		const index = this.columnIndex(key);
 
 		const head = this.markup.head;
-		for (let row of head.rows) {
-			row.cells[index].classList.remove(`q-grid-${cls}`);
-			if(index > 0){
-				row.cells[index - 1].classList.remove(`q-grid-${cls}-prev`);
-			}
+		if (head) {
+			for (let row of head.rows) {
+				row.cells[index].classList.remove(`q-grid-${cls}`);
+				if (index > 0) {
+					row.cells[index - 1].classList.remove(`q-grid-${cls}-prev`);
+				}
 
-			if(index < head.rows.length - 1){
-				row.cells[index + 1].classList.remove(`q-grid-${cls}-next`);
+				if (index < head.rows.length - 1) {
+					row.cells[index + 1].classList.remove(`q-grid-${cls}-next`);
+				}
 			}
 		}
 
 		const body = this.markup.body;
-		for (let row of body.rows) {
-			row.cells[index].classList.remove(`q-grid-${cls}`);
+		if (body) {
+			for (let row of body.rows) {
+				row.cells[index].classList.remove(`q-grid-${cls}`);
+			}
 		}
 
 		const foot = this.markup.foot;
-		for (let row of foot.rows) {
-			row.cells[index].classList.remove(`q-grid-${cls}`);
+		if(foot) {
+			for (let row of foot.rows) {
+				row.cells[index].classList.remove(`q-grid-${cls}`);
+			}
 		}
 	}
 }
