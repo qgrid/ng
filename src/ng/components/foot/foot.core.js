@@ -12,12 +12,7 @@ class FootCore extends Directive(FOOT_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 
 	onInit(){
 		this.view.markup.foot = this.element;
-
-		this.view.model.layoutChanged.watch(e => {
-			if (e.changes.hasOwnProperty('scroll')) {
-				this.element.parentNode.parentNode.scrollLeft = e.state.scroll.left;
-			}
-		});
+		this.view.markup.footView = this.element.parentNode.parentNode; // TODO: make directive
 	}
 }
 

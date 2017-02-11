@@ -67,6 +67,13 @@ export default class HighlightView extends View {
 			row.cells[index].classList.add(`q-grid-${cls}`);
 		}
 
+		// if(index > 0){
+		// 	const prevIndex = index - 1;
+		// 	for (let row of head.rows) {
+		// 		row.cells[prevIndex].classList.add(`q-grid-${cls}-prev`);
+		// 	}
+		// }
+
 		const body = this.markup.body;
 		for (let row of body.rows) {
 			row.cells[index].classList.add(`q-grid-${cls}`);
