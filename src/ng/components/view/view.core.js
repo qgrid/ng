@@ -5,13 +5,16 @@ import HeadView from 'core/view/view.head';
 import FootView from 'core/view/view.foot';
 import GroupView from 'core/view/view.group';
 import PivotView from 'core/view/view.pivot';
+import NavigationView from 'core/view/view.navigation';
+import HighlightView from 'core/view/view.highlight';
 import {GRID_PREFIX} from 'src/definition';
 
 class ViewCore extends Component {
-	constructor($element, theme) {
+	constructor($element, $document, theme) {
 		super();
 
 		this.$element = $element;
+		this.$document = $document;
 		this.theme = theme;
 
 		this.head = null;
@@ -31,13 +34,9 @@ class ViewCore extends Component {
 		this.foot = new FootView(model, valueFactory);
 		this.group = new GroupView(model, valueFactory);
 		this.pivot = new PivotView(model, valueFactory);
+		this.nav = new NavigationView(model, this.$document[0]);
+		this.highlight = new HighlightView(model, this.$element[0]);
 
-		model.viewChanged.on(e => {
-			model.navigation({
-				rowCount: e.state.rows.length,
-				columnCount: e.state.columns[0].length
-			})
-		});
 	}
 
 	templateUrl(key) {
@@ -57,7 +56,7 @@ class ViewCore extends Component {
 		return this.root.model;
 	}
 
-	get visibility(){
+	get visibility() {
 		return this.model.visibility();
 	}
 
@@ -66,7 +65,7 @@ class ViewCore extends Component {
 	}
 }
 
-ViewCore.$inject = ['$element', 'qgridTheme'];
+ViewCore.$inject = ['$element', '$document', 'qgridTheme'];
 
 export default {
 	controller: ViewCore,

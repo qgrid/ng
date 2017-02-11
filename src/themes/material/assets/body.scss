@@ -60,8 +60,12 @@ $row-height: 48px;
 							@include multiLine($lineCount: 3);
 						}
 					}
-					&.q-grid-focused {
+					&.q-grid-focused,
+					&.q-grid-sorted,
+					&.q-grid-highlight{
 						background-color: lighten($gray, 4%);
+						color: rgba(0, 0, 0, 0.87);
+						font-size: 13px;
 					}
 				}
 			}
