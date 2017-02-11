@@ -1,3 +1,8 @@
-<span ng-if="$ctrl.state.progress">Progress...</span>
 <q-grid model="$ctrl.gridModel">
+	<q-grid:toolbar>
+		<q-grid:template for="top" let="$ctrl">
+			{{$ctrl.state}}
+			<div ng-if="$ctrl.state.progress">Progress...</div>
+		</q-grid:template>
+	</q-grid:toolbar>
 </q-grid>

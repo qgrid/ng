@@ -1,9 +1,9 @@
 import Directive from 'ng/directives/directive';
 import EventListener from 'core/infrastructure/event.listener';
 import DragService from './drag.service';
-import {DRAG_NAME, DROP_EFFECT_NAME, CAN_DRAG_NAME, GRID_PREFIX} from 'src/definition';
+import {DRAG_NAME, DROP_EFFECT_NAME, CAN_DRAG_NAME, GRID_PREFIX, VIEW_CORE_NAME} from 'src/definition';
 
-class Drag extends Directive(DRAG_NAME) {
+class Drag extends Directive(DRAG_NAME, {view: `^^?${VIEW_CORE_NAME}`}) {
 	constructor($element) {
 		super();
 
@@ -35,11 +35,21 @@ class Drag extends Directive(DRAG_NAME) {
 		transfer.setData(DragService.mimeType, DragService.encode(source));
 		transfer.effectAllowed = this.effect || 'move';
 		DragService.transfer = source;
+
+		if (this.view) {
+			const model = this.view.model;
+			model.drag({isActive: true});
+		}
 	}
 
 	end() {
 		this.element.classList.remove(`${GRID_PREFIX}-drag`);
 		DragService.transfer = null;
+
+		if (this.view) {
+			const model = this.view.model;
+			model.drag({isActive: false});
+		}
 	}
 
 	event() {

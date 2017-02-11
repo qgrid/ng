@@ -50,9 +50,13 @@ export function dataView(columns, model) {
 }
 
 export function lineView(columnRows) {
-	const viewColumns = columnRows[0].filter(c => c.model.type !== 'pivot');
-	const pivotColumns = columnRows[columnRows.length - 1].filter(c => c.model.type === 'pivot');
-	return viewColumns.concat(pivotColumns);
+	if(columnRows.length) {
+		const viewColumns = columnRows[0].filter(c => c.model.type !== 'pivot');
+		const pivotColumns = columnRows[columnRows.length - 1].filter(c => c.model.type === 'pivot');
+		return viewColumns.concat(pivotColumns);
+	}
+
+	return [];
 }
 
 export function widthFactory(model) {

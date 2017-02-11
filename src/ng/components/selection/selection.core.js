@@ -37,13 +37,13 @@ class SelectionCore extends Directive(SELECTION_CORE_NAME, {view: `^^${VIEW_CORE
 	}
 
 	onInit() {
-		this.view.model.dataChanged.on(e => {
+		this.view.model.dataChanged.watch(e => {
 			if (e.changes.hasOwnProperty('rows')) {
 				this.selectionSet = new Set();
 			}
 		});
 
-		this.view.model.selectionChanged.on(e => {
+		this.view.model.selectionChanged.watch(e => {
 			if (e.changes.hasOwnProperty('items')) {
 				this.selectionSet = new Set(e.state.items);
 			}

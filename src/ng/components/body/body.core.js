@@ -1,7 +1,6 @@
 import Directive from 'ng/directives/directive';
 import {VIEW_CORE_NAME, BODY_CORE_NAME} from 'src/definition';
 import EventListener from 'core/infrastructure/event.listener';
-import CellEdit from '../cell/cell.edit';
 import * as pathFinder from 'ng/services/path.find';
 
 class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
@@ -10,12 +9,10 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 
 		this.element = $element[0];
 		this.listener = new EventListener(this, this.element);
-		this.cellEdit = null;
 		Object.defineProperty($scope, '$view', {get: () => this.view});
 	}
 
 	onInit() {
-		this.cellEdit = new CellEdit(this.view.model);
 		this.listener.on('click', this.onClick);
 	}
 
@@ -25,8 +22,8 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 
 	onClick(e) {
 		const cell = pathFinder.cell(e.path);
-		if (cell && this.cellEdit.enter.canExecute(cell)) {
-			this.cellEdit.enter.execute(cell);
+		if (cell && this.view.edit.cell.enter.canExecute(cell)) {
+			this.view.edit.cell.enter.execute(cell);
 		}
 	}
 }

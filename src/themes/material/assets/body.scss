@@ -3,7 +3,9 @@
 
 $row-height: 48px;
 
-.q-grid-viewport {
+.q-grid-body {
+	overflow: auto;
+
 	table {
 		tbody {
 			> tr {
@@ -23,7 +25,7 @@ $row-height: 48px;
 				td {
 					color: $dark;
 					font-size: 13px;
-					border:{
+					border: {
 						width: 1px;
 						color: transparent;
 						style: solid;
@@ -53,19 +55,20 @@ $row-height: 48px;
 						text-align: center;
 					}
 
+					&.q-grid-highlight{
+						&.q-grid-text-area {
+							> span {
+								@include multiLine($lineCount: 3, $bgColor: #eee);
+							}
+						}
+					}
+
 					&.q-grid-text-area {
 						> span {
 							display: block;
 							white-space: normal;
 							@include multiLine($lineCount: 3);
 						}
-					}
-					&.q-grid-focused,
-					&.q-grid-sorted,
-					&.q-grid-highlight{
-						background-color: lighten($gray, 4%);
-						color: rgba(0, 0, 0, 0.87);
-						font-size: 13px;
 					}
 				}
 			}

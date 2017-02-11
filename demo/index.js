@@ -10,7 +10,7 @@ import {} from 'angular-material';
 
 import qgrid from '../src/index';
 
-import themeDefault from '../src/themes/default';
+//import themeDefault from '../src/themes/default';
 import themeMaterial from '../src/themes/material';
 
 import Run from './run';
@@ -26,11 +26,12 @@ require('angular-material/angular-material.css');
 require('prismjs/themes/prism.css');
 
 // TODO: more generic code
-const theme = (window.location.hash || '')
-	.toLowerCase()
-	.indexOf('?theme=default') >= 0
-	? themeDefault
-	: themeMaterial;
+const theme = themeMaterial;
+// const theme = (window.location.hash || '')
+// 	.toLowerCase()
+// 	.indexOf('?theme=default') >= 0
+// 	? themeDefault
+// 	: themeMaterial;
 
 const dependencies = [
 	ngRoute,

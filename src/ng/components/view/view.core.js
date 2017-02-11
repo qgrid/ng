@@ -1,29 +1,24 @@
 import Component from '../component';
-import {getFactory as valueFactory} from 'ng/services/value';
-import BodyView from 'core/view/view.body';
-import HeadView from 'core/view/view.head';
-import FootView from 'core/view/view.foot';
-import GroupView from 'core/view/view.group';
-import PivotView from 'core/view/view.pivot';
-import NavigationView from 'core/view/view.navigation';
-import HighlightView from 'core/view/view.highlight';
-import {GRID_PREFIX} from 'src/definition';
+import {getFactory as valueFactory, set as setValue} from 'ng/services/value';
+import BodyView from 'core/body/body.view';
+import HeadView from 'core/head/head.view';
+import FootView from 'core/foot/foot.view';
+import LayoutView from 'core/layout/layout.view';
+import GroupView from 'core/group/group.view';
+import PivotView from 'core/pivot/pivot.view';
+import NavigationView from 'core/navigation/navigation.view';
+import HighlightView from 'core/highlight/highlight.view';
+import SortView from 'core/sort/sort.view';
+import EditView from 'core/edit/edit.view';
+import {GRID_NAME} from 'src/definition';
 
 class ViewCore extends Component {
-	constructor($element, $document, theme) {
+	constructor($element, $document) {
 		super();
 
-		this.$element = $element;
-		this.$document = $document;
-		this.theme = theme;
-
-		this.head = null;
-		this.body = null;
-		this.foot = null;
-		this.group = null;
-		this.pivot = null;
-
-		this.initTheme();
+		this.element = $element[0];
+		this.document = $document[0];
+		this.markup = {};
 	}
 
 	onInit() {
@@ -32,24 +27,17 @@ class ViewCore extends Component {
 		this.head = new HeadView(model);
 		this.body = new BodyView(model, valueFactory);
 		this.foot = new FootView(model, valueFactory);
+		this.layout = new LayoutView(model, this.markup);
 		this.group = new GroupView(model, valueFactory);
 		this.pivot = new PivotView(model, valueFactory);
-		this.nav = new NavigationView(model, this.$document[0]);
-		this.highlight = new HighlightView(model, this.$element[0]);
-
+		this.nav = new NavigationView(model, this.document);
+		this.highlight = new HighlightView(model, this.markup);
+		this.sort = new SortView(model);
+		this.edit = new EditView(model, setValue);
 	}
 
 	templateUrl(key) {
 		return `qgrid.${key}.tpl.html`;
-	}
-
-	initTheme() {
-		this.$element[0].classList.add(`${GRID_PREFIX}-theme-${this.theme.name}`);
-
-		this.theme.changed.on(e => {
-			this.$element[0].classList.remove(`${GRID_PREFIX}-theme-${e.oldValue}`);
-			this.$element[0].classList.add(`${GRID_PREFIX}-theme-${e.newValue}`);
-		});
 	}
 
 	get model() {
@@ -60,18 +48,22 @@ class ViewCore extends Component {
 		return this.model.visibility();
 	}
 
+	get pagination(){
+		return this.model.pagination();
+	}
+
 	get rows() {
 		return this.model.data().rows;
 	}
 }
 
-ViewCore.$inject = ['$element', '$document', 'qgridTheme'];
+ViewCore.$inject = ['$element', '$document'];
 
 export default {
 	controller: ViewCore,
 	controllerAs: '$view',
 	templateUrl: 'qgrid.view.tpl.html',
 	require: {
-		'root': `^^${GRID_PREFIX}`
+		'root': `^^${GRID_NAME}`
 	}
 }

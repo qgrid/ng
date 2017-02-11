@@ -5,8 +5,11 @@ export default class ColumnModel {
 		this.title = null;
 		this.value = null;
 		this.pin = null;
-		this.width = null;
 		this.source = 'user';
+
+		this.width = null;
+		this.minWidth = 20;
+		this.maxWidth = null;
 
 		this.canEdit = true;
 		this.canResize = true;

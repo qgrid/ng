@@ -26,12 +26,14 @@ https://qgrid.github.io/ng/
 * [expressive templates](https://github.com/qgrid/ng/blob/master/docs/template.md) `Dmitry S.`
 * [plugin components](https://github.com/qgrid/ng/blob/master/docs/plugin.md) `Dmitry S.`
 * [sticky header/footer](https://github.com/qgrid/ng/blob/master/docs/header.sticky.md) `Maxim`
-
-## features in progress
 * [column generation from data](https://github.com/qgrid/ng/blob/master/docs/column.generation.md) `Maxim`
-* [virtualization of vertical & horizontal scrolls (handle large data sets)](https://github.com/qgrid/ng/blob/master/docs/scroll.virtual.md) `Valentin`
 * [column reordering and resizing](https://github.com/qgrid/ng/blob/master/docs/header.sticky.md) `Maxim`
 * [pagination](https://github.com/qgrid/ng/blob/master/docs/pagination.md) `Valentin`
+* [embeded editors](https://github.com/qgrid/ng/blob/master/docs/cell.editing.md) `Vladimir`
+* [column path](https://github.com/qgrid/ng/blob/master/docs/column.path.md) `Ivan`
+
+## features in progress
+* [virtualization of vertical & horizontal scrolls (handle large data sets)](https://github.com/qgrid/ng/blob/master/docs/scroll.virtual.md) `Valentin`
 * [infinite scroll](https://github.com/qgrid/ng/blob/master/docs/scroll.infinite.md) `Valentin`
 * [filtering](https://github.com/qgrid/ng/blob/master/docs/filter.md) `Valentin`
 * [sorting](https://github.com/qgrid/ng/blob/master/docs/sorting.md) `Evgeniy`
@@ -44,10 +46,8 @@ https://qgrid.github.io/ng/
 * [table editing](https://github.com/qgrid/ng/blob/master/docs/table.editing.md) `Mikhail`
 * [inline row editing](https://github.com/qgrid/ng/blob/master/docs/row.editing.inline.md) `Fedor`
 * [row details](https://github.com/qgrid/ng/blob/master/docs/row.details.md) `Fedor`
-* [embeded editors](https://github.com/qgrid/ng/blob/master/docs/cell.editing.md) `Vladimir`
 * [multi-column header](https://github.com/qgrid/ng/blob/master/docs/header.multi-column.md) `Dmitry K.`
 * [predefined aggregations](https://github.com/qgrid/ng/blob/master/docs/column.aggregation.md) `Stepan` 
-* [column path](https://github.com/qgrid/ng/blob/master/docs/column.path.md) `Ivan`
 
 ## backlog
 * `component api`

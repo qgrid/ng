@@ -14,8 +14,13 @@ class TfCore extends Directive(TF_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 
 	onInit() {
 		const column = this.column;
-		this.$element[0].classList.add(`${GRID_PREFIX}-${column.key}`);
-		this.$element[0].classList.add(`${GRID_PREFIX}-${column.type}`);
+		const element = this.$element[0];
+
+		element.classList.add(`${GRID_PREFIX}-${column.key}`);
+		element.classList.add(`${GRID_PREFIX}-${column.type}`);
+		if(column.hasOwnProperty('editor')) {
+			element.classList.add(`${GRID_PREFIX}-${column.editor}`);
+		}
 
 		const model = this.view.model;
 		const cache = model.foot().cache;

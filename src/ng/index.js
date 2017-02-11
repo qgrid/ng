@@ -20,22 +20,22 @@ import Visibility from './plugins/visibility/visibility';
 import ColumnChooser from './plugins/column-chooser/column.chooser';
 import Progress from './plugins/progress/progress';
 
+import BoxCore from './components/grid/box.core';
 import ViewCore from './components/view/view.core';
 import ViewportCore from './components/grid/viewport.core';
-import TableCore from './components/grid/table.core';
 import TdCore from './components/body/td.core';
 import ThCore from './components/head/th.core';
 import TfCore from './components/foot/tf.core';
 import HeadCore from './components/head/head.core';
 import BodyCore from './components/body/body.core';
 import FootCore from './components/foot/foot.core';
-import StickyCore from './components/sticky/sticky.core';
 import ToolbarCore from './components/toolbar/toolbar.core';
 import SelectionCore from './components/selection/selection.core';
 
 import Indeterminate from './directives/indeterminate';
 import Focus from './directives/focus';
-import Resizable from './directives/resizable';
+import Resize from './directives/resize';
+import Markup from './directives/markup';
 
 import ThemeProvider from './services/theme';
 import Range from './filters/range';
@@ -50,6 +50,7 @@ import Template from './components/template/tempate';
 export default angular
 	.module(def.MODULE_NAME, [])
 	.component(def.GRID_NAME, Grid)
+	.component(def.BOX_CORE_NAME, BoxCore)
 	.component(def.VIEW_CORE_NAME, ViewCore)
 	.component(def.HEAD_NAME, Head)
 	.component(def.FOOT_NAME, Foot)
@@ -67,10 +68,10 @@ export default angular
 	.component(def.VISIBILITY_NAME, Visibility)
 	.component(def.COLUMNCHOOSER_NAME, ColumnChooser)
 	.component(def.PROGRESS_NAME, Progress)
+	.directive(def.MARKUP_NAME, () => Markup)
 	.directive(def.DRAG_NAME, () => Drag)
 	.directive(def.DROP_NAME, () => Drop)
 	.directive(def.VIEWPORT_CORE_NAME, () => ViewportCore)
-	.directive(def.TABLE_CORE_NAME, () => TableCore)
 	.directive(def.SELECTION_CORE_NAME, () => SelectionCore)
 	.directive(def.TD_CORE_NAME, () => TdCore)
 	.directive(def.TH_CORE_NAME, () => ThCore)
@@ -78,10 +79,9 @@ export default angular
 	.directive(def.HEAD_CORE_NAME, () => HeadCore)
 	.directive(def.BODY_CORE_NAME, () => BodyCore)
 	.directive(def.FOOT_CORE_NAME, () => FootCore)
-	.directive(def.STICKY_CORE_NAME, () => StickyCore)
 	.directive(def.INDETERMINATE_NAME, () => Indeterminate)
 	.directive(def.FOCUS_NAME, () => Focus)
-	.directive(def.RESIZABLE_NAME, () => Resizable)
+	.directive(def.RESIZE_NAME, () => Resize)
 	.service(def.SERVICE_NAME, GridService)
 	.provider(def.THEME_NAME, () => new ThemeProvider())
 	.service(def.TEMPLATE_PATH_NAME, () => () => TemplatePath)

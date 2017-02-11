@@ -1,6 +1,6 @@
 import Component from '../component';
 import TemplateLink from '../template/template.link';
-import {VIEW_CORE_NAME} from 'src/definition';
+import {GRID_NAME} from 'src/definition';
 
 class ToolbarCore extends Component {
 	constructor($scope, $element, $compile, $templateCache) {
@@ -13,7 +13,7 @@ class ToolbarCore extends Component {
 
 	onInit() {
 		const target = this.position;
-		const state = this.view.model.toolbar();
+		const state = this.root.model.toolbar();
 		const link = this.template.link(
 			`qgrid.toolbar.${target}.tpl.html`,
 			state.resource,
@@ -36,7 +36,7 @@ export default {
 	controllerAs: '$toolbar',
 	controller: ToolbarCore,
 	require: {
-		view: `^^${VIEW_CORE_NAME}`
+		root: `^^${GRID_NAME}`
 	},
 	bindings: {
 		position: '@'

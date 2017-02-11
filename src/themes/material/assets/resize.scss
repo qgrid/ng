@@ -1,23 +1,25 @@
-.q-grid-viewport {
+.q-grid-head {
 	thead {
 		tr {
-			.q-grid-divider {
-				top: 15px;
-				right: 0;
-				height: 50%;
-				width: 4px;
-				z-index: 2;
-				background: transparent;
-				position: absolute;
-				border-right: 1px solid rgba(0, 0, 0, 0.12);
-				cursor: col-resize;
-				visibility: hidden;
-			}
-		}
+			th {
+				.q-grid-divider {
+					top: 15px;
+					right: 0;
+					height: 50%;
+					width: 4px;
+					z-index: 2;
+					background: transparent;
+					position: absolute;
+					border-right: 1px solid rgba(0, 0, 0, 0.12);
+					cursor: col-resize;
+					visibility: hidden;
+				}
 
-		&:hover {
-			.q-grid-divider {
-				visibility: visible;
+				&:hover, &.q-grid-highlight-prev {
+					.q-grid-divider {
+						visibility: visible;
+					}
+				}
 			}
 		}
 	}
