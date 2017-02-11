@@ -1,6 +1,7 @@
 <div class="q-grid-head flex-auto"
 	  q-grid:markup="headView">
-	<table ng-if="$view.visibility.head">
+	<table ng-if="$view.visibility.head"
+			 style="padding-right: 40px;">
 		<thead ng-include="$view.templateUrl('head')"
 				 q-grid-core:head
 				 q-grid:markup="head">
@@ -27,7 +28,8 @@
 </div>
 <div class="q-grid-foot flex-auto"
 	  q-grid:markup="footView">
-	<table ng-if="$view.visibility.foot">
+	<table ng-if="$view.visibility.foot"
+			 style="padding-right: 40px;">
 		<tfoot ng-include="$view.templateUrl('foot')"
 				 q-grid-core:foot
 				 q-grid:markup="foot">
