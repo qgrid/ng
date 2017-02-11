@@ -17,7 +17,6 @@ export const TABLE_CORE_NAME = `${GRID_CORE}Table`;
 export const TD_CORE_NAME = `${GRID_CORE}Td`;
 export const TF_CORE_NAME = `${GRID_CORE}Tf`;
 export const TH_CORE_NAME = `${GRID_CORE}Th`;
-export const STICKY_CORE_NAME = `${GRID_CORE}Sticky`;
 export const HEAD_CORE_NAME = `${GRID_CORE}Head`;
 export const BODY_CORE_NAME = `${GRID_CORE}Body`;
 export const FOOT_CORE_NAME = `${GRID_CORE}Foot`;

@@ -15,6 +15,5 @@ export default {
 	},
 	controller: Head,
 	bindings: {
-		headIsSticky: '<isSticky'
 	}
 };
