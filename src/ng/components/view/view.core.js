@@ -48,6 +48,10 @@ class ViewCore extends Component {
 		return this.model.visibility();
 	}
 
+	get pagination(){
+		return this.model.pagination();
+	}
+
 	get rows() {
 		return this.model.data().rows;
 	}
