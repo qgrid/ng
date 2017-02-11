@@ -1,9 +1,11 @@
 @import "variables";
 
-table {
-	th:hover {
-		.q-grid-sort {
-			visibility: visible;
+.q-grid-box:not(.q-grid-drag) {
+	.q-grid-head {
+		th:hover {
+			.q-grid-sort {
+				visibility: visible;
+			}
 		}
 	}
 }
