@@ -1,78 +1,33 @@
-import {flatten} from 'core/services/utility';
+import View from 'core/view/view';
+import groupBuilder from 'core/group/group.build';
+import Log from 'core/infrastructure/log';
 
-function injectData(schema, source, target) {
-	return Object
-		.keys(source)
-		.filter(key => !schema.hasOwnProperty(key))
-		.reduce((memo, key) => {
-			memo[key] = source[key];
-			return memo;
-		}, target);
-}
+export default class PivotView extends View {
+	constructor(model, valueFactory) {
+		super(model);
 
-function expandData(schema, source) {
-	const baseline =
-		Object.keys(schema)
-			.map(key => {
-				const node = schema[key];
-				return source && source.hasOwnProperty(key)
-					? expandData(node, source[key])
-					: expandData(node);
-			});
+		this.rows = [];
+		this.valueFactory = valueFactory;
 
-	return baseline.length
-		? flatten(baseline, true)
-		: [source];
-}
-
-function liftSchema(schema) {
-	const baseline = [];
-
-	function lift(schema, depth) {
-		const derivatives =
-			schema
-				? Object.keys(schema)
-					.map(key => {
-						const node = schema[key];
-						return {
-							key: key,
-							value: lift(node, depth + 1)
-						};
-					})
-				: [];
-
-		if (derivatives.length > 0)
-			if (!baseline[depth]) {
-				baseline[depth] = derivatives;
-			}
-			else {
-				baseline[depth].push(...derivatives);
-			}
-
-		return (derivatives.length && derivatives.reduce((memo, d) => memo + d.value, 0)) || 1;
+		model.viewChanged.on(() => this.invalidate(model));
 	}
 
-	lift(schema, 0);
-	return baseline;
-}
+	invalidate(model) {
+		Log.info('view.pivot', 'invalidate');
 
-function sortSchema(schema, comparator) {
-	return Object
-		.keys(schema)
-		.sort(comparator)
-		.reduce((memo, key) => {
-			memo[key] = sortSchema(schema[key], comparator);
-			return memo;
-		}, {});
-}
-
-export default function view(source, comparator) {
-	if (source.schema && source.data) {
-		const schema = sortSchema(source.schema, comparator);
-		const rows = source.data.map(row => injectData(schema, row, expandData(schema, row)));
-		const heads = liftSchema(schema);
-		return {heads, rows};
+		const pivot = model.view().pivot;
+		const pivotRows = pivot.rows;
+		if (pivotRows.length && model.group().by.length) {
+			const build = groupBuilder(model);
+			this.rows = build(this.valueFactory);
+		}
+		else {
+			this.rows = pivotRows;
+		}
 	}
 
-	return {heads: [], rows: []};
+	value(row, column) {
+		const rowIndex = this.model.view().rows.indexOf(row);
+		return this.rows[rowIndex][column.columnIndex];
+	}
 }

@@ -1,5 +1,5 @@
-import View from './view';
-import EditCellView from './view.edit.cell';
+import View from 'core/view/view';
+import EditCellView from './edit.cell.view';
 
 export default class EditView extends View {
 	constructor(model, setValue) {

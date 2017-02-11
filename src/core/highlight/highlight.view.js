@@ -1,4 +1,4 @@
-import View from './view';
+import View from 'core/view/view';
 import Command from 'core/infrastructure/command';
 import * as columnService from 'core/column/column.service';
 import * as sortService from 'core/sort/sort.service';

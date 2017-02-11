@@ -1,4 +1,4 @@
-import View from './view';
+import View from 'core/view/view';
 import * as columnService from 'core/column/column.service';
 import Aggregation from 'core/services/aggregation';
 import AppError from 'core/infrastructure/error';

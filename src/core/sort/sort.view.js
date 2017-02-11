@@ -1,4 +1,4 @@
-import View from './view';
+import View from 'core/view/view';
 import AppError from 'core/infrastructure/error';
 import Command from 'core/infrastructure/command';
 import * as columnService from 'core/column/column.service';

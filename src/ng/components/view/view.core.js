@@ -1,14 +1,14 @@
 import Component from '../component';
 import {getFactory as valueFactory, set as setValue} from 'ng/services/value';
-import BodyView from 'core/view/view.body';
-import HeadView from 'core/view/view.head';
-import FootView from 'core/view/view.foot';
-import GroupView from 'core/view/view.group';
-import PivotView from 'core/view/view.pivot';
-import NavigationView from 'core/view/view.navigation';
-import HighlightView from 'core/view/view.highlight';
-import SortView from 'core/view/view.sort';
-import EditView from 'core/view/view.edit';
+import BodyView from 'core/body/body.view';
+import HeadView from 'core/head/head.view';
+import FootView from 'core/foot/foot.view';
+import GroupView from 'core/group/group.view';
+import PivotView from 'core/pivot/pivot.view';
+import NavigationView from 'core/navigation/navigation.view';
+import HighlightView from 'core/highlight/highlight.view';
+import SortView from 'core/sort/sort.view';
+import EditView from 'core/edit/edit.view';
 import {GRID_PREFIX, GRID_NAME} from 'src/definition';
 
 class ViewCore extends Component {

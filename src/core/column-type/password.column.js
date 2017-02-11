@@ -1,5 +1,5 @@
-import ColumnView from 'core/view/view.column';
-import DataColumnModel from './column.model.data';
+import ColumnView from 'core/column/column.view';
+import DataColumnModel from './data.column.model';
 import TemplatePath from 'core/template/template.path';
 
 TemplatePath.register('password-cell', (template, column) => {

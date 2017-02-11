@@ -1,4 +1,4 @@
-import View from './view';
+import View from 'core/view/view';
 import Log from 'core/infrastructure/log';
 import * as columnService from 'core/column/column.service';
 

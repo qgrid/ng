@@ -1,17 +1,17 @@
 import AppError from 'core/infrastructure/error';
-import TextColumn from 'core/column-type/column.text';
-import NumberColumn from 'core/column-type/column.number';
-import BoolColumn from 'core/column-type/column.bool';
-import DateColumn from 'core/column-type/column.date';
-import PasswordColumn from 'core/column-type/column.password';
-import ArrayColumn from 'core/column-type/column.array';
-import EmailColumn from 'core/column-type/column.email';
-import SelectColumn from 'core/column-type/column.select';
-import GroupColumn from 'core/column-type/column.group';
-import PivotColumn from 'core/column-type/column.pivot';
-import RowNumberColumn from 'core/column-type/column.row.number';
-import RowIndicatorColumn from 'core/column-type/column.row.indicator';
-import PadColumn from 'core/column-type/column.pad';
+import TextColumn from 'core/column-type/text.column';
+import NumberColumn from 'core/column-type/number.column';
+import BoolColumn from 'core/column-type/bool.column';
+import DateColumn from 'core/column-type/date.column';
+import PasswordColumn from 'core/column-type/password.column';
+import ArrayColumn from 'core/column-type/array.column';
+import EmailColumn from 'core/column-type/email.column';
+import SelectColumn from 'core/column-type/select.column';
+import GroupColumn from 'core/column-type/group.column';
+import PivotColumn from 'core/column-type/pivot.column';
+import RowNumberColumn from 'core/column-type/row.number.column';
+import RowIndicatorColumn from 'core/column-type/row.indicator.column';
+import PadColumn from 'core/column-type/pad.column';
 
 export default function (type, model = null) {
 	switch (type) {

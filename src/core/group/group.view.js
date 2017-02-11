@@ -1,4 +1,4 @@
-import View from './view';
+import View from 'core/view/view';
 import Command from 'core/infrastructure/command';
 import {flatView as nodeFlatView} from 'core/node/node.service';
 

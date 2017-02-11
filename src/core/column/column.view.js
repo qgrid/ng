@@ -1,4 +1,4 @@
-import View from './view';
+import View from 'core/view/view';
 
 export default class ColumnView extends View {
 	constructor(model) {
