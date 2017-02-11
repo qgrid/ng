@@ -14,16 +14,20 @@ export function getValue(column) {
 }
 
 export function find(columns, key) {
-	let length = columns.length;
+	const index = findIndex(columns, key);
+	return index < 0 ? null : columns[index];
+}
 
+export function findIndex(columns, key) {
+	let length = columns.length;
 	while (length--) {
 		const column = columns[length];
 		if (column.key == key) {
-			return column;
+			return length;
 		}
 	}
 
-	return null;
+	return -1;
 }
 
 export function findView(columns, key) {
@@ -38,7 +42,6 @@ export function findView(columns, key) {
 
 	return null;
 }
-
 
 export function dataView(columns, model) {
 	const groupBy = new Set(model.group().by);

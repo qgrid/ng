@@ -25,7 +25,12 @@ $row-height: 48px;
 				td {
 					color: $dark;
 					font-size: 13px;
-					border-top: 1px $dark-divider solid;
+					border:{
+						width: 1px;
+						color: transparent;
+						style: solid;
+						top-color: $dark-divider
+					}
 					padding: 0 16px;
 					position: relative;
 					vertical-align: middle;
@@ -56,6 +61,13 @@ $row-height: 48px;
 							white-space: normal;
 							@include multiLine($lineCount: 3);
 						}
+					}
+					&.q-grid-focused,
+					&.q-grid-sorted,
+					&.q-grid-highlight{
+						background-color: lighten($gray, 4%);
+						color: rgba(0, 0, 0, 0.87);
+						font-size: 13px;
 					}
 				}
 			}

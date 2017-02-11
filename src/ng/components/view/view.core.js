@@ -5,15 +5,18 @@ import HeadView from 'core/view/view.head';
 import FootView from 'core/view/view.foot';
 import GroupView from 'core/view/view.group';
 import PivotView from 'core/view/view.pivot';
+import NavigationView from 'core/view/view.navigation';
+import HighlightView from 'core/view/view.highlight';
 import SortView from 'core/view/view.sort';
 import EditView from 'core/view/view.edit';
-import {GRID_NAME} from 'src/definition';
+import {GRID_PREFIX, GRID_NAME} from 'src/definition';
 
 class ViewCore extends Component {
-	constructor($element) {
+	constructor($element, $document) {
 		super();
 
-		this.$element = $element;
+		this.element = $element[0];
+		this.document = $document[0];
 	}
 
 	onInit() {
@@ -24,6 +27,8 @@ class ViewCore extends Component {
 		this.foot = new FootView(model, valueFactory);
 		this.group = new GroupView(model, valueFactory);
 		this.pivot = new PivotView(model, valueFactory);
+		this.nav = new NavigationView(model, this.document);
+		this.highlight = new HighlightView(model, this.element);
 		this.sort = new SortView(model);
 		this.edit = new EditView(model, setValue);
 	}
@@ -45,7 +50,7 @@ class ViewCore extends Component {
 	}
 }
 
-ViewCore.$inject = ['$element'];
+ViewCore.$inject = ['$element', '$document'];
 
 export default {
 	controller: ViewCore,
