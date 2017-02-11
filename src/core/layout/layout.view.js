@@ -1,6 +1,5 @@
 import View from 'core/view/view';
 import * as dom from 'core/services/dom';
-import {isNumber} from 'core/services/utility';
 import * as columnService from 'core/column/column.service';
 
 export default class LayoutView extends View {
@@ -16,7 +15,7 @@ export default class LayoutView extends View {
 		const model = this.model;
 		const markup = this.markup;
 
-		model.layoutChanged.on(e => {
+		model.layoutChanged.watch(e => {
 			if (e.changes.hasOwnProperty('columns')) {
 				const columns = columnService
 					.lineView(model.view().columns)

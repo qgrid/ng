@@ -13,10 +13,30 @@ export class Grid extends RootComponent {
 
 	onInit() {
 		this.initTheme();
+		this.compile();
 
 		const model = this.model;
 		const service = this.serviceFactory(model);
 
+		model.selectionChanged.watch(e => {
+			if (e.changes.hasOwnProperty('items')) {
+				this.onSelectionChanged({
+					$event: {
+						state: model.selection(),
+						changes: e.changes
+					}
+				});
+			}
+		});
+
+		model.data()
+			.triggers
+			.forEach(name =>
+				model[name + 'Changed']
+					.watch(e => service.invalidate(name, e.changes)));
+	}
+
+	compile() {
 		let template = null;
 		let templateScope = null;
 
@@ -29,39 +49,21 @@ export class Grid extends RootComponent {
 
 		template.remove();
 		templateScope.$destroy();
-
-		model.selectionChanged.on(e => {
-			if (e.changes.hasOwnProperty('items')) {
-				this.onSelectionChanged({
-					$event: {
-						state: model.selection(),
-						changes: e.changes
-					}
-				});
-			}
-		});
-
-		// TODO: batch invalidate ?
-		// TODO: rebind on triggers changed
-		model.data()
-			.triggers
-			.forEach(name =>
-				model[name + 'Changed']
-					.watch(e => service.invalidate(name, e.changes)));
-	}
-
-	get visibility() {
-		return this.model.visibility();
 	}
 
 	initTheme() {
 		const element = this.$element[0];
 		element.classList.add(GRID_PREFIX);
 		element.classList.add(`${GRID_PREFIX}-theme-${this.theme.name}`);
-		this.theme.changed.on(e => {
+		this.theme.changed.watch(e => {
 			element.classList.remove(`${GRID_PREFIX}-theme-${e.oldValue}`);
 			element.classList.add(`${GRID_PREFIX}-theme-${e.newValue}`);
 		});
+	}
+
+	get visibility() {
+		// TODO: get rid of that
+		return this.model.visibility();
 	}
 }
 

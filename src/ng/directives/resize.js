@@ -47,11 +47,15 @@ class Resize extends Directive(RESIZE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 
 		this.listener.document.on('mousemove', this.drag);
 		this.listener.document.on('mouseup', this.dragEnd);
+
+		const model = this.view.model;
+		model.drag({isActive: true});
 	}
 
 	drag(e) {
+		const model = this.view.model;
 		const context = this.context;
-		const layout = this.view.model.layout;
+		const layout = model.layout;
 		const state = clone(layout()[this.path]);
 
 		state[this.key] = {width: context.width + e.screenX - context.x};
@@ -60,6 +64,9 @@ class Resize extends Directive(RESIZE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 
 	dragEnd() {
 		this.listener.document.off();
+
+		const model = this.view.model;
+		model.drag({isActive: false});
 	}
 
 	event() {

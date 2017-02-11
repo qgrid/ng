@@ -1,9 +1,26 @@
 import Component from '../component';
-import {GRID_NAME} from 'src/definition';
+import {GRID_NAME, GRID_PREFIX} from 'src/definition';
 
 class BoxCore extends Component {
-	constructor() {
+	constructor($element) {
 		super();
+
+		this.element = $element[0];
+	}
+
+	onInit() {
+		const model = this.model;
+
+		model.dragChanged.watch(e => {
+			if (e.changes.hasOwnProperty('isActive')) {
+				if (e.state.isActive) {
+					this.element.classList.add(`${GRID_PREFIX}-drag`);
+				}
+				else {
+					this.element.classList.remove(`${GRID_PREFIX}-drag`);
+				}
+			}
+		});
 	}
 
 	get model() {
@@ -11,11 +28,11 @@ class BoxCore extends Component {
 	}
 }
 
-BoxCore.$inject = [];
+BoxCore.$inject = ['$element'];
 
 export default {
 	controller: BoxCore,
-	controllerAs: '$view',
+	controllerAs: '$box',
 	require: {
 		'root': `^${GRID_NAME}`
 	}

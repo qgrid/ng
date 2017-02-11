@@ -23,7 +23,6 @@ import Progress from './plugins/progress/progress';
 import BoxCore from './components/grid/box.core';
 import ViewCore from './components/view/view.core';
 import ViewportCore from './components/grid/viewport.core';
-import TableCore from './components/grid/table.core';
 import TdCore from './components/body/td.core';
 import ThCore from './components/head/th.core';
 import TfCore from './components/foot/tf.core';
@@ -73,7 +72,6 @@ export default angular
 	.directive(def.DRAG_NAME, () => Drag)
 	.directive(def.DROP_NAME, () => Drop)
 	.directive(def.VIEWPORT_CORE_NAME, () => ViewportCore)
-	.directive(def.TABLE_CORE_NAME, () => TableCore)
 	.directive(def.SELECTION_CORE_NAME, () => SelectionCore)
 	.directive(def.TD_CORE_NAME, () => TdCore)
 	.directive(def.TH_CORE_NAME, () => ThCore)

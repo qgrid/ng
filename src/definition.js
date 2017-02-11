@@ -13,7 +13,6 @@ export const GRID_PREFIX = 'q-grid';
 export const BOX_CORE_NAME = `${GRID_CORE}Box`;
 export const VIEW_CORE_NAME = `${GRID_CORE}View`;
 export const VIEWPORT_CORE_NAME = `${GRID_CORE}Viewport`;
-export const TABLE_CORE_NAME = `${GRID_CORE}Table`;
 export const TD_CORE_NAME = `${GRID_CORE}Td`;
 export const TF_CORE_NAME = `${GRID_CORE}Tf`;
 export const TH_CORE_NAME = `${GRID_CORE}Th`;

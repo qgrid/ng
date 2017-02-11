@@ -9,7 +9,7 @@ export default class PivotView extends View {
 		this.rows = [];
 		this.valueFactory = valueFactory;
 
-		model.viewChanged.on(() => this.invalidate(model));
+		model.viewChanged.watch(() => this.invalidate(model));
 	}
 
 	invalidate(model) {
