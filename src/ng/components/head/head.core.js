@@ -64,6 +64,8 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	}
 
 	onInit() {
+		this.view.markup.head = this.element;
+
 		this.view.model.layoutChanged.watch(e => {
 			if (e.changes.hasOwnProperty('scroll')) {
 				this.element.parentNode.parentNode.scrollLeft = e.state.scroll.left;

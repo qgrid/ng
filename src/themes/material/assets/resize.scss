@@ -14,12 +14,12 @@
 					cursor: col-resize;
 					visibility: hidden;
 				}
-			}
-		}
 
-		&:hover {
-			.q-grid-divider {
-				visibility: visible;
+				&:hover {
+					.q-grid-divider {
+						visibility: visible;
+					}
+				}
 			}
 		}
 	}

@@ -18,7 +18,7 @@ export default class NavigationView extends View {
 
 		this.blur = new Command({
 			execute: (row, column) => {
-				this.rows[row].cells[column].classList.remove('q-grid-focused');
+				this.rows[row].cells[column].classList.remove('q-grid-focus');
 			},
 			canExecute: () => {
 				return this.rows.length > this.newRow && this.rows[this.newRow].cells.length > this.newColumn;
@@ -26,7 +26,7 @@ export default class NavigationView extends View {
 		});
 		this.focus = new Command({
 			execute: (row, column) => {
-				this.rows[row].cells[column].classList.add('q-grid-focused');
+				this.rows[row].cells[column].classList.add('q-grid-focus');
 			},
 			canExecute: () => {
 				return this.rows.length > this.newRow && this.rows[this.newRow].cells.length > this.newColumn;

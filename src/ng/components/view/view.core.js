@@ -17,6 +17,7 @@ class ViewCore extends Component {
 
 		this.element = $element[0];
 		this.document = $document[0];
+		this.markup = {};
 	}
 
 	onInit() {
@@ -28,7 +29,7 @@ class ViewCore extends Component {
 		this.group = new GroupView(model, valueFactory);
 		this.pivot = new PivotView(model, valueFactory);
 		this.nav = new NavigationView(model, this.document);
-		this.highlight = new HighlightView(model, this.element);
+		this.highlight = new HighlightView(model, this.markup);
 		this.sort = new SortView(model);
 		this.edit = new EditView(model, setValue);
 	}

@@ -5,10 +5,10 @@ import * as sortService from 'core/sort/sort.service';
 import {noop} from 'core/services/utility';
 
 export default class HighlightView extends View {
-	constructor(model, document) {
+	constructor(model, markup) {
 		super(model);
 		this.model = model;
-		this.document = document;
+		this.markup = markup;
 
 		let blur = noop;
 		this.column = new Command({
@@ -39,17 +39,17 @@ export default class HighlightView extends View {
 		});
 	}
 
-	invalidate(items) {
-		items.forEach(f => f());
+	invalidate(dispose) {
+		dispose.forEach(f => f());
 
-		items = [];
+		dispose = [];
 		const sortBy = this.model.sort().by;
 		for (let entry of sortBy) {
 			const key = sortService.key(entry);
-			items.push(this.highlight(key, 'sorted'));
+			dispose.push(this.highlight(key, 'order'));
 		}
 
-		return items;
+		return dispose;
 	}
 
 
@@ -61,8 +61,19 @@ export default class HighlightView extends View {
 
 	highlight(key, cls) {
 		const index = this.columnIndex(key);
-		let element = this.document.querySelector('tbody');
-		for (let row of element.rows) {
+
+		const head = this.markup.head;
+		for (let row of head.rows) {
+			row.cells[index].classList.add(`q-grid-${cls}`);
+		}
+
+		const body = this.markup.body;
+		for (let row of body.rows) {
+			row.cells[index].classList.add(`q-grid-${cls}`);
+		}
+
+		const foot = this.markup.foot;
+		for (let row of foot.rows) {
 			row.cells[index].classList.add(`q-grid-${cls}`);
 		}
 
@@ -71,8 +82,19 @@ export default class HighlightView extends View {
 
 	blur(key, cls) {
 		const index = this.columnIndex(key);
-		let element = this.document.querySelector('tbody');
-		for (let row of element.rows) {
+
+		const head = this.markup.head;
+		for (let row of head.rows) {
+			row.cells[index].classList.remove(`q-grid-${cls}`);
+		}
+
+		const body = this.markup.body;
+		for (let row of body.rows) {
+			row.cells[index].classList.remove(`q-grid-${cls}`);
+		}
+
+		const foot = this.markup.foot;
+		for (let row of foot.rows) {
 			row.cells[index].classList.remove(`q-grid-${cls}`);
 		}
 	}

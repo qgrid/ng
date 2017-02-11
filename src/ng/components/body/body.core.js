@@ -13,6 +13,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	}
 
 	onInit() {
+		this.view.markup.body = this.element;
 		this.listener.on('click', this.onClick);
 	}
 
