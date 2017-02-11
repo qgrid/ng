@@ -1,6 +1,6 @@
 import {identity} from 'core/services/utility';
 import pivot from './pivot';
-import view from './pivot.view';
+import pivotForm from './pivot.form';
 
 function build(columnMap, valueFactory) {
 	return function run(pivot, pivotBy, level = 0) {
@@ -37,7 +37,7 @@ export default function (columnMap, pivotBy, valueFactory) {
 	return rows => {
 		if (doPivot) {
 			const data = doPivot(rows);
-			return view(data);
+			return pivotForm(data);
 		}
 
 		return {heads: [], rows: []};
