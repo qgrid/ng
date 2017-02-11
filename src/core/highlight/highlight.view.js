@@ -65,14 +65,14 @@ export default class HighlightView extends View {
 		const head = this.markup.head;
 		for (let row of head.rows) {
 			row.cells[index].classList.add(`q-grid-${cls}`);
-		}
+			if(index > 0){
+				row.cells[index - 1].classList.add(`q-grid-${cls}-prev`);
+			}
 
-		// if(index > 0){
-		// 	const prevIndex = index - 1;
-		// 	for (let row of head.rows) {
-		// 		row.cells[prevIndex].classList.add(`q-grid-${cls}-prev`);
-		// 	}
-		// }
+			if(index < head.rows.length - 1){
+				row.cells[index + 1].classList.add(`q-grid-${cls}-next`);
+			}
+		}
 
 		const body = this.markup.body;
 		for (let row of body.rows) {
@@ -93,6 +93,13 @@ export default class HighlightView extends View {
 		const head = this.markup.head;
 		for (let row of head.rows) {
 			row.cells[index].classList.remove(`q-grid-${cls}`);
+			if(index > 0){
+				row.cells[index - 1].classList.remove(`q-grid-${cls}-prev`);
+			}
+
+			if(index < head.rows.length - 1){
+				row.cells[index + 1].classList.remove(`q-grid-${cls}-next`);
+			}
 		}
 
 		const body = this.markup.body;
