@@ -64,7 +64,6 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	}
 
 	onInit() {
-		this.view.markup.head = this.element;
 		this.view.markup.headView = this.element.parentNode.parentNode; // TODO: make directive
 	}
 

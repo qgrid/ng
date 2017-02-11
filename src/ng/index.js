@@ -37,6 +37,7 @@ import SelectionCore from './components/selection/selection.core';
 import Indeterminate from './directives/indeterminate';
 import Focus from './directives/focus';
 import Resize from './directives/resize';
+import Markup from './directives/markup';
 
 import ThemeProvider from './services/theme';
 import Range from './filters/range';
@@ -69,6 +70,7 @@ export default angular
 	.component(def.VISIBILITY_NAME, Visibility)
 	.component(def.COLUMNCHOOSER_NAME, ColumnChooser)
 	.component(def.PROGRESS_NAME, Progress)
+	.directive(def.MARKUP_NAME, () => Markup)
 	.directive(def.DRAG_NAME, () => Drag)
 	.directive(def.DROP_NAME, () => Drop)
 	.directive(def.VIEWPORT_CORE_NAME, () => ViewportCore)

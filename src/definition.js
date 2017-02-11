@@ -42,6 +42,7 @@ export const COLUMNCHOOSER_NAME = `${GRID}ColumnChooser`;
 export const DRAG_NAME = `${GRID}Drag`;
 export const DROP_NAME = `${GRID}Drop`;
 export const SELECTION_NAME = `${GRID}Selection`;
+export const MARKUP_NAME = `${GRID}Markup`;
 
 export const CAN_DROP_NAME = `${GRID}CanDrop`;
 export const CAN_DRAG_NAME = `${GRID}CanDrag`;

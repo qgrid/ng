@@ -11,7 +11,6 @@ class FootCore extends Directive(FOOT_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	}
 
 	onInit(){
-		this.view.markup.foot = this.element;
 		this.view.markup.footView = this.element.parentNode.parentNode; // TODO: make directive
 	}
 }
