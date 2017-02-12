@@ -2,7 +2,8 @@ import View from 'core/view/view';
 import Command from 'core/infrastructure/command';
 import Shortcut from 'core/infrastructure/shortcut';
 import Navigation from 'core/navigation/navigation';
-import {GRID_PREFIX} from 'src/definition';
+import {GRID_PREFIX} from 'core/definition';
+
 
 export default class NavigationView extends View {
 	constructor(model, document) {

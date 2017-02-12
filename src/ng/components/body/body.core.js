@@ -1,5 +1,5 @@
 import Directive from 'ng/directives/directive';
-import {VIEW_CORE_NAME, BODY_CORE_NAME} from 'src/definition';
+import {VIEW_CORE_NAME, BODY_CORE_NAME} from 'core/definition';
 import EventListener from 'core/infrastructure/event.listener';
 import * as pathFinder from 'ng/services/path.find';
 

@@ -1,7 +1,7 @@
 import Directive from 'ng/directives/directive';
 import TemplateLink from '../template/template.link';
 import cellBuilder from '../cell/cell.build';
-import {VIEW_CORE_NAME, TH_CORE_NAME, GRID_PREFIX} from 'src/definition';
+import {VIEW_CORE_NAME, TH_CORE_NAME, GRID_PREFIX} from 'core/definition';
 
 class ThCore extends Directive(TH_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	constructor($scope, $element, $compile, $templateCache, $attrs) {

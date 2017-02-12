@@ -4,7 +4,7 @@ import templateScope from './template.scope';
 import TemplatePath from 'core/template/template.path';
 import resourceFactory from 'core/resource/resource.factory';
 import {merge} from 'core/services/utility';
-import {GRID_NAME} from 'src/definition';
+import {GRID_NAME} from 'core/definition';
 
 class Template extends Component {
 	constructor($scope, $element) {

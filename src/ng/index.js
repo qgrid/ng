@@ -40,7 +40,7 @@ import Markup from './directives/markup';
 import ThemeProvider from './services/theme';
 import Range from './filters/range';
 
-import * as def from '../definition';
+import * as def from '../core/definition';
 
 // For now should be the last in import list cause use TemplatePath.require
 // that should be filled before importing this

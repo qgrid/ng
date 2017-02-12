@@ -1,6 +1,6 @@
 import PluginComponent from '../plugin.component';
 import Command from 'core/infrastructure/command';
-import {COLUMNCHOOSER_NAME} from 'src/definition';
+import {COLUMNCHOOSER_NAME} from 'core/definition';
 import TemplatePath from 'core/template/template.path';
 import {isFunction} from 'core/services/utility';
 import Aggregation from 'core/services/aggregation';

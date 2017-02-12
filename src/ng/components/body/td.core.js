@@ -2,7 +2,7 @@ import Directive from 'ng/directives/directive';
 import TemplateLink from '../template/template.link';
 import cellBuilder from '../cell/cell.build';
 import AppError from 'core/infrastructure/error'
-import {VIEW_CORE_NAME, TD_CORE_NAME, GRID_PREFIX} from 'src/definition';
+import {VIEW_CORE_NAME, TD_CORE_NAME, GRID_PREFIX} from 'core/definition';
 
 class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	constructor($scope, $element, $compile, $templateCache) {

@@ -1,5 +1,5 @@
 import Component from '../component';
-import {GRID_NAME, COLUMN_NAME, COLUMN_LIST_NAME} from 'src/definition';
+import {GRID_NAME, COLUMN_NAME, COLUMN_LIST_NAME} from 'core/definition';
 import {clone, isUndefined} from 'core/services/utility';
 import TemplatePath from 'core/template/template.path';
 import * as ng from 'ng/services/ng';

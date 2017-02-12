@@ -10,7 +10,7 @@ import NavigationView from 'core/navigation/navigation.view';
 import HighlightView from 'core/highlight/highlight.view';
 import SortView from 'core/sort/sort.view';
 import EditView from 'core/edit/edit.view';
-import {GRID_NAME} from 'src/definition';
+import {GRID_NAME} from 'core/definition';
 
 class ViewCore extends Component {
 	constructor($element, $document) {

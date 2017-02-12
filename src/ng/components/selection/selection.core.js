@@ -1,6 +1,6 @@
 import Directive from 'ng/directives/directive';
 import Command from 'core/infrastructure/command';
-import {VIEW_CORE_NAME, SELECTION_CORE_NAME} from 'src/definition';
+import {VIEW_CORE_NAME, SELECTION_CORE_NAME} from 'core/definition';
 
 class SelectionCore extends Directive(SELECTION_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	constructor($scope, $element, $attrs) {

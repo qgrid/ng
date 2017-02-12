@@ -3,7 +3,7 @@ import Command from 'core/infrastructure/command';
 import * as columnService from 'core/column/column.service';
 import * as sortService from 'core/sort/sort.service';
 import {noop} from 'core/services/utility';
-import {GRID_PREFIX} from 'src/definition';
+import {GRID_PREFIX} from 'core/definition';
 
 export default class HighlightView extends View {
 	constructor(model, markup) {

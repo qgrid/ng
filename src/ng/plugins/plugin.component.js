@@ -4,7 +4,7 @@ import * as guard from 'core/infrastructure/guard';
 import * as pair from 'core/services/pair';
 import {merge, clone} from 'core/services/utility';
 import TemplateLink from 'ng/components/template/template.link';
-import {BOX_CORE_NAME, GRID_NAME} from 'src/definition';
+import {BOX_CORE_NAME, GRID_NAME} from 'core/definition';
 
 export default function (pluginName, modelNames = [], inject = []) {
 	guard.notNullOrEmpty(pluginName, 'pluginName');

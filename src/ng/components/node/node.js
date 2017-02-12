@@ -1,5 +1,5 @@
 import ModelComponent from '../model.component';
-import {GRID_NAME, NODE_NAME} from 'src/definition';
+import {GRID_NAME, NODE_NAME} from 'core/definition';
 import TemplatePath from 'core/template/template.path';
 
 TemplatePath

@@ -1,5 +1,5 @@
 import Directive from './directive';
-import {MARKUP_NAME, VIEW_CORE_NAME} from 'src/definition';
+import {MARKUP_NAME, VIEW_CORE_NAME} from 'core/definition';
 
 class markup extends Directive(MARKUP_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	constructor($element) {

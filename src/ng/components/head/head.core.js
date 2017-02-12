@@ -2,7 +2,7 @@ import Directive from 'ng/directives/directive';
 import Command from 'core/infrastructure/command';
 import {noop} from 'core/services/utility';
 import * as columnService from 'core/column/column.service';
-import {VIEW_CORE_NAME, HEAD_CORE_NAME, TH_CORE_NAME} from 'src/definition';
+import {VIEW_CORE_NAME, HEAD_CORE_NAME, TH_CORE_NAME} from 'core/definition';
 
 class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	constructor($scope, $element) {

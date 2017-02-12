@@ -1,5 +1,5 @@
 import Directive from 'ng/directives/directive';
-import {VIEW_CORE_NAME, FOOT_CORE_NAME} from 'src/definition';
+import {VIEW_CORE_NAME, FOOT_CORE_NAME} from 'core/definition';
 
 class FootCore extends Directive(FOOT_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	constructor($scope, $element) {
