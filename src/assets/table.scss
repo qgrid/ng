@@ -3,40 +3,29 @@ table {
 	border-spacing: 0;
 	overflow: hidden;
 	table-layout: fixed;
-}
-
-table {
 	display: flex;
 	flex-flow: column;
 	height: 100%;
 	width: 100%;
-}
-table {
-	display: flex;
-	flex-flow: column;
-	height: 100%;
-	width: 100%;
-}
 
-table thead, table tfoot {
-	/* head takes the height it requires,
-	and it's not scaled when table is resized */
-	flex: 0 0 auto;
-	width: 100%;
-	overflow: hidden;
-}
-table tbody {
-	/* body takes all the remaining available space */
-	flex: 1 1 auto;
-	display: block;
-	overflow-y: scroll;
-}
+	thead, tfoot {
+		/* head takes the height it requires,
+		and it's not scaled when table is resized */
+		flex: 0 0 auto;
+		width: 100%;
+		overflow: hidden;
+	}
 
-table tbody tr {
-	width: 100%;
-}
+	tbody {
+		/* body takes all the remaining available space */
+		flex: 1 1 auto;
+		display: block;
+		overflow-y: scroll;
+	}
 
-table tbody tr {
-	display: table;
-	table-layout: fixed;
+	tbody tr {
+		width: 100%;
+		display: table;
+		table-layout: fixed;
+	}
 }

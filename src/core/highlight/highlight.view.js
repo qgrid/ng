@@ -61,18 +61,20 @@ export default class HighlightView extends View {
 
 	highlight(key, cls) {
 		const index = this.columnIndex(key);
+		if (index < 0) {
+			return noop;
+		}
 
 		const head = this.markup.head;
-		if (head) {
-			for (let row of head.rows) {
-				row.cells[index].classList.add(`q-grid-${cls}`);
-				if (index > 0) {
-					row.cells[index - 1].classList.add(`q-grid-${cls}-prev`);
-				}
+		if (head && head.rows.length) {
+			const row = head.rows[head.rows.length - 1];
+			row.cells[index].classList.add(`q-grid-${cls}`);
+			if (index > 0) {
+				row.cells[index - 1].classList.add(`q-grid-${cls}-prev`);
+			}
 
-				if (index < head.rows.length - 1) {
-					row.cells[index + 1].classList.add(`q-grid-${cls}-next`);
-				}
+			if (index < head.rows.length - 1) {
+				row.cells[index + 1].classList.add(`q-grid-${cls}-next`);
 			}
 		}
 
@@ -95,18 +97,20 @@ export default class HighlightView extends View {
 
 	blur(key, cls) {
 		const index = this.columnIndex(key);
+		if (index < 0) {
+			return noop;
+		}
 
 		const head = this.markup.head;
-		if (head) {
-			for (let row of head.rows) {
-				row.cells[index].classList.remove(`q-grid-${cls}`);
-				if (index > 0) {
-					row.cells[index - 1].classList.remove(`q-grid-${cls}-prev`);
-				}
+		if (head && head.rows.length) {
+			const row = head.rows[head.rows.length - 1];
+			row.cells[index].classList.remove(`q-grid-${cls}`);
+			if (index > 0) {
+				row.cells[index - 1].classList.remove(`q-grid-${cls}-prev`);
+			}
 
-				if (index < head.rows.length - 1) {
-					row.cells[index + 1].classList.remove(`q-grid-${cls}-next`);
-				}
+			if (index < head.rows.length - 1) {
+				row.cells[index + 1].classList.remove(`q-grid-${cls}-next`);
 			}
 		}
 
@@ -118,7 +122,7 @@ export default class HighlightView extends View {
 		}
 
 		const foot = this.markup.foot;
-		if(foot) {
+		if (foot) {
 			for (let row of foot.rows) {
 				row.cells[index].classList.remove(`q-grid-${cls}`);
 			}
