@@ -22,6 +22,7 @@ import JsFilter from './filters/js';
 import HtmlFilter from './filters/html';
 
 require('./index.scss');
+require('../src/assets/index.scss');
 require('angular-material/angular-material.css');
 require('prismjs/themes/prism.css');
 

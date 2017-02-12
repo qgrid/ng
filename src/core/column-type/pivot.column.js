@@ -18,7 +18,8 @@ class PivotColumnModel extends ColumnModel {
 		this.source = 'generation';
 		this.canEdit = false;
 		this.canSort = false;
-		this.width = 50;
+		this.canResize = false;
+		this.width = 60;
 		this.rowIndex = 0;
 		this.columnIndex = 0;
 	}

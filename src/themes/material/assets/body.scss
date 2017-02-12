@@ -4,8 +4,6 @@
 $row-height: 48px;
 
 .q-grid-body {
-	overflow: auto;
-
 	table {
 		tbody {
 			> tr {
@@ -25,37 +23,11 @@ $row-height: 48px;
 				td {
 					color: $dark;
 					font-size: 13px;
-					border: {
-						width: 1px;
-						color: transparent;
-						style: solid;
-						top-color: $dark-divider
-					}
+					border-top: 1px solid $dark-divider;
+
 					padding: 0 16px;
-					position: relative;
-					vertical-align: middle;
-					text-align: left;
-					overflow: hidden;
-					text-overflow: ellipsis;
-					white-space: nowrap;
 
-					> * {
-						vertical-align: middle;
-					}
-
-					&.q-grid-number {
-						text-align: right;
-					}
-
-					&.q-grid-bool {
-						text-align: center;
-					}
-
-					&.q-grid-password {
-						text-align: center;
-					}
-
-					&.q-grid-highlight{
+					&.q-grid-highlight {
 						&.q-grid-text-area {
 							> span {
 								@include multiLine($lineCount: 3, $bgColor: #eee);
