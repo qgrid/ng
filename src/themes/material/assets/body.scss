@@ -22,6 +22,10 @@ $row-height: 48px;
 					}
 				}
 
+				&.q-grid-selected{
+					background-color: $selected;
+				}
+
 				td {
 					color: $dark;
 					font-size: 13px;

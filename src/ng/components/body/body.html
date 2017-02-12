@@ -1,6 +1,5 @@
 <tr ng-repeat="$row in $view.body.rows track by $index"
-	 ng-class="{'selected': $view.selection.unit('row') && !$view.selection.unit('checkbox') && $view.selection.state($row).isSelected}"
-	 ng-click="$view.selection.unit('row') && !$view.selection.mode('checkbox') && $view.selection.toggle.execute($row)">
+	 ng-class="{'q-grid-selected': $view.selection.state($row).isSelected}">
 	<td ng-repeat="$column in $view.body.columns track by $column.model.key"
 		 ng-if="$column.model.isVisible !== false"
 		 q-grid-core:td>

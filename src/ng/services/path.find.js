@@ -10,3 +10,16 @@ export function cell(path){
 
 	return null;
 }
+
+export function row(path) {
+	for (let node of path) {
+		if (node.nodeName === 'TR') {
+			const scope = angular.element(node).scope();
+			if (scope.hasOwnProperty('$row')) {
+				return scope.$row;
+			}
+		}
+	}
+
+	return null;
+}

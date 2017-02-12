@@ -16,10 +16,10 @@ class Selectionbar extends PluginComponent('selectionbar') {
 		super(...arguments);
 		
 		this.unit = 'row';
-		this.units = ['row', 'column', 'cell'];
+		this.units = ['row', 'column', 'cell', 'checkbox'];
 
 		this.mode = 'single';
-		this.modes = ['single', 'multiple', 'checkbox'];
+		this.modes = ['single', 'multiple'];
 		
 		this.toggleMode = new Command({
 			execute: (mode) => {
