@@ -32,7 +32,6 @@ import BodyCore from './components/body/body.core';
 import FootCore from './components/foot/foot.core';
 import StickyCore from './components/sticky/sticky.core';
 import ToolbarCore from './components/toolbar/toolbar.core';
-import SelectionCore from './components/selection/selection.core';
 
 import Indeterminate from './directives/indeterminate';
 import Focus from './directives/focus';
@@ -72,7 +71,6 @@ export default angular
 	.directive(def.DROP_NAME, () => Drop)
 	.directive(def.VIEWPORT_CORE_NAME, () => ViewportCore)
 	.directive(def.TABLE_CORE_NAME, () => TableCore)
-	.directive(def.SELECTION_CORE_NAME, () => SelectionCore)
 	.directive(def.TD_CORE_NAME, () => TdCore)
 	.directive(def.TH_CORE_NAME, () => ThCore)
 	.directive(def.TF_CORE_NAME, () => TfCore)
