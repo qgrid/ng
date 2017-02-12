@@ -1,9 +1,5 @@
 [
 	{
-		"path": "default",
-		"label": "Default"
-	},
-	{
 		"path": "material",
 		"label": "NG Material"
 	}

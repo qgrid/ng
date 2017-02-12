@@ -9,13 +9,13 @@ const GRID = 'qGrid';
 const GRID_CORE = `${GRID}Core`;
 
 export const GRID_NAME = GRID;
+export const GRID_PREFIX = 'q-grid';
+export const BOX_CORE_NAME = `${GRID_CORE}Box`;
 export const VIEW_CORE_NAME = `${GRID_CORE}View`;
 export const VIEWPORT_CORE_NAME = `${GRID_CORE}Viewport`;
-export const TABLE_CORE_NAME = `${GRID_CORE}Table`;
 export const TD_CORE_NAME = `${GRID_CORE}Td`;
 export const TF_CORE_NAME = `${GRID_CORE}Tf`;
 export const TH_CORE_NAME = `${GRID_CORE}Th`;
-export const STICKY_CORE_NAME = `${GRID_CORE}Sticky`;
 export const HEAD_CORE_NAME = `${GRID_CORE}Head`;
 export const BODY_CORE_NAME = `${GRID_CORE}Body`;
 export const FOOT_CORE_NAME = `${GRID_CORE}Foot`;
@@ -31,6 +31,7 @@ export const NODE_NAME = `${GRID}Node`;
 export const TOOLBAR_NAME = `${GRID}Toolbar`;
 export const FOOT_NAME = `${GRID}Foot`;
 export const PAGER_NAME = `${GRID}Pager`;
+export const PROGRESS_NAME = `${GRID}Progress`;
 export const SORTBAR_NAME = `${GRID}Sortbar`;
 export const GROUPBAR_NAME = `${GRID}Groupbar`;
 export const PIVOTBAR_NAME = `${GRID}Pivotbar`;
@@ -40,6 +41,7 @@ export const SELECTIONBAR_NAME = `${GRID}Selectionbar`;
 export const DRAG_NAME = `${GRID}Drag`;
 export const DROP_NAME = `${GRID}Drop`;
 export const SELECTION_NAME = `${GRID}Selection`;
+export const MARKUP_NAME = `${GRID}Markup`;
 
 export const CAN_DROP_NAME = `${GRID}CanDrop`;
 export const CAN_DRAG_NAME = `${GRID}CanDrag`;
@@ -48,4 +50,4 @@ export const ON_DROP_NAME = `${GRID}OnDrop`;
 
 export const INDETERMINATE_NAME = `${GRID}Indeterminate`;
 export const FOCUS_NAME = `${GRID}Focus`;
-export const RESIZABLE_NAME = `${GRID}Resizable`;
+export const RESIZE_NAME = `${GRID}Resize`;

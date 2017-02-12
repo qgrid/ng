@@ -10,15 +10,12 @@ const CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 
 module.exports = webpackMerge(commonConfig, {
 	entry: {
-		qgrid: './src/build.js',
-		vendor: [
-			'angular'
-		]
+		qgrid: './src/build.js'
 	},
 	output: {
-		path: path.join(__dirname, 'dist'),
+		path: path.join(__dirname, '..', 'dist'),
 		filename: '[name].js',
-		sourceMapFilename: '[name].map'
+		library: 'qgrid'
 	},
 
 	/**
@@ -35,29 +32,10 @@ module.exports = webpackMerge(commonConfig, {
 				}
 			}
 		}),
-		new ExtractTextPlugin(new ExtractTextPlugin({
+		new ExtractTextPlugin({
 			filename: 'qgrid.css',
 			disable: false,
 			allChunks: true
-		})),
-		new CommonsChunkPlugin({
-			name: 'vendor'
 		}),
-
-		/**
-		 * Plugin: UglifyJsPlugin
-		 * Description: Minimize all JavaScript output of chunks.
-		 * Loaders are switched into minimizing mode.
-		 *
-		 * See: https://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
-		 */
-		new UglifyJsPlugin({
-			sourceMap: true,
-			minimize: true, //prod
-			beautify: false, //prod
-			mangle: {screw_ie8: true}, //prod
-			compress: {screw_ie8: true, warnings: true}, //prod
-			comments: false //prod
-		})
 	]
 });

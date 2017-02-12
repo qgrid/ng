@@ -1,9 +1,0 @@
-<button class="sort"
-		  ng-class="{active: $head.sortOrder($cell.column.key) >= 0}"
-		  ng-mousedown="$head.sortToggle.execute($cell.column.key)"
-		  ng-switch="$head.sortDirection($cell.column.key)">
-	<span class="asc" ng-switch-when="asc">&#8595;</span>
-	<span class="desc" ng-switch-when="desc">&#8593;</span>
-	<span ng-switch-default>&#8595;</span>
-</button>
-<label ng-bind="$cell.column.title"></label>

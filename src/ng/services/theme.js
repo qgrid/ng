@@ -1,9 +1,30 @@
 import Event from 'core/infrastructure/event';
 
-export default class Theme {
+const DefaultTheme = 'default';
+
+export default class ThemeProvider {
 	constructor() {
-		this._name = 'default';
+		this.themes = new Map();
+		this.$get.$inject = ['$templateCache']
+	}
+
+	register(theme, apply) {
+		this.themes.set(theme, apply);
+	}
+
+	$get($templateCache) {
+		return new Theme(this.themes, $templateCache);
+	}
+}
+
+class Theme {
+	constructor(themes, cache) {
+		this._name = '';
 		this.changed = new Event();
+		this.themes = themes;
+		this.cache = cache;
+
+		this.name = DefaultTheme;
 	}
 
 	get name() {
@@ -13,7 +34,15 @@ export default class Theme {
 	set name(value) {
 		if (value !== this._name) {
 			const oldValue = this._name;
+			const apply = this.themes.get(value);
+
+			if (this._name !== DefaultTheme && value !== DefaultTheme) {
+				this.themes.get(DefaultTheme)(this.cache);
+			}
+
 			this._name = value;
+
+			apply(this.cache);
 
 			this.changed.emit({
 				newValue: value,

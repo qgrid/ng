@@ -39,7 +39,25 @@ export default function pipeColumn(memo, context, next) {
 
 	if (heads.length) {
 		const rows = [columns];
-		for (let i = 0, length = heads.length; i < length; i++) {
+
+		const head = heads[0];
+		const headLength = head.length;
+		const row = new Array(headLength);
+		const startIndex = columns.length;
+		for (let j = 0; j < headLength; j++) {
+			const headColumn = head[j];
+			const pivotColumn = columnFactory('pivot');
+			pivotColumn.colspan = headColumn.value;
+			const pivotColumnModel = pivotColumn.model;
+			pivotColumnModel.key = pivotColumnModel.key + `[0][${j}]`;
+			pivotColumnModel.title = headColumn.key;
+			pivotColumnModel.rowIndex = 0;
+			pivotColumnModel.columnIndex = startIndex + j;
+			row[j] = pivotColumn;
+		}
+		rows[0].push(...row);
+
+		for (let i = 1, length = heads.length; i < length; i++) {
 			const head = heads[i];
 			const headLength = head.length;
 			const row = new Array(headLength);
@@ -50,23 +68,22 @@ export default function pipeColumn(memo, context, next) {
 				const pivotColumnModel = pivotColumn.model;
 				pivotColumnModel.key = pivotColumnModel.key + `[${i}][${j}]`;
 				pivotColumnModel.title = headColumn.key;
-				pivotColumnModel.source = 'generation';
 				pivotColumnModel.rowIndex = i;
 				pivotColumnModel.columnIndex = j;
 				row[j] = pivotColumn;
 			}
 
-			if (i === 0) {
-				rows[0].push(...row);
-			}
-			else {
-				rows.push(row);
-			}
+			rows.push(row);
 		}
 
 		memo.columns = rows;
 	}
 	else {
+		// Add special column type that fills remaining place (width = 100%)
+		const padColumn = columnFactory('pad');
+		padColumn.rowspan = heads.length;
+		columns.push(padColumn);
+
 		memo.columns = [columns];
 	}
 

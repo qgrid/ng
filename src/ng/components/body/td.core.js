@@ -2,7 +2,7 @@ import Directive from 'ng/directives/directive';
 import TemplateLink from '../template/template.link';
 import cellBuilder from '../cell/cell.build';
 import AppError from 'core/infrastructure/error'
-import {VIEW_CORE_NAME, TD_CORE_NAME} from 'src/definition';
+import {VIEW_CORE_NAME, TD_CORE_NAME, GRID_PREFIX} from 'src/definition';
 
 class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	constructor($scope, $element, $compile, $templateCache) {
@@ -15,6 +15,16 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	}
 
 	onInit() {
+		const column = this.column;
+		const element = this.$element[0];
+
+		element.classList.add(`${GRID_PREFIX}-${column.key}`);
+		element.classList.add(`${GRID_PREFIX}-${column.type}`);
+		if(column.hasOwnProperty('editor')) {
+			element.classList.add(`${GRID_PREFIX}-${column.editor}`);
+		}
+
+
 		this.mode('init');
 	}
 
@@ -23,6 +33,7 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 		const column = this.column;
 		const templateScope = this.setup();
 		const cache = model.body().cache;
+		const element = this.$element[0];
 
 		switch (value) {
 			case 'view':
@@ -35,8 +46,8 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 				}
 
 				link(this.$element, templateScope);
-				if(value !== 'init') {
-					this.$element[0].classList.remove('edit');
+				if (value !== 'init') {
+					element.classList.remove(`${GRID_PREFIX}-edit`);
 				}
 				break;
 			}
@@ -49,7 +60,7 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 				}
 
 				link(this.$element, templateScope);
-				this.$element[0].classList.add('edit');
+				element.classList.add(`${GRID_PREFIX}-edit`);
 			}
 				break;
 			default:
@@ -74,12 +85,12 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 
 	get rowIndex() {
 		// use vscroll.row + vscroll.position in the future
-		return this.$scope.$parent.$parent.$index;
+		return this.$scope.$parent.$index;
 	}
 
 	get columnIndex() {
 		// use vscroll.column + vscroll.position in the future
-		return this.$scope.$parent.$index;
+		return this.$scope.$index;
 	}
 
 	get column() {

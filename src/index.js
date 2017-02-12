@@ -3,6 +3,8 @@ import ViewModel from 'core/view/view.model';
 import DataModel from 'core/data/data.model';
 import HeadModel from 'core/head/head.model';
 import BodyModel from 'core/body/body.model';
+import LayoutModel from 'core/layout/layout.model';
+import NavigationModel from 'core/navigation/navigation.model';
 import ColumnListModel from 'core/column-list/column.list.model';
 import RowModel from 'core/row/row.model';
 import SelectionModel from 'core/selection/selection.model';
@@ -14,11 +16,13 @@ import PluginModel from 'core/plugin/plugin.model';
 import EditModel from 'core/edit/edit.model';
 import ToolbarModel from 'core/toolbar/toolbar.model';
 import PaginationModel from 'core/pagination/pagination.model';
+import ProgressModel from 'core/progress/progress.model';
 import NodeModel from 'core/node/node.model';
 import VisibilityModel from 'core/visibility/visibility.model';
 import ColumnChooserModel from 'core/column-chooser/column.chooser.model';
 import SelectionbarModel from 'core/selectionbar/selectionbar.model';
 import FilterModel from 'core/filter/filter.model';
+import DragModel from 'core/drag/drag.model';
 
 import ng from './ng';
 
@@ -27,7 +31,9 @@ Model.register('view', ViewModel)
 	.register('selection', SelectionModel)
 	.register('head', HeadModel)
 	.register('body', BodyModel)
+	.register('navigation', NavigationModel)
 	.register('foot', FootModel)
+	.register('layout', LayoutModel)
 	.register('row', RowModel)
 	.register('columnList', ColumnListModel)
 	.register('sort', SortModel)
@@ -38,9 +44,11 @@ Model.register('view', ViewModel)
 	.register('plugin', PluginModel)
 	.register('toolbar', ToolbarModel)
 	.register('pagination', PaginationModel)
+	.register('progress', ProgressModel)
 	.register('visibility', VisibilityModel)
 	.register('columnChooser', ColumnChooserModel)
 	.register('selectionbar', SelectionbarModel)
-	.register('filter', FilterModel);
+	.register('filter', FilterModel)
+	.register('drag', DragModel);
 
 export default ng;

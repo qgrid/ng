@@ -47,16 +47,6 @@ module.exports = {
 		 */
 		chunkFilename: '[id].chunk.js',
 	},
-	/**
-	 * Developer tool to enhance debugging.
-	 *
-	 * The 'source-map' settings is meant to be used in production only. It
-	 * splits the source map in a separate file and it is slow to compute.
-	 *
-	 * See: http://webpack.github.io/docs/configuration.html#devtool
-	 * See: https://github.com/webpack/docs/wiki/build-performance#sourcemaps
-	 */
-	devtool: 'source-map',
 	module: {
 		rules: [
 			{
@@ -72,9 +62,9 @@ module.exports = {
 			},
 			{
 				test: /\.scss$/,
-				loader: ExtractTextPlugin.extract({
-					fallbackLoader: 'style-loader',
-					loader: [
+				use: ExtractTextPlugin.extract({
+					fallback: 'style-loader',
+					use: [
 						{
 							loader: 'css-loader',
 						}, {
@@ -84,9 +74,9 @@ module.exports = {
 			},
 			{
 				test: /\.css$/,
-				loader: ExtractTextPlugin.extract({
-					fallbackLoader: 'style-loader',
-					loader: [
+				use: ExtractTextPlugin.extract({
+					fallback: 'style-loader',
+					use: [
 						{
 							loader: 'css-loader',
 						}],
