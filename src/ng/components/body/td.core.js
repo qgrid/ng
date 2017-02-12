@@ -17,10 +17,14 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	onInit() {
 		const column = this.column;
 		const element = this.$element[0];
+		const width = this.view.layout.getWidth(column);
+		if (width !== null) {
+			this.view.layout.setWidth(element, width);
+		}
 
 		element.classList.add(`${GRID_PREFIX}-${column.key}`);
 		element.classList.add(`${GRID_PREFIX}-${column.type}`);
-		if(column.hasOwnProperty('editor')) {
+		if (column.hasOwnProperty('editor')) {
 			element.classList.add(`${GRID_PREFIX}-${column.editor}`);
 		}
 

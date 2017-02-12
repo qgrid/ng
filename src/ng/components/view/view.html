@@ -1,38 +1,17 @@
-<div class="q-grid-head flex"
-	  q-grid:markup="headView">
-	<table ng-if="$view.visibility.head"
-			 style="padding-right: 40px;">
-		<thead ng-include="$view.templateUrl('head')"
-				 q-grid-core:head
-				 q-grid:markup="head">
-		</thead>
-	</table>
-</div>
-<div class="q-grid-body flex-100"
-	  q-grid-core:viewport
-	  q-grid:markup="viewport">
-	<table ng-if="$view.visibility.body">
-		<thead style="visibility: hidden;"
-				 q-grid:markup="bodyHead">
-		<tr style="height: 0;">
-			<th ng-repeat="$column in $view.body.columns track by $column.model.key"
-				 ng-style="{width: $view.head.width($column.model)}"
-				 q-grid-core:th="body">
-			</th>
-		</tr>
-		<tbody ng-include="$view.templateUrl('body')"
-				 q-grid-core:body
-				 q-grid:markup="body">
-		</tbody>
-	</table>
-</div>
-<div class="q-grid-foot flex"
-	  q-grid:markup="footView">
-	<table ng-if="$view.visibility.foot"
-			 style="padding-right: 40px;">
-		<tfoot ng-include="$view.templateUrl('foot')"
-				 q-grid-core:foot
-				 q-grid:markup="foot">
-		</tfoot>
-	</table>
-</div>
+<table>
+	<thead ng-if="$view.visibility.head"
+			 ng-include="$view.templateUrl('head')"
+			 q-grid-core:head
+			 q-grid:markup="head">
+	</thead>
+	<tbody ng-include="$view.templateUrl('body')"
+			 ng-if="$view.visibility.body"
+			 q-grid-core:body
+			 q-grid:markup="body">
+	</tbody>
+	<tfoot ng-if="$view.visibility.foot"
+			 ng-include="$view.templateUrl('foot')"
+			 q-grid-core:foot
+			 q-grid:markup="foot">
+	</tfoot>
+</table>

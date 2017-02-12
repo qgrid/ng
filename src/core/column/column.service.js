@@ -80,11 +80,11 @@ export function widthFactory(model) {
 				}
 
 				const columnRows = view().columns;
-				return columnRows[rowIndex][column.columnIndex].colspan  * column.width + 'px';
+				return columnRows[rowIndex][column.columnIndex].colspan  * column.width;
 			}
 			default: {
 				const width = column.width;
-				return width || width === 0 ? width + 'px' : null;
+				return width || width === 0 ? width : null;
 			}
 		}
 	};
