@@ -9,10 +9,6 @@ class FootCore extends Directive(FOOT_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 		this.element = $element[0];
 		Object.defineProperty($scope, '$view', {get: () => this.view});
 	}
-
-	onInit(){
-		this.view.markup.footView = this.element.parentNode.parentNode; // TODO: make directive
-	}
 }
 
 FootCore.$inject = ['$scope', '$element'];

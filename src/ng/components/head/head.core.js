@@ -64,10 +64,6 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 		});
 	}
 
-	onInit() {
-		this.view.markup.headView = this.element.parentNode.parentNode; // TODO: make directive
-	}
-
 	transfer(cell) {
 		return {
 			key: TH_CORE_NAME,
