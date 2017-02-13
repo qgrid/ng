@@ -2,14 +2,16 @@ import RootComponent from '../root.component';
 import {GRID_PREFIX} from 'src/definition'
 
 export class Grid extends RootComponent {
-	constructor($element, $transclude, serviceFactory, theme) {
+	constructor($element, $transclude, $document, serviceFactory, theme) {
 		super('data', 'selection', 'sort', 'group', 'pivot', 'edit');
 
 		this.$element = $element;
 		this.$transclude = $transclude;
 		this.serviceFactory = model => serviceFactory.service(model);
 		this.theme = theme;
-		this.markup = {};
+		this.markup = {
+			document: $document[0]
+		};
 	}
 
 	onInit() {
@@ -25,6 +27,25 @@ export class Grid extends RootComponent {
 					$event: {
 						state: model.selection(),
 						changes: e.changes
+					}
+				});
+			}
+		});
+
+		model.navigationChanged.watch(e => {
+			if (e.changes.hasOwnProperty('row') ||
+				e.changes.hasOwnProperty('column')) {
+				const nav = e.state;
+				let cell = null;
+				if (nav.column >= 0 && nav.row >= 0) {
+					const element = this.markup.body.rows[nav.row].cells[nav.column];
+					const scope = angular.element(element).scope();
+					cell = scope.$cell;
+				}
+
+				model.navigation({
+					active: {
+						cell: cell
 					}
 				});
 			}
@@ -68,7 +89,13 @@ export class Grid extends RootComponent {
 	}
 }
 
-Grid.$inject = ['$element', '$transclude', 'qgrid', 'qgridTheme'];
+Grid.$inject = [
+	'$element',
+	'$transclude',
+	'$document',
+	'qgrid',
+	'qgridTheme'
+];
 
 /**
  * By convention all binding should be named in camelCase like: modelname + [P]ropertyname

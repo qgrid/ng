@@ -1,7 +1,8 @@
 import EventListener from './event.listener';
 
 export default class Shortcut {
-	constructor(document) {
+	constructor(document, apply) {
+		this.apply = apply;
 		this.shortcuts = new Map();
 		this.codeMap = new Map()
 			.set(9, 'tab')
@@ -9,7 +10,9 @@ export default class Shortcut {
 			.set(37, 'left')
 			.set(38, 'up')
 			.set(39, 'right')
-			.set(40, 'down');
+			.set(40, 'down')
+			.set(113, 'f2')
+			.set(27, 'escape');
 
 		this.listener =
 			new EventListener(this, document)
@@ -22,7 +25,7 @@ export default class Shortcut {
 			const cmd = this.shortcuts.get(code);
 			if (cmd.canExecute()) {
 				e.preventDefault();
-				cmd.execute();
+				this.apply(() => cmd.execute());
 			}
 		}
 	}

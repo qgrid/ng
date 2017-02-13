@@ -4,14 +4,15 @@ import Shortcut from 'core/infrastructure/shortcut';
 import Navigation from 'core/navigation/navigation';
 
 export default class NavigationView extends View {
-	constructor(model, document) {
+	constructor(model, markup, apply) {
 		super(model);
-		this.document = document;
+		this.markup = markup;
+		this.document = this.markup.document;
 		this.newRow = 0;
 		this.newColumn = 0;
 		this.oldRow = 0;
 		this.oldColumn = 0;
-		const shortcut = new Shortcut(document);
+		const shortcut = new Shortcut(this.document, apply);
 		const navigation = new Navigation(model);
 		shortcut.register('navigation', navigation.commands);
 
@@ -54,7 +55,6 @@ export default class NavigationView extends View {
 			if (this.focus.canExecute()) {
 				this.focus.execute(this.newRow, this.newColumn);
 			}
-
 		});
 
 		model.viewChanged.watch(() => {
@@ -66,7 +66,7 @@ export default class NavigationView extends View {
 	}
 
 	get rows() {
-		return this.document.querySelector('tbody').rows || [];
+		return this.markup.body.rows;
 	}
 
 }

@@ -38,13 +38,24 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 
 	onClick(e) {
 		const cell = pathFinder.cell(e.path);
-		if (cell && this.view.edit.cell.enter.canExecute(cell)) {
-			this.view.edit.cell.enter.execute(cell);
+		if (cell) {
+			this.view.model.navigation({
+				active: {
+					cell: cell
+				}
+			});
+
+			if (this.view.edit.cell.enter.canExecute(cell)) {
+				this.view.edit.cell.enter.execute(cell);
+			}
 		}
 	}
 }
 
-BodyCore.$inject = ['$scope', '$element'];
+BodyCore.$inject = [
+	'$scope',
+	'$element'
+];
 
 export default {
 	restrict: 'A',

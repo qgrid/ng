@@ -2,78 +2,114 @@ import Command from 'core/infrastructure/command';
 import Log from 'core/infrastructure/log';
 import {parseFactory} from 'core/services/convert';
 import {clone, isUndefined} from 'core/services/utility';
+import Shortcut from 'core/infrastructure/shortcut';
 
 export default class EditCellView {
-	constructor(model, setValue) {
+	constructor(model, setValue, markup, apply) {
+		this.model = model;
+		this.setValue = setValue;
+		this.markup = markup;
+
 		this.mode = 'view';
 		this._value = null;
 
-		this.enter = new Command({
-			canExecute: cell => {
-				if (this.mode !== 'edit' && model.edit().mode === 'cell') {
-					// use shouldn't explicitly set it in the template, cause we have here canEdit !== false
-					return cell.column.canEdit !== false;
+		const shortcut = new Shortcut(markup.document, apply);
+		const commands = this.commands;
+		shortcut.register('editCellNavigation', commands);
+
+		this.enter = commands.get('enter');
+		this.commit = commands.get('commit');
+		this.cancel = commands.get('cancel');
+		this.reset = commands.get('reset');
+	}
+
+	get commands() {
+		const model = this.model;
+		const commands = {
+			enter: new Command({
+				shortcut: 'F2|enter',
+				canExecute: cell => {
+					cell = cell || model.navigation().active.cell;
+
+					if (this.mode !== 'edit' && model.edit().mode === 'cell') {
+						// use shouldn't explicitly set it in the template, cause we have here canEdit !== false
+						return cell.column.canEdit !== false;
+					}
+
+					return false;
+				},
+				execute: (cell, e) => {
+					Log.info('cell.edit', 'edit mode');
+					if (e) {
+						e.stopImmediatePropagation();
+					}
+					console.log(model.navigation().active.cell);
+
+					cell = cell || model.navigation().active.cell;
+
+					const parse = parseFactory(cell.column.type);
+					this.value = isUndefined(cell.value) ? null : parse(clone(cell.value));
+					this.mode = 'edit';
+					cell.mode(this.mode);
 				}
+			}),
+			commit: new Command({
+				shortcut: 'enter',
+				// TODO: add validation support
+				execute: (cell, e) => {
+					Log.info('cell.edit', 'commit');
+					if (e) {
+						e.stopImmediatePropagation();
+					}
 
-				return false;
-			},
-			execute: (cell, e) => {
-				Log.info('cell.edit', 'edit mode');
-				if (e) {
-					e.stopImmediatePropagation();
+					console.log(model.navigation().active.cell);
+
+					cell = cell || model.navigation().active.cell;
+
+					const column = cell.column;
+					const row = cell.row;
+					this.setValue(row, column, this.value);
+
+					this.value = null;
+					this.mode = 'view';
+					cell.mode(this.mode);
 				}
+			}),
+			cancel: new Command({
+				shortcut: 'escape',
+				execute: (cell, e) => {
+					Log.info('cell.edit', 'cancel');
+					if (e) {
+						e.stopImmediatePropagation();
+					}
+					console.log(model.navigation().active.cell);
 
-				const parse = parseFactory(cell.column.type);
-				this.value = isUndefined(cell.value) ? null : parse(clone(cell.value));
-				this.mode = 'edit';
-				cell.mode(this.mode);
-			}
-		});
+					cell = cell || model.navigation().active.cell;
 
-		this.commit = new Command({
-			// TODO: add validation support
-			execute: (cell, e) => {
-				Log.info('cell.edit', 'commit');
-				if (e) {
-					e.stopImmediatePropagation();
+					this.value = null;
+					this.mode = 'view';
+					cell.mode(this.mode);
 				}
+			}),
+			reset: new Command({
+				execute: (cell, e) => {
+					Log.info('cell.edit', 'reset');
+					if (e) {
+						e.stopImmediatePropagation();
+					}
 
-				const column = cell.column;
-				const row = cell.row;
-				setValue(row, column, this.value);
+					cell = cell || model.navigation().active.cell;
 
-				this.value = null;
-				this.mode = 'view';
-				cell.mode(this.mode);
-			}
-		});
-
-		this.cancel = new Command({
-			execute: (cell, e) => {
-				Log.info('cell.edit', 'cancel');
-				if (e) {
-					e.stopImmediatePropagation();
+					const parse = parseFactory(cell.column.type);
+					this.value = parse(cell.value);
+					cell.mode(this.mode);
+					return false;
 				}
-
-				this.value = null;
-				this.mode = 'view';
-				cell.mode(this.mode);
-			}
-		});
-
-		this.reset = new Command({
-			execute: (cell, e) => {
-				Log.info('cell.edit', 'reset');
-				if (e) {
-					e.stopImmediatePropagation();
-				}
-
-				const parse = parseFactory(cell.column.type);
-				this.value = parse(cell.value);
-				cell.mode(this.mode);
-				return false;
-			}
-		});
+			})
+		};
+		return new Map(
+			Object.entries(commands)
+		);
 	}
 
 	get value() {
