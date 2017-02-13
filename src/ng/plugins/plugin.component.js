@@ -1,7 +1,6 @@
 import ModelComponent from 'ng/components/model.component';
 import AppError from 'core/infrastructure/error';
 import * as guard from 'core/infrastructure/guard';
-import * as pair from 'core/services/pair';
 import {merge, clone} from 'core/services/utility';
 import TemplateLink from 'ng/components/template/template.link';
 import {BOX_CORE_NAME, GRID_NAME} from 'src/definition';
@@ -26,27 +25,34 @@ export default function (pluginName, modelNames = [], inject = []) {
 			this.template = new TemplateLink($compile, $templateCache);
 			this.templateScope = null;
 
-			this.inject = pair.map(inject);
+			Array.from(arguments)
+				.filter((a, i) => i >= 5)
+				.forEach((a, i) => this[inject[i]] = a);
 		}
 
 		onInitCore() {
-			if (this.isReady()) {
-				const visibility = this.model.visibility;
-				const plugins = clone(visibility().plugin);
-				if (!plugins.hasOwnProperty(pluginName)) {
-					plugins[pluginName] = true;
-					this.model.visibility({plugin: plugins});
-				}
+				if (this.isReady()) {
+					const visibility = this.model.visibility;
+					const plugins = clone(visibility().plugin);
+					if (!plugins.hasOwnProperty(pluginName)) {
+						plugins[pluginName] = true;
+						this.model.visibility({plugin: plugins});
+					}
 
-				this.model.visibilityChanged.watch(e => {
-					if (e.state.plugin[pluginName]) {
-						this.templateScope = this.show();
-					}
-					else {
-						this.templateScope = this.hide();
-					}
-				});
-			}
+					this.model.visibilityChanged.watch(e => {
+						if (e.changes.hasOwnProperty('plugin')) {
+							const newValue = e.changes.plugin.newValue;
+							if (newValue[pluginName] !== this.isShown) {
+								if (e.state.plugin[pluginName]) {
+									this.templateScope = this.show();
+								}
+								else {
+									this.templateScope = this.hide();
+								}
+							}
+						}
+					});
+				}
 
 			super.onInitCore();
 		}
@@ -102,6 +108,10 @@ export default function (pluginName, modelNames = [], inject = []) {
 			}
 
 			return null;
+		}
+
+		get isShown(){
+			return this.templateScope !== null;
 		}
 	}
 
