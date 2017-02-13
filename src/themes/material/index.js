@@ -29,5 +29,7 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.head.cell.pivot.tpl.html', require('themes/material/templates/head.cell.pivot.html'));
 
 		theme.put('qgrid.toolbar.top.tpl.html', require('themes/material/templates/toolbar.top.html'));
+
+		theme.put('qgrid.plugin.columnchooser.tpl.html', require('themes/material/templates/plugin.column.chooser.html'));
 	});
 }

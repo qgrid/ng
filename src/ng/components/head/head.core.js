@@ -68,7 +68,7 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 		return {
 			key: TH_CORE_NAME,
 			value: cell.column.key
-		}
+		};
 	}
 }
 
