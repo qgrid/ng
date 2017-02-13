@@ -21,8 +21,7 @@ export default class NavigationView extends View {
 				this.rows[row].cells[column].classList.remove('q-grid-focus');
 			},
 			canExecute: () => {
-				return this.oldRow !== -1 && this.oldColumn !== -1
-					&& this.rows.length > this.newRow
+				return this.rows.length > this.newRow
 					&& this.rows[this.newRow].cells.length > this.newColumn;
 			}
 		});
@@ -31,7 +30,8 @@ export default class NavigationView extends View {
 				this.rows[row].cells[column].classList.add('q-grid-focus');
 			},
 			canExecute: () => {
-				return this.rows.length > this.newRow && this.rows[this.newRow].cells.length > this.newColumn;
+				return this.rows.length > this.newRow
+					&& this.rows[this.newRow].cells.length > this.newColumn;
 			}
 		});
 
@@ -41,9 +41,11 @@ export default class NavigationView extends View {
 			this.oldRow = e.changes.hasOwnProperty('row') ? e.changes.row.oldValue : this.newRow;
 			this.oldColumn = e.changes.hasOwnProperty('column') ? e.changes.column.oldValue : this.newColumn;
 
-			if (this.blur.canExecute()) {
+			if (this.blur.canExecute() && this.oldRow !== -1 && this.oldColumn !== -1) {
 				this.blur.execute(this.oldRow, this.oldColumn);
-			} else {
+			}
+
+			if (this.oldRow === -1 || this.oldColumn === -1) {
 				model.navigation({
 					column: 0,
 					row: 0
@@ -60,9 +62,6 @@ export default class NavigationView extends View {
 				column: -1,
 				row: -1
 			});
-			if (this.blur.canExecute()) {
-				this.blur.execute(this.newRow, this.newColumn);
-			}
 		});
 	}
 
