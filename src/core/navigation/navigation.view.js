@@ -21,7 +21,9 @@ export default class NavigationView extends View {
 				this.rows[row].cells[column].classList.remove('q-grid-focus');
 			},
 			canExecute: () => {
-				return this.rows.length > this.newRow && this.rows[this.newRow].cells.length > this.newColumn;
+				return this.oldRow !== -1 && this.oldColumn !== -1
+					&& this.rows.length > this.newRow
+					&& this.rows[this.newRow].cells.length > this.newColumn;
 			}
 		});
 		this.focus = new Command({
@@ -39,10 +41,8 @@ export default class NavigationView extends View {
 			this.oldRow = e.changes.hasOwnProperty('row') ? e.changes.row.oldValue : this.newRow;
 			this.oldColumn = e.changes.hasOwnProperty('column') ? e.changes.column.oldValue : this.newColumn;
 
-			if (this.oldRow !== -1 && this.oldColumn !== -1) {
-				if (this.blur.canExecute()) {
-					this.blur.execute(this.oldRow, this.oldColumn);
-				}
+			if (this.blur.canExecute()) {
+				this.blur.execute(this.oldRow, this.oldColumn);
 			} else {
 				model.navigation({
 					column: 0,
