@@ -5,6 +5,13 @@
 		tr {
 			height: 56px;
 			th, td {
+
+				&.q-grid-select {
+					md-checkbox {
+						margin: 0;
+					}
+				}
+
 				color: $dark-secondary;
 				font-size: 12px;
 				font-weight: bold;
