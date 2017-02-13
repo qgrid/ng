@@ -11,6 +11,12 @@
 		margin: 0 0 10px 0;
 	}
 
+	.q-grid-column-chooser-filter {
+		.md-errors-spacer {
+			display: none;
+		}
+	}
+
 	.q-grid-column-chooser-list {
 		margin-top: 5px;
 		overflow-y: auto;
