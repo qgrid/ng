@@ -34,23 +34,31 @@ export default class NavigationView extends View {
 		});
 
 		model.navigationChanged.watch(e => {
-			this.newRow = e.state.row;
-			this.newColumn = e.state.column;
+			this.newRow = e.state.row == -1 ? 0 : e.state.row;
+			this.newColumn = e.state.column == -1 ? 0 : e.state.column;
 			this.oldRow = e.changes.hasOwnProperty('row') ? e.changes.row.oldValue : this.newRow;
 			this.oldColumn = e.changes.hasOwnProperty('column') ? e.changes.column.oldValue : this.newColumn;
 
-			if (this.blur.canExecute()) {
-				this.blur.execute(this.oldRow, this.oldColumn);
+			if (this.oldRow !== -1 && this.oldColumn !== -1) {
+				if (this.blur.canExecute()) {
+					this.blur.execute(this.oldRow, this.oldColumn);
+				}
+			} else {
+				model.navigation({
+					column: 0,
+					row: 0
+				});
 			}
 			if (this.focus.canExecute()) {
 				this.focus.execute(this.newRow, this.newColumn);
 			}
+
 		});
 
 		model.viewChanged.watch(() => {
 			model.navigation({
-				column: 0,
-				row: 0
+				column: -1,
+				row: -1
 			});
 			if (this.blur.canExecute()) {
 				this.blur.execute(this.newRow, this.newColumn);
