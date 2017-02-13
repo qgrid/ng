@@ -33,13 +33,7 @@ import Range from './filters/range';
 
 import * as def from './definition';
 
-// For now should be the last in import list cause use TemplatePath.require
-// that should be filled before importing this
-// TODO: get rid of static require
-import Template from './components/template/tempate';
-
 const coreModule = angular.module(def.MODULE_CORE_NAME, [])
-	.component(def.TEMPLATE_NAME, Template)
 	.directive(def.DRAG_NAME, () => Drag)
 	.directive(def.DROP_NAME, () => Drop)
 	.directive(def.INDETERMINATE_NAME, () => Indeterminate)
@@ -50,7 +44,15 @@ const coreModule = angular.module(def.MODULE_CORE_NAME, [])
 	.filter(def.RANGE_NAME, () => Range)
 	.name;
 
+import pluginModule from './plugins';
+
+// For now should be the last in import list cause use TemplatePath.require
+// that should be filled before importing this
+// TODO: get rid of static require
+import Template from './components/template/tempate';
+
 const layoutModel = angular.module(def.MODULE_LAYOUT_NAME, [coreModule])
+	.component(def.TEMPLATE_NAME, Template)
 	.component(def.GRID_NAME, Grid)
 	.component(def.BOX_CORE_NAME, BoxCore)
 	.component(def.VIEW_CORE_NAME, ViewCore)
@@ -73,8 +75,6 @@ const layoutModel = angular.module(def.MODULE_LAYOUT_NAME, [coreModule])
 	.service(def.SERVICE_NAME, GridService)
 	.config(Setup)
 	.name;
-
-import pluginModule from './plugins';
 
 export default angular
 	.module(def.MODULE_NAME, [coreModule, layoutModel, pluginModule])
