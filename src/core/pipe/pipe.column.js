@@ -65,7 +65,13 @@ export default function pipeColumn(memo, context, next) {
 			pivotColumn.key = `${pivotColumnModel.key} of ${heads.length}`;
 			row[j] = pivotColumn;
 		}
-		rows[0].push(...row);
+
+		const firstRow = rows[0];
+		firstRow.push(...row);
+		// Add special column type that fills remaining place (width = 100%)
+		const padColumn = columnFactory('pad');
+		padColumn.key = padColumn.key + `[0][${firstRow.length}]`;
+		firstRow.push(padColumn);
 
 		for (let i = 1, length = heads.length; i < length; i++) {
 			const head = heads[i];
@@ -85,6 +91,11 @@ export default function pipeColumn(memo, context, next) {
 				pivotColumn.key = `${pivotColumnModel.key} of ${heads.length}`;
 				row[j] = pivotColumn;
 			}
+
+			// Add special column type that fills remaining place (width = 100%)
+			const padColumn = columnFactory('pad');
+			padColumn.key = padColumn.key + `[${i}][${heads.length}]`;
+			row.push(padColumn);
 
 			rows.push(row);
 		}

@@ -57,9 +57,12 @@ export default class HighlightView extends View {
 		const columnRows = this.model.view().columns;
 		const columns = columnService.lineView(columnRows).map(v => v.model);
 		const index = columnService.findIndex(columns, key);
-		if (index >= 0 && columns[index].type === 'pivot') {
+		if (index >= 0) {
 			// TODO: add pivot col support
-			return -1;
+			const column =  columns[index];
+			if(column.type === 'pivot' || column.type === 'pad') {
+				return -1;
+			}
 		}
 
 		return index;
