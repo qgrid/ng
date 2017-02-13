@@ -4,10 +4,11 @@ import * as columnService from 'core/column/column.service';
 import log from 'core/infrastructure/log';
 
 export default class LayoutView extends View {
-	constructor(model, markup) {
+	constructor(model, markup, document) {
 		super(model);
 		this.model = model;
 		this.markup = markup;
+		this.document = document;
 		this.width = columnService.widthFactory(model);
 
 		this.onInit();
@@ -26,7 +27,7 @@ export default class LayoutView extends View {
 		});
 	}
 
-	invalidateScroll(){
+	invalidateScroll() {
 		log.info('layout', 'invalidate scroll');
 
 		const markup = this.markup;
@@ -50,12 +51,12 @@ export default class LayoutView extends View {
 			// TODO: make it better
 			const minWidth = parseInt(column.minWidth) || 20;
 			if (context.width >= minWidth) {
-				const headCells = dom.cellsAt(markup.head, columnIndex);
+				const headCells = dom.cellsAt(markup.head, columnIndex)[0];
 				const bodyCells = dom.cellsAt(markup.body, columnIndex);
 				const footCells = dom.cellsAt(markup.foot, columnIndex);
 
 				const width = context.width;
-				headCells.forEach(c => this.setWidth(c, width));
+				[headCells].forEach(c => this.setWidth(c, width));
 				bodyCells.forEach(c => this.setWidth(c, width));
 				footCells.forEach(c => this.setWidth(c, width));
 			}
@@ -68,9 +69,9 @@ export default class LayoutView extends View {
 				element.style.minWidth = width + 'px';
 	}
 
-	getWidth(column){
+	getWidth(column) {
 		const columns = this.model.layout().columns;
-		if(columns.hasOwnProperty(column.key)){
+		if (columns.hasOwnProperty(column.key)) {
 			return columns[column.key].width;
 		}
 

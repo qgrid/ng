@@ -28,7 +28,7 @@ class ViewCore extends Component {
 		this.head = new HeadView(model);
 		this.body = new BodyView(model, valueFactory);
 		this.foot = new FootView(model, valueFactory);
-		this.layout = new LayoutView(model, markup);
+		this.layout = new LayoutView(model, markup, document);
 		this.group = new GroupView(model, valueFactory);
 		this.pivot = new PivotView(model, valueFactory);
 		this.nav = new NavigationView(model, document);

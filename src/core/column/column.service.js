@@ -50,7 +50,7 @@ export function dataView(columns, model) {
 }
 
 export function lineView(columnRows) {
-	if(columnRows.length) {
+	if (columnRows.length) {
 		const viewColumns = columnRows[0].filter(c => c.model.type !== 'pivot');
 		const pivotColumns = columnRows[columnRows.length - 1].filter(c => c.model.type === 'pivot');
 		return viewColumns.concat(pivotColumns);
@@ -59,33 +59,9 @@ export function lineView(columnRows) {
 	return [];
 }
 
-export function widthFactory(model) {
-	const view = model.view;
-
+export function widthFactory(/*model*/) {
 	return column => {
-		switch (column.type) {
-			case 'pivot': {
-				const width = column.width;
-				if (width === 0) {
-					return 0;
-				}
-
-				if (!width) {
-					return null;
-				}
-
-				const rowIndex = column.rowIndex;
-				if (rowIndex > 0) {
-					return null;
-				}
-
-				const columnRows = view().columns;
-				return columnRows[rowIndex][column.columnIndex].colspan  * column.width;
-			}
-			default: {
-				const width = column.width;
-				return width || width === 0 ? width : null;
-			}
-		}
+		const width = column.width;
+		return width || width === 0 ? width : null;
 	};
 }

@@ -56,7 +56,13 @@ export default class HighlightView extends View {
 	columnIndex(key) {
 		const columnRows = this.model.view().columns;
 		const columns = columnService.lineView(columnRows).map(v => v.model);
-		return columnService.findIndex(columns, key);
+		const index = columnService.findIndex(columns, key);
+		if (index >= 0 && columns[index].type === 'pivot') {
+			// TODO: add pivot col support
+			return -1;
+		}
+
+		return index;
 	}
 
 	highlight(key, cls) {
@@ -67,14 +73,15 @@ export default class HighlightView extends View {
 
 		const head = this.markup.head;
 		if (head && head.rows.length) {
-			const row = head.rows[head.rows.length - 1];
-			row.cells[index].classList.add(`q-grid-${cls}`);
-			if (index > 0) {
-				row.cells[index - 1].classList.add(`q-grid-${cls}-prev`);
-			}
+			for (let row of head.rows) {
+				row.cells[index].classList.add(`q-grid-${cls}`);
+				if (index > 0) {
+					row.cells[index - 1].classList.add(`q-grid-${cls}-prev`);
+				}
 
-			if (index < head.rows.length - 1) {
-				row.cells[index + 1].classList.add(`q-grid-${cls}-next`);
+				if (index < head.rows.length - 1) {
+					row.cells[index + 1].classList.add(`q-grid-${cls}-next`);
+				}
 			}
 		}
 
@@ -103,14 +110,15 @@ export default class HighlightView extends View {
 
 		const head = this.markup.head;
 		if (head && head.rows.length) {
-			const row = head.rows[head.rows.length - 1];
-			row.cells[index].classList.remove(`q-grid-${cls}`);
-			if (index > 0) {
-				row.cells[index - 1].classList.remove(`q-grid-${cls}-prev`);
-			}
+			for (let row of head.rows) {
+				row.cells[index].classList.remove(`q-grid-${cls}`);
+				if (index > 0) {
+					row.cells[index - 1].classList.remove(`q-grid-${cls}-prev`);
+				}
 
-			if (index < head.rows.length - 1) {
-				row.cells[index + 1].classList.remove(`q-grid-${cls}-next`);
+				if (index < head.rows.length - 1) {
+					row.cells[index + 1].classList.remove(`q-grid-${cls}-next`);
+				}
 			}
 		}
 
