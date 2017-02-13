@@ -1,7 +1,8 @@
 import PluginComponent from '../plugin.component';
 import Command from 'core/infrastructure/command'
 import * as SortSevice from 'core/sort/sort.service';
-import {TH_CORE_NAME, SORTBAR_NAME} from 'core/definition';
+import {SORTBAR_NAME} from '../definition';
+import {TH_CORE_NAME} from 'ng/definition';
 import TemplatePath from 'core/template/template.path';
 
 TemplatePath

@@ -1,6 +1,6 @@
 import Component from '../component';
 import TemplateLink from '../template/template.link';
-import {GRID_NAME} from 'core/definition';
+import {GRID_NAME} from 'ng/definition';
 
 class ToolbarCore extends Component {
 	constructor($scope, $element, $compile, $templateCache) {

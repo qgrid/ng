@@ -1,12 +1,14 @@
 export const MODULE_NAME = 'qgrid';
+export const MODULE_CORE_NAME = 'qgrid.core';
+export const MODULE_LAYOUT_NAME = 'qgrid.layout';
 
 export const SERVICE_NAME = MODULE_NAME;
 export const TEMPLATE_PATH_NAME = `${MODULE_NAME}TemplatePath`;
 export const THEME_NAME = `${MODULE_NAME}Theme`;
 export const RANGE_NAME = `${MODULE_NAME}Range`;
 
-const GRID = 'qGrid';
-const GRID_CORE = `${GRID}Core`;
+export const GRID = 'qGrid';
+export const GRID_CORE = `${GRID}Core`;
 
 export const GRID_NAME = GRID;
 export const GRID_PREFIX = 'q-grid';
@@ -32,12 +34,6 @@ export const DRAG_NAME = `${GRID}Drag`;
 export const DROP_NAME = `${GRID}Drop`;
 export const SELECTION_NAME = `${GRID}Selection`;
 export const MARKUP_NAME = `${GRID}Markup`;
-export const POPUP_NAME = `${GRID}Popup`;
-export const POPUP_TRIGGER_NAME = `${GRID}PopupTrigger`;
-export const POPUP_HEAD_NAME = `${GRID}PopupHead`;
-export const POPUP_BODY_NAME = `${GRID}PopupBody`;
-export const POPUP_PANEL_NAME = `${GRID}PopupPanel`;
-export const POPUP_SERVICE = `${GRID}PopupService`;
 export const TOOLBAR_NAME = `${GRID}Toolbar`;
 
 export const CAN_DROP_NAME = `${GRID}CanDrop`;

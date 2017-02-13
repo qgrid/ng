@@ -1,5 +1,5 @@
 import Directive from './directive';
-import {FOCUS_NAME} from 'core/definition';
+import {FOCUS_NAME} from 'ng/definition';
 
 class Focus extends Directive(FOCUS_NAME) {
 	constructor($scope, $element, $attrs) {

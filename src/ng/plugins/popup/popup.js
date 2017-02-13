@@ -1,5 +1,5 @@
 import PluginComponent from '../plugin.component';
-import {POPUP_NAME} from 'src/definition';
+import {POPUP_NAME} from '../definition';
 import TemplatePath from 'core/template/template.path';
 
 require('./popup.scss');

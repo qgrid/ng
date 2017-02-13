@@ -12,19 +12,6 @@ import Selection from './components/selection/selection';
 import Drag from './components/dnd/drag';
 import Drop from './components/dnd/drop';
 
-import Pager from './plugins/pagination/pager';
-import Sortbar from './plugins/sortbar/sortbar';
-import Groupbar from './plugins/groupbar/groupbar';
-import Pivotbar from './plugins/pivotbar/pivotbar';
-import Visibility from './plugins/visibility/visibility';
-import ColumnChooser from './plugins/column-chooser/column.chooser';
-import Progress from './plugins/progress/progress';
-import Popup from './plugins/popup/popup';
-import PopupTrigger from './plugins/popup/popup.trigger';
-import PopupHead from './plugins/popup/popup.head';
-import PopupBody from './plugins/popup/popup.body';
-import PopupService from './plugins/popup/popup.service';
-
 import BoxCore from './components/grid/box.core';
 import ViewCore from './components/view/view.core';
 import TdCore from './components/body/td.core';
@@ -45,35 +32,37 @@ import ThemeProvider from './services/theme';
 import Range from './filters/range';
 
 import * as def from './definition';
-import {MODULE_NAME as PLUGINS_MODULE_NAME} from './plugins/definition';
 
 // For now should be the last in import list cause use TemplatePath.require
 // that should be filled before importing this
 // TODO: get rid of static require
 import Template from './components/template/tempate';
 
-export default angular
-	.module(def.MODULE_NAME, [PLUGINS_MODULE_NAME])
+const coreModule = angular.module(def.MODULE_CORE_NAME, [])
+	.component(def.TEMPLATE_NAME, Template)
+	.directive(def.DRAG_NAME, () => Drag)
+	.directive(def.DROP_NAME, () => Drop)
+	.directive(def.INDETERMINATE_NAME, () => Indeterminate)
+	.directive(def.FOCUS_NAME, () => Focus)
+	.directive(def.RESIZE_NAME, () => Resize)
+	.provider(def.THEME_NAME, () => new ThemeProvider())
+	.service(def.TEMPLATE_PATH_NAME, () => () => TemplatePath)
+	.filter(def.RANGE_NAME, () => Range)
+	.name;
+
+const layoutModel = angular.module(def.MODULE_LAYOUT_NAME, [coreModule])
 	.component(def.GRID_NAME, Grid)
 	.component(def.BOX_CORE_NAME, BoxCore)
 	.component(def.VIEW_CORE_NAME, ViewCore)
 	.component(def.HEAD_NAME, Head)
 	.component(def.FOOT_NAME, Foot)
-	.component(def.TEMPLATE_NAME, Template)
 	.component(def.COLUMN_LIST_NAME, ColumnList)
 	.component(def.COLUMN_NAME, Column)
 	.component(def.NODE_NAME, Node)
 	.component(def.TOOLBAR_NAME, Toolbar)
 	.component(def.TOOLBAR_CORE_NAME, ToolbarCore)
 	.component(def.SELECTION_NAME, Selection)
-	.component(def.POPUP_NAME, Popup)
-	.component(def.POPUP_TRIGGER_NAME, PopupTrigger)
-	.component(def.POPUP_HEAD_NAME, PopupHead)
-	.component(def.POPUP_BODY_NAME, PopupBody)
-	.component(def.PROGRESS_NAME, Progress)
 	.directive(def.MARKUP_NAME, () => Markup)
-	.directive(def.DRAG_NAME, () => Drag)
-	.directive(def.DROP_NAME, () => Drop)
 	.directive(def.SELECTION_CORE_NAME, () => SelectionCore)
 	.directive(def.TD_CORE_NAME, () => TdCore)
 	.directive(def.TH_CORE_NAME, () => ThCore)
@@ -81,14 +70,14 @@ export default angular
 	.directive(def.HEAD_CORE_NAME, () => HeadCore)
 	.directive(def.BODY_CORE_NAME, () => BodyCore)
 	.directive(def.FOOT_CORE_NAME, () => FootCore)
-	.directive(def.INDETERMINATE_NAME, () => Indeterminate)
-	.directive(def.FOCUS_NAME, () => Focus)
-	.directive(def.RESIZE_NAME, () => Resize)
 	.service(def.SERVICE_NAME, GridService)
-	.provider(def.THEME_NAME, () => new ThemeProvider())
-	.service(def.TEMPLATE_PATH_NAME, () => () => TemplatePath)
-	.filter(def.RANGE_NAME, () => Range)
 	.config(Setup)
+	.name;
+
+import pluginModule from './plugins';
+
+export default angular
+	.module(def.MODULE_NAME, [coreModule, layoutModel, pluginModule])
 	.name;
 
 Setup.$inject = ['qgridThemeProvider'];
@@ -165,18 +154,5 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.head.cell.select.tpl.html', require('./components/cell/select/head.cell.select.html'));
 		theme.put('qgrid.body.cell.select.tpl.html', require('./components/cell/select/body.cell.select.html'));
 		theme.put('qgrid.foot.cell.select.tpl.html', EMPTY);
-
-		theme.put('qgrid.plugin.popup.tpl.html', require('./plugins/popup/popup.html'));
-		theme.put('qgrid.plugin.popup-panel.tpl.html', require('./plugins/popup/popup.panel.html'));
-		theme.put('qgrid.plugin.popup-trigger.tpl.html', EMPTY);
-		theme.put('qgrid.plugin.popup-head.tpl.html', EMPTY);
-		theme.put('qgrid.plugin.popup-body.tpl.html', EMPTY);
-		theme.put('qgrid.plugin.pager.tpl.html', require('./plugins/pagination/pager.html'));
-		theme.put('qgrid.plugin.progress.tpl.html', require('./plugins/progress/progress.html'));
-		theme.put('qgrid.plugin.sortbar.tpl.html', require('./plugins/sortbar/sortbar.html'));
-		theme.put('qgrid.plugin.groupbar.tpl.html', require('./plugins/groupbar/groupbar.html'));
-		theme.put('qgrid.plugin.pivotbar.tpl.html', require('./plugins/pivotbar/pivotbar.html'));
-		theme.put('qgrid.plugin.visibility.tpl.html', require('./plugins/visibility/visibility.html'));
-		theme.put('qgrid.plugin.columnchooser.tpl.html', require('./plugins/column-chooser/column.chooser.html'));
 	});
 }

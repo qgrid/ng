@@ -4,7 +4,7 @@ import TemplatePath from 'core/template/template.path';
 import Aggregation from 'core/services/aggregation';
 import * as columnService from 'core/column/column.service';
 import {isFunction, noop} from 'core/services/utility';
-import {COLUMNCHOOSER_NAME} from 'ng/definition';
+import {COLUMNCHOOSER_NAME} from '../definition';
 
 TemplatePath
 	.register(COLUMNCHOOSER_NAME, () => {

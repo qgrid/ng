@@ -1,5 +1,6 @@
 import Directive from './directive';
-import {RESIZE_NAME, VIEW_CORE_NAME, DRAG_NAME, GRID_PREFIX, GRID_NAME} from 'core/definition';
+import {RESIZE_NAME, VIEW_CORE_NAME, DRAG_NAME, GRID_NAME} from 'ng/definition';
+import {GRID_PREFIX} from 'core/definition';
 import EventListener from 'core/infrastructure/event.listener';
 import {clone} from 'core/services/utility';
 

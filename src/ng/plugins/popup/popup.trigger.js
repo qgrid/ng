@@ -1,6 +1,6 @@
 import Component from 'ng/components/component';
 import TemplateLink from 'ng/components/template/template.link';
-import {POPUP_NAME} from 'src/definition';
+import {POPUP_NAME} from '../definition';
 
 class PopupTrigger extends Component {
 	constructor($scope, $element, $compile, $templateCache, qGridPopupService) {
