@@ -24,7 +24,6 @@ class ViewCore extends Component {
 
 	onInit() {
 		const model = this.model;
-		const document = this.document;
 		const markup = this.root.markup;
 
 		this.head = new HeadView(model);

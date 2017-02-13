@@ -27,7 +27,7 @@ export default class EditCellView {
 		const model = this.model;
 		const commands = {
 			enter: new Command({
-				shortcut: 'F2|enter',
+				shortcut: 'Enter|F2',
 				canExecute: cell => {
 					cell = cell || model.navigation().active.cell;
 
@@ -43,7 +43,6 @@ export default class EditCellView {
 					if (e) {
 						e.stopImmediatePropagation();
 					}
-					console.log(model.navigation().active.cell);
 
 					cell = cell || model.navigation().active.cell;
 
@@ -54,15 +53,14 @@ export default class EditCellView {
 				}
 			}),
 			commit: new Command({
-				shortcut: 'enter',
+				shortcut: 'Ctrl+S|Enter',
 				// TODO: add validation support
+				canExecute: () => this.mode === 'edit' && model.edit().mode === 'cell',
 				execute: (cell, e) => {
 					Log.info('cell.edit', 'commit');
 					if (e) {
 						e.stopImmediatePropagation();
 					}
-
-					console.log(model.navigation().active.cell);
 
 					cell = cell || model.navigation().active.cell;
 
