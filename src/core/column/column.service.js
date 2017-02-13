@@ -59,8 +59,14 @@ export function lineView(columnRows) {
 	return [];
 }
 
-export function widthFactory(/*model*/) {
+export function widthFactory(model) {
+	const layout = model.layout;
+	const columns = layout().columns;
 	return column => {
+		if (columns.hasOwnProperty(column.key)) {
+			return columns[column.key].width;
+		}
+
 		const width = column.width;
 		return width || width === 0 ? width : null;
 	};

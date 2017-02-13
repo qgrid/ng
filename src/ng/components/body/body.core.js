@@ -14,7 +14,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 		Object.defineProperty($scope, '$view', {get: () => this.view});
 	}
 
-	onScroll(){
+	onScroll() {
 		const element = this.element;
 		const layout = this.view.model.layout;
 

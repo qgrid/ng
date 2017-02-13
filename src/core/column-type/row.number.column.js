@@ -1,4 +1,4 @@
-import ColumnView from 'core/column/column.view';
+import ColumnView from 'core/column-type/column.view';
 import TemplatePath from 'core/template/template.path';
 import ColumnModel from './column.model';
 

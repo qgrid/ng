@@ -9,8 +9,7 @@ export default class LayoutView extends View {
 		this.model = model;
 		this.markup = markup;
 		this.document = document;
-		this.width = columnService.widthFactory(model);
-
+		model.viewChanged.watch(() => this.invalidateColumns());
 		this.onInit();
 	}
 
@@ -39,18 +38,22 @@ export default class LayoutView extends View {
 
 	invalidateColumns() {
 		log.info('layout', 'invalidate columns');
+
 		const model = this.model;
-		const style = {};
+		const getWidth = columnService.widthFactory(model);
 		const columns = columnService
 			.lineView(model.view().columns)
 			.map(v => v.model);
 
-		for (let [key, context] of Object.entries(model.layout().columns)) {
-			const columnIndex = columnService.findIndex(columns, key);
-			if (columnIndex >= 0) {
-				const column = columns[columnIndex];
-				const width = Math.max(context.width, parseInt(column.minWidth) || 20) + 'px';
-				key = css.escape(key);
+		const style = {};
+		let length = columns.length;
+		while (length--) {
+			const column = columns[length];
+			const columnWidth = getWidth(column);
+			if (null !== columnWidth) {
+				// TODO: do it right
+				const width = Math.max(columnWidth, parseInt(column.minWidth) || 20) + 'px';
+				const key = css.escape(column.key);
 				style[`td.q-grid-${key}, th.q-grid-${key}`] = {
 					'width': width,
 					'min-width': width,
@@ -62,20 +65,5 @@ export default class LayoutView extends View {
 		const id = model.grid().id;
 		css.removeStyle(id);
 		css.addStyle(id, style);
-	}
-
-	setWidth(element, width) {
-		element.style.width =
-			element.style.maxWidth =
-				element.style.minWidth = width + 'px';
-	}
-
-	getWidth(column) {
-		const columns = this.model.layout().columns;
-		if (columns.hasOwnProperty(column.key)) {
-			return columns[column.key].width;
-		}
-
-		return this.width(column);
 	}
 }
