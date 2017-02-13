@@ -39,15 +39,12 @@ export default class LayoutView extends View {
 
 	invalidateColumns() {
 		log.info('layout', 'invalidate columns');
-
-		css.removeStyle('qgrid');
-
 		const model = this.model;
+		const style = {};
 		const columns = columnService
 			.lineView(model.view().columns)
 			.map(v => v.model);
 
-		const style = {};
 		for (let [key, context] of Object.entries(model.layout().columns)) {
 			const columnIndex = columnService.findIndex(columns, key);
 			if (columnIndex >= 0) {
@@ -62,7 +59,9 @@ export default class LayoutView extends View {
 			}
 		}
 
-		css.addStyle('qgrid', style);
+		const id = model.grid().id;
+		css.removeStyle(id);
+		css.addStyle(id, style);
 	}
 
 	setWidth(element, width) {
