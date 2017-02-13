@@ -15,7 +15,7 @@ $border: 1px solid $dark-divider;
 			border-left: $border;
 			padding: 0;
 
-			&:last-child{
+			&:nth-last-child(2) {
 				border-right: $border;
 			}
 		}
