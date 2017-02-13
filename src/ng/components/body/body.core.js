@@ -39,12 +39,12 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	onClick(e) {
 		const cell = pathFinder.cell(e.path);
 		if (cell && this.view.edit.cell.enter.canExecute(cell)) {
-			this.view.edit.cell.enter.execute(cell);
+			this.$scope.$evalAsync(() => this.view.edit.cell.enter.execute(cell));
 		}
 
 		const row = pathFinder.row(e.path);
 		if (row && this.view.selection.toggle.canExecute(row)) {
-			this.view.selection.toggle.execute(row);
+			this.$scope.$evalAsync(() => this.view.selection.toggle.execute(row));
 		}
 	}
 }

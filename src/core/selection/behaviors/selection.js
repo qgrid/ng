@@ -1,3 +1,5 @@
+import {isUndefined} from 'core/services/utility';
+
 export default class Selection {
 	constructor(model) {
 		this.model = model;
@@ -36,7 +38,11 @@ export default class Selection {
 	selectCore() {
 	}
 
-	stateCore(){
+	stateCore() {
 		return false;
+	}
+
+	get view() {
+		return [];
 	}
 }

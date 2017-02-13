@@ -11,9 +11,13 @@ export default class SelectionView extends View {
 
 		this.toggle = new Command({
 			execute: (item, state) => {
+				if (isUndefined(item)) {
+					item = model.view().rows;
+				}
+
 				if (isUndefined(state)) {
 					state = this.behavior.state(item);
-					this.behavior.select(item, state === null || state);
+					this.behavior.select(item, state === null || !state);
 				}
 				else {
 					this.behavior.select(item, state);
@@ -38,10 +42,18 @@ export default class SelectionView extends View {
 	}
 
 	state(item) {
-		return this.behavior.state(item);
+		if (!arguments.length) {
+			item = this.model.view().rows;
+		}
+
+		return this.behavior.state(item) === true;
 	}
 
 	isIndeterminate(item) {
+		if (!arguments.length) {
+			item = this.model.view().rows;
+		}
+
 		return this.behavior.state(item) === null;
 	}
 }
