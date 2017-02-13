@@ -1,5 +1,6 @@
 import Component from '../component';
 import {getFactory as valueFactory, set as setValue} from 'ng/services/value';
+import * as css from 'core/services/css';
 import BodyView from 'core/body/body.view';
 import HeadView from 'core/head/head.view';
 import FootView from 'core/foot/foot.view';
@@ -35,6 +36,11 @@ class ViewCore extends Component {
 		this.highlight = new HighlightView(model, markup);
 		this.sort = new SortView(model);
 		this.edit = new EditView(model, setValue);
+	}
+
+	onDestroy(){
+		const id = this.model.grid().id;
+		css.removeStyle(id);
 	}
 
 	templateUrl(key) {
