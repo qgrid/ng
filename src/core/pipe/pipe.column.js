@@ -8,7 +8,7 @@ export default function pipeColumn(memo, context, next) {
 	const heads = pivot.heads;
 	const columns = [];
 
-	if (model.selection().mode === 'checkbox') {
+	if (model.selection().unit === 'row') {
 		const selectColumn = columnFactory('select');
 		selectColumn.model.source = 'generation';
 		selectColumn.rowspan = heads.length;

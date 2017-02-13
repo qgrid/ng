@@ -41,9 +41,9 @@ thead, tfoot, tbody {
 		}
 
 		&.q-grid-pivot {
-			width: 60px;
-			min-width: 60px;
-			max-width: 60px;
+			width: 80px;
+			min-width: 80px;
+			max-width: 80px;
 		}
 
 		&.q-grid-pad {
@@ -89,9 +89,15 @@ thead, tfoot, tbody {
 		}
 
 		&.q-grid-row-indicator {
-			width: 20px;
-			min-width: 20px;
-			max-width: 20px;
+			width: 55px;
+			min-width: 55px;
+			max-width: 55px;
+		}
+
+		&.q-grid-select {
+			width: 55px;
+			min-width: 55px;
+			max-width: 55px;
 		}
 	}
 }
@@ -102,11 +108,9 @@ tbody {
 			text-align: right;
 		}
 
-		&.q-grid-bool {
-			text-align: center;
-		}
-
-		&.q-grid-password {
+		&.q-grid-bool,
+		&.q-grid-password,
+		&.q-grid-select {
 			text-align: center;
 		}
 	}

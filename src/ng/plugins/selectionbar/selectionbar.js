@@ -1,17 +1,17 @@
 import PluginComponent from '../plugin.component';
 import Command from 'core/infrastructure/command';
-import {SELECTIONBAR_NAME} from 'src/definition';
+import {SELECTIONBAR_NAME} from '../definition';
 import TemplatePath from 'core/template/template.path';
 
 TemplatePath
 	.register(SELECTIONBAR_NAME, () => {
 		return {
-			model: 'selectionbar',
+			model: 'selection',
 			resource: 'content'
 		};
 	});
 
-class Selectionbar extends PluginComponent('selectionbar') {
+class Selectionbar extends PluginComponent('selection') {
 	constructor() {
 		super(...arguments);
 		

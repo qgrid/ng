@@ -21,7 +21,6 @@ import ProgressModel from 'core/progress/progress.model';
 import NodeModel from 'core/node/node.model';
 import VisibilityModel from 'core/visibility/visibility.model';
 import ColumnChooserModel from 'core/column-chooser/column.chooser.model';
-import SelectionbarModel from 'core/selectionbar/selectionbar.model';
 import FilterModel from 'core/filter/filter.model';
 import DragModel from 'core/drag/drag.model';
 import PopupModel from 'core/popup/popup.model';
@@ -50,7 +49,6 @@ Model.register('grid', GridModel)
 	.register('progress', ProgressModel)
 	.register('visibility', VisibilityModel)
 	.register('columnChooser', ColumnChooserModel)
-	.register('selectionbar', SelectionbarModel)
 	.register('filter', FilterModel)
 	.register('drag', DragModel)
 	.register('popup', PopupModel);

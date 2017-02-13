@@ -1,84 +1,47 @@
 import View from '../view/view';
 import Command from 'core/infrastructure/command';
-import selectionServiceFactory from 'core/services/selection.factory';
+import behaviorFactory from './selection.factory';
 import {isUndefined} from 'core/services/utility';
 
 export default class SelectionView extends View {
 	constructor(model) {
 		super(model);
-		
+
+		this.behavior = behaviorFactory(model);
+
 		this.toggle = new Command({
 			execute: (item, state) => {
-
-				if (isUndefined(state)){
-					const currentState = this._selectionService.state(item);
-					state = !(currentState && currentState.isSelected);
+				if (isUndefined(state)) {
+					state = this.behavior.state(item);
+					this.behavior.select(item, state === null || state);
+				}
+				else {
+					this.behavior.select(item, state);
 				}
 
-				this._selectionService.select(item, state);
-				this.invalidate();
-			},
-			canExecute: () => {
-				return true;
+				model.selection({items: this.behavior.view}, {source: 'toggle'});
 			}
 		});
 
-		model.dataChanged.watch(e => {
-			if (e.changes.hasOwnProperty('rows')) {				
-				this.createService();
-			}
-		});
+		model.viewChanged.watch(() => this.behavior = behaviorFactory(model));
 
 		model.selectionChanged.watch(e => {
-			if (e.changes.hasOwnProperty('items')) {				
-				this.createService();
-				this._selectionService.select(e.state.items, true);
+			if (e.tag.source !== 'toggle' && e.changes.hasOwnProperty('items')) {
+				this.behavior.select(e.state.items, true);
 			}
 
-			if (e.changes.hasOwnProperty('unit') || e.changes.hasOwnProperty('mode')) {
-				this.createService();
+			if (e.changes.hasOwnProperty('unit') ||
+				e.changes.hasOwnProperty('mode')) {
+				this.behavior = behaviorFactory(model);
 			}
 		});
-
-	}
-
-	createService() {
-		this._selectionService = selectionServiceFactory(this.selection.mode);
-	}
-
-	get selection(){
-		return this.model.selection();
-	}	
-	
-	unit(unit) {
-		const currentUnit = this.selection.unit;
-
-		if (!unit) {
-			return currentUnit; 
-		}
-
-		return unit === currentUnit;
-	}
-
-	mode(mode) {
-		const currentMode = this.selection.mode;
-
-		if (!mode) {
-			return currentMode; 
-		}
-
-		return mode === currentMode;
 	}
 
 	state(item) {
-		return this._selectionService.state(item);
+		return this.behavior.state(item);
 	}
 
-	invalidate() {
-		const selection = this.model.selection;
-
-		selection({
-			items: this._selectionService.selected
-		});
+	isIndeterminate(item) {
+		return this.behavior.state(item) === null;
 	}
 }
