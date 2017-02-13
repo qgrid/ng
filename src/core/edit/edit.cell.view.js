@@ -80,8 +80,6 @@ export default class EditCellView {
 					if (e) {
 						e.stopImmediatePropagation();
 					}
-					console.log(model.navigation().active.cell);
-
 					cell = cell || model.navigation().active.cell;
 
 					this.value = null;
