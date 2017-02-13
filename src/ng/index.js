@@ -12,14 +12,6 @@ import Selection from './components/selection/selection';
 import Drag from './components/dnd/drag';
 import Drop from './components/dnd/drop';
 
-import Pager from './plugins/pagination/pager';
-import Sortbar from './plugins/sortbar/sortbar';
-import Groupbar from './plugins/groupbar/groupbar';
-import Pivotbar from './plugins/pivotbar/pivotbar';
-import Visibility from './plugins/visibility/visibility';
-import ColumnChooser from './plugins/column-chooser/column.chooser';
-import Progress from './plugins/progress/progress';
-
 import BoxCore from './components/grid/box.core';
 import ViewCore from './components/view/view.core';
 import ViewportCore from './components/grid/viewport.core';
@@ -40,7 +32,8 @@ import Markup from './directives/markup';
 import ThemeProvider from './services/theme';
 import Range from './filters/range';
 
-import * as def from '../core/definition';
+import * as def from './definition';
+import {MODULE_NAME as PLUGINS_MODULE_NAME} from './plugins/definition';
 
 // For now should be the last in import list cause use TemplatePath.require
 // that should be filled before importing this
@@ -48,7 +41,7 @@ import * as def from '../core/definition';
 import Template from './components/template/tempate';
 
 export default angular
-	.module(def.MODULE_NAME, [])
+	.module(def.MODULE_NAME, [PLUGINS_MODULE_NAME])
 	.component(def.GRID_NAME, Grid)
 	.component(def.BOX_CORE_NAME, BoxCore)
 	.component(def.VIEW_CORE_NAME, ViewCore)
@@ -60,14 +53,7 @@ export default angular
 	.component(def.NODE_NAME, Node)
 	.component(def.TOOLBAR_NAME, Toolbar)
 	.component(def.TOOLBAR_CORE_NAME, ToolbarCore)
-	.component(def.PAGER_NAME, Pager)
-	.component(def.SORTBAR_NAME, Sortbar)
-	.component(def.GROUPBAR_NAME, Groupbar)
 	.component(def.SELECTION_NAME, Selection)
-	.component(def.PIVOTBAR_NAME, Pivotbar)
-	.component(def.VISIBILITY_NAME, Visibility)
-	.component(def.COLUMNCHOOSER_NAME, ColumnChooser)
-	.component(def.PROGRESS_NAME, Progress)
 	.directive(def.MARKUP_NAME, () => Markup)
 	.directive(def.DRAG_NAME, () => Drag)
 	.directive(def.DROP_NAME, () => Drop)
@@ -163,13 +149,5 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.head.cell.select.tpl.html', require('./components/cell/select/head.cell.select.html'));
 		theme.put('qgrid.body.cell.select.tpl.html', require('./components/cell/select/body.cell.select.html'));
 		theme.put('qgrid.foot.cell.select.tpl.html', EMPTY);
-
-		theme.put('qgrid.plugin.pager.tpl.html', require('./plugins/pagination/pager.html'));
-		theme.put('qgrid.plugin.progress.tpl.html', require('./plugins/progress/progress.html'));
-		theme.put('qgrid.plugin.sortbar.tpl.html', require('./plugins/sortbar/sortbar.html'));
-		theme.put('qgrid.plugin.groupbar.tpl.html', require('./plugins/groupbar/groupbar.html'));
-		theme.put('qgrid.plugin.pivotbar.tpl.html', require('./plugins/pivotbar/pivotbar.html'));
-		theme.put('qgrid.plugin.visibility.tpl.html', require('./plugins/visibility/visibility.html'));
-		theme.put('qgrid.plugin.columnchooser.tpl.html', require('./plugins/column-chooser/column.chooser.html'));
 	});
 }

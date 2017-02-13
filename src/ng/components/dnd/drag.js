@@ -1,7 +1,8 @@
 import Directive from 'ng/directives/directive';
 import EventListener from 'core/infrastructure/event.listener';
 import DragService from './drag.service';
-import {DRAG_NAME, DROP_EFFECT_NAME, CAN_DRAG_NAME, GRID_PREFIX, VIEW_CORE_NAME} from 'core/definition';
+import {DRAG_NAME, DROP_EFFECT_NAME, CAN_DRAG_NAME, VIEW_CORE_NAME} from 'ng/definition';
+import {GRID_PREFIX} from 'core/definition';
 
 class Drag extends Directive(DRAG_NAME, {view: `^^?${VIEW_CORE_NAME}`}) {
 	constructor($element) {

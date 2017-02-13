@@ -1,5 +1,5 @@
 import Directive from 'ng/directives/directive';
-import {VIEWPORT_CORE_NAME, VIEW_CORE_NAME} from 'core/definition';
+import {VIEWPORT_CORE_NAME, VIEW_CORE_NAME} from 'ng/definition';
 import EventListener from 'core/infrastructure/event.listener'
 
 class ViewportCore extends Directive(VIEWPORT_CORE_NAME, {'view': `^^${VIEW_CORE_NAME}`}) {

@@ -1,7 +1,8 @@
 import Directive from 'ng/directives/directive';
 import TemplateLink from '../template/template.link';
 import cellBuilder from '../cell/cell.build';
-import {VIEW_CORE_NAME, TF_CORE_NAME, GRID_PREFIX} from 'core/definition';
+import {VIEW_CORE_NAME, TF_CORE_NAME} from 'ng/definition';
+import {GRID_PREFIX} from 'core/definition';
 
 class TfCore extends Directive(TF_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	constructor($scope, $element, $compile, $templateCache) {
