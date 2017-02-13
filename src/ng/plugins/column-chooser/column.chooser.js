@@ -71,6 +71,24 @@ class ColumnChooser extends PluginComponent('columnchooser') {
 			},
 			execute: noop
 		});
+
+		this.submit = new Command({
+			execute: () => {
+				this.onSubmit();
+			}
+		});
+
+		this.cancel = new Command({
+			execute: () => {
+				this.onCancel();
+			}
+		});
+
+		this.reset = new Command({
+			execute: () => {
+
+			}
+		});
 	}
 
 	onInit() {
@@ -110,6 +128,8 @@ export default ColumnChooser.component({
 	controller: ColumnChooser,
 	controllerAs: '$columnChooser',
 	bindings: {
-		'columnChooserCanAggregate': '<canAggregate'
+		'columnChooserCanAggregate': '<canAggregate',
+		'onSubmit': '&',
+		'onCancel': '&'
 	}
 });
