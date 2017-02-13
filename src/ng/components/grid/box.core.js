@@ -1,5 +1,6 @@
 import Component from '../component';
-import {GRID_NAME, GRID_PREFIX} from 'src/definition';
+import {GRID_NAME} from 'ng/definition';
+import {GRID_PREFIX} from 'core/definition';
 
 class BoxCore extends Component {
 	constructor($element) {
@@ -24,7 +25,7 @@ class BoxCore extends Component {
 	}
 
 	get model() {
-		return this.root.model;
+		return this._model || this.root.model;
 	}
 }
 
@@ -34,6 +35,9 @@ export default {
 	controller: BoxCore,
 	controllerAs: '$box',
 	require: {
-		'root': `^${GRID_NAME}`
+		'root': `^^?${GRID_NAME}`
+	},
+	bindings: {
+		'_model': `<model`
 	}
 }

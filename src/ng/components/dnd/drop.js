@@ -1,7 +1,8 @@
 import Directive from 'ng/directives/directive';
 import EventListener from 'core/infrastructure/event.listener';
 import DragService from './drag.service';
-import {DROP_NAME, CAN_DROP_NAME, DROP_EFFECT_NAME, ON_DROP_NAME, GRID_PREFIX} from 'src/definition';
+import {DROP_NAME, CAN_DROP_NAME, DROP_EFFECT_NAME, ON_DROP_NAME} from 'ng/definition';
+import {GRID_PREFIX} from 'core/definition';
 
 class Drop extends Directive(DROP_NAME) {
 	constructor($scope, $element) {

@@ -1,4 +1,4 @@
-import View from './view';
+import View from '../view/view';
 import Command from 'core/infrastructure/command';
 import selectionServiceFactory from 'core/services/selection.factory';
 import {isUndefined} from 'core/services/utility';

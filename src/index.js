@@ -24,6 +24,7 @@ import ColumnChooserModel from 'core/column-chooser/column.chooser.model';
 import SelectionbarModel from 'core/selectionbar/selectionbar.model';
 import FilterModel from 'core/filter/filter.model';
 import DragModel from 'core/drag/drag.model';
+import PopupModel from 'core/popup/popup.model';
 
 import ng from './ng';
 
@@ -51,6 +52,7 @@ Model.register('grid', GridModel)
 	.register('columnChooser', ColumnChooserModel)
 	.register('selectionbar', SelectionbarModel)
 	.register('filter', FilterModel)
-	.register('drag', DragModel);
+	.register('drag', DragModel)
+	.register('popup', PopupModel);
 
 export default ng;

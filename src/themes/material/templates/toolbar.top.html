@@ -21,14 +21,34 @@
 	</div>
 	<div class="q-grid-actions" flex="none" layout="row" layout-align="end center">
 		<div>
-			<md-button class="md-icon-button">
-				<md-icon>filter_list</md-icon>
-			</md-button>
+			<q-grid:popup id="q-grid-filte-popup">
+				<q-grid:template for="trigger">
+					<md-icon ng-click="$popup.open()">filter_list</md-icon>
+				</q-grid:template>
+				<q-grid:template for="body">
+					<q-grid:expression-builder on:submit="$popup.close()"
+														on:cancel="$popup.close()">
+					</q-grid:expression-builder>
+				</q-grid:template>
+				<q-grid:template for="head">
+					Filter
+				</q-grid:template>
+			</q-grid:popup>
 		</div>
 		<div>
-			<md-button class="md-icon-button">
-				<md-icon>more_vert</md-icon>
-			</md-button>
+			<q-grid:popup id="q-grid-column-chooser-popup">
+				<q-grid:template for="trigger">
+					<md-icon ng-click="$popup.open()">more_vert</md-icon>
+				</q-grid:template>
+				<q-grid:template for="body">
+					<q-grid:column-chooser on:submit="$popup.close()"
+												  on:cancel="$popup.close()">
+					</q-grid:column-chooser>
+				</q-grid:template>
+				<q-grid:template for="head">
+					Column Chooser
+				</q-grid:template>
+			</q-grid:popup>
 		</div>
 	</div>
 </div>

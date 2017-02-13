@@ -1,5 +1,4 @@
 import Component from '../component';
-
 import {getFactory as valueFactory, set as setValue} from 'ng/services/value';
 import * as css from 'core/services/css';
 import BodyView from 'core/body/body.view';
@@ -13,6 +12,7 @@ import HighlightView from 'core/highlight/highlight.view';
 import SortView from 'core/sort/sort.view';
 import EditView from 'core/edit/edit.view';
 import SelectionView from 'core/view/view.selection';
+import {GRID_NAME} from 'ng/definition';
 
 import {GRID_NAME} from 'src/definition';
 
@@ -33,10 +33,9 @@ class ViewCore extends Component {
 		this.body = new BodyView(model, valueFactory);
 		this.foot = new FootView(model, valueFactory);
 		this.layout = new LayoutView(model, markup, document);
+		this.selection = new SelectionView(model);
 		this.group = new GroupView(model, valueFactory);
 		this.pivot = new PivotView(model, valueFactory);
-
-		this.selection = new SelectionView(model);
 		this.nav = new NavigationView(model, document);
 		this.highlight = new HighlightView(model, markup);
 		this.sort = new SortView(model);

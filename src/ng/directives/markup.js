@@ -1,5 +1,5 @@
 import Directive from './directive';
-import {MARKUP_NAME, GRID_NAME} from 'src/definition';
+import {MARKUP_NAME, GRID_NAME} from 'ng/definition';
 
 class markup extends Directive(MARKUP_NAME, {root: `^^${GRID_NAME}`}) {
 	constructor($element) {

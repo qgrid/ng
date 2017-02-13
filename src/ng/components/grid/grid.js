@@ -1,5 +1,5 @@
 import RootComponent from '../root.component';
-import {GRID_PREFIX} from 'src/definition'
+import {GRID_PREFIX} from 'core/definition'
 
 export class Grid extends RootComponent {
 	constructor($element, $transclude, serviceFactory, theme) {
