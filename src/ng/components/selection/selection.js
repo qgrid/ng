@@ -1,5 +1,5 @@
 import Component from '../component';
-import {GRID_NAME, SELECTION_NAME} from 'src/definition';
+import {GRID_NAME, SELECTION_NAME} from 'ng/definition';
 import TemplatePath from 'core/template/template.path';
 
 TemplatePath

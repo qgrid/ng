@@ -9,7 +9,16 @@ export default class ThemeProvider {
 	}
 
 	register(theme, apply) {
-		this.themes.set(theme, apply);
+		if (this.themes.has(theme)) {
+			const prevApply = this.themes.get(theme);
+			this.themes.set(theme, function () {
+				prevApply(...arguments);
+				apply(...arguments);
+			});
+		}
+		else {
+			this.themes.set(theme, apply);
+		}
 	}
 
 	$get($templateCache) {

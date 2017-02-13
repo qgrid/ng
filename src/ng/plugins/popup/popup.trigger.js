@@ -1,6 +1,6 @@
 import Component from 'ng/components/component';
 import TemplateLink from 'ng/components/template/template.link';
-import {POPUP_NAME} from 'src/definition';
+import {POPUP_NAME} from '../definition';
 
 class PopupTrigger extends Component {
 	constructor($scope, $element, $compile, $templateCache, qGridPopupService) {
@@ -20,23 +20,23 @@ class PopupTrigger extends Component {
 		const link = this.template.link(
 			templateUrl,
 			model.popup().resource,
-			['trigger']
+			[`${this.popup.id}:trigger`]
 		);
 
 		link(this.$element, templateScope);
 		this.$templateScope = templateScope;
 	}
 
-	onDestroy(){
+	onDestroy() {
 		if (this.$templateScope) {
 			this.$templateScope.$destroy();
 		}
 	}
 
-	open(){
-		this.qGridPopupService.open({
-			id: 'Id'
-		}, this.popup.model);
+	open() {
+		const popup = this.popup;
+		const settings = {id: popup.id};
+		this.qGridPopupService.open(settings, popup.model);
 	}
 }
 

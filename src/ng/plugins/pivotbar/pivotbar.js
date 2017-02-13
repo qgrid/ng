@@ -1,6 +1,7 @@
 import PluginComponent from '../plugin.component';
 import Command from 'core/infrastructure/command'
-import {TH_CORE_NAME, PIVOTBAR_NAME} from 'src/definition';
+import {TH_CORE_NAME} from 'ng/definition';
+import {PIVOTBAR_NAME} from '../definition';
 import TemplatePath from 'core/template/template.path';
 
 TemplatePath

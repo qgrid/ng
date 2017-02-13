@@ -1,4 +1,4 @@
-import {GRID_NAME} from 'src/definition';
+import {GRID_NAME} from 'ng/definition';
 
 let transfer = null;
 export default class DragService {

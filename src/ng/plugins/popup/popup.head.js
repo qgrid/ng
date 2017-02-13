@@ -19,14 +19,14 @@ class PopupHead extends Component {
 		const link = this.template.link(
 			templateUrl,
 			model.popup().resource,
-			['head']
+			[`${this.id}:head`]
 		);
 
 		link(this.$element, templateScope);
 		this.$templateScope = templateScope;
 	}
 
-	onDestroy(){
+	onDestroy() {
 		if (this.$templateScope) {
 			this.$templateScope.$destroy();
 		}
@@ -45,6 +45,7 @@ export default {
 	controller: PopupHead,
 	controllerAs: '$popupHead',
 	bindings: {
-		model: '<'
+		model: '<',
+		id: '<'
 	}
 };

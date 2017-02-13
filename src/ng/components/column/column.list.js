@@ -4,7 +4,7 @@ import AppError from 'core/infrastructure/error';
 import {isUndefined, assignWith, noop} from 'core/services/utility';
 import merge from 'core/services/merge';
 import * as columnService from 'core/column/column.service'
-import {GRID_NAME} from 'src/definition';
+import {GRID_NAME} from 'ng/definition';
 
 class ColumnList extends ModelComponent {
 	constructor() {

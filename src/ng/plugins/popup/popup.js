@@ -1,14 +1,14 @@
 import PluginComponent from '../plugin.component';
-import {POPUP_NAME} from 'src/definition';
+import {POPUP_NAME} from '../definition';
 import TemplatePath from 'core/template/template.path';
 
 require('./popup.scss');
 
 TemplatePath
-	.register(POPUP_NAME, (template) => {
+	.register(POPUP_NAME, (template, popup) => {
 		return {
 			model: 'popup',
-			resource: template.for
+			resource: `${popup.id}:${template.for}`
 		};
 	});
 
@@ -17,8 +17,7 @@ class Popup extends PluginComponent('popup', ['popup'], ['$transclude']) {
 		super(...arguments);
 	}
 
-	onInit(){
-		//this.compile();
+	onInit() {
 	}
 
 	show() {
@@ -38,7 +37,7 @@ class Popup extends PluginComponent('popup', ['popup'], ['$transclude']) {
 		super.show();
 	}
 
-	get resource(){
+	get resource() {
 		return this.model.popup().resource;
 	}
 }
@@ -46,5 +45,8 @@ class Popup extends PluginComponent('popup', ['popup'], ['$transclude']) {
 export default Popup.component({
 	transclude: true,
 	controller: Popup,
-	controllerAs: '$popup'
+	controllerAs: '$popup',
+	bindings: {
+		id: '@'
+	}
 });

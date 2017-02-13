@@ -1,5 +1,6 @@
 import Component from '../component';
-import {GRID_NAME, GRID_PREFIX} from 'src/definition';
+import {GRID_NAME} from 'ng/definition';
+import {GRID_PREFIX} from 'core/definition';
 
 class BoxCore extends Component {
 	constructor($element) {

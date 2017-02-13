@@ -19,7 +19,7 @@ class PopupBody extends Component {
 		const link = this.template.link(
 			templateUrl,
 			model.popup().resource,
-			['body']
+			[`${this.id}:body`]
 		);
 
 		link(this.$element, templateScope);
@@ -45,6 +45,7 @@ export default {
 	controller: PopupBody,
 	controllerAs: '$popupBody',
 	bindings: {
-		model: '<'
+		model: '<',
+		id: '<'
 	}
 };
