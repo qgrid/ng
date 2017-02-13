@@ -1,3 +1,5 @@
+@import "scroll";
+
 table {
 	width: 100%;
 	border-spacing: 0;
@@ -12,7 +14,7 @@ table {
 		/* head takes the height it requires,
 		and it's not scaled when table is resized */
 		flex: 0 0 auto;
-		width: 100%;
+		width: calc(100% - 8px);
 		overflow: hidden;
 	}
 
