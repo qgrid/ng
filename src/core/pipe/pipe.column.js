@@ -8,6 +8,8 @@ export default function pipeColumn(memo, context, next) {
 	const heads = pivot.heads;
 	const columns = [];
 
+	// TODO: persist column order
+
 	if (model.selection().mode === 'check') {
 		const selectColumn = columnFactory('select');
 		selectColumn.model.source = 'generation';
@@ -92,7 +94,7 @@ export default function pipeColumn(memo, context, next) {
 	else {
 		// Add special column type that fills remaining place (width = 100%)
 		const padColumn = columnFactory('pad');
-		padColumn.key = padColumn.key + `[0][${columns.length}]`
+		padColumn.key = padColumn.key + `[0][${columns.length}]`;
 		padColumn.rowspan = heads.length;
 		columns.push(padColumn);
 

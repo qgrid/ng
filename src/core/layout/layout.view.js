@@ -1,5 +1,5 @@
 import View from 'core/view/view';
-import * as dom from 'core/services/dom';
+import * as css from 'core/services/css';
 import * as columnService from 'core/column/column.service';
 import log from 'core/infrastructure/log';
 
@@ -27,6 +27,7 @@ export default class LayoutView extends View {
 		});
 	}
 
+
 	invalidateScroll() {
 		log.info('layout', 'invalidate scroll');
 
@@ -39,28 +40,29 @@ export default class LayoutView extends View {
 	invalidateColumns() {
 		log.info('layout', 'invalidate columns');
 
+		css.removeStyle('qgrid');
+
 		const model = this.model;
-		const markup = this.markup;
 		const columns = columnService
 			.lineView(model.view().columns)
 			.map(v => v.model);
 
+		const style = {};
 		for (let [key, context] of Object.entries(model.layout().columns)) {
 			const columnIndex = columnService.findIndex(columns, key);
-			const column = columns[columnIndex];
-			// TODO: make it better
-			const minWidth = parseInt(column.minWidth) || 20;
-			if (context.width >= minWidth) {
-				const headCells = dom.cellsAt(markup.head, columnIndex)[0];
-				const bodyCells = dom.cellsAt(markup.body, columnIndex);
-				const footCells = dom.cellsAt(markup.foot, columnIndex);
-
-				const width = context.width;
-				[headCells].forEach(c => this.setWidth(c, width));
-				bodyCells.forEach(c => this.setWidth(c, width));
-				footCells.forEach(c => this.setWidth(c, width));
+			if (columnIndex >= 0) {
+				const column = columns[columnIndex];
+				const width = Math.max(context.width, parseInt(column.minWidth) || 20) + 'px';
+				key = css.escape(key);
+				style[`td.q-grid-${key}, th.q-grid-${key}`] = {
+					'width': width,
+					'min-width': width,
+					'max-width': width
+				};
 			}
 		}
+
+		css.addStyle('qgrid', style);
 	}
 
 	setWidth(element, width) {
