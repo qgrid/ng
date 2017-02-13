@@ -12,7 +12,7 @@ $row-height: 48px;
 					background-color: #eee;
 				}
 
-				&.selected {
+				&.q-grid-selected {
 					background-color: $selected;
 				}
 
@@ -37,7 +37,7 @@ $row-height: 48px;
 						text-align: center;
 					}
 
-					&.selected {
+					&.q-grid-selected  {
 						background-color: $selected;
 					}
 				}

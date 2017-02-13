@@ -11,10 +11,6 @@ $row-height: 48px;
 				&:hover {
 					background-color: #eee;
 				}
-						
-				&.selected {
-					background-color: $selected;
-				}
 
 				td {
 					color: $dark;
@@ -35,10 +31,6 @@ $row-height: 48px;
 
 					&.bool {
 						text-align: center;
-					}
-
-					&.selected {
-						background-color: $selected;
 					}
 				}
 			}

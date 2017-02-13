@@ -1,6 +1,6 @@
 import View from './view';
 import Command from 'core/infrastructure/command';
-import SelectionService from 'core/services/selection';
+import selectionServiceFactory from 'core/services/selection.factory';
 import {isUndefined} from 'core/services/utility';
 
 export default class SelectionView extends View {
@@ -24,22 +24,26 @@ export default class SelectionView extends View {
 		});
 
 		model.dataChanged.watch(e => {
-			if (e.changes.hasOwnProperty('rows')) {
-				this._selectionService = new SelectionService();
+			if (e.changes.hasOwnProperty('rows')) {				
+				this.createService();
 			}
 		});
 
 		model.selectionChanged.watch(e => {
-			if (e.changes.hasOwnProperty('items')) {
-				this._selectionService = new SelectionService();
+			if (e.changes.hasOwnProperty('items')) {				
+				this.createService();
 				this._selectionService.select(e.state.items, true);
 			}
 
 			if (e.changes.hasOwnProperty('unit') || e.changes.hasOwnProperty('mode')) {
-				this._selectionService = new SelectionService();
+				this.createService();
 			}
 		});
 
+	}
+
+	createService() {
+		this._selectionService = selectionServiceFactory(this.selection.mode);
 	}
 
 	get selection(){

@@ -18,12 +18,16 @@ tbody {
 			}
 		}
 
+		&.q-grid-selected {
+			background-color: $selected;
+		}
+		
 		td {
 			color: $dark;
 			font-size: 13px;
 			border-top: 1px solid $dark-divider;
 
-			&.q-grid-selected{
+			&.q-grid-selected {
 				background-color: $selected;
 			}
 
