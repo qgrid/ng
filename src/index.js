@@ -23,6 +23,7 @@ import VisibilityModel from 'core/visibility/visibility.model';
 import ColumnChooserModel from 'core/column-chooser/column.chooser.model';
 import FilterModel from 'core/filter/filter.model';
 import DragModel from 'core/drag/drag.model';
+import PopupModel from 'core/popup/popup.model';
 
 import ng from './ng';
 
@@ -49,6 +50,7 @@ Model.register('grid', GridModel)
 	.register('visibility', VisibilityModel)
 	.register('columnChooser', ColumnChooserModel)
 	.register('filter', FilterModel)
-	.register('drag', DragModel);
+	.register('drag', DragModel)
+	.register('popup', PopupModel);
 
 export default ng;

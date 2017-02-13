@@ -12,6 +12,19 @@ import Selection from './components/selection/selection';
 import Drag from './components/dnd/drag';
 import Drop from './components/dnd/drop';
 
+import Pager from './plugins/pagination/pager';
+import Sortbar from './plugins/sortbar/sortbar';
+import Groupbar from './plugins/groupbar/groupbar';
+import Pivotbar from './plugins/pivotbar/pivotbar';
+import Visibility from './plugins/visibility/visibility';
+import ColumnChooser from './plugins/column-chooser/column.chooser';
+import Progress from './plugins/progress/progress';
+import Popup from './plugins/popup/popup';
+import PopupTrigger from './plugins/popup/popup.trigger';
+import PopupHead from './plugins/popup/popup.head';
+import PopupBody from './plugins/popup/popup.body';
+import PopupService from './plugins/popup/popup.service';
+
 import BoxCore from './components/grid/box.core';
 import ViewCore from './components/view/view.core';
 import TdCore from './components/body/td.core';
@@ -53,6 +66,11 @@ export default angular
 	.component(def.TOOLBAR_NAME, Toolbar)
 	.component(def.TOOLBAR_CORE_NAME, ToolbarCore)
 	.component(def.SELECTION_NAME, Selection)
+	.component(def.POPUP_NAME, Popup)
+	.component(def.POPUP_TRIGGER_NAME, PopupTrigger)
+	.component(def.POPUP_HEAD_NAME, PopupHead)
+	.component(def.POPUP_BODY_NAME, PopupBody)
+	.component(def.PROGRESS_NAME, Progress)
 	.directive(def.MARKUP_NAME, () => Markup)
 	.directive(def.DRAG_NAME, () => Drag)
 	.directive(def.DROP_NAME, () => Drop)
@@ -147,5 +165,18 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.head.cell.select.tpl.html', require('./components/cell/select/head.cell.select.html'));
 		theme.put('qgrid.body.cell.select.tpl.html', require('./components/cell/select/body.cell.select.html'));
 		theme.put('qgrid.foot.cell.select.tpl.html', EMPTY);
+
+		theme.put('qgrid.plugin.popup.tpl.html', require('./plugins/popup/popup.html'));
+		theme.put('qgrid.plugin.popup-panel.tpl.html', require('./plugins/popup/popup.panel.html'));
+		theme.put('qgrid.plugin.popup-trigger.tpl.html', EMPTY);
+		theme.put('qgrid.plugin.popup-head.tpl.html', EMPTY);
+		theme.put('qgrid.plugin.popup-body.tpl.html', EMPTY);
+		theme.put('qgrid.plugin.pager.tpl.html', require('./plugins/pagination/pager.html'));
+		theme.put('qgrid.plugin.progress.tpl.html', require('./plugins/progress/progress.html'));
+		theme.put('qgrid.plugin.sortbar.tpl.html', require('./plugins/sortbar/sortbar.html'));
+		theme.put('qgrid.plugin.groupbar.tpl.html', require('./plugins/groupbar/groupbar.html'));
+		theme.put('qgrid.plugin.pivotbar.tpl.html', require('./plugins/pivotbar/pivotbar.html'));
+		theme.put('qgrid.plugin.visibility.tpl.html', require('./plugins/visibility/visibility.html'));
+		theme.put('qgrid.plugin.columnchooser.tpl.html', require('./plugins/column-chooser/column.chooser.html'));
 	});
 }
