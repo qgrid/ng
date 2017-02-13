@@ -2,6 +2,8 @@ import View from 'core/view/view';
 import Command from 'core/infrastructure/command';
 import Shortcut from 'core/infrastructure/shortcut';
 import Navigation from 'core/navigation/navigation';
+import {GRID_PREFIX} from 'core/definition';
+
 
 export default class NavigationView extends View {
 	constructor(model, markup, apply) {
@@ -19,7 +21,7 @@ export default class NavigationView extends View {
 
 		this.blur = new Command({
 			execute: (row, column) => {
-				this.rows[row].cells[column].classList.remove('q-grid-focus');
+				this.rows[row].cells[column].classList.remove(`${GRID_PREFIX}-focus`);
 			},
 			canExecute: () => {
 				return this.rows.length > this.newRow
@@ -28,7 +30,7 @@ export default class NavigationView extends View {
 		});
 		this.focus = new Command({
 			execute: (row, column) => {
-				this.rows[row].cells[column].classList.add('q-grid-focus');
+				this.rows[row].cells[column].classList.add(`${GRID_PREFIX}-focus`);
 			},
 			canExecute: () => {
 				return this.rows.length > this.newRow

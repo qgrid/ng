@@ -1,5 +1,5 @@
 import PluginComponent from '../plugin.component';
-import {PAGER_NAME} from 'src/definition';
+import {PAGER_NAME} from '../definition';
 import Command from 'core/infrastructure/command';
 import TemplatePath from 'core/template/template.path';
 

@@ -1,3 +1,3 @@
 require('./index');
-require('./assets')
+require('./assets/index.scss');
 require('./themes/material');

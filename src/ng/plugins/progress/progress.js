@@ -1,6 +1,5 @@
 import PluginComponent from '../plugin.component';
-// import Command from 'core/infrastructure/command';
-import {PROGRESS_NAME} from 'src/definition';
+import {PROGRESS_NAME} from '../definition';
 import TemplatePath from 'core/template/template.path';
 
 TemplatePath
