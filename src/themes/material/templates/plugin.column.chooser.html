@@ -1,6 +1,11 @@
 <div class="q-grid-column-chooser">
 	<ul>
-		<li ng-repeat="column in $columnChooser.columns">
+		<li ng-repeat="column in $columnChooser.columns"
+			 q-grid:drag="$columnChooser.transfer(column)"
+			 q-grid:drop="$columnChooser.transfer(column)"
+			 q-grid:on-drop="$columnChooser.drop.execute($event)"
+			 q-grid:can-drop="$columnChooser.drop.canExecute($event)"
+			 q-grid:can-drag="$columnChooser.drag.canExecute($event)">
 
 			<md-checkbox ng-checked="$columnChooser.state(column)"
 							 ng-if="$columnChooser.toggle.canExecute(column)"
@@ -10,7 +15,7 @@
 
 
 			<md-input-container ng-if="$columnChooser.canAggregate">
-				<md-select ng-model="column.aggregation" ng-change="$columnChooser.toggleAggregation.execute(column)">
+				<md-select aria-label="Aggregation" ng-model="column.aggregation" ng-change="$columnChooser.toggleAggregation.execute(column)">
 					<md-option value=""><em>Aggregation</em></md-option>
 					<md-option ng-repeat="aggregation in $columnChooser.aggregations"
 								  ng-value="aggregation">
