@@ -2,6 +2,7 @@ import Pager from './pagination/pager';
 import Sortbar from './sortbar/sortbar';
 import Groupbar from './groupbar/groupbar';
 import Pivotbar from './pivotbar/pivotbar';
+import Selectionbar from './selectionbar/selectionbar';
 import Visibility from './visibility/visibility';
 import ColumnChooser from './column-chooser/column.chooser';
 import Progress from './progress/progress';
@@ -19,6 +20,7 @@ export default angular
 	.component(def.SORTBAR_NAME, Sortbar)
 	.component(def.GROUPBAR_NAME, Groupbar)
 	.component(def.PIVOTBAR_NAME, Pivotbar)
+	.component(def.SELECTIONBAR_NAME, Selectionbar)
 	.component(def.VISIBILITY_NAME, Visibility)
 	.component(def.COLUMNCHOOSER_NAME, ColumnChooser)
 	.component(def.PROGRESS_NAME, Progress)
@@ -40,6 +42,7 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.plugin.sortbar.tpl.html', require('./sortbar/sortbar.html'));
 		theme.put('qgrid.plugin.groupbar.tpl.html', require('./groupbar/groupbar.html'));
 		theme.put('qgrid.plugin.pivotbar.tpl.html', require('./pivotbar/pivotbar.html'));
+		theme.put('qgrid.plugin.selectionbar.tpl.html', require('./selectionbar/selectionbar.html'));
 		theme.put('qgrid.plugin.visibility.tpl.html', require('./visibility/visibility.html'));
 		theme.put('qgrid.plugin.columnchooser.tpl.html', require('./column-chooser/column.chooser.html'));
 

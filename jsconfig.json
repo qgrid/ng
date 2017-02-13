@@ -1,0 +1,11 @@
+{
+	"compilerOptions": {
+		"target": "es6",
+		"paths": {
+			"src": ["./src"],
+			"core": ["./src/core"],
+			"ng": ["./src/ng"],
+			"themes": ["./src/themes"]
+		}
+	}
+}

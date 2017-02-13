@@ -8,9 +8,7 @@ export default function pipeColumn(memo, context, next) {
 	const heads = pivot.heads;
 	const columns = [];
 
-	// TODO: persist column order
-
-	if (model.selection().mode === 'check') {
+	if (model.selection().unit === 'row') {
 		const selectColumn = columnFactory('select');
 		selectColumn.model.source = 'generation';
 		selectColumn.rowspan = heads.length;

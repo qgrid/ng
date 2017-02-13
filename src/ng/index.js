@@ -8,7 +8,6 @@ import ColumnList from './components/column/column.list';
 import Column from './components/column/column';
 import Node from './components/node/node';
 import Toolbar from './components/toolbar/toolbar';
-import Selection from './components/selection/selection';
 import Drag from './components/dnd/drag';
 import Drop from './components/dnd/drop';
 
@@ -21,7 +20,6 @@ import HeadCore from './components/head/head.core';
 import BodyCore from './components/body/body.core';
 import FootCore from './components/foot/foot.core';
 import ToolbarCore from './components/toolbar/toolbar.core';
-import SelectionCore from './components/selection/selection.core';
 
 import Indeterminate from './directives/indeterminate';
 import Focus from './directives/focus';
@@ -63,9 +61,7 @@ const layoutModel = angular.module(def.MODULE_LAYOUT_NAME, [coreModule])
 	.component(def.NODE_NAME, Node)
 	.component(def.TOOLBAR_NAME, Toolbar)
 	.component(def.TOOLBAR_CORE_NAME, ToolbarCore)
-	.component(def.SELECTION_NAME, Selection)
 	.directive(def.MARKUP_NAME, () => Markup)
-	.directive(def.SELECTION_CORE_NAME, () => SelectionCore)
 	.directive(def.TD_CORE_NAME, () => TdCore)
 	.directive(def.TH_CORE_NAME, () => ThCore)
 	.directive(def.TF_CORE_NAME, () => TfCore)

@@ -60,7 +60,7 @@ export default function Controller($http, $log) {
 	];
 
 	this.selectionChanged = function (e) {
-		$log.log(`qgrid.demo: selection changed ${e.state.items.length} on ${e.state.mode} mode`);
+		$log.log(`qgrid.demo: selection changed ${e.state.items.length} on ${e.state.unit} unit and ${e.state.mode} mode`);
 	};
 
 	$http.get('data/people/100.json')

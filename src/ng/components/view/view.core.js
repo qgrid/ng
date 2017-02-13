@@ -11,6 +11,7 @@ import NavigationView from 'core/navigation/navigation.view';
 import HighlightView from 'core/highlight/highlight.view';
 import SortView from 'core/sort/sort.view';
 import EditView from 'core/edit/edit.view';
+import SelectionView from 'core/selection/selection.view';
 import {GRID_NAME} from 'ng/definition';
 
 class ViewCore extends Component {
@@ -30,6 +31,7 @@ class ViewCore extends Component {
 		this.body = new BodyView(model, valueFactory);
 		this.foot = new FootView(model, valueFactory);
 		this.layout = new LayoutView(model, markup, document);
+		this.selection = new SelectionView(model);
 		this.group = new GroupView(model, valueFactory);
 		this.pivot = new PivotView(model, valueFactory);
 		this.nav = new NavigationView(model, document);

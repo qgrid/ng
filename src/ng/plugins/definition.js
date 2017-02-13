@@ -7,6 +7,7 @@ export const PROGRESS_NAME = `${GRID}Progress`;
 export const SORTBAR_NAME = `${GRID}Sortbar`;
 export const GROUPBAR_NAME = `${GRID}Groupbar`;
 export const PIVOTBAR_NAME = `${GRID}Pivotbar`;
+export const SELECTIONBAR_NAME = `${GRID}Selectionbar`;
 export const VISIBILITY_NAME = `${GRID}Visibility`;
 export const COLUMNCHOOSER_NAME = `${GRID}ColumnChooser`;
 
