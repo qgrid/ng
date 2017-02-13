@@ -1,5 +1,6 @@
 import Component from '../component';
 import {getFactory as valueFactory, set as setValue} from 'ng/services/value';
+import * as css from 'core/services/css';
 import BodyView from 'core/body/body.view';
 import HeadView from 'core/head/head.view';
 import FootView from 'core/foot/foot.view';
@@ -18,22 +19,28 @@ class ViewCore extends Component {
 
 		this.element = $element[0];
 		this.document = $document[0];
-		this.markup = {};
 	}
 
 	onInit() {
 		const model = this.model;
+		const document = this.document;
+		const markup = this.root.markup;
 
 		this.head = new HeadView(model);
 		this.body = new BodyView(model, valueFactory);
 		this.foot = new FootView(model, valueFactory);
-		this.layout = new LayoutView(model, this.markup);
+		this.layout = new LayoutView(model, markup, document);
 		this.group = new GroupView(model, valueFactory);
 		this.pivot = new PivotView(model, valueFactory);
-		this.nav = new NavigationView(model, this.document);
-		this.highlight = new HighlightView(model, this.markup);
+		this.nav = new NavigationView(model, document);
+		this.highlight = new HighlightView(model, markup);
 		this.sort = new SortView(model);
 		this.edit = new EditView(model, setValue);
+	}
+
+	onDestroy(){
+		const id = this.model.grid().id;
+		css.removeStyle(id);
 	}
 
 	templateUrl(key) {

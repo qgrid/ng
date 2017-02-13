@@ -53,7 +53,8 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 		this.resize = new Command({
 			canExecute: e => {
 				if (e.source.key === TH_CORE_NAME) {
-					const map = columnService.map(this.view.model.data().columns);
+					const columns = columnService.lineView(this.view.model.view().columns).map(v => v.model);
+					const map = columnService.map(columns);
 					return map.hasOwnProperty(e.source.value) && map[e.source.value].canResize !== false;
 				}
 
@@ -63,15 +64,11 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 		});
 	}
 
-	onInit() {
-		this.view.markup.headView = this.element.parentNode.parentNode; // TODO: make directive
-	}
-
 	transfer(cell) {
 		return {
 			key: TH_CORE_NAME,
 			value: cell.column.key
-		}
+		};
 	}
 }
 

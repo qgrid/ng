@@ -1,4 +1,4 @@
-import ColumnView from 'core/column/column.view';
+import ColumnView from 'core/column-type/column.view';
 import TemplatePath from 'core/template/template.path';
 import ColumnModel from './column.model';
 
@@ -18,7 +18,8 @@ class PivotColumnModel extends ColumnModel {
 		this.source = 'generation';
 		this.canEdit = false;
 		this.canSort = false;
-		this.width = 50;
+		this.canResize = false;
+		this.width = 60;
 		this.rowIndex = 0;
 		this.columnIndex = 0;
 	}

@@ -1,6 +1,10 @@
 .q-grid-sortbar {
 	height: 100%;
 
+	label{
+		font-weight: bold;
+	}
+
 	ul {
 		list-style-type: none;
 		margin: 0;
@@ -21,5 +25,8 @@
 	select {
 		background: transparent;
 		border: none;
+		width: 90px;
 	}
+
+	padding: 0 10px;
 }

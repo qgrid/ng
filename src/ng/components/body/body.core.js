@@ -9,7 +9,23 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 
 		this.element = $element[0];
 		this.listener = new EventListener(this, this.element);
+		this.listener.on('scroll', this.onScroll);
+
 		Object.defineProperty($scope, '$view', {get: () => this.view});
+	}
+
+	onScroll() {
+		const element = this.element;
+		const layout = this.view.model.layout;
+
+		layout({
+			scroll: {
+				top: element.scrollTop,
+				left: element.scrollLeft,
+				width: element.scrollWidth,
+				height: element.scrollHeight
+			}
+		})
 	}
 
 	onInit() {

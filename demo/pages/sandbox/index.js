@@ -49,14 +49,14 @@ export default function Controller($http) {
 			title: 'Zip',
 			type: 'number',
 			path: 'contact.address.zip',
-			width: 40
+			width: 70
 		},
 		{
 			key: 'contact.address.state',
 			title: 'State',
 			type: 'text',
 			path: 'contact.address.state',
-			width: 30
+			width: 70
 		},
 		{
 			key: 'contact.address.city',

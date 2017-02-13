@@ -1,7 +1,7 @@
 import Directive from './directive';
-import {MARKUP_NAME, VIEW_CORE_NAME} from 'core/definition';
+import {MARKUP_NAME, GRID_NAME} from 'ng/definition';
 
-class markup extends Directive(MARKUP_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
+class markup extends Directive(MARKUP_NAME, {root: `^^${GRID_NAME}`}) {
 	constructor($element) {
 		super();
 
@@ -9,7 +9,7 @@ class markup extends Directive(MARKUP_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	}
 
 	onInit() {
-		this.view.markup[this.name] = this.element;
+		this.root.markup[this.name] = this.element;
 	}
 
 	onDestroy() {

@@ -1,73 +1,19 @@
 @import "variables";
 
-.q-grid-head {
-	overflow: hidden;
-}
-
 .q-grid-view {
 	thead, tfoot {
-		padding-right: 20px;
 		tr {
 			height: 56px;
 			th, td {
 				color: $dark-secondary;
 				font-size: 12px;
 				font-weight: bold;
-				white-space: nowrap;
-				vertical-align: middle;
-				text-align: left;
 				padding: 0 16px;
-				position: relative;
-				width: 100px;
-
-				> div {
-					overflow: hidden;
-					text-overflow: ellipsis;
-					outline: none;
-				}
-
-				&.q-grid-pad {
-					width: 100%;
-				}
-
-				&.q-grid-email {
-					width: 180px;
-				}
-
-				&.q-grid-password {
-					width: 60px;
-				}
-
-				&.q-grid-bool {
-					width: 55px;
-				}
-
-				&.q-grid-date {
-					width: 80px;
-				}
-
-				&.q-grid-number {
-					width: 60px;
-				}
-
-				&.q-grid-array {
-					width: 200px;
-				}
-
-				&.q-grid-row-indicator {
-					width: 20px;
-					min-width: 20px;
-					max-width: 20px;
-				}
 
 				&:hover {
 					label {
 						font-weight: bold;
 					}
-				}
-
-				> * {
-					vertical-align: middle;
 				}
 			}
 		}

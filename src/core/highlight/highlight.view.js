@@ -57,14 +57,26 @@ export default class HighlightView extends View {
 	columnIndex(key) {
 		const columnRows = this.model.view().columns;
 		const columns = columnService.lineView(columnRows).map(v => v.model);
-		return columnService.findIndex(columns, key);
+		const index = columnService.findIndex(columns, key);
+		if (index >= 0) {
+			// TODO: add pivot col support
+			const column =  columns[index];
+			if(column.type === 'pivot' || column.type === 'pad') {
+				return -1;
+			}
+		}
+
+		return index;
 	}
 
 	highlight(key, cls) {
 		const index = this.columnIndex(key);
+		if (index < 0) {
+			return noop;
+		}
 
 		const head = this.markup.head;
-		if (head) {
+		if (head && head.rows.length) {
 			for (let row of head.rows) {
 				row.cells[index].classList.add(`${GRID_PREFIX}-${cls}`);
 				if (index > 0) {
@@ -96,9 +108,12 @@ export default class HighlightView extends View {
 
 	blur(key, cls) {
 		const index = this.columnIndex(key);
+		if (index < 0) {
+			return noop;
+		}
 
 		const head = this.markup.head;
-		if (head) {
+		if (head && head.rows.length) {
 			for (let row of head.rows) {
 				row.cells[index].classList.remove(`${GRID_PREFIX}-${cls}`);
 				if (index > 0) {
@@ -119,7 +134,7 @@ export default class HighlightView extends View {
 		}
 
 		const foot = this.markup.foot;
-		if(foot) {
+		if (foot) {
 			for (let row of foot.rows) {
 				row.cells[index].classList.remove(`${GRID_PREFIX}-${cls}`);
 			}

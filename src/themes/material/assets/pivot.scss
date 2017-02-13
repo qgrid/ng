@@ -11,20 +11,13 @@ $border: 1px solid $dark-divider;
 		}
 
 		th.q-grid-pivot {
-			text-align: center;
 			border-top: $border;
 			border-left: $border;
 			padding: 0;
 
-			&:last-child{
+			&:nth-last-child(2) {
 				border-right: $border;
 			}
-		}
-	}
-
-	tbody{
-		td.q-grid-pivot {
-			text-align: center;
 		}
 	}
 }
