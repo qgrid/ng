@@ -21,9 +21,22 @@
 	</div>
 	<div class="q-grid-actions" flex="none" layout="row" layout-align="end center">
 		<div>
-			<md-button class="md-icon-button">
-				<md-icon>filter_list</md-icon>
-			</md-button>
+			<q-grid:popup>
+				<q-grid:template for="trigger">
+					<button ng-click="$popup.open()">Filter</button>
+					<!--<md-button class="md-icon-button" ng-click="$popup.open()">-->
+						<!--<md-icon>filter_list</md-icon>-->
+					<!--</md-button>-->
+				</q-grid:template>
+				<q-grid:template for="body">
+					<q-grid:column-chooser on:submit="$popup.close()"
+												  on:cancel="$popup.close()">
+					</q-grid:column-chooser>
+				</q-grid:template>
+				<q-grid:template for="head">
+					Column Chooser
+				</q-grid:template>
+			</q-grid:popup>
 		</div>
 		<div>
 			<md-button class="md-icon-button">

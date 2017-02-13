@@ -40,6 +40,8 @@ export const DRAG_NAME = `${GRID}Drag`;
 export const DROP_NAME = `${GRID}Drop`;
 export const SELECTION_NAME = `${GRID}Selection`;
 export const MARKUP_NAME = `${GRID}Markup`;
+export const POPUP_NAME = `${GRID}Popup`;
+export const POPUP_TRIGGER_NAME = `${GRID}PopupTrigger`;
 
 export const CAN_DROP_NAME = `${GRID}CanDrop`;
 export const CAN_DRAG_NAME = `${GRID}CanDrag`;

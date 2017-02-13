@@ -2,7 +2,7 @@ import Resource from 'core/resource/resource';
 import EnumerableResource from 'core/resource/resource.enumerable';
 import AppError from 'core/infrastructure/error';
 
-export default function(resource, key) {
+export default function factory(resource, key) {
 	const data = resource.data;
 	if (resource instanceof EnumerableResource) {
 		let keyIndex = 1;

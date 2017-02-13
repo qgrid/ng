@@ -13,7 +13,7 @@ export default class TemplateLink {
 			? resourceData[resourceKey]
 			: this.$templateCache.get(templateUrl);
 
-		return (element, scope/*, type*/) => {
+		return (element, scope) => {
 			const resourceScope = resource.scope;
 			for (let name of Object.keys(resourceScope)) {
 				if (scope.hasOwnProperty(name)) {

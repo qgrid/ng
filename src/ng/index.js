@@ -19,6 +19,8 @@ import Pivotbar from './plugins/pivotbar/pivotbar';
 import Visibility from './plugins/visibility/visibility';
 import ColumnChooser from './plugins/column-chooser/column.chooser';
 import Progress from './plugins/progress/progress';
+import Popup from './plugins/popup/popup';
+import PopupTrigger from './plugins/popup/popup.trigger';
 
 import BoxCore from './components/grid/box.core';
 import ViewCore from './components/view/view.core';
@@ -66,6 +68,8 @@ export default angular
 	.component(def.PIVOTBAR_NAME, Pivotbar)
 	.component(def.VISIBILITY_NAME, Visibility)
 	.component(def.COLUMNCHOOSER_NAME, ColumnChooser)
+	.component(def.POPUP_NAME, Popup)
+	.component(def.POPUP_TRIGGER_NAME, PopupTrigger)
 	.component(def.PROGRESS_NAME, Progress)
 	.directive(def.MARKUP_NAME, () => Markup)
 	.directive(def.DRAG_NAME, () => Drag)
@@ -162,6 +166,7 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.body.cell.select.tpl.html', require('./components/cell/select/body.cell.select.html'));
 		theme.put('qgrid.foot.cell.select.tpl.html', EMPTY);
 
+		theme.put('qgrid.plugin.popup.tpl.html', require('./plugins/popup/popup.html'));
 		theme.put('qgrid.plugin.pager.tpl.html', require('./plugins/pagination/pager.html'));
 		theme.put('qgrid.plugin.progress.tpl.html', require('./plugins/progress/progress.html'));
 		theme.put('qgrid.plugin.sortbar.tpl.html', require('./plugins/sortbar/sortbar.html'));
