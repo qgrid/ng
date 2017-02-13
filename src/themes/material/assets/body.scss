@@ -3,73 +3,41 @@
 
 $row-height: 48px;
 
-.q-grid-body {
-	overflow: auto;
+tbody {
+	> tr {
+		height: $row-height;
 
-	table {
-		tbody {
-			> tr {
-				height: $row-height;
-
-				&:hover {
-					background-color: #eee;
-					td {
-						&.q-grid-text-area {
-							> span {
-								@include multiLine($lineCount: 3, $bgColor: #eee);
-							}
-						}
+		&:hover {
+			background-color: #eee;
+			td {
+				&.q-grid-text-area {
+					> span {
+						@include multiLine($lineCount: 3, $bgColor: #eee);
 					}
 				}
+			}
+		}
 
-				td {
-					color: $dark;
-					font-size: 13px;
-					border: {
-						width: 1px;
-						color: transparent;
-						style: solid;
-						top-color: $dark-divider
-					}
-					padding: 0 16px;
-					position: relative;
-					vertical-align: middle;
-					text-align: left;
-					overflow: hidden;
-					text-overflow: ellipsis;
-					white-space: nowrap;
+		td {
+			color: $dark;
+			font-size: 13px;
+			border-top: 1px solid $dark-divider;
 
-					> * {
-						vertical-align: middle;
-					}
+			padding: 0 16px;
 
-					&.q-grid-number {
-						text-align: right;
+			&.q-grid-highlight {
+				&.q-grid-text-area {
+					> span {
+						@include multiLine($lineCount: 3, $bgColor: #eee);
 					}
+				}
+			}
 
-					&.q-grid-bool {
-						text-align: center;
-					}
-
-					&.q-grid-password {
-						text-align: center;
-					}
-
-					&.q-grid-highlight{
-						&.q-grid-text-area {
-							> span {
-								@include multiLine($lineCount: 3, $bgColor: #eee);
-							}
-						}
-					}
-
-					&.q-grid-text-area {
-						> span {
-							display: block;
-							white-space: normal;
-							@include multiLine($lineCount: 3);
-						}
-					}
+			&.q-grid-text-area {
+				> span {
+					display: block;
+					white-space: normal;
+					@include multiLine($lineCount: 3);
 				}
 			}
 		}

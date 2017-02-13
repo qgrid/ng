@@ -8,19 +8,25 @@ export default function pipeColumn(memo, context, next) {
 	const heads = pivot.heads;
 	const columns = [];
 
+	// TODO: persist column order
+
 	if (model.selection().mode === 'check') {
 		const selectColumn = columnFactory('select');
-		selectColumn.model.key = selectColumn.model.key + `[0][${columns.length}]`;
 		selectColumn.model.source = 'generation';
 		selectColumn.rowspan = heads.length;
+
+		selectColumn.key =
+			selectColumn.model.key = selectColumn.model.key + `[0][${columns.length}]`;
 		columns.push(selectColumn);
 	}
 
 	if (nodes.length) {
 		const groupColumn = columnFactory('group');
-		groupColumn.model.key = groupColumn.model.key + `[0][${columns.length}]`;
 		groupColumn.model.source = 'generation';
 		groupColumn.rowspan = heads.length;
+
+		groupColumn.key =
+			groupColumn.model.key = groupColumn.model.key + `[0][${columns.length}]`;
 		columns.push(groupColumn);
 	}
 
@@ -29,9 +35,10 @@ export default function pipeColumn(memo, context, next) {
 		columns.push(...
 			columnService.dataView(
 				dataColumns
-					.map(c => {
+					.map((c, i) => {
 						const dataColumn = columnFactory(c.type || 'text', c);
 						dataColumn.rowspan = heads.length;
+						dataColumn.key = c.key + `[0][${columns.length + i}]`;
 						return dataColumn;
 					}),
 				model));
@@ -49,13 +56,22 @@ export default function pipeColumn(memo, context, next) {
 			const pivotColumn = columnFactory('pivot');
 			pivotColumn.colspan = headColumn.value;
 			const pivotColumnModel = pivotColumn.model;
-			pivotColumnModel.key = pivotColumnModel.key + `[0][${j}]`;
 			pivotColumnModel.title = headColumn.key;
+			pivotColumnModel.key = pivotColumnModel.key + `[0][${j}]`;
+
 			pivotColumnModel.rowIndex = 0;
 			pivotColumnModel.columnIndex = startIndex + j;
+
+			pivotColumn.key = `${pivotColumnModel.key} of ${heads.length}`;
 			row[j] = pivotColumn;
 		}
-		rows[0].push(...row);
+
+		const firstRow = rows[0];
+		firstRow.push(...row);
+		// Add special column type that fills remaining place (width = 100%)
+		const padColumn = columnFactory('pad');
+		padColumn.key = padColumn.key + `[0][${firstRow.length}]`;
+		firstRow.push(padColumn);
 
 		for (let i = 1, length = heads.length; i < length; i++) {
 			const head = heads[i];
@@ -66,12 +82,20 @@ export default function pipeColumn(memo, context, next) {
 				const pivotColumn = columnFactory('pivot');
 				pivotColumn.colspan = headColumn.value;
 				const pivotColumnModel = pivotColumn.model;
-				pivotColumnModel.key = pivotColumnModel.key + `[${i}][${j}]`;
 				pivotColumnModel.title = headColumn.key;
+				pivotColumnModel.key = pivotColumnModel.key + `[${i}][${j}]`;
+
 				pivotColumnModel.rowIndex = i;
 				pivotColumnModel.columnIndex = j;
+
+				pivotColumn.key = `${pivotColumnModel.key} of ${heads.length}`;
 				row[j] = pivotColumn;
 			}
+
+			// Add special column type that fills remaining place (width = 100%)
+			const padColumn = columnFactory('pad');
+			padColumn.key = padColumn.key + `[${i}][${heads.length}]`;
+			row.push(padColumn);
 
 			rows.push(row);
 		}
@@ -81,6 +105,7 @@ export default function pipeColumn(memo, context, next) {
 	else {
 		// Add special column type that fills remaining place (width = 100%)
 		const padColumn = columnFactory('pad');
+		padColumn.key = padColumn.key + `[0][${columns.length}]`;
 		padColumn.rowspan = heads.length;
 		columns.push(padColumn);
 
