@@ -20,23 +20,23 @@ class PopupTrigger extends Component {
 		const link = this.template.link(
 			templateUrl,
 			model.popup().resource,
-			['trigger']
+			[`${this.popup.id}:trigger`]
 		);
 
 		link(this.$element, templateScope);
 		this.$templateScope = templateScope;
 	}
 
-	onDestroy(){
+	onDestroy() {
 		if (this.$templateScope) {
 			this.$templateScope.$destroy();
 		}
 	}
 
-	open(){
-		this.qGridPopupService.open({
-			id: 'Id'
-		}, this.popup.model);
+	open() {
+		const popup = this.popup;
+		const settings = {id: popup.id};
+		this.qGridPopupService.open(settings, popup.model);
 	}
 }
 

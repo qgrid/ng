@@ -9,15 +9,15 @@ export default class PopupService {
 	}
 
 	close(id) {
-		var item = this.popups[id];
+		const item = this.popups[id];
 		if (item && angular.isFunction(item.close)) {
 			item.close();
 		}
 	}
 
 	closeAll() {
-		var popups = Object.keys(this.popups);
-		for (var i = 0, length = popups.length; i < length; i++) {
+		const popups = Object.keys(this.popups);
+		for (let i = 0, length = popups.length; i < length; i++) {
 			this.close(popups[i]);
 		}
 	}
@@ -27,12 +27,13 @@ export default class PopupService {
 			return;
 		}
 
-		var scope = this.$rootScope.$new();
-		scope.qGridModel = model;
+		const scope = this.$rootScope.$new();
+		scope.model = model;
+		scope.id = settings.id;
 
 		const link = this.template.link('qgrid.plugin.popup-panel.tpl.html', model.popup().resource);
 		const popup = angular.element('<div class="q-grid-popup"></div>');
-		const box = angular.element('<q-grid-core:box model="qGridModel"></q-grid-core:box>');
+		const box = angular.element(`<q-grid-core:box model="model"></q-grid-core:box>`);
 		popup.append(box);
 		this.$document[0].body.append(popup[0]);
 		link(popup, scope, box);
@@ -85,7 +86,7 @@ export default class PopupService {
 	}
 
 	expand(id) {
-		var item = self.popups[id],
+		const item = self.popups[id],
 			popupElement = item.element[0],
 			position = {
 				top: popupElement.style.top,
@@ -106,7 +107,7 @@ export default class PopupService {
 	}
 
 	collapse(id) {
-		var item = self.popups[id],
+		const item = self.popups[id],
 			popupElement = item.element[0];
 		item.element.removeClass('expanded');
 		item.expanded = false;
@@ -120,15 +121,15 @@ export default class PopupService {
 	}
 
 	focus(id) {
-		var keys = Object.keys(this.popups);
-		for (var i = 0, length = keys.length; i < length; i++) {
-			var item = this.popups[keys[i]];
+		const keys = Object.keys(this.popups);
+		for (let i = 0, length = keys.length; i < length; i++) {
+			const item = this.popups[keys[i]];
 			item.active = false;
 			item.element.removeClass('active');
 			item.element.removeAttr('tabindex');
 		}
 
-		var popup = this.popups[id];
+		const popup = this.popups[id];
 		popup.active = true;
 		popup.element.addClass('active');
 		popup.element.attr('tabindex', 0);
@@ -138,7 +139,7 @@ export default class PopupService {
 	}
 
 	resize(id, settings) {
-		var item = this.popups[id],
+		const item = this.popups[id],
 			popupElement = item.element[0];
 		item.element.css({
 			width: Math.min(settings.width, this.$document[0].body.clientWidth - popupElement.offsetLeft) + "px",
@@ -171,35 +172,35 @@ export default class PopupService {
 	}
 
 	position(target, settings) {
-		var dy = parseInt(settings.offsetTop) || 0,
-			dx = parseInt(settings.offsetLeft) || 0,
-			w = this.$window.innerWidth,
-			h = this.$window.innerHeight,
-			p = target.offset(),
-			x = p.left,
-			y = p.top,
-			eh = parseInt(settings.height) || target.height(),
-			ew = parseInt(settings.width) || target.width(),
-			eh2 = eh / 2,
-			ew2 = ew / 2,
-			gtx1 = x + ew2 > w,
-			ltx0 = x - ew2 < 0,
-			gty1 = y + eh > h,
-			lty0 = y - eh < 0,
-			l = ltx0 && gtx1
-				? w / 2 - ew2
-				: gtx1
+		const dy = parseInt(settings.offsetTop) || 0;
+		const dx = parseInt(settings.offsetLeft) || 0;
+		const w = this.$window.innerWidth;
+		const h = this.$window.innerHeight;
+		const p = target.offset();
+		const x = p.left;
+		const y = p.top;
+		const eh = parseInt(settings.height) || target.height();
+		const ew = parseInt(settings.width) || target.width();
+		const eh2 = eh / 2;
+		const ew2 = ew / 2;
+		const gtx1 = x + ew2 > w;
+		const ltx0 = x - ew2 < 0;
+		const gty1 = y + eh > h;
+		const lty0 = y - eh < 0;
+		const l = ltx0 && gtx1
+			? w / 2 - ew2
+			: gtx1
 				? x - ew - dx
 				: ltx0
-				? x + dx
-				: x - ew2 + dx,
-			t = lty0 && gty1
-				? h / 2 - eh2
-				: gty1
+					? x + dx
+					: x - ew2 + dx;
+		const t = lty0 && gty1
+			? h / 2 - eh2
+			: gty1
 				? y - eh - dy
 				: lty0
-				? y + dy
-				: y + dy;
+					? y + dy
+					: y + dy;
 
 		return {
 			left: l,
