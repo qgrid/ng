@@ -1,4 +1,5 @@
 import Model from 'core/infrastructure/model';
+import GridModel from 'core/grid/grid.model';
 import ViewModel from 'core/view/view.model';
 import DataModel from 'core/data/data.model';
 import HeadModel from 'core/head/head.model';
@@ -26,7 +27,8 @@ import DragModel from 'core/drag/drag.model';
 
 import ng from './ng';
 
-Model.register('view', ViewModel)
+Model.register('grid', GridModel)
+	.register('view', ViewModel)
 	.register('data', DataModel)
 	.register('selection', SelectionModel)
 	.register('head', HeadModel)

@@ -50,9 +50,14 @@ export function dataView(columns, model) {
 }
 
 export function lineView(columnRows) {
-	if(columnRows.length) {
-		const viewColumns = columnRows[0].filter(c => c.model.type !== 'pivot');
-		const pivotColumns = columnRows[columnRows.length - 1].filter(c => c.model.type === 'pivot');
+	const height = columnRows.length;
+	if (height === 1) {
+		return columnRows[0];
+	}
+
+	if (height > 1) {
+		const viewColumns = columnRows[0].filter(c => c.model.type !== 'pivot' && c.model.type !== 'pad');
+		const pivotColumns = columnRows[columnRows.length - 1].filter(c => c.model.type === 'pivot' || c.model.type === 'pad');
 		return viewColumns.concat(pivotColumns);
 	}
 
@@ -60,32 +65,14 @@ export function lineView(columnRows) {
 }
 
 export function widthFactory(model) {
-	const view = model.view;
-
+	const layout = model.layout;
+	const columns = layout().columns;
 	return column => {
-		switch (column.type) {
-			case 'pivot': {
-				const width = column.width;
-				if (width === 0) {
-					return 0;
-				}
-
-				if (!width) {
-					return null;
-				}
-
-				const rowIndex = column.rowIndex;
-				if (rowIndex > 0) {
-					return null;
-				}
-
-				const columnRows = view().columns;
-				return columnRows[rowIndex][column.columnIndex].colspan  * column.width + 'px';
-			}
-			default: {
-				const width = column.width;
-				return width || width === 0 ? width + 'px' : null;
-			}
+		if (columns.hasOwnProperty(column.key)) {
+			return columns[column.key].width;
 		}
+
+		const width = column.width;
+		return width || width === 0 ? width : null;
 	};
 }

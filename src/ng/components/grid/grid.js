@@ -9,6 +9,7 @@ export class Grid extends RootComponent {
 		this.$transclude = $transclude;
 		this.serviceFactory = model => serviceFactory.service(model);
 		this.theme = theme;
+		this.markup = {};
 	}
 
 	onInit() {

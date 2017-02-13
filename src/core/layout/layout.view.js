@@ -1,47 +1,69 @@
 import View from 'core/view/view';
-import * as dom from 'core/services/dom';
+import * as css from 'core/services/css';
 import * as columnService from 'core/column/column.service';
+import log from 'core/infrastructure/log';
 
 export default class LayoutView extends View {
-	constructor(model, markup) {
+	constructor(model, markup, document) {
 		super(model);
 		this.model = model;
 		this.markup = markup;
-
+		this.document = document;
+		model.viewChanged.watch(() => this.invalidateColumns());
 		this.onInit();
 	}
 
 	onInit() {
 		const model = this.model;
-		const markup = this.markup;
-
 		model.layoutChanged.watch(e => {
 			if (e.changes.hasOwnProperty('columns')) {
-				const columns = columnService
-					.lineView(model.view().columns)
-					.map(v => v.model);
-
-				for (let [key, context] of Object.entries(e.state.columns)) {
-					const columnIndex = columnService.findIndex(columns, key);
-					const column = columns[columnIndex];
-					// TODO: make it better
-					const minWidth = parseInt(column.minWidth) || 20;
-					if(context.width >= minWidth) {
-						const headCells = dom.cellsAt(markup.head, columnIndex);
-						const bodyCells = dom.cellsAt(markup.bodyHead, columnIndex);
-						const footCells = dom.cellsAt(markup.foot, columnIndex);
-
-						headCells.forEach(c => c.style.width = context.width + 'px');
-						bodyCells.forEach(c => c.style.width = context.width + 'px');
-						footCells.forEach(c => c.style.width = context.width + 'px');
-					}
-				}
+				this.invalidateColumns();
 			}
 
 			if (e.changes.hasOwnProperty('scroll')) {
-				markup.headView.scrollLeft = e.state.scroll.left;
-				markup.footView.scrollLeft = e.state.scroll.left;
+				this.invalidateScroll();
 			}
 		});
+	}
+
+
+	invalidateScroll() {
+		log.info('layout', 'invalidate scroll');
+
+		const markup = this.markup;
+		const scroll = this.model.layout().scroll;
+		markup.head.scrollLeft = scroll.left;
+		markup.foot.scrollLeft = scroll.left;
+	}
+
+	invalidateColumns() {
+		log.info('layout', 'invalidate columns');
+
+		const model = this.model;
+		const getWidth = columnService.widthFactory(model);
+		const columns = columnService
+			.lineView(model.view().columns)
+			.map(v => v.model);
+
+		const style = {};
+		let length = columns.length;
+		while (length--) {
+			const column = columns[length];
+			const columnWidth = getWidth(column);
+			if (null !== columnWidth) {
+				// TODO: do it right
+				const width = Math.max(columnWidth, parseInt(column.minWidth) || 20) + 'px';
+				const key = css.escape(column.key);
+				style[`td.q-grid-${key}, th.q-grid-${key}`] = {
+					'width': width,
+					'min-width': width,
+					'max-width': width
+				};
+			}
+		}
+
+		const id = model.grid().id;
+		css.removeStyle(id);
+		css.addStyle(id, style);
 	}
 }

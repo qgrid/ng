@@ -20,7 +20,7 @@ function upperFirst(match, letter) {
 export function cellsAt(element, index) {
 	const result = [];
 	const rows = element.rows;
-	for (let i = 0, length = rows.length; i < length; i++) {
+	for (let i = 0, length =  rows.length; i < length; i++) {
 		result.push(rows[i].cells[index]);
 	}
 
