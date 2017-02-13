@@ -44,6 +44,10 @@ class ColumnChooser extends PluginComponent('columnchooser') {
 		return column.isVisible !== false;
 	}
 
+	get canAggregate() {
+		return this.columnChooserCanAggregate;
+	}
+
 	get columns() {
 		return this.model.data().columns;
 	}
@@ -55,5 +59,8 @@ class ColumnChooser extends PluginComponent('columnchooser') {
 
 export default ColumnChooser.component({
 	controller: ColumnChooser,
-	controllerAs: '$columnChooser'
+	controllerAs: '$columnChooser',
+	bindings: {
+		'columnChooserCanAggregate': '<canAggregate'
+	}
 });

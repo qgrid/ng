@@ -1,0 +1,24 @@
+<div class="q-grid-column-chooser">
+	<ul>
+		<li ng-repeat="column in $columnChooser.columns">
+
+			<md-checkbox ng-checked="$columnChooser.state(column)"
+							 ng-if="$columnChooser.toggle.canExecute(column)"
+							 ng-click="$columnChooser.toggle.execute(column)">
+				{{column.title}}
+			</md-checkbox>
+
+
+			<md-input-container ng-if="$columnChooser.canAggregate">
+				<md-select ng-model="column.aggregation" ng-change="$columnChooser.toggleAggregation.execute(column)">
+					<md-option value=""><em>Aggregation</em></md-option>
+					<md-option ng-repeat="aggregation in $columnChooser.aggregations"
+								  ng-value="aggregation">
+						{{::aggregation}}
+					</md-option>
+				</md-select>
+			</md-input-container>
+
+		</li>
+	</ul>
+</div>
