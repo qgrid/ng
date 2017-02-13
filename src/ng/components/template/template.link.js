@@ -13,7 +13,7 @@ export default class TemplateLink {
 			? resourceData[resourceKey]
 			: this.$templateCache.get(templateUrl);
 
-		return (element, scope) => {
+		return (element, scope, container = element) => {
 			const resourceScope = resource.scope;
 			for (let name of Object.keys(resourceScope)) {
 				if (scope.hasOwnProperty(name)) {
@@ -26,7 +26,7 @@ export default class TemplateLink {
 				scope[name] = resourceScope[name];
 			}
 
-			element.html('<!--qgrid: template-->' + template);
+			container.html('<!--qgrid: template-->' + template);
 			const linkTo = this.$compile(element.contents());
 			linkTo(scope);
 		};

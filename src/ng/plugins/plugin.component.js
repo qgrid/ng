@@ -40,10 +40,9 @@ export default function (pluginName, modelNames = [], inject = []) {
 					}
 
 					this.model.visibilityChanged.watch(e => {
-						if(e.changes.hasOwnProperty('plugin')) {
-								const newValue = e.changes.plugin.newValue;
-								const oldValue = e.changes.plugin.oldValue;
-								if(newValue[pluginName] !== oldValue[pluginName]) {
+						if (e.changes.hasOwnProperty('plugin')) {
+							const newValue = e.changes.plugin.newValue;
+							if (newValue[pluginName] !== this.isShown) {
 								if (e.state.plugin[pluginName]) {
 									this.templateScope = this.show();
 								}
@@ -109,6 +108,10 @@ export default function (pluginName, modelNames = [], inject = []) {
 			}
 
 			return null;
+		}
+
+		get isShown(){
+			return this.templateScope !== null;
 		}
 	}
 

@@ -1,8 +1,7 @@
 import Component from 'ng/components/component';
 import TemplateLink from 'ng/components/template/template.link';
-import {POPUP_NAME} from 'src/definition';
 
-class PopupTrigger extends Component {
+class PopupBody extends Component {
 	constructor($scope, $element, $compile, $templateCache, qGridPopupService) {
 		super();
 
@@ -14,13 +13,13 @@ class PopupTrigger extends Component {
 	}
 
 	onInit() {
-		const model = this.popup.model;
-		const templateUrl = `qgrid.plugin.popup-trigger.tpl.html`;
+		const model = this.model;
+		const templateUrl = `qgrid.plugin.popup-body.tpl.html`;
 		const templateScope = this.$scope.$new();
 		const link = this.template.link(
 			templateUrl,
 			model.popup().resource,
-			['trigger']
+			['body']
 		);
 
 		link(this.$element, templateScope);
@@ -32,15 +31,9 @@ class PopupTrigger extends Component {
 			this.$templateScope.$destroy();
 		}
 	}
-
-	open(){
-		this.qGridPopupService.open({
-			id: 'Id'
-		}, this.popup.model);
-	}
 }
 
-PopupTrigger.$inject = [
+PopupBody.$inject = [
 	'$scope',
 	'$element',
 	'$compile',
@@ -49,9 +42,9 @@ PopupTrigger.$inject = [
 ];
 
 export default {
-	controller: PopupTrigger,
-	require: {
-		popup: `^^${POPUP_NAME}`
-	},
-	controllerAs: '$popup'
+	controller: PopupBody,
+	controllerAs: '$popupBody',
+	bindings: {
+		model: '<'
+	}
 };

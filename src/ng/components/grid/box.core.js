@@ -24,7 +24,7 @@ class BoxCore extends Component {
 	}
 
 	get model() {
-		return this.root.model;
+		return this._model || this.root.model;
 	}
 }
 
@@ -34,6 +34,9 @@ export default {
 	controller: BoxCore,
 	controllerAs: '$box',
 	require: {
-		'root': `^${GRID_NAME}`
+		'root': `^^?${GRID_NAME}`
+	},
+	bindings: {
+		'_model': `<model`
 	}
 }

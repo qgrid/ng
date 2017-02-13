@@ -21,6 +21,9 @@ import ColumnChooser from './plugins/column-chooser/column.chooser';
 import Progress from './plugins/progress/progress';
 import Popup from './plugins/popup/popup';
 import PopupTrigger from './plugins/popup/popup.trigger';
+import PopupHead from './plugins/popup/popup.head';
+import PopupBody from './plugins/popup/popup.body';
+import PopupService from './plugins/popup/popup.service';
 
 import BoxCore from './components/grid/box.core';
 import ViewCore from './components/view/view.core';
@@ -70,6 +73,8 @@ export default angular
 	.component(def.COLUMNCHOOSER_NAME, ColumnChooser)
 	.component(def.POPUP_NAME, Popup)
 	.component(def.POPUP_TRIGGER_NAME, PopupTrigger)
+	.component(def.POPUP_HEAD_NAME, PopupHead)
+	.component(def.POPUP_BODY_NAME, PopupBody)
 	.component(def.PROGRESS_NAME, Progress)
 	.directive(def.MARKUP_NAME, () => Markup)
 	.directive(def.DRAG_NAME, () => Drag)
@@ -85,6 +90,7 @@ export default angular
 	.directive(def.FOCUS_NAME, () => Focus)
 	.directive(def.RESIZE_NAME, () => Resize)
 	.service(def.SERVICE_NAME, GridService)
+	.service(def.POPUP_SERVICE, PopupService)
 	.provider(def.THEME_NAME, () => new ThemeProvider())
 	.service(def.TEMPLATE_PATH_NAME, () => () => TemplatePath)
 	.filter(def.RANGE_NAME, () => Range)
@@ -167,6 +173,10 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.foot.cell.select.tpl.html', EMPTY);
 
 		theme.put('qgrid.plugin.popup.tpl.html', require('./plugins/popup/popup.html'));
+		theme.put('qgrid.plugin.popup-panel.tpl.html', require('./plugins/popup/popup.panel.html'));
+		theme.put('qgrid.plugin.popup-trigger.tpl.html', EMPTY);
+		theme.put('qgrid.plugin.popup-head.tpl.html', EMPTY);
+		theme.put('qgrid.plugin.popup-body.tpl.html', EMPTY);
 		theme.put('qgrid.plugin.pager.tpl.html', require('./plugins/pagination/pager.html'));
 		theme.put('qgrid.plugin.progress.tpl.html', require('./plugins/progress/progress.html'));
 		theme.put('qgrid.plugin.sortbar.tpl.html', require('./plugins/sortbar/sortbar.html'));

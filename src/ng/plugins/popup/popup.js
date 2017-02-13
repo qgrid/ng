@@ -2,6 +2,8 @@ import PluginComponent from '../plugin.component';
 import {POPUP_NAME} from 'src/definition';
 import TemplatePath from 'core/template/template.path';
 
+require('./popup.scss');
+
 TemplatePath
 	.register(POPUP_NAME, (template) => {
 		return {
