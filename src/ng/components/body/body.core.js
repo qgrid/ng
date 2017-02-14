@@ -49,7 +49,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 				this.$scope.$evalAsync(() => this.view.edit.cell.enter.execute(cell));
 			}
 
-			if(cell.column.type !== 'select') {
+			if (cell.column.type !== 'select') {
 				const model = this.view.model;
 				const row = model.view().rows[cell.rowIndex];
 				if (row && this.view.selection.toggle.canExecute(row)) {

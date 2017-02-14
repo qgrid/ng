@@ -40,7 +40,7 @@ class ViewCore extends Component {
 		this.edit = new EditView(model, setValue, markup, this.$scope.$evalAsync.bind(this.$scope));
 	}
 
-	onDestroy(){
+	onDestroy() {
 		const id = this.model.grid().id;
 		css.removeStyle(id);
 	}
@@ -57,7 +57,7 @@ class ViewCore extends Component {
 		return this.model.visibility();
 	}
 
-	get pagination(){
+	get pagination() {
 		return this.model.pagination();
 	}
 
