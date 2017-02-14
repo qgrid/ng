@@ -1,6 +1,9 @@
 export default class NavigationModel {
 	constructor() {
-		this.row = 0;
-		this.column = 0;
+		this.row = -1;
+		this.column = -1;
+		this.active = {
+			cell: null
+		};
 	}
 }

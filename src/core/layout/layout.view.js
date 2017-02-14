@@ -4,11 +4,10 @@ import * as columnService from 'core/column/column.service';
 import log from 'core/infrastructure/log';
 
 export default class LayoutView extends View {
-	constructor(model, markup, document) {
+	constructor(model, markup) {
 		super(model);
 		this.model = model;
 		this.markup = markup;
-		this.document = document;
 		model.viewChanged.watch(() => this.invalidateColumns());
 		this.onInit();
 	}

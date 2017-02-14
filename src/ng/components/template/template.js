@@ -1,17 +1,17 @@
-import Component from '../component';
+import Directive from 'ng/directives/directive';
 import AppError from 'core/infrastructure/error';
 import templateScope from './template.scope';
 import TemplatePath from 'core/template/template.path';
 import resourceFactory from 'core/resource/resource.factory';
 import {merge} from 'core/services/utility';
-import {GRID_NAME} from 'ng/definition';
+import {GRID_NAME, TEMPLATE_NAME} from 'ng/definition';
 
-class Template extends Component {
+class Template extends Directive(TEMPLATE_NAME, merge({root: `^^${GRID_NAME}`}, TemplatePath.require)) {
 	constructor($scope, $element) {
 		super();
 
-		this.$element = $element;
 		this.$scope = $scope;
+		this.$element = $element;
 	}
 
 	onInit() {
@@ -31,7 +31,7 @@ class Template extends Component {
 			);
 		}
 
-		const content = this.$element[0].innerHTML || this.$element[0].textContent;
+		const content = this.$element.html();
 		const contentScope = templateScope(this.$scope, [this.let]);
 		const createResource = resourceFactory(state.resource, path.resource);
 		const newResource = createResource(content, contentScope);
@@ -42,9 +42,12 @@ class Template extends Component {
 Template.$inject = ['$scope', '$element'];
 
 export default {
-	require: merge({root: `^^${GRID_NAME}`}, TemplatePath.require),
+	terminal: true,
+	restrict: 'E',
+	require: Template.require,
+	link: Template.link,
 	controller: Template,
-	bindings: {
+	bindToController: {
 		for: '@',
 		let: '@'
 	}
