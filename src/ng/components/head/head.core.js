@@ -14,7 +14,7 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 
 		this.drop = new Command({
 			canExecute: e => {
-				if (e.source.key === TH_CORE_NAME) {
+				if (e.source && e.source.key === TH_CORE_NAME) {
 					const map = columnService.map(this.view.model.data().columns);
 					return map.hasOwnProperty(e.target.value);
 				}
