@@ -15,32 +15,32 @@ import SelectionView from 'core/selection/selection.view';
 import {GRID_NAME} from 'ng/definition';
 
 class ViewCore extends Component {
-	constructor($element, $document) {
+	constructor($scope, $element, $document) {
 		super();
 
+		this.$scope = $scope;
 		this.element = $element[0];
 		this.document = $document[0];
 	}
 
 	onInit() {
 		const model = this.model;
-		const document = this.document;
 		const markup = this.root.markup;
 
 		this.head = new HeadView(model);
 		this.body = new BodyView(model, valueFactory);
 		this.foot = new FootView(model, valueFactory);
-		this.layout = new LayoutView(model, markup, document);
+		this.layout = new LayoutView(model, markup);
 		this.selection = new SelectionView(model);
 		this.group = new GroupView(model, valueFactory);
 		this.pivot = new PivotView(model, valueFactory);
-		this.nav = new NavigationView(model, document);
+		this.nav = new NavigationView(model, markup, this.$scope.$evalAsync.bind(this.$scope));
 		this.highlight = new HighlightView(model, markup);
 		this.sort = new SortView(model);
-		this.edit = new EditView(model, setValue);
+		this.edit = new EditView(model, setValue, markup, this.$scope.$evalAsync.bind(this.$scope));
 	}
 
-	onDestroy(){
+	onDestroy() {
 		const id = this.model.grid().id;
 		css.removeStyle(id);
 	}
@@ -57,7 +57,7 @@ class ViewCore extends Component {
 		return this.model.visibility();
 	}
 
-	get pagination(){
+	get pagination() {
 		return this.model.pagination();
 	}
 
@@ -66,7 +66,11 @@ class ViewCore extends Component {
 	}
 }
 
-ViewCore.$inject = ['$element', '$document'];
+ViewCore.$inject = [
+	'$scope',
+	'$element',
+	'$document'
+];
 
 export default {
 	controller: ViewCore,

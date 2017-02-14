@@ -40,11 +40,18 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	onClick(e) {
 		const cell = pathFinder.cell(e.path);
 		if (cell) {
+			this.view.model.navigation({
+				active: {
+					cell: cell
+				},
+				column: cell.$element[0].cellIndex,
+				row: cell.$element[0].parentNode.rowIndex - 1
+			});
 			if (this.view.edit.cell.enter.canExecute(cell)) {
 				this.$scope.$evalAsync(() => this.view.edit.cell.enter.execute(cell));
 			}
 
-			if(cell.column.type !== 'select') {
+			if (cell.column.type !== 'select') {
 				const model = this.view.model;
 				const row = model.view().rows[cell.rowIndex];
 				if (row && this.view.selection.toggle.canExecute(row)) {
@@ -55,7 +62,10 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	}
 }
 
-BodyCore.$inject = ['$scope', '$element'];
+BodyCore.$inject = [
+	'$scope',
+	'$element'
+];
 
 export default {
 	restrict: 'A',

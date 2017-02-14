@@ -122,8 +122,9 @@ export default class PopupService {
 
 	focus(id) {
 		const keys = Object.keys(this.popups);
+		let item;
 		for (let i = 0, length = keys.length; i < length; i++) {
-			const item = this.popups[keys[i]];
+			item = this.popups[keys[i]];
 			item.active = false;
 			item.element.removeClass('active');
 			item.element.removeAttr('tabindex');
