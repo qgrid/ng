@@ -20,10 +20,11 @@ import PaginationModel from 'core/pagination/pagination.model';
 import ProgressModel from 'core/progress/progress.model';
 import NodeModel from 'core/node/node.model';
 import VisibilityModel from 'core/visibility/visibility.model';
-import ColumnChooserModel from 'core/column-chooser/column.chooser.model';
 import FilterModel from 'core/filter/filter.model';
 import DragModel from 'core/drag/drag.model';
-import PopupModel from 'core/popup/popup.model';
+
+import PopupModel from 'ng/plugins/popup/popup.model';
+import ColumnChooserModel from 'ng/plugins/column-chooser/column.chooser.model';
 
 import ng from './ng';
 
