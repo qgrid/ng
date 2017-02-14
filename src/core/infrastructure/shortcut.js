@@ -22,11 +22,13 @@ export default class Shortcut {
 	onKeyDown(e) {
 		const code = this.translate(e);
 		if (this.shortcuts.has(code)) {
-			const cmd = this.shortcuts.get(code);
-			if (cmd.canExecute()) {
-				e.preventDefault();
-				this.apply(() => cmd.execute());
-			}
+			const cmds = this.shortcuts.get(code);
+			cmds.forEach(cmd => {
+				if (cmd.canExecute()) {
+					e.preventDefault();
+					this.apply(() => cmd.execute());
+				}
+			});
 		}
 	}
 
@@ -46,13 +48,19 @@ export default class Shortcut {
 	}
 
 	register(id, commands) {
-		for (let [, value] of commands) {
+		for (let value of commands.values()) {
 			if (value.shortcut) {
 				value.shortcut
 					.toLowerCase()
 					.split('|')
-					.forEach(shortcut =>
-						this.shortcuts.set(shortcut, value));
+					.forEach(shortcut => {
+						let temp = [];
+						if (this.shortcuts.has(shortcut)) {
+							temp = this.shortcuts.get(shortcut);
+						}
+						temp.push(value);
+						this.shortcuts.set(shortcut, temp);
+					});
 			}
 		}
 

@@ -27,7 +27,7 @@ export default class EditCellView {
 		const model = this.model;
 		const commands = {
 			enter: new Command({
-				shortcut: 'Enter|F2',
+				shortcut: 'F2|Enter',
 				canExecute: cell => {
 					cell = cell || model.navigation().active.cell;
 
@@ -74,7 +74,7 @@ export default class EditCellView {
 				}
 			}),
 			cancel: new Command({
-				shortcut: 'escape',
+				shortcut: 'Escape',
 				execute: (cell, e) => {
 					Log.info('cell.edit', 'cancel');
 					if (e) {
