@@ -40,7 +40,9 @@
 		<div>
 			<q-grid:popup id="q-grid-column-chooser-popup">
 				<q-grid:template for="trigger">
-					<md-icon ng-click="$popup.open()">more_vert</md-icon>
+					<md-button ng-click="$popup.open()" class="md-icon-button">
+						<md-icon ng-click="$popup.open()">more_vert</md-icon>
+					</md-button>
 				</q-grid:template>
 				<q-grid:template for="body">
 					<q-grid:column-chooser on:submit="$popup.close()"

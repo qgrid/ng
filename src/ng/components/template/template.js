@@ -7,49 +7,45 @@ import {merge} from 'core/services/utility';
 import {GRID_NAME, TEMPLATE_NAME} from 'ng/definition';
 
 class Template extends Directive(TEMPLATE_NAME, merge({root: `^^${GRID_NAME}`}, TemplatePath.require)) {
-	constructor() {
+	constructor($scope, $element) {
 		super();
-	}
-}
 
-function TemplateLink($scope, $element, $attr, ctrls, $transclude) {
-	Template.link(...arguments);
-
-	const ctrl = ctrls[0];
-	const path = TemplatePath.get(ctrl);
-	if (!ctrl.root.model.hasOwnProperty(path.model)) {
-		throw new AppError(
-			'template',
-			`Appropriate model for "${path.model}" is not found`);
+		this.$scope = $scope;
+		this.$element = $element;
 	}
 
-	const model = ctrl.root.model[path.model];
-	const state = model();
-	if (!state.hasOwnProperty('resource')) {
-		throw new AppError(
-			'template',
-			`Can't use "${path.model}" model, resource property is missed`
-		);
-	}
+	onInit() {
+		const path = TemplatePath.get(this);
+		if (!this.root.model.hasOwnProperty(path.model)) {
+			throw new AppError(
+				'template',
+				`Appropriate model for "${path.model}" is not found`);
+		}
 
-	$transclude(clone => {
-		const content = clone.html();
-		const contentScope = templateScope($scope, [ctrl.let]);
+		const model = this.root.model[path.model];
+		const state = model();
+		if (!state.hasOwnProperty('resource')) {
+			throw new AppError(
+				'template',
+				`Can't use "${path.model}" model, resource property is missed`
+			);
+		}
+
+		const content = this.$element.html();
+		const contentScope = templateScope(this.$scope, [this.let]);
 		const createResource = resourceFactory(state.resource, path.resource);
 		const newResource = createResource(content, contentScope);
 		model({resource: newResource});
-	});
+	}
 }
 
 Template.$inject = ['$scope', '$element'];
 
 export default {
-	transclude: 'element',
-	priority: 600,
 	terminal: true,
 	restrict: 'E',
 	require: Template.require,
-	link: TemplateLink,
+	link: Template.link,
 	controller: Template,
 	bindToController: {
 		for: '@',
