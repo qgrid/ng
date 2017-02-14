@@ -9,7 +9,7 @@ export default class GridService {
 		this.apply = apply;
 	}
 
-	invalidate(source = 'invalidate', changes = {}) {
+	invalidate(source = 'invalidate', changes = {}, pipe = null) {
 		Log.info('invalidate', source);
 
 		const model = this.model;
@@ -17,8 +17,11 @@ export default class GridService {
 		model.body().cache.clear();
 		model.foot().cache.clear();
 
+		model.progress({isBusy: true});
 		const run = buildPipe(model, this.valueFactory);
-		return run(source, changes)
-			.then(this.apply);
+		return run(source, changes, pipe)
+			.then(this.apply)
+			.then(() => model.progress({isBusy: false}))
+			.catch(() => model.progress({isBusy: false}));
 	}
 }

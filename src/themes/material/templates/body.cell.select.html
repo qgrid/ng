@@ -1,4 +1,5 @@
 <md-checkbox md-indeterminate="$view.selection.isIndeterminate($row)"
 				 ng-checked="$view.selection.state($row)"
 				 ng-click="$view.selection.toggle.execute($row)"
-				 ng-disabled="!$view.selection.toggle.canExecute($row)"/>
+				 ng-disabled="!$view.selection.toggle.canExecute($row)"
+				 aria-label="Selection"/>

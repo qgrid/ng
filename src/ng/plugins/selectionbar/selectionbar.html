@@ -1,5 +1,5 @@
-<div class="selectionbar">
-	<label>Unit:</label>
+<div class="q-grid-selectionbar">
+	<label>Unit</label>
 	<select ng-model="$selectionbar.unit" 
 			  ng-change="$selectionbar.toggleUnit.execute($selectionbar.unit)"
 			  ng-disabled="!$selectionbar.toggleUnit.canExecute()">
@@ -8,7 +8,7 @@
 					ng-bind="unit">
 		</option>
 	</select>
-	<label>Mode:</label>
+	<label>Mode</label>
 	<select ng-model="$selectionbar.mode" 
 			  ng-change="$selectionbar.toggleMode.execute($selectionbar.mode)"
 			  ng-disabled="!$selectionbar.toggleMode.canExecute()">
@@ -17,11 +17,5 @@
 					ng-bind="mode">
 		</option>
 	</select>
-	<!--<label>
-		<input type="checkbox" 
-				 ng-model="$selectionbar.checkbox" 
-				 ng-change="$selectionbar.toggleCheckbox.execute($selectionbar.checkbox)"
-				 ng-disabled="!$selectionbar.toggleCheckbox.canExecute()"/>
-		Use checkboxes
-	</label>-->
+	<label>Selection Count: </label><em>{{$selectionbar.count}}</em>
 </div>

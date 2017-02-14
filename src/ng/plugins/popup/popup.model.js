@@ -1,4 +1,4 @@
-import Resource from '../resource/resource';
+import Resource from '../../../core/resource/resource';
 
 export default class PluginModel {
 	constructor() {
