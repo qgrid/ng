@@ -3,20 +3,18 @@ import PipeUnit from 'core/pipe/units/pipe.column.unit';
 import {GRID_PREFIX} from 'core/definition';
 
 export class Grid extends RootComponent {
-	constructor($element, $transclude, $document, serviceFactory, theme) {
+	constructor($element, $transclude, $document, serviceFactory) {
 		super('data', 'selection', 'sort', 'group', 'pivot', 'edit');
 
 		this.$element = $element;
 		this.$transclude = $transclude;
 		this.serviceFactory = model => serviceFactory.service(model);
-		this.theme = theme;
 		this.markup = {
 			document: $document[0]
 		};
 	}
 
 	onInit() {
-		this.initTheme();
 		this.compile();
 
 		const model = this.model;
@@ -78,16 +76,6 @@ export class Grid extends RootComponent {
 		templateScope.$destroy();
 	}
 
-	initTheme() {
-		const element = this.$element[0];
-		element.classList.add(GRID_PREFIX);
-		element.classList.add(`${GRID_PREFIX}-theme-${this.theme.name}`);
-		this.theme.changed.watch(e => {
-			element.classList.remove(`${GRID_PREFIX}-theme-${e.oldValue}`);
-			element.classList.add(`${GRID_PREFIX}-theme-${e.newValue}`);
-		});
-	}
-
 	get visibility() {
 		// TODO: get rid of that
 		return this.model.visibility();
@@ -98,8 +86,7 @@ Grid.$inject = [
 	'$element',
 	'$transclude',
 	'$document',
-	'qgrid',
-	'qgridTheme'
+	'qgrid'
 ];
 
 /**
