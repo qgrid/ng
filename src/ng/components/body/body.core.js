@@ -43,7 +43,9 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 			this.view.model.navigation({
 				active: {
 					cell: cell
-				}
+				},
+				column: cell.$element[0].cellIndex,
+				row: cell.$element[0].parentNode.rowIndex - 1
 			});
 			if (this.view.edit.cell.enter.canExecute(cell)) {
 				this.$scope.$evalAsync(() => this.view.edit.cell.enter.execute(cell));
