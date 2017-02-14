@@ -5,15 +5,15 @@ export default function (settings) {
 		equals: (l, r) => l === r,
 		update: (l, r /*left, i*/) => {
 			assignWith(l, r);
-			return 0;
+			return l;
 		},
 		remove: (l, left, i) => {
 			left.splice(i, 1);
-			return -1;
+			return l;
 		},
 		insert: (r, left) => {
 			left.push(r);
-			return 1;
+			return r;
 		}
 	}, settings);
 

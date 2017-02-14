@@ -2,6 +2,11 @@ import columnFactory from 'core/column/column.factory';
 import * as columnService from 'core/column/column.service';
 import merge from 'core/services/merge';
 
+const doMerge = merge({
+	equals: (l, r) => l.model.key === r.model.key,
+	update: (l, r, left, i) => left[i] = r
+});
+
 function addSelectColumn(columns, context) {
 	const selectColumn = columnFactory('select');
 	selectColumn.model.source = 'generation';
@@ -142,7 +147,6 @@ export default function pipeColumn(memo, context, next) {
 
 	/*
 	 * Add group column with nodes
-	 * if grouping is turned on
 	 *
 	 */
 	if (nodes.length) {
@@ -161,7 +165,9 @@ export default function pipeColumn(memo, context, next) {
 	 * Persist order of draggable columns
 	 *
 	 */
-	merge({});
+	//const orderedColumns = columns;
+	const orderedColumns = Array.from(model.view().columns)[0] || [];
+	doMerge(orderedColumns, columns);
 
 	if (heads.length) {
 		/*
@@ -170,7 +176,7 @@ export default function pipeColumn(memo, context, next) {
 		 *
 		 */
 
-		memo.columns = addPivotColumns(columns, heads);
+		memo.columns = addPivotColumns(orderedColumns, heads);
 	}
 	else {
 		/*
@@ -178,8 +184,8 @@ export default function pipeColumn(memo, context, next) {
 		 * that fills remaining place (width = 100%)
 		 *
 		 */
-		addPadColumn(columns, {rowspan: heads.length, row: 0});
-		memo.columns = [columns];
+		addPadColumn(orderedColumns, {rowspan: heads.length, row: 0});
+		memo.columns = [orderedColumns];
 	}
 
 	next(memo);
