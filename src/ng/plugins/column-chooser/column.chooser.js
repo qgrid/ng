@@ -21,8 +21,8 @@ class ColumnChooser extends PluginComponent('columnchooser') {
 		this.toggle = new Command({
 			execute: column => {
 				column.isVisible = !this.state(column);
-
 				const data = this.model.data;
+
 				data({columns: Array.from(data().columns)});
 			}
 		});
