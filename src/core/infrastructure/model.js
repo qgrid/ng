@@ -14,8 +14,9 @@ export default class Model {
 			const model = new models[name]();
 			const event = new Event();
 			this[name + 'Changed'] = event;
-			this[name] = function (state) {
-				if (arguments.length) {
+			this[name] = function (state, tag) {
+				const length = arguments.length;
+				if (length) {
 					if (!isObject(state)) {
 						throw new AppError(
 							`model.${name}`,
@@ -24,7 +25,9 @@ export default class Model {
 
 					let hasChanges = false;
 					const changes = {};
-					for (let key of Object.keys(state)) {
+					const keys = Object.keys(state);
+					for (let i = 0, keyLength = keys.length; i < keyLength; i++) {
+						const key = keys[i];
 						if (!model.hasOwnProperty(key)) {
 							throw new AppError(
 								`model.${name}`,
@@ -50,7 +53,8 @@ export default class Model {
 					if (hasChanges) {
 						event.emit({
 							state: model,
-							changes: changes
+							changes: changes,
+							tag: length > 1 ? tag : {}
 						});
 					}
 				}

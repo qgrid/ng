@@ -15,9 +15,7 @@ export default function (settings) {
 			left.push(r);
 			return 1;
 		}
-	},
-		settings
-	);
+	}, settings);
 
 	return (left, right, result) => {
 		const ls = left.slice();

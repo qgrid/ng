@@ -1,0 +1,21 @@
+<div class="q-grid-selectionbar">
+	<label>Unit</label>
+	<select ng-model="$selectionbar.unit" 
+			  ng-change="$selectionbar.toggleUnit.execute($selectionbar.unit)"
+			  ng-disabled="!$selectionbar.toggleUnit.canExecute()">
+		<option value="{{unit}}"
+					ng-repeat="unit in $selectionbar.units"
+					ng-bind="unit">
+		</option>
+	</select>
+	<label>Mode</label>
+	<select ng-model="$selectionbar.mode" 
+			  ng-change="$selectionbar.toggleMode.execute($selectionbar.mode)"
+			  ng-disabled="!$selectionbar.toggleMode.canExecute()">
+		<option value="{{mode}}"
+					ng-repeat="mode in $selectionbar.modes"
+					ng-bind="mode">
+		</option>
+	</select>
+	<label>Selection Count: </label><em>{{$selectionbar.count}}</em>
+</div>

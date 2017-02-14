@@ -7,6 +7,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	constructor($scope, $element) {
 		super();
 
+		this.$scope = $scope;
 		this.element = $element[0];
 		this.listener = new EventListener(this, this.element);
 		this.listener.on('scroll', this.onScroll);
@@ -44,9 +45,16 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 					cell: cell
 				}
 			});
-
 			if (this.view.edit.cell.enter.canExecute(cell)) {
-				this.view.edit.cell.enter.execute(cell);
+				this.$scope.$evalAsync(() => this.view.edit.cell.enter.execute(cell));
+			}
+
+			if(cell.column.type !== 'select') {
+				const model = this.view.model;
+				const row = model.view().rows[cell.rowIndex];
+				if (row && this.view.selection.toggle.canExecute(row)) {
+					this.$scope.$evalAsync(() => this.view.selection.toggle.execute(row));
+				}
 			}
 		}
 	}

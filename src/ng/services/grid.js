@@ -1,7 +1,9 @@
 import Model from 'core/infrastructure/model';
 import GridService from 'core/services/grid';
 import Pipe from 'core/pipe/pipe';
+import PipeUnit from 'core/pipe/units/pipe.unit';
 import Log from 'core/infrastructure/log';
+import {noop} from 'core/services/utility';
 import {getFactory} from './value';
 
 export default class Grid {
@@ -17,7 +19,7 @@ export default class Grid {
 		const $rootScope = this.$rootScope;
 		const apply = () => {
 			Log.info('service', '$digest apply');
-			$rootScope.$evalAsync(angular.noop);
+			$rootScope.$evalAsync(noop);
 		};
 
 		return new GridService(model, getFactory, apply);
@@ -25,6 +27,10 @@ export default class Grid {
 
 	get pipe() {
 		return Pipe;
+	}
+
+	get pipeUnit() {
+		return PipeUnit;
 	}
 }
 

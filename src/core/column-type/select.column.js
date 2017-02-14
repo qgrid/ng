@@ -5,7 +5,7 @@ import ColumnModel from './column.model';
 TemplatePath.register('select-cell', (template) => {
 	return {
 		model: 'selection',
-		resource: template.for === 'head' ? 'select-all' : 'select'
+		resource: template.for
 	};
 });
 
@@ -16,6 +16,7 @@ class SelectColumnModel extends ColumnModel {
 		this.key = '$select';
 		this.title = 'Select';
 		this.canEdit = false;
+		this.canResize = false;
 	}
 }
 
