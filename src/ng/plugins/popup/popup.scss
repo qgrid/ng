@@ -1,13 +1,16 @@
 .q-grid-popup {
 	position: absolute;
+	background-color: white;
 	z-index: 79;
 	margin: 0;
+
 	&.resizable {
 		resize: both;
 		overflow: hidden;
 		&::-webkit-resizer {
 			background-color: transparent;
 		}
+
 		.resizer {
 			position: absolute;
 			bottom: 0;

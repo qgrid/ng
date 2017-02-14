@@ -1,4 +1,6 @@
 import TemplateLink from 'ng/components/template/template.link';
+import PopupManager from './popup.manager';
+import {isFunction} from 'core/services/utility';
 
 export default class PopupService {
 	constructor() {
@@ -10,73 +12,60 @@ export default class PopupService {
 
 	close(id) {
 		const item = this.popups[id];
-		if (item && angular.isFunction(item.close)) {
-			item.close();
-		}
+		item.close();
+
+		delete this.popups[id];
 	}
 
 	closeAll() {
 		const popups = Object.keys(this.popups);
 		for (let i = 0, length = popups.length; i < length; i++) {
-			this.close(popups[i]);
+			popups[i].close();
 		}
 	}
 
-	open(settings, model) {
+	open(settings, model, parent, target) {
 		if (this.popups.hasOwnProperty(settings.id)) {
 			return;
 		}
 
-		const scope = this.$rootScope.$new();
+		target = this.targetize(null, settings);
+
+		const scope = this.$rootScope.$new(false, parent);
+
 		scope.model = model;
 		scope.id = settings.id;
 
-		const link = this.template.link('qgrid.plugin.popup-panel.tpl.html', model.popup().resource);
-		const popup = angular.element('<div class="q-grid-popup"></div>');
-		const box = angular.element(`<q-grid-core:box model="model"></q-grid-core:box>`);
-		popup.append(box);
-		this.$document[0].body.append(popup[0]);
-		link(popup, scope, box);
+		const popup = angular.element('<q-grid:popup-panel id="id" model="model"></q-grid:popup-panel>');
 
-		// scope.id = settings.id;
-		// scope.title = settings.title;
-		// scope.context = settings.context;
-		//
-		// scope.popup = {
-		// 	id: settings.id,
-		// 	resizable: settings.resizable,
-		// 	collapsible: settings.collapsible,
-		// 	active: function () {
-		// 		return this.popups[settings.id].active;
-		// 	},
-		// 	expanded: function () {
-		// 		return this.popups[settings.id].expanded;
-		// 	},
-		// 	close: settings.close
-		// };
-		//
-		// var pos = this.position(target, settings);
-		//
-		// popup.attr('id', settings.id);
-		// popup.css({left: pos.left + 'px', top: pos.top + 'px', zIndex: 79});
-		//
-		// if (settings.resizable) {
-		// 	popup.addClass('resizable');
-		// }
-		// if (settings.collapsible) {
-		// 	popup.addClass('collapsible');
-		// }
-		//
-		// if (settings.cls) {
-		// 	popup.addClass(settings.cls);
-		// }
-		//
-		// var container = this.$document.find('body')[0];
-		// if (settings.container) {
-		// 	container =
-		// 		container.querySelector(settings.container)
-		// 		|| container;
-		// }
+		this.$document[0].body.append(popup[0]);
+		this.$compile(popup)(scope);
+
+		const pos = this.position(target, settings);
+
+		popup.attr('id', settings.id);
+		popup.css({left: pos.left + 'px', top: pos.top + 'px', zIndex: 79});
+
+		if (settings.resizable) {
+			popup.addClass('resizable');
+		}
+		if (settings.collapsible) {
+			popup.addClass('collapsible');
+		}
+		if (settings.cls) {
+			popup.addClass(settings.cls);
+		}
+
+		var container = this.$document[0].body;
+		if (settings.container) {
+			container =
+				container.querySelector(settings.container)
+				|| container;
+		}
+
+		this.popups[settings.id] = new PopupManager(popup, settings, this.$document[0].body);
+
+		this.popups[settings.id].focus();
 		//
 		// this.$timeout(function () {
 		// 	//Added this $timeout to keep the popup from flickering the position every time,
@@ -86,82 +75,42 @@ export default class PopupService {
 	}
 
 	expand(id) {
-		const item = self.popups[id],
-			popupElement = item.element[0],
-			position = {
-				top: popupElement.style.top,
-				left: popupElement.style.left
-			},
-			size = {
-				width: popupElement.offsetWidth,
-				height: popupElement.offsetHeight
-			};
-		item.layout = {
-			position: position,
-			size: size
-		};
-		item.element.addClass('expanded');
-		item.expanded = true;
-
-		item.event.emit('expand');
+		const item = this.popups[id];
+		item.expand();
 	}
 
 	collapse(id) {
-		const item = self.popups[id],
-			popupElement = item.element[0];
-		item.element.removeClass('expanded');
-		item.expanded = false;
-		popupElement.style.width = item.layout.size.width;
-		popupElement.style.height = item.layout.size.height;
-
-		popupElement.style.top = item.layout.position.top;
-		popupElement.style.left = item.layout.position.left;
-
-		item.event.emit('collapse');
+		const item = self.popups[id];
+		item.collapse();
 	}
 
 	focus(id) {
-		const keys = Object.keys(this.popups);
-		let item;
-		for (let i = 0, length = keys.length; i < length; i++) {
-			item = this.popups[keys[i]];
-			item.active = false;
-			item.element.removeClass('active');
-			item.element.removeAttr('tabindex');
+		for(let [, popup] of this.popups) {
+			popup.unfocus();
 		}
 
 		const popup = this.popups[id];
-		popup.active = true;
-		popup.element.addClass('active');
-		popup.element.attr('tabindex', 0);
-		popup.element.focus();
-
-		item.event.emit('focus');
+		popup.focus();
 	}
 
 	resize(id, settings) {
-		const item = this.popups[id],
-			popupElement = item.element[0];
-		item.element.css({
-			width: Math.min(settings.width, this.$document[0].body.clientWidth - popupElement.offsetLeft) + "px",
-			height: Math.min(settings.height, this.$document[0].body.clientHeight - popupElement.offsetTop) + "px"
-		});
-		item.event.emit('resize');
+		const item = this.popups[id];
+		item.resize(settings);
 	}
 
 	targetize(target, settings) {
 		if (!target) {
 			return {
-				offset: function () {
+				offset: () => {
 					return {
 						left: this.$window.innerWidth / 2,
 						top: (this.$window.innerHeight - (parseInt(settings.height) || 0)) / 2
 					};
 				},
-				height: function () {
+				height: () => {
 					return 500;
 				},
-				width: function () {
+				width: () => {
 					return 400;
 				}
 			};
@@ -191,17 +140,17 @@ export default class PopupService {
 		const l = ltx0 && gtx1
 			? w / 2 - ew2
 			: gtx1
-				? x - ew - dx
-				: ltx0
-					? x + dx
-					: x - ew2 + dx;
+			? x - ew - dx
+			: ltx0
+			? x + dx
+			: x - ew2 + dx;
 		const t = lty0 && gty1
 			? h / 2 - eh2
 			: gty1
-				? y - eh - dy
-				: lty0
-					? y + dy
-					: y + dy;
+			? y - eh - dy
+			: lty0
+			? y + dy
+			: y + dy;
 
 		return {
 			left: l,
@@ -209,6 +158,8 @@ export default class PopupService {
 		};
 	}
 }
+
+
 
 
 PopupService.$inject = [

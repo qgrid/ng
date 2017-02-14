@@ -12,7 +12,7 @@ TemplatePath
 		};
 	});
 
-class Popup extends PluginComponent('popup', ['popup'], ['$transclude']) {
+class Popup extends PluginComponent('popup', ['popup'], ['$transclude', 'qGridPopupService']) {
 	constructor() {
 		super(...arguments);
 	}
@@ -35,6 +35,11 @@ class Popup extends PluginComponent('popup', ['popup'], ['$transclude']) {
 		templateScope.$destroy();
 
 		super.show();
+	}
+
+	open() {
+		const settings = {id: this.id};
+		this.qGridPopupService.open(settings, this.model, this.$scope, this.$element);
 	}
 
 	get resource() {

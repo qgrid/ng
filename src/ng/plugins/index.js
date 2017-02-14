@@ -10,6 +10,7 @@ import Popup from './popup/popup';
 import PopupTrigger from './popup/popup.trigger';
 import PopupHead from './popup/popup.head';
 import PopupBody from './popup/popup.body';
+import PopupPanel from './popup/popup.panel';
 import PopupService from './popup/popup.service';
 
 import * as def from './definition';
@@ -28,6 +29,7 @@ export default angular
 	.component(def.POPUP_TRIGGER_NAME, PopupTrigger)
 	.component(def.POPUP_HEAD_NAME, PopupHead)
 	.component(def.POPUP_BODY_NAME, PopupBody)
+	.component(def.POPUP_PANEL_NAME, PopupPanel)
 	.service(def.POPUP_SERVICE, PopupService)
 	.config(Setup)
 	.name;
