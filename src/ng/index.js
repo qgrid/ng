@@ -47,10 +47,9 @@ import pluginModule from './plugins';
 // For now should be the last in import list cause use TemplatePath.require
 // that should be filled before importing this
 // TODO: get rid of static require
-import Template from './components/template/tempate';
+import Template from './components/template/template';
 
 const layoutModel = angular.module(def.MODULE_LAYOUT_NAME, [coreModule])
-	.component(def.TEMPLATE_NAME, Template)
 	.component(def.GRID_NAME, Grid)
 	.component(def.BOX_CORE_NAME, BoxCore)
 	.component(def.VIEW_CORE_NAME, ViewCore)
@@ -61,6 +60,7 @@ const layoutModel = angular.module(def.MODULE_LAYOUT_NAME, [coreModule])
 	.component(def.NODE_NAME, Node)
 	.component(def.TOOLBAR_NAME, Toolbar)
 	.component(def.TOOLBAR_CORE_NAME, ToolbarCore)
+	.directive(def.TEMPLATE_NAME, () => Template)
 	.directive(def.MARKUP_NAME, () => Markup)
 	.directive(def.TD_CORE_NAME, () => TdCore)
 	.directive(def.TH_CORE_NAME, () => ThCore)
