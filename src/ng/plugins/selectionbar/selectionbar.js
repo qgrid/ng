@@ -11,62 +11,46 @@ TemplatePath
 		};
 	});
 
-class Selectionbar extends PluginComponent('selection') {
+class Selectionbar extends PluginComponent('selectionbar') {
 	constructor() {
 		super(...arguments);
-		
+
 		this.unit = 'row';
 		this.units = ['row', 'column', 'cell', 'checkbox'];
 
 		this.mode = 'single';
 		this.modes = ['single', 'multiple'];
-		
+
 		this.toggleMode = new Command({
 			execute: (mode) => {
 				const selection = this.model.selection;
-				selection({ mode: mode });
-				this.invalidateGrid();
+				selection({mode: mode});
 			}
 		});
 
 		this.toggleUnit = new Command({
 			execute: (unit) => {
 				const selection = this.model.selection;
-				selection({ unit: unit });
-				this.invalidateGrid();
-			},
-			canExecute: () => {
-				return true;
+				selection({unit: unit});
 			}
-		});
-
-	}
-
-	get selection() {
-		return this.model.selection();
-	}
-
-	invalidateGrid(){
-		this.model.data({
-			columns: Array.from(this.model.data().columns)
 		});
 	}
 
 	onInit() {
-		this.mode = this.selection.mode;
-		this.unit = this.selection.unit;
+		const selection = this.model.selection();
+		this.mode = selection.mode;
+		this.unit = selection.unit;
 
-		this.model.selectionChanged.on(e => {
-			if (e.changes.hasOwnProperty('unit')) {
-				this.unit = e.state.unit;
-			}
-
-			if (e.changes.hasOwnProperty('mode')) {
-				this.mode = e.state.mode;
-			}
+		this.model.selectionChanged.watch(e => {
+			this.unit = e.state.unit;
+			this.mode = e.state.mode;
 		});
 	}
-	
+
+	get count() {
+		return this.model.selection().items.length;
+	}
+
 	get resource() {
 		return this.model.visibility().resource;
 	}

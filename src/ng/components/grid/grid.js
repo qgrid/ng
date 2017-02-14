@@ -1,5 +1,6 @@
 import RootComponent from '../root.component';
-import {GRID_PREFIX} from 'core/definition'
+import PipeUnit from 'core/pipe/units/pipe.column.unit';
+import {GRID_PREFIX} from 'core/definition';
 
 export class Grid extends RootComponent {
 	constructor($element, $transclude, serviceFactory, theme) {
@@ -27,6 +28,10 @@ export class Grid extends RootComponent {
 						changes: e.changes
 					}
 				});
+			}
+
+			if (e.changes.hasOwnProperty('unit')) {
+				service.invalidate('selection', e.changes, PipeUnit.column);
 			}
 		});
 

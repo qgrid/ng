@@ -1,5 +1,3 @@
-import {isUndefined} from 'core/services/utility';
-
 export default class Selection {
 	constructor(model) {
 		this.model = model;
