@@ -12,7 +12,8 @@ TemplatePath
 		};
 	});
 
-class Groupbar extends PluginComponent('groupbar') {
+const Plugin = PluginComponent('groupbar');
+class Groupbar extends Plugin {
 	constructor() {
 		super(...arguments);
 

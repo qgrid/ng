@@ -1,50 +1,54 @@
-<div class="q-grid-column-chooser" layout="column">
-	<md-input-container flex="none" class="q-grid-column-chooser-filter">
-		<label>Search</label>
-		<input type="text" ng-model="$columnChooser.filter"/>
-	</md-input-container>
-	<ul flex>
-		<li>
-			<md-checkbox ng-click="$columnChooser.toggleAll.execute()"
-							 md-indeterminate="$columnChoooser.isIndeterminate()">
-				Select All
-			</md-checkbox>
-		</li>
-		<li>
-			<md-checkbox ng-click="$columnChooser.defaults.execute()">
-				Select Defaults
-			</md-checkbox>
-		</li>
-	</ul>
-	<ul class="q-grid-column-chooser-list" flex>
-		<li ng-repeat="column in $columnChooser.columns | filter: $columnChooser.filter"
-			 q-grid:drag="$columnChooser.transfer(column)"
-			 q-grid:drop="$columnChooser.transfer(column)"
-			 q-grid:on-drop="$columnChooser.drop.execute($event)"
-			 q-grid:can-drop="$columnChooser.drop.canExecute($event)"
-			 q-grid:can-drag="$columnChooser.drag.canExecute($event)">
-
-			<md-checkbox ng-checked="$columnChooser.state(column)"
-							 ng-if="$columnChooser.toggle.canExecute(column)"
-							 ng-click="$columnChooser.toggle.execute(column)">
-				{{column.title}}
-			</md-checkbox>
-
-
-			<md-input-container ng-if="$columnChooser.canAggregate">
-				<md-select aria-label="Aggregation" ng-model="column.aggregation"
-							  ng-change="$columnChooser.toggleAggregation.execute(column)">
-					<md-option value=""><em>Aggregation</em></md-option>
-					<md-option ng-repeat="aggregation in $columnChooser.aggregations"
-								  ng-value="aggregation">
-						{{::aggregation}}
-					</md-option>
-				</md-select>
-			</md-input-container>
-
-		</li>
-	</ul>
+<div class="q-grid-column-chooser" layout="column" flex="100">
 	<div flex="none">
+		<md-input-container class="q-grid-column-chooser-filter">
+			<label>Search</label>
+			<input type="text" ng-model="$columnChooser.filter"/>
+		</md-input-container>
+	</div>
+	<div flex>
+		<ul>
+			<li>
+				<md-checkbox ng-click="$columnChooser.toggleAll.execute()"
+								 md-indeterminate="$columnChoooser.isIndeterminate()">
+					Select All
+				</md-checkbox>
+			</li>
+			<li>
+				<md-checkbox ng-click="$columnChooser.defaults.execute()">
+					Select Defaults
+				</md-checkbox>
+			</li>
+		</ul>
+		<ul class="q-grid-column-chooser-list">
+			<li ng-repeat="column in $columnChooser.columns | filter: $columnChooser.filter"
+				 q-grid:drag="$columnChooser.transfer(column)"
+				 q-grid:drop="$columnChooser.transfer(column)"
+				 q-grid:on-drop="$columnChooser.drop.execute($event)"
+				 q-grid:can-drop="$columnChooser.drop.canExecute($event)"
+				 q-grid:can-drag="$columnChooser.drag.canExecute($event)">
+
+				<md-checkbox ng-checked="$columnChooser.state(column)"
+								 ng-if="$columnChooser.toggle.canExecute(column)"
+								 ng-click="$columnChooser.toggle.execute(column)">
+					{{column.title}}
+				</md-checkbox>
+
+
+				<md-input-container ng-if="$columnChooser.canAggregate">
+					<md-select aria-label="Aggregation" ng-model="column.aggregation"
+								  ng-change="$columnChooser.toggleAggregation.execute(column)">
+						<md-option value=""><em>Aggregation</em></md-option>
+						<md-option ng-repeat="aggregation in $columnChooser.aggregations"
+									  ng-value="aggregation">
+							{{::aggregation}}
+						</md-option>
+					</md-select>
+				</md-input-container>
+
+			</li>
+		</ul>
+	</div>
+	<div class="q-grid-column-chooser-actions" flex="none">
 		<md-button ng-click="$columnChooser.cancel.execute()">
 			Cancel
 		</md-button>

@@ -12,8 +12,7 @@ import orderBy from 'lodash/orderBy';
 import startCase from 'lodash/startCase';
 import assignWith from 'lodash/assignWith';
 
-const noop = () => {
-};
+const noop = () => {};
 const yes = () => true;
 const no = () => false;
 const identity = arg => arg;

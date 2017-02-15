@@ -13,7 +13,8 @@ TemplatePath
 		};
 	});
 
-class Sortbar extends PluginComponent('sortbar') {
+const Plugin = PluginComponent('sortbar');
+class Sortbar extends Plugin {
 	constructor() {
 		super(...arguments);
 

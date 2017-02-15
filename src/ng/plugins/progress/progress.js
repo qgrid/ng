@@ -10,7 +10,8 @@ TemplatePath
 		};
 	});
 
-class Progress extends PluginComponent('progress', ['progress']) {
+const Plugin = PluginComponent('progress', {models: ['progress']});
+class Progress extends Plugin {
 	constructor() {
 		super(...arguments);
 	}
