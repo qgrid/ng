@@ -28,6 +28,7 @@ import Markup from './directives/markup';
 
 import ThemeProvider from './services/theme';
 import Range from './filters/range';
+import Highlight from './filters/highlight';
 
 import * as def from './definition';
 
@@ -40,6 +41,7 @@ const coreModule = angular.module(def.MODULE_CORE_NAME, [])
 	.provider(def.THEME_NAME, () => new ThemeProvider())
 	.service(def.TEMPLATE_PATH_NAME, () => () => TemplatePath)
 	.filter(def.RANGE_NAME, () => Range)
+	.filter(def.HIGHLIGHT_NAME, () => Highlight)
 	.name;
 
 import pluginModule from './plugins';
