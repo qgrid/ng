@@ -12,7 +12,7 @@ TemplatePath
 		};
 	});
 
-const Plugin = PluginComponent('popup', {models: ['popup'], inject: ['$transclude']});
+const Plugin = PluginComponent('popup', {models: ['popup'], inject: ['$transclude', 'qGridPopupService']});
 class Popup extends Plugin {
 	constructor() {
 		super(...arguments);
@@ -36,6 +36,11 @@ class Popup extends Plugin {
 		templateScope.$destroy();
 
 		super.show();
+	}
+
+	open() {
+		const settings = {id: this.id};
+		this.qGridPopupService.open(settings, this.model, this.$scope, this.$element);
 	}
 
 	get resource() {
