@@ -5,6 +5,7 @@ import {isUndefined} from 'core/services/utility';
 import {GRID_PREFIX} from 'core/definition';
 import Log from 'core/infrastructure/log';
 import Shortcut from 'core/infrastructure/shortcut';
+import * as columnService from 'core/column/column.service';
 
 export default class SelectionView extends View {
 	constructor(model, markup, apply) {
@@ -196,6 +197,32 @@ export default class SelectionView extends View {
 				canExecute: () => {
 					const selection = this.model.selection();
 					return selection.unit === 'column';
+				}
+			}),
+			toggleNextColumn: new Command({
+				shortcut: 'shift+right',
+				execute: () => {
+					const columnIndex = model.navigation().column;
+					this.highlightColumn(columnIndex + 1);
+					model.navigation({column: columnIndex + 1});
+				},
+				canExecute: () => {
+					const selection = this.model.selection();
+					return selection.unit === 'column'
+						&& model.navigation().column < columnService.lineView(model.view().columns).length - 1;
+				}
+			}),
+			togglePrevColumn: new Command({
+				shortcut: 'shift+left',
+				execute: () => {
+					const columnIndex = model.navigation().column;
+					this.highlightColumn(columnIndex - 1);
+					model.navigation({column: columnIndex - 1});
+				},
+				canExecute: () => {
+					const selection = this.model.selection();
+					return selection.unit === 'column'
+						&& model.navigation().column > 0;
 				}
 			}),
 			selectAll: new Command({
