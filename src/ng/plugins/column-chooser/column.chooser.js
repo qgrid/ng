@@ -8,6 +8,14 @@ import {COLUMN_CHOOSER_NAME} from '../definition';
 import merge from 'core/services/merge';
 import PipeUnit from 'core/pipe/units/pipe.unit';
 
+TemplatePath
+	.register(COLUMN_CHOOSER_NAME, () => {
+		return {
+			model: 'columnChooser',
+			resource: 'content'
+		};
+	});
+
 const orderFromDataToView = merge({
 	equals: (l, r) => l.model.key === r.key,
 	update: noop,
@@ -15,21 +23,12 @@ const orderFromDataToView = merge({
 	remove: noop
 });
 
-
 const orderFromViewToData = merge({
 	equals: (l, r) => l.key === r.model.key,
 	update: noop,
 	insert: noop,
 	remove: noop
 });
-
-TemplatePath
-	.register(COLUMN_CHOOSER_NAME, () => {
-		return {
-			model: 'columnchooser',
-			resource: 'content'
-		};
-	});
 
 const Plugin = PluginComponent('column-chooser', {inject: ['qgrid']});
 class ColumnChooser extends Plugin {

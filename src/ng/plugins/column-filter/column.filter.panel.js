@@ -40,6 +40,9 @@ class ColumnFilterPanel extends Plugin {
 	get items() {
 		return uniq(this.model.data().rows.map(this.getValue));
 	}
+
+	onReset() {
+	}
 }
 
 export default ColumnFilterPanel.component({

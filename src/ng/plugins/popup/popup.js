@@ -53,6 +53,7 @@ export default Popup.component({
 	controller: Popup,
 	controllerAs: '$popup',
 	bindings: {
-		id: '@'
+		id: '@',
+		resourceModel: '@resource'
 	}
 });
