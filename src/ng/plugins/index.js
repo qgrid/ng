@@ -23,7 +23,7 @@ export default angular
 	.component(def.PIVOTBAR_NAME, Pivotbar)
 	.component(def.SELECTIONBAR_NAME, Selectionbar)
 	.component(def.VISIBILITY_NAME, Visibility)
-	.component(def.COLUMNCHOOSER_NAME, ColumnChooser)
+	.component(def.COLUMN_CHOOSER_NAME, ColumnChooser)
 	.component(def.PROGRESS_NAME, Progress)
 	.component(def.POPUP_NAME, Popup)
 	.component(def.POPUP_TRIGGER_NAME, PopupTrigger)
@@ -46,7 +46,8 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.plugin.pivotbar.tpl.html', require('./pivotbar/pivotbar.html'));
 		theme.put('qgrid.plugin.selectionbar.tpl.html', require('./selectionbar/selectionbar.html'));
 		theme.put('qgrid.plugin.visibility.tpl.html', require('./visibility/visibility.html'));
-		theme.put('qgrid.plugin.columnchooser.tpl.html', require('./column-chooser/column.chooser.html'));
+		theme.put('qgrid.plugin.column-chooser.tpl.html', require('./column-chooser/column.chooser.html'));
+		theme.put('qgrid.plugin.column-filter.tpl.html', require('./column-filter/column.filter.html'));
 
 		theme.put('qgrid.plugin.popup.tpl.html', require('./popup/popup.html'));
 		theme.put('qgrid.plugin.popup-panel.tpl.html', require('./popup/popup.panel.html'));

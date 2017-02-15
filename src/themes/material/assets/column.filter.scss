@@ -1,0 +1,31 @@
+.q-grid-column-chooser {
+	ul {
+		list-style-type: none;
+		padding: 0;
+	}
+
+	md-input-container {
+		margin: 0;
+		width: 100%;
+	}
+
+	md-checkbox {
+		margin: 0 0 10px 0;
+	}
+
+	.q-grid-column-chooser-filter {
+		.md-errors-spacer {
+			display: none;
+		}
+	}
+
+	.q-grid-column-chooser-list {
+		margin: 0;
+		overflow-y: auto;
+		height: 340px;
+	}
+
+	.q-grid-column-chooser-actions {
+		padding: 7px 0;
+	}
+}
