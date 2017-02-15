@@ -66,7 +66,7 @@ export default function Controller($http, qgrid, $log) {
 		.selectionChanged
 		.on(function (e) {
 			if (e.changes.hasOwnProperty('items')) {
-				$log.log(`qgrid.demo: selection changed ${e.changes.items.newValue.length} on ${e.state.mode} mode`);
+				$log.log(`qgrid.demo: selection changed ${e.state.items.length} on ${e.state.unit} unit and ${e.state.mode} mode`);
 			}
 		});
 
@@ -74,7 +74,8 @@ export default function Controller($http, qgrid, $log) {
 		.then(function (response) {
 			ctrl.gridModel.data({rows: response.data});
 			ctrl.gridModel.selection({
-				mode: 'cell',
+				mode: 'single',
+				unit: 'cell',
 				items: response.data.slice(0, 4)
 			});
 		});
