@@ -36,7 +36,7 @@ class ColumnChooser extends PluginComponent('columnchooser') {
 
 		this.drop = new Command({
 			canExecute: e => {
-				if (e.source.key === COLUMNCHOOSER_NAME) {
+				if (e.source && e.source.key === COLUMNCHOOSER_NAME) {
 					const map = columnService.map(this.model.data().columns);
 					return map.hasOwnProperty(e.target.value);
 				}

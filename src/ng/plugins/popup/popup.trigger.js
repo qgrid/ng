@@ -3,12 +3,11 @@ import TemplateLink from 'ng/components/template/template.link';
 import {POPUP_NAME} from '../definition';
 
 class PopupTrigger extends Component {
-	constructor($scope, $element, $compile, $templateCache, qGridPopupService) {
+	constructor($scope, $element, $compile, $templateCache) {
 		super();
 
 		this.$scope = $scope;
 		this.$element = $element;
-		this.qGridPopupService = qGridPopupService;
 		this.$templateScope = null;
 		this.template = new TemplateLink($compile, $templateCache);
 	}
@@ -34,9 +33,7 @@ class PopupTrigger extends Component {
 	}
 
 	open() {
-		const popup = this.popup;
-		const settings = {id: popup.id};
-		this.qGridPopupService.open(settings, popup.model);
+		this.popup.open();
 	}
 }
 
@@ -44,8 +41,7 @@ PopupTrigger.$inject = [
 	'$scope',
 	'$element',
 	'$compile',
-	'$templateCache',
-	'qGridPopupService'
+	'$templateCache'
 ];
 
 export default {

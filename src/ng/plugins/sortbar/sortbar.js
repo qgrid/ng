@@ -46,7 +46,7 @@ class Sortbar extends PluginComponent('sortbar') {
 		});
 
 		this.drop = new Command({
-			canExecute: e => e.source.key === TH_CORE_NAME && this.add.canExecute(e.source.value),
+			canExecute: e => e.source && e.source.key === TH_CORE_NAME && this.add.canExecute(e.source.value),
 			execute: e => this.add.execute(e.source.value)
 		});
 	}
