@@ -15,7 +15,7 @@ export default class SelectionView extends View {
 		const shortcut = new Shortcut(markup.document, apply);
 		const commands = this.commands;
 		shortcut.register('selectionNavigation', commands);
-		this.toggle = commands.get('toggle');
+		this.toggle = commands.get('toggleRow');
 
 		model.viewChanged.watch(e => {
 			this.behavior = behaviorFactory(model);
@@ -29,23 +29,43 @@ export default class SelectionView extends View {
 				this.behavior.select(e.state.items, true);
 			}
 
-			if (e.changes.hasOwnProperty('unit') ||
-				e.changes.hasOwnProperty('mode')) {
-				this.behavior = behaviorFactory(model);
-				e.state.items.forEach((item) => this.blurRow(item));
+			if (e.changes.hasOwnProperty('unit')) {
+				if (e.changes.unit.oldValue === 'row') {
+					e.state.items.forEach((item) => this.blurRow(item));
+				} else if (e.changes.unit.oldValue === 'column') {
+					//blur all columns
+				}
 			}
-			if (e.changes.hasOwnProperty('items')
-				&& e.state.unit === 'row') {
-				e.changes.items.newValue.forEach((item) => {
-					if (this.state(item)) {
-						this.highlightRow(item);
-					}
+			if (e.changes.hasOwnProperty('unit') || e.changes.hasOwnProperty('mode')) {
+				this.behavior = behaviorFactory(model);
+				model.navigation({
+					column: -1,
+					row: -1
 				});
-				e.changes.items.oldValue.forEach((item) => {
-					if (!this.state(item)) {
+				if (e.state.unit === 'row') {
+					e.state.items.forEach((item) => {
 						this.blurRow(item);
-					}
-				});
+					});
+				} else if (e.state.unit === 'column') {
+					//blur all highlighted columns
+				}
+			}
+			if (e.changes.hasOwnProperty('items')) {
+				if (e.state.unit === 'row') {
+					e.changes.items.newValue.forEach((item) => {
+						if (this.state(item)) {
+							this.highlightRow(item);
+						}
+					});
+					e.changes.items.oldValue.forEach((item) => {
+						if (!this.state(item)) {
+							this.blurRow(item);
+						}
+					});
+				} else if (e.state.unit === 'column') {
+					//blur oldValue columns
+					//highlight newValue columns
+				}
 			}
 		});
 	}
@@ -70,6 +90,24 @@ export default class SelectionView extends View {
 		}
 	}
 
+	highlightColumn(index) {
+		const body = this.markup.body;
+		if (body && body.rows) {
+			for (let row of body.rows) {
+				this.highlight(row.cells[index]);
+			}
+		}
+	}
+
+	blurColumn(index) {
+		const body = this.markup.body;
+		if (body && body.rows) {
+			for (let row of body.rows) {
+				this.blur(row.cells[index]);
+			}
+		}
+	}
+
 	highlight(item) {
 		item.classList.add(`${GRID_PREFIX}-selected`);
 	}
@@ -80,9 +118,8 @@ export default class SelectionView extends View {
 
 	get commands() {
 		const model = this.model;
-		const markup = this.markup;
 		const commands = {
-			toggle: new Command({
+			toggleRow: new Command({
 				execute: (item, state) => {
 					if (isUndefined(item)) {
 						item = model.view().rows;
@@ -100,7 +137,7 @@ export default class SelectionView extends View {
 
 				}
 			}),
-			toggleActive: new Command({
+			toggleActiveRow: new Command({
 				shortcut: 'shift+space',
 				execute: () => {
 					let item;
@@ -112,6 +149,10 @@ export default class SelectionView extends View {
 						model.navigation({row: itemIndex + 1});
 					}
 					this.toggle.execute(item);
+				},
+				canExecute: () => {
+					const selection = this.model.selection();
+					return selection.unit === 'row';
 				}
 			}),
 			togglePrev: new Command({
@@ -124,6 +165,10 @@ export default class SelectionView extends View {
 						this.toggle.execute(item);
 						model.navigation({row: itemIndex - 1});
 					}
+				},
+				canExecute: () => {
+					const selection = this.model.selection();
+					return selection.unit === 'row';
 				}
 			}),
 			toggleNext: new Command({
@@ -136,12 +181,30 @@ export default class SelectionView extends View {
 						this.toggle.execute(item);
 						model.navigation({row: itemIndex + 1});
 					}
+				},
+				canExecute: () => {
+					const selection = this.model.selection();
+					return selection.unit === 'row';
+				}
+			}),
+			toggleActiveColumn: new Command({
+				shortcut: 'ctrl+space',
+				execute: () => {
+					const columnIndex = model.navigation().column;
+					this.highlightColumn(columnIndex);
+				},
+				canExecute: () => {
+					const selection = this.model.selection();
+					return selection.unit === 'column';
 				}
 			}),
 			selectAll: new Command({
 				shortcut: 'ctrl+a',
 				execute: () => {
-					this.toggle.execute()
+					this.toggle.execute();
+				},
+				canExecute: () => {
+					return this.model.selection().mode === 'multiple';
 				}
 			}),
 
