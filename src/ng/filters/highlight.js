@@ -19,7 +19,7 @@ export default function (text, search) {
 	}
 
 	return htmlEncode(text);
-};
+}
 
 function htmlEncode(s) {
 	return String(s)
