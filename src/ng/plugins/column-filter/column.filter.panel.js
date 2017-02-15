@@ -10,7 +10,7 @@ class ColumnFilterPanel extends Plugin {
 		super(...arguments);
 
 		this.toggle = new Command({
-			execute: column => {
+			execute: () => {
 			}
 		});
 
