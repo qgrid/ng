@@ -2,13 +2,17 @@
 	<div flex="none">
 		<md-input-container class="q-grid-column-chooser-filter">
 			<label>Search</label>
-			<input type="text" ng-model="$columnFilterPanel.filter" q-grid:focus/>
+			<input type="text"
+					 ng-model="$columnFilterPanel.filter"
+					 q-grid:focus/>
 		</md-input-container>
 	</div>
 	<div flex>
 		<ul>
 			<li>
 				<md-checkbox ng-click="$columnFilterPanel.toggleAll.execute()"
+								 ng-checked="$columnFilterPanel.selectAll"
+								 ng-model="$columnFilterPanel.selectAll"
 								 md-indeterminate="$columnChoooser.isIndeterminate()">
 					Select All
 				</md-checkbox>
