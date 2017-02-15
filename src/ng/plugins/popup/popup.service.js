@@ -1,6 +1,5 @@
 import TemplateLink from 'ng/components/template/template.link';
 import PopupManager from './popup.manager';
-import {isFunction} from 'core/services/utility';
 
 export default class PopupService {
 	constructor() {
@@ -56,12 +55,12 @@ export default class PopupService {
 			popup.addClass(settings.cls);
 		}
 
-		var container = this.$document[0].body;
-		if (settings.container) {
-			container =
-				container.querySelector(settings.container)
-				|| container;
-		}
+		// var container = this.$document[0].body;
+		// if (settings.container) {
+		// 	container =
+		// 		container.querySelector(settings.container)
+		// 		|| container;
+		// }
 
 		this.popups[settings.id] = new PopupManager(popup, settings, this.$document[0].body);
 

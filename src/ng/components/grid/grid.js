@@ -1,6 +1,5 @@
 import RootComponent from '../root.component';
 import PipeUnit from 'core/pipe/units/pipe.column.unit';
-import {GRID_PREFIX} from 'core/definition';
 
 export class Grid extends RootComponent {
 	constructor($element, $transclude, $document, serviceFactory) {

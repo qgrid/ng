@@ -1,6 +1,6 @@
 import Component from 'ng/components/component';
 import TemplateLink from 'ng/components/template/template.link';
-import * as def from '../definition';;
+import * as def from '../definition';
 
 class PopupBody extends Component {
 	constructor($scope, $element, $compile, $templateCache, qGridPopupService) {
