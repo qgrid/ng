@@ -12,7 +12,8 @@ export default class Shortcut {
 			.set(39, 'right')
 			.set(40, 'down')
 			.set(113, 'f2')
-			.set(27, 'escape');
+			.set(27, 'escape')
+			.set(32, 'space');
 
 		this.listener =
 			new EventListener(this, document)
