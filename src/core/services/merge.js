@@ -49,6 +49,10 @@ export default function (settings) {
 			context.insert(rs[i], result);
 		}
 
+		// if(context.sort){
+		//
+		// }
+
 		return {
 			updated: updated,
 			removed: removed,

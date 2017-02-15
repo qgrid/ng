@@ -165,7 +165,6 @@ export default function pipeColumn(memo, context, next) {
 	 * Persist order of draggable columns
 	 *
 	 */
-	//const orderedColumns = columns;
 	const orderedColumns = Array.from(model.view().columns)[0] || [];
 	doMerge(orderedColumns, columns);
 
