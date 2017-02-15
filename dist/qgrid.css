@@ -2,7 +2,8 @@
   position: absolute;
   background-color: white;
   z-index: 79;
-  margin: 0; }
+  margin: 0;
+  outline: none; }
   .q-grid-popup.resizable {
     resize: both;
     overflow: hidden; }
@@ -551,10 +552,12 @@
   list-style-type: none; }
 
 .q-grid.q-grid-theme-material .q-grid-column-chooser ul {
-  list-style-type: none; }
+  list-style-type: none;
+  padding: 0; }
 
 .q-grid.q-grid-theme-material .q-grid-column-chooser md-input-container {
-  margin: 0; }
+  margin: 0;
+  width: 100%; }
 
 .q-grid.q-grid-theme-material .q-grid-column-chooser md-checkbox {
   margin: 0 0 10px 0; }
@@ -563,8 +566,12 @@
   display: none; }
 
 .q-grid.q-grid-theme-material .q-grid-column-chooser .q-grid-column-chooser-list {
-  margin-top: 5px;
-  overflow-y: auto; }
+  margin: 0;
+  overflow-y: auto;
+  height: 340px; }
+
+.q-grid.q-grid-theme-material .q-grid-column-chooser .q-grid-column-chooser-actions {
+  padding: 7px 0; }
 
 .q-grid.q-grid-theme-material .q-grid-progress {
   position: relative; }
@@ -598,5 +605,24 @@
     border: none;
     width: 90px; }
 
-.q-grid.q-grid-theme-material .q-grid-toolbar {
-  min-height: 40px; }
+.q-grid.q-grid-theme-material.q-grid-popup-panel md-card {
+  margin: 0; }
+  .q-grid.q-grid-theme-material.q-grid-popup-panel md-card md-card-content {
+    max-height: 500px;
+    overflow: hidden; }
+  .q-grid.q-grid-theme-material.q-grid-popup-panel md-card md-card-header {
+    width: 100%;
+    padding: 0;
+    background-color: #fff; }
+    .q-grid.q-grid-theme-material.q-grid-popup-panel md-card md-card-header md-card-title {
+      padding: 0; }
+      .q-grid.q-grid-theme-material.q-grid-popup-panel md-card md-card-header md-card-title md-card-title-text {
+        margin-left: 10px; }
+        .q-grid.q-grid-theme-material.q-grid-popup-panel md-card md-card-header md-card-title md-card-title-text .md-subhead {
+          line-height: 30px;
+          vertical-align: middle; }
+    .q-grid.q-grid-theme-material.q-grid-popup-panel md-card md-card-header .md-icon-button {
+      padding: 0;
+      margin: 0;
+      max-height: 30px;
+      min-height: 20px; }
