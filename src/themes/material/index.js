@@ -32,5 +32,6 @@ function Setup(qgridThemeProvider) {
 
 		theme.put('qgrid.toolbar.top.tpl.html', require('themes/material/templates/toolbar.top.html'));
 		theme.put('qgrid.plugin.columnchooser.tpl.html', require('themes/material/templates/plugin.column.chooser.html'));
+		theme.put('qgrid.plugin.popup-panel.tpl.html', require('themes/material/templates/plugin.popup.panel.html'));
 	});
 }
