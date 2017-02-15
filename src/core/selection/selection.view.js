@@ -28,7 +28,12 @@ export default class SelectionView extends View {
 			}
 		});
 
-		model.viewChanged.watch(() => this.behavior = behaviorFactory(model));
+		model.viewChanged.watch(e => {
+			this.behavior = behaviorFactory(model);
+			if (e.changes.hasOwnProperty('rows')){
+				e.state.rows.forEach((item) => this.blurRow(item));
+			}
+		});
 		model.selectionChanged.watch(e => {
 			if (e.tag.source !== 'toggle' && e.changes.hasOwnProperty('items')) {
 				this.behavior.select(e.state.items, true);
@@ -37,27 +42,49 @@ export default class SelectionView extends View {
 			if (e.changes.hasOwnProperty('unit') ||
 				e.changes.hasOwnProperty('mode')) {
 				this.behavior = behaviorFactory(model);
-				e.state.items.forEach((item) => this.highlight(item));
+				e.state.items.forEach((item) => this.blurRow(item));
 			}
 			if (e.changes.hasOwnProperty('items') && e.state.unit === 'row') {
-				const values = e.changes.items.newValue.concat(e.changes.items.oldValue);
-				values.forEach((item) => this.highlight(item));
+				e.changes.items.newValue.forEach((item) => {
+					if (this.state(item)) {
+						this.highlightRow(item);
+					}
+				});
+				e.changes.items.oldValue.forEach((item) => {
+					if (!this.state(item)) {
+						this.blurRow(item);
+					}
+				});
 			}
 		});
 	}
 
-	highlight(item) {
+	highlightRow(item) {
 		const index = this.model.view().rows.indexOf(item);
 		const body = this.markup.body;
 		if (body && body.rows[index]) {
 			for (let cell of body.rows[index].cells) {
-				if (this.state(item)) {
-					cell.classList.add(`${GRID_PREFIX}-selected`);
-				} else {
-					cell.classList.remove(`${GRID_PREFIX}-selected`);
-				}
+				this.highlight(cell);
 			}
 		}
+	}
+
+	blurRow(item) {
+		const index = this.model.view().rows.indexOf(item);
+		const body = this.markup.body;
+		if (body && body.rows[index]) {
+			for (let cell of body.rows[index].cells) {
+				this.blur(cell);
+			}
+		}
+	}
+
+	highlight(item) {
+		item.classList.add(`${GRID_PREFIX}-selected`);
+	}
+
+	blur(item) {
+		item.classList.remove(`${GRID_PREFIX}-selected`);
 	}
 
 	state(item) {
