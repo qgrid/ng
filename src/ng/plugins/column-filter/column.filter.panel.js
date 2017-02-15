@@ -10,7 +10,7 @@ class ColumnFilterPanel extends Plugin {
 		super(...arguments);
 
 		this.toggle = new Command({
-			execute: column => {
+			execute: () => {
 			}
 		});
 
@@ -39,6 +39,9 @@ class ColumnFilterPanel extends Plugin {
 
 	get items() {
 		return uniq(this.model.data().rows.map(this.getValue));
+	}
+
+	onReset() {
 	}
 }
 
