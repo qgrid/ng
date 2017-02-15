@@ -12,7 +12,8 @@ TemplatePath
 		};
 	});
 
-class Popup extends PluginComponent('popup', ['popup'], ['$transclude']) {
+const Plugin = PluginComponent('popup', {models: ['popup'], inject: ['$transclude']});
+class Popup extends Plugin {
 	constructor() {
 		super(...arguments);
 	}

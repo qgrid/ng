@@ -11,7 +11,8 @@ TemplatePath
 		};
 	});
 
-class Selectionbar extends PluginComponent('selectionbar') {
+const Plugin = PluginComponent('selectionbar');
+class Selectionbar extends Plugin {
 	constructor() {
 		super(...arguments);
 

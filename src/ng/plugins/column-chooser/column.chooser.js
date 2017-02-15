@@ -5,6 +5,12 @@ import Aggregation from 'core/services/aggregation';
 import * as columnService from 'core/column/column.service';
 import {isFunction, noop} from 'core/services/utility';
 import {COLUMNCHOOSER_NAME} from '../definition';
+import merge from 'core/services/merge';
+
+const doMerge = merge({
+	equals: (l, r) => l.model.key === r.model.key,
+	update: (l, r, left, i) => left[i] = r
+});
 
 TemplatePath
 	.register(COLUMNCHOOSER_NAME, () => {
@@ -14,10 +20,12 @@ TemplatePath
 		};
 	});
 
-class ColumnChooser extends PluginComponent('columnchooser') {
+const Plugin = PluginComponent('columnchooser', {inject: ['qgrid']});
+class ColumnChooser extends Plugin {
 	constructor() {
 		super(...arguments);
 
+		this._columns = [];
 		this.toggle = new Command({
 			execute: column => {
 				column.isVisible = !this.state(column);
@@ -95,6 +103,8 @@ class ColumnChooser extends PluginComponent('columnchooser') {
 		this.aggregations = Object
 			.getOwnPropertyNames(Aggregation)
 			.filter(key => isFunction(Aggregation[key]));
+
+		this.dataChnag
 	}
 
 	state(column) {
@@ -106,10 +116,7 @@ class ColumnChooser extends PluginComponent('columnchooser') {
 	}
 
 	get columns() {
-		return columnService
-			.lineView(this.model.view().columns)
-			.map(v => v.model)
-			.filter(v => v.type !== 'pivot' && v.type !== 'pad');
+		return this.model.data().columns;
 	}
 
 	get resource() {

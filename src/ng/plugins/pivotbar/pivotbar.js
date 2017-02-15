@@ -12,7 +12,8 @@ TemplatePath
 		};
 	});
 
-class Pivotbar extends PluginComponent('pivotbar') {
+const Plugin = PluginComponent('pivotbar');
+class Pivotbar extends Plugin {
 	constructor() {
 		super(...arguments);
 

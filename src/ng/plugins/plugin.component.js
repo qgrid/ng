@@ -1,19 +1,32 @@
 import ModelComponent from 'ng/components/model.component';
 import AppError from 'core/infrastructure/error';
 import * as guard from 'core/infrastructure/guard';
-import {merge, clone} from 'core/services/utility';
+import {merge, clone, assignWith} from 'core/services/utility';
 import TemplateLink from 'ng/components/template/template.link';
 import {BOX_CORE_NAME, GRID_NAME} from 'ng/definition';
 
-export default function (pluginName, modelNames = [], inject = []) {
+export default function (pluginName, context) {
 	guard.notNullOrEmpty(pluginName, 'pluginName');
+
+	context = assignWith({
+		models: [],
+		inject: []
+	}, context);
+
+	const inject = [
+		'$scope',
+		'$element',
+		'$attrs',
+		'$compile',
+		'$templateCache'
+	];
 
 	pluginName = pluginName.toLowerCase();
 
 	class Plugin extends ModelComponent {
 		constructor($scope, $element, $attrs, $compile, $templateCache) {
-			if (modelNames.length) {
-				super(modelNames);
+			if (context.models.length) {
+				super(context.models);
 			}
 			else {
 				super();
@@ -26,33 +39,33 @@ export default function (pluginName, modelNames = [], inject = []) {
 			this.templateScope = null;
 
 			Array.from(arguments)
-				.filter((a, i) => i >= 5)
-				.forEach((a, i) => this[inject[i]] = a);
+				.filter((a, i) => i >= inject.length)
+				.forEach((a, i) => this[context.inject[i]] = a);
 		}
 
 		onInitCore() {
-				if (this.isReady()) {
-					const visibility = this.model.visibility;
-					const plugins = clone(visibility().plugin);
-					if (!plugins.hasOwnProperty(pluginName)) {
-						plugins[pluginName] = true;
-						this.model.visibility({plugin: plugins});
-					}
+			if (this.isReady()) {
+				const visibility = this.model.visibility;
+				const plugins = clone(visibility().plugin);
+				if (!plugins.hasOwnProperty(pluginName)) {
+					plugins[pluginName] = true;
+					this.model.visibility({plugin: plugins});
+				}
 
-					this.model.visibilityChanged.watch(e => {
-						if (e.changes.hasOwnProperty('plugin')) {
-							const newValue = e.changes.plugin.newValue;
-							if (newValue[pluginName] !== this.isShown) {
-								if (e.state.plugin[pluginName]) {
-									this.templateScope = this.show();
-								}
-								else {
-									this.templateScope = this.hide();
-								}
+				this.model.visibilityChanged.watch(e => {
+					if (e.changes.hasOwnProperty('plugin')) {
+						const newValue = e.changes.plugin.newValue;
+						if (newValue[pluginName] !== this.isShown) {
+							if (e.state.plugin[pluginName]) {
+								this.templateScope = this.show();
+							}
+							else {
+								this.templateScope = this.hide();
 							}
 						}
-					});
-				}
+					}
+				});
+			}
 
 			super.onInitCore();
 		}
@@ -110,18 +123,12 @@ export default function (pluginName, modelNames = [], inject = []) {
 			return null;
 		}
 
-		get isShown(){
+		get isShown() {
 			return this.templateScope !== null;
 		}
 	}
 
-	Plugin.$inject = ([
-		'$scope',
-		'$element',
-		'$attrs',
-		'$compile',
-		'$templateCache'
-	]).concat(inject);
+	Plugin.$inject = inject.concat(context.inject);
 
 	Plugin.component = settings => {
 		const pluginSettings = {
