@@ -5,6 +5,7 @@ import Pivotbar from './pivotbar/pivotbar';
 import Selectionbar from './selectionbar/selectionbar';
 import Visibility from './visibility/visibility';
 import ColumnChooser from './column-chooser/column.chooser';
+import ColumnFilter from './column-filter/column.filter';
 import Progress from './progress/progress';
 import Popup from './popup/popup';
 import PopupTrigger from './popup/popup.trigger';
@@ -24,6 +25,7 @@ export default angular
 	.component(def.SELECTIONBAR_NAME, Selectionbar)
 	.component(def.VISIBILITY_NAME, Visibility)
 	.component(def.COLUMN_CHOOSER_NAME, ColumnChooser)
+	.component(def.COLUMN_FILTER_NAME, ColumnFilter)
 	.component(def.PROGRESS_NAME, Progress)
 	.component(def.POPUP_NAME, Popup)
 	.component(def.POPUP_TRIGGER_NAME, PopupTrigger)

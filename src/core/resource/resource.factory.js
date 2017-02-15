@@ -23,10 +23,6 @@ export default function factory(resource, key) {
 		};
 	}
 
-	if (data.hasOwnProperty(key)) {
-		throw new AppError('resource.factory', `Ambiguous key "${key}"`);
-	}
-
 	return (content, scope) => {
 		// TODO: do we need full clone here?
 		data[key] = content;

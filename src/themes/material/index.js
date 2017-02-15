@@ -32,7 +32,7 @@ function Setup(qgridThemeProvider) {
 
 		theme.put('qgrid.toolbar.top.tpl.html', require('themes/material/templates/toolbar.top.html'));
 		theme.put('qgrid.plugin.column-chooser.tpl.html', require('themes/material/templates/plugin.column.chooser.html'));
-		theme.put('qgrid.plugin.column-filter.tpl.html', require('themes/material/templates/plugin.column.filter.html'));
+		theme.put('qgrid.plugin.column-filter-panel.tpl.html', require('themes/material/templates/plugin.column.filter.panel.html'));
 		theme.put('qgrid.plugin.popup-panel.tpl.html', require('themes/material/templates/plugin.popup.panel.html'));
 	});
 }

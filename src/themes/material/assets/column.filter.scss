@@ -1,4 +1,53 @@
-.q-grid-column-chooser {
+@import "variables";
+
+&.q-grid-box:not(.q-grid-drag) {
+	th:hover {
+		.q-grid-column-filter {
+			visibility: visible;
+		}
+	}
+}
+
+.q-grid-column-filter {
+	visibility: hidden;
+	position: absolute;
+	right: 0;
+	top: calc(50% - 20px);
+
+	&.q-grid-active {
+		visibility: visible;
+		md-icon {
+			color: $dark;
+		}
+
+		& + label {
+			color: $dark;
+		}
+	}
+
+	button {
+		font-size: 12px;
+		width: 16px;
+		outline: none;
+		border: none;
+		background: transparent;
+		padding: 0;
+		left: 0;
+		margin-top: -1px;
+
+		md-icon {
+			color: $dark-secondary;
+			font-size: 16px;
+			height: 16px;
+			width: 16px;
+			min-height: 16px;
+			min-width: 16px;
+		}
+	}
+
+}
+
+.q-grid-column-filter-panel {
 	ul {
 		list-style-type: none;
 		padding: 0;

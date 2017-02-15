@@ -1,0 +1,15 @@
+<q-grid:popup id="q-grid-column-filter-popup">
+	<q-grid:template for="trigger">
+		<md-button class="md-icon-button" ng-click="$popup.open()">
+			<md-icon>filter_list</md-icon>
+		</md-button>
+	</q-grid:template>
+	<q-grid:template for="body">
+		<q-grid:column-chooser on:submit="$popupBody.close()"
+									  on:cancel="$popupBody.close()">
+		</q-grid:column-chooser>
+	</q-grid:template>
+	<q-grid:template for="head">
+		<span class="md-subhead">Column Filter</span>
+	</q-grid:template>
+</q-grid:popup>
