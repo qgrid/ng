@@ -4,10 +4,11 @@
 			<md-icon>filter_list</md-icon>
 		</md-button>
 	</q-grid:template>
-	<q-grid:template for="body">
-		<q-grid:column-chooser on:submit="$popupBody.close()"
-									  on:cancel="$popupBody.close()">
-		</q-grid:column-chooser>
+	<q-grid:template for="body" let="$columnFilter">
+		<q-grid:column-filter-panel key="$columnFilter.key"
+											 on:submit="$popupBody.close()"
+											 on:cancel="$popupBody.close()">
+		</q-grid:column-filter-panel>
 	</q-grid:template>
 	<q-grid:template for="head">
 		<span class="md-subhead">Column Filter</span>

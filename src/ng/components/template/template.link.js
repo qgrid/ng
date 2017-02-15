@@ -8,22 +8,25 @@ export default class TemplateLink {
 
 	link(templateUrl, resource, keys = ['content', '$default']) {
 		const resourceData = resource.data;
+		const resourceScope = resource.scope;
 		const resourceKey = this.findResourceKey(resourceData, keys);
 		const template = resourceKey !== null
 			? resourceData[resourceKey]
 			: this.$templateCache.get(templateUrl);
 
 		return (element, scope, container = element) => {
-			const resourceScope = resource.scope;
-			for (let name of Object.keys(resourceScope)) {
-				if (scope.hasOwnProperty(name)) {
-					throw new AppError(
-						'template.core',
-						`"${name}" is reserved, use another name`
-					);
-				}
+			if (resourceScope.hasOwnProperty(resourceKey)) {
+				const env = resourceScope[resourceKey];
+				for (let name of Object.keys(env)) {
+					if (scope.hasOwnProperty(name)) {
+						throw new AppError(
+							'template.core',
+							`"${name}" is reserved, use another name`
+						);
+					}
 
-				scope[name] = resourceScope[name];
+					scope[name] = env[name];
+				}
 			}
 
 			container.html('<!--qgrid: template-->' + template);

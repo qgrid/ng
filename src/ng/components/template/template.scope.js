@@ -4,7 +4,7 @@ import {isUndefined} from 'core/services/utility';
 
 export default function create(scope, args) {
 	const env = {};
-	for(let arg of args) {
+	for (let arg of args) {
 		if (!isUndefined(arg)) {
 			if (isUndefined(scope[arg])) {
 				throw new AppError(
@@ -13,14 +13,15 @@ export default function create(scope, args) {
 				);
 			}
 
-			const argScope = find(scope);
-			if (argScope === null) {
-				throw new AppError(
-					'template.scope',
-					`Let scope is not found for "${arg}"`
-				);
-			}
-			env[arg] =argScope[arg];
+			const argScope = find(scope) || scope;
+			// if (argScope === null) {
+			// 	throw new AppError(
+			// 		'template.scope',
+			// 		`Let scope is not found for "${arg}"`
+			// 	);
+			// }
+
+			env[arg] = argScope[arg];
 		}
 	}
 

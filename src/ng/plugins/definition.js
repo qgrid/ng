@@ -11,6 +11,7 @@ export const SELECTIONBAR_NAME = `${GRID}Selectionbar`;
 export const VISIBILITY_NAME = `${GRID}Visibility`;
 export const COLUMN_CHOOSER_NAME = `${GRID}ColumnChooser`;
 export const COLUMN_FILTER_NAME = `${GRID}ColumnFilter`;
+export const COLUMN_FILTER_PANEL_NAME = `${GRID}ColumnFilterPanel`;
 
 export const POPUP_NAME = `${GRID}Popup`;
 export const POPUP_TRIGGER_NAME = `${GRID}PopupTrigger`;
