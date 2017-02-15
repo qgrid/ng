@@ -20,7 +20,7 @@
 				<md-checkbox ng-checked="$columnFilterPanel.state(item)"
 								 ng-if="$columnFilterPanel.toggle.canExecute(item)"
 								 ng-click="$columnFilterPanel.toggle.execute(item)">
-					{{item}}
+					<span ng-bind-html="item | qgridHighlight : $columnFilterPanel.filter"> </span>
 				</md-checkbox>
 			</li>
 		</ul>
