@@ -1,6 +1,6 @@
 import PluginComponent from '../plugin.component';
 import Command from 'core/infrastructure/command';
-import {uniq} from 'core/services/utility';
+import {uniq, clone} from 'core/services/utility';
 import {getFactory as valueFactory} from 'ng/services/value';
 import * as columnService from 'core/column/column.service';
 
@@ -9,13 +9,44 @@ class ColumnFilterPanel extends Plugin {
 	constructor() {
 		super(...arguments);
 
+		this.by = new Set();
+		this.selectAll = false;
+
 		this.toggle = new Command({
-			execute: () => {
+			execute: (item) => {
+				if (this.by.has(item)) {
+					this.by.delete(item)
+				}
+				else {
+					this.by.add(item);
+				}
 			}
 		});
 
+		this.toggleAll = new Command({
+			execute: () => {
+				this.selectAll = !this.selectAll;
+				if (this.selectAll) {
+					for (let item of this.items) {
+						this.by.add(item);
+					}
+				}
+				else {
+					this.by.clear();
+				}
+			}
+		});
+
+
 		this.submit = new Command({
-			execute: () => this.onSubmit()
+			execute: () => {
+				const filter = this.model.filter;
+				const by = clone(filter().by);
+				by[this.key] = this.by;
+				filter({by: by});
+
+				this.onSubmit()
+			}
 		});
 
 		this.cancel = new Command({
@@ -23,18 +54,22 @@ class ColumnFilterPanel extends Plugin {
 		});
 
 		this.reset = new Command({
-			execute: () => this.onReset()
+			execute: () => {
+				this.by = new Set(this.model.filter().by[this.key] || []);
+				this.onReset()
+			}
 		});
 	}
 
 	onInit() {
 		const column = columnService.find(this.model.data().columns, this.key);
 		this.getValue = valueFactory(column);
+
+		this.by = new Set(this.model.filter().by[this.key] || []);
 	}
 
 	state(item) {
-		const filter = this.model.filter().by[this.key];
-		return filter && filter.hasOwnProperty(item);
+		return this.by.has(item);
 	}
 
 	get items() {
