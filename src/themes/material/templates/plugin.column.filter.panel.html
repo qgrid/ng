@@ -1,1 +1,41 @@
-key is: {{$columnFilterPanel.key}}
+<div class="q-grid-column-filter-panel" layout="column" flex="100">
+	<div flex="none">
+		<md-input-container class="q-grid-column-chooser-filter">
+			<label>Search</label>
+			<input type="text" ng-model="$columnFilterPanel.filter"/>
+		</md-input-container>
+	</div>
+	<div flex>
+		<ul>
+			<li>
+				<md-checkbox ng-click="$columnFilterPanel.toggleAll.execute()"
+								 md-indeterminate="$columnChoooser.isIndeterminate()">
+					Select All
+				</md-checkbox>
+			</li>
+			</li>
+		</ul>
+		<ul class="q-grid-column-chooser-list">
+			<li ng-repeat="item in $columnFilterPanel.items | filter: $columnFilterPanel.filter">
+				<md-checkbox ng-checked="$columnFilterPanel.state(item)"
+								 ng-if="$columnFilterPanel.toggle.canExecute(item)"
+								 ng-click="$columnFilterPanel.toggle.execute(item)">
+					{{item}}
+				</md-checkbox>
+			</li>
+		</ul>
+	</div>
+	<div class="q-grid-column-filter-panel-actions" flex="none">
+		<md-button ng-click="$columnFilterPanel.cancel.execute()">
+			Cancel
+		</md-button>
+		<md-button ng-click="$columnFilterPanel.reset.execute()">
+			Reset
+		</md-button>
+		<md-button class="md-primary"
+					  ng-click="$columnFilterPanel.submit.execute()"
+					  ng-disabled="!$columnFilterPanel.submit.canExecute()">
+			Save
+		</md-button>
+	</div>
+</div>
