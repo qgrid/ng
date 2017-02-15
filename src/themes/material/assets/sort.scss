@@ -1,6 +1,6 @@
 @import "variables";
 
-.q-grid-box:not(.q-grid-drag) {
+&.q-grid-box:not(.q-grid-drag) {
 	th:hover {
 		.q-grid-sort {
 			visibility: visible;

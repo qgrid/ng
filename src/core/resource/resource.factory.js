@@ -1,9 +1,9 @@
 import Resource from 'core/resource/resource';
 import EnumerableResource from 'core/resource/resource.enumerable';
-import AppError from 'core/infrastructure/error';
 
 export default function factory(resource, key) {
 	const data = resource.data;
+	const scope = resource.scope;
 	if (resource instanceof EnumerableResource) {
 		let keyIndex = 1;
 		let count = resource.count;
@@ -16,20 +16,22 @@ export default function factory(resource, key) {
 			count = keyIndex;
 		}
 
-		return (content, scope) => {
+		return (content, env) => {
 			// TODO: do we need full clone here?
 			data[key] = content;
+			if (Object.keys(env).length) {
+				scope[key] = env;
+			}
 			return new EnumerableResource(data, scope, count);
 		};
 	}
 
-	if (data.hasOwnProperty(key)) {
-		throw new AppError('resource.factory', `Ambiguous key "${key}"`);
-	}
-
-	return (content, scope) => {
+	return (content, env) => {
 		// TODO: do we need full clone here?
 		data[key] = content;
+		if (Object.keys(env).length) {
+			scope[key] = env;
+		}
 		return new Resource(data, scope);
 	};
 }
