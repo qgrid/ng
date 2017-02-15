@@ -11792,6 +11792,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
+__WEBPACK_IMPORTED_MODULE_2_core_template_template_path__["a" /* default */].register(__WEBPACK_IMPORTED_MODULE_6__definition__["i" /* COLUMN_CHOOSER_NAME */], function () {
+	return {
+		model: 'columnChooser',
+		resource: 'content'
+	};
+});
+
 var orderFromDataToView = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7_core_services_merge__["a" /* default */])({
 	equals: function equals(l, r) {
 		return l.model.key === r.key;
@@ -11808,13 +11815,6 @@ var orderFromViewToData = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7_core
 	update: __WEBPACK_IMPORTED_MODULE_5_core_services_utility__["b" /* noop */],
 	insert: __WEBPACK_IMPORTED_MODULE_5_core_services_utility__["b" /* noop */],
 	remove: __WEBPACK_IMPORTED_MODULE_5_core_services_utility__["b" /* noop */]
-});
-
-__WEBPACK_IMPORTED_MODULE_2_core_template_template_path__["a" /* default */].register(__WEBPACK_IMPORTED_MODULE_6__definition__["i" /* COLUMN_CHOOSER_NAME */], function () {
-	return {
-		model: 'columnchooser',
-		resource: 'content'
-	};
 });
 
 var Plugin = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__plugin_component__["a" /* default */])('column-chooser', { inject: ['qgrid'] });
@@ -12122,6 +12122,9 @@ var ColumnFilterPanel = function (_Plugin) {
 			var filter = this.model.filter().by[this.key];
 			return filter && filter.hasOwnProperty(item);
 		}
+	}, {
+		key: 'onReset',
+		value: function onReset() {}
 	}, {
 		key: 'items',
 		get: function get() {
@@ -12861,7 +12864,8 @@ var Popup = function (_Plugin) {
 	controller: Popup,
 	controllerAs: '$popup',
 	bindings: {
-		id: '@'
+		id: '@',
+		resourceModel: '@resource'
 	}
 });
 
@@ -19186,7 +19190,7 @@ module.exports = "<div class=\"q-grid-column-chooser\">\n\t<label>Columns:</labe
 /* 420 */
 /***/ (function(module, exports) {
 
-module.exports = "<q-grid:popup id=\"q-grid-column-filter-popup\">\n\t<q-grid:template for=\"trigger\">\n\t\t<md-button class=\"md-icon-button\" ng-click=\"$popup.open()\">\n\t\t\t<md-icon>filter_list</md-icon>\n\t\t</md-button>\n\t</q-grid:template>\n\t<q-grid:template for=\"body\" let=\"$columnFilter\">\n\t\t<q-grid:column-filter-panel key=\"$columnFilter.key\"\n\t\t\t\t\t\t\t\t\t\t\t on:submit=\"$popupBody.close()\"\n\t\t\t\t\t\t\t\t\t\t\t on:cancel=\"$popupBody.close()\">\n\t\t</q-grid:column-filter-panel>\n\t</q-grid:template>\n\t<q-grid:template for=\"head\">\n\t\t<span class=\"md-subhead\">Column Filter</span>\n\t</q-grid:template>\n</q-grid:popup>"
+module.exports = "<q-grid:popup id=\"q-grid-column-filter-popup-{{$columnFilter.key}}\">\n\t<q-grid:template for=\"trigger\">\n\t\t<md-button class=\"md-icon-button\" ng-click=\"$popup.open()\">\n\t\t\t<md-icon>filter_list</md-icon>\n\t\t</md-button>\n\t</q-grid:template>\n\t<q-grid:template for=\"body\" let=\"$columnFilter\">\n\t\t<q-grid:column-filter-panel key=\"$columnFilter.key\"\n\t\t\t\t\t\t\t\t\t\t\t on:submit=\"$popupBody.close()\"\n\t\t\t\t\t\t\t\t\t\t\t on:cancel=\"$popupBody.close()\">\n\t\t</q-grid:column-filter-panel>\n\t</q-grid:template>\n\t<q-grid:template for=\"head\">\n\t\t<span class=\"md-subhead\">Column Filter</span>\n\t</q-grid:template>\n</q-grid:popup>"
 
 /***/ }),
 /* 421 */
@@ -19318,7 +19322,7 @@ module.exports = "<div class=\"q-grid-column-chooser\" layout=\"column\" flex=\"
 /* 442 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"q-grid-column-filter-panel\" layout=\"column\" flex=\"100\">\n\t<div flex=\"none\">\n\t\t<md-input-container class=\"q-grid-column-chooser-filter\">\n\t\t\t<label>Search</label>\n\t\t\t<input type=\"text\" ng-model=\"$columnFilterPanel.filter\"/>\n\t\t</md-input-container>\n\t</div>\n\t<div flex>\n\t\t<ul>\n\t\t\t<li>\n\t\t\t\t<md-checkbox ng-click=\"$columnFilterPanel.toggleAll.execute()\"\n\t\t\t\t\t\t\t\t md-indeterminate=\"$columnChoooser.isIndeterminate()\">\n\t\t\t\t\tSelect All\n\t\t\t\t</md-checkbox>\n\t\t\t</li>\n\t\t\t</li>\n\t\t</ul>\n\t\t<ul class=\"q-grid-column-chooser-list\">\n\t\t\t<li ng-repeat=\"item in $columnFilterPanel.items | filter: $columnFilterPanel.filter\">\n\t\t\t\t<md-checkbox ng-checked=\"$columnFilterPanel.state(item)\"\n\t\t\t\t\t\t\t\t ng-if=\"$columnFilterPanel.toggle.canExecute(item)\"\n\t\t\t\t\t\t\t\t ng-click=\"$columnFilterPanel.toggle.execute(item)\">\n\t\t\t\t\t<span ng-bind-html=\"item | qgridHighlight : $columnFilterPanel.filter\"> </span>\n\t\t\t\t</md-checkbox>\n\t\t\t</li>\n\t\t</ul>\n\t</div>\n\t<div class=\"q-grid-column-filter-panel-actions\" flex=\"none\">\n\t\t<md-button ng-click=\"$columnFilterPanel.cancel.execute()\">\n\t\t\tCancel\n\t\t</md-button>\n\t\t<md-button ng-click=\"$columnFilterPanel.reset.execute()\">\n\t\t\tReset\n\t\t</md-button>\n\t\t<md-button class=\"md-primary\"\n\t\t\t\t\t  ng-click=\"$columnFilterPanel.submit.execute()\"\n\t\t\t\t\t  ng-disabled=\"!$columnFilterPanel.submit.canExecute()\">\n\t\t\tSave\n\t\t</md-button>\n\t</div>\n</div>"
+module.exports = "<div class=\"q-grid-column-filter-panel\" layout=\"column\" flex=\"100\">\n\t<div flex=\"none\">\n\t\t<md-input-container class=\"q-grid-column-chooser-filter\">\n\t\t\t<label>Search</label>\n\t\t\t<input type=\"text\" ng-model=\"$columnFilterPanel.filter\" q-grid:focus/>\n\t\t</md-input-container>\n\t</div>\n\t<div flex>\n\t\t<ul>\n\t\t\t<li>\n\t\t\t\t<md-checkbox ng-click=\"$columnFilterPanel.toggleAll.execute()\"\n\t\t\t\t\t\t\t\t md-indeterminate=\"$columnChoooser.isIndeterminate()\">\n\t\t\t\t\tSelect All\n\t\t\t\t</md-checkbox>\n\t\t\t</li>\n\t\t\t</li>\n\t\t</ul>\n\t\t<ul class=\"q-grid-column-chooser-list\">\n\t\t\t<li ng-repeat=\"item in $columnFilterPanel.items | filter: $columnFilterPanel.filter\">\n\t\t\t\t<md-checkbox ng-checked=\"$columnFilterPanel.state(item)\"\n\t\t\t\t\t\t\t\t ng-if=\"$columnFilterPanel.toggle.canExecute(item)\"\n\t\t\t\t\t\t\t\t ng-click=\"$columnFilterPanel.toggle.execute(item)\">\n\t\t\t\t\t<span ng-bind-html=\"item | qgridHighlight : $columnFilterPanel.filter\"> </span>\n\t\t\t\t</md-checkbox>\n\t\t\t</li>\n\t\t</ul>\n\t</div>\n\t<div class=\"q-grid-column-filter-panel-actions\" flex=\"none\">\n\t\t<md-button ng-click=\"$columnFilterPanel.cancel.execute()\">\n\t\t\tCancel\n\t\t</md-button>\n\t\t<md-button ng-click=\"$columnFilterPanel.reset.execute()\">\n\t\t\tReset\n\t\t</md-button>\n\t\t<md-button class=\"md-primary\"\n\t\t\t\t\t  ng-click=\"$columnFilterPanel.submit.execute()\"\n\t\t\t\t\t  ng-disabled=\"!$columnFilterPanel.submit.canExecute()\">\n\t\t\tSave\n\t\t</md-button>\n\t</div>\n</div>"
 
 /***/ }),
 /* 443 */
