@@ -1,5 +1,6 @@
 import Component from 'ng/components/component';
 import TemplateLink from 'ng/components/template/template.link';
+import EventListener from 'core/infrastructure/event.listener';
 import * as def from '../definition';
 
 class PopupHead extends Component {
@@ -18,6 +19,7 @@ class PopupHead extends Component {
 		this.qGridPopupService = qGridPopupService;
 		this.$templateScope = null;
 		this.template = new TemplateLink($compile, $templateCache);
+		this.eventListener = new EventListener(this, this.$element[0]);
 
 		this.$element.attr('draggable', true);
 	}
@@ -37,7 +39,7 @@ class PopupHead extends Component {
 		link(this.$element, templateScope);
 		this.$templateScope = templateScope;
 
-		this.$element.on('dragstart', e => {
+		this.eventListener.on('dragstart', e => {
 			this.position.x = e.offsetX;
 			this.position.y = e.offsetY;
 
@@ -45,7 +47,7 @@ class PopupHead extends Component {
 			e.dataTransfer.setDragImage(angular.element('<div></div>')[0], 0, 0);
 		});
 
-		this.$element.on('drag', event => {
+		this.eventListener.on('drag', event => {
 			const cx = event.clientX,
 				cy = event.clientY,
 				x = this.position.x,
@@ -69,7 +71,7 @@ class PopupHead extends Component {
 			}
 		});
 
-		this.$element.on('dragend', () => {
+		this.eventListener.on('dragend', () => {
 			this.$element.removeClass('drag');
 		});
 
