@@ -11,7 +11,8 @@ TemplatePath
 		};
 	});
 
-class Pager extends PluginComponent('pager', ['pagination']) {
+const Plugin = PluginComponent('pager', {models: ['pagination']});
+class Pager extends Plugin {
 	constructor() {
 		super(...arguments);
 

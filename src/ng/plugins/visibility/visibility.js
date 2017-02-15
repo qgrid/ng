@@ -15,7 +15,8 @@ TemplatePath
 		};
 	});
 
-class Visibility extends PluginComponent('visibility') {
+const Plugin = PluginComponent('visibility');
+class Visibility extends Plugin {
 	constructor() {
 		super(...arguments);
 		this.toggle = new Command({

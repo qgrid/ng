@@ -5,6 +5,23 @@ import Aggregation from 'core/services/aggregation';
 import * as columnService from 'core/column/column.service';
 import {isFunction, noop} from 'core/services/utility';
 import {COLUMNCHOOSER_NAME} from '../definition';
+import merge from 'core/services/merge';
+import PipeUnit from 'core/pipe/units/pipe.unit';
+
+const orderFromDataToView = merge({
+	equals: (l, r) => l.model.key === r.key,
+	update: noop,
+	insert: noop,
+	remove: noop
+});
+
+
+const orderFromViewToData = merge({
+	equals: (l, r) => l.key === r.model.key,
+	update: noop,
+	insert: noop,
+	remove: noop
+});
 
 TemplatePath
 	.register(COLUMNCHOOSER_NAME, () => {
@@ -14,23 +31,23 @@ TemplatePath
 		};
 	});
 
-class ColumnChooser extends PluginComponent('columnchooser') {
+const Plugin = PluginComponent('columnchooser', {inject: ['qgrid']});
+class ColumnChooser extends Plugin {
 	constructor() {
 		super(...arguments);
 
+		this._columns = [];
 		this.toggle = new Command({
 			execute: column => {
 				column.isVisible = !this.state(column);
-				const data = this.model.data;
-
-				data({columns: Array.from(data().columns)});
+				this.service.invalidate('column.chooser', {}, PipeUnit.column)
+					.then(() => orderFromDataToView(this.model.view().columns[0] || [], this._columns));
 			}
 		});
 
 		this.toggleAggregation = new Command({
 			execute: () => {
-				const data = this.model.data;
-				data({columns: Array.from(data().columns)});
+				this.service.invalidate('column.chooser', {}, PipeUnit.column)
 			},
 		});
 
@@ -54,7 +71,8 @@ class ColumnChooser extends PluginComponent('columnchooser') {
 						const sourceColumn = columns[sourceIndex];
 						columns.splice(sourceIndex, 1);
 						columns.splice(targetIndex, 0, sourceColumn);
-						view({columns: Array.from(columnRows)});
+						this.service.invalidate('column.chooser', {}, PipeUnit.column)
+							.then(() => orderFromDataToView(columnRows[0] || [], this._columns));
 					}
 				}
 			}
@@ -92,9 +110,26 @@ class ColumnChooser extends PluginComponent('columnchooser') {
 	}
 
 	onInit() {
+		const model = this.model;
+		this.service = this.qgrid.service(model);
 		this.aggregations = Object
 			.getOwnPropertyNames(Aggregation)
 			.filter(key => isFunction(Aggregation[key]));
+
+		model.dataChanged.on(e => {
+			if (e.changes.hasOwnProperty('columns')) {
+				this._columns = Array.from(e.state.columns);
+			}
+		});
+
+		model.viewChanged.on(e => {
+			if (e.changes.hasOwnProperty('columns')) {
+				orderFromViewToData(this._columns, e.state.columns[0]);
+			}
+		});
+
+		this._columns = Array.from(model.data().columns);
+		orderFromViewToData(this._columns, model.view().columns[0]);
 	}
 
 	state(column) {
@@ -106,10 +141,7 @@ class ColumnChooser extends PluginComponent('columnchooser') {
 	}
 
 	get columns() {
-		return columnService
-			.lineView(this.model.view().columns)
-			.map(v => v.model)
-			.filter(v => v.type !== 'pivot' && v.type !== 'pad');
+		return this._columns;
 	}
 
 	get resource() {
