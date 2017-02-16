@@ -123,12 +123,12 @@ class ColumnChooser extends Plugin {
 
 		model.viewChanged.on(e => {
 			if (e.changes.hasOwnProperty('columns')) {
-				orderFromViewToData(this._columns, e.state.columns[0]);
+				orderFromViewToData(this._columns, e.state.columns[0] || []);
 			}
 		});
 
 		this._columns = Array.from(model.data().columns);
-		orderFromViewToData(this._columns, model.view().columns[0]);
+		orderFromViewToData(this._columns, model.view().columns[0] || []);
 	}
 
 	state(column) {
