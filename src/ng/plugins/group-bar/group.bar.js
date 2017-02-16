@@ -1,19 +1,19 @@
 import PluginComponent from '../plugin.component';
 import Command from 'core/infrastructure/command'
 import {TH_CORE_NAME} from 'ng/definition';
-import {GROUPBAR_NAME} from '../definition';
+import {GROUP_BAR_NAME} from '../definition';
 import TemplatePath from 'core/template/template.path';
 
 TemplatePath
-	.register(GROUPBAR_NAME, () => {
+	.register(GROUP_BAR_NAME, () => {
 		return {
 			model: 'group',
 			resource: 'content'
 		};
 	});
 
-const Plugin = PluginComponent('groupbar');
-class Groupbar extends Plugin {
+const Plugin = PluginComponent('group-bar');
+class GroupBar extends Plugin {
 	constructor() {
 		super(...arguments);
 
@@ -72,7 +72,7 @@ class Groupbar extends Plugin {
 	}
 }
 
-export default Groupbar.component({
-	controller: Groupbar,
-	controllerAs: '$groupbar'
+export default GroupBar.component({
+	controller: GroupBar,
+	controllerAs: '$groupBar'
 });

@@ -20,16 +20,7 @@ const orderFromDataToView = merge({
 	equals: (l, r) => l.model.key === r.key,
 	update: noop,
 	insert: noop,
-	remove: noop,
-	sort: (left, right) => (l, r) => {
-		const x0 = left.indexOf(l);
-		const x1 = left.indexOf(r);
-		const y0 = right.indexOf(l.model);
-		const y1 = right.indexOf(r.model);
-
-
-		return x - y;
-	}
+	remove: noop
 });
 
 const orderFromViewToData = merge({
@@ -37,9 +28,6 @@ const orderFromViewToData = merge({
 	update: noop,
 	insert: noop,
 	remove: noop
-	sort: (left, right) => (l, r) => {
-
-	}
 });
 
 const Plugin = PluginComponent('column-chooser', {inject: ['qgrid']});
