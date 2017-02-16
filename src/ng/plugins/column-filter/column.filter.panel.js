@@ -40,9 +40,13 @@ class ColumnFilterPanel extends Plugin {
 			execute: () => {
 				const filter = this.model.filter;
 				const by = clone(filter().by);
-				by[this.key] = {
-					items: Array.from(this.by)
-				};
+				const items = Array.from(this.by);
+				if (items.length) {
+					by[this.key] = {items: items};
+				}
+				else {
+					delete by[this.key];
+				}
 
 				filter({by: by});
 
