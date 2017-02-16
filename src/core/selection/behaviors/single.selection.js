@@ -1,21 +1,24 @@
-import Selection from './selection';
-
-export default class SingleSelection extends Selection {
-	constructor(model) {
-		super(model);
+export default class SingleSelection {
+	constructor(behavior) {
 		this.item = null;
+		this.behavior = behavior;
 	}
 
-	selectCore(item, state) {
+	select(item, state, e) {
+
 		if (state) {
 			this.item = item;
 		}
 		else {
 			this.item = null;
 		}
+
+		e.newItems = state ? [item] : item;
+
+		this.behavior.select(item, state, e);
 	}
 
-	stateCore(item) {
+	state(item) {
 		return item === this.item;
 	}
 
