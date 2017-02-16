@@ -1,19 +1,19 @@
 import PluginComponent from '../plugin.component';
 import Command from 'core/infrastructure/command'
 import {TH_CORE_NAME} from 'ng/definition';
-import {PIVOTBAR_NAME} from '../definition';
+import {PIVOT_BAR_NAME} from '../definition';
 import TemplatePath from 'core/template/template.path';
 
 TemplatePath
-	.register(PIVOTBAR_NAME, () => {
+	.register(PIVOT_BAR_NAME, () => {
 		return {
 			model: 'pivot',
 			resource: 'content'
 		};
 	});
 
-const Plugin = PluginComponent('pivotbar');
-class Pivotbar extends Plugin {
+const Plugin = PluginComponent('pivot-bar');
+class PivotBar extends Plugin {
 	constructor() {
 		super(...arguments);
 
@@ -72,7 +72,7 @@ class Pivotbar extends Plugin {
 	}
 }
 
-export default Pivotbar.component({
-	controller: Pivotbar,
-	controllerAs: '$pivotbar'
+export default PivotBar.component({
+	controller: PivotBar,
+	controllerAs: '$pivotBar'
 });

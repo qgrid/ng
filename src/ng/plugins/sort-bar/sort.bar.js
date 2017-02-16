@@ -1,20 +1,20 @@
 import PluginComponent from '../plugin.component';
 import Command from 'core/infrastructure/command'
 import * as SortSevice from 'core/sort/sort.service';
-import {SORTBAR_NAME} from '../definition';
+import {SORT_BAR_NAME} from '../definition';
 import {TH_CORE_NAME} from 'ng/definition';
 import TemplatePath from 'core/template/template.path';
 
 TemplatePath
-	.register(SORTBAR_NAME, () => {
+	.register(SORT_BAR_NAME, () => {
 		return {
 			model: 'sort',
 			resource: 'content'
 		};
 	});
 
-const Plugin = PluginComponent('sortbar');
-class Sortbar extends Plugin {
+const Plugin = PluginComponent('sort-bar');
+class SortBar extends Plugin {
 	constructor() {
 		super(...arguments);
 
@@ -72,7 +72,7 @@ class Sortbar extends Plugin {
 	}
 }
 
-export default Sortbar.component({
-	controller: Sortbar,
-	controllerAs: '$sortbar'
+export default SortBar.component({
+	controller: SortBar,
+	controllerAs: '$sortBar'
 });

@@ -1,8 +1,8 @@
 import Pager from './pagination/pager';
-import Sortbar from './sortbar/sortbar';
-import Groupbar from './groupbar/groupbar';
-import Pivotbar from './pivotbar/pivotbar';
-import Selectionbar from './selectionbar/selectionbar';
+import SortBar from './sort-bar/sort.bar';
+import GroupBar from './group-bar/group.bar';
+import PivotBar from './pivot-bar/pivot.bar';
+import SelectionBar from './selection-bar/selection.bar';
 import Visibility from './visibility/visibility';
 import ColumnChooser from './column-chooser/column.chooser';
 import ColumnFilter from './column-filter/column.filter';
@@ -20,10 +20,10 @@ import * as def from './definition';
 export default angular
 	.module(def.MODULE_NAME, [def.MODULE_CORE_NAME])
 	.component(def.PAGER_NAME, Pager)
-	.component(def.SORTBAR_NAME, Sortbar)
-	.component(def.GROUPBAR_NAME, Groupbar)
-	.component(def.PIVOTBAR_NAME, Pivotbar)
-	.component(def.SELECTIONBAR_NAME, Selectionbar)
+	.component(def.SORT_BAR_NAME, SortBar)
+	.component(def.GROUP_BAR_NAME, GroupBar)
+	.component(def.PIVOT_BAR_NAME, PivotBar)
+	.component(def.SELECTION_BAR_NAME, SelectionBar)
 	.component(def.VISIBILITY_NAME, Visibility)
 	.component(def.COLUMN_CHOOSER_NAME, ColumnChooser)
 	.component(def.COLUMN_FILTER_NAME, ColumnFilter)
@@ -45,10 +45,10 @@ function Setup(qgridThemeProvider) {
 	qgridThemeProvider.register('default', theme => {
 		theme.put('qgrid.plugin.pager.tpl.html', require('./pagination/pager.html'));
 		theme.put('qgrid.plugin.progress.tpl.html', require('./progress/progress.html'));
-		theme.put('qgrid.plugin.sortbar.tpl.html', require('./sortbar/sortbar.html'));
-		theme.put('qgrid.plugin.groupbar.tpl.html', require('./groupbar/groupbar.html'));
-		theme.put('qgrid.plugin.pivotbar.tpl.html', require('./pivotbar/pivotbar.html'));
-		theme.put('qgrid.plugin.selectionbar.tpl.html', require('./selectionbar/selectionbar.html'));
+		theme.put('qgrid.plugin.sort-bar.tpl.html', require('./sort-bar/sort.bar.html'));
+		theme.put('qgrid.plugin.group-bar.tpl.html', require('./group-bar/group.bar.html'));
+		theme.put('qgrid.plugin.pivot-bar.tpl.html', require('./pivot-bar/pivot.bar.html'));
+		theme.put('qgrid.plugin.selection-bar.tpl.html', require('./selection-bar/selection.bar.html'));
 		theme.put('qgrid.plugin.visibility.tpl.html', require('./visibility/visibility.html'));
 		theme.put('qgrid.plugin.column-chooser.tpl.html', require('./column-chooser/column.chooser.html'));
 		theme.put('qgrid.plugin.column-filter.tpl.html', require('./column-filter/column.filter.html'));
