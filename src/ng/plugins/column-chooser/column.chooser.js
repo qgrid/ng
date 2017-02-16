@@ -36,11 +36,24 @@ class ColumnChooser extends Plugin {
 		super(...arguments);
 
 		this._columns = [];
+
 		this.toggle = new Command({
 			execute: column => {
 				column.isVisible = !this.state(column);
 				this.service.invalidate('column.chooser', {}, PipeUnit.column)
-					.then(() => orderFromDataToView(this.model.view().columns[0] || [], this._columns));
+					.then(() => orderFromDataToView(this.model.view().columns[0] || [], this.columns));
+			}
+		});
+
+		this.toggleAll = new Command({
+			execute: () => {
+				const state = !this.stateAll();
+				for (let column of this.columns) {
+					column.isVisible = state;
+				}
+
+				this.service.invalidate('column.chooser', {}, PipeUnit.column)
+					.then(() => orderFromDataToView(this.model.view().columns[0] || [], this.columns));
 			}
 		});
 
@@ -71,7 +84,7 @@ class ColumnChooser extends Plugin {
 						columns.splice(sourceIndex, 1);
 						columns.splice(targetIndex, 0, sourceColumn);
 						this.service.invalidate('column.chooser', {}, PipeUnit.column)
-							.then(() => orderFromDataToView(columnRows[0] || [], this._columns));
+							.then(() => orderFromDataToView(columnRows[0] || [], this.columns));
 					}
 				}
 			}
@@ -123,16 +136,24 @@ class ColumnChooser extends Plugin {
 
 		model.viewChanged.on(e => {
 			if (e.changes.hasOwnProperty('columns')) {
-				orderFromViewToData(this._columns, e.state.columns[0] || []);
+				orderFromViewToData(this.columns, e.state.columns[0] || []);
 			}
 		});
 
 		this._columns = Array.from(model.data().columns);
-		orderFromViewToData(this._columns, model.view().columns[0] || []);
+		orderFromViewToData(this.columns, model.view().columns[0] || []);
 	}
 
 	state(column) {
 		return column.isVisible !== false;
+	}
+
+	stateAll() {
+		return this.columns.every(this.state.bind(this));
+	}
+
+	isIndeterminate() {
+		return !this.stateAll() && this.columns.some(this.state.bind(this));
 	}
 
 	get canAggregate() {

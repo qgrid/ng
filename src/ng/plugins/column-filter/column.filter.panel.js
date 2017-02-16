@@ -36,7 +36,6 @@ class ColumnFilterPanel extends Plugin {
 			}
 		});
 
-
 		this.submit = new Command({
 			execute: () => {
 				const filter = this.model.filter;
@@ -63,7 +62,6 @@ class ColumnFilterPanel extends Plugin {
 	onInit() {
 		const column = columnService.find(this.model.data().columns, this.key);
 		this.getValue = valueFactory(column);
-
 		this.by = new Set(this.model.filter().by[this.key] || []);
 	}
 
@@ -72,12 +70,11 @@ class ColumnFilterPanel extends Plugin {
 	}
 
 	stateAll() {
-		const items = this.items;
-		return items.every(item => this.state(item));
+		return this.items.every(this.state.bind(this));
 	}
 
 	isIndeterminate() {
-		return !this.stateAll() && this.items.some(item => this.state(item));
+		return !this.stateAll() && this.items.some(this.state.bind(this));
 	}
 
 	get items() {
