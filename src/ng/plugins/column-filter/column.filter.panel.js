@@ -40,7 +40,10 @@ class ColumnFilterPanel extends Plugin {
 			execute: () => {
 				const filter = this.model.filter;
 				const by = clone(filter().by);
-				by[this.key] = this.by;
+				by[this.key] = {
+					items: Array.from(this.by)
+				};
+
 				filter({by: by});
 
 				this.onSubmit()
@@ -53,7 +56,8 @@ class ColumnFilterPanel extends Plugin {
 
 		this.reset = new Command({
 			execute: () => {
-				this.by = new Set(this.model.filter().by[this.key] || []);
+				const filterBy = this.model.filter().by[this.key];
+				this.by = new Set((filterBy && filterBy.items) || []);
 				this.onReset()
 			}
 		});
@@ -62,7 +66,9 @@ class ColumnFilterPanel extends Plugin {
 	onInit() {
 		const column = columnService.find(this.model.data().columns, this.key);
 		this.getValue = valueFactory(column);
-		this.by = new Set(this.model.filter().by[this.key] || []);
+
+		const filterBy = this.model.filter().by[this.key];
+		this.by = new Set((filterBy && filterBy.items) || []);
 	}
 
 	state(item) {

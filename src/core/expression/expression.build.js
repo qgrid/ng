@@ -1,22 +1,16 @@
-import {yes} from 'core/services/utility';
-
 export default function build(filterBy, op = 'and') {
 	const expressions = [];
 	for (let [key, filter] of Object.entries(filterBy)) {
-		if (filter) {
-			switch (key) {
-				case '$expression':
-					expressions.push(filter.expression);
-					break;
-				default:
-					if (filter.items && filter.items.length) {
-						expressions.push(toExpression(key, filter.items));
-					}
-			}
+		if (filter.expression) {
+			expressions.push(filter.expression);
+		}
+
+		if (filter.items && filter.items.length) {
+			expressions.push(toExpression(key, filter.items));
 		}
 	}
 
-	return compile(expressions, op) || yes;
+	return compile(expressions, op);
 }
 
 function toExpression(key, items) {

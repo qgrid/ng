@@ -1,4 +1,4 @@
-import AppError from 'core/infrastrucuture/error';
+import AppError from 'core/infrastructure/error';
 
 export default function castFactory(r) {
 	const rt = typeof r,

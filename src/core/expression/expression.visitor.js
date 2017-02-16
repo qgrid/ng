@@ -27,7 +27,7 @@ export default class Visitor {
 		}
 
 		return this.visit(group.left, depth);
-	};
+	}
 
 	visitCondition(condition, depth) {
 		switch (condition.op) {
@@ -66,7 +66,7 @@ export default class Visitor {
 		this.visitLeft(condition.left);
 	}
 
-	visitBinary(condition, depth) {
+	visitBinary(condition/*, depth*/) {
 		this.visitLeft(condition.left);
 		this.visitRight(condition.right);
 	}
@@ -80,13 +80,13 @@ export default class Visitor {
 		}
 	}
 
-	visitBetween(condition, depth) {
+	visitBetween(/*condition, depth*/) {
 	}
 
-	visitIn(condition, depth) {
+	visitIn(/*condition, depth*/) {
 	}
 
-	visitFunction(fn) {
+	visitFunction(/*fn*/) {
 	}
 
 	visitArguments(args) {
