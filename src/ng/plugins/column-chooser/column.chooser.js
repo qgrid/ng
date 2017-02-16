@@ -57,6 +57,17 @@ class ColumnChooser extends Plugin {
 			}
 		});
 
+		this.defaults = new Command({
+			execute: () => {
+				for (let column of this.columns) {
+					column.isVisible = column.isDefault !== false;
+				}
+
+				this.service.invalidate('column.chooser', {}, PipeUnit.column)
+					.then(() => orderFromDataToView(this.model.view().columns[0] || [], this.columns));
+			}
+		});
+
 		this.toggleAggregation = new Command({
 			execute: () => {
 				this.service.invalidate('column.chooser', {}, PipeUnit.column)
@@ -150,6 +161,10 @@ class ColumnChooser extends Plugin {
 
 	stateAll() {
 		return this.columns.every(this.state.bind(this));
+	}
+
+	stateDefault() {
+		return this.columns.every(c => (c.isDefault !== false && c.isVisible !== false) || (c.isDefault === false && c.isVisible === false));
 	}
 
 	isIndeterminate() {
