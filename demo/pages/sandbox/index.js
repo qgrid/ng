@@ -42,14 +42,16 @@ export default function Controller($http) {
 			key: 'password',
 			title: 'Password',
 			type: 'password',
-			value: (item, value) => isUndef(value) ? item.password || '' : item.password = value
+			value: (item, value) => isUndef(value) ? item.password || '' : item.password = value,
+			isDefault: false
 		},
 		{
 			key: 'contact.address.zip',
 			title: 'Zip',
 			type: 'number',
 			path: 'contact.address.zip',
-			width: 70
+			width: 70,
+			isDefault: false
 		},
 		{
 			key: 'contact.address.state',
@@ -86,7 +88,8 @@ export default function Controller($http) {
 		{
 			key: 'memberSince',
 			title: 'Member Since',
-			type: 'date'
+			type: 'date',
+			isDefault: false
 		}
 	];
 

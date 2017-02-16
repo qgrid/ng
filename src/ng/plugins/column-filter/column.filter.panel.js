@@ -10,7 +10,6 @@ class ColumnFilterPanel extends Plugin {
 		super(...arguments);
 
 		this.by = new Set();
-		this.selectAll = false;
 
 		this.toggle = new Command({
 			execute: (item) => {
@@ -25,8 +24,8 @@ class ColumnFilterPanel extends Plugin {
 
 		this.toggleAll = new Command({
 			execute: () => {
-				this.selectAll = !this.selectAll;
-				if (this.selectAll) {
+				const state = !this.stateAll();
+				if (state) {
 					for (let item of this.items) {
 						this.by.add(item);
 					}
@@ -36,7 +35,6 @@ class ColumnFilterPanel extends Plugin {
 				}
 			}
 		});
-
 
 		this.submit = new Command({
 			execute: () => {
@@ -64,12 +62,19 @@ class ColumnFilterPanel extends Plugin {
 	onInit() {
 		const column = columnService.find(this.model.data().columns, this.key);
 		this.getValue = valueFactory(column);
-
 		this.by = new Set(this.model.filter().by[this.key] || []);
 	}
 
 	state(item) {
 		return this.by.has(item);
+	}
+
+	stateAll() {
+		return this.items.every(this.state.bind(this));
+	}
+
+	isIndeterminate() {
+		return !this.stateAll() && this.items.some(this.state.bind(this));
 	}
 
 	get items() {
