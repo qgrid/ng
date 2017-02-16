@@ -11,9 +11,8 @@
 		<ul>
 			<li>
 				<md-checkbox ng-click="$columnFilterPanel.toggleAll.execute()"
-								 ng-checked="$columnFilterPanel.selectAll"
-								 ng-model="$columnFilterPanel.selectAll"
-								 md-indeterminate="$columnChoooser.isIndeterminate()">
+								 ng-checked="$columnFilterPanel.stateAll()"
+								 md-indeterminate="$columnFilterPanel.isIndeterminate()">
 					Select All
 				</md-checkbox>
 			</li>
@@ -24,7 +23,7 @@
 				<md-checkbox ng-checked="$columnFilterPanel.state(item)"
 								 ng-if="$columnFilterPanel.toggle.canExecute(item)"
 								 ng-click="$columnFilterPanel.toggle.execute(item)">
-					<span ng-bind-html="item || '<empty>' | qgridHighlight : $columnFilterPanel.filter"> </span>
+					<span ng-bind-html="item | qgridHighlight : $columnFilterPanel.filter"> </span>
 				</md-checkbox>
 			</li>
 		</ul>
