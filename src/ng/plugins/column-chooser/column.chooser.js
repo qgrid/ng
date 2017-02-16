@@ -4,9 +4,17 @@ import TemplatePath from 'core/template/template.path';
 import Aggregation from 'core/services/aggregation';
 import * as columnService from 'core/column/column.service';
 import {isFunction, noop} from 'core/services/utility';
-import {COLUMNCHOOSER_NAME} from '../definition';
+import {COLUMN_CHOOSER_NAME} from '../definition';
 import merge from 'core/services/merge';
 import PipeUnit from 'core/pipe/units/pipe.unit';
+
+TemplatePath
+	.register(COLUMN_CHOOSER_NAME, () => {
+		return {
+			model: 'columnChooser',
+			resource: 'content'
+		};
+	});
 
 const orderFromDataToView = merge({
 	equals: (l, r) => l.model.key === r.key,
@@ -24,7 +32,6 @@ const orderFromDataToView = merge({
 	}
 });
 
-
 const orderFromViewToData = merge({
 	equals: (l, r) => l.key === r.model.key,
 	update: noop,
@@ -35,15 +42,7 @@ const orderFromViewToData = merge({
 	}
 });
 
-TemplatePath
-	.register(COLUMNCHOOSER_NAME, () => {
-		return {
-			model: 'columnchooser',
-			resource: 'content'
-		};
-	});
-
-const Plugin = PluginComponent('columnchooser', {inject: ['qgrid']});
+const Plugin = PluginComponent('column-chooser', {inject: ['qgrid']});
 class ColumnChooser extends Plugin {
 	constructor() {
 		super(...arguments);
@@ -65,7 +64,7 @@ class ColumnChooser extends Plugin {
 
 		this.drop = new Command({
 			canExecute: e => {
-				if (e.source && e.source.key === COLUMNCHOOSER_NAME) {
+				if (e.source && e.source.key === COLUMN_CHOOSER_NAME) {
 					const map = columnService.map(this.model.data().columns);
 					return map.hasOwnProperty(e.target.value);
 				}
@@ -92,7 +91,7 @@ class ColumnChooser extends Plugin {
 
 		this.drag = new Command({
 			canExecute: e => {
-				if (e.source.key === COLUMNCHOOSER_NAME) {
+				if (e.source.key === COLUMN_CHOOSER_NAME) {
 					const map = columnService.map(this.model.data().columns);
 					return map.hasOwnProperty(e.source.value) && map[e.source.value].canMove !== false;
 				}
@@ -162,7 +161,7 @@ class ColumnChooser extends Plugin {
 
 	transfer(column) {
 		return {
-			key: COLUMNCHOOSER_NAME,
+			key: COLUMN_CHOOSER_NAME,
 			value: column.key
 		};
 	}
