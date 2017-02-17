@@ -26,7 +26,7 @@ export default class RowIndicatorColumn extends ColumnView {
 		super(model);
 	}
 
-	static  model() {
-		return new RowIndicatorColumnModel();
+	static model(model) {
+		return model ? RowIndicatorColumn.assign(model) : new RowIndicatorColumnModel();
 	}
 }

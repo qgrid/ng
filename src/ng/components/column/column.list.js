@@ -19,14 +19,15 @@ class ColumnList extends ModelComponent {
 		const generation = this.columnListGeneration;
 		if (generation) {
 			model.dataChanged.watch(e => {
-				if (e.changes.hasOwnProperty('rows')) {
+				if (!e || e.changes.hasOwnProperty('rows')) {
 					const generatedColumns = [];
+					const rows = model.data().rows;
 					switch (generation) {
 						case 'deep':
-							generatedColumns.push(...generate(e.state.rows, true));
+							generatedColumns.push(...generate(rows, true));
 							break;
 						case 'shallow':
-							generatedColumns.push(...generate(e.state.rows, false));
+							generatedColumns.push(...generate(rows, false));
 							break;
 						default:
 							throw new AppError(

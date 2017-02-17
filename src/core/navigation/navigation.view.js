@@ -39,11 +39,11 @@ export default class NavigationView extends View {
 		});
 
 		model.navigationChanged.watch(e => {
-			this.newRow = e.state.row == -1 ? 0 : e.state.row;
-			this.newColumn = e.state.column == -1 ? 0 : e.state.column;
-			this.oldRow = e.changes.hasOwnProperty('row') ? e.changes.row.oldValue : this.newRow;
-			this.oldColumn = e.changes.hasOwnProperty('column') ? e.changes.column.oldValue : this.newColumn;
-
+			const nav = model.navigation();
+			this.newRow = nav.row == -1 ? 0 : nav.row;
+			this.newColumn = nav.column == -1 ? 0 : nav.column;
+			this.oldRow = e && e.changes.hasOwnProperty('row') ? e.changes.row.oldValue : this.newRow;
+			this.oldColumn = e && e.changes.hasOwnProperty('column') ? e.changes.column.oldValue : this.newColumn;
 			if (this.blur.canExecute() && this.oldRow !== -1 && this.oldColumn !== -1) {
 				this.blur.execute(this.oldRow, this.oldColumn);
 			}

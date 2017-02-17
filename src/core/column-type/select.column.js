@@ -25,7 +25,7 @@ export default class SelectColumn extends ColumnView {
 		super(model);
 	}
 
-	static  model() {
-		return new SelectColumnModel();
+	static model(model) {
+		return model ? SelectColumn.assign(model) : new SelectColumnModel();
 	}
 }

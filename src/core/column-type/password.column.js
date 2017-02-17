@@ -29,7 +29,7 @@ export default class PasswordColumn extends ColumnView {
 		super(model);
 	}
 
-	static model() {
-		return new PasswordColumnModel();
+	static model(model) {
+		return model ? PasswordColumn.assign(model) : new PasswordColumnModel();
 	}
 }

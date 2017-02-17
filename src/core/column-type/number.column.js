@@ -27,7 +27,7 @@ export default class NumberColumn extends ColumnView {
 		super(model);
 	}
 
-	static model() {
-		return new NumberColumnModel();
+	static model(model) {
+		return model ? NumberColumn.assign(model) : new NumberColumnModel();
 	}
 }

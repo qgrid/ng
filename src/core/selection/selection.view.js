@@ -40,8 +40,9 @@ export default class SelectionView extends View {
 				behavior.newItems = model.selection().items;
 				this.highlight.select(behavior);
 			}
-			if (e.tag.src !== 'toggle') {
+			if (!e || e.tag.source !== 'toggle' && e.changes.hasOwnProperty('items')) {
 				this.highlight.select(behavior);
+				this.behavior.select(model.selection().items, true);///???
 			}
 		});
 	}
@@ -67,7 +68,7 @@ export default class SelectionView extends View {
 					else {
 						this.behavior.select(item, state);
 					}
-					model.selection({items: this.behavior.view}, {src: 'toggle'});
+					model.selection({items: this.behavior.view}, {source: 'toggle'});
 					behavior.newItems = model.selection().items;
 					Log.info('toggle.selection items count ', this.behavior.view.length);
 					this.highlight.select(behavior);

@@ -22,7 +22,12 @@ function start(pipes, memo) {
 			if (pipes.length) {
 				const pipe = pipes.shift();
 				const promise = pipe(memo);
-				promise.then(invoke).catch(reject);
+				promise
+					.then(invoke)
+					.catch(ex => {
+						reject(ex);
+						throw ex;
+					});
 			}
 			else {
 				resolve(memo);

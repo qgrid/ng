@@ -4,9 +4,11 @@
 	@import "assets/body";
 	@import "assets/foot";
 	@import "assets/pagination";
-	@import "assets/sortbar";
-	@import "assets/groupbar";
-	@import "assets/pivotbar";
+	@import "assets/toolbar";
+	@import "assets/sort.bar";
+	@import "assets/group.bar";
+	@import "assets/pivot.bar";
+	@import "assets/selection.bar";
 	@import "assets/node";
 	@import "assets/pivot";
 	@import "assets/sort";
@@ -15,7 +17,6 @@
 	@import "assets/column.chooser";
 	@import "assets/progress";
 	@import "assets/highlight";
-	@import "assets/selectionbar";
-	@import "assets/toolbar";
 	@import "assets/popup";
+	@import "assets/column.filter";
 }

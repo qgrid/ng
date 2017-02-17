@@ -11,6 +11,7 @@ import flatten from 'lodash/flatten';
 import orderBy from 'lodash/orderBy';
 import startCase from 'lodash/startCase';
 import assignWith from 'lodash/assignWith';
+import uniq from 'lodash/uniq';
 
 const noop = () => {};
 const yes = () => true;
@@ -53,6 +54,7 @@ export {
 	flatten,
 	startCase,
 	assignWith,
+	uniq,
 	identity,
 	yes,
 	no,

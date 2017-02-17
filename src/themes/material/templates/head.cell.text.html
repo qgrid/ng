@@ -11,3 +11,7 @@
 		{{$cell.column.title}}
 	</label>
 </div>
+<q-grid:column-filter class="q-grid-column-filter"
+							 key="$cell.column.key"
+							 ng-class="{'q-grid-active': $view.filter.has($cell.column.key)}">
+</q-grid:column-filter>
