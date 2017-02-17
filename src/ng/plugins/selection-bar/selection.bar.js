@@ -38,13 +38,10 @@ class SelectionBar extends Plugin {
 	}
 
 	onInit() {
-		const selection = this.model.selection();
-		this.mode = selection.mode;
-		this.unit = selection.unit;
-
-		this.model.selectionChanged.watch(e => {
-			this.unit = e.state.unit;
-			this.mode = e.state.mode;
+		this.model.selectionChanged.watch(() => {
+			const selection = this.model.selection();
+			this.mode = selection.mode;
+			this.unit = selection.unit;
 		});
 	}
 

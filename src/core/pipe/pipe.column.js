@@ -29,10 +29,6 @@ function addGroupColumn(columns, context) {
 		groupColumn.model.key =
 			groupColumn.model.key + `[${context.row}][${index}]`;
 
-	if (groupColumn.model.index < 0) {
-		groupColumn.model.index = index;
-	}
-
 	columns.push(groupColumn);
 	return groupColumn;
 }
@@ -48,10 +44,6 @@ function addDataColumns(columns, model, context) {
 					dataColumn.rowspan = context.rowspan;
 					dataColumn.key = c.key + `[${context.row}][${index}]`;
 
-					if (dataColumn.model.index < 0) {
-						dataColumn.model.index = index;
-					}
-
 					return dataColumn;
 				}),
 			model));
@@ -63,10 +55,6 @@ function addPadColumn(columns, context) {
 	const index = columns.length;
 	padColumn.key = padColumn.key + `[${context.row}][${index}]`;
 	padColumn.rowspan = context.rowspan;
-
-	if (padColumn.model.index < 0) {
-		padColumn.model.index = index;
-	}
 
 	columns.push(padColumn);
 	return padColumn;
@@ -180,6 +168,14 @@ export default function pipeColumn(memo, context, next) {
 	 * Persist order of draggable columns
 	 *
 	 */
+	let index = 0;
+	const indexMap = model.columnList().index
+		.reduce((memo, key) => {
+			memo[key] = index++;
+			return memo;
+		}, {});
+
+	columns.forEach(v => v.model.index = indexMap[v.model.key]);
 	columns.sort((x, y) => x.model.index - y.model.index);
 
 	if (heads.length) {

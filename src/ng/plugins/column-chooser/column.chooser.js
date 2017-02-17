@@ -16,20 +16,6 @@ TemplatePath
 		};
 	});
 
-const orderFromDataToView = merge({
-	equals: (l, r) => l.model.key === r.key,
-	update: noop,
-	insert: noop,
-	remove: noop
-});
-
-const orderFromViewToData = merge({
-	equals: (l, r) => l.key === r.model.key,
-	update: noop,
-	insert: noop,
-	remove: noop
-});
-
 const Plugin = PluginComponent('column-chooser', {inject: ['qgrid']});
 class ColumnChooser extends Plugin {
 	constructor() {
@@ -40,8 +26,7 @@ class ColumnChooser extends Plugin {
 		this.toggle = new Command({
 			execute: column => {
 				column.isVisible = !this.state(column);
-				this.service.invalidate('column.chooser', {}, PipeUnit.column)
-					.then(() => orderFromDataToView(this.model.view().columns[0] || [], this.columns));
+				this.service.invalidate('column.chooser', {}, PipeUnit.column);
 			}
 		});
 
@@ -52,8 +37,7 @@ class ColumnChooser extends Plugin {
 					column.isVisible = state;
 				}
 
-				this.service.invalidate('column.chooser', {}, PipeUnit.column)
-					.then(() => orderFromDataToView(this.model.view().columns[0] || [], this.columns));
+				this.service.invalidate('column.chooser', {}, PipeUnit.column);
 			}
 		});
 
@@ -63,8 +47,7 @@ class ColumnChooser extends Plugin {
 					column.isVisible = column.isDefault !== false;
 				}
 
-				this.service.invalidate('column.chooser', {}, PipeUnit.column)
-					.then(() => orderFromDataToView(this.model.view().columns[0] || [], this.columns));
+				this.service.invalidate('column.chooser', {}, PipeUnit.column);
 			}
 		});
 
@@ -94,8 +77,7 @@ class ColumnChooser extends Plugin {
 						const sourceColumn = columns[sourceIndex];
 						columns.splice(sourceIndex, 1);
 						columns.splice(targetIndex, 0, sourceColumn);
-						this.service.invalidate('column.chooser', {}, PipeUnit.column)
-							.then(() => orderFromViewToData(this.columns, columnRows[0]));
+						this.service.invalidate('column.chooser', {}, PipeUnit.column);
 					}
 				}
 			}
@@ -139,20 +121,11 @@ class ColumnChooser extends Plugin {
 			.getOwnPropertyNames(Aggregation)
 			.filter(key => isFunction(Aggregation[key]));
 
-		model.dataChanged.on(e => {
-			if (e.changes.hasOwnProperty('columns')) {
-				this._columns = Array.from(e.state.columns);
-			}
-		});
-
 		model.viewChanged.on(e => {
-			if (e.changes.hasOwnProperty('columns')) {
-				orderFromViewToData(this.columns, e.state.columns[0] || []);
+			if (!e | e.changes.hasOwnProperty('columns')) {
+				this._columns = Array.from(model.view().columns[0] || []);
 			}
 		});
-
-		this._columns = Array.from(model.data().columns);
-		orderFromViewToData(this.columns, model.view().columns[0] || []);
 	}
 
 	state(column) {

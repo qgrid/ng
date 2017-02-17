@@ -23,16 +23,18 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 				return false;
 			},
 			execute: e => {
-				const view = this.view.model.view;
+				const model = this.view.model;
+				const view = model.view;
 				const columnRows = view().columns;
 				for (let columns of columnRows) {
 					const targetIndex = columns.findIndex(c => c.model.key === e.target.value);
 					const sourceIndex = columns.findIndex(c => c.model.key === e.source.value);
 					if (targetIndex >= 0 && sourceIndex >= 0) {
-						// TODO: full copy? impacting pef. on pivoting?
 						const sourceColumn = columns[sourceIndex];
-						const targetColumn = columns[targetIndex];
-						sourceColumn.model.index = targetColumn.model.index;
+						const indexMap = Array.from(model.columnList().index);
+						indexMap.splice(sourceIndex, 1);
+						indexMap.splice(targetIndex, 0, sourceColumn.model.key);
+						model.columnList({index: indexMap});
 
 						serviceFactory
 							.service(this.view.model)
