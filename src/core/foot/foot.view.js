@@ -45,9 +45,12 @@ export default class FootView extends View {
 					`Aggregation ${column.aggregation} is not registered`);
 			}
 
-			const rows = this.model.data().rows;
-			const getValue = this.valueFactory(column);
-			return Aggregation[column.aggregation](rows, getValue);
+			const rows = this.model.data().rows,
+				getValue = this.valueFactory(column),
+				distinct = column.distinct,
+				separator = column.separator;
+
+			return Aggregation[column.aggregation](rows, getValue, distinct, separator);
 		}
 		return null;
 	}

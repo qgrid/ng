@@ -6,5 +6,7 @@ export default class DataColumnModel extends ColumnModel {
 
 		this.isDefault = true;
 		this.aggregation = null;
+		this.distinct = false;
+		this.separator = ', ';
 	}
 }

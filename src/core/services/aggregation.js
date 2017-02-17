@@ -81,15 +81,20 @@ export default class Aggregation {
 		return [min, max];
 	}
 
-	static avg(rows, getValue) {
+	static avg(rows, getValue, distinct) {
 		if (!rows.length) {
 			return null;
+		}
+
+		if (distinct) {
+			let uniqueSet = new Set();
+			return Aggregation.sum(rows, getValue, distinct, null, uniqueSet) / uniqueSet.size;
 		}
 
 		return Aggregation.sum(rows, getValue) / rows.length;
 	}
 
-	static sum(rows, getValue) {
+	static sum(rows, getValue, distinct, separator, avgSet) {
 		if (!rows.length) {
 			return null;
 		}
@@ -97,6 +102,24 @@ export default class Aggregation {
 		let length = rows.length,
 			i = 0,
 			sum = 0;
+
+		if (distinct) {
+			let uniqueValues = avgSet || new Set(),
+				value = null;
+
+			while (i < length) {
+				value = Number(getValue(rows[i]));
+
+				if (!uniqueValues.has(value)) {
+					sum += value;
+					uniqueValues.add(value);
+				}
+
+				i++;
+			}
+
+			return sum;
+		}
 
 		while (i < length) {
 			sum += Number(getValue(rows[i]));
@@ -106,26 +129,62 @@ export default class Aggregation {
 		return sum;
 	}
 
-	static join(rows, getValue) {
+	static join(rows, getValue, distinct, separator) {
 		if (!rows.length) {
 			return null;
 		}
+
+		separator = separator || '';
 
 		let length = rows.length,
 			i = 0,
 			join = getValue(rows[i++]);
 
+		if (distinct) {
+			let uniqueValues = new Set(),
+				value = join;
+			uniqueValues.add(value);
+
+			while (i < length) {
+				value = getValue(rows[i]);
+
+				if (!uniqueValues.has(value)) {
+					join += separator + value;
+					uniqueValues.add(value);
+				}
+
+				i++;
+			}
+
+			return join;
+		}
+
 		while (i < length) {
-			join += '' + getValue(rows[i]);
+			join += separator + getValue(rows[i]);
 			i++;
 		}
 
 		return join;
 	}
 
-	static count(rows) {
+	static count(rows, getValue, distinct) {
 		if (!rows.length) {
 			return null;
+		}
+
+		if (distinct) {
+			let length = rows.length,
+				i = 0,
+				uniqueValues = new Set(),
+				value = null;
+
+			while (i < length) {
+				value = Number(getValue(rows[i]));
+				uniqueValues.add(value);
+				i++;
+			}
+
+			return uniqueValues.size
 		}
 
 		return rows.length;
