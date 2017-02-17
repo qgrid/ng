@@ -1,22 +1,21 @@
 export default class Selection {
-	constructor(model, behavior) {
+	constructor(model) {
 		this.model = model;
-		this.behavior = behavior;
 	}
 
-	select(item, state = true, e) {
+	select(item, state = true) {
 		if (Array.isArray(item)) {
-			item.forEach(item => this.select(item, state, e));
+			item.forEach(item => this.select(item, state));
 			return;
 		}
 
 		if (item instanceof Node) {
 			const rows = this.model.data().rows;
-			item.rows.forEach(index => this.select(rows[index], state, e));
+			item.rows.forEach(index => this.select(rows[index], state));
 			return;
 		}
 
-		this.behavior.select(item, state, e);
+		this.selectCore(item, state);
 	}
 
 	state(item) {
@@ -31,12 +30,17 @@ export default class Selection {
 			return all ? true : item.rows.some(index => this.state(rows[index])) ? null : false;
 		}
 
-		return this.behavior.state(item);
+		return this.stateCore(item);
+	}
 
+	selectCore() {
+	}
+
+	stateCore() {
+		return false;
 	}
 
 	get view() {
-		const view = this.behavior.view;
-		return Array.isArray(view) ? view : [view];
+		return [];
 	}
 }

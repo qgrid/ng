@@ -1,16 +1,15 @@
 import AppError from 'core/infrastructure/error';
-import Selection from './behaviors/selection';
 import SingleSelection from './behaviors/single.selection';
 import MultipleSelection from './behaviors/multiple.selection';
-import HighlightSelection from './behaviors/highlight.selection';
 
-export default function (model, markup) {
+
+export default function (model) {
 	const mode = model.selection().mode;
 	switch (mode) {
 		case 'single':
-			return new Selection(model, new SingleSelection(new HighlightSelection(model, markup)));
+			return new SingleSelection(model);
 		case 'multiple':
-			return new Selection(model, new MultipleSelection(new HighlightSelection(model, markup)));
+			return new MultipleSelection(model);
 		default:
 			throw new AppError('selection.factory', `Invalid selection mode "${mode}"`);
 	}

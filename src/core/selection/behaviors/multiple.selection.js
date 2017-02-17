@@ -1,23 +1,21 @@
-export default class MultipleSelection {
-	constructor(behavior) {
+import Selection from './selection';
+
+export default class MultipleSelection extends Selection {
+	constructor(model) {
+		super(model);
 		this.items = new Set();
-		this.behavior = behavior;
 	}
 
-	select(item, state, e) {
+	selectCore(item, state) {
 		if (state) {
 			this.items.add(item);
 		}
 		else {
 			this.items.delete(item);
 		}
-
-		e.newItems = Array.from(this.items);
-
-		this.behavior.select(item, state, e);
 	}
 
-	state(item) {
+	stateCore(item) {
 		return this.items.has(item);
 	}
 

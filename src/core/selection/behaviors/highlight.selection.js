@@ -53,37 +53,38 @@ export default class HighlightSelection {
 		item.classList.remove(`${GRID_PREFIX}-selected`);
 	}
 
-	select(item, state, e) {
+	select(e) {
 		if (e) {
-			// const blur = `blur${e.oldUnit}`;
-			// e.oldItems.forEach(item => this[blur](item));
-			//
-			// const highlight = `highlight${e.newUnit}`;
-			// e.newItems.forEach(item => this[highlight](item));
-
 			switch (e.oldUnit) {
 				case 'row':
-					e.oldItems.forEach((item) => this.blurRow(item));
+					const items = e.oldItems || this.model.view().rows;
+					items.forEach((item) => this.blurRow(item));
 					break;
 				case 'column':
 					e.oldItems.forEach((item) => this.blurColumn(item));
+					break;
+				case 'cell':
 					break;
 				default:
 					throw new AppError(
 						'highlight.selection',
 						`Invalid type "${e.oldUnit}"`);
 			}
-			switch (e.newUnit) {
-				case 'row':
-					e.newItems.forEach((item) => this.highlightRow(item));
-					break;
-				case 'column':
-					e.newItems.forEach((item) => this.highlightColumn(item));
-					break;
-				default:
-					throw new AppError(
-						'highlight.selection',
-						`Invalid type "${e.newUnit}"`);
+			if (e.newItems) {
+				switch (e.newUnit) {
+					case 'row':
+						e.newItems.forEach((item) => this.highlightRow(item));
+						break;
+					case 'column':
+						e.newItems.forEach((item) => this.highlightColumn(item));
+						break;
+					case 'cell':
+						break;
+					default:
+						throw new AppError(
+							'highlight.selection',
+							`Invalid type "${e.newUnit}"`);
+				}
 			}
 		}
 	}
