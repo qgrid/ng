@@ -66,17 +66,27 @@ class ColumnChooser extends Plugin {
 				return false;
 			},
 			execute: e => {
-				const view = this.model.view;
+				const model = this.model;
+				const view = model.view;
 				const columnRows = view().columns;
 				for (let columns of columnRows) {
 					const targetIndex = columns.findIndex(c => c.model.key === e.target.value);
 					const sourceIndex = columns.findIndex(c => c.model.key === e.source.value);
 					if (targetIndex >= 0 && sourceIndex >= 0) {
-						// TODO: full copy? impacting pef. on pivoting?
-						const sourceColumn = columns[sourceIndex];
-						columns.splice(sourceIndex, 1);
-						columns.splice(targetIndex, 0, sourceColumn);
-						this.service.invalidate('column.chooser', {}, PipeUnit.column);
+						const sourceColumn = columns[sourceIndex].model;
+						const targetColumn = columns[targetIndex].model;
+						const indexMap = Array.from(model.columnList().index);
+						indexMap.splice(sourceColumn.index, 1);
+						indexMap.splice(targetColumn.index, 0, sourceColumn.key);
+						model.columnList({index: indexMap});
+
+						this.service.invalidate(
+							'reorder', {
+								target: targetIndex,
+								source: sourceIndex
+							},
+							PipeUnit.column
+						);
 					}
 				}
 			}
@@ -120,9 +130,10 @@ class ColumnChooser extends Plugin {
 			.getOwnPropertyNames(Aggregation)
 			.filter(key => isFunction(Aggregation[key]));
 
-		model.viewChanged.on(e => {
+		model.viewChanged.watch(e => {
 			if (!e || e.changes.hasOwnProperty('columns')) {
-				this._columns = Array.from(model.view().columns[0] || []);
+				this._columns = Array.from(model.data().columns);
+				this._columns.sort((x, y) => x.index - y.index);
 			}
 		});
 	}
