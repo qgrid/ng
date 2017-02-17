@@ -1,5 +1,5 @@
 import {GRID_PREFIX} from 'core/definition';
-import AppError from 'core/infrastructure/error';
+// import * as columnService from 'core/column/column.service';
 
 export default class HighlightSelection {
 	constructor(model, markup) {
@@ -7,38 +7,40 @@ export default class HighlightSelection {
 		this.markup = markup;
 	}
 
-	highlightRow(item) {
+	highlight_row(item) {
 		const index = this.model.view().rows.indexOf(item);
 		const body = this.markup.body;
-		if (body && body.rows[index]) {
+		if (index > -1 && body && body.rows[index]) {
 			for (let cell of body.rows[index].cells) {
 				this.highlight(cell);
 			}
 		}
 	}
 
-	blurRow(item) {
+	blur_row(item) {
 		const index = this.model.view().rows.indexOf(item);
 		const body = this.markup.body;
-		if (body && body.rows[index]) {
+		if (index > -1 && body && body.rows[index]) {
 			for (let cell of body.rows[index].cells) {
 				this.blur(cell);
 			}
 		}
 	}
 
-	highlightColumn(index) {
+	highlight_column(item) {
+		const index = this.model.view().columns[0].indexOf(item);
 		const body = this.markup.body;
-		if (body && body.rows) {
+		if (index > -1 && body && body.rows) {
 			for (let row of body.rows) {
 				this.highlight(row.cells[index]);
 			}
 		}
 	}
 
-	blurColumn(index) {
+	blur_column(item) {
+		const index = this.model.view().columns[0].indexOf(item);
 		const body = this.markup.body;
-		if (body && body.rows) {
+		if (index > -1 && body && body.rows) {
 			for (let row of body.rows) {
 				this.blur(row.cells[index]);
 			}
@@ -55,35 +57,20 @@ export default class HighlightSelection {
 
 	select(e) {
 		if (e) {
-			switch (e.oldUnit) {
-				case 'row':
-					const items = e.oldItems || this.model.view().rows;
-					items.forEach((item) => this.blurRow(item));
-					break;
-				case 'column':
-					e.oldItems.forEach((item) => this.blurColumn(item));
-					break;
-				case 'cell':
-					break;
-				default:
-					throw new AppError(
-						'highlight.selection',
-						`Invalid type "${e.oldUnit}"`);
-			}
-			if (e.newItems) {
-				switch (e.newUnit) {
-					case 'row':
-						e.newItems.forEach((item) => this.highlightRow(item));
-						break;
-					case 'column':
-						e.newItems.forEach((item) => this.highlightColumn(item));
-						break;
-					case 'cell':
-						break;
-					default:
-						throw new AppError(
-							'highlight.selection',
-							`Invalid type "${e.newUnit}"`);
+			const blur = `blur_${e.oldUnit}`;
+			const highlight = `highlight_${e.newUnit}`;
+			const oldUnit = `${e.oldUnit}s`;
+
+			if (e.newUnit === e.oldUnit) {
+				if (e.oldItems) {
+					e.oldItems.forEach((item) => this[blur](item));
+				}
+				if (e.oldItems) {
+					e.newItems.forEach((item) => this[highlight](item));
+				}
+			} else {
+				if (e.oldUnit === 'row' || e.oldUnit === 'column') {
+					this.model.view()[oldUnit].forEach((item) => this[blur](item));
 				}
 			}
 		}

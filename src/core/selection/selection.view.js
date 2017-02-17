@@ -117,8 +117,16 @@ export default class SelectionView extends View {
 			toggleActiveColumn: new Command({
 				shortcut: 'ctrl+space',
 				execute: () => {
-					const columnIndex = model.navigation().column;
-					this.highlight.select(columnIndex);
+					const index = model.navigation().column;
+					const columns = columnService.lineView(model.view().columns);
+					const behavior = {
+						oldItems : model.selection().items || columns,
+						oldUnit: model.selection().unit,
+						newUnit: model.selection().unit
+					};
+					model.selection({items: [columns[index]]}, {src: 'toggleColumn'});
+					behavior.newItems = model.selection().items;
+					this.highlight.select(columns[index]);
 				},
 				canExecute: () => model.selection().unit === 'column'
 			}),
