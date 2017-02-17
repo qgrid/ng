@@ -1,20 +1,19 @@
 import columnFactory from 'core/column/column.factory';
 import * as columnService from 'core/column/column.service';
-import merge from 'core/services/merge';
-
-const doMerge = merge({
-	equals: (l, r) => l.model.key === r.model.key,
-	update: (l, r, left, i) => left[i] = r
-});
 
 function addSelectColumn(columns, context) {
 	const selectColumn = columnFactory('select');
+	const index = columns.length;
 	selectColumn.model.source = 'generation';
 	selectColumn.rowspan = context.rowspan;
 
 	selectColumn.key =
 		selectColumn.model.key =
-			selectColumn.model.key + `[${context.row}][${columns.length}]`;
+			selectColumn.model.key + `[${context.row}][${index}]`;
+
+	if (selectColumn.model.index >= 0) {
+		selectColumn.model.index = index;
+	}
 
 	columns.push(selectColumn);
 	return selectColumn;
@@ -22,12 +21,17 @@ function addSelectColumn(columns, context) {
 
 function addGroupColumn(columns, context) {
 	const groupColumn = columnFactory('group');
+	const index = columns.length;
 	groupColumn.model.source = 'generation';
 	groupColumn.rowspan = context.rowspan;
 
 	groupColumn.key =
 		groupColumn.model.key =
-			groupColumn.model.key + `[${context.row}][${columns.length}]`;
+			groupColumn.model.key + `[${context.row}][${index}]`;
+
+	if (groupColumn.model.index < 0) {
+		groupColumn.model.index = index;
+	}
 
 	columns.push(groupColumn);
 	return groupColumn;
@@ -40,8 +44,14 @@ function addDataColumns(columns, model, context) {
 			dataColumns
 				.map((c, i) => {
 					const dataColumn = columnFactory(c.type || 'text', c);
+					const index = columns.length + i;
 					dataColumn.rowspan = context.rowspan;
-					dataColumn.key = c.key + `[${context.row}][${columns.length + i}]`;
+					dataColumn.key = c.key + `[${context.row}][${index}]`;
+
+					if (dataColumn.model.index < 0) {
+						dataColumn.model.index = index;
+					}
+
 					return dataColumn;
 				}),
 			model));
@@ -50,8 +60,13 @@ function addDataColumns(columns, model, context) {
 
 function addPadColumn(columns, context) {
 	const padColumn = columnFactory('pad');
-	padColumn.key = padColumn.key + `[${context.row}][${columns.length}]`;
+	const index = columns.length;
+	padColumn.key = padColumn.key + `[${context.row}][${index}]`;
 	padColumn.rowspan = context.rowspan;
+
+	if (padColumn.model.index < 0) {
+		padColumn.model.index = index;
+	}
 
 	columns.push(padColumn);
 	return padColumn;
@@ -77,7 +92,7 @@ function addPivotColumns(columns, heads) {
 		pivotColumnModel.key = pivotColumnModel.key + `[0][${j}]`;
 
 		pivotColumnModel.rowIndex = 0;
-		pivotColumnModel.columnIndex = startIndex + j;
+		pivotColumnModel.index = startIndex + j;
 
 		pivotColumn.key = `${pivotColumnModel.key} of ${heads.length}`;
 		row[j] = pivotColumn;
@@ -110,7 +125,7 @@ function addPivotColumns(columns, heads) {
 			pivotColumnModel.key = pivotColumnModel.key + `[${i}][${j}]`;
 
 			pivotColumnModel.rowIndex = i;
-			pivotColumnModel.columnIndex = j;
+			pivotColumnModel.index = j;
 
 			pivotColumn.key = `${pivotColumnModel.key} of ${heads.length}`;
 			row[j] = pivotColumn;
@@ -165,8 +180,7 @@ export default function pipeColumn(memo, context, next) {
 	 * Persist order of draggable columns
 	 *
 	 */
-	const orderedColumns = Array.from(model.view().columns)[0] || [];
-	doMerge(orderedColumns, columns);
+	columns.sort((x, y) => x.model.index - y.model.index);
 
 	if (heads.length) {
 		/*
@@ -175,7 +189,7 @@ export default function pipeColumn(memo, context, next) {
 		 *
 		 */
 
-		memo.columns = addPivotColumns(orderedColumns, heads);
+		memo.columns = addPivotColumns(columns, heads);
 	}
 	else {
 		/*
@@ -183,8 +197,8 @@ export default function pipeColumn(memo, context, next) {
 		 * that fills remaining place (width = 100%)
 		 *
 		 */
-		addPadColumn(orderedColumns, {rowspan: heads.length, row: 0});
-		memo.columns = [orderedColumns];
+		addPadColumn(columns, {rowspan: heads.length, row: 0});
+		memo.columns = [columns];
 	}
 
 	next(memo);

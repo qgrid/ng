@@ -2,10 +2,11 @@ import Directive from 'ng/directives/directive';
 import Command from 'core/infrastructure/command';
 import {noop} from 'core/services/utility';
 import * as columnService from 'core/column/column.service';
+import PipeUnit from 'core/pipe/units/pipe.unit'
 import {VIEW_CORE_NAME, HEAD_CORE_NAME, TH_CORE_NAME} from 'ng/definition';
 
 class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
-	constructor($scope, $element) {
+	constructor($scope, $element, serviceFactory) {
 		super();
 
 		this.element = $element[0];
@@ -30,9 +31,18 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 					if (targetIndex >= 0 && sourceIndex >= 0) {
 						// TODO: full copy? impacting pef. on pivoting?
 						const sourceColumn = columns[sourceIndex];
-						columns.splice(sourceIndex, 1);
-						columns.splice(targetIndex, 0, sourceColumn);
-						view({columns: Array.from(columnRows)});
+						const targetColumn = columns[targetIndex];
+						sourceColumn.model.index = targetColumn.model.index;
+
+						serviceFactory
+							.service(this.view.model)
+							.invalidate(
+								'reorder', {
+									target: targetIndex,
+									source: sourceIndex
+								},
+								PipeUnit.column
+							);
 					}
 				}
 			}
@@ -72,7 +82,7 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	}
 }
 
-HeadCore.$inject = ['$scope', '$element'];
+HeadCore.$inject = ['$scope', '$element', 'qgrid'];
 
 export default {
 	restrict: 'A',

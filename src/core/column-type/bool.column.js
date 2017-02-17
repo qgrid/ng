@@ -16,8 +16,8 @@ TemplatePath.register('bool-cell-edit', (template, column) => {
 	};
 });
 
-class BoolColumnModel extends DataColumnModel{
-	constructor(){
+class BoolColumnModel extends DataColumnModel {
+	constructor() {
 		super('bool');
 	}
 }
@@ -27,7 +27,7 @@ export default class BoolColumn extends ColumnView {
 		super(model);
 	}
 
-	static model() {
-		return new BoolColumnModel();
+	static model(model) {
+		return model ? BoolColumn.assign(model) : new BoolColumnModel();
 	}
 }

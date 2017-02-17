@@ -13,34 +13,34 @@ import RowNumberColumn from 'core/column-type/row.number.column';
 import RowIndicatorColumn from 'core/column-type/row.indicator.column';
 import PadColumn from 'core/column-type/pad.column';
 
-export default function (type, model = null) {
+export default function (type, body = null) {
 	switch (type) {
 		case 'text':
-			return new TextColumn(model || TextColumn.model());
+			return new TextColumn(TextColumn.model(body));
 		case 'number':
-			return new NumberColumn(model || NumberColumn.model());
+			return new NumberColumn(NumberColumn.model(body));
 		case 'bool':
-			return new BoolColumn(model || BoolColumn.model());
+			return new BoolColumn(BoolColumn.model(body));
 		case 'date':
-			return new DateColumn(model || DateColumn.model());
+			return new DateColumn(DateColumn.model(body));
 		case 'array':
-			return new ArrayColumn(model || ArrayColumn.model());
+			return new ArrayColumn(ArrayColumn.model(body));
 		case 'email':
-			return new EmailColumn(model || EmailColumn.model());
+			return new EmailColumn(EmailColumn.model(body));
 		case 'password':
-			return new PasswordColumn(model || PasswordColumn.model());
+			return new PasswordColumn(PasswordColumn.model(body));
 		case 'select':
-			return new SelectColumn(model || SelectColumn.model());
+			return new SelectColumn(SelectColumn.model(body));
 		case 'group':
-			return new GroupColumn(model || GroupColumn.model());
+			return new GroupColumn(GroupColumn.model(body));
 		case 'pivot':
-			return new PivotColumn(model || PivotColumn.model());
+			return new PivotColumn(PivotColumn.model(body));
 		case 'row-number':
-			return new RowNumberColumn(model || RowNumberColumn.model());
+			return new RowNumberColumn(RowNumberColumn.model(body));
 		case 'row-indicator':
-			return new RowIndicatorColumn(model || RowIndicatorColumn.model());
+			return new RowIndicatorColumn(RowIndicatorColumn.model(body));
 		case 'pad':
-			return new PadColumn(model || PadColumn.model());
+			return new PadColumn(PadColumn.model(body));
 		default:
 			throw new AppError(
 				'column.factory',
