@@ -56,7 +56,7 @@ export class Grid extends RootComponent {
 			if (!e || e.changes.hasOwnProperty('columns')) {
 				const index = Array.from(model.columnList().index);
 				const indexSet = new Set(index);
-				index.push(...model.data().columns.filter(c => !indexSet.has(c.key)));
+				index.push(...model.data().columns.filter(c => !indexSet.has(c.key)).map(c => c.key));
 				model.columnList({index: index});
 			}
 		});

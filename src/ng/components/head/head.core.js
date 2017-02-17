@@ -30,10 +30,11 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 					const targetIndex = columns.findIndex(c => c.model.key === e.target.value);
 					const sourceIndex = columns.findIndex(c => c.model.key === e.source.value);
 					if (targetIndex >= 0 && sourceIndex >= 0) {
-						const sourceColumn = columns[sourceIndex];
+						const sourceColumn = columns[sourceIndex].model;
+						const targetColumn = columns[targetIndex].model;
 						const indexMap = Array.from(model.columnList().index);
-						indexMap.splice(sourceIndex, 1);
-						indexMap.splice(targetIndex, 0, sourceColumn.model.key);
+						indexMap.splice(sourceColumn.index, 1);
+						indexMap.splice(targetColumn.index, 0, sourceColumn.key);
 						model.columnList({index: indexMap});
 
 						serviceFactory

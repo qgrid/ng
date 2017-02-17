@@ -5,7 +5,6 @@ import Aggregation from 'core/services/aggregation';
 import * as columnService from 'core/column/column.service';
 import {isFunction, noop} from 'core/services/utility';
 import {COLUMN_CHOOSER_NAME} from '../definition';
-import merge from 'core/services/merge';
 import PipeUnit from 'core/pipe/units/pipe.unit';
 
 TemplatePath
@@ -122,7 +121,7 @@ class ColumnChooser extends Plugin {
 			.filter(key => isFunction(Aggregation[key]));
 
 		model.viewChanged.on(e => {
-			if (!e | e.changes.hasOwnProperty('columns')) {
+			if (!e || e.changes.hasOwnProperty('columns')) {
 				this._columns = Array.from(model.view().columns[0] || []);
 			}
 		});
