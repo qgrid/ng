@@ -21,7 +21,6 @@ class PivotColumnModel extends ColumnModel {
 		this.canResize = false;
 		this.width = 60;
 		this.rowIndex = 0;
-		this.columnIndex = 0;
 	}
 }
 
@@ -30,7 +29,7 @@ export default class PivotColumn extends ColumnView {
 		super(model);
 	}
 
-	static  model() {
-		return new PivotColumnModel();
+	static model(model) {
+		return model ? PivotColumn.assign(model) : new PivotColumnModel();
 	}
 }

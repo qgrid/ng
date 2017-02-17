@@ -25,7 +25,7 @@ export default class RowNumberColumn extends ColumnView {
 		super(model);
 	}
 
-	static  model() {
-		return new RowNumberColumnModel();
+	static model(model) {
+		return model ? RowNumberColumn.assign(model) : new RowNumberColumnModel();
 	}
 }

@@ -29,7 +29,7 @@ export default class DateColumn extends ColumnView {
 		super(model);
 	}
 
-	static model() {
-		return new DateColumnModel();
+	static model(model) {
+		return model ? DateColumn.assign(model) : new DateColumnModel();
 	}
 }

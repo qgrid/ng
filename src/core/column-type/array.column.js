@@ -16,8 +16,8 @@ TemplatePath.register('array-cell-edit', (template, column) => {
 	};
 });
 
-class ArrayColumnModel extends DataColumnModel{
-	constructor(){
+class ArrayColumnModel extends DataColumnModel {
+	constructor() {
 		super('array');
 	}
 }
@@ -27,7 +27,7 @@ export default class ArrayColumn extends ColumnView {
 		super(model);
 	}
 
-	static model() {
-		return new ArrayColumnModel();
+	static model(model) {
+		return model ? ArrayColumn.assign(model) : new ArrayColumnModel();
 	}
 }

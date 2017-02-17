@@ -16,8 +16,8 @@ TemplatePath.register('email-cell-edit', (template, column) => {
 	};
 });
 
-class EmailColumnModel extends DataColumnModel{
-	constructor(){
+class EmailColumnModel extends DataColumnModel {
+	constructor() {
 		super('email');
 	}
 }
@@ -27,7 +27,7 @@ export default class EmailColumn extends ColumnView {
 		super(model);
 	}
 
-	static model() {
-		return new EmailColumnModel();
+	static model(model) {
+		return model ? EmailColumn.assign(model) : new EmailColumnModel();
 	}
 }
