@@ -184,7 +184,7 @@ export default class Aggregation {
 				i++;
 			}
 
-			return uniqueValues.size
+			return uniqueValues.size;
 		}
 
 		return rows.length;
