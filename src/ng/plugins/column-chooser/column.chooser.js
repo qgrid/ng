@@ -95,7 +95,7 @@ class ColumnChooser extends Plugin {
 						columns.splice(sourceIndex, 1);
 						columns.splice(targetIndex, 0, sourceColumn);
 						this.service.invalidate('column.chooser', {}, PipeUnit.column)
-							.then(() => orderFromDataToView(columnRows[0] || [], this.columns));
+							.then(() => orderFromViewToData(this.columns, columnRows[0]));
 					}
 				}
 			}
