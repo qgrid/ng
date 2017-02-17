@@ -20,7 +20,7 @@ export class Grid extends RootComponent {
 		const service = this.serviceFactory(model);
 
 		model.selectionChanged.watch(e => {
-			if (e || e.changes.hasOwnProperty('items')) {
+			if (!e || e.changes.hasOwnProperty('items')) {
 				this.onSelectionChanged({
 					$event: {
 						state: model.selection(),
@@ -29,7 +29,7 @@ export class Grid extends RootComponent {
 				});
 			}
 
-			if (e || e.changes.hasOwnProperty('unit')) {
+			if (!e || e.changes.hasOwnProperty('unit')) {
 				service.invalidate('selection', e ? e.changes : {}, PipeUnit.column);
 			}
 		});

@@ -1,7 +1,6 @@
 import View from '../view/view';
 import Command from 'core/infrastructure/command';
 import behaviorFactory from './selection.factory';
-import HighlightSelection from './behaviors/highlight.selection';
 import {isUndefined} from 'core/services/utility';
 import Log from 'core/infrastructure/log';
 import Shortcut from 'core/infrastructure/shortcut';
@@ -13,7 +12,6 @@ export default class SelectionView extends View {
 
 		this.behavior = behaviorFactory(model, markup);
 		this.markup = markup;
-		this.highlight = new HighlightSelection(model, markup);
 		const shortcut = new Shortcut(markup.document, apply);
 		const commands = this.commands;
 		shortcut.register('selectionNavigation', commands);
@@ -23,26 +21,16 @@ export default class SelectionView extends View {
 			this.behavior = behaviorFactory(model, markup);
 			model.selection({items: this.behavior.view});
 		});
+
 		model.selectionChanged.watch(e => {
-			const behavior = {
-				oldUnit: e.changes.hasOwnProperty('unit') ? e.changes.unit.oldValue : e.state.unit,
-				newUnit: e.changes.hasOwnProperty('unit') ? e.changes.unit.newValue : e.state.unit,
-				oldItems: e.changes.hasOwnProperty('items') ? e.changes.items.oldValue : e.state.items,
-				newItems: e.changes.hasOwnProperty('items') ? e.changes.items.newValue : e.state.items
-			};
-			if (e.changes.hasOwnProperty('unit') || e.changes.hasOwnProperty('mode')) {
-				model.navigation({
-					column: -1,
-					row: -1
-				});
+			if (!e || e.changes.hasOwnProperty('unit') || e.changes.hasOwnProperty('mode')) {
 				this.behavior = behaviorFactory(model, markup);
+				model.navigation({column: -1, row: -1});
 				model.selection({items: this.behavior.view});
-				behavior.newItems = model.selection().items;
-				this.highlight.select(behavior);
 			}
+
 			if (!e || e.tag.source !== 'toggle' && e.changes.hasOwnProperty('items')) {
-				this.highlight.select(behavior);
-				this.behavior.select(model.selection().items, true);///???
+				this.behavior.select(model.selection().items, true);
 			}
 		});
 	}
@@ -55,11 +43,6 @@ export default class SelectionView extends View {
 					if (isUndefined(item)) {
 						item = model.view().rows;
 					}
-					const behavior = {
-						oldItems: model.selection().items,
-						oldUnit: model.selection().unit,
-						newUnit: model.selection().unit
-					};
 
 					if (isUndefined(state)) {
 						state = this.behavior.state(item);
@@ -69,9 +52,7 @@ export default class SelectionView extends View {
 						this.behavior.select(item, state);
 					}
 					model.selection({items: this.behavior.view}, {source: 'toggle'});
-					behavior.newItems = model.selection().items;
 					Log.info('toggle.selection items count ', this.behavior.view.length);
-					this.highlight.select(behavior);
 				}
 			}),
 			toggleActiveRow: new Command({
@@ -119,15 +100,10 @@ export default class SelectionView extends View {
 				shortcut: 'ctrl+space',
 				execute: () => {
 					const index = model.navigation().column;
+					const items = Array.from(model.selection().items);
 					const columns = columnService.lineView(model.view().columns);
-					const behavior = {
-						oldItems : model.selection().items || columns,
-						oldUnit: model.selection().unit,
-						newUnit: model.selection().unit
-					};
-					model.selection({items: [columns[index]]}, {src: 'toggleColumn'});
-					behavior.newItems = model.selection().items;
-					this.highlight.select(columns[index]);
+					items.push(columns[index]);
+					model.selection({items: items});
 				},
 				canExecute: () => model.selection().unit === 'column'
 			}),
@@ -135,7 +111,11 @@ export default class SelectionView extends View {
 				shortcut: 'shift+right',
 				execute: () => {
 					const columnIndex = model.navigation().column;
-					this.highlight.select(columnIndex + 1);
+					const items = Array.from(model.selection().items);
+					const index = model.navigation().column;
+					const columns = columnService.lineView(model.view().columns);
+					items.push(columns[index]);
+					model.selection({items: items});
 					model.navigation({column: columnIndex + 1});
 				},
 				canExecute: () => model.selection().unit === 'column'
@@ -145,7 +125,11 @@ export default class SelectionView extends View {
 				shortcut: 'shift+left',
 				execute: () => {
 					const columnIndex = model.navigation().column;
-					this.highlight.select(columnIndex - 1);
+					const items = Array.from(model.selection().items);
+					const index = model.navigation().column;
+					const columns = columnService.lineView(model.view().columns);
+					items.push(columns[index]);
+					model.selection({items: items});
 					model.navigation({column: columnIndex - 1});
 				},
 				canExecute: () => model.selection().unit === 'column'
