@@ -20,8 +20,6 @@ class ColumnChooser extends Plugin {
 	constructor() {
 		super(...arguments);
 
-		this._columns = [];
-
 		this.toggle = new Command({
 			execute: column => {
 				column.isVisible = !this.state(column);
@@ -105,20 +103,32 @@ class ColumnChooser extends Plugin {
 		});
 
 		this.submit = new Command({
-			execute: () => {
-				this.onSubmit();
-			}
+			execute: () => this.onSubmit()
 		});
 
 		this.cancel = new Command({
 			execute: () => {
+				this.reset.execute();
 				this.onCancel();
 			}
 		});
 
 		this.reset = new Command({
 			execute: () => {
+				const origin = this.origin;
+				this.model.columnList({
+					index: Array.from(origin.index)
+				});
 
+				this.columns.forEach(column => {
+					const originColumn = origin.columns[column.key];
+					column.isVisible = originColumn.isVisible;
+					column.aggregation = originColumn.aggregation;
+				});
+
+				this.service.invalidate(
+					'reset', {}, PipeUnit.column
+				);
 			}
 		});
 	}
@@ -130,10 +140,23 @@ class ColumnChooser extends Plugin {
 			.getOwnPropertyNames(Aggregation)
 			.filter(key => isFunction(Aggregation[key]));
 
+		this.columns = [];
+		this.origin = {
+			index: Array.from(model.columnList().index),
+			columns: model.data().columns
+				.reduce((memo, column) => {
+					memo[column.key] = {
+						isVisible: column.isVisible,
+						aggregation: column.aggregation
+					};
+					return memo
+				}, {})
+		};
+
 		model.viewChanged.watch(e => {
 			if (!e || e.changes.hasOwnProperty('columns')) {
-				this._columns = Array.from(model.data().columns);
-				this._columns.sort((x, y) => x.index - y.index);
+				this.columns = Array.from(model.data().columns);
+				this.columns.sort((x, y) => x.index - y.index);
 			}
 		});
 	}
@@ -156,10 +179,6 @@ class ColumnChooser extends Plugin {
 
 	get canAggregate() {
 		return this.columnChooserCanAggregate;
-	}
-
-	get columns() {
-		return this._columns;
 	}
 
 	get resource() {
