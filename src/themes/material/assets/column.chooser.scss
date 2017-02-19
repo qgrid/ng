@@ -1,3 +1,11 @@
+.q-grid-toolbar{
+	.q-grid-column-chooser {
+		.q-grid-column-chooser-filter{
+			margin-top: 18px;
+		}
+	}
+}
+
 .q-grid-column-chooser {
 	width: 320px;
 
@@ -6,16 +14,16 @@
 		padding: 0;
 	}
 
-	md-input-container {
-		margin: 0;
-		width: 100%;
-	}
-
 	md-checkbox {
 		margin: 0 0 10px 0;
 	}
 
 	.q-grid-column-chooser-filter {
+		margin-left: 4px;
+		margin-right: 4px;
+		margin-bottom: 0px;
+		margin-top: 0px;
+		
 		.md-errors-spacer {
 			display: none;
 		}
@@ -25,6 +33,10 @@
 		margin: 0;
 		overflow-y: auto;
 		height: 340px;
+
+		md-input-container {
+			margin: 0;
+		}
 	}
 
 	.q-grid-column-chooser-actions {
