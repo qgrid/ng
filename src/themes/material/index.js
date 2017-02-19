@@ -34,5 +34,9 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.plugin.column-chooser.tpl.html', require('themes/material/templates/plugin.column.chooser.html'));
 		theme.put('qgrid.plugin.column-filter-panel.tpl.html', require('themes/material/templates/plugin.column.filter.panel.html'));
 		theme.put('qgrid.plugin.popup-panel.tpl.html', require('themes/material/templates/plugin.popup.panel.html'));
+		theme.put('qgrid.plugin.group-bar.tpl.html', require('themes/material/templates/plugin.group.bar.html'));
+		theme.put('qgrid.plugin.sort-bar.tpl.html', require('themes/material/templates/plugin.sort.bar.html'));
+		theme.put('qgrid.plugin.pivot-bar.tpl.html', require('themes/material/templates/plugin.pivot.bar.html'));
+		theme.put('qgrid.plugin.selection-bar.tpl.html', require('themes/material/templates/plugin.selection.bar.html'));
 	});
 }

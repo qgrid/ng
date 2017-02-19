@@ -19,12 +19,33 @@ class SortBar extends Plugin {
 		super(...arguments);
 
 		this.newSort = null;
+		this.selectedItems = null;
+		
+		this.replace = new Command({
+				execute: key => {
+					const sort = this.model.sort;
+
+					sort({
+						by: key.map((item) => { return {[item]: 'asc'} })
+					});
+				},
+				canExecute: () => this.columns.length > 0
+			}
+		);
+
 		this.add = new Command({
 				execute: key => {
 					const sort = this.model.sort;
 					const state = sort();
 					const entry = {[key]: 'asc'};
-					sort({by: state.by.concat(entry)});
+					const temp = state.by.concat(entry);
+
+					this.selectedItems = temp.slice();
+
+					sort({
+						by: temp
+					});
+
 					this.newSort = null;
 				},
 				canExecute: () => this.columns.length > 0
@@ -35,11 +56,14 @@ class SortBar extends Plugin {
 			execute: entry => {
 				const sort = this.model.sort;
 				const state = sort();
+
 				const key = SortSevice.key(entry);
 				const index = SortSevice.index(state.by, key);
+
 				const temp = Array.from(state.by);
 				temp.splice(index, 1);
-
+				this.selectedItems = temp.slice();
+				
 				sort({
 					by: temp
 				});
