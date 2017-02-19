@@ -31,7 +31,8 @@
 
 				<md-checkbox ng-checked="$columnChooser.state(column)"
 								ng-if="$columnChooser.toggle.canExecute(column)"
-								ng-click="$columnChooser.toggle.execute(column)">
+								ng-click="$columnChooser.toggle.execute(column)"
+								aria-label="{{::column.title}}">
 					<span ng-bind-html="column.title | qgridHighlight : $columnChooser.filter"> </span>
 				</md-checkbox>
 
