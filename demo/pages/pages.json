@@ -1,14 +1,10 @@
 [
 	{
-		"title": "Home",
-		"path": "home"
-	},
-	{
 		"title": "Highlights",
 		"items": [
 			{
 				"title": "First Look",
-				"path": "first-look"
+				"path": "home"
 			},
 			{
 				"title": "Sandbox",
