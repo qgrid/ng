@@ -1,3 +1,5 @@
+import Log from 'core/infrastructure/log';
+
 export default function (pages) {
 	const routes = buildRoutes(pages);
 
@@ -43,12 +45,13 @@ function buildRoutes(nodes, routes = {}) {
 			const path = `pages/${node.path}/index`;
 			try {
 				memo[node.path] = {
-					path: path,
+					path: node.path,
 					controller: require(`./${path}.js`).default,
 					templateUrl: `${path}.html`
 				};
 			}
 			catch (ex) {
+				Log.warn('setup', `Can't find "pages/${node.path}/index.js"`);
 			}
 		}
 

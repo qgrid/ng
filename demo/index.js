@@ -80,9 +80,15 @@ function buildPages(schema) {
 			}
 			else {
 				page.path = node.path;
+				page.code = {};
 				extensions.forEach(ext => {
 					try {
-						page[ext] = require(`./pages/${page.path}/index.${ext}`);
+						if(ext === 'html'){
+							page.code[ext] = require(`./pages/${page.path}/index.${ext}`);
+						}
+						else {
+							page.code[ext] = require(`raw-loader!./pages/${page.path}/index.${ext}`);
+						}
 					}
 					catch (ex) {
 						Log.warn('build.pages', `Can't find "index.${ext}" file for "${node.title}"`);
