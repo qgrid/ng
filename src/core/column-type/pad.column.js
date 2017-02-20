@@ -1,4 +1,3 @@
-
 import ColumnView from 'core/column-type/column.view';
 import TemplatePath from 'core/template/template.path';
 import ColumnModel from './column.model';
@@ -28,7 +27,7 @@ export default class PadColumn extends ColumnView {
 		super(model);
 	}
 
-	static  model() {
-		return new PadColumnModel();
+	static model(model) {
+		return model ? PadColumn.assign(model) : new PadColumnModel();
 	}
 }

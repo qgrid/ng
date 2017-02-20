@@ -23,8 +23,8 @@ TemplatePath.register('text-area-cell-edit', (template, column) => {
 	};
 });
 
-class TextColumnModel extends DataColumnModel{
-	constructor(){
+class TextColumnModel extends DataColumnModel {
+	constructor() {
 		super('text');
 	}
 }
@@ -34,7 +34,7 @@ export default class TextColumn extends ColumnView {
 		super(model);
 	}
 
-	static model() {
-		return new TextColumnModel();
+	static model(model) {
+		return model ? TextColumn.assign(model) : new TextColumnModel();
 	}
 }

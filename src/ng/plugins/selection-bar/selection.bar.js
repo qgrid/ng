@@ -1,18 +1,18 @@
 import PluginComponent from '../plugin.component';
 import Command from 'core/infrastructure/command';
-import {SELECTIONBAR_NAME} from '../definition';
+import {SELECTION_BAR_NAME} from '../definition';
 import TemplatePath from 'core/template/template.path';
 
 TemplatePath
-	.register(SELECTIONBAR_NAME, () => {
+	.register(SELECTION_BAR_NAME, () => {
 		return {
 			model: 'selection',
 			resource: 'content'
 		};
 	});
 
-const Plugin = PluginComponent('selectionbar');
-class Selectionbar extends Plugin {
+const Plugin = PluginComponent('selection-bar');
+class SelectionBar extends Plugin {
 	constructor() {
 		super(...arguments);
 
@@ -38,13 +38,10 @@ class Selectionbar extends Plugin {
 	}
 
 	onInit() {
-		const selection = this.model.selection();
-		this.mode = selection.mode;
-		this.unit = selection.unit;
-
-		this.model.selectionChanged.watch(e => {
-			this.unit = e.state.unit;
-			this.mode = e.state.mode;
+		this.model.selectionChanged.watch(() => {
+			const selection = this.model.selection();
+			this.mode = selection.mode;
+			this.unit = selection.unit;
 		});
 	}
 
@@ -57,7 +54,7 @@ class Selectionbar extends Plugin {
 	}
 }
 
-export default Selectionbar.component({
-	controller: Selectionbar,
-	controllerAs: '$selectionbar'
+export default SelectionBar.component({
+	controller: SelectionBar,
+	controllerAs: '$selectionBar'
 });

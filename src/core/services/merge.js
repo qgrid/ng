@@ -49,9 +49,9 @@ export default function (settings) {
 			context.insert(rs[i], result);
 		}
 
-		// if(context.sort){
-		//
-		// }
+		if (context.sort) {
+			left.sort(context.sort(left, right));
+		}
 
 		return {
 			updated: updated,

@@ -30,12 +30,11 @@ export default class SelectionView extends View {
 		model.viewChanged.watch(() => this.behavior = behaviorFactory(model));
 
 		model.selectionChanged.watch(e => {
-			if (e.tag.source !== 'toggle' && e.changes.hasOwnProperty('items')) {
-				this.behavior.select(e.state.items, true);
+			if (!e || e.tag.source !== 'toggle' && e.changes.hasOwnProperty('items')) {
+				this.behavior.select(model.selection().items, true);
 			}
 
-			if (e.changes.hasOwnProperty('unit') ||
-				e.changes.hasOwnProperty('mode')) {
+			if (!e || e.changes.hasOwnProperty('unit') || e.changes.hasOwnProperty('mode')) {
 				this.behavior = behaviorFactory(model);
 			}
 		});

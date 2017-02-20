@@ -17,6 +17,7 @@ export default class ColumnModel {
 		this.canMove = true;
 
 		this.isVisible = true;
+		this.index = -1;
 	}
 
 	toString() {

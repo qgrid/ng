@@ -30,7 +30,7 @@ export default class HighlightView extends View {
 	onInit(model) {
 		let blurs = [];
 		model.sortChanged.watch(e => {
-			if (e.changes.hasOwnProperty('by')) {
+			if (!e || e.changes.hasOwnProperty('by')) {
 				blurs = this.invalidate(blurs);
 			}
 		});

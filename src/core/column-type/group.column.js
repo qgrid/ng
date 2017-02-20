@@ -25,7 +25,7 @@ export default class GroupColumn extends ColumnView {
 		super(model);
 	}
 
-	static  model() {
-		return new GroupColumnModel();
+	static model(model) {
+		return model ? GroupColumn.assign(model) : new GroupColumnModel();
 	}
 }
