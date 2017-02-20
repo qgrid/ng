@@ -23,6 +23,7 @@ export default function Controller(pages, themes, defaults, themeProvider, $mdSi
 
 	this.onPageChanged = page => {
 		this.page = page;
+		$location.path(`/${page.path}`);
 	};
 
 	this.onThemeChanged = theme => {
@@ -31,9 +32,25 @@ export default function Controller(pages, themes, defaults, themeProvider, $mdSi
 		$window.location.reload();
 	};
 
+	const entries = flatten(this.pages);
 	const path = ($location.path() || defaults.path).toLowerCase().substring(1);
-	const page = this.pages.filter(p => p.path.toLowerCase() === path)[0] || this.pages[0];
+	const page = entries.filter(p => p.path.toLowerCase() === path)[0] || entries[0];
 	if (page) {
 		this.page = page;
 	}
+}
+
+function flatten(pages, result = []) {
+	pages
+		.forEach(page => {
+			if (page.path) {
+				result.push(page);
+			}
+
+			if (page.items) {
+				flatten(page.items, result);
+			}
+		});
+
+	return result;
 }

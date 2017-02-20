@@ -1,114 +1,436 @@
 [
 	{
-		"path": "home",
-		"title": "Home"
+		"title": "Highlights",
+		"items": [
+			{
+				"title": "First Look",
+				"path": "home"
+			},
+			{
+				"title": "Sandbox",
+				"path": "sandbox"
+			}
+		]
 	},
 	{
-		"path": "sandbox",
-		"title": "Sandbox"
+		"title": "Grid Model",
+		"items": [
+			{
+				"title": "Architecture",
+				"path": "architecture"
+			}
+		]
 	},
 	{
-		"path": "model",
-		"title": "Model"
+		"title": "Grid Service",
+		"items": [
+			{
+				"title": "Service API",
+				"path": "service-api"
+			}
+		]
 	},
 	{
-		"path": "cell",
-		"title": "Cell"
+		"title": "Performance",
+		"items": [
+			{
+				"title": "Pagination",
+				"path": "pagination"
+			},
+			{
+				"title": "Real-Time Update",
+				"path": "real-time"
+			}
+		]
 	},
 	{
-		"path": "cell-edit",
-		"title": "Cell Edit"
+		"title": "Data Binding",
+		"items": [
+			{
+				"title": "Data Model",
+				"path": "data-model"
+			},
+			{
+				"title": "Various Data Source",
+				"path": "data-sources"
+			}
+		]
 	},
 	{
-		"path": "column",
-		"title": "Column"
+		"title": "Scrolling",
+		"items": [
+			{
+				"title": "Scrolling Model",
+				"path": "scrolling-model"
+			},
+			{
+				"title": "Data Virtualization",
+				"path": "data-virtualization"
+			},
+			{
+				"title": "Scrolling 1 Billion Cells",
+				"path": "big-data"
+			},
+			{
+				"title": "Infinite Scrolling",
+				"path": "infinite-scrolling"
+			},
+			{
+				"title": "Frozen Columns",
+				"path": "frozen-columns"
+			}
+		]
 	},
 	{
-		"path": "column-add",
-		"title": "Column Add"
+		"title": "Pipe",
+		"items": [
+			{
+				"title": "Pipe Model",
+				"path": "pipe-model"
+			},
+			{
+				"title": "Pipe Units",
+				"path": "pipe-units"
+			},
+			{
+				"title": "Custom Pipes",
+				"path": "pipes"
+			}
+		]
 	},
 	{
-		"path": "column-pin",
-		"title": "Column Pin"
+		"title": "Grouping and Aggregates",
+		"items": [
+			{
+				"title": "Grouping Model",
+				"path": "grouping-model"
+			},
+			{
+				"title": "Totals",
+				"path": "totals"
+			},
+			{
+				"title": "Aggregates",
+				"path": "aggregates"
+			},
+			{
+				"title": "Aggregates Options",
+				"path": "aggregates-options"
+			},
+			{
+				"title": "Custom Aggregate Function",
+				"path": "aggregate-function"
+			},
+			{
+				"title": "Summary",
+				"path": "summary"
+			}
+		]
 	},
 	{
-		"path": "column-generation",
-		"title": "Column Generation"
+		"title": "Sorting",
+		"items": [
+			{
+				"title": "Sorting Model",
+				"path": "sorting-model"
+			},
+			{
+				"title": "Custom Sorting",
+				"path": "custom-sorting"
+			}
+		]
 	},
 	{
-		"path": "row-number",
-		"title": "Row Number"
+		"title": "Filtering",
+		"items": [
+			{
+				"title": "Filter Model",
+				"path": "filter-model"
+			},
+			{
+				"title": "Custom Filter Controls",
+				"path": "filter-controls"
+			},
+			{
+				"title": "Column Filter",
+				"path": "column-filter"
+			},
+			{
+				"title": "Filter Row",
+				"path": "filter-row"
+			},
+			{
+				"title": "Expression builder",
+				"path": "expression-builder"
+			}
+		]
 	},
 	{
-		"path": "row-indicator",
-		"title": "Row Indicator"
+		"title": "Pivoting",
+		"items": [
+			{
+				"title": "Pivot Model",
+				"path": "pivot-model"
+			},
+			{
+				"title": "Local Pivot Source",
+				"path": "pivot-source"
+			},
+			{
+				"title": "Running Totals",
+				"path": "running-totals"
+			},
+			{
+				"title": "Pivot Drilldown",
+				"path": "pivot-drilldown"
+			}
+		]
 	},
 	{
-		"path": "head",
-		"title": "Head"
+		"title": "Appearance",
+		"items": [
+			{
+				"title": "Theming",
+				"path": "theming"
+			},
+			{
+				"title": "Visibility",
+				"path": "visibility"
+			}
+		]
 	},
 	{
-		"path": "selection",
-		"title": "Selection"
+		"title": "Templates",
+		"items": [
+			{
+				"title": "Template Model",
+				"path": "template-model"
+			},
+			{
+				"title": "Cell Custom Templates",
+				"path": "cell-templates"
+			}
+		]
 	},
 	{
-		"path": "summary",
-		"title": "Summary"
+		"title": "Toolbars",
+		"items": [
+			{
+				"title": "Toolbar Customization",
+				"path": "toolbar-customization"
+			}
+		]
 	},
 	{
-		"path": "foot",
-		"title": "Foot"
+		"title": "Columns",
+		"items": [
+			{
+				"title": "Column Model",
+				"path": "column-model"
+			},
+			{
+				"title": "Column Types",
+				"path": "column-types"
+			},
+			{
+				"title": "Columns Based on a Data Source",
+				"path": "column-generation"
+			},
+			{
+				"title": "Column Groups",
+				"path": "column-groups"
+			},
+			{
+				"title": "Dynamic Columns",
+				"path": "dynamic-columns"
+			}
+		]
 	},
 	{
-		"path": "filter",
-		"title": "Filter"
+		"title": "Editing",
+		"items": [
+			{
+				"title": "Commands",
+				"path": "commands"
+			},
+			{
+				"title": "Edit Templates",
+				"path": "edit-templates"
+			},
+			{
+				"title": "Batch Editing",
+				"path": "batch-editing"
+			},
+			{
+				"title": "Form Editing",
+				"path": "form-editing"
+			},
+			{
+				"title": "Validation",
+				"path": "validation"
+			},
+			{
+				"title": "Row Validation",
+				"path": "row-validation"
+			},
+			{
+				"title": "Row Details",
+				"path": "row-details"
+			}
+		]
 	},
 	{
-		"path": "aggregation",
-		"title": "Aggregation"
+		"title": "Hierarchy",
+		"items": [
+			{
+				"title": "Custom Hierarchy Template",
+				"path": "hierarchy-template"
+			}
+		]
 	},
 	{
-		"path": "group",
-		"title": "Group"
+		"title": "Selection and Usability",
+		"items": [
+			{
+				"title": "Selection Model",
+				"path": "selection-model"
+			},
+			{
+				"title": "Row Number",
+				"path": "row-number"
+			},
+			{
+				"title": "Row Indicator",
+				"path": "row-indicator"
+			},
+			{
+				"title": "Column Resize",
+				"path": "column-resize"
+			},
+			{
+				"title": "Drag and Drop",
+				"path": "drag-and-drop"
+			},
+			{
+				"title": "Progress",
+				"path": "progress"
+			},
+			{
+				"title": "Highlighting",
+				"path": "highlighting"
+			}
+		]
 	},
 	{
-		"path": "pivot",
-		"title": "Pivot"
+		"title": "Navigation",
+		"items": [
+			{
+				"title": "Navigation Model",
+				"path": "navigation-model"
+			},
+			{
+				"title": "Keyboard Navigation",
+				"path": "keyboard-navigation"
+			},
+			{
+				"title": "Focus",
+				"path": "focus"
+			}
+		]
 	},
 	{
-		"path": "toolbar",
-		"title": "Toolbar"
+		"title": "Exporting and Printing",
+		"items": [
+		]
 	},
 	{
-		"path": "pager",
-		"title": "Pager"
+		"title": "State Persistence",
+		"items": [
+			{
+				"title": "Persistence API",
+				"path": "persistence-api"
+			}
+		]
 	},
 	{
-		"path": "dnd",
-		"title": "Drag and Drop"
+		"title": "Actions",
+		"items": [
+			{
+				"title": "Action Model",
+				"path": "action-model"
+			}
+		]
 	},
 	{
-		"path": "sort",
-		"title": "Sort"
+		"title": "Plugins",
+		"items": [
+			{
+				"title": "Plugin Model",
+				"path": "plugin-model"
+			},
+			{
+				"title": "Action Bar",
+				"path": "action-bar"
+			},
+			{
+				"title": "Column Chooser",
+				"path": "column-chooser"
+			},
+			{
+				"title": "Column Filter",
+				"path": "column-filter"
+			},
+			{
+				"title": "Group Bar",
+				"path": "group-bar"
+			},
+			{
+				"title": "Selection Bar",
+				"path": "selection-bar"
+			},
+			{
+				"title": "Sort Bar",
+				"path": "sort-bar"
+			},
+			{
+				"title": "Pivot Bar",
+				"path": "pivot-bar"
+			},
+			{
+				"title": "Pager",
+				"path": "pager"
+			},
+			{
+				"title": "Popup",
+				"path": "popup"
+			},
+			{
+				"title": "Status Bar",
+				"path": "status-bar"
+			},
+			{
+				"title": "Legend Bar",
+				"path": "legend-bar"
+			},
+			{
+				"title": "Import Panel",
+				"path": "import-panel"
+			}
+		]
 	},
 	{
-		"path": "pipe",
-		"title": "Pipe"
+		"title": "Mobile Device Support",
+		"items": [
+		]
 	},
 	{
-		"path": "visibility",
-		"title": "Visibility"
+		"title": "Localization",
+		"items": [
+		]
 	},
 	{
-		"path": "column-chooser",
-		"title": "Column Chooser"
-	},
-	{
-		"path": "layout",
-		"title": "Layout"
-	},
-	{
-		"path": "progress",
-		"title": "Progress"
+		"title": "ContextMenu",
+		"items": [
+		]
 	}
 ]

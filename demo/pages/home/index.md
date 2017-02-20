@@ -1,42 +1,24 @@
-# Angular data grid
+# qgrid
+Angularjs data grid
 
-## Installation
+## installation
+`npm install ng-qgrid`
+`bower install ng-qgrid`
 
-#### Using NPM
-
-```
-npm install ng-qgrid --save
-```
-
-In your `index.html` file, include q-grid module and style:
-
+## the basics
+In your `index.html` file, include `qgrid` script and styles
 ```html
-<!-- style sheet -->
-<link href="path/to/qgrid.css" rel="stylesheet" type="text/css"/>
-<!-- module -->
+<link type="text/css" rel="stylesheet" href="path/to/qgrid.css"  />
+<link  type="text/css" rel="stylesheet" href="path/to/qgrid.material.css"/>
 <script type="text/javascript" src="path/to/qgrid.js"></script>
 ```
-
-Also you can optionally add some q-grid theme (for example Material).
-
-```html
-<!-- style sheet -->
-<link href="path/to/qgrid.material.css" rel="stylesheet" type="text/css"/>
-<!-- module -->
-<script type="text/javascript" src="path/to/qgrid.material.js"></script>
-```
-
-Include the `qgrid` module and a `grid.theme` as dependencies in your application.
-
+Include `qgrid` and a `grid.theme.xxx` as dependencies to your angular module
 ```javascript
 angular.module('myApp', ['qgrid', 'qgrid.theme.material']);
 ```
-
-To render simple table just put this snippet of code to your markup ($ctrl.rows is a collection of data from your application):
-
+To show the grid put next snippet to your html ($ctrl.rows is a collection of objects from angular controller)
 ```html
 <q-grid rows='$ctrl.rows'>
 	<q-grid:columns generation="deep"></q-grid:columns>
 </q-grid>
-
 ```

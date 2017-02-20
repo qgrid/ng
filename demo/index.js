@@ -1,5 +1,6 @@
 import setup from './setup';
 import ExceptionHandler from './exception';
+import Log from 'core/infrastructure/log';
 
 import angular from 'angular';
 import ngRoute from 'angular-route';
@@ -7,8 +8,6 @@ import ngAnimate from 'angular-animate';
 import ngArea from 'angular-aria';
 import ngSanitize from 'angular-sanitize';
 import {} from 'angular-material';
-import {} from 'angular-markdown-filter';
-import * as showdown from 'showdown';
 
 import qgrid from '../src/index';
 
@@ -28,8 +27,6 @@ require('../src/assets/index.scss');
 require('angular-material/angular-material.css');
 require('prismjs/themes/prism.css');
 
-window.showdown = showdown;
-
 // TODO: more generic code
 const theme = themeMaterial;
 // const theme = (window.location.hash || '')
@@ -45,52 +42,13 @@ const dependencies = [
 	ngSanitize,
 	'ngMaterial', // WTF?
 	qgrid,
-	theme,
-	'markdown'
+	theme
 ];
 
-const pages =
-	require('./pages/pages.json')
-		.map(page => {
-			const p = {
-				title: page.title,
-				path: page.path
-			};
-
-			try {
-				p.code = {
-					html: require(`./pages/${page.path}/index.html`),
-					js: require(`raw-loader!./pages/${page.path}/index.js`),
-					markdown: require(`raw-loader!./pages/${page.path}/index.md`)
-				};
-			} catch (e) {
-				p.code = {
-					html: require(`./pages/${page.path}/index.html`),
-					js: require(`raw-loader!./pages/${page.path}/index.js`),
-				};
-			}
-
-			// if (p.path !== 'home') {
-			// p.code = {
-			// 	html: require(`./pages/${page.path}/index.html`),
-			// 	js: require(`raw-loader!./pages/${page.path}/index.js`),
-			// 	markdown: requireOr(`./pages/${page.path}/readme.md`)
-			// };
-			// }
-
-			return p;
-		});
-
+const pages = buildPages(require('./pages/pages.json'));
 const themes = require('../src/themes/themes.json');
 const defaults = require('./defaults.json');
 const Setup = setup(pages);
-
-angular.module('markdown')
-	.config(['markdownProvider', function(markdownProvider) {
-		markdownProvider.config({
-			tables: true
-		});
-	}]);
 
 export default angular.module('demo', dependencies)
 	.config(Setup)
@@ -106,3 +64,38 @@ export default angular.module('demo', dependencies)
 	.filter('html', HtmlFilter)
 	.filter('js', JsFilter)
 	.name;
+
+
+function buildPages(schema) {
+	const extensions = ['html', 'js', 'md'];
+
+	return schema
+		.map(node => {
+			const page = {
+				title: node.title
+			};
+
+			if (node.items) {
+				page.items = buildPages(node.items);
+			}
+			else {
+				page.path = node.path;
+				page.code = {};
+				extensions.forEach(ext => {
+					try {
+						if(ext === 'html' || ext === 'md'){
+							page.code[ext] = require(`./pages/${page.path}/index.${ext}`);
+						}
+						else {
+							page.code[ext] = require(`raw-loader!./pages/${page.path}/index.${ext}`);
+						}
+					}
+					catch (ex) {
+						Log.warn('build.pages', `Can't find "index.${ext}" file for "${node.title}"`);
+					}
+				});
+			}
+
+			return page;
+		});
+}
