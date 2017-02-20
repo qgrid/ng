@@ -48,6 +48,7 @@ export default {
 	require: Template.require,
 	link: Template.link,
 	controller: Template,
+	controllerAs: '$template',
 	bindToController: {
 		for: '@',
 		let: '<'
