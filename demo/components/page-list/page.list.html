@@ -4,7 +4,7 @@
 		<md-tooltip md-delay="500">
 			{{::node.title}}
 		</md-tooltip>
-		<md-button ng-disabled="!node.code.html"
+		<md-button ng-disabled="!node.code.html && !node.code.md"
 					  ng-click="$ctrl.select(node)">
 			{{::node.title}}
 		</md-button>
@@ -13,7 +13,7 @@
 		<md-tooltip md-delay="500">
 			{{::item.title}}
 		</md-tooltip>
-		<md-button ng-disabled="!item.code.html"
+		<md-button ng-disabled="!item.code.html && !item.code.md"
 					  ng-click="$ctrl.select(item)">
 			{{::item.title}}
 		</md-button>

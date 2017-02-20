@@ -51,38 +51,6 @@ const dependencies = [
 ];
 
 const pages = buildPages(require('./pages/pages.json'));
-const pages =
-	require('./pages/pages.json')
-		.map(page => {
-			const p = {
-				title: page.title,
-				path: page.path
-			};
-
-			try {
-				p.code = {
-					html: require(`./pages/${page.path}/index.html`),
-					js: require(`raw-loader!./pages/${page.path}/index.js`),
-					markdown: require(`raw-loader!./pages/${page.path}/index.md`)
-				};
-			} catch (e) {
-				p.code = {
-					html: require(`./pages/${page.path}/index.html`),
-					js: require(`raw-loader!./pages/${page.path}/index.js`),
-				};
-			}
-
-			// if (p.path !== 'home') {
-			// p.code = {
-			// 	html: require(`./pages/${page.path}/index.html`),
-			// 	js: require(`raw-loader!./pages/${page.path}/index.js`),
-			// 	markdown: requireOr(`./pages/${page.path}/readme.md`)
-			// };
-			// }
-
-			return p;
-		});
-
 const themes = require('../src/themes/themes.json');
 const defaults = require('./defaults.json');
 const Setup = setup(pages);

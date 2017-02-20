@@ -19,9 +19,7 @@ export default function (pages) {
 
 		$routeProvider
 			.when('/', {
-				templateUrl: 'pages/home/index.html',
-				controllers: routes.home.controller,
-				controllerAs: '$ctrl',
+				templateUrl: 'pages/blank.html',
 				reloadOnSearch: false
 			})
 			.otherwise({
@@ -46,8 +44,8 @@ function buildRoutes(nodes, routes = {}) {
 			try {
 				memo[node.path] = {
 					path: node.path,
-					controller: require(`./${path}.js`).default,
-					templateUrl: `${path}.html`
+					controller: node.code.js ? require(`./${path}.js`).default : null,
+					templateUrl: node.code.html ? `${path}.html` : 'pages/blank.html'
 				};
 			}
 			catch (ex) {

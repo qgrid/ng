@@ -7,6 +7,10 @@ page-details {
 		}
 	}
 
+	.page-details-code {
+		margin-bottom: 50px;
+	}
+
 	@media (max-width: 959px) {
 		.page-details-code {
 			> div:first-child {
@@ -17,10 +21,12 @@ page-details {
 				margin-left: 0 !important;
 				margin-top: 40px !important;
 			}
+
+			margin-bottom: 320px;
 		}
 	}
 
-	> div {
+	> div:first-child {
 		height: calc(100% - 20px);
 		width: 100%;
 

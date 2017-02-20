@@ -61,7 +61,7 @@
 	</md-sidenav>
 
 	<md-content flex id="content">
-		<h2 class="md-title" ng-bind="$ctrl.page.title"></h2>
+		<h2 class="md-title" ng-bind="$ctrl.page.title" ng-if="$ctrl.page.code['html']"></h2>
 		<page-details selection="$ctrl.page"></page-details>
 	</md-content>
 </div>
