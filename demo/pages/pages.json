@@ -1,18 +1,18 @@
 [
 	{
 		"title": "Home",
-		"path:": "home"
+		"path": "home"
 	},
 	{
 		"title": "Highlights",
 		"items": [
 			{
 				"title": "First Look",
-				"path:": "first-look"
+				"path": "first-look"
 			},
 			{
 				"title": "Sandbox",
-				"path:": "sandbox"
+				"path": "sandbox"
 			}
 		]
 	},
@@ -21,7 +21,7 @@
 		"items": [
 			{
 				"title": "Architecture",
-				"path:": "architecture"
+				"path": "architecture"
 			}
 		]
 	},
@@ -30,7 +30,7 @@
 		"items": [
 			{
 				"title": "Service API",
-				"path:": "service-api"
+				"path": "service-api"
 			}
 		]
 	},
@@ -39,11 +39,11 @@
 		"items": [
 			{
 				"title": "Pagination",
-				"path:": "pagination"
+				"path": "pagination"
 			},
 			{
 				"title": "Real-Time Update",
-				"path:": "real-time"
+				"path": "real-time"
 			}
 		]
 	},
@@ -52,11 +52,11 @@
 		"items": [
 			{
 				"title": "Data Model",
-				"path:": "data-model"
+				"path": "data-model"
 			},
 			{
 				"title": "Various Data Source",
-				"path:": "data-sources"
+				"path": "data-sources"
 			}
 		]
 	},
@@ -65,23 +65,23 @@
 		"items": [
 			{
 				"title": "Scrolling Model",
-				"path:": "scrolling-model"
+				"path": "scrolling-model"
 			},
 			{
 				"title": "Data Virtualization",
-				"path:": "data-virtualization"
+				"path": "data-virtualization"
 			},
 			{
 				"title": "Scrolling 1 Billion Cells",
-				"path:": "big-data"
+				"path": "big-data"
 			},
 			{
 				"title": "Infinite Scrolling",
-				"path:": "infinite-scrolling"
+				"path": "infinite-scrolling"
 			},
 			{
 				"title": "Frozen Columns",
-				"path:": "frozen-columns"
+				"path": "frozen-columns"
 			}
 		]
 	},
@@ -90,15 +90,15 @@
 		"items": [
 			{
 				"title": "Pipe Model",
-				"path:": "pipe-model"
+				"path": "pipe-model"
 			},
 			{
 				"title": "Pipe Units",
-				"path:": "pipe-units"
+				"path": "pipe-units"
 			},
 			{
 				"title": "Custom Pipes",
-				"path:": "pipes"
+				"path": "pipes"
 			}
 		]
 	},
@@ -107,23 +107,23 @@
 		"items": [
 			{
 				"title": "Grouping Model",
-				"path:": "grouping-model"
+				"path": "grouping-model"
 			},
 			{
 				"title": "Totals",
-				"path:": "totals"
+				"path": "totals"
 			},
 			{
 				"title": "Aggregates",
-				"path:": "aggregates"
+				"path": "aggregates"
 			},
 			{
 				"title": "Aggregates Options",
-				"path:": "aggregates-options"
+				"path": "aggregates-options"
 			},
 			{
 				"title": "Custom Aggregate Function",
-				"path:": "aggregate-function"
+				"path": "aggregate-function"
 			}
 		]
 	},
@@ -132,11 +132,11 @@
 		"items": [
 			{
 				"title": "Sorting Model",
-				"path:": "sorting-model"
+				"path": "sorting-model"
 			},
 			{
 				"title": "Custom Sorting",
-				"path:": "custom-sorting"
+				"path": "custom-sorting"
 			}
 		]
 	},
@@ -145,23 +145,23 @@
 		"items": [
 			{
 				"title": "Filter Model",
-				"path:": "filter-model"
+				"path": "filter-model"
 			},
 			{
 				"title": "Custom Filter Controls",
-				"path:": "filter-controls"
+				"path": "filter-controls"
 			},
 			{
 				"title": "Column Filter",
-				"path:": "column-filter"
+				"path": "column-filter"
 			},
 			{
 				"title": "Filter Row",
-				"path:": "filter-row"
+				"path": "filter-row"
 			},
 			{
 				"title": "Expression builder",
-				"path:": "expression-builder"
+				"path": "expression-builder"
 			}
 		]
 	},
@@ -170,19 +170,19 @@
 		"items": [
 			{
 				"title": "Pivot Model",
-				"path:": "pivot-model"
+				"path": "pivot-model"
 			},
 			{
 				"title": "Local Pivot Source",
-				"path:": "pivot-source"
+				"path": "pivot-source"
 			},
 			{
 				"title": "Running Totals",
-				"path:": "running-totals"
+				"path": "running-totals"
 			},
 			{
 				"title": "Pivot Drilldown",
-				"path:": "pivot-drilldown"
+				"path": "pivot-drilldown"
 			}
 		]
 	},
@@ -191,11 +191,11 @@
 		"items": [
 			{
 				"title": "Theming",
-				"path:": "theming"
+				"path": "theming"
 			},
 			{
 				"title": "Visibility",
-				"path:": "visibility"
+				"path": "visibility"
 			}
 		]
 	},
@@ -204,11 +204,11 @@
 		"items": [
 			{
 				"title": "Template Model",
-				"path:": "template-model"
+				"path": "template-model"
 			},
 			{
 				"title": "Cell Custom Templates",
-				"path:": "cell-templates"
+				"path": "cell-templates"
 			}
 		]
 	},
@@ -217,7 +217,7 @@
 		"items": [
 			{
 				"title": "Toolbar Customization",
-				"path:": "toolbar-customization"
+				"path": "toolbar-customization"
 			}
 		]
 	},
@@ -226,19 +226,19 @@
 		"items": [
 			{
 				"title": "Column Model",
-				"path:": "column-model"
+				"path": "column-model"
 			},
 			{
 				"title": "Column Types",
-				"path:": "column-types"
+				"path": "column-types"
 			},
 			{
 				"title": "Columns Based on a Data Source",
-				"path:": "column-generation"
+				"path": "column-generation"
 			},
 			{
 				"title": "Column Groups",
-				"path:": "column-groups"
+				"path": "column-groups"
 			}
 		]
 	},
@@ -247,31 +247,31 @@
 		"items": [
 			{
 				"title": "Commands",
-				"path:": "commands"
+				"path": "commands"
 			},
 			{
 				"title": "Edit Templates",
-				"path:": "edit-templates"
+				"path": "edit-templates"
 			},
 			{
 				"title": "Batch Editing",
-				"path:": "batch-editing"
+				"path": "batch-editing"
 			},
 			{
 				"title": "Form Editing",
-				"path:": "form-editing"
+				"path": "form-editing"
 			},
 			{
 				"title": "Validation",
-				"path:": "validation"
+				"path": "validation"
 			},
 			{
 				"title": "Row Validation",
-				"path:": "row-validation"
+				"path": "row-validation"
 			},
 			{
 				"title": "Row Details",
-				"path:": "row-details"
+				"path": "row-details"
 			}
 		]
 	},
@@ -280,7 +280,7 @@
 		"items": [
 			{
 				"title": "Custom Hierarchy Template",
-				"path:": "hierarchy-template"
+				"path": "hierarchy-template"
 			}
 		]
 	},
@@ -289,31 +289,31 @@
 		"items": [
 			{
 				"title": "Selection Model",
-				"path:": "selection-model"
+				"path": "selection-model"
 			},
 			{
 				"title": "Row Number",
-				"path:": "row-number"
+				"path": "row-number"
 			},
 			{
 				"title": "Row Details",
-				"path:": "row-details"
+				"path": "row-details"
 			},
 			{
 				"title": "Column Resize",
-				"path:": "column-resize"
+				"path": "column-resize"
 			},
 			{
 				"title": "Drag and Drop",
-				"path:": "drag-and-drop"
+				"path": "drag-and-drop"
 			},
 			{
 				"title": "Progress",
-				"path:": "progress"
+				"path": "progress"
 			},
 			{
 				"title": "Highlighting",
-				"path:": "highlighting"
+				"path": "highlighting"
 			}
 		]
 	},
@@ -322,15 +322,15 @@
 		"items": [
 			{
 				"title": "Navigation Model",
-				"path:": "navigation-model"
+				"path": "navigation-model"
 			},
 			{
 				"title": "Keyboard Navigation",
-				"path:": "keyboard-navigation"
+				"path": "keyboard-navigation"
 			},
 			{
 				"title": "Focus",
-				"path:": "focus"
+				"path": "focus"
 			}
 		]
 	},
@@ -344,7 +344,7 @@
 		"items": [
 			{
 				"title": "Persistence API",
-				"path:": "persistence-api"
+				"path": "persistence-api"
 			}
 		]
 	},
@@ -353,7 +353,7 @@
 		"items": [
 			{
 				"title": "Action Model",
-				"path:": "action-model"
+				"path": "action-model"
 			}
 		]
 	},
@@ -362,55 +362,55 @@
 		"items": [
 			{
 				"title": "Plugin Model",
-				"path:": "plugin-model"
+				"path": "plugin-model"
 			},
 			{
 				"title": "Action Bar",
-				"path:": "action-bar"
+				"path": "action-bar"
 			},
 			{
 				"title": "Column Chooser",
-				"path:": "column-chooser"
+				"path": "column-chooser"
 			},
 			{
 				"title": "Column Filter",
-				"path:": "column-filter"
+				"path": "column-filter"
 			},
 			{
 				"title": "Group Bar",
-				"path:": "group-bar"
+				"path": "group-bar"
 			},
 			{
 				"title": "Selection Bar",
-				"path:": "selection-bar"
+				"path": "selection-bar"
 			},
 			{
 				"title": "Sort Bar",
-				"path:": "sort-bar"
+				"path": "sort-bar"
 			},
 			{
 				"title": "Pivot Bar",
-				"path:": "pivot-bar"
+				"path": "pivot-bar"
 			},
 			{
 				"title": "Pager",
-				"path:": "pager"
+				"path": "pager"
 			},
 			{
 				"title": "Popup",
-				"path:": "popup"
+				"path": "popup"
 			},
 			{
 				"title": "Status Bar",
-				"path:": "status-bar"
+				"path": "status-bar"
 			},
 			{
 				"title": "Legend Bar",
-				"path:": "legend-bar"
+				"path": "legend-bar"
 			},
 			{
 				"title": "Import Panel",
-				"path:": "import-panel"
+				"path": "import-panel"
 			}
 		]
 	},

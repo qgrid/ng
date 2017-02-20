@@ -79,6 +79,7 @@ function buildPages(schema) {
 				page.items = buildPages(node.items);
 			}
 			else {
+				page.path = node.path;
 				extensions.forEach(ext => {
 					try {
 						page[ext] = require(`./pages/${page.path}/index.${ext}`);

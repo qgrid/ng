@@ -32,7 +32,7 @@ export default function Controller(pages, themes, defaults, themeProvider, $mdSi
 	};
 
 	const path = ($location.path() || defaults.path).toLowerCase().substring(1);
-	const page = this.pages.filter(p => p.path.toLowerCase() === path)[0] || this.pages[0];
+	const page = this.pages.filter(p => p.path && p.path.toLowerCase() === path)[0] || this.pages[0];
 	if (page) {
 		this.page = page;
 	}
