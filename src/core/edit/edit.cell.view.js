@@ -31,7 +31,7 @@ export default class EditCellView {
 				canExecute: cell => {
 					cell = cell || model.navigation().active.cell;
 
-					if (this.mode !== 'edit' && model.edit().mode === 'cell') {
+					if (this.mode !== 'edit' && model.edit().mode === 'cell' && cell) {
 						// use shouldn't explicitly set it in the template, cause we have here canEdit !== false
 						return cell.column.canEdit !== false;
 					}
@@ -45,11 +45,12 @@ export default class EditCellView {
 					}
 
 					cell = cell || model.navigation().active.cell;
-
-					const parse = parseFactory(cell.column.type);
-					this.value = isUndefined(cell.value) ? null : parse(clone(cell.value));
-					this.mode = 'edit';
-					cell.mode(this.mode);
+					if (cell) {
+						const parse = parseFactory(cell.column.type);
+						this.value = isUndefined(cell.value) ? null : parse(clone(cell.value));
+						this.mode = 'edit';
+						cell.mode(this.mode);
+					}
 				}
 			}),
 			commit: new Command({
@@ -63,14 +64,15 @@ export default class EditCellView {
 					}
 
 					cell = cell || model.navigation().active.cell;
+					if (cell) {
+						const column = cell.column;
+						const row = cell.row;
+						this.setValue(row, column, this.value);
 
-					const column = cell.column;
-					const row = cell.row;
-					this.setValue(row, column, this.value);
-
-					this.value = null;
-					this.mode = 'view';
-					cell.mode(this.mode);
+						this.value = null;
+						this.mode = 'view';
+						cell.mode(this.mode);
+					}
 				}
 			}),
 			cancel: new Command({
@@ -81,10 +83,12 @@ export default class EditCellView {
 						e.stopImmediatePropagation();
 					}
 					cell = cell || model.navigation().active.cell;
+					if (cell) {
+						this.value = null;
+						this.mode = 'view';
+						cell.mode(this.mode);
+					}
 
-					this.value = null;
-					this.mode = 'view';
-					cell.mode(this.mode);
 				}
 			}),
 			reset: new Command({
@@ -95,11 +99,12 @@ export default class EditCellView {
 					}
 
 					cell = cell || model.navigation().active.cell;
-
-					const parse = parseFactory(cell.column.type);
-					this.value = parse(cell.value);
-					cell.mode(this.mode);
-					return false;
+					if (cell) {
+						const parse = parseFactory(cell.column.type);
+						this.value = parse(cell.value);
+						cell.mode(this.mode);
+						return false;
+					}
 				}
 			})
 		};
