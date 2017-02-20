@@ -1,44 +1,40 @@
 <div layout="column" ng-class="$ctrl.selection.path">
-	<md-card flex="100">
+	<md-card flex>
 		<md-card-content>
 			<div class="page-details-content">
 				<ng-view></ng-view>
 			</div>
 		</md-card-content>
 	</md-card>
-	<div flex="none"
-		  layout="row"
-		  layout-xs="column"
-		  layout-sm="column"
-		  class="page-details-code">
-		<div flex="33%" flex-md="50%">
-			<label>HTML</label>
-			<pre ng-bind-html="$ctrl.selection.code['html'] | html"></pre>
-		</div>
-		<div flex="33%" flex-md="50%">
-			<label>JAVASCRIPT</label>
-			<pre ng-bind-html="$ctrl.selection.code['js'] | js"></pre>
-		</div>
-		<div flex>
-			<label>DOC</label>
-			<pre ng-bind-html="$ctrl.selection.code['markdown'] | markdown"></pre>
-		</div>
+	<div class="page-details-code">
+		<md-grid-list
+			flex
+			md-cols-gt-sm="2"
+			md-cols-sm="1"
+			md-cols-xs="1"
+			md-row-height="500px">
+			
+			<md-grid-tile>
+				<md-grid-tile-header>
+					<label>HTML</label>
+				</md-grid-tile-header>
+				<pre ng-bind-html="$ctrl.selection.code['html'] | html"></pre>
+			</md-grid-tile>
+			
+			<md-grid-tile>
+				<md-grid-tile-header>
+					<label>JAVASCRIPT</label>
+				</md-grid-tile-header>
+				<pre ng-bind-html="$ctrl.selection.code['js'] | js"></pre>
+			</md-grid-tile>
+			
+			<md-grid-tile md-colspan-gt-sm="2" ng-if="$ctrl.selection.code['markdown']">
+				<md-grid-tile-header>
+					<label>DOCUMENTATION</label>
+				</md-grid-tile-header>
+				<pre ng-bind-html="$ctrl.selection.code['markdown'] | markdown"></pre>
+			</md-grid-tile>
+		
+		</md-grid-list>
 	</div>
-	
-	<!--<md-grid-list md-cols="3">-->
-		<!--<md-grid-tile>-->
-			<!--<label>HTML</label>-->
-			<!--<pre ng-bind-html="$ctrl.selection.code['html'] | html"></pre>-->
-		<!--</md-grid-tile>-->
-		<!---->
-		<!--<md-grid-tile>-->
-			<!--<label>JAVASCRIPT</label>-->
-			<!--<pre ng-bind-html="$ctrl.selection.code['js'] | js"></pre>-->
-		<!--</md-grid-tile>-->
-		<!---->
-		<!--<md-grid-tile>-->
-			<!--<label>DOC</label>-->
-			<!--<pre ng-bind-html="$ctrl.selection.code['markdown'] | markdown"></pre>-->
-		<!--</md-grid-tile>-->
-	<!--</md-grid-list>-->
 </div>

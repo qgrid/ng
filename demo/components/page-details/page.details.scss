@@ -69,6 +69,28 @@ page-details {
 					background: #f5f2f0;
 				}
 			}
+
+			md-grid-list {
+				> md-grid-tile {
+					> figure {
+						align-items: baseline;
+						justify-content: flex-start;
+
+						> md-grid-tile-header {
+							padding-left: 10px;
+							background-color: rgb(63,81,181);
+						}
+
+						> pre {
+							margin-top: 50px;
+							margin-left: 10px;
+							overflow: auto;
+							height: calc(100% - 50px);
+							width: 100%;
+						}
+					}
+				}
+			}
 		}
 	}
 }
