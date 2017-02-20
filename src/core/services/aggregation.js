@@ -81,20 +81,20 @@ export default class Aggregation {
 		return [min, max];
 	}
 
-	static avg(rows, getValue, distinct) {
+	static avg(rows, getValue, aggregationOptions) {
 		if (!rows.length) {
 			return null;
 		}
 
-		if (distinct) {
+		if (aggregationOptions.distinct) {
 			let uniqueSet = new Set();
-			return Aggregation.sum(rows, getValue, distinct, null, uniqueSet) / uniqueSet.size;
+			return Aggregation.sum(rows, getValue, aggregationOptions, uniqueSet) / uniqueSet.size;
 		}
 
 		return Aggregation.sum(rows, getValue) / rows.length;
 	}
 
-	static sum(rows, getValue, distinct, separator, avgSet) {
+	static sum(rows, getValue, aggregationOptions, externalSet) {
 		if (!rows.length) {
 			return null;
 		}
@@ -103,8 +103,8 @@ export default class Aggregation {
 			i = 0,
 			sum = 0;
 
-		if (distinct) {
-			let uniqueValues = avgSet || new Set(),
+		if (aggregationOptions.distinct) {
+			let uniqueValues = externalSet || new Set(),
 				value = null;
 
 			while (i < length) {
@@ -129,18 +129,17 @@ export default class Aggregation {
 		return sum;
 	}
 
-	static join(rows, getValue, distinct, separator) {
+	static join(rows, getValue, aggregationOptions) {
 		if (!rows.length) {
 			return null;
 		}
 
-		separator = separator || '';
-
-		let length = rows.length,
+		let separator = aggregationOptions.separator || '',
+			length = rows.length,
 			i = 0,
 			join = getValue(rows[i++]);
 
-		if (distinct) {
+		if (aggregationOptions.distinct) {
 			let uniqueValues = new Set(),
 				value = join;
 			uniqueValues.add(value);
@@ -167,12 +166,12 @@ export default class Aggregation {
 		return join;
 	}
 
-	static count(rows, getValue, distinct) {
+	static count(rows, getValue, aggregationOptions) {
 		if (!rows.length) {
 			return null;
 		}
 
-		if (distinct) {
+		if (aggregationOptions.distinct) {
 			let length = rows.length,
 				i = 0,
 				uniqueValues = new Set(),

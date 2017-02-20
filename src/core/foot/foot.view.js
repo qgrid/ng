@@ -39,13 +39,10 @@ export default class FootView extends View {
 
 	value(column) {
 		if (column.aggregation) {
-			let aggregation = column.aggregation;
-
-			if (aggregation.startsWith('{')) {
-				aggregation = eval('('+aggregation+')');
-			}
-
-			if (!Aggregation.hasOwnProperty(aggregation) && !Aggregation.hasOwnProperty(aggregation.type)) {
+			let aggregation = column.aggregation,
+				aggregationOptions = column.aggregationOptions;
+			
+			if (!Aggregation.hasOwnProperty(aggregation)) {
 				throw new AppError(
 					'foot',
 					`Aggregation ${aggregation} is not registered`);
@@ -54,11 +51,7 @@ export default class FootView extends View {
 			const rows = this.model.data().rows,
 				getValue = this.valueFactory(column);
 
-			if (typeof aggregation === 'object') {
-				return Aggregation[aggregation.type](rows, getValue, aggregation.distinct, aggregation.separator);
-			}
-
-			return Aggregation[aggregation](rows, getValue);
+			return Aggregation[aggregation](rows, getValue, aggregationOptions);
 		}
 		return null;
 	}

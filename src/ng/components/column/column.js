@@ -16,10 +16,11 @@ TemplatePath
 	});
 
 class Column extends Component {
-	constructor($attrs) {
+	constructor($attrs, $parse) {
 		super();
 
 		this.$attrs = $attrs;
+		this.$parse = $parse;
 	}
 
 	copy(source, target) {
@@ -37,7 +38,8 @@ class Column extends Component {
 	}
 
 	onInit() {
-		const $attrs = this.$attrs;
+		const $attrs = this.$attrs,
+			$parse = this.$parse;
 		if (isUndefined(this.key)) {
 			if ($attrs.hasOwnProperty('type')) {
 				this.key = `$default.${$attrs.type}`;
@@ -58,12 +60,13 @@ class Column extends Component {
 			columns.push(column);
 		}
 
+		$attrs.aggregationOptions = $parse($attrs.aggregationOptions)(this);
 		this.copy(column, $attrs);
 		this.columnList.add(column);
 	}
 }
 
-Column.$inject = ['$attrs'];
+Column.$inject = ['$attrs', '$parse'];
 
 export default {
 	require: {
