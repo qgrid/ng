@@ -7,13 +7,17 @@ export default class Shortcut {
 		this.codeMap = new Map()
 			.set(9, 'tab')
 			.set(13, 'enter')
+			.set(27, 'escape')
+			.set(32, 'space')
+			.set(33, 'pageUp')
+			.set(34, 'pageDown')
+			.set(35, 'end')
+			.set(36, 'home')
 			.set(37, 'left')
 			.set(38, 'up')
 			.set(39, 'right')
 			.set(40, 'down')
-			.set(113, 'f2')
-			.set(27, 'escape')
-			.set(32, 'space');
+			.set(113, 'f2');
 
 		this.listener =
 			new EventListener(this, document)
