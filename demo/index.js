@@ -7,6 +7,8 @@ import ngAnimate from 'angular-animate';
 import ngArea from 'angular-aria';
 import ngSanitize from 'angular-sanitize';
 import {} from 'angular-material';
+import {} from 'angular-markdown-filter';
+import * as showdown from 'showdown';
 
 import qgrid from '../src/index';
 
@@ -26,6 +28,8 @@ require('../src/assets/index.scss');
 require('angular-material/angular-material.css');
 require('prismjs/themes/prism.css');
 
+window.showdown = showdown;
+
 // TODO: more generic code
 const theme = themeMaterial;
 // const theme = (window.location.hash || '')
@@ -41,7 +45,8 @@ const dependencies = [
 	ngSanitize,
 	'ngMaterial', // WTF?
 	qgrid,
-	theme
+	theme,
+	'markdown'
 ];
 
 const pages =
@@ -52,12 +57,26 @@ const pages =
 				path: page.path
 			};
 
-			if (p.path !== 'home') {
+			try {
 				p.code = {
 					html: require(`./pages/${page.path}/index.html`),
-					js: require(`raw-loader!./pages/${page.path}/index.js`)
+					js: require(`raw-loader!./pages/${page.path}/index.js`),
+					markdown: require(`raw-loader!./pages/${page.path}/index.md`)
+				};
+			} catch (e) {
+				p.code = {
+					html: require(`./pages/${page.path}/index.html`),
+					js: require(`raw-loader!./pages/${page.path}/index.js`),
 				};
 			}
+
+			// if (p.path !== 'home') {
+			// p.code = {
+			// 	html: require(`./pages/${page.path}/index.html`),
+			// 	js: require(`raw-loader!./pages/${page.path}/index.js`),
+			// 	markdown: requireOr(`./pages/${page.path}/readme.md`)
+			// };
+			// }
 
 			return p;
 		});
@@ -65,6 +84,13 @@ const pages =
 const themes = require('../src/themes/themes.json');
 const defaults = require('./defaults.json');
 const Setup = setup(pages);
+
+angular.module('markdown')
+	.config(['markdownProvider', function(markdownProvider) {
+		markdownProvider.config({
+			tables: true
+		});
+	}]);
 
 export default angular.module('demo', dependencies)
 	.config(Setup)
