@@ -18,12 +18,30 @@ class GroupBar extends Plugin {
 		super(...arguments);
 
 		this.newGroup = null;
+		this.selectedItems = null;
+		
+		this.replace = new Command({
+				execute: key => {
+					const group = this.model.group;
+
+					group({
+						by: [...key]
+					});
+				},
+				canExecute: () => this.columns.length > 0
+			}
+		);
+
 		this.add = new Command({
 				execute: key => {
 					const group = this.model.group;
 					const state = group();
+					const temp = state.by.concat(key);
+
+					this.selectedItems = temp.slice();
+
 					group({
-						by: state.by.concat(key)
+						by: temp
 					});
 
 					this.newGroup = null;
@@ -40,6 +58,9 @@ class GroupBar extends Plugin {
 				if (index >= 0) {
 					const temp = Array.from(state.by);
 					temp.splice(index, 1);
+
+					this.selectedItems = temp.slice();
+
 					group({
 						by: temp
 					});

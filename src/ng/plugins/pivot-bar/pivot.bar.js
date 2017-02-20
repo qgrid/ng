@@ -17,13 +17,31 @@ class PivotBar extends Plugin {
 	constructor() {
 		super(...arguments);
 
-		this.newGroup = null;
+		this.newGroup = null;		
+		this.selectedItems = null;
+		
+		this.replace = new Command({
+				execute: key => {
+					const pivot = this.model.pivot;
+
+					pivot({
+						by: [...key]
+					});
+				},
+				canExecute: () => this.columns.length > 0
+			}
+		);
+
 		this.add = new Command({
 				execute: key => {
 					const pivot = this.model.pivot;
 					const state = pivot();
+					const temp = state.by.concat(key);
+				
+					this.selectedItems = temp.slice();
+					
 					pivot({
-						by: state.by.concat(key)
+						by: temp
 					});
 
 					this.newGroup = null;
@@ -40,6 +58,9 @@ class PivotBar extends Plugin {
 				if (index >= 0) {
 					const temp = Array.from(state.by);
 					temp.splice(index, 1);
+
+					this.selectedItems = temp.slice();
+
 					pivot({
 						by: temp
 					});
