@@ -26,6 +26,7 @@
   "devDependencies": {
     "angular-animate": "^1.6.1",
     "angular-aria": "^1.6.1",
+    "angular-markdown-filter": "^1.3.2",
     "angular-material": "^1.1.3",
     "angular-mocks": "^1.6.1",
     "angular-route": "^1.6.1",
@@ -82,7 +83,7 @@
     "build:dev": "set NODE_ENV=dev && webpack -p",
     "build:demo": "set NODE_ENV=demo && webpack -p",
     "build:prod": "set NODE_ENV=prod && webpack",
-	  "build:prod:min": "set NODE_ENV=prod.min && webpack -p",
+    "build:prod:min": "set NODE_ENV=prod.min && webpack -p",
     "start": "set NODE_ENV=dev && webpack-dev-server --port 3030 --inline --hot",
     "lint": "eslint ./",
     "test": "karma start",
