@@ -22,7 +22,7 @@ function parse(key) {
 	const result = [];
 	const regex = /[^\[\],]+/gi;
 	let match;
-	while (match = regex.exec(key)) {
+	while (match = regex.exec(key)) { // eslint-disable-line no-cond-assign
 		result.push(match[0]);
 	}
 	return result;
