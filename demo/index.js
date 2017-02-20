@@ -8,8 +8,6 @@ import ngAnimate from 'angular-animate';
 import ngArea from 'angular-aria';
 import ngSanitize from 'angular-sanitize';
 import {} from 'angular-material';
-import {} from 'angular-markdown-filter';
-import * as showdown from 'showdown';
 
 import qgrid from '../src/index';
 
@@ -29,8 +27,6 @@ require('../src/assets/index.scss');
 require('angular-material/angular-material.css');
 require('prismjs/themes/prism.css');
 
-window.showdown = showdown;
-
 // TODO: more generic code
 const theme = themeMaterial;
 // const theme = (window.location.hash || '')
@@ -46,21 +42,13 @@ const dependencies = [
 	ngSanitize,
 	'ngMaterial', // WTF?
 	qgrid,
-	theme,
-	'markdown'
+	theme
 ];
 
 const pages = buildPages(require('./pages/pages.json'));
 const themes = require('../src/themes/themes.json');
 const defaults = require('./defaults.json');
 const Setup = setup(pages);
-
-angular.module('markdown')
-	.config(['markdownProvider', function(markdownProvider) {
-		markdownProvider.config({
-			tables: true
-		});
-	}]);
 
 export default angular.module('demo', dependencies)
 	.config(Setup)
@@ -95,7 +83,7 @@ function buildPages(schema) {
 				page.code = {};
 				extensions.forEach(ext => {
 					try {
-						if(ext === 'html'){
+						if(ext === 'html' || ext === 'md'){
 							page.code[ext] = require(`./pages/${page.path}/index.${ext}`);
 						}
 						else {

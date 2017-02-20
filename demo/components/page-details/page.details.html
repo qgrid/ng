@@ -23,7 +23,7 @@
 		</div>
 	</div>
 </div>
-<div class="page-details-doc">
-	<pre ng-bind-html="$ctrl.selection.code['md'] | markdown"></pre>
+<div class="page-details-doc" ng-if="$ctrl.selection.code['md']">
+	<pre ng-bind-html="$ctrl.selection.code['md']"></pre>
 </div>
 

@@ -120,6 +120,10 @@
 			{
 				"title": "Custom Aggregate Function",
 				"path": "aggregate-function"
+			},
+			{
+				"title": "Summary",
+				"path": "summary"
 			}
 		]
 	},
@@ -235,6 +239,10 @@
 			{
 				"title": "Column Groups",
 				"path": "column-groups"
+			},
+			{
+				"title": "Dynamic Columns",
+				"path": "dynamic-columns"
 			}
 		]
 	},
@@ -292,8 +300,8 @@
 				"path": "row-number"
 			},
 			{
-				"title": "Row Details",
-				"path": "row-details"
+				"title": "Row Indicator",
+				"path": "row-indicator"
 			},
 			{
 				"title": "Column Resize",

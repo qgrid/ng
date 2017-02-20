@@ -7,8 +7,8 @@ page-details {
 		}
 	}
 
-	.page-details-code {
-		margin-bottom: 50px;
+	div + .page-details-doc {
+		margin-top: 50px;
 	}
 
 	@media (max-width: 959px) {
@@ -21,9 +21,12 @@ page-details {
 				margin-left: 0 !important;
 				margin-top: 40px !important;
 			}
-
-			margin-bottom: 320px;
 		}
+
+		div + .page-details-doc {
+			margin-top: 320px;
+		}
+
 	}
 
 	> div:first-child {
