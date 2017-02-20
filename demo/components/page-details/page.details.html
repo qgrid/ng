@@ -10,15 +10,35 @@
 		  layout="row"
 		  layout-xs="column"
 		  layout-sm="column"
-		  ng-if="$ctrl.selection.code"
 		  class="page-details-code">
-		<div flex>
+		<div flex="33%" flex-md="50%">
 			<label>HTML</label>
 			<pre ng-bind-html="$ctrl.selection.code['html'] | html"></pre>
 		</div>
-		<div flex>
+		<div flex="33%" flex-md="50%">
 			<label>JAVASCRIPT</label>
 			<pre ng-bind-html="$ctrl.selection.code['js'] | js"></pre>
 		</div>
+		<div flex>
+			<label>DOC</label>
+			<pre ng-bind-html="$ctrl.selection.code['markdown'] | markdown"></pre>
+		</div>
 	</div>
+	
+	<!--<md-grid-list md-cols="3">-->
+		<!--<md-grid-tile>-->
+			<!--<label>HTML</label>-->
+			<!--<pre ng-bind-html="$ctrl.selection.code['html'] | html"></pre>-->
+		<!--</md-grid-tile>-->
+		<!---->
+		<!--<md-grid-tile>-->
+			<!--<label>JAVASCRIPT</label>-->
+			<!--<pre ng-bind-html="$ctrl.selection.code['js'] | js"></pre>-->
+		<!--</md-grid-tile>-->
+		<!---->
+		<!--<md-grid-tile>-->
+			<!--<label>DOC</label>-->
+			<!--<pre ng-bind-html="$ctrl.selection.code['markdown'] | markdown"></pre>-->
+		<!--</md-grid-tile>-->
+	<!--</md-grid-list>-->
 </div>
