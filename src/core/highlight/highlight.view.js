@@ -50,8 +50,9 @@ export default class HighlightView extends View {
 
 				this.behavior = behaviorFactory(this.model, this.markup);
 			}
-
-			this.behavior.apply(model.selection().items);
+			if (this.behavior) {
+				this.behavior.apply(model.selection().items);
+			}
 		});
 	}
 

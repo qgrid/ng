@@ -45,12 +45,10 @@ export default class EditCellView {
 					}
 
 					cell = cell || model.navigation().active.cell;
-					if (cell) {
-						const parse = parseFactory(cell.column.type);
-						this.value = isUndefined(cell.value) ? null : parse(clone(cell.value));
-						this.mode = 'edit';
-						cell.mode(this.mode);
-					}
+					const parse = parseFactory(cell.column.type);
+					this.value = isUndefined(cell.value) ? null : parse(clone(cell.value));
+					this.mode = 'edit';
+					cell.mode(this.mode);
 				}
 			}),
 			commit: new Command({
