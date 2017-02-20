@@ -14,24 +14,17 @@
 			md-cols-xs="1"
 			md-row-height="500px">
 			
-			<md-grid-tile>
-				<md-grid-tile-header>
-					<label>HTML</label>
-				</md-grid-tile-header>
+			<md-grid-tile class="page-details-code">
+				<label>HTML</label>
 				<pre ng-bind-html="$ctrl.selection.code['html'] | html"></pre>
 			</md-grid-tile>
 			
-			<md-grid-tile>
-				<md-grid-tile-header>
-					<label>JAVASCRIPT</label>
-				</md-grid-tile-header>
+			<md-grid-tile class="page-details-code">
+				<label>JAVASCRIPT</label>
 				<pre ng-bind-html="$ctrl.selection.code['js'] | js"></pre>
 			</md-grid-tile>
 			
 			<md-grid-tile md-colspan-gt-sm="2" ng-if="$ctrl.selection.code['markdown']">
-				<md-grid-tile-header>
-					<label>DOCUMENTATION</label>
-				</md-grid-tile-header>
 				<pre ng-bind-html="$ctrl.selection.code['markdown'] | markdown"></pre>
 			</md-grid-tile>
 		
