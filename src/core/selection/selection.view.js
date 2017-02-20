@@ -16,6 +16,7 @@ export default class SelectionView extends View {
 		const commands = this.commands;
 		shortcut.register('selectionNavigation', commands);
 		this.toggleRow = commands.get('toggleRow');
+		this.toggleColumn = commands.get('toggleColumn');
 
 		model.viewChanged.watch(() => {
 			this.behavior = behaviorFactory(model, markup);
@@ -57,6 +58,12 @@ export default class SelectionView extends View {
 					}
 					model.selection({items: this.behavior.view}, {source: 'toggle'});
 					Log.info('toggle.selection items count ', this.behavior.view.length);
+				}
+			}),
+			toggleColumn: new Command({
+				execute: () => {
+					const columns = columnService.lineView(model.view().columns);
+					model.selection({items: columns});
 				}
 			}),
 			toggleActiveRow: new Command({
@@ -142,7 +149,17 @@ export default class SelectionView extends View {
 			selectAll: new Command({
 				shortcut: 'ctrl+a',
 				execute: () => {
-					this.toggleRow.execute();
+					switch (model.selection().unit) {
+						case 'row':
+							this.toggleRow.execute();
+							break;
+						case 'column':
+							this.toggleColumn.execute();
+							break;
+						case 'cell':
+							//toggle cells
+							break;
+					}
 				},
 				canExecute: () => model.selection().mode === 'multiple'
 			})
