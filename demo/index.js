@@ -67,7 +67,7 @@ const pages =
 				p.code = {
 					html: require(`./pages/${page.path}/index.html`),
 					js: require(`raw-loader!./pages/${page.path}/index.js`),
-				}
+				};
 			}
 
 			// if (p.path !== 'home') {
@@ -106,11 +106,3 @@ export default angular.module('demo', dependencies)
 	.filter('html', HtmlFilter)
 	.filter('js', JsFilter)
 	.name;
-
-function requireOr(path, value) {
-	try {
-		return require(path);
-	} catch (e) {
-		return value || '';
-	}
-}
