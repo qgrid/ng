@@ -1,53 +1,29 @@
-import {Grid} from '../grid/grid';
-import AppError from 'core/infrastructure/error';
-import {isUndefined} from 'core/services/utility';
+import {isUndefined, isArray} from 'core/services/utility';
 
-export default function create(scope, args) {
+export default function create(key, value) {
 	const env = {};
-	for (let arg of args) {
-		if (!isUndefined(arg)) {
-			if (isUndefined(scope[arg])) {
-				throw new AppError(
-					'template.scope',
-					`"${arg}" is not defined"`
-				);
+	if (!isUndefined(key)) {
+		if (isArray(value)) {
+			const keys = parse(key);
+			let length = keys.length;
+			while (length--) {
+				env[keys[length]] = value[length];
 			}
-
-			const argScope = find(scope) || scope;
-			// if (argScope === null) {
-			// 	throw new AppError(
-			// 		'template.scope',
-			// 		`Let scope is not found for "${arg}"`
-			// 	);
-			// }
-
-			env[arg] = argScope[arg];
+		}
+		else {
+			env[key] = value;
 		}
 	}
 
 	return env;
 }
 
-function find(scope) {
-	// When trasclusion applies, transclusion scope is a sibling for the owner scope,
-	// so we searching in siblings of parents
-	let current = scope;
-	while (current) {
-		const letScope = test(current.$$prevSibling) || test(current.$$nextSibling); // eslint-disable-line angular/no-private-call
-		if (letScope) {
-			return letScope;
-		}
-
-		current = current.$parent;
+function parse(key) {
+	const result = [];
+	const regex = /[^\[\],]+/gi;
+	let match;
+	while (match = regex.exec(key)) {
+		result.push(match[0]);
 	}
-
-	return null;
-}
-
-function test(scope) {
-	if (scope && scope.hasOwnProperty('$grid') && scope.$grid instanceof Grid) {
-		return scope.$parent;
-	}
-
-	return null;
+	return result;
 }

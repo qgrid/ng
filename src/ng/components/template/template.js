@@ -7,11 +7,12 @@ import {merge} from 'core/services/utility';
 import {GRID_NAME, TEMPLATE_NAME} from 'ng/definition';
 
 class Template extends Directive(TEMPLATE_NAME, merge({root: `^^${GRID_NAME}`}, TemplatePath.require)) {
-	constructor($scope, $element) {
+	constructor($scope, $element, $attrs) {
 		super();
 
 		this.$scope = $scope;
 		this.$element = $element;
+		this.$attrs = $attrs;
 	}
 
 	onInit() {
@@ -32,14 +33,14 @@ class Template extends Directive(TEMPLATE_NAME, merge({root: `^^${GRID_NAME}`}, 
 		}
 
 		const content = this.$element.html();
-		const contentScope = templateScope(this.$scope, [this.let]);
+		const contentScope = templateScope(this.$attrs.let, this.let);
 		const createResource = resourceFactory(state.resource, path.resource);
 		const newResource = createResource(content, contentScope);
 		model({resource: newResource});
 	}
 }
 
-Template.$inject = ['$scope', '$element'];
+Template.$inject = ['$scope', '$element', '$attrs'];
 
 export default {
 	terminal: true,
@@ -49,6 +50,6 @@ export default {
 	controller: Template,
 	bindToController: {
 		for: '@',
-		let: '@'
+		let: '<'
 	}
 };
