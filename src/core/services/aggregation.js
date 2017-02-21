@@ -94,7 +94,7 @@ export default class Aggregation {
 		return Aggregation.sum(rows, getValue) / rows.length;
 	}
 
-	static sum(rows, getValue, aggregationOptions, externalSet) {
+	static sum(rows, getValue, aggregationOptions, options) {
 		if (!rows.length) {
 			return null;
 		}
@@ -104,7 +104,7 @@ export default class Aggregation {
 			sum = 0;
 
 		if (aggregationOptions.distinct) {
-			let uniqueValues = externalSet || new Set(),
+			let uniqueValues = options || new Set(),
 				value = null;
 
 			while (i < length) {
