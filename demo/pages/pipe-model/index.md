@@ -8,15 +8,7 @@ Every pipe gets data from previous one, handles it, and passes to the next pipe.
 By default the whole pipeline is triggered when some pipeline-related property is changed (e.g. filters, order etc.).
 User also has an ability to trigger data refresh manually.
 
-Pipeline requires a function with following signature: `(data, context, next) => { }`where 
-* `data` is data array from previous stage, 
-* `context` is an event, which consists of following fields:
-    * `source` - where changes occured
-    * `model` - current qgrid model
-    * `diff` - what was changed
-* `next` is function that finishes current pipe and passes data to the next one.
-
-By default pipeline consists of following stages:
+By default pipeline consists of following pipes:
 * `Pipe.data` - returns model.data().rows
 * `Pipe.filter` - filters data according to filters
 * `Pipe.sort` - sorts data according to sort model
