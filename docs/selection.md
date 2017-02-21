@@ -1,17 +1,17 @@
 # Selection basics
-Currently q-grid supports rows, columns and cells selection with single and multiple selection modes. 
-To enable selection you need to specify selection-mode and selection-unit attributes within root q-grid tag.
+Currently q-grid supports `row`, `column` and `cell` selection with `single` and `multiple` selection modes. 
+To enable selection you need to specify `selection-mode` and `selection-unit` attributes within root q-grid tag.
 
 Possible selection-unit values:
-- row
-- column
-- cell
+- `row`
+- `column`
+- `cell`
 
 Possible selection-mode values:
-- single
-- multiple
+- `single`
+- `multiple`
 
-You can bind an array of selected items via selection attribute. 
+You can bind an array of selected items via `selection` attribute. 
 
 ### markup
 ```html
@@ -19,8 +19,6 @@ You can bind an array of selected items via selection attribute.
         selection="$ctrl.selection"
         selection-mode="multiple"
         selection-unit="row">
-	<q-grid:columns generation="deep">
-	</q-grid:columns>
 </q-grid>
 ```
 ### script
@@ -42,10 +40,9 @@ export default function Controller($http, $log) {
 
 # Selection changed
 
-You can subscribe to selection-changed event via corresponding attribute. 
+You can subscribe to `selection-changed` event via corresponding attribute. 
 
-*Note*: don't forget to specify on: prefix before event name! 
-
+> Don't forget to specify `on:` prefix before event name! 
 
 ### markup
 ```html
@@ -54,8 +51,6 @@ You can subscribe to selection-changed event via corresponding attribute.
         selection-mode="multiple"
         selection-unit="row"
         on:selection-changed="$ctrl.selectionChanged($event)">
-	<q-grid:columns generation="deep">
-	</q-grid:columns>
 </q-grid>
 ```
 ### script
