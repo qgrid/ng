@@ -2,10 +2,10 @@ import ColumnView from 'core/column-type/column.view';
 import TemplatePath from 'core/template/template.path';
 import ColumnModel from './column.model';
 
-TemplatePath.register('select-cell', (template) => {
+TemplatePath.register('select-cell', (template, column) => {
 	return {
-		model: 'selection',
-		resource: template.for
+		model: template.for,
+		resource: column.key
 	};
 });
 
