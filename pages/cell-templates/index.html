@@ -1,0 +1,26 @@
+<q-grid rows="$ctrl.rows">
+	<q-grid:columns generation="deep">
+		<q-grid:column key="name.last">
+			<q-grid:template for="head">
+				<span style="background: #f00;">{{$cell.column.title}}</span>
+			</q-grid:template>
+			<q-grid:template for="body">
+				<b>{{$cell.value}}</b>
+			</q-grid:template>
+		</q-grid:column>
+		<q-grid:column key="birthday">
+			<q-grid:template for="head">
+				<span style="background: #0f0;">{{$cell.column.title}}</span>
+			</q-grid:template>
+			<q-grid:template for="body">
+				<i>{{$cell.value | date:'yyyy/mm/dd'}}</i>
+			</q-grid:template>
+		</q-grid:column>
+		<q-grid:column key="contact.email" title="Primary Email">
+			<q-grid:template for="body">
+				<a ng-href="mailto: {{$cell.value[0]}}" ng-bind="$cell.value[0]"></a>
+			</q-grid:template>
+		</q-grid:column>
+
+	</q-grid:columns>
+</q-grid>

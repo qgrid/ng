@@ -1,0 +1,37 @@
+<q-grid rows="$ctrl.rows"
+		  selection="$ctrl.selection"
+		  selection-mode="multiple"
+		  selection-unit="row"
+		  on:selection-changed="$ctrl.selectionChanged($event)">
+	<q-grid:columns generation="deep">
+		<!--<q-grid:column type="select">-->
+			<!--<q-grid:template for="head">-->
+				<!--<label style="background-color: #f00;">-->
+					<!--<input type="checkbox"-->
+							 <!--q-grid:indeterminate="$selection.indeterminate()"-->
+							 <!--ng-checked="$selection.state()"-->
+							 <!--ng-click="$selection.toggle.execute()"-->
+							 <!--ng-disabled="!$selection.toggle.canExecute()"/>-->
+					<!--Select All-->
+				<!--</label>-->
+			<!--</q-grid:template>-->
+			<!--<q-grid:template for="body">-->
+				<!--<label style="background-color: #0f0;">-->
+					<!--<input type="checkbox"-->
+							 <!--q-grid:indeterminate="$selection.indeterminate($row)"-->
+							 <!--ng-checked="$selection.state($row)"-->
+							 <!--ng-click="$selection.toggle.execute($row)"-->
+							 <!--ng-disabled="!$selection.toggle.canExecute($row)"/>-->
+					<!--Select {{$row.name.last}}-->
+				<!--</label>-->
+			<!--</q-grid:template>-->
+		<!--</q-grid:column>-->
+	</q-grid:columns>
+
+	<q-grid:toolbar>
+		<q-grid:template for="top">
+			<q-grid:selection-bar>
+			</q-grid:selection-bar>
+		</q-grid:template>
+	</q-grid:toolbar>
+</q-grid>

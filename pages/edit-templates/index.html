@@ -1,0 +1,15 @@
+<q-grid columns="$ctrl.columns"
+		  rows="$ctrl.rows"
+		  edit-mode="cell">
+	<q-grid:columns>
+		<q-grid:column key="name.first">
+			<q-grid:template for="edit">
+				<input type="text"
+						 q-grid:focus
+						 style="border: 1px solid #f00;"
+						 ng-blur="$view.edit.cell.commit.execute($cell)"
+						 ng-model="$view.edit.cell.value"/>
+			</q-grid:template>
+		</q-grid:column>
+	</q-grid:columns>
+</q-grid>
