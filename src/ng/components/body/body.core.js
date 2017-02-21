@@ -54,8 +54,8 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 			if (cell.column.type !== 'select') {
 				const model = this.view.model;
 				const row = model.view().rows[cell.rowIndex];
-				if (row && this.view.selection.toggle.canExecute(row)) {
-					this.$scope.$evalAsync(() => this.view.selection.toggle.execute(row));
+				if (row && this.view.selection.toggleRow.canExecute(row)) {
+					this.$scope.$evalAsync(() => this.view.selection.toggleRow.execute(row));
 				}
 			}
 		}
