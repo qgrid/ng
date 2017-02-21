@@ -8,6 +8,10 @@ To switch on cell editing specify edit-mode="cell" in q-grid:
 </q-grid>
 ```
 You can override default cell edit template for columns:
+* Bind the model with the new template by specifying $view.edit.cell.value
+* Action to exit from the edit mode : $view.edit.cell.commit.execute($cell)
+
+#### Example
 ```html
 <q-grid columns="$ctrl.columns"
                rows="$ctrl.rows"
