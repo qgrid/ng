@@ -16,11 +16,20 @@ class SelectionBar extends Plugin {
 	constructor() {
 		super(...arguments);
 
-		this.unit = 'row';
-		this.units = ['row', 'column', 'cell', 'checkbox'];
+		this.units = [ 
+			{ key: 'row', title: 'Row' }, 
+			{ key: 'column', title: 'Column' }, 
+			{ key: 'cell', title: 'Cell' }
+		];
 
-		this.mode = 'single';
-		this.modes = ['single', 'multiple'];
+		this.unit = this.units[0].key;
+
+		this.modes = [
+			{ key: 'single', title: 'Single' },
+			{ key: 'multiple', title: 'Multiple' } 
+		];
+
+		this.mode = this.modes[0].key;
 
 		this.toggleMode = new Command({
 			execute: (mode) => {
