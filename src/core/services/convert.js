@@ -62,6 +62,17 @@ export function isPrimitive(type) {
 	}
 }
 
+<<<<<<< HEAD
+=======
+function parseBool(value) {
+	return value === 'true' 
+      ? true 
+      : value === 'false' 
+         ? false 
+         : null;
+}
+
+>>>>>>> master
 function parseText(value) {
 	return '' + value;
 }
