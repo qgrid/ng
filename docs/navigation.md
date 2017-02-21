@@ -1,5 +1,5 @@
 # Navigation
-Current navigation based on DHTML Style Guide Working Group (DSGWG) reccomendation for keyboard shortcuts
+Current navigation based on DHTML Style Guide Working Group (DSGWG) reccomendation for keyboard shortcuts and keyboard navigation
 http://access.aol.com/dhtml-style-guide-working-group/
 
 ## New Navigation
