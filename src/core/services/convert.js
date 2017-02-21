@@ -64,8 +64,12 @@ export function isPrimitive(type) {
 	}
 }
 
-function parseBool(value){
-	return value === 'true';
+function parseBool(value) {
+	return value === 'true' 
+      ? true 
+      : value === 'false' 
+         ? false 
+         : null;
 }
 
 function parseText(value) {
