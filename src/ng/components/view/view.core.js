@@ -10,6 +10,7 @@ import PivotView from 'core/pivot/pivot.view';
 import NavigationView from 'core/navigation/navigation.view';
 import HighlightView from 'core/highlight/highlight.view';
 import SortView from 'core/sort/sort.view';
+import FilterView from 'core/filter/filter.view';
 import EditView from 'core/edit/edit.view';
 import SelectionView from 'core/selection/selection.view';
 import {GRID_NAME} from 'ng/definition';
@@ -31,12 +32,13 @@ class ViewCore extends Component {
 		this.body = new BodyView(model, valueFactory);
 		this.foot = new FootView(model, valueFactory);
 		this.layout = new LayoutView(model, markup);
-		this.selection = new SelectionView(model);
+		this.selection = new SelectionView(model, markup, this.$scope.$evalAsync.bind(this.$scope));
 		this.group = new GroupView(model, valueFactory);
 		this.pivot = new PivotView(model, valueFactory);
 		this.nav = new NavigationView(model, markup, this.$scope.$evalAsync.bind(this.$scope));
 		this.highlight = new HighlightView(model, markup);
 		this.sort = new SortView(model);
+		this.filter = new FilterView(model);
 		this.edit = new EditView(model, setValue, markup, this.$scope.$evalAsync.bind(this.$scope));
 	}
 

@@ -28,6 +28,6 @@ export default class PivotView extends View {
 
 	value(row, column) {
 		const rowIndex = this.model.view().rows.indexOf(row);
-		return this.rows[rowIndex][column.columnIndex];
+		return this.rows[rowIndex][column.index];
 	}
 }

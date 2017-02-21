@@ -20,29 +20,28 @@ export class Grid extends RootComponent {
 		const service = this.serviceFactory(model);
 
 		model.selectionChanged.watch(e => {
-			if (e.changes.hasOwnProperty('items')) {
+			if (!e || e.changes.hasOwnProperty('items')) {
 				this.onSelectionChanged({
 					$event: {
 						state: model.selection(),
-						changes: e.changes
+						changes: e ? e.changes : {}
 					}
 				});
 			}
 
-			if (e.changes.hasOwnProperty('unit')) {
-				service.invalidate('selection', e.changes, PipeUnit.column);
+			if (!e || e.changes.hasOwnProperty('unit')) {
+				service.invalidate('selection', e ? e.changes : {}, PipeUnit.column);
 			}
 		});
 
 		model.navigationChanged.watch(e => {
-			if (e.changes.hasOwnProperty('row') ||
-				e.changes.hasOwnProperty('column')) {
-				const nav = e.state;
+			if (!e || e.changes.hasOwnProperty('row') || e.changes.hasOwnProperty('column')) {
+				const nav = model.navigation();
 				let cell = null;
 				if (nav.column >= 0 && nav.row >= 0) {
 					const element = this.markup.body.rows[nav.row].cells[nav.column];
 					const scope = angular.element(element).scope();
-					cell = scope.$cell;
+					cell = scope ? scope.$cell : null;
 				}
 
 				model.navigation({
@@ -53,11 +52,20 @@ export class Grid extends RootComponent {
 			}
 		});
 
+		model.dataChanged.watch(e => {
+			if (!e || e.changes.hasOwnProperty('columns')) {
+				const index = Array.from(model.columnList().index);
+				const indexSet = new Set(index);
+				index.push(...model.data().columns.filter(c => !indexSet.has(c.key)).map(c => c.key));
+				model.columnList({index: index});
+			}
+		});
+
 		model.data()
 			.triggers
 			.forEach(name =>
 				model[name + 'Changed']
-					.watch(e => service.invalidate(name, e.changes)));
+					.watch(e => service.invalidate(name, e ? e.changes : {})));
 	}
 
 	compile() {

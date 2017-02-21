@@ -2,10 +2,11 @@ import Directive from 'ng/directives/directive';
 import Command from 'core/infrastructure/command';
 import {noop} from 'core/services/utility';
 import * as columnService from 'core/column/column.service';
+import PipeUnit from 'core/pipe/units/pipe.unit'
 import {VIEW_CORE_NAME, HEAD_CORE_NAME, TH_CORE_NAME} from 'ng/definition';
 
 class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
-	constructor($scope, $element) {
+	constructor($scope, $element, serviceFactory) {
 		super();
 
 		this.element = $element[0];
@@ -22,17 +23,29 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 				return false;
 			},
 			execute: e => {
-				const view = this.view.model.view;
+				const model = this.view.model;
+				const view = model.view;
 				const columnRows = view().columns;
 				for (let columns of columnRows) {
 					const targetIndex = columns.findIndex(c => c.model.key === e.target.value);
 					const sourceIndex = columns.findIndex(c => c.model.key === e.source.value);
 					if (targetIndex >= 0 && sourceIndex >= 0) {
-						// TODO: full copy? impacting pef. on pivoting?
-						const sourceColumn = columns[sourceIndex];
-						columns.splice(sourceIndex, 1);
-						columns.splice(targetIndex, 0, sourceColumn);
-						view({columns: Array.from(columnRows)});
+						const sourceColumn = columns[sourceIndex].model;
+						const targetColumn = columns[targetIndex].model;
+						const indexMap = Array.from(model.columnList().index);
+						indexMap.splice(sourceColumn.index, 1);
+						indexMap.splice(targetColumn.index, 0, sourceColumn.key);
+						model.columnList({index: indexMap});
+
+						serviceFactory
+							.service(this.view.model)
+							.invalidate(
+								'reorder', {
+									target: targetIndex,
+									source: sourceIndex
+								},
+								PipeUnit.column
+							);
 					}
 				}
 			}
@@ -72,7 +85,7 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	}
 }
 
-HeadCore.$inject = ['$scope', '$element'];
+HeadCore.$inject = ['$scope', '$element', 'qgrid'];
 
 export default {
 	restrict: 'A',

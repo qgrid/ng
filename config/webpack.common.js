@@ -1,5 +1,7 @@
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const marked = require("marked");
+const renderer = new marked.Renderer();
 
 module.exports = {
 	resolve: {
@@ -109,6 +111,21 @@ module.exports = {
 			{
 				test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
 				loader: 'url?limit=10000&minetype=image/svg+xml'
+			},
+			{
+				test: /\.md$/,
+				use: [
+					{
+						loader: "html-loader"
+					},
+					{
+						loader: "markdown-loader",
+						options: {
+							pedantic: true,
+							renderer
+						}
+					}
+				]
 			}
 		],
 	}

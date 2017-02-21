@@ -16,11 +16,20 @@ class SelectionBar extends Plugin {
 	constructor() {
 		super(...arguments);
 
-		this.unit = 'row';
-		this.units = ['row', 'column', 'cell', 'checkbox'];
+		this.units = [ 
+			{ key: 'row', title: 'Row' }, 
+			{ key: 'column', title: 'Column' }, 
+			{ key: 'cell', title: 'Cell' }
+		];
 
-		this.mode = 'single';
-		this.modes = ['single', 'multiple'];
+		this.unit = this.units[0].key;
+
+		this.modes = [
+			{ key: 'single', title: 'Single' },
+			{ key: 'multiple', title: 'Multiple' } 
+		];
+
+		this.mode = this.modes[0].key;
 
 		this.toggleMode = new Command({
 			execute: (mode) => {
@@ -38,13 +47,10 @@ class SelectionBar extends Plugin {
 	}
 
 	onInit() {
-		const selection = this.model.selection();
-		this.mode = selection.mode;
-		this.unit = selection.unit;
-
-		this.model.selectionChanged.watch(e => {
-			this.unit = e.state.unit;
-			this.mode = e.state.mode;
+		this.model.selectionChanged.watch(() => {
+			const selection = this.model.selection();
+			this.mode = selection.mode;
+			this.unit = selection.unit;
 		});
 	}
 

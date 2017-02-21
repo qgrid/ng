@@ -15,8 +15,8 @@ class BoxCore extends Component {
 
 		const model = this.model;
 		model.dragChanged.watch(e => {
-			if (e.changes.hasOwnProperty('isActive')) {
-				if (e.state.isActive) {
+			if (!e || e.changes.hasOwnProperty('isActive')) {
+				if (model.drag().isActive) {
 					this.element.classList.add(`${GRID_PREFIX}-drag`);
 				}
 				else {
@@ -30,10 +30,12 @@ class BoxCore extends Component {
 		const element = this.element;
 
 		element.classList.add(GRID_PREFIX);
-		element.classList.add(`${GRID_PREFIX}-theme-${this.theme.name}`);
 		this.theme.changed.watch(e => {
-			element.classList.remove(`${GRID_PREFIX}-theme-${e.oldValue}`);
-			element.classList.add(`${GRID_PREFIX}-theme-${e.newValue}`);
+			if(e) {
+				element.classList.remove(`${GRID_PREFIX}-theme-${e.oldValue}`);
+			}
+
+			element.classList.add(`${GRID_PREFIX}-theme-${this.theme.name}`);
 		});
 	}
 

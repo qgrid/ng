@@ -15,11 +15,11 @@ export default class LayoutView extends View {
 	onInit() {
 		const model = this.model;
 		model.layoutChanged.watch(e => {
-			if (e.changes.hasOwnProperty('columns')) {
+			if (!e || e.changes.hasOwnProperty('columns')) {
 				this.invalidateColumns();
 			}
 
-			if (e.changes.hasOwnProperty('scroll')) {
+			if (!e || e.changes.hasOwnProperty('scroll')) {
 				this.invalidateScroll();
 			}
 		});

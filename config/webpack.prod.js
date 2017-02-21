@@ -2,16 +2,20 @@ const path = require('path');
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 const commonConfig = require('./webpack.common.js');
+const themes = require('../src/themes/themes.json');
 
 // webpack plugins
 const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
+
+const entries = {qgrid: './src/build.js'};
+
+themes.forEach(theme => {
+	entries[`qgrid.${theme.path}`] = path.join(__dirname, '..', 'src', 'themes', theme.path)
+});
 
 module.exports = webpackMerge(commonConfig, {
-	entry: {
-		qgrid: './src/build.js'
-	},
+	entry: entries,
 	output: {
 		path: path.join(__dirname, '..', 'dist'),
 		filename: '[name].js',
@@ -33,7 +37,7 @@ module.exports = webpackMerge(commonConfig, {
 			}
 		}),
 		new ExtractTextPlugin({
-			filename: 'qgrid.css',
+			filename: '[name].css',
 			disable: false,
 			allChunks: true
 		}),

@@ -2,6 +2,7 @@ import View from 'core/view/view';
 import Command from 'core/infrastructure/command';
 import * as columnService from 'core/column/column.service';
 import * as sortService from 'core/sort/sort.service';
+import behaviorFactory from './behaviors/highlight.behavior.factory';
 import {noop} from 'core/services/utility';
 import {GRID_PREFIX} from 'core/definition';
 
@@ -30,13 +31,28 @@ export default class HighlightView extends View {
 	onInit(model) {
 		let blurs = [];
 		model.sortChanged.watch(e => {
-			if (e.changes.hasOwnProperty('by')) {
+			if (!e || e.changes.hasOwnProperty('by')) {
 				blurs = this.invalidate(blurs);
 			}
+			this.behavior = behaviorFactory(this.model, this.markup);
 		});
 
 		model.viewChanged.watch(() => {
 			blurs = this.invalidate(blurs);
+			this.behavior = behaviorFactory(this.model, this.markup);
+		});
+
+		model.selectionChanged.watch(e => {
+			if (!e || e.hasOwnProperty('unit') || e.hasOwnProperty('mode')) {
+				if (this.behavior) {
+					this.behavior.destroy();
+				}
+
+				this.behavior = behaviorFactory(this.model, this.markup);
+			}
+			if (this.behavior) {
+				this.behavior.apply(model.selection().items);
+			}
 		});
 	}
 
@@ -60,8 +76,8 @@ export default class HighlightView extends View {
 		const index = columnService.findIndex(columns, key);
 		if (index >= 0) {
 			// TODO: add pivot col support
-			const column =  columns[index];
-			if(column.type === 'pivot' || column.type === 'pad') {
+			const column = columns[index];
+			if (column.type === 'pivot' || column.type === 'pad') {
 				return -1;
 			}
 		}

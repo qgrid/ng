@@ -48,6 +48,7 @@
 }
 
 .q-grid-column-filter-panel {
+	width: 320px;
 	ul {
 		list-style-type: none;
 		padding: 0;
@@ -71,7 +72,7 @@
 	.q-grid-column-chooser-list {
 		margin: 0;
 		overflow-y: auto;
-		height: 380px;
+		height: 376px;
 	}
 
 	.q-grid-column-chooser-actions {

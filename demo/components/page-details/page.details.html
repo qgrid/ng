@@ -1,4 +1,6 @@
-<div layout="column" ng-class="$ctrl.selection.path">
+<div layout="column"
+	  ng-class="$ctrl.selection.path"
+	  ng-if="$ctrl.selection.code['html']">
 	<md-card flex="100">
 		<md-card-content>
 			<div class="page-details-content">
@@ -10,7 +12,6 @@
 		  layout="row"
 		  layout-xs="column"
 		  layout-sm="column"
-		  ng-if="$ctrl.selection.code"
 		  class="page-details-code">
 		<div flex>
 			<label>HTML</label>
@@ -22,3 +23,7 @@
 		</div>
 	</div>
 </div>
+<div class="page-details-doc" ng-if="$ctrl.selection.code['md']">
+	<pre ng-bind-html="$ctrl.selection.code['md']"></pre>
+</div>
+

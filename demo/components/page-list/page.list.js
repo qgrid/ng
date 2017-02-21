@@ -14,8 +14,6 @@ class PageList extends Component {
 	}
 }
 
-PageList.$inject = [];
-
 export default {
 	template: require('./page.list.html'),
 	controller: PageList,

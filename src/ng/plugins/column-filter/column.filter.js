@@ -13,6 +13,7 @@ export default ColumnFilter.component({
 	bindings: {
 		'onSubmit': '&',
 		'onCancel': '&',
-		'key': '<'
+		'key': '<',
+		'title': '<'
 	}
 });

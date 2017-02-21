@@ -1,4 +1,68 @@
 <q-grid columns="$ctrl.columns"
 		  rows="$ctrl.rows"
 		  edit-mode="cell">
+	<q-grid:toolbar>
+		<q-grid:template for="top">
+			<div layout="row">
+				<div flex="100"
+					  layout="row"
+					  layout-align="start center"
+					  layout-align-xs="start start"
+					  layout-align-sm="start start">
+					<div>
+						<q-grid:sort-bar>
+						</q-grid:sort-bar>
+					</div>
+					<div>
+						<q-grid:group-bar>
+						</q-grid:group-bar>
+					</div>
+					<div>
+						<q-grid:pivot-bar>
+						</q-grid:pivot-bar>
+					</div>
+				</div>
+				<div class="q-grid-actions" flex="none" layout="row" layout-align="end center">
+					<div>
+						<q-grid:popup id="q-grid-filter-popup">
+							<q-grid:template for="trigger">
+								<md-button ng-click="$popup.open()" class="md-icon-button">
+									<md-icon>filter_list</md-icon>
+								</md-button>
+							</q-grid:template>
+							<q-grid:template for="body">
+								<q-grid:expression-builder on:submit="$popup.close()"
+																	on:cancel="$popup.close()">
+								</q-grid:expression-builder>
+							</q-grid:template>
+							<q-grid:template for="head">
+								Filter
+							</q-grid:template>
+						</q-grid:popup>
+					</div>
+					<div>
+						<q-grid:popup id="q-grid-column-chooser-popup">
+							<q-grid:template for="trigger">
+								<md-button ng-click="$popup.open()" class="md-icon-button">
+									<md-icon>more_vert</md-icon>
+								</md-button>
+							</q-grid:template>
+							<q-grid:template for="body">
+								<q-grid:column-chooser on:submit="$popupBody.close()"
+															  on:cancel="$popupBody.close()">
+								</q-grid:column-chooser>
+							</q-grid:template>
+							<q-grid:template for="head">
+								<span class="md-subhead">Column Chooser</span>
+							</q-grid:template>
+						</q-grid:popup>
+					</div>
+				</div>
+			</div>
+			<div class="q-grid-progress">
+				<q-grid:progress>
+				</q-grid:progress>
+			</div>
+		</q-grid:template>
+	</q-grid:toolbar>
 </q-grid>
