@@ -32,7 +32,7 @@ class ViewCore extends Component {
 		this.body = new BodyView(model, valueFactory);
 		this.foot = new FootView(model, valueFactory);
 		this.layout = new LayoutView(model, markup);
-		this.selection = new SelectionView(model);
+		this.selection = new SelectionView(model, markup, this.$scope.$evalAsync.bind(this.$scope));
 		this.group = new GroupView(model, valueFactory);
 		this.pivot = new PivotView(model, valueFactory);
 		this.nav = new NavigationView(model, markup, this.$scope.$evalAsync.bind(this.$scope));

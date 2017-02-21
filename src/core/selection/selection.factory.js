@@ -2,6 +2,7 @@ import AppError from 'core/infrastructure/error';
 import SingleSelection from './behaviors/single.selection';
 import MultipleSelection from './behaviors/multiple.selection';
 
+
 export default function (model) {
 	const mode = model.selection().mode;
 	switch (mode) {

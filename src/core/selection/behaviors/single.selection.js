@@ -20,6 +20,6 @@ export default class SingleSelection extends Selection {
 	}
 
 	get view() {
-		return [this.item];
+		return this.item ? [this.item] : [];
 	}
 }

@@ -1,8 +1,21 @@
-<md-list>
-	<md-list-item ng-repeat="page in $ctrl.items" ng-class="{selected: page === $ctrl.selection}">
+<md-list ng-repeat="node in $ctrl.items track by node.title">
+	<md-subheader ng-if="node.items">{{::node.title}}</md-subheader>
+	<md-list-item ng-if="node.path" ng-class="{selected: node === $ctrl.selection}">
 		<md-tooltip md-delay="500">
-			{{::page.title}}
+			{{::node.title}}
 		</md-tooltip>
-		<a class="md-button" href="#!/{{::page.path}}" ng-click="$ctrl.select(page)">{{::page.title}}</a>
+		<md-button ng-disabled="!node.code.html && !node.code.md"
+					  ng-click="$ctrl.select(node)">
+			{{::node.title}}
+		</md-button>
+	</md-list-item>
+	<md-list-item ng-if="node.items" ng-repeat="item in node.items" ng-class="{selected: item === $ctrl.selection}">
+		<md-tooltip md-delay="500">
+			{{::item.title}}
+		</md-tooltip>
+		<md-button ng-disabled="!item.code.html && !item.code.md"
+					  ng-click="$ctrl.select(item)">
+			{{::item.title}}
+		</md-button>
 	</md-list-item>
 </md-list>
