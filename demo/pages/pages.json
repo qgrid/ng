@@ -296,6 +296,10 @@
 				"path": "selection-model"
 			},
 			{
+				"title": "Selection Keyboard",
+				"path": "selection-keyboard"
+			},
+			{
 				"title": "Row Number",
 				"path": "row-number"
 			},
