@@ -37,9 +37,11 @@ Call navigation() on grid component
 ```
 
 #### Get navigation property
-To get any navigation model property
+As soon as model.navigation() returns object to get any navigation model property
 ```javascript
-   model.navigation().row;
+      Log.info('dot notation', model.navigation().row);
+
+      Log.info('bracket notation', model.navigation()['row']);
 ```
 #### Set navigation properties
 You can manage navigation by setting values of navigation model properties to required values.
