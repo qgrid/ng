@@ -2,12 +2,12 @@
 Currently q-grid supports `row`, `column` and `cell` selection with `single` and `multiple` selection modes. 
 To enable selection you need to specify `selection-mode` and `selection-unit` attributes within root q-grid tag.
 
-Possible selection-unit values:
+Possible `selection-unit` values:
 - `row`
 - `column`
 - `cell`
 
-Possible selection-mode values:
+Possible `selection-mode` values:
 - `single`
 - `multiple`
 
