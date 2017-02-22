@@ -142,7 +142,6 @@ export default function pipeColumn(memo, context, next) {
 	const dataColumns = model.data().columns;
 
 	const selectColumn = dataColumns.find(item => item.type === 'select');
-
 	/*
 	 * Add column with select boxes
 	 * if selection unit is row
