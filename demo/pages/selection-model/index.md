@@ -14,6 +14,7 @@ Possible `selection-mode` values:
 You can bind an array of selected items via `selection` attribute. 
 
 ### markup
+
 ```html
 <q-grid rows="$ctrl.rows"
         selection="$ctrl.selection"
@@ -21,7 +22,9 @@ You can bind an array of selected items via `selection` attribute.
         selection-unit="row">
 </q-grid>
 ```
+
 ### script
+
 ```javascript
 Controller.$inject = ['$http', '$log'];
 export default function Controller($http, $log) {
@@ -45,6 +48,7 @@ You can subscribe to `selection-changed` event via corresponding attribute. Each
 > Don't forget to specify `on:` prefix before event name! 
 
 ### markup
+
 ```html
 <q-grid rows="$ctrl.rows"
         selection="$ctrl.selection"
@@ -53,7 +57,9 @@ You can subscribe to `selection-changed` event via corresponding attribute. Each
         on:selection-changed="$ctrl.selectionChanged($event)">
 </q-grid>
 ```
+
 ### script
+
 ```javascript
 Controller.$inject = ['$http', '$log'];
 export default function Controller($http, $log) {
@@ -79,6 +85,7 @@ export default function Controller($http, $log) {
 You can customize selection column appearance and override default template for both head and body cells.
 
 ### markup
+
 ```html
 <q-grid rows="$ctrl.rows"
         selection="$ctrl.selection"
@@ -106,7 +113,9 @@ You can customize selection column appearance and override default template for 
 	</q-grid:columns>
 </q-grid>
 ```
+
 ### script
+
 ```javascript
 Controller.$inject = ['$http', '$log'];
 export default function Controller($http, $log) {

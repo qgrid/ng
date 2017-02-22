@@ -27,6 +27,7 @@ Include q-grid:visibility tag to  your template, e.g.
 
 ### Visibility properties
 Default visibility model properties:
+
 ```javascript
             head : true,
             foot : true,
@@ -39,6 +40,7 @@ Default visibility model properties:
             },
             plugin = {}
 ```
+
 Visibility properties are divided to two types:
 
 1. Plain
@@ -73,6 +75,7 @@ Call visibility() on grid component
 
 #### Get visibility property
 To get any visibility model property as soon as model.visibility() returns object:
+
 ```javascript
     Log.info('dot notation for plain visibility property', model.visibility().head);
     Log.info('dot notation for nested visibility property', model.visibility().toolbar.top);
@@ -80,6 +83,7 @@ To get any visibility model property as soon as model.visibility() returns objec
     Log.info('bracket notation for plain visibility property', model.visibility()['head']);
     Log.info('bracket notation for nested visibility property', model.visibility()['toolbar']['bottom']);
 ```
+
 #### Set visibility properties
 You can manage visibility by setting values of visibility model properties to required values.
 To change visibility model properties pass object with new values.

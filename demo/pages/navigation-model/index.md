@@ -10,6 +10,7 @@ const navigation = new Navigation(navigationModel);
 ### Default navigation model
 
 Default navigation model constructor :
+
 ```javascript
    export default class NavigationModel {
      constructor() {
@@ -21,6 +22,7 @@ Default navigation model constructor :
      }
   }
 ```
+
 * `row` and `column` properties contain active navigation row and column indexes. They equal -1 when navigation isn't touched by user
 * `active.cell` is object which contains active cell and it's DOM element
 
@@ -38,14 +40,17 @@ Call navigation() on grid component
 
 #### Get navigation property
 As soon as model.navigation() returns object to get any navigation model property
+
 ```javascript
       Log.info('dot notation', model.navigation().row);
 
       Log.info('bracket notation', model.navigation()['row']);
 ```
+
 #### Set navigation properties
 You can manage navigation by setting values of navigation model properties to required values.
 To change navigation model properties pass object with new values
+
 ```javascript
    model.navigation({row:5, column:38});
 ```

@@ -3,6 +3,7 @@
 Column chooser plugin is created to manage the visibility of grid columns
 
 ### Markup
+
 ```html
 <q-grid:column-chooser></q-grid:column-chooser>
 ```
@@ -22,9 +23,11 @@ Include q-grid:column-chooser tag to  your template, e.g.
 
 ### Properties
 Default column-chooser model properties:
+
 ```javascript
  canAggregate : false
 ```
+
 * canAggregate property affects on aggregation functionality for each column
 
 To allow aggregation functionality set this property value to true:
