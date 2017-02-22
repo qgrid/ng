@@ -1,12 +1,6 @@
-# Navigation
-Current navigation based on DHTML Style Guide Working Group (DSGWG) reccomendation for keyboard shortcuts and keyboard navigation
+# Keyboard navigation
+Current navigation based on DHTML Style Guide Working Group (DSGWG) reccomendations for keyboard shortcuts and keyboard navigation
 http://access.aol.com/dhtml-style-guide-working-group/
-
-## New Navigation
-To create new Navigation instance pass to it it's model. I.E.
-```javascript
-const navigation = new Navigation(navigationModel);
-```
 
 ### `Tab`
 * The initial tab enters the grid with focus on the first cell of the first row
@@ -43,6 +37,3 @@ We have rows, cells and columns which we want to select either individually or c
 | Cells         | 	`space`       | `shift+arrows` from current position                                               |
 | Columns       | `control+space` | `shift+arrows` from current position (up/right and down/left functional equivalent)|
 | Grid          | `control+A` to select the entire grid                                                                |
-
-### `Shift+F8`
-Adds additional discontinuous items to the selection set. If the user has already selected a column then shift+f8 will add additional columns to the set. Similar behavior for rows and cells.
