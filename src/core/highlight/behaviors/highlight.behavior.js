@@ -22,10 +22,10 @@ export default class HighlightBehavior {
 		this.items = new Set();
 	}
 
-	applyCore(items) {
+	applyCore() {
 	}
 
-	clearCore(items) {
+	clearCore() {
 	}
 
 	stateCore(item, state){

@@ -2,6 +2,7 @@
 
 ### Initiate progress
 To add progress you should set isBusy property to true on progress start and to false on progress finish, i.e. like this:
+
 ```javascript
 Controller.$inject = ['$http', '$timeout', 'qgrid'];
 export default function Controller($http, $timeout, qgrid) {
