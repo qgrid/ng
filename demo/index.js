@@ -83,7 +83,7 @@ function buildPages(schema) {
 				page.code = {};
 				extensions.forEach(ext => {
 					try {
-						if(ext === 'html' || ext === 'md'){
+						if (ext === 'html' || ext === 'md') {
 							page.code[ext] = require(`./pages/${page.path}/index.${ext}`);
 						}
 						else {

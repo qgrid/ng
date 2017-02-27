@@ -64,7 +64,7 @@ var qgrid =
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 457);
+/******/ 	return __webpack_require__(__webpack_require__.s = 462);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -121,7 +121,7 @@ module.exports = "<div class=\"q-grid-editor q-grid-password\">\n\t<md-input-con
 /***/ 131:
 /***/ (function(module, exports) {
 
-module.exports = "<md-checkbox md-indeterminate=\"$view.selection.isIndeterminate($row)\"\n\t\t\t\t ng-checked=\"$view.selection.state($row)\"\n\t\t\t\t ng-click=\"$view.selection.toggle.execute($row)\"\n\t\t\t\t ng-disabled=\"!$view.selection.toggle.canExecute($row)\"\n\t\t\t\t aria-label=\"Selection\"/>\n"
+module.exports = "<md-checkbox md-indeterminate=\"$view.selection.isIndeterminate($row)\"\n             ng-checked=\"$view.selection.state($row)\"\n             ng-click=\"$view.selection.toggleRow.execute($row)\"\n             ng-disabled=\"!$view.selection.toggleRow.canExecute($row)\"\n             aria-label=\"Selection\"/>\n"
 
 /***/ }),
 
@@ -149,14 +149,14 @@ module.exports = "<div>\n\t<md-tooltip md-delay=\"1000\">\n\t{{$cell.column.titl
 /***/ 135:
 /***/ (function(module, exports) {
 
-module.exports = "<md-checkbox md-indeterminate=\"$view.selection.isIndeterminate()\"\n\t\t\t\t ng-checked=\"$view.selection.state()\"\n\t\t\t\t ng-click=\"$view.selection.toggle.execute()\"\n\t\t\t\t ng-disabled=\"!$view.selection.toggle.canExecute()\"\n\t\t\t\t aria-label=\"Selection\"/>"
+module.exports = "<md-checkbox md-indeterminate=\"$view.selection.isIndeterminate()\"\n             ng-checked=\"$view.selection.state()\"\n             ng-click=\"$view.selection.toggleRow.execute()\"\n             ng-disabled=\"!$view.selection.toggleRow.canExecute()\"\n             aria-label=\"Selection\"/>"
 
 /***/ }),
 
 /***/ 136:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"q-grid-column-chooser\" layout=\"column\" flex=\"100\">\n\t<div flex=\"none\">\n\t\t<md-input-container class=\"q-grid-column-chooser-filter\">\n\t\t\t<label>Search</label>\n\t\t\t<input type=\"text\" ng-model=\"$columnChooser.filter\"/>\n\t\t</md-input-container>\n\t</div>\n\t<div flex>\n\t\t<ul>\n\t\t\t<li>\n\t\t\t\t<md-checkbox ng-click=\"$columnChooser.toggleAll.execute()\"\n\t\t\t\t\t\t\t\t ng-checked=\"$columnChooser.stateAll()\"\n\t\t\t\t\t\t\t\t md-indeterminate=\"$columnChooser.isIndeterminate()\">\n\t\t\t\t\tSelect All\n\t\t\t\t</md-checkbox>\n\t\t\t</li>\n\t\t\t<li>\n\t\t\t\t<md-checkbox ng-click=\"$columnChooser.defaults.execute()\"\n\t\t\t\t\t\t\t\t ng-checked=\"$columnChooser.stateDefault()\">\n\t\t\t\t\tSelect Defaults\n\t\t\t\t</md-checkbox>\n\t\t\t</li>\n\t\t</ul>\n\t\t<ul class=\"q-grid-column-chooser-list\">\n\t\t\t<li ng-repeat=\"column in $columnChooser.columns | filter: $columnChooser.filter\"\n\t\t\t\t q-grid:drag=\"$columnChooser.transfer(column)\"\n\t\t\t\t q-grid:drop=\"$columnChooser.transfer(column)\"\n\t\t\t\t q-grid:on-drop=\"$columnChooser.drop.execute($event)\"\n\t\t\t\t q-grid:can-drop=\"$columnChooser.drop.canExecute($event)\"\n\t\t\t\t q-grid:can-drag=\"$columnChooser.drag.canExecute($event)\">\n\n\t\t\t\t<md-checkbox ng-checked=\"$columnChooser.state(column)\"\n\t\t\t\t\t\t\t\t ng-if=\"$columnChooser.toggle.canExecute(column)\"\n\t\t\t\t\t\t\t\t ng-click=\"$columnChooser.toggle.execute(column)\">\n\t\t\t\t\t<span ng-bind-html=\"column.title | qgridHighlight : $columnChooser.filter\"> </span>\n\t\t\t\t</md-checkbox>\n\n\n\t\t\t\t<md-input-container ng-if=\"$columnChooser.canAggregate\">\n\t\t\t\t\t<md-select aria-label=\"Aggregation\" ng-model=\"column.aggregation\"\n\t\t\t\t\t\t\t\t  ng-change=\"$columnChooser.toggleAggregation.execute(column)\">\n\t\t\t\t\t\t<md-option value=\"\"><em>Aggregation</em></md-option>\n\t\t\t\t\t\t<md-option ng-repeat=\"aggregation in $columnChooser.aggregations\"\n\t\t\t\t\t\t\t\t\t  ng-value=\"aggregation\">\n\t\t\t\t\t\t\t{{::aggregation}}\n\t\t\t\t\t\t</md-option>\n\t\t\t\t\t</md-select>\n\t\t\t\t</md-input-container>\n\n\t\t\t</li>\n\t\t</ul>\n\t</div>\n\t<div class=\"q-grid-column-chooser-actions\" flex=\"none\">\n\t\t<md-button ng-click=\"$columnChooser.cancel.execute()\">\n\t\t\tCancel\n\t\t</md-button>\n\t\t<md-button ng-click=\"$columnChooser.reset.execute()\">\n\t\t\tReset\n\t\t</md-button>\n\t\t<md-button class=\"md-primary\"\n\t\t\t\t\t  ng-click=\"$columnChooser.submit.execute()\"\n\t\t\t\t\t  ng-disabled=\"!$columnChooser.submit.canExecute()\">\n\t\t\tSave\n\t\t</md-button>\n\t</div>\n</div>"
+module.exports = "<div class=\"q-grid-column-chooser\" layout=\"column\" flex=\"100\">\n\t<div flex=\"none\" layout=\"row\">\n\t\t<md-input-container class=\"q-grid-column-chooser-filter\" flex>\n\t\t\t<label>Search</label>\n\t\t\t<input type=\"text\"\n\t\t\t\t\t ng-model=\"$columnChooser.filter\"\n\t\t\t\t\t q-grid:focus/>\n\t\t</md-input-container>\n\t</div>\n\t<div flex layout=\"column\">\n\t\t<ul>\n\t\t\t<li>\n\t\t\t\t<md-checkbox ng-click=\"$columnChooser.toggleAll.execute()\"\n\t\t\t\t\t\t\t\t ng-checked=\"$columnChooser.stateAll()\"\n\t\t\t\t\t\t\t\t md-indeterminate=\"$columnChooser.isIndeterminate()\">\n\t\t\t\t\tSelect All\n\t\t\t\t</md-checkbox>\n\t\t\t</li>\n\t\t\t<li>\n\t\t\t\t<md-checkbox ng-click=\"$columnChooser.defaults.execute()\"\n\t\t\t\t\t\t\t\t ng-checked=\"$columnChooser.stateDefault()\">\n\t\t\t\t\tSelect Defaults\n\t\t\t\t</md-checkbox>\n\t\t\t</li>\n\t\t</ul>\n\t\t<ul class=\"q-grid-column-chooser-list\">\n\t\t\t<li ng-repeat=\"column in $columnChooser.columns | filter: $columnChooser.filter\"\n\t\t\t\tq-grid:drag=\"$columnChooser.transfer(column)\"\n\t\t\t\tq-grid:drop=\"$columnChooser.transfer(column)\"\n\t\t\t\tq-grid:on-drop=\"$columnChooser.drop.execute($event)\"\n\t\t\t\tq-grid:can-drop=\"$columnChooser.drop.canExecute($event)\"\n\t\t\t\tq-grid:can-drag=\"$columnChooser.drag.canExecute($event)\">\n\n\t\t\t\t<md-checkbox ng-checked=\"$columnChooser.state(column)\"\n\t\t\t\t\t\t\t\tng-if=\"$columnChooser.toggle.canExecute(column)\"\n\t\t\t\t\t\t\t\tng-click=\"$columnChooser.toggle.execute(column)\"\n\t\t\t\t\t\t\t\taria-label=\"Selection\">\n\t\t\t\t\t<span ng-bind-html=\"column.title | qgridHighlight : $columnChooser.filter\"> </span>\n\t\t\t\t</md-checkbox>\n\n\n\t\t\t\t<md-input-container ng-if=\"$columnChooser.canAggregate\">\n\t\t\t\t\t<md-select aria-label=\"Aggregation\" ng-model=\"column.aggregation\"\n\t\t\t\t\t\t\t\tng-change=\"$columnChooser.toggleAggregation.execute(column)\">\n\t\t\t\t\t\t<md-option value=\"\"><em>Aggregation</em></md-option>\n\t\t\t\t\t\t<md-option ng-repeat=\"aggregation in $columnChooser.aggregations\"\n\t\t\t\t\t\t\t\t\tng-value=\"aggregation\">\n\t\t\t\t\t\t\t{{::aggregation}}\n\t\t\t\t\t\t</md-option>\n\t\t\t\t\t</md-select>\n\t\t\t\t</md-input-container>\n\n\t\t\t</li>\n\t\t</ul>\n\t</div>\n\t<div class=\"q-grid-column-chooser-actions\" flex=\"none\">\n\t\t<md-button ng-click=\"$columnChooser.cancel.execute()\">\n\t\t\tCancel\n\t\t</md-button>\n\t\t<md-button ng-click=\"$columnChooser.reset.execute()\">\n\t\t\tReset\n\t\t</md-button>\n\t\t<md-button class=\"md-primary\"\n\t\t\t\t\t  ng-click=\"$columnChooser.submit.execute()\"\n\t\t\t\t\t  ng-disabled=\"!$columnChooser.submit.canExecute()\">\n\t\t\tSave\n\t\t</md-button>\n\t</div>\n</div>"
 
 /***/ }),
 
@@ -198,7 +198,7 @@ module.exports = "<md-progress-linear ng-if=\"$progress.isBusy\"\n\t\t\t\t\t\t  
 /***/ 142:
 /***/ (function(module, exports) {
 
-module.exports = "<div layout=\"row\">\n\n\t<md-input-container flex=\"10\">\n\t\t<label>Unit</label>\n\t\t<md-select ng-model=\"$selectionBar.unit\" \n\t\t\t  ng-change=\"$selectionBar.toggleUnit.execute($selectionBar.unit)\"\n\t\t\t  ng-disabled=\"!$selectionBar.toggleUnit.canExecute()\">\n\t\t\t<md-option ng-value=\"unit\" \n\t\t\t\t\tng-repeat=\"unit in $selectionBar.units\"\n\t\t\t\t\tng-bind=\"unit\"></md-option>\n\t\t</md-select>\n\t</md-input-container>\n\n\t<md-input-container flex=\"10\">\n\t\t<label>Mode</label>\n\t\t<md-select ng-model=\"$selectionBar.mode\" \n\t\t\t\t\tng-change=\"$selectionBar.toggleMode.execute($selectionBar.mode)\"\n\t\t\t\t\tng-disabled=\"!$selectionBar.toggleMode.canExecute()\">\n\t\t\t<md-option ng-value=\"mode\" \n\t\t\t\t\tng-repeat=\"mode in $selectionBar.modes\"\n\t\t\t\t\tng-bind=\"mode\"></md-option>\n\t\t</md-select>\n\t</md-input-container>\n\n \t<md-input-container flex=\"10\">\n\t\t<label>Selection Count</label>\n\t\t<input ng-model=\"$selectionBar.count\" disabled>\n\t</md-input-container>\n</div>"
+module.exports = "<div layout=\"row\">\n\n\t<md-input-container>\n\t\t<label>Unit</label>\n\t\t<md-select ng-model=\"$selectionBar.unit\" \n\t\t\t  ng-change=\"$selectionBar.toggleUnit.execute($selectionBar.unit)\"\n\t\t\t  ng-disabled=\"!$selectionBar.toggleUnit.canExecute()\">\n\t\t\t<md-option ng-value=\"unit.key\" \n\t\t\t\t\tng-repeat=\"unit in $selectionBar.units\"\n\t\t\t\t\tng-bind=\"unit.title\"></md-option>\n\t\t</md-select>\n\t</md-input-container>\n\n\t<md-input-container>\n\t\t<label>Mode</label>\n\t\t<md-select ng-model=\"$selectionBar.mode\" \n\t\t\t\t\tng-change=\"$selectionBar.toggleMode.execute($selectionBar.mode)\"\n\t\t\t\t\tng-disabled=\"!$selectionBar.toggleMode.canExecute()\">\n\t\t\t<md-option ng-value=\"mode.key\" \n\t\t\t\t\tng-repeat=\"mode in $selectionBar.modes\"\n\t\t\t\t\tng-bind=\"mode.title\"></md-option>\n\t\t</md-select>\n\t</md-input-container>\n\n \t<md-input-container>\n\t\t<label>Selection Count</label>\n\t\t<input ng-model=\"$selectionBar.count\" disabled>\n\t</md-input-container>\n</div>"
 
 /***/ }),
 
@@ -216,7 +216,7 @@ module.exports = "<div layout=\"row\">\n\t<div flex=\"100\"\n\t\t  layout=\"row\
 
 /***/ }),
 
-/***/ 457:
+/***/ 462:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -266,7 +266,7 @@ function Setup(qgridThemeProvider) {
 /***/ 7:
 /***/ (function(module, exports) {
 
-module.exports = "<div ng-click=\"$view.sort.toggle.execute($cell.column.key)\">\n\t<div class=\"q-grid-sort\"\n\t\t  ng-class=\"{'q-grid-active': $view.sort.order($cell.column.key) >= 0}\"\n\t\t  ng-switch=\"$view.sort.direction($cell.column.key)\">\n\t\t<md-icon class=\"q-grid-asc\" ng-switch-when=\"asc\">arrow_downward</md-icon>\n\t\t<md-icon class=\"q-grid-desc\" ng-switch-when=\"desc\">arrow_upward</md-icon>\n\t\t<md-icon ng-switch-default>arrow_downward</md-icon>\n\t</div>\n\t<label>\n\t\t<md-tooltip md-delay=\"1000\">{{$cell.column.title}}</md-tooltip>\n\t\t{{$cell.column.title}}\n\t</label>\n</div>\n<q-grid:column-filter class=\"q-grid-column-filter\"\n\t\t\t\t\t\t\t key=\"$cell.column.key\"\n\t\t\t\t\t\t\t ng-class=\"{'q-grid-active': $view.filter.has($cell.column.key)}\">\n</q-grid:column-filter>"
+module.exports = "<div ng-click=\"$view.sort.toggle.execute($cell.column.key)\">\n\t<div class=\"q-grid-sort\"\n\t\t  ng-class=\"{'q-grid-active': $view.sort.order($cell.column.key) >= 0}\"\n\t\t  ng-switch=\"$view.sort.direction($cell.column.key)\">\n\t\t<md-icon class=\"q-grid-asc\" ng-switch-when=\"asc\">arrow_downward</md-icon>\n\t\t<md-icon class=\"q-grid-desc\" ng-switch-when=\"desc\">arrow_upward</md-icon>\n\t\t<md-icon ng-switch-default>arrow_downward</md-icon>\n\t</div>\n\t<label>\n\t\t<md-tooltip md-delay=\"1000\">{{$cell.column.title}}</md-tooltip>\n\t\t{{$cell.column.title}}\n\t</label>\n</div>\n<q-grid:column-filter class=\"q-grid-column-filter\"\n\t\t\t\t\t\t\t key=\"$cell.column.key\"\n\t\t\t\t\t\t\t title=\"$cell.column.title\"\n\t\t\t\t\t\t\t ng-class=\"{'q-grid-active': $view.filter.has($cell.column.key)}\">\n</q-grid:column-filter>"
 
 /***/ })
 

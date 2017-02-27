@@ -6,6 +6,7 @@ import * as ng from 'ng/services/ng';
 import * as path from 'core/services/path'
 import * as columnService from 'core/column/column.service';
 import columnFactory from 'core/column/column.factory';
+import {parseFactory, getType} from 'core/services/convert';
 
 TemplatePath
 	.register(COLUMN_NAME, (template, column) => {
@@ -26,8 +27,15 @@ class Column extends Component {
 		Object.keys(target)
 			.filter(key => !ng.isSystem(key) && key != 'value')
 			.forEach(attr => {
+
 				const accessor = path.compile(attr);
-				accessor(source, target[attr]);
+
+				const sourceValue = accessor(source);
+				const sourceParseFactory = parseFactory(getType(sourceValue));
+
+				const targetValue = sourceParseFactory ? sourceParseFactory(target[attr]) : target[attr];
+				
+				accessor(source, targetValue);
 			});
 
 		if (target.hasOwnProperty('value')) {

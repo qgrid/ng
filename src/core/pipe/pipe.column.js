@@ -139,12 +139,15 @@ export default function pipeColumn(memo, context, next) {
 	const heads = pivot.heads;
 	const columns = [];
 
+	const dataColumns = model.data().columns;
+
+	const selectColumn = dataColumns.find(item => item.type === 'select');
 	/*
 	 * Add column with select boxes
 	 * if selection unit is row
 	 *
 	 */
-	if (model.selection().unit === 'row') {
+	if (model.selection().unit === 'row' && !selectColumn) {
 		addSelectColumn(columns, {rowspan: heads.length, row: 0});
 	}
 
