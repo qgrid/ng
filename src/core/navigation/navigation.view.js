@@ -31,7 +31,12 @@ export default class NavigationView extends View {
 		this.focus = new Command({
 			execute: (row, column) => {
 				const cell = this.rows[row].cells[column];
+				const body = markup.body;
+				const rows = Math.floor(body.offsetHeight / cell.offsetHeight);
 				cell.classList.add(`${GRID_PREFIX}-focus`);
+				if (Math.floor((cell.offsetTop - 80) / cell.offsetHeight % rows ) ===  1) {
+					cell.scrollIntoView()
+				}
 			},
 			canExecute: () => {
 				return this.rows.length > this.newRow
@@ -49,7 +54,6 @@ export default class NavigationView extends View {
 			if (this.blur.canExecute() && this.oldRow !== -1 && this.oldColumn !== -1) {
 				this.blur.execute(this.oldRow, this.oldColumn);
 			}
-
 			if (this.focus.canExecute()) {
 				this.focus.execute(this.newRow, this.newColumn);
 			}
