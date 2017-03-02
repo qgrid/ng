@@ -1,6 +1,6 @@
 {
 	"name": "ng-qgrid",
-	"version": "0.0.1",
+	"version": "1.0.0-rc3",
 	"main": [
 		"dist/qgrid.js",
 		"dist/qgrid.css"

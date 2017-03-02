@@ -1,6 +1,6 @@
 {
   "name": "ng-qgrid",
-  "version": "1.0.0-rc2",
+  "version": "1.0.0-rc3",
   "description": "Angular data grid",
   "main": "dist/qgrid.js",
   "repository": {
@@ -88,6 +88,7 @@
     "lint": "eslint ./",
     "test": "karma start",
     "test:debug": "karma start karma.conf.js --log-level=debug --single-run=False",
-    "test:watch": "karma start karma.conf.js --auto-watch=true --single-run=False"
+    "test:watch": "karma start karma.conf.js --auto-watch=true --single-run=False",
+	 "publish": "npm run test && node ./scripts/remove.js ./demo/dist && npm run build:demo && node ./scripts/publish.js && node ./scripts/remove.js ./demo/dist"
   }
 }
