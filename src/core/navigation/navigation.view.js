@@ -30,7 +30,8 @@ export default class NavigationView extends View {
 		});
 		this.focus = new Command({
 			execute: (row, column) => {
-				this.rows[row].cells[column].classList.add(`${GRID_PREFIX}-focus`);
+				const cell = this.rows[row].cells[column];
+				cell.classList.add(`${GRID_PREFIX}-focus`);
 			},
 			canExecute: () => {
 				return this.rows.length > this.newRow
