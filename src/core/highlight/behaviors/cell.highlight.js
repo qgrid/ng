@@ -5,19 +5,12 @@ export default class CellHighlight extends Behavior {
 		super(model, markup);
 	}
 
-	applyCore(items) {
-		for (let item of items) {
-			this.state(item, true);
-		}
+	applyCore() {
 	}
 
-	clearCore(items) {
-		for (let item of items) {
-			this.state(item, false);
-		}
+	clearCore() {
 	}
 
-	state(item, state) {
-		return this.stateCore(item, state);
+	state() {
 	}
 }

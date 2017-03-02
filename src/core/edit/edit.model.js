@@ -4,5 +4,6 @@ export default class EditModel {
 	constructor() {
 		this.resource = new Resource();
 		this.mode = null; // cell
+		this.editMode = 'view'; // edit
 	}
 }
