@@ -44,16 +44,11 @@ export default class NavigationView extends View {
 			this.newColumn = nav.column == -1 ? 0 : nav.column;
 			this.oldRow = e && e.changes.hasOwnProperty('row') ? e.changes.row.oldValue : this.newRow;
 			this.oldColumn = e && e.changes.hasOwnProperty('column') ? e.changes.column.oldValue : this.newColumn;
+
 			if (this.blur.canExecute() && this.oldRow !== -1 && this.oldColumn !== -1) {
 				this.blur.execute(this.oldRow, this.oldColumn);
 			}
 
-			if (this.oldRow === -1 && this.oldColumn === -1 && (this.newRow == 0 || this.newColumn == 0)) {
-				model.navigation({
-					column: 0,
-					row: 0
-				});
-			}
 			if (this.focus.canExecute()) {
 				this.focus.execute(this.newRow, this.newColumn);
 			}
