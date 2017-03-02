@@ -1,4 +1,5 @@
 import Behavior from './highlight.behavior';
+import {GRID_PREFIX} from 'core/definition';
 
 export default class RowHighlight extends Behavior {
 	constructor(model, markup) {
@@ -30,6 +31,11 @@ export default class RowHighlight extends Behavior {
 	}
 
 	state(item, state) {
-		return this.stateCore(item, state);
+		if (state) {
+			item.classList.add(`${GRID_PREFIX}-selected`);
+		}
+		else {
+			item.classList.remove(`${GRID_PREFIX}-selected`);
+		}
 	}
 }
