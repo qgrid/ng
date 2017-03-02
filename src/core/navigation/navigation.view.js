@@ -30,11 +30,14 @@ export default class NavigationView extends View {
 		});
 		this.focus = new Command({
 			execute: (row, column) => {
-				const cell = this.rows[row].cells[column];
+				const rows = this.rows;
+				const cell = rows[row].cells[column];
+				const cellFirst = rows[0].cells[0];
 				const body = markup.body;
-				const rows = Math.floor(body.offsetHeight / cell.offsetHeight);
+				const diff = cellFirst.offsetTop - body.offsetTop;
+				const rowNumber = Math.floor(body.offsetHeight / cell.offsetHeight);
 				cell.classList.add(`${GRID_PREFIX}-focus`);
-				if (Math.floor((cell.offsetTop - 80) / cell.offsetHeight % rows ) ===  1) {
+				if (Math.floor((cell.offsetTop - diff) / cell.offsetHeight % rowNumber) === 1) {
 					cell.scrollIntoView()
 				}
 			},
