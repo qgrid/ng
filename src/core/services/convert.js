@@ -77,6 +77,10 @@ function parseText(value) {
 }
 
 function parseDate(value) {
+	if (value === null) {
+		return null;
+	}
+
 	const date = new Date(value);
 	if (date !== 'Invalid Date' && !isNaN(date)) {
 		return date;
