@@ -5,13 +5,12 @@ import EventListener from 'core/infrastructure/event.listener';
 import {clone} from 'core/services/utility';
 
 class Resize extends Directive(RESIZE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
-	constructor($scope, $element, $document, $timeout, $window) {
+	constructor($scope, $element, $document, $timeout) {
 		super();
 
 		this.$scope = $scope;
 		this.$element = $element;
 		this.$document = $document;
-		this.$window = $window;
 		this.$timeout = $timeout;
 		this.divider = angular.element(`<div class="${GRID_PREFIX}-divider"></div>`);
 
@@ -42,8 +41,7 @@ class Resize extends Directive(RESIZE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 		e.preventDefault();
 
 		const context = this.context;
-		const style = this.$window.getComputedStyle(this.$element[0], null);
-		context.width = parseFloat(style.getPropertyValue('width'));
+		context.width = this.$element[0].clientWidth;
 		context.x = e.screenX;
 
 		this.listener.document.on('mousemove', this.drag);
@@ -81,7 +79,7 @@ class Resize extends Directive(RESIZE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	}
 }
 
-Resize.$inject = ['$scope', '$element', '$document', '$timeout', '$window'];
+Resize.$inject = ['$scope', '$element', '$document', '$timeout'];
 
 export default {
 	restrict: 'A',
