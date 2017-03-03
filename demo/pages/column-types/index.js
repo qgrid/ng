@@ -49,6 +49,7 @@ export default function Controller($http) {
 			key: 'contact.email.primary',
 			title: 'Primary Email',
 			type: 'email',
+			value: (item) => item.contact.email[0]
 		},
 		{
 			key: 'myTypeFromJS',
