@@ -504,16 +504,25 @@ function lineView(columnRows) {
 	return [];
 }
 
-function widthFactory(model) {
+function widthFactory(model, form) {
 	var layout = model.layout;
-	var columns = layout().columns;
-	return function (column) {
-		if (columns.hasOwnProperty(column.key)) {
-			return columns[column.key].width;
+	form = form || layout().columns;
+
+	function materialize(column) {
+		var width = column.width;
+		if (('' + width).indexOf('%') >= 0) {
+			return width;
 		}
 
-		var width = column.width;
-		return width || width === 0 ? width : null;
+		return Math.max(parseInt(width), parseInt(column.minWidth || 20)) + 'px';
+	}
+
+	return function (column) {
+		if (form.hasOwnProperty(column.key)) {
+			column = form[column.key];
+		}
+
+		return column.width || column.width === 0 ? materialize(column) : null;
 	};
 }
 
@@ -5838,7 +5847,7 @@ var ColumnListModel = function ColumnListModel() {
 	_classCallCheck(this, ColumnListModel);
 
 	this.generation = null; // deep | shallow
-	this.index = ['$select', '$group'];
+	this.index = [];
 };
 
 /* harmony default export */ __webpack_exports__["a"] = ColumnListModel;
@@ -8591,6 +8600,7 @@ var LayoutModel = function LayoutModel() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_core_services_css__ = __webpack_require__(85);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_core_column_column_service__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_core_infrastructure_log__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_core_services_utility__ = __webpack_require__(0);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -8598,6 +8608,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -8614,9 +8625,6 @@ var LayoutView = function (_View) {
 
 		_this.model = model;
 		_this.markup = markup;
-		model.viewChanged.watch(function () {
-			return _this.invalidateColumns();
-		});
 		_this.onInit();
 		return _this;
 	}
@@ -8627,9 +8635,16 @@ var LayoutView = function (_View) {
 			var _this2 = this;
 
 			var model = this.model;
-			model.layoutChanged.watch(function (e) {
+
+			model.viewChanged.watch(function (e) {
 				if (!e || e.changes.hasOwnProperty('columns')) {
 					_this2.invalidateColumns();
+				}
+			});
+
+			model.layoutChanged.watch(function (e) {
+				if (!e || e.changes.hasOwnProperty('columns')) {
+					_this2.invalidateColumns(_this2.form);
 				}
 
 				if (!e || e.changes.hasOwnProperty('scroll')) {
@@ -8649,11 +8664,11 @@ var LayoutView = function (_View) {
 		}
 	}, {
 		key: 'invalidateColumns',
-		value: function invalidateColumns() {
+		value: function invalidateColumns(form) {
 			__WEBPACK_IMPORTED_MODULE_3_core_infrastructure_log__["a" /* default */].info('layout', 'invalidate columns');
 
 			var model = this.model;
-			var getWidth = __WEBPACK_IMPORTED_MODULE_2_core_column_column_service__["f" /* widthFactory */](model);
+			var getWidth = __WEBPACK_IMPORTED_MODULE_2_core_column_column_service__["f" /* widthFactory */](model, form);
 			var columns = __WEBPACK_IMPORTED_MODULE_2_core_column_column_service__["d" /* lineView */](model.view().columns).map(function (v) {
 				return v.model;
 			});
@@ -8662,10 +8677,8 @@ var LayoutView = function (_View) {
 			var length = columns.length;
 			while (length--) {
 				var column = columns[length];
-				var columnWidth = getWidth(column);
-				if (null !== columnWidth) {
-					// TODO: do it right
-					var width = Math.max(columnWidth, parseInt(column.minWidth) || 20) + 'px';
+				var width = getWidth(column);
+				if (null !== width) {
 					var key = __WEBPACK_IMPORTED_MODULE_1_core_services_css__["b" /* escape */](column.key);
 					style['td.q-grid-' + key + ', th.q-grid-' + key] = {
 						'width': width,
@@ -8678,6 +8691,31 @@ var LayoutView = function (_View) {
 			var id = model.grid().id;
 			__WEBPACK_IMPORTED_MODULE_1_core_services_css__["a" /* removeStyle */](id);
 			__WEBPACK_IMPORTED_MODULE_1_core_services_css__["c" /* addStyle */](id, style);
+		}
+	}, {
+		key: 'form',
+		get: function get() {
+			var model = this.model;
+			var layout = model.layout;
+			var state = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_core_services_utility__["d" /* clone */])(layout().columns);
+			var headRow = this.markup.head.rows[0];
+			if (headRow) {
+				var columns = __WEBPACK_IMPORTED_MODULE_2_core_column_column_service__["d" /* lineView */](model.view().columns).map(function (v) {
+					return v.model;
+				});
+
+				var length = columns.length;
+				while (length--) {
+					var column = columns[length];
+					if (!state.hasOwnProperty(column.key)) {
+						if (column.canResize) {
+							state[column.key] = { width: headRow.cells[column.index].clientWidth };
+						}
+					}
+				}
+			}
+
+			return state;
 		}
 	}]);
 
@@ -12617,7 +12655,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Resize = function (_Directive) {
 	_inherits(Resize, _Directive);
 
-	function Resize($scope, $element, $document, $timeout, $window) {
+	function Resize($scope, $element, $document, $timeout) {
 		_classCallCheck(this, Resize);
 
 		var _this = _possibleConstructorReturn(this, (Resize.__proto__ || Object.getPrototypeOf(Resize)).call(this));
@@ -12625,7 +12663,6 @@ var Resize = function (_Directive) {
 		_this.$scope = $scope;
 		_this.$element = $element;
 		_this.$document = $document;
-		_this.$window = $window;
 		_this.$timeout = $timeout;
 		_this.divider = angular.element('<div class="' + __WEBPACK_IMPORTED_MODULE_2_core_definition__["a" /* GRID_PREFIX */] + '-divider"></div>');
 
@@ -12665,8 +12702,7 @@ var Resize = function (_Directive) {
 			e.preventDefault();
 
 			var context = this.context;
-			var style = this.$window.getComputedStyle(this.$element[0], null);
-			context.width = parseFloat(style.getPropertyValue('width'));
+			context.width = this.$element[0].clientWidth;
 			context.x = e.screenX;
 
 			this.listener.document.on('mousemove', this.drag);
@@ -12710,7 +12746,7 @@ var Resize = function (_Directive) {
 	return Resize;
 }(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__directive__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_1_ng_definition__["f" /* RESIZE_NAME */], { view: '^^' + __WEBPACK_IMPORTED_MODULE_1_ng_definition__["n" /* VIEW_CORE_NAME */] }));
 
-Resize.$inject = ['$scope', '$element', '$document', '$timeout', '$window'];
+Resize.$inject = ['$scope', '$element', '$document', '$timeout'];
 
 /* harmony default export */ __webpack_exports__["a"] = {
 	restrict: 'A',
