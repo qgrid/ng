@@ -30,20 +30,33 @@ export default class NavigationView extends View {
 		});
 		this.focus = new Command({
 			execute: (row, column) => {
-				const rows = this.rows;
-				const cell = rows[row].cells[column];
-				const cellFirst = rows[0].cells[0];
-				const body = markup.body;
-				const diff = cellFirst.offsetTop - body.offsetTop;
-				const rowNumber = Math.floor(body.offsetHeight / cell.offsetHeight);
+				const cell = this.rows[row].cells[column];
 				cell.classList.add(`${GRID_PREFIX}-focus`);
-				if (Math.floor((cell.offsetTop - diff) / cell.offsetHeight % rowNumber) === 1) {
-					cell.scrollIntoView()
-				}
 			},
 			canExecute: () => {
 				return this.rows.length > this.newRow
 					&& this.rows[this.newRow].cells.length > this.newColumn;
+			}
+		});
+		this.scrollTo = new Command({
+			execute: (row, column) => {
+				const rows = this.rows;
+				const cell = rows[row.new].cells[column.new];
+				const firstCell = rows[0].cells[0];
+				const body = markup.body;
+				const diff = firstCell.offsetTop - body.offsetTop;
+				const scroll = model.layout().scroll;
+				const bottom = (row.new > row.old)
+					&& (cell.offsetTop + cell.offsetHeight - diff > body.offsetTop + body.offsetHeight + scroll.top);
+				const top = (row.new < row.old)
+					&& (cell.offsetTop + cell.offsetHeight < body.offsetHeight + scroll.top);
+				const right = (column.new > column.old)
+					&& (cell.offsetLeft + cell.offsetWidth > body.offsetLeft + body.offsetWidth + scroll.left);
+				const left = (column.new < column.old)
+					&& (cell.offsetLeft + cell.offsetWidth < body.offsetLeft + body.offsetWidth + scroll.left);
+				if (bottom || top || right || left) {
+					cell.scrollIntoView();
+				}
 			}
 		});
 
@@ -54,11 +67,12 @@ export default class NavigationView extends View {
 			this.oldRow = e && e.changes.hasOwnProperty('row') ? e.changes.row.oldValue : this.newRow;
 			this.oldColumn = e && e.changes.hasOwnProperty('column') ? e.changes.column.oldValue : this.newColumn;
 
-			if (this.blur.canExecute() && this.oldRow !== -1 && this.oldColumn !== -1) {
+			if (this.blur.canExecute() && this.oldRow > -1 && this.oldColumn > -1) {
 				this.blur.execute(this.oldRow, this.oldColumn);
 			}
 			if (this.focus.canExecute()) {
 				this.focus.execute(this.newRow, this.newColumn);
+				this.scrollTo.execute({new: this.newRow, old: this.oldRow}, {new: this.newColumn, old: this.oldColumn});
 			}
 		});
 
