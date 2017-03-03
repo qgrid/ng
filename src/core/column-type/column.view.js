@@ -27,7 +27,7 @@ export default class ColumnView extends View {
 
 	static model(model) {
 		if(model){
-			ColumnView.assign(model)
+			ColumnView.assign(model);
 		}
 		else{
 			model = new ColumnModel();
