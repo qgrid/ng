@@ -46,7 +46,7 @@ export default class LayoutView extends View {
 			while (length--) {
 				const column = columns[length];
 				if (!state.hasOwnProperty(column.key)) {
-					if (column.index >= 0) {
+					if (column.canResize) {
 						state[column.key] = {width: headRow.cells[column.index].clientWidth};
 					}
 				}
