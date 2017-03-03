@@ -41,22 +41,8 @@ export default class NavigationView extends View {
 		this.scrollTo = new Command({
 			execute: (row, column) => {
 				const rows = this.rows;
-				const cell = rows[row.new].cells[column.new];
-				const firstCell = rows[0].cells[0];
-				const body = markup.body;
-				const diff = firstCell.offsetTop - body.offsetTop;
-				const scroll = model.layout().scroll;
-				const bottom = (row.new > row.old)
-					&& (cell.offsetTop + cell.offsetHeight - diff > body.offsetTop + body.offsetHeight + scroll.top);
-				const top = (row.new < row.old)
-					&& (cell.offsetTop + cell.offsetHeight < body.offsetHeight + scroll.top);
-				const right = (column.new > column.old)
-					&& (cell.offsetLeft + cell.offsetWidth > body.offsetLeft + body.offsetWidth + scroll.left);
-				const left = (column.new < column.old)
-					&& (cell.offsetLeft + cell.offsetWidth < body.offsetLeft + body.offsetWidth + scroll.left);
-				if (bottom || top || right || left) {
-					cell.scrollIntoView();
-				}
+				const cell = rows[row].cells[column];
+				console.log(this.isVisible(cell, markup.body));
 			}
 		});
 
@@ -72,7 +58,7 @@ export default class NavigationView extends View {
 			}
 			if (this.focus.canExecute()) {
 				this.focus.execute(this.newRow, this.newColumn);
-				this.scrollTo.execute({new: this.newRow, old: this.oldRow}, {new: this.newColumn, old: this.oldColumn});
+				this.scrollTo.execute(this.newRow, this.newColumn);
 			}
 		});
 
@@ -86,6 +72,16 @@ export default class NavigationView extends View {
 
 	get rows() {
 		return this.markup.body.rows;
+	}
+
+	isVisible(inner, outer) {
+		inner = inner.getBoundingClientRect();
+		outer = outer.getBoundingClientRect();
+		console.log(inner, outer);
+		return (inner.top <= outer.top) && (outer.top <= inner.bottom)
+			&& (inner.top <= outer.bottom) && (outer.bottom <= inner.bottom)
+			&& (inner.left <= outer.left) && (outer.left <= inner.left + inner.width)
+			&& (inner.left <= outer.left + outer.width) && (outer.right <= inner.left + inner.width)
 	}
 
 }
