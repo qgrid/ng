@@ -1,5 +1,10 @@
 import TemplatePath from 'core/template/template.path';
 import AppError from 'core/infrastructure/error';
+import {noop} from 'core/services/utility';
+
+function canBuild(column) {
+	return column.type !== 'pad';
+}
 
 function getKey(column) {
 	return column.origin === 'custom' ? 'custom-cell' : `${column.type}-cell`;
@@ -33,6 +38,10 @@ function buildView(source, mode, column) {
 
 export default function (template, mode = 'view') {
 	return function (source, model, column) {
+		if (!canBuild(column)) {
+			return noop;
+		}
+
 		const view = buildView(source, mode, column);
 		const pathSource = {[TemplatePath.name(view.key)]: column, 'for': source};
 		const path = TemplatePath.get(pathSource);
