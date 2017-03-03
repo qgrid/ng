@@ -8,14 +8,21 @@ export default class LayoutView extends View {
 		super(model);
 		this.model = model;
 		this.markup = markup;
-		model.viewChanged.watch(() => this.invalidateColumns());
 		this.onInit();
 	}
 
 	onInit() {
 		const model = this.model;
+
+		model.viewChanged.watch(e => {
+			if (!e || e.changes.hasOwnProperty('columns')) {
+				this.invalidateColumns();
+			}
+		});
+
 		model.layoutChanged.watch(e => {
 			if (!e || e.changes.hasOwnProperty('columns')) {
+				this.invalidateLayout();
 				this.invalidateColumns();
 			}
 
@@ -25,6 +32,9 @@ export default class LayoutView extends View {
 		});
 	}
 
+	invalidateLayout() {
+
+	}
 
 	invalidateScroll() {
 		log.info('layout', 'invalidate scroll');
@@ -48,10 +58,8 @@ export default class LayoutView extends View {
 		let length = columns.length;
 		while (length--) {
 			const column = columns[length];
-			const columnWidth = getWidth(column);
-			if (null !== columnWidth) {
-				// TODO: do it right
-				const width = Math.max(columnWidth, parseInt(column.minWidth) || 20) + 'px';
+			const width = getWidth(column);
+			if (null !== width) {
 				const key = css.escape(column.key);
 				style[`td.q-grid-${key}, th.q-grid-${key}`] = {
 					'width': width,

@@ -9,6 +9,29 @@
 	</q-grid:columns>
 
 	<q-grid:toolbar>
+
+		<q-grid:template for="top">
+			<div layout="row">
+				<div flex="100"
+					  layout="row"
+					  layout-align="start center"
+					  layout-align-xs="start start"
+					  layout-align-sm="start start">
+					<div>
+						<q-grid:group-bar>
+						</q-grid:group-bar>
+					</div>
+					<div>
+						<q-grid:pivot-bar>
+						</q-grid:pivot-bar>
+					</div>
+				</div>
+			</div>
+			<div class="q-grid-progress">
+				<q-grid:progress>
+				</q-grid:progress>
+			</div>
+		</q-grid:template>
 		<q-grid:template for="right">
 			<q-grid:column-chooser can-aggregate="true">
 			</q-grid:column-chooser>

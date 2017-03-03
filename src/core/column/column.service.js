@@ -67,12 +67,21 @@ export function lineView(columnRows) {
 export function widthFactory(model) {
 	const layout = model.layout;
 	const columns = layout().columns;
-	return column => {
-		if (columns.hasOwnProperty(column.key)) {
-			return columns[column.key].width;
+
+	function materialize(column) {
+		const width = column.width;
+		if (('' + width).indexOf('%') >= 0) {
+			return width;
 		}
 
-		const width = column.width;
-		return width || width === 0 ? width : null;
+		return Math.max(parseInt(width), parseInt(column.minWidth || 20)) + 'px';
+	}
+
+	return column => {
+		if (columns.hasOwnProperty(column.key)) {
+			column = columns[column.key];
+		}
+
+		return column.width || column.width === 0 ? materialize(column) : null;
 	};
 }
