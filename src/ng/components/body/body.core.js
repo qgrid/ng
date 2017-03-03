@@ -2,6 +2,7 @@ import Directive from 'ng/directives/directive';
 import {VIEW_CORE_NAME, BODY_CORE_NAME} from 'ng/definition';
 import EventListener from 'core/infrastructure/event.listener';
 import * as pathFinder from 'ng/services/path.find';
+import * as columnService from 'core/column/column.service';
 
 class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	constructor($scope, $element) {
@@ -53,9 +54,28 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 
 			if (cell.column.type !== 'select') {
 				const model = this.view.model;
-				const row = model.view().rows[cell.rowIndex];
-				if (row && this.view.selection.toggleRow.canExecute(row)) {
-					this.$scope.$evalAsync(() => this.view.selection.toggleRow.execute(row));
+				const selection = model.selection();
+
+				switch (selection.unit) {
+					case 'row':
+						{
+							const row = model.view().rows[cell.rowIndex];
+							if (row && this.view.selection.toggleRow.canExecute(row)) {
+								this.$scope.$evalAsync(() => this.view.selection.toggleRow.execute(row));
+							}
+						}
+						break;
+					case 'column':
+						{
+							const columns = columnService.lineView(model.view().columns);
+							const column = columns.find(c => c.model === cell.column);
+							if (column && this.view.selection.toggleColumn.canExecute(column)) {
+								this.$scope.$evalAsync(() => this.view.selection.toggleColumn.execute(column));
+							}
+						}
+						break;
+					case 'cell':
+						break;
 				}
 			}
 		}
