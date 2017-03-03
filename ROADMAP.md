@@ -109,6 +109,7 @@
 	*	Time
 	*	Image
 	*	Url
+*	Custom column type
 *	Validation
 *	Expression builder
 *	State persistence
