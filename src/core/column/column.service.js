@@ -64,9 +64,9 @@ export function lineView(columnRows) {
 	return [];
 }
 
-export function widthFactory(model) {
+export function widthFactory(model, form) {
 	const layout = model.layout;
-	const columns = layout().columns;
+	form = form || layout().columns;
 
 	function materialize(column) {
 		const width = column.width;
@@ -78,8 +78,8 @@ export function widthFactory(model) {
 	}
 
 	return column => {
-		if (columns.hasOwnProperty(column.key)) {
-			column = columns[column.key];
+		if (form.hasOwnProperty(column.key)) {
+			column = form[column.key];
 		}
 
 		return column.width || column.width === 0 ? materialize(column) : null;

@@ -2,6 +2,7 @@ import View from 'core/view/view';
 import * as css from 'core/services/css';
 import * as columnService from 'core/column/column.service';
 import log from 'core/infrastructure/log';
+import {clone} from 'core/services/utility';
 
 export default class LayoutView extends View {
 	constructor(model, markup) {
@@ -22,8 +23,7 @@ export default class LayoutView extends View {
 
 		model.layoutChanged.watch(e => {
 			if (!e || e.changes.hasOwnProperty('columns')) {
-				this.invalidateLayout();
-				this.invalidateColumns();
+				this.invalidateColumns(this.form);
 			}
 
 			if (!e || e.changes.hasOwnProperty('scroll')) {
@@ -32,8 +32,29 @@ export default class LayoutView extends View {
 		});
 	}
 
-	invalidateLayout() {
+	get form() {
+		const model = this.model;
+		const layout = model.layout;
+		const state = clone(layout().columns);
+		const headRow = this.markup.head.rows[0];
+		if (headRow) {
+			const columns = columnService
+				.lineView(model.view().columns)
+				.map(v => v.model);
 
+			let length = columns.length;
+			while (length--) {
+				const column = columns[length];
+				if (!state.hasOwnProperty(column.key)) {
+					if (column.index >= 0) {
+						state[column.key] = {width: headRow.cells[column.index].clientWidth};
+					}
+				}
+			}
+
+		}
+
+		return state;
 	}
 
 	invalidateScroll() {
@@ -45,11 +66,11 @@ export default class LayoutView extends View {
 		markup.foot.scrollLeft = scroll.left;
 	}
 
-	invalidateColumns() {
+	invalidateColumns(form) {
 		log.info('layout', 'invalidate columns');
 
 		const model = this.model;
-		const getWidth = columnService.widthFactory(model);
+		const getWidth = columnService.widthFactory(model, form);
 		const columns = columnService
 			.lineView(model.view().columns)
 			.map(v => v.model);
