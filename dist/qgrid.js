@@ -3173,10 +3173,16 @@ function parseNumber(value) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_core_template_template_path__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_core_infrastructure_error__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_core_services_utility__ = __webpack_require__(0);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
+
+
+function canBuild(column) {
+	return column.type !== 'pad';
+}
 
 function getKey(column) {
 	return column.origin === 'custom' ? 'custom-cell' : column.type + '-cell';
@@ -3213,6 +3219,10 @@ function buildView(source, mode, column) {
 
 	return function (source, model, column) {
 		var _pathSource;
+
+		if (!canBuild(column)) {
+			return __WEBPACK_IMPORTED_MODULE_2_core_services_utility__["b" /* noop */];
+		}
 
 		var view = buildView(source, mode, column);
 		var pathSource = (_pathSource = {}, _defineProperty(_pathSource, __WEBPACK_IMPORTED_MODULE_0_core_template_template_path__["a" /* default */].name(view.key), column), _defineProperty(_pathSource, 'for', source), _pathSource);
@@ -14285,8 +14295,10 @@ var Popup = function (_Plugin) {
 	}, {
 		key: 'open',
 		value: function open() {
-			var settings = { id: this.id };
-			this.qGridPopupService.open(settings, this.model, this.$scope, this.$element);
+			var settings = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+			settings.id = this.id;
+			this.qGridPopupService.open(settings, this.model, this.$scope);
 		}
 	}, {
 		key: 'resource',
@@ -14557,24 +14569,22 @@ var PopupService = function () {
 		}
 	}, {
 		key: 'open',
-		value: function open(settings, model, parent, target) {
+		value: function open(settings, model, scope) {
 			if (this.popups.hasOwnProperty(settings.id)) {
 				return;
 			}
 
-			target = this.targetize(null, settings);
+			var target = this.targetize(settings);
+			var pos = this.position(target, settings);
+			var popupScope = this.$rootScope.$new(false, scope);
 
-			var scope = this.$rootScope.$new(false, parent);
-
-			scope.model = model;
-			scope.id = settings.id;
+			popupScope.model = model;
+			popupScope.id = settings.id;
 
 			var popup = angular.element('<q-grid:popup-panel id="id" model="model"></q-grid:popup-panel>');
 
 			this.$document[0].body.append(popup[0]);
-			this.$compile(popup)(scope);
-
-			var pos = this.position(target, settings);
+			this.$compile(popup)(popupScope);
 
 			popup.attr('id', settings.id);
 			popup.css({ left: pos.left + 'px', top: pos.top + 'px', zIndex: 79 });
@@ -14582,29 +14592,17 @@ var PopupService = function () {
 			if (settings.resizable) {
 				popup.addClass('resizable');
 			}
+
 			if (settings.collapsible) {
 				popup.addClass('collapsible');
 			}
+
 			if (settings.cls) {
 				popup.addClass(settings.cls);
 			}
 
-			// var container = this.$document[0].body;
-			// if (settings.container) {
-			// 	container =
-			// 		container.querySelector(settings.container)
-			// 		|| container;
-			// }
-
 			this.popups[settings.id] = new __WEBPACK_IMPORTED_MODULE_1__popup_manager__["a" /* default */](popup, settings, this.$document[0].body);
-
 			this.popups[settings.id].focus();
-			//
-			// this.$timeout(function () {
-			// 	//Added this $timeout to keep the popup from flickering the position every time,
-			// 	//it enters the DOM
-			// 	angular.element(container).append(popup);
-			// });
 		}
 	}, {
 		key: 'expand',
@@ -14658,9 +14656,10 @@ var PopupService = function () {
 		}
 	}, {
 		key: 'targetize',
-		value: function targetize(target, settings) {
+		value: function targetize(settings) {
 			var _this2 = this;
 
+			var target = settings.target;
 			if (!target) {
 				return {
 					offset: function offset() {
@@ -14676,10 +14675,23 @@ var PopupService = function () {
 						return 400;
 					}
 				};
-			} else {
-				//TODO: get rid of jQuery
-				return angular.element(target);
 			}
+
+			var rect = target.getBoundingClientRect();
+			return {
+				offset: function offset() {
+					return {
+						left: rect.left,
+						top: rect.top
+					};
+				},
+				height: function height() {
+					return target.clientHeight;
+				},
+				width: function width() {
+					return target.clientWidth;
+				}
+			};
 		}
 	}, {
 		key: 'position',
@@ -14773,7 +14785,13 @@ var PopupTrigger = function (_Component) {
 	}, {
 		key: 'open',
 		value: function open() {
-			this.popup.open();
+			var settings = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+			if (!settings.target) {
+				settings.target = this.$element[0];
+			}
+
+			this.popup.open(settings);
 		}
 	}]);
 
@@ -20649,7 +20667,7 @@ module.exports = "<div class=\"q-grid-column-chooser\">\n\t<label>Columns:</labe
 /* 450 */
 /***/ (function(module, exports) {
 
-module.exports = "<q-grid:popup id=\"q-grid-column-filter-popup-{{$columnFilter.key}}\">\n\t<q-grid:template for=\"trigger\">\n\t\t<md-button class=\"md-icon-button\" ng-click=\"$popup.open()\">\n\t\t\t<md-icon>filter_list</md-icon>\n\t\t</md-button>\n\t</q-grid:template>\n\t<q-grid:template for=\"body\" let=\"$columnFilter\">\n\t\t<q-grid:column-filter-panel key=\"$columnFilter.key\"\n\t\t\t\t\t\t\t\t\t\t\t on:submit=\"$popupBody.close()\"\n\t\t\t\t\t\t\t\t\t\t\t on:cancel=\"$popupBody.close()\">\n\t\t</q-grid:column-filter-panel>\n\t</q-grid:template>\n\t<q-grid:template for=\"head\" let=\"$columnFilter\">\n\t\t<span class=\"md-subhead\">{{$columnFilter.title}} Filter</span>\n\t</q-grid:template>\n</q-grid:popup>"
+module.exports = "<q-grid:popup id=\"q-grid-column-filter-popup-{{$columnFilter.key}}\">\n\t<q-grid:template for=\"trigger\">\n\t\t<md-button class=\"md-icon-button\" ng-click=\"$popup.open({width: 352, height: 652})\">\n\t\t\t<md-icon>filter_list</md-icon>\n\t\t</md-button>\n\t</q-grid:template>\n\t<q-grid:template for=\"body\" let=\"$columnFilter\">\n\t\t<q-grid:column-filter-panel key=\"$columnFilter.key\"\n\t\t\t\t\t\t\t\t\t\t\t on:submit=\"$popupBody.close()\"\n\t\t\t\t\t\t\t\t\t\t\t on:cancel=\"$popupBody.close()\">\n\t\t</q-grid:column-filter-panel>\n\t</q-grid:template>\n\t<q-grid:template for=\"head\" let=\"$columnFilter\">\n\t\t<span class=\"md-subhead\">{{$columnFilter.title}} Filter</span>\n\t</q-grid:template>\n</q-grid:popup>"
 
 /***/ }),
 /* 451 */
