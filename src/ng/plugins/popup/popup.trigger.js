@@ -32,8 +32,12 @@ class PopupTrigger extends Component {
 		}
 	}
 
-	open() {
-		this.popup.open();
+	open(settings = {}) {
+		if (!settings.target) {
+			settings.target = this.$element[0];
+		}
+
+		this.popup.open(settings);
 	}
 }
 
