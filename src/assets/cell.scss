@@ -28,30 +28,6 @@ thead {
 	}
 }
 
-//thead, tfoot{
-//	td, th {
-//		&.q-grid-pad {
-//			width: 100%;
-//			min-width: 100%;
-//			max-width: 100%;
-//			padding: 0 0 0 1px !important;
-//			margin: 0 !important;
-//		}
-//	}
-//}
-//
-//tbody{
-//	td {
-//		&.q-grid-pad {
-//			width: 1px;
-//			min-width: 1px;
-//			max-width: 1px;
-//			padding: 0 !important;
-//			margin: 0 !important;
-//		}
-//	}
-//}
-
 thead, tfoot, tbody {
 	td, th {
 		width: 150px;
