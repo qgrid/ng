@@ -1,4 +1,5 @@
-import AppError from 'core/infrastructure/error';
+import * as guard from 'core/infrastructure/guard';
+import CustomColumn from 'core/column-type/column.view';
 import TextColumn from 'core/column-type/text.column';
 import NumberColumn from 'core/column-type/number.column';
 import BoolColumn from 'core/column-type/bool.column';
@@ -14,6 +15,8 @@ import RowIndicatorColumn from 'core/column-type/row.indicator.column';
 import PadColumn from 'core/column-type/pad.column';
 
 export default function (type, body = null) {
+	guard.notNullOrEmpty(type, 'type');
+
 	switch (type) {
 		case 'text':
 			return new TextColumn(TextColumn.model(body));
@@ -42,8 +45,6 @@ export default function (type, body = null) {
 		case 'pad':
 			return new PadColumn(PadColumn.model(body));
 		default:
-			throw new AppError(
-				'column.factory',
-				`Invalid type "${type}"`);
+			return new CustomColumn(CustomColumn.model(body));
 	}
 }

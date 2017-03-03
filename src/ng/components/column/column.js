@@ -27,15 +27,15 @@ class Column extends Component {
 		Object.keys(target)
 			.filter(key => !ng.isSystem(key) && key != 'value')
 			.forEach(attr => {
+				const value = target[attr];
+				if (!isUndefined(value)) {
+					const accessor = path.compile(attr);
+					const sourceValue = accessor(source);
+					const sourceParseFactory = parseFactory(getType(sourceValue));
+					const targetValue = sourceParseFactory ? sourceParseFactory(value) : value;
 
-				const accessor = path.compile(attr);
-
-				const sourceValue = accessor(source);
-				const sourceParseFactory = parseFactory(getType(sourceValue));
-
-				const targetValue = sourceParseFactory ? sourceParseFactory(target[attr]) : target[attr];
-				
-				accessor(source, targetValue);
+					accessor(source, targetValue);
+				}
 			});
 
 		if (target.hasOwnProperty('value')) {
@@ -46,7 +46,8 @@ class Column extends Component {
 
 	onInit() {
 		const $attrs = this.$attrs;
-		if (isUndefined(this.key)) {
+		const withKey = !isUndefined(this.key);
+		if (!withKey) {
 			if ($attrs.hasOwnProperty('type')) {
 				this.key = `$default.${$attrs.type}`;
 			}
@@ -67,7 +68,9 @@ class Column extends Component {
 		}
 
 		this.copy(column, $attrs);
-		this.columnList.add(column);
+		if (withKey) {
+			this.columnList.add(column);
+		}
 	}
 }
 

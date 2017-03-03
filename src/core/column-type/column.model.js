@@ -5,6 +5,7 @@ export default class ColumnModel {
 		this.title = null;
 		this.value = null;
 		this.pin = null;
+		this.origin = 'specific';
 		this.source = 'user';
 
 		this.width = null;
