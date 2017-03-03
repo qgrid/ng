@@ -42,7 +42,9 @@ export default class NavigationView extends View {
 			execute: (row, column) => {
 				const rows = this.rows;
 				const cell = rows[row].cells[column];
-				console.log(this.isVisible(cell, markup.body));
+				if (!this.isVisible(cell, markup.body)) {
+					cell.scrollIntoView();
+				}
 			}
 		});
 
@@ -77,11 +79,12 @@ export default class NavigationView extends View {
 	isVisible(inner, outer) {
 		inner = inner.getBoundingClientRect();
 		outer = outer.getBoundingClientRect();
-		console.log(inner, outer);
-		return (inner.top <= outer.top) && (outer.top <= inner.bottom)
-			&& (inner.top <= outer.bottom) && (outer.bottom <= inner.bottom)
-			&& (inner.left <= outer.left) && (outer.left <= inner.left + inner.width)
-			&& (inner.left <= outer.left + outer.width) && (outer.right <= inner.left + inner.width)
+		return (inner.bottom <= outer.bottom)
+			&& (inner.bottom >= outer.top)
+			&& (inner.left <= outer.left)
+			&& (inner.right <= outer.right)
+			&& (inner.right >= outer.left)
+			&& (inner.top >= outer.top);
 	}
 
 }
