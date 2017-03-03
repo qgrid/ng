@@ -23,24 +23,22 @@ export default class PopupService {
 		}
 	}
 
-	open(settings, model, parent, target) {
+	open(settings, model, scope) {
 		if (this.popups.hasOwnProperty(settings.id)) {
 			return;
 		}
 
-		target = this.targetize(null, settings);
+		const target = this.targetize(settings);
+		const pos = this.position(target, settings);
+		const popupScope = this.$rootScope.$new(false, scope);
 
-		const scope = this.$rootScope.$new(false, parent);
-
-		scope.model = model;
-		scope.id = settings.id;
+		popupScope.model = model;
+		popupScope.id = settings.id;
 
 		const popup = angular.element('<q-grid:popup-panel id="id" model="model"></q-grid:popup-panel>');
 
 		this.$document[0].body.append(popup[0]);
-		this.$compile(popup)(scope);
-
-		const pos = this.position(target, settings);
+		this.$compile(popup)(popupScope);
 
 		popup.attr('id', settings.id);
 		popup.css({left: pos.left + 'px', top: pos.top + 'px', zIndex: 79});
@@ -48,29 +46,17 @@ export default class PopupService {
 		if (settings.resizable) {
 			popup.addClass('resizable');
 		}
+
 		if (settings.collapsible) {
 			popup.addClass('collapsible');
 		}
+
 		if (settings.cls) {
 			popup.addClass(settings.cls);
 		}
 
-		// var container = this.$document[0].body;
-		// if (settings.container) {
-		// 	container =
-		// 		container.querySelector(settings.container)
-		// 		|| container;
-		// }
-
 		this.popups[settings.id] = new PopupManager(popup, settings, this.$document[0].body);
-
 		this.popups[settings.id].focus();
-		//
-		// this.$timeout(function () {
-		// 	//Added this $timeout to keep the popup from flickering the position every time,
-		// 	//it enters the DOM
-		// 	angular.element(container).append(popup);
-		// });
 	}
 
 	expand(id) {
@@ -84,7 +70,7 @@ export default class PopupService {
 	}
 
 	focus(id) {
-		for(let [, popup] of this.popups) {
+		for (let [, popup] of this.popups) {
 			popup.unfocus();
 		}
 
@@ -97,7 +83,8 @@ export default class PopupService {
 		item.resize(settings);
 	}
 
-	targetize(target, settings) {
+	targetize(settings) {
+		const target = settings.target;
 		if (!target) {
 			return {
 				offset: () => {
@@ -114,10 +101,16 @@ export default class PopupService {
 				}
 			};
 		}
-		else {
-			//TODO: get rid of jQuery
-			return angular.element(target);
-		}
+
+		const rect = target.getBoundingClientRect();
+		return {
+			offset: () => ({
+				left: rect.left,
+				top: rect.top
+			}),
+			height: () => target.clientHeight,
+			width: () => target.clientWidth
+		};
 	}
 
 	position(target, settings) {
@@ -139,17 +132,17 @@ export default class PopupService {
 		const l = ltx0 && gtx1
 			? w / 2 - ew2
 			: gtx1
-			? x - ew - dx
-			: ltx0
-			? x + dx
-			: x - ew2 + dx;
+				? x - ew - dx
+				: ltx0
+					? x + dx
+					: x - ew2 + dx;
 		const t = lty0 && gty1
 			? h / 2 - eh2
 			: gty1
-			? y - eh - dy
-			: lty0
-			? y + dy
-			: y + dy;
+				? y - eh - dy
+				: lty0
+					? y + dy
+					: y + dy;
 
 		return {
 			left: l,
@@ -157,8 +150,6 @@ export default class PopupService {
 		};
 	}
 }
-
-
 
 
 PopupService.$inject = [
