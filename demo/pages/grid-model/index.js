@@ -75,7 +75,7 @@ export default function Controller($http, qgrid, $log) {
 			ctrl.gridModel.data({rows: response.data});
 			ctrl.gridModel.selection({
 				mode: 'single',
-				unit: 'cell',
+				unit: 'row',
 				items: response.data.slice(0, 4)
 			});
 		});

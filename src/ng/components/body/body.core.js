@@ -53,31 +53,39 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 			}
 
 			if (cell.column.type !== 'select') {
-				const model = this.view.model;
-				const selection = model.selection();
-
-				switch (selection.unit) {
-					case 'row':
-						{
-							const row = model.view().rows[cell.rowIndex];
-							if (row && this.view.selection.toggleRow.canExecute(row)) {
-								this.$scope.$evalAsync(() => this.view.selection.toggleRow.execute(row));
-							}
-						}
-						break;
-					case 'column':
-						{
-							const columns = columnService.lineView(model.view().columns);
-							const column = columns.find(c => c.model === cell.column);
-							if (column && this.view.selection.toggleColumn.canExecute(column)) {
-								this.$scope.$evalAsync(() => this.view.selection.toggleColumn.execute(column));
-							}
-						}
-						break;
-					case 'cell':
-						break;
-				}
+				this.toggle(cell);
 			}
+		}
+	}
+
+	toggle(cell) {
+		const model = this.view.model;
+		const selection = model.selection();
+
+		switch (selection.unit) {
+			case 'row':
+				{
+					const rows = model.view().rows;
+					const row = rows[cell.rowIndex];
+					if (row && this.view.selection.toggleRow.canExecute(row)) {
+						this.$scope.$evalAsync(() => this.view.selection.toggleRow.execute(row));
+					}
+				}
+				break;
+			case 'column':
+				{
+					const columns = columnService.lineView(model.view().columns);
+					const column = columns.find(c => c.model === cell.column).key;
+					if (column && this.view.selection.toggleColumn.canExecute(column)) {
+						this.$scope.$evalAsync(() => this.view.selection.toggleColumn.execute(column));
+					}
+				}
+				break;
+			case 'cell':
+				if (cell && this.view.selection.toggleCell.canExecute(cell)) {
+					this.$scope.$evalAsync(() => this.view.selection.toggleCell.execute(cell));
+				}
+				break;
 		}
 	}
 }
