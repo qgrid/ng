@@ -20,6 +20,7 @@ https://qgrid.github.io/ng/
 * `$ npm run test:debug` watch and debug tests
 
 ## dependency diagram
+![dependecy diagram](https://github.com/qgrid/ng/blob/architecture-diagram/docs/dependency.png)
 
 
 
