@@ -20,10 +20,10 @@ https://qgrid.github.io/ng/
 * `$ npm run test:debug` watch and debug tests
 
 ## dependency diagram
-We are trying to encapsulate any ui framework dependencies(angular in our case) to separate modules. This will give us a chance to migrate
-`q-grid` to other environments(in plans angular2, react and vuejs)
-![dependecy diagram](https://github.com/qgrid/ng/blob/architecture-diagram/docs/dependency.png)
+We are trying to encapsulate any ui framework dependencies(angular in our case) to separate modules. We believe that it will give us a chance to migrate
+`q-grid` to other environments without big efforts(in plans angular2, react and vuejs)
 
+![dependecy diagram](https://github.com/qgrid/ng/blob/architecture-diagram/docs/dependency.png)
 
 
 ##licence
