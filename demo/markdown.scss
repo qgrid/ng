@@ -416,6 +416,10 @@
 }
 
 .markdown-body {
+	p{
+		white-space: normal;
+	}
+
 	table {
 		&.attributes {
 			display: table;

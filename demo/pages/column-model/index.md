@@ -1,6 +1,7 @@
-### attributes
+### description
+A grid column is a visual representation of a set of data values that have a particular type. This page covers the main features of grid columns and the ways they can be configured.  
 
-		
+### attributes
 <table class="attributes">
 <thead>
 	<tr>
@@ -52,10 +53,10 @@
      	<td>Defines the initial width of the column. Supported values:
      	 	<ul>
      	 		<li>
-     	 			<strong>number</strong> width in pixels(width=120)
+     	 			number - width in pixels(width=120)
      	 		</li>
      	 		<li>
-               <strong>string</strong> width in percnets(width='20%')
+               string - width in percnets(width='20%')
             </li>
      	 	</ul>
      	</td>
