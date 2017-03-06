@@ -5,7 +5,7 @@ Angularjs data grid
 https://qgrid.github.io/ng/
 
 ## core concepts
-* **easy** to start: ```<q-grid rows="data"></grid>``` should be enought to start
+* **easy** to start: ```<q-grid rows="data"><q-grid:columns generation="deep"></q-grid:columns></grid>``` should be enough to start
 * **virtualization** everywhere: rows and columns should be virtualizable
 * **considered styles**: user should be able to make any css customization in easy format
 * fully **customizable**: header, cells, rows, footer etc. should be templatable
@@ -20,6 +20,8 @@ https://qgrid.github.io/ng/
 * `$ npm run test:debug` watch and debug tests
 
 ## dependency diagram
+We are trying to encapsulate any ui framework dependencies(angular in our case) to separate modules. This will give us a chance to migrate
+`q-grid` to other environments(in plans angular2, react and vuejs)
 ![dependecy diagram](https://github.com/qgrid/ng/blob/architecture-diagram/docs/dependency.png)
 
 
