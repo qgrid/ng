@@ -42,8 +42,11 @@ export default class NavigationView extends View {
 			execute: (row, column) => {
 				const rows = this.rows;
 				const cell = rows[row].cells[column];
-				if (!this.isVisible(cell, markup.body)) {
-					cell.scrollIntoView();
+				if (!this.isVisibleVertical(cell, markup.body)) {
+					markup.body.scrollTop = cell.getBoundingClientRect().top - markup.body.getBoundingClientRect().top + model.layout().scroll.top;
+				}
+				if (!this.isVisibleHorizontal(cell, markup.body)) {
+					markup.body.scrollLeft = cell.getBoundingClientRect().left - markup.body.getBoundingClientRect().left + model.layout().scroll.left;
 				}
 			}
 		});
@@ -87,7 +90,24 @@ export default class NavigationView extends View {
 			&& outer.top <= inner.bottom
 			&& outer.bottom >= inner.top
 			&& outer.bottom >= inner.bottom;
+	}
 
+	isVisibleVertical(inner, outer) {
+		inner = inner.getBoundingClientRect();
+		outer = outer.getBoundingClientRect();
+		return outer.top <= inner.top
+			&& outer.top <= inner.bottom
+			&& outer.bottom >= inner.top
+			&& outer.bottom >= inner.bottom;
+	}
+
+	isVisibleHorizontal(inner, outer) {
+		inner = inner.getBoundingClientRect();
+		outer = outer.getBoundingClientRect();
+		return outer.left <= inner.left
+			&& outer.left <= inner.right
+			&& outer.right >= inner.left
+			&& outer.right >= inner.right;
 	}
 
 }
