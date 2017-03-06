@@ -33,7 +33,7 @@ https://qgrid.github.io/ng/
 We are trying to encapsulate any ui framework(angular in our case) dependencies to the separate module. We believe that it will give us a chance to migrate
 `q-grid` to other environments without big efforts(in plans angular2, react and vuejs)
 
-![dependecy diagram](https://github.com/qgrid/ng/blob/architecture-diagram/docs/dependency.png)
+![dependecy diagram](https://github.com/qgrid/ng/blob/master/docs/dependency.png)
 
 
 ##licence
