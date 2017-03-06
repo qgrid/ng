@@ -15,13 +15,16 @@ export default class SelectionView extends View {
 		const shortcut = new Shortcut(markup.document, apply);
 		const commands = this.commands;
 		shortcut.register('selectionNavigation', commands);
+		
 		this.toggleRow = commands.get('toggleRow');
 		this.toggleColumn = commands.get('toggleColumn');
+		this.toggleCell = commands.get('toggleCell');
 
 		model.viewChanged.watch(() => {
 			this.behavior = behaviorFactory(model, markup);
 			model.selection({items: this.behavior.view});
 		});
+
 		model.sortChanged.watch(() => {
 			this.behavior = behaviorFactory(model, markup);
 			model.selection({items: this.behavior.view});
@@ -61,9 +64,40 @@ export default class SelectionView extends View {
 				}
 			}),
 			toggleColumn: new Command({
-				execute: () => {
-					const columns = columnService.lineView(model.view().columns);
-					model.selection({items: columns});
+				execute: (item, state) => {
+					if (isUndefined(item)) {
+						item = columnService.lineView(model.view().columns).map(c => c.key);
+					}
+
+					if (isUndefined(state)) {
+						state = this.behavior.state(item);
+						this.behavior.select(item, state === null || !state);
+					}
+					else {
+						this.behavior.select(item, state);
+					}
+
+					model.selection({items: this.behavior.view}, {source: 'toggle'});
+					Log.info('toggle.selection items count ', this.behavior.view.length);
+				}
+			}),
+			toggleCell: new Command({
+				execute: (item, state) => {
+					//TODO: select all
+					// if (isUndefined(item)) {
+					// 	item = columnService.lineView(model.view().columns);
+					// }
+
+					if (isUndefined(state)) {
+						state = this.behavior.state(item);
+						this.behavior.select(item, state === null || !state);
+					}
+					else {
+						this.behavior.select(item, state);
+					}
+
+					model.selection({items: this.behavior.view}, {source: 'toggle'});
+					Log.info('toggle.selection items count ', this.behavior.view.length);
 				}
 			}),
 			toggleActiveRow: new Command({
@@ -121,13 +155,13 @@ export default class SelectionView extends View {
 			toggleNextColumn: new Command({
 				shortcut: 'shift+right',
 				execute: () => {
-					const columnIndex = model.navigation().column;
-					const items = Array.from(model.selection().items);
-					const index = model.navigation().column;
 					const columns = columnService.lineView(model.view().columns);
-					items.push(columns[index]);
-					model.selection({items: items});
-					model.navigation({column: columnIndex + 1});
+			
+					const index = model.navigation().column + 1;
+					const column = columns[index].key;
+
+					this.toggleColumn.execute(column);
+					model.navigation({column: index});
 				},
 				canExecute: () => model.selection().unit === 'column'
 				&& model.navigation().column < columnService.lineView(model.view().columns).length - 1
@@ -135,13 +169,13 @@ export default class SelectionView extends View {
 			togglePrevColumn: new Command({
 				shortcut: 'shift+left',
 				execute: () => {
-					const columnIndex = model.navigation().column;
-					const items = Array.from(model.selection().items);
-					const index = model.navigation().column;
 					const columns = columnService.lineView(model.view().columns);
-					items.push(columns[index]);
-					model.selection({items: items});
-					model.navigation({column: columnIndex - 1});
+			
+					const index = model.navigation().column - 1;
+					const column = columns[index].key;
+
+					this.toggleColumn.execute(column);
+					model.navigation({column: index});
 				},
 				canExecute: () => model.selection().unit === 'column'
 				&& model.navigation().column > 0
