@@ -12,6 +12,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 		this.element = $element[0];
 		this.listener = new EventListener(this, this.element);
 		this.listener.on('scroll', this.onScroll);
+		this.startCell = null;
 
 		Object.defineProperty($scope, '$view', {get: () => this.view});
 	}
@@ -32,6 +33,9 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 
 	onInit() {
 		this.listener.on('click', this.onClick);
+		
+		this.listener.on('mousedown', this.onMouseDown);
+		this.listener.on('mouseup', this.onMouseUp);
 	}
 
 	onDestroy() {
@@ -56,6 +60,42 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 				this.toggle(cell);
 			}
 		}
+	}
+
+	onMouseDown(e) {
+		this.startCell = pathFinder.cell(e.path);
+	}
+
+	onMouseUp(e) {
+		const endCell = pathFinder.cell(e.path);
+		if (this.startCell && this.startCell !== endCell) {
+			this.toggleRange(this.startCell, endCell);
+		}
+
+		this.startCell = null;
+	}
+
+	toggleRange(startCell, endCell) {
+		const model = this.view.model;
+		const selection = model.selection();
+		
+		switch (selection.unit) {
+			case 'row':
+				{
+					const rows = model.view().rows;
+
+					const startIndex = Math.min(startCell.rowIndex, endCell.rowIndex);
+					const endIndex = Math.max(startCell.rowIndex, endCell.rowIndex);
+					
+					rows.slice(startIndex, endIndex).forEach(row => {
+						if (row && this.view.selection.toggleRow.canExecute(row)) {
+							this.$scope.$evalAsync(() => this.view.selection.toggleRow.execute(row));
+						}
+					});
+				}
+				break;
+		}
+
 	}
 
 	toggle(cell) {
