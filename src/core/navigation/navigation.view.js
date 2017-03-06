@@ -79,12 +79,15 @@ export default class NavigationView extends View {
 	isVisible(inner, outer) {
 		inner = inner.getBoundingClientRect();
 		outer = outer.getBoundingClientRect();
-		return (inner.bottom <= outer.bottom)
-			&& (inner.bottom >= outer.top)
-			&& (inner.left <= outer.left)
-			&& (inner.right <= outer.right)
-			&& (inner.right >= outer.left)
-			&& (inner.top >= outer.top);
+		return outer.left <= inner.left
+			&& outer.left <= inner.right
+			&& outer.right >= inner.left
+			&& outer.right >= inner.right
+			&& outer.top <= inner.top
+			&& outer.top <= inner.bottom
+			&& outer.bottom >= inner.top
+			&& outer.bottom >= inner.bottom;
+
 	}
 
 }
