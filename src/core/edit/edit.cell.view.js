@@ -48,6 +48,7 @@ export default class EditCellView {
 					const parse = parseFactory(cell.column.type);
 					this.value = isUndefined(cell.value) ? null : parse(clone(cell.value));
 					this.mode = 'edit';
+					model.edit({editMode:'edit'});
 					cell.mode(this.mode);
 				}
 			}),
@@ -69,6 +70,7 @@ export default class EditCellView {
 
 						this.value = null;
 						this.mode = 'view';
+						model.edit({editMode:'view'});
 						cell.mode(this.mode);
 					}
 				}
@@ -84,6 +86,7 @@ export default class EditCellView {
 					if (cell) {
 						this.value = null;
 						this.mode = 'view';
+						model.edit({editMode:'view'});
 						cell.mode(this.mode);
 					}
 

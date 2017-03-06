@@ -6,6 +6,7 @@ import * as ng from 'ng/services/ng';
 import * as path from 'core/services/path'
 import * as columnService from 'core/column/column.service';
 import columnFactory from 'core/column/column.factory';
+import {parseFactory, getType} from 'core/services/convert';
 
 TemplatePath
 	.register(COLUMN_NAME, (template, column) => {
@@ -27,8 +28,15 @@ class Column extends Component {
 		Object.keys(target)
 			.filter(key => !ng.isSystem(key) && key != 'value')
 			.forEach(attr => {
-				const accessor = path.compile(attr);
-				accessor(source, target[attr]);
+				const value = target[attr];
+				if (!isUndefined(value)) {
+					const accessor = path.compile(attr);
+					const sourceValue = accessor(source);
+					const sourceParseFactory = parseFactory(getType(sourceValue));
+					const targetValue = sourceParseFactory ? sourceParseFactory(value) : value;
+
+					accessor(source, targetValue);
+				}
 			});
 
 		if (target.hasOwnProperty('value')) {
@@ -39,8 +47,9 @@ class Column extends Component {
 
 	onInit() {
 		const $attrs = this.$attrs,
-			$parse = this.$parse;
-		if (isUndefined(this.key)) {
+			$parse = this.$parse,
+			withKey = !isUndefined(this.key);
+		if (!withKey) {
 			if ($attrs.hasOwnProperty('type')) {
 				this.key = `$default.${$attrs.type}`;
 			}
@@ -62,7 +71,9 @@ class Column extends Component {
 
 		$attrs.aggregationOptions = $parse($attrs.aggregationOptions)(this);
 		this.copy(column, $attrs);
-		this.columnList.add(column);
+		if (withKey) {
+			this.columnList.add(column);
+		}
 	}
 }
 

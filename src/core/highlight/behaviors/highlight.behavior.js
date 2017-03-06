@@ -1,5 +1,3 @@
-import {GRID_PREFIX} from 'core/definition';
-
 export default class HighlightBehavior {
 	constructor(model, markup) {
 		this.model = model;
@@ -22,18 +20,13 @@ export default class HighlightBehavior {
 		this.items = new Set();
 	}
 
-	applyCore(items) {
+	applyCore() {
 	}
 
-	clearCore(items) {
+	clearCore() {
 	}
 
-	stateCore(item, state){
-		if (state) {
-			item.classList.add(`${GRID_PREFIX}-selected`);
-		}
-		else {
-			item.classList.remove(`${GRID_PREFIX}-selected`);
-		}
+	stateCore() {
 	}
+
 }

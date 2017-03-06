@@ -9,6 +9,8 @@ export function parseFactory(type) {
 			return parseNumber;
 		case 'date':
 			return parseDate;
+		case 'bool':
+			return parseBool;
 		default:
 			return identity;
 	}
@@ -30,12 +32,12 @@ export function getType(value) {
 		return 'number';
 	}
 
-	if (parseDate(value) !== null) {
-		return 'date';
-	}
-
 	if(isBoolean(value)){
 		return 'bool';
+	}
+
+	if (parseDate(value) !== null) {
+		return 'date';
 	}
 
 	if (isObject(value)) {
@@ -62,11 +64,23 @@ export function isPrimitive(type) {
 	}
 }
 
+function parseBool(value) {
+	return value === 'true' 
+      ? true 
+      : value === 'false' 
+         ? false 
+         : null;
+}
+
 function parseText(value) {
 	return '' + value;
 }
 
 function parseDate(value) {
+	if (value === null) {
+		return null;
+	}
+
 	const date = new Date(value);
 	if (date !== 'Invalid Date' && !isNaN(date)) {
 		return date;

@@ -38,9 +38,13 @@ class Popup extends Plugin {
 		super.show();
 	}
 
-	open() {
-		const settings = {id: this.id};
-		this.qGridPopupService.open(settings, this.model, this.$scope, this.$element);
+	open(settings = {}) {
+		settings.id = this.id
+		this.qGridPopupService.open(
+			settings,
+			this.model,
+			this.$scope
+		);
 	}
 
 	get resource() {
