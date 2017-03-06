@@ -5,8 +5,8 @@ Angularjs data grid
 https://qgrid.github.io/ng/
 
 ## installation
-`npm install ng-qgrid`
-`bower install ng-qgrid`
+* `$ npm install ng-qgrid`
+* `$ bower install ng-qgrid`
 
 ## core concepts
 * **easy** to start: 
