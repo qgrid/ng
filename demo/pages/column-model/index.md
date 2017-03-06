@@ -1,5 +1,6 @@
 ### attributes
 
+		
 <table class="attributes">
 <thead>
 	<tr>
@@ -33,7 +34,103 @@
 	<tr>
 		<td>key</td>
 		<td><code>string</code></td>
-		<td>Defines <strong>unique</strong> identifier for the column</td>
+		<td>Defines <strong>unique</strong> identifier for the column. This is essential property that is used not only in templates but also by aggregation, sorting, grouping, pivoting and positioning of columns.</td>
 	</tr>
+	<tr>
+   	<td>title</td>
+   	<td><code>string</code></td>
+   	<td>Defines header text of the column</td>
+   </tr>
+   <tr>
+     	<td>value</td>
+     	<td><code>function(row, value)</code></td>
+     	<td>If specified, function should return value that will be shown in the column. If edit mode is on - the second argument is a new value from user input</td>
+   </tr>
+   <tr>
+     	<td>width</td>
+     	<td><code>number</code>|<code>string</code></td>
+     	<td>Defines the initial width of the column. Supported values:
+     	 	<ul>
+     	 		<li>
+     	 			<strong>number</strong> width in pixels(width=120)
+     	 		</li>
+     	 		<li>
+               <strong>string</strong> width in percnets(width='20%')
+            </li>
+     	 	</ul>
+     	</td>
+   </tr>    
+	<tr>
+     	<td>minWidth</td>
+     	<td><code>number</code></td>
+     	<td>Defines a minimum width of the column in pixels</td>
+   </tr>
+	<tr>
+     	<td>maxWidth</td>
+     	<td><code>number</code></td>
+     	<td>Defines a maximum width of the column in pixels</td>
+   </tr>    
+	<tr>
+     	<td>canEdit</td>
+     	<td><code>bool</code></td>
+     	<td>Indicates if user can edit the column</td>
+   </tr>    
+	<tr>
+     	<td>canResize</td>
+     	<td><code>bool</code></td>
+     	<td>Indicates if user can resize the column</td>
+   </tr>    
+	<tr>
+     	<td>canSort</td>
+     	<td><code>bool</code></td>
+     	<td>Indicates if user can apply sorting to the column</td>
+   </tr>    
+	<tr>
+     	<td>canMove</td>
+     	<td><code>bool</code></td>
+     	<td>Indicates if user can put the column to another place</td>
+   </tr>    
+	<tr>
+     	<td>isVisible</td>
+     	<td><code>bool</code></td>
+     	<td>Indicates if column is visible</td>
+   </tr>    
+   <tr>
+     	<td>isDefault</td>
+     	<td><code>bool</code></td>
+     	<td>Says that column is in default set of visible columns for particular grid, usefull for reseting visibility</td>
+    </tr>
+	<tr>
+     	<td>index</td>
+     	<td><code>number</code></td>
+     	<td>Defines position of the column</td>
+   </tr>           
+	<tr>
+     	<td>aggregation</td>
+     	<td><code>string</code></td>
+     	<td>Defines aggregation for the column. Predefined aggregations:
+     		<ul>
+     			<li>avg</li>
+     			<li>count</li>
+     			<li>join</li>
+     			<li>first</li>
+     			<li>last</li>
+     			<li>max</li>
+     			<li>min</li>
+     			<li>minMax</li>
+     			<li>sum</li>
+     		</ul>
+     	</td>
+   </tr>   
+   	<tr>
+        	<td>aggregationOptions</td>
+        	<td><code>object</code></td>
+        	<td>Setup options for the column aggregation.
+     			<ul>
+     				<li>distinct - 'false' by default</li>
+     				<li>separator - '; ' by default</li>
+     			</ul>
+        	</td>
+      </tr>   
 </tbody>
 </table>
