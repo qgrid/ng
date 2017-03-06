@@ -4,8 +4,18 @@ Angularjs data grid
 ## examples
 https://qgrid.github.io/ng/
 
+## installation
+`npm install ng-qgrid`
+`bower install ng-qgrid`
+
 ## core concepts
-* **easy** to start: ```<q-grid rows="data"><q-grid:columns generation="deep"></q-grid:columns></grid>``` should be enough to start
+* **easy** to start: 
+```javascript
+	<q-grid rows="data">
+		<q-grid:columns generation="deep">
+		</q-grid:columns>
+	</grid>
+``` 
 * **virtualization** everywhere: rows and columns should be virtualizable
 * **considered styles**: user should be able to make any css customization in easy format
 * fully **customizable**: header, cells, rows, footer etc. should be templatable
