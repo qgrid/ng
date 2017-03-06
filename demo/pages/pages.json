@@ -237,6 +237,11 @@
 				"path": "column-generation"
 			},
 			{
+				"title": "Column Size",
+				"path": "column-size"
+			},
+
+			{
 				"title": "Column Groups",
 				"path": "column-groups"
 			},
@@ -302,10 +307,6 @@
 			{
 				"title": "Row Indicator",
 				"path": "row-indicator"
-			},
-			{
-				"title": "Column Resize",
-				"path": "column-resize"
 			},
 			{
 				"title": "Drag and Drop",

@@ -1,4 +1,5 @@
 import Behavior from './highlight.behavior';
+import {GRID_PREFIX} from 'core/definition';
 
 export default class ColumnHighlight extends Behavior {
 	constructor(model, markup) {
@@ -6,9 +7,9 @@ export default class ColumnHighlight extends Behavior {
 	}
 
 	applyCore(items) {
+		const body = this.markup.body;
 		for (let item of items) {
-			const index = this.model.view().columns[0].indexOf(item);
-			const body = this.markup.body;
+			const index = this.model.view().columns[0].findIndex((c) => c.key === item);
 			if (index > -1 && body && body.rows) {
 				for (let row of body.rows) {
 					this.state(row.cells[index], true);
@@ -18,9 +19,9 @@ export default class ColumnHighlight extends Behavior {
 	}
 
 	clearCore(items) {
+		const body = this.markup.body;
 		for (let item of items) {
-			const index = this.model.view().columns[0].indexOf(item);
-			const body = this.markup.body;
+			const index = this.model.view().columns[0].findIndex((c) => c.key === item);
 			if (index > -1 && body && body.rows) {
 				for (let row of body.rows) {
 					this.state(row.cells[index], false);
@@ -30,6 +31,11 @@ export default class ColumnHighlight extends Behavior {
 	}
 
 	state(item, state) {
-		return this.stateCore(item, state);
+		if (state) {
+			item.classList.add(`${GRID_PREFIX}-selected`);
+		}
+		else {
+			item.classList.remove(`${GRID_PREFIX}-selected`);
+		}
 	}
 }

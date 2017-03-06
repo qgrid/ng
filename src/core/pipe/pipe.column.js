@@ -35,9 +35,17 @@ function addGroupColumn(columns, context) {
 
 function addDataColumns(columns, model, context) {
 	const dataColumns = model.data().columns;
+	const selection = model.selection();
 	columns.push(...
 		columnService.dataView(
 			dataColumns
+				.filter((c) => {
+					if (c.type === 'select' && selection.unit !== 'row'){
+						return false;
+					}
+
+					return true;
+				})
 				.map((c, i) => {
 					const dataColumn = columnFactory(c.type || 'text', c);
 					const index = columns.length + i;
