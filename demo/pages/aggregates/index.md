@@ -37,6 +37,3 @@ E.g., <q-grid:column key="gender" aggregation="join" aggregation-options="{disti
 	</q-grid:columns>
 </q-grid>
 ```
-## script
-```javascript
-```

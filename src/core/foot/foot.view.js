@@ -51,7 +51,7 @@ export default class FootView extends View {
 			const rows = this.model.data().rows,
 				getValue = this.valueFactory(column);
 
-			return Aggregation[aggregation](rows, getValue, aggregationOptions);
+			return Aggregation[aggregation](rows, getValue, aggregationOptions || {});
 		}
 		return null;
 	}
