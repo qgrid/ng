@@ -8,7 +8,23 @@ page-details {
 	}
 
 	div + .page-details-doc {
-		margin-top: 50px;
+		margin-top: 40px;
+		position: relative;
+
+		> pre {
+			padding: 1px 15px;
+			background: #f5f2f0;
+			overflow: hidden;
+		}
+
+		> label {
+			margin: 0;
+			position: absolute;
+			right: 10px;
+			top: 4px;
+			color: #999;
+			font-size: 10px;
+		}
 	}
 
 	@media (max-width: 959px) {
@@ -24,7 +40,7 @@ page-details {
 		}
 
 		div + .page-details-doc {
-			margin-top: 320px;
+			margin-top: 310px;
 		}
 
 	}
