@@ -1,11 +1,8 @@
-# qgrid
-Angularjs data grid
-
 ## installation
-`npm install ng-qgrid`
-`bower install ng-qgrid`
+* `$ npm install ng-qgrid`
+* `$ bower install ng-qgrid`
 
-## the basics
+## include to your project
 In your `index.html` file, include `qgrid` script and styles
 ```html
 <link type="text/css" rel="stylesheet" href="path/to/qgrid.css"  />
@@ -22,3 +19,8 @@ To show the grid put next snippet to your html ($ctrl.rows is a collection of ob
 	<q-grid:columns generation="deep"></q-grid:columns>
 </q-grid>
 ```
+## dependency diagram
+We are trying to encapsulate any ui framework(angular in our case) dependencies to the separate module. We believe that it will give us a chance to migrate
+`q-grid` to other environments without big efforts(in plans angular2, react and vuejs)
+
+![dependecy diagram](https://github.com/qgrid/ng/blob/master/docs/dependency.png?raw=true)
