@@ -65,11 +65,10 @@
     display: none; }
   .q-grid ::-webkit-scrollbar-corner {
     background-color: transparent; }
-  .q-grid.q-grid-box {
-    height: 100%;
-    min-height: 100%;
-    max-height: 100%; }
+  .q-grid .q-grid-box {
+    height: 100%; }
   .q-grid table {
+    width: 100%;
     border-spacing: 0;
     overflow: hidden;
     table-layout: fixed;

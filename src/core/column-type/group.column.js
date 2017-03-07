@@ -2,10 +2,10 @@ import ColumnView from 'core/column-type/column.view';
 import TemplatePath from 'core/template/template.path';
 import ColumnModel from './column.model';
 
-TemplatePath.register('group-cell', (template) => {
+TemplatePath.register('group-cell', (template, column) => {
 	return {
-		model: 'node',
-		resource: template.for === 'body' ? 'content' : null
+		model: template.for,
+		resource: column.type
 	};
 });
 
@@ -15,6 +15,7 @@ class GroupColumnModel extends ColumnModel {
 
 		this.key = '$group';
 		this.title = 'Group';
+		this.offset = 20;
 		this.canEdit = false;
 		this.canSort = false;
 	}

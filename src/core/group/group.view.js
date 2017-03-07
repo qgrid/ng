@@ -28,8 +28,12 @@ export default class GroupView extends View {
 	}
 
 	offset(node) {
-		const state = this.model.node();
-		return state.offset * node.level;
+		const groupColumn = (this.model.view().columns[0] || []).find(c => c.model.type === 'group');
+		if(groupColumn){
+			return groupColumn.model.offset * node.level;
+		}
+
+		return 0;
 	}
 
 	value(node) {

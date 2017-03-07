@@ -1,6 +1,6 @@
 import Component from '../component';
 import {GRID_NAME, COLUMN_NAME, COLUMN_LIST_NAME} from 'ng/definition';
-import {clone, isUndefined} from 'core/services/utility';
+import {clone, isObject, isUndefined, identity} from 'core/services/utility';
 import TemplatePath from 'core/template/template.path';
 import * as ng from 'ng/services/ng';
 import * as path from 'core/services/path'
@@ -17,30 +17,38 @@ TemplatePath
 	});
 
 class Column extends Component {
-	constructor($attrs) {
+	constructor($scope, $attrs, $parse) {
 		super();
 
+		this.$scope = $scope;
 		this.$attrs = $attrs;
+		this.$parse = $parse;
 	}
 
-	copy(source, target) {
-		Object.keys(target)
-			.filter(key => !ng.isSystem(key) && key != 'value')
-			.forEach(attr => {
-				const value = target[attr];
-				if (!isUndefined(value)) {
-					const accessor = path.compile(attr);
-					const sourceValue = accessor(source);
-					const sourceParseFactory = parseFactory(getType(sourceValue));
-					const targetValue = sourceParseFactory ? sourceParseFactory(value) : value;
+	copy(target, source) {
+		const $parse = this.$parse;
+		const $scope = this.$scope;
 
-					accessor(source, targetValue);
-				}
+		Object.keys(source)
+			.filter(key => !ng.isSystem(key) && !isUndefined(source[key]) && key !== 'value')
+			.forEach(key => {
+				const value = source[key];
+				const accessor = path.compile(key);
+				const targetValue = accessor(target);
+				const parse = parseFactory(getType(targetValue));
+				const sourceValue =
+					parse !== identity
+						? parse(value)
+						: isObject(targetValue)
+							? $parse(value)($scope)
+							: value;
+
+				accessor(target, sourceValue);
 			});
 
-		if (target.hasOwnProperty('value')) {
+		if (source.hasOwnProperty('value')) {
 			// HACK: to understand if need to pass {$row: row} instead of just row in cell.core.js
-			source.$value = isUndefined(this.value) ? null : this.value;
+			target.$value = isUndefined(this.value) ? null : this.value;
 		}
 	}
 
@@ -74,7 +82,7 @@ class Column extends Component {
 	}
 }
 
-Column.$inject = ['$attrs'];
+Column.$inject = ['$scope', '$attrs', '$parse'];
 
 export default {
 	require: {
