@@ -1,6 +1,7 @@
 import View from 'core/view/view';
 import * as columnService from 'core/column/column.service';
 import Aggregation from 'core/services/aggregation';
+import DefaultColumn from 'core/column-type/data.column.model';
 import AppError from 'core/infrastructure/error';
 import Log from 'core/infrastructure/log';
 
@@ -39,15 +40,19 @@ export default class FootView extends View {
 
 	value(column) {
 		if (column.aggregation) {
-			if (!Aggregation.hasOwnProperty(column.aggregation)) {
+			const aggregation = column.aggregation;
+			const	aggregationOptions = column.aggregationOptions;
+			
+			if (!Aggregation.hasOwnProperty(aggregation)) {
 				throw new AppError(
 					'foot',
-					`Aggregation ${column.aggregation} is not registered`);
+					`Aggregation ${aggregation} is not registered`);
 			}
 
-			const rows = this.model.data().rows;
-			const getValue = this.valueFactory(column);
-			return Aggregation[column.aggregation](rows, getValue);
+			const rows = this.model.data().rows,
+				getValue = this.valueFactory(column);
+
+			return Aggregation[aggregation](rows, getValue, aggregationOptions || (new DefaultColumn()).aggregationOptions);
 		}
 		return null;
 	}
