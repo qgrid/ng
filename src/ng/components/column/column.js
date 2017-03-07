@@ -17,13 +17,17 @@ TemplatePath
 	});
 
 class Column extends Component {
-	constructor($attrs) {
+	constructor($attrs, $parse) {
 		super();
 
 		this.$attrs = $attrs;
+		this.$parse = $parse;
 	}
 
 	copy(source, target) {
+		const $parse = this.$parse;
+		target.aggregationOptions = $parse(target.aggregationOptions)(this);
+
 		Object.keys(target)
 			.filter(key => !ng.isSystem(key) && key != 'value')
 			.forEach(attr => {
@@ -74,7 +78,7 @@ class Column extends Component {
 	}
 }
 
-Column.$inject = ['$attrs'];
+Column.$inject = ['$attrs', '$parse'];
 
 export default {
 	require: {
