@@ -185,8 +185,9 @@
 
 .markdown-body table {
 	width: 100%;
+	overflow-x: auto;
+	overflow-y: hidden;
 	display: block;
-	overflow: auto;
 }
 
 .markdown-body table th {
@@ -423,7 +424,6 @@
 
 	table {
 		&.attributes {
-			display: table;
 			border-collapse: collapse;
 
 			tbody, thead {
