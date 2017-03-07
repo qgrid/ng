@@ -35,7 +35,7 @@ function addDataColumns(columns, model, context) {
 
 					return true;
 				})
-				.map((c, i) => {
+				.map(c => {
 					const dataColumn = columnFactory(c.type || 'text', c);
 					dataColumn.rowspan = context.rowspan;
 					return dataColumn;

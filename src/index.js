@@ -18,7 +18,6 @@ import EditModel from 'core/edit/edit.model';
 import ToolbarModel from 'core/toolbar/toolbar.model';
 import PaginationModel from 'core/pagination/pagination.model';
 import ProgressModel from 'core/progress/progress.model';
-import NodeModel from 'core/node/node.model';
 import VisibilityModel from 'core/visibility/visibility.model';
 import FilterModel from 'core/filter/filter.model';
 import DragModel from 'core/drag/drag.model';
@@ -41,7 +40,6 @@ Model.register('grid', GridModel)
 	.register('columnList', ColumnListModel)
 	.register('sort', SortModel)
 	.register('group', GroupModel)
-	.register('node', NodeModel)
 	.register('pivot', PivotModel)
 	.register('edit', EditModel)
 	.register('plugin', PluginModel)
