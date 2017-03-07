@@ -89,7 +89,7 @@ page-details {
 
 	@media (max-width: 959px) {
 		> div:first-child {
-			min-height: 835px;
+			min-height: 1105px;
 		}
 
 		.page-details-code {
@@ -101,10 +101,6 @@ page-details {
 				margin-left: 0 !important;
 				margin-top: 40px !important;
 			}
-		}
-
-		.page-details-doc {
-			margin-top: 310px;
 		}
 	}
 }
