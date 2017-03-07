@@ -52,7 +52,7 @@ class ColumnList extends ModelComponent {
 		const doMerge = merge({
 			equals: (l, r) => l.key === r.key,
 			update: (l, r) => assignWith(l, r, (source, target) => !isUndefined(target) && target !== null ? target : source),
-			insert: (r, left) => left.unshift(r),
+			insert: (r, left) => left.push(r),
 			remove: noop
 		});
 

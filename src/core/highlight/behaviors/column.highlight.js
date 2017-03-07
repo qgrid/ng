@@ -9,7 +9,7 @@ export default class ColumnHighlight extends Behavior {
 	applyCore(items) {
 		const body = this.markup.body;
 		for (let item of items) {
-			const index = this.model.view().columns[0].indexOf(item);
+			const index = this.model.view().columns[0].findIndex((c) => c.key === item);
 			if (index > -1 && body && body.rows) {
 				for (let row of body.rows) {
 					this.state(row.cells[index], true);
@@ -19,9 +19,9 @@ export default class ColumnHighlight extends Behavior {
 	}
 
 	clearCore(items) {
+		const body = this.markup.body;
 		for (let item of items) {
-			const index = this.model.view().columns[0].indexOf(item);
-			const body = this.markup.body;
+			const index = this.model.view().columns[0].findIndex((c) => c.key === item);
 			if (index > -1 && body && body.rows) {
 				for (let row of body.rows) {
 					this.state(row.cells[index], false);

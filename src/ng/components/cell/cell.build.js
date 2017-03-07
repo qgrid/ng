@@ -1,34 +1,47 @@
 import TemplatePath from 'core/template/template.path';
 import AppError from 'core/infrastructure/error';
+import {noop} from 'core/services/utility';
+
+function canBuild(column) {
+	return column.type !== 'pad';
+}
+
+function getKey(column) {
+	return column.origin === 'custom' ? 'custom-cell' : `${column.type}-cell`;
+}
 
 function buildView(source, mode, column) {
 	switch (mode) {
 		case 'view': {
-			const type = column.type || 'text';
+			const type = column.type;
 			return {
-				key: `${type}-cell`,
+				key: getKey(column),
 				url: `qgrid.${source}.cell.${type}.tpl.html`,
 				defaults: [`$default.${type}`, '$default']
 			};
 		}
 		case 'edit': {
-			const type = column.editor || column.type || 'text';
+			const type = column.editor || column.type;
 
 			return {
-				key: `${type}-cell-${mode}`,
+				key: `${getKey(column)}-${mode}`,
 				url: `qgrid.${source}.cell.${type}.${mode}.tpl.html`,
 				defaults: column.editor
-					? [`$default.${column.editor}`, `$default.${column.type}`, '$default']
+					? [`$default.${column.editor}`, `$default.${type}`, '$default']
 					: [`$default.${type}`, '$default']
 			};
 		}
 		default:
-			throw new AppError('cell.build', `Invalid key "${mode}"`);
+			throw new AppError('cell.build', `Invalid mode "${mode}"`);
 	}
 }
 
 export default function (template, mode = 'view') {
 	return function (source, model, column) {
+		if (!canBuild(column)) {
+			return noop;
+		}
+
 		const view = buildView(source, mode, column);
 		const pathSource = {[TemplatePath.name(view.key)]: column, 'for': source};
 		const path = TemplatePath.get(pathSource);
