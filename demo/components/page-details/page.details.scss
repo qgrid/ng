@@ -27,26 +27,9 @@ page-details {
 		}
 	}
 
-	@media (max-width: 959px) {
-		.page-details-code {
-			> div:first-child {
-				margin-right: 0 !important;
-			}
-
-			> div:last-child {
-				margin-left: 0 !important;
-				margin-top: 40px !important;
-			}
-		}
-
-		div + .page-details-doc {
-			margin-top: 310px;
-		}
-
-	}
-
 	> div:first-child {
 		height: calc(100% - 20px);
+		min-height: 785px;
 		width: 100%;
 
 		&.home {
@@ -97,7 +80,24 @@ page-details {
 		}
 	}
 
-	code {
-		background-color: #f5f2f0;
+	@media (max-width: 959px) {
+		> div:first-child {
+			min-height: 835px;
+		}
+
+		.page-details-code {
+			> div:first-child {
+				margin-right: 0 !important;
+			}
+
+			> div:last-child {
+				margin-left: 0 !important;
+				margin-top: 40px !important;
+			}
+		}
+
+		div + .page-details-doc {
+			margin-top: 310px;
+		}
 	}
 }
