@@ -2,17 +2,27 @@ import Directive from 'ng/directives/directive';
 import {VIEW_CORE_NAME, BODY_CORE_NAME} from 'ng/definition';
 import EventListener from 'core/infrastructure/event.listener';
 import * as pathFinder from 'ng/services/path.find';
-import * as columnService from 'core/column/column.service';
+import {isFunction, isUndefined} from 'core/services/utility';
+
+import toggleItemFactory from 'ng/components/body/toggle/toggle.item.factory';
+import toggleRangeFactory from 'ng/components/body/toggle/toggle.range.factory';
 
 class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
-	constructor($scope, $element) {
+	constructor($scope, $element, $document) {
 		super();
 
 		this.$scope = $scope;
 		this.element = $element[0];
+		this.document = $document[0];
+
+		this.documentListener = new EventListener(this, this.document);
+
 		this.listener = new EventListener(this, this.element);
 		this.listener.on('scroll', this.onScroll);
+		
+		this.startPoint = null;
 		this.startCell = null;
+		this.overlay = null;
 
 		Object.defineProperty($scope, '$view', {get: () => this.view});
 	}
@@ -36,6 +46,8 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 		
 		this.listener.on('mousedown', this.onMouseDown);
 		this.listener.on('mouseup', this.onMouseUp);
+
+		this.documentListener.on('mousemove', this.onMouseMove);
 	}
 
 	onDestroy() {
@@ -63,76 +75,102 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	}
 
 	onMouseDown(e) {
+		if (!this.isRange) {
+			return;
+		}
+
+		this.startPoint = e;
 		this.startCell = pathFinder.cell(e.path);
+
+		this.createOverlay();
+	}
+
+	onMouseMove(e) {
+		if (!this.isRange) {
+			return;
+		}
+
+		if (this.overlay) {
+			this.setOverlay(this.startPoint, e);
+		}
 	}
 
 	onMouseUp(e) {
+		if (!this.isRange) {
+			return;
+		}
+		
 		const endCell = pathFinder.cell(e.path);
 		if (this.startCell && this.startCell !== endCell) {
-			this.toggleRange(this.startCell, endCell);
+			this.toggle(this.startCell, endCell);
 		}
 
+		this.startPoint = null;
 		this.startCell = null;
+		this.removeOverlay();
 	}
 
-	toggleRange(startCell, endCell) {
-		const model = this.view.model;
-		const selection = model.selection();
-		
-		switch (selection.unit) {
-			case 'row':
-				{
-					const rows = model.view().rows;
-
-					const startIndex = Math.min(startCell.rowIndex, endCell.rowIndex);
-					const endIndex = Math.max(startCell.rowIndex, endCell.rowIndex);
-					
-					rows.slice(startIndex, endIndex).forEach(row => {
-						if (row && this.view.selection.toggleRow.canExecute(row)) {
-							this.$scope.$evalAsync(() => this.view.selection.toggleRow.execute(row));
-						}
-					});
-				}
-				break;
+	createOverlay() {
+		if (this.overlay){
+			this.removeOverlay();
 		}
 
+		let overlay = this.document.querySelector('q-grid-range-overlay');
+		if (!overlay || overlay.length === 0) {
+			overlay = this.document.createElement('div');
+			overlay.classList.add('q-grid-range-overlay');
+			this.document.body.appendChild(overlay);
+
+			this.overlay = angular.element(overlay);
+		} else {
+			this.overlay = angular.element(overlay[0]);
+		}
 	}
 
-	toggle(cell) {
+	removeOverlay() {
+		if (this.overlay){
+			this.overlay.remove();
+			this.overlay = null;
+		}
+	}
+
+	setOverlay(start, end) {
+		const minX = Math.min(start.pageX, end.pageX);
+		const minY = Math.min(start.pageY, end.pageY);
+
+		const width = Math.abs(start.pageX - end.pageX);
+		const height = Math.abs(start.pageY - end.pageY);
+
+		this.overlay.css({
+			left: `${minX}px`,
+			top: `${minY}px`,
+			width: `${width}px`,
+			height: `${height}px`,
+		});
+	}
+
+	toggle(startCell, endCell) {
+		const toggle = isUndefined(endCell) 
+			? toggleItemFactory(this.view, startCell) 
+			: toggleRangeFactory(this.view, startCell, endCell);
+
+		if (toggle && isFunction(toggle)) {
+			this.$scope.$evalAsync(toggle);
+		}
+	}
+
+	get isRange() {
 		const model = this.view.model;
 		const selection = model.selection();
 
-		switch (selection.unit) {
-			case 'row':
-				{
-					const rows = model.view().rows;
-					const row = rows[cell.rowIndex];
-					if (row && this.view.selection.toggleRow.canExecute(row)) {
-						this.$scope.$evalAsync(() => this.view.selection.toggleRow.execute(row));
-					}
-				}
-				break;
-			case 'column':
-				{
-					const columns = columnService.lineView(model.view().columns);
-					const column = columns.find(c => c.model === cell.column).key;
-					if (column && this.view.selection.toggleColumn.canExecute(column)) {
-						this.$scope.$evalAsync(() => this.view.selection.toggleColumn.execute(column));
-					}
-				}
-				break;
-			case 'cell':
-				if (cell && this.view.selection.toggleCell.canExecute(cell)) {
-					this.$scope.$evalAsync(() => this.view.selection.toggleCell.execute(cell));
-				}
-				break;
-		}
+		return selection.mode === 'range';
 	}
 }
 
 BodyCore.$inject = [
 	'$scope',
-	'$element'
+	'$element',
+	'$document'
 ];
 
 export default {

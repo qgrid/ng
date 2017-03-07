@@ -1,6 +1,6 @@
-import Selection from './selection';
+import SelectionBehavior from './selection.behavior';
 
-export default class MultipleSelection extends Selection {
+export default class MultipleSelection extends SelectionBehavior {
 	constructor(model) {
 		super(model);
 		this.items = new Set();
@@ -17,6 +17,10 @@ export default class MultipleSelection extends Selection {
 
 	stateCore(item) {
 		return this.items.has(item);
+	}
+
+	clearCore() {
+		this.items = new Set();
 	}
 
 	get view() {

@@ -1,10 +1,12 @@
-export default class Selection {
+import {isArray} from 'core/services/utility';
+
+export default class SelectionBehavior {
 	constructor(model) {
 		this.model = model;
 	}
 
 	select(item, state = true) {
-		if (Array.isArray(item)) {
+		if (isArray(item)) {
 			item.forEach(item => this.select(item, state));
 			return;
 		}
@@ -19,7 +21,7 @@ export default class Selection {
 	}
 
 	state(item) {
-		if (Array.isArray(item)) {
+		if (isArray(item)) {
 			const all = item.every(item => this.state(item));
 			return all ? true : item.some(item => this.state(item)) ? null : false;
 		}
@@ -33,12 +35,21 @@ export default class Selection {
 		return this.stateCore(item);
 	}
 
+
+	clear() {
+		return this.clearCore();
+	}
+
 	selectCore() {
+	}
+
+	clearCore() {
 	}
 
 	stateCore() {
 		return false;
 	}
+
 
 	get view() {
 		return [];

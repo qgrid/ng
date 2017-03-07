@@ -1,6 +1,6 @@
-import Selection from './selection';
+import SelectionBehavior from './selection.behavior';
 
-export default class SingleSelection extends Selection {
+export default class SingleSelection extends SelectionBehavior {
 	constructor(model) {
 		super(model);
 		this.item = null;
@@ -17,6 +17,10 @@ export default class SingleSelection extends Selection {
 
 	stateCore(item) {
 		return item === this.item;
+	}
+
+	clearCore() {
+		this.item = null;
 	}
 
 	get view() {

@@ -1,6 +1,6 @@
 import View from '../view/view';
 import Command from 'core/infrastructure/command';
-import behaviorFactory from './selection.factory';
+import behaviorFactory from './behaviors/selection.behavior.factory';
 import {isUndefined} from 'core/services/utility';
 import Log from 'core/infrastructure/log';
 import Shortcut from 'core/infrastructure/shortcut';
@@ -19,6 +19,8 @@ export default class SelectionView extends View {
 		this.toggleRow = commands.get('toggleRow');
 		this.toggleColumn = commands.get('toggleColumn');
 		this.toggleCell = commands.get('toggleCell');
+		
+		this.deselectAll = commands.get('deselectAll');
 
 		model.viewChanged.watch(() => {
 			this.behavior = behaviorFactory(model, markup);
@@ -177,8 +179,7 @@ export default class SelectionView extends View {
 					this.toggleColumn.execute(column);
 					model.navigation({column: index});
 				},
-				canExecute: () => model.selection().unit === 'column'
-				&& model.navigation().column > 0
+				canExecute: () => model.selection().unit === 'column' && model.navigation().column > 0
 			}),
 			selectAll: new Command({
 				shortcut: 'ctrl+a',
@@ -196,8 +197,14 @@ export default class SelectionView extends View {
 					}
 				},
 				canExecute: () => model.selection().mode === 'multiple'
+			}),
+			deselectAll: new Command({
+				execute: () => {
+					this.behavior.clear();
+					
+					model.selection({items: this.behavior.view}, {source: 'toggle'});
+				}
 			})
-
 		};
 		return new Map(
 			Object.entries(commands)

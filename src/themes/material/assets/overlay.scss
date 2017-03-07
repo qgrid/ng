@@ -1,0 +1,17 @@
+@import "variables";
+
+@mixin user-select($value){
+	-webkit-user-select: $value;
+  	-moz-user-select: $value;
+  	-ms-user-select: $value;
+  	user-select: $value; 
+}
+
+.q-grid-range-overlay{
+	pointer-events: none;
+	border: 1px solid darken($selected, 50%) ;
+	position: absolute;
+	background-color: $selected;
+
+	@include user-select(none);
+}
