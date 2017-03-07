@@ -8,7 +8,7 @@ export default class DataColumnModel extends ColumnModel {
 		this.aggregation = null;
 		this.aggregationOptions = {
 			distinct: false,
-			separator: ', '
+			separator: '; '
 		};
 	}
 }

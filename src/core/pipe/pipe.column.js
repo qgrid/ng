@@ -6,11 +6,6 @@ function addSelectColumn(columns, context) {
 	const index = columns.length;
 	selectColumn.model.source = 'generation';
 	selectColumn.rowspan = context.rowspan;
-
-	selectColumn.key =
-		selectColumn.model.key =
-			selectColumn.model.key + `[${context.row}][${index}]`;
-
 	if (selectColumn.model.index >= 0) {
 		selectColumn.model.index = index;
 	}
@@ -21,14 +16,8 @@ function addSelectColumn(columns, context) {
 
 function addGroupColumn(columns, context) {
 	const groupColumn = columnFactory('group');
-	const index = columns.length;
 	groupColumn.model.source = 'generation';
 	groupColumn.rowspan = context.rowspan;
-
-	groupColumn.key =
-		groupColumn.model.key =
-			groupColumn.model.key + `[${context.row}][${index}]`;
-
 	columns.push(groupColumn);
 	return groupColumn;
 }
@@ -48,10 +37,7 @@ function addDataColumns(columns, model, context) {
 				})
 				.map((c, i) => {
 					const dataColumn = columnFactory(c.type || 'text', c);
-					const index = columns.length + i;
 					dataColumn.rowspan = context.rowspan;
-					dataColumn.key = c.key + `[${context.row}][${index}]`;
-
 					return dataColumn;
 				}),
 			model));
@@ -60,10 +46,7 @@ function addDataColumns(columns, model, context) {
 
 function addPadColumn(columns, context) {
 	const padColumn = columnFactory('pad');
-	const index = columns.length;
-	padColumn.key = padColumn.key + `[${context.row}][${index}]`;
 	padColumn.rowspan = context.rowspan;
-
 	columns.push(padColumn);
 	return padColumn;
 }
@@ -89,8 +72,6 @@ function addPivotColumns(columns, heads) {
 
 		pivotColumnModel.rowIndex = 0;
 		pivotColumnModel.index = startIndex + j;
-
-		pivotColumn.key = `${pivotColumnModel.key} of ${heads.length}`;
 		row[j] = pivotColumn;
 	}
 
@@ -122,8 +103,6 @@ function addPivotColumns(columns, heads) {
 
 			pivotColumnModel.rowIndex = i;
 			pivotColumnModel.index = j;
-
-			pivotColumn.key = `${pivotColumnModel.key} of ${heads.length}`;
 			row[j] = pivotColumn;
 		}
 
@@ -149,12 +128,12 @@ export default function pipeColumn(memo, context, next) {
 
 	const dataColumns = model.data().columns;
 
-	const selectColumn = dataColumns.find(item => item.type === 'select');
 	/*
 	 * Add column with select boxes
 	 * if selection unit is row
 	 *
 	 */
+	const selectColumn = dataColumns.find(item => item.type === 'select');
 	if (model.selection().unit === 'row' && !selectColumn) {
 		addSelectColumn(columns, {rowspan: heads.length, row: 0});
 	}
@@ -163,7 +142,8 @@ export default function pipeColumn(memo, context, next) {
 	 * Add group column with nodes
 	 *
 	 */
-	if (nodes.length) {
+	const groupColumn = dataColumns.find(item => item.type === 'group');
+	if (nodes.length && !groupColumn) {
 		addGroupColumn(columns, {rowspan: heads.length, row: 0});
 	}
 

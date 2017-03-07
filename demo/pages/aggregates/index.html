@@ -7,7 +7,7 @@
 		</q-grid:column>
 		<q-grid:column key="contact.region" aggregation="avg" aggregation-options="{distinct: true}"></q-grid:column>
 		<q-grid:column key="birthday" aggregation="first"></q-grid:column>
-		<q-grid:column key="gender" aggregation="join" aggregation-options="{distinct: true, separator: '; '}"></q-grid:column>
+		<q-grid:column key="gender" aggregation="join" aggregation-options="{distinct: true, separator: '+'}"></q-grid:column>
 		<q-grid:column key="memberSince" aggregation="minMax"></q-grid:column>
 	</q-grid:columns>
 </q-grid>

@@ -2,10 +2,10 @@ import ColumnView from 'core/column-type/column.view';
 import TemplatePath from 'core/template/template.path';
 import ColumnModel from './column.model';
 
-TemplatePath.register('row-indicator-cell', (template) => {
+TemplatePath.register('row-indicator-cell', (template, column) => {
 	return {
 		model: template.for,
-		resource: `${template.for}.${template.type}`
+		resource: column.key
 	};
 });
 

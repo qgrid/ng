@@ -1,6 +1,4 @@
-# qgrid
-## markup
-
+## description
 You can set 'aggregation' attribute
 E.g., <q-grid:column key="contact.region" aggregation="avg"></q-grid:column>:
 	* first
