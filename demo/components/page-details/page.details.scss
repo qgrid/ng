@@ -9,12 +9,18 @@ page-details {
 
 	div + .page-details-doc {
 		margin-top: 40px;
+	}
+
+	.page-details-doc {
 		position: relative;
+		background-color: #fff;
 
 		> pre {
 			padding: 1px 15px;
-			background: #f5f2f0;
 			overflow: hidden;
+			box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+			background-color: #fff;
+			white-space: normal;
 		}
 
 		> label {
@@ -74,7 +80,8 @@ page-details {
 					padding: 15px;
 					height: 100%;
 					overflow: auto;
-					background: #f5f2f0;
+					box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+					background-color: #fff;
 				}
 			}
 		}
@@ -96,7 +103,7 @@ page-details {
 			}
 		}
 
-		div + .page-details-doc {
+		.page-details-doc {
 			margin-top: 310px;
 		}
 	}

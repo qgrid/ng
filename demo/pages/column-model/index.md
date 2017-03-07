@@ -1,7 +1,7 @@
-### description
+## description
 A grid column is a visual representation of a set of data values that have a particular type. This page covers the main features of grid columns and the ways they can be configured.  
 
-### attributes
+## attributes
 <table class="attributes">
 <thead>
 	<tr>

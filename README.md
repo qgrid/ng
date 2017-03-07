@@ -35,11 +35,6 @@ We are trying to encapsulate any ui framework(angular in our case) dependencies 
 
 ![dependecy diagram](https://github.com/qgrid/ng/blob/master/docs/dependency.png)
 
-## cell template environment
-What is accessible inside cell template? Look at picture below!
-
-![cell template environment](https://github.com/qgrid/ng/blob/master/docs/view.png)
-
 ##licence
 Code licensed under MIT license.
 
