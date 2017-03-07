@@ -34,16 +34,14 @@ export default class NavigationView extends View {
 				const cell = this.rows[row].cells[column];
 				cell.classList.add(`${GRID_PREFIX}-focus`);
 			},
-			canExecute: () => {
-				return this.rows.length > this.newRow
-					&& this.rows[this.newRow].cells.length > this.newColumn;
+			canExecute: (row, column) => {
+				return this.rows.length > row
+					&& this.rows[row].cells.length > column;
 			}
 		});
 		this.scrollTo = new Command({
-			execute: (row, column) => {
-				const rows = this.rows;
-				const cell = rows[row].cells[column];
-				this.scroll(cell, markup.body);
+			execute: (cell) => {
+				this.scroll(markup.body, cell);
 			}
 		});
 
@@ -57,9 +55,9 @@ export default class NavigationView extends View {
 			if (this.blur.canExecute() && this.oldRow > -1 && this.oldColumn > -1) {
 				this.blur.execute(this.oldRow, this.oldColumn);
 			}
-			if (this.focus.canExecute()) {
+			if (this.focus.canExecute(this.newRow, this.newColumn)) {
 				this.focus.execute(this.newRow, this.newColumn);
-				this.scrollTo.execute(this.newRow, this.newColumn);
+				this.scrollTo.execute(this.rows[this.newRow].cells[this.newColumn]);
 			}
 		});
 
@@ -75,22 +73,22 @@ export default class NavigationView extends View {
 		return this.markup.body.rows;
 	}
 
-	scroll(inner, outer) {
-		const container = outer;
-		inner = inner.getBoundingClientRect();
-		outer = outer.getBoundingClientRect();
+	scroll(container, target) {
+		const outer = container;
+		target = target.getBoundingClientRect();
+		container = container.getBoundingClientRect();
 
-		if (outer.left > inner.left
-			|| outer.left > inner.right
-			|| outer.right < inner.left
-			|| outer.right < inner.right) {
-			container.scrollLeft = inner.left - outer.left + this.model.layout().scroll.left;
+		if (container.left > target.left
+			|| container.left > target.right
+			|| container.right < target.left
+			|| container.right < target.right) {
+			outer.scrollLeft = target.left - container.left + this.model.layout().scroll.left;
 		}
-		if (outer.top > inner.top
-			|| outer.top > inner.bottom
-			|| outer.bottom < inner.top
-			|| outer.bottom < inner.bottom) {
-			container.scrollTop = inner.top - outer.top + this.model.layout().scroll.top;
+		if (container.top > target.top
+			|| container.top > target.bottom
+			|| container.bottom < target.top
+			|| container.bottom < target.bottom) {
+			outer.scrollTop = target.top - container.top + this.model.layout().scroll.top;
 		}
 	}
 
