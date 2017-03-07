@@ -25,6 +25,9 @@ class Column extends Component {
 	}
 
 	copy(source, target) {
+		const $parse = this.$parse;
+		target.aggregationOptions = $parse(target.aggregationOptions)(this);
+
 		Object.keys(target)
 			.filter(key => !ng.isSystem(key) && key != 'value')
 			.forEach(attr => {
@@ -46,9 +49,8 @@ class Column extends Component {
 	}
 
 	onInit() {
-		const $attrs = this.$attrs,
-			$parse = this.$parse,
-			withKey = !isUndefined(this.key);
+		const $attrs = this.$attrs;
+		const withKey = !isUndefined(this.key);
 		if (!withKey) {
 			if ($attrs.hasOwnProperty('type')) {
 				this.key = `$default.${$attrs.type}`;
@@ -69,7 +71,6 @@ class Column extends Component {
 			columns.push(column);
 		}
 
-		$attrs.aggregationOptions = $parse($attrs.aggregationOptions)(this);
 		this.copy(column, $attrs);
 		if (withKey) {
 			this.columnList.add(column);

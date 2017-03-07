@@ -23,9 +23,9 @@ export default class Aggregation {
 			return null;
 		}
 
-		let length = rows.length,
-			i = 0,
-			max = getValue(rows[i++]);
+		let length = rows.length;
+		let i = 0;
+		let max = getValue(rows[i++]);
 
 		while (i < length) {
 			if (getValue(rows[i]) > max) {
@@ -42,9 +42,9 @@ export default class Aggregation {
 			return null;
 		}
 
-		let length = rows.length,
-			i = 0,
-			min = getValue(rows[i++]);
+		let length = rows.length;
+		let i = 0;
+		let min = getValue(rows[i++]);
 
 		while (i < length) {
 			if (getValue(rows[i]) < min) {
@@ -61,10 +61,10 @@ export default class Aggregation {
 			return null;
 		}
 
-		let length = rows.length,
-			i = 0,
-			min = getValue(rows[i++]),
-			max = min;
+		let length = rows.length;
+		let i = 0;
+		let min = getValue(rows[i++]);
+		let max = min;
 
 		while (i < length) {
 			if (getValue(rows[i]) < min) {
@@ -81,31 +81,31 @@ export default class Aggregation {
 		return [min, max];
 	}
 
-	static avg(rows, getValue, aggregationOptions) {
+	static avg(rows, getValue, options) {
 		if (!rows.length) {
 			return null;
 		}
 
-		if (aggregationOptions.distinct) {
+		if (options.distinct) {
 			let uniqueSet = new Set();
-			return Aggregation.sum(rows, getValue, aggregationOptions, uniqueSet) / uniqueSet.size;
+			return Aggregation.sum(rows, getValue, options, uniqueSet) / uniqueSet.size;
 		}
 
 		return Aggregation.sum(rows, getValue) / rows.length;
 	}
 
-	static sum(rows, getValue, aggregationOptions, options) {
+	static sum(rows, getValue, options, container) {
 		if (!rows.length) {
 			return null;
 		}
 
-		let length = rows.length,
-			i = 0,
-			sum = 0;
+		let length = rows.length;
+		let i = 0;
+		let sum = 0;
 
-		if (aggregationOptions.distinct) {
-			let uniqueValues = options || new Set(),
-				value = null;
+		if (options.distinct) {
+			let uniqueValues = container || new Set();
+			let value = null;
 
 			while (i < length) {
 				value = Number(getValue(rows[i]));
@@ -129,19 +129,19 @@ export default class Aggregation {
 		return sum;
 	}
 
-	static join(rows, getValue, aggregationOptions) {
+	static join(rows, getValue, options) {
 		if (!rows.length) {
 			return null;
 		}
 
-		let separator = aggregationOptions.separator || '',
-			length = rows.length,
-			i = 0,
-			join = getValue(rows[i++]);
+		let separator = options.separator || '';
+		let length = rows.length;
+		let i = 0;
+		let join = getValue(rows[i++]);
 
-		if (aggregationOptions.distinct) {
-			let uniqueValues = new Set(),
-				value = join;
+		if (options.distinct) {
+			let uniqueValues = new Set();
+			let value = join;
 			uniqueValues.add(value);
 
 			while (i < length) {
@@ -166,16 +166,16 @@ export default class Aggregation {
 		return join;
 	}
 
-	static count(rows, getValue, aggregationOptions) {
+	static count(rows, getValue, options) {
 		if (!rows.length) {
 			return null;
 		}
 
-		if (aggregationOptions.distinct) {
-			let length = rows.length,
-				i = 0,
-				uniqueValues = new Set(),
-				value = null;
+		if (options.distinct) {
+			let length = rows.length;
+			let i = 0;
+			let uniqueValues = new Set();
+			let value = null;
 
 			while (i < length) {
 				value = Number(getValue(rows[i]));
