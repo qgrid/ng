@@ -13,15 +13,16 @@ import SortView from 'core/sort/sort.view';
 import FilterView from 'core/filter/filter.view';
 import EditView from 'core/edit/edit.view';
 import SelectionView from 'core/selection/selection.view';
+import OverlayView from 'core/overlay/overlay.view';
 import {GRID_NAME} from 'ng/definition';
 
 class ViewCore extends Component {
-	constructor($scope, $element, $document) {
+	constructor($scope, $element, $timeout) {
 		super();
 
 		this.$scope = $scope;
 		this.element = $element[0];
-		this.document = $document[0];
+		this.timeout = $timeout;
 	}
 
 	onInit() {
@@ -29,7 +30,8 @@ class ViewCore extends Component {
 		const markup = this.root.markup;
 
 		this.head = new HeadView(model);
-		this.body = new BodyView(model, valueFactory);
+		this.body = new BodyView(model, markup, valueFactory, this.timeout);
+		this.overlay = new OverlayView(model, markup);
 		this.foot = new FootView(model, valueFactory);
 		this.layout = new LayoutView(model, markup);
 		this.selection = new SelectionView(model, markup, this.$scope.$evalAsync.bind(this.$scope));
@@ -71,7 +73,7 @@ class ViewCore extends Component {
 ViewCore.$inject = [
 	'$scope',
 	'$element',
-	'$document'
+	'$timeout'
 ];
 
 export default {

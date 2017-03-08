@@ -4,6 +4,10 @@
 $row-height: 48px;
 
 tbody {
+	&.q-grid-select-none {
+		@include user-select(none);
+	}
+	
 	> tr {
 		height: $row-height;
 

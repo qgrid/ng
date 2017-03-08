@@ -20,9 +20,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 		this.listener = new EventListener(this, this.element);
 		this.listener.on('scroll', this.onScroll);
 		
-		this.startPoint = null;
-		this.startCell = null;
-		this.overlay = null;
+		this.rangeStart = null;
 
 		Object.defineProperty($scope, '$view', {get: () => this.view});
 	}
@@ -79,10 +77,8 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 			return;
 		}
 
-		this.startPoint = e;
-		this.startCell = pathFinder.cell(e.path);
-
-		this.createOverlay();
+		this.rangeStart = e;
+		this.view.overlay.show();
 	}
 
 	onMouseMove(e) {
@@ -90,8 +86,8 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 			return;
 		}
 
-		if (this.overlay) {
-			this.setOverlay(this.startPoint, e);
+		if (this.rangeStart) {
+			this.view.overlay.position(this.rangeStart, e);
 		}
 	}
 
@@ -100,53 +96,14 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 			return;
 		}
 		
+		const startCell = pathFinder.cell(this.rangeStart.path);
 		const endCell = pathFinder.cell(e.path);
-		if (this.startCell && this.startCell !== endCell) {
-			this.toggle(this.startCell, endCell);
+		if (startCell && endCell && startCell !== endCell) {
+			this.toggle(startCell, endCell);
 		}
 
-		this.startPoint = null;
-		this.startCell = null;
-		this.removeOverlay();
-	}
-
-	createOverlay() {
-		if (this.overlay){
-			this.removeOverlay();
-		}
-
-		let overlay = this.document.querySelector('q-grid-range-overlay');
-		if (!overlay || overlay.length === 0) {
-			overlay = this.document.createElement('div');
-			overlay.classList.add('q-grid-range-overlay');
-			this.document.body.appendChild(overlay);
-
-			this.overlay = angular.element(overlay);
-		} else {
-			this.overlay = angular.element(overlay[0]);
-		}
-	}
-
-	removeOverlay() {
-		if (this.overlay){
-			this.overlay.remove();
-			this.overlay = null;
-		}
-	}
-
-	setOverlay(start, end) {
-		const minX = Math.min(start.pageX, end.pageX);
-		const minY = Math.min(start.pageY, end.pageY);
-
-		const width = Math.abs(start.pageX - end.pageX);
-		const height = Math.abs(start.pageY - end.pageY);
-
-		this.overlay.css({
-			left: `${minX}px`,
-			top: `${minY}px`,
-			width: `${width}px`,
-			height: `${height}px`,
-		});
+		this.rangeStart = null;
+		this.view.overlay.hide();
 	}
 
 	toggle(startCell, endCell) {
