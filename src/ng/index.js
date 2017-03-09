@@ -103,7 +103,7 @@ function Setup(qgridThemeProvider) {
 
 		theme.put('qgrid.head.cell.group.tpl.html', require('./components/cell/group/head.cell.group.html'));
 		theme.put('qgrid.body.cell.group.tpl.html', require('./components/cell/group/body.cell.group.html'));
-		theme.put('qgrid.cell.foot.group.tpl.html', EMPTY);
+		theme.put('qgrid.foot.cell.group.tpl.html', EMPTY);
 
 		theme.put('qgrid.head.cell.text.tpl.html', require('./components/cell/text/head.cell.text.html'));
 		theme.put('qgrid.body.cell.text.tpl.html', require('./components/cell/text/body.cell.text.html'));

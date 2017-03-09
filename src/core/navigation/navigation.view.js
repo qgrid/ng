@@ -9,11 +9,8 @@ export default class NavigationView extends View {
 	constructor(model, markup, apply) {
 		super(model);
 		this.markup = markup;
+		this.model = model;
 		this.document = this.markup.document;
-		this.newRow = 0;
-		this.newColumn = 0;
-		this.oldRow = 0;
-		this.oldColumn = 0;
 		const shortcut = new Shortcut(this.document, apply);
 		const navigation = new Navigation(model);
 		shortcut.register('navigation', navigation.commands);
@@ -23,34 +20,40 @@ export default class NavigationView extends View {
 			execute: (row, column) => {
 				this.rows[row].cells[column].classList.remove(`${GRID_PREFIX}-focus`);
 			},
-			canExecute: () => {
-				return this.rows.length > this.newRow
-					&& this.rows[this.newRow].cells.length > this.newColumn;
+			canExecute: (row, column) => {
+				return this.rows.length > row
+					&& this.rows[row].cells.length > column;
 			}
 		});
 		this.focus = new Command({
 			execute: (row, column) => {
-				this.rows[row].cells[column].classList.add(`${GRID_PREFIX}-focus`);
+				const cell = this.rows[row].cells[column];
+				cell.classList.add(`${GRID_PREFIX}-focus`);
 			},
-			canExecute: () => {
-				return this.rows.length > this.newRow
-					&& this.rows[this.newRow].cells.length > this.newColumn;
+			canExecute: (row, column) => {
+				return this.rows.length > row
+					&& this.rows[row].cells.length > column;
+			}
+		});
+		this.scrollTo = new Command({
+			execute: (cell) => {
+				this.scroll(markup.body, cell);
 			}
 		});
 
 		model.navigationChanged.watch(e => {
 			const nav = model.navigation();
-			this.newRow = nav.row == -1 ? 0 : nav.row;
-			this.newColumn = nav.column == -1 ? 0 : nav.column;
-			this.oldRow = e && e.changes.hasOwnProperty('row') ? e.changes.row.oldValue : this.newRow;
-			this.oldColumn = e && e.changes.hasOwnProperty('column') ? e.changes.column.oldValue : this.newColumn;
+			const newRow = nav.row == -1 ? 0 : nav.row;
+			const newColumn = nav.column == -1 ? 0 : nav.column;
+			const oldRow = e && e.changes.hasOwnProperty('row') ? e.changes.row.oldValue : newRow;
+			const oldColumn = e && e.changes.hasOwnProperty('column') ? e.changes.column.oldValue : newColumn;
 
-			if (this.blur.canExecute() && this.oldRow !== -1 && this.oldColumn !== -1) {
-				this.blur.execute(this.oldRow, this.oldColumn);
+			if (this.blur.canExecute(newRow, newColumn) && oldRow > -1 && oldColumn > -1) {
+				this.blur.execute(oldRow, oldColumn);
 			}
-
-			if (this.focus.canExecute()) {
-				this.focus.execute(this.newRow, this.newColumn);
+			if (this.focus.canExecute(newRow, newColumn)) {
+				this.focus.execute(newRow, newColumn);
+				this.scrollTo.execute(this.rows[newRow].cells[newColumn]);
 			}
 		});
 
@@ -64,6 +67,25 @@ export default class NavigationView extends View {
 
 	get rows() {
 		return this.markup.body.rows;
+	}
+
+	scroll(container, target) {
+		const outer = container;
+		target = target.getBoundingClientRect();
+		container = container.getBoundingClientRect();
+
+		if (container.left > target.left
+			|| container.left > target.right
+			|| container.right < target.left
+			|| container.right < target.right) {
+			outer.scrollLeft = target.left - container.left + this.model.layout().scroll.left;
+		}
+		if (container.top > target.top
+			|| container.top > target.bottom
+			|| container.bottom < target.top
+			|| container.bottom < target.bottom) {
+			outer.scrollTop = target.top - container.top + this.model.layout().scroll.top;
+		}
 	}
 
 }

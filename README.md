@@ -35,7 +35,6 @@ We are trying to encapsulate any ui framework(angular in our case) dependencies 
 
 ![dependecy diagram](https://github.com/qgrid/ng/blob/master/docs/dependency.png)
 
-
 ##licence
 Code licensed under MIT license.
 

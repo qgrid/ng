@@ -1,7 +1,7 @@
 .q-grid-pivot-bar {
 	height: 100%;
 
-	label{
+	label {
 		font-weight: bold;
 	}
 
@@ -26,6 +26,10 @@
 		background: transparent;
 		border: none;
 		width: 90px;
+	}
+
+	md-input-container {
+		margin: 0;
 	}
 
 	padding: 0 10px;

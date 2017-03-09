@@ -2,7 +2,7 @@
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 	font-size: 16px;
 	line-height: 1.5;
-	word-wrap: break-word
+	word-wrap: break-word;
 }
 
 .markdown-body::before {
@@ -46,7 +46,7 @@
 
 .markdown-body p, .markdown-body blockquote, .markdown-body ul, .markdown-body ol, .markdown-body dl, .markdown-body table, .markdown-body pre {
 	margin-top: 0;
-	margin-bottom: 16px
+	margin-bottom: 16px !important;
 }
 
 .markdown-body hr {
@@ -144,7 +144,8 @@
 }
 
 .markdown-body ul, .markdown-body ol {
-	padding-left: 2em
+	padding-left: 2em;
+	white-space: nowrap;
 }
 
 .markdown-body ul.no-list, .markdown-body ol.no-list {
@@ -184,8 +185,9 @@
 
 .markdown-body table {
 	width: 100%;
+	overflow-x: auto;
+	overflow-y: hidden;
 	display: block;
-	overflow: auto;
 }
 
 .markdown-body table th {
@@ -422,7 +424,6 @@
 
 	table {
 		&.attributes {
-			display: table;
 			border-collapse: collapse;
 
 			tbody, thead {
