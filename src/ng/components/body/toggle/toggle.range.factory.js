@@ -40,20 +40,29 @@ export default (view, startCell, endCell) => {
 					return noop;
 				}
 			}
-		// case 'cell':
-		// 	{
-		// 		const startRowIndex = Math.min(startCell.rowIndex, endCell.rowIndex);
-		// 		const endRowIndex = Math.max(startCell.rowIndex, endCell.rowIndex);
+		case 'cell':
+			{
+				const startRowIndex = Math.min(startCell.rowIndex, endCell.rowIndex);
+				const endRowIndex = Math.max(startCell.rowIndex, endCell.rowIndex);
 
-		// 		const startColumnIndex = Math.min(startCell.columnIndex, endCell.columnIndex);
-		// 		const endColumnIndex = Math.max(startCell.columnIndex, endCell.columnIndex);
+				const startColumnIndex = Math.min(startCell.columnIndex, endCell.columnIndex);
+				const endColumnIndex = Math.max(startCell.columnIndex, endCell.columnIndex);
 
-		// 		if (cell && view.selection.toggleCell.canExecute(cell)) {
-		// 			return () => view.selection.toggleCell.execute(cell);
-		// 		} else {
-		// 			return noop;
-		// 		}
-		// 	}
+				const rows = Array.from(view.root.markup.body.rows).slice(startRowIndex, endRowIndex + 1);
+
+				const items = rows
+					.map(row => Array.from(row.cells).slice(startColumnIndex, endColumnIndex + 1))
+					.reduce((agg, row) => [...agg, ...row]);
+
+				if (items && view.selection.toggleCell.canExecute(items)) {
+					return () => {
+						view.selection.deselectAll.execute();
+						view.selection.toggleCell.execute(items, true)
+					};
+				} else {
+					return noop;
+				}
+			}
 		default:
 			return noop;
 	}

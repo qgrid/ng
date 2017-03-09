@@ -11,7 +11,7 @@ export default class SelectionBehavior {
 			return;
 		}
 
-		if (item instanceof Node) {
+		if (item.rows) {
 			const rows = this.model.data().rows;
 			item.rows.forEach(index => this.select(rows[index], state));
 			return;
@@ -26,7 +26,7 @@ export default class SelectionBehavior {
 			return all ? true : item.some(item => this.state(item)) ? null : false;
 		}
 
-		if (item instanceof Node) {
+		if (item.rows) {
 			const rows = this.model.data().rows;
 			const all = item.rows.every(index => this.state(rows[index]));
 			return all ? true : item.rows.some(index => this.state(rows[index])) ? null : false;

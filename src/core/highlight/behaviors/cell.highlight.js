@@ -9,10 +9,10 @@ export default class CellHighlight extends Behavior {
 	applyCore(items) {
 		const body = this.markup.body;
 		for (let item of items) {
-			if (body && body.rows && body.rows.length > item.rowIndex) {
-				const row = body.rows[item.rowIndex];
-				if (row && row.cells && row.cells.length > item.columnIndex) {
-					this.state(row.cells[item.columnIndex], true);
+			if (body && body.rows && body.rows.length > item.parentElement.rowIndex) {
+				const row = body.rows[item.parentElement.rowIndex];
+				if (row && row.cells && row.cells.length > item.cellIndex) {
+					this.state(item, true);
 				}
 			}
 		}
@@ -21,10 +21,10 @@ export default class CellHighlight extends Behavior {
 	clearCore(items) {
 		const body = this.markup.body;
 		for (let item of items) {
-			if (body && body.rows && body.rows.length > item.rowIndex) {
-				const row = body.rows[item.rowIndex];
-				if (row && row.cells && row.cells.length > item.columnIndex) {
-					this.state(row.cells[item.columnIndex], false);
+			if (body && body.rows && body.rows.length > item.parentElement.rowIndex) {
+				const row = body.rows[item.parentElement.rowIndex];
+				if (row && row.cells && row.cells.length > item.cellIndex) {
+					this.state(item, false);
 				}
 			}
 		}

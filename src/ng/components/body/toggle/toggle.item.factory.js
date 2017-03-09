@@ -28,8 +28,10 @@ export default (view, cell) => {
 			}
 		case 'cell':
 			{
-				if (cell && view.selection.toggleCell.canExecute(cell)) {
-					return () => view.selection.toggleCell.execute(cell);
+				const item = view.root.markup.body.rows[cell.rowIndex].cells[cell.columnIndex];
+
+				if (item && view.selection.toggleCell.canExecute(item)) {
+					return () => view.selection.toggleCell.execute(item);
 				} else {
 					return noop;
 				}

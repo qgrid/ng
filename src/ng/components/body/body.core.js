@@ -78,7 +78,6 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 		}
 
 		this.rangeStart = e;
-		this.view.overlay.show();
 	}
 
 	onMouseMove(e) {
@@ -87,6 +86,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 		}
 
 		if (this.rangeStart) {
+			this.view.overlay.show();
 			this.view.overlay.position(this.rangeStart, e);
 		}
 	}
