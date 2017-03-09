@@ -5,6 +5,8 @@
 		tr {
 			height: 56px;
 			th, td {
+				border-left: 1px solid transparent;
+				border-right: 1px solid transparent;
 
 				&.q-grid-select {
 					md-checkbox {
