@@ -10,6 +10,7 @@ Possible `selection-unit` values:
 Possible `selection-mode` values:
 - `single`
 - `multiple`
+- `range`
 
 You can bind an array of selected items via `selection` attribute. 
 
@@ -139,6 +140,6 @@ We have rows, cells and columns which we want to select either individually or c
 |   Object      | Individual      | Contiguous                                                                         |
 | ------------- |:-------------:  | -----                                                                              |
 | Rows          | `shift+space`   | `shift+arrows` from current position (up/right and down/left functional equivalent)|
-| Cells         | 	`space`       | `shift+arrows` from current position                                               |
+| Cells         | 	`space`      | `shift+arrows` from current position                                               |
 | Columns       | `control+space` | `shift+arrows` from current position (up/right and down/left functional equivalent)|
 | Grid          | `control+A` to select the entire grid                                                                |
