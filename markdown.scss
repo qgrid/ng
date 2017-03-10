@@ -418,8 +418,13 @@
 }
 
 .markdown-body {
-	p{
+	p {
 		white-space: normal;
+	}
+
+	.not-implemented {
+		color: #f00;
+		font-style: italic;
 	}
 
 	table {
@@ -446,7 +451,7 @@
 			}
 
 			tbody {
-				tr{
+				tr {
 					&:nth-child(odd) {
 						background: #E3ECF5;
 					}
@@ -469,6 +474,10 @@
 							background: rgba(0, 0, 0, 0.065);
 							padding: 4px;
 						}
+					}
+
+					&:last-child {
+						width: 100%;
 					}
 				}
 			}
