@@ -1,56 +1,47 @@
-# Grid service
-
-Qgrid exposes API for grid configuration and management.
-Grid service can be injected to your application:
-
+## description
+API for the grid configuration and management, grid service can be injected to your ng-controller. Used when need to extend grid configuration possibilities.
 ```javascript
 Controller.$inject = ['qgrid'];
+function Controller(qgrid){
+	this.model = qgrid.model(); // $ctrl.model
+	const service = qgrid.service(model);
+}
 ```
-
-### `model`
-
-Model is a factory function to instantiate new grid model.
-
-Usage:
-
-```javascript
-$scope.model = qgrid.model();
-```
-
 ```html
-<q-grid model="model"></q-grid>
+<q-grid model="$ctrl.model"></q-grid>
 ```
+## attributes
+<table class="attributes">
+<thead>
+	<tr>
+		<th>Parameter</th>
+		<th>Type</th>
+		<th>Description</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	  <td>model</td>
+	  <td><code>function()</code></td>
+	  <td>Factory function to instantiate new grid model that can be bind to the grid if you need more control on grid behavior
+	  </td>
+	</tr>	
+	<tr>
+	  <td>service</td>
+	  <td><code>function(model)</code></td>
+	  <td>Service contains some help functions that extends possibilities to use grid outside:
+	  	  <ul>
+	  	  	<li><code>invalidate()</code> - starts pipeline and refreshes data in the grid</li>
+	  	  </ul>
+	  </td>
+	</tr>	
+	<tr>
+	  <td>pipe</td>
+	  <td><code>object</code></td>
+	  <td>Set of usefull pipes</td>
+	</tr>	
+</tbody>
+</table>
 
-### `service`
 
-Factory function to instantiate a service.
 
-* `invalidate` - a function to start pipeline and refresh data in grid.
- 
-```javascript
-$scope.model = qgrid.model();
-var service = qgrid.service($scope.model);
-
-eventHub.on('dataIsDeprecated', function () {
-    service.invalidate();
-});
-```
- 
- ### `pipe`
- 
- Facade for pipes which are described [here](/demo/#!/pipe-model) 
- 
- Usage:
- 
-```javascript
-$scope.model = qgrid.model();
-model.data({
-    pipe: [
-        function () {...},
-        qgrid.pipe.memo,
-        qgrid.pipe.view
-    ]
-});
-```
-
- 
