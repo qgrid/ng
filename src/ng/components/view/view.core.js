@@ -30,11 +30,11 @@ class ViewCore extends Component {
 		const markup = this.root.markup;
 
 		this.head = new HeadView(model);
-		this.body = new BodyView(model, markup, valueFactory, this.timeout);
+		this.body = new BodyView(model, markup, valueFactory);
 		this.overlay = new OverlayView(model, markup);
 		this.foot = new FootView(model, valueFactory);
 		this.layout = new LayoutView(model, markup);
-		this.selection = new SelectionView(model, markup, this.$scope.$evalAsync.bind(this.$scope));
+		this.selection = new SelectionView(model, markup, this.$scope.$evalAsync.bind(this.$scope), this.timeout);
 		this.group = new GroupView(model, valueFactory);
 		this.pivot = new PivotView(model, valueFactory);
 		this.nav = new NavigationView(model, markup, this.$scope.$evalAsync.bind(this.$scope));

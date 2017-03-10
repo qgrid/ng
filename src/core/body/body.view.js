@@ -4,10 +4,9 @@ import Aggregation from 'core/services/aggregation';
 import AppError from 'core/infrastructure/error';
 import Log from 'core/infrastructure/log';
 import Node from 'core/node/node';
-import {GRID_PREFIX} from 'core/definition';
 
 export default class BodyView extends View {
-	constructor(model, markup, valueFactory, apply) {
+	constructor(model, markup, valueFactory) {
 		super(model);
 
 		this.markup = markup;
@@ -16,17 +15,6 @@ export default class BodyView extends View {
 		this._valueFactory = valueFactory;
 
 		model.viewChanged.watch(() => this.invalidate(model));
-		model.selectionChanged.watch(e => {
-			if (!e || e.changes.hasOwnProperty('mode')){
-				apply(() => {
-					if (model.selection().mode === 'range') {
-						this.markup.body.classList.add(`${GRID_PREFIX}-select-none`);
-					} else {
-						this.markup.body.classList.remove(`${GRID_PREFIX}-select-none`);
-					}
-				});
-			}
-		});
 	}
 
 	invalidate(model) {

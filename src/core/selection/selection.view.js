@@ -1,17 +1,22 @@
 import View from '../view/view';
 import Command from 'core/infrastructure/command';
-import behaviorFactory from './behaviors/selection.behavior.factory';
-import {isUndefined} from 'core/services/utility';
+import behaviorFactory from './mode-behaviors/selection.behavior.factory';
+import {isUndefined, isFunction} from 'core/services/utility';
 import Log from 'core/infrastructure/log';
 import Shortcut from 'core/infrastructure/shortcut';
 import * as columnService from 'core/column/column.service';
+import {GRID_PREFIX} from 'core/definition';
+
+import selectItemFactory from './unit-behaviors/select.item.factory';
+import selectRangeFactory from './unit-behaviors/select.range.factory';
 
 export default class SelectionView extends View {
-	constructor(model, markup, apply) {
+	constructor(model, markup, apply, timeoutApply) {
 		super(model);
 
 		this.behavior = behaviorFactory(model, markup);
 		this.markup = markup;
+		this.apply = apply;
 		const shortcut = new Shortcut(markup.document, apply);
 		const commands = this.commands;
 		shortcut.register('selectionNavigation', commands);
@@ -20,7 +25,7 @@ export default class SelectionView extends View {
 		this.toggleColumn = commands.get('toggleColumn');
 		this.toggleCell = commands.get('toggleCell');
 		
-		this.deselectAll = commands.get('deselectAll');
+		this.reset = commands.get('reset');
 
 		model.viewChanged.watch(() => {
 			this.behavior = behaviorFactory(model, markup);
@@ -33,6 +38,25 @@ export default class SelectionView extends View {
 		});
 
 		model.selectionChanged.watch(e => {
+			if (!e || e.changes.hasOwnProperty('mode')){
+				timeoutApply(() => {
+
+					const newClassName = `${GRID_PREFIX}-select-${model.selection().mode}`;
+
+					this.markup.body.classList.add(newClassName);
+					this.markup.head.classList.add(newClassName);
+					this.markup.foot.classList.add(newClassName);
+					
+					if (e && e.changes.mode.oldValue) {
+						const oldClassName = `${GRID_PREFIX}-select-${e.changes.mode.oldValue}`;
+												
+						this.markup.body.classList.remove(oldClassName);
+						this.markup.head.classList.remove(oldClassName);
+						this.markup.foot.classList.remove(oldClassName);
+					}
+				});
+			}
+
 			if (!e || e.changes.hasOwnProperty('unit') || e.changes.hasOwnProperty('mode')) {
 				this.behavior = behaviorFactory(model, markup);
 				model.navigation({column: -1, row: -1});
@@ -198,7 +222,7 @@ export default class SelectionView extends View {
 				},
 				canExecute: () => model.selection().mode === 'multiple'
 			}),
-			deselectAll: new Command({
+			reset: new Command({
 				execute: () => {
 					this.behavior.clear();
 					
@@ -225,5 +249,16 @@ export default class SelectionView extends View {
 		}
 
 		return this.behavior.state(item) === null;
+	}
+
+
+	select(startCell, endCell) {
+		const select = isUndefined(endCell) 
+			? selectItemFactory(this, startCell) 
+			: selectRangeFactory(this, startCell, endCell);
+
+		if (select && isFunction(select)) {
+			this.apply(select);
+		}
 	}
 }

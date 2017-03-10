@@ -2,10 +2,6 @@ import Directive from 'ng/directives/directive';
 import {VIEW_CORE_NAME, BODY_CORE_NAME} from 'ng/definition';
 import EventListener from 'core/infrastructure/event.listener';
 import * as pathFinder from 'ng/services/path.find';
-import {isFunction, isUndefined} from 'core/services/utility';
-
-import toggleItemFactory from 'ng/components/body/toggle/toggle.item.factory';
-import toggleRangeFactory from 'ng/components/body/toggle/toggle.range.factory';
 
 class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	constructor($scope, $element, $document) {
@@ -18,9 +14,9 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 		this.documentListener = new EventListener(this, this.document);
 
 		this.listener = new EventListener(this, this.element);
-		this.listener.on('scroll', this.onScroll);
 		
-		this.rangeStart = null;
+		this.rangeStartPoint = null;
+		this.rangeStartCell = null;
 
 		Object.defineProperty($scope, '$view', {get: () => this.view});
 	}
@@ -40,6 +36,8 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	}
 
 	onInit() {
+		this.listener.on('scroll', this.onScroll);
+		
 		this.listener.on('click', this.onClick);
 		
 		this.listener.on('mousedown', this.onMouseDown);
@@ -53,6 +51,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	}
 
 	onClick(e) {
+		const selection = this.view.model.selection();
 		const cell = pathFinder.cell(e.path);
 		if (cell) {
 			this.view.model.navigation({
@@ -66,8 +65,8 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 				this.$scope.$evalAsync(() => this.view.edit.cell.enter.execute(cell));
 			}
 
-			if (cell.column.type !== 'select') {
-				this.toggle(cell);
+			if (cell.column.type !== 'select' && selection.mode !== 'range') {
+				this.select(cell);
 			}
 		}
 	}
@@ -77,7 +76,15 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 			return;
 		}
 
-		this.rangeStart = e;
+		this.rangeStartPoint = {
+			x: e.pageX,
+			y: e.pageY
+		};
+
+		this.rangeStartCell = pathFinder.cell(e.path);
+
+		this.view.overlay.show();
+		this.view.overlay.position(this.rangeStartPoint, this.rangeStartPoint);
 	}
 
 	onMouseMove(e) {
@@ -85,9 +92,8 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 			return;
 		}
 
-		if (this.rangeStart) {
-			this.view.overlay.show();
-			this.view.overlay.position(this.rangeStart, e);
+		if (this.rangeStartPoint) {
+			this.view.overlay.position(this.rangeStartPoint, { x: e.pageX, y: e.pageY });
 		}
 	}
 
@@ -96,25 +102,18 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 			return;
 		}
 		
-		const startCell = pathFinder.cell(this.rangeStart.path);
+		const startCell = this.rangeStartCell;
 		const endCell = pathFinder.cell(e.path);
-		if (startCell && endCell && startCell !== endCell) {
-			this.toggle(startCell, endCell);
+		if (startCell && endCell) {
+			this.view.selection.select(startCell, endCell);
 		}
 
-		this.rangeStart = null;
+		this.rangeStartPoint = null;
+		this.rangeStartCell = null;
+		
 		this.view.overlay.hide();
 	}
 
-	toggle(startCell, endCell) {
-		const toggle = isUndefined(endCell) 
-			? toggleItemFactory(this.view, startCell) 
-			: toggleRangeFactory(this.view, startCell, endCell);
-
-		if (toggle && isFunction(toggle)) {
-			this.$scope.$evalAsync(toggle);
-		}
-	}
 
 	get isRange() {
 		const model = this.view.model;

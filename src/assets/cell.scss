@@ -1,3 +1,5 @@
+@import "mixins";
+
 td, th {
 	vertical-align: middle;
 	text-align: left;
@@ -29,6 +31,12 @@ thead {
 }
 
 thead, tfoot, tbody {
+
+	&.q-grid-select-range {
+		@include user-select(none);
+		cursor: default;
+	}
+
 	td, th {
 		width: 150px;
 		min-width: 150px;

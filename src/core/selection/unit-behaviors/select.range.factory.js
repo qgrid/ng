@@ -14,10 +14,10 @@ export default (view, startCell, endCell) => {
 				const endIndex = Math.max(startCell.rowIndex, endCell.rowIndex);
 				const items = rows.slice(startIndex, endIndex + 1);
 
-				if (items && view.selection.toggleRow.canExecute(items)) {
+				if (items && view.toggleRow.canExecute(items)) {
 					return () => {
-						view.selection.deselectAll.execute();
-						view.selection.toggleRow.execute(items, true)
+						view.reset.execute();
+						view.toggleRow.execute(items, true);
 					};
 				} else {
 					return noop;
@@ -29,12 +29,12 @@ export default (view, startCell, endCell) => {
 				const endIndex = Math.max(startCell.columnIndex, endCell.columnIndex);
 
 				const columns = columnService.lineView(model.view().columns);
-				const items = columns.slice(startIndex, endIndex + 1).map(x => x.key);
+				const items = columns.slice(startIndex, endIndex + 1).map(x => x.model.key);
 
-				if (items && view.selection.toggleColumn.canExecute(items)) {
+				if (items && view.toggleColumn.canExecute(items)) {
 					return () => {
-						view.selection.deselectAll.execute();
-						view.selection.toggleColumn.execute(items, true)
+						view.reset.execute();
+						view.toggleColumn.execute(items, true);
 					};
 				} else {
 					return noop;
@@ -48,16 +48,16 @@ export default (view, startCell, endCell) => {
 				const startColumnIndex = Math.min(startCell.columnIndex, endCell.columnIndex);
 				const endColumnIndex = Math.max(startCell.columnIndex, endCell.columnIndex);
 
-				const rows = Array.from(view.root.markup.body.rows).slice(startRowIndex, endRowIndex + 1);
+				const rows = Array.from(view.markup.body.rows).slice(startRowIndex, endRowIndex + 1);
 
 				const items = rows
 					.map(row => Array.from(row.cells).slice(startColumnIndex, endColumnIndex + 1))
 					.reduce((agg, row) => [...agg, ...row]);
 
-				if (items && view.selection.toggleCell.canExecute(items)) {
+				if (items && view.toggleCell.canExecute(items)) {
 					return () => {
-						view.selection.deselectAll.execute();
-						view.selection.toggleCell.execute(items, true)
+						view.reset.execute();
+						view.toggleCell.execute(items, true);
 					};
 				} else {
 					return noop;
