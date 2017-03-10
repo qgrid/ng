@@ -1,7 +1,7 @@
-# Column chooser
+## column chooser
 Column chooser plugin is created to manage the visibility of grid columns
 
-### attributes
+## attributes
 <table class="attributes">
 <thead>
 	<tr>
@@ -14,7 +14,7 @@ Column chooser plugin is created to manage the visibility of grid columns
 	<tr>
 	  <td>canAggregate</td>
 	  <td><code>bool</code></td>
-	  <td>Show/hide aggregation setting for the column</td>
+	  <td>Show/hide aggregation setting for the column, by default - false</td>
 	</tr>
 </tbody>
 </table>
