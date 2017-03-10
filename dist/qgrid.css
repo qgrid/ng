@@ -183,7 +183,7 @@
     border-right: 1px solid rgba(0, 0, 0, 0.12);
     cursor: col-resize;
     visibility: hidden; }
-  .q-grid th:hover .q-grid-divider, .q-grid th.q-grid-highlight-prev .q-grid-divider {
+  .q-grid th:hover .q-grid-divider, .q-grid th.q-grid-highlighted-prev .q-grid-divider {
     visibility: visible; }
   .q-grid .q-grid-toolbar-left, .q-grid .q-grid-toolbar-right {
     max-width: 250px;
