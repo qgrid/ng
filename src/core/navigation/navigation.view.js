@@ -78,7 +78,13 @@ export default class NavigationView extends View {
 			|| container.left > target.right
 			|| container.right < target.left
 			|| container.right < target.right) {
-			outer.scrollLeft = target.left - container.left + this.model.layout().scroll.left;
+			if (container.left < target.left
+				|| container.right < target.right) {
+				outer.scrollLeft = target.width + this.model.layout().scroll.left;
+			} else if (container.left > target.left
+				|| container.left > target.right) {
+				outer.scrollLeft = target.left - container.left + this.model.layout().scroll.left;
+			}
 		}
 		if (container.top > target.top
 			|| container.top > target.bottom
