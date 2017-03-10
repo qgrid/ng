@@ -69,5 +69,10 @@ The grid allows you to display data summaries within its footer. There are sever
 	  <td><code>string</code></td>
 	  <td>Default value is <code>'; '</code>. Used by <code>join</code> aggregation</td>
 	</tr>
+		<tr>
+   	  <td>compare</td>
+   	  <td><code>function</code></td>
+   	  <td class="not-implemented">not implemented</td>
+   	</tr>
 </tbody>
 </table>

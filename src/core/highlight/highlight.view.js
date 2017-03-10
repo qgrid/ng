@@ -14,7 +14,7 @@ export default class HighlightView extends View {
 
 		let blur = noop;
 		this.column = new Command({
-			execute: (state, column) => {
+			execute: (column, state) => {
 				if (state) {
 					blur = this.highlight(column.key, 'highlight');
 				}
