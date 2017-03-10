@@ -1,6 +1,6 @@
-import SelectionBehavior from './selection.behavior';
+import SelectionState from './selection.state';
 
-export default class MultipleSelection extends SelectionBehavior {
+export default class MultipleSelectionState extends SelectionState {
 	constructor(model) {
 		super(model);
 		this.items = new Set();

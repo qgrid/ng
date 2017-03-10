@@ -66,7 +66,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 			}
 
 			if (cell.column.type !== 'select' && selection.mode !== 'range') {
-				this.select(cell);
+				this.view.selection.select(cell);
 			}
 		}
 	}

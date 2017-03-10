@@ -1,4 +1,5 @@
 import View from 'core/view/view';
+import AppError from 'core/infrastructure/error';
 
 export default class OverlayView extends View {
 	constructor(model, markup){
@@ -15,7 +16,9 @@ export default class OverlayView extends View {
 
 	position(start, end){
 		if (!this.overlay) {
-			return;
+			throw new AppError(					
+				'overlay',
+				'Overlay element has not been created. Call show() emthod first.');
 		}
 
 		this.overlay.style.left = `${Math.min(start.x, end.x)}px`;
@@ -43,7 +46,9 @@ export default class OverlayView extends View {
 
 	hide() {
 		if (!this.overlay) {
-			return;
+			throw new AppError(					
+				'overlay',
+				'Overlay element has not been created. Call show() emthod first.');
 		}
 
 		this.overlay.remove();

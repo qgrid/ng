@@ -1,20 +1,17 @@
 import View from '../view/view';
 import Command from 'core/infrastructure/command';
-import behaviorFactory from './mode-behaviors/selection.behavior.factory';
-import {isUndefined, isFunction} from 'core/services/utility';
+import stateFactory from './state/selection.state.factory';
+import {isUndefined} from 'core/services/utility';
 import Log from 'core/infrastructure/log';
 import Shortcut from 'core/infrastructure/shortcut';
 import * as columnService from 'core/column/column.service';
 import {GRID_PREFIX} from 'core/definition';
 
-import selectItemFactory from './unit-behaviors/select.item.factory';
-import selectRangeFactory from './unit-behaviors/select.range.factory';
-
 export default class SelectionView extends View {
 	constructor(model, markup, apply, timeoutApply) {
 		super(model);
 
-		this.behavior = behaviorFactory(model, markup);
+		this.behavior = stateFactory(model, markup);
 		this.markup = markup;
 		this.apply = apply;
 		const shortcut = new Shortcut(markup.document, apply);
@@ -28,12 +25,12 @@ export default class SelectionView extends View {
 		this.reset = commands.get('reset');
 
 		model.viewChanged.watch(() => {
-			this.behavior = behaviorFactory(model, markup);
+			this.behavior = stateFactory(model, markup);
 			model.selection({items: this.behavior.view});
 		});
 
 		model.sortChanged.watch(() => {
-			this.behavior = behaviorFactory(model, markup);
+			this.behavior = stateFactory(model, markup);
 			model.selection({items: this.behavior.view});
 		});
 
@@ -58,7 +55,7 @@ export default class SelectionView extends View {
 			}
 
 			if (!e || e.changes.hasOwnProperty('unit') || e.changes.hasOwnProperty('mode')) {
-				this.behavior = behaviorFactory(model, markup);
+				this.behavior = stateFactory(model, markup);
 				model.navigation({column: -1, row: -1});
 				model.selection({items: this.behavior.view});
 			}
@@ -78,13 +75,8 @@ export default class SelectionView extends View {
 						item = model.view().rows;
 					}
 
-					if (isUndefined(state)) {
-						state = this.behavior.state(item);
-						this.behavior.select(item, state === null || !state);
-					}
-					else {
-						this.behavior.select(item, state);
-					}
+					this.behavior.toggle(item, state);
+
 					model.selection({items: this.behavior.view}, {source: 'toggle'});
 					Log.info('toggle.selection items count ', this.behavior.view.length);
 				}
@@ -95,13 +87,7 @@ export default class SelectionView extends View {
 						item = columnService.lineView(model.view().columns).map(c => c.key);
 					}
 
-					if (isUndefined(state)) {
-						state = this.behavior.state(item);
-						this.behavior.select(item, state === null || !state);
-					}
-					else {
-						this.behavior.select(item, state);
-					}
+					this.behavior.toggle(item, state);
 
 					model.selection({items: this.behavior.view}, {source: 'toggle'});
 					Log.info('toggle.selection items count ', this.behavior.view.length);
@@ -114,13 +100,7 @@ export default class SelectionView extends View {
 					// 	item = columnService.lineView(model.view().columns);
 					// }
 
-					if (isUndefined(state)) {
-						state = this.behavior.state(item);
-						this.behavior.select(item, state === null || !state);
-					}
-					else {
-						this.behavior.select(item, state);
-					}
+					this.behavior.toggle(item, state);
 
 					model.selection({items: this.behavior.view}, {source: 'toggle'});
 					Log.info('toggle.selection items count ', this.behavior.view.length);
@@ -253,12 +233,110 @@ export default class SelectionView extends View {
 
 
 	select(startCell, endCell) {
-		const select = isUndefined(endCell) 
-			? selectItemFactory(this, startCell) 
-			: selectRangeFactory(this, startCell, endCell);
+		return isUndefined(endCell) 
+			? this.selectCell(startCell) 
+			: this.selectRange(startCell, endCell);
+	}
 
-		if (select && isFunction(select)) {
-			this.apply(select);
+	selectCell(cell) {
+		const selection = this.model.selection();
+		const view = this.model.view();
+
+		switch (selection.unit) {
+			case 'row':
+				{
+					const rows = view.rows;
+					const row = rows[cell.rowIndex];
+					if (row && this.toggleRow.canExecute(row)) {
+						this.apply(() => this.toggleRow.execute(row));
+					}
+
+					break;
+				}
+			case 'column':
+				{
+					const columns = columnService.lineView(view.columns);
+					const column = columns.find(c => c.model === cell.column).model.key;
+
+					if (column && this.toggleColumn.canExecute(column)) {
+						return this.apply(() => this.toggleColumn.execute(column));
+					} 
+
+					break;
+				}
+			case 'cell':
+				{
+					const item = this.markup.body.rows[cell.rowIndex].cells[cell.columnIndex];
+
+					if (item && this.toggleCell.canExecute(item)) {
+						return this.apply(() => this.toggleCell.execute(item));
+					}
+
+					break;
+				}
+		}
+	}
+
+	selectRange(startCell, endCell) {
+		const selection = this.model.selection();
+		const view = this.model.view();
+
+		switch (selection.unit) {
+			case 'row':
+				{
+					const startIndex = Math.min(startCell.rowIndex, endCell.rowIndex);
+					const endIndex = Math.max(startCell.rowIndex, endCell.rowIndex);
+					const items = view.rows.slice(startIndex, endIndex + 1);
+
+					if (items && this.toggleRow.canExecute(items)) {
+						this.apply(() => {
+							this.reset.execute();
+							this.toggleRow.execute(items, true);
+						});
+					}
+
+					break;
+				}
+			case 'column':
+				{
+					const startIndex = Math.min(startCell.columnIndex, endCell.columnIndex);
+					const endIndex = Math.max(startCell.columnIndex, endCell.columnIndex);
+
+					const columns = columnService.lineView(view.columns);
+					const items = columns.slice(startIndex, endIndex + 1).map(x => x.model.key);
+
+					if (items && this.toggleColumn.canExecute(items)) {
+						this.apply(() => {
+							this.reset.execute();
+							this.toggleColumn.execute(items, true);
+						});
+					} 
+
+					break;
+				}
+			case 'cell':
+				{
+					const startRowIndex = Math.min(startCell.rowIndex, endCell.rowIndex);
+					const endRowIndex = Math.max(startCell.rowIndex, endCell.rowIndex);
+
+					const startColumnIndex = Math.min(startCell.columnIndex, endCell.columnIndex);
+					const endColumnIndex = Math.max(startCell.columnIndex, endCell.columnIndex);
+
+					const rows = Array.from(this.markup.body.rows).slice(startRowIndex, endRowIndex + 1);
+
+					const items = rows
+						.map(row => Array.from(row.cells).slice(startColumnIndex, endColumnIndex + 1))
+						.reduce((agg, row) => [...agg, ...row]);
+
+					if (items && this.toggleCell.canExecute(items)) {
+						this.apply(() => {
+							this.reset.execute();
+							this.toggleCell.execute(items, true);
+						});
+					}
+
+					break;
+				}
 		}
 	}
 }

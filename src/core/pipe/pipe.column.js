@@ -28,7 +28,7 @@ function addDataColumns(columns, model, context) {
 		columnService.dataView(
 			dataColumns
 				.filter((c) => {
-					if (c.type === 'select' && !isShowCheckboxes(model)){
+					if (c.type === 'select' && !canAddSelectColumn(model)){
 						return false;
 					}
 
@@ -118,7 +118,7 @@ function addPivotColumns(columns, heads) {
 	return rows;
 }
 
-function isShowCheckboxes(model){
+function canAddSelectColumn(model){
 	const selection = model.selection();
 	return selection.unit === 'row' && selection.mode !== 'range';
 }
@@ -138,7 +138,7 @@ export default function pipeColumn(memo, context, next) {
 	 *
 	 */
 	const selectColumn = dataColumns.find(item => item.type === 'select');
-	if (isShowCheckboxes(model) && !selectColumn) {
+	if (canAddSelectColumn (model) && !selectColumn) {
 		addSelectColumn(columns, {rowspan: heads.length, row: 0});
 	}
 

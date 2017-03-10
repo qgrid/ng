@@ -1,7 +1,7 @@
-import {isArray} from 'core/services/utility';
+import {isArray, isUndefined} from 'core/services/utility';
 import Node from 'core/node/node';
 
-export default class SelectionBehavior {
+export default class SelectionState {
 	constructor(model) {
 		this.model = model;
 	}
@@ -21,6 +21,16 @@ export default class SelectionBehavior {
 		this.selectCore(item, state);
 	}
 
+	toggle(item, state) {
+		if (isUndefined(state)) {
+			state = this.state(item);
+			return this.select(item, state === null || !state);
+		}
+		else {
+			return this.select(item, state);
+		}
+	}
+
 	state(item) {
 		if (isArray(item)) {
 			const all = item.every(item => this.state(item));
@@ -36,7 +46,6 @@ export default class SelectionBehavior {
 		return this.stateCore(item);
 	}
 
-
 	clear() {
 		return this.clearCore();
 	}
@@ -50,7 +59,6 @@ export default class SelectionBehavior {
 	stateCore() {
 		return false;
 	}
-
 
 	get view() {
 		return [];
