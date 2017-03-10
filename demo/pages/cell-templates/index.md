@@ -172,27 +172,51 @@ The grid includes a comprehensive set of appearance and behavior customization o
 	</tr>
 	<tr>
 	  <td>$sort</td>
-	  <td>
+	  <td>Contains commands and function for the rendering column sort indicators:
 		<ul class="attributes">
      	  	<li>
-     		  	<code>toggle.execute(key)</code> - toggle column with key sorting between desc/asc and none 
+     		  	<code>toggle.execute(column)</code> - toggle column with key sorting between desc/asc and none 
      		</li>   
      	  	<li>
-     		  	<code>direction(key)</code> - get direction of column with key
+     		  	<code>direction(column)</code> - returns sort direction(desc/asc) of the column
      		</li>   
      	  	<li>
-     		  	<code>order(key)</code> - returns value that should be renered for the pivot cell
+     		  	<code>order(key)</code> - returns priority index of the sort for the column
      		</li>   
 	   </ul>
 	  </td>
 	</tr>
 	<tr>
 	  <td>$filter</td>
-	  <td></td>
+	  <td>Contains functions for the rendering column filter indicators:
+		<ul class="attributes">
+     	  	<li>
+     		  	<code>has(column)</code> - indicates if column contains filter
+     		</li>   
+	   </ul>
+	  </td>
 	</tr>
 	<tr>
 	  <td>$edit</td>
-	  <td></td>
+	  <td><code>$edit.cell</code> property contains command and properties that provides possibility of edit behavior:
+		<ul class="attributes">
+     	  	<li>
+     		  	<code>enter.execute(cell, e)</code> - activates edit mode for the cell
+     		</li>   
+     	  	<li>
+     		  	<code>commit.execute(cell, e)</code> - persist new value of the cell
+     		</li>   
+     	  	<li>
+     		  	<code>cancel.execute(cell, e)</code> - to not persist new value and exit from edit mode 
+     		</li>   
+     	  	<li>
+     		  	<code>reset.execute(cell, e)</code> - reset edit value to the origin cell value
+     		</li>   
+     	  	<li>
+     		  	<code>value</code> - get/set edit value, initially it equals to cell value
+     		</li>   
+	   </ul>	  
+	  </td>
 	</tr>
 </tbody>
 </table>
