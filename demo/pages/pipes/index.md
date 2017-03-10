@@ -2,15 +2,32 @@
 The grid data processing is inspired by middleware pattern. Every pipe in queue gets data from previous one, handles it, and passes to the next pipe. By default the whole pipeline is triggered when some pipeline-related property is changed (e.g. filters, order etc.). User is allowed to modify pipeline. Pipe is a part of `data` model of qgrid. 
 
 ## examples
-To add basic `fetch` function to pipe, you need to create a function that meets middleware signature and prepend it to default grid pipes.
+To add basic `fetch` function to pipe, you need to create a function that meets middleware signature and prepend it to default grid pipes
 ```javascript
 Controller.$inject = ['qgrid'];
 function Controller(qgrid){
    var gridModel = qgrid.model();
-   var data = gridModel.data();
-   var pipes = data.pipes;
+   var pipes = qgrid.pipeUnit.default;
    var fetch = (data, context, next) => {
       $http.get('/path/to/data')
+         .then(response => {
+            next(response.data);
+         });
+   };
+	
+   gridModel.data({
+      pipe: [fetch].concat(pipes)
+   });
+}
+```
+Everything is on server side
+```javascript
+Controller.$inject = ['qgrid'];
+function Controller(qgrid){
+   var gridModel = qgrid.model();
+   var pipes = qgrid.pipeUnit.view;
+   var fetch = (data, context, next) => {
+      $http.get('/path/to/data', gridModel.sort().by, gridModel.filter().by, gridModel.pagination().current)
          .then(response => {
             next(response.data);
          });
