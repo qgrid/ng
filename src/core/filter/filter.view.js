@@ -5,7 +5,8 @@ export default class FilterView extends View {
 		super(model);
 	}
 
-	has(key) {
+	has(column) {
+		const key = column.key;
 		const filterBy = this.model.filter().by;
 		return filterBy.hasOwnProperty(key);
 	}

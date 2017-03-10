@@ -172,7 +172,19 @@ The grid includes a comprehensive set of appearance and behavior customization o
 	</tr>
 	<tr>
 	  <td>$sort</td>
-	  <td></td>
+	  <td>
+		<ul class="attributes">
+     	  	<li>
+     		  	<code>toggle.execute(key)</code> - toggle column with key sorting between desc/asc and none 
+     		</li>   
+     	  	<li>
+     		  	<code>direction(key)</code> - get direction of column with key
+     		</li>   
+     	  	<li>
+     		  	<code>order(key)</code> - returns value that should be renered for the pivot cell
+     		</li>   
+	   </ul>
+	  </td>
 	</tr>
 	<tr>
 	  <td>$filter</td>
