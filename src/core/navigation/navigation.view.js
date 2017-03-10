@@ -12,8 +12,8 @@ export default class NavigationView extends View {
 		this.model = model;
 		this.document = this.markup.document;
 		const shortcut = new Shortcut(this.document, apply);
-		const navigation = new Navigation(model);
-		shortcut.register('navigation', navigation.commands);
+		const navigation = new Navigation(model, markup);
+		this.shortcutOff = shortcut.register('navigation', navigation.commands);
 
 
 		this.blur = new Command({
@@ -101,4 +101,7 @@ export default class NavigationView extends View {
 		}
 	}
 
+	destroy(){
+		this.shortcutOff();
+	}
 }

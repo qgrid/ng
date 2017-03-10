@@ -1,10 +1,10 @@
 # Navigation model
 
 ### New Navigation
-To create new Navigation instance pass to it navigation model, e.g.
+To create new Navigation instance pass to it navigation model and markup, e.g.
 
 ```javascript
-const navigation = new Navigation(navigationModel);
+const navigation = new Navigation(navigationModel, markup);
 ```
 
 ### Default navigation model
