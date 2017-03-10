@@ -2,7 +2,7 @@
 You can manage navigation by setting values of navigation model properties to required values. Also when you use keyboard-navigation/keyboard-selection commands navigation model is changed, when you click on cell navigation model is changed too.
 
 
-### New Navigation
+## attributes
 <table class="attributes">
 <thead>
 	<tr>
