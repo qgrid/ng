@@ -36,11 +36,12 @@ tbody {
 				}
 			}
 
-			&.q-grid-selected {
+			&.q-grid-selected,
+			&.q-grid-sorted {
 				background-color: $selected;
 			}
 
-			&.q-grid-highlight {
+			&.q-grid-highlighted {
 				&.q-grid-text-area {
 					> span {
 						@include multiLine($lineCount: 3, $bgColor: #eee);
