@@ -1,97 +1,52 @@
-# Visibility
+## description
+Visibility model and plugin is created to manage the visibility of grid components and plugins
 
-Visibility plugin is created to manage the visibility of grid components and plugins
-
-### Add visibility markup
-```html
-<q-grid:visibility></q-grid:visibility>
-```
-
-Include q-grid:visibility tag to  your template, e.g.
-
-```html
-<q-grid model="$ctrl.gridModel">
-    <q-grid:columns generation="deep"></q-grid:columns>
-    <q-grid:toolbar>
-        <q-grid:template for="right">
-            <q-grid:visibility>
-            </q-grid:visibility>
-        </q-grid:template>
-    </q-grid:toolbar>
-
-    <q-grid:visibility toolbar.left="true"
-        toolbar.right="true">
-    </q-grid:visibility>
-</q-grid>
-```
-
-### Visibility properties
-Default visibility model properties:
-
-```javascript
-            head : true,
-            foot : true,
-            body : true,
-            toolbar : {
-                top: true,
-                bottom: true,
-                right: false,
-                left: false
-            },
-            plugin = {}
-```
-
-Visibility properties are divided to two types:
-
-1. Plain
-
-   These properties have boolean values: true or false.
-
-   E.g.
-   * head
-   * foot
-   * body
-
-2. Nested
-
-   These properties are objects and contain other properties.
-   E.g.
-   * toolbar
-   * plugin
-
-
-
-### Access from grid
-You have access to visibility model from grid model
-Call visibility() on grid component
-
-```javascript
-   Controller.$inject = ['qgrid', '$log'];
-   export default function Controller(qgrid, Log) {
-      const model = qgrid.model();
-      Log.info(model.visibility()); // here it is
-   }
-```
-
-#### Get visibility property
-To get any visibility model property as soon as model.visibility() returns object:
-
-```javascript
-    Log.info('dot notation for plain visibility property', model.visibility().head);
-    Log.info('dot notation for nested visibility property', model.visibility().toolbar.top);
-
-    Log.info('bracket notation for plain visibility property', model.visibility()['head']);
-    Log.info('bracket notation for nested visibility property', model.visibility()['toolbar']['bottom']);
-```
-
-#### Set visibility properties
-You can manage visibility by setting values of visibility model properties to required values.
-To change visibility model properties pass object with new values.
-
-```javascript
-   model.visibility({head: false, toolbar: {top: false}});
-```
-
-### Visibility model behavior
-
-When visibility property value is true component or plugin connected to this property is visible, else isn't visible
+## attributes
+<table class="attributes">
+<thead>
+	<tr>
+		<th>Parameter</th>
+		<th>Type</th>
+		<th>Description</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	  <td>head</td>
+	  <td><code>bool</code></td>
+	  <td>Show/hide grid header	  
+	  </td>
+	</tr>	
+	<tr>
+	  <td>foot</td>
+	  <td><code>bool</code></td>
+	  <td>Show/hide grid footer	  
+	  </td>
+	</tr>	
+	<tr>
+	  <td>body</td>
+	  <td><code>bool</code></td>
+	  <td>Show/hide grid body	  
+	  </td>
+	</tr>
+	<tr>
+	  <td>toolbar</td>
+	  <td><code>object</code></td>
+	  <td>Manage toolbar visibility:
+	  	  <ul>
+	  	  	<li><code>top</code> - Show/hide top toolbar</li>
+	  	  	<li><code>right</code> - Show/hide right toolbar</li>
+	  	  	<li><code>bottom</code> - Show/hide bottom toolbar</li>
+	  	  	<li><code>left</code> - Show/hide left toolbar</li>
+	  	  </ul>
+	  </td>
+	</tr>	
+	<tr>
+	  <td>plugin</td>
+	  <td><code>object</code></td>
+	  <td>When plugin is added to the grid scope, <code>visibility.plugin</code> model is automatically filled by plugin key, 
+	  so the visibility of the plugin can be manipulated throught the <code>visibility.plugin</code> property 	  
+	  </td>
+	</tr>			
+</tbody>
+</table>

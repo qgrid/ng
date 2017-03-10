@@ -1,7 +1,7 @@
 <tr ng-repeat="$row in $view.head.rows track by $index">
 	<th ng-repeat="$column in $row track by $column.model.key"
-		 ng-mouseover="$view.highlight.column.execute(true, $column.model)"
-		 ng-mouseleave="$view.highlight.column.execute(false, $column.model)"
+		 ng-mouseover="$view.highlight.column.execute($column.model, true)"
+		 ng-mouseleave="$view.highlight.column.execute($column.model, false)"
 		 rowspan="{{$column.rowspan}}"
 		 colspan="{{$column.colspan}}"
 		 q-grid:drag="$head.transfer($cell)"
