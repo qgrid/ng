@@ -8,9 +8,13 @@ export default class Navigation {
 		this.markup = markup;
 	}
 
-	gridIsActive(){
+	isActive() {
 		const active = this.document.activeElement;
 		return active && active.tBodies && active.tBodies[0] === this.markup.body;
+	}
+
+	rowIndex(val) {
+		return this.document.elementFromPoint(0, val);
 	}
 
 	get commands() {
@@ -18,7 +22,7 @@ export default class Navigation {
 		const commands = {
 			goDown: new Command({
 				shortcut: 'down',
-				canExecute: () => this.gridIsActive()
+				canExecute: () => this.isActive()
 				&& (model.navigation().row < model.view().rows.length - 1)
 				&& model.edit().editMode == 'view',
 				execute: () => {
@@ -34,7 +38,7 @@ export default class Navigation {
 			}),
 			goUp: new Command({
 				shortcut: 'up',
-				canExecute: () => this.gridIsActive()
+				canExecute: () => this.isActive()
 				&& (model.navigation().row > 0)
 				&& model.edit().editMode == 'view',
 				execute: () => {
@@ -43,7 +47,7 @@ export default class Navigation {
 			}),
 			goRight: new Command({
 				shortcut: 'right',
-				canExecute: () => this.gridIsActive()
+				canExecute: () => this.isActive()
 				&& (model.navigation().column < columnService.lineView(model.view().columns).length - 2)
 				&& model.edit().editMode == 'view',
 				execute: () => {
@@ -59,37 +63,16 @@ export default class Navigation {
 			}),
 			goLeft: new Command({
 				shortcut: 'left',
-				canExecute: () => this.gridIsActive()
+				canExecute: () => this.isActive()
 				&& (model.navigation().column > 0)
 				&& model.edit().editMode == 'view',
 				execute: () => {
 					model.navigation({column: model.navigation().column - 1});
 				}
 			}),
-			focusFirstCellColumn: new Command({
+			focusFirstRowTable: new Command({
 				shortcut: 'home',
-				canExecute: () => this.gridIsActive()
-				&& (model.navigation().column > 0
-				|| model.navigation().column == -1)
-				&& model.edit().editMode == 'view',
-				execute: () => {
-					model.navigation({column: 0});
-				}
-			}),
-			focusLastCellColumn: new Command({
-				shortcut: 'end',
-				canExecute: () => this.gridIsActive()
-				&& (model.navigation().column < columnService.lineView(model.view().columns).length - 1
-				|| model.navigation().column >= -1)
-				&& model.edit().editMode == 'view',
-				execute: () => {
-					const index = columnService.lineView(model.view().columns).length - 1;
-					model.navigation({column: index - 1});
-				}
-			}),
-			focusFirstCellRow: new Command({
-				shortcut: 'pageUp',
-				canExecute: () => this.gridIsActive()
+				canExecute: () => this.isActive()
 				&& model.edit().editMode == 'view',
 				execute: () => {
 					const nav = {row: 0};
@@ -99,9 +82,9 @@ export default class Navigation {
 					model.navigation(nav);
 				}
 			}),
-			focusLastCellRow: new Command({
-				shortcut: 'pageDown',
-				canExecute: () => this.gridIsActive()
+			focusLastRowTable: new Command({
+				shortcut: 'end',
+				canExecute: () => this.isActive()
 				&& model.edit().editMode == 'view',
 				execute: () => {
 					const rows = model.view().rows;
@@ -110,6 +93,26 @@ export default class Navigation {
 						nav.column = 0;
 					}
 					model.navigation(nav);
+				}
+			}),
+			focusFirstRowPage: new Command({
+				shortcut: 'pageUp',
+				canExecute: () => this.isActive()
+				&& model.edit().editMode == 'view',
+				execute: () => {
+					const body = this.markup.body;
+					body.scrollTop -= body.getBoundingClientRect().height;
+					console.log(this.rowIndex(body.getBoundingClientRect().top + body.scrollTop));
+				}
+			}),
+			focusLastRowPage: new Command({
+				shortcut: 'pageDown',
+				canExecute: () => this.isActive()
+				&& model.edit().editMode == 'view',
+				execute: () => {
+					const body = this.markup.body;
+					body.scrollTop += body.getBoundingClientRect().height;
+					console.log(this.rowIndex(body.getBoundingClientRect().top + body.scrollTop));
 				}
 			})
 		};
