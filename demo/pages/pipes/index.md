@@ -1,13 +1,11 @@
-# Custom pipes
-
+# description
 User is allowed to modify pipeline. Pipe is a part of `data` model of qgrid.
-
-Pipeline requires a function with following signature: `(data, context, next) => { }` where 
+Pipeline requires a function with following signature: ```(data, context, next) => { }``` where 
 * `data` is data array from previous stage, 
-* `context` is an event, which consists of following fields:
-    * `source` - where changes occured
-    * `model` - current qgrid model
-    * `diff` - what was changed
+* `context` is an object:
+    * `source` - where changes occurred
+    * `model` - grid model
+    * `changes` - what was changed
 * `next` is function that finishes current pipe and passes data to the next one.
 
 ## Example
