@@ -28,10 +28,7 @@ tbody {
 			color: $dark;
 			font-size: 13px;
 			border-top: 1px solid $dark-divider;
-			border-bottom: 1px solid transparent;
-			border-left: 1px solid transparent;
-			border-right: 1px solid transparent;
-			padding: 0 15px;
+			padding: 0 16px;
 
 			&.q-grid-select {
 				md-checkbox {
