@@ -78,22 +78,35 @@ export default class NavigationView extends View {
 	}
 
 	scroll(container, target) {
-		const tr = target.getBoundingClientRect();
-		const cr = container.getBoundingClientRect();
-		const scroll = this.model.layout().scroll;
+		const outer = container;
+		target = target.getBoundingClientRect();
+		container = container.getBoundingClientRect();
 
-		if (cr.left > tr.left
-			|| cr.left > tr.right
-			|| cr.right < tr.left
-			|| cr.right < tr.right) {
-			container.scrollLeft = tr.left - cr.left + scroll.left;
+		if (container.left > target.left
+			|| container.left > target.right
+			|| container.right < target.left
+			|| container.right < target.right) {
+			if (container.left < target.left
+				|| container.right < target.right) {
+				outer.scrollLeft = target.width + this.model.layout().scroll.left;
+			} else if (container.left > target.left
+				|| container.left > target.right) {
+				outer.scrollLeft = target.left - container.left + this.model.layout().scroll.left;
+			}
 		}
+		if (container.top > target.top
+			|| container.top > target.bottom
+			|| container.bottom < target.top
+			|| container.bottom < target.bottom) {
+			if (container.top < target.top
+				|| container.bottom < target.bottom) {
+				outer.scrollTop = target.height + this.model.layout().scroll.top;
+			} else if (container.top > target.top
+				|| container.top > target.bottom) {
+				outer.scrollTop = target.top - container.top + this.model.layout().scroll.top;
+			}
 
-		if (cr.top < tr.top || cr.bottom < tr.bottom) {
-			container.scrollTop = tr.height + scroll.top;
-		}
-		else if (cr.top > tr.top || cr.top > tr.bottom) {
-			container.scrollTop = tr.top - cr.top + scroll.top;
 		}
 	}
+
 }
