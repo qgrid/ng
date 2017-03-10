@@ -1,22 +1,10 @@
-import Pipe from 'core/pipe/pipe';
+import PipeUnit from 'core/pipe/units/pipe.unit';
 
 export default class DataModel {
 	constructor() {
 		this.rows = [];
 		this.columns = [];
-
-		this.pipe = [
-			Pipe.data,
-			Pipe.filter,
-			Pipe.sort,
-			Pipe.pagination,
-			Pipe.memo,
-			Pipe.group,
-			Pipe.pivot,
-			Pipe.column,
-			Pipe.view
-		];
-
+		this.pipe = PipeUnit.default;
 		this.triggers = [
 			'data',
 			'pagination',

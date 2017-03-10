@@ -13,8 +13,8 @@ export default class NavigationView extends View {
 		this.document = this.markup.document;
 		const shortcut = new Shortcut(this.document, apply);
 		const navigation = new Navigation(model);
-		shortcut.register('navigation', navigation.commands);
 
+		shortcut.register('navigation', navigation.commands);
 
 		this.blur = new Command({
 			execute: (row, column) => {
@@ -25,6 +25,7 @@ export default class NavigationView extends View {
 					&& this.rows[row].cells.length > column;
 			}
 		});
+
 		this.focus = new Command({
 			execute: (row, column) => {
 				const cell = this.rows[row].cells[column];
@@ -35,8 +36,14 @@ export default class NavigationView extends View {
 					&& this.rows[row].cells.length > column;
 			}
 		});
+
 		this.scrollTo = new Command({
-			execute: (cell) => {
+			canExecute: (row, column) => {
+				return this.rows.length > row
+					&& this.rows[row].cells.length > column;
+			},
+			execute: (row, column) => {
+				const cell = this.rows[row].cells[column];
 				this.scroll(markup.body, cell);
 			}
 		});
@@ -51,9 +58,10 @@ export default class NavigationView extends View {
 			if (this.blur.canExecute(newRow, newColumn) && oldRow > -1 && oldColumn > -1) {
 				this.blur.execute(oldRow, oldColumn);
 			}
+
 			if (this.focus.canExecute(newRow, newColumn)) {
 				this.focus.execute(newRow, newColumn);
-				this.scrollTo.execute(this.rows[newRow].cells[newColumn]);
+				this.scrollTo.execute(newRow, newColumn);
 			}
 		});
 
@@ -70,35 +78,31 @@ export default class NavigationView extends View {
 	}
 
 	scroll(container, target) {
-		const outer = container;
-		target = target.getBoundingClientRect();
-		container = container.getBoundingClientRect();
+		const tr = target.getBoundingClientRect();
+		const cr = container.getBoundingClientRect();
+		const scroll = this.model.layout().scroll;
 
-		if (container.left > target.left
-			|| container.left > target.right
-			|| container.right < target.left
-			|| container.right < target.right) {
-			if (container.left < target.left
-				|| container.right < target.right) {
-				outer.scrollLeft = target.width + this.model.layout().scroll.left;
-			} else if (container.left > target.left
-				|| container.left > target.right) {
-				outer.scrollLeft = target.left - container.left + this.model.layout().scroll.left;
+		if (cr.left > tr.left
+			|| cr.left > tr.right
+			|| cr.right < tr.left
+			|| cr.right < tr.right) {
+			if (cr.left < tr.left || cr.right < tr.right) {
+				container.scrollLeft = tr.width + scroll.left;
+			}
+			else if (cr.left > tr.left || cr.left > tr.right) {
+				container.scrollLeft = tr.left - cr.left + scroll.left;
 			}
 		}
-		if (container.top > target.top
-			|| container.top > target.bottom
-			|| container.bottom < target.top
-			|| container.bottom < target.bottom) {
-			if (container.top < target.top
-				|| container.bottom < target.bottom) {
-				outer.scrollTop = target.height + this.model.layout().scroll.top;
-			} else if (container.top > target.top
-				|| container.top > target.bottom) {
-				outer.scrollTop = target.top - container.top + this.model.layout().scroll.top;
+		if (cr.top > tr.top
+			|| cr.top > tr.bottom
+			|| cr.bottom < tr.top
+			|| cr.bottom < tr.bottom) {
+			if (cr.top < tr.top || cr.bottom < tr.bottom) {
+				container.scrollTop = tr.height + scroll.top;
 			}
-
+			else if (cr.top > tr.top || cr.top > tr.bottom) {
+				container.scrollTop = tr.top - cr.top + scroll.top;
+			}
 		}
 	}
-
 }

@@ -1,7 +1,6 @@
 import View from 'core/view/view';
 import * as columnService from 'core/column/column.service';
 import Aggregation from 'core/services/aggregation';
-import DefaultColumn from 'core/column-type/data.column.model';
 import AppError from 'core/infrastructure/error';
 import Log from 'core/infrastructure/log';
 
@@ -52,7 +51,7 @@ export default class FootView extends View {
 			const rows = this.model.data().rows,
 				getValue = this.valueFactory(column);
 
-			return Aggregation[aggregation](rows, getValue, aggregationOptions || (new DefaultColumn()).aggregationOptions);
+			return Aggregation[aggregation](rows, getValue, aggregationOptions);
 		}
 		return null;
 	}

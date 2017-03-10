@@ -56,7 +56,7 @@ export default function GroupBuilder(model) {
 				}
 			}
 
-			result.push(aggRow.map(rs => aggregate(rs, getValue)));
+			result.push(aggRow.map(rs => aggregate(rs, getValue, column.aggregationOptions)));
 		}
 
 		return result;
