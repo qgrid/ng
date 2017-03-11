@@ -14,6 +14,6 @@ export default (model) => {
 		case 'range':
 			return new MultipleSelectionState(model);
 		default:
-			throw new AppError('selection.factory', `Invalid selection mode "${mode}"`);
+			throw new AppError('selection.state.factory', `Invalid selection mode "${mode}"`);
 	}
 };

@@ -66,7 +66,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 			}
 
 			if (cell.column.type !== 'select' && selection.mode !== 'range') {
-				this.view.selection.select(cell);
+				this.view.selection.behavior.selectCell(cell);
 			}
 		}
 	}
@@ -105,7 +105,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 		const startCell = this.rangeStartCell;
 		const endCell = pathFinder.cell(e.path);
 		if (startCell && endCell) {
-			this.view.selection.select(startCell, endCell);
+			this.view.selection.behavior.selectRange(startCell, endCell);
 		}
 
 		this.rangeStartPoint = null;

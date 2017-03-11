@@ -3,44 +3,33 @@ import {isUndefined} from 'core/services/utility';
 import * as columnService from 'core/column/column.service';
 
 export default class ColumnSelectionBehavior extends SelectionBehavior {
-	constructor(state, model, markup){
-		super();
+	constructor(model, markup, state, apply){
+		super(state, apply);
 
-		this.state = state;
 		this.model = model;
 		this.markup = markup;
 	}
 
-	select(item, state) {
+	selectCore(item) {
 		if (isUndefined(item)) {
-			item = columnService.lineView(this.model.view().columns).map(c => c.key);
+			return this.columns.map(c => c.key);
 		}
 
-		this.state.toggle(item, state);
-
-		this.model.selection({items: this.state.view}, {source: 'toggle'});
+		return item;
 	}
 
-	selectCell(cell) {
-		const rows = this.model.view().rows;
-		const row = rows[cell.rowIndex];
-		if (row) {
-			this.select(row);
-		}
+	selectCellCore(cell) {
+		return this.columns.find(c => c.model === cell.column).model.key;
 	}
 
-	selectRange(startCell, endCell) {
-		const startIndex = Math.min(startCell.rowIndex, endCell.rowIndex);
-		const endIndex = Math.max(startCell.rowIndex, endCell.rowIndex);
-		const items = this.model.view().rows.slice(startIndex, endIndex + 1);
+	selectRangeCore(startCell, endCell) {
+		const startIndex = Math.min(startCell.columnIndex, endCell.columnIndex);
+		const endIndex = Math.max(startCell.columnIndex, endCell.columnIndex);
 
-		if (items) {
-			this.reset();
-			this.select(items, true);
-		}
+		return this.columns.slice(startIndex, endIndex + 1).map(x => x.model.key);
 	}
 
-	reset() {
-		this.state.clear();
+	get columns() {
+		return columnService.lineView(this.model.view().columns);
 	}
 }
