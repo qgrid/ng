@@ -1,7 +1,7 @@
 <q-grid rows="$ctrl.rows"
 		  selection="$ctrl.selection"
 		  selection-mode="range"
-		  selection-unit="row"
+		  selection-unit="cell"
 		  on:selection-changed="$ctrl.selectionChanged($event)">
 	<q-grid:columns generation="deep">
 		<q-grid:column type="select" key="$default.select" is-visible="true">

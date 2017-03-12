@@ -23,15 +23,15 @@ export default class SelectionView extends View {
 		
 		this.reset = commands.get('reset');
 
-		model.viewChanged.watch(() => {
-			this.behavior = behaviorFactory(model, markup, apply);
-			model.selection({items: this.behavior.view});
-		});
+		// model.viewChanged.watch(() => {
+		// 	this.behavior = behaviorFactory(model, markup, apply);
+		// 	model.selection({items: this.behavior.view});
+		// });
 
-		model.sortChanged.watch(() => {
-			this.behavior = behaviorFactory(model, markup, apply);
-			model.selection({items: this.behavior.view});
-		});
+		// model.sortChanged.watch(() => {
+		// 	this.behavior = behaviorFactory(model, markup, apply);
+		// 	model.selection({items: this.behavior.view});
+		// });
 
 		model.selectionChanged.watch(e => {
 			if (!e || e.changes.hasOwnProperty('mode')){

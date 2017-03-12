@@ -38,7 +38,7 @@ class ViewCore extends Component {
 		this.group = new GroupView(model, valueFactory);
 		this.pivot = new PivotView(model, valueFactory);
 		this.nav = new NavigationView(model, markup, this.$scope.$evalAsync.bind(this.$scope));
-		this.highlight = new HighlightView(model, markup);
+		this.highlight = new HighlightView(model, markup, this.timeout);
 		this.sort = new SortView(model);
 		this.filter = new FilterView(model);
 		this.edit = new EditView(model, setValue, markup, this.$scope.$evalAsync.bind(this.$scope));

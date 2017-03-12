@@ -7,10 +7,11 @@ import {noop} from 'core/services/utility';
 import {GRID_PREFIX} from 'core/definition';
 
 export default class HighlightView extends View {
-	constructor(model, markup) {
+	constructor(model, markup, apply) {
 		super(model);
 		this.model = model;
 		this.markup = markup;
+		this.apply = apply;
 
 		let blur = noop;
 		this.column = new Command({
@@ -43,7 +44,7 @@ export default class HighlightView extends View {
 		});
 
 		model.selectionChanged.watch(e => {
-			if (!e || e.hasOwnProperty('unit') || e.hasOwnProperty('mode')) {
+			if (!e || e.changes.hasOwnProperty('unit') || e.changes.hasOwnProperty('mode')) {
 				if (this.behavior) {
 					this.behavior.destroy();
 				}
@@ -51,7 +52,13 @@ export default class HighlightView extends View {
 				this.behavior = behaviorFactory(this.model, this.markup);
 			}
 			if (this.behavior) {
-				this.behavior.apply(model.selection().items);
+				const items = model.selection().items;
+				this.apply(() => this.behavior.apply(items));
+			// 	if (this.markup.body) {
+			// 	// 	this.apply(() => this.behavior.apply(items));
+			// 	// } else {
+			// 		this.behavior.apply(items);
+			// 	}
 			}
 		});
 	}

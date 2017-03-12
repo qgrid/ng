@@ -8,31 +8,11 @@ export default class ColumnHighlight extends Behavior {
 	}
 
 	applyCore(items) {
-		const body = this.markup.body;
-		const columns = columnService.lineView(this.model.view().columns);
-
-		for (let item of items) {
-			const index = columns.findIndex((c) => c.model.key === item);
-			if (index > -1 && body && body.rows) {
-				for (let row of body.rows) {
-					this.state(row.cells[index], true);
-				}
-			}
-		}
+		this.cells(items).forEach((cell) => this.state(cell, true));
 	}
 
 	clearCore(items) {
-		const body = this.markup.body;
-		const columns = columnService.lineView(this.model.view().columns);
-
-		for (let item of items) {
-			const index = columns.findIndex((c) => c.model.key === item);
-			if (index > -1 && body && body.rows) {
-				for (let row of body.rows) {
-					this.state(row.cells[index], false);
-				}
-			}
-		}
+		this.cells(items).forEach((cell) => this.state(cell, false));
 	}
 
 	state(item, state) {
@@ -42,5 +22,23 @@ export default class ColumnHighlight extends Behavior {
 		else {
 			item.classList.remove(`${GRID_PREFIX}-selected`);
 		}
+	}
+
+	cells(items) {
+		const result = [];
+
+		const body = this.markup.body;
+		const columns = columnService.lineView(this.model.view().columns);
+
+		for (let item of items) {
+			const index = columns.findIndex((c) => c.model.key === item);
+			if (index > -1 && body && body.rows) {
+				for (let row of body.rows) {
+					result.push(row.cells[index]);
+				}
+			}
+		}
+
+		return result;
 	}
 }

@@ -1,5 +1,6 @@
 import SelectionBehavior from './selection.behavior';
 import {isUndefined} from 'core/services/utility';
+import * as columnService from 'core/column/column.service';
 
 export default class CellSelectionBehavior extends SelectionBehavior {
 	constructor(model, markup, state, apply){
@@ -20,7 +21,10 @@ export default class CellSelectionBehavior extends SelectionBehavior {
 	}
 
 	selectCellCore(cell) {
-		return this.markup.body.rows[cell.rowIndex].cells[cell.columnIndex];
+		return {
+			column: cell.column.key,
+			row: cell.row
+		};
 	}
 
 	selectRangeCore(startCell, endCell) {
@@ -30,12 +34,28 @@ export default class CellSelectionBehavior extends SelectionBehavior {
 		const startColumnIndex = Math.min(startCell.columnIndex, endCell.columnIndex);
 		const endColumnIndex = Math.max(startCell.columnIndex, endCell.columnIndex);
 
-		const rows = Array.from(this.markup.body.rows).slice(startRowIndex, endRowIndex + 1);
 
-		const items = rows
-			.map(row => Array.from(row.cells).slice(startColumnIndex, endColumnIndex + 1))
-			.reduce((agg, row) => [...agg, ...row]);
+		const rowsSelected = this.rows.slice(startRowIndex, endRowIndex + 1);
+		const columnsSelected = this.columns.slice(startColumnIndex, endColumnIndex + 1);
+
+		const items = [];
+		rowsSelected.forEach((row) => {
+			columnsSelected.forEach((column) => {
+				items.push({
+					column: column.model.key,
+					row: row
+				});
+			});
+		});
 
 		return items;
+	}
+
+	get columns() {
+		return columnService.lineView(this.model.view().columns);
+	}
+
+	get rows() {
+		return this.model.view().rows;
 	}
 }
