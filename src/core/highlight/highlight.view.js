@@ -53,12 +53,7 @@ export default class HighlightView extends View {
 			}
 			if (this.behavior) {
 				const items = model.selection().items;
-				this.apply(() => this.behavior.apply(items));
-			// 	if (this.markup.body) {
-			// 	// 	this.apply(() => this.behavior.apply(items));
-			// 	// } else {
-			// 		this.behavior.apply(items);
-			// 	}
+				this.apply(() => this.behavior.apply(items), 0);
 			}
 		});
 	}

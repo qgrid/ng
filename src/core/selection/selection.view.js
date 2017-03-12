@@ -6,7 +6,7 @@ import * as columnService from 'core/column/column.service';
 import {GRID_PREFIX} from 'core/definition';
 
 export default class SelectionView extends View {
-	constructor(model, markup, apply, timeoutApply) {
+	constructor(model, markup, apply) {
 		super(model);
 
 		this.behavior = behaviorFactory(model, markup, apply);
@@ -28,27 +28,21 @@ export default class SelectionView extends View {
 		// 	model.selection({items: this.behavior.view});
 		// });
 
-		// model.sortChanged.watch(() => {
-		// 	this.behavior = behaviorFactory(model, markup, apply);
-		// 	model.selection({items: this.behavior.view});
-		// });
+		model.sortChanged.watch(() => {
+			this.behavior = behaviorFactory(model, markup, apply);
+			model.selection({items: this.behavior.view});
+		});
 
 		model.selectionChanged.watch(e => {
 			if (!e || e.changes.hasOwnProperty('mode')){
-				timeoutApply(() => {
+				apply(() => {
 
 					const newClassName = `${GRID_PREFIX}-select-${model.selection().mode}`;
-
-					this.markup.body.classList.add(newClassName);
-					this.markup.head.classList.add(newClassName);
-					this.markup.foot.classList.add(newClassName);
+					this.markup.view.classList.add(newClassName);
 					
 					if (e && e.changes.mode.oldValue) {
 						const oldClassName = `${GRID_PREFIX}-select-${e.changes.mode.oldValue}`;
-												
-						this.markup.body.classList.remove(oldClassName);
-						this.markup.head.classList.remove(oldClassName);
-						this.markup.foot.classList.remove(oldClassName);
+						this.markup.view.classList.remove(oldClassName);
 					}
 				});
 			}
