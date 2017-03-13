@@ -57,7 +57,7 @@ export default class NavigationView extends View {
 				}
 				if (this.focus.canExecute(newRow, newColumn)) {
 					this.focus.execute(newRow, newColumn);
-					if(!(e && e.tag.source === 'navigation')) {
+					if (!(e && e.tag.source === 'navigation')) {
 						this.scrollTo.execute(newRow, newColumn);
 					}
 				}

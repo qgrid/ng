@@ -38,7 +38,7 @@ class ViewCore extends Component {
 			}
 
 			return this.timeout(f, timeout);
-		}
+		};
 
 		this.head = new HeadView(model);
 		this.body = new BodyView(model, markup, valueFactory);
@@ -48,7 +48,7 @@ class ViewCore extends Component {
 		this.selection = new SelectionView(model, markup, apply);
 		this.group = new GroupView(model, valueFactory);
 		this.pivot = new PivotView(model, valueFactory);
-		this.nav = new NavigationView(model, markup, apply);
+		this.nav = new NavigationView(model, markup, table, apply);
 		this.highlight = new HighlightView(model, markup, apply);
 		this.sort = new SortView(model);
 		this.filter = new FilterView(model);

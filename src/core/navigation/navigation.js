@@ -24,18 +24,6 @@ export default class Navigation {
 		}
 
 		return index - 1;
-		//
-		// const container = body.getBoundingClientRect();
-		// const {row: row, column: column} = this.model.navigation();
-		// const current = rows[row].offsetHeight;
-		// for (let i = row; i < rows.length - 1; i++) {
-		// 	const target = rows[i].cells[column].getBoundingClientRect();
-		// 	console.log(container, current, target, body.scrollTop);
-		// 	// const diff = target.bottom - container.bottom;
-		// 	// if (target.top <= diff && target.bottom >= diff) {
-		// 	// 	return i;
-		// 	// }
-		// }
 	}
 
 	get commands() {

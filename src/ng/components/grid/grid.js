@@ -34,10 +34,6 @@ export class Grid extends RootComponent {
 			}
 		});
 
-		model.navigationChanged.watch(e => {
-
-		});
-
 		model.dataChanged.watch(e => {
 			if (!e || e.changes.hasOwnProperty('columns')) {
 				const index = Array.from(model.columnList().index);
