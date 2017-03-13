@@ -4,9 +4,8 @@ import Shortcut from 'core/infrastructure/shortcut';
 import Navigation from 'core/navigation/navigation';
 import {GRID_PREFIX} from 'core/definition';
 
-
 export default class NavigationView extends View {
-	constructor(model, markup, apply) {
+	constructor(model, markup, table, apply) {
 		super(model);
 		this.markup = markup;
 		this.model = model;
@@ -46,18 +45,29 @@ export default class NavigationView extends View {
 		});
 
 		model.navigationChanged.watch(e => {
-			const nav = model.navigation();
-			const newRow = nav.row == -1 ? 0 : nav.row;
-			const newColumn = nav.column == -1 ? 0 : nav.column;
-			const oldRow = e && e.changes.hasOwnProperty('row') ? e.changes.row.oldValue : newRow;
-			const oldColumn = e && e.changes.hasOwnProperty('column') ? e.changes.column.oldValue : newColumn;
+			if (!e || e.changes.hasOwnProperty('row') || e.changes.hasOwnProperty('column')) {
+				const nav = model.navigation();
+				const newRow = nav.row == -1 ? 0 : nav.row;
+				const newColumn = nav.column == -1 ? 0 : nav.column;
+				const oldRow = e && e.changes.hasOwnProperty('row') ? e.changes.row.oldValue : newRow;
+				const oldColumn = e && e.changes.hasOwnProperty('column') ? e.changes.column.oldValue : newColumn;
 
-			if (this.blur.canExecute(newRow, newColumn) && oldRow > -1 && oldColumn > -1) {
-				this.blur.execute(oldRow, oldColumn);
-			}
-			if (this.focus.canExecute(newRow, newColumn)) {
-				this.focus.execute(newRow, newColumn);
-				this.scrollTo.execute(newRow, newColumn);
+				if (this.blur.canExecute(newRow, newColumn) && oldRow > -1 && oldColumn > -1) {
+					this.blur.execute(oldRow, oldColumn);
+				}
+				if (this.focus.canExecute(newRow, newColumn)) {
+					this.focus.execute(newRow, newColumn);
+					if(!(e && e.tag.source === 'navigation')) {
+						this.scrollTo.execute(newRow, newColumn);
+					}
+				}
+
+				const cell = table.cellAt(nav.row, nav.column);
+				model.navigation({
+					active: {
+						cell: cell
+					}
+				});
 			}
 		});
 

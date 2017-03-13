@@ -13,8 +13,29 @@ export default class Navigation {
 		return active && active.tBodies && active.tBodies[0] === this.markup.body;
 	}
 
-	rowIndex(val) {
-		return this.document.elementFromPoint(0, val);
+	rowIndex(y) {
+		const body = this.markup.body;
+		const rows = body.rows;
+		let offset = 0;
+		let index = 0;
+		while (offset <= y) {
+			offset += rows[index].clientHeight;
+			index++;
+		}
+
+		return index - 1;
+		//
+		// const container = body.getBoundingClientRect();
+		// const {row: row, column: column} = this.model.navigation();
+		// const current = rows[row].offsetHeight;
+		// for (let i = row; i < rows.length - 1; i++) {
+		// 	const target = rows[i].cells[column].getBoundingClientRect();
+		// 	console.log(container, current, target, body.scrollTop);
+		// 	// const diff = target.bottom - container.bottom;
+		// 	// if (target.top <= diff && target.bottom >= diff) {
+		// 	// 	return i;
+		// 	// }
+		// }
 	}
 
 	get commands() {
@@ -111,6 +132,7 @@ export default class Navigation {
 				execute: () => {
 					const body = this.markup.body;
 					body.scrollTop += body.getBoundingClientRect().height;
+					model.navigation({row: this.rowIndex(body.scrollTop)}, {source: 'navigation'});
 				}
 			})
 		};
@@ -118,4 +140,5 @@ export default class Navigation {
 			Object.entries(commands)
 		);
 	}
+
 }

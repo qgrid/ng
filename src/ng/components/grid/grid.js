@@ -35,21 +35,7 @@ export class Grid extends RootComponent {
 		});
 
 		model.navigationChanged.watch(e => {
-			if (!e || e.changes.hasOwnProperty('row') || e.changes.hasOwnProperty('column')) {
-				const nav = model.navigation();
-				let cell = null;
-				if (nav.column >= 0 && nav.row >= 0) {
-					const element = this.markup.body.rows[nav.row].cells[nav.column];
-					const scope = angular.element(element).scope();
-					cell = scope ? scope.$cell : null;
-				}
 
-				model.navigation({
-					active: {
-						cell: cell
-					}
-				});
-			}
 		});
 
 		model.dataChanged.watch(e => {
