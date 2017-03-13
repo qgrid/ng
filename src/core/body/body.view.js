@@ -6,9 +6,10 @@ import Log from 'core/infrastructure/log';
 import Node from 'core/node/node';
 
 export default class BodyView extends View {
-	constructor(model, valueFactory) {
+	constructor(model, markup, valueFactory) {
 		super(model);
 
+		this.markup = markup;
 		this.rows = [];
 		this.columns = [];
 		this._valueFactory = valueFactory;

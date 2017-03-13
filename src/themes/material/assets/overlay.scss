@@ -1,0 +1,11 @@
+@import "variables";
+@import "src/assets/mixins";
+
+.q-grid-range-overlay{
+	pointer-events: none;
+	border: 1px solid  darken($selected, 50%);
+	position: absolute;
+	background-color: fade-out($selected, 0.5);
+
+	@include user-select(none);
+}

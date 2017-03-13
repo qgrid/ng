@@ -24,12 +24,11 @@ function addGroupColumn(columns, context) {
 
 function addDataColumns(columns, model, context) {
 	const dataColumns = model.data().columns;
-	const selection = model.selection();
 	columns.push(...
 		columnService.dataView(
 			dataColumns
 				.filter((c) => {
-					if (c.type === 'select' && selection.unit !== 'row'){
+					if (c.type === 'select' && !canAddSelectColumn(model)){
 						return false;
 					}
 
@@ -119,6 +118,11 @@ function addPivotColumns(columns, heads) {
 	return rows;
 }
 
+function canAddSelectColumn(model){
+	const selection = model.selection();
+	return selection.unit === 'row' && selection.mode !== 'range';
+}
+
 export default function pipeColumn(memo, context, next) {
 	const model = context.model;
 	const pivot = memo.pivot;
@@ -134,7 +138,7 @@ export default function pipeColumn(memo, context, next) {
 	 *
 	 */
 	const selectColumn = dataColumns.find(item => item.type === 'select');
-	if (model.selection().unit === 'row' && !selectColumn) {
+	if (canAddSelectColumn (model) && !selectColumn) {
 		addSelectColumn(columns, {rowspan: heads.length, row: 0});
 	}
 

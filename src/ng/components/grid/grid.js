@@ -29,7 +29,7 @@ export class Grid extends RootComponent {
 				});
 			}
 
-			if (!e || e.changes.hasOwnProperty('unit')) {
+			if (!e || e.changes.hasOwnProperty('unit') || e.changes.hasOwnProperty('mode')) {
 				service.invalidate('selection', e ? e.changes : {}, PipeUnit.column);
 			}
 		});
