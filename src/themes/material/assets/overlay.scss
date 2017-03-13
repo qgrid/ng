@@ -3,9 +3,9 @@
 
 .q-grid-range-overlay{
 	pointer-events: none;
-	border: 1px solid darken($selected, 50%) ;
+	border: 1px solid  darken($selected, 50%);
 	position: absolute;
-	background-color: $selected;
+	background-color: fade-out($selected, 0.5);
 
 	@include user-select(none);
 }
