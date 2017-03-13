@@ -102,7 +102,6 @@ export default class Navigation {
 				execute: () => {
 					const body = this.markup.body;
 					body.scrollTop -= body.getBoundingClientRect().height;
-					console.log(this.rowIndex(body.getBoundingClientRect().top + body.scrollTop));
 				}
 			}),
 			focusLastRowPage: new Command({
@@ -112,7 +111,6 @@ export default class Navigation {
 				execute: () => {
 					const body = this.markup.body;
 					body.scrollTop += body.getBoundingClientRect().height;
-					console.log(this.rowIndex(body.getBoundingClientRect().top + body.scrollTop));
 				}
 			})
 		};

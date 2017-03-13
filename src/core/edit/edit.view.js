@@ -7,6 +7,7 @@ export default class EditView extends View {
 
 		this.cell = new EditCellView(model, setValue, markup, apply);
 	}
+
 	onDestroy() {
 		this.cell.destroy();
 	}
