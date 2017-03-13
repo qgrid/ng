@@ -1,27 +1,15 @@
-# Custom pipes
+## description
+The grid data processing is inspired by middleware pattern. Every pipe in queue gets data from previous one, handles it, and passes to the next pipe. By default the whole pipeline is triggered when some pipeline-related property is changed (e.g. filters, order etc.). User is allowed to modify pipeline. Pipe is a part of `data` model of qgrid. 
 
-User is allowed to modify pipeline. Pipe is a part of `data` model of qgrid.
-
-Pipeline requires a function with following signature: `(data, context, next) => { }` where 
-* `data` is data array from previous stage, 
-* `context` is an event, which consists of following fields:
-    * `source` - where changes occured
-    * `model` - current qgrid model
-    * `diff` - what was changed
-* `next` is function that finishes current pipe and passes data to the next one.
-
-## Example
-
-To add basic `fetch` function to pipe, you need to create a function that meets middleware signature
-and prepend it to default grid pipes.
-
+## examples
+To add basic `fetch` function to pipe, you need to create a function that meets middleware signature and prepend it to default grid pipes
 ```javascript
+Controller.$inject = ['qgrid'];
+function Controller(qgrid){
    var gridModel = qgrid.model();
-   var data = gridModel.data();
-   var pipes = data.pipes;
+   var pipes = qgrid.pipeUnit.default;
    var fetch = (data, context, next) => {
-      $http
-         .get()
+      $http.get('/path/to/data')
          .then(response => {
             next(response.data);
          });
@@ -30,4 +18,59 @@ and prepend it to default grid pipes.
    gridModel.data({
       pipe: [fetch].concat(pipes)
    });
+}
 ```
+Everything is on server side
+```javascript
+Controller.$inject = ['qgrid'];
+function Controller(qgrid){
+   var gridModel = qgrid.model();
+   var pipes = qgrid.pipeUnit.view;
+   var fetch = (data, context, next) => {
+      $http.get('/path/to/data', gridModel.sort().by, gridModel.filter().by, gridModel.pagination().current)
+         .then(response => {
+            next(response.data);
+         });
+   };
+	
+   gridModel.data({
+      pipe: [fetch].concat(pipes)
+   });
+}
+```
+
+## attributes
+<table class="attributes">
+<thead>
+	<tr>
+		<th>Parameter</th>
+		<th>Type</th>
+		<th>Description</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+	  <td>data</td>
+	  <td><code>object|array</code></td>
+	  <td>Middleware shared object	  
+	  </td>
+	</tr>
+	<tr>
+	  <td>context</td>
+	  <td><code>object</td>
+	  <td>Middleware context:
+	  	<ul>
+	  	 <li><code>source</code> - where changes occurred</li>
+       <li><code>model</code> - grid model</li>
+       <li><code>changes</code> - what was changed</li>
+	  	</ul>
+	  </td>
+	</tr>			
+	<tr>
+	  <td>next</td>
+	  <td><code>function(data)</td>
+	  <td>Finishes current pipe and passes data to the next one	  
+	  </td>
+	</tr>
+</tbody>
+</table>

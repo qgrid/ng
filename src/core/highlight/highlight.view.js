@@ -15,9 +15,9 @@ export default class HighlightView extends View {
 
 		let blur = noop;
 		this.column = new Command({
-			execute: (state, column) => {
+			execute: (column, state) => {
 				if (state) {
-					blur = this.highlight(column.key, 'highlight');
+					blur = this.highlight(column.key, 'highlighted');
 				}
 				else {
 					blur();
@@ -65,7 +65,7 @@ export default class HighlightView extends View {
 		const sortBy = this.model.sort().by;
 		for (let entry of sortBy) {
 			const key = sortService.key(entry);
-			dispose.push(this.highlight(key, 'order'));
+			dispose.push(this.highlight(key, 'sorted'));
 		}
 
 		return dispose;

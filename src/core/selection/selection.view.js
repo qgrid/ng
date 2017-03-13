@@ -94,7 +94,7 @@ export default class SelectionView extends View {
 				},
 				canExecute: () => model.selection().unit === 'row'
 			}),
-			togglePrev: new Command({
+			togglePrevRow: new Command({
 				shortcut: 'shift+up',
 				execute: () => {
 					const itemIndex = model.navigation().row;
@@ -107,7 +107,7 @@ export default class SelectionView extends View {
 				},
 				canExecute: () => model.selection().unit === 'row'
 			}),
-			toggleNext: new Command({
+			toggleNextRow: new Command({
 				shortcut: 'shift+down',
 				execute: () => {
 					
