@@ -7,27 +7,11 @@ export default class RowHighlight extends Behavior {
 	}
 
 	applyCore(items) {
-		for (let item of items) {
-			const index = this.model.view().rows.indexOf(item);
-			const body = this.markup.body;
-			if (index > -1 && body && body.rows[index]) {
-				for (let cell of body.rows[index].cells) {
-					this.state(cell, true);
-				}
-			}
-		}
+		this.cells(items).forEach((cell) => this.state(cell, true));
 	}
 
 	clearCore(items) {
-		for (let item of items) {
-			const index = this.model.view().rows.indexOf(item);
-			const body = this.markup.body;
-			if (index > -1 && body && body.rows[index]) {
-				for (let cell of body.rows[index].cells) {
-					this.state(cell, false);
-				}
-			}
-		}
+		this.cells(items).forEach((cell) => this.state(cell, false));
 	}
 
 	state(item, state) {
@@ -37,5 +21,23 @@ export default class RowHighlight extends Behavior {
 		else {
 			item.classList.remove(`${GRID_PREFIX}-selected`);
 		}
+	}
+
+	cells(items) {
+		const result = [];
+
+		const body = this.markup.body;
+		const rows = this.model.view().rows;
+
+		for (let item of items) {
+			const index = rows.indexOf(item);
+			if (index > -1 && body && body.rows[index]) {
+				for (let cell of body.rows[index].cells) {
+					result.push(cell);
+				}
+			}
+		}
+
+		return result;
 	}
 }

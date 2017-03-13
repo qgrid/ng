@@ -12,6 +12,11 @@ export default function Controller($http, $log) {
 	$http.get('data/people/100.json')
 		.then(function (response) {
 			ctrl.rows = response.data;
-			ctrl.selection = response.data.slice(0, 4);
+			ctrl.selection = response.data.slice(0, 4).map((row) => {
+				return {
+					row: row,
+					column: 'gender'
+				};
+			});
 		});
 }

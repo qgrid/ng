@@ -1,10 +1,13 @@
-export default class Selection {
+import {isArray, isUndefined} from 'core/services/utility';
+import Node from 'core/node/node';
+
+export default class SelectionState {
 	constructor(model) {
 		this.model = model;
 	}
 
 	select(item, state = true) {
-		if (Array.isArray(item)) {
+		if (isArray(item)) {
 			item.forEach(item => this.select(item, state));
 			return;
 		}
@@ -18,8 +21,18 @@ export default class Selection {
 		this.selectCore(item, state);
 	}
 
+	toggle(item, state) {
+		if (isUndefined(state)) {
+			state = this.state(item);
+			return this.select(item, state === null || !state);
+		}
+		else {
+			return this.select(item, state);
+		}
+	}
+
 	state(item) {
-		if (Array.isArray(item)) {
+		if (isArray(item)) {
 			const all = item.every(item => this.state(item));
 			return all ? true : item.some(item => this.state(item)) ? null : false;
 		}
@@ -33,7 +46,14 @@ export default class Selection {
 		return this.stateCore(item);
 	}
 
+	clear() {
+		return this.clearCore();
+	}
+
 	selectCore() {
+	}
+
+	clearCore() {
 	}
 
 	stateCore() {
