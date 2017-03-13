@@ -1,13 +1,12 @@
 &.q-grid-box:not(.q-grid-drag) {
 	tbody {
 		td, tr {
-			&.q-grid-highlight {
+			&.q-grid-highlighted {
 				background-color: #eee;
 			}
 
-			&.q-grid-focus,
-			&.q-grid-order {
-				background-color: #eee;
+			&.q-grid-focus {
+				background-color: #ddd !important;
 			}
 		}
 	}

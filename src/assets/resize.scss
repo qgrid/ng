@@ -13,7 +13,7 @@ th {
 		visibility: hidden;
 	}
 
-	&:hover, &.q-grid-highlight-prev {
+	&:hover, &.q-grid-highlighted-prev {
 		.q-grid-divider {
 			visibility: visible;
 		}

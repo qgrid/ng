@@ -2,8 +2,11 @@ import Component from 'ng/components/component';
 require('./page.list.scss');
 
 class PageList extends Component {
-	constructor() {
+	constructor($filter) {
 		super();
+
+		const filter = $filter('filter');
+		this.filter = item => filter(item.items, this.filterText).length > 0;
 	}
 
 	onInit() {
@@ -12,7 +15,11 @@ class PageList extends Component {
 			this.selectionChanged({$selection: item});
 		};
 	}
+
+
 }
+
+PageList.$inject = ['$filter'];
 
 export default {
 	template: require('./page.list.html'),

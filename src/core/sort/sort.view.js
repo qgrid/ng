@@ -9,11 +9,13 @@ export default class SortView extends View {
 		super(model);
 
 		this.toggle = new Command({
-			canExecute: key => {
+			canExecute: column => {
+				const key = column.key;
 				const map = columnService.map(model.data().columns);
 				return map.hasOwnProperty(key) && map[key].canSort !== false;
 			},
-			execute: key => {
+			execute: column => {
+				const key = column.key;
 				const sort = model.sort;
 				const sortState = sort();
 				const by = Array.from(sortState.by);
@@ -51,13 +53,15 @@ export default class SortView extends View {
 		});
 	}
 
-	direction(key) {
+	direction(column) {
+		const key = column.key;
 		const state = this.model.sort();
 		const by = state.by;
 		return sortService.map(by)[key];
 	}
 
-	order(key) {
+	order(column) {
+		const key = column.key;
 		const state = this.model.sort();
 		const by = state.by;
 		return sortService.index(by, key);

@@ -1,7 +1,7 @@
-<div ng-click="$view.sort.toggle.execute($cell.column.key)">
+<div ng-click="$view.sort.toggle.execute($cell.column)">
 	<div class="q-grid-sort"
-		  ng-class="{'q-grid-active': $view.sort.order($cell.column.key) >= 0}"
-		  ng-switch="$view.sort.direction($cell.column.key)">
+		  ng-class="{'q-grid-active': $view.sort.order($cell.column) >= 0}"
+		  ng-switch="$view.sort.direction($cell.column)">
 		<md-icon class="q-grid-asc" ng-switch-when="asc">arrow_downward</md-icon>
 		<md-icon class="q-grid-desc" ng-switch-when="desc">arrow_upward</md-icon>
 		<md-icon ng-switch-default>arrow_downward</md-icon>
@@ -14,5 +14,5 @@
 <q-grid:column-filter class="q-grid-column-filter"
 							 key="$cell.column.key"
 							 title="$cell.column.title"
-							 ng-class="{'q-grid-active': $view.filter.has($cell.column.key)}">
+							 ng-class="{'q-grid-active': $view.filter.has($cell.column)}">
 </q-grid:column-filter>

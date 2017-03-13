@@ -15,7 +15,6 @@ export default class NavigationView extends View {
 		const navigation = new Navigation(model, markup);
 		this.shortcutOff = shortcut.register('navigation', navigation.commands);
 
-
 		this.blur = new Command({
 			execute: (row, column) => {
 				this.rows[row].cells[column].classList.remove(`${GRID_PREFIX}-focus`);

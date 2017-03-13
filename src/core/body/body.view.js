@@ -51,7 +51,7 @@ export default class BodyView extends View {
 							}
 
 							const groupRows = node.rows.map(i => rows[i]);
-							return Aggregation[aggregation](groupRows, getValue);
+							return Aggregation[aggregation](groupRows, getValue, column.aggregationOptions);
 						}
 
 						return null;
