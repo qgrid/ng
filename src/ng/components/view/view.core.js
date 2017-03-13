@@ -46,6 +46,7 @@ class ViewCore extends Component {
 		const id = this.model.grid().id;
 		css.removeStyle(id);
 		this.nav.destroy();
+		this.selection.destroy();
 	}
 
 	templateUrl(key) {

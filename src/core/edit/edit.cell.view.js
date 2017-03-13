@@ -15,7 +15,7 @@ export default class EditCellView {
 
 		const shortcut = new Shortcut(markup.document, apply);
 		const commands = this.commands;
-		shortcut.register('editCellNavigation', commands);
+		this.shortcutOff = shortcut.register('editCellNavigation', commands);
 
 		this.enter = commands.get('enter');
 		this.commit = commands.get('commit');
@@ -120,5 +120,8 @@ export default class EditCellView {
 
 	set value(value) {
 		this._value = value;
+	}
+	destroy(){
+		this.shortcutOff();
 	}
 }
