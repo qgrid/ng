@@ -60,12 +60,17 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 				column: cell.$element[0].cellIndex,
 				row: cell.$element[0].parentNode.rowIndex - 1
 			});
+			
 			if (this.view.edit.cell.enter.canExecute(cell)) {
 				this.$scope.$evalAsync(() => this.view.edit.cell.enter.execute(cell));
 			}
 
-			if (cell.column.type !== 'select' && selection.mode !== 'range') {
-				this.view.selection.behavior.selectCell(cell);
+			if (cell.column.type !== 'select') {
+				if (selection.mode === 'range') {
+					this.view.selection.behavior.selectRange(cell, cell);
+				} else {
+					this.view.selection.behavior.selectCell(cell);
+				}
 			}
 		}
 	}
@@ -88,7 +93,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 		
 		if (startCell && endCell) {
 			this.view.selection.behavior.selectRange(startCell, endCell);
-			
+						
 			this.view.model.navigation({
 				active: {
 					cell: endCell
