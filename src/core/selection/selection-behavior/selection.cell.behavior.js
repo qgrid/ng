@@ -42,7 +42,7 @@ export default class CellSelectionBehavior extends SelectionBehavior {
 		rowsSelected.forEach((row) => {
 			columnsSelected.forEach((column) => {
 				items.push({
-					column: column.model.key,
+					column: column.model,
 					row: row
 				});
 			});
@@ -57,5 +57,9 @@ export default class CellSelectionBehavior extends SelectionBehavior {
 
 	get rows() {
 		return this.model.view().rows;
+	}
+	
+	get view() {
+		return this.state.view;
 	}
 }

@@ -81,6 +81,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 		}
 
 		this.rangeStartCell = pathFinder.cell(e.path);
+		this.view.selection.behavior.selectRange(this.rangeStartCell, this.rangeStartCell);
 	}
 
 	onMouseMove(e) {
