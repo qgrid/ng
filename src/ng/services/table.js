@@ -1,4 +1,4 @@
-class Table {
+export default class Table {
 	constructor(markup) {
 		this.markup = markup;
 	}
