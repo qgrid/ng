@@ -111,6 +111,7 @@ export default class Navigation {
 				execute: () => {
 					const body = this.markup.body;
 					body.scrollTop -= body.getBoundingClientRect().height;
+					model.navigation({row: this.rowIndex(body.scrollTop)}, {source: 'navigation'});
 				}
 			}),
 			focusLastRowPage: new Command({

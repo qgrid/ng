@@ -70,7 +70,6 @@ export default class Shortcut {
 		}
 
 		return () => {
-			this.listener.off();
 			this.shortcuts.delete(id);
 		};
 	}
