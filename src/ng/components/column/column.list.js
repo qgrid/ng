@@ -44,7 +44,7 @@ class ColumnList extends ModelComponent {
 			});
 		}
 		else {
-			data({columns: this.merge(data().columns, this.columns)});
+			data({columns: this.merge(Array.from(data().columns), this.columns)});
 		}
 	}
 

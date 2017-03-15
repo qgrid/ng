@@ -17,6 +17,7 @@
 		</md-tooltip>
 		<md-button ng-disabled="!node.code.html && !node.code.md"
 					  ng-click="$ctrl.select(node)"
+					  aria-label="Group Link"
 					  ng-bind-html="node.title | qgridHighlight : $ctrl.filterText">
 		</md-button>
 	</md-list-item>
@@ -28,6 +29,7 @@
 		</md-tooltip>
 		<md-button ng-disabled="!item.code.html && !item.code.md"
 					  ng-click="$ctrl.select(item)"
+					  aria-label="Topic Link"
 					  ng-bind-html="item.title | qgridHighlight : $ctrl.filterText">
 		</md-button>
 	</md-list-item>

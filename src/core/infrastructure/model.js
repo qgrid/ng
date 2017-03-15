@@ -64,6 +64,9 @@ export default class Model {
 
 							changeSet.add(key);
 						}
+						else{
+							Log.warn('model', `value was not changed - "${name}.${key}"`);
+						}
 					}
 
 					if (hasChanges) {
