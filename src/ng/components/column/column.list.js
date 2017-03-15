@@ -44,7 +44,15 @@ class ColumnList extends ModelComponent {
 			});
 		}
 		else {
-			data({columns: this.merge(Array.from(data().columns), this.columns)});
+			model.dataChanged.watch(e => {
+				if (e.hasChanges('columns')) {
+					data({columns: this.merge(Array.from(data().columns), this.columns)});
+				}
+			});
+
+			if(!data().columns.length) {
+				data({columns: this.merge(Array.from(data().columns), this.columns)});
+			}
 		}
 	}
 
