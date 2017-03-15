@@ -19,7 +19,7 @@ class ColumnList extends ModelComponent {
 		const generation = this.columnListGeneration;
 		if (generation) {
 			model.dataChanged.watch(e => {
-				if (!e || e.changes.hasOwnProperty('rows')) {
+				if (e.hasChanges('rows')) {
 					const generatedColumns = [];
 					const rows = model.data().rows;
 					switch (generation) {

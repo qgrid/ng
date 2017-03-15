@@ -36,7 +36,7 @@ class ViewCore extends Component {
 			}
 
 			return this.timeout(f, timeout);
-		}
+		};
 
 		this.head = new HeadView(model);
 		this.body = new BodyView(model, markup, valueFactory);

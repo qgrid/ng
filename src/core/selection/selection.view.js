@@ -34,7 +34,7 @@ export default class SelectionView extends View {
 		});
 
 		model.selectionChanged.watch(e => {
-			if (!e || e.changes.hasOwnProperty('mode')){
+			if (e.hasChanges('mode')){
 				apply(() => {
 
 					const newClassName = `${GRID_PREFIX}-select-${model.selection().mode}`;
@@ -47,13 +47,13 @@ export default class SelectionView extends View {
 				});
 			}
 
-			if (!e || e.changes.hasOwnProperty('unit') || e.changes.hasOwnProperty('mode')) {
+			if (e.hasChanges('unit') || e.hasChanges('mode')) {
 				this.behavior = behaviorFactory(model, markup, apply);
 				model.navigation({column: -1, row: -1});
 				model.selection({items: this.behavior.state.view});
 			}
 
-			if (!e || e.tag.source !== 'toggle' && e.changes.hasOwnProperty('items')) {
+			if (e.tag.source !== 'toggle' && e.hasChanges('items')) {
 				this.behavior.select(model.selection().items, true);
 			}
 		});

@@ -16,18 +16,27 @@ export default class LayoutView extends View {
 		const model = this.model;
 
 		model.viewChanged.watch(e => {
-			if (!e || e.changes.hasOwnProperty('columns')) {
+			if (e.hasChanges('columns')) {
 				this.invalidateColumns();
 			}
 		});
 
 		model.layoutChanged.watch(e => {
-			if (!e || e.changes.hasOwnProperty('columns')) {
+			if (e.hasChanges('columns')) {
 				this.invalidateColumns(this.form);
 			}
 
-			if (!e || e.changes.hasOwnProperty('scroll')) {
+			if (e.hasChanges('scroll')) {
 				this.invalidateScroll();
+			}
+		});
+
+		model.dataChanged.watch(e => {
+			if (e.hasChanges('columns')) {
+				const index = Array.from(model.columnList().index);
+				const indexSet = new Set(index);
+				index.push(...model.data().columns.filter(c => !indexSet.has(c.key)).map(c => c.key));
+				model.columnList({index: index});
 			}
 		});
 	}

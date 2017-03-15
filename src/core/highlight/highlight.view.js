@@ -32,7 +32,7 @@ export default class HighlightView extends View {
 	onInit(model) {
 		let blurs = [];
 		model.sortChanged.watch(e => {
-			if (!e || e.changes.hasOwnProperty('by')) {
+			if (e.hasChanges('by')) {
 				blurs = this.invalidate(blurs);
 			}
 			this.behavior = behaviorFactory(this.model, this.markup);
@@ -44,7 +44,7 @@ export default class HighlightView extends View {
 		});
 
 		model.selectionChanged.watch(e => {
-			if (!e || e.changes.hasOwnProperty('unit') || e.changes.hasOwnProperty('mode')) {
+			if (e.hasChanges('unit') || e.hasChanges('mode')) {
 				if (this.behavior) {
 					this.behavior.destroy();
 				}

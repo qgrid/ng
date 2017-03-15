@@ -53,7 +53,7 @@ export default function (pluginName, context) {
 				}
 
 				this.model.visibilityChanged.watch(e => {
-					if (!e || e.changes.hasOwnProperty('plugin')) {
+					if (e.hasChanges('plugin')) {
 						const plugins = this.model.visibility().plugin;
 						const pluginState = plugins[pluginName];
 						if (pluginState !== this.isShown) {

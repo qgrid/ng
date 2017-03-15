@@ -12,7 +12,22 @@ export default class Model {
 		close = true;
 		for (let name of Object.keys(models)) {
 			const model = new models[name]();
-			const event = new Event();
+			const changeSet = {};
+			const watchArg = () => ({
+				state: model,
+				hasChanges: key => !!changeSet[key],
+				changes: Object
+					.keys(changeSet)
+					.reduce((memo, key) => {
+						const value = model[key];
+						memo[key] = {newValue: value, oldValue: value};
+						return memo;
+					}, {}),
+				tag: {},
+				source: 'watch',
+			});
+
+			const event = new Event(watchArg);
 			this[name + 'Changed'] = event;
 			this[name] = function (state, tag) {
 				const length = arguments.length;
@@ -47,14 +62,18 @@ export default class Model {
 								newValue: newValue,
 								oldValue: oldValue
 							};
+
+							changeSet[key] = true;
 						}
 					}
 
 					if (hasChanges) {
 						event.emit({
 							state: model,
+							hasChanges: changes.hasOwnProperty.bind(changes),
 							changes: changes,
-							tag: length > 1 ? tag : {}
+							tag: length > 1 ? tag : {},
+							source: 'emit'
 						});
 					}
 				}

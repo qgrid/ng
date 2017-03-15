@@ -21,6 +21,7 @@ class PasswordColumnModel extends DataColumnModel {
 		super('password');
 
 		this.canSort = false;
+		this.canFilter = false;
 	}
 }
 
