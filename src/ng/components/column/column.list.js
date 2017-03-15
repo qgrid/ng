@@ -39,19 +39,19 @@ class ColumnList extends ModelComponent {
 					const generatedColumnMap = columnService.map(generatedColumns);
 					const templateColumnMap = columnService.map(this.columns);
 					const dataColumns = data().columns.filter(c => !generatedColumnMap.hasOwnProperty(c.key) && !templateColumnMap.hasOwnProperty(c.key));
-					data({columns: this.merge(this.merge(generatedColumns, dataColumns), this.columns)});
+					data({columns: this.merge(this.merge(generatedColumns, dataColumns), this.columns)}, {source: 'column.list'});
 				}
 			});
 		}
 		else {
 			model.dataChanged.watch(e => {
-				if (e.hasChanges('columns')) {
-					data({columns: this.merge(Array.from(data().columns), this.columns)});
+				if (e.tag.source !== 'column.list' && e.hasChanges('columns')) {
+					data({columns: this.merge(Array.from(data().columns), this.columns)}, {source: 'column.list'});
 				}
 			});
 
 			if(!data().columns.length) {
-				data({columns: this.merge(Array.from(data().columns), this.columns)});
+				data({columns: this.merge(Array.from(data().columns), this.columns)}, {source: 'column.list'});
 			}
 		}
 	}
