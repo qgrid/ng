@@ -112,7 +112,7 @@
 *	Column
 	* Custom types
 	* Percent width
-*  Sorting depends on column index
+*  Sorting depends on position
 *	Validation
 *	Expression builder
 *	State persistence
@@ -120,7 +120,7 @@
 *	Style API
 
 
-## 11 March – version 1.2
+## 11 April – version 1.2
 *	Filter row
 *	Scroll
 	*	Focus service
