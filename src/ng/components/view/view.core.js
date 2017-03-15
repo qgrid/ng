@@ -33,7 +33,7 @@ class ViewCore extends Component {
 		const table = new Table(markup);
 
 		const apply = (f, timeout) => {
-			if (isUndefined(timeout)){
+			if (isUndefined(timeout)) {
 				return this.$scope.$evalAsync(f);
 			}
 
