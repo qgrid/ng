@@ -1,7 +1,8 @@
 export default class Event {
-	constructor() {
+	constructor(e = () => null) {
 		this.handlers = [];
 		this.isDirty = false;
+		this.e = e;
 	}
 
 	on(f) {
@@ -16,8 +17,8 @@ export default class Event {
 	}
 
 	watch(f) {
-		if (this.isDirty) {
-			f();
+		if(this.isDirty) {
+			f(this.e());
 		}
 
 		return this.on(f);

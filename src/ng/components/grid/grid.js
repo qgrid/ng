@@ -1,5 +1,5 @@
 import RootComponent from '../root.component';
-import PipeUnit from 'core/pipe/units/pipe.column.unit';
+import PipeUnit from 'core/pipe/units/pipe.unit';
 
 export class Grid extends RootComponent {
 	constructor($element, $transclude, $document, serviceFactory) {
@@ -20,7 +20,7 @@ export class Grid extends RootComponent {
 		const service = this.serviceFactory(model);
 
 		model.selectionChanged.watch(e => {
-			if (!e || e.changes.hasOwnProperty('items')) {
+			if (e.hasChanges('items')) {
 				this.onSelectionChanged({
 					$event: {
 						state: model.selection(),
@@ -29,17 +29,8 @@ export class Grid extends RootComponent {
 				});
 			}
 
-			if (!e || e.changes.hasOwnProperty('unit') || e.changes.hasOwnProperty('mode')) {
+			if (e.hasChanges('unit') || e.hasChanges('mode')) {
 				service.invalidate('selection', e ? e.changes : {}, PipeUnit.column);
-			}
-		});
-
-		model.dataChanged.watch(e => {
-			if (!e || e.changes.hasOwnProperty('columns')) {
-				const index = Array.from(model.columnList().index);
-				const indexSet = new Set(index);
-				index.push(...model.data().columns.filter(c => !indexSet.has(c.key)).map(c => c.key));
-				model.columnList({index: index});
 			}
 		});
 

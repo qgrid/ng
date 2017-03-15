@@ -78,7 +78,9 @@ export default function Controller($http) {
 			title: 'Primary Email',
 			type: 'email',
 			value: item => item.contact.email[0],
-			canEdit: false
+			canEdit: false,
+			canSort: false,
+			canFilter: false
 		},
 		{
 			key: 'likes',

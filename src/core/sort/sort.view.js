@@ -51,6 +51,32 @@ export default class SortView extends View {
 				sort({by: by});
 			}
 		});
+
+		this.onInit();
+	}
+
+	onInit() {
+		const sort = this.model.sort;
+		this.model.columnListChanged.on(e => {
+			if (e.hasChanges('index')) {
+				const sortState = sort();
+				if (sortState.trigger.indexOf('reorder') >= 0) {
+					let index = 0;
+					const indexMap = this.model.columnList().index
+						.reduce((memo, key) => {
+							memo[key] = index++;
+							return memo;
+						}, {});
+
+					const sortBy = Array.from(sortState.by);
+					sortBy.sort((x, y) => indexMap[sortService.key(x)] - indexMap[sortService.key(y)]);
+
+					if (JSON.stringify(sortBy) !== JSON.stringify(sortState.by)) {
+						sort({by: sortBy});
+					}
+				}
+			}
+		});
 	}
 
 	direction(column) {
