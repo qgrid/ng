@@ -65,7 +65,7 @@ export default function Controller($http, qgrid, $log) {
 	ctrl.gridModel
 		.selectionChanged
 		.on(function (e) {
-			if (e.changes.hasOwnProperty('items')) {
+			if (e.hasChanges('items')) {
 				$log.log(`qgrid.demo: selection changed ${e.state.items.length} on ${e.state.unit} unit and ${e.state.mode} mode`);
 			}
 		});
