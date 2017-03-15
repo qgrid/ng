@@ -5,7 +5,7 @@ export default class Table {
 
 	cellAt(row, column) {
 		let cell = null;
-		if (column >= 0 && row >= 0) {
+		if (column > -1 && row > -1) {
 			const element = this.markup.body.rows[row].cells[column];
 			const scope = angular.element(element).scope();
 			cell = scope ? scope.$cell : null;

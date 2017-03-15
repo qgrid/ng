@@ -13,17 +13,26 @@ export default class Navigation {
 		return active && active.tBodies && active.tBodies[0] === this.markup.body;
 	}
 
-	rowIndex(y) {
+	moveTo(y, direction) {
 		const body = this.markup.body;
 		const rows = body.rows;
-		let offset = 0;
 		let index = 0;
-		while (offset <= y) {
+		let offset = 0;
+		while (offset <= y && rows[index]) {
 			offset += rows[index].clientHeight;
 			index++;
 		}
-
-		return index - 1;
+		if (direction && rows[index]) {
+			offset -= rows[index].clientHeight;
+			index--;
+		}
+		if (rows[index]) {
+			console.log(rows[index].cells[0], index);
+		}
+		return {
+			row: index,
+			offset: offset
+		};
 	}
 
 	get commands() {
@@ -79,7 +88,7 @@ export default class Navigation {
 					model.navigation({column: model.navigation().column - 1});
 				}
 			}),
-			focusFirstRowTable: new Command({
+			home: new Command({
 				shortcut: 'home',
 				canExecute: () => this.isActive()
 				&& model.edit().editMode == 'view',
@@ -91,7 +100,7 @@ export default class Navigation {
 					model.navigation(nav);
 				}
 			}),
-			focusLastRowTable: new Command({
+			end: new Command({
 				shortcut: 'end',
 				canExecute: () => this.isActive()
 				&& model.edit().editMode == 'view',
@@ -104,24 +113,30 @@ export default class Navigation {
 					model.navigation(nav);
 				}
 			}),
-			focusFirstRowPage: new Command({
+			pageUp: new Command({
 				shortcut: 'pageUp',
 				canExecute: () => this.isActive()
 				&& model.edit().editMode == 'view',
 				execute: () => {
 					const body = this.markup.body;
-					body.scrollTop -= body.getBoundingClientRect().height;
-					model.navigation({row: this.rowIndex(body.scrollTop)}, {source: 'navigation'});
+					const {row: row, offset: offset} = this.moveTo(body.scrollTop - body.getBoundingClientRect().height, false);
+					if (body.rows[row]) {
+						body.scrollTop = offset;
+						model.navigation({row: row}, {source: 'navigation'});
+					}
 				}
 			}),
-			focusLastRowPage: new Command({
+			pageDown: new Command({
 				shortcut: 'pageDown',
 				canExecute: () => this.isActive()
 				&& model.edit().editMode == 'view',
 				execute: () => {
 					const body = this.markup.body;
-					body.scrollTop += body.getBoundingClientRect().height;
-					model.navigation({row: this.rowIndex(body.scrollTop)}, {source: 'navigation'});
+					const {row: row, offset: offset} = this.moveTo(body.scrollTop + body.getBoundingClientRect().height, true);
+					if (body.rows[row]) {
+						body.scrollTop = offset;
+						model.navigation({row: row}, {source: 'navigation'});
+					}
 				}
 			})
 		};

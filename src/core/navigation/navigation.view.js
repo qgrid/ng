@@ -20,6 +20,7 @@ export default class NavigationView extends View {
 			},
 			canExecute: (row, column) => {
 				return this.rows.length > row
+					&& this.rows[row]
 					&& this.rows[row].cells.length > column;
 			}
 		});
@@ -30,6 +31,7 @@ export default class NavigationView extends View {
 			},
 			canExecute: (row, column) => {
 				return this.rows.length > row
+					&& this.rows[row]
 					&& this.rows[row].cells.length > column;
 			}
 		});
@@ -40,6 +42,7 @@ export default class NavigationView extends View {
 			},
 			canExecute: (row, column) => {
 				return this.rows.length > row
+					&& this.rows[row]
 					&& this.rows[row].cells.length > column;
 			}
 		});
