@@ -26,9 +26,6 @@ export default class Navigation {
 			offset -= rows[index].clientHeight;
 			index--;
 		}
-		if (rows[index]) {
-			console.log(rows[index].cells[0], index);
-		}
 		return {
 			row: index,
 			offset: offset
