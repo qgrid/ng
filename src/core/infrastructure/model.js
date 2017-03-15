@@ -12,12 +12,11 @@ export default class Model {
 		close = true;
 		for (let name of Object.keys(models)) {
 			const model = new models[name]();
-			const changeSet = {};
+			const changeSet = new Set();
 			const watchArg = () => ({
 				state: model,
-				hasChanges: key => !!changeSet[key],
-				changes: Object
-					.keys(changeSet)
+				hasChanges: changeSet.has.bind(changeSet),
+				changes: Array.from(changeSet.values())
 					.reduce((memo, key) => {
 						const value = model[key];
 						memo[key] = {newValue: value, oldValue: value};
@@ -63,7 +62,7 @@ export default class Model {
 								oldValue: oldValue
 							};
 
-							changeSet[key] = true;
+							changeSet.add(key);
 						}
 					}
 
