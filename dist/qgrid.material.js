@@ -64,7 +64,7 @@ var qgrid =
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 463);
+/******/ 	return __webpack_require__(__webpack_require__.s = 470);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -216,14 +216,14 @@ module.exports = "<div layout=\"row\">\n\t<div flex=\"100\"\n\t\t  layout=\"row\
 
 /***/ }),
 
-/***/ 463:
+/***/ 470:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 __webpack_require__(124);
 
-/* harmony default export */ __webpack_exports__["default"] = angular.module('qgrid.theme.material', []).config(Setup).name;
+/* harmony default export */ __webpack_exports__["default"] = angular.module('qgrid.theme.material', ['qgrid']).config(Setup).name;
 
 Setup.$inject = ['qgridThemeProvider'];
 function Setup(qgridThemeProvider) {
@@ -240,13 +240,13 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.body.cell.bool.tpl.html', __webpack_require__(127));
 		theme.put('qgrid.body.cell.select.tpl.html', __webpack_require__(131));
 
-		theme.put('qgrid.head.cell.text.tpl.html', __webpack_require__(8));
-		theme.put('qgrid.head.cell.bool.tpl.html', __webpack_require__(8));
-		theme.put('qgrid.head.cell.date.tpl.html', __webpack_require__(8));
-		theme.put('qgrid.head.cell.number.tpl.html', __webpack_require__(8));
-		theme.put('qgrid.head.cell.array.tpl.html', __webpack_require__(8));
-		theme.put('qgrid.head.cell.email.tpl.html', __webpack_require__(8));
-		theme.put('qgrid.head.cell.password.tpl.html', __webpack_require__(8));
+		theme.put('qgrid.head.cell.text.tpl.html', __webpack_require__(9));
+		theme.put('qgrid.head.cell.bool.tpl.html', __webpack_require__(9));
+		theme.put('qgrid.head.cell.date.tpl.html', __webpack_require__(9));
+		theme.put('qgrid.head.cell.number.tpl.html', __webpack_require__(9));
+		theme.put('qgrid.head.cell.array.tpl.html', __webpack_require__(9));
+		theme.put('qgrid.head.cell.email.tpl.html', __webpack_require__(9));
+		theme.put('qgrid.head.cell.password.tpl.html', __webpack_require__(9));
 		theme.put('qgrid.head.cell.pivot.tpl.html', __webpack_require__(134));
 		theme.put('qgrid.head.cell.select.tpl.html', __webpack_require__(135));
 
@@ -263,10 +263,10 @@ function Setup(qgridThemeProvider) {
 
 /***/ }),
 
-/***/ 8:
+/***/ 9:
 /***/ (function(module, exports) {
 
-module.exports = "<div ng-click=\"$view.sort.toggle.execute($cell.column)\">\n\t<div class=\"q-grid-sort\"\n\t\t  ng-class=\"{'q-grid-active': $view.sort.order($cell.column) >= 0}\"\n\t\t  ng-switch=\"$view.sort.direction($cell.column)\">\n\t\t<md-icon class=\"q-grid-asc\" ng-switch-when=\"asc\">arrow_downward</md-icon>\n\t\t<md-icon class=\"q-grid-desc\" ng-switch-when=\"desc\">arrow_upward</md-icon>\n\t\t<md-icon ng-switch-default>arrow_downward</md-icon>\n\t</div>\n\t<label>\n\t\t<md-tooltip md-delay=\"1000\">{{$cell.column.title}}</md-tooltip>\n\t\t{{$cell.column.title}}\n\t</label>\n</div>\n<q-grid:column-filter class=\"q-grid-column-filter\"\n\t\t\t\t\t\t\t key=\"$cell.column.key\"\n\t\t\t\t\t\t\t title=\"$cell.column.title\"\n\t\t\t\t\t\t\t ng-class=\"{'q-grid-active': $view.filter.has($cell.column)}\">\n</q-grid:column-filter>"
+module.exports = "<div ng-click=\"$view.sort.toggle.execute($cell.column)\">\n\t<div class=\"q-grid-sort\"\n\t\t  ng-class=\"{'q-grid-active': $view.sort.order($cell.column) >= 0}\"\n\t\t  ng-if=\"$cell.column.canSort\"\n\t\t  ng-switch=\"$view.sort.direction($cell.column)\">\n\t\t<md-icon class=\"q-grid-asc\" ng-switch-when=\"asc\">arrow_downward</md-icon>\n\t\t<md-icon class=\"q-grid-desc\" ng-switch-when=\"desc\">arrow_upward</md-icon>\n\t\t<md-icon ng-switch-default>arrow_downward</md-icon>\n\t</div>\n\t<label>\n\t\t<md-tooltip md-delay=\"1000\">{{$cell.column.title}}</md-tooltip>\n\t\t{{$cell.column.title}}\n\t</label>\n</div>\n<q-grid:column-filter ng-if=\"$cell.column.canFilter\"\n\t\t\t\t\t\t\t class=\"q-grid-column-filter\"\n\t\t\t\t\t\t\t key=\"$cell.column.key\"\n\t\t\t\t\t\t\t title=\"$cell.column.title\"\n\t\t\t\t\t\t\t ng-class=\"{'q-grid-active': $view.filter.has($cell.column)}\">\n</q-grid:column-filter>"
 
 /***/ })
 

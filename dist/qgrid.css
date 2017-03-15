@@ -156,6 +156,10 @@
       width: 55px;
       min-width: 55px;
       max-width: 55px; }
+    .q-grid thead td.q-grid-row-number, .q-grid thead th.q-grid-row-number, .q-grid tfoot td.q-grid-row-number, .q-grid tfoot th.q-grid-row-number, .q-grid tbody td.q-grid-row-number, .q-grid tbody th.q-grid-row-number {
+      width: 55px;
+      min-width: 55px;
+      max-width: 55px; }
     .q-grid thead td.q-grid-select, .q-grid thead th.q-grid-select, .q-grid tfoot td.q-grid-select, .q-grid tfoot th.q-grid-select, .q-grid tbody td.q-grid-select, .q-grid tbody th.q-grid-select {
       width: 55px;
       min-width: 55px;
@@ -165,9 +169,9 @@
   .q-grid tbody td.q-grid-bool, .q-grid tbody td.q-grid-password, .q-grid tbody td.q-grid-select {
     text-align: center; }
   .q-grid .q-grid-can-drag {
-    -moz-user-select: none;
-    -khtml-user-select: none;
     -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
     user-select: none;
     -khtml-user-drag: element;
     -webkit-user-drag: element; }
@@ -188,3 +192,9 @@
   .q-grid .q-grid-toolbar-left, .q-grid .q-grid-toolbar-right {
     max-width: 250px;
     overflow: auto; }
+  .q-grid .q-grid-view.q-grid-select-range thead td, .q-grid .q-grid-view.q-grid-select-range thead th, .q-grid .q-grid-view.q-grid-select-range tfoot td, .q-grid .q-grid-view.q-grid-select-range tfoot th, .q-grid .q-grid-view.q-grid-select-range tbody td, .q-grid .q-grid-view.q-grid-select-range tbody th {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default; }
