@@ -123,7 +123,7 @@ function canAddSelectColumn(model){
 	return selection.unit === 'row' && selection.mode !== 'range';
 }
 
-export default function pipeColumn(memo, context, next) {
+export default function columnPipe(memo, context, next) {
 	const model = context.model;
 	const pivot = memo.pivot;
 	const nodes = memo.nodes;
