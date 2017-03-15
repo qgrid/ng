@@ -5,5 +5,6 @@ export default class SortModel {
 		this.resource = new Resource();
 		this.by = [];
 		this.mode = 'multiple';
+		this.trigger = ['reorder'];
 	}
 }

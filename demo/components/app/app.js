@@ -1,4 +1,5 @@
 Controller.$inject = [
+	'$scope',
 	'Demo.PAGES',
 	'Demo.THEMES',
 	'Demo.DEFAULTS',
@@ -8,7 +9,7 @@ Controller.$inject = [
 	'$window'
 ];
 
-export default function Controller(pages, themes, defaults, themeProvider, $mdSidenav, $location, $window) {
+export default function Controller($scope, pages, themes, defaults, themeProvider, $mdSidenav, $location, $window) {
 	this.pages = pages;
 	this.page = null;
 	this.themes = themes;
@@ -32,12 +33,14 @@ export default function Controller(pages, themes, defaults, themeProvider, $mdSi
 		$window.location.reload();
 	};
 
-	const entries = flatten(this.pages);
-	const path = ($location.path() || defaults.path).toLowerCase().substring(1);
-	const page = entries.filter(p => p.path.toLowerCase() === path)[0] || entries[0];
-	if (page) {
-		this.page = page;
-	}
+	$scope.$on('$locationChangeStart', () => {
+		const entries = flatten(this.pages);
+		const path = ($location.path() || defaults.path).toLowerCase().substring(1);
+		const page = entries.filter(p => p.path.toLowerCase() === path)[0] || entries[0];
+		if (page) {
+			this.page = page;
+		}
+	});
 }
 
 function flatten(pages, result = []) {

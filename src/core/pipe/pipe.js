@@ -1,11 +1,11 @@
-import filter from './pipe.filter';
-import pagination from './pipe.pagination';
-import sort from './pipe.sort';
-import data from './pipe.data';
-import memo from './pipe.memo';
-import group from './pipe.group';
-import pivot from './pipe.pivot';
-import column from './pipe.column';
+import filter from './filter.pipe';
+import pagination from './pagination.pipe';
+import sort from './sort.pipe';
+import data from './data.pipe';
+import memo from './memo.pipe';
+import group from './group.pipe';
+import pivot from './pivot.pipe';
+import column from './column.pipe';
 import view from './pipe.view';
 
 export default class Pipe {
