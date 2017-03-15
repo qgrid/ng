@@ -1,3 +1,5 @@
+@import "mixins";
+
 td, th {
 	vertical-align: middle;
 	text-align: left;
@@ -91,6 +93,12 @@ thead, tfoot, tbody {
 		}
 
 		&.q-grid-row-indicator {
+			width: 55px;
+			min-width: 55px;
+			max-width: 55px;
+		}
+
+		&.q-grid-row-number {
 			width: 55px;
 			min-width: 55px;
 			max-width: 55px;

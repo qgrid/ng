@@ -52,8 +52,8 @@ export default class NavigationView extends View {
 			const nav = model.navigation();
 			const newRow = nav.row == -1 ? 0 : nav.row;
 			const newColumn = nav.column == -1 ? 0 : nav.column;
-			const oldRow = e && e.changes.hasOwnProperty('row') ? e.changes.row.oldValue : newRow;
-			const oldColumn = e && e.changes.hasOwnProperty('column') ? e.changes.column.oldValue : newColumn;
+			const oldRow = e.hasChanges('row') ? e.changes.row.oldValue : newRow;
+			const oldColumn = e.hasChanges('column') ? e.changes.column.oldValue : newColumn;
 
 			if (this.blur.canExecute(newRow, newColumn) && oldRow > -1 && oldColumn > -1) {
 				this.blur.execute(oldRow, oldColumn);

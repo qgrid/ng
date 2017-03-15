@@ -6,7 +6,6 @@ import Head from './components/head/head';
 import Foot from './components/foot/foot';
 import ColumnList from './components/column/column.list';
 import Column from './components/column/column';
-import Node from './components/node/node';
 import Toolbar from './components/toolbar/toolbar';
 import Drag from './components/dnd/drag';
 import Drop from './components/dnd/drop';
@@ -59,7 +58,6 @@ const layoutModel = angular.module(def.MODULE_LAYOUT_NAME, [coreModule])
 	.component(def.FOOT_NAME, Foot)
 	.component(def.COLUMN_LIST_NAME, ColumnList)
 	.component(def.COLUMN_NAME, Column)
-	.component(def.NODE_NAME, Node)
 	.component(def.TOOLBAR_NAME, Toolbar)
 	.component(def.TOOLBAR_CORE_NAME, ToolbarCore)
 	.directive(def.TEMPLATE_NAME, () => Template)

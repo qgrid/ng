@@ -2,16 +2,21 @@ import Directive from 'ng/directives/directive';
 import {VIEW_CORE_NAME, BODY_CORE_NAME} from 'ng/definition';
 import EventListener from 'core/infrastructure/event.listener';
 import * as pathFinder from 'ng/services/path.find';
-import * as columnService from 'core/column/column.service';
 
 class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
-	constructor($scope, $element) {
+	constructor($scope, $element, $document) {
 		super();
 
 		this.$scope = $scope;
 		this.element = $element[0];
+		this.document = $document[0];
+
+		this.documentListener = new EventListener(this, this.document);
+
 		this.listener = new EventListener(this, this.element);
-		this.listener.on('scroll', this.onScroll);
+		
+		this.rangeStartPoint = null;
+		this.rangeStartCell = null;
 
 		Object.defineProperty($scope, '$view', {get: () => this.view});
 	}
@@ -31,7 +36,14 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	}
 
 	onInit() {
+		this.listener.on('scroll', this.onScroll);
+		
 		this.listener.on('click', this.onClick);
+		
+		this.listener.on('mousedown', this.onMouseDown);
+		this.listener.on('mouseup', this.onMouseUp);
+
+		this.documentListener.on('mousemove', this.onMouseMove);
 	}
 
 	onDestroy() {
@@ -39,6 +51,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	}
 
 	onClick(e) {
+		const selection = this.view.model.selection();
 		const cell = pathFinder.cell(e.path);
 		if (cell) {
 			this.view.model.navigation({
@@ -52,47 +65,68 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 				this.$scope.$evalAsync(() => this.view.edit.cell.enter.execute(cell));
 			}
 
-			if (cell.column.type !== 'select') {
-				this.toggle(cell);
+			if (cell.column.type !== 'select' && selection.mode !== 'range') {
+				this.view.selection.behavior.selectCell(cell);
 			}
 		}
 	}
 
-	toggle(cell) {
+	onMouseDown(e) {
+		if (!this.isRange) {
+			return;
+		}
+
+		this.rangeStartPoint = {
+			x: e.pageX,
+			y: e.pageY
+		};
+
+		this.rangeStartCell = pathFinder.cell(e.path);
+
+		this.view.overlay.show();
+		this.view.overlay.position(this.rangeStartPoint, this.rangeStartPoint);
+	}
+
+	onMouseMove(e) {
+		if (!this.isRange) {
+			return;
+		}
+
+		if (this.rangeStartPoint) {
+			this.view.overlay.position(this.rangeStartPoint, { x: e.pageX, y: e.pageY });
+		}
+	}
+
+	onMouseUp(e) {
+		if (!this.isRange) {
+			return;
+		}
+		
+		const startCell = this.rangeStartCell;
+		const endCell = pathFinder.cell(e.path);
+		if (startCell && endCell) {
+			this.view.selection.behavior.selectRange(startCell, endCell);
+		}
+
+		this.rangeStartPoint = null;
+		this.rangeStartCell = null;
+		
+		this.view.overlay.hide();
+	}
+
+
+	get isRange() {
 		const model = this.view.model;
 		const selection = model.selection();
 
-		switch (selection.unit) {
-			case 'row':
-				{
-					const rows = model.view().rows;
-					const row = rows[cell.rowIndex];
-					if (row && this.view.selection.toggleRow.canExecute(row)) {
-						this.$scope.$evalAsync(() => this.view.selection.toggleRow.execute(row));
-					}
-				}
-				break;
-			case 'column':
-				{
-					const columns = columnService.lineView(model.view().columns);
-					const column = columns.find(c => c.model === cell.column).key;
-					if (column && this.view.selection.toggleColumn.canExecute(column)) {
-						this.$scope.$evalAsync(() => this.view.selection.toggleColumn.execute(column));
-					}
-				}
-				break;
-			case 'cell':
-				if (cell && this.view.selection.toggleCell.canExecute(cell)) {
-					this.$scope.$evalAsync(() => this.view.selection.toggleCell.execute(cell));
-				}
-				break;
-		}
+		return selection.mode === 'range';
 	}
 }
 
 BodyCore.$inject = [
 	'$scope',
-	'$element'
+	'$element',
+	'$document'
 ];
 
 export default {

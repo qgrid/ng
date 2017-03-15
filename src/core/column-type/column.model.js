@@ -16,6 +16,7 @@ export default class ColumnModel {
 		this.canResize = true;
 		this.canSort = true;
 		this.canMove = true;
+		this.canFilter = true;
 
 		this.isVisible = true;
 		this.index = -1;

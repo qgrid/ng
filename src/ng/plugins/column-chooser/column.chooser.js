@@ -154,7 +154,7 @@ class ColumnChooser extends Plugin {
 		};
 
 		model.viewChanged.watch(e => {
-			if (!e || e.changes.hasOwnProperty('columns')) {
+			if (e.hasChanges('columns')) {
 				this.columns = Array.from(model.data().columns);
 				this.columns.sort((x, y) => x.index - y.index);
 			}

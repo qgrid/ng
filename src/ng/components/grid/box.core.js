@@ -15,7 +15,7 @@ class BoxCore extends Component {
 
 		const model = this.model;
 		model.dragChanged.watch(e => {
-			if (!e || e.changes.hasOwnProperty('isActive')) {
+			if (e.hasChanges('isActive')) {
 				if (model.drag().isActive) {
 					this.element.classList.add(`${GRID_PREFIX}-drag`);
 				}

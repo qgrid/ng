@@ -26,7 +26,8 @@ class SelectionBar extends Plugin {
 
 		this.modes = [
 			{ key: 'single', title: 'Single' },
-			{ key: 'multiple', title: 'Multiple' } 
+			{ key: 'multiple', title: 'Multiple' },
+			{ key: 'range', title: 'Range' },
 		];
 
 		this.mode = this.modes[0].key;

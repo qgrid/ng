@@ -1,5 +1,6 @@
 import Behavior from './highlight.behavior';
 import {GRID_PREFIX} from 'core/definition';
+import * as columnService from 'core/column/column.service';
 
 export default class CellHighlight extends Behavior {
 	constructor(model, markup) {
@@ -7,27 +8,11 @@ export default class CellHighlight extends Behavior {
 	}
 
 	applyCore(items) {
-		const body = this.markup.body;
-		for (let item of items) {
-			if (body && body.rows && body.rows.length > item.rowIndex) {
-				const row = body.rows[item.rowIndex];
-				if (row && row.cells && row.cells.length > item.columnIndex) {
-					this.state(row.cells[item.columnIndex], true);
-				}
-			}
-		}
+		this.cells(items).forEach((cell) => this.state(cell, true));
 	}
 
 	clearCore(items) {
-		const body = this.markup.body;
-		for (let item of items) {
-			if (body && body.rows && body.rows.length > item.rowIndex) {
-				const row = body.rows[item.rowIndex];
-				if (row && row.cells && row.cells.length > item.columnIndex) {
-					this.state(row.cells[item.columnIndex], false);
-				}
-			}
-		}
+		this.cells(items).forEach((cell) => this.state(cell, false));
 	}
 
 	state(item, state) {
@@ -37,5 +22,28 @@ export default class CellHighlight extends Behavior {
 		else {
 			item.classList.remove(`${GRID_PREFIX}-selected`);
 		}
+	}
+
+	cells(items) {
+		const result = [];
+		const body = this.markup.body;
+
+		const columns = columnService.lineView(this.model.view().columns);
+		const rows = this.model.view().rows;
+
+		for (let item of items) {
+			const rowIndex = rows.indexOf(item.row);
+			const columnIndex = columns.findIndex((c) => c.model.key === item.column);
+
+			if (rowIndex > -1 && body && body.rows[rowIndex]) {
+				const row = body.rows[rowIndex];
+
+				if (columnIndex > -1 && row && row.cells[columnIndex]) {
+					result.push(row.cells[columnIndex]);
+				}
+			}
+		}
+
+		return result;
 	}
 }
