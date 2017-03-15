@@ -89,7 +89,7 @@
 *	Browser support
 	*	Chrome
 
-## 14 March – version 1.1
+## 21 March – version 1.1
 *	Row
 	*	Row Details
 	*	Row inline edit
@@ -112,6 +112,7 @@
 *	Column
 	* Custom types
 	* Percent width
+*  Sorting depends on column index
 *	Validation
 *	Expression builder
 *	State persistence
@@ -119,7 +120,7 @@
 *	Style API
 
 
-## 28 March – version 1.2
+## 11 March – version 1.2
 *	Filter row
 *	Scroll
 	*	Focus service
@@ -133,7 +134,7 @@
 *	Export to pdf
 
 
-## 11 April – version 1.3
+## 25 April – version 1.3
 *	Mobile device support
 *	Localization
 *	Master/details
@@ -150,6 +151,6 @@
 *	Default theme
 
 
-## 25 April
+## 2 May
 *	Core to separate repo
 *	Angular 2 environment

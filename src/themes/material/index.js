@@ -1,7 +1,7 @@
 require('./index.scss');
 
 export default angular
-	.module('qgrid.theme.material', [])
+	.module('qgrid.theme.material', ['qgrid'])
 	.config(Setup)
 	.name;
 
