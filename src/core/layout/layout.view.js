@@ -35,7 +35,6 @@ export default class LayoutView extends View {
 			const result = Array.from(columns);
 			const indexedColumn = result.filter(c => c.hasOwnProperty('index') && c.index >= 0);
 			indexedColumn.sort((x, y) => x.index - y.index);
-
 			const move = c => result.splice(c.index, 0, result.splice(result.indexOf(c), 1)[0]);
 			indexedColumn.forEach(move);
 			return result;

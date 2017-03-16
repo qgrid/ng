@@ -60,6 +60,22 @@ export default class SelectionState {
 		return false;
 	}
 
+	key(item) {
+		const unit = this.model.selection().unit;
+		const rows = this.model.view().rows;
+
+		if (unit === 'cell' && item.column && item.row){
+			const columnKey = item.column.key;
+			const rowIndex = rows.indexOf(item.row);
+
+			if (columnKey && rowIndex >= 0) {
+				return `${columnKey}[${rowIndex}]`;
+			}
+		}
+
+		return item;
+	}
+
 	get view() {
 		return [];
 	}

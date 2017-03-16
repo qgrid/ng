@@ -33,7 +33,7 @@ export default class CellHighlight extends Behavior {
 
 		for (let item of items) {
 			const rowIndex = rows.indexOf(item.row);
-			const columnIndex = columns.findIndex((c) => c.model.key === item.column);
+			const columnIndex = columns.findIndex((c) => c.model === item.column);
 
 			if (rowIndex > -1 && body && body.rows[rowIndex]) {
 				const row = body.rows[rowIndex];
