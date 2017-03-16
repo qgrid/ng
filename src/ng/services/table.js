@@ -4,12 +4,19 @@ export default class Table {
 	}
 
 	cellAt(row, column) {
-		let cell = null;
-		if (column > -1 && row > -1) {
-			const element = this.markup.body.rows[row].cells[column];
-			const scope = angular.element(element).scope();
-			cell = scope ? scope.$cell : null;
+		const rows = this.markup.body.rows;
+		if (row >= 0 && row < rows.length) {
+			const rowElement = rows[row];
+			const cells = rowElement.cells;
+			if (column >= 0 && column < cells.length) {
+				const cellElement = cells[column];
+				const scope = angular.element(cellElement).scope();
+				if (scope) {
+					return scope.$cell;
+				}
+			}
 		}
-		return cell;
+
+		return null;
 	}
 }
