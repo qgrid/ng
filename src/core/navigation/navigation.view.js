@@ -4,17 +4,15 @@ import Shortcut from 'core/infrastructure/shortcut';
 import Navigation from 'core/navigation/navigation';
 import {GRID_PREFIX} from 'core/definition';
 
-
 export default class NavigationView extends View {
-	constructor(model, markup, apply) {
+	constructor(model, markup, table, apply) {
 		super(model);
 		this.markup = markup;
 		this.model = model;
 		this.document = this.markup.document;
-		const shortcut = new Shortcut(this.document, apply);
-		const navigation = new Navigation(model);
-
-		shortcut.register('navigation', navigation.commands);
+		const shortcut = new Shortcut(this.document, markup.table, apply);
+		const navigation = new Navigation(model, markup);
+		this.shortcutOff = shortcut.register('navigation', navigation.commands);
 
 		this.blur = new Command({
 			execute: (row, column) => {
@@ -22,10 +20,10 @@ export default class NavigationView extends View {
 			},
 			canExecute: (row, column) => {
 				return this.rows.length > row
+					&& this.rows[row]
 					&& this.rows[row].cells.length > column;
 			}
 		});
-
 		this.focus = new Command({
 			execute: (row, column) => {
 				const cell = this.rows[row].cells[column];
@@ -33,35 +31,46 @@ export default class NavigationView extends View {
 			},
 			canExecute: (row, column) => {
 				return this.rows.length > row
+					&& this.rows[row]
 					&& this.rows[row].cells.length > column;
 			}
 		});
-
 		this.scrollTo = new Command({
-			canExecute: (row, column) => {
-				return this.rows.length > row
-					&& this.rows[row].cells.length > column;
-			},
 			execute: (row, column) => {
 				const cell = this.rows[row].cells[column];
 				this.scroll(markup.body, cell);
+			},
+			canExecute: (row, column) => {
+				return this.rows.length > row
+					&& this.rows[row]
+					&& this.rows[row].cells.length > column;
 			}
 		});
 
 		model.navigationChanged.watch(e => {
-			const nav = model.navigation();
-			const newRow = nav.row == -1 ? 0 : nav.row;
-			const newColumn = nav.column == -1 ? 0 : nav.column;
-			const oldRow = e.hasChanges('row') ? e.changes.row.oldValue : newRow;
-			const oldColumn = e.hasChanges('column') ? e.changes.column.oldValue : newColumn;
+			if (e.hasChanges('row') || e.hasChanges('column')) {
+				const nav = model.navigation();
+				const newRow = nav.row == -1 ? 0 : nav.row;
+				const newColumn = nav.column == -1 ? 0 : nav.column;
+				const oldRow = e.hasChanges('row') ? e.changes.row.oldValue : newRow;
+				const oldColumn = e.hasChanges('column') ? e.changes.column.oldValue : newColumn;
 
-			if (this.blur.canExecute(newRow, newColumn) && oldRow > -1 && oldColumn > -1) {
-				this.blur.execute(oldRow, oldColumn);
-			}
+				if (this.blur.canExecute(newRow, newColumn) && oldRow > -1 && oldColumn > -1) {
+					this.blur.execute(oldRow, oldColumn);
+				}
+				if (this.focus.canExecute(newRow, newColumn)) {
+					this.focus.execute(newRow, newColumn);
+					if (!(e && e.tag.source === 'navigation')) {
+						this.scrollTo.execute(newRow, newColumn);
+					}
+				}
 
-			if (this.focus.canExecute(newRow, newColumn)) {
-				this.focus.execute(newRow, newColumn);
-				this.scrollTo.execute(newRow, newColumn);
+				const cell = table.cellAt(nav.row, nav.column);
+				model.navigation({
+					active: {
+						cell: cell
+					}
+				});
 			}
 		});
 
@@ -86,10 +95,11 @@ export default class NavigationView extends View {
 			|| cr.left > tr.right
 			|| cr.right < tr.left
 			|| cr.right < tr.right) {
-			if (cr.left < tr.left || cr.right < tr.right) {
-				container.scrollLeft = tr.width + scroll.left;
-			}
-			else if (cr.left > tr.left || cr.left > tr.right) {
+			if (cr.left < tr.left
+				|| cr.right < tr.right) {
+				container.scrollLeft = tr.right - cr.right + scroll.left;
+			} else if (cr.left > tr.left
+				|| cr.left > tr.right) {
 				container.scrollLeft = tr.left - cr.left + scroll.left;
 			}
 		}
@@ -97,12 +107,18 @@ export default class NavigationView extends View {
 			|| cr.top > tr.bottom
 			|| cr.bottom < tr.top
 			|| cr.bottom < tr.bottom) {
-			if (cr.top < tr.top || cr.bottom < tr.bottom) {
-				container.scrollTop = tr.height + scroll.top;
-			}
-			else if (cr.top > tr.top || cr.top > tr.bottom) {
+			if (cr.top < tr.top
+				|| cr.bottom < tr.bottom) {
+				container.scrollTop = tr.bottom - cr.bottom + scroll.top;
+			} else if (cr.top > tr.top
+				|| cr.top > tr.bottom) {
 				container.scrollTop = tr.top - cr.top + scroll.top;
 			}
+
 		}
+	}
+
+	destroy() {
+		this.shortcutOff();
 	}
 }
