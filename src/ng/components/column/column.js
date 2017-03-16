@@ -79,6 +79,9 @@ class Column extends Component {
 		if (withKey) {
 			this.columnList.add(column);
 		}
+		else {
+			this.columnList.register(column);
+		}
 	}
 }
 
