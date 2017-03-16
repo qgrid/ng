@@ -1,4 +1,5 @@
 import * as guard from 'core/infrastructure/guard';
+//import {assignWith} from 'core/services/utility';
 import CustomColumn from 'core/column-type/column.view';
 import TextColumn from 'core/column-type/text.column';
 import NumberColumn from 'core/column-type/number.column';
@@ -14,40 +15,49 @@ import RowNumberColumn from 'core/column-type/row.number.column';
 import RowIndicatorColumn from 'core/column-type/row.indicator.column';
 import PadColumn from 'core/column-type/pad.column';
 
-export default function(model) {
-	const columnList = model.columnList;
+// function merge(target, source) {
+// 	if (target && source) {
+// 		return assignWith(target, source, (s, t) => );
+// 	}
+//
+// 	return target || source;
+// }
+
+export default function (/*model*/) {
+	//const columnList = model.columnList;
+	const columnMap = {
+		'text': TextColumn,
+		'number': NumberColumn,
+		'bool': BoolColumn,
+		'date': DateColumn,
+		'array': ArrayColumn,
+		'email': EmailColumn,
+		'password': PasswordColumn,
+		'select': SelectColumn,
+		'group': GroupColumn,
+		'pivot': PivotColumn,
+		'row-number': RowNumberColumn,
+		'row-indicator': RowIndicatorColumn,
+		'pad': PadColumn,
+		'custom': CustomColumn
+	};
+
+	const create = (entityType, columnType, body) => {
+		const Type = columnMap[entityType];
+		//const settings = columnList().columns[columnType];
+		//body = merge(body, settings);
+
+		const model = Type.model(body);
+		return new Type(model);
+	};
+
 	return (type, body = null) => {
 		guard.notNullOrEmpty(type, 'type');
 
-		switch (type) {
-			case 'text':
-				return new TextColumn(TextColumn.model(body));
-			case 'number':
-				return new NumberColumn(NumberColumn.model(body));
-			case 'bool':
-				return new BoolColumn(BoolColumn.model(body));
-			case 'date':
-				return new DateColumn(DateColumn.model(body));
-			case 'array':
-				return new ArrayColumn(ArrayColumn.model(body));
-			case 'email':
-				return new EmailColumn(EmailColumn.model(body));
-			case 'password':
-				return new PasswordColumn(PasswordColumn.model(body));
-			case 'select':
-				return new SelectColumn(SelectColumn.model(body));
-			case 'group':
-				return new GroupColumn(GroupColumn.model(body));
-			case 'pivot':
-				return new PivotColumn(PivotColumn.model(body));
-			case 'row-number':
-				return new RowNumberColumn(RowNumberColumn.model(body));
-			case 'row-indicator':
-				return new RowIndicatorColumn(RowIndicatorColumn.model(body));
-			case 'pad':
-				return new PadColumn(PadColumn.model(body));
-			default:
-				return new CustomColumn(CustomColumn.model(body));
+		if (columnMap.hasOwnProperty(type)) {
+			return create(type, type, body);
 		}
+
+		return create('custom', type, body);
 	};
 }
