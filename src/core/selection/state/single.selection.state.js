@@ -3,6 +3,7 @@ import SelectionState from './selection.state';
 export default class SingleSelectionState extends SelectionState {
 	constructor(model) {
 		super(model);
+
 		this.item = null;
 	}
 
@@ -16,7 +17,7 @@ export default class SingleSelectionState extends SelectionState {
 	}
 
 	stateCore(item) {
-		return item === this.item;
+		return this.key(item) === this.key(this.item);
 	}
 
 	clearCore() {

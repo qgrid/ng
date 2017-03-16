@@ -28,7 +28,7 @@ export default class RowSelectionBehavior extends SelectionBehavior {
 		return this.rows.slice(startIndex, endIndex + 1);
 	}
 
-	get rows(){
+	get rows() {
 		return this.model.view().rows;
 	}
 }

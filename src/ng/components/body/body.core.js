@@ -9,13 +9,11 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 
 		this.$scope = $scope;
 		this.element = $element[0];
-		this.element.tabindex = 0;
 		this.document = $document[0];
 
 		this.documentListener = new EventListener(this, this.document);
 		this.listener = new EventListener(this, this.element);
 
-		this.rangeStartPoint = null;
 		this.rangeStartCell = null;
 
 		Object.defineProperty($scope, '$view', {get: () => this.view});
@@ -64,8 +62,12 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 				this.$scope.$evalAsync(() => this.view.edit.cell.enter.execute(cell));
 			}
 
-			if (cell.column.type !== 'select' && selection.mode !== 'range') {
-				this.view.selection.behavior.selectCell(cell);
+			if (cell.column.type !== 'select') {
+				if (selection.mode === 'range') {
+					this.view.selection.behavior.selectRange(cell, cell);
+				} else {
+					this.view.selection.behavior.selectCell(cell);
+				}
 			}
 		}
 	}
@@ -75,15 +77,8 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 			return;
 		}
 
-		this.rangeStartPoint = {
-			x: e.pageX,
-			y: e.pageY
-		};
-
 		this.rangeStartCell = pathFinder.cell(e.path);
-
-		this.view.overlay.show();
-		this.view.overlay.position(this.rangeStartPoint, this.rangeStartPoint);
+		this.view.selection.behavior.selectRange(this.rangeStartCell, this.rangeStartCell);
 	}
 
 	onMouseMove(e) {
@@ -91,32 +86,33 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 			return;
 		}
 
-		if (this.rangeStartPoint) {
-			this.view.overlay.position(this.rangeStartPoint, {x: e.pageX, y: e.pageY});
+		const startCell = this.rangeStartCell;
+		const endCell = pathFinder.cell(e.path);
+
+		if (startCell && endCell) {
+			this.view.selection.behavior.selectRange(startCell, endCell);
+
+			this.view.model.navigation({
+				active: {
+					cell: endCell
+				},
+				column: endCell.$element[0].cellIndex,
+				row: endCell.$element[0].parentNode.rowIndex - 1
+			});
 		}
 	}
 
-	onMouseUp(e) {
+	onMouseUp() {
 		if (!this.isRange) {
 			return;
 		}
 
-		const startCell = this.rangeStartCell;
-		const endCell = pathFinder.cell(e.path);
-		if (startCell && endCell) {
-			this.view.selection.behavior.selectRange(startCell, endCell);
-		}
-
-		this.rangeStartPoint = null;
 		this.rangeStartCell = null;
-
-		this.view.overlay.hide();
 	}
 
 
 	get isRange() {
-		const model = this.view.model;
-		const selection = model.selection();
+		const selection = this.view.model.selection();
 
 		return selection.mode === 'range';
 	}
