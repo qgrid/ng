@@ -1,6 +1,5 @@
 import Component from '../component';
 import {getFactory as valueFactory, set as setValue} from 'ng/services/value';
-import Table from 'ng/services/table';
 import * as css from 'core/services/css';
 import BodyView from 'core/body/body.view';
 import HeadView from 'core/head/head.view';
@@ -14,17 +13,18 @@ import SortView from 'core/sort/sort.view';
 import FilterView from 'core/filter/filter.view';
 import EditView from 'core/edit/edit.view';
 import SelectionView from 'core/selection/selection.view';
-import {GRID_NAME} from 'ng/definition';
+import {GRID_NAME, TH_CORE_NAME} from 'ng/definition';
 import {isUndefined} from 'core/services/utility';
 
 class ViewCore extends Component {
-	constructor($scope, $element, $timeout) {
+	constructor($scope, $element, $timeout, grid) {
 		super();
 
 		this.$scope = $scope;
 		this.element = $element[0];
 		this.timeout = $timeout;
 		this.$postLink = this.onLink;
+		this.serviceFactory = grid.service;
 	}
 
 	onLink() {
@@ -32,15 +32,16 @@ class ViewCore extends Component {
 		const markup = this.root.markup;
 		const table = new Table(markup);
 
+		const service = this.serviceFactory(model);
 		const apply = (f, timeout) => {
 			if (isUndefined(timeout)) {
 				return this.$scope.$evalAsync(f);
 			}
 
-			return this.timeout(f, timeout);
+			return this.$timeout(f, timeout);
 		};
 
-		this.head = new HeadView(model);
+		this.head = new HeadView(model, service, TH_CORE_NAME);
 		this.body = new BodyView(model, markup, valueFactory);
 		this.foot = new FootView(model, valueFactory);
 		this.layout = new LayoutView(model, markup);
@@ -85,7 +86,8 @@ class ViewCore extends Component {
 ViewCore.$inject = [
 	'$scope',
 	'$element',
-	'$timeout'
+	'$timeout',
+	'qgrid'
 ];
 
 export default {

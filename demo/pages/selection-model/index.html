@@ -5,24 +5,23 @@
 		  selection-unit="cell"
 		  on:selection-changed="$ctrl.selectionChanged($event)">
 	<q-grid:columns generation="deep">
-		<q-grid:column type="select" key="$default.select" is-visible="true">
+		<q-grid:column type="select">
 			<q-grid:template for="head">
 				<md-checkbox md-indeterminate="$view.selection.isIndeterminate()"
-							ng-checked="$view.selection.state()"
-							ng-click="$view.selection.toggleRow.execute()"
-							ng-disabled="!$view.selection.toggleRow.canExecute()"
-							class="md-warn"
-							aria-label="Selection"/>
+								 ng-checked="$view.selection.state()"
+								 ng-click="$view.selection.toggleRow.execute()"
+								 ng-disabled="!$view.selection.toggleRow.canExecute()"
+								 class="md-warn"
+								 aria-label="Selection"/>
 			</q-grid:template>
 			<q-grid:template for="body">
-				<md-checkbox md-indeterminate="$view.selection.isIndeterminate($row)"
-							ng-checked="$view.selection.state($row)"
-							ng-click="$view.selection.toggleRow.execute($row)"
-							ng-disabled="!$view.selection.toggleRow.canExecute($row)"
-							class="md-warn"
-							aria-label="Selection"/>
+				<md-checkbox ng-checked="$view.selection.state($row)"
+								 ng-click="$view.selection.toggleRow.execute($row)"
+								 ng-disabled="!$view.selection.toggleRow.canExecute($row)"
+								 class="md-warn"
+								 aria-label="Selection"/>
 			</q-grid:template>
-		</g-grid:column>
+			</g-grid:column>
 	</q-grid:columns>
 
 	<q-grid:toolbar>
