@@ -57,8 +57,8 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 				active: {
 					cell: cell
 				},
-				column: cell.$element[0].cellIndex,
-				row: cell.$element[0].parentNode.rowIndex - 1
+				column: cell.columnIndex,
+				row: cell.rowIndex
 			});
 			
 			if (this.view.edit.cell.enter.canExecute(cell)) {
@@ -99,8 +99,8 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 				active: {
 					cell: endCell
 				},
-				column: endCell.$element[0].cellIndex,
-				row: endCell.$element[0].parentNode.rowIndex - 1
+				column: endCell.columnIndex,
+				row: endCell.rowIndex
 			});
 		}
 	}
