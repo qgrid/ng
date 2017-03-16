@@ -35,7 +35,6 @@ export default class LayoutView extends View {
 			const result = Array.from(columns);
 			const indexedColumn = result.filter(c => c.hasOwnProperty('index') && c.index >= 0);
 			indexedColumn.sort((x, y) => x.index - y.index);
-
 			const move = c => result.splice(c.index, 0, result.splice(result.indexOf(c), 1)[0]);
 			indexedColumn.forEach(move);
 			return result;
@@ -45,7 +44,7 @@ export default class LayoutView extends View {
 			if (e.hasChanges('columns')) {
 				const columns = sort(model.data().columns);
 				const index = Array.from(model.columnList().index);
-				const indexSet = new Set();
+				const indexSet = new Set(index);
 				const appendIndex = columns.filter(c => !indexSet.has(c.key)).map(c => c.key);
 				index.push(...appendIndex);
 				model.columnList({index: index});
