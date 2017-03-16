@@ -56,13 +56,15 @@ export default class SortView extends View {
 	}
 
 	onInit() {
-		const sort = this.model.sort;
-		this.model.columnListChanged.on(e => {
+		const model = this.model;
+		const sort = model.sort;
+
+		model.columnListChanged.watch(e => {
 			if (e.hasChanges('index')) {
 				const sortState = sort();
 				if (sortState.trigger.indexOf('reorder') >= 0) {
 					let index = 0;
-					const indexMap = this.model.columnList().index
+					const indexMap = model.columnList().index
 						.reduce((memo, key) => {
 							memo[key] = index++;
 							return memo;
@@ -71,12 +73,27 @@ export default class SortView extends View {
 					const sortBy = Array.from(sortState.by);
 					sortBy.sort((x, y) => indexMap[sortService.key(x)] - indexMap[sortService.key(y)]);
 
-					if (JSON.stringify(sortBy) !== JSON.stringify(sortState.by)) {
+					if (!this.equals(sortBy, sortState.by)) {
 						sort({by: sortBy});
 					}
 				}
 			}
 		});
+
+		model.dataChanged.watch(e => {
+			if (e.hasChanges('columns')) {
+				const sortState = sort();
+				const columnMap = columnService.map(e.state.columns);
+				const sortBy = sortState.by.filter(entry => columnMap.hasOwnProperty(sortService.key(entry)));
+				if (!this.equals(sortBy, sortState.by)) {
+					sort({by: sortBy});
+				}
+			}
+		});
+	}
+
+	equals(x, y) {
+		return JSON.stringify(x) === JSON.stringify(y);
 	}
 
 	direction(column) {

@@ -44,11 +44,11 @@ export default class LayoutView extends View {
 		model.dataChanged.watch(e => {
 			if (e.hasChanges('columns')) {
 				const columns = sort(model.data().columns);
-				const index = Array.from(model.columnList().index);
-				const indexSet = new Set(index);
+				//const index = Array.from(model.columnList().index);
+				const indexSet = new Set();
 				const appendIndex = columns.filter(c => !indexSet.has(c.key)).map(c => c.key);
-				index.push(...appendIndex);
-				model.columnList({index: index});
+				//index.push(...appendIndex);
+				model.columnList({index: appendIndex});
 			}
 		});
 	}
