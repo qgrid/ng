@@ -1,5 +1,6 @@
 import Component from '../component';
 import {getFactory as valueFactory, set as setValue} from 'ng/services/value';
+import Table from 'ng/services/table';
 import * as css from 'core/services/css';
 import BodyView from 'core/body/body.view';
 import HeadView from 'core/head/head.view';
@@ -22,7 +23,7 @@ class ViewCore extends Component {
 
 		this.$scope = $scope;
 		this.element = $element[0];
-		this.timeout = $timeout;
+		this.$timeout = $timeout;
 		this.$postLink = this.onLink;
 		this.serviceFactory = grid.service;
 	}
