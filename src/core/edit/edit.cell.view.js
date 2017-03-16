@@ -13,9 +13,9 @@ export default class EditCellView {
 		this.mode = 'view';
 		this._value = null;
 
-		const shortcut = new Shortcut(markup.document, apply);
+		const shortcut = new Shortcut(markup.document, markup.table, apply);
 		const commands = this.commands;
-		shortcut.register('editCellNavigation', commands);
+		this.shortcutOff = shortcut.register('editCellNavigation', commands);
 
 		this.enter = commands.get('enter');
 		this.commit = commands.get('commit');
@@ -48,7 +48,7 @@ export default class EditCellView {
 					const parse = parseFactory(cell.column.type);
 					this.value = isUndefined(cell.value) ? null : parse(clone(cell.value));
 					this.mode = 'edit';
-					model.edit({editMode:'edit'});
+					model.edit({editMode: 'edit'});
 					cell.mode(this.mode);
 				}
 			}),
@@ -70,8 +70,9 @@ export default class EditCellView {
 
 						this.value = null;
 						this.mode = 'view';
-						model.edit({editMode:'view'});
+						model.edit({editMode: 'view'});
 						cell.mode(this.mode);
+						this.markup.table.focus();
 					}
 				}
 			}),
@@ -86,8 +87,9 @@ export default class EditCellView {
 					if (cell) {
 						this.value = null;
 						this.mode = 'view';
-						model.edit({editMode:'view'});
+						model.edit({editMode: 'view'});
 						cell.mode(this.mode);
+						this.markup.table.focus();
 					}
 
 				}
@@ -120,5 +122,9 @@ export default class EditCellView {
 
 	set value(value) {
 		this._value = value;
+	}
+
+	destroy() {
+		this.shortcutOff();
 	}
 }

@@ -1,5 +1,6 @@
 import Component from '../component';
 import {getFactory as valueFactory, set as setValue} from 'ng/services/value';
+import Table from 'ng/services/table';
 import * as css from 'core/services/css';
 import BodyView from 'core/body/body.view';
 import HeadView from 'core/head/head.view';
@@ -23,15 +24,18 @@ class ViewCore extends Component {
 		this.$scope = $scope;
 		this.element = $element[0];
 		this.$timeout = $timeout;
+		this.$postLink = this.onLink;
 		this.serviceFactory = grid.service;
 	}
 
-	onInit() {
+	onLink() {
 		const model = this.model;
 		const markup = this.root.markup;
+		const table = new Table(markup);
+
 		const service = this.serviceFactory(model);
 		const apply = (f, timeout) => {
-			if (isUndefined(timeout)){
+			if (isUndefined(timeout)) {
 				return this.$scope.$evalAsync(f);
 			}
 
@@ -45,7 +49,7 @@ class ViewCore extends Component {
 		this.selection = new SelectionView(model, markup, apply);
 		this.group = new GroupView(model, valueFactory);
 		this.pivot = new PivotView(model, valueFactory);
-		this.nav = new NavigationView(model, markup, apply);
+		this.nav = new NavigationView(model, markup, table, apply);
 		this.highlight = new HighlightView(model, markup, apply);
 		this.sort = new SortView(model);
 		this.filter = new FilterView(model);
@@ -55,6 +59,8 @@ class ViewCore extends Component {
 	onDestroy() {
 		const id = this.model.grid().id;
 		css.removeStyle(id);
+		this.nav.destroy();
+		this.selection.destroy();
 	}
 
 	templateUrl(key) {

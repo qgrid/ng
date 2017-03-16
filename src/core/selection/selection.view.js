@@ -13,10 +13,9 @@ export default class SelectionView extends View {
 		this.markup = markup;
 		this.apply = apply;
 		
-		const shortcut = new Shortcut(markup.document, apply);
+		const shortcut = new Shortcut(markup.document, markup.table, apply);
 		const commands = this.commands;
-		shortcut.register('selectionNavigation', commands);
-		
+		this.shortcutOff = shortcut.register('selectionNavigation', commands);
 		this.toggleRow = commands.get('toggleRow');
 		this.toggleColumn = commands.get('toggleColumn');
 		this.toggleCell = commands.get('toggleCell');
@@ -136,7 +135,6 @@ export default class SelectionView extends View {
 				shortcut: 'shift+right',
 				execute: () => {
 					const columns = columnService.lineView(model.view().columns);
-			
 					const index = model.navigation().column + 1;
 					const column = columns[index].key;
 
@@ -151,7 +149,6 @@ export default class SelectionView extends View {
 				shortcut: 'shift+left',
 				execute: () => {
 					const columns = columnService.lineView(model.view().columns);
-			
 					const index = model.navigation().column - 1;
 					const column = columns[index].key;
 
@@ -193,5 +190,9 @@ export default class SelectionView extends View {
 		}
 
 		return this.behavior.state.state(item) === null;
+	}
+
+	destroy() {
+		this.shortcutOff();
 	}
 }

@@ -14,13 +14,13 @@ You can manage navigation by setting values of navigation model properties to re
 	<tr>
 	  <td>row</td>
 	  <td><code>number</code></td>
-	  <td>Current row index, by default -1	  
+	  <td>Current row index, by default -1
 	  </td>
 	</tr>
 	<tr>
 	  <td>column</td>
 	  <td><code>number</code></td>
-	  <td>Current column index, by default -1	
+	  <td>Current column index, by default -1
 	  </td>
 	</tr>
 	<tr>
