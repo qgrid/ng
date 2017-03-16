@@ -14,31 +14,32 @@ import FilterView from 'core/filter/filter.view';
 import EditView from 'core/edit/edit.view';
 import SelectionView from 'core/selection/selection.view';
 import OverlayView from 'core/overlay/overlay.view';
-import {GRID_NAME} from 'ng/definition';
+import {GRID_NAME, TH_CORE_NAME} from 'ng/definition';
 import {isUndefined} from 'core/services/utility';
 
 class ViewCore extends Component {
-	constructor($scope, $element, $timeout) {
+	constructor($scope, $element, $timeout, grid) {
 		super();
 
 		this.$scope = $scope;
 		this.element = $element[0];
-		this.timeout = $timeout;
+		this.$timeout = $timeout;
+		this.serviceFactory = grid.service;
 	}
 
 	onInit() {
 		const model = this.model;
 		const markup = this.root.markup;
-
+		const service = this.serviceFactory(model);
 		const apply = (f, timeout) => {
 			if (isUndefined(timeout)){
 				return this.$scope.$evalAsync(f);
 			}
 
-			return this.timeout(f, timeout);
+			return this.$timeout(f, timeout);
 		};
 
-		this.head = new HeadView(model);
+		this.head = new HeadView(model, service, TH_CORE_NAME);
 		this.body = new BodyView(model, markup, valueFactory);
 		this.overlay = new OverlayView(model, markup);
 		this.foot = new FootView(model, valueFactory);
@@ -82,7 +83,8 @@ class ViewCore extends Component {
 ViewCore.$inject = [
 	'$scope',
 	'$element',
-	'$timeout'
+	'$timeout',
+	'qgrid'
 ];
 
 export default {
