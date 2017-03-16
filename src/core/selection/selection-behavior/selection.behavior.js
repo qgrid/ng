@@ -7,7 +7,7 @@ export default class SelectionBehavior {
 	select(item, state) {
 		const items = this.selectCore(item, state);
 		this.state.toggle(items, state);
-		this.model.selection({items: this.state.view}, {source: 'toggle'});
+		this.model.selection({ items: this.state.view }, {source: 'toggle'});
 	}
 
 	selectCell(cell) {
