@@ -1,6 +1,7 @@
 import ModelComponent from '../model.component';
 import AppError from 'core/infrastructure/error';
 import merge from 'core/services/merge';
+import columnFactory from 'core/column/column.factory';
 import * as columnService from 'core/column/column.service'
 import * as ng from 'ng/services/ng';
 import * as path from 'core/services/path'
@@ -48,14 +49,15 @@ class ColumnList extends ModelComponent {
 		const model = this.root.model;
 		const data = model.data;
 
-		const generatedColumns = [];
+		const columns = [];
+		const createColumn = columnFactory(model);
 		const rows = data().rows;
 		switch (generation) {
 			case 'deep':
-				generatedColumns.push(...generate(rows, true));
+				columns.push(...generate(rows, createColumn, true));
 				break;
 			case 'shallow':
-				generatedColumns.push(...generate(rows, false));
+				columns.push(...generate(rows, createColumn, false));
 				break;
 			default:
 				throw new AppError(
@@ -64,11 +66,12 @@ class ColumnList extends ModelComponent {
 				);
 		}
 
-		this.update(generatedColumns);
+		this.update(columns);
 	}
 
 	update(generatedColumns) {
-		const data = this.root.model.data;
+		const model = this.root.model;
+		const data = model.data;
 		let columns = Array.from(data().columns)
 		const tag = {
 			source: 'column.list'
@@ -80,8 +83,6 @@ class ColumnList extends ModelComponent {
 			const dataColumns = columns.filter(c => !generatedColumnMap.hasOwnProperty(c.key) && !templateColumnMap.hasOwnProperty(c.key));
 			columns = this.merge(generatedColumns, dataColumns);
 		}
-
-		//for()
 
 		data({columns: this.merge(columns, this.columns)}, tag);
 	}
@@ -118,11 +119,6 @@ class ColumnList extends ModelComponent {
 
 				accessor(target, sourceValue);
 			});
-
-		if (source.hasOwnProperty('value')) {
-			// HACK: to understand if need to pass {$row: row} instead of just row in cell.core.js
-			target.$value = isUndefined(this.value) ? null : this.value;
-		}
 	}
 
 	add(column) {

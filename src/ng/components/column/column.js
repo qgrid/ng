@@ -32,18 +32,25 @@ class Column extends Component {
 			}
 		}
 
-		const data = this.root.model.data;
+		const model = this.root.model;
+		const createColumn = columnFactory(model);
+		const data = model.data;
 		const dataState = data();
 		const columns = clone(dataState.columns);
 		let column = columnService.find(columns, this.key);
 		if (!column) {
-			column = columnFactory($attrs.type || 'text').model;
+			column = createColumn($attrs.type || 'text').model;
 			column.key = this.key;
 			columns.source = 'template';
 			columns.push(column);
 		}
 
 		this.columnList.copy(column, $attrs);
+		// HACK: to understand if need to pass {$row: row} instead of just row in cell.core.js
+		if ($attrs.hasOwnProperty('value')) {
+			column.$value = isUndefined(this.value) ? null : this.value;
+		}
+
 		if (withKey) {
 			this.columnList.add(column);
 		}

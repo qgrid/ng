@@ -1,17 +1,16 @@
-import columnFactory from 'core/column/column.factory';
 import {startCase} from 'core/services/utility';
 import {compile} from 'core/services/path';
 import {getType} from 'core/services/convert';
 
-export function generate(rows, deep = true) {
+export function generate(rows, columnFactory, deep = true) {
 	if (!rows || rows.length === 0) {
 		return [];
 	}
 
-	return build(rows[0], null, deep);
+	return build(rows[0], null, columnFactory, deep);
 }
 
-function build(graph, path, deep) {
+function build(graph, path, columnFactory, deep) {
 	const props = Object.getOwnPropertyNames(graph);
 	return props.reduce((columns, prop) => {
 		const value = graph[prop];
@@ -33,7 +32,7 @@ function build(graph, path, deep) {
 			}
 			case 'object': {
 				if (deep) {
-					columns.push(...build(value, propPath, true));
+					columns.push(...build(value, propPath, columnFactory, true));
 				}
 				break;
 			}

@@ -14,37 +14,40 @@ import RowNumberColumn from 'core/column-type/row.number.column';
 import RowIndicatorColumn from 'core/column-type/row.indicator.column';
 import PadColumn from 'core/column-type/pad.column';
 
-export default function (type, body = null) {
-	guard.notNullOrEmpty(type, 'type');
+export default function(model) {
+	const columnList = model.columnList;
+	return (type, body = null) => {
+		guard.notNullOrEmpty(type, 'type');
 
-	switch (type) {
-		case 'text':
-			return new TextColumn(TextColumn.model(body));
-		case 'number':
-			return new NumberColumn(NumberColumn.model(body));
-		case 'bool':
-			return new BoolColumn(BoolColumn.model(body));
-		case 'date':
-			return new DateColumn(DateColumn.model(body));
-		case 'array':
-			return new ArrayColumn(ArrayColumn.model(body));
-		case 'email':
-			return new EmailColumn(EmailColumn.model(body));
-		case 'password':
-			return new PasswordColumn(PasswordColumn.model(body));
-		case 'select':
-			return new SelectColumn(SelectColumn.model(body));
-		case 'group':
-			return new GroupColumn(GroupColumn.model(body));
-		case 'pivot':
-			return new PivotColumn(PivotColumn.model(body));
-		case 'row-number':
-			return new RowNumberColumn(RowNumberColumn.model(body));
-		case 'row-indicator':
-			return new RowIndicatorColumn(RowIndicatorColumn.model(body));
-		case 'pad':
-			return new PadColumn(PadColumn.model(body));
-		default:
-			return new CustomColumn(CustomColumn.model(body));
-	}
+		switch (type) {
+			case 'text':
+				return new TextColumn(TextColumn.model(body));
+			case 'number':
+				return new NumberColumn(NumberColumn.model(body));
+			case 'bool':
+				return new BoolColumn(BoolColumn.model(body));
+			case 'date':
+				return new DateColumn(DateColumn.model(body));
+			case 'array':
+				return new ArrayColumn(ArrayColumn.model(body));
+			case 'email':
+				return new EmailColumn(EmailColumn.model(body));
+			case 'password':
+				return new PasswordColumn(PasswordColumn.model(body));
+			case 'select':
+				return new SelectColumn(SelectColumn.model(body));
+			case 'group':
+				return new GroupColumn(GroupColumn.model(body));
+			case 'pivot':
+				return new PivotColumn(PivotColumn.model(body));
+			case 'row-number':
+				return new RowNumberColumn(RowNumberColumn.model(body));
+			case 'row-indicator':
+				return new RowIndicatorColumn(RowIndicatorColumn.model(body));
+			case 'pad':
+				return new PadColumn(PadColumn.model(body));
+			default:
+				return new CustomColumn(CustomColumn.model(body));
+		}
+	};
 }

@@ -1,126 +1,146 @@
 import columnFactory from 'core/column/column.factory';
 import * as columnService from 'core/column/column.service';
+import {noop} from 'core/services/utility';
 
-function addSelectColumn(columns, context) {
-	const selectColumn = columnFactory('select');
-	const index = columns.length;
-	selectColumn.model.source = 'generation';
-	selectColumn.rowspan = context.rowspan;
-	if (selectColumn.model.index >= 0) {
-		selectColumn.model.index = index;
-	}
-
-	columns.push(selectColumn);
-	return selectColumn;
-}
-
-function addGroupColumn(columns, context) {
-	const groupColumn = columnFactory('group');
-	groupColumn.model.source = 'generation';
-	groupColumn.rowspan = context.rowspan;
-	columns.push(groupColumn);
-	return groupColumn;
-}
-
-function addDataColumns(columns, model, context) {
+function selectColumnFactory(model) {
 	const dataColumns = model.data().columns;
-	columns.push(...
-		columnService.dataView(
-			dataColumns
-				.filter((c) => {
-					if (c.type === 'select' && !canAddSelectColumn(model)){
-						return false;
-					}
+	const selectColumn = dataColumns.find(item => item.type === 'select');
+	const selection = model.selection();
 
-					return true;
-				})
-				.map(c => {
-					const dataColumn = columnFactory(c.type, c);
-					dataColumn.rowspan = context.rowspan;
-					return dataColumn;
-				}),
-			model));
-	return dataColumns;
-}
+	if (selection.unit === 'row' && selection.mode !== 'range' && !selectColumn) {
+		const createColumn = columnFactory(model);
+		return (columns, context) => {
+			const selectColumn = createColumn('select');
+			const index = columns.length;
+			selectColumn.model.source = 'generation';
+			selectColumn.rowspan = context.rowspan;
+			if (selectColumn.model.index >= 0) {
+				selectColumn.model.index = index;
+			}
 
-function addPadColumn(columns, context) {
-	const padColumn = columnFactory('pad');
-	padColumn.rowspan = context.rowspan;
-	columns.push(padColumn);
-	return padColumn;
-}
-
-function addPivotColumns(columns, heads) {
-	const rows = [columns];
-
-	/*
-	 * Data columns + first row pivot columns
-	 *
-	 */
-	const head = heads[0];
-	const headLength = head.length;
-	const row = new Array(headLength);
-	const startIndex = columns.length;
-	for (let j = 0; j < headLength; j++) {
-		const headColumn = head[j];
-		const pivotColumn = columnFactory('pivot');
-		pivotColumn.colspan = headColumn.value;
-		const pivotColumnModel = pivotColumn.model;
-		pivotColumnModel.title = headColumn.key;
-		pivotColumnModel.key = pivotColumnModel.key + `[0][${j}]`;
-
-		pivotColumnModel.rowIndex = 0;
-		pivotColumnModel.index = startIndex + j;
-		row[j] = pivotColumn;
+			columns.push(selectColumn);
+			return selectColumn;
+		};
 	}
 
-	const firstRow = rows[0];
-	firstRow.push(...row);
+	return noop;
+}
 
-	/*
-	 * Add special column type
-	 * that fills remaining place (width = 100%)
-	 *
-	 */
-	addPadColumn(firstRow, {rowspan: 1, row: 0});
+function groupColumnFactory(model, nodes) {
+	const dataColumns = model.data().columns;
+	const groupColumn = dataColumns.find(item => item.type === 'group');
+	if (nodes.length && !groupColumn) {
+		const createColumn = columnFactory(model);
+		return (columns, context) => {
+			const groupColumn = createColumn('group');
+			groupColumn.model.source = 'generation';
+			groupColumn.rowspan = context.rowspan;
+			columns.push(groupColumn);
+			return groupColumn;
+		};
+	}
 
-	/*
-	 * Next rows pivot columns
-	 *
-	 */
-	for (let i = 1, length = heads.length; i < length; i++) {
-		const head = heads[i];
+	return noop;
+}
+
+function dataColumnsFactory(model) {
+	const createColumn = columnFactory(model);
+	return (columns, context) => {
+		const dataColumns = model.data().columns;
+		columns.push(...
+			columnService.dataView(
+				dataColumns
+					.map(c => {
+						const dataColumn = createColumn(c.type || 'text', c);
+						dataColumn.rowspan = context.rowspan;
+						return dataColumn;
+					}),
+				model));
+
+		return dataColumns;
+	};
+}
+
+function padColumnFactory(model) {
+	const createColumn = columnFactory(model);
+	return (columns, context) => {
+		const padColumn = createColumn('pad');
+		padColumn.rowspan = context.rowspan;
+		columns.push(padColumn);
+		return padColumn;
+	};
+}
+
+function pivotColumnsFactory(model) {
+	const createColumn = columnFactory(model);
+	const addPadColumn = padColumnFactory(model);
+	return (columns, heads) => {
+		const rows = [columns];
+
+		/*
+		 * Data columns + first row pivot columns
+		 *
+		 */
+		const head = heads[0];
 		const headLength = head.length;
 		const row = new Array(headLength);
+		const startIndex = columns.length;
 		for (let j = 0; j < headLength; j++) {
 			const headColumn = head[j];
-			const pivotColumn = columnFactory('pivot');
+			const pivotColumn = createColumn('pivot');
 			pivotColumn.colspan = headColumn.value;
 			const pivotColumnModel = pivotColumn.model;
 			pivotColumnModel.title = headColumn.key;
-			pivotColumnModel.key = pivotColumnModel.key + `[${i}][${j}]`;
+			pivotColumnModel.key = pivotColumnModel.key + `[0][${j}]`;
 
-			pivotColumnModel.rowIndex = i;
-			pivotColumnModel.index = j;
+			pivotColumnModel.rowIndex = 0;
+			pivotColumnModel.index = startIndex + j;
 			row[j] = pivotColumn;
 		}
+
+		const firstRow = rows[0];
+		firstRow.push(...row);
 
 		/*
 		 * Add special column type
 		 * that fills remaining place (width = 100%)
 		 *
 		 */
-		addPadColumn(row, {rowspan: 1, row: i});
+		addPadColumn(firstRow, {rowspan: 1, row: 0});
 
-		rows.push(row);
-	}
+		/*
+		 * Next rows pivot columns
+		 *
+		 */
+		for (let i = 1, length = heads.length; i < length; i++) {
+			const head = heads[i];
+			const headLength = head.length;
+			const row = new Array(headLength);
+			for (let j = 0; j < headLength; j++) {
+				const headColumn = head[j];
+				const pivotColumn = createColumn('pivot');
+				pivotColumn.colspan = headColumn.value;
+				const pivotColumnModel = pivotColumn.model;
+				pivotColumnModel.title = headColumn.key;
+				pivotColumnModel.key = pivotColumnModel.key + `[${i}][${j}]`;
 
-	return rows;
-}
+				pivotColumnModel.rowIndex = i;
+				pivotColumnModel.index = j;
+				row[j] = pivotColumn;
+			}
 
-function canAddSelectColumn(model){
-	const selection = model.selection();
-	return selection.unit === 'row' && selection.mode !== 'range';
+			/*
+			 * Add special column type
+			 * that fills remaining place (width = 100%)
+			 *
+			 */
+			addPadColumn(row, {rowspan: 1, row: i});
+
+			rows.push(row);
+		}
+
+		return rows;
+	};
 }
 
 export default function columnPipe(memo, context, next) {
@@ -129,34 +149,31 @@ export default function columnPipe(memo, context, next) {
 	const nodes = memo.nodes;
 	const heads = pivot.heads;
 	const columns = [];
-
-	const dataColumns = model.data().columns;
+	const addSelectColumn = selectColumnFactory(model);
+	const addGroupColumn = groupColumnFactory(model, nodes);
+	const addDataColumns = dataColumnsFactory(model);
+	const addPivotColumns = pivotColumnsFactory(model);
+	const addPadColumn = padColumnFactory(model);
 
 	/*
 	 * Add column with select boxes
 	 * if selection unit is row
 	 *
 	 */
-	const selectColumn = dataColumns.find(item => item.type === 'select');
-	if (canAddSelectColumn (model) && !selectColumn) {
-		addSelectColumn(columns, {rowspan: heads.length, row: 0});
-	}
+	addSelectColumn(columns, {rowspan: heads.length, row: 0});
 
 	/*
 	 * Add group column with nodes
 	 *
 	 */
-	const groupColumn = dataColumns.find(item => item.type === 'group');
-	if (nodes.length && !groupColumn) {
-		addGroupColumn(columns, {rowspan: heads.length, row: 0});
-	}
+	addGroupColumn(columns, {rowspan: heads.length, row: 0});
 
 	/*
 	 * Add columns defined by user
 	 * that are visible
 	 *
 	 */
-	addDataColumns(columns, model, {rowspan: heads.length, row: 0});
+	addDataColumns(columns, {rowspan: heads.length, row: 0});
 
 
 	/*
