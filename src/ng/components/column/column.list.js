@@ -2,14 +2,20 @@ import ModelComponent from '../model.component';
 import AppError from 'core/infrastructure/error';
 import merge from 'core/services/merge';
 import * as columnService from 'core/column/column.service'
-import {isUndefined, assignWith, noop, clone} from 'core/services/utility';
+import * as ng from 'ng/services/ng';
+import * as path from 'core/services/path'
+import {isUndefined, assignWith, noop, clone, isObject, identity} from 'core/services/utility';
+import {parseFactory, getType} from 'core/services/convert';
 import {generate} from 'core/column-list/column.list.generate';
 import {GRID_NAME} from 'ng/definition';
 
 class ColumnList extends ModelComponent {
-	constructor() {
+	constructor($scope, $parse) {
 		super('columnList');
+
 		this.columns = [];
+		this.$scope = $scope;
+		this.$parse = $parse;
 	}
 
 	// Use onLink to wait while this.columns will be filled by column components
@@ -75,6 +81,8 @@ class ColumnList extends ModelComponent {
 			columns = this.merge(generatedColumns, dataColumns);
 		}
 
+		//for()
+
 		data({columns: this.merge(columns, this.columns)}, tag);
 	}
 
@@ -88,6 +96,33 @@ class ColumnList extends ModelComponent {
 
 		doMerge(left, right);
 		return left;
+	}
+
+	copy(target, source) {
+		const $parse = this.$parse;
+		const $scope = this.$scope;
+
+		Object.keys(source)
+			.filter(key => !ng.isSystem(key) && !isUndefined(source[key]) && key !== 'value')
+			.forEach(key => {
+				const value = source[key];
+				const accessor = path.compile(key);
+				const targetValue = accessor(target);
+				const parse = parseFactory(getType(targetValue));
+				const sourceValue =
+					parse !== identity
+						? parse(value)
+						: isObject(targetValue)
+							? $parse(value)($scope)
+							: value;
+
+				accessor(target, sourceValue);
+			});
+
+		if (source.hasOwnProperty('value')) {
+			// HACK: to understand if need to pass {$row: row} instead of just row in cell.core.js
+			target.$value = isUndefined(this.value) ? null : this.value;
+		}
 	}
 
 	add(column) {
@@ -104,7 +139,7 @@ class ColumnList extends ModelComponent {
 	}
 }
 
-ColumnList.$inject = [];
+ColumnList.$inject = ['$scope', '$parse'];
 
 export default {
 	require: {
