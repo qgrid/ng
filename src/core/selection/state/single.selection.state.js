@@ -1,8 +1,8 @@
 import SelectionState from './selection.state';
 
 export default class SingleSelectionState extends SelectionState {
-	constructor(model, key) {
-		super(model, key);
+	constructor(model) {
+		super(model);
 
 		this.item = null;
 	}

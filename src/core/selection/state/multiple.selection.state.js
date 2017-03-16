@@ -1,8 +1,8 @@
 import SelectionState from './selection.state';
 
 export default class MultipleSelectionState extends SelectionState {
-	constructor(model, key) {
-		super(model, key);
+	constructor(model) {
+		super(model);
 
 		this.items = new Map();
 	}

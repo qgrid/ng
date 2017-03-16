@@ -12,21 +12,21 @@ export default class ColumnSelectionBehavior extends SelectionBehavior {
 
 	selectCore(item) {
 		if (isUndefined(item)) {
-			return this.columns.map(c => c.key);
+			return this.columns;
 		}
 
 		return item;
 	}
 
 	selectCellCore(cell) {
-		return this.columns.find(c => c.model === cell.column).model.key;
+		return this.columns.find(c => c.model === cell.column).model;
 	}
 
 	selectRangeCore(startCell, endCell) {
 		const startIndex = Math.min(startCell.columnIndex, endCell.columnIndex);
 		const endIndex = Math.max(startCell.columnIndex, endCell.columnIndex);
 
-		return this.columns.slice(startIndex, endIndex + 1).map(x => x.model.key);
+		return this.columns.slice(startIndex, endIndex + 1).map(x => x.model);
 	}
 
 	get columns() {

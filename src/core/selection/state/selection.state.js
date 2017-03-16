@@ -1,19 +1,8 @@
-import {isArray, isUndefined, isFunction} from 'core/services/utility';
+import {isArray, isUndefined} from 'core/services/utility';
 import Node from 'core/node/node';
-import AppError from 'core/infrastructure/error';
-
-function defaultKey(item){
-	return item;
-}
 
 export default class SelectionState {
-	constructor(model, key = defaultKey) {
-
-		if (!isFunction(key)){
-			throw new AppError('single.selection.state', 'Key is not a function');
-		}
-		
-		this.key = key;
+	constructor(model) {
 		this.model = model;
 	}
 
@@ -69,6 +58,22 @@ export default class SelectionState {
 
 	stateCore() {
 		return false;
+	}
+
+	key(item) {
+		const unit = this.model.selection().unit;
+		const rows = this.model.view().rows;
+
+		if (unit === 'cell' && item.column && item.row){
+			const columnKey = item.column.key;
+			const rowIndex = rows.indexOf(item.row);
+
+			if (columnKey && rowIndex >= 0) {
+				return `${columnKey}[${rowIndex}]`;
+			}
+		}
+
+		return item;
 	}
 
 	get view() {
