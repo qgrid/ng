@@ -25,9 +25,10 @@ class ViewCore extends Component {
 		this.$scope = $scope;
 		this.element = $element[0];
 		this.timeout = $timeout;
+		this.$postLink = this.onLink;
 	}
 
-	onInit() {
+	onLink() {
 		const model = this.model;
 		const markup = this.root.markup;
 		const table = new Table(markup);

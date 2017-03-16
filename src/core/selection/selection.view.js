@@ -13,7 +13,7 @@ export default class SelectionView extends View {
 		this.markup = markup;
 		this.apply = apply;
 		
-		const shortcut = new Shortcut(markup.document, apply);
+		const shortcut = new Shortcut(markup.document, markup.table, apply);
 		const commands = this.commands;
 		this.shortcutOff = shortcut.register('selectionNavigation', commands);
 		this.toggleRow = commands.get('toggleRow');

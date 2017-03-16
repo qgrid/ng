@@ -13,7 +13,7 @@ export default class EditCellView {
 		this.mode = 'view';
 		this._value = null;
 
-		const shortcut = new Shortcut(markup.document, apply);
+		const shortcut = new Shortcut(markup.document, markup.table, apply);
 		const commands = this.commands;
 		this.shortcutOff = shortcut.register('editCellNavigation', commands);
 
@@ -72,6 +72,7 @@ export default class EditCellView {
 						this.mode = 'view';
 						model.edit({editMode: 'view'});
 						cell.mode(this.mode);
+						this.markup.table.focus();
 					}
 				}
 			}),
@@ -88,6 +89,7 @@ export default class EditCellView {
 						this.mode = 'view';
 						model.edit({editMode: 'view'});
 						cell.mode(this.mode);
+						this.markup.table.focus();
 					}
 
 				}

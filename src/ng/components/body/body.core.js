@@ -9,12 +9,12 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 
 		this.$scope = $scope;
 		this.element = $element[0];
+		this.element.tabindex = 0;
 		this.document = $document[0];
 
 		this.documentListener = new EventListener(this, this.document);
-
 		this.listener = new EventListener(this, this.element);
-		
+
 		this.rangeStartPoint = null;
 		this.rangeStartCell = null;
 
@@ -37,9 +37,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 
 	onInit() {
 		this.listener.on('scroll', this.onScroll);
-		
 		this.listener.on('click', this.onClick);
-		
 		this.listener.on('mousedown', this.onMouseDown);
 		this.listener.on('mouseup', this.onMouseUp);
 
@@ -61,6 +59,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 				column: cell.$element[0].cellIndex,
 				row: cell.$element[0].parentNode.rowIndex - 1
 			});
+
 			if (this.view.edit.cell.enter.canExecute(cell)) {
 				this.$scope.$evalAsync(() => this.view.edit.cell.enter.execute(cell));
 			}
@@ -93,7 +92,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 		}
 
 		if (this.rangeStartPoint) {
-			this.view.overlay.position(this.rangeStartPoint, { x: e.pageX, y: e.pageY });
+			this.view.overlay.position(this.rangeStartPoint, {x: e.pageX, y: e.pageY});
 		}
 	}
 
@@ -101,7 +100,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 		if (!this.isRange) {
 			return;
 		}
-		
+
 		const startCell = this.rangeStartCell;
 		const endCell = pathFinder.cell(e.path);
 		if (startCell && endCell) {
@@ -110,7 +109,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 
 		this.rangeStartPoint = null;
 		this.rangeStartCell = null;
-		
+
 		this.view.overlay.hide();
 	}
 

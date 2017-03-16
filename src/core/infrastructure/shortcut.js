@@ -1,7 +1,9 @@
 import EventListener from './event.listener';
 
 export default class Shortcut {
-	constructor(document, apply) {
+	constructor(document, target, apply) {
+		this.document = document;
+		this.target = target;
 		this.apply = apply;
 		this.shortcuts = new Map();
 		this.codeMap = new Map()
@@ -24,16 +26,32 @@ export default class Shortcut {
 				.on('keydown', this.onKeyDown);
 	}
 
+	canExecute(){
+		const target = this.target;
+		let current = this.document.activeElement;
+		while (current){
+			if(current === target){
+				return true;
+			}
+
+			current = current.parentNode;
+		}
+
+		return false;
+	}
+
 	onKeyDown(e) {
-		const code = this.translate(e);
-		if (this.shortcuts.has(code)) {
-			const cmds = this.shortcuts.get(code);
-			cmds.forEach(cmd => {
-				if (cmd.canExecute()) {
-					e.preventDefault();
-					this.apply(() => cmd.execute());
-				}
-			});
+		if(this.canExecute()) {
+			const code = this.translate(e);
+			if (this.shortcuts.has(code)) {
+				const cmds = this.shortcuts.get(code);
+				cmds.forEach(cmd => {
+					if (cmd.canExecute()) {
+						e.preventDefault();
+						this.apply(() => cmd.execute());
+					}
+				});
+			}
 		}
 	}
 

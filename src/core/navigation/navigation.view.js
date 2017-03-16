@@ -10,7 +10,7 @@ export default class NavigationView extends View {
 		this.markup = markup;
 		this.model = model;
 		this.document = this.markup.document;
-		const shortcut = new Shortcut(this.document, apply);
+		const shortcut = new Shortcut(this.document, markup.table, apply);
 		const navigation = new Navigation(model, markup);
 		this.shortcutOff = shortcut.register('navigation', navigation.commands);
 

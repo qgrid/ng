@@ -8,11 +8,6 @@ export default class Navigation {
 		this.markup = markup;
 	}
 
-	isActive() {
-		const active = this.document.activeElement;
-		return active && active.tBodies && active.tBodies[0] === this.markup.body;
-	}
-
 	moveTo(y, direction) {
 		const body = this.markup.body;
 		const rows = body.rows;
@@ -37,9 +32,7 @@ export default class Navigation {
 		const commands = {
 			goDown: new Command({
 				shortcut: 'down',
-				canExecute: () => this.isActive()
-				&& (model.navigation().row < model.view().rows.length - 1)
-				&& model.edit().editMode == 'view',
+				canExecute: () => (model.navigation().row < model.view().rows.length - 1) && model.edit().editMode == 'view',
 				execute: () => {
 					if (model.navigation().row == -1 && model.navigation().column == -1) {
 						model.navigation({
@@ -53,18 +46,14 @@ export default class Navigation {
 			}),
 			goUp: new Command({
 				shortcut: 'up',
-				canExecute: () => this.isActive()
-				&& (model.navigation().row > 0)
-				&& model.edit().editMode == 'view',
+				canExecute: () => (model.navigation().row > 0) && model.edit().editMode == 'view',
 				execute: () => {
 					model.navigation({row: model.navigation().row - 1});
 				}
 			}),
 			goRight: new Command({
 				shortcut: 'right',
-				canExecute: () => this.isActive()
-				&& (model.navigation().column < columnService.lineView(model.view().columns).length - 2)
-				&& model.edit().editMode == 'view',
+				canExecute: () => (model.navigation().column < columnService.lineView(model.view().columns).length - 2) && model.edit().editMode == 'view',
 				execute: () => {
 					if (model.navigation().row == -1 && model.navigation().column == -1) {
 						model.navigation({
@@ -78,17 +67,14 @@ export default class Navigation {
 			}),
 			goLeft: new Command({
 				shortcut: 'left',
-				canExecute: () => this.isActive()
-				&& (model.navigation().column > 0)
-				&& model.edit().editMode == 'view',
+				canExecute: () => (model.navigation().column > 0) && model.edit().editMode == 'view',
 				execute: () => {
 					model.navigation({column: model.navigation().column - 1});
 				}
 			}),
 			home: new Command({
 				shortcut: 'home',
-				canExecute: () => this.isActive()
-				&& model.edit().editMode == 'view',
+				canExecute: () => model.edit().editMode == 'view',
 				execute: () => {
 					const nav = {row: 0};
 					if (model.navigation().column == -1) {
@@ -99,8 +85,7 @@ export default class Navigation {
 			}),
 			end: new Command({
 				shortcut: 'end',
-				canExecute: () => this.isActive()
-				&& model.edit().editMode == 'view',
+				canExecute: () => model.edit().editMode == 'view',
 				execute: () => {
 					const rows = model.view().rows;
 					const nav = {row: rows.length - 1};
@@ -112,8 +97,7 @@ export default class Navigation {
 			}),
 			pageUp: new Command({
 				shortcut: 'pageUp',
-				canExecute: () => this.isActive()
-				&& model.edit().editMode == 'view',
+				canExecute: () => model.edit().editMode == 'view',
 				execute: () => {
 					const body = this.markup.body;
 					const {row: row, offset: offset} = this.moveTo(body.scrollTop - body.getBoundingClientRect().height, false);
@@ -125,8 +109,7 @@ export default class Navigation {
 			}),
 			pageDown: new Command({
 				shortcut: 'pageDown',
-				canExecute: () => this.isActive()
-				&& model.edit().editMode == 'view',
+				canExecute: () => model.edit().editMode == 'view',
 				execute: () => {
 					const body = this.markup.body;
 					const {row: row, offset: offset} = this.moveTo(body.scrollTop + body.getBoundingClientRect().height, true);
@@ -141,5 +124,4 @@ export default class Navigation {
 			Object.entries(commands)
 		);
 	}
-
 }
