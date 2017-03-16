@@ -1,4 +1,4 @@
-import filter from './pipe.filter';
+import filter from './filter.pipe';
 
 describe('pipe filter', () => {
 	it('should return function', () => {
