@@ -94,7 +94,7 @@ export default class HighlightView extends View {
 		}
 
 		const head = this.markup.head;
-		if (head && head.rows.length) {
+		if (head.rows.length) {
 			for (let row of head.rows) {
 				row.cells[index].classList.add(`${GRID_PREFIX}-${cls}`);
 				if (index > 0) {
@@ -108,17 +108,13 @@ export default class HighlightView extends View {
 		}
 
 		const body = this.markup.body;
-		if (body) {
-			for (let row of body.rows) {
-				row.cells[index].classList.add(`${GRID_PREFIX}-${cls}`);
-			}
+		for (let row of body.rows) {
+			row.cells[index].classList.add(`${GRID_PREFIX}-${cls}`);
 		}
 
 		const foot = this.markup.foot;
-		if (foot) {
-			for (let row of foot.rows) {
-				row.cells[index].classList.add(`${GRID_PREFIX}-${cls}`);
-			}
+		for (let row of foot.rows) {
+			row.cells[index].classList.add(`${GRID_PREFIX}-${cls}`);
 		}
 
 		return () => this.blur(key, cls);
@@ -131,7 +127,7 @@ export default class HighlightView extends View {
 		}
 
 		const head = this.markup.head;
-		if (head && head.rows.length) {
+		if (head.rows.length) {
 			for (let row of head.rows) {
 				row.cells[index].classList.remove(`${GRID_PREFIX}-${cls}`);
 				if (index > 0) {
@@ -145,17 +141,13 @@ export default class HighlightView extends View {
 		}
 
 		const body = this.markup.body;
-		if (body) {
-			for (let row of body.rows) {
-				row.cells[index].classList.remove(`${GRID_PREFIX}-${cls}`);
-			}
+		for (let row of body.rows) {
+			row.cells[index].classList.remove(`${GRID_PREFIX}-${cls}`);
 		}
 
 		const foot = this.markup.foot;
-		if (foot) {
-			for (let row of foot.rows) {
-				row.cells[index].classList.remove(`${GRID_PREFIX}-${cls}`);
-			}
+		for (let row of foot.rows) {
+			row.cells[index].classList.remove(`${GRID_PREFIX}-${cls}`);
 		}
 	}
 }
