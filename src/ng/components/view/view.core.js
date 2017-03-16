@@ -14,6 +14,7 @@ import SortView from 'core/sort/sort.view';
 import FilterView from 'core/filter/filter.view';
 import EditView from 'core/edit/edit.view';
 import SelectionView from 'core/selection/selection.view';
+import PaginationView from 'core/pagination/pagination.view';
 import {GRID_NAME, TH_CORE_NAME} from 'ng/definition';
 import {isUndefined} from 'core/services/utility';
 
@@ -54,6 +55,7 @@ class ViewCore extends Component {
 		this.sort = new SortView(model);
 		this.filter = new FilterView(model);
 		this.edit = new EditView(model, setValue, markup, apply);
+		this.pagination = new PaginationView(model);
 	}
 
 	onDestroy() {
@@ -73,10 +75,6 @@ class ViewCore extends Component {
 
 	get visibility() {
 		return this.model.visibility();
-	}
-
-	get pagination() {
-		return this.model.pagination();
 	}
 
 	get rows() {
