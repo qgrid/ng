@@ -31,7 +31,7 @@ export default class ColumnHighlight extends Behavior {
 		const columns = columnService.lineView(this.model.view().columns);
 
 		for (let item of items) {
-			const index = columns.findIndex((c) => c.model.key === item);
+			const index = columns.findIndex((c) => c.model === item);
 			if (index > -1 && body && body.rows) {
 				for (let row of body.rows) {
 					result.push(row.cells[index]);

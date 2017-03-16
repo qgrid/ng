@@ -13,8 +13,7 @@ import SortView from 'core/sort/sort.view';
 import FilterView from 'core/filter/filter.view';
 import EditView from 'core/edit/edit.view';
 import SelectionView from 'core/selection/selection.view';
-import OverlayView from 'core/overlay/overlay.view';
-import {GRID_NAME, TH_CORE_NAME} from 'ng/definition';
+import {GRID_NAME} from 'ng/definition';
 import {isUndefined} from 'core/services/utility';
 
 class ViewCore extends Component {
@@ -41,7 +40,6 @@ class ViewCore extends Component {
 
 		this.head = new HeadView(model, service, TH_CORE_NAME);
 		this.body = new BodyView(model, markup, valueFactory);
-		this.overlay = new OverlayView(model, markup);
 		this.foot = new FootView(model, valueFactory);
 		this.layout = new LayoutView(model, markup);
 		this.selection = new SelectionView(model, markup, apply);
