@@ -17,7 +17,7 @@ export default class SingleSelectionState extends SelectionState {
 	}
 
 	stateCore(item) {
-		return this.key(item) === this.key(this.item);
+		return this.item && this.key(item) === this.key(this.item);
 	}
 
 	clearCore() {

@@ -2,8 +2,10 @@
 	<md-list-item>
 		<md-input-container>
 			<input type="text"
+					 ng-click="$event.stopImmediatePropagation();"
 					 ng-model="$ctrl.filterText"
-					 placeholder="Search" />
+					 placeholder="Search"
+					 md-auto-focus />
 		</md-input-container>
 	</md-list-item>
 </md-list>

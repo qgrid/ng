@@ -22,6 +22,7 @@ export default class ColumnView extends View {
 
 		this.colspan = 0;
 		this.rowspan = 0;
+		this.index = -1;
 	}
 
 	static model(model) {
