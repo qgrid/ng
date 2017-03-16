@@ -304,6 +304,11 @@
     background: transparent;
     border: none;
     width: 90px; }
+  .q-grid.q-grid-theme-material .q-grid-selection-bar md-input-container {
+    margin: 0; }
+    .q-grid.q-grid-theme-material .q-grid-selection-bar md-input-container .md-errors-spacer {
+      height: 0;
+      min-height: 0; }
 
 .q-grid.q-grid-theme-material td.q-grid-group button {
   background: transparent;
@@ -510,13 +515,3 @@
     height: 376px; }
   .q-grid.q-grid-theme-material .q-grid-column-filter-panel .q-grid-column-chooser-actions {
     padding: 7px 0; }
-
-.q-grid-range-overlay {
-  pointer-events: none;
-  border: 1px solid #767676;
-  position: absolute;
-  background-color: rgba(245, 245, 245, 0.5);
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none; }

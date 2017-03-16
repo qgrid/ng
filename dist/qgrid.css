@@ -76,7 +76,8 @@
     display: flex;
     flex-flow: column;
     height: 100%;
-    width: 100%; }
+    width: 100%;
+    outline: none; }
     .q-grid table thead, .q-grid table tfoot {
       /* head takes the height it requires,
 		and it's not scaled when table is resized */
