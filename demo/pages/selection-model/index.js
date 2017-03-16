@@ -15,17 +15,18 @@ export default function Controller($http, $log, qgrid) {
 	};
 
 	this.model.dataChanged.watch((e) => {
-		if (e && e.changes.hasOwnProperty('columns') && e.state.columns.length > 0 && e.state.rows.length > 0) {
-			const gender = e.state.columns.find(c => c.key === 'gender');
-			this.selection = e.state.rows.slice(0, 4).map((row) => {
-				return {
-					row: row,
-					column: gender
-				};
-			});
+		if (e.hasChanges('columns')) {
+			if(e.state.columns.length > 0 && e.state.rows.length > 0) {
+				const gender = e.state.columns.find(c => c.key === 'gender');
+				this.selection = e.state.rows.slice(0, 4).map((row) => {
+					return {
+						row: row,
+						column: gender
+					};
+				});
+			}
 		}
 	});
-
 
 	$http.get('data/people/100.json')
 		.then((response) => {
