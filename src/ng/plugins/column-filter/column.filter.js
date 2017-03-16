@@ -14,6 +14,6 @@ export default ColumnFilter.component({
 		'onSubmit': '&',
 		'onCancel': '&',
 		'key': '<',
-		'title': '<'
+		'title': '@'
 	}
 });

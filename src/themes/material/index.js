@@ -38,5 +38,6 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.plugin.sort-bar.tpl.html', require('themes/material/templates/plugin.sort.bar.html'));
 		theme.put('qgrid.plugin.pivot-bar.tpl.html', require('themes/material/templates/plugin.pivot.bar.html'));
 		theme.put('qgrid.plugin.selection-bar.tpl.html', require('themes/material/templates/plugin.selection.bar.html'));
+		theme.put('qgrid.plugin.pager.tpl.html', require('themes/material/templates/plugin.pager.html'));
 	});
 }

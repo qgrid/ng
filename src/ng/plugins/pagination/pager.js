@@ -61,7 +61,7 @@ class Pager extends Plugin {
 	}
 
 	get total() {
-		return this.model.data().rows.length;
+		return this.model.pagination().count;
 	}
 }
 
