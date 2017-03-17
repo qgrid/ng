@@ -2703,23 +2703,21 @@ module.exports = toString;
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_core_infrastructure_guard__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_core_column_type_column_view__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_core_column_type_text_column__ = __webpack_require__(162);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_core_column_type_number_column__ = __webpack_require__(155);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_core_column_type_bool_column__ = __webpack_require__(151);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_core_column_type_date_column__ = __webpack_require__(152);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_core_column_type_password_column__ = __webpack_require__(157);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_core_column_type_array_column__ = __webpack_require__(150);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_core_column_type_email_column__ = __webpack_require__(153);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_core_column_type_select_column__ = __webpack_require__(161);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_core_column_type_group_column__ = __webpack_require__(154);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_core_column_type_pivot_column__ = __webpack_require__(158);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_core_column_type_row_number_column__ = __webpack_require__(160);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_core_column_type_row_indicator_column__ = __webpack_require__(159);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_core_column_type_pad_column__ = __webpack_require__(156);
-
-//import {assignWith} from 'core/services/utility';
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_core_services_utility__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_core_column_type_column_view__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_core_column_type_text_column__ = __webpack_require__(162);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_core_column_type_number_column__ = __webpack_require__(155);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_core_column_type_bool_column__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_core_column_type_date_column__ = __webpack_require__(152);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_core_column_type_password_column__ = __webpack_require__(157);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_core_column_type_array_column__ = __webpack_require__(150);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_core_column_type_email_column__ = __webpack_require__(153);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_core_column_type_select_column__ = __webpack_require__(161);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_core_column_type_group_column__ = __webpack_require__(154);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_core_column_type_pivot_column__ = __webpack_require__(158);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_core_column_type_row_number_column__ = __webpack_require__(160);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_core_column_type_row_indicator_column__ = __webpack_require__(159);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_core_column_type_pad_column__ = __webpack_require__(156);
 
 
 
@@ -2734,37 +2732,42 @@ module.exports = toString;
 
 
 
-// function merge(target, source) {
-// 	if (target && source) {
-// 		return assignWith(target, source, (s, t) => );
-// 	}
-//
-// 	return target || source;
-// }
 
-/* harmony default export */ __webpack_exports__["a"] = function () /*model*/{
-	//const columnList = model.columnList;
+
+
+function merge(target, source) {
+	if (target && source) {
+		return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_core_services_utility__["c" /* assignWith */])(target, source, function (s, t) {
+			return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_core_services_utility__["f" /* isUndefined */])(s) ? t : s;
+		});
+	}
+
+	return target || __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_core_services_utility__["d" /* clone */])(source);
+}
+
+/* harmony default export */ __webpack_exports__["a"] = function (model) {
+	var columnList = model.columnList;
 	var columnMap = {
-		'text': __WEBPACK_IMPORTED_MODULE_2_core_column_type_text_column__["a" /* default */],
-		'number': __WEBPACK_IMPORTED_MODULE_3_core_column_type_number_column__["a" /* default */],
-		'bool': __WEBPACK_IMPORTED_MODULE_4_core_column_type_bool_column__["a" /* default */],
-		'date': __WEBPACK_IMPORTED_MODULE_5_core_column_type_date_column__["a" /* default */],
-		'array': __WEBPACK_IMPORTED_MODULE_7_core_column_type_array_column__["a" /* default */],
-		'email': __WEBPACK_IMPORTED_MODULE_8_core_column_type_email_column__["a" /* default */],
-		'password': __WEBPACK_IMPORTED_MODULE_6_core_column_type_password_column__["a" /* default */],
-		'select': __WEBPACK_IMPORTED_MODULE_9_core_column_type_select_column__["a" /* default */],
-		'group': __WEBPACK_IMPORTED_MODULE_10_core_column_type_group_column__["a" /* default */],
-		'pivot': __WEBPACK_IMPORTED_MODULE_11_core_column_type_pivot_column__["a" /* default */],
-		'row-number': __WEBPACK_IMPORTED_MODULE_12_core_column_type_row_number_column__["a" /* default */],
-		'row-indicator': __WEBPACK_IMPORTED_MODULE_13_core_column_type_row_indicator_column__["a" /* default */],
-		'pad': __WEBPACK_IMPORTED_MODULE_14_core_column_type_pad_column__["a" /* default */],
-		'custom': __WEBPACK_IMPORTED_MODULE_1_core_column_type_column_view__["a" /* default */]
+		'text': __WEBPACK_IMPORTED_MODULE_3_core_column_type_text_column__["a" /* default */],
+		'number': __WEBPACK_IMPORTED_MODULE_4_core_column_type_number_column__["a" /* default */],
+		'bool': __WEBPACK_IMPORTED_MODULE_5_core_column_type_bool_column__["a" /* default */],
+		'date': __WEBPACK_IMPORTED_MODULE_6_core_column_type_date_column__["a" /* default */],
+		'array': __WEBPACK_IMPORTED_MODULE_8_core_column_type_array_column__["a" /* default */],
+		'email': __WEBPACK_IMPORTED_MODULE_9_core_column_type_email_column__["a" /* default */],
+		'password': __WEBPACK_IMPORTED_MODULE_7_core_column_type_password_column__["a" /* default */],
+		'select': __WEBPACK_IMPORTED_MODULE_10_core_column_type_select_column__["a" /* default */],
+		'group': __WEBPACK_IMPORTED_MODULE_11_core_column_type_group_column__["a" /* default */],
+		'pivot': __WEBPACK_IMPORTED_MODULE_12_core_column_type_pivot_column__["a" /* default */],
+		'row-number': __WEBPACK_IMPORTED_MODULE_13_core_column_type_row_number_column__["a" /* default */],
+		'row-indicator': __WEBPACK_IMPORTED_MODULE_14_core_column_type_row_indicator_column__["a" /* default */],
+		'pad': __WEBPACK_IMPORTED_MODULE_15_core_column_type_pad_column__["a" /* default */],
+		'custom': __WEBPACK_IMPORTED_MODULE_2_core_column_type_column_view__["a" /* default */]
 	};
 
 	var create = function create(entityType, columnType, body) {
 		var Type = columnMap[entityType];
-		//const settings = columnList().columns[columnType];
-		//body = merge(body, settings);
+		var settings = columnList().columns[columnType];
+		body = merge(body, settings);
 
 		var model = Type.model(body);
 		return new Type(model);
@@ -11957,7 +11960,14 @@ var Column = function (_Component) {
 			if (withKey) {
 				this.columnList.add(column);
 			} else {
-				this.columnList.register(column);
+				var settings = Object.keys($attrs).filter(function (key) {
+					return !__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_core_services_utility__["f" /* isUndefined */])($attrs[key]) && column.hasOwnProperty(key);
+				}).reduce(function (memo, key) {
+					memo[key] = column[key];
+					return memo;
+				}, {});
+
+				this.columnList.register(settings);
 			}
 		}
 	}]);
