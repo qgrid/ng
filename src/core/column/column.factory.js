@@ -1,5 +1,5 @@
 import * as guard from 'core/infrastructure/guard';
-//import {assignWith} from 'core/services/utility';
+import {assignWith, clone, isUndefined} from 'core/services/utility';
 import CustomColumn from 'core/column-type/column.view';
 import TextColumn from 'core/column-type/text.column';
 import NumberColumn from 'core/column-type/number.column';
@@ -15,16 +15,16 @@ import RowNumberColumn from 'core/column-type/row.number.column';
 import RowIndicatorColumn from 'core/column-type/row.indicator.column';
 import PadColumn from 'core/column-type/pad.column';
 
-// function merge(target, source) {
-// 	if (target && source) {
-// 		return assignWith(target, source, (s, t) => );
-// 	}
-//
-// 	return target || source;
-// }
+function merge(target, source) {
+	if (target && source) {
+		return assignWith(target, source, (s, t) => isUndefined(s) ? t : s);
+	}
 
-export default function (/*model*/) {
-	//const columnList = model.columnList;
+	return target || clone(source);
+}
+
+export default function (model) {
+	const columnList = model.columnList;
 	const columnMap = {
 		'text': TextColumn,
 		'number': NumberColumn,
@@ -44,8 +44,8 @@ export default function (/*model*/) {
 
 	const create = (entityType, columnType, body) => {
 		const Type = columnMap[entityType];
-		//const settings = columnList().columns[columnType];
-		//body = merge(body, settings);
+		const settings = columnList().columns[columnType];
+		body = merge(body, settings);
 
 		const model = Type.model(body);
 		return new Type(model);
