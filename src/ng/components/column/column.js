@@ -55,7 +55,14 @@ class Column extends Component {
 			this.columnList.add(column);
 		}
 		else {
-			this.columnList.register(column);
+			const settings = Object.keys($attrs)
+				.filter(key => !isUndefined($attrs[key]) && column.hasOwnProperty(key))
+				.reduce((memo, key) => {
+					memo[key] = column[key]
+					return memo;
+				}, {});
+
+			this.columnList.register(settings);
 		}
 	}
 }
