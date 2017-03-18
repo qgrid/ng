@@ -4,22 +4,22 @@ export default class SelectionBehavior {
 		this.apply = apply;
 	}
 
-	select(item, state) {
-		const items = this.selectCore(item, state);
+	select(item, state, unit) {
+		const items = this.selectCore(item, state, unit);
 		this.state.toggle(items, state);
-		this.model.selection({ items: this.state.view }, {source: 'toggle'});
+		this.model.selection({ items: this.state.view }, {source: 'toggle', unit: unit});
 	}
 
-	selectCell(cell) {
-		const items = this.selectCellCore(cell);
+	selectCell(cell, unit) {
+		const items = this.selectCellCore(cell, unit);
 
 		if (items) {
 			this.apply(() => { this.select(items); });
 		}
 	}
 
-	selectRange(startCell, endCell) {
-		const items = this.selectRangeCore(startCell, endCell);
+	selectRange(startCell, endCell, unit) {
+		const items = this.selectRangeCore(startCell, endCell, unit);
 
 		if (items) {
 			this.apply(() => {

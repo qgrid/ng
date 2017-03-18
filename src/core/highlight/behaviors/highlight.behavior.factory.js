@@ -2,6 +2,7 @@ import AppError from 'core/infrastructure/error';
 import RowHighlight from './row.highlight';
 import ColumnHighlight from './column.highlight';
 import CellHighlight from './cell.highlight';
+import MixedHighlight from './mixed.highlight';
 
 export default function (model, markup) {
 	const selection = model.selection();
@@ -12,6 +13,8 @@ export default function (model, markup) {
 			return new CellHighlight(model, markup);
 		case 'column':
 			return new ColumnHighlight(model, markup);
+		case 'mixed':
+			return new MixedHighlight(model, markup);
 		default:
 			throw new AppError('highlight.behavior.factory', `Invalid highlight mode "${selection.unit}"`);
 	}

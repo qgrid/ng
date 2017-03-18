@@ -47,7 +47,6 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	}
 
 	onClick(e) {
-		const selection = this.view.model.selection();
 		const cell = pathFinder.cell(e.path);
 		if (cell) {
 			this.view.model.navigation({
@@ -62,8 +61,16 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 				this.$scope.$evalAsync(() => this.view.edit.cell.enter.execute(cell));
 			}
 
-			if (cell.column.type !== 'select') {
-				if (selection.mode === 'range') {
+			if (cell.column.type === 'row-indicator' && this.selection.unit === 'mixed') {
+				if (this.isRange) {
+					this.view.selection.behavior.selectRange(cell, cell, 'row');
+				} else {
+					this.view.selection.behavior.selectCell(cell, 'row');
+				}
+			}
+
+			if (!['select', 'row-indicator'].includes(cell.column.type)) {
+				if (this.isRange) {
 					this.view.selection.behavior.selectRange(cell, cell);
 				} else {
 					this.view.selection.behavior.selectCell(cell);
@@ -78,7 +85,8 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 		}
 
 		this.rangeStartCell = pathFinder.cell(e.path);
-		this.view.selection.behavior.selectRange(this.rangeStartCell, this.rangeStartCell);
+		const unit = this.getMixedUnit(this.rangeStartCell);
+		this.view.selection.behavior.selectRange(this.rangeStartCell, this.rangeStartCell, unit);
 	}
 
 	onMouseMove(e) {
@@ -90,7 +98,8 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 		const endCell = pathFinder.cell(e.path);
 
 		if (startCell && endCell) {
-			this.view.selection.behavior.selectRange(startCell, endCell);
+			const unit = this.getMixedUnit(startCell);
+			this.view.selection.behavior.selectRange(startCell, endCell, unit);
 
 			this.view.model.navigation({
 				active: {
@@ -110,11 +119,20 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 		this.rangeStartCell = null;
 	}
 
+	getMixedUnit(cell) {
+		return (cell.column.type === 'row-indicator' && this.selection.unit === 'mixed') ? 'row' : 'cell';
+	}
 
 	get isRange() {
-		const selection = this.view.model.selection();
+		return this.selection.mode === 'range';
+	}
 
-		return selection.mode === 'range';
+	get selection() {
+		return this.view.model.selection();
+	}
+
+	get mixedUnit() {
+		
 	}
 }
 
