@@ -49,90 +49,101 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	onClick(e) {
 		const cell = pathFinder.cell(e.path);
 		if (cell) {
-			this.view.model.navigation({
-				active: {
-					cell: cell
-				},
-				column: cell.columnIndex,
-				row: cell.rowIndex
-			});
+			this.navigate(cell);
 
 			if (this.view.edit.cell.enter.canExecute(cell)) {
 				this.$scope.$evalAsync(() => this.view.edit.cell.enter.execute(cell));
 			}
 
-			if (cell.column.type === 'row-indicator' && this.selection.unit === 'mixed') {
-				if (this.isRange) {
-					this.view.selection.behavior.selectRange(cell, cell, 'row');
-				} else {
-					this.view.selection.behavior.selectCell(cell, 'row');
-				}
-			}
-
-			if (!['select', 'row-indicator'].includes(cell.column.type)) {
-				if (this.isRange) {
-					this.view.selection.behavior.selectRange(cell, cell);
-				} else {
-					this.view.selection.behavior.selectCell(cell);
-				}
+			if (cell.column.type !== 'select') {
+				this.select(cell);
 			}
 		}
 	}
 
 	onMouseDown(e) {
-		if (!this.isRange) {
-			return;
-		}
+		if (this.selection.mode === 'range') {
+			this.rangeStartCell = pathFinder.cell(e.path);
 
-		this.rangeStartCell = pathFinder.cell(e.path);
-		const unit = this.getMixedUnit(this.rangeStartCell);
-		this.view.selection.behavior.selectRange(this.rangeStartCell, this.rangeStartCell, unit);
+			if (this.rangeStartCell) {
+				this.select(this.rangeStartCell);
+			}
+		}
 	}
 
 	onMouseMove(e) {
-		if (!this.isRange) {
-			return;
-		}
+		if (this.selection.mode === 'range') {
+			const startCell = this.rangeStartCell;
+			const endCell = pathFinder.cell(e.path);
 
-		const startCell = this.rangeStartCell;
-		const endCell = pathFinder.cell(e.path);
-
-		if (startCell && endCell) {
-			const unit = this.getMixedUnit(startCell);
-			this.view.selection.behavior.selectRange(startCell, endCell, unit);
-
-			this.view.model.navigation({
-				active: {
-					cell: endCell
-				},
-				column: endCell.columnIndex,
-				row: endCell.rowIndex
-			});
+			if (startCell && endCell) {
+				this.select(startCell, endCell);
+				this.navigate(endCell);
+			}
 		}
 	}
 
 	onMouseUp() {
-		if (!this.isRange) {
+		if (this.selection.mode === 'range') {
+			this.rangeStartCell = null;
+		}
+	}
+
+	navigate(cell) {
+		if (!cell) {
 			return;
 		}
 
-		this.rangeStartCell = null;
+		this.view.model.navigation({
+			active: {
+				cell: cell
+			},
+			column: cell.columnIndex,
+			row: cell.rowIndex
+		});
 	}
 
+	select(startCell, endCell) {
+		if (!startCell) {
+			return;
+		}
+
+		const mixedUnit = startCell.column.type === 'row-indicator' ? 'row' : 'cell';
+		
+		let items = null;
+		switch (this.selection.unit) {
+			case 'row':
+				items = this.view.table.getRows(startCell, endCell);
+				break;
+			case 'column':
+				items = this.view.table.getColumns(startCell, endCell);
+				break;
+			case 'cell':
+				items = this.view.table.getCells(startCell, endCell);
+				break;
+			case 'mixed':
+				items = (mixedUnit === 'row'
+					? this.view.table.getRows(startCell, endCell)
+					: this.view.table.getCells(startCell, endCell)).map(item => {
+						return {
+							item: item,
+							unit: mixedUnit
+						};
+					});
+				break;
+		}
+
+		if (items) {
+			this.view.selection.select(items);
+		}
+	}
+	
 	getMixedUnit(cell) {
 		return (cell.column.type === 'row-indicator' && this.selection.unit === 'mixed') ? 'row' : 'cell';
 	}
 
-	get isRange() {
-		return this.selection.mode === 'range';
-	}
-
 	get selection() {
 		return this.view.model.selection();
-	}
-
-	get mixedUnit() {
-		
 	}
 }
 

@@ -1,6 +1,6 @@
 import View from '../view/view';
 import Command from 'core/infrastructure/command';
-import behaviorFactory from './selection-behavior/selection.behavior.factory';
+import stateFactory from './state/selection.state.factory';
 import Shortcut from 'core/infrastructure/shortcut';
 import * as columnService from 'core/column/column.service';
 import {GRID_PREFIX} from 'core/definition';
@@ -9,7 +9,7 @@ export default class SelectionView extends View {
 	constructor(model, markup, apply) {
 		super(model);
 
-		this.behavior = behaviorFactory(model, markup, apply);
+		this.selectionState = stateFactory(model);
 		this.markup = markup;
 		this.apply = apply;
 		
@@ -23,13 +23,13 @@ export default class SelectionView extends View {
 		this.reset = commands.get('reset');
 
 		// model.viewChanged.watch(() => {
-		// 	this.behavior = behaviorFactory(model, markup, apply);
-		// 	model.selection({items: this.behavior.view});
+			// this.selectionState = stateFactory(model);
+			// model.selection({items: this.selectionState.view});
 		// });
 
 		model.sortChanged.watch(() => {
-			this.behavior = behaviorFactory(model, markup, apply);
-			model.selection({items: this.behavior.view});
+			this.selectionState = stateFactory(model);
+			model.selection({items: this.selectionState.view});
 		});
 
 		model.selectionChanged.watch(e => {
@@ -39,7 +39,7 @@ export default class SelectionView extends View {
 					const newClassName = `${GRID_PREFIX}-select-${model.selection().mode}`;
 					this.markup.view.classList.add(newClassName);
 					
-					if (e && e.changes.mode.oldValue) {
+					if (e && e.changes.mode.oldValue != e.changes.mode.newValue) {
 						const oldClassName = `${GRID_PREFIX}-select-${e.changes.mode.oldValue}`;
 						this.markup.view.classList.remove(oldClassName);
 					}
@@ -47,13 +47,14 @@ export default class SelectionView extends View {
 			}
 
 			if (e.hasChanges('unit') || e.hasChanges('mode')) {
-				this.behavior = behaviorFactory(model, markup, apply);
+				this.selectionState = stateFactory(model);
+				
 				model.navigation({column: -1, row: -1});
-				model.selection({items: this.behavior.state.view});
+				model.selection({items: this.selectionState.view});
 			}
 
 			if (e.tag.source !== 'toggle' && e.hasChanges('items')) {
-				this.behavior.select(model.selection().items, true);
+				this.select(model.selection().items, true);
 			}
 		});
 	}
@@ -63,17 +64,17 @@ export default class SelectionView extends View {
 		const commands = {
 			toggleRow: new Command({
 				execute: (item, state) => {
-					this.behavior.select(item, state);
+					this.select(item, state);
 				}
 			}),
 			toggleColumn: new Command({
 				execute: (item, state) => {
-					this.behavior.select(item, state);
+					this.select(item, state);
 				}
 			}),
 			toggleCell: new Command({
 				execute: (item, state) => {
-					this.behavior.select(item, state);
+					this.select(item, state);
 				}
 			}),
 			toggleActiveRow: new Command({
@@ -89,7 +90,7 @@ export default class SelectionView extends View {
 						model.navigation({row: itemIndex + 1});
 					}
 
-					this.behavior.select(item);
+					this.select(item);
 				},
 				canExecute: () => model.selection().unit === 'row'
 			}),
@@ -100,7 +101,7 @@ export default class SelectionView extends View {
 					
 					if (itemIndex > 0) {
 						const item = model.view().rows[itemIndex - 1];
-						this.behavior.select(item);
+						this.select(item);
 						model.navigation({row: itemIndex - 1});
 					}
 				},
@@ -113,7 +114,7 @@ export default class SelectionView extends View {
 					const itemIndex = model.navigation().row;
 					if (itemIndex < model.view().rows.length - 1) {
 						const item = model.view().rows[itemIndex + 1];
-						this.behavior.select(item);
+						this.select(item);
 						model.navigation({row: itemIndex + 1});
 					}
 				},
@@ -127,7 +128,7 @@ export default class SelectionView extends View {
 					const columns = columnService.lineView(model.view().columns);
 
 					const column = columns[index].key;
-					this.behavior.select([...items, column]);
+					this.select([...items, column]);
 				},
 				canExecute: () => model.selection().unit === 'column'
 			}),
@@ -138,7 +139,7 @@ export default class SelectionView extends View {
 					const index = model.navigation().column + 1;
 					const column = columns[index].key;
 
-					this.behavior.select(column);
+					this.select(column);
 
 					model.navigation({column: index});
 				},
@@ -152,7 +153,7 @@ export default class SelectionView extends View {
 					const index = model.navigation().column - 1;
 					const column = columns[index].key;
 
-					this.behavior.select(column);
+					this.select(column);
 					
 					model.navigation({column: index});
 				},
@@ -161,13 +162,13 @@ export default class SelectionView extends View {
 			selectAll: new Command({
 				shortcut: 'ctrl+a',
 				execute: () => {
-					this.behavior.select();
+					this.select();
 				},
 				canExecute: () => model.selection().mode === 'multiple'
 			}),
 			reset: new Command({
 				execute: () => {
-					this.behavior.reset();
+					this.reset();
 				}
 			})
 		};
@@ -176,12 +177,23 @@ export default class SelectionView extends View {
 		);
 	}
 
+	select(items) {
+		if (this.selection.mode === 'range') {
+			this.selectionState.clear();
+			this.selectionState.toggle(items, true);
+		} else {
+			this.selectionState.toggle(items);
+		}
+		
+		this.model.selection({ items: this.selectionState.view }, {source: 'toggle'});
+	}
+
 	state(item) {
 		if (!arguments.length) {
 			item = this.model.view().rows;
 		}
 
-		return this.behavior.state.state(item) === true;
+		return this.selectionState.state(item) === true;
 	}
 
 	isIndeterminate(item) {
@@ -189,10 +201,14 @@ export default class SelectionView extends View {
 			item = this.model.view().rows;
 		}
 
-		return this.behavior.state.state(item) === null;
+		return this.selectionState.state(item) === null;
 	}
 
 	destroy() {
 		this.shortcutOff();
+	}
+
+	get selection() {
+		return this.model.selection();
 	}
 }

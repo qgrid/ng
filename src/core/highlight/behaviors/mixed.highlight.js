@@ -32,16 +32,19 @@ export default class MixedHighlight extends Behavior {
 		const rows = this.model.view().rows;
 
 		for (let item of items) {
-			if (rows.includes(item)) {
-				const index = rows.indexOf(item);
+			const unit = item.unit;
+			const value = item.item;
+
+			if (unit === 'row') {
+				const index = rows.indexOf(value);
 				if (index > -1 && body && body.rows[index]) {
 					for (let cell of body.rows[index].cells) {
 						result.push(cell);
 					}
 				}
 			} else {
-				const rowIndex = rows.indexOf(item.row);
-				const columnIndex = columns.findIndex((c) => c.model === item.column);
+				const rowIndex = rows.indexOf(value.row);
+				const columnIndex = columns.findIndex((c) => c.model === value.column);
 
 				if (rowIndex > -1 && body && body.rows[rowIndex]) {
 					const row = body.rows[rowIndex];
