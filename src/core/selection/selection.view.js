@@ -1,6 +1,7 @@
 import View from '../view/view';
 import Command from 'core/infrastructure/command';
 import stateFactory from './state/selection.state.factory';
+import rangeBuilderFactory from './range.builder.factory';
 import Shortcut from 'core/infrastructure/shortcut';
 import * as columnService from 'core/column/column.service';
 import {GRID_PREFIX} from 'core/definition';
@@ -10,6 +11,8 @@ export default class SelectionView extends View {
 		super(model);
 
 		this.selectionState = stateFactory(model);
+		this.rangeBuilder = rangeBuilderFactory(model);
+
 		this.markup = markup;
 		this.apply = apply;
 		
@@ -29,6 +32,7 @@ export default class SelectionView extends View {
 
 		model.sortChanged.watch(() => {
 			this.selectionState = stateFactory(model);
+			
 			model.selection({items: this.selectionState.view});
 		});
 
@@ -45,7 +49,11 @@ export default class SelectionView extends View {
 					}
 				});
 			}
-
+			
+			if (e.hasChanges('unit')) {
+				this.rangeBuilder = rangeBuilderFactory(model);
+			}
+			
 			if (e.hasChanges('unit') || e.hasChanges('mode')) {
 				this.selectionState = stateFactory(model);
 				
@@ -177,6 +185,11 @@ export default class SelectionView extends View {
 		);
 	}
 
+	selectRange(startCell,  endCell) {
+		const range = this.rangeBuilder(startCell, endCell);
+		this.select(range);
+	}
+
 	select(items) {
 		if (this.selection.mode === 'range') {
 			this.selectionState.clear();
@@ -210,5 +223,13 @@ export default class SelectionView extends View {
 
 	get selection() {
 		return this.model.selection();
+	}
+
+	get columns() {
+		return columnService.lineView(this.model.view().columns);
+	}
+
+	get rows() {
+		return this.model.view().rows;
 	}
 }

@@ -56,7 +56,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 			}
 
 			if (cell.column.type !== 'select') {
-				this.select(cell);
+				this.view.selection.selectRange(cell);
 			}
 		}
 	}
@@ -66,7 +66,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 			this.rangeStartCell = pathFinder.cell(e.path);
 
 			if (this.rangeStartCell) {
-				this.select(this.rangeStartCell);
+				this.view.selection.selectRange(this.rangeStartCell);
 			}
 		}
 	}
@@ -77,7 +77,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 			const endCell = pathFinder.cell(e.path);
 
 			if (startCell && endCell) {
-				this.select(startCell, endCell);
+				this.view.selection.selectRange(startCell, endCell);
 				this.navigate(endCell);
 			}
 		}
@@ -101,45 +101,6 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 			column: cell.columnIndex,
 			row: cell.rowIndex
 		});
-	}
-
-	select(startCell, endCell) {
-		if (!startCell) {
-			return;
-		}
-
-		const mixedUnit = startCell.column.type === 'row-indicator' ? 'row' : 'cell';
-		
-		let items = null;
-		switch (this.selection.unit) {
-			case 'row':
-				items = this.view.table.getRows(startCell, endCell);
-				break;
-			case 'column':
-				items = this.view.table.getColumns(startCell, endCell);
-				break;
-			case 'cell':
-				items = this.view.table.getCells(startCell, endCell);
-				break;
-			case 'mixed':
-				items = (mixedUnit === 'row'
-					? this.view.table.getRows(startCell, endCell)
-					: this.view.table.getCells(startCell, endCell)).map(item => {
-						return {
-							item: item,
-							unit: mixedUnit
-						};
-					});
-				break;
-		}
-
-		if (items) {
-			this.view.selection.select(items);
-		}
-	}
-	
-	getMixedUnit(cell) {
-		return (cell.column.type === 'row-indicator' && this.selection.unit === 'mixed') ? 'row' : 'cell';
 	}
 
 	get selection() {

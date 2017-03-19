@@ -1,21 +1,9 @@
-import AppError from 'core/infrastructure/error';
-import RowHighlight from './row.highlight';
-import ColumnHighlight from './column.highlight';
-import CellHighlight from './cell.highlight';
-import MixedHighlight from './mixed.highlight';
+import DefaultHighlight from './default.highlight';
+import cellsBuilderFactory from './cells.builder.factory';
 
-export default function (model, markup) {
-	const selection = model.selection();
-	switch (selection.unit) {
-		case 'row':
-			return new RowHighlight(model, markup);
-		case 'cell':
-			return new CellHighlight(model, markup);
-		case 'column':
-			return new ColumnHighlight(model, markup);
-		case 'mixed':
-			return new MixedHighlight(model, markup);
-		default:
-			throw new AppError('highlight.behavior.factory', `Invalid highlight mode "${selection.unit}"`);
-	}
-}
+export default (model, markup) => {
+
+	const cellsBuilder = cellsBuilderFactory(model, markup);
+	
+	return new DefaultHighlight(model, markup, cellsBuilder);
+};
