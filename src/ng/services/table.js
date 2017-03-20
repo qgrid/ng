@@ -1,3 +1,25 @@
+import {noop} from 'core/services/utility';
+class Dom {
+	constructor(element) {
+		this.element = element;
+	}
+
+	column(index) {
+		let cells = [];
+		const rows = this.element.rows;
+		for (let i = 0; i++; i < rows.length) {
+			cells.push(rows[i].cells[index]);
+		}
+		return {
+			cells: cells
+		}
+	}
+
+	row(index) {
+		return this.element.rows[index];
+	}
+}
+
 export default class Table {
 	constructor(markup) {
 		this.markup = markup;
@@ -18,5 +40,14 @@ export default class Table {
 		}
 
 		return null;
+	}
+	get body(){
+		return new Dom(this.markup.body) || noop;
+	}
+	get foot(){
+		return new Dom(this.markup.foot) || noop;
+	}
+	get head(){
+		return new Dom(this.markup.head) || noop;
 	}
 }

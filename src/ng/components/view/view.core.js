@@ -44,13 +44,13 @@ class ViewCore extends Component {
 		};
 
 		this.head = new HeadView(model, service, TH_CORE_NAME);
-		this.body = new BodyView(model, markup, valueFactory);
+		this.body = new BodyView(model, table, valueFactory);
 		this.foot = new FootView(model, valueFactory);
-		this.layout = new LayoutView(model, markup);
-		this.selection = new SelectionView(model, markup, apply);
+		this.layout = new LayoutView(model, table);
+		this.selection = new SelectionView(model, table, apply);
 		this.group = new GroupView(model, valueFactory);
 		this.pivot = new PivotView(model, valueFactory);
-		this.nav = new NavigationView(model, markup, table, apply);
+		this.nav = new NavigationView(model, table, apply);
 		this.highlight = new HighlightView(model, markup, apply);
 		this.sort = new SortView(model);
 		this.filter = new FilterView(model);

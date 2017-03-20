@@ -5,11 +5,13 @@ import Navigation from 'core/navigation/navigation';
 import {GRID_PREFIX} from 'core/definition';
 
 export default class NavigationView extends View {
-	constructor(model, markup, table, apply) {
+	constructor(model, table, apply) {
 		super(model);
+		this.table = table;
+		const markup = table.markup;
 		this.markup = markup;
 		this.model = model;
-		this.document = this.markup.document;
+		this.document = markup.document;
 		const shortcut = new Shortcut(this.document, markup.table, apply);
 		const navigation = new Navigation(model, markup);
 		this.shortcutOff = shortcut.register('navigation', navigation.commands);

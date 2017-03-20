@@ -6,9 +6,9 @@ import * as columnService from 'core/column/column.service';
 import {GRID_PREFIX} from 'core/definition';
 
 export default class SelectionView extends View {
-	constructor(model, markup, apply) {
+	constructor(model, table, apply) {
 		super(model);
-
+		const markup = table.markup;
 		this.behavior = behaviorFactory(model, markup, apply);
 		this.markup = markup;
 		this.apply = apply;
