@@ -74,7 +74,8 @@ class ColumnList extends ModelComponent {
 		const data = model.data;
 		let columns = Array.from(data().columns)
 		const tag = {
-			source: 'column.list'
+			source: 'column.list',
+			behavior: 'core'
 		};
 
 		if (arguments.length) {
