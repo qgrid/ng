@@ -4,10 +4,28 @@ import {noop} from 'core/services/utility';
 
 function selectColumnFactory(model) {
 	const dataColumns = model.data().columns;
-	const selectColumn = dataColumns.find(item => item.type === 'select');
 	const selection = model.selection();
 
-	if (selection.unit === 'row' && selection.mode !== 'range' && !selectColumn) {
+	const selectColumn = dataColumns.find(item => item.type === 'select');
+	const indicatorColumn = dataColumns.find(item => item.type === 'row-indicator');
+
+	if (!indicatorColumn && selection.unit === 'mixed') {
+		const createColumn = columnFactory(model);
+		return (columns, context) => {
+			const selectColumn = createColumn('row-indicator');
+			const index = columns.length;
+			selectColumn.model.source = 'generation';
+			selectColumn.rowspan = context.rowspan;
+			if (selectColumn.model.index >= 0) {
+				selectColumn.model.index = index;
+			}
+
+			columns.push(selectColumn);
+			return selectColumn;
+		};
+	}
+
+	if (!selectColumn && selection.unit === 'row' && selection.mode !== 'range') {
 		const createColumn = columnFactory(model);
 		return (columns, context) => {
 			const selectColumn = createColumn('select');
