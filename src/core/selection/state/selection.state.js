@@ -61,16 +61,34 @@ export default class SelectionState {
 	}
 
 	key(item) {
+
+		function getCellKey(item) {
+
+			if (item.column && item.row) {
+				const columnKey = item.column.key;
+				const rowIndex = rows.indexOf(item.row);
+
+				if (columnKey && rowIndex >= 0) {
+					return `${columnKey}[${rowIndex}]`;
+				}
+			}
+
+			return item;
+		}
+
 		const unit = this.model.selection().unit;
 		const rows = this.model.view().rows;
 
-		if (unit === 'cell' && item.column && item.row){
-			const columnKey = item.column.key;
-			const rowIndex = rows.indexOf(item.row);
+		if (unit === 'cell') {
+			return getCellKey(item);
+		}
 
-			if (columnKey && rowIndex >= 0) {
-				return `${columnKey}[${rowIndex}]`;
+		if (unit === 'mix' && item.item) {
+			if (item.unit === 'cell') {
+				return getCellKey(item.item);
 			}
+
+			return item.item;
 		}
 
 		return item;

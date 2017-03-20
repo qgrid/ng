@@ -24,13 +24,13 @@ export class Grid extends RootComponent {
 				this.onSelectionChanged({
 					$event: {
 						state: model.selection(),
-						changes: e ? e.changes : {}
+						changes: e.changes
 					}
 				});
 			}
 
 			if (e.hasChanges('unit') || e.hasChanges('mode')) {
-				service.invalidate('selection', e ? e.changes : {}, PipeUnit.column);
+				service.invalidate('selection', e.changes, PipeUnit.column);
 			}
 		});
 
@@ -38,7 +38,11 @@ export class Grid extends RootComponent {
 			.triggers
 			.forEach(name =>
 				model[name + 'Changed']
-					.watch(e => service.invalidate(name, e ? e.changes : {})));
+					.watch(e => {
+						if (e.tag.behavior !== 'core') {
+							service.invalidate(name, e.changes);
+						}
+					}));
 	}
 
 	compile() {
