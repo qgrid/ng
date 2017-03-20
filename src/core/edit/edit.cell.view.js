@@ -5,9 +5,10 @@ import {clone, isUndefined} from 'core/services/utility';
 import Shortcut from 'core/infrastructure/shortcut';
 
 export default class EditCellView {
-	constructor(model, setValue, markup, apply) {
+	constructor(model, setValue, table, apply) {
 		this.model = model;
 		this.setValue = setValue;
+		const markup = table.markup;
 		this.markup = markup;
 
 		this.mode = 'view';
@@ -25,6 +26,7 @@ export default class EditCellView {
 
 	get commands() {
 		const model = this.model;
+		const table = this.markup.table;
 		const commands = {
 			enter: new Command({
 				shortcut: 'F2|Enter',
@@ -72,7 +74,7 @@ export default class EditCellView {
 						this.mode = 'view';
 						model.edit({editMode: 'view'});
 						cell.mode(this.mode);
-						this.markup.table.focus();
+						table.focus();
 					}
 				}
 			}),
@@ -89,7 +91,7 @@ export default class EditCellView {
 						this.mode = 'view';
 						model.edit({editMode: 'view'});
 						cell.mode(this.mode);
-						this.markup.table.focus();
+						table.focus();
 					}
 
 				}

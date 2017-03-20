@@ -56,7 +56,7 @@ class ViewCore extends Component {
 		this.highlight = new HighlightView(model, markup, apply);
 		this.sort = new SortView(model);
 		this.filter = new FilterView(model);
-		this.edit = new EditView(model, setValue, markup, apply);
+		this.edit = new EditView(model, setValue, table, apply);
 		this.pagination = new PaginationView(model);
 	}
 
