@@ -7,7 +7,7 @@ export default class DataModel {
 		this.pipe = PipeUnit.default;
 		this.triggers = {
 			'data': ['rows', 'columns'],
-			'pagination': ['current'],
+			'pagination': ['current', 'size'],
 			'sort': ['by'],
 			'filter': ['by'],
 			'group': ['by'],

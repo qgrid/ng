@@ -39,7 +39,7 @@ export class Grid extends RootComponent {
 				model[name + 'Changed']
 					.watch(e => {
 						const changes = Object.keys(e.changes);
-						if (triggers[name].find(tr => changes.indexOf(tr) > -1) && e.tag.behavior !== 'core') {
+						if (triggers[name].find(key => changes.indexOf(key) > -1) && e.tag.behavior !== 'core') {
 							service.invalidate(name, e.changes);
 						}
 					}));
