@@ -18,6 +18,7 @@ import EditModel from 'core/edit/edit.model';
 import ToolbarModel from 'core/toolbar/toolbar.model';
 import PaginationModel from 'core/pagination/pagination.model';
 import ProgressModel from 'core/progress/progress.model';
+import HighlightModel from 'core/highlight/highlight.model';
 import VisibilityModel from 'core/visibility/visibility.model';
 import FilterModel from 'core/filter/filter.model';
 import DragModel from 'core/drag/drag.model';
@@ -46,10 +47,11 @@ Model.register('grid', GridModel)
 	.register('toolbar', ToolbarModel)
 	.register('pagination', PaginationModel)
 	.register('progress', ProgressModel)
+	.register('highlight', HighlightModel)
 	.register('visibility', VisibilityModel)
-	.register('columnChooser', ColumnChooserModel)
 	.register('filter', FilterModel)
 	.register('drag', DragModel)
+	.register('columnChooser', ColumnChooserModel)
 	.register('popup', PopupModel);
 
 export default ng;

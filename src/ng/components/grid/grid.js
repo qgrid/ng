@@ -30,7 +30,7 @@ export class Grid extends RootComponent {
 			}
 
 			if (e.hasChanges('unit') || e.hasChanges('mode')) {
-				service.invalidate('selection', e.changes);
+				service.invalidate('selection', e.changes, PipeUnit.column);
 			}
 		});
 
