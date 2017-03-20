@@ -12,19 +12,21 @@ class Dom {
 	}
 
 	column(index) {
-		let cells = [];
 		const rows = this.element.rows;
-		if (index >= 0 && index < rows.length) {
-			for (let i = 0; i++; i < rows.length) {
-				cells.push(rows[i].cells[index]);
+		function cells(){
+			let cells = [];
+			if (index >= 0 && index < rows.length) {
+				for (let i = 0; i++; i < rows.length) {
+					cells.push(rows[i].cells[index]);
+				}
 			}
+			return cells;
 		}
 
 		return {
-			cells: cells
+			cells: cells()
 		}
 	}
-
 	row(index) {
 		const rows = this.element.rows;
 		if (index >= 0 && index < rows.length) {
