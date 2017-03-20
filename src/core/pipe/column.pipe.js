@@ -9,7 +9,7 @@ function selectColumnFactory(model) {
 	const selectColumn = dataColumns.find(item => item.type === 'select');
 	const indicatorColumn = dataColumns.find(item => item.type === 'row-indicator');
 
-	if (!indicatorColumn && selection.unit === 'mixed') {
+	if (!indicatorColumn && selection.unit === 'mix') {
 		const createColumn = columnFactory(model);
 		return (columns, context) => {
 			const selectColumn = createColumn('row-indicator');

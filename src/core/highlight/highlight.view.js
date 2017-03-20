@@ -9,38 +9,42 @@ import {GRID_PREFIX} from 'core/definition';
 export default class HighlightView extends View {
 	constructor(model, markup, apply) {
 		super(model);
-		this.model = model;
+
 		this.markup = markup;
 		this.apply = apply;
+		this.behavior = behaviorFactory(this.model, this.markup);
 
-		let blur = noop;
+		// TODO: get rid of this variable, maybe using table class?
+		let waitForLayout = false;
+
+		let sortBlurs = [];
+		let hoverBlurs =[];
+
 		this.column = new Command({
+			canExecute: () => !model.drag().isActive,
 			execute: (column, state) => {
-				if (state) {
-					blur = this.highlight(column.key, 'highlighted');
-				}
-				else {
-					blur();
-					blur = noop;
+				if (!waitForLayout) {
+					const columns = Array.from(model.highlight().columns);
+					const index = columns.indexOf(column.key);
+					let hasChanges = false;
+					if (state) {
+						if (index < 0) {
+							columns.push(column.key);
+							hasChanges = true;
+						}
+					}
+					else {
+						if (index >= 0) {
+							columns.splice(index, 1);
+							hasChanges = true;
+						}
+					}
+
+					if (hasChanges) {
+						model.highlight({columns: columns});
+					}
 				}
 			}
-		});
-
-		this.onInit(this.model);
-	}
-
-	onInit(model) {
-		let blurs = [];
-		model.sortChanged.watch(e => {
-			if (e.hasChanges('by')) {
-				blurs = this.invalidate(blurs);
-			}
-			this.behavior = behaviorFactory(this.model, this.markup);
-		});
-
-		model.viewChanged.watch(() => {
-			blurs = this.invalidate(blurs);
-			this.behavior = behaviorFactory(this.model, this.markup);
 		});
 
 		model.selectionChanged.watch(e => {
@@ -51,17 +55,51 @@ export default class HighlightView extends View {
 
 				this.behavior = behaviorFactory(this.model, this.markup);
 			}
-			if (this.behavior) {
-				const items = model.selection().items;
-				this.apply(() => this.behavior.apply(items), 0);
+
+			const items = model.selection().items;
+			this.apply(() => this.behavior.apply(items), 0);
+		});
+
+		model.columnListChanged.watch(e => {
+			if (e.hasChanges('index')) {
+				waitForLayout = true;
+				apply(() => {
+					hoverBlurs = this.invalidateHover(hoverBlurs);
+					sortBlurs = this.invalidateSortBy(sortBlurs);
+					waitForLayout = false;
+				}, 0);
+			}
+		});
+
+		model.sortChanged.watch(e => {
+			if (!waitForLayout && e.hasChanges('by')) {
+				sortBlurs = this.invalidateSortBy(sortBlurs);
+			}
+		});
+
+		model.highlightChanged.watch(e => {
+			if (!waitForLayout && e.tag.source !== 'highlight') {
+				hoverBlurs = this.invalidateHover(hoverBlurs);
 			}
 		});
 	}
 
-	invalidate(dispose) {
+	invalidateHover(dispose){
 		dispose.forEach(f => f());
-
 		dispose = [];
+		const highlightColumns = this.model.highlight().columns;
+		for (let columnKey of highlightColumns) {
+			dispose.push(this.highlight(columnKey, 'highlighted'));
+		}
+
+		return dispose;
+	}
+
+	invalidateSortBy(dispose) {
+		dispose.forEach(f => f());
+		dispose = [];
+
+
 		const sortBy = this.model.sort().by;
 		for (let entry of sortBy) {
 			const key = sortService.key(entry);
@@ -70,7 +108,6 @@ export default class HighlightView extends View {
 
 		return dispose;
 	}
-
 
 	columnIndex(key) {
 		const columnRows = this.model.view().columns;
@@ -117,7 +154,7 @@ export default class HighlightView extends View {
 			row.cells[index].classList.add(`${GRID_PREFIX}-${cls}`);
 		}
 
-		return () => this.blur(key, cls);
+		return this.blur(key, cls);
 	}
 
 	blur(key, cls) {
@@ -126,28 +163,30 @@ export default class HighlightView extends View {
 			return noop;
 		}
 
-		const head = this.markup.head;
-		if (head.rows.length) {
-			for (let row of head.rows) {
-				row.cells[index].classList.remove(`${GRID_PREFIX}-${cls}`);
-				if (index > 0) {
-					row.cells[index - 1].classList.remove(`${GRID_PREFIX}-${cls}-prev`);
-				}
+		return () => {
+			const head = this.markup.head;
+			if (head.rows.length) {
+				for (let row of head.rows) {
+					row.cells[index].classList.remove(`${GRID_PREFIX}-${cls}`);
+					if (index > 0) {
+						row.cells[index - 1].classList.remove(`${GRID_PREFIX}-${cls}-prev`);
+					}
 
-				if (index < head.rows.length - 1) {
-					row.cells[index + 1].classList.remove(`${GRID_PREFIX}-${cls}-next`);
+					if (index < head.rows.length - 1) {
+						row.cells[index + 1].classList.remove(`${GRID_PREFIX}-${cls}-next`);
+					}
 				}
 			}
-		}
 
-		const body = this.markup.body;
-		for (let row of body.rows) {
-			row.cells[index].classList.remove(`${GRID_PREFIX}-${cls}`);
-		}
+			const body = this.markup.body;
+			for (let row of body.rows) {
+				row.cells[index].classList.remove(`${GRID_PREFIX}-${cls}`);
+			}
 
-		const foot = this.markup.foot;
-		for (let row of foot.rows) {
-			row.cells[index].classList.remove(`${GRID_PREFIX}-${cls}`);
-		}
+			const foot = this.markup.foot;
+			for (let row of foot.rows) {
+				row.cells[index].classList.remove(`${GRID_PREFIX}-${cls}`);
+			}
+		};
 	}
 }

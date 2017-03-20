@@ -14,8 +14,9 @@ export default class HeadView extends View {
 		this.drop = new Command({
 			canExecute: e => {
 				if (e.source && e.source.key === tagName) {
+					const key = e.target.value;
 					const map = columnService.map(model.data().columns);
-					return map.hasOwnProperty(e.target.value);
+					return map.hasOwnProperty(key) && map[key].canMove;
 				}
 
 				return false;

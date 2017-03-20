@@ -1,6 +1,6 @@
 <tr ng-repeat="$row in $view.head.rows track by $index">
 	<th ng-repeat="$column in $row track by $column.model.key"
-		 ng-mouseover="$view.highlight.column.execute($column.model, true)"
+		 ng-mouseenter="$view.highlight.column.execute($column.model, true)"
 		 ng-mouseleave="$view.highlight.column.execute($column.model, false)"
 		 rowspan="{{$column.rowspan}}"
 		 colspan="{{$column.colspan}}"
