@@ -62,14 +62,14 @@ export default (model) => {
 		}
 	}
 
-	function getRangeMixed(startCell, endCell) {
-		const mixedUnit = startCell.column.type === 'row-indicator' ? 'row' : 'cell';
-		return (mixedUnit === 'row'
+	function getRangeMix(startCell, endCell) {
+		const mixUnit = startCell.column.type === 'row-indicator' ? 'row' : 'cell';
+		return (mixUnit === 'row'
 				? getRangeRows(startCell, endCell)
 				: getRangeCells(startCell, endCell)).map(item => {
 					return {
 						item: item,
-						unit: mixedUnit
+						unit: mixUnit
 					};
 				});
 	}
@@ -82,8 +82,8 @@ export default (model) => {
 			return getRangeColumns;
 		case 'cell':
 			return getRangeCells;
-		case 'mixed':
-			return getRangeMixed;
+		case 'mix':
+			return getRangeMix;
 		default:
 			throw new AppError('range.builder', `unsupported unit ${selection.unit}`);
 	}

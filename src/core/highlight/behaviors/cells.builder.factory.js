@@ -57,7 +57,7 @@ export default (model, markup) => {
 		return result;
 	}
 
-	function getMixed(items) {
+	function getMix(items) {
 		const itemsArray = Array.from(items);
 
 		const rows = itemsArray.filter(item => item.unit === 'row').map(item => item.item);
@@ -76,8 +76,8 @@ export default (model, markup) => {
 			return getColumns;
 		case 'cell':
 			return getCells;
-		case 'mixed':
-			return getMixed;
+		case 'mix':
+			return getMix;
 		default:
 			throw new AppError('cells.builder.factory', `unsupported unit ${selection.unit}`);
 	}
