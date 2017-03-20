@@ -297,6 +297,7 @@
     margin: 0; }
 
 .q-grid.q-grid-theme-material .q-grid-selection-bar {
+  margin-top: 20px;
   height: 100%;
   padding: 0 10px; }
   .q-grid.q-grid-theme-material .q-grid-selection-bar label {
@@ -485,7 +486,7 @@
   visibility: hidden;
   position: absolute;
   right: 0;
-  top: calc(50% - 20px); }
+  top: calc(50% - 8px); }
   .q-grid.q-grid-theme-material .q-grid-column-filter.q-grid-active {
     visibility: visible; }
     .q-grid.q-grid-theme-material .q-grid-column-filter.q-grid-active md-icon {
@@ -495,12 +496,15 @@
   .q-grid.q-grid-theme-material .q-grid-column-filter button {
     font-size: 12px;
     width: 16px;
+    min-width: 16px;
+    min-height: 16px;
+    height: 16px;
     outline: none;
     border: none;
     background: transparent;
     padding: 0;
     left: 0;
-    margin-top: -1px; }
+    margin: 0 2px; }
     .q-grid.q-grid-theme-material .q-grid-column-filter button md-icon {
       color: rgba(0, 0, 0, 0.54);
       font-size: 16px;
