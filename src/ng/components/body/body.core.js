@@ -47,74 +47,64 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	}
 
 	onClick(e) {
-		const selection = this.view.model.selection();
 		const cell = pathFinder.cell(e.path);
 		if (cell) {
-			this.view.model.navigation({
-				active: {
-					cell: cell
-				},
-				column: cell.columnIndex,
-				row: cell.rowIndex
-			});
+			this.navigate(cell);
 
 			if (this.view.edit.cell.enter.canExecute(cell)) {
 				this.$scope.$evalAsync(() => this.view.edit.cell.enter.execute(cell));
 			}
 
 			if (cell.column.type !== 'select') {
-				if (selection.mode === 'range') {
-					this.view.selection.behavior.selectRange(cell, cell);
-				} else {
-					this.view.selection.behavior.selectCell(cell);
-				}
+				this.view.selection.selectRange(cell);
 			}
 		}
 	}
 
 	onMouseDown(e) {
-		if (!this.isRange) {
-			return;
-		}
+		if (this.selection.mode === 'range') {
+			this.rangeStartCell = pathFinder.cell(e.path);
 
-		this.rangeStartCell = pathFinder.cell(e.path);
-		this.view.selection.behavior.selectRange(this.rangeStartCell, this.rangeStartCell);
+			if (this.rangeStartCell) {
+				this.view.selection.selectRange(this.rangeStartCell);
+			}
+		}
 	}
 
 	onMouseMove(e) {
-		if (!this.isRange) {
-			return;
-		}
+		if (this.selection.mode === 'range') {
+			const startCell = this.rangeStartCell;
+			const endCell = pathFinder.cell(e.path);
 
-		const startCell = this.rangeStartCell;
-		const endCell = pathFinder.cell(e.path);
-
-		if (startCell && endCell) {
-			this.view.selection.behavior.selectRange(startCell, endCell);
-
-			this.view.model.navigation({
-				active: {
-					cell: endCell
-				},
-				column: endCell.columnIndex,
-				row: endCell.rowIndex
-			});
+			if (startCell && endCell) {
+				this.view.selection.selectRange(startCell, endCell);
+				this.navigate(endCell);
+			}
 		}
 	}
 
 	onMouseUp() {
-		if (!this.isRange) {
+		if (this.selection.mode === 'range') {
+			this.rangeStartCell = null;
+		}
+	}
+
+	navigate(cell) {
+		if (!cell) {
 			return;
 		}
 
-		this.rangeStartCell = null;
+		this.view.model.navigation({
+			active: {
+				cell: cell
+			},
+			column: cell.columnIndex,
+			row: cell.rowIndex
+		});
 	}
 
-
-	get isRange() {
-		const selection = this.view.model.selection();
-
-		return selection.mode === 'range';
+	get selection() {
+		return this.view.model.selection();
 	}
 }
 

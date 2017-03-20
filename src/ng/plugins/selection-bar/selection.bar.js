@@ -19,7 +19,8 @@ class SelectionBar extends Plugin {
 		this.units = [ 
 			{ key: 'row', title: 'Row' }, 
 			{ key: 'column', title: 'Column' }, 
-			{ key: 'cell', title: 'Cell' }
+			{ key: 'cell', title: 'Cell' },
+			{ key: 'mixed', title: 'Mixed' }
 		];
 
 		this.unit = this.units[0].key;
