@@ -5,13 +5,13 @@ export default class DataModel {
 		this.rows = [];
 		this.columns = [];
 		this.pipe = PipeUnit.default;
-		this.triggers = [
-			'data',
-			'pagination',
-			'sort',
-			'filter',
-			'group',
-			'pivot'
-		];
+		this.triggers = {
+			'data': ['rows', 'columns'],
+			'pagination': ['current'],
+			'sort': ['by'],
+			'filter': ['by'],
+			'group': ['by'],
+			'pivot': ['by']
+		};
 	}
 }
