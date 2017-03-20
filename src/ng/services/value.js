@@ -31,7 +31,7 @@ export function set(row, column, value) {
 	}
 
 	if (isFunction(column.value)) {
-		column.value(row, value);
+		column.$value(row, value);
 		return;
 	}
 
