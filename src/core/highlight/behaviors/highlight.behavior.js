@@ -1,7 +1,9 @@
 export default class HighlightBehavior {
-	constructor(model, markup) {
+	constructor(model, markup, cellsBuilder) {
 		this.model = model;
 		this.markup = markup;
+		this.cellsBuilder = cellsBuilder;
+		
 		this.items = new Set();
 	}
 
@@ -18,6 +20,10 @@ export default class HighlightBehavior {
 	destroy() {
 		this.clear();
 		this.items = new Set();
+	}
+
+	cells(items) {
+		return this.cellsBuilder(items);
 	}
 
 	applyCore() {
