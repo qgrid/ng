@@ -1,22 +1,35 @@
-import {noop} from 'core/services/utility';
+let instance = {};
 class Dom {
 	constructor(element) {
 		this.element = element;
+	}
+	static get empty() {
+		if (!instance){
+			instance = this;
+		}
+
+		return instance;
 	}
 
 	column(index) {
 		let cells = [];
 		const rows = this.element.rows;
-		for (let i = 0; i++; i < rows.length) {
-			cells.push(rows[i].cells[index]);
+		if (index >= 0 && index < rows.length) {
+			for (let i = 0; i++; i < rows.length) {
+				cells.push(rows[i].cells[index]);
+			}
 		}
+
 		return {
 			cells: cells
 		}
 	}
 
 	row(index) {
-		return this.element.rows[index];
+		const rows = this.element.rows;
+		if (index >= 0 && index < rows.length) {
+			return rows[index];
+		}
 	}
 }
 
@@ -41,13 +54,16 @@ export default class Table {
 
 		return null;
 	}
-	get body(){
-		return new Dom(this.markup.body) || noop;
+
+	get body() {
+		return this.markup.body ? new Dom(this.markup.body) : Dom.empty;
 	}
-	get foot(){
-		return new Dom(this.markup.foot) || noop;
+
+	get foot() {
+		return this.markup.foot ? new Dom(this.markup.foot) : Dom.empty;
 	}
-	get head(){
-		return new Dom(this.markup.head) || noop;
+
+	get head() {
+		return this.markup.head ? new Dom(this.markup.head) : Dom.empty;
 	}
 }
