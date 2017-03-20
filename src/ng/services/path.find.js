@@ -1,6 +1,6 @@
 export function cell(path){
 	for (let node of path) {
-		if (node.nodeName === 'TD') {
+		if (node.nodeName === 'TD' || node.nodeName === 'TH') {
 			const scope = angular.element(node).scope();
 			if (scope.hasOwnProperty('$cell')) {
 				return scope.$cell;
