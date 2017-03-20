@@ -13,37 +13,39 @@ export default class HighlightView extends View {
 		this.markup = markup;
 		this.apply = apply;
 		this.behavior = behaviorFactory(this.model, this.markup);
-		let blurs = [];
+
+		// TODO: get rid of this variable, maybe using table class?
+		let waitForLayout = false;
+
+		let sortBlurs = [];
+		let hoverBlurs =[];
 
 		this.column = new Command({
 			canExecute: () => !model.drag().isActive,
 			execute: (column, state) => {
-				console.debug(`column.execute: ${column.key}:${state}`)
-				const columns = Array.from(model.highlight().columns);
-				const index = columns.indexOf(column.key);
-				let hasChanges = false;
-				if (state) {
-					if (index < 0) {
-						columns.push(column.key);
-						hasChanges = true;
+				if (!waitForLayout) {
+					const columns = Array.from(model.highlight().columns);
+					const index = columns.indexOf(column.key);
+					let hasChanges = false;
+					if (state) {
+						if (index < 0) {
+							columns.push(column.key);
+							hasChanges = true;
+						}
 					}
-				}
-				else {
-					if (index >= 0) {
-						columns.splice(index, 1);
-						hasChanges = true;
+					else {
+						if (index >= 0) {
+							columns.splice(index, 1);
+							hasChanges = true;
+						}
 					}
-				}
 
-				if (hasChanges) {
-					model.highlight({columns: columns});
+					if (hasChanges) {
+						model.highlight({columns: columns});
+					}
 				}
 			}
 		});
-
-		// model.dragChanged.watch(e => {
-		// 	console.debug('dragChanged');
-		// });
 
 		model.selectionChanged.watch(e => {
 			if (e.hasChanges('unit') || e.hasChanges('mode')) {
@@ -58,43 +60,45 @@ export default class HighlightView extends View {
 			this.apply(() => this.behavior.apply(items), 0);
 		});
 
+		model.columnListChanged.watch(e => {
+			if (e.hasChanges('index')) {
+				waitForLayout = true;
+				apply(() => {
+					hoverBlurs = this.invalidateHover(hoverBlurs);
+					sortBlurs = this.invalidateSortBy(sortBlurs);
+					waitForLayout = false;
+				}, 0);
+			}
+		});
+
 		model.sortChanged.watch(e => {
-			if (e.hasChanges('by')) {
-				console.debug('sortChanged');
-				blurs = this.invalidate(blurs);
+			if (!waitForLayout && e.hasChanges('by')) {
+				sortBlurs = this.invalidateSortBy(sortBlurs);
 			}
 		});
 
 		model.highlightChanged.watch(e => {
-			if (e.tag.source !== 'highlight') {
-				console.debug('highlightChanged');
-				blurs = this.invalidate(blurs);
+			if (!waitForLayout && e.tag.source !== 'highlight') {
+				hoverBlurs = this.invalidateHover(hoverBlurs);
 			}
 		});
-
-		model.viewChanged.watch(() => {
-			console.debug('viewChanged');
-			blurs = this.invalidate(blurs);
-		});
-
-		// model.progressChanged.watch(e => {
-		// 	if (e.hasChanges('isBusy')) {
-		// 		if (!e.state.isBusy) {
-		// 				console.debug('progressChanged');
-		// 				blurs = this.invalidate(blurs);
-		// 		}
-		// 	}
-		// });
 	}
 
-	invalidate(dispose) {
+	invalidateHover(dispose){
 		dispose.forEach(f => f());
 		dispose = [];
-
 		const highlightColumns = this.model.highlight().columns;
 		for (let columnKey of highlightColumns) {
 			dispose.push(this.highlight(columnKey, 'highlighted'));
 		}
+
+		return dispose;
+	}
+
+	invalidateSortBy(dispose) {
+		dispose.forEach(f => f());
+		dispose = [];
+
 
 		const sortBy = this.model.sort().by;
 		for (let entry of sortBy) {
@@ -125,8 +129,6 @@ export default class HighlightView extends View {
 		if (index < 0) {
 			return noop;
 		}
-
-		console.debug(`highlight: ${index} ${key} ${cls}`);
 
 		const head = this.markup.head;
 		if (head.rows.length) {
@@ -162,8 +164,6 @@ export default class HighlightView extends View {
 		}
 
 		return () => {
-			console.debug(`blur: ${index} ${key} ${cls}`);
-
 			const head = this.markup.head;
 			if (head.rows.length) {
 				for (let row of head.rows) {
