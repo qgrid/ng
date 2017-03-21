@@ -99,7 +99,7 @@ A grid column is a visual representation of a set of data values that have a par
    <tr>
      	<td>isDefault</td>
      	<td><code>bool</code></td>
-     	<td>Says that column is in default set of visible columns for particular grid, usefull for reseting visibility</td>
+     	<td>Says that column is in default set of visible columns for particular grid, useful for reseting visibility</td>
     </tr>
 	<tr>
      	<td>index</td>

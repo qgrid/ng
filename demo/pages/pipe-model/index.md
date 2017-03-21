@@ -1,7 +1,7 @@
 # description
 The grid data processing is inspired by middleware pattern. Every pipe in queue gets data from previous one, handles it, and passes to the next pipe. By default the whole pipeline is triggered when some pipeline-related property is changed (e.g. filters, order etc.). User also has an ability to trigger data refresh manually.
 
-## usefull pipes
+## predefined pipes
 <table class="attributes">
 <thead>
 	<tr>
@@ -67,3 +67,21 @@ The grid data processing is inspired by middleware pattern. Every pipe in queue 
 	</tr>	
 </tbody>
 </table>
+
+## how to trigger pipeline?
+There is a property called `triggers` in the data model which indicates on what model/property changes pipeline should be invoked
+```javascript
+	// data model constructor
+	this.triggers = {
+			'data': ['rows', 'columns'],
+			'pagination': ['current', 'size'],
+			'sort': ['by'],
+			'filter': ['by'],
+			'group': ['by'],
+			'pivot': ['by']
+		};
+```
+Grid clients can use qgrid service if they need to invoke pipeline manually
+```javascript
+	qgrid.invalidate();
+```

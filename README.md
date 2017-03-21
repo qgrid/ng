@@ -65,7 +65,7 @@ Code licensed under MIT license.
 * [ng-table](http://ng-table.com/#/)
 * [addazle react data grid](http://adazzle.github.io/react-data-grid/examples.html#/all-features)
 * [zippyui react data grid](http://zippyui.com/react-datagrid/#/examples/basic)
-* [ag-grid](https://www.ag-grid.com/example.php)
+* [ag-grid](https://www.ag-grid.com/javascript-grid-features/#gsc.tab=0)
 * [js-grid](http://js-grid.com/demos/)
 * [advanced data grid component](https://codepen.io/andrewcourtice/pen/VabXQV)
 * [backgridjs](http://backgridjs.com/index.html#complete-example)

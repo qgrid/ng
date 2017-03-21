@@ -76,6 +76,11 @@ class SortBar extends Plugin {
 		});
 	}
 
+	onInit() {
+		const sortBy = this.model.sort().by;
+		sortBy.forEach(key => this.add.execute(key));
+	}
+
 	get resource() {
 		return this.model.sort().resource;
 	}

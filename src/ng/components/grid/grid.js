@@ -1,5 +1,5 @@
 import RootComponent from '../root.component';
-import PipeUnit from 'core/pipe/units/pipe.unit';
+import PipeUnit from 'core/pipe/units/pipe.unit'
 
 export class Grid extends RootComponent {
 	constructor($element, $transclude, $document, serviceFactory) {
@@ -34,12 +34,13 @@ export class Grid extends RootComponent {
 			}
 		});
 
-		model.data()
-			.triggers
+		const triggers = model.data().triggers;
+		Object.keys(triggers)
 			.forEach(name =>
 				model[name + 'Changed']
 					.watch(e => {
-						if (e.tag.behavior !== 'core') {
+						const changes = Object.keys(e.changes);
+						if (triggers[name].find(key => changes.indexOf(key) > -1) && e.tag.behavior !== 'core') {
 							service.invalidate(name, e.changes);
 						}
 					}));

@@ -1,7 +1,7 @@
 Controller.$inject = ['$http', '$timeout', 'qgrid'];
 export default function Controller($http, $timeout, qgrid) {
 	const ctrl = this;
-   let isReady = false;
+	let isReady = false;
 
 	ctrl.state = {
 		progress: false,

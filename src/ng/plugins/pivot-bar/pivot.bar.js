@@ -74,6 +74,11 @@ class PivotBar extends Plugin {
 		});
 	}
 
+	onInit() {
+		const pivotBy = this.model.pivot().by;
+		pivotBy.forEach(key => this.add.execute(key));
+	}
+
 	get resource() {
 		return this.model.pivot().resource;
 	}
