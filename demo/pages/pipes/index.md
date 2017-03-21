@@ -7,7 +7,6 @@ To add basic `fetch` function to pipe, you need to create a function that meets 
 Controller.$inject = ['qgrid'];
 function Controller(qgrid){
    var gridModel = qgrid.model();
-   var pipes = qgrid.pipeUnit.default;
    var fetch = (data, context, next) => {
       $http.get('/path/to/data')
          .then(response => {
@@ -16,7 +15,7 @@ function Controller(qgrid){
    };
 	
    gridModel.data({
-      pipe: [fetch].concat(pipes)
+      pipe: [fetch].concat(qgrid.pipeUnit.default)
    });
 }
 ```

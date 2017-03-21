@@ -38,7 +38,12 @@ function Controller(qgrid){
 	<tr>
 	  <td>pipe</td>
 	  <td><code>object</code></td>
-	  <td>Set of usefull pipes</td>
+	  <td>Set of useful pipes</td>
+	</tr>	
+	<tr>
+	  <td>pipeUnit</td>
+	  <td><code>object</code></td>
+	  <td>Useful lists of pipes</td>
 	</tr>	
 </tbody>
 </table>
