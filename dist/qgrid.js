@@ -6976,7 +6976,14 @@ var DataModel = function DataModel() {
 	this.rows = [];
 	this.columns = [];
 	this.pipe = __WEBPACK_IMPORTED_MODULE_0_core_pipe_units_pipe_unit__["a" /* default */].default;
-	this.triggers = ['data', 'pagination', 'sort', 'filter', 'group', 'pivot'];
+	this.triggers = {
+		'data': ['rows', 'columns'],
+		'pagination': ['current', 'size'],
+		'sort': ['by'],
+		'filter': ['by'],
+		'group': ['by'],
+		'pivot': ['by']
+	};
 };
 
 /* harmony default export */ __webpack_exports__["a"] = DataModel;
@@ -12595,9 +12602,13 @@ var Grid = function (_RootComponent) {
 				}
 			});
 
-			model.data().triggers.forEach(function (name) {
+			var triggers = model.data().triggers;
+			Object.keys(triggers).forEach(function (name) {
 				return model[name + 'Changed'].watch(function (e) {
-					if (e.tag.behavior !== 'core') {
+					var changes = Object.keys(e.changes);
+					if (triggers[name].find(function (key) {
+						return changes.indexOf(key) > -1;
+					}) && e.tag.behavior !== 'core') {
 						service.invalidate(name, e.changes);
 					}
 				});
@@ -14470,6 +14481,16 @@ var GroupBar = function (_Plugin) {
 	}
 
 	_createClass(GroupBar, [{
+		key: 'onInit',
+		value: function onInit() {
+			var _this2 = this;
+
+			var groupBy = this.model.group().by;
+			groupBy.forEach(function (key) {
+				return _this2.add.execute(key);
+			});
+		}
+	}, {
 		key: 'title',
 		value: function title(key) {
 			var columns = this.columns;
@@ -14794,6 +14815,16 @@ var PivotBar = function (_Plugin) {
 	}
 
 	_createClass(PivotBar, [{
+		key: 'onInit',
+		value: function onInit() {
+			var _this2 = this;
+
+			var pivotBy = this.model.pivot().by;
+			pivotBy.forEach(function (key) {
+				return _this2.add.execute(key);
+			});
+		}
+	}, {
 		key: 'title',
 		value: function title(key) {
 			var columns = this.columns;
@@ -15882,6 +15913,16 @@ var SortBar = function (_Plugin) {
 	}
 
 	_createClass(SortBar, [{
+		key: 'onInit',
+		value: function onInit() {
+			var _this2 = this;
+
+			var sortBy = this.model.sort().by;
+			sortBy.forEach(function (key) {
+				return _this2.add.execute(key);
+			});
+		}
+	}, {
 		key: 'title',
 		value: function title(entry) {
 			var key = __WEBPACK_IMPORTED_MODULE_2_core_sort_sort_service__["a" /* key */](entry);
