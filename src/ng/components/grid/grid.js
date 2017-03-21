@@ -1,4 +1,5 @@
 import RootComponent from '../root.component';
+import PipeUnit from 'core/pipe/units/pipe.unit';
 
 export class Grid extends RootComponent {
 	constructor($element, $transclude, $document, serviceFactory) {

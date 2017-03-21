@@ -1,10 +1,10 @@
-let instance = {};
+let instance = {}
 class Dom {
 	constructor(element) {
 		this.element = element;
 	}
 	static get empty() {
-		if (!instance){
+		if (!instance) {
 			instance = this;
 		}
 
@@ -13,19 +13,20 @@ class Dom {
 
 	column(index) {
 		const rows = this.element.rows;
-		function cells(){
-			let cells = [];
-			if (index >= 0 && index < rows.length) {
-				for (let i = 0; i++; i < rows.length) {
-					cells.push(rows[i].cells[index]);
+		let obj = {};
+		Object.defineProperty(obj, "cells", {
+			get: function () {
+				const cellsCount = rows[0].cells.length;
+				let result = [];
+				if (index >= 0 && index < cellsCount) {
+					for (let i = 0; i < rows.length; i++) {
+						result.push(rows[i].cells[index]);
+					}
 				}
+				return result;
 			}
-			return cells;
-		}
-
-		return {
-			cells: cells()
-		}
+		});
+		return obj;
 	}
 	row(index) {
 		const rows = this.element.rows;
