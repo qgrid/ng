@@ -1,39 +1,64 @@
-class TableDom {
+class lazyProperty {
+	constructor(object, name, create) {
+		Object.defineProperty(object, name, {
+			configurable: true,
+			enumerable: false,
+			get: function () {
+				return this[name] = create(this);
+			},
+			set: function (value) {
+				Object.defineProperty(this, name, {
+					configurable: true,
+					enumerable: false,
+					value: value,
+					writable: true
+				});
+			}
+		});
+	}
+}
+class Empty {
+	column() {
+		return {cells: []};
+	}
+
+	row() {
+		return {cells: []};
+	}
+
+	cell() {
+		return null;
+	}
+}
+class TableDom extends Empty {
 	constructor(element) {
+		super();
 		this.element = element;
 	}
 
 	static get empty() {
-		return new TableDom(null);
+		return new Empty();
 	}
 
 	column(index) {
 		const element = this.element;
-		if (!element) {
-			return {cells: []};
-		}
 		const rows = element.rows;
 		const cellsCount = rows[0].cells.length;
 		let obj = {};
-		Object.defineProperty(obj, "cells", {
-			get: function () {
-				let result = [];
-				if (index >= 0 && index < cellsCount) {
-					for (let i = 0; i < rows.length; i++) {
-						result.push(rows[i].cells[index]);
-					}
+		new lazyProperty(obj, "cells", () => {
+			let result = [];
+			if (index >= 0 && index < cellsCount) {
+				for (let i = 0; i < rows.length; i++) {
+					result.push(rows[i].cells[index]);
 				}
-				return result;
 			}
+			return result;
 		});
 		return obj;
 	}
 
 	row(index) {
 		const element = this.element;
-		if (!element) {
-			return {cells: []};
-		}
 		const rows = element.rows;
 		if (index >= 0 && index < rows.length) {
 			return rows[index];
@@ -42,9 +67,6 @@ class TableDom {
 
 	cell(row, column) {
 		const element = this.element;
-		if (!element) {
-			return null;
-		}
 		const rows = element.rows;
 		const cellsCount = rows[0].cells.length;
 		if (row >= 0 && row < rows.length && column >= 0 && column < cellsCount) {
