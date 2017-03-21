@@ -19,7 +19,7 @@ class GroupBar extends Plugin {
 
 		this.newGroup = null;
 		this.selectedItems = null;
-		
+
 		this.replace = new Command({
 				execute: key => {
 					const group = this.model.group;
@@ -72,6 +72,11 @@ class GroupBar extends Plugin {
 			canExecute: e => e.source && e.source.key === TH_CORE_NAME && this.add.canExecute(e.source.value),
 			execute: e => this.add.execute(e.source.value)
 		});
+	}
+
+	onInit() {
+		const groupBy = this.model.group().by;
+		groupBy.forEach(key => this.add.execute(key));
 	}
 
 	get resource() {

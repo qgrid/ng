@@ -58,7 +58,7 @@ class Column extends Component {
 			const settings = Object.keys($attrs)
 				.filter(key => !isUndefined($attrs[key]) && column.hasOwnProperty(key))
 				.reduce((memo, key) => {
-					memo[key] = column[key]
+					memo[key] = column[key];
 					return memo;
 				}, {});
 
