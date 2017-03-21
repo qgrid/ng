@@ -1,0 +1,23 @@
+<q-grid rows="$ctrl.rows"
+		  group-by="['contact.address.state']">
+
+	<q-grid:columns generation="deep">
+		<q-grid:column key="contact.address.state"></q-grid:column>
+	</q-grid:columns>
+
+	<q-grid:toolbar>
+		<q-grid:template for="top">
+			<div layout="row">
+				<div flex="100"
+					  layout="row"
+					  layout-align="start center"
+					  layout-align-xs="start start"
+					  layout-align-sm="start start">
+					<div>
+						<q-grid:group-bar>
+						</q-grid:group-bar>
+					</div>
+				</div>
+		</q-grid:template>
+	</q-grid:toolbar>
+</q-grid>
