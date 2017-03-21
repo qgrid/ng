@@ -18,34 +18,35 @@ export default class NavigationView extends View {
 
 		this.blur = new Command({
 			execute: (row, column) => {
-				this.rows[row].cells[column].classList.remove(`${GRID_PREFIX}-focus`);
+				table.body.cell(row, column)
+					.classList.remove(`${GRID_PREFIX}-focus`);
 			},
 			canExecute: (row, column) => {
 				return this.rows.length > row
-					&& this.rows[row]
-					&& this.rows[row].cells.length > column;
+					&& table.body.row(row)
+					&& table.body.row(row).cells.length > column;
 			}
 		});
 		this.focus = new Command({
 			execute: (row, column) => {
-				const cell = this.rows[row].cells[column];
-				cell.classList.add(`${GRID_PREFIX}-focus`);
+				table.body.cell(row, column)
+					.classList.add(`${GRID_PREFIX}-focus`);
 			},
 			canExecute: (row, column) => {
 				return this.rows.length > row
-					&& this.rows[row]
-					&& this.rows[row].cells.length > column;
+					&& table.body.row(row)
+					&& table.body.row(row).cells.length > column;
 			}
 		});
 		this.scrollTo = new Command({
 			execute: (row, column) => {
-				const cell = this.rows[row].cells[column];
+				const cell = table.body.cell(row, column);
 				this.scroll(markup.body, cell);
 			},
 			canExecute: (row, column) => {
 				return this.rows.length > row
-					&& this.rows[row]
-					&& this.rows[row].cells.length > column;
+					&& table.body.row(row)
+					&& table.body.row(row).cells.length > column;
 			}
 		});
 

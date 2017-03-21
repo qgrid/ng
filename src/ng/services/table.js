@@ -3,6 +3,7 @@ class Dom {
 	constructor(element) {
 		this.element = element;
 	}
+
 	static get empty() {
 		if (!instance) {
 			instance = this;
@@ -13,10 +14,10 @@ class Dom {
 
 	column(index) {
 		const rows = this.element.rows;
+		const cellsCount = rows[0].cells.length;
 		let obj = {};
 		Object.defineProperty(obj, "cells", {
 			get: function () {
-				const cellsCount = rows[0].cells.length;
 				let result = [];
 				if (index >= 0 && index < cellsCount) {
 					for (let i = 0; i < rows.length; i++) {
@@ -28,10 +29,19 @@ class Dom {
 		});
 		return obj;
 	}
+
 	row(index) {
 		const rows = this.element.rows;
 		if (index >= 0 && index < rows.length) {
 			return rows[index];
+		}
+	}
+
+	cell(row, column) {
+		const rows = this.element.rows;
+		const cellsCount = rows[0].cells.length;
+		if (row >= 0 && row < rows.length && column >= 0 && column < cellsCount) {
+			return rows[row].cells[column];
 		}
 	}
 }
