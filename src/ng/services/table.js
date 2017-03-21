@@ -1,19 +1,18 @@
-let instance = {}
 class Dom {
 	constructor(element) {
 		this.element = element;
 	}
 
 	static get empty() {
-		if (!instance) {
-			instance = this;
-		}
-
-		return instance;
+		return new Dom(null);
 	}
 
 	column(index) {
-		const rows = this.element.rows;
+		const element = this.element;
+		if (!element) {
+			return {cells: []};
+		}
+		const rows = element.rows;
 		const cellsCount = rows[0].cells.length;
 		let obj = {};
 		Object.defineProperty(obj, "cells", {
@@ -31,14 +30,22 @@ class Dom {
 	}
 
 	row(index) {
-		const rows = this.element.rows;
+		const element = this.element;
+		if (!element) {
+			return {cells: []};
+		}
+		const rows = element.rows;
 		if (index >= 0 && index < rows.length) {
 			return rows[index];
 		}
 	}
 
 	cell(row, column) {
-		const rows = this.element.rows;
+		const element = this.element;
+		if (!element) {
+			return null;
+		}
+		const rows = element.rows;
 		const cellsCount = rows[0].cells.length;
 		if (row >= 0 && row < rows.length && column >= 0 && column < cellsCount) {
 			return rows[row].cells[column];
@@ -79,4 +86,5 @@ export default class Table {
 	get head() {
 		return this.markup.head ? new Dom(this.markup.head) : Dom.empty;
 	}
+
 }
