@@ -1,10 +1,10 @@
-class Dom {
+class TableDom {
 	constructor(element) {
 		this.element = element;
 	}
 
 	static get empty() {
-		return new Dom(null);
+		return new TableDom(null);
 	}
 
 	column(index) {
@@ -76,15 +76,15 @@ export default class Table {
 	}
 
 	get body() {
-		return this.markup.body ? new Dom(this.markup.body) : Dom.empty;
+		return this.markup.body ? new TableDom(this.markup.body) : TableDom.empty;
 	}
 
 	get foot() {
-		return this.markup.foot ? new Dom(this.markup.foot) : Dom.empty;
+		return this.markup.foot ? new TableDom(this.markup.foot) : TableDom.empty;
 	}
 
 	get head() {
-		return this.markup.head ? new Dom(this.markup.head) : Dom.empty;
+		return this.markup.head ? new TableDom(this.markup.head) : TableDom.empty;
 	}
 
 }
