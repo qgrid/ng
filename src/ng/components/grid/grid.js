@@ -90,6 +90,7 @@ export default {
 		selectionItems: '<selection',
 		selectionMode: '@',
 		selectionUnit: '@',
+		selectionKey: '<',
 		onSelectionChanged: '&',
 		groupBy: '<',
 		pivotBy: '<',

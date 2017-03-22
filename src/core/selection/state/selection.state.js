@@ -61,9 +61,9 @@ export default class SelectionState {
 	}
 
 	key(item) {
-
-		function getCellKey(item) {
-
+		const unit = this.model.selection().unit;
+		const rows = this.model.view().rows;
+		const getCellKey = item => {
 			if (item.column && item.row) {
 				const columnKey = item.column.key;
 				const rowIndex = rows.indexOf(item.row);
@@ -74,10 +74,7 @@ export default class SelectionState {
 			}
 
 			return item;
-		}
-
-		const unit = this.model.selection().unit;
-		const rows = this.model.view().rows;
+		};
 
 		if (unit === 'cell') {
 			return getCellKey(item);

@@ -1,7 +1,7 @@
 import View from '../view/view';
 import Command from 'core/infrastructure/command';
 import stateFactory from './state/selection.state.factory';
-import rangeBuilderFactory from './range.builder.factory';
+import rangeBuilder from './range.build';
 import Shortcut from 'core/infrastructure/shortcut';
 import * as columnService from 'core/column/column.service';
 import {GRID_PREFIX} from 'core/definition';
@@ -10,12 +10,12 @@ export default class SelectionView extends View {
 	constructor(model, markup, apply) {
 		super(model);
 
-		this.selectionState = stateFactory(model);
-		this.rangeBuilder = rangeBuilderFactory(model);
-
 		this.markup = markup;
 		this.apply = apply;
-		
+
+		this.selectionState = stateFactory(model);
+		this.buildRange = rangeBuilder(model);
+
 		const shortcut = new Shortcut(markup.document, markup.table, apply);
 		const commands = this.commands;
 		this.shortcutOff = shortcut.register('selectionNavigation', commands);
@@ -49,11 +49,7 @@ export default class SelectionView extends View {
 					}
 				});
 			}
-			
-			if (e.hasChanges('unit')) {
-				this.rangeBuilder = rangeBuilderFactory(model);
-			}
-			
+
 			if (e.hasChanges('unit') || e.hasChanges('mode')) {
 				this.selectionState = stateFactory(model);
 				
@@ -186,7 +182,7 @@ export default class SelectionView extends View {
 	}
 
 	selectRange(startCell,  endCell) {
-		const range = this.rangeBuilder(startCell, endCell);
+		const range = this.buildRange(startCell, endCell);
 		this.select(range);
 	}
 
