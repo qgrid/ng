@@ -24,7 +24,7 @@ export default class SingleSelectionState extends SelectionState {
 		this.item = null;
 	}
 
-	get view() {
+	viewCore() {
 		return this.item ? [this.item] : [];
 	}
 }

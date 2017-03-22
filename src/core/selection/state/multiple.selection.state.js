@@ -24,7 +24,7 @@ export default class MultipleSelectionState extends SelectionState {
 		this.items = new Map();
 	}
 
-	get view() {
+	viewCore() {
 		return Array.from(this.items.values());
 	}
 }

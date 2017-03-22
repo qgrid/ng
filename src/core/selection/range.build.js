@@ -4,34 +4,31 @@ import AppError from 'core/infrastructure/error';
 export default function rangeBuilder(model) {
 	function rangeRows(startCell, endCell) {
 		const rows = model.view().rows;
-		const key = model.selection().key;
 		if (!endCell) {
-			return [key.row(rows[startCell.rowIndex])];
+			return [rows[startCell.rowIndex]];
 		}
 
 		const startIndex = Math.min(startCell.rowIndex, endCell.rowIndex);
 		const endIndex = Math.max(startCell.rowIndex, endCell.rowIndex);
-		return rows.slice(startIndex, endIndex + 1).map(key.row);
+		return rows.slice(startIndex, endIndex + 1);
 	}
 
 	function rangeColumns(startCell, endCell) {
 		const columns = columnService.lineView(model.view().columns);
-		const key = model.selection().key;
 		if (!endCell) {
-			return [key.column(columns.find(c => c.model === startCell.column).model)];
+			return [columns.find(c => c.model === startCell.column).model];
 		}
 
 		const startIndex = Math.min(startCell.columnIndex, endCell.columnIndex);
 		const endIndex = Math.max(startCell.columnIndex, endCell.columnIndex);
-		return columns.slice(startIndex, endIndex + 1).map(x => key.column(x.model));
+		return columns.slice(startIndex, endIndex + 1).map(column => column.model);
 	}
 
 	function rangeCells(startCell, endCell) {
-		const key = model.selection().key;
 		if (!endCell) {
 			return [{
-				column: key.column(startCell.column),
-				row: key.row(startCell.row)
+				column: startCell.column,
+				row: startCell.row
 			}];
 		}
 
@@ -53,8 +50,8 @@ export default function rangeBuilder(model) {
 				.filter(column => column.model.type !== 'row-indicator')
 				.forEach(column => {
 					items.push({
-						column: key.column(column.model),
-						row: key.row(row)
+						column: column.model,
+						row: row
 					});
 				});
 		});
@@ -87,5 +84,5 @@ export default function rangeBuilder(model) {
 		}
 
 		return getRange(...args);
-	}
-};
+	};
+}

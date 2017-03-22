@@ -176,6 +176,7 @@ export default class SelectionView extends View {
 				}
 			})
 		};
+
 		return new Map(
 			Object.entries(commands)
 		);

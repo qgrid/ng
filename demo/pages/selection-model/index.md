@@ -28,5 +28,16 @@ There are situations when you would like to enable the end user to select rows o
 	  <td><code>array</code></td>
 	  <td>Selected items depend on selection unit (column, rows or <code>{row, column}</code>)  
 	  </td>
+	</tr>
+	<tr>
+	  <td>key</td>
+	  <td><code>object</code></td>
+	  <td>This property allows to change output of the selection
+	    <ul>
+			 <li><code>row</code> - map row to user defined entity</li>
+			 <li><code>column</code> - map column to user defined entity </li>
+	    </ul>
+	  </td>
 	</tr>					
+						
 </tbody>

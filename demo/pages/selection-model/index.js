@@ -10,7 +10,7 @@ export default function Controller($http, qgrid) {
 	};
 
 	this.selectionKey = {
-		row: row => this.rows.indexOf(row),
+		row: row => `row ${this.rows.indexOf(row)}`,
 		column: column => column.key,
 	};
 
