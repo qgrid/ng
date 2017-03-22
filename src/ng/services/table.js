@@ -30,14 +30,66 @@ class TableDom extends Dom {
 	}
 
 	cell(row, column) {
+		return new CellDom(this.element, row, column);
+	}
+}
+class CellDom extends Dom {
+	constructor(element, row, column) {
+		super(element);
+		this.element = element;
+		this.row = row;
+		this.column = column;
+	}
+
+	get view() {
 		const element = this.element;
 		const rows = element.rows;
+		const row = this.row;
+		const column = this.column;
 		const cellsCount = rows[0].cells.length;
 		if (row >= 0 && row < rows.length && column >= 0 && column < cellsCount) {
 			return rows[row].cells[column];
 		}
 	}
+
+	get model() {
+		const element = this.element;
+		const rows = element.rows;
+		const row = this.row;
+		const column = this.column;
+		const rowElement = rows[row];
+		const cells = rowElement.cells;
+		if (column >= 0 && column < cells.length) {
+			const cellElement = cells[column];
+			const scope = angular.element(cellElement).scope();
+			if (scope) {
+				return scope.$cell;
+			}
+		}
+		return null;
+	}
+	addClass(name){
+		const element = this.element;
+		const rows = element.rows;
+		const row = this.row;
+		const column = this.column;
+		const cellsCount = rows[0].cells.length;
+		if (row >= 0 && row < rows.length && column >= 0 && column < cellsCount) {
+			rows[row].cells[column].classList.add(name);
+		}
+	}
+	removeClass(name){
+		const element = this.element;
+		const rows = element.rows;
+		const row = this.row;
+		const column = this.column;
+		const cellsCount = rows[0].cells.length;
+		if (row >= 0 && row < rows.length && column >= 0 && column < cellsCount) {
+			rows[row].cells[column].classList.remove(name);
+		}
+	}
 }
+
 class RowDom extends Dom {
 	constructor(element, index) {
 		super(element);
@@ -59,7 +111,8 @@ class ColumnDom extends Dom {
 		this.element = element;
 		this.index = index;
 	}
-	get cells(){
+
+	get cells() {
 		const index = this.index;
 		const rows = this.element.rows;
 		const cellsCount = rows[0].cells.length;
@@ -69,30 +122,14 @@ class ColumnDom extends Dom {
 				result.push(rows[i].cells[index]);
 			}
 		}
-		return result;}
+		return result;
+	}
 
 }
 
 export default class Table {
 	constructor(markup) {
 		this.markup = markup;
-	}
-
-	cellAt(row, column) {
-		const rows = this.markup.body.rows;
-		if (row >= 0 && row < rows.length) {
-			const rowElement = rows[row];
-			const cells = rowElement.cells;
-			if (column >= 0 && column < cells.length) {
-				const cellElement = cells[column];
-				const scope = angular.element(cellElement).scope();
-				if (scope) {
-					return scope.$cell;
-				}
-			}
-		}
-
-		return null;
 	}
 
 	get body() {

@@ -19,7 +19,7 @@ export default class NavigationView extends View {
 		this.blur = new Command({
 			execute: (row, column) => {
 				table.body.cell(row, column)
-					.classList.remove(`${GRID_PREFIX}-focus`);
+					.removeClass(`${GRID_PREFIX}-focus`);
 			},
 			canExecute: (row, column) => {
 				return this.rows.length > row
@@ -30,7 +30,7 @@ export default class NavigationView extends View {
 		this.focus = new Command({
 			execute: (row, column) => {
 				table.body.cell(row, column)
-					.classList.add(`${GRID_PREFIX}-focus`);
+					.addClass(`${GRID_PREFIX}-focus`);
 			},
 			canExecute: (row, column) => {
 				return this.rows.length > row
@@ -40,7 +40,7 @@ export default class NavigationView extends View {
 		});
 		this.scrollTo = new Command({
 			execute: (row, column) => {
-				const cell = table.body.cell(row, column);
+				const cell = table.body.cell(row, column).view;
 				this.scroll(markup.body, cell);
 			},
 			canExecute: (row, column) => {
@@ -68,7 +68,7 @@ export default class NavigationView extends View {
 					}
 				}
 
-				const cell = table.cellAt(nav.row, nav.column);
+				const cell = table.body.cell(nav.row, nav.column).model;
 				model.navigation({
 					active: {
 						cell: cell
