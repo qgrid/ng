@@ -1,5 +1,22 @@
+import AppError from 'core/infrastructure/error';
 import {isArray, isUndefined} from 'core/services/utility';
 import Node from 'core/node/node';
+
+const keySelector = (unit, selector) => {
+	switch (unit) {
+		case 'row':
+			return selector.row;
+		case 'column':
+			return selector.column;
+		case 'cell':
+			return entry => ({
+				row: selector.row(entry.row),
+				column: selector.column(entry.column)
+			});
+		default:
+			throw new AppError('selection.state', `Invalid unit ${unit}`);
+	}
+};
 
 export default class SelectionState {
 	constructor(model) {
@@ -26,9 +43,8 @@ export default class SelectionState {
 			state = this.state(item);
 			return this.select(item, state === null || !state);
 		}
-		else {
-			return this.select(item, state);
-		}
+
+		return this.select(item, state);
 	}
 
 	state(item) {
@@ -50,20 +66,31 @@ export default class SelectionState {
 		return this.clearCore();
 	}
 
-	selectCore() {
+	view(entries) {
+		const selectionState = this.model.selection();
+		switch (selectionState.unit) {
+			case 'row':
+			case 'column':
+			case 'cell':
+				return entries.map(keySelector(selectionState.unit, selectionState.key));
+			case 'mix':
+				return entries.map(entry => ({
+					unit: entry.unit,
+					item: keySelector(entry.unit, selectionState.key)(entry.item)
+				}));
+			default:
+				throw new AppError('selection.state', `Invalid unit ${selectionState.unit}`);
+		}
 	}
 
-	clearCore() {
-	}
-
-	stateCore() {
-		return false;
+	entries() {
+		return [];
 	}
 
 	key(item) {
-
-		function getCellKey(item) {
-
+		const unit = this.model.selection().unit;
+		const rows = this.model.view().rows;
+		const getCellKey = item => {
 			if (item.column && item.row) {
 				const columnKey = item.column.key;
 				const rowIndex = rows.indexOf(item.row);
@@ -74,10 +101,7 @@ export default class SelectionState {
 			}
 
 			return item;
-		}
-
-		const unit = this.model.selection().unit;
-		const rows = this.model.view().rows;
+		};
 
 		if (unit === 'cell') {
 			return getCellKey(item);
@@ -94,7 +118,13 @@ export default class SelectionState {
 		return item;
 	}
 
-	get view() {
-		return [];
+	selectCore() {
+	}
+
+	clearCore() {
+	}
+
+	stateCore() {
+		return false;
 	}
 }

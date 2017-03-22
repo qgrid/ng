@@ -57,7 +57,7 @@ class SelectionBar extends Plugin {
 	}
 
 	get count() {
-		return this.model.selection().items.length;
+		return this.model.selection().entries.length;
 	}
 
 	get resource() {
