@@ -1,38 +1,30 @@
+import {GRID_PREFIX} from 'core/definition';
+
 export default class HighlightBehavior {
-	constructor(model, markup, cellsBuilder) {
+	constructor(model, cellSelector) {
 		this.model = model;
-		this.markup = markup;
-		this.cellsBuilder = cellsBuilder;
-		
-		this.items = new Set();
+		this.cellSelector = cellSelector;
+
+		this.cells = new Set();
 	}
 
-	apply(items) {
+	state(cell, state) {
+		if (state) {
+			cell.classList.add(`${GRID_PREFIX}-selected`);
+		}
+		else {
+			cell.classList.remove(`${GRID_PREFIX}-selected`);
+		}
+	}
+
+	update(items) {
 		this.clear();
-		this.items = new Set(items);
-		this.applyCore(items);
+
+		this.cells = new Set(this.cellSelector(items));
+		this.cells.forEach(cell => this.state(cell, true));
 	}
 
 	clear() {
-		this.clearCore(this.items);
+		this.cells.forEach(cell => this.state(cell, false));
 	}
-
-	destroy() {
-		this.clear();
-		this.items = new Set();
-	}
-
-	cells(items) {
-		return this.cellsBuilder(items);
-	}
-
-	applyCore() {
-	}
-
-	clearCore() {
-	}
-
-	stateCore() {
-	}
-
 }

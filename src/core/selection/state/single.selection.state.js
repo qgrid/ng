@@ -7,6 +7,10 @@ export default class SingleSelectionState extends SelectionState {
 		this.item = null;
 	}
 
+	entries() {
+		return this.item ? [this.item] : [];
+	}
+
 	selectCore(item, state) {
 		if (state) {
 			this.item = item;
@@ -22,9 +26,5 @@ export default class SingleSelectionState extends SelectionState {
 
 	clearCore() {
 		this.item = null;
-	}
-
-	viewCore() {
-		return this.item ? [this.item] : [];
 	}
 }

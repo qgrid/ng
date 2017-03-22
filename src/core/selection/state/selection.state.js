@@ -9,9 +9,9 @@ const keySelector = (unit, selector) => {
 		case 'column':
 			return selector.column;
 		case 'cell':
-			return cell => ({
-				row: selector.row(cell.row),
-				column: selector.column(cell.column)
+			return entry => ({
+				row: selector.row(entry.row),
+				column: selector.column(entry.column)
 			});
 		default:
 			throw new AppError('selection.state', `Invalid unit ${unit}`);
@@ -66,16 +66,15 @@ export default class SelectionState {
 		return this.clearCore();
 	}
 
-	get view() {
-		const items = this.viewCore();
+	view(entries) {
 		const selectionState = this.model.selection();
 		switch (selectionState.unit) {
 			case 'row':
 			case 'column':
 			case 'cell':
-				return items.map(keySelector(selectionState.unit, selectionState.key));
+				return entries.map(keySelector(selectionState.unit, selectionState.key));
 			case 'mix':
-				return items.map(entry => ({
+				return entries.map(entry => ({
 					unit: entry.unit,
 					item: keySelector(entry.unit, selectionState.key)(entry.item)
 				}));
@@ -84,17 +83,7 @@ export default class SelectionState {
 		}
 	}
 
-	selectCore() {
-	}
-
-	clearCore() {
-	}
-
-	stateCore() {
-		return false;
-	}
-
-	viewCore() {
+	entries() {
 		return [];
 	}
 
@@ -129,4 +118,13 @@ export default class SelectionState {
 		return item;
 	}
 
+	selectCore() {
+	}
+
+	clearCore() {
+	}
+
+	stateCore() {
+		return false;
+	}
 }

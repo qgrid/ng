@@ -7,6 +7,10 @@ export default class MultipleSelectionState extends SelectionState {
 		this.items = new Map();
 	}
 
+	entries() {
+		return Array.from(this.items.values());
+	}
+
 	selectCore(item, state) {
 		if (state) {
 			this.items.set(this.key(item), item);
@@ -24,7 +28,4 @@ export default class MultipleSelectionState extends SelectionState {
 		this.items = new Map();
 	}
 
-	viewCore() {
-		return Array.from(this.items.values());
-	}
 }
