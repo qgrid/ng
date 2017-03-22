@@ -65,6 +65,36 @@ export default class Navigation {
 					}
 				}
 			}),
+			tabNav: new Command({
+				shortcut: 'tab',
+				canExecute: () => model.edit().editMode == 'view',
+				execute: () => {
+					const lastCell = model.navigation().column === columnService.lineView(model.view().columns).length - 1;
+					const lastRow = model.navigation().row === model.view().rows.length - 2;
+					if (model.navigation().row == -1 && model.navigation().column == -1) {
+						model.navigation({
+							column: 0,
+							row: 0
+						});
+					} else if (lastCell) {
+						if (lastRow) {
+							model.navigation({
+								column: -1,
+								row: -1
+							});
+							this.markup.table.blur();
+						} else {
+							model.navigation({
+								column: 0,
+								row: model.navigation().row + 1
+							});
+						}
+
+					} else {
+						model.navigation({column: model.navigation().column + 1});
+					}
+				}
+			}),
 			goLeft: new Command({
 				shortcut: 'left',
 				canExecute: () => (model.navigation().column > 0) && model.edit().editMode == 'view',
