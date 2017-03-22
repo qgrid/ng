@@ -65,33 +65,27 @@ export default class Navigation {
 					}
 				}
 			}),
-			tabNav: new Command({
+			tab: new Command({
 				shortcut: 'tab',
 				canExecute: () => model.edit().editMode == 'view',
 				execute: () => {
-					const lastCell = model.navigation().column === columnService.lineView(model.view().columns).length - 1;
-					const lastRow = model.navigation().row === model.view().rows.length - 2;
-					if (model.navigation().row == -1 && model.navigation().column == -1) {
+					const navigationState = model.navigation();
+					const isLastCell = navigationState.column === columnService.lineView(model.view().columns).length - 2;
+					const isLastRow = navigationState.row === model.view().rows.length - 1;
+					if (navigationState.row == -1 && navigationState.column == -1) {
 						model.navigation({
 							column: 0,
 							row: 0
 						});
-					} else if (lastCell) {
-						if (lastRow) {
-							model.navigation({
-								column: -1,
-								row: -1
-							});
-							this.markup.table.blur();
-						} else {
-							model.navigation({
-								column: 0,
-								row: model.navigation().row + 1
-							});
-						}
-
+					} else if (isLastCell && isLastRow) {
+						this.markup.table.blur();
+					} else if (isLastCell && !isLastRow) {
+						model.navigation({
+							column: 0,
+							row: navigationState.row + 1
+						});
 					} else {
-						model.navigation({column: model.navigation().column + 1});
+						model.navigation({column: navigationState.column + 1});
 					}
 				}
 			}),
