@@ -1,4 +1,4 @@
-class lazyProperty {
+class Create {
 	constructor(object, name, create) {
 		Object.defineProperty(object, name, {
 			configurable: true,
@@ -17,7 +17,7 @@ class lazyProperty {
 		});
 	}
 }
-class Empty {
+class Dom {
 	column() {
 		return {cells: []};
 	}
@@ -30,39 +30,22 @@ class Empty {
 		return null;
 	}
 }
-class TableDom extends Empty {
+class TableDom extends Dom {
 	constructor(element) {
 		super();
 		this.element = element;
 	}
 
 	static get empty() {
-		return new Empty();
+		return new Dom();
 	}
 
 	column(index) {
-		const element = this.element;
-		const rows = element.rows;
-		const cellsCount = rows[0].cells.length;
-		let obj = {};
-		new lazyProperty(obj, "cells", () => {
-			let result = [];
-			if (index >= 0 && index < cellsCount) {
-				for (let i = 0; i < rows.length; i++) {
-					result.push(rows[i].cells[index]);
-				}
-			}
-			return result;
-		});
-		return obj;
+		return new ColumnDom(this.element, index);
 	}
 
 	row(index) {
-		const element = this.element;
-		const rows = element.rows;
-		if (index >= 0 && index < rows.length) {
-			return rows[index];
-		}
+		return new RowDom(this.element, index);
 	}
 
 	cell(row, column) {
@@ -72,6 +55,39 @@ class TableDom extends Empty {
 		if (row >= 0 && row < rows.length && column >= 0 && column < cellsCount) {
 			return rows[row].cells[column];
 		}
+	}
+}
+class RowDom extends Dom {
+	constructor(element, index) {
+		super(element);
+		this.element = element;
+		this.index = index;
+	}
+
+	get cells() {
+		const rows = this.element.rows;
+		const index = this.index;
+		if (index >= 0 && index < rows.length) {
+			return rows[index].cells
+		}
+	}
+}
+class ColumnDom extends Dom {
+	constructor(element, index) {
+		super(element);
+		const rows = element.rows;
+		const cellsCount = rows[0].cells.length;
+		let obj = {};
+		new Create(obj, "cells", () => {
+			let result = [];
+			if (index >= 0 && index < cellsCount) {
+				for (let i = 0; i < rows.length; i++) {
+					result.push(rows[i].cells[index]);
+				}
+			}
+			return result;
+		});
+		return obj;
 	}
 }
 
