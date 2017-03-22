@@ -1,22 +1,3 @@
-class Create {
-	constructor(object, name, create) {
-		Object.defineProperty(object, name, {
-			configurable: true,
-			enumerable: false,
-			get: function () {
-				return this[name] = create(this);
-			},
-			set: function (value) {
-				Object.defineProperty(this, name, {
-					configurable: true,
-					enumerable: false,
-					value: value,
-					writable: true
-				});
-			}
-		});
-	}
-}
 class Dom {
 	column() {
 		return {cells: []};
@@ -75,20 +56,21 @@ class RowDom extends Dom {
 class ColumnDom extends Dom {
 	constructor(element, index) {
 		super(element);
-		const rows = element.rows;
-		const cellsCount = rows[0].cells.length;
-		let obj = {};
-		new Create(obj, "cells", () => {
-			let result = [];
-			if (index >= 0 && index < cellsCount) {
-				for (let i = 0; i < rows.length; i++) {
-					result.push(rows[i].cells[index]);
-				}
-			}
-			return result;
-		});
-		return obj;
+		this.element = element;
+		this.index = index;
 	}
+	get cells(){
+		const index = this.index;
+		const rows = this.element.rows;
+		const cellsCount = rows[0].cells.length;
+		let result = [];
+		if (index >= 0 && index < cellsCount) {
+			for (let i = 0; i < rows.length; i++) {
+				result.push(rows[i].cells[index]);
+			}
+		}
+		return result;}
+
 }
 
 export default class Table {
