@@ -71,7 +71,7 @@ export default function Controller($http) {
 			title: 'Contact Phones',
 			type: 'array',
 			path: 'contact.phone',
-			width: 100
+			width: 250
 		},
 		{
 			key: 'contact.email.primary',
