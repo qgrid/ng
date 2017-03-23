@@ -2,7 +2,8 @@ import View from 'core/view/view';
 import Command from 'core/infrastructure/command';
 import * as columnService from 'core/column/column.service';
 import * as sortService from 'core/sort/sort.service';
-import behaviorFactory from './behaviors/highlight.behavior.factory';
+import HighlightBehavior from './behaviors/highlight.behavior';
+import cellSelector from './cell.selector';
 import {noop} from 'core/services/utility';
 import {GRID_PREFIX} from 'core/definition';
 
@@ -12,13 +13,13 @@ export default class HighlightView extends View {
 
 		this.markup = markup;
 		this.apply = apply;
-		this.behavior = behaviorFactory(this.model, this.markup);
+		this.behavior = new HighlightBehavior(model, cellSelector(model, markup));
 
 		// TODO: get rid of this variable, maybe using table class?
 		let waitForLayout = false;
 
 		let sortBlurs = [];
-		let hoverBlurs =[];
+		let hoverBlurs = [];
 
 		this.column = new Command({
 			canExecute: () => !model.drag().isActive,
@@ -48,16 +49,7 @@ export default class HighlightView extends View {
 		});
 
 		model.selectionChanged.watch(e => {
-			if (e.hasChanges('unit') || e.hasChanges('mode')) {
-				if (this.behavior) {
-					this.behavior.destroy();
-				}
-
-				this.behavior = behaviorFactory(this.model, this.markup);
-			}
-
-			const items = model.selection().items;
-			this.apply(() => this.behavior.apply(items), 0);
+			this.apply(() => this.behavior.update(e.state.entries), 0);
 		});
 
 		model.columnListChanged.watch(e => {
@@ -84,7 +76,7 @@ export default class HighlightView extends View {
 		});
 	}
 
-	invalidateHover(dispose){
+	invalidateHover(dispose) {
 		dispose.forEach(f => f());
 		dispose = [];
 		const highlightColumns = this.model.highlight().columns;

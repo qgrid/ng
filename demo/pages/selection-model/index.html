@@ -1,8 +1,8 @@
 <q-grid model="$ctrl.model"
 		  rows="$ctrl.rows"
-		  selection="$ctrl.selection"
 		  selection-mode="range"
 		  selection-unit="cell"
+		  selection-key="$ctrl.selectionKey"
 		  on:selection-changed="$ctrl.selectionChanged($event)">
 	<q-grid:columns generation="deep">
 		<q-grid:column type="select">
@@ -29,5 +29,14 @@
 			<q-grid:selection-bar>
 			</q-grid:selection-bar>
 		</q-grid:template>
+		<q-grid:template for="left" let="$ctrl">
+			<h4>Selection</h4>
+			<ul style="list-style: none;">
+				<li ng-repeat="entry in $ctrl.selection">{{entry}}</li>
+			</ul>
+		</q-grid:template>
 	</q-grid:toolbar>
+
+	<q-grid:visibility toolbar.left="true">
+	</q-grid:visibility>
 </q-grid>

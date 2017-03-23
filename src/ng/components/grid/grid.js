@@ -20,7 +20,7 @@ export class Grid extends RootComponent {
 		const service = this.serviceFactory(model);
 
 		model.selectionChanged.watch(e => {
-			if (e.hasChanges('items')) {
+			if (e.hasChanges('entries')) {
 				this.onSelectionChanged({
 					$event: {
 						state: model.selection(),
@@ -90,6 +90,7 @@ export default {
 		selectionItems: '<selection',
 		selectionMode: '@',
 		selectionUnit: '@',
+		selectionKey: '<',
 		onSelectionChanged: '&',
 		groupBy: '<',
 		pivotBy: '<',
