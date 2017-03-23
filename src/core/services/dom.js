@@ -6,6 +6,7 @@ export function css(element, property, value) {
 		return element.style[normalizedProperty];
 	} else {
 		element.style[normalizedProperty] = value;
+		return normalizedProperty;
 	}
 }
 
@@ -17,12 +18,26 @@ function upperFirst(match, letter) {
 	return letter.toUpperCase();
 }
 
-export function cellsAt(element, index) {
-	const result = [];
-	const rows = element.rows;
-	for (let i = 0, length =  rows.length; i < length; i++) {
-		result.push(rows[i].cells[index]);
+export class Element {
+	constructor(element) {
+		this.element = element;
+		this.origin = {
+			styles: {}
+		};
 	}
 
-	return result;
+	style(settings) {
+		const element = this.element;
+		const originStyles = this.origin.styles;
+		for (let [key, value] of Object.entries(settings)) {
+			const property = css(element, key, value);
+			if (!originStyles.hasOwnProperty(property)) {
+				originStyles[property] = element.style[property];
+			}
+		}
+	}
+
+	reset() {
+		this.style(this.origin.styles);
+	}
 }

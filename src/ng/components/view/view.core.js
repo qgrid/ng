@@ -16,6 +16,7 @@ import EditView from 'core/edit/edit.view';
 import SelectionView from 'core/selection/selection.view';
 import PaginationView from 'core/pagination/pagination.view';
 import TableView from 'core/table/table.view';
+import StyleView from 'core/style/style.view';
 import {GRID_NAME, TH_CORE_NAME} from 'ng/definition';
 import {isUndefined} from 'core/services/utility';
 
@@ -57,6 +58,7 @@ class ViewCore extends Component {
 		this.sort = new SortView(model);
 		this.filter = new FilterView(model);
 		this.edit = new EditView(model, setValue, markup, apply);
+		this.style = new StyleView(model, table);
 		this.pagination = new PaginationView(model);
 	}
 
