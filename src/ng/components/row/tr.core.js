@@ -14,7 +14,7 @@ class TrCore extends Directive(TR_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	}
 
 	onDestroy(){
-		this.view.style.monitor.row.delete(this.element);
+		this.view.style.monitor.row.remove(this.element);
 	}
 
 }

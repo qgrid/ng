@@ -23,7 +23,7 @@ export class Monitor {
 		this.map.set(element, null);
 	}
 
-	delete(element) {
+	remove(element) {
 		this.map.delete(element);
 	}
 

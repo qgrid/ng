@@ -20,9 +20,24 @@ export default function Controller($http, $interval, qgrid) {
 				dom.class(`male-row-${this.maleColor}`, {background: '#' + this.maleColor});
 			}
 		},
-		cell: (row, column, dom) => {
+		cell: (row, column, dom, context) => {
 			if (column.key === 'birthday') {
 				dom.class('red-birthday', {background: '#f00', color: '#fff'});
+			}
+
+			if (column.key === 'name.last') {
+				if(context.value(row, context.columns.map.gender) === 'female') {
+					dom.class('female-name-last', {background: '#ff0', color: '#000'});
+				}
+			}
+
+			if (column.key === 'name.first') {
+				if (context.row % 2) {
+					dom.class('first-name-even', {background: '#000', color: '#fff'});
+				}
+				else {
+					dom.class('first-name-odd', {background: '#fff', color: '#000'});
+				}
 			}
 		}
 	});

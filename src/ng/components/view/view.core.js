@@ -58,7 +58,7 @@ class ViewCore extends Component {
 		this.sort = new SortView(model);
 		this.filter = new FilterView(model);
 		this.edit = new EditView(model, setValue, markup, apply);
-		this.style = new StyleView(model, table);
+		this.style = new StyleView(model, table, valueFactory);
 		this.pagination = new PaginationView(model);
 
 		// TODO: how we can avoid that?
@@ -68,8 +68,7 @@ class ViewCore extends Component {
 	}
 
 	onDestroy() {
-		const id = this.model.grid().id;
-		css.removeStyle(id);
+		this.layout.destroy();
 		this.nav.destroy();
 		this.selection.destroy();
 	}
