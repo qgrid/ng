@@ -42,13 +42,24 @@ tbody {
 						text-align: center;
 						white-space: nowrap;
 						vertical-align: middle;
-						background-color: rgb(224,224,224);
+						background-color: rgb(224, 224, 224);
 						border-radius: 16px;
 						margin-right: 4px;
 					}
 					li:last-child {
 						margin-right: 0;
 					}
+				}
+			}
+
+			&.q-grid-row-indicator {
+				md-icon {
+					//color: rgb(224, 224, 224);
+					font-size: 13px;
+					width: 13px;
+					height: 13px;
+					min-width: 13px;
+					min-height: 13px;
 				}
 			}
 
