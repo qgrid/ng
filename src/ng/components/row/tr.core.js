@@ -10,11 +10,11 @@ class TrCore extends Directive(TR_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	}
 
 	onInit() {
-		this.view.style.monitors.row.add(this.element);
+		this.view.style.monitor.row.add(this.element);
 	}
 
 	onDestroy(){
-		this.view.style.monitors.row.delete(this.element);
+		this.view.style.monitor.row.delete(this.element);
 	}
 
 }

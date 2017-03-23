@@ -19,6 +19,11 @@ export default function Controller($http, $interval, qgrid) {
 			if (row.gender === 'male') {
 				dom.class(`male-row-${this.maleColor}`, {background: '#' + this.maleColor});
 			}
+		},
+		cell: (row, column, dom) => {
+			if (column.key === 'birthday') {
+				dom.class('red-birthday', {background: '#f00', color: '#fff'});
+			}
 		}
 	});
 

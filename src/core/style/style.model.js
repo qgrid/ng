@@ -5,5 +5,6 @@ export default class SortModel {
 	constructor() {
 		this.resource = new Resource();
 		this.row = noop;
+		this.cell = noop;
 	}
 }
