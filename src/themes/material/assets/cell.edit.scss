@@ -26,8 +26,17 @@ td.q-grid-edit {
 		&.q-grid-text-area {
 			height: 160px;
 			width: 300px;
-			textarea{
+			textarea {
 				height: 150px !important;
+			}
+		}
+
+		&.q-grid-date {
+			.md-datepicker-button {
+				margin-left: 0;
+				padding: 0;
+				width: 24px;
+				height: 24px;
 			}
 		}
 

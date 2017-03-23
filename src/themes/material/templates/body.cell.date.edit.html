@@ -1,8 +1,7 @@
 <div class="q-grid-editor q-grid-date">
-	<md-input-container>
-		<input type="date"
-				 q-grid:focus
-				 ng-blur="$view.edit.cell.commit.execute($cell)"
-				 ng-model="$view.edit.cell.value"/>
-	</md-input-container>
+	<md-datepicker ng-model="$view.edit.cell.value"
+						md-placeholder="Enter date"
+						md-auto-focus
+						ng-blur="$view.edit.cell.commit.execute($cell)">
+	</md-datepicker>
 </div>

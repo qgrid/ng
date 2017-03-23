@@ -2,7 +2,14 @@ theme-selector {
 	md-input-container {
 		margin: -4px 0 0 0;
 		md-select{
-			color: #EE7600;
+			color: #fff;
+			.md-select-value{
+				border: none;
+			}
+
+			.md-select-icon{
+				color: #fff;
+			}
 		}
 	}
 }

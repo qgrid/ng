@@ -16,7 +16,21 @@ html, body {
 }
 
 md-sidenav {
+	h1 {
+		font-size: 1.250em;
+		font-weight: 400;
+		color: #fff;
+		padding: 8px 16px 0 16px;
+		background-color: #267ED5;
+		margin: 0;
+		a {
+			text-decoration: none;
+			color: #fff;
+		}
+	}
+
 	width: 250px !important;
+	background: #106CC8;
 }
 
 md-toolbar {
