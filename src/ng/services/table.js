@@ -30,63 +30,38 @@ class TableDom extends Dom {
 	}
 
 	cell(row, column) {
-		return new CellDom(this.element, row, column);
-	}
-}
-class CellDom extends Dom {
-	constructor(element, row, column) {
-		super(element);
-		this.element = element;
-		this.row = row;
-		this.column = column;
-	}
-
-	get view() {
-		const element = this.element;
-		const rows = element.rows;
-		const row = this.row;
-		const column = this.column;
+		const rows = this.element.rows;
 		const cellsCount = rows[0].cells.length;
 		if (row >= 0 && row < rows.length && column >= 0 && column < cellsCount) {
-			return rows[row].cells[column];
-		}
-	}
-
-	get model() {
-		const element = this.element;
-		const rows = element.rows;
-		const row = this.row;
-		const column = this.column;
-		const rowElement = rows[row];
-		const cells = rowElement.cells;
-		if (column >= 0 && column < cells.length) {
-			const cellElement = cells[column];
-			const scope = angular.element(cellElement).scope();
-			if (scope) {
-				return scope.$cell;
-			}
+			const cell = rows[row].cells[column];
+			return new CellDom(cell);
 		}
 		return null;
 	}
-	addClass(name){
-		const element = this.element;
-		const rows = element.rows;
-		const row = this.row;
-		const column = this.column;
-		const cellsCount = rows[0].cells.length;
-		if (row >= 0 && row < rows.length && column >= 0 && column < cellsCount) {
-			rows[row].cells[column].classList.add(name);
+}
+class CellDom extends Dom {
+	constructor(element) {
+		super();
+		this.element = element;
+	}
+
+	get view() {
+		return this.element;
+	}
+
+	get model() {
+		const scope = angular.element(this.element).scope();
+		if (scope) {
+			return scope.$cell;
 		}
 	}
-	removeClass(name){
-		const element = this.element;
-		const rows = element.rows;
-		const row = this.row;
-		const column = this.column;
-		const cellsCount = rows[0].cells.length;
-		if (row >= 0 && row < rows.length && column >= 0 && column < cellsCount) {
-			rows[row].cells[column].classList.remove(name);
-		}
+
+	addClass(name) {
+		this.element.classList.add(name);
+	}
+
+	removeClass(name) {
+		this.element.classList.remove(name);
 	}
 }
 
@@ -100,9 +75,16 @@ class RowDom extends Dom {
 	get cells() {
 		const rows = this.element.rows;
 		const index = this.index;
+		const cellsCount = rows[0].cells.length;
+		let result = [];
 		if (index >= 0 && index < rows.length) {
-			return rows[index].cells
+			for (let i = 0; i < cellsCount; i++) {
+				const cell = rows[index].cells[i];
+				result.push(new CellDom(cell));
+			}
+			return result;
 		}
+		return [];
 	}
 }
 class ColumnDom extends Dom {
@@ -119,7 +101,8 @@ class ColumnDom extends Dom {
 		let result = [];
 		if (index >= 0 && index < cellsCount) {
 			for (let i = 0; i < rows.length; i++) {
-				result.push(rows[i].cells[index]);
+				const cell = rows[i].cells[index];
+				result.push(new CellDom(cell));
 			}
 		}
 		return result;
