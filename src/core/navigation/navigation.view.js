@@ -40,8 +40,8 @@ export default class NavigationView extends View {
 		});
 		this.scrollTo = new Command({
 			execute: (row, column) => {
-				const cell = table.body.cell(row, column).view;
-				this.scroll(markup.body, cell);
+				const cell = table.body.cell(row, column).element;
+				this.scroll(this.markup.body, cell);
 			},
 			canExecute: (row, column) => {
 				return this.rows.length > row

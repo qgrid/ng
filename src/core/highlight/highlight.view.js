@@ -119,26 +119,27 @@ export default class HighlightView extends View {
 
 	highlight(key, cls) {
 		const table = this.table;
+		const markup = this.markup;
 		const index = this.columnIndex(key);
 		if (index < 0) {
 			return noop;
 		}
 
 		const head = table.head;
-		if (table.head.view.rows.length) {
+		if (markup.head.rows.length) {
 			head.column(index).cells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}`));
 			if (index > 0) {
 				head.column(index - 1).cells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}-prev`));
 			}
 
-			if (index < head.view.rows.length - 1) {
+			if (index < markup.head.rows.length - 1) {
 				head.column(index + 1).cells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}-next`));
 			}
 		}
-		if (table.body.view.rows.length) {
+		if (markup.body.rows.length) {
 			table.body.column(index).cells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}`));
 		}
-		if (table.foot.view.rows.length) {
+		if (markup.foot.rows.length) {
 			table.foot.column(index).cells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}`));
 		}
 
@@ -147,6 +148,7 @@ export default class HighlightView extends View {
 
 	blur(key, cls) {
 		const table = this.table;
+		const markup = this.markup;
 		const index = this.columnIndex(key);
 		if (index < 0) {
 			return noop;
@@ -154,20 +156,20 @@ export default class HighlightView extends View {
 
 		return () => {
 			const head = table.head;
-			if (table.head.view.rows.length) {
+			if (markup.head.rows.length) {
 				head.column(index).cells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}`));
 				if (index > 0) {
 					head.column(index - 1).cells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}-prev`));
 				}
-				if (index < head.view.rows.length - 1) {
+				if (index < markup.head.rows.length - 1) {
 					head.column(index + 1).cells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}-next`));
 				}
 			}
 
-			if (table.body.view.rows.length) {
+			if (markup.body.rows.length) {
 				table.body.column(index).cells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}`));
 			}
-			if (table.foot.view.rows.length) {
+			if (markup.foot.rows.length) {
 				table.foot.column(index).cells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}`));
 			}
 

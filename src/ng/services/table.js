@@ -10,10 +10,6 @@ class Dom {
 	cell() {
 		return null;
 	}
-
-	get view() {
-		return null;
-	}
 }
 class TableDom extends Dom {
 	constructor(element) {
@@ -25,12 +21,13 @@ class TableDom extends Dom {
 		return new Dom();
 	}
 
-	get view() {
-		return this.element;
-	}
-
 	column(index) {
-		return new ColumnDom(this.element, index);
+		const element = this.element;
+		const cellsCount = element.rows[0].cells.length;
+		if (index >= 0 && index < cellsCount){
+			return new ColumnDom(element, index);
+		}
+		return null;
 	}
 
 	row(index) {
@@ -43,8 +40,6 @@ class TableDom extends Dom {
 
 	cell(row, column) {
 		const rows = this.element.rows;
-		row = row < 0 ? 0 : row;
-		column = column < 0 ? 0 : column;
 		const cellsCount = rows[0].cells.length;
 		if (row < rows.length && column < cellsCount) {
 			const cell = rows[row].cells[column];
@@ -57,10 +52,6 @@ class CellDom extends Dom {
 	constructor(element) {
 		super();
 		this.element = element;
-	}
-
-	get view() {
-		return this.element;
 	}
 
 	get model() {
@@ -78,21 +69,16 @@ class CellDom extends Dom {
 		this.element.classList.remove(name);
 	}
 }
-
 class RowDom extends Dom {
 	constructor(element) {
 		super(element);
 		this.element = element;
 	}
 
-	get view() {
-		return this.element;
-	}
-
 	get cells() {
 		const row = this.element;
 		const cellsCount = row.cells.length;
-		let result = [];
+		const result = [];
 		for (let i = 0; i < cellsCount; i++) {
 			const cell = row.cells[i];
 			result.push(new CellDom(cell));
@@ -110,13 +96,10 @@ class ColumnDom extends Dom {
 	get cells() {
 		const index = this.index;
 		const rows = this.element.rows;
-		const cellsCount = rows[0].cells.length;
-		let result = [];
-		if (index >= 0 && index < cellsCount) {
+		const result = [];
 			for (let i = 0; i < rows.length; i++) {
 				const cell = rows[i].cells[index];
 				result.push(new CellDom(cell));
-			}
 		}
 		return result;
 	}

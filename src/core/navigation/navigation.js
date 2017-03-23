@@ -14,11 +14,11 @@ export default class Navigation {
 		let index = 0;
 		let offset = 0;
 		while (offset <= y && body.row(index)) {
-			offset += body.row(index).view.clientHeight;
+			offset += body.row(index).element.clientHeight;
 			index++;
 		}
 		if (direction && body.row(index)) {
-			offset -= body.row(index).view.clientHeight;
+			offset -= body.row(index).element.clientHeight;
 			index--;
 		}
 		return {
@@ -29,6 +29,7 @@ export default class Navigation {
 
 	get commands() {
 		const model = this.model;
+		const markup = this.markup;
 		const commands = {
 			goDown: new Command({
 				shortcut: 'down',
@@ -80,7 +81,7 @@ export default class Navigation {
 							row: 0
 						});
 					} else if (isLastCell && isLastRow) {
-						this.markup.table.blur();
+						markup.table.blur();
 					} else if (isLastCell && !isLastRow) {
 						model.navigation({
 							column: 0,
@@ -125,28 +126,24 @@ export default class Navigation {
 				shortcut: 'pageUp',
 				canExecute: () => model.edit().editMode == 'view',
 				execute: () => {
-					const body = this.table.body;
-					const {row: row, offset: offset} = this.moveTo(body.view.scrollTop - body.view.getBoundingClientRect().height, false);
-					if (body.row(row).cells.length) {
-						body.view.scrollTop = offset;
+					const body = markup.body;
+					const {row: row, offset: offset} = this.moveTo(body.scrollTop - body.getBoundingClientRect().height, false);
+						body.scrollTop = offset;
 						model.navigation({row: row}, {source: 'navigation'});
-					}
 				}
 			}),
 			pageDown: new Command({
 				shortcut: 'pageDown',
 				canExecute: () => model.edit().editMode == 'view',
 				execute: () => {
-					const body = this.table.body;
-					const lastRowIndex = body.view.rows.length - 1;
-					let {row: row, offset: offset} = this.moveTo(body.view.scrollTop + body.view.getBoundingClientRect().height, true);
+					const body = markup.body;
+					const lastRowIndex = body.rows.length - 1;
+					let {row: row, offset: offset} = this.moveTo(body.scrollTop + body.getBoundingClientRect().height, true);
 					if (row > lastRowIndex) {
 						row = lastRowIndex;
 					}
-					if (body.row(row).cells.length) {
-						body.view.scrollTop = offset;
+						body.scrollTop = offset;
 						model.navigation({row: row}, {source: 'navigation'});
-					}
 				}
 			})
 		};

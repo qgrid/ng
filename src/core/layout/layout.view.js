@@ -9,6 +9,7 @@ export default class LayoutView extends View {
 		super(model);
 		this.model = model;
 		this.table = table;
+		this.markup = table.markup;
 		this.onInit();
 	}
 
@@ -85,10 +86,10 @@ export default class LayoutView extends View {
 	invalidateScroll() {
 		log.info('layout', 'invalidate scroll');
 
-		const table = this.table;
+		const markup = this.markup;
 		const scroll = this.model.layout().scroll;
-		table.head.view.scrollLeft = scroll.left;
-		table.foot.view.scrollLeft = scroll.left;
+		markup.head.scrollLeft = scroll.left;
+		markup.foot.scrollLeft = scroll.left;
 	}
 
 	invalidateColumns(form) {
