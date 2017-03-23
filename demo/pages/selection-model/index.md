@@ -51,3 +51,4 @@ There are situations when you would like to enable the end user to select rows o
 	</tr>					
 						
 </tbody>
+</table>

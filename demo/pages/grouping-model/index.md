@@ -18,3 +18,4 @@ Grouping columns allows you to have multiple levels of column groups in your hea
 	  </td>
 	</tr>	
 </tbody>
+</table>
