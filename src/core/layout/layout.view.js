@@ -87,8 +87,8 @@ export default class LayoutView extends View {
 
 		const table = this.table;
 		const scroll = this.model.layout().scroll;
-		table.head.scrollLeft = scroll.left;
-		table.foot.scrollLeft = scroll.left;
+		table.head.view.scrollLeft = scroll.left;
+		table.foot.view.scrollLeft = scroll.left;
 	}
 
 	invalidateColumns(form) {

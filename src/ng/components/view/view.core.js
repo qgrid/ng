@@ -53,7 +53,7 @@ class ViewCore extends Component {
 		this.group = new GroupView(model, valueFactory);
 		this.pivot = new PivotView(model, valueFactory);
 		this.nav = new NavigationView(model, table, apply);
-		this.highlight = new HighlightView(model, markup, apply);
+		this.highlight = new HighlightView(model, table, apply);
 		this.sort = new SortView(model);
 		this.filter = new FilterView(model);
 		this.edit = new EditView(model, setValue, table, apply);
