@@ -6,6 +6,7 @@ import Head from './components/head/head';
 import Foot from './components/foot/foot';
 import ColumnList from './components/column/column.list';
 import Column from './components/column/column';
+import Row from './components/row/row';
 import Toolbar from './components/toolbar/toolbar';
 import Drag from './components/dnd/drag';
 import Drop from './components/dnd/drop';
@@ -58,6 +59,7 @@ const layoutModel = angular.module(def.MODULE_LAYOUT_NAME, [coreModule])
 	.component(def.FOOT_NAME, Foot)
 	.component(def.COLUMN_LIST_NAME, ColumnList)
 	.component(def.COLUMN_NAME, Column)
+	.component(def.ROW_NAME, Row)
 	.component(def.TOOLBAR_NAME, Toolbar)
 	.component(def.TOOLBAR_CORE_NAME, ToolbarCore)
 	.directive(def.TEMPLATE_NAME, () => Template)
@@ -150,5 +152,7 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.head.cell.select.tpl.html', require('./components/cell/select/head.cell.select.html'));
 		theme.put('qgrid.body.cell.select.tpl.html', require('./components/cell/select/body.cell.select.html'));
 		theme.put('qgrid.foot.cell.select.tpl.html', EMPTY);
+	
+		theme.put('qgrid.body.row.details.tpl.html', require('./components/row/row-details.html'));
 	});
 }
