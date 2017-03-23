@@ -19,6 +19,7 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.body.cell.password.edit.tpl.html', require('themes/material/templates/body.cell.password.edit.html'));
 		theme.put('qgrid.body.cell.bool.tpl.html', require('themes/material/templates/body.cell.bool.html'));
 		theme.put('qgrid.body.cell.select.tpl.html', require('themes/material/templates/body.cell.select.html'));
+		theme.put('qgrid.body.cell.row-indicator.tpl.html', require('themes/material/templates/body.cell.row.indicator.html'));
 
 		theme.put('qgrid.head.cell.text.tpl.html', require('themes/material/templates/head.cell.text.html'));
 		theme.put('qgrid.head.cell.bool.tpl.html', require('themes/material/templates/head.cell.text.html'));

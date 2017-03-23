@@ -49,6 +49,5 @@ There are situations when you would like to enable the end user to select rows o
 	    </ul>
 	  </td>
 	</tr>					
-						
 </tbody>
 </table>
