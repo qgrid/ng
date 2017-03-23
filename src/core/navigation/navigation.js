@@ -138,7 +138,11 @@ export default class Navigation {
 				canExecute: () => model.edit().editMode == 'view',
 				execute: () => {
 					const body = this.table.body;
-					const {row: row, offset: offset} = this.moveTo(body.view.scrollTop + body.view.getBoundingClientRect().height, true);
+					const lastRowIndex = body.view.rows.length - 1;
+					let {row: row, offset: offset} = this.moveTo(body.view.scrollTop + body.view.getBoundingClientRect().height, true);
+					if (row > lastRowIndex) {
+						row = lastRowIndex;
+					}
 					if (body.row(row).cells.length) {
 						body.view.scrollTop = offset;
 						model.navigation({row: row}, {source: 'navigation'});
