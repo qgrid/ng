@@ -6,6 +6,12 @@ export default function Controller($http, $timeout, qgrid) {
 	$http.get('data/people/100.json')
 		.then(response => this.rows = response.data);
 
+	this.model.style({
+		row: (row, dom) => {
+			dom.style({background: '#fff'});
+		}
+	});
+
 	$timeout(() => {
 
 	}, 1000);
