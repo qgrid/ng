@@ -18,5 +18,5 @@ export function sheet(id) {
 		remove: () => {
 			sheet.parentNode.removeChild(sheet);
 		}
-	}
+	};
 }
