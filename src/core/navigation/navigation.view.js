@@ -13,7 +13,7 @@ export default class NavigationView extends View {
 		this.model = model;
 		this.document = markup.document;
 		const shortcut = new Shortcut(this.document, markup.table, apply);
-		const navigation = new Navigation(model, markup);
+		const navigation = new Navigation(model, table);
 		this.shortcutOff = shortcut.register('navigation', navigation.commands);
 
 		this.blur = new Command({
@@ -63,7 +63,7 @@ export default class NavigationView extends View {
 				}
 				if (this.focus.canExecute(newRow, newColumn)) {
 					this.focus.execute(newRow, newColumn);
-					if (!(e && e.tag.source === 'navigation')) {
+					if (!e || e.tag.source !== 'navigation') {
 						this.scrollTo.execute(newRow, newColumn);
 					}
 				}
