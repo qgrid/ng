@@ -36,7 +36,8 @@ export default function Controller($http) {
 			type: 'text',
 			value: (item, value) => isUndef(value) ? item.comment || '' : item.comment = value,
 			editor: 'text-area',
-			width: 200
+			width: 200,
+			maxLength: 8000
 		},
 		{
 			key: 'password',
