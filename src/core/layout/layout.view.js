@@ -115,8 +115,7 @@ export default class LayoutView extends View {
 			}
 		}
 
-		const id = model.grid().id;
-		css.removeStyle(id);
-		css.addStyle(id, style);
+		const sheet = css.sheet(`${model.grid().id}-layout`);
+		sheet.set(style);
 	}
 }

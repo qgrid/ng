@@ -1,6 +1,5 @@
 import Directive from 'ng/directives/directive';
 import {VIEW_CORE_NAME, TR_CORE_NAME} from 'ng/definition';
-import {Element as DomElement} from 'core/services/dom';
 
 class TrCore extends Directive(TR_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	constructor($scope, $element) {
@@ -11,15 +10,13 @@ class TrCore extends Directive(TR_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	}
 
 	onInit() {
-		const model = this.view.model;
-		const styleState = model.style();
-		const dom = new DomElement(this.element);
-		styleState.row(this.row, dom);
+		this.view.style.monitors.row.add(this.element);
 	}
 
-	get row() {
-		return this.$scope.$row;
+	onDestroy(){
+		this.view.style.monitors.row.delete(this.element);
 	}
+
 }
 
 TrCore.$inject = [

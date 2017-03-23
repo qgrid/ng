@@ -60,6 +60,11 @@ class ViewCore extends Component {
 		this.edit = new EditView(model, setValue, markup, apply);
 		this.style = new StyleView(model, table);
 		this.pagination = new PaginationView(model);
+
+		// TODO: how we can avoid that?
+		this.$scope.$watch(() => {
+			this.style.invalidate();
+		});
 	}
 
 	onDestroy() {
