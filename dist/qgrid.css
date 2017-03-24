@@ -65,17 +65,19 @@
     display: none; }
   .q-grid ::-webkit-scrollbar-corner {
     background-color: transparent; }
-  .q-grid .q-grid-box {
-    height: 100%; }
+  .q-grid.q-grid-box {
+    height: 100%;
+    min-height: 100%;
+    max-height: 100%; }
   .q-grid table {
-    width: 100%;
     border-spacing: 0;
     overflow: hidden;
     table-layout: fixed;
     display: flex;
     flex-flow: column;
     height: 100%;
-    width: 100%; }
+    width: 100%;
+    outline: none; }
     .q-grid table thead, .q-grid table tfoot {
       /* head takes the height it requires,
 		and it's not scaled when table is resized */
@@ -89,7 +91,7 @@
       overflow-y: scroll; }
     .q-grid table tbody tr {
       width: 100%;
-      display: table;
+      display: table-row;
       table-layout: fixed; }
   .q-grid td, .q-grid th {
     vertical-align: middle;
@@ -113,6 +115,12 @@
     width: 150px;
     min-width: 150px;
     max-width: 150px; }
+    .q-grid thead td.q-grid-pad, .q-grid thead th.q-grid-pad, .q-grid tfoot td.q-grid-pad, .q-grid tfoot th.q-grid-pad, .q-grid tbody td.q-grid-pad, .q-grid tbody th.q-grid-pad {
+      width: 100%;
+      min-width: 100%;
+      max-width: 100%;
+      padding: 0 0 0 1px !important;
+      margin: 0 !important; }
     .q-grid thead td.q-grid-group, .q-grid thead th.q-grid-group, .q-grid tfoot td.q-grid-group, .q-grid tfoot th.q-grid-group, .q-grid tbody td.q-grid-group, .q-grid tbody th.q-grid-group {
       width: 200px;
       min-width: 200px;
@@ -121,10 +129,6 @@
       width: 80px;
       min-width: 80px;
       max-width: 80px; }
-    .q-grid thead td.q-grid-pad, .q-grid thead th.q-grid-pad, .q-grid tfoot td.q-grid-pad, .q-grid tfoot th.q-grid-pad, .q-grid tbody td.q-grid-pad, .q-grid tbody th.q-grid-pad {
-      width: 100%;
-      min-width: 100%;
-      max-width: 100%; }
     .q-grid thead td.q-grid-email, .q-grid thead th.q-grid-email, .q-grid tfoot td.q-grid-email, .q-grid tfoot th.q-grid-email, .q-grid tbody td.q-grid-email, .q-grid tbody th.q-grid-email {
       width: 200px;
       min-width: 200px;
@@ -153,6 +157,10 @@
       width: 55px;
       min-width: 55px;
       max-width: 55px; }
+    .q-grid thead td.q-grid-row-number, .q-grid thead th.q-grid-row-number, .q-grid tfoot td.q-grid-row-number, .q-grid tfoot th.q-grid-row-number, .q-grid tbody td.q-grid-row-number, .q-grid tbody th.q-grid-row-number {
+      width: 55px;
+      min-width: 55px;
+      max-width: 55px; }
     .q-grid thead td.q-grid-select, .q-grid thead th.q-grid-select, .q-grid tfoot td.q-grid-select, .q-grid tfoot th.q-grid-select, .q-grid tbody td.q-grid-select, .q-grid tbody th.q-grid-select {
       width: 55px;
       min-width: 55px;
@@ -162,9 +170,9 @@
   .q-grid tbody td.q-grid-bool, .q-grid tbody td.q-grid-password, .q-grid tbody td.q-grid-select {
     text-align: center; }
   .q-grid .q-grid-can-drag {
-    -moz-user-select: none;
-    -khtml-user-select: none;
     -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
     user-select: none;
     -khtml-user-drag: element;
     -webkit-user-drag: element; }
@@ -180,8 +188,14 @@
     border-right: 1px solid rgba(0, 0, 0, 0.12);
     cursor: col-resize;
     visibility: hidden; }
-  .q-grid th:hover .q-grid-divider, .q-grid th.q-grid-highlight-prev .q-grid-divider {
+  .q-grid th:hover .q-grid-divider, .q-grid th.q-grid-highlighted-prev .q-grid-divider {
     visibility: visible; }
   .q-grid .q-grid-toolbar-left, .q-grid .q-grid-toolbar-right {
     max-width: 250px;
     overflow: auto; }
+  .q-grid .q-grid-view.q-grid-select-range thead td, .q-grid .q-grid-view.q-grid-select-range thead th, .q-grid .q-grid-view.q-grid-select-range tfoot td, .q-grid .q-grid-view.q-grid-select-range tfoot th, .q-grid .q-grid-view.q-grid-select-range tbody td, .q-grid .q-grid-view.q-grid-select-range tbody th {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default; }
