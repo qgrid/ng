@@ -66,19 +66,24 @@
 		margin: 0 0 10px 0;
 	}
 
-	.q-grid-column-chooser-filter {
+	.q-grid-column-filter-filter {
+		margin-left: 4px;
+		margin-right: 4px;
+		margin-bottom: 0;
+		margin-top: 0;
+
 		.md-errors-spacer {
 			display: none;
 		}
 	}
 
-	.q-grid-column-chooser-list {
+	.q-grid-column-filter-list {
 		margin: 0;
 		overflow-y: auto;
 		height: 376px;
 	}
 
-	.q-grid-column-chooser-actions {
+	.q-grid-column-filter-actions {
 		padding: 7px 0;
 	}
 }
