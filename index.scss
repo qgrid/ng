@@ -15,11 +15,48 @@ html, body {
 	width: 36px;
 }
 
+#github {
+	float: right;
+	img {
+		width: 16px;
+		height: 16px;
+	}
+}
+
+#theme-selector {
+	float: right;
+	margin-right: 5px;
+	margin-top: -2px;
+}
+
 md-sidenav {
-	width: 250px !important;
+	h1 {
+		font-size: 1.250em;
+		font-weight: 400;
+		color: #fff;
+		padding: 8px 16px 0 16px;
+		background-color: #267ED5;
+		margin: 0;
+		height: 22px;
+
+		a {
+			text-decoration: none;
+			color: #fff;
+		}
+	}
+
+	overflow: hidden !important;
+	width: 270px !important;
+	background: #106CC8;
+
+	page-list {
+		height: calc(100% - 30px);
+	}
 }
 
 md-toolbar {
+	background-color: #267ED5 !important;
+	display: none !important;
 	h1 {
 		margin: auto;
 		font-size: 1.250em;
@@ -28,6 +65,9 @@ md-toolbar {
 }
 
 @media (max-width: 959px) {
+	md-toolbar {
+		display: flex !important;
+	}
 	#content {
 		padding: 5px 10px !important;
 		> .md-title {
