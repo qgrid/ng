@@ -128,8 +128,8 @@ export default class Navigation {
 				execute: () => {
 					const body = markup.body;
 					const {row: row, offset: offset} = this.moveTo(body.scrollTop - body.getBoundingClientRect().height, false);
-						body.scrollTop = offset;
-						model.navigation({row: row}, {source: 'navigation'});
+					body.scrollTop = offset;
+					model.navigation({row: row}, {source: 'navigation'});
 				}
 			}),
 			pageDown: new Command({
@@ -142,8 +142,8 @@ export default class Navigation {
 					if (row > lastRowIndex) {
 						row = lastRowIndex;
 					}
-						body.scrollTop = offset;
-						model.navigation({row: row}, {source: 'navigation'});
+					body.scrollTop = offset;
+					model.navigation({row: row}, {source: 'navigation'});
 				}
 			})
 		};
