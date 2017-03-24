@@ -17,9 +17,8 @@ export default class PopupService {
 	}
 
 	closeAll() {
-		const popups = Object.keys(this.popups);
-		for (let i = 0, length = popups.length; i < length; i++) {
-			popups[i].close();
+		for (let key of Object.keys(this.popups)) {
+			this.close(key);
 		}
 	}
 
