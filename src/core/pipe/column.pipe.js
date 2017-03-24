@@ -2,6 +2,8 @@ import columnFactory from 'core/column/column.factory';
 import * as columnService from 'core/column/column.service';
 import {noop} from 'core/services/utility';
 
+//TODO: tons of code duplication here, worth refactoring
+
 function selectColumnFactory(model) {
 	const dataColumns = model.data().columns;
 	const selection = model.selection();
@@ -58,6 +60,31 @@ function groupColumnFactory(model, nodes) {
 		};
 	}
 
+	return noop;
+}
+
+function expandColumnFactory(model) {
+	const dataColumns = model.data().columns;
+	const rowDetails = model.rowDetails();
+
+	const expandColumn = dataColumns.find(item => item.type === 'expand');
+
+	if (!expandColumn && rowDetails.isVisible) {
+		const createColumn = columnFactory(model);
+		return (columns, context) => {
+			const expandColumn = createColumn('expand');
+			const index = columns.length;
+			expandColumn.model.source = 'generation';
+			expandColumn.rowspan = context.rowspan;
+			if (expandColumn.model.index >= 0) {
+				expandColumn.model.index = index;
+			}
+
+			columns.push(expandColumn);
+			return expandColumn;
+		};
+	}
+	
 	return noop;
 }
 
@@ -169,6 +196,7 @@ export default function columnPipe(memo, context, next) {
 	const columns = [];
 	const addSelectColumn = selectColumnFactory(model);
 	const addGroupColumn = groupColumnFactory(model, nodes);
+	const addExpandColumn = expandColumnFactory(model);
 	const addDataColumns = dataColumnsFactory(model);
 	const addPivotColumns = pivotColumnsFactory(model);
 	const addPadColumn = padColumnFactory(model);
@@ -185,6 +213,12 @@ export default function columnPipe(memo, context, next) {
 	 *
 	 */
 	addGroupColumn(columns, {rowspan: heads.length, row: 0});
+	
+	/*
+	 * Add expand column with expanders
+	 *
+	 */
+	addExpandColumn(columns, {rowspan: heads.length, row: 0});
 
 	/*
 	 * Add columns defined by user

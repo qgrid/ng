@@ -157,6 +157,10 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.body.cell.select.tpl.html', require('./components/cell/select/body.cell.select.html'));
 		theme.put('qgrid.foot.cell.select.tpl.html', EMPTY);
 	
+		theme.put('qgrid.head.cell.expand.tpl.html', require('./components/cell/expand/head.cell.expand.html'));
+		theme.put('qgrid.body.cell.expand.tpl.html', require('./components/cell/expand/body.cell.expand.html'));
+		theme.put('qgrid.foot.cell.expand.tpl.html', EMPTY);
+
 		theme.put('qgrid.body.row.details.tpl.html', require('./components/row/row-details.html'));
 	});
 }

@@ -9,6 +9,7 @@ import PasswordColumn from 'core/column-type/password.column';
 import ArrayColumn from 'core/column-type/array.column';
 import EmailColumn from 'core/column-type/email.column';
 import SelectColumn from 'core/column-type/select.column';
+import ExpandColumn from 'core/column-type/expand.column';
 import GroupColumn from 'core/column-type/group.column';
 import PivotColumn from 'core/column-type/pivot.column';
 import RowNumberColumn from 'core/column-type/row.number.column';
@@ -34,6 +35,7 @@ export default function (model) {
 		'email': EmailColumn,
 		'password': PasswordColumn,
 		'select': SelectColumn,
+		'expand': ExpandColumn,
 		'group': GroupColumn,
 		'pivot': PivotColumn,
 		'row-number': RowNumberColumn,
