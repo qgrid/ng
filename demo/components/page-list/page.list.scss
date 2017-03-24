@@ -54,7 +54,7 @@ page-list {
 					margin-bottom: 0;
 					text-overflow: ellipsis;
 					color: #fff;
-					text-transform: lowercase;
+					text-transform: capitalize;
 					background: transparent;
 					&:not([disabled]):hover {
 						background-color: transparent;
