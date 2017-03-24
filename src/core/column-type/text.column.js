@@ -26,6 +26,8 @@ TemplatePath.register('text-area-cell-edit', (template, column) => {
 class TextColumnModel extends DataColumnModel {
 	constructor() {
 		super('text');
+
+		this.maxLength = 140;
 	}
 }
 

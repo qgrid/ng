@@ -4,7 +4,7 @@ td.q-grid-edit {
 	.q-grid-editor {
 		position: absolute;
 		width: 160px;
-		height: 30px;
+		height: 40px;
 		border-radius: 4px;
 		background-color: #fcfcfc;
 		color: rgba(0, 0, 0, 0.87);
@@ -38,21 +38,31 @@ td.q-grid-edit {
 				width: 24px;
 				height: 24px;
 			}
+			.md-datepicker-triangle-button {
+				margin-right: 0;
+				padding: 0;
+				width: 24px;
+				height: 24px;
+			}
+
+			width: 200px !important;
+			height: 110px !important;
+		}
+
+		h2 {
+			margin-top: 0;
+		}
+
+		.q-grid-actions {
+			.md-button {
+				margin: 8px 0 8px 8px;
+				float: right;
+			}
 		}
 
 		&.q-grid-array {
-			h2 {
-				margin-top: 0;
-			}
-
 			height: 120px;
 			width: 300px;
-			.q-grid-actions {
-				.md-button {
-					margin: 8px 0 8px 8px;
-					float: right;
-				}
-			}
 
 			md-chips {
 				display: inline-flex;

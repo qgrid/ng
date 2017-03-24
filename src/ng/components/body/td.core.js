@@ -19,6 +19,8 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 		const column = this.column;
 		const element = this.$element[0];
 
+		this.view.style.monitor.cell.add(this.element);
+
 		element.classList.add(`${GRID_PREFIX}-${column.key}`);
 		element.classList.add(`${GRID_PREFIX}-${column.type}`);
 		if (column.hasOwnProperty('editor')) {
@@ -99,6 +101,14 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 
 	get row() {
 		return this.$scope.$row;
+	}
+
+	onDestroy() {
+		if (this.$templateScope) {
+			this.$templateScope.$destroy();
+		}
+
+		this.view.style.monitor.cell.remove(this.$element[0]);
 	}
 }
 

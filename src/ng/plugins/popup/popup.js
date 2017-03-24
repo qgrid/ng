@@ -50,6 +50,10 @@ class Popup extends Plugin {
 	get resource() {
 		return this.model.popup().resource;
 	}
+
+	onDestroy() {
+		this.qGridPopupService.closeAll();
+	}
 }
 
 export default Popup.component({
