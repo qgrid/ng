@@ -312,6 +312,10 @@
 				"path": "progress"
 			},
 			{
+				"title": "Style",
+				"path": "style"
+			},
+			{
 				"title": "Highlighting",
 				"path": "highlighting"
 			}
