@@ -10,6 +10,8 @@ import Row from './components/row/row';
 import Toolbar from './components/toolbar/toolbar';
 import Drag from './components/dnd/drag';
 import Drop from './components/dnd/drop';
+import RowDetails from './components/row/row-details';
+import RowDetailsCore from './components/row/row-details.core';
 
 import BoxCore from './components/grid/box.core';
 import ViewCore from './components/view/view.core';
@@ -62,6 +64,7 @@ const layoutModel = angular.module(def.MODULE_LAYOUT_NAME, [coreModule])
 	.component(def.ROW_NAME, Row)
 	.component(def.TOOLBAR_NAME, Toolbar)
 	.component(def.TOOLBAR_CORE_NAME, ToolbarCore)
+	.component(def.ROW_DETAILS_NAME, RowDetails)
 	.directive(def.TEMPLATE_NAME, () => Template)
 	.directive(def.MARKUP_NAME, () => Markup)
 	.directive(def.TD_CORE_NAME, () => TdCore)
@@ -70,6 +73,7 @@ const layoutModel = angular.module(def.MODULE_LAYOUT_NAME, [coreModule])
 	.directive(def.HEAD_CORE_NAME, () => HeadCore)
 	.directive(def.BODY_CORE_NAME, () => BodyCore)
 	.directive(def.FOOT_CORE_NAME, () => FootCore)
+	.directive(def.ROW_DETAILS_CORE_NAME, () => RowDetailsCore)
 	.service(def.SERVICE_NAME, GridService)
 	.config(Setup)
 	.name;

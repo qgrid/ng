@@ -1,14 +1,5 @@
 import ModelComponent from '../model.component';
-import { GRID_NAME, ROW_NAME } from 'ng/definition';
-import TemplatePath from 'core/template/template.path';
-
-TemplatePath
-	.register(ROW_NAME, () => {
-		return {
-			model: 'row',
-			resource: 'details'
-		};
-	});
+import { GRID_NAME } from 'ng/definition';
 
 class Row extends ModelComponent {
 	constructor() {

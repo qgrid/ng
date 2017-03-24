@@ -1,1 +1,5 @@
-Default row details
+<div>
+	<ul>
+		<li ng-repeat="column in $view.body.columns track by column.model.key">{{$view.body.value($details.row, column.model)}} - {{column.model.key}}</li>
+	</ul>
+</div>
