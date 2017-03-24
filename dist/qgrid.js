@@ -14704,7 +14704,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-var Plugin = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__plugin_component__["a" /* default */])('column-filter-panel', { inject: ['$q'] });
+var Plugin = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__plugin_component__["a" /* default */])('column-filter-panel');
 
 var ColumnFilterPanel = function (_Plugin) {
 	_inherits(ColumnFilterPanel, _Plugin);
@@ -14842,7 +14842,6 @@ var ColumnFilterPanel = function (_Plugin) {
 	return ColumnFilterPanel;
 }(Plugin);
 
-ColumnFilterPanel;
 /* harmony default export */ __webpack_exports__["a"] = ColumnFilterPanel.component({
 	controller: ColumnFilterPanel,
 	controllerAs: '$columnFilterPanel',
@@ -15628,6 +15627,11 @@ var Popup = function (_Plugin) {
 			this.qGridPopupService.open(settings, this.model, this.$scope);
 		}
 	}, {
+		key: 'onDestroy',
+		value: function onDestroy() {
+			this.qGridPopupService.closeAll();
+		}
+	}, {
 		key: 'resource',
 		get: function get() {
 			return this.model.popup().resource;
@@ -15889,9 +15893,29 @@ var PopupService = function () {
 	}, {
 		key: 'closeAll',
 		value: function closeAll() {
-			var popups = Object.keys(this.popups);
-			for (var i = 0, length = popups.length; i < length; i++) {
-				popups[i].close();
+			var _iteratorNormalCompletion = true;
+			var _didIteratorError = false;
+			var _iteratorError = undefined;
+
+			try {
+				for (var _iterator = Object.keys(this.popups)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+					var key = _step.value;
+
+					this.close(key);
+				}
+			} catch (err) {
+				_didIteratorError = true;
+				_iteratorError = err;
+			} finally {
+				try {
+					if (!_iteratorNormalCompletion && _iterator.return) {
+						_iterator.return();
+					}
+				} finally {
+					if (_didIteratorError) {
+						throw _iteratorError;
+					}
+				}
 			}
 		}
 	}, {
@@ -15946,28 +15970,28 @@ var PopupService = function () {
 	}, {
 		key: 'focus',
 		value: function focus(id) {
-			var _iteratorNormalCompletion = true;
-			var _didIteratorError = false;
-			var _iteratorError = undefined;
+			var _iteratorNormalCompletion2 = true;
+			var _didIteratorError2 = false;
+			var _iteratorError2 = undefined;
 
 			try {
-				for (var _iterator = this.popups[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-					var _step$value = _slicedToArray(_step.value, 2),
-					    _popup = _step$value[1];
+				for (var _iterator2 = this.popups[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+					var _step2$value = _slicedToArray(_step2.value, 2),
+					    _popup = _step2$value[1];
 
 					_popup.unfocus();
 				}
 			} catch (err) {
-				_didIteratorError = true;
-				_iteratorError = err;
+				_didIteratorError2 = true;
+				_iteratorError2 = err;
 			} finally {
 				try {
-					if (!_iteratorNormalCompletion && _iterator.return) {
-						_iterator.return();
+					if (!_iteratorNormalCompletion2 && _iterator2.return) {
+						_iterator2.return();
 					}
 				} finally {
-					if (_didIteratorError) {
-						throw _iteratorError;
+					if (_didIteratorError2) {
+						throw _iteratorError2;
 					}
 				}
 			}
