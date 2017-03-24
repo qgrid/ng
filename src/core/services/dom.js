@@ -6,6 +6,7 @@ export function css(element, property, value) {
 		return element.style[normalizedProperty];
 	} else {
 		element.style[normalizedProperty] = value;
+		return normalizedProperty;
 	}
 }
 
@@ -15,14 +16,4 @@ function normalize(property) {
 
 function upperFirst(match, letter) {
 	return letter.toUpperCase();
-}
-
-export function cellsAt(element, index) {
-	const result = [];
-	const rows = element.rows;
-	for (let i = 0, length =  rows.length; i < length; i++) {
-		result.push(rows[i].cells[index]);
-	}
-
-	return result;
 }

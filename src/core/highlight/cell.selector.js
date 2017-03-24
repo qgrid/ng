@@ -2,8 +2,6 @@ import * as columnService from 'core/column/column.service';
 import AppError from 'core/infrastructure/error';
 
 export default (model, markup) => {
-	const selection = model.selection();
-
 	function getRows(items) {
 		const result = [];
 		const rows = model.view().rows;
@@ -47,7 +45,6 @@ export default (model, markup) => {
 
 			if (rowIndex > -1 && markup.body.rows[rowIndex]) {
 				const row = markup.body.rows[rowIndex];
-
 				if (columnIndex > -1 && row && row.cells[columnIndex]) {
 					result.push(row.cells[columnIndex]);
 				}
@@ -61,7 +58,7 @@ export default (model, markup) => {
 		const itemsArray = Array.from(items);
 
 		const rows = itemsArray.filter(item => item.unit === 'row').map(item => item.item);
-		const cells = itemsArray.filter(item => item.unit !== 'row').map(item => item.item);
+		const cells = itemsArray.filter(item => item.unit === 'row').map(item => item.item);
 
 		return [
 			...getRows(rows),
@@ -69,16 +66,20 @@ export default (model, markup) => {
 		];
 	}
 
-	switch (selection.unit) {
-		case 'row':
-			return getRows;
-		case 'column':
-			return getColumns;
-		case 'cell':
-			return getCells;
-		case 'mix':
-			return getMix;
-		default:
-			throw new AppError('cells.builder.factory', `unsupported unit ${selection.unit}`);
-	}
+	const selectorMap = {
+		'row': getRows,
+		'column': getColumns,
+		'cell': getCells,
+		'mix': getMix,
+	};
+
+	return (...args) => {
+		const selection = model.selection();
+		const cellSelector = selectorMap[selection.unit];
+		if (!cellSelector) {
+			throw new AppError('cell.selector', `Invalid unit ${selection.unit}`);
+		}
+
+		return cellSelector(...args);
+	};
 };

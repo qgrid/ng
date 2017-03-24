@@ -1,12 +1,9 @@
 import AppError from 'core/infrastructure/error';
-
 import SingleSelectionState from './single.selection.state';
 import MultipleSelectionState from './multiple.selection.state';
 
-
 export default (model) => {
 	const mode = model.selection().mode;
-
 	switch (mode) {
 		case 'single':
 			return new SingleSelectionState(model);

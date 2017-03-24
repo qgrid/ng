@@ -3,6 +3,7 @@
 		<input type="text"
 				 q-grid:focus
 				 ng-blur="$view.edit.cell.commit.execute($cell)"
-				 ng-model="$view.edit.cell.value"/>
+				 ng-model="$view.edit.cell.value"
+				 md-maxlength="{{::$cell.column.maxLength}}" />
 	</md-input-container>
 </div>
