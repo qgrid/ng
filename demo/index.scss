@@ -15,6 +15,20 @@ html, body {
 	width: 36px;
 }
 
+#github {
+	float: right;
+	img {
+		width: 16px;
+		height: 16px;
+	}
+}
+
+#theme-selector {
+	float: right;
+	margin-right: 5px;
+	margin-top: -2px;
+}
+
 md-sidenav {
 	h1 {
 		font-size: 1.250em;
@@ -23,14 +37,21 @@ md-sidenav {
 		padding: 8px 16px 0 16px;
 		background-color: #267ED5;
 		margin: 0;
+		height: 22px;
+
 		a {
 			text-decoration: none;
 			color: #fff;
 		}
 	}
 
-	width: 250px !important;
+	overflow: hidden !important;
+	width: 270px !important;
 	background: #106CC8;
+
+	page-list {
+		height: calc(100% - 30px);
+	}
 }
 
 md-toolbar {

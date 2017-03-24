@@ -1,14 +1,26 @@
-theme-selector {
-	md-input-container {
-		margin: -4px 0 0 0;
-		md-select{
-			color: #fff;
-			.md-select-value{
-				border: none;
-			}
+$size: 16px;
 
-			.md-select-icon{
+theme-selector {
+	md-menu {
+		width: $size;
+		height: $size;
+		min-width: $size;
+		min-height: $size;
+		> .md-button.md-icon-button {
+			width: $size;
+			height: $size;
+			min-width: $size;
+			min-height: $size;
+			margin: 0;
+			padding: 0;
+			border-radius: $size;
+			md-icon {
 				color: #fff;
+				width: $size;
+				height: $size;
+				min-width: $size;
+				min-height: $size;
+				font-size: $size;
 			}
 		}
 	}
