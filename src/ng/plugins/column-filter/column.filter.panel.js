@@ -103,7 +103,7 @@ class ColumnFilterPanel extends Plugin {
 				});
 		}
 		else {
-			this.items = uniq(this.model.view().rows.map(this.getValue));
+			this.items = uniq(this.model.data().rows.map(this.getValue));
 		}
 	}
 }
