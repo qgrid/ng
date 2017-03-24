@@ -1,9 +1,7 @@
-import Resource from '../resource/resource';
 import {noop} from '../services/utility';
 
-export default class SortModel {
+export default class StyleModel {
 	constructor() {
-		this.resource = new Resource();
 		this.row = noop;
 		this.cell = noop;
 	}

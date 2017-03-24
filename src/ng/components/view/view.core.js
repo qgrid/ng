@@ -1,7 +1,6 @@
 import Component from '../component';
 import {getFactory as valueFactory, set as setValue} from 'ng/services/value';
 import Table from 'ng/services/table';
-import * as css from 'core/services/css';
 import BodyView from 'core/body/body.view';
 import HeadView from 'core/head/head.view';
 import FootView from 'core/foot/foot.view';

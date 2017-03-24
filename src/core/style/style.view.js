@@ -39,51 +39,47 @@ export default class StyleView extends View {
 			const value = (row, column) => {
 				return valueFactory(column)(row);
 			};
+			const domCell = cellMonitor.enter();
+			const domRow = rowMonitor.enter();
+			try {
 
-			for (let i = 0, rowsLength = bodyRows.length; i < rowsLength; i++) {
-				const bodyRow = bodyRows[i];
-				const dataRow = dataRows[i];
+				for (let i = 0, rowsLength = bodyRows.length; i < rowsLength; i++) {
+					const bodyRow = bodyRows[i];
+					const dataRow = dataRows[i];
+					const rowContext = {
+						class: domRow(bodyRow),
+						row: i,
+						value: value,
+						columns: {
+							map: columnMap,
+							list: columns
+						}
+					};
 
-				const domRow = rowMonitor.enter(bodyRow);
-				try {
-					styleState.row(
-						dataRow,
-						domRow, {
+					styleState.row(dataRow, rowContext);
+
+					const cells = bodyRow.cells;
+					for (let j = 0, cellsLength = cells.length; j < cellsLength; j++) {
+						const cell = cells[j];
+						const column = columns[j];
+						const cellContext = {
+							class: domCell(cell),
 							row: i,
+							column: j,
 							value: value,
 							columns: {
 								map: columnMap,
 								list: columns
 							}
-						});
-				}
-				finally {
-					rowMonitor.exit(domRow);
-				}
+						};
 
-				const cells = bodyRow.cells;
-				for (let j = 0, cellsLength = cells.length; j < cellsLength; j++) {
-					const cell = cells[j];
-					const column = columns[j];
-					const domCell = cellMonitor.enter(cell);
-					try {
-						styleState.cell(
-							dataRow,
-							column,
-							domCell, {
-								row: i,
-								column: j,
-								value: value,
-								columns: {
-									map: columnMap,
-									list: columns
-								}
-							});
-					}
-					finally {
-						cellMonitor.exit(domCell);
+						styleState.cell(dataRow, column, cellContext);
 					}
 				}
+			}
+			finally {
+				rowMonitor.exit(domRow);
+				cellMonitor.exit(domCell);
 			}
 		}
 	}
