@@ -8,6 +8,10 @@ export default class StyleView extends View {
 
 		this.markup = table.markup;
 		this.valueFactory = valueFactory;
+		this.active= {
+			row: false,
+			cell: false
+		};
 
 		this.monitor = {
 			row: new Monitor(model),
@@ -18,12 +22,25 @@ export default class StyleView extends View {
 			this.invalidate();
 		});
 
-		model.styleChanged.watch(() => {
+		model.styleChanged.watch(e => {
+			if (e.hasChanges('row')) {
+				this.active.row = true;
+			}
+
+			if (e.hasChanges('cell')) {
+				this.active.cell = true;
+			}
+
 			this.invalidate();
 		});
 	}
 
 	invalidate() {
+		const active = this.active;
+		if (!(active.row || active.cell)) {
+			return;
+		}
+
 		const markup = this.markup;
 		if (markup.body) {
 			const valueFactory = this.valueFactory;
@@ -42,30 +59,14 @@ export default class StyleView extends View {
 			const domCell = cellMonitor.enter();
 			const domRow = rowMonitor.enter();
 			try {
-
 				for (let i = 0, rowsLength = bodyRows.length; i < rowsLength; i++) {
-					const bodyRow = bodyRows[i];
 					const dataRow = dataRows[i];
-					const rowContext = {
-						class: domRow(bodyRow),
-						row: i,
-						value: value,
-						columns: {
-							map: columnMap,
-							list: columns
-						}
-					};
+					const bodyRow = bodyRows[i];
 
-					styleState.row(dataRow, rowContext);
-
-					const cells = bodyRow.cells;
-					for (let j = 0, cellsLength = cells.length; j < cellsLength; j++) {
-						const cell = cells[j];
-						const column = columns[j];
-						const cellContext = {
-							class: domCell(cell),
+					if(active.row) {
+						const rowContext = {
+							class: domRow(bodyRow),
 							row: i,
-							column: j,
 							value: value,
 							columns: {
 								map: columnMap,
@@ -73,7 +74,27 @@ export default class StyleView extends View {
 							}
 						};
 
-						styleState.cell(dataRow, column, cellContext);
+						styleState.row(dataRow, rowContext);
+					}
+
+					if(active.cell) {
+						const cells = bodyRow.cells;
+						for (let j = 0, cellsLength = cells.length; j < cellsLength; j++) {
+							const cell = cells[j];
+							const column = columns[j];
+							const cellContext = {
+								class: domCell(cell),
+								row: i,
+								column: j,
+								value: value,
+								columns: {
+									map: columnMap,
+									list: columns
+								}
+							};
+
+							styleState.cell(dataRow, column, cellContext);
+						}
 					}
 				}
 			}
