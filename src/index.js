@@ -22,6 +22,7 @@ import HighlightModel from 'core/highlight/highlight.model';
 import VisibilityModel from 'core/visibility/visibility.model';
 import FilterModel from 'core/filter/filter.model';
 import DragModel from 'core/drag/drag.model';
+import StyleModel from 'core/style/style.model';
 
 import PopupModel from 'ng/plugins/popup/popup.model';
 import ColumnChooserModel from 'ng/plugins/column-chooser/column.chooser.model';
@@ -51,6 +52,7 @@ Model.register('grid', GridModel)
 	.register('visibility', VisibilityModel)
 	.register('filter', FilterModel)
 	.register('drag', DragModel)
+	.register('style', StyleModel)
 	.register('columnChooser', ColumnChooserModel)
 	.register('popup', PopupModel);
 

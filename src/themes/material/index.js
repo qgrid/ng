@@ -15,10 +15,12 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.body.cell.bool.edit.tpl.html', require('themes/material/templates/body.cell.bool.edit.html'));
 		theme.put('qgrid.body.cell.date.edit.tpl.html', require('themes/material/templates/body.cell.date.edit.html'));
 		theme.put('qgrid.body.cell.number.edit.tpl.html', require('themes/material/templates/body.cell.number.edit.html'));
+		theme.put('qgrid.body.cell.array.tpl.html', require('themes/material/templates/body.cell.array.html'));
 		theme.put('qgrid.body.cell.array.edit.tpl.html', require('themes/material/templates/body.cell.array.edit.html'));
 		theme.put('qgrid.body.cell.password.edit.tpl.html', require('themes/material/templates/body.cell.password.edit.html'));
 		theme.put('qgrid.body.cell.bool.tpl.html', require('themes/material/templates/body.cell.bool.html'));
 		theme.put('qgrid.body.cell.select.tpl.html', require('themes/material/templates/body.cell.select.html'));
+		theme.put('qgrid.body.cell.row-indicator.tpl.html', require('themes/material/templates/body.cell.row.indicator.html'));
 
 		theme.put('qgrid.head.cell.text.tpl.html', require('themes/material/templates/head.cell.text.html'));
 		theme.put('qgrid.head.cell.bool.tpl.html', require('themes/material/templates/head.cell.text.html'));
