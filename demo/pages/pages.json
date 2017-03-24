@@ -152,8 +152,8 @@
 				"path": "filter-model"
 			},
 			{
-				"title": "Custom Filter Controls",
-				"path": "filter-controls"
+				"title": "Custom Filter",
+				"path": "custom-filter"
 			},
 			{
 				"title": "Column Filter",

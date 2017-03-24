@@ -7711,7 +7711,9 @@ var PredicateVisitor = function (_Visitor) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__resource_resource__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__match__ = __webpack_require__(174);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_utility__ = __webpack_require__(0);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 
 
 
@@ -7722,6 +7724,7 @@ var FilterModel = function FilterModel() {
 	this.resource = new __WEBPACK_IMPORTED_MODULE_0__resource_resource__["a" /* default */]();
 	this.by = {};
 	this.match = __WEBPACK_IMPORTED_MODULE_1__match__["a" /* default */];
+	this.fetch = __WEBPACK_IMPORTED_MODULE_2__services_utility__["b" /* noop */];
 };
 
 /* harmony default export */ __webpack_exports__["a"] = FilterModel;
@@ -14701,7 +14704,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-var Plugin = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__plugin_component__["a" /* default */])('column-filter-panel');
+var Plugin = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__plugin_component__["a" /* default */])('column-filter-panel', { inject: ['$q'] });
 
 var ColumnFilterPanel = function (_Plugin) {
 	_inherits(ColumnFilterPanel, _Plugin);
@@ -14712,6 +14715,7 @@ var ColumnFilterPanel = function (_Plugin) {
 		var _this = _possibleConstructorReturn(this, (ColumnFilterPanel.__proto__ || Object.getPrototypeOf(ColumnFilterPanel)).apply(this, arguments));
 
 		_this.by = new Set();
+		_this.items = [];
 
 		_this.toggle = new __WEBPACK_IMPORTED_MODULE_1_core_infrastructure_command__["a" /* default */]({
 			execute: function execute(item) {
@@ -14798,6 +14802,8 @@ var ColumnFilterPanel = function (_Plugin) {
 
 			var filterBy = this.model.filter().by[this.key];
 			this.by = new Set(filterBy && filterBy.items || []);
+
+			this.fetch();
 		}
 	}, {
 		key: 'state',
@@ -14818,15 +14824,25 @@ var ColumnFilterPanel = function (_Plugin) {
 		key: 'onReset',
 		value: function onReset() {}
 	}, {
-		key: 'items',
-		get: function get() {
-			return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_core_services_utility__["h" /* uniq */])(this.model.data().rows.map(this.getValue));
+		key: 'fetch',
+		value: function fetch() {
+			var _this2 = this;
+
+			var filterState = this.model.filter();
+			if (filterState.fetch !== __WEBPACK_IMPORTED_MODULE_2_core_services_utility__["b" /* noop */]) {
+				filterState.fetch(this.key, { value: this.getValue.bind(this) }).then(function (items) {
+					_this2.items = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_core_services_utility__["h" /* uniq */])(items);
+				});
+			} else {
+				this.items = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_core_services_utility__["h" /* uniq */])(this.model.view().rows.map(this.getValue));
+			}
 		}
 	}]);
 
 	return ColumnFilterPanel;
 }(Plugin);
 
+ColumnFilterPanel;
 /* harmony default export */ __webpack_exports__["a"] = ColumnFilterPanel.component({
 	controller: ColumnFilterPanel,
 	controllerAs: '$columnFilterPanel',
