@@ -55,6 +55,8 @@ md-sidenav {
 }
 
 md-toolbar {
+	background-color: #267ED5 !important;
+	display: none !important;
 	h1 {
 		margin: auto;
 		font-size: 1.250em;
@@ -63,6 +65,9 @@ md-toolbar {
 }
 
 @media (max-width: 959px) {
+	md-toolbar {
+		display: flex !important;
+	}
 	#content {
 		padding: 5px 10px !important;
 		> .md-title {

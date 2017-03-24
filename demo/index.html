@@ -24,30 +24,18 @@
 </head>
 <body ng-cloak layout="column" ng-controller="Demo.App.Controller as $ctrl">
 
-<!--<md-toolbar layout="row" class="md-toolbar-tools">-->
-<!--<md-button class="menu md-icon-button"-->
-<!--ng-cloak-->
-<!--hide-gt-sm-->
-<!--ng-click="$ctrl.toggleMenu()"-->
-<!--aria-label="Show example list">-->
-<!--<md-icon>menu</md-icon>-->
-<!--</md-button>-->
-<!--<h1 class="logo">-->
-<!--<a href="./#!/home">qgrid examples</a>-->
-<!--for-->
-<!--<theme-selector items="$ctrl.themes"-->
-<!--selection="$ctrl.theme"-->
-<!--selection-changed="$ctrl.onThemeChanged($selection)">-->
-<!--</theme-selector>-->
-<!--theme-->
-<!--</h1>-->
-<!--<a href="https://github.com/qgrid/ng">-->
-<!--<img style="position: absolute; top: 0; right: 0; border: 0; width: 80px; height: 80px;"-->
-<!--src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67"-->
-<!--alt="Fork me on GitHub"-->
-<!--data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png">-->
-<!--</a>-->
-<!--</md-toolbar>-->
+<md-toolbar layout="row" class="md-toolbar-tools">
+	<md-button class="menu md-icon-button"
+				  ng-cloak
+				  hide-gt-sm
+				  ng-click="$ctrl.toggleMenu()"
+				  aria-label="Show example list">
+		<md-icon>menu</md-icon>
+	</md-button>
+	<h1 class="logo">
+		<a href="./#!/home">qgrid</a>
+	</h1>
+</md-toolbar>
 
 <div flex layout="row">
 	<md-sidenav class="md-whiteframe-4dp"
