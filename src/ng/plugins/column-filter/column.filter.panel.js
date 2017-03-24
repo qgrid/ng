@@ -4,7 +4,7 @@ import {uniq, clone, noop} from 'core/services/utility';
 import {getFactory as valueFactory} from 'ng/services/value';
 import * as columnService from 'core/column/column.service';
 
-const Plugin = PluginComponent('column-filter-panel', {inject: ['$q']});
+const Plugin = PluginComponent('column-filter-panel');
 class ColumnFilterPanel extends Plugin {
 	constructor() {
 		super(...arguments);
@@ -108,7 +108,6 @@ class ColumnFilterPanel extends Plugin {
 	}
 }
 
-ColumnFilterPanel
 export default ColumnFilterPanel.component({
 	controller: ColumnFilterPanel,
 	controllerAs: '$columnFilterPanel',
