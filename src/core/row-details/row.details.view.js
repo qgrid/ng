@@ -12,10 +12,15 @@ export default class RowDetailsView extends View {
 		super(model);
 
 		this.markup = markup;
-		this.toggleExpand = new Command({
-			execute: (item, state) => {
-				
+		this.toggleStatus = new Command({
+			execute: (row, state) => {
+				console.log(row, state);
 			}
 		});
+	}
+
+	status(row) {
+		console.log(row);
+		return 'expand';//node.state.expand ? 'expand' : 'collapse';
 	}
 }

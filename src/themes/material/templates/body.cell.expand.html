@@ -1,5 +1,6 @@
 <div>
-	<button>
-		<span ng-bind="'+'"></span>
+	<button ng-click="$view.rowDetails.toggleStatus.execute($cell.row)"
+			  ng-if="$view.rowDetails.toggleStatus.canExecute($cell.row)">
+		<span ng-bind="$view.rowDetails.status($cell.row) === 'expand' ? '-' : '+'" ></span>
 	</button>
 </div>
