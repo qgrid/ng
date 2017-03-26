@@ -1,29 +1,35 @@
 import {GRID_PREFIX} from 'core/definition';
 
-export default class RowDetailsBehavior {
-	constructor(model) {
-		this.model = model;
+const EXPANDED_CLASS = `${GRID_PREFIX}-details-expanded`;
 
+export default class RowDetailsBehavior {
+	constructor(model, rowSelector) {
+		this.model = model;
+		this.rowSelector = rowSelector;
 		this.rows = new Set();
 	}
+	
+	toggle(item) {
+		this.select(item, !this.state(item));
+	}
 
-	state(cell, state) {
+	select(item, state) {
+		const row = this.rowSelector(item);
 		if (state) {
-			cell.classList.add(`${GRID_PREFIX}-selected`);
+			this.rows.add(item);
+			row.classList.add(EXPANDED_CLASS);
 		}
 		else {
-			cell.classList.remove(`${GRID_PREFIX}-selected`);
+			this.rows.delete(item);
+			row.classList.remove(EXPANDED_CLASS);
 		}
 	}
 
-	update(items) {
-		this.clear();
-
-		this.cells = new Set(this.cellSelector(items));
-		this.cells.forEach(cell => this.state(cell, true));
+	state(item) {
+		return this.rows.has(item);
 	}
 
 	clear() {
-		this.cells.forEach(cell => this.state(cell, false));
+		this.rows = new Set();
 	}
 }

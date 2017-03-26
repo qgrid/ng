@@ -60,7 +60,7 @@ class ViewCore extends Component {
 		this.edit = new EditView(model, setValue, markup, apply);
 		this.style = new StyleView(model, table, valueFactory);
 		this.pagination = new PaginationView(model);
-		this.rowDetails = new RowDetailsView(model);
+		this.rowDetails = new RowDetailsView(model, markup);
 
 		// TODO: how we can avoid that?
 		this.$scope.$watch(() => {

@@ -125,25 +125,31 @@ export default class HighlightView extends View {
 		const head = this.markup.head;
 		if (head.rows.length) {
 			for (let row of head.rows) {
-				row.cells[index].classList.add(`${GRID_PREFIX}-${cls}`);
-				if (index > 0) {
-					row.cells[index - 1].classList.add(`${GRID_PREFIX}-${cls}-prev`);
-				}
+				if (row.cells.length > index) {
+					row.cells[index].classList.add(`${GRID_PREFIX}-${cls}`);
+					if (index > 0) {
+						row.cells[index - 1].classList.add(`${GRID_PREFIX}-${cls}-prev`);
+					}
 
-				if (index < head.rows.length - 1) {
-					row.cells[index + 1].classList.add(`${GRID_PREFIX}-${cls}-next`);
+					if (index < head.rows.length - 1) {
+						row.cells[index + 1].classList.add(`${GRID_PREFIX}-${cls}-next`);
+					}
 				}
 			}
 		}
 
 		const body = this.markup.body;
 		for (let row of body.rows) {
-			row.cells[index].classList.add(`${GRID_PREFIX}-${cls}`);
+			if (row.cells.length > index) {
+				row.cells[index].classList.add(`${GRID_PREFIX}-${cls}`);
+			}
 		}
 
 		const foot = this.markup.foot;
 		for (let row of foot.rows) {
-			row.cells[index].classList.add(`${GRID_PREFIX}-${cls}`);
+			if (row.cells.length > index) {
+				row.cells[index].classList.add(`${GRID_PREFIX}-${cls}`);
+			}
 		}
 
 		return this.blur(key, cls);
@@ -159,25 +165,31 @@ export default class HighlightView extends View {
 			const head = this.markup.head;
 			if (head.rows.length) {
 				for (let row of head.rows) {
-					row.cells[index].classList.remove(`${GRID_PREFIX}-${cls}`);
-					if (index > 0) {
-						row.cells[index - 1].classList.remove(`${GRID_PREFIX}-${cls}-prev`);
-					}
+					if (row.cells.length > index) {
+						row.cells[index].classList.remove(`${GRID_PREFIX}-${cls}`);
+						if (index > 0) {
+							row.cells[index - 1].classList.remove(`${GRID_PREFIX}-${cls}-prev`);
+						}
 
-					if (index < head.rows.length - 1) {
-						row.cells[index + 1].classList.remove(`${GRID_PREFIX}-${cls}-next`);
+						if (index < head.rows.length - 1) {
+							row.cells[index + 1].classList.remove(`${GRID_PREFIX}-${cls}-next`);
+						}
 					}
 				}
 			}
 
 			const body = this.markup.body;
 			for (let row of body.rows) {
-				row.cells[index].classList.remove(`${GRID_PREFIX}-${cls}`);
+				if (row.cells.length > index) {
+					row.cells[index].classList.remove(`${GRID_PREFIX}-${cls}`);
+				}
 			}
 
 			const foot = this.markup.foot;
 			for (let row of foot.rows) {
-				row.cells[index].classList.remove(`${GRID_PREFIX}-${cls}`);
+				if (row.cells.length > index) {
+					row.cells[index].classList.remove(`${GRID_PREFIX}-${cls}`);
+				}
 			}
 		};
 	}
