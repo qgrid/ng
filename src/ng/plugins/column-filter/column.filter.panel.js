@@ -1,6 +1,6 @@
 import PluginComponent from '../plugin.component';
 import Command from 'core/infrastructure/command';
-import {uniq, clone} from 'core/services/utility';
+import {uniq, clone, noop} from 'core/services/utility';
 import {getFactory as valueFactory} from 'ng/services/value';
 import * as columnService from 'core/column/column.service';
 
@@ -10,6 +10,7 @@ class ColumnFilterPanel extends Plugin {
 		super(...arguments);
 
 		this.by = new Set();
+		this.items = [];
 
 		this.toggle = new Command({
 			execute: (item) => {
@@ -73,6 +74,8 @@ class ColumnFilterPanel extends Plugin {
 
 		const filterBy = this.model.filter().by[this.key];
 		this.by = new Set((filterBy && filterBy.items) || []);
+
+		this.fetch();
 	}
 
 	state(item) {
@@ -87,11 +90,21 @@ class ColumnFilterPanel extends Plugin {
 		return !this.stateAll() && this.items.some(this.state.bind(this));
 	}
 
-	get items() {
-		return uniq(this.model.data().rows.map(this.getValue));
+	onReset() {
 	}
 
-	onReset() {
+	fetch() {
+		const filterState = this.model.filter();
+		if (filterState.fetch !== noop) {
+			filterState
+				.fetch(this.key, {value: this.getValue.bind(this)})
+				.then(items => {
+					this.items = uniq(items);
+				});
+		}
+		else {
+			this.items = uniq(this.model.data().rows.map(this.getValue));
+		}
 	}
 }
 

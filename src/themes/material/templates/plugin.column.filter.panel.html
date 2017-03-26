@@ -1,6 +1,6 @@
 <div class="q-grid-column-filter-panel" layout="column" flex="100">
-	<div flex="none">
-		<md-input-container class="q-grid-column-chooser-filter">
+	<div flex="none" layout="row">
+		<md-input-container class="q-grid-column-filter-filter">
 			<label>Search</label>
 			<input type="text"
 					 ng-model="$columnFilterPanel.filter"
@@ -18,7 +18,7 @@
 			</li>
 			</li>
 		</ul>
-		<ul class="q-grid-column-chooser-list">
+		<ul class="q-grid-column-filter-list">
 			<li ng-repeat="item in $columnFilterPanel.items | filter: $columnFilterPanel.filter">
 				<md-checkbox ng-checked="$columnFilterPanel.state(item)"
 								 ng-if="$columnFilterPanel.toggle.canExecute(item)"

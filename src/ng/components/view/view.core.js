@@ -1,7 +1,6 @@
 import Component from '../component';
 import {getFactory as valueFactory, set as setValue} from 'ng/services/value';
 import Table from 'ng/services/table';
-import * as css from 'core/services/css';
 import BodyView from 'core/body/body.view';
 import HeadView from 'core/head/head.view';
 import FootView from 'core/foot/foot.view';
@@ -17,6 +16,7 @@ import SelectionView from 'core/selection/selection.view';
 import PaginationView from 'core/pagination/pagination.view';
 import TableView from 'core/table/table.view';
 import RowDetailsView from 'core/row-details/row.details.view';
+import StyleView from 'core/style/style.view';
 import {GRID_NAME, TH_CORE_NAME} from 'ng/definition';
 import {isUndefined} from 'core/services/utility';
 
@@ -58,13 +58,18 @@ class ViewCore extends Component {
 		this.sort = new SortView(model);
 		this.filter = new FilterView(model);
 		this.edit = new EditView(model, setValue, markup, apply);
+		this.style = new StyleView(model, table, valueFactory);
 		this.pagination = new PaginationView(model);
 		this.rowDetails = new RowDetailsView(model);
+
+		// TODO: how we can avoid that?
+		this.$scope.$watch(() => {
+			this.style.invalidate();
+		});
 	}
 
 	onDestroy() {
-		const id = this.model.grid().id;
-		css.removeStyle(id);
+		this.layout.destroy();
 		this.nav.destroy();
 		this.selection.destroy();
 	}
