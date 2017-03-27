@@ -182,7 +182,6 @@ export default class HighlightView extends View {
 				const cells = table.foot.column(index).cells();
 				cells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}`));
 			}
-
 		};
 	}
 }
