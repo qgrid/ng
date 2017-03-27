@@ -9655,6 +9655,30 @@ var PaginationView = function (_View) {
 				});
 			}
 		});
+
+		model.filterChanged.watch(function (e) {
+			if (e.hasChanges('by')) {
+				model.pagination({
+					current: 0
+				});
+			}
+		});
+
+		model.pivotChanged.watch(function (e) {
+			if (e.hasChanges('by')) {
+				model.pagination({
+					current: 0
+				});
+			}
+		});
+
+		model.groupChanged.watch(function (e) {
+			if (e.hasChanges('by')) {
+				model.pagination({
+					current: 0
+				});
+			}
+		});
 		return _this;
 	}
 
@@ -14834,7 +14858,7 @@ var ColumnFilterPanel = function (_Plugin) {
 					_this2.items = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_core_services_utility__["h" /* uniq */])(items);
 				});
 			} else {
-				this.items = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_core_services_utility__["h" /* uniq */])(this.model.view().rows.map(this.getValue));
+				this.items = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_core_services_utility__["h" /* uniq */])(this.model.data().rows.map(this.getValue));
 			}
 		}
 	}]);
@@ -15172,6 +15196,11 @@ var Pager = function (_Plugin) {
 		get: function get() {
 			return this.model.pagination().count;
 		}
+	}, {
+		key: 'totalPages',
+		get: function get() {
+			return Math.max(1, Math.ceil(this.total / this.size));
+		}
 	}]);
 
 	return Pager;
@@ -15182,7 +15211,8 @@ var Pager = function (_Plugin) {
 	controllerAs: '$pager',
 	bindings: {
 		'paginationSize': '<size',
-		'paginationSizeList': '<sizeList'
+		'paginationSizeList': '<sizeList',
+		'mode': '@'
 	}
 });
 
