@@ -7,7 +7,7 @@ export default (model, markup) => {
 		const rows = model.view().rows;
 		
 		for (let item of items) {
-			const index = rows.indexOf(item);
+			const index = rows.indexOf(item) * 2;
 			if (index > -1 && markup.body.rows[index]) {
 				for (let cell of markup.body.rows[index].cells) {
 					result.push(cell);
@@ -26,7 +26,9 @@ export default (model, markup) => {
 			const index = columns.findIndex((c) => c.model === item);
 			if (index > -1) {
 				for (let row of markup.body.rows) {
-					result.push(row.cells[index]);
+					if (row.cells[index]) {
+						result.push(row.cells[index]);
+					}
 				}
 			}
 		}
@@ -40,7 +42,7 @@ export default (model, markup) => {
 		const columns = columnService.lineView(model.view().columns);
 
 		for (let item of items) {
-			const rowIndex = rows.indexOf(item.row);
+			const rowIndex = rows.indexOf(item.row) * 2;
 			const columnIndex = columns.findIndex((c) => c.model === item.column);
 
 			if (rowIndex > -1 && markup.body.rows[rowIndex]) {
