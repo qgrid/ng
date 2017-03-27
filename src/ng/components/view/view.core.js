@@ -58,6 +58,8 @@ class ViewCore extends Component {
 		this.filter = new FilterView(model);
 		this.edit = new EditView(model, setValue, markup, apply);
 		this.pagination = new PaginationView(model);
+		this.style = new StyleView(model, table, valueFactory);
+
 
 		// TODO: how we can avoid that?
 		this.$scope.$watch(() => {
