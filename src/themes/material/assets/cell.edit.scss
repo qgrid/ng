@@ -17,6 +17,7 @@ td.q-grid-edit {
 		-webkit-flex-direction: column;
 		flex-direction: column;
 		z-index: 1;
+		box-sizing: content-box;
 
 		md-input-container {
 			padding: 0;
