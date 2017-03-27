@@ -103,13 +103,15 @@
 *	Export
 	*	Excel
 	*	Csv
+*  Column Types
+	* File
+	* Time
+	* Image
+	* Url
+	* Enum
 *	Embedded Editors
 	*	Auto-complete
 	*	Dropdown
-	*	File
-	*	Time
-	*	Image
-	*	Url
 *	Column
 	* Custom types
 	* Percent width
