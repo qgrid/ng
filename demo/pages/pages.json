@@ -3,8 +3,12 @@
 		"title": "Highlights",
 		"items": [
 			{
-				"title": "First Look",
+				"title": "Home",
 				"path": "home"
+			},
+			{
+				"title": "First Look",
+				"path": "first-look"
 			},
 			{
 				"title": "Sandbox",
@@ -152,8 +156,8 @@
 				"path": "filter-model"
 			},
 			{
-				"title": "Custom Filter Controls",
-				"path": "filter-controls"
+				"title": "Custom Filter",
+				"path": "custom-filter"
 			},
 			{
 				"title": "Column Filter",

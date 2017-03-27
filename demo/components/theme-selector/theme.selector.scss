@@ -1,8 +1,27 @@
+$size: 16px;
+
 theme-selector {
-	md-input-container {
-		margin: -4px 0 0 0;
-		md-select{
-			color: #EE7600;
+	md-menu {
+		width: $size;
+		height: $size;
+		min-width: $size;
+		min-height: $size;
+		> .md-button.md-icon-button {
+			width: $size;
+			height: $size;
+			min-width: $size;
+			min-height: $size;
+			margin: 0;
+			padding: 0;
+			border-radius: $size;
+			md-icon {
+				color: #fff;
+				width: $size;
+				height: $size;
+				min-width: $size;
+				min-height: $size;
+				font-size: $size;
+			}
 		}
 	}
 }
