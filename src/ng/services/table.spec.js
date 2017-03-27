@@ -17,20 +17,71 @@ describe('Table', () => {
 		'<td class="q-grid-rowIndicator q-grid-row-indicator">Kandra</td></tr><tr><td class="q-grid-rowIndicator q-grid-row-indicator">' +
 		'Schmith</td><td class="q-grid-rowIndicator q-grid-row-indicator">Jeff</td></tr></tbody></table>'
 	};
-	const table = new Table(markup);
+	const markupEmpty = {};
+	const tableArr = [new Table(markup), new Table(markupEmpty)];
 
-	it('should return parts of table', () => {
-		expect(table.body).to.be.ok;
-
+	describe('table should have properties and they should be objects', () => {
+		describe('markup', () => {
+			it('body', () => {
+				for (let table of tableArr) {
+					expect(table).to.have.property('body');
+					expect(table.body).to.be.instanceOf(Object);
+				}
+			});
+			it('head', () => {
+				for (let table of tableArr) {
+					expect(table).to.have.property('head');
+					expect(table.head).to.be.instanceOf(Object);
+				}
+			});
+			it('foot', () => {
+				for (let table of tableArr) {
+					expect(table).to.have.property('foot');
+					expect(table.foot).to.be.instanceOf(Object);
+				}
+			});
+		});
 	});
-	describe('Cell', () => {
-		const cell = '<td class="q-grid-name.last q-grid-text"><span>Sance</span></td>';
-		it('should create class cell', () => {
+
+	describe('empty markup call to properties check', () => {
+		const table = tableArr[1];
+		it('column', () => {
+			expect(table.body.column()).to.be.instanceOf(Object);
+			expect(table.body.column()).to.have.property('cells');
+			expect(table.body.column().cells).to.be.instanceOf(Array);
+			expect(table.body.column().cells).to.have.lengthOf(0);
 		});
-		it('should add css class to cell', () => {
-			// addClass(element, 'test-class');
-			//
-			// assert.equal(element.className, 'test-class');
+		it('row', () => {
+			expect(table.body.row()).to.be.instanceOf(Object);
+			expect(table.body.row()).to.have.property('cells');
+			expect(table.body.row().cells).to.be.instanceOf(Array);
+			expect(table.body.row().cells).to.have.lengthOf(0);
 		});
-	})
+		it('cell', () => {
+			expect(table.body.cell()).to.be.null;
+			expect(table.head.cell()).to.be.null;
+			expect(table.foot.cell()).to.be.null;
+		});
+	});
+	describe('normal markup call to properties check', () => {
+		const table = tableArr[0];
+		it('column', () => {
+			expect(table.body.column(0)).to.be.instanceOf(Object);
+			expect(table.body.column(0)).to.have.property('cells');
+			expect(table.body.column(0).cells).to.be.instanceOf(Array);
+			expect(table.body.column(0).cells).to.have.lengthOf(4);
+		});
+		it('row', () => {
+			expect(table.body.row(0)).to.be.instanceOf(Object);
+			expect(table.body.row(0)).to.have.property('cells');
+			expect(table.body.row(0).cells).to.be.instanceOf(Array);
+			expect(table.body.row(0).cells).to.have.lengthOf(2);
+		});
+		it('cell', () => {
+			expect(table.body.cell(0, 0)).to.be.null;
+			expect(table.head.cell(0, 0)).to.be.null;
+			expect(table.foot.cell(0, 0)).to.be.null;
+		});
+	});
+
 });
