@@ -430,7 +430,8 @@
     -webkit-box-direction: normal;
     -webkit-flex-direction: column;
     flex-direction: column;
-    z-index: 1; }
+    z-index: 1;
+    box-sizing: content-box; }
     .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor md-input-container {
       padding: 0;
       margin: 0; }
