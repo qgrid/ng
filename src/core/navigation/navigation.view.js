@@ -24,7 +24,7 @@ export default class NavigationView extends View {
 			canExecute: (row, column) => {
 				return this.rows.length > row
 					&& table.body.row(row)
-					&& table.body.row(row).cells.length > column;
+					&& table.body.row(row).cells().length > column;
 			}
 		});
 		this.focus = new Command({
@@ -35,7 +35,7 @@ export default class NavigationView extends View {
 			canExecute: (row, column) => {
 				return this.rows.length > row
 					&& table.body.row(row)
-					&& table.body.row(row).cells.length > column;
+					&& table.body.row(row).cells().length > column;
 			}
 		});
 		this.scrollTo = new Command({
@@ -46,7 +46,7 @@ export default class NavigationView extends View {
 			canExecute: (row, column) => {
 				return this.rows.length > row
 					&& table.body.row(row)
-					&& table.body.row(row).cells.length > column;
+					&& table.body.row(row).cells().length > column;
 			}
 		});
 

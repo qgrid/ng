@@ -1,10 +1,18 @@
 class Dom {
 	column() {
-		return {cells: []};
+		return {
+			cells: () => {
+				return [];
+			}
+		};
 	}
 
 	row() {
-		return {cells: []};
+		return {
+			cells: () => {
+				return [];
+			}
+		};
 	}
 
 	cell() {
@@ -24,7 +32,7 @@ class TableDom extends Dom {
 	column(index) {
 		const element = this.element;
 		const cellsCount = element.rows[0].cells.length;
-		if (index >= 0 && index < cellsCount){
+		if (index >= 0 && index < cellsCount) {
 			return new ColumnDom(element, index);
 		}
 		return null;
@@ -75,7 +83,7 @@ class RowDom extends Dom {
 		this.element = element;
 	}
 
-	get cells() {
+	cells() {
 		const row = this.element;
 		const cellsCount = row.cells.length;
 		const result = [];
@@ -93,13 +101,13 @@ class ColumnDom extends Dom {
 		this.index = index;
 	}
 
-	get cells() {
+	cells() {
 		const index = this.index;
 		const rows = this.element.rows;
 		const result = [];
-			for (let i = 0; i < rows.length; i++) {
-				const cell = rows[i].cells[index];
-				result.push(new CellDom(cell));
+		for (let i = 0; i < rows.length; i++) {
+			const cell = rows[i].cells[index];
+			result.push(new CellDom(cell));
 		}
 		return result;
 	}
