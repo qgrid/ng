@@ -3,8 +3,12 @@
 		"title": "Highlights",
 		"items": [
 			{
-				"title": "First Look",
+				"title": "Home",
 				"path": "home"
+			},
+			{
+				"title": "First Look",
+				"path": "first-look"
 			},
 			{
 				"title": "Sandbox",
