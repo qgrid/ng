@@ -63,6 +63,10 @@ class Pager extends Plugin {
 	get total() {
 		return this.model.pagination().count;
 	}
+
+	get totalPages() {
+		return Math.max(1, Math.ceil(this.total / this.size));
+	}
 }
 
 export default Pager.component({
@@ -70,6 +74,7 @@ export default Pager.component({
 	controllerAs: '$pager',
 	bindings: {
 		'paginationSize': '<size',
-		'paginationSizeList': '<sizeList'
+		'paginationSizeList': '<sizeList',
+		'mode': '@'
 	}
 });
