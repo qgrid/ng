@@ -44,6 +44,7 @@ class ViewCore extends Component {
 			return this.$timeout(f, timeout);
 		};
 
+		this.style = new StyleView(model, table, valueFactory);
 		this.table = new TableView(model);
 		this.head = new HeadView(model, service, TH_CORE_NAME);
 		this.body = new BodyView(model, table, valueFactory);
@@ -56,10 +57,8 @@ class ViewCore extends Component {
 		this.highlight = new HighlightView(model, table, apply);
 		this.sort = new SortView(model);
 		this.filter = new FilterView(model);
-		this.edit = new EditView(model, setValue, markup, apply);
+		this.edit = new EditView(model, setValue, table, apply);
 		this.pagination = new PaginationView(model);
-		this.style = new StyleView(model, table, valueFactory);
-
 
 		// TODO: how we can avoid that?
 		this.$scope.$watch(() => {
