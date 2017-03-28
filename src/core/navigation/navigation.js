@@ -29,6 +29,7 @@ export default class Navigation {
 
 	get commands() {
 		const model = this.model;
+		const markup = this.markup;
 		const commands = {
 			goDown: new Command({
 				shortcut: 'down',
@@ -78,7 +79,7 @@ export default class Navigation {
 							row: 0
 						});
 					} else if (isLastCell && isLastRow) {
-						this.markup.table.blur();
+						markup.table.blur();
 					} else if (isLastCell && !isLastRow) {
 						model.navigation({
 							column: 0,
@@ -89,9 +90,28 @@ export default class Navigation {
 					}
 				}
 			}),
+			shiftTab: new Command({
+				shortcut: 'Shift+tab',
+				canExecute: () => model.edit().editMode == 'view',
+				execute: () => {
+					const navigationState = model.navigation();
+					const isFirstCell = navigationState.column === 0;
+					const isFirstRow = navigationState.row === 0;
+					if (isFirstCell && isFirstRow) {
+						markup.table.blur();
+					} else if (isFirstCell && !isFirstRow) {
+						model.navigation({
+							column: columnService.lineView(model.view().columns).length - 2,
+							row: navigationState.row - 1
+						});
+					} else {
+						model.navigation({column: navigationState.column - 1});
+					}
+				}
+			}),
 			goLeft: new Command({
 				shortcut: 'left',
-				canExecute: () => (model.navigation().column > 0) && model.edit().editMode == 'view',
+				canExecute: () => model.navigation().column > 0 && model.edit().editMode == 'view',
 				execute: () => {
 					model.navigation({column: model.navigation().column - 1});
 				}
@@ -123,7 +143,7 @@ export default class Navigation {
 				shortcut: 'pageUp',
 				canExecute: () => model.edit().editMode == 'view',
 				execute: () => {
-					const body = this.markup.body;
+					const body = markup.body;
 					const {row: row, offset: offset} = this.moveTo(body.scrollTop - body.getBoundingClientRect().height, false);
 					if (body.rows[row]) {
 						body.scrollTop = offset;
@@ -135,7 +155,7 @@ export default class Navigation {
 				shortcut: 'pageDown',
 				canExecute: () => model.edit().editMode == 'view',
 				execute: () => {
-					const body = this.markup.body;
+					const body = markup.body;
 					const {row: row, offset: offset} = this.moveTo(body.scrollTop + body.getBoundingClientRect().height, true);
 					if (body.rows[row]) {
 						body.scrollTop = offset;
