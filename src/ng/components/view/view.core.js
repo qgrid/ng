@@ -15,7 +15,7 @@ import EditView from 'core/edit/edit.view';
 import SelectionView from 'core/selection/selection.view';
 import PaginationView from 'core/pagination/pagination.view';
 import TableView from 'core/table/table.view';
-import RowDetailsView from 'core/row-details/row.details.view';
+import RowDetailsView from 'core/row/row.details.view';
 import StyleView from 'core/style/style.view';
 import {GRID_NAME, TH_CORE_NAME} from 'ng/definition';
 import {isUndefined} from 'core/services/utility';

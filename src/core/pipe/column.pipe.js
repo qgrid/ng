@@ -65,11 +65,11 @@ function groupColumnFactory(model, nodes) {
 
 function expandColumnFactory(model) {
 	const dataColumns = model.data().columns;
-	const rowDetails = model.rowDetails();
+	const row = model.row();
 
 	const expandColumn = dataColumns.find(item => item.type === 'expand');
 
-	if (!expandColumn && rowDetails.isVisible) {
+	if (!expandColumn && row.mode === 'details') {
 		const createColumn = columnFactory(model);
 		return (columns, context) => {
 			const expandColumn = createColumn('expand');

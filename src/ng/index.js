@@ -10,7 +10,6 @@ import Row from './components/row/row';
 import Toolbar from './components/toolbar/toolbar';
 import Drag from './components/dnd/drag';
 import Drop from './components/dnd/drop';
-import RowDetails from './components/row/row-details';
 import RowDetailsCore from './components/row/row-details.core';
 
 import BoxCore from './components/grid/box.core';
@@ -65,7 +64,6 @@ const layoutModel = angular.module(def.MODULE_LAYOUT_NAME, [coreModule])
 	.component(def.ROW_NAME, Row)
 	.component(def.TOOLBAR_NAME, Toolbar)
 	.component(def.TOOLBAR_CORE_NAME, ToolbarCore)
-	.component(def.ROW_DETAILS_NAME, RowDetails)
 	.directive(def.TEMPLATE_NAME, () => Template)
 	.directive(def.MARKUP_NAME, () => Markup)
 	.directive(def.TR_CORE_NAME, () => TrCore)

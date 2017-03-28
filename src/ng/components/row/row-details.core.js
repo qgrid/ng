@@ -12,16 +12,40 @@ class RowDetailsCore extends Directive(ROW_DETAILS_CORE_NAME, {view: `^^${VIEW_C
 	}
 
 	onInit() {
-		const state = this.model.rowDetails();
-		
-		if (state.isVisible) {
-			const link = this.template.link(
-				`qgrid.body.row.details.tpl.html`,
-				state.resource
-			);
+		const model = this.model;
+		model.rowChanged.watch((e) => {
+			if (e.hasChanges('mode')) {
+				if (model.row().mode === 'details') {
+					this.show();
+				} else {
+					this.hide();
+				}
+			}
+		});
+	}
 
-			link(this.$element, this.$scope);
+	show() {
+		const state = this.model.row();
+		const templateUrl = `qgrid.body.row.details.tpl.html`;
+		const templateScope = this.$scope.$new();
+		const link = this.template.link(
+			templateUrl,
+			state.resource,
+			['details', '$default']
+		);
+
+		link(this.$element, templateScope);
+	}
+
+	hide() {
+		if (this.templateScope) {
+			this.templateScope.$destroy();
+			this.$element[0].innerHTML = '';
 		}
+	}
+
+	get isShown() {
+		return this.templateScope !== null;
 	}
 
 	get row() {

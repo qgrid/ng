@@ -8,7 +8,6 @@ import LayoutModel from 'core/layout/layout.model';
 import NavigationModel from 'core/navigation/navigation.model';
 import ColumnListModel from 'core/column-list/column.list.model';
 import RowModel from 'core/row/row.model';
-import RowDetailsModel from 'core/row-details/row.details.model';
 import SelectionModel from 'core/selection/selection.model';
 import FootModel from 'core/foot/foot.model';
 import SortModel from './core/sort/sort.model';
@@ -40,7 +39,6 @@ Model.register('grid', GridModel)
 	.register('foot', FootModel)
 	.register('layout', LayoutModel)
 	.register('row', RowModel)
-	.register('rowDetails', RowDetailsModel)
 	.register('columnList', ColumnListModel)
 	.register('sort', SortModel)
 	.register('group', GroupModel)
