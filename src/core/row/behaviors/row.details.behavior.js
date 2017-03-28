@@ -1,7 +1,3 @@
-import {GRID_PREFIX} from 'core/definition';
-
-const EXPANDED_CLASS = `${GRID_PREFIX}-details-expanded`;
-
 export default class RowDetailsBehavior {
 	constructor(model, rowSelector) {
 		this.model = model;
@@ -17,11 +13,11 @@ export default class RowDetailsBehavior {
 		const row = this.rowSelector(item);
 		if (state) {
 			this.rows.add(item);
-			row.classList.add(EXPANDED_CLASS);
+			row.classList.add('expanded');
 		}
 		else {
 			this.rows.delete(item);
-			row.classList.remove(EXPANDED_CLASS);
+			row.classList.remove('expanded');
 		}
 	}
 

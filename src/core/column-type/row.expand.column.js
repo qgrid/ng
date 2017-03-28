@@ -2,30 +2,29 @@ import ColumnView from 'core/column-type/column.view';
 import TemplatePath from 'core/template/template.path';
 import ColumnModel from './column.model';
 
-TemplatePath.register('expand-cell', (template, column) => {
+TemplatePath.register('row-expand-cell', (template, column) => {
 	return {
 		model: template.for,
 		resource: column.key
 	};
 });
 
-class ExpandColumnModel extends ColumnModel {
+class RowExpandColumnModel extends ColumnModel {
 	constructor() {
-		super('expand');
-
-		this.key = '$expand';
+		super('row-expand');
+		this.key = '$row.expand';
 		this.title = 'Expand';
 		this.canEdit = false;
 		this.canResize = false;
 	}
 }
 
-export default class ExpandColumn extends ColumnView {
+export default class RowExpandColumn extends ColumnView {
 	constructor(model) {
 		super(model);
 	}
 
 	static model(model) {
-		return model ? ExpandColumn.assign(model) : new ExpandColumnModel();
+		return model ? RowExpandColumn.assign(model) : new RowExpandColumnModel();
 	}
 }

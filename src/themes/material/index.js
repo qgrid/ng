@@ -20,7 +20,7 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.body.cell.password.edit.tpl.html', require('themes/material/templates/body.cell.password.edit.html'));
 		theme.put('qgrid.body.cell.bool.tpl.html', require('themes/material/templates/body.cell.bool.html'));
 		theme.put('qgrid.body.cell.select.tpl.html', require('themes/material/templates/body.cell.select.html'));
-		theme.put('qgrid.body.cell.expand.tpl.html', require('themes/material/templates/body.cell.expand.html'));
+		theme.put('qgrid.body.cell.row-expand.tpl.html', require('themes/material/templates/body.cell.row.expand.html'));
 		theme.put('qgrid.body.cell.row-indicator.tpl.html', require('themes/material/templates/body.cell.row.indicator.html'));
 
 		theme.put('qgrid.head.cell.text.tpl.html', require('themes/material/templates/head.cell.text.html'));
@@ -32,7 +32,6 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.head.cell.password.tpl.html', require('themes/material/templates/head.cell.text.html'));
 		theme.put('qgrid.head.cell.pivot.tpl.html', require('themes/material/templates/head.cell.pivot.html'));
 		theme.put('qgrid.head.cell.select.tpl.html', require('themes/material/templates/head.cell.select.html'));
-		theme.put('qgrid.head.cell.expand.tpl.html', require('themes/material/templates/head.cell.expand.html'));
 
 		theme.put('qgrid.toolbar.top.tpl.html', require('themes/material/templates/toolbar.top.html'));
 		theme.put('qgrid.plugin.column-chooser.tpl.html', require('themes/material/templates/plugin.column.chooser.html'));

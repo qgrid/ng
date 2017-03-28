@@ -67,21 +67,21 @@ function expandColumnFactory(model) {
 	const dataColumns = model.data().columns;
 	const row = model.row();
 
-	const expandColumn = dataColumns.find(item => item.type === 'expand');
+	const rowExpandColumn = dataColumns.find(item => item.type === 'row-expand');
 
-	if (!expandColumn && row.mode === 'details') {
+	if (!rowExpandColumn && row.mode === 'details') {
 		const createColumn = columnFactory(model);
 		return (columns, context) => {
-			const expandColumn = createColumn('expand');
+			const rowExpandColumn = createColumn('row-expand');
 			const index = columns.length;
-			expandColumn.model.source = 'generation';
-			expandColumn.rowspan = context.rowspan;
-			if (expandColumn.model.index >= 0) {
-				expandColumn.model.index = index;
+			rowExpandColumn.model.source = 'generation';
+			rowExpandColumn.rowspan = context.rowspan;
+			if (rowExpandColumn.model.index >= 0) {
+				rowExpandColumn.model.index = index;
 			}
 
-			columns.push(expandColumn);
-			return expandColumn;
+			columns.push(rowExpandColumn);
+			return rowExpandColumn;
 		};
 	}
 	

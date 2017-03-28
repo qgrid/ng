@@ -122,6 +122,10 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.head.cell.row-indicator.tpl.html', EMPTY);
 		theme.put('qgrid.body.cell.row-indicator.tpl.html', require('./components/cell/row-indicator/body.cell.row.indicator.html'));
 		theme.put('qgrid.foot.cell.row-indicator.tpl.html', EMPTY);
+			
+		theme.put('qgrid.head.cell.row-expand.tpl.html', EMPTY);
+		theme.put('qgrid.body.cell.row-expand.tpl.html', require('./components/cell/row-expand/body.cell.row.expand.html'));
+		theme.put('qgrid.foot.cell.row-expand.tpl.html', EMPTY);
 
 		theme.put('qgrid.head.cell.date.tpl.html', require('./components/cell/text/head.cell.text.html'));
 		theme.put('qgrid.body.cell.date.tpl.html', require('./components/cell/date/body.cell.date.html'));
@@ -156,10 +160,6 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.head.cell.select.tpl.html', require('./components/cell/select/head.cell.select.html'));
 		theme.put('qgrid.body.cell.select.tpl.html', require('./components/cell/select/body.cell.select.html'));
 		theme.put('qgrid.foot.cell.select.tpl.html', EMPTY);
-	
-		theme.put('qgrid.head.cell.expand.tpl.html', require('./components/cell/expand/head.cell.expand.html'));
-		theme.put('qgrid.body.cell.expand.tpl.html', require('./components/cell/expand/body.cell.expand.html'));
-		theme.put('qgrid.foot.cell.expand.tpl.html', EMPTY);
 
 		theme.put('qgrid.body.row.details.tpl.html', require('./components/row/row-details.html'));
 	});
