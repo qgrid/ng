@@ -1,6 +1,6 @@
 <q-grid rows="$ctrl.rows">
 	<q-grid:columns generation="deep"></q-grid:columns>
-	<q-grid:pager size="11" size-list="[11,22,33]">
+	<q-grid:pager size="11" size-list="[11,22,33]" mode="row">
 		<q-grid:template>
 			<div style="padding-top: 20px;">
 				<label>Rows per page:</label>
@@ -14,7 +14,7 @@
 				</button>
 				<button ng-disabled="!$pager.next.canExecute()"
 						  ng-click="$pager.next.execute();">
-					&gt&
+					&gt;
 				</button>
 			</div>
 		</q-grid:template>

@@ -12,7 +12,7 @@ export default function Controller($http, $timeout, qgrid) {
 	ctrl.gridModel.data({
 		pipe: [
 			(data, ctx, next) => {
-				if(isReady) {
+				if (isReady) {
 					ctrl.state.progress = true;
 					ctrl.state.progressCount = ctrl.state.progressCount + 1;
 					$http.get('data/people/100.json')
@@ -23,7 +23,7 @@ export default function Controller($http, $timeout, qgrid) {
 							}, 1000);
 						});
 				}
-				else{
+				else {
 					next([]);
 				}
 			}]

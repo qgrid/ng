@@ -2,23 +2,23 @@ import Command from 'core/infrastructure/command';
 import * as columnService from 'core/column/column.service';
 
 export default class Navigation {
-	constructor(model, markup) {
+	constructor(model, table) {
 		this.model = model;
-		this.document = markup.document;
-		this.markup = markup;
+		this.document = table.markup.document;
+		this.markup = table.markup;
+		this.table = table;
 	}
 
 	moveTo(y, direction) {
-		const body = this.markup.body;
-		const rows = body.rows;
+		const body = this.table.body;
 		let index = 0;
 		let offset = 0;
-		while (offset <= y && rows[index]) {
-			offset += rows[index].clientHeight;
+		while (offset <= y && body.row(index)) {
+			offset += body.row(index).element.clientHeight;
 			index++;
 		}
-		if (direction && rows[index]) {
-			offset -= rows[index].clientHeight;
+		if (direction && body.row(index)) {
+			offset -= body.row(index).element.clientHeight;
 			index--;
 		}
 		return {
@@ -29,18 +29,20 @@ export default class Navigation {
 
 	get commands() {
 		const model = this.model;
+		const markup = this.markup;
 		const commands = {
 			goDown: new Command({
 				shortcut: 'down',
 				canExecute: () => (model.navigation().row < model.view().rows.length - 1) && model.edit().editMode == 'view',
 				execute: () => {
-					if (model.navigation().row == -1 && model.navigation().column == -1) {
+					const navigationState = model.navigation();
+					if (navigationState.row == -1 && navigationState.column == -1) {
 						model.navigation({
 							column: 0,
 							row: 0
 						});
 					} else {
-						model.navigation({row: model.navigation().row + 1});
+						model.navigation({row: navigationState.row + 1});
 					}
 				}
 			}),
@@ -55,13 +57,14 @@ export default class Navigation {
 				shortcut: 'right',
 				canExecute: () => (model.navigation().column < columnService.lineView(model.view().columns).length - 2) && model.edit().editMode == 'view',
 				execute: () => {
-					if (model.navigation().row == -1 && model.navigation().column == -1) {
+					const navigationState = model.navigation();
+					if (navigationState.row == -1 && navigationState.column == -1) {
 						model.navigation({
 							column: 0,
 							row: 0
 						});
 					} else {
-						model.navigation({column: model.navigation().column + 1});
+						model.navigation({column: navigationState.column + 1});
 					}
 				}
 			}),
@@ -78,7 +81,7 @@ export default class Navigation {
 							row: 0
 						});
 					} else if (isLastCell && isLastRow) {
-						this.markup.table.blur();
+						markup.table.blur();
 					} else if (isLastCell && !isLastRow) {
 						model.navigation({
 							column: 0,
@@ -123,24 +126,24 @@ export default class Navigation {
 				shortcut: 'pageUp',
 				canExecute: () => model.edit().editMode == 'view',
 				execute: () => {
-					const body = this.markup.body;
+					const body = markup.body;
 					const {row: row, offset: offset} = this.moveTo(body.scrollTop - body.getBoundingClientRect().height, false);
-					if (body.rows[row]) {
-						body.scrollTop = offset;
-						model.navigation({row: row}, {source: 'navigation'});
-					}
+					body.scrollTop = offset;
+					model.navigation({row: row}, {source: 'navigation'});
 				}
 			}),
 			pageDown: new Command({
 				shortcut: 'pageDown',
 				canExecute: () => model.edit().editMode == 'view',
 				execute: () => {
-					const body = this.markup.body;
-					const {row: row, offset: offset} = this.moveTo(body.scrollTop + body.getBoundingClientRect().height, true);
-					if (body.rows[row]) {
-						body.scrollTop = offset;
-						model.navigation({row: row}, {source: 'navigation'});
+					const body = markup.body;
+					const lastRowIndex = body.rows.length - 1;
+					let {row: row, offset: offset} = this.moveTo(body.scrollTop + body.getBoundingClientRect().height, true);
+					if (row > lastRowIndex) {
+						row = lastRowIndex;
 					}
+					body.scrollTop = offset;
+					model.navigation({row: row}, {source: 'navigation'});
 				}
 			})
 		};

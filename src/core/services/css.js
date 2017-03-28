@@ -1,6 +1,7 @@
 import * as markup from './markup';
+import cssEscape from 'css.escape';
 
-export const escape = CSS.escape;
+export const escape = cssEscape;
 
 export function sheet(id) {
 	let sheet = document.getElementById(id);

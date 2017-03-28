@@ -45,20 +45,20 @@ class ViewCore extends Component {
 			return this.$timeout(f, timeout);
 		};
 
+		this.style = new StyleView(model, table, valueFactory);
 		this.table = new TableView(model);
 		this.head = new HeadView(model, service, TH_CORE_NAME);
-		this.body = new BodyView(model, markup, valueFactory);
+		this.body = new BodyView(model, table, valueFactory);
 		this.foot = new FootView(model, valueFactory);
-		this.layout = new LayoutView(model, markup);
-		this.selection = new SelectionView(model, markup, apply);
+		this.layout = new LayoutView(model, table);
+		this.selection = new SelectionView(model, table, apply);
 		this.group = new GroupView(model, valueFactory);
 		this.pivot = new PivotView(model, valueFactory);
-		this.nav = new NavigationView(model, markup, table, apply);
-		this.highlight = new HighlightView(model, markup, apply);
+		this.nav = new NavigationView(model, table, apply);
+		this.highlight = new HighlightView(model, table, apply);
 		this.sort = new SortView(model);
 		this.filter = new FilterView(model);
-		this.edit = new EditView(model, setValue, markup, apply);
-		this.style = new StyleView(model, table, valueFactory);
+		this.edit = new EditView(model, setValue, table, apply);
 		this.pagination = new PaginationView(model);
 		this.rowDetails = new RowDetailsView(model, markup);
 
