@@ -51,7 +51,7 @@ describe('Table', () => {
 			const column = table.body.column();
 			const cells = column.cells();
 			expect(column).to.be.an.instanceOf(Object).and.to.have.property('cells');
-			expect(cells).to.an.instanceOf(Array).with.lengthOf(0);
+			expect(cells).to.be.an.instanceOf(Array).with.lengthOf(0);
 		});
 		it('row', () => {
 			const row = table.body.row();
