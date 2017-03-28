@@ -104,7 +104,7 @@ export default class Navigation {
 							column: columnService.lineView(model.view().columns).length - 2,
 							row: navigationState.row - 1
 						});
-					} else {
+					} else if (!isFirstCell) {
 						model.navigation({column: navigationState.column - 1});
 					}
 				}
