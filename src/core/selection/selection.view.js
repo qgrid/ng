@@ -7,9 +7,10 @@ import * as columnService from 'core/column/column.service';
 import {GRID_PREFIX} from 'core/definition';
 
 export default class SelectionView extends View {
-	constructor(model, markup, apply) {
+	constructor(model, table, apply) {
 		super(model);
 
+		const markup = table.markup;
 		this.markup = markup;
 		this.apply = apply;
 
@@ -32,7 +33,7 @@ export default class SelectionView extends View {
 
 		model.sortChanged.watch(() => {
 			this.selectionState = stateFactory(model);
-
+			
 			model.selection({items: this.selectionState.view});
 		});
 
@@ -52,7 +53,7 @@ export default class SelectionView extends View {
 
 			if (e.hasChanges('unit') || e.hasChanges('mode')) {
 				this.selectionState = stateFactory(model);
-
+				
 				model.navigation({column: -1, row: -1});
 				const entries = this.selectionState.entries();
 				model.selection({
