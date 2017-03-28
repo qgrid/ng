@@ -74,6 +74,8 @@ export default class NavigationView extends View {
 						cell: cell
 					}
 				});
+
+				console.log(table.markup);
 			}
 		});
 
