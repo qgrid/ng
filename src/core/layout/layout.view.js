@@ -5,10 +5,11 @@ import log from 'core/infrastructure/log';
 import {clone} from 'core/services/utility';
 
 export default class LayoutView extends View {
-	constructor(model, markup) {
+	constructor(model, table) {
 		super(model);
 		this.model = model;
-		this.markup = markup;
+		this.table = table;
+		this.markup = table.markup;
 		this.onInit();
 	}
 
@@ -61,7 +62,7 @@ export default class LayoutView extends View {
 		const model = this.model;
 		const layout = model.layout;
 		const state = clone(layout().columns);
-		const headRow = this.markup.head.rows[0];
+		const headRow = this.table.head.row(0);
 		if (headRow) {
 			const columns = columnService
 				.lineView(model.view().columns)
