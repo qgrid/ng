@@ -1,5 +1,16 @@
 import RootComponent from '../root.component';
 import PipeUnit from 'core/pipe/units/pipe.unit'
+import TemplatePath from 'core/template/template.path';
+import {GRID_NAME} from 'ng/definition';
+
+
+TemplatePath
+	.register(GRID_NAME, template => {
+		return {
+			model: 'grid',
+			resource: template.for
+		};
+	});
 
 export class Grid extends RootComponent {
 	constructor($element, $transclude, $document, serviceFactory) {
