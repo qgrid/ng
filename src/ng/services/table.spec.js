@@ -9,21 +9,12 @@ function htmlToElement(html) {
 }
 
 describe('Table', () => {
-	const table = '<table tabindex=\"0\"><thead><tr><th><label aria-label=\"Last Name\">' +
-		'Last Name</label></div></th><th><label aria-label=\"First Name\">First Name</label></div></th></tr></thead><tbody><tr>' +
-		'<td class=\"q-grid-rowIndicator q-grid-row-indicator\">Laserna</td><td class=\"q-grid-rowIndicator q-grid-row-indicator\">' +
-		'Lue</td></tr><tr><td class=\"q-grid-rowIndicator q-grid-row-indicator\">Grebel</td><td class=\"q-grid-rowIndicator q-grid-row-indicator\">' +
-		'Jasper</td></tr><tr><td class=\"q-grid-rowIndicator q-grid-row-indicator\">Beichner</td>' +
-		'<td class=\"q-grid-rowIndicator q-grid-row-indicator\">Kandra</td></tr><tr><td class=\"q-grid-rowIndicator q-grid-row-indicator\">' +
-		'Schmith</td><td class=\"q-grid-rowIndicator q-grid-row-indicator\">Jeff</td></tr></tbody></table>';
-	const body = '<tbody><tr><td class=\"q-grid-rowIndicator q-grid-row-indicator\">Laserna</td>' +
-		'<td class=\"q-grid-rowIndicator q-grid-row-indicator\">Lue</td></tr><tr><td class=\"q-grid-rowIndicator q-grid-row-indicator\">' +
-		'Grebel</td><td class=\"q-grid-rowIndicator q-grid-row-indicator\">Jasper</td></tr><tr>' +
-		'<td class=\"q-grid-rowIndicator q-grid-row-indicator\">Beichner</td><td class=\"q-grid-rowIndicator q-grid-row-indicator\">' +
-		'Kandra</td></tr><tr><td class=\"q-grid-rowIndicator q-grid-row-indicator\">Schmith</td>' +
-		'<td class=\"q-grid-rowIndicator q-grid-row-indicator\">Jeff</td></tr></tbody>';
-	const head = '<thead><tr><th><label aria-label=\"Last Name\">Last Name</label></div></th><th><label aria-label=\"First Name\">' +
-		'First Name</label></div></th></tr></thead>';
+	const table = '<table><thead><tr><th><label>Last Name</label></div></th><th><label>First Name</label></div></th></tr></thead>' +
+		'<tbody><tr><td>Laserna</td><td>Lue</td></tr><tr><td>Grebel</td><td>Jasper</td></tr><tr><td>Beichner</td>' +
+		'<td>Kandra</td></tr><tr><td>Schmith</td><td>Jeff</td></tr></tbody></table>';
+	const body = '<tbody><tr><td>Laserna</td><td>Lue</td></tr><tr><td>Grebel</td><td>Jasper</td></tr><tr>' +
+		'<td>Beichner</td><td>Kandra</td></tr><tr><td>Schmith</td><td>Jeff</td></tr></tbody>';
+	const head = '<thead><tr><th><label>Last Name</label></div></th><th><label>First Name</label></div></th></tr></thead>';
 
 	const markup = {
 		table: htmlToElement(table),
@@ -35,16 +26,6 @@ describe('Table', () => {
 	const tableArr = [new Table(markup), new Table(markupEmpty)];
 	const tableProps = ['body', 'head', 'foot'];
 
-	describe('table should have properties and they should be objects', () => {
-		describe('markup', () => {
-			for (let table of tableArr) {
-				tableProps.forEach((prop) => {
-					expect(table).to.have.property(prop);
-					expect(table[prop]).to.be.an.instanceOf(Object)
-				});
-			}
-		});
-	});
 	describe('empty markup call to properties check', () => {
 		const table = tableArr[1];
 		it('column', () => {
@@ -68,22 +49,19 @@ describe('Table', () => {
 	describe('normal markup call to properties check', () => {
 		const table = tableArr[0];
 		it('column', () => {
-			const body = table.body;
-			const column = body.column(0);
-			const cells = column.cells();
+			const column = table.body.column(0);
 			expect(column).to.be.an.instanceOf(Object).and.to.have.property('cells');
-			expect(cells).to.be.an.instanceOf(Array).with.lengthOf(4);
+			expect(column.cells()).to.be.an.instanceOf(Array).with.lengthOf(4);
 		});
 		it('row', () => {
 			const row = table.body.row(0);
-			const cells = row.cells();
 			expect(row).to.be.an.instanceOf(Object).and.to.have.property('cells');
-			expect(cells).to.be.an.instanceOf(Array).with.lengthOf(2);
+			expect(row.cells()).to.be.an.instanceOf(Array).with.lengthOf(2);
 		});
 		it('cell', () => {
 			tableProps.forEach((prop) => {
 				const cell = table[prop].cell(0, 0);
-				prop==='foot' ?
+				prop === 'foot' ?
 					expect(cell).to.be.null :
 					expect(cell).to.be.an.instanceOf(Object).and.to.have.property('model');
 			});

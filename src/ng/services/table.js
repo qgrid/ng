@@ -85,9 +85,8 @@ class RowDom extends Dom {
 
 	cells() {
 		const row = this.element;
-		const cellsCount = row.cells.length;
 		const result = [];
-		for (let i = 0; i < cellsCount; i++) {
+		for (let i = 0, length = row.cells.length; i < length; i++) {
 			const cell = row.cells[i];
 			result.push(new CellDom(cell));
 		}
@@ -105,7 +104,7 @@ class ColumnDom extends Dom {
 		const index = this.index;
 		const rows = this.element.rows;
 		const result = [];
-		for (let i = 0; i < rows.length; i++) {
+		for (let i = 0, length = rows.length; i < length; i++) {
 			const cell = rows[i].cells[index];
 			result.push(new CellDom(cell));
 		}
