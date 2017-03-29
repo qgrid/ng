@@ -54,7 +54,7 @@ export default class Box extends BoxCore {
 			const rows = this.element.rows;
 			if (rows.length) {
 				const cellsCount = rows[0].cells.length;
-				if (cellsCount < index) {
+				if (index < cellsCount) {
 					return new Column(this.element, index)
 				}
 			}

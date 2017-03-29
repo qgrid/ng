@@ -22,7 +22,7 @@ export default class Column extends Element {
 	cell(row) {
 		if (row >= 0) {
 			const rows = this.element.rows;
-			if (rows.length < row) {
+			if (row < rows.length) {
 				const row = rows[row];
 				return new Cell(row.cells[this.index]);
 			}
