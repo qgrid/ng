@@ -1,6 +1,6 @@
-Controller.$inject = ['$http', '$filter', 'qgrid', '$q'];
+Controller.$inject = ['$http', '$filter', 'qgrid'];
 
-export default function Controller($http, $filter, qgrid, $q) {
+export default function Controller($http, $filter, qgrid) {
 	const ctrl = this;
 	const filter = $filter('filter');
 	ctrl.state = {

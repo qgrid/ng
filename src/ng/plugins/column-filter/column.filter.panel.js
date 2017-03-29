@@ -4,7 +4,7 @@ import {uniq, clone, noop} from 'core/services/utility';
 import {getFactory as valueFactory} from 'ng/services/value';
 import * as columnService from 'core/column/column.service';
 
-const Plugin = PluginComponent('column-filter-panel', {inject: ['vscroll']});
+const Plugin = PluginComponent('column-filter-panel', {inject: ['vscroll', '$filter']});
 class ColumnFilterPanel extends Plugin {
 	constructor() {
 		super(...arguments);
@@ -67,6 +67,13 @@ class ColumnFilterPanel extends Plugin {
 			}
 		});
 
+		this.resetItems = new Command({
+			execute: () => {
+				this.items = [];
+				this.vscrollContext.container.reset();
+			}
+		});
+
 		this.vscrollContext = this.vscroll({
 			threshold: 20,
 			fetch: (skip, take, d) => {
@@ -75,27 +82,33 @@ class ColumnFilterPanel extends Plugin {
 					return;
 				}
 
-				const filterState = this.model.filter();
+				const model = this.model;
+				const filterState = model.filter();
+				model.progress({isBusy: true});
 				if (filterState.fetch !== noop) {
 					filterState
 						.fetch(this.key, {
 							value: this.getValue.bind(this),
 							skip: skip,
-							take: take
+							take: take,
+							filter: this.filter
 						})
 						.then(items => {
 							this.items.push(...items);
 							d.resolve(this.items.length + take);
+							model.progress({isBusy: false});
 						});
 				}
 				else {
 					if (!this.items.length) {
-						const items = uniq(this.model.data().rows.map(this.getValue));
-						items.sort();
-						this.items = items;
+						const uniqItems = uniq(this.model.data().rows.map(this.getValue));
+						const filteredItems = this.$filter('filter')(uniqItems, this.filter);
+						filteredItems.sort();
+						this.items = filteredItems;
 					}
 
 					d.resolve(this.items.length);
+					model.progress({isBusy: false});
 				}
 			}
 		});
@@ -108,7 +121,7 @@ class ColumnFilterPanel extends Plugin {
 		const filterBy = this.model.filter().by[this.key];
 		this.by = new Set((filterBy && filterBy.items) || []);
 
-		this.vscrollContext.container.reset();
+		this.resetItems.execute();
 	}
 
 	state(item) {
