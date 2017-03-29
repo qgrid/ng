@@ -68,12 +68,14 @@ export default class NavigationView extends View {
 					}
 				}
 
-				const cell = table.body.cell(nav.row, nav.column).model;
-				model.navigation({
-					active: {
-						cell: cell
-					}
-				});
+				const cell = table.body.cell(nav.row, nav.column);
+				if(cell) {
+					model.navigation({
+						active: {
+							cell: cell.model
+						}
+					});
+				}
 			}
 		});
 
