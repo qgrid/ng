@@ -26,23 +26,19 @@ export function getFactory(column) {
 
 export function set(row, column, value) {
 	if (isFunction(column.$value)) {
-		column.$value({$row: row, $value: value});
-		return;
+		return column.$value({$row: row, $value: value});
 	}
 
 	if (isFunction(column.value)) {
-		column.value(row, value);
-		return;
+		return column.value(row, value);
 	}
 
 	if (column.path) {
-		compile(column.path)(row, value);
-		return;
+		return compile(column.path)(row, value);
 	}
 
 	if (row.hasOwnProperty(column.key)) {
-		row[column.key] = value;
-		return;
+		return row[column.key] = value;
 	}
 
 	throw new AppError(

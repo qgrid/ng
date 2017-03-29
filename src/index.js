@@ -16,6 +16,7 @@ import PivotModel from 'core/pivot/pivot.model';
 import PluginModel from 'core/plugin/plugin.model';
 import EditModel from 'core/edit/edit.model';
 import ToolbarModel from 'core/toolbar/toolbar.model';
+import LayerModel from 'core/layer/layer.model';
 import PaginationModel from 'core/pagination/pagination.model';
 import ProgressModel from 'core/progress/progress.model';
 import HighlightModel from 'core/highlight/highlight.model';
@@ -24,8 +25,9 @@ import FilterModel from 'core/filter/filter.model';
 import DragModel from 'core/drag/drag.model';
 import StyleModel from 'core/style/style.model';
 
-import PopupModel from 'ng/plugins/popup/popup.model';
 import ColumnChooserModel from 'ng/plugins/column-chooser/column.chooser.model';
+import ColumnFilterModel from 'ng/plugins/column-filter/column.filter.model';
+import PopupModel from 'ng/plugins/popup/popup.model';
 
 import ng from './ng';
 
@@ -46,6 +48,7 @@ Model.register('grid', GridModel)
 	.register('edit', EditModel)
 	.register('plugin', PluginModel)
 	.register('toolbar', ToolbarModel)
+	.register('layer', LayerModel)
 	.register('pagination', PaginationModel)
 	.register('progress', ProgressModel)
 	.register('highlight', HighlightModel)
@@ -54,6 +57,7 @@ Model.register('grid', GridModel)
 	.register('drag', DragModel)
 	.register('style', StyleModel)
 	.register('columnChooser', ColumnChooserModel)
+	.register('columnFilter', ColumnFilterModel)
 	.register('popup', PopupModel);
 
 export default ng;

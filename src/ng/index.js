@@ -9,6 +9,7 @@ import Column from './components/column/column';
 import Toolbar from './components/toolbar/toolbar';
 import Drag from './components/dnd/drag';
 import Drop from './components/dnd/drop';
+import Layer from './components/layer/layer';
 
 import BoxCore from './components/grid/box.core';
 import ViewCore from './components/view/view.core';
@@ -31,6 +32,7 @@ import Range from './filters/range';
 import Highlight from './filters/highlight';
 
 import * as def from './definition';
+require('vscroll'); // TODO: make vscroll export
 
 const coreModule = angular.module(def.MODULE_CORE_NAME, [])
 	.directive(def.DRAG_NAME, () => Drag)
@@ -59,6 +61,7 @@ const layoutModel = angular.module(def.MODULE_LAYOUT_NAME, [coreModule])
 	.component(def.FOOT_NAME, Foot)
 	.component(def.COLUMN_LIST_NAME, ColumnList)
 	.component(def.COLUMN_NAME, Column)
+	.component(def.LAYER_NAME, Layer)
 	.component(def.TOOLBAR_NAME, Toolbar)
 	.component(def.TOOLBAR_CORE_NAME, ToolbarCore)
 	.directive(def.TEMPLATE_NAME, () => Template)
@@ -75,7 +78,7 @@ const layoutModel = angular.module(def.MODULE_LAYOUT_NAME, [coreModule])
 	.name;
 
 export default angular
-	.module(def.MODULE_NAME, [coreModule, layoutModel, pluginModule])
+	.module(def.MODULE_NAME, [coreModule, layoutModel, pluginModule, 'vscroll'])
 	.name;
 
 Setup.$inject = ['qgridThemeProvider'];

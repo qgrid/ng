@@ -5,45 +5,48 @@ import Navigation from 'core/navigation/navigation';
 import {GRID_PREFIX} from 'core/definition';
 
 export default class NavigationView extends View {
-	constructor(model, markup, table, apply) {
+	constructor(model, table, apply) {
 		super(model);
+		this.table = table;
+		const markup = table.markup;
 		this.markup = markup;
 		this.model = model;
-		this.document = this.markup.document;
+		this.document = markup.document;
 		const shortcut = new Shortcut(this.document, markup.table, apply);
-		const navigation = new Navigation(model, markup);
+		const navigation = new Navigation(model, table);
 		this.shortcutOff = shortcut.register('navigation', navigation.commands);
 
 		this.blur = new Command({
 			execute: (row, column) => {
-				this.rows[row].cells[column].classList.remove(`${GRID_PREFIX}-focus`);
+				table.body.cell(row, column)
+					.removeClass(`${GRID_PREFIX}-focus`);
 			},
 			canExecute: (row, column) => {
 				return this.rows.length > row
-					&& this.rows[row]
-					&& this.rows[row].cells.length > column;
+					&& table.body.row(row)
+					&& table.body.row(row).cells().length > column;
 			}
 		});
 		this.focus = new Command({
 			execute: (row, column) => {
-				const cell = this.rows[row].cells[column];
-				cell.classList.add(`${GRID_PREFIX}-focus`);
+				table.body.cell(row, column)
+					.addClass(`${GRID_PREFIX}-focus`);
 			},
 			canExecute: (row, column) => {
 				return this.rows.length > row
-					&& this.rows[row]
-					&& this.rows[row].cells.length > column;
+					&& table.body.row(row)
+					&& table.body.row(row).cells().length > column;
 			}
 		});
 		this.scrollTo = new Command({
 			execute: (row, column) => {
-				const cell = this.rows[row].cells[column];
-				this.scroll(markup.body, cell);
+				const cell = table.body.cell(row, column).element;
+				this.scroll(this.markup.body, cell);
 			},
 			canExecute: (row, column) => {
 				return this.rows.length > row
-					&& this.rows[row]
-					&& this.rows[row].cells.length > column;
+					&& table.body.row(row)
+					&& table.body.row(row).cells().length > column;
 			}
 		});
 
@@ -60,17 +63,19 @@ export default class NavigationView extends View {
 				}
 				if (this.focus.canExecute(newRow, newColumn)) {
 					this.focus.execute(newRow, newColumn);
-					if (!(e && e.tag.source === 'navigation')) {
+					if (!e || e.tag.source !== 'navigation') {
 						this.scrollTo.execute(newRow, newColumn);
 					}
 				}
 
-				const cell = table.cellAt(nav.row, nav.column);
-				model.navigation({
-					active: {
-						cell: cell
-					}
-				});
+				const cell = table.body.cell(nav.row, nav.column);
+				if(cell) {
+					model.navigation({
+						active: {
+							cell: cell.model
+						}
+					});
+				}
 			}
 		});
 
@@ -103,6 +108,7 @@ export default class NavigationView extends View {
 				container.scrollLeft = tr.left - cr.left + scroll.left;
 			}
 		}
+
 		if (cr.top > tr.top
 			|| cr.top > tr.bottom
 			|| cr.bottom < tr.top
