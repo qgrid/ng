@@ -92,9 +92,28 @@ export default class Navigation {
 					}
 				}
 			}),
+			shiftTab: new Command({
+				shortcut: 'Shift+tab',
+				canExecute: () => model.edit().editMode == 'view',
+				execute: () => {
+					const navigationState = model.navigation();
+					const isFirstCell = navigationState.column === 0;
+					const isFirstRow = navigationState.row === 0;
+					if (isFirstCell && isFirstRow) {
+						markup.table.blur();
+					} else if (isFirstCell && !isFirstRow) {
+						model.navigation({
+							column: columnService.lineView(model.view().columns).length - 2,
+							row: navigationState.row - 1
+						});
+					} else if (!isFirstCell) {
+						model.navigation({column: navigationState.column - 1});
+					}
+				}
+			}),
 			goLeft: new Command({
 				shortcut: 'left',
-				canExecute: () => (model.navigation().column > 0) && model.edit().editMode == 'view',
+				canExecute: () => model.navigation().column > 0 && model.edit().editMode == 'view',
 				execute: () => {
 					model.navigation({column: model.navigation().column - 1});
 				}
