@@ -204,7 +204,12 @@
 			{
 				"title": "Visibility",
 				"path": "visibility"
+			},
+			{
+				"title": "No Data Template",
+				"path": "no-data"
 			}
+
 		]
 	},
 	{
