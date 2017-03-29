@@ -105,6 +105,7 @@ export default class Box extends BoxCore {
 		const layers = this.layers;
 		if(layers.has(name)) {
 			const layer = layers.get(name);
+			layer.destroy();
 			layer.element.parentElement.removeChild(layer.element);
 			layers.delete(name);
 		}

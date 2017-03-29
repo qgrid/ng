@@ -1,8 +1,8 @@
 import Element from './element';
 import AppError from 'core/infrastructure/error';
 
-class LayerCore extends Element{
-	resource(){
+class LayerCore extends Element {
+	resource() {
 	}
 }
 
@@ -11,9 +11,10 @@ export default class Layer extends LayerCore {
 		super(element);
 
 		this.template = template;
+		this.$scope = null;
 	}
 
-	static get empty(){
+	static get empty() {
 		return new LayerCore();
 	}
 
@@ -30,9 +31,16 @@ export default class Layer extends LayerCore {
 			throw new AppError('element', `Scope for "${id}" is not found`)
 		}
 
-		link($element, $scope);
+		this.$scope = $scope.$new();
+		link($element, this.$scope);
+	}
+
+	destroy() {
+		if (this.$scope) {
+			this.$scope.$destroy();
+			this.$scope = null;
+		}
 	}
 }
-
 
 
