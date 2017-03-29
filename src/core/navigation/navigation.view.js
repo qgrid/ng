@@ -106,6 +106,7 @@ export default class NavigationView extends View {
 				container.scrollLeft = tr.left - cr.left + scroll.left;
 			}
 		}
+
 		if (cr.top > tr.top
 			|| cr.top > tr.bottom
 			|| cr.bottom < tr.top

@@ -11,4 +11,12 @@ export default class Element {
 	removeClass(name) {
 		this.element.classList.remove(name);
 	}
+
+	get width() {
+		return this.element.clientWidth;
+	}
+
+	get height() {
+		return this.element.clientHeight;
+	}
 }
