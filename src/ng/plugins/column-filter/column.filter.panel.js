@@ -61,8 +61,7 @@ class ColumnFilterPanel extends Plugin {
 
 		this.reset = new Command({
 			execute: () => {
-				const filterBy = this.model.filter().by[this.key];
-				this.by = new Set((filterBy && filterBy.items) || []);
+				this.by = new Set([]);
 				this.onReset()
 			}
 		});
