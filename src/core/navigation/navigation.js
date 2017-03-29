@@ -68,49 +68,6 @@ export default class Navigation {
 					}
 				}
 			}),
-			tab: new Command({
-				shortcut: 'tab',
-				canExecute: () => model.edit().editMode == 'view',
-				execute: () => {
-					const navigationState = model.navigation();
-					const isLastCell = navigationState.column === columnService.lineView(model.view().columns).length - 2;
-					const isLastRow = navigationState.row === model.view().rows.length - 1;
-					if (navigationState.row == -1 && navigationState.column == -1) {
-						model.navigation({
-							column: 0,
-							row: 0
-						});
-					} else if (isLastCell && isLastRow) {
-						markup.table.blur();
-					} else if (isLastCell && !isLastRow) {
-						model.navigation({
-							column: 0,
-							row: navigationState.row + 1
-						});
-					} else {
-						model.navigation({column: navigationState.column + 1});
-					}
-				}
-			}),
-			shiftTab: new Command({
-				shortcut: 'Shift+tab',
-				canExecute: () => model.edit().editMode == 'view',
-				execute: () => {
-					const navigationState = model.navigation();
-					const isFirstCell = navigationState.column === 0;
-					const isFirstRow = navigationState.row === 0;
-					if (isFirstCell && isFirstRow) {
-						markup.table.blur();
-					} else if (isFirstCell && !isFirstRow) {
-						model.navigation({
-							column: columnService.lineView(model.view().columns).length - 2,
-							row: navigationState.row - 1
-						});
-					} else if (!isFirstCell) {
-						model.navigation({column: navigationState.column - 1});
-					}
-				}
-			}),
 			goLeft: new Command({
 				shortcut: 'left',
 				canExecute: () => model.navigation().column > 0 && model.edit().editMode == 'view',
@@ -163,6 +120,57 @@ export default class Navigation {
 					}
 					body.scrollTop = offset;
 					model.navigation({row: row}, {source: 'navigation'});
+				}
+			}),
+			tab: new Command({
+				shortcut: 'tab',
+				execute: () => {
+					const cell = model.navigation().active.cell;
+					if (model.edit().editMode === 'edit') {
+						cell.mode('view');
+						markup.table.focus();
+					}
+					const navigationState = model.navigation();
+					const isLastCell = navigationState.column === columnService.lineView(model.view().columns).length - 2;
+					const isLastRow = navigationState.row === model.view().rows.length - 1;
+					if (navigationState.row == -1 && navigationState.column == -1) {
+						model.navigation({
+							column: 0,
+							row: 0
+						});
+					} else if (isLastCell && isLastRow) {
+						markup.table.blur();
+					} else if (isLastCell && !isLastRow) {
+						model.navigation({
+							column: 0,
+							row: navigationState.row + 1
+						});
+					} else {
+						model.navigation({column: navigationState.column + 1});
+					}
+				}
+			}),
+			shiftTab: new Command({
+				shortcut: 'Shift+tab',
+				execute: () => {
+					const cell = model.navigation().active.cell;
+					if (model.edit().editMode === 'edit') {
+						cell.mode('view');
+						markup.table.focus();
+					}
+					const navigationState = model.navigation();
+					const isFirstCell = navigationState.column === 0;
+					const isFirstRow = navigationState.row === 0;
+					if (isFirstCell && isFirstRow) {
+						markup.table.blur();
+					} else if (isFirstCell && !isFirstRow) {
+						model.navigation({
+							column: columnService.lineView(model.view().columns).length - 2,
+							row: navigationState.row - 1
+						});
+					} else if (!isFirstCell) {
+						model.navigation({column: navigationState.column - 1});
+					}
 				}
 			})
 		};
