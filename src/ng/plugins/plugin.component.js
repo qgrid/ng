@@ -44,7 +44,7 @@ export default function (pluginName, context) {
 		}
 
 		onInitCore() {
-			if (this.isReady()) {
+			if (this.isLinked()) {
 				const visibility = this.model.visibility;
 				const plugins = clone(visibility().plugin);
 				if (!plugins.hasOwnProperty(pluginName)) {
@@ -71,9 +71,18 @@ export default function (pluginName, context) {
 			super.onInitCore();
 		}
 
-		isReady() {
+		isLinked() {
 			// not in transclusion
 			return this._box || !this._root;
+		}
+
+		isReady() {
+			const model =
+				this._model ||
+				(this._box && this._box.model) ||
+				(this._root && this._root.model);
+
+			return !!model;
 		}
 
 		get resource() {

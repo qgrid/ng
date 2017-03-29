@@ -4,7 +4,7 @@ import {uniq, clone, noop} from 'core/services/utility';
 import {getFactory as valueFactory} from 'ng/services/value';
 import * as columnService from 'core/column/column.service';
 
-const Plugin = PluginComponent('column-filter-panel');
+const Plugin = PluginComponent('column-filter-panel', {inject: ['vscroll']});
 class ColumnFilterPanel extends Plugin {
 	constructor() {
 		super(...arguments);
@@ -66,6 +66,39 @@ class ColumnFilterPanel extends Plugin {
 				this.onReset()
 			}
 		});
+
+		this.vscrollContext = this.vscroll({
+			threshold: 20,
+			fetch: (skip, take, d) => {
+				if (!this.isReady()) {
+					d.resolve(0);
+					return;
+				}
+
+				const filterState = this.model.filter();
+				if (filterState.fetch !== noop) {
+					filterState
+						.fetch(this.key, {
+							value: this.getValue.bind(this),
+							skip: skip,
+							take: take
+						})
+						.then(items => {
+							this.items.push(...items);
+							d.resolve(this.items.length + take);
+						});
+				}
+				else {
+					if (!this.items.length) {
+						const items = uniq(this.model.data().rows.map(this.getValue));
+						items.sort();
+						this.items = items;
+					}
+
+					d.resolve(this.items.length);
+				}
+			}
+		});
 	}
 
 	onInit() {
@@ -75,7 +108,7 @@ class ColumnFilterPanel extends Plugin {
 		const filterBy = this.model.filter().by[this.key];
 		this.by = new Set((filterBy && filterBy.items) || []);
 
-		this.fetch();
+		this.vscrollContext.container.reset();
 	}
 
 	state(item) {
@@ -91,20 +124,6 @@ class ColumnFilterPanel extends Plugin {
 	}
 
 	onReset() {
-	}
-
-	fetch() {
-		const filterState = this.model.filter();
-		if (filterState.fetch !== noop) {
-			filterState
-				.fetch(this.key, {value: this.getValue.bind(this)})
-				.then(items => {
-					this.items = uniq(items);
-				});
-		}
-		else {
-			this.items = uniq(this.model.data().rows.map(this.getValue));
-		}
 	}
 }
 
