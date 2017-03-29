@@ -74,7 +74,6 @@ class ColumnFilterPanel extends Plugin {
 		});
 
 		this.vscrollContext = this.vscroll({
-			threshold: 20,
 			fetch: (skip, take, d) => {
 				if (!this.isReady()) {
 					d.resolve(0);
@@ -120,6 +119,7 @@ class ColumnFilterPanel extends Plugin {
 		const filterBy = this.model.filter().by[this.key];
 		this.by = new Set((filterBy && filterBy.items) || []);
 
+		this.vscrollContext.settings.threshold = this.model.columnFilter().threshold;
 		this.resetItems.execute();
 	}
 
