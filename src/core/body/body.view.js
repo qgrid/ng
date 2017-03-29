@@ -9,6 +9,7 @@ export default class BodyView extends View {
 	constructor(model, table, valueFactory) {
 		super(model);
 
+		this.table = table;
 		this.markup = table.markup;
 		this.rows = [];
 		this.columns = [];
@@ -25,7 +26,15 @@ export default class BodyView extends View {
 	}
 
 	invalidateRows(model) {
+		this.table.body.removeLayer('blank');
 		this.rows = model.view().rows;
+		if (!this.rows.length) {
+			const laterState = model.layer();
+			if (laterState.resource.data.hasOwnProperty('blank')) {
+				const layer = this.table.body.addLayer('blank');
+				layer.resource('blank', laterState.resource);
+			}
+		}
 	}
 
 	invalidateColumns(model) {

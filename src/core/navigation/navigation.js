@@ -14,11 +14,11 @@ export default class Navigation {
 		let index = 0;
 		let offset = 0;
 		while (offset <= y && body.row(index)) {
-			offset += body.row(index).element.clientHeight;
+			offset += body.row(index).height;
 			index++;
 		}
 		if (direction && body.row(index)) {
-			offset -= body.row(index).element.clientHeight;
+			offset -= body.row(index).height;
 			index--;
 		}
 		return {

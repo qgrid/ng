@@ -16,6 +16,7 @@ import PivotModel from 'core/pivot/pivot.model';
 import PluginModel from 'core/plugin/plugin.model';
 import EditModel from 'core/edit/edit.model';
 import ToolbarModel from 'core/toolbar/toolbar.model';
+import LayerModel from 'core/layer/layer.model';
 import PaginationModel from 'core/pagination/pagination.model';
 import ProgressModel from 'core/progress/progress.model';
 import HighlightModel from 'core/highlight/highlight.model';
@@ -46,6 +47,7 @@ Model.register('grid', GridModel)
 	.register('edit', EditModel)
 	.register('plugin', PluginModel)
 	.register('toolbar', ToolbarModel)
+	.register('layer', LayerModel)
 	.register('pagination', PaginationModel)
 	.register('progress', ProgressModel)
 	.register('highlight', HighlightModel)

@@ -68,12 +68,14 @@ export default class NavigationView extends View {
 					}
 				}
 
-				const cell = table.body.cell(nav.row, nav.column).model;
-				model.navigation({
-					active: {
-						cell: cell
-					}
-				});
+				const cell = table.body.cell(nav.row, nav.column);
+				if(cell) {
+					model.navigation({
+						active: {
+							cell: cell.model
+						}
+					});
+				}
 			}
 		});
 
@@ -106,6 +108,7 @@ export default class NavigationView extends View {
 				container.scrollLeft = tr.left - cr.left + scroll.left;
 			}
 		}
+
 		if (cr.top > tr.top
 			|| cr.top > tr.bottom
 			|| cr.bottom < tr.top

@@ -1,18 +1,16 @@
 import Directive from 'ng/directives/directive';
-import TemplateLink from '../template/template.link';
 import cellBuilder from '../cell/cell.build';
 import AppError from 'core/infrastructure/error'
 import {VIEW_CORE_NAME, TD_CORE_NAME} from 'ng/definition';
 import {GRID_PREFIX} from 'core/definition';
 
 class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
-	constructor($scope, $element, $compile, $templateCache) {
+	constructor($scope, $element) {
 		super();
 
 		this.$scope = $scope;
 		this.$element = $element;
 		this.$templateScope = null;
-		this.template = new TemplateLink($compile, $templateCache);
 	}
 
 	onInit() {
@@ -42,7 +40,7 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 			case 'init': {
 				let link = cache.find(column.key);
 				if (!link) {
-					const build = cellBuilder(this.template);
+					const build = cellBuilder(this.view.template);
 					link = build('body', model, column);
 					cache.set(column.key, link);
 				}
@@ -56,7 +54,7 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 			case 'edit': {
 				let link = cache.find(`${column.key}.edit`);
 				if (!link) {
-					const build = cellBuilder(this.template, 'edit');
+					const build = cellBuilder(this.view.template, 'edit');
 					link = build('body', model, column);
 					cache.set(`${column.key}.edit`, link);
 				}
@@ -114,9 +112,7 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 
 TdCore.$inject = [
 	'$scope',
-	'$element',
-	'$compile',
-	'$templateCache'
+	'$element'
 ];
 
 export default {

@@ -1,16 +1,14 @@
 import Directive from 'ng/directives/directive';
-import TemplateLink from '../template/template.link';
 import cellBuilder from '../cell/cell.build';
 import {VIEW_CORE_NAME, TF_CORE_NAME} from 'ng/definition';
 import {GRID_PREFIX} from 'core/definition';
 
 class TfCore extends Directive(TF_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
-	constructor($scope, $element, $compile, $templateCache) {
+	constructor($scope, $element) {
 		super();
 
 		this.$element = $element;
 		this.$scope = $scope;
-		this.template = new TemplateLink($compile, $templateCache);
 	}
 
 	onInit() {
@@ -29,7 +27,7 @@ class TfCore extends Directive(TF_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 		const key = rowIndex > 0 ? column.key + rowIndex : column.key;
 		let link = cache.find(key);
 		if (!link) {
-			const build = cellBuilder(this.template);
+			const build = cellBuilder(this.view.template);
 			link = build('foot', this.view.model, this.column);
 			cache.set(key, link);
 		}
@@ -53,9 +51,7 @@ class TfCore extends Directive(TF_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 
 TfCore.$inject = [
 	'$scope',
-	'$element',
-	'$compile',
-	'$templateCache'
+	'$element'
 ];
 
 export default {
