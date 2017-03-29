@@ -99,7 +99,8 @@ class ColumnFilterPanel extends Plugin {
 				}
 				else {
 					if (!this.items.length) {
-						const uniqItems = uniq(this.model.data().rows.map(this.getValue));
+						const source = this.model[this.model.columnFilter().source];
+						const uniqItems = uniq(source().rows.map(this.getValue));
 						const filteredItems = this.$filter('filter')(uniqItems, this.filter);
 						filteredItems.sort();
 						this.items = filteredItems;
