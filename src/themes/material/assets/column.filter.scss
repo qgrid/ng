@@ -78,9 +78,11 @@
 	}
 
 	.q-grid-column-filter-list {
-		margin: 0;
 		overflow-y: auto;
 		height: 376px;
+		ul {
+			margin: 0;
+		}
 	}
 
 	.q-grid-column-filter-actions {
