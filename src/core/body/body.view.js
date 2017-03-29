@@ -29,10 +29,10 @@ export default class BodyView extends View {
 		this.table.body.removeLayer('blank');
 		this.rows = model.view().rows;
 		if (!this.rows.length) {
-			const gridState = model.grid();
-			if (gridState.resource.data.hasOwnProperty('blank')) {
+			const laterState = model.layer();
+			if (laterState.resource.data.hasOwnProperty('blank')) {
 				const layer = this.table.body.addLayer('blank');
-				layer.resource('blank', gridState.resource);
+				layer.resource('blank', laterState.resource);
 			}
 		}
 	}

@@ -2,9 +2,11 @@
 		  columns="$ctrl.columns">
 	<q-grid:columns generation="deep"></q-grid:columns>
 
-	<q-grid:template for="blank" let="$ctrl">
-		<button ng-click="$ctrl.load()">Load Rows</button>
-	</q-grid:template>
+	<q-grid:layer>
+		<q-grid:template for="blank" let="$ctrl">
+			<button ng-click="$ctrl.load()">Load Rows</button>
+		</q-grid:template>
+	</q-grid:layer>
 
 	<q-grid:toolbar>
 		<q-grid:template for="top" let="$ctrl">
