@@ -17,6 +17,7 @@ class RowNumberColumnModel extends ColumnModel {
 		this.title = '#';
 		this.canEdit = false;
 		this.canResize = false;
+		this.canHighlight = false;
 	}
 }
 

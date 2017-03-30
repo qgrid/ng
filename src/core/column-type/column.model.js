@@ -20,7 +20,7 @@ export default class ColumnModel {
 		this.canHighlight = true;
 
 		this.isVisible = true;
-		this.index = -1;
+		this.index = 0;
 	}
 
 	toString() {

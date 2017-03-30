@@ -13,13 +13,8 @@ function selectColumnFactory(model) {
 		const createColumn = columnFactory(model);
 		return (columns, context) => {
 			const selectColumn = createColumn('row-indicator');
-			const index = columns.length;
 			selectColumn.model.source = 'generation';
 			selectColumn.rowspan = context.rowspan;
-			if (selectColumn.model.index >= 0) {
-				selectColumn.model.index = index;
-			}
-
 			columns.push(selectColumn);
 			return selectColumn;
 		};
@@ -29,13 +24,8 @@ function selectColumnFactory(model) {
 		const createColumn = columnFactory(model);
 		return (columns, context) => {
 			const selectColumn = createColumn('select');
-			const index = columns.length;
 			selectColumn.model.source = 'generation';
 			selectColumn.rowspan = context.rowspan;
-			if (selectColumn.model.index >= 0) {
-				selectColumn.model.index = index;
-			}
-
 			columns.push(selectColumn);
 			return selectColumn;
 		};
@@ -186,6 +176,8 @@ export default function columnPipe(memo, context, next) {
 	 */
 	addGroupColumn(columns, {rowspan: heads.length, row: 0});
 
+	columns.forEach((c, i) => c.index = i);
+
 	/*
 	 * Add columns defined by user
 	 * that are visible
@@ -205,7 +197,13 @@ export default function columnPipe(memo, context, next) {
 			return memo;
 		}, {});
 
-	columns.forEach(v => v.model.index = indexMap[v.model.key]);
+	const hangoutColumns = columns.filter(c => !indexMap.hasOwnProperty(c.model.key));
+	const indexedColumns = columns.filter(c => indexMap.hasOwnProperty(c.model.key));
+	const startIndex = hangoutColumns.length;
+
+	hangoutColumns.forEach((c, i) => c.model.index = i);
+	indexedColumns.forEach(c => c.model.index = startIndex + indexMap[c.model.key]);
+
 	columns.sort((x, y) => x.model.index - y.model.index);
 
 	if (heads.length) {
