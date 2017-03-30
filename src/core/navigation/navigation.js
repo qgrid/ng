@@ -125,12 +125,13 @@ export default class Navigation {
 			tab: new Command({
 				shortcut: 'tab',
 				execute: () => {
-					const cell = model.navigation().active.cell;
+					const navigationState = model.navigation();
+					const cell = navigationState.active.cell;
 					if (model.edit().editMode === 'edit') {
 						cell.mode('view');
+						model.edit({editMode: 'view'});
 						markup.table.focus();
 					}
-					const navigationState = model.navigation();
 					const isLastCell = navigationState.column === columnService.lineView(model.view().columns).length - 2;
 					const isLastRow = navigationState.row === model.view().rows.length - 1;
 					if (navigationState.row == -1 && navigationState.column == -1) {
@@ -156,6 +157,7 @@ export default class Navigation {
 					const cell = model.navigation().active.cell;
 					if (model.edit().editMode === 'edit') {
 						cell.mode('view');
+						model.edit({editMode: 'view'});
 						markup.table.focus();
 					}
 					const navigationState = model.navigation();

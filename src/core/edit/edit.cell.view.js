@@ -35,10 +35,10 @@ export default class EditCellView {
 
 					if (this.mode !== 'edit' && model.edit().mode === 'cell' && cell) {
 						// use shouldn't explicitly set it in the template, cause we have here canEdit !== false
-						return cell.column.canEdit !== false;
+						return cell.column.canEdit !== false && model.edit().editMode === 'view';
 					}
 
-					return false;
+					return model.edit().editMode === 'view';
 				},
 				execute: (cell, e) => {
 					Log.info('cell.edit', 'edit mode');
@@ -57,7 +57,7 @@ export default class EditCellView {
 			commit: new Command({
 				shortcut: 'Ctrl+S|Enter',
 				// TODO: add validation support
-				canExecute: () => this.mode === 'edit' && model.edit().mode === 'cell',
+				canExecute: () => this.mode === 'edit' && model.edit().mode === 'cell' && model.edit().editMode === 'edit',
 				execute: (cell, e) => {
 					Log.info('cell.edit', 'commit');
 					if (e) {
