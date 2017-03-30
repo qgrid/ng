@@ -540,7 +540,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
 
-var Command = function Command(context) {
+var Command = function Command() {
+	var context = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
 	_classCallCheck(this, Command);
 
 	this.execute = context.execute || __WEBPACK_IMPORTED_MODULE_0__services_utility__["i" /* yes */];
@@ -1173,6 +1175,7 @@ var ColumnModel = function () {
 		this.canSort = true;
 		this.canMove = true;
 		this.canFilter = true;
+		this.canHighlight = true;
 
 		this.isVisible = true;
 		this.index = -1;
@@ -6659,6 +6662,7 @@ var PadColumnModel = function (_ColumnModel) {
 		_this.canEdit = false;
 		_this.canSort = false;
 		_this.canResize = false;
+		_this.canHighlight = false;
 		_this.source = 'generation';
 		return _this;
 	}
@@ -6799,6 +6803,7 @@ var PivotColumnModel = function (_ColumnModel) {
 		_this.canEdit = false;
 		_this.canSort = false;
 		_this.canResize = false;
+		_this.canHighlight = false;
 		_this.width = 60;
 		_this.rowIndex = 0;
 		return _this;
@@ -6868,6 +6873,7 @@ var RowIndicatorColumnModel = function (_ColumnModel) {
 		_this.canEdit = false;
 		_this.canSort = false;
 		_this.canResize = false;
+		_this.canHighlight = false;
 		return _this;
 	}
 
@@ -7168,13 +7174,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
 var EditCellView = function () {
-	function EditCellView(model, setValue, table, apply) {
+	function EditCellView(model, setValue, valueFactory, table, apply) {
 		_classCallCheck(this, EditCellView);
 
 		this.model = model;
 		this.setValue = setValue;
 		var markup = table.markup;
 		this.markup = markup;
+		this.valueFactory = valueFactory;
 
 		this.mode = 'view';
 		this._value = null;
@@ -7190,6 +7197,20 @@ var EditCellView = function () {
 	}
 
 	_createClass(EditCellView, [{
+		key: 'contextFactory',
+		value: function contextFactory(cell, value) {
+			return {
+				column: cell.column,
+				row: cell.row,
+				columnIndex: cell.columnIndex,
+				rowIndex: cell.rowIndex,
+				oldValue: cell.value,
+				newValue: arguments.length === 2 ? value : cell.value,
+				valueFactory: this.valueFactory,
+				unit: 'cell'
+			};
+		}
+	}, {
 		key: 'destroy',
 		value: function destroy() {
 			this.shortcutOff();
@@ -7206,10 +7227,8 @@ var EditCellView = function () {
 					shortcut: 'F2|Enter',
 					canExecute: function canExecute(cell) {
 						cell = cell || model.navigation().active.cell;
-
-						if (_this.mode !== 'edit' && model.edit().mode === 'cell' && cell) {
-							// use shouldn't explicitly set it in the template, cause we have here canEdit !== false
-							return cell.column.canEdit !== false;
+						if (cell && _this.mode !== 'edit' && model.edit().mode === 'cell' && cell) {
+							return cell.column.canEdit && model.edit().enter.canExecute(_this.contextFactory(cell));
 						}
 
 						return false;
@@ -7220,19 +7239,25 @@ var EditCellView = function () {
 							e.stopImmediatePropagation();
 						}
 
-						cell = cell || model.navigation().active.cell;
 						var parse = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_core_services_convert__["a" /* parseFactory */])(cell.column.type);
-						_this.value = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_core_services_utility__["f" /* isUndefined */])(cell.value) ? null : parse(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_core_services_utility__["d" /* clone */])(cell.value));
-						_this.mode = 'edit';
-						model.edit({ editMode: 'edit' });
-						cell.mode(_this.mode);
+						var value = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_core_services_utility__["f" /* isUndefined */])(cell.value) ? null : parse(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_core_services_utility__["d" /* clone */])(cell.value));
+						cell = cell || model.navigation().active.cell;
+						if (cell) {
+							if (model.edit().enter.execute(_this.contextFactory(cell, value)) !== false) {
+								_this.value = value;
+								_this.mode = 'edit';
+								model.edit({ editMode: 'edit' });
+								cell.mode(_this.mode);
+							}
+						}
 					}
 				}),
 				commit: new __WEBPACK_IMPORTED_MODULE_0_core_infrastructure_command__["a" /* default */]({
 					shortcut: 'Ctrl+S|Enter',
 					// TODO: add validation support
-					canExecute: function canExecute() {
-						return _this.mode === 'edit' && model.edit().mode === 'cell';
+					canExecute: function canExecute(cell) {
+						cell = cell || model.navigation().active.cell;
+						return _this.mode === 'edit' && model.edit().mode === 'cell' && model.edit().commit.canExecute(_this.contextFactory(cell));
 					},
 					execute: function execute(cell, e) {
 						__WEBPACK_IMPORTED_MODULE_1_core_infrastructure_log__["a" /* default */].info('cell.edit', 'commit');
@@ -7242,36 +7267,49 @@ var EditCellView = function () {
 
 						cell = cell || model.navigation().active.cell;
 						if (cell) {
-							var column = cell.column;
-							var row = cell.row;
-							_this.setValue(row, column, _this.value);
+							if (model.edit().commit.execute(_this.contextFactory(cell, _this.value)) !== false) {
+								var column = cell.column;
+								var row = cell.row;
+								_this.setValue(row, column, _this.value);
 
-							_this.value = null;
-							_this.mode = 'view';
-							model.edit({ editMode: 'view' });
-							cell.mode(_this.mode);
-							table.focus();
+								_this.value = null;
+								_this.mode = 'view';
+								model.edit({ editMode: 'view' });
+								cell.mode(_this.mode);
+								table.focus();
+							}
 						}
 					}
 				}),
 				cancel: new __WEBPACK_IMPORTED_MODULE_0_core_infrastructure_command__["a" /* default */]({
 					shortcut: 'Escape',
+					canExecute: function canExecute(cell) {
+						cell = cell || model.navigation().active.cell;
+						return cell && model.edit().cancel.canExecute(_this.contextFactory(cell, _this.value));
+					},
 					execute: function execute(cell, e) {
 						__WEBPACK_IMPORTED_MODULE_1_core_infrastructure_log__["a" /* default */].info('cell.edit', 'cancel');
 						if (e) {
 							e.stopImmediatePropagation();
 						}
+
 						cell = cell || model.navigation().active.cell;
 						if (cell) {
-							_this.value = null;
-							_this.mode = 'view';
-							model.edit({ editMode: 'view' });
-							cell.mode(_this.mode);
-							table.focus();
+							if (model.edit().cancel.execute(_this.contextFactory(cell, _this.value)) !== false) {
+								_this.value = null;
+								_this.mode = 'view';
+								model.edit({ editMode: 'view' });
+								cell.mode(_this.mode);
+								table.focus();
+							}
 						}
 					}
 				}),
 				reset: new __WEBPACK_IMPORTED_MODULE_0_core_infrastructure_command__["a" /* default */]({
+					canExecute: function canExecute(cell) {
+						cell = cell || model.navigation().active.cell;
+						return cell && model.edit().reset.canExecute(_this.contextFactory(cell, _this.value));
+					},
 					execute: function execute(cell, e) {
 						__WEBPACK_IMPORTED_MODULE_1_core_infrastructure_log__["a" /* default */].info('cell.edit', 'reset');
 						if (e) {
@@ -7280,10 +7318,12 @@ var EditCellView = function () {
 
 						cell = cell || model.navigation().active.cell;
 						if (cell) {
-							var parse = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_core_services_convert__["a" /* parseFactory */])(cell.column.type);
-							_this.value = parse(cell.value);
-							cell.mode(_this.mode);
-							return false;
+							if (model.edit().reset.execute(_this.contextFactory(cell, _this.value)) !== false) {
+								var parse = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_core_services_convert__["a" /* parseFactory */])(cell.column.type);
+								_this.value = parse(cell.value);
+								cell.mode(_this.mode);
+								return false;
+							}
 						}
 					}
 				})
@@ -7311,7 +7351,9 @@ var EditCellView = function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_core_resource_resource__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_core_infrastructure_command__ = __webpack_require__(6);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 
 
 
@@ -7321,6 +7363,10 @@ var EditModel = function EditModel() {
 	this.resource = new __WEBPACK_IMPORTED_MODULE_0_core_resource_resource__["a" /* default */]();
 	this.mode = null; // cell
 	this.editMode = 'view'; // edit
+	this.enter = new __WEBPACK_IMPORTED_MODULE_1_core_infrastructure_command__["a" /* default */]();
+	this.commit = new __WEBPACK_IMPORTED_MODULE_1_core_infrastructure_command__["a" /* default */]();
+	this.cancel = new __WEBPACK_IMPORTED_MODULE_1_core_infrastructure_command__["a" /* default */]();
+	this.reset = new __WEBPACK_IMPORTED_MODULE_1_core_infrastructure_command__["a" /* default */]();
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (EditModel);
@@ -7346,12 +7392,12 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var EditView = function (_View) {
 	_inherits(EditView, _View);
 
-	function EditView(model, setValue, table, apply) {
+	function EditView(model, setValue, valueFactory, table, apply) {
 		_classCallCheck(this, EditView);
 
 		var _this = _possibleConstructorReturn(this, (EditView.__proto__ || Object.getPrototypeOf(EditView)).call(this, model));
 
-		_this.cell = new __WEBPACK_IMPORTED_MODULE_1__edit_cell_view__["a" /* default */](model, setValue, table, apply);
+		_this.cell = new __WEBPACK_IMPORTED_MODULE_1__edit_cell_view__["a" /* default */](model, setValue, valueFactory, table, apply);
 		return _this;
 	}
 
@@ -8720,15 +8766,13 @@ var HighlightView = function (_View) {
 			}, 0);
 		});
 
-		model.columnListChanged.watch(function (e) {
-			if (e.hasChanges('index')) {
-				waitForLayout = true;
-				apply(function () {
-					hoverBlurs = _this.invalidateHover(hoverBlurs);
-					sortBlurs = _this.invalidateSortBy(sortBlurs);
-					waitForLayout = false;
-				}, 0);
-			}
+		model.viewChanged.watch(function () {
+			waitForLayout = true;
+			apply(function () {
+				hoverBlurs = _this.invalidateHover(hoverBlurs);
+				sortBlurs = _this.invalidateSortBy(sortBlurs);
+				waitForLayout = false;
+			}, 100);
 		});
 
 		model.sortChanged.watch(function (e) {
@@ -8828,7 +8872,7 @@ var HighlightView = function (_View) {
 			if (index >= 0) {
 				// TODO: add pivot col support
 				var column = columns[index];
-				if (column.type === 'pivot' || column.type === 'pad') {
+				if (!column.canHighlight) {
 					return -1;
 				}
 			}
@@ -13009,9 +13053,9 @@ var Grid = function (_RootComponent) {
 			Object.keys(triggers).forEach(function (name) {
 				return model[name + 'Changed'].watch(function (e) {
 					var changes = Object.keys(e.changes);
-					if (triggers[name].find(function (key) {
-						return changes.indexOf(key) > -1;
-					}) && e.tag.behavior !== 'core') {
+					if (e.tag.behavior !== 'core' && triggers[name].find(function (key) {
+						return changes.indexOf(key) >= 0;
+					})) {
 						service.invalidate(name, e.changes);
 					}
 				});
@@ -13070,7 +13114,11 @@ Grid.$inject = ['$element', '$transclude', '$document', 'qgrid'];
 		pivotBy: '<',
 		sortBy: '<',
 		sortMode: '@',
-		editMode: '@'
+		editMode: '@',
+		editEnter: '<',
+		editCommit: '<',
+		editCancel: '<',
+		editReset: '<'
 	}
 });
 
@@ -13760,7 +13808,7 @@ var ViewCore = function (_Component) {
 			this.highlight = new __WEBPACK_IMPORTED_MODULE_10_core_highlight_highlight_view__["a" /* default */](model, table, apply);
 			this.sort = new __WEBPACK_IMPORTED_MODULE_11_core_sort_sort_view__["a" /* default */](model);
 			this.filter = new __WEBPACK_IMPORTED_MODULE_12_core_filter_filter_view__["a" /* default */](model);
-			this.edit = new __WEBPACK_IMPORTED_MODULE_13_core_edit_edit_view__["a" /* default */](model, __WEBPACK_IMPORTED_MODULE_1_ng_services_value__["b" /* set */], table, apply);
+			this.edit = new __WEBPACK_IMPORTED_MODULE_13_core_edit_edit_view__["a" /* default */](model, __WEBPACK_IMPORTED_MODULE_1_ng_services_value__["b" /* set */], __WEBPACK_IMPORTED_MODULE_1_ng_services_value__["a" /* getFactory */], table, apply);
 			this.pagination = new __WEBPACK_IMPORTED_MODULE_15_core_pagination_pagination_view__["a" /* default */](model);
 
 			// TODO: how we can avoid that?
@@ -17175,11 +17223,13 @@ var Table = function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_core_pipe_pipe__ = __webpack_require__(60);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_core_pipe_units_pipe_unit__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_core_infrastructure_log__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_core_services_utility__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__value__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_core_infrastructure_command__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_core_services_utility__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__value__ = __webpack_require__(64);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 
 
 
@@ -17207,10 +17257,10 @@ var Grid = function () {
 			var $rootScope = this.$rootScope;
 			var apply = function apply() {
 				__WEBPACK_IMPORTED_MODULE_4_core_infrastructure_log__["a" /* default */].info('service', '$digest apply');
-				$rootScope.$evalAsync(__WEBPACK_IMPORTED_MODULE_5_core_services_utility__["b" /* noop */]);
+				$rootScope.$evalAsync(__WEBPACK_IMPORTED_MODULE_6_core_services_utility__["b" /* noop */]);
 			};
 
-			return new __WEBPACK_IMPORTED_MODULE_1_core_services_grid__["a" /* default */](model, __WEBPACK_IMPORTED_MODULE_6__value__["a" /* getFactory */], apply);
+			return new __WEBPACK_IMPORTED_MODULE_1_core_services_grid__["a" /* default */](model, __WEBPACK_IMPORTED_MODULE_7__value__["a" /* getFactory */], apply);
 		}
 	}, {
 		key: 'pipe',
@@ -17221,6 +17271,11 @@ var Grid = function () {
 		key: 'pipeUnit',
 		get: function get() {
 			return __WEBPACK_IMPORTED_MODULE_3_core_pipe_units_pipe_unit__["a" /* default */];
+		}
+	}, {
+		key: 'Command',
+		get: function get() {
+			return __WEBPACK_IMPORTED_MODULE_5_core_infrastructure_command__["a" /* default */];
 		}
 	}]);
 
