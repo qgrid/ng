@@ -34,20 +34,19 @@ export default class EditCellView {
 				canExecute: cell => {
 					cell = cell || model.navigation().active.cell;
 					if (cell && this.mode !== 'edit' && model.edit().mode === 'cell' && cell) {
-						return cell.column.canEdit && model.edit().enter.canExecute(this.contextFactory(cell));
+						return cell.column.canEdit && model.edit().enter.canExecute(this.contextFactory(cell)) && model.edit().editMode === 'view';
 					}
 
-					return false;
+					return model.edit().editMode === 'view';
 				},
 				execute: (cell, e) => {
 					Log.info('cell.edit', 'edit mode');
 					if (e) {
 						e.stopImmediatePropagation();
 					}
-
+					cell = cell || model.navigation().active.cell;
 					const parse = parseFactory(cell.column.type);
 					const value = isUndefined(cell.value) ? null : parse(clone(cell.value));
-					cell = cell || model.navigation().active.cell;
 					if (cell) {
 						if (model.edit().enter.execute(this.contextFactory(cell, value)) !== false) {
 							this.value = value;
@@ -63,7 +62,7 @@ export default class EditCellView {
 				// TODO: add validation support
 				canExecute: cell => {
 					cell = cell || model.navigation().active.cell;
-					return this.mode === 'edit' && model.edit().mode === 'cell' && model.edit().commit.canExecute(this.contextFactory(cell));
+					return this.mode === 'edit' && model.edit().mode === 'cell' && model.edit().commit.canExecute(this.contextFactory(cell)) && model.edit().editMode === 'edit';
 				},
 				execute: (cell, e) => {
 					Log.info('cell.edit', 'commit');
@@ -72,18 +71,16 @@ export default class EditCellView {
 					}
 
 					cell = cell || model.navigation().active.cell;
-					if (cell) {
-						if (model.edit().commit.execute(this.contextFactory(cell, this.value)) !== false) {
-							const column = cell.column;
-							const row = cell.row;
-							this.setValue(row, column, this.value);
+					if (cell && model.edit().commit.execute(this.contextFactory(cell, this.value)) !== false) {
+						const column = cell.column;
+						const row = cell.row;
+						this.setValue(row, column, this.value);
 
-							this.value = null;
-							this.mode = 'view';
-							model.edit({editMode: 'view'});
-							cell.mode(this.mode);
-							table.focus();
-						}
+						this.value = null;
+						this.mode = 'view';
+						model.edit({editMode: 'view'});
+						cell.mode(this.mode);
+						table.focus();
 					}
 				}
 			}),
@@ -91,7 +88,7 @@ export default class EditCellView {
 				shortcut: 'Escape',
 				canExecute: cell => {
 					cell = cell || model.navigation().active.cell;
-					return cell && model.edit().cancel.canExecute(this.contextFactory(cell, this.value));
+					return cell && model.edit().cancel.canExecute(this.contextFactory(cell, this.value)) && model.edit().editMode === 'edit';
 				},
 				execute: (cell, e) => {
 					Log.info('cell.edit', 'cancel');
@@ -100,14 +97,12 @@ export default class EditCellView {
 					}
 
 					cell = cell || model.navigation().active.cell;
-					if (cell) {
-						if (model.edit().cancel.execute(this.contextFactory(cell, this.value)) !== false) {
-							this.value = null;
-							this.mode = 'view';
-							model.edit({editMode: 'view'});
-							cell.mode(this.mode);
-							table.focus();
-						}
+					if (cell && model.edit().cancel.execute(this.contextFactory(cell, this.value)) !== false) {
+						this.value = null;
+						this.mode = 'view';
+						model.edit({editMode: 'view'});
+						cell.mode(this.mode);
+						table.focus();
 					}
 
 				}
@@ -115,7 +110,7 @@ export default class EditCellView {
 			reset: new Command({
 				canExecute: cell => {
 					cell = cell || model.navigation().active.cell;
-					return cell && model.edit().reset.canExecute(this.contextFactory(cell, this.value));
+					return cell && model.edit().reset.canExecute(this.contextFactory(cell, this.value)) && model.edit().editMode === 'edit';
 				},
 				execute: (cell, e) => {
 					Log.info('cell.edit', 'reset');
@@ -124,13 +119,11 @@ export default class EditCellView {
 					}
 
 					cell = cell || model.navigation().active.cell;
-					if (cell) {
-						if (model.edit().reset.execute(this.contextFactory(cell, this.value)) !== false) {
-							const parse = parseFactory(cell.column.type);
-							this.value = parse(cell.value);
-							cell.mode(this.mode);
-							return false;
-						}
+					if (cell && model.edit().reset.execute(this.contextFactory(cell, this.value)) !== false) {
+						const parse = parseFactory(cell.column.type);
+						this.value = parse(cell.value);
+						cell.mode(this.mode);
+						return false;
 					}
 				}
 			})
