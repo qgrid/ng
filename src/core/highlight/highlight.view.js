@@ -53,15 +53,13 @@ export default class HighlightView extends View {
 			this.apply(() => this.behavior.update(e.state.entries), 0);
 		});
 
-		model.columnListChanged.watch(e => {
-			if (e.hasChanges('index')) {
-				waitForLayout = true;
-				apply(() => {
-					hoverBlurs = this.invalidateHover(hoverBlurs);
-					sortBlurs = this.invalidateSortBy(sortBlurs);
-					waitForLayout = false;
-				}, 0);
-			}
+		model.viewChanged.watch(() => {
+			waitForLayout = true;
+			apply(() => {
+				hoverBlurs = this.invalidateHover(hoverBlurs);
+				sortBlurs = this.invalidateSortBy(sortBlurs);
+				waitForLayout = false;
+			}, 100);
 		});
 
 		model.sortChanged.watch(e => {
@@ -109,7 +107,7 @@ export default class HighlightView extends View {
 		if (index >= 0) {
 			// TODO: add pivot col support
 			const column = columns[index];
-			if (column.type === 'pivot' || column.type === 'pad') {
+			if (!column.canHighlight) {
 				return -1;
 			}
 		}
