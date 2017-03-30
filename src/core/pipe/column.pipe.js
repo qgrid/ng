@@ -191,7 +191,10 @@ export default function columnPipe(memo, context, next) {
 	 *
 	 */
 	let index = 0;
-	const indexMap = model.columnList().index
+	const columnMap = columnService.map(columns.map(c => c.model));
+	const indexMap = model.columnList()
+		.index
+		.filter(key => columnMap.hasOwnProperty(key))
 		.reduce((memo, key) => {
 			memo[key] = index++;
 			return memo;

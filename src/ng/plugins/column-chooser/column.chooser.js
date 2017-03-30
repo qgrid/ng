@@ -74,8 +74,10 @@ class ColumnChooser extends Plugin {
 						const sourceColumn = columns[sourceIndex].model;
 						const targetColumn = columns[targetIndex].model;
 						const indexMap = Array.from(model.columnList().index);
-						indexMap.splice(sourceColumn.index, 1);
-						indexMap.splice(targetColumn.index, 0, sourceColumn.key);
+						const sourceColumnIndex = indexMap.indexOf(sourceColumn.key);
+						const targetColumnIndex = indexMap.indexOf(targetColumn.key);
+						indexMap.splice(sourceColumnIndex, 1);
+						indexMap.splice(targetColumnIndex, 0, sourceColumn.key);
 						model.columnList({index: indexMap});
 					}
 				}
