@@ -28,7 +28,6 @@ class TextColumnModel extends DataColumnModel {
 		super('text');
 
 		this.maxLength = 140;
-		this.editorSubmitShortcut = 'tab';
 	}
 }
 

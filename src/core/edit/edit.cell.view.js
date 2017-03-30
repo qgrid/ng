@@ -37,7 +37,7 @@ export default class EditCellView {
 						return cell.column.canEdit && model.edit().enter.canExecute(this.contextFactory(cell)) && model.edit().editMode === 'view';
 					}
 
-					return model.edit().editMode === 'view';
+					return false;
 				},
 				execute: (cell, e) => {
 					Log.info('cell.edit', 'edit mode');

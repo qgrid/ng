@@ -19,7 +19,6 @@ TemplatePath.register('number-cell-edit', (template, column) => {
 class NumberColumnModel extends DataColumnModel{
 	constructor(){
 		super('number');
-		this.editorSubmitShortcut = 'tab';
 	}
 }
 

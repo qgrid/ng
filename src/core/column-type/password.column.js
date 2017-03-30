@@ -22,7 +22,6 @@ class PasswordColumnModel extends DataColumnModel {
 
 		this.canSort = false;
 		this.canFilter = false;
-		this.editorSubmitShortcut = 'tab';
 	}
 }
 
