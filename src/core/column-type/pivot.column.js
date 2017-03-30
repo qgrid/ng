@@ -19,6 +19,7 @@ class PivotColumnModel extends ColumnModel {
 		this.canEdit = false;
 		this.canSort = false;
 		this.canResize = false;
+		this.canHighlight = false;
 		this.width = 60;
 		this.rowIndex = 0;
 	}

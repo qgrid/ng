@@ -107,7 +107,7 @@ export default class HighlightView extends View {
 		if (index >= 0) {
 			// TODO: add pivot col support
 			const column = columns[index];
-			if (column.type === 'pivot' || column.type === 'pad') {
+			if (!column.canHighlight) {
 				return -1;
 			}
 		}
