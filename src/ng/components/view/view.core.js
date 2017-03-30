@@ -59,7 +59,7 @@ class ViewCore extends Component {
 		this.highlight = new HighlightView(model, table, apply);
 		this.sort = new SortView(model);
 		this.filter = new FilterView(model);
-		this.edit = new EditView(model, setValue, table, apply);
+		this.edit = new EditView(model, setValue, valueFactory, table, apply);
 		this.pagination = new PaginationView(model);
 
 		// TODO: how we can avoid that?

@@ -32,6 +32,7 @@ import Range from './filters/range';
 import Highlight from './filters/highlight';
 
 import * as def from './definition';
+require('vscroll'); // TODO: make vscroll export
 
 const coreModule = angular.module(def.MODULE_CORE_NAME, [])
 	.directive(def.DRAG_NAME, () => Drag)
@@ -77,7 +78,7 @@ const layoutModel = angular.module(def.MODULE_LAYOUT_NAME, [coreModule])
 	.name;
 
 export default angular
-	.module(def.MODULE_NAME, [coreModule, layoutModel, pluginModule])
+	.module(def.MODULE_NAME, [coreModule, layoutModel, pluginModule, 'vscroll'])
 	.name;
 
 Setup.$inject = ['qgridThemeProvider'];

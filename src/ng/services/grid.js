@@ -3,6 +3,7 @@ import GridService from 'core/services/grid';
 import Pipe from 'core/pipe/pipe';
 import PipeUnit from 'core/pipe/units/pipe.unit';
 import Log from 'core/infrastructure/log';
+import Command from 'core/infrastructure/command';
 import {noop} from 'core/services/utility';
 import {getFactory} from './value';
 
@@ -31,6 +32,10 @@ export default class Grid {
 
 	get pipeUnit() {
 		return PipeUnit;
+	}
+
+	get Command() {
+		return Command;
 	}
 }
 
