@@ -77,14 +77,6 @@ class ColumnChooser extends Plugin {
 						indexMap.splice(sourceColumn.index, 1);
 						indexMap.splice(targetColumn.index, 0, sourceColumn.key);
 						model.columnList({index: indexMap});
-
-						this.service.invalidate(
-							'reorder', {
-								target: targetIndex,
-								source: sourceIndex
-							},
-							PipeUnit.column
-						);
 					}
 				}
 			}

@@ -1,6 +1,6 @@
 import * as guard from 'core/infrastructure/guard';
 import {assignWith, clone, isUndefined} from 'core/services/utility';
-import CustomColumn from 'core/column-type/column.view';
+import CustomColumn from 'core/column-type/column.model.view';
 import TextColumn from 'core/column-type/text.column';
 import NumberColumn from 'core/column-type/number.column';
 import BoolColumn from 'core/column-type/bool.column';

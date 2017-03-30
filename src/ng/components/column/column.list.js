@@ -115,8 +115,8 @@ class ColumnList extends ModelComponent {
 					parse !== identity
 						? parse(value)
 						: isObject(targetValue)
-							? $parse(value)($scope)
-							: value;
+						? $parse(value)($scope)
+						: value;
 
 				accessor(target, sourceValue);
 			});

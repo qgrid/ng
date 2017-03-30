@@ -1,4 +1,4 @@
-import ColumnView from 'core/column-type/column.view';
+import ColumnView from 'core/column-type/column.model.view';
 import TemplatePath from 'core/template/template.path';
 import ColumnModel from './column.model';
 
@@ -17,6 +17,7 @@ class RowNumberColumnModel extends ColumnModel {
 		this.title = '#';
 		this.canEdit = false;
 		this.canResize = false;
+		this.canMove = false;
 		this.canHighlight = false;
 	}
 }

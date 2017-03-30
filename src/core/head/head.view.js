@@ -2,10 +2,9 @@ import View from 'core/view/view';
 import Log from 'core/infrastructure/log';
 import Command from 'core/infrastructure/command';
 import * as columnService from 'core/column/column.service';
-import PipeUnit from 'core/pipe/units/pipe.unit';
 
 export default class HeadView extends View {
-	constructor(model, service, tagName) {
+	constructor(model, tagName) {
 		super(model);
 
 		this.tagName = tagName;
@@ -34,14 +33,6 @@ export default class HeadView extends View {
 						indexMap.splice(sourceColumn.index, 1);
 						indexMap.splice(targetColumn.index, 0, sourceColumn.key);
 						model.columnList({index: indexMap});
-
-						service.invalidate(
-							'reorder', {
-								target: targetIndex,
-								source: sourceIndex
-							},
-							PipeUnit.column
-						);
 					}
 				}
 			}
