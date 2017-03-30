@@ -96,6 +96,10 @@ export default {
 		pivotBy: '<',
 		sortBy: '<',
 		sortMode: '@',
-		editMode: '@'
+		editMode: '@',
+		editEnter: '<',
+		editCommit: '<',
+		editCancel: '<',
+		editReset: '<',
 	}
 };

@@ -148,7 +148,8 @@ export default class EditCellView {
 			rowIndex: cell.rowIndex,
 			oldValue: cell.value,
 			newValue: arguments.length === 2 ? value : cell.value,
-			valueFactory: this.valueFactory
+			valueFactory: this.valueFactory,
+			unit: 'cell'
 		};
 	}
 
