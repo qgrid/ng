@@ -32,14 +32,16 @@ export default class SelectionView extends View {
 			model.selection({items: this.selectionState.view});
 		});
 
-		// model.navigationChanged.watch(e => {
-		// 	if (e.hasChanges('active') && e.tag.source !== 'selection') {
-		// 		const selectionState = model.selection();
-		// 		if (selectionState.unit === 'cell') {
-		// 			this.select(e.state.active.cell, true);
-		// 		}
-		// 	}
-		// });
+		model.navigationChanged.watch(e => {
+			if (e.hasChanges('active') && e.tag.source !== 'selection') {
+				const selectionState = model.selection();
+				if (selectionState.unit === 'cell' && selectionState.mode === 'single') {
+					if (e.state.active.cell) {
+						this.select(e.state.active.cell, true);
+					}
+				}
+			}
+		});
 
 		model.selectionChanged.watch(e => {
 			if (e.hasChanges('mode')) {
