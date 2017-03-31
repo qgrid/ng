@@ -27,7 +27,6 @@ export default function pipeSort(data, context, next) {
 	}
 
 	const result = orderBy(data, values, directions);
-
 	next(result);
 }
 

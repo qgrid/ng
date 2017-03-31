@@ -18,12 +18,14 @@ export default class Row extends Element {
 	}
 
 	cell(column) {
-		if(column >= 0) {
+		if (column >= 0 && column < this.cellCount()) {
 			const cells = this.element.cells;
-			if (column < cells.length) {
-				return new Cell(cells[column]);
-			}
+			return new Cell(cells[column]);
 		}
 		return null;
+	}
+
+	cellCount() {
+		return this.element.cells.length;
 	}
 }

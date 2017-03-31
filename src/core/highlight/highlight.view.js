@@ -101,8 +101,7 @@ export default class HighlightView extends View {
 	}
 
 	columnIndex(key) {
-		const columnRows = this.model.view().columns;
-		const columns = columnService.lineView(columnRows).map(v => v.model);
+		const columns = this.table.data.columns();
 		const index = columnService.findIndex(columns, key);
 		if (index >= 0) {
 			// TODO: add pivot col support

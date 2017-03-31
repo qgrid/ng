@@ -45,9 +45,9 @@ export default class EditCellView {
 						e.stopImmediatePropagation();
 					}
 
+					cell = cell || model.navigation().active.cell;
 					const parse = parseFactory(cell.column.type);
 					const value = isUndefined(cell.value) ? null : parse(clone(cell.value));
-					cell = cell || model.navigation().active.cell;
 					if (cell) {
 						if (model.edit().enter.execute(this.contextFactory(cell, value)) !== false) {
 							this.value = value;
