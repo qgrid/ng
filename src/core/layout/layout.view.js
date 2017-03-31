@@ -82,10 +82,7 @@ export default class LayoutView extends View {
 		const state = clone(layout().columns);
 		const headRow = this.table.head.row(0);
 		if (headRow) {
-			const columns = columnService
-				.lineView(model.view().columns)
-				.map(v => v.model);
-
+			const columns = this.table.data.columns();
 			let length = columns.length;
 			while (length--) {
 				const column = columns[length];
@@ -115,10 +112,7 @@ export default class LayoutView extends View {
 
 		const model = this.model;
 		const getWidth = columnService.widthFactory(model, form);
-		const columns = columnService
-			.lineView(model.view().columns)
-			.map(v => v.model);
-
+		const columns = this.table.data.columns();
 		const style = {};
 		let length = columns.length;
 		while (length--) {

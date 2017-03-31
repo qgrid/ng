@@ -19,6 +19,7 @@ class PadColumnModel extends ColumnModel {
 		this.canSort = false;
 		this.canResize = false;
 		this.canHighlight = false;
+		this.canFocus = false;
 		this.source = 'generation';
 	}
 }

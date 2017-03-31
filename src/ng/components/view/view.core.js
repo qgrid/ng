@@ -35,8 +35,7 @@ class ViewCore extends Component {
 
 	onLink() {
 		const model = this.model;
-		const markup = this.root.markup;
-		const table = new Table(markup, this.template);
+		const table = new Table(model, this.root.markup, this.template);
 
 		const service = this.serviceFactory(model);
 		const apply = (f, timeout) => {
@@ -49,7 +48,7 @@ class ViewCore extends Component {
 
 		this.style = new StyleView(model, table, valueFactory);
 		this.table = new TableView(model);
-		this.head = new HeadView(model, TH_CORE_NAME);
+		this.head = new HeadView(model, table, TH_CORE_NAME);
 		this.body = new BodyView(model, table, valueFactory);
 		this.foot = new FootView(model, valueFactory);
 		this.columns = new ColumnView(model);

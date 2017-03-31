@@ -1,7 +1,9 @@
 import Box from './box';
+import Data from './data';
 
 export default class Table {
-	constructor(markup, template) {
+	constructor(model, markup, template) {
+		this.model = model;
 		this.markup = markup;
 		this.template = template;
 		this._head = null;
@@ -47,5 +49,9 @@ export default class Table {
 			return this._foot = new Box(document, foot, this.template);
 		}
 		return Box.empty;
+	}
+
+	get data() {
+		return new Data(this.model);
 	}
 }

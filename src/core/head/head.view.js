@@ -4,7 +4,7 @@ import Command from 'core/infrastructure/command';
 import * as columnService from 'core/column/column.service';
 
 export default class HeadView extends View {
-	constructor(model, tagName) {
+	constructor(model, table, tagName) {
 		super(model);
 
 		this.tagName = tagName;
@@ -54,8 +54,7 @@ export default class HeadView extends View {
 		this.resize = new Command({
 			canExecute: e => {
 				if (e.source.key === tagName) {
-					const columns = columnService.lineView(model.view().columns).map(v => v.model);
-					const map = columnService.map(columns);
+					const map = table.data.columnMap();
 					return map.hasOwnProperty(e.source.value) && map[e.source.value].canResize !== false;
 				}
 

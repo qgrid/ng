@@ -6,6 +6,7 @@ export default class StyleView extends View {
 	constructor(model, table, valueFactory) {
 		super(model);
 
+		this.table = table;
 		this.markup = table.markup;
 		this.valueFactory = valueFactory;
 		this.active= {
@@ -50,7 +51,7 @@ export default class StyleView extends View {
 			const bodyRows = markup.body.rows;
 			const rowMonitor = this.monitor.row;
 			const cellMonitor = this.monitor.cell;
-			const columns = columnService.lineView(model.view().columns).map(c => c.model);
+			const columns = this.table.data.columns();
 			const columnMap = columnService.map(columns);
 			// TODO: improve perfomance
 			const value = (row, column) => {

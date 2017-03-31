@@ -20,14 +20,15 @@ export default class Column extends Element {
 	}
 
 	cell(row) {
-		if (row >= 0) {
+		if (row >= 0 && row < this.cellCount()) {
 			const rows = this.element.rows;
-			if (row < rows.length) {
-				const row = rows[row];
-				return new Cell(row.cells[this.index]);
-			}
+			const row = rows[row];
+			return new Cell(row.cells[this.index]);
 		}
 		return null;
 	}
-}
 
+	cellCount() {
+		return this.element.rows.length;
+	}
+}

@@ -19,6 +19,7 @@ class RowIndicatorColumnModel extends ColumnModel {
 		this.canSort = false;
 		this.canResize = false;
 		this.canMove = false;
+		this.canFocus = false;
 		this.canHighlight = false;
 	}
 }

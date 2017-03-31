@@ -100,6 +100,8 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 			},
 			column: cell.columnIndex,
 			row: cell.rowIndex
+		}, {
+			source: 'body.core'
 		});
 	}
 
