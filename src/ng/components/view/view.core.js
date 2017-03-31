@@ -29,7 +29,7 @@ class ViewCore extends Component {
 		this.element = $element[0];
 		this.$timeout = $timeout;
 		this.$postLink = this.onLink;
-		this.serviceFactory = grid.service;
+		this.serviceFactory = grid.service.bind(grid);
 		this.template = new TemplateLink($compile, $templateCache);
 	}
 
