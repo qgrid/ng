@@ -47,18 +47,16 @@ export default class EditCellView {
 					cell = cell || model.navigation().active.cell;
 					const parse = parseFactory(cell.column.type);
 					const value = isUndefined(cell.value) ? null : parse(clone(cell.value));
-					if (cell) {
-						if (model.edit().enter.execute(this.contextFactory(cell, value)) !== false) {
-							this.value = value;
-							this.mode = 'edit';
-							model.edit({editMode: 'edit'});
-							cell.mode(this.mode);
-						}
+					if (cell && model.edit().enter.execute(this.contextFactory(cell, value)) !== false) {
+						this.value = value;
+						this.mode = 'edit';
+						model.edit({editMode: 'edit'});
+						cell.mode(this.mode);
 					}
 				}
 			}),
 			commit: new Command({
-				shortcut: 'Ctrl+S|Enter',
+				shortcut: this.commitShortcut,
 				// TODO: add validation support
 				canExecute: cell => {
 					cell = cell || model.navigation().active.cell;
@@ -152,6 +150,21 @@ export default class EditCellView {
 
 	set value(value) {
 		this._value = value;
+	}
+
+	get commitShortcut() {
+		const commitShortcuts = {
+			'$default': 'tab|enter',
+			'text': 'enter',
+			'password': 'ctrl+s',
+			'number': 'ctrl+s'
+		};
+		const navigationState = this.model.navigation();
+		const cell = navigationState.active.cell;
+		if (cell && commitShortcuts.hasOwnProperty(cell.column.type)) {
+			return commitShortcuts[cell.column.type];
+		}
+		return commitShortcuts['$default'];
 	}
 
 	destroy() {
