@@ -64,7 +64,7 @@ var qgrid =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 300);
+/******/ 	return __webpack_require__(__webpack_require__.s = 302);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -244,7 +244,7 @@ module.exports = "<div layout=\"row\">\n\t<div flex=\"100\"\n\t\t  layout=\"row\
 
 /***/ }),
 
-/***/ 300:
+/***/ 302:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

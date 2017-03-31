@@ -270,6 +270,9 @@
       margin-left: 24px;
       margin-right: 14px; }
 
+.q-grid.q-grid-theme-material .q-grid-toolbar {
+  overflow: hidden; }
+
 .q-grid.q-grid-theme-material .q-grid-toolbar-right {
   margin: 0px 4px; }
 
