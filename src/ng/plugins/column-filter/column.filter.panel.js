@@ -4,7 +4,7 @@ import {uniq, clone, noop} from 'core/services/utility';
 import {getFactory as valueFactory} from 'ng/services/value';
 import * as columnService from 'core/column/column.service';
 
-const Plugin = PluginComponent('column-filter-panel', {inject: ['vscroll', '$filter']});
+const Plugin = PluginComponent('column-filter-panel', {inject: ['vscroll', '$filter', 'qgrid']});
 class ColumnFilterPanel extends Plugin {
 	constructor() {
 		super(...arguments);
@@ -82,8 +82,9 @@ class ColumnFilterPanel extends Plugin {
 
 				const model = this.model;
 				const filterState = model.filter();
-				model.progress({isBusy: true});
+				const service = this.qgrid.service(this.model);
 				if (filterState.fetch !== noop) {
+					const cancelBusy = service.busy();
 					filterState
 						.fetch(this.key, {
 							value: this.getValue.bind(this),
@@ -94,20 +95,26 @@ class ColumnFilterPanel extends Plugin {
 						.then(items => {
 							this.items.push(...items);
 							d.resolve(this.items.length + take);
-							model.progress({isBusy: false});
-						});
+							cancelBusy();
+						})
+						.catch(cancelBusy);
 				}
 				else {
-					if (!this.items.length) {
-						const source = this.model[this.model.columnFilter().source];
-						const uniqItems = uniq(source().rows.map(this.getValue));
-						const filteredItems = this.$filter('filter')(uniqItems, this.filter);
-						filteredItems.sort();
-						this.items = filteredItems;
-					}
+					const cancelBusy = service.busy();
+					try {
+						if (!this.items.length) {
+							const source = this.model[this.model.columnFilter().source];
+							const uniqItems = uniq(source().rows.map(this.getValue));
+							const filteredItems = this.$filter('filter')(uniqItems, this.filter);
+							filteredItems.sort();
+							this.items = filteredItems;
+						}
 
-					d.resolve(this.items.length);
-					model.progress({isBusy: false});
+						d.resolve(this.items.length);
+					}
+					finally {
+						cancelBusy();
+					}
 				}
 			}
 		});
