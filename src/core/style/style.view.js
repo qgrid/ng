@@ -60,7 +60,7 @@ export default class StyleView extends View {
 			const domCell = cellMonitor.enter();
 			const domRow = rowMonitor.enter();
 			try {
-				for (let i = 0, rowsLength = bodyRows.length; i < rowsLength; i++) {
+				for (let i = 0, rowsLength = Math.min(bodyRows.length, dataRows.length); i < rowsLength; i++) {
 					const dataRow = dataRows[i];
 					const bodyRow = bodyRows[i];
 
