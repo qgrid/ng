@@ -17,7 +17,8 @@ class Progress extends Plugin {
 	}
 
 	get isBusy() {
-		return this.model.progress().isBusy;
+		const progressState = this.model.progress();
+		return progressState.isBusy || progressState.queue.length;
 	}
 }
 
