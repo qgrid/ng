@@ -13942,7 +13942,7 @@ var ViewCore = function (_Component) {
 		_this.element = $element[0];
 		_this.$timeout = $timeout;
 		_this.$postLink = _this.onLink;
-		_this.serviceFactory = grid.service;
+		_this.serviceFactory = grid.service.bind(grid);
 		_this.template = new __WEBPACK_IMPORTED_MODULE_21__template_template_link__["a" /* default */]($compile, $templateCache);
 		return _this;
 	}
