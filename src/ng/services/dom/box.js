@@ -23,15 +23,19 @@ class BoxCore {
 		};
 	}
 
+	rows() {
+		return [];
+	}
+
 	cell() {
 		return null;
 	}
 
-	addLayer(){
+	addLayer() {
 		return Layer.empty;
 	}
 
-	removeLayer(){
+	removeLayer() {
 	}
 }
 
@@ -72,10 +76,27 @@ export default class Box extends BoxCore {
 		return null;
 	}
 
+	rows() {
+		return this.element.rows.map(element => new Row(element));
+	}
+
+	rowCount() {
+		return this.element.rows.length;
+	}
+
+	columnCount() {
+		if (this.rowCount() > 0) {
+			const row = this.element.rows[0];
+			return row.cells.length;
+		}
+		
+		return 0;
+	}
+
 	cell(row, column) {
-		if(row >= 0 && column >= 0){
+		if (row >= 0 && column >= 0) {
 			const rows = this.element.rows;
-			if(rows.length){
+			if (rows.length) {
 				const cellsCount = rows[0].cells.length;
 				if (row < rows.length && column < cellsCount) {
 					const cell = rows[row].cells[column];
@@ -86,9 +107,9 @@ export default class Box extends BoxCore {
 		return null;
 	}
 
-	addLayer(name){
+	addLayer(name) {
 		const layers = this.layers;
-		if(layers.has(name)){
+		if (layers.has(name)) {
 			return layers.get(name);
 		}
 
@@ -101,9 +122,9 @@ export default class Box extends BoxCore {
 		return layer;
 	}
 
-	removeLayer(name){
+	removeLayer(name) {
 		const layers = this.layers;
-		if(layers.has(name)) {
+		if (layers.has(name)) {
 			const layer = layers.get(name);
 			layer.destroy();
 			layer.element.parentElement.removeChild(layer.element);

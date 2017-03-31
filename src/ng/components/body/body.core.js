@@ -90,17 +90,10 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	}
 
 	navigate(cell) {
-		if (!cell) {
-			return;
+		const focus = this.view.nav.focusCell;
+		if (focus.canExecute(cell)) {
+			focus.execute(cell);
 		}
-
-		this.view.model.navigation({
-			active: {
-				cell: cell
-			},
-			column: cell.columnIndex,
-			row: cell.rowIndex
-		});
 	}
 
 	get selection() {

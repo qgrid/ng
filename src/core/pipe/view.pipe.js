@@ -9,6 +9,9 @@ export default function pipeView(memo, context, next) {
 		nodes: memo.nodes,
 		pivot: memo.pivot,
 		columns: memo.columns
+	}, {
+		source: 'view.pipe',
+		behavior: 'core'
 	});
 
 	next(memo);

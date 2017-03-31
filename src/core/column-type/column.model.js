@@ -18,6 +18,7 @@ export default class ColumnModel {
 		this.canMove = true;
 		this.canFilter = true;
 		this.canHighlight = true;
+		this.canFocus = true;
 
 		this.isVisible = true;
 		this.index = -1;

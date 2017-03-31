@@ -6,7 +6,7 @@ import memo from './memo.pipe';
 import group from './group.pipe';
 import pivot from './pivot.pipe';
 import column from './column.pipe';
-import view from './pipe.view';
+import view from './view.pipe';
 
 export default class Pipe {
 	static get data() {

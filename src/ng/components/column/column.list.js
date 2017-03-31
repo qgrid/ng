@@ -72,7 +72,7 @@ class ColumnList extends ModelComponent {
 	update(generatedColumns) {
 		const model = this.root.model;
 		const data = model.data;
-		let columns = Array.from(data().columns)
+		let columns = Array.from(data().columns);
 		const tag = {
 			source: 'column.list',
 			behavior: 'core'
@@ -85,7 +85,10 @@ class ColumnList extends ModelComponent {
 			columns = this.merge(generatedColumns, dataColumns);
 		}
 
-		data({columns: this.merge(columns, this.columns)}, tag);
+		columns = this.merge(columns, this.columns);
+		if (columns.length) {
+			data({columns: columns}, tag);
+		}
 	}
 
 	merge(left, right) {
@@ -115,8 +118,8 @@ class ColumnList extends ModelComponent {
 					parse !== identity
 						? parse(value)
 						: isObject(targetValue)
-							? $parse(value)($scope)
-							: value;
+						? $parse(value)($scope)
+						: value;
 
 				accessor(target, sourceValue);
 			});

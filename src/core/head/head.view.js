@@ -2,10 +2,9 @@ import View from 'core/view/view';
 import Log from 'core/infrastructure/log';
 import Command from 'core/infrastructure/command';
 import * as columnService from 'core/column/column.service';
-import PipeUnit from 'core/pipe/units/pipe.unit';
 
 export default class HeadView extends View {
-	constructor(model, service, tagName) {
+	constructor(model, table, tagName) {
 		super(model);
 
 		this.tagName = tagName;
@@ -31,17 +30,11 @@ export default class HeadView extends View {
 						const sourceColumn = columns[sourceIndex].model;
 						const targetColumn = columns[targetIndex].model;
 						const indexMap = Array.from(model.columnList().index);
-						indexMap.splice(sourceColumn.index, 1);
-						indexMap.splice(targetColumn.index, 0, sourceColumn.key);
+						const sourceColumnIndex = indexMap.indexOf(sourceColumn.key);
+						const targetColumnIndex = indexMap.indexOf(targetColumn.key);
+						indexMap.splice(sourceColumnIndex, 1);
+						indexMap.splice(targetColumnIndex, 0, sourceColumn.key);
 						model.columnList({index: indexMap});
-
-						service.invalidate(
-							'reorder', {
-								target: targetIndex,
-								source: sourceIndex
-							},
-							PipeUnit.column
-						);
 					}
 				}
 			}
@@ -61,8 +54,7 @@ export default class HeadView extends View {
 		this.resize = new Command({
 			canExecute: e => {
 				if (e.source.key === tagName) {
-					const columns = columnService.lineView(model.view().columns).map(v => v.model);
-					const map = columnService.map(columns);
+					const map = table.data.columnMap();
 					return map.hasOwnProperty(e.source.value) && map[e.source.value].canResize !== false;
 				}
 
