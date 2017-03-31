@@ -50,7 +50,8 @@ export default class Navigation {
 		}
 
 		const column = this.model.navigation().column;
-		return columns[Math.max(0, column)];
+		const index = columns.indexOf(column);
+		return columns[Math.max(0, index)];
 	}
 
 	get nextColumn() {
@@ -60,7 +61,8 @@ export default class Navigation {
 		}
 
 		const column = this.model.navigation().column;
-		return column < columns.length - 1 ? columns[column + 1] : -1;
+		const index = columns.indexOf(column);
+		return index < columns.length - 1 ? columns[index + 1] : -1;
 	}
 
 	get prevColumn() {
@@ -70,7 +72,8 @@ export default class Navigation {
 		}
 
 		const column = this.model.navigation().column;
-		return column > 0 ? columns[column - 1] : -1;
+		const index = columns.indexOf(column);
+		return index > 0 ? columns[index - 1] : -1;
 	}
 
 	get lastColumn() {

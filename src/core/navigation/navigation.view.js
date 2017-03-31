@@ -25,6 +25,11 @@ export default class NavigationView extends View {
 			canExecute: (row, column) => table.body.cell(row, column) !== null
 		});
 
+		this.focusCell = new Command({
+			execute: cell => model.navigation({row: cell.rowIndex, column: cell.columnIndex, active: {cell: cell}}),
+			canExecute: cell => cell && cell.column.canFocus && cell !== model.navigation().active.cell
+		});
+
 		this.scrollTo = new Command({
 			// TODO: get rid of '.element'
 			execute: (row, column) => this.scroll(markup.body, table.body.cell(row, column).element),
