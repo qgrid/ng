@@ -1,5 +1,4 @@
 import Command from 'core/infrastructure/command';
-import * as columnService from 'core/column/column.service';
 
 export default class Navigation {
 	constructor(model, table) {
