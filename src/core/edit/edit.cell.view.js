@@ -48,10 +48,10 @@ export default class EditCellView {
 					const parse = parseFactory(cell.column.type);
 					const value = isUndefined(cell.value) ? null : parse(clone(cell.value));
 					if (cell && model.edit().enter.execute(this.contextFactory(cell, value)) !== false) {
-							this.value = value;
-							this.mode = 'edit';
-							model.edit({editMode: 'edit'});
-							cell.mode(this.mode);
+						this.value = value;
+						this.mode = 'edit';
+						model.edit({editMode: 'edit'});
+						cell.mode(this.mode);
 					}
 				}
 			}),

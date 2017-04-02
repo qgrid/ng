@@ -89,7 +89,7 @@ export default class Box extends BoxCore {
 			const row = this.element.rows[0];
 			return row.cells.length;
 		}
-		
+
 		return 0;
 	}
 
