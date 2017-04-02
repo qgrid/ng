@@ -2,7 +2,8 @@ Controller.$inject = ['$http', '$timeout', 'qgrid'];
 export default function Controller($http, $timeout, qgrid) {
 	const ctrl = this;
 	ctrl.gridModel = qgrid.model();
-	ctrl.gridModel.progress({isBusy: true});
+	const service = qgrid.service(ctrl.gridModel);
+	const cancelBusy = service.busy();
 
 	$timeout(() =>
 		$http.get('data/people/100.json')
@@ -10,6 +11,6 @@ export default function Controller($http, $timeout, qgrid) {
 				ctrl.gridModel.data({
 					rows: response.data
 				});
-				ctrl.gridModel.progress({isBusy: false});
+				cancelBusy();
 			}), 1000);
 }

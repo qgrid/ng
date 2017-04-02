@@ -1,11 +1,11 @@
 {
   "name": "qgrid",
-  "version": "1.0.0",
+  "version": "1.0.17",
   "description": "Angular data grid",
   "main": "dist/qgrid.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/qgrid/ng/.git"
+    "url": "git+https://github.com/qgrid/ng.git"
   },
   "keywords": [
     "angular",
