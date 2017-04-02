@@ -37,7 +37,7 @@ class Pager extends Plugin {
 	}
 
 	set size(value) {
-		this.model.pagination({size: value});
+		this.model.pagination({size: value, current: 0});
 	}
 
 	get sizeList() {

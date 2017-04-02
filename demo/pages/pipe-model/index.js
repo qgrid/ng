@@ -1,7 +1,6 @@
 Controller.$inject = ['$http', '$timeout', 'qgrid'];
 export default function Controller($http, $timeout, qgrid) {
 	const ctrl = this;
-	let isReady = false;
 
 	ctrl.state = {
 		progress: false,
@@ -12,26 +11,20 @@ export default function Controller($http, $timeout, qgrid) {
 	ctrl.gridModel.data({
 		pipe: [
 			(data, ctx, next) => {
-				if (isReady) {
-					ctrl.state.progress = true;
-					ctrl.state.progressCount = ctrl.state.progressCount + 1;
-					$http.get('data/people/100.json')
-						.then(function (response) {
-							$timeout(() => {
-								next(response.data);
-								ctrl.state.progress = false;
-							}, 1000);
-						});
-				}
-				else {
-					next([]);
-				}
+				ctrl.state.progress = true;
+				ctrl.state.progressCount = ctrl.state.progressCount + 1;
+				$http.get('data/people/100.json')
+					.then(function (response) {
+						$timeout(() => {
+							next(response.data);
+							ctrl.state.progress = false;
+						}, 1000);
+					});
 			}]
 			.concat(qgrid.pipeUnit.view)
 	});
 
 	$timeout(() => {
-		isReady = true;
 		ctrl.gridModel.data({
 			columns: [
 				{

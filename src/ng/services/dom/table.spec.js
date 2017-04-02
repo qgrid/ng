@@ -24,7 +24,7 @@ describe('Table', () => {
 	};
 
 	const markupEmpty = {};
-	const tableArr = [new Table(markup), new Table(markupEmpty)];
+	const tableArr = [new Table({}, markup), new Table({}, markupEmpty)];
 	const tableProps = ['body', 'head', 'foot'];
 
 	describe('empty markup call to properties check', () => {

@@ -16,6 +16,7 @@ import SelectionView from 'core/selection/selection.view';
 import PaginationView from 'core/pagination/pagination.view';
 import TableView from 'core/table/table.view';
 import StyleView from 'core/style/style.view';
+import ColumnView from 'core/column/column.view';
 import {GRID_NAME, TH_CORE_NAME} from 'ng/definition';
 import {isUndefined} from 'core/services/utility';
 import TemplateLink from '../template/template.link';
@@ -34,8 +35,7 @@ class ViewCore extends Component {
 
 	onLink() {
 		const model = this.model;
-		const markup = this.root.markup;
-		const table = new Table(markup, this.template);
+		const table = new Table(model, this.root.markup, this.template);
 
 		const service = this.serviceFactory(model);
 		const apply = (f, timeout) => {
@@ -48,10 +48,11 @@ class ViewCore extends Component {
 
 		this.style = new StyleView(model, table, valueFactory);
 		this.table = new TableView(model);
-		this.head = new HeadView(model, service, TH_CORE_NAME);
+		this.head = new HeadView(model, table, TH_CORE_NAME);
 		this.body = new BodyView(model, table, valueFactory);
 		this.foot = new FootView(model, valueFactory);
-		this.layout = new LayoutView(model, table);
+		this.columns = new ColumnView(model);
+		this.layout = new LayoutView(model, table, service);
 		this.selection = new SelectionView(model, table, apply);
 		this.group = new GroupView(model, valueFactory);
 		this.pivot = new PivotView(model, valueFactory);

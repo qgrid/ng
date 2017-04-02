@@ -41,7 +41,10 @@ class Column extends Component {
 		const dataState = data();
 		const columns = clone(dataState.columns);
 		let column = columnService.find(columns, this.key);
-		if (!column) {
+		if (column) {
+			createColumn($attrs.type || 'text', column);
+		}
+		else {
 			column = createColumn($attrs.type || 'text').model;
 			column.key = this.key;
 			columns.source = 'template';
