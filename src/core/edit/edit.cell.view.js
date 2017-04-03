@@ -58,7 +58,7 @@ export default class EditCellView {
 				}
 			}),
 			commit: new Command({
-				shortcut: this.commitShortcut,
+				shortcut: model.commitShortcut,
 				// TODO: add validation support
 				canExecute: cell => {
 					cell = cell || model.navigation().active.cell;
@@ -158,21 +158,6 @@ export default class EditCellView {
 
 	set value(value) {
 		this._value = value;
-	}
-
-	get commitShortcut() {
-		const commitShortcuts = {
-			'$default': 'tab|enter',
-			'text': 'enter',
-			'password': 'ctrl+s',
-			'number': 'ctrl+s'
-		};
-		const navigationState = this.model.navigation();
-		const cell = navigationState.active.cell;
-		if (cell && commitShortcuts.hasOwnProperty(cell.column.type)) {
-			return commitShortcuts[cell.column.type];
-		}
-		return commitShortcuts['$default'];
 	}
 
 	destroy() {
