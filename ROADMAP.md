@@ -89,7 +89,7 @@
 *	Browser support
 	*	Chrome
 
-## 21 March – version 1.1
+## 10 April – version 1.1
 *	Row
 	*	Row Details
 	*	Row inline edit
@@ -100,9 +100,6 @@
 	*	Range
 	*	Mix
 	* 	Key
-*	Export
-	*	Excel
-	*	Csv
 *  Column Types
 	* File
 	* Time
@@ -111,19 +108,16 @@
 	* Enum
 *	Embedded Editors
 	*	Auto-complete
-	*	Dropdown
+	*	Drop-down
 *	Column
 	* Custom types
 	* Percent width
 *  Sorting depends on position
-*	Validation
-*	Expression builder
-*	State persistence
 *	Edit API
 *	Style API
 
 
-## 11 April – version 1.2
+## 27 April – version 1.2
 *	Filter row
 *	Scroll
 	*	Focus service
@@ -134,10 +128,13 @@
 *	Expressive states
 	*	“can-edit”, “can-sort” will support expressions
 *	Multi row header on auto generation
-*	Export to pdf
+*	Export to csv, excel, pdf
+*	Validation
+*	Expression builder
+*	State persistence
 
 
-## 25 April – version 1.3
+## 29 May – version 1.3
 *	Mobile device support
 *	Localization
 *	Master/details
@@ -154,6 +151,6 @@
 *	Default theme
 
 
-## 2 May
+## 12 June
 *	Core to separate repo
 *	Angular 2 environment
