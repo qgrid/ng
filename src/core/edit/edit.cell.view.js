@@ -34,7 +34,9 @@ export default class EditCellView {
 				canExecute: cell => {
 					cell = cell || model.navigation().active.cell;
 					if (cell && this.mode !== 'edit' && model.edit().mode === 'cell' && cell) {
-						return cell.column.canEdit && model.edit().enter.canExecute(this.contextFactory(cell)) && model.edit().editMode === 'view';
+						return cell.column.canEdit
+							&& model.edit().enter.canExecute(this.contextFactory(cell))
+							&& model.edit().editMode === 'view';
 					}
 
 					return false;
@@ -60,7 +62,9 @@ export default class EditCellView {
 				// TODO: add validation support
 				canExecute: cell => {
 					cell = cell || model.navigation().active.cell;
-					return this.mode === 'edit' && model.edit().mode === 'cell' && model.edit().commit.canExecute(this.contextFactory(cell)) && model.edit().editMode === 'edit';
+					return this.mode === 'edit' && model.edit().mode === 'cell'
+						&& model.edit().commit.canExecute(this.contextFactory(cell))
+						&& model.edit().editMode === 'edit';
 				},
 				execute: (cell, e) => {
 					Log.info('cell.edit', 'commit');
@@ -86,7 +90,9 @@ export default class EditCellView {
 				shortcut: 'Escape',
 				canExecute: cell => {
 					cell = cell || model.navigation().active.cell;
-					return cell && model.edit().cancel.canExecute(this.contextFactory(cell, this.value)) && model.edit().editMode === 'edit';
+					return cell
+						&& model.edit().cancel.canExecute(this.contextFactory(cell, this.value))
+						&& model.edit().editMode === 'edit';
 				},
 				execute: (cell, e) => {
 					Log.info('cell.edit', 'cancel');
@@ -108,7 +114,9 @@ export default class EditCellView {
 			reset: new Command({
 				canExecute: cell => {
 					cell = cell || model.navigation().active.cell;
-					return cell && model.edit().reset.canExecute(this.contextFactory(cell, this.value)) && model.edit().editMode === 'edit';
+					return cell
+						&& model.edit().reset.canExecute(this.contextFactory(cell, this.value))
+						&& model.edit().editMode === 'edit';
 				},
 				execute: (cell, e) => {
 					Log.info('cell.edit', 'reset');
