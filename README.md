@@ -35,7 +35,7 @@ We are trying to encapsulate any ui framework(angular in our case) dependencies 
 
 ![dependecy diagram](https://github.com/qgrid/ng/blob/master/docs/dependency.png)
 
-##licence
+## licence
 Code licensed under MIT license.
 
 ## references
@@ -80,4 +80,3 @@ Code licensed under MIT license.
 * [ng2-supertable](https://andyperlitch.github.io/ng2-super-table/demo/)
 * [valor grid](http://valor-software.com/ng2-table/)
 * [iron data table](https://saulis.github.io/iron-data-table/demo/)
-
