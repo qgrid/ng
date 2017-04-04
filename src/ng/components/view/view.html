@@ -1,17 +1,19 @@
 <table q-grid:markup="table" tabindex="0">
 	<thead ng-if="$view.visibility.head"
-	       ng-include="$view.templateUrl('head')"
-	       q-grid-core:head
-	       q-grid:markup="head">
+			 ng-include="$view.templateUrl('head')"
+			 q-grid-core:head
+			 q-grid:markup="head">
 	</thead>
 	<tbody ng-include="$view.templateUrl('body')"
-	       ng-if="$view.visibility.body"
-	       q-grid-core:body
-	       q-grid:markup="body">
+			 ng-if="$view.visibility.body"
+			 q-grid-core:body
+			 q-grid:markup="body"
+			 vscroll
+			 vscroll-port-y="$view.scroll.y.context">
 	</tbody>
 	<tfoot ng-if="$view.visibility.foot"
-	       ng-include="$view.templateUrl('foot')"
-	       q-grid-core:foot
-	       q-grid:markup="foot">
+			 ng-include="$view.templateUrl('foot')"
+			 q-grid-core:foot
+			 q-grid:markup="foot">
 	</tfoot>
 </table>
