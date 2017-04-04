@@ -10,7 +10,7 @@ export default class Column extends Element {
 
 	cells() {
 		const index = this.index;
-		const rows = this.element.rows;
+		const rows = this._rows();
 		const result = [];
 		for (let i = 0, length = rows.length; i < length; i++) {
 			const cell = rows[i].cells[index];
@@ -21,7 +21,7 @@ export default class Column extends Element {
 
 	cell(row) {
 		if (row >= 0 && row < this.cellCount()) {
-			const rows = this.element.rows;
+			const rows = this._rows();
 			const row = rows[row];
 			return new Cell(row.cells[this.index]);
 		}
@@ -29,6 +29,10 @@ export default class Column extends Element {
 	}
 
 	cellCount() {
-		return this.element.rows.length;
+		return this._rows().length;
+	}
+
+	_rows() {
+		return Array.from(this.element.rows).filter(row => !row.classList.contains('vscroll-mark'));
 	}
 }

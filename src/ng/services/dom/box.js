@@ -55,7 +55,7 @@ export default class Box extends BoxCore {
 
 	column(index) {
 		if (index >= 0) {
-			const rows = this.element.rows;
+			const rows = this._rows();
 			if (rows.length) {
 				const cellsCount = rows[0].cells.length;
 				if (index < cellsCount) {
@@ -68,7 +68,7 @@ export default class Box extends BoxCore {
 
 	row(index) {
 		if (index >= 0) {
-			const rows = this.element.rows;
+			const rows = this._rows();
 			if (index < rows.length) {
 				return new Row(rows[index]);
 			}
@@ -77,16 +77,16 @@ export default class Box extends BoxCore {
 	}
 
 	rows() {
-		return this.element.rows.map(element => new Row(element));
+		return this._rows().map(element => new Row(element));
 	}
 
 	rowCount() {
-		return this.element.rows.length;
+		return this._rows().length;
 	}
 
 	columnCount() {
 		if (this.rowCount() > 0) {
-			const row = this.element.rows[0];
+			const row = this._rows()[0];
 			return row.cells.length;
 		}
 
@@ -95,7 +95,7 @@ export default class Box extends BoxCore {
 
 	cell(row, column) {
 		if (row >= 0 && column >= 0) {
-			const rows = this.element.rows;
+			const rows = this._rows();
 			if (rows.length) {
 				const cellsCount = rows[0].cells.length;
 				if (row < rows.length && column < cellsCount) {
@@ -130,5 +130,9 @@ export default class Box extends BoxCore {
 			layer.element.parentElement.removeChild(layer.element);
 			layers.delete(name);
 		}
+	}
+
+	_rows() {
+		return Array.from(this.element.rows).filter(row => !row.classList.contains('vscroll-mark'));
 	}
 }
