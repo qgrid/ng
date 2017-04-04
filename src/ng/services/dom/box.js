@@ -37,6 +37,14 @@ class BoxCore {
 
 	removeLayer() {
 	}
+
+	scrollLeft() {
+		return 0;
+	}
+
+	scrollTop() {
+		return 0;
+	}
 }
 
 export default class Box extends BoxCore {
@@ -134,5 +142,21 @@ export default class Box extends BoxCore {
 
 	_rows() {
 		return Array.from(this.element.rows).filter(row => !row.classList.contains('vscroll-mark'));
+	}
+
+	scrollLeft(value) {
+		if (!arguments.length) {
+			return this.element.scrollLeft;
+		}
+
+		this.element.scrollLeft = value;
+	}
+
+	scrollTop(value) {
+		if (!arguments.length) {
+			return this.element.scrollTop;
+		}
+
+		this.element.scrollTop = value;
 	}
 }

@@ -64,7 +64,7 @@ class ViewCore extends Component {
 		this.filter = new FilterView(model);
 		this.edit = new EditView(model, setValue, valueFactory, table, apply);
 		this.pagination = new PaginationView(model);
-		this.scroll = new ScrollView(model, this.vscroll);
+		this.scroll = new ScrollView(model, table, this.vscroll);
 
 		// TODO: how we can avoid that?
 		this.$scope.$watch(() => {
