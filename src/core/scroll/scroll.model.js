@@ -1,11 +1,15 @@
+import {noop} from 'core/services/utility';
+
 export default class ScrollModel {
 	constructor() {
 		this.y = {
-			threshold: 20
+			threshold: 20,
+			fetch: noop
 		};
 
 		this.x = {
-			threshold: 10
+			threshold: 10,
+			fetch: noop
 		};
 
 		this.position = {

@@ -8,11 +8,12 @@ export default function Controller($http, qgrid) {
 		size: Number.MAX_SAFE_INTEGER
 	});
 
-	ctrl.model.scroll({
-		y: {
-			threshold: 10
-		}
-	});
+	// ctrl.model.scroll({
+	// 	y: {
+	// 		threshold: 10,
+	// 		fetch: angular.noop
+	// 	}
+	// });
 
 	$http.get('data/people/100000.json')
 		.then(response => ctrl.rows = response.data);

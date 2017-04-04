@@ -2,14 +2,16 @@ import View from '../view/view';
 import log from 'core/infrastructure/log';
 
 export default class ScrollView extends View {
-	constructor(model, table, scroll) {
+	constructor(model, table, scroll, apply) {
 		super(model);
 
 		const scrollState = model.scroll();
 		this.table = table;
 		this.y = {
 			context: scroll({
-				threshold: scrollState.y.threshold
+				threshold: scrollState.y.threshold,
+				apply: apply,
+				fetch: scrollState.y.fetch
 			})
 		};
 
