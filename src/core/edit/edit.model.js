@@ -14,7 +14,8 @@ export default class EditModel {
 			'$default': 'tab|enter',
 			'text': 'enter',
 			'password': 'ctrl+s',
-			'number': 'ctrl+s'
+			'number': 'ctrl+s',
+			'date': 'ctrl+s'
 		};
 	}
 }
