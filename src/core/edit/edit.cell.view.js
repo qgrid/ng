@@ -9,7 +9,7 @@ export default class EditCellView {
 		this.model = model;
 		this.setValue = setValue;
 		const markup = table.markup;
-		this.markup = markup;
+		this._markup = markup;
 		this.valueFactory = valueFactory;
 
 		this.mode = 'view';
@@ -27,7 +27,7 @@ export default class EditCellView {
 
 	get commands() {
 		const model = this.model;
-		const table = this.markup.table;
+		const table = this._markup.table;
 		const commands = {
 			enter: new Command({
 				shortcut: 'F2|Enter',
