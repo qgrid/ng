@@ -24,12 +24,10 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 		const scroll = this.view.model.scroll;
 
 		scroll({
-			position: {
-				top: element.scrollTop,
-				left: element.scrollLeft,
-				width: element.scrollWidth,
-				height: element.scrollHeight
-			}
+			top: element.scrollTop,
+			left: element.scrollLeft,
+			width: element.scrollWidth,
+			height: element.scrollHeight
 		});
 	}
 

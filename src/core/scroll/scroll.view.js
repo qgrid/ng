@@ -16,7 +16,7 @@ export default class ScrollView extends View {
 		};
 
 		model.scrollChanged.watch(e => {
-			if (e.hasChanges('position')) {
+			if (e.hasChanges('left')) {
 				this.invalidate();
 			}
 		});
@@ -40,8 +40,8 @@ export default class ScrollView extends View {
 
 		const table = this.table;
 		const scroll = this.model.scroll();
-		table.head.scrollLeft(scroll.position.left);
-		table.foot.scrollLeft(scroll.position.left);
+		table.head.scrollLeft(scroll.left);
+		table.foot.scrollLeft(scroll.left);
 	}
 
 	get mode() {
