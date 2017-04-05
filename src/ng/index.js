@@ -152,6 +152,26 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.foot.cell.email.tpl.html', require('./components/cell/text/foot.cell.text.html'));
 		theme.put('qgrid.body.cell.email.edit.tpl.html', require('./components/cell/text/body.cell.text.edit.html'));
 
+		theme.put('qgrid.head.cell.time.tpl.html', require('./components/cell/text/head.cell.text.html'));
+		theme.put('qgrid.body.cell.time.tpl.html', require('./components/cell/time/body.cell.time.html'));
+		theme.put('qgrid.foot.cell.time.tpl.html', require('./components/cell/text/foot.cell.text.html'));
+		theme.put('qgrid.body.cell.time.edit.tpl.html', require('./components/cell/time/body.cell.time.edit.html'));
+
+		theme.put('qgrid.head.cell.url.tpl.html', require('./components/cell/text/head.cell.text.html'));
+		theme.put('qgrid.body.cell.url.tpl.html', require('./components/cell/url/body.cell.url.html'));
+		theme.put('qgrid.foot.cell.url.tpl.html', require('./components/cell/text/foot.cell.text.html'));
+		theme.put('qgrid.body.cell.url.edit.tpl.html', require('./components/cell/url/body.cell.url.edit.html'));
+
+		theme.put('qgrid.head.cell.file.tpl.html', require('./components/cell/text/head.cell.text.html'));
+		theme.put('qgrid.body.cell.file.tpl.html', require('./components/cell/file/body.cell.file.html'));
+		theme.put('qgrid.foot.cell.file.tpl.html', require('./components/cell/text/foot.cell.text.html'));
+		theme.put('qgrid.body.cell.file.edit.tpl.html', require('./components/cell/file/body.cell.file.edit.html'));
+
+		theme.put('qgrid.head.cell.image.tpl.html', require('./components/cell/text/head.cell.text.html'));
+		theme.put('qgrid.body.cell.image.tpl.html', require('./components/cell/image/body.cell.image.html'));
+		theme.put('qgrid.foot.cell.image.tpl.html', require('./components/cell/text/foot.cell.text.html'));
+		theme.put('qgrid.body.cell.image.edit.tpl.html', require('./components/cell/image/body.cell.image.edit.html'));
+
 		theme.put('qgrid.head.cell.select.tpl.html', require('./components/cell/select/head.cell.select.html'));
 		theme.put('qgrid.body.cell.select.tpl.html', require('./components/cell/select/body.cell.select.html'));
 		theme.put('qgrid.foot.cell.select.tpl.html', EMPTY);

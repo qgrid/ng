@@ -1,5 +1,6 @@
 import Component from '../component';
 import {getFactory as valueFactory, set as setValue} from 'ng/services/value';
+import {getFactory as labelFactory, set as setLabel} from 'ng/services/label';
 import Table from 'ng/services/dom/table';
 import BodyView from 'core/body/body.view';
 import HeadView from 'core/head/head.view';
@@ -49,7 +50,7 @@ class ViewCore extends Component {
 		this.style = new StyleView(model, table, valueFactory);
 		this.table = new TableView(model);
 		this.head = new HeadView(model, table, TH_CORE_NAME);
-		this.body = new BodyView(model, table, valueFactory);
+		this.body = new BodyView(model, table, valueFactory, labelFactory);
 		this.foot = new FootView(model, valueFactory);
 		this.columns = new ColumnView(model);
 		this.layout = new LayoutView(model, table, service);
@@ -60,7 +61,7 @@ class ViewCore extends Component {
 		this.highlight = new HighlightView(model, table, apply);
 		this.sort = new SortView(model);
 		this.filter = new FilterView(model);
-		this.edit = new EditView(model, setValue, valueFactory, table, apply);
+		this.edit = new EditView(model, setValue, valueFactory, setLabel, labelFactory, table, apply);
 		this.pagination = new PaginationView(model);
 
 		// TODO: how we can avoid that?

@@ -83,6 +83,33 @@ export default function Controller($http) {
 			key: 'memberSince',
 			title: 'Member Since',
 			type: 'date'
+		},
+		{
+			key: 'modifiedTime',
+			title: 'Modified Time',
+			type: 'time',
+			value: (item, value) => isUndef(value) ? item.modified || '' : item.modified = value
+		},
+		{
+			key: 'webPage',
+			title: 'Web Page',
+			type: 'url',
+			value: (item, value) => isUndef(value)
+				? item.webPage || `https://corp.portal.com/${item.name.last}.${item.name.first}`
+				: item.webPage = value,
+			label: (item, label) => isUndef(label)
+				? item.webPageLabel || `${item.name.last} ${item.name.first}`
+				: item.webPageLabel = label
+		},
+		{
+			key: 'attachments',
+			title: 'Attachments',
+			type: 'file'
+		},
+		{
+			key: 'avatar',
+			title: 'Avatar',
+			type: 'image'
 		}
 	];
 

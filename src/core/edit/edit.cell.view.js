@@ -5,15 +5,18 @@ import {clone, isUndefined} from 'core/services/utility';
 import Shortcut from 'core/infrastructure/shortcut';
 
 export default class EditCellView {
-	constructor(model, setValue, valueFactory, table, apply) {
+	constructor(model, setValue, valueFactory, setLabel, labelFactory, table, apply) {
 		this.model = model;
 		this.setValue = setValue;
 		const markup = table.markup;
 		this.markup = markup;
 		this.valueFactory = valueFactory;
+		this.setLabel = setLabel;
+		this.labelFactory = labelFactory;
 
 		this.mode = 'view';
 		this._value = null;
+		this._label = null;
 
 		const shortcut = new Shortcut(markup.document, markup.table, apply);
 		const commands = this.commands;
@@ -33,7 +36,7 @@ export default class EditCellView {
 				shortcut: 'F2|Enter',
 				canExecute: cell => {
 					cell = cell || model.navigation().active.cell;
-					if (cell && this.mode !== 'edit' && model.edit().mode === 'cell' && cell) {
+					if (cell && this.mode !== 'edit' && model.edit().mode === 'cell') {
 						return cell.column.canEdit && model.edit().enter.canExecute(this.contextFactory(cell));
 					}
 
@@ -48,9 +51,11 @@ export default class EditCellView {
 					cell = cell || model.navigation().active.cell;
 					const parse = parseFactory(cell.column.type);
 					const value = isUndefined(cell.value) ? null : parse(clone(cell.value));
+					const label = isUndefined(cell.label) ? null : parse(clone(cell.label));
 					if (cell) {
 						if (model.edit().enter.execute(this.contextFactory(cell, value)) !== false) {
 							this.value = value;
+							this.label = label;
 							this.mode = 'edit';
 							model.edit({editMode: 'edit'});
 							cell.mode(this.mode);
@@ -77,8 +82,10 @@ export default class EditCellView {
 							const column = cell.column;
 							const row = cell.row;
 							this.setValue(row, column, this.value);
+							this.setLabel(row, column, this.label);
 
 							this.value = null;
+							this.label = null;
 							this.mode = 'view';
 							model.edit({editMode: 'view'});
 							cell.mode(this.mode);
@@ -149,6 +156,7 @@ export default class EditCellView {
 			oldValue: cell.value,
 			newValue: arguments.length === 2 ? value : cell.value,
 			valueFactory: this.valueFactory,
+			labelFactory: this.labelFactory,
 			unit: 'cell'
 		};
 	}
@@ -159,6 +167,14 @@ export default class EditCellView {
 
 	set value(value) {
 		this._value = value;
+	}
+
+	get label() {
+		return this._label;
+	}
+
+	set label(label) {
+		this._label = label;
 	}
 
 	destroy() {

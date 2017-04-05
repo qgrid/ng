@@ -83,6 +83,12 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 		return this.view.body.value(row, column);
 	}
 
+	get label() {
+		const column = this.column;
+		const row = this.row;
+		return this.view.body.label(row, column);
+	}
+
 	get rowIndex() {
 		// use vscroll.row + vscroll.position in the future
 		return this.$scope.$parent.$index;

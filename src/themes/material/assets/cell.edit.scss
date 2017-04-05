@@ -78,6 +78,17 @@ td.q-grid-edit {
 				}
 			}
 		}
+
+		&.q-grid-url,
+		&.q-grid-email {
+			height: 190px;
+			width: 270px;
+
+			.q-grid-url-fields,
+			.q-grid-email-fields {
+				padding-top: 8px;
+			}
+		}
 	}
 
 	md-checkbox {

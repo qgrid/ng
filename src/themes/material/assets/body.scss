@@ -89,6 +89,42 @@ tbody {
 					@include multiLine($lineCount: 3);
 				}
 			}
+
+			&.q-grid-url,
+			&.q-grid-email {
+				> div {
+					overflow: hidden;
+					text-overflow: ellipsis;
+					outline: none;
+				}
+
+				.q-grid-url-edit,
+				.q-grid-email-edit {
+					position: absolute;
+					right: 0;
+					top: calc(50% - 8px);
+
+					font-size: 12px;
+					width: 16px;
+					min-width: 16px;
+					min-height: 16px;
+					height: 16px;
+					outline: none;
+					border: none;
+					background: transparent;
+					padding: 0;
+					margin: 0 2px;
+
+					md-icon {
+						color: $dark-secondary;
+						font-size: 16px;
+						height: 16px;
+						width: 16px;
+						min-height: 16px;
+						min-width: 16px;
+					}
+				}
+			}
 		}
 	}
 }

@@ -2,34 +2,32 @@ import ColumnView from 'core/column-type/column.model.view';
 import DataColumnModel from './data.column.model';
 import TemplatePath from 'core/template/template.path';
 
-TemplatePath.register('email-cell', (template, column) => {
+TemplatePath.register('image-cell', (template, column) => {
 	return {
 		model: template.for,
 		resource: column.key
 	};
 });
 
-TemplatePath.register('email-cell-edit', (template, column) => {
+TemplatePath.register('image-cell-edit', (template, column) => {
 	return {
 		model: 'edit',
 		resource: column.key
 	};
 });
 
-class EmailColumnModel extends DataColumnModel {
+class ImageColumnModel extends DataColumnModel {
 	constructor() {
-		super('email');
-
-		this.canEdit = false;
+		super('image');
 	}
 }
 
-export default class EmailColumn extends ColumnView {
+export default class ImageColumn extends ColumnView {
 	constructor(model) {
 		super(model);
 	}
 
 	static model(model) {
-		return model ? EmailColumn.assign(model) : new EmailColumnModel();
+		return model ? ImageColumn.assign(model) : new ImageColumnModel();
 	}
 }

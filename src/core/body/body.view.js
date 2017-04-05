@@ -6,7 +6,7 @@ import Log from 'core/infrastructure/log';
 import Node from 'core/node/node';
 
 export default class BodyView extends View {
-	constructor(model, table, valueFactory) {
+	constructor(model, table, valueFactory, labelFactory) {
 		super(model);
 
 		this.table = table;
@@ -14,6 +14,7 @@ export default class BodyView extends View {
 		this.rows = [];
 		this.columns = [];
 		this._valueFactory = valueFactory;
+		this._labelFactory = labelFactory;
 
 		model.viewChanged.watch(() => this.invalidate(model));
 	}
@@ -85,5 +86,10 @@ export default class BodyView extends View {
 	value(row, column) {
 		const getValue = this.valueFactory(column);
 		return getValue(row);
+	}
+
+	label(row, column) {
+		const getLabel = this._labelFactory(column);
+		return getLabel(row);
 	}
 }
