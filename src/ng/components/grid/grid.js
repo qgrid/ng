@@ -2,7 +2,7 @@ import RootComponent from '../root.component';
 import PipeUnit from 'core/pipe/units/pipe.unit'
 
 export class Grid extends RootComponent {
-	constructor($element, $transclude, $document, serviceFactory) {
+	constructor($element, $transclude, $document, serviceFactory, $animate) {
 		super('data', 'selection', 'sort', 'group', 'pivot', 'edit');
 
 		this.$element = $element;
@@ -11,6 +11,9 @@ export class Grid extends RootComponent {
 		this.markup = {
 			document: $document[0]
 		};
+
+		// turn off animation due to virtual scroll performance
+		$animate.enabled($element, false);
 	}
 
 	onInit() {
@@ -71,7 +74,8 @@ Grid.$inject = [
 	'$element',
 	'$transclude',
 	'$document',
-	'qgrid'
+	'qgrid',
+	'$animate'
 ];
 
 /**
