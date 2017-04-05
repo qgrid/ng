@@ -1,9 +1,9 @@
 import EventListener from './event.listener';
 
 export default class Shortcut {
-	constructor(document, target, apply) {
-		this.document = document;
-		this.target = target;
+	constructor(table, apply) {
+		this.document = table.document;
+		this.target = table.target;
 		this.apply = apply;
 		this.shortcuts = new Map();
 		this.codeMap = new Map()

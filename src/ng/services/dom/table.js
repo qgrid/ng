@@ -54,4 +54,16 @@ export default class Table {
 	get data() {
 		return new Data(this.model);
 	}
+
+	focus() {
+		this.markup.table.focus();
+	}
+
+	get target() {
+		return this.markup.table;
+	}
+
+	get document() {
+		return this.markup.document;
+	}
 }
