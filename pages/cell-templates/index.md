@@ -27,7 +27,7 @@ The grid includes a comprehensive set of appearance and behavior customization o
 	  			<code>columnIndex</code> - display columnIndex of the row
 	  		</li>
 	  		<li>
-	  			<code>value</code> - value to display in the cell 
+	  			<code>value</code> - getter/setter bound to current cell's value
 	  		</li>
 	  	</ui>
 	  </td>
