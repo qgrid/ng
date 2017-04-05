@@ -4,7 +4,7 @@
 			 q-grid-core:head
 			 q-grid:markup="head">
 	</thead>
-	<tbody ng-include="$view.templateUrl('body')"
+	<tbody ng-include="$view.templateUrl($view.scroll.mode === 'virtual' ? 'body.virtual' : 'body')"
 			 ng-if="$view.visibility.body"
 			 q-grid-core:body
 			 q-grid:markup="body"

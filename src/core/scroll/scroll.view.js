@@ -15,17 +15,25 @@ export default class ScrollView extends View {
 			})
 		};
 
-		model.viewChanged.watch(() => {
-			this.y.context.container.reset();
-		});
-
 		model.scrollChanged.watch(e => {
 			if (e.hasChanges('position')) {
 				this.invalidate();
 			}
 		});
-	}
 
+		switch (scrollState.mode) {
+			case 'virtual': {
+				model.viewChanged.watch(() => {
+					this.y.context.container.reset();
+				});
+			}
+				break;
+			default:
+				model.paginationChanged.watch(() => {
+					this.y.context.container.reset();
+				});
+		}
+	}
 
 	invalidate() {
 		log.info('layout', 'invalidate scroll');
@@ -36,4 +44,7 @@ export default class ScrollView extends View {
 		table.foot.scrollLeft(scroll.position.left);
 	}
 
+	get mode() {
+		return this.model.scroll().mode;
+	}
 }
