@@ -166,7 +166,6 @@ export default class Navigation {
 			}),
 			tab: new Command({
 				shortcut: 'tab',
-				canExecute: canExecute,
 				execute: () => {
 					const hasNextColumn = this.nextColumn >= 0;
 					const hasNextRow = this.nextRow >= 0;
