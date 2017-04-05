@@ -43,6 +43,12 @@ Code licensed under MIT license.
 ### themes
 * [material design](https://material.io/guidelines/components/data-tables.html)
 
+### virtualization
+* [vscroll](https://github.com/klumba12/vscroll)
+
+### expressions
+* [expression builder](https://github.com/vkorolev/expression-builder)
+
 ### markdown
 * [dillinger](http://dillinger.io/)
 
