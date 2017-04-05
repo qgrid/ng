@@ -86,7 +86,7 @@ export default class NavigationView extends View {
 	scroll(container, target) {
 		const tr = target.getBoundingClientRect();
 		const cr = container.getBoundingClientRect();
-		const scroll = this.model.layout().scroll;
+		const scroll = this.model.scroll().position;
 
 		if (cr.left > tr.left
 			|| cr.left > tr.right

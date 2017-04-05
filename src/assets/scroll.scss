@@ -1,5 +1,13 @@
 $scrollSize: 8px;
 
+tbody {
+	> tr {
+		&.vscroll-mark {
+			height: 0;
+		}
+	}
+}
+
 @mixin scroll {
 	::-webkit-scrollbar {
 		width: $scrollSize;

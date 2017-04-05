@@ -93,9 +93,6 @@
 *	Row
 	*	Row Details
 	*	Row inline edit
-*	Actions
-	*	Action model
-	*	Action bar plugin
 *	Selection
 	*	Range
 	*	Mix
@@ -118,6 +115,9 @@
 
 
 ## 27 April – version 1.2
+*	Actions
+	*	Action model
+	*	Action bar plugin
 *	Filter row
 *	Scroll
 	*	Focus service
@@ -138,7 +138,7 @@
 *	Mobile device support
 *	Localization
 *	Master/details
-*	Out of box plugins
+*	Out of box plugins support
 	*	Status bar
 	*	Legend bar
 	*	Import plugin (csv)

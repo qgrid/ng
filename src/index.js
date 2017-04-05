@@ -24,6 +24,7 @@ import VisibilityModel from 'core/visibility/visibility.model';
 import FilterModel from 'core/filter/filter.model';
 import DragModel from 'core/drag/drag.model';
 import StyleModel from 'core/style/style.model';
+import ScrollModel from 'core/scroll/scroll.model';
 
 import ColumnChooserModel from 'ng/plugins/column-chooser/column.chooser.model';
 import ColumnFilterModel from 'ng/plugins/column-filter/column.filter.model';
@@ -58,6 +59,7 @@ Model.register('grid', GridModel)
 	.register('style', StyleModel)
 	.register('columnChooser', ColumnChooserModel)
 	.register('columnFilter', ColumnFilterModel)
-	.register('popup', PopupModel);
+	.register('popup', PopupModel)
+	.register('scroll', ScrollModel);
 
 export default ng;
