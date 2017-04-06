@@ -184,7 +184,6 @@ export default class Navigation {
 			}),
 			shiftTab: new Command({
 				shortcut: 'Shift+tab',
-				canExecute: canExecute,
 				execute: () => {
 					const hasPrevColumn = this.prevColumn >= 0;
 					const hasPrevRow = this.prevRow >= 0;
