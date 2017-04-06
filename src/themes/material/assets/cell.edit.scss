@@ -81,8 +81,9 @@ td.q-grid-edit {
 
 		&.q-grid-url,
 		&.q-grid-email {
-			height: 190px;
+			height: auto;
 			width: 270px;
+			padding-bottom: 0;
 
 			.q-grid-url-fields,
 			.q-grid-email-fields {
@@ -91,8 +92,9 @@ td.q-grid-edit {
 		}
 
 		&.q-grid-file {
-			height: 220px;
+			height: auto;
 			width: 270px;
+			padding-bottom: 0;
 
 			.q-grid-file-upload-area {
 				position: relative;

@@ -1,7 +1,7 @@
 import angular from 'angular';
 
-Controller.$inject = ['$http'];
-export default function Controller($http) {
+Controller.$inject = ['$http', '$mdToast'];
+export default function Controller($http, $mdToast) {
 	const ctrl = this;
 	const isUndef = angular.isUndefined;
 
@@ -105,7 +105,15 @@ export default function Controller($http) {
 			key: 'attachment',
 			title: 'Attachment',
 			type: 'file',
-			value: (item, value) => isUndef(value) ? item.attachment : item.attachment = value
+			value: (item, value) => isUndef(value) ? item.attachment : item.attachment = value,
+			onUpload: (e) => {
+				$mdToast.show(
+					$mdToast.simple()
+						.textContent(`File ${e.source.name} loaded`)
+						.position('top right')
+						.hideDelay(2000)
+				);
+			}
 		},
 		{
 			key: 'avatar',

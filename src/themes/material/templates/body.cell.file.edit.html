@@ -1,6 +1,6 @@
 <div ng-cloak class="q-grid-editor q-grid-file">
 	<h2 class="md-title">Edit {{::$cell.column.title}}</h2>
-	<div layout="column" class="q-grid-file-fields">
+	<div layout="column" class="q-grid-file-fields" flex>
 		<md-input-container ng-if="$cell.column.label !== null">
 			<label>Label</label>
 			<input type="text"
@@ -16,6 +16,8 @@
 				<span ng-switch-when="true">Drag and drop or click to replace </span>
 			</div>
 			<input q-grid:file-upload="$view.edit.cell.value"
+					 q-grid:on-upload="$cell.column.onUpload($event)"
+					 q-grid:can-upload="$cell.column.canUpload($event)"
 					 type="file"></input>
 		</div>
 	</div>
