@@ -92,7 +92,9 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.view.tpl.html', require('./components/view/view.html'));
 		theme.put('qgrid.head.tpl.html', require('./components/head/head.html'));
 		theme.put('qgrid.body.tpl.html', require('./components/body/body.html'));
+		theme.put('qgrid.body.virtual.tpl.html', require('./components/body/body.virtual.html'));
 		theme.put('qgrid.foot.tpl.html', require('./components/foot/foot.html'));
+
 		theme.put('qgrid.toolbar.top.tpl.html', require('./components/toolbar/toolbar.top.html'));
 		theme.put('qgrid.toolbar.bottom.tpl.html', require('./components/toolbar/toolbar.bottom.html'));
 		theme.put('qgrid.toolbar.right.tpl.html', require('./components/toolbar/toolbar.right.html'));

@@ -83,6 +83,12 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 		return this.view.body.value(row, column);
 	}
 
+	set value(value) {
+		const column = this.column;
+		const row = this.row;
+		this.view.edit.cell.setValue(row, column, value);
+	}
+
 	get label() {
 		const column = this.column;
 		const row = this.row;
@@ -90,8 +96,7 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	}
 
 	get rowIndex() {
-		// use vscroll.row + vscroll.position in the future
-		return this.$scope.$parent.$index;
+		return this.view.scroll.y.context.container.position + this.$scope.$parent.$index;
 	}
 
 	get columnIndex() {

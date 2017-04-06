@@ -31,6 +31,9 @@ class Column extends Component {
 				this.key = '$default';
 			}
 		}
+		if ($attrs.hasOwnProperty('editorSubmitShortcut')) {
+			this.editorSubmitShortcut = $attrs.editorSubmitShortcut;
+		}
 
 		const model = this.root.model;
 		const createColumn = columnFactory(model);

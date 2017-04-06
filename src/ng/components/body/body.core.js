@@ -21,16 +21,14 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 
 	onScroll() {
 		const element = this.element;
-		const layout = this.view.model.layout;
+		const scroll = this.view.model.scroll;
 
-		layout({
-			scroll: {
-				top: element.scrollTop,
-				left: element.scrollLeft,
-				width: element.scrollWidth,
-				height: element.scrollHeight
-			}
-		})
+		scroll({
+			top: element.scrollTop,
+			left: element.scrollLeft,
+			width: element.scrollWidth,
+			height: element.scrollHeight
+		});
 	}
 
 	onInit() {
