@@ -1,5 +1,6 @@
 import Box from './box';
 import Data from './data';
+import EventListener from 'core/infrastructure/event.listener';
 
 export default class Table {
 	constructor(model, markup, template) {
@@ -9,6 +10,26 @@ export default class Table {
 		this._head = null;
 		this._body = null;
 		this._foot = null;
+		this.canExecute = this.canExecute.bind(this);
+	}
+
+	canExecute() {
+		const markup = this.markup;
+		const target = markup.table;
+		let current = markup.document.activeElement;
+		while (current) {
+			if (current === target) {
+				return true;
+			}
+
+			current = current.parentNode;
+		}
+
+		return false;
+	}
+
+	get keyDown() {
+		return new EventListener(this, this.markup.document);
 	}
 
 	get head() {
@@ -59,11 +80,4 @@ export default class Table {
 		this.markup.table.focus();
 	}
 
-	get target() {
-		return this.markup.table;
-	}
-
-	get document() {
-		return this.markup.document;
-	}
 }
