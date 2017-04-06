@@ -102,9 +102,10 @@ export default function Controller($http) {
 				: item.webPageLabel = label
 		},
 		{
-			key: 'attachments',
-			title: 'Attachments',
-			type: 'file'
+			key: 'attachment',
+			title: 'Attachment',
+			type: 'file',
+			value: (item, value) => isUndef(value) ? item.attachment : item.attachment = value
 		},
 		{
 			key: 'avatar',

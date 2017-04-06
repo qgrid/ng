@@ -19,6 +19,8 @@ TemplatePath.register('file-cell-edit', (template, column) => {
 class FileColumnModel extends DataColumnModel {
 	constructor() {
 		super('file');
+
+		this.canEdit = false;
 	}
 }
 

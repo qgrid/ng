@@ -90,6 +90,7 @@ tbody {
 				}
 			}
 
+			&.q-grid-file,
 			&.q-grid-url,
 			&.q-grid-email {
 				> div {
@@ -98,6 +99,7 @@ tbody {
 					outline: none;
 				}
 
+				.q-grid-file-edit,
 				.q-grid-url-edit,
 				.q-grid-email-edit {
 					position: absolute;

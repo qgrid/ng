@@ -82,7 +82,9 @@ export default class EditCellView {
 							const column = cell.column;
 							const row = cell.row;
 							this.setValue(row, column, this.value);
-							this.setLabel(row, column, this.label);
+							if (this.label !== null) {
+								this.setLabel(row, column, this.label);
+							}
 
 							this.value = null;
 							this.label = null;
