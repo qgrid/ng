@@ -8,10 +8,9 @@ const pkgPath = path.join(cwd, 'package.json');
 const bowerPath = path.join(cwd, 'bower.json');
 
 function main() {
-	shell.exec(`git checkout master`);
-
 	shell.exec(`git checkout ${RELEASE_BRANCH}`);
-	shell.exec(`git merge master`);
+	shell.exec(`git stash`);
+	shell.exec(`git pull origin master`);
 
 	const version = `v${updateVersion()}`;
 
