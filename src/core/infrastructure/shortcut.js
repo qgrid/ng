@@ -73,4 +73,8 @@ export default class Shortcut {
 			this.shortcuts.delete(id);
 		};
 	}
+
+	onDestroy() {
+		this.listener.off();
+	}
 }
