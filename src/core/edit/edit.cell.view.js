@@ -8,14 +8,14 @@ export default class EditCellView {
 	constructor(model, setValue, valueFactory, table, apply) {
 		this.model = model;
 		this.setValue = setValue;
-		const markup = table.markup;
-		this.markup = markup;
+		this.table = table;
+
 		this.valueFactory = valueFactory;
 
 		this.mode = 'view';
 		this._value = null;
 
-		const shortcut = new Shortcut(markup.document, markup.table, apply);
+		const shortcut = new Shortcut(table, apply);
 		const commands = this.commands;
 		this.shortcutOff = shortcut.register('editCellNavigation', commands);
 
@@ -27,7 +27,7 @@ export default class EditCellView {
 
 	get commands() {
 		const model = this.model;
-		const table = this.markup.table;
+		const table = this.table;
 		const commands = {
 			enter: new Command({
 				shortcut: 'F2|Enter',
