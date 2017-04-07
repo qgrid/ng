@@ -11,7 +11,7 @@ export default class EditModel {
 		this.cancel = new Command();
 		this.reset = new Command();
 		this.commitShortcuts = {
-			'$default': 'tab|enter',
+			'$default': 'tab|shift+tab|enter',
 			'text': 'enter',
 			'password': 'ctrl+s',
 			'number': 'ctrl+s',
