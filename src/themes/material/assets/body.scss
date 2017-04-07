@@ -141,6 +141,15 @@ tbody {
 			&.q-grid-file {
 				padding: 0 32px 0 16px;
 			}
+
+			&.q-grid-image {
+				text-align: center;
+
+				img {
+					max-height: 24px;
+					max-width: 24px;
+				}
+			}
 		}
 	}
 }

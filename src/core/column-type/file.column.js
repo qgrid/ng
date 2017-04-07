@@ -24,6 +24,9 @@ class FileColumnModel extends DataColumnModel {
 		this.canEdit = false;
 		this.onUpload = noop;
 		this.canUpload = yes;
+
+		this.hasPreview =
+			file => file !== null && file.type.indexOf('image/') === 0
 	}
 }
 

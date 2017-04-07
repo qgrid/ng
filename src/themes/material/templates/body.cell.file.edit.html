@@ -6,7 +6,8 @@
 			<input type="text"
 					 ng-model="$view.edit.cell.label"></input>
 		</md-input-container>
-		<div class="q-grid-file-upload-area">
+		<div class="q-grid-file-upload-area"
+			  ng-class="{'q-grid-file-has-preview': $cell.column.hasPreview($view.edit.cell.value)}">
 			<div class="q-grid-file-upload-message" layout="column"
 				  ng-switch="!!$view.edit.cell.value">
 				<span class="q-grid-file-upload-filename"
@@ -20,6 +21,10 @@
 					 q-grid:on-upload="$cell.column.onUpload($event)"
 					 q-grid:can-upload="$cell.column.canUpload($event)"
 					 type="file"></input>
+			<div class="q-grid-file-preview"
+				  ng-if="$cell.column.hasPreview($view.edit.cell.value)">
+				<img ng-src="{{$cell.dataUrl}}"/>
+			</div>
 		</div>
 	</div>
 	<div class="q-grid-actions">

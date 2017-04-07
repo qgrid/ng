@@ -118,7 +118,8 @@ export default function Controller($http, $mdToast) {
 		{
 			key: 'avatar',
 			title: 'Avatar',
-			type: 'image'
+			type: 'image',
+			value: (item, value) => isUndef(value) ? item.avatar : item.avatar = value
 		}
 	];
 

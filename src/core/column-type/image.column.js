@@ -1,6 +1,7 @@
 import ColumnView from 'core/column-type/column.model.view';
 import DataColumnModel from './data.column.model';
 import TemplatePath from 'core/template/template.path';
+import {noop, yes} from 'core/services/utility';
 
 TemplatePath.register('image-cell', (template, column) => {
 	return {
@@ -19,6 +20,12 @@ TemplatePath.register('image-cell-edit', (template, column) => {
 class ImageColumnModel extends DataColumnModel {
 	constructor() {
 		super('image');
+
+		this.onUpload = noop;
+		this.canUpload = yes;
+
+		this.hasPreview =
+			file => file !== null && file.type.indexOf('image/') === 0
 	}
 }
 

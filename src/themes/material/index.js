@@ -27,6 +27,8 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.body.cell.email.edit.tpl.html', require('themes/material/templates/body.cell.email.edit.html'));
 		theme.put('qgrid.body.cell.file.tpl.html', require('themes/material/templates/body.cell.file.html'));
 		theme.put('qgrid.body.cell.file.edit.tpl.html', require('themes/material/templates/body.cell.file.edit.html'));
+		theme.put('qgrid.body.cell.image.tpl.html', require('themes/material/templates/body.cell.image.html'));
+		theme.put('qgrid.body.cell.image.edit.tpl.html', require('themes/material/templates/body.cell.file.edit.html'));
 
 		theme.put('qgrid.head.cell.text.tpl.html', require('themes/material/templates/head.cell.text.html'));
 		theme.put('qgrid.head.cell.bool.tpl.html', require('themes/material/templates/head.cell.text.html'));
