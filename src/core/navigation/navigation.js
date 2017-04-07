@@ -166,7 +166,6 @@ export default class Navigation {
 			}),
 			tab: new Command({
 				shortcut: 'tab',
-				canExecute: canExecute,
 				execute: () => {
 					const hasNextColumn = this.nextColumn >= 0;
 					const hasNextRow = this.nextRow >= 0;
@@ -185,7 +184,6 @@ export default class Navigation {
 			}),
 			shiftTab: new Command({
 				shortcut: 'Shift+tab',
-				canExecute: canExecute,
 				execute: () => {
 					const hasPrevColumn = this.prevColumn >= 0;
 					const hasPrevRow = this.prevRow >= 0;

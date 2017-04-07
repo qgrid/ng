@@ -1,6 +1,5 @@
 <div ng-click="$view.sort.toggle.execute($cell.column)">
 	<div class="q-grid-sort"
-		  ng-class="{'q-grid-active': $view.sort.order($cell.column) >= 0}"
 		  ng-switch="$view.sort.direction($cell.column)">
 		<span class="q-grid-asc" ng-switch-when="asc">&#8595;</span>
 		<span class="q-grid-desc" ng-switch-when="desc">&#8593;</span>

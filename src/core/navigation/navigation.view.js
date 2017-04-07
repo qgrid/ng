@@ -86,7 +86,7 @@ export default class NavigationView extends View {
 	scroll(container, target) {
 		const tr = target.getBoundingClientRect();
 		const cr = container.getBoundingClientRect();
-		const scroll = this.model.layout().scroll;
+		const scrollState = this.model.scroll();
 
 		if (cr.left > tr.left
 			|| cr.left > tr.right
@@ -94,10 +94,10 @@ export default class NavigationView extends View {
 			|| cr.right < tr.right) {
 			if (cr.left < tr.left
 				|| cr.right < tr.right) {
-				container.scrollLeft = tr.right - cr.right + scroll.left;
+				container.scrollLeft = tr.right - cr.right + scrollState.left;
 			} else if (cr.left > tr.left
 				|| cr.left > tr.right) {
-				container.scrollLeft = tr.left - cr.left + scroll.left;
+				container.scrollLeft = tr.left - cr.left + scrollState.left;
 			}
 		}
 
@@ -107,10 +107,10 @@ export default class NavigationView extends View {
 			|| cr.bottom < tr.bottom) {
 			if (cr.top < tr.top
 				|| cr.bottom < tr.bottom) {
-				container.scrollTop = tr.bottom - cr.bottom + scroll.top;
+				container.scrollTop = tr.bottom - cr.bottom + scrollState.top;
 			} else if (cr.top > tr.top
 				|| cr.top > tr.bottom) {
-				container.scrollTop = tr.top - cr.top + scroll.top;
+				container.scrollTop = tr.top - cr.top + scrollState.top;
 			}
 
 		}

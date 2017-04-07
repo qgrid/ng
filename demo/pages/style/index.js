@@ -26,7 +26,7 @@ export default function Controller($http, $interval, qgrid) {
 			}
 
 			if (column.key === 'name.last') {
-				if(context.value(row, context.columns.map.gender) === 'female') {
+				if (context.value(row, context.columns.map.gender) === 'female') {
 					context.class('female-name-last', {background: '#ff0', color: '#000'});
 				}
 			}
