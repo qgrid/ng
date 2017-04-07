@@ -46,5 +46,6 @@ export const FOCUS_NAME = `${GRID}Focus`;
 export const RESIZE_NAME = `${GRID}Resize`;
 
 export const FILE_UPLOAD_NAME = `${GRID}FileUpload`;
+export const FILE_DATA_URL_NAME = `${GRID}FileDataUrl`;
 export const CAN_UPLOAD_NAME = `${GRID}CanUpload`;
 export const ON_UPLOAD_NAME = `${GRID}OnUpload`;

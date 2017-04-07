@@ -16,6 +16,7 @@
 				<span ng-switch-when="true">Drag and drop or click to replace </span>
 			</div>
 			<input q-grid:file-upload="$view.edit.cell.value"
+					 q-grid:file-data-url="$cell.dataUrl"
 					 q-grid:on-upload="$cell.column.onUpload($event)"
 					 q-grid:can-upload="$cell.column.canUpload($event)"
 					 type="file"></input>

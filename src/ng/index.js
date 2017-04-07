@@ -46,6 +46,9 @@ const coreModule = angular.module(def.MODULE_CORE_NAME, [])
 	.service(def.TEMPLATE_PATH_NAME, () => () => TemplatePath)
 	.filter(def.RANGE_NAME, () => Range)
 	.filter(def.HIGHLIGHT_NAME, () => Highlight)
+	.config(['$compileProvider',
+		$compileProvider => $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|tel|file|data):/)
+	])
 	.name;
 
 import pluginModule from './plugins';
