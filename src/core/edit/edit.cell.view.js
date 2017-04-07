@@ -161,14 +161,9 @@ export default class EditCellView {
 	}
 
 	get commitShortcut() {
-		const commitShortcuts = {
-			'$default': 'tab|shift+tab|enter',
-			'text': 'enter',
-			'password': 'ctrl+s',
-			'number': 'ctrl+s'
-		};
-		const navigationState = this.model.navigation();
-		const cell = navigationState.active.cell;
+		const model = this.model;
+		const commitShortcuts = model.edit().commitShortcuts;
+		const cell = model.navigation().active.cell;
 		if (cell && commitShortcuts.hasOwnProperty(cell.column.type)) {
 			return commitShortcuts[cell.column.type];
 		}

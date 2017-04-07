@@ -1,6 +1,6 @@
 {
   "name": "qgrid",
-  "version": "1.0.18",
+	"version": "1.0.18",
   "description": "Angular data grid",
   "main": "dist/qgrid.js",
   "repository": {

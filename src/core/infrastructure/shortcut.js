@@ -26,11 +26,11 @@ export default class Shortcut {
 				.on('keydown', this.onKeyDown);
 	}
 
-	canExecute(){
+	canExecute() {
 		const target = this.target;
 		let current = this.document.activeElement;
-		while (current){
-			if(current === target){
+		while (current) {
+			if (current === target) {
 				return true;
 			}
 
@@ -41,7 +41,7 @@ export default class Shortcut {
 	}
 
 	onKeyDown(e) {
-		if(this.canExecute()) {
+		if (this.canExecute()) {
 			const code = this.translate(e);
 			if (this.shortcuts.has(code)) {
 				const cmds = this.shortcuts.get(code);
