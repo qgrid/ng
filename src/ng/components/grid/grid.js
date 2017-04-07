@@ -38,15 +38,23 @@ export class Grid extends RootComponent {
 		});
 
 		const triggers = model.data().triggers;
+
+		// TODO: think about invalidation queue
+		let isInvalidated = false;
 		Object.keys(triggers)
 			.forEach(name =>
 				model[name + 'Changed']
 					.watch(e => {
 						const changes = Object.keys(e.changes);
 						if (e.tag.behavior !== 'core' && triggers[name].find(key => changes.indexOf(key) >= 0)) {
+							isInvalidated = true;
 							service.invalidate(name, e.changes);
 						}
 					}));
+
+		if (!isInvalidated) {
+			service.invalidate('grid');
+		}
 	}
 
 	compile() {

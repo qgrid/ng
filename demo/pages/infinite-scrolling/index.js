@@ -2,6 +2,7 @@ Controller.$inject = ['$http', 'qgrid'];
 export default function Controller($http, qgrid) {
 	const ctrl = this;
 	const model = qgrid.model();
+	let rows = [];
 
 	ctrl.model = model;
 
@@ -22,7 +23,7 @@ export default function Controller($http, qgrid) {
 
 			$http.get('data/people/1000.json')
 				.then(response =>
-					next(response.data.slice(start, start + size)));
+					next(rows = rows.concat(response.data.slice(start, start + size))));
 		}]
 			.concat(qgrid.pipeUnit.view)
 	});
