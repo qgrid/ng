@@ -10,10 +10,10 @@ export default class Table {
 		this._head = null;
 		this._body = null;
 		this._foot = null;
-		this.canExecute = this.canExecute.bind(this);
+		this.isFocused = this.isFocused.bind(this);
 	}
 
-	canExecute() {
+	isFocused() {
 		const markup = this.markup;
 		const target = markup.table;
 		let current = markup.document.activeElement;
