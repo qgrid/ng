@@ -23,7 +23,7 @@ export default class Shortcut {
 	}
 
 	translate(e) {
-		let codes = [];
+		const codes = [];
 		if (e.ctrlKey) {
 			codes.push('ctrl');
 		}
