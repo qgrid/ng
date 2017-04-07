@@ -25,6 +25,9 @@ function main() {
 	shell.exec(`git tag ${version}`);
 
 	shell.exec(`git push --follow-tags`);
+
+	shell.exec(`npm publish`);
+
 	shell.exec('git checkout master');
 }
 
