@@ -2,16 +2,27 @@ import View from '../view/view';
 import log from 'core/infrastructure/log';
 
 export default class ScrollView extends View {
-	constructor(model, table, scroll, apply) {
+	constructor(model, table, vscroll, service, apply) {
 		super(model);
 
-		const scrollState = model.scroll();
+		const scroll = model.scroll;
 		this.table = table;
 		this.y = {
-			context: scroll({
-				threshold: scrollState.y.threshold,
+			context: vscroll({
+				threshold: model.pagination().size,
 				apply: apply,
-				fetch: scrollState.y.fetch
+				fetch: (skip, take, d) => {
+					if (scroll().mode === 'virtual') {
+						const rows = model.data().rows;
+						if (rows.length > take) {
+							d.resolve(skip + take + model.pagination().size);
+						}
+						else {
+							d.resolve(rows.length);
+							//service.invalidate('scroll');
+						}
+					}
+				}
 			})
 		};
 
@@ -21,11 +32,23 @@ export default class ScrollView extends View {
 			}
 		});
 
-		switch (scrollState.mode) {
+		switch (scroll().mode) {
 			case 'virtual': {
 				model.viewChanged.watch(() => {
 					this.y.context.container.reset();
 				});
+
+				this.y.context.container.drawEvent.on(e =>
+					apply(() =>
+						this.model.pagination({
+							current: Math.floor(e.position / model.pagination().size),
+							count: this.y.context.container.total
+						}, {
+							behavior: 'core'
+						})
+					)
+				);
+
 			}
 				break;
 			default:

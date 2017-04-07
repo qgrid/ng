@@ -5,7 +5,8 @@ export default function Controller($http, qgrid) {
 	ctrl.model = qgrid.model();
 
 	ctrl.model.pagination({
-		size: Number.MAX_SAFE_INTEGER
+		// Number of item in viewport
+		size: 20
 	});
 
 	ctrl.model.scroll({

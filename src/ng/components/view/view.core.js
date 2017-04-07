@@ -42,7 +42,7 @@ class ViewCore extends Component {
 		const service = this.serviceFactory(model);
 		const apply = (f, timeout) => {
 			if (isUndefined(timeout)) {
-				return this.$scope.$evalAsync(f);
+				this.$scope.$applyAsync(f);
 			}
 
 			return this.$timeout(f, timeout);
@@ -64,7 +64,7 @@ class ViewCore extends Component {
 		this.edit = new EditView(model, setValue, valueFactory, table, apply);
 		this.nav = new NavigationView(model, table, apply);
 		this.pagination = new PaginationView(model);
-		this.scroll = new ScrollView(model, table, this.vscroll, apply);
+		this.scroll = new ScrollView(model, table, this.vscroll, service, apply);
 
 		// TODO: how we can avoid that?
 		this.$scope.$watch(() => {
