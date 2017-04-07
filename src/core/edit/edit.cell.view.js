@@ -162,7 +162,7 @@ export default class EditCellView {
 
 	get commitShortcut() {
 		const commitShortcuts = {
-			'$default': 'tab|enter',
+			'$default': 'tab|shift+tab|enter',
 			'text': 'enter',
 			'password': 'ctrl+s',
 			'number': 'ctrl+s'
