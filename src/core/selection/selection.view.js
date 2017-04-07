@@ -207,7 +207,7 @@ export default class SelectionView extends View {
 			if (this.state() || this.model.selection().mode === 'single') {
 				this.selectionState.clear();
 			}
-			else{
+			else {
 				this.selectionState.select(this.model.view().rows, true);
 			}
 		}
