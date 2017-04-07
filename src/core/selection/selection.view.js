@@ -4,6 +4,7 @@ import stateFactory from './state/selection.state.factory';
 import rangeBuilder from './range.build';
 import Shortcut from 'core/infrastructure/shortcut';
 import {GRID_PREFIX} from 'core/definition';
+import {isUndefined} from 'core/services/utility';
 
 export default class SelectionView extends View {
 	constructor(model, table, apply) {
@@ -17,7 +18,7 @@ export default class SelectionView extends View {
 		this.selectionState = stateFactory(model);
 		this.buildRange = rangeBuilder(model);
 
-		const shortcut = new Shortcut(markup.document, markup.table, apply);
+		const shortcut = new Shortcut(table, apply);
 		const commands = this.commands;
 		this.shortcutOff = shortcut.register('selectionNavigation', commands);
 		this.toggleRow = commands.get('toggleRow');
@@ -194,11 +195,21 @@ export default class SelectionView extends View {
 	}
 
 	select(items) {
-		if (this.selection.mode === 'range') {
-			this.selectionState.clear();
-			this.selectionState.toggle(items, true);
-		} else {
-			this.selectionState.toggle(items);
+		if (arguments.length && !isUndefined(items)) {
+			if (this.selection.mode === 'range') {
+				this.selectionState.clear();
+				this.selectionState.toggle(items, true);
+			} else {
+				this.selectionState.toggle(items);
+			}
+		}
+		else {
+			if (this.state() || this.model.selection().mode === 'single') {
+				this.selectionState.clear();
+			}
+			else {
+				this.selectionState.select(this.model.view().rows, true);
+			}
 		}
 
 		const entries = this.selectionState.entries();

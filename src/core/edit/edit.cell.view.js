@@ -8,14 +8,14 @@ export default class EditCellView {
 	constructor(model, setValue, valueFactory, table, apply) {
 		this.model = model;
 		this.setValue = setValue;
-		const markup = table.markup;
-		this.markup = markup;
+		this.table = table;
+
 		this.valueFactory = valueFactory;
 
 		this.mode = 'view';
 		this._value = null;
 
-		const shortcut = new Shortcut(markup.document, markup.table, apply);
+		const shortcut = new Shortcut(table, apply);
 		const commands = this.commands;
 		this.shortcutOff = shortcut.register('editCellNavigation', commands);
 
@@ -27,14 +27,16 @@ export default class EditCellView {
 
 	get commands() {
 		const model = this.model;
-		const table = this.markup.table;
+		const table = this.table;
 		const commands = {
 			enter: new Command({
 				shortcut: 'F2|Enter',
 				canExecute: cell => {
 					cell = cell || model.navigation().active.cell;
 					if (cell && this.mode !== 'edit' && model.edit().mode === 'cell' && cell) {
-						return cell.column.canEdit && model.edit().enter.canExecute(this.contextFactory(cell));
+						return cell.column.canEdit
+							&& model.edit().enter.canExecute(this.contextFactory(cell))
+							&& model.edit().editMode === 'view';
 					}
 
 					return false;
@@ -44,26 +46,25 @@ export default class EditCellView {
 					if (e) {
 						e.stopImmediatePropagation();
 					}
-
 					cell = cell || model.navigation().active.cell;
 					const parse = parseFactory(cell.column.type);
 					const value = isUndefined(cell.value) ? null : parse(clone(cell.value));
-					if (cell) {
-						if (model.edit().enter.execute(this.contextFactory(cell, value)) !== false) {
-							this.value = value;
-							this.mode = 'edit';
-							model.edit({editMode: 'edit'});
-							cell.mode(this.mode);
-						}
+					if (cell && model.edit().enter.execute(this.contextFactory(cell, value)) !== false) {
+						this.value = value;
+						this.mode = 'edit';
+						model.edit({editMode: 'edit'});
+						cell.mode(this.mode);
 					}
 				}
 			}),
 			commit: new Command({
-				shortcut: 'Ctrl+S|Enter',
+				shortcut: this.commitShortcut,
 				// TODO: add validation support
 				canExecute: cell => {
 					cell = cell || model.navigation().active.cell;
-					return this.mode === 'edit' && model.edit().mode === 'cell' && model.edit().commit.canExecute(this.contextFactory(cell));
+					return this.mode === 'edit' && model.edit().mode === 'cell'
+						&& model.edit().commit.canExecute(this.contextFactory(cell))
+						&& model.edit().editMode === 'edit';
 				},
 				execute: (cell, e) => {
 					Log.info('cell.edit', 'commit');
@@ -72,18 +73,16 @@ export default class EditCellView {
 					}
 
 					cell = cell || model.navigation().active.cell;
-					if (cell) {
-						if (model.edit().commit.execute(this.contextFactory(cell, this.value)) !== false) {
-							const column = cell.column;
-							const row = cell.row;
-							this.setValue(row, column, this.value);
+					if (cell && model.edit().commit.execute(this.contextFactory(cell, this.value)) !== false) {
+						const column = cell.column;
+						const row = cell.row;
+						this.setValue(row, column, this.value);
 
-							this.value = null;
-							this.mode = 'view';
-							model.edit({editMode: 'view'});
-							cell.mode(this.mode);
-							table.focus();
-						}
+						this.value = null;
+						this.mode = 'view';
+						model.edit({editMode: 'view'});
+						cell.mode(this.mode);
+						table.focus();
 					}
 				}
 			}),
@@ -91,7 +90,9 @@ export default class EditCellView {
 				shortcut: 'Escape',
 				canExecute: cell => {
 					cell = cell || model.navigation().active.cell;
-					return cell && model.edit().cancel.canExecute(this.contextFactory(cell, this.value));
+					return cell
+						&& model.edit().cancel.canExecute(this.contextFactory(cell, this.value))
+						&& model.edit().editMode === 'edit';
 				},
 				execute: (cell, e) => {
 					Log.info('cell.edit', 'cancel');
@@ -100,14 +101,12 @@ export default class EditCellView {
 					}
 
 					cell = cell || model.navigation().active.cell;
-					if (cell) {
-						if (model.edit().cancel.execute(this.contextFactory(cell, this.value)) !== false) {
-							this.value = null;
-							this.mode = 'view';
-							model.edit({editMode: 'view'});
-							cell.mode(this.mode);
-							table.focus();
-						}
+					if (cell && model.edit().cancel.execute(this.contextFactory(cell, this.value)) !== false) {
+						this.value = null;
+						this.mode = 'view';
+						model.edit({editMode: 'view'});
+						cell.mode(this.mode);
+						table.focus();
 					}
 
 				}
@@ -115,7 +114,9 @@ export default class EditCellView {
 			reset: new Command({
 				canExecute: cell => {
 					cell = cell || model.navigation().active.cell;
-					return cell && model.edit().reset.canExecute(this.contextFactory(cell, this.value));
+					return cell
+						&& model.edit().reset.canExecute(this.contextFactory(cell, this.value))
+						&& model.edit().editMode === 'edit';
 				},
 				execute: (cell, e) => {
 					Log.info('cell.edit', 'reset');
@@ -124,13 +125,11 @@ export default class EditCellView {
 					}
 
 					cell = cell || model.navigation().active.cell;
-					if (cell) {
-						if (model.edit().reset.execute(this.contextFactory(cell, this.value)) !== false) {
-							const parse = parseFactory(cell.column.type);
-							this.value = parse(cell.value);
-							cell.mode(this.mode);
-							return false;
-						}
+					if (cell && model.edit().reset.execute(this.contextFactory(cell, this.value)) !== false) {
+						const parse = parseFactory(cell.column.type);
+						this.value = parse(cell.value);
+						cell.mode(this.mode);
+						return false;
 					}
 				}
 			})
@@ -159,6 +158,16 @@ export default class EditCellView {
 
 	set value(value) {
 		this._value = value;
+	}
+
+	get commitShortcut() {
+		const model = this.model;
+		const commitShortcuts = model.edit().commitShortcuts;
+		const cell = model.navigation().active.cell;
+		if (cell && commitShortcuts.hasOwnProperty(cell.column.type)) {
+			return commitShortcuts[cell.column.type];
+		}
+		return commitShortcuts['$default'];
 	}
 
 	destroy() {

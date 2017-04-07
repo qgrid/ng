@@ -3,6 +3,7 @@ import Command from 'core/infrastructure/command';
 export default class Navigation {
 	constructor(model, table) {
 		this.model = model;
+		this.document = table.markup.document;
 		this.markup = table.markup;
 		this.table = table;
 	}
@@ -20,7 +21,6 @@ export default class Navigation {
 			offset -= body.row(index).height;
 			index--;
 		}
-
 		return {
 			row: Math.max(this.firstRow, Math.min(this.lastRow, index)),
 			offset: offset
@@ -166,7 +166,6 @@ export default class Navigation {
 			}),
 			tab: new Command({
 				shortcut: 'tab',
-				canExecute: canExecute,
 				execute: () => {
 					const hasNextColumn = this.nextColumn >= 0;
 					const hasNextRow = this.nextRow >= 0;
@@ -185,7 +184,6 @@ export default class Navigation {
 			}),
 			shiftTab: new Command({
 				shortcut: 'Shift+tab',
-				canExecute: canExecute,
 				execute: () => {
 					const hasPrevColumn = this.prevColumn >= 0;
 					const hasPrevRow = this.prevRow >= 0;

@@ -21,6 +21,19 @@
 				<a ng-href="mailto: {{$cell.value[0]}}" ng-bind="$cell.value[0]"></a>
 			</q-grid:template>
 		</q-grid:column>
+		<q-grid:column key="gender" title="Gender" can-edit="false">
+			<q-grid:template for="body">
+				<md-select name="{{::$cell.value}}"
+							  ng-model="$cell.value"
+							  md-autofocus
+							  md-menu-align-target
+							  placeholder="Add type">
+					<md-option ng-repeat="option in ['male', 'female']" ng-value="option">
+						{{option}}
+					</md-option>
+				</md-select>
+			</q-grid:template>
+		</q-grid:column>
 
 	</q-grid:columns>
 </q-grid>

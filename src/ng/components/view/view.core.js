@@ -17,12 +17,13 @@ import PaginationView from 'core/pagination/pagination.view';
 import TableView from 'core/table/table.view';
 import StyleView from 'core/style/style.view';
 import ColumnView from 'core/column/column.view';
+import ScrollView from 'core/scroll/scroll.view';
 import {GRID_NAME, TH_CORE_NAME} from 'ng/definition';
 import {isUndefined} from 'core/services/utility';
 import TemplateLink from '../template/template.link';
 
 class ViewCore extends Component {
-	constructor($scope, $element, $timeout, $compile, $templateCache, grid) {
+	constructor($scope, $element, $timeout, $compile, $templateCache, grid, vscroll) {
 		super();
 
 		this.$scope = $scope;
@@ -31,6 +32,7 @@ class ViewCore extends Component {
 		this.$postLink = this.onLink;
 		this.serviceFactory = grid.service.bind(grid);
 		this.template = new TemplateLink($compile, $templateCache);
+		this.vscroll = vscroll;
 	}
 
 	onLink() {
@@ -56,12 +58,13 @@ class ViewCore extends Component {
 		this.selection = new SelectionView(model, table, apply);
 		this.group = new GroupView(model, valueFactory);
 		this.pivot = new PivotView(model, valueFactory);
-		this.nav = new NavigationView(model, table, apply);
 		this.highlight = new HighlightView(model, table, apply);
 		this.sort = new SortView(model);
 		this.filter = new FilterView(model);
 		this.edit = new EditView(model, setValue, valueFactory, table, apply);
+		this.nav = new NavigationView(model, table, apply);
 		this.pagination = new PaginationView(model);
+		this.scroll = new ScrollView(model, table, this.vscroll, apply);
 
 		// TODO: how we can avoid that?
 		this.$scope.$watch(() => {
@@ -98,7 +101,8 @@ ViewCore.$inject = [
 	'$timeout',
 	'$compile',
 	'$templateCache',
-	'qgrid'
+	'qgrid',
+	'vscroll'
 ];
 
 export default {

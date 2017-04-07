@@ -1,9 +1,5 @@
-import EventListener from './event.listener';
-
 export default class Shortcut {
-	constructor(document, target, apply) {
-		this.document = document;
-		this.target = target;
+	constructor(table, apply) {
 		this.apply = apply;
 		this.shortcuts = new Map();
 		this.codeMap = new Map()
@@ -21,42 +17,12 @@ export default class Shortcut {
 			.set(40, 'down')
 			.set(113, 'f2');
 
-		this.listener =
-			new EventListener(this, document)
-				.on('keydown', this.onKeyDown);
-	}
-
-	canExecute(){
-		const target = this.target;
-		let current = this.document.activeElement;
-		while (current){
-			if(current === target){
-				return true;
-			}
-
-			current = current.parentNode;
-		}
-
-		return false;
-	}
-
-	onKeyDown(e) {
-		if(this.canExecute()) {
-			const code = this.translate(e);
-			if (this.shortcuts.has(code)) {
-				const cmds = this.shortcuts.get(code);
-				cmds.forEach(cmd => {
-					if (cmd.canExecute()) {
-						e.preventDefault();
-						this.apply(() => cmd.execute());
-					}
-				});
-			}
-		}
+		this.canExecute = table.isFocused;
+		this.off = table.keyDown(this.onKeyDown.bind(this));
 	}
 
 	translate(e) {
-		let codes = [];
+		const codes = [];
 		if (e.ctrlKey) {
 			codes.push('ctrl');
 		}
@@ -68,6 +34,21 @@ export default class Shortcut {
 		const char = (this.codeMap.get(e.keyCode) || String.fromCharCode(e.keyCode)).toLowerCase();
 		codes.push(char);
 		return codes.join('+');
+	}
+
+	onKeyDown(e) {
+		if (this.canExecute()) {
+			const code = this.translate(e);
+			if (this.shortcuts.has(code)) {
+				const cmds = this.shortcuts.get(code);
+				cmds.forEach(cmd => {
+					if (cmd.canExecute()) {
+						e.preventDefault();
+						this.apply(() => cmd.execute());
+					}
+				});
+			}
+		}
 	}
 
 	register(id, commands) {
@@ -90,5 +71,9 @@ export default class Shortcut {
 		return () => {
 			this.shortcuts.delete(id);
 		};
+	}
+
+	onDestroy() {
+		this.off();
 	}
 }
