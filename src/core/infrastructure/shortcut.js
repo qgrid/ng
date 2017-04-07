@@ -18,8 +18,7 @@ export default class Shortcut {
 			.set(113, 'f2');
 
 		this.canExecute = table.isFocused;
-		this.listener = table.keyDown
-			.on('keydown', this.onKeyDown.bind(this));
+		this.off = table.keyDown(this.onKeyDown.bind(this));
 	}
 
 	translate(e) {
@@ -75,6 +74,6 @@ export default class Shortcut {
 	}
 
 	onDestroy() {
-		this.listener.off();
+		this.off();
 	}
 }

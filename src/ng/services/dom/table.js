@@ -28,8 +28,9 @@ export default class Table {
 		return false;
 	}
 
-	get keyDown() {
-		return new EventListener(this, this.markup.document);
+	keyDown(f) {
+		return new EventListener(this, this.markup.document)
+			.on('keydown', f);
 	}
 
 	get head() {
