@@ -14,11 +14,16 @@ export default function Controller($http, qgrid) {
 	});
 
 	ctrl.model.data({
-		pipe: qgrid.pipeUnit.virtual(
-			(data, context, next) => {
-				$http.get('data/people/1000.json')
-					.then(response => next(data));
-			}
-		)
+		pipe: [(data, context, next) => {
+			const paginationState = model.pagination();
+			const size = paginationState.size;
+			const current = paginationState.current;
+			const start = current * size;
+
+			$http.get('data/people/1000.json')
+				.then(response =>
+					next(response.data.slice(start, start + size)));
+		}]
+			.concat(qgrid.pipeUnit.view)
 	});
 }
