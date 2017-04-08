@@ -29,7 +29,8 @@ export default function Controller($http, $mdToast, qgrid, $timeout) {
 			title: 'Avatar',
 			type: 'image',
 			width: 80,
-			value: (item, value) => isUndef(value) ? item.avatar : item.avatar = value
+			value: (item, value) => isUndef(value) ? item.avatar : item.avatar = value,
+			labelPath: 'avatarFileName'
 		},
 		{
 			key: 'name.last',
