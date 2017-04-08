@@ -37,6 +37,10 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.head.cell.array.tpl.html', require('themes/material/templates/head.cell.text.html'));
 		theme.put('qgrid.head.cell.email.tpl.html', require('themes/material/templates/head.cell.text.html'));
 		theme.put('qgrid.head.cell.password.tpl.html', require('themes/material/templates/head.cell.text.html'));
+		theme.put('qgrid.head.cell.time.tpl.html', require('themes/material/templates/head.cell.text.html'));
+		theme.put('qgrid.head.cell.url.tpl.html', require('themes/material/templates/head.cell.text.html'));
+		theme.put('qgrid.head.cell.file.tpl.html', require('themes/material/templates/head.cell.text.html'));
+		theme.put('qgrid.head.cell.image.tpl.html', require('themes/material/templates/head.cell.text.html'));
 		theme.put('qgrid.head.cell.pivot.tpl.html', require('themes/material/templates/head.cell.pivot.html'));
 		theme.put('qgrid.head.cell.select.tpl.html', require('themes/material/templates/head.cell.select.html'));
 

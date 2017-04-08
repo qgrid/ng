@@ -112,6 +112,7 @@ export default class EditCellView {
 					cell = cell || model.navigation().active.cell;
 					if (cell && model.edit().cancel.execute(this.contextFactory(cell, this.value)) !== false) {
 						this.value = null;
+						this.label = null;
 						this.mode = 'view';
 						model.edit({editMode: 'view'});
 						cell.mode(this.mode);
@@ -156,6 +157,7 @@ export default class EditCellView {
 			rowIndex: cell.rowIndex,
 			oldValue: cell.value,
 			newValue: arguments.length === 2 ? value : cell.value,
+			label: cell.label,
 			valueFactory: this.valueFactory,
 			labelFactory: this.labelFactory,
 			unit: 'cell'

@@ -1,29 +1,25 @@
 <div ng-cloak class="q-grid-editor q-grid-file">
 	<h2 class="md-title">Edit {{::$cell.column.title}}</h2>
-	<div layout="column" class="q-grid-file-fields" flex>
-		<md-input-container ng-if="$cell.column.label !== null">
-			<label>Label</label>
-			<input type="text"
-					 ng-model="$view.edit.cell.label"></input>
-		</md-input-container>
+	<div layout="column" flex>
 		<div class="q-grid-file-upload-area"
-			  ng-class="{'q-grid-file-has-preview': $cell.column.hasPreview($view.edit.cell.value)}">
+			  ng-class="{'q-grid-file-has-preview': $cell.column.hasPreview($cell.label)}">
 			<div class="q-grid-file-upload-message" layout="column"
-				  ng-switch="!!$view.edit.cell.value">
+				  ng-switch="!!$cell.value">
 				<span class="q-grid-file-upload-filename"
-						ng-switch-when="true">{{$view.edit.cell.value.name}}</span>
-				<md-icon>file_upload</md-icon>
-				<span ng-switch-when="false">Drag and drop a file here or click</span>
-				<span ng-switch-when="true">Drag and drop or click to replace </span>
+						ng-switch-when="true">{{$cell.label}}</span>
+				<div layout="row" layout-align="center center">
+					<md-icon>file_upload</md-icon>
+					<span ng-switch-when="false">Drag and drop a file here or click</span>
+					<span ng-switch-when="true">Drag and drop or click to replace </span>
+				</div>
 			</div>
-			<input q-grid:file-upload="$view.edit.cell.value"
-					 q-grid:file-data-url="$cell.dataUrl"
-					 q-grid:on-upload="$cell.column.onUpload($event)"
+			<input q-grid:file-upload="$cell.value"
+					 q-grid:file-upload-label="$cell.label"
 					 q-grid:can-upload="$cell.column.canUpload($event)"
 					 type="file"></input>
 			<div class="q-grid-file-preview"
-				  ng-if="$cell.column.hasPreview($view.edit.cell.value)">
-				<img ng-src="{{$cell.dataUrl}}"/>
+				  ng-if="$cell.column.hasPreview($cell.label)">
+				<img ng-src="{{$cell.value}}"/>
 			</div>
 		</div>
 	</div>

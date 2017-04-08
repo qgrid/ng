@@ -1,12 +1,4 @@
-<div>{{$cell.value.name}}</div>
-<md-button class="md-icon-button q-grid-file-download"
-			  aria-label="file-download"
-			  ng-if="$cell.value">
-	<a href="{{$cell.dataUrl}}" download="{{$cell.value.name}}">
-		<md-icon>file_download</md-icon>
-		<md-tooltip>Download</md-tooltip>
-	</a>
-</md-button>
+<a ng-href="{{$cell.value}}" ng-bind="$cell.label || $cell.value"></a>
 <md-button class="md-icon-button q-grid-file-edit"
 			  aria-label="file-edit"
 			  ng-click="$view.edit.cell.enter.execute($cell)">

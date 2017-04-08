@@ -1,7 +1,8 @@
 import ColumnView from 'core/column-type/column.model.view';
 import DataColumnModel from './data.column.model';
 import TemplatePath from 'core/template/template.path';
-import {noop, yes} from 'core/services/utility';
+import {yes} from 'core/services/utility';
+import {isImage} from 'core/services/file';
 
 TemplatePath.register('file-cell', (template, column) => {
 	return {
@@ -22,11 +23,10 @@ class FileColumnModel extends DataColumnModel {
 		super('file');
 
 		this.canEdit = false;
-		this.onUpload = noop;
 		this.canUpload = yes;
 
 		this.hasPreview =
-			file => file !== null && file.type.indexOf('image/') === 0
+			name => isImage(name);
 	}
 }
 

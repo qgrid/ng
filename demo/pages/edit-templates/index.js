@@ -1,12 +1,36 @@
 import angular from 'angular';
 
-Controller.$inject = ['$http', '$mdToast'];
-export default function Controller($http, $mdToast) {
+Controller.$inject = ['$http', '$mdToast', 'qgrid', '$timeout'];
+export default function Controller($http, $mdToast, qgrid, $timeout) {
 	const ctrl = this;
 	const isUndef = angular.isUndefined;
 
+	this.commitCommand = new qgrid.Command({
+		execute: e => {
+			if(e.column.key === 'attachment' || e.column.key === 'avatar'){
+				$timeout(() => {
+					const filename = e.label;
+					$mdToast.show(
+						$mdToast.simple()
+							.textContent(`File ${filename} loaded`)
+							.position('top right')
+							.hideDelay(2000)
+					);
+					e.column.value(e.row, `https://fake.data.server.com/attachment/${encodeURI(filename)}`);
+				}, 1000);
+			}
+		}
+	});
+
 	this.rows = [];
 	this.columns = [
+		{
+			key: 'avatar',
+			title: 'Avatar',
+			type: 'image',
+			width: 80,
+			value: (item, value) => isUndef(value) ? item.avatar : item.avatar = value
+		},
 		{
 			key: 'name.last',
 			title: 'Last Name',
@@ -106,20 +130,7 @@ export default function Controller($http, $mdToast) {
 			title: 'Attachment',
 			type: 'file',
 			value: (item, value) => isUndef(value) ? item.attachment : item.attachment = value,
-			onUpload: (e) => {
-				$mdToast.show(
-					$mdToast.simple()
-						.textContent(`File ${e.source.name} loaded`)
-						.position('top right')
-						.hideDelay(2000)
-				);
-			}
-		},
-		{
-			key: 'avatar',
-			title: 'Avatar',
-			type: 'image',
-			value: (item, value) => isUndef(value) ? item.avatar : item.avatar = value
+			label: (item, label) => isUndef(label) ? item.attachmentLabel || null : item.attachmentLabel = label
 		}
 	];
 

@@ -1,6 +1,6 @@
 import {isFunction} from 'core/services/utility';
 import {compile} from 'core/services/path';
-import AppError from 'core/infrastructure/error';
+import {get as getValue} from './value';
 
 export function get(row, column) {
 	return column.$label
@@ -9,7 +9,7 @@ export function get(row, column) {
 			? column.label(row)
 			: column.labelPath
 				? compile(column.labelPath)(row)
-				: null;
+				: getValue(row, column);
 }
 
 export function getFactory(column) {
@@ -19,7 +19,7 @@ export function getFactory(column) {
 			? row => column.label(row)
 			: column.labelPath
 				? compile(column.labelPath)
-				: () => null;
+				: row => getValue(row, column);
 
 	return row => get(row);
 }
@@ -36,12 +36,4 @@ export function set(row, column, label) {
 	if (column.labelPath) {
 		return compile(column.labelPath)(row, label);
 	}
-
-	if (row.hasOwnProperty(column.key)) {
-		return row[column.key] = label;
-	}
-
-	throw new AppError(
-		'label',
-		`Row label can't be edit on "${column.key}" column`);
 }
