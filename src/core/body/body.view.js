@@ -4,6 +4,7 @@ import Aggregation from 'core/services/aggregation';
 import AppError from 'core/infrastructure/error';
 import Log from 'core/infrastructure/log';
 import Node from 'core/node/node';
+import RowDetails from 'core/row/row.details';
 
 export default class BodyView extends View {
 	constructor(model, table, valueFactory) {
@@ -76,6 +77,8 @@ export default class BodyView extends View {
 							`Invalid node type ${node.type}`
 						);
 				}
+			} else if (row instanceof RowDetails) {
+				return getValue(row.row, column);
 			}
 
 			return getValue(row);

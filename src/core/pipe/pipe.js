@@ -6,7 +6,9 @@ import memo from './memo.pipe';
 import group from './group.pipe';
 import pivot from './pivot.pipe';
 import column from './column.pipe';
+import rowDetails from './row.details.pipe';
 import view from './view.pipe';
+
 
 export default class Pipe {
 	static get data() {
@@ -43,5 +45,9 @@ export default class Pipe {
 
 	static get view(){
 		return view;
+	}
+
+	static get rowDetails(){
+		return rowDetails;
 	}
 }

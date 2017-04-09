@@ -9,5 +9,6 @@ export default [
 	Pipe.group,
 	Pipe.pivot,
 	Pipe.column,
+	Pipe.rowDetails,
 	Pipe.view
 ];
