@@ -10,11 +10,8 @@ import Row from './components/row/row';
 import Toolbar from './components/toolbar/toolbar';
 import Drag from './components/dnd/drag';
 import Drop from './components/dnd/drop';
-<<<<<<< HEAD
 import RowDetailsCore from './components/row/row-details.core';
-=======
 import Layer from './components/layer/layer';
->>>>>>> master
 
 import BoxCore from './components/grid/box.core';
 import ViewCore from './components/view/view.core';
@@ -66,11 +63,8 @@ const layoutModel = angular.module(def.MODULE_LAYOUT_NAME, [coreModule])
 	.component(def.FOOT_NAME, Foot)
 	.component(def.COLUMN_LIST_NAME, ColumnList)
 	.component(def.COLUMN_NAME, Column)
-<<<<<<< HEAD
 	.component(def.ROW_NAME, Row)
-=======
 	.component(def.LAYER_NAME, Layer)
->>>>>>> master
 	.component(def.TOOLBAR_NAME, Toolbar)
 	.component(def.TOOLBAR_CORE_NAME, ToolbarCore)
 	.directive(def.TEMPLATE_NAME, () => Template)
