@@ -71,7 +71,7 @@ export default function rangeBuilder(model) {
 
 	const rangeMap = {
 		'row': rangeRows,
-		'columns': rangeColumns,
+		'column': rangeColumns,
 		'cell': rangeCells,
 		'mix': rangeMix,
 	};

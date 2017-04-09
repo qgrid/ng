@@ -1,6 +1,6 @@
 import Component from '../component';
 import {getFactory as valueFactory, set as setValue} from 'ng/services/value';
-import Table from 'ng/services/table';
+import Table from 'ng/services/dom/table';
 import BodyView from 'core/body/body.view';
 import HeadView from 'core/head/head.view';
 import FootView from 'core/foot/foot.view';
@@ -17,24 +17,28 @@ import PaginationView from 'core/pagination/pagination.view';
 import TableView from 'core/table/table.view';
 import RowDetailsView from 'core/row/row.details.view';
 import StyleView from 'core/style/style.view';
+import ColumnView from 'core/column/column.view';
+import ScrollView from 'core/scroll/scroll.view';
 import {GRID_NAME, TH_CORE_NAME} from 'ng/definition';
 import {isUndefined} from 'core/services/utility';
+import TemplateLink from '../template/template.link';
 
 class ViewCore extends Component {
-	constructor($scope, $element, $timeout, grid) {
+	constructor($scope, $element, $timeout, $compile, $templateCache, grid, vscroll) {
 		super();
 
 		this.$scope = $scope;
 		this.element = $element[0];
 		this.$timeout = $timeout;
 		this.$postLink = this.onLink;
-		this.serviceFactory = grid.service;
+		this.serviceFactory = grid.service.bind(grid);
+		this.template = new TemplateLink($compile, $templateCache);
+		this.vscroll = vscroll;
 	}
 
 	onLink() {
 		const model = this.model;
-		const markup = this.root.markup;
-		const table = new Table(markup);
+		const table = new Table(model, this.root.markup, this.template);
 
 		const service = this.serviceFactory(model);
 		const apply = (f, timeout) => {
@@ -47,20 +51,22 @@ class ViewCore extends Component {
 
 		this.style = new StyleView(model, table, valueFactory);
 		this.table = new TableView(model);
-		this.head = new HeadView(model, service, TH_CORE_NAME);
+		this.head = new HeadView(model, table, TH_CORE_NAME);
 		this.body = new BodyView(model, table, valueFactory);
 		this.foot = new FootView(model, valueFactory);
-		this.layout = new LayoutView(model, table);
+		this.columns = new ColumnView(model);
+		this.layout = new LayoutView(model, table, service);
 		this.selection = new SelectionView(model, table, apply);
 		this.group = new GroupView(model, valueFactory);
 		this.pivot = new PivotView(model, valueFactory);
-		this.nav = new NavigationView(model, table, apply);
 		this.highlight = new HighlightView(model, table, apply);
 		this.sort = new SortView(model);
 		this.filter = new FilterView(model);
-		this.edit = new EditView(model, setValue, table, apply);
+		this.edit = new EditView(model, setValue, valueFactory, table, apply);
+		this.nav = new NavigationView(model, table, apply);
 		this.pagination = new PaginationView(model);
-		this.rowDetails = new RowDetailsView(model, markup);
+		this.rowDetails = new RowDetailsView(model, table);
+		this.scroll = new ScrollView(model, table, this.vscroll, apply);
 
 		// TODO: how we can avoid that?
 		this.$scope.$watch(() => {
@@ -95,7 +101,10 @@ ViewCore.$inject = [
 	'$scope',
 	'$element',
 	'$timeout',
-	'qgrid'
+	'$compile',
+	'$templateCache',
+	'qgrid',
+	'vscroll'
 ];
 
 export default {

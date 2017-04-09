@@ -1,15 +1,18 @@
 import View from 'core/view/view';
 import * as css from 'core/services/css';
 import * as columnService from 'core/column/column.service';
-import log from 'core/infrastructure/log';
 import {clone} from 'core/services/utility';
+import PipeUnit from 'core/pipe/units/pipe.unit';
+import log from 'core/infrastructure/log';
 
 export default class LayoutView extends View {
-	constructor(model, table) {
+	constructor(model, table, service) {
 		super(model);
 		this.model = model;
 		this.table = table;
 		this.markup = table.markup;
+		this.service = service;
+
 		this.onInit();
 	}
 
@@ -26,24 +29,11 @@ export default class LayoutView extends View {
 			if (e.hasChanges('columns')) {
 				this.invalidateColumns(this.form);
 			}
-
-			if (e.hasChanges('scroll')) {
-				this.invalidateScroll();
-			}
 		});
-
-		const sort = function (columns) {
-			const result = Array.from(columns);
-			const indexedColumn = result.filter(c => c.hasOwnProperty('index') && c.index >= 0);
-			indexedColumn.sort((x, y) => x.index - y.index);
-			const move = c => result.splice(c.index, 0, result.splice(result.indexOf(c), 1)[0]);
-			indexedColumn.forEach(move);
-			return result;
-		};
 
 		model.dataChanged.watch(e => {
 			if (e.hasChanges('columns')) {
-				const columns = sort(model.data().columns);
+				const columns = model.data().columns;
 				const columnMap = columnService.map(columns);
 				const index =
 					model.columnList()
@@ -51,9 +41,32 @@ export default class LayoutView extends View {
 						.filter(key => columnMap.hasOwnProperty(key));
 
 				const indexSet = new Set(index);
-				const appendIndex = columns.filter(c => !indexSet.has(c.key)).map(c => c.key);
-				index.push(...appendIndex);
-				model.columnList({index: index});
+				const appendIndex = columns.filter(c => !indexSet.has(c.key));
+				const orderIndex = Array.from(appendIndex);
+				orderIndex.sort((x, y) => {
+					if (x.index === y.index) {
+						return appendIndex.indexOf(x) - appendIndex.indexOf(y);
+					}
+
+					if (x.index < 0) {
+						return 1;
+					}
+
+					if (y.index < 0) {
+						return -1;
+					}
+
+					return x.index - y.index;
+				});
+
+				index.push(...orderIndex.map(c => c.key));
+				model.columnList({index: index}, {behavior: 'core'});
+			}
+		});
+
+		model.columnListChanged.watch(e => {
+			if (e.hasChanges('index') && e.tag.behavior !== 'core') {
+				this.service.invalidate('column.list', e.tag, PipeUnit.column);
 			}
 		});
 	}
@@ -64,16 +77,13 @@ export default class LayoutView extends View {
 		const state = clone(layout().columns);
 		const headRow = this.table.head.row(0);
 		if (headRow) {
-			const columns = columnService
-				.lineView(model.view().columns)
-				.map(v => v.model);
-
+			const columns = this.table.data.columns();
 			let length = columns.length;
 			while (length--) {
 				const column = columns[length];
 				if (!state.hasOwnProperty(column.key)) {
 					if (column.canResize) {
-						state[column.key] = {width: headRow.cells[column.index].clientWidth};
+						state[column.key] = {width: headRow.cell(column.index).width};
 					}
 				}
 			}
@@ -83,24 +93,12 @@ export default class LayoutView extends View {
 		return state;
 	}
 
-	invalidateScroll() {
-		log.info('layout', 'invalidate scroll');
-
-		const markup = this.markup;
-		const scroll = this.model.layout().scroll;
-		markup.head.scrollLeft = scroll.left;
-		markup.foot.scrollLeft = scroll.left;
-	}
-
 	invalidateColumns(form) {
 		log.info('layout', 'invalidate columns');
 
 		const model = this.model;
 		const getWidth = columnService.widthFactory(model, form);
-		const columns = columnService
-			.lineView(model.view().columns)
-			.map(v => v.model);
-
+		const columns = this.table.data.columns();
 		const style = {};
 		let length = columns.length;
 		while (length--) {
@@ -120,7 +118,7 @@ export default class LayoutView extends View {
 		sheet.set(style);
 	}
 
-	destroy(){
+	destroy() {
 		const sheet = css.sheet(`${this.model.grid().id}-layout`);
 		sheet.remove();
 	}

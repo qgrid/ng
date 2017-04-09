@@ -1,8 +1,8 @@
 import RootComponent from '../root.component';
-import PipeUnit from 'core/pipe/units/pipe.unit';
+import PipeUnit from 'core/pipe/units/pipe.unit'
 
 export class Grid extends RootComponent {
-	constructor($element, $transclude, $document, serviceFactory) {
+	constructor($element, $transclude, $document, serviceFactory, $animate) {
 		super('data', 'selection', 'sort', 'group', 'pivot', 'edit');
 
 		this.$element = $element;
@@ -11,6 +11,9 @@ export class Grid extends RootComponent {
 		this.markup = {
 			document: $document[0]
 		};
+
+		// turn off animation due to virtual scroll performance
+		$animate.enabled($element, false);
 	}
 
 	onInit() {
@@ -40,7 +43,7 @@ export class Grid extends RootComponent {
 				model[name + 'Changed']
 					.watch(e => {
 						const changes = Object.keys(e.changes);
-						if (triggers[name].find(key => changes.indexOf(key) > -1) && e.tag.behavior !== 'core') {
+						if (e.tag.behavior !== 'core' && triggers[name].find(key => changes.indexOf(key) >= 0)) {
 							service.invalidate(name, e.changes);
 						}
 					}));
@@ -71,7 +74,8 @@ Grid.$inject = [
 	'$element',
 	'$transclude',
 	'$document',
-	'qgrid'
+	'qgrid',
+	'$animate'
 ];
 
 /**
@@ -96,6 +100,10 @@ export default {
 		pivotBy: '<',
 		sortBy: '<',
 		sortMode: '@',
-		editMode: '@'
+		editMode: '@',
+		editEnter: '<',
+		editCommit: '<',
+		editCancel: '<',
+		editReset: '<',
 	}
 };

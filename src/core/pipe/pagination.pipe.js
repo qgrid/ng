@@ -5,6 +5,6 @@ export default function pipePagination(data, context, next) {
 	const current = paginationState.current;
 	const start = current * size;
 
-	model.pagination({count: data.length});
+	model.pagination({count: data.length}, {source: 'pagination.pipe', behavior: 'core'});
 	next(data.slice(start, start + size));
 }

@@ -1,17 +1,15 @@
 import Directive from 'ng/directives/directive';
-import TemplateLink from '../template/template.link';
 import cellBuilder from '../cell/cell.build';
 import {VIEW_CORE_NAME, TH_CORE_NAME,} from 'ng/definition';
 import {GRID_PREFIX} from 'core/definition';
 
 class ThCore extends Directive(TH_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
-	constructor($scope, $element, $compile, $templateCache, $attrs) {
+	constructor($scope, $element, $attrs) {
 		super();
 
 		this.$element = $element;
 		this.$scope = $scope;
 		this.$attrs = $attrs;
-		this.template = new TemplateLink($compile, $templateCache);
 	}
 
 	onInit() {
@@ -29,7 +27,7 @@ class ThCore extends Directive(TH_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 			const cache = model.head().cache;
 			let link = cache.find(column.key);
 			if (!link) {
-				const build = cellBuilder(this.template);
+				const build = cellBuilder(this.view.template);
 				link = build('head', model, this.column);
 				cache.set(column.key, link);
 			}
@@ -46,8 +44,6 @@ class ThCore extends Directive(TH_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 ThCore.$inject = [
 	'$scope',
 	'$element',
-	'$compile',
-	'$templateCache',
 	'$attrs'
 ];
 

@@ -1,7 +1,5 @@
-<tr ng-repeat-start="$row in $view.body.rows track by $index"
-	 ng-class="{'q-grid-selected': $view.selection.state($row).isSelected}">
-	<td ng-repeat="$column in $view.body.columns track by $column.model.key"
-		 q-grid-core:td>
+<tr ng-repeat-start="$row in $view.body.rows track by $index" q-grid-core:tr>
+	<td ng-repeat="$column in $view.body.columns track by $column.model.key" q-grid-core:td>
 	</td>
 </tr>
 <tr ng-repeat-end="" class="q-grid-row-details">

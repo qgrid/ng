@@ -72,7 +72,7 @@
 				"path": "data-virtualization"
 			},
 			{
-				"title": "Scrolling 1 Billion Cells",
+				"title": "Scrolling 100000 Rows",
 				"path": "big-data"
 			},
 			{
@@ -204,7 +204,12 @@
 			{
 				"title": "Visibility",
 				"path": "visibility"
+			},
+			{
+				"title": "No Data Template",
+				"path": "no-data"
 			}
+
 		]
 	},
 	{

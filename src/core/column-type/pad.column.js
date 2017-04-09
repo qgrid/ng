@@ -1,4 +1,4 @@
-import ColumnView from 'core/column-type/column.view';
+import ColumnView from 'core/column-type/column.model.view';
 import TemplatePath from 'core/template/template.path';
 import ColumnModel from './column.model';
 
@@ -18,6 +18,8 @@ class PadColumnModel extends ColumnModel {
 		this.canEdit = false;
 		this.canSort = false;
 		this.canResize = false;
+		this.canHighlight = false;
+		this.canFocus = false;
 		this.source = 'generation';
 	}
 }

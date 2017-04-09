@@ -5,16 +5,17 @@ import {clone, isUndefined} from 'core/services/utility';
 import Shortcut from 'core/infrastructure/shortcut';
 
 export default class EditCellView {
-	constructor(model, setValue, table, apply) {
+	constructor(model, setValue, valueFactory, table, apply) {
 		this.model = model;
 		this.setValue = setValue;
-		const markup = table.markup;
-		this.markup = markup;
+		this.table = table;
+
+		this.valueFactory = valueFactory;
 
 		this.mode = 'view';
 		this._value = null;
 
-		const shortcut = new Shortcut(markup.document, markup.table, apply);
+		const shortcut = new Shortcut(table, apply);
 		const commands = this.commands;
 		this.shortcutOff = shortcut.register('editCellNavigation', commands);
 
@@ -26,16 +27,16 @@ export default class EditCellView {
 
 	get commands() {
 		const model = this.model;
-		const table = this.markup.table;
+		const table = this.table;
 		const commands = {
 			enter: new Command({
 				shortcut: 'F2|Enter',
 				canExecute: cell => {
 					cell = cell || model.navigation().active.cell;
-
-					if (this.mode !== 'edit' && model.edit().mode === 'cell' && cell) {
-						// use shouldn't explicitly set it in the template, cause we have here canEdit !== false
-						return cell.column.canEdit !== false;
+					if (cell && this.mode !== 'edit' && model.edit().mode === 'cell' && cell) {
+						return cell.column.canEdit
+							&& model.edit().enter.canExecute(this.contextFactory(cell))
+							&& model.edit().editMode === 'view';
 					}
 
 					return false;
@@ -45,19 +46,26 @@ export default class EditCellView {
 					if (e) {
 						e.stopImmediatePropagation();
 					}
-
 					cell = cell || model.navigation().active.cell;
 					const parse = parseFactory(cell.column.type);
-					this.value = isUndefined(cell.value) ? null : parse(clone(cell.value));
-					this.mode = 'edit';
-					model.edit({editMode: 'edit'});
-					cell.mode(this.mode);
+					const value = isUndefined(cell.value) ? null : parse(clone(cell.value));
+					if (cell && model.edit().enter.execute(this.contextFactory(cell, value)) !== false) {
+						this.value = value;
+						this.mode = 'edit';
+						model.edit({editMode: 'edit'});
+						cell.mode(this.mode);
+					}
 				}
 			}),
 			commit: new Command({
-				shortcut: 'Ctrl+S|Enter',
+				shortcut: this.commitShortcut,
 				// TODO: add validation support
-				canExecute: () => this.mode === 'edit' && model.edit().mode === 'cell',
+				canExecute: cell => {
+					cell = cell || model.navigation().active.cell;
+					return this.mode === 'edit' && model.edit().mode === 'cell'
+						&& model.edit().commit.canExecute(this.contextFactory(cell))
+						&& model.edit().editMode === 'edit';
+				},
 				execute: (cell, e) => {
 					Log.info('cell.edit', 'commit');
 					if (e) {
@@ -65,7 +73,7 @@ export default class EditCellView {
 					}
 
 					cell = cell || model.navigation().active.cell;
-					if (cell) {
+					if (cell && model.edit().commit.execute(this.contextFactory(cell, this.value)) !== false) {
 						const column = cell.column;
 						const row = cell.row;
 						this.setValue(row, column, this.value);
@@ -80,13 +88,20 @@ export default class EditCellView {
 			}),
 			cancel: new Command({
 				shortcut: 'Escape',
+				canExecute: cell => {
+					cell = cell || model.navigation().active.cell;
+					return cell
+						&& model.edit().cancel.canExecute(this.contextFactory(cell, this.value))
+						&& model.edit().editMode === 'edit';
+				},
 				execute: (cell, e) => {
 					Log.info('cell.edit', 'cancel');
 					if (e) {
 						e.stopImmediatePropagation();
 					}
+
 					cell = cell || model.navigation().active.cell;
-					if (cell) {
+					if (cell && model.edit().cancel.execute(this.contextFactory(cell, this.value)) !== false) {
 						this.value = null;
 						this.mode = 'view';
 						model.edit({editMode: 'view'});
@@ -97,6 +112,12 @@ export default class EditCellView {
 				}
 			}),
 			reset: new Command({
+				canExecute: cell => {
+					cell = cell || model.navigation().active.cell;
+					return cell
+						&& model.edit().reset.canExecute(this.contextFactory(cell, this.value))
+						&& model.edit().editMode === 'edit';
+				},
 				execute: (cell, e) => {
 					Log.info('cell.edit', 'reset');
 					if (e) {
@@ -104,7 +125,7 @@ export default class EditCellView {
 					}
 
 					cell = cell || model.navigation().active.cell;
-					if (cell) {
+					if (cell && model.edit().reset.execute(this.contextFactory(cell, this.value)) !== false) {
 						const parse = parseFactory(cell.column.type);
 						this.value = parse(cell.value);
 						cell.mode(this.mode);
@@ -118,12 +139,35 @@ export default class EditCellView {
 		);
 	}
 
+	contextFactory(cell, value) {
+		return {
+			column: cell.column,
+			row: cell.row,
+			columnIndex: cell.columnIndex,
+			rowIndex: cell.rowIndex,
+			oldValue: cell.value,
+			newValue: arguments.length === 2 ? value : cell.value,
+			valueFactory: this.valueFactory,
+			unit: 'cell'
+		};
+	}
+
 	get value() {
 		return this._value;
 	}
 
 	set value(value) {
 		this._value = value;
+	}
+
+	get commitShortcut() {
+		const model = this.model;
+		const commitShortcuts = model.edit().commitShortcuts;
+		const cell = model.navigation().active.cell;
+		if (cell && commitShortcuts.hasOwnProperty(cell.column.type)) {
+			return commitShortcuts[cell.column.type];
+		}
+		return commitShortcuts['$default'];
 	}
 
 	destroy() {
