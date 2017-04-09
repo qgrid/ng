@@ -36,11 +36,8 @@ export const DRAG_NAME = `${GRID}Drag`;
 export const DROP_NAME = `${GRID}Drop`;
 export const MARKUP_NAME = `${GRID}Markup`;
 export const TOOLBAR_NAME = `${GRID}Toolbar`;
-<<<<<<< HEAD
 export const ROW_DETAILS_NAME = `${GRID}Details`;
-=======
 export const LAYER_NAME = `${GRID}Layer`;
->>>>>>> master
 
 export const CAN_DROP_NAME = `${GRID}CanDrop`;
 export const CAN_DRAG_NAME = `${GRID}CanDrag`;
