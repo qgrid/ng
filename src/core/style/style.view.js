@@ -1,9 +1,10 @@
 import View from 'core/view/view';
 import {Monitor} from 'core/services/style';
 import * as columnService from 'core/column/column.service';
+import {getFactory as valueFactory} from 'core/services/value';
 
 export default class StyleView extends View {
-	constructor(model, table, valueFactory) {
+	constructor(model, table) {
 		super(model);
 
 		this.table = table;

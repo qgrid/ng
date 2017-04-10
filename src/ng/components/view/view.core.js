@@ -1,6 +1,4 @@
 import Component from '../component';
-import {getFactory as valueFactory, set as setValue} from 'ng/services/value';
-import {getFactory as labelFactory, set as setLabel} from 'ng/services/label';
 import Table from 'ng/services/dom/table';
 import BodyView from 'core/body/body.view';
 import HeadView from 'core/head/head.view';
@@ -49,20 +47,20 @@ class ViewCore extends Component {
 			return this.$timeout(f, timeout);
 		};
 
-		this.style = new StyleView(model, table, valueFactory);
+		this.style = new StyleView(model, table);
 		this.table = new TableView(model);
 		this.head = new HeadView(model, table, TH_CORE_NAME);
-		this.body = new BodyView(model, table, valueFactory, labelFactory);
-		this.foot = new FootView(model, valueFactory);
+		this.body = new BodyView(model, table);
+		this.foot = new FootView(model);
 		this.columns = new ColumnView(model);
 		this.layout = new LayoutView(model, table, service);
 		this.selection = new SelectionView(model, table, apply);
-		this.group = new GroupView(model, valueFactory);
-		this.pivot = new PivotView(model, valueFactory);
+		this.group = new GroupView(model);
+		this.pivot = new PivotView(model);
 		this.highlight = new HighlightView(model, table, apply);
 		this.sort = new SortView(model);
 		this.filter = new FilterView(model);
-		this.edit = new EditView(model, setValue, valueFactory, setLabel, labelFactory, table, apply);
+		this.edit = new EditView(model, table, apply);
 		this.nav = new NavigationView(model, table, apply);
 		this.pagination = new PaginationView(model);
 		this.scroll = new ScrollView(model, table, this.vscroll, apply);
