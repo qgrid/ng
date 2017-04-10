@@ -9,5 +9,9 @@ export default class Cell extends Element {
 		}
 		return $scope.$cell;
 	}
+
+	get bounds() {
+		return this.element.getBoundingClientRect();
+	}
 }
 

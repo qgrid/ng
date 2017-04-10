@@ -30,8 +30,7 @@ export default class NavigationView extends View {
 		});
 
 		this.scrollTo = new Command({
-			// TODO: get rid of '.element'
-			execute: (row, column) => this.scroll(table.body, table.body.cell(row, column).element),
+			execute: (row, column) => this.scroll(table.body, table.body.cell(row, column)),
 			canExecute: (row, column) => table.body.cell(row, column) !== null
 		});
 
@@ -83,7 +82,7 @@ export default class NavigationView extends View {
 	}
 
 	scroll(container, target) {
-		const tr = target.getBoundingClientRect();
+		const tr = target.bounds;
 		const cr = container.bounds;
 		const scrollState = this.model.scroll();
 
