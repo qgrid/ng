@@ -1,14 +1,17 @@
-import RowDetails from './row.details';
+import RowDetailsNode from './row.details.node';
 
 export default function rowDetailsBuilder(mode) {
 
 	return (rows) => {
+		const result = [];
 		if (mode !== 'details'){
-			return [];
+			return result;
 		}
 
-		return rows.map(row => {
-			return new RowDetails(row);
+		rows.forEach(row => {
+			result.push(new RowDetailsNode(row));
 		});
+
+		return result;
 	};
 }

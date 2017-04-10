@@ -49,7 +49,7 @@ class RowDetailsCore extends Directive(ROW_DETAILS_CORE_NAME, {view: `^^${VIEW_C
 	}
 
 	get row() {
-		return this.$scope.$row;
+		return this.$scope.$row.row;
 	}
 
 	get model() {

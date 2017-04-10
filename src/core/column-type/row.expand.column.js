@@ -17,6 +17,7 @@ class RowExpandColumnModel extends ColumnModel {
 		this.canEdit = false;
 		this.canResize = false;
 	}
+
 }
 
 export default class RowExpandColumn extends ColumnView {

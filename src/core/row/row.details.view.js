@@ -1,23 +1,25 @@
 import View from 'core/view/view';
 import Command from 'core/infrastructure/command';
-import RowDetailsBehavior from './behaviors/row.details.behavior';
-import rowSelector from './row.selector';
+import { expandView } from './row.details.service';
 
 export default class RowDetailsView extends View {
-	constructor(model, markup) {
+	constructor(model) {
 		super(model);
 
-		this.markup = markup;
-		this.behavior = new RowDetailsBehavior(model, rowSelector(model, markup));
-		
 		this.toggleStatus = new Command({
 			execute: (row) => {
-				this.behavior.toggle(row);
+				row.state.expand = !row.state.expand;
+				const view = model.view;
+				const rowDetails = view().rowDetails;
+				view({rows: expandView(rowDetails)});
+			},
+			canExecute: (row) => {
+				return row.type === 'row';
 			}
 		});
 	}
 
 	status(row) {
-		return this.behavior.state(row) ? 'expand' : 'collapse';
+		return row.state.expand ? 'expand' : 'collapse';
 	}
 }

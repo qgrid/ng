@@ -1,5 +1,5 @@
 import {flatView as nodeFlatView} from 'core/node/node.service';
-import {flatView as rowDetailsFlatView} from 'core/row/row.service';
+import {expandView as expandNodeView} from 'core/row/row.details.service';
 
 export default function pipeView(memo, context, next) {
 	const model = context.model;
@@ -8,14 +8,15 @@ export default function pipeView(memo, context, next) {
 	if (memo.nodes.length) {
 		rows =  nodeFlatView(memo.nodes);
 	} else if (memo.rowDetails.length) {
-		rows = rowDetailsFlatView(memo.rowDetails);
+		rows = expandNodeView(memo.rowDetails);
 	}
 
 	model.view({
 		rows: rows,
 		nodes: memo.nodes,
 		pivot: memo.pivot,
-		columns: memo.columns
+		columns: memo.columns,
+		rowDetails: memo.rowDetails
 	}, {
 		source: 'view.pipe',
 		behavior: 'core'
