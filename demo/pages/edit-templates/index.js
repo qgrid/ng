@@ -1,12 +1,37 @@
 import angular from 'angular';
 
-Controller.$inject = ['$http'];
-export default function Controller($http) {
+Controller.$inject = ['$http', '$mdToast', 'qgrid', '$timeout'];
+export default function Controller($http, $mdToast, qgrid, $timeout) {
 	const ctrl = this;
 	const isUndef = angular.isUndefined;
 
+	this.commitCommand = new qgrid.Command({
+		execute: e => {
+			if(e.column.key === 'attachment' || e.column.key === 'avatar'){
+				$timeout(() => {
+					const filename = e.newLabel;
+					$mdToast.show(
+						$mdToast.simple()
+							.textContent(`File ${filename} loaded`)
+							.position('top right')
+							.hideDelay(2000)
+					);
+					e.column.value(e.row, `https://fake.data.server.com/attachment/${encodeURI(filename)}`);
+				}, 1000);
+			}
+		}
+	});
+
 	this.rows = [];
 	this.columns = [
+		{
+			key: 'avatar',
+			title: 'Avatar',
+			type: 'image',
+			width: 80,
+			value: (item, value) => isUndef(value) ? item.avatar : item.avatar = value,
+			labelPath: 'avatarFileName'
+		},
 		{
 			key: 'name.last',
 			title: 'Last Name',
@@ -83,6 +108,30 @@ export default function Controller($http) {
 			key: 'memberSince',
 			title: 'Member Since',
 			type: 'date'
+		},
+		{
+			key: 'modifiedTime',
+			title: 'Modified Time',
+			type: 'time',
+			value: (item, value) => isUndef(value) ? item.modified || '' : item.modified = value
+		},
+		{
+			key: 'webPage',
+			title: 'Web Page',
+			type: 'url',
+			value: (item, value) => isUndef(value)
+				? item.webPage || `https://corp.portal.com/${item.name.last}.${item.name.first}`
+				: item.webPage = value,
+			label: (item, label) => isUndef(label)
+				? item.webPageLabel || `${item.name.last} ${item.name.first}`
+				: item.webPageLabel = label
+		},
+		{
+			key: 'attachment',
+			title: 'Attachment',
+			type: 'file',
+			value: (item, value) => isUndef(value) ? item.attachment : item.attachment = value,
+			label: (item, label) => isUndef(label) ? item.attachmentLabel || null : item.attachmentLabel = label
 		}
 	];
 

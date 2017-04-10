@@ -5,15 +5,18 @@ import {clone, isUndefined} from 'core/services/utility';
 import Shortcut from 'core/infrastructure/shortcut';
 
 export default class EditCellView {
-	constructor(model, setValue, valueFactory, table, apply) {
+	constructor(model, setValue, valueFactory, setLabel, labelFactory, table, apply) {
 		this.model = model;
 		this.setValue = setValue;
 		this.table = table;
 
 		this.valueFactory = valueFactory;
+		this.setLabel = setLabel;
+		this.labelFactory = labelFactory;
 
 		this.mode = 'view';
 		this._value = null;
+		this._label = null;
 
 		const shortcut = new Shortcut(table, apply);
 		const commands = this.commands;
@@ -49,8 +52,10 @@ export default class EditCellView {
 					cell = cell || model.navigation().active.cell;
 					const parse = parseFactory(cell.column.type);
 					const value = isUndefined(cell.value) ? null : parse(clone(cell.value));
-					if (cell && model.edit().enter.execute(this.contextFactory(cell, value)) !== false) {
+					const label = isUndefined(cell.label) ? null : parse(clone(cell.label));
+					if (cell && model.edit().enter.execute(this.contextFactory(cell, value, label)) !== false) {
 						this.value = value;
+						this.label = label;
 						this.mode = 'edit';
 						model.edit({editMode: 'edit'});
 						cell.mode(this.mode);
@@ -73,12 +78,16 @@ export default class EditCellView {
 					}
 
 					cell = cell || model.navigation().active.cell;
-					if (cell && model.edit().commit.execute(this.contextFactory(cell, this.value)) !== false) {
+					if (cell && model.edit().commit.execute(this.contextFactory(cell, this.value, this.label)) !== false) {
 						const column = cell.column;
 						const row = cell.row;
 						this.setValue(row, column, this.value);
+						if (this.label !== null) {
+							this.setLabel(row, column, this.label);
+						}
 
 						this.value = null;
+						this.label = null;
 						this.mode = 'view';
 						model.edit({editMode: 'view'});
 						cell.mode(this.mode);
@@ -91,7 +100,7 @@ export default class EditCellView {
 				canExecute: cell => {
 					cell = cell || model.navigation().active.cell;
 					return cell
-						&& model.edit().cancel.canExecute(this.contextFactory(cell, this.value))
+						&& model.edit().cancel.canExecute(this.contextFactory(cell, this.value, this.label))
 						&& model.edit().editMode === 'edit';
 				},
 				execute: (cell, e) => {
@@ -101,8 +110,9 @@ export default class EditCellView {
 					}
 
 					cell = cell || model.navigation().active.cell;
-					if (cell && model.edit().cancel.execute(this.contextFactory(cell, this.value)) !== false) {
+					if (cell && model.edit().cancel.execute(this.contextFactory(cell, this.value, this.label)) !== false) {
 						this.value = null;
+						this.label = null;
 						this.mode = 'view';
 						model.edit({editMode: 'view'});
 						cell.mode(this.mode);
@@ -115,7 +125,7 @@ export default class EditCellView {
 				canExecute: cell => {
 					cell = cell || model.navigation().active.cell;
 					return cell
-						&& model.edit().reset.canExecute(this.contextFactory(cell, this.value))
+						&& model.edit().reset.canExecute(this.contextFactory(cell, this.value, this.label))
 						&& model.edit().editMode === 'edit';
 				},
 				execute: (cell, e) => {
@@ -125,7 +135,7 @@ export default class EditCellView {
 					}
 
 					cell = cell || model.navigation().active.cell;
-					if (cell && model.edit().reset.execute(this.contextFactory(cell, this.value)) !== false) {
+					if (cell && model.edit().reset.execute(this.contextFactory(cell, this.value, this.label)) !== false) {
 						const parse = parseFactory(cell.column.type);
 						this.value = parse(cell.value);
 						cell.mode(this.mode);
@@ -139,7 +149,7 @@ export default class EditCellView {
 		);
 	}
 
-	contextFactory(cell, value) {
+	contextFactory(cell, value, label) {
 		return {
 			column: cell.column,
 			row: cell.row,
@@ -147,7 +157,10 @@ export default class EditCellView {
 			rowIndex: cell.rowIndex,
 			oldValue: cell.value,
 			newValue: arguments.length === 2 ? value : cell.value,
+			oldLabel: cell.label,
+			newLabel: arguments.length === 3 ? label : cell.label,
 			valueFactory: this.valueFactory,
+			labelFactory: this.labelFactory,
 			unit: 'cell'
 		};
 	}
@@ -158,6 +171,14 @@ export default class EditCellView {
 
 	set value(value) {
 		this._value = value;
+	}
+
+	get label() {
+		return this._label;
+	}
+
+	set label(label) {
+		this._label = label;
 	}
 
 	get commitShortcut() {

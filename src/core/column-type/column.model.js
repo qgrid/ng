@@ -22,6 +22,8 @@ export default class ColumnModel {
 
 		this.isVisible = true;
 		this.index = -1;
+
+		this.label = null;
 	}
 
 	toString() {
