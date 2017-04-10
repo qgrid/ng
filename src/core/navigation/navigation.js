@@ -218,7 +218,7 @@ export default class Navigation {
 				canExecute: () => canExecute() && this.prevRow >= 0,
 				execute: () => {
 					const body = table.body;
-					const {row: row, offset: offset} = this.moveTo(body.scrollTop() - body.bounds.height, 'up');
+					const {row: row, offset: offset} = this.moveTo(body.scrollTop() - body.rect().height, 'up');
 					body.scrollTop(offset);
 					nav({row: row, column: this.currentColumn}, {source: 'navigation'});
 				}
@@ -228,7 +228,7 @@ export default class Navigation {
 				canExecute: () => canExecute() && this.nextRow >= 0,
 				execute: () => {
 					const body = table.body;
-					let {row: row, offset: offset} = this.moveTo(body.scrollTop() + body.bounds.height, 'down');
+					let {row: row, offset: offset} = this.moveTo(body.scrollTop() + body.rect().height, 'down');
 					body.scrollTop(offset);
 					nav({row: row, column: this.currentColumn}, {source: 'navigation'});
 				}
