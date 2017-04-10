@@ -28,7 +28,7 @@ class BoxCore {
 	}
 
 	cell() {
-		return null;
+		return Cell.empty;
 	}
 
 	addLayer() {
@@ -112,7 +112,7 @@ export default class Box extends BoxCore {
 				}
 			}
 		}
-		return null;
+		return Cell.empty;
 	}
 
 	addLayer(name) {

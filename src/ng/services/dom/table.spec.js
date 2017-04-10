@@ -43,7 +43,7 @@ describe('Table', () => {
 		});
 		it('cell', () => {
 			tableProps.forEach((prop) => {
-				expect(table[prop].cell(0, 0)).to.be.null;
+				expect(table[prop].cell(0, 0)).to.be.an.instanceOf(Object);
 			});
 		});
 	});

@@ -22,7 +22,7 @@ export default class Row extends Element {
 			const cells = this.element.cells;
 			return new Cell(cells[column]);
 		}
-		return null;
+		return Cell.empty;
 	}
 
 	cellCount() {
