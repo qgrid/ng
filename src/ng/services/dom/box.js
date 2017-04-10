@@ -159,4 +159,8 @@ export default class Box extends BoxCore {
 
 		this.element.scrollTop = value;
 	}
+
+	get bounds() {
+		return this.element.getBoundingClientRect();
+	}
 }

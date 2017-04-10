@@ -3,8 +3,6 @@ import Command from 'core/infrastructure/command';
 export default class Navigation {
 	constructor(model, table) {
 		this.model = model;
-		this.document = table.markup.document;
-		this.markup = table.markup;
 		this.table = table;
 	}
 
@@ -144,7 +142,7 @@ export default class Navigation {
 
 	get commands() {
 		const model = this.model;
-		const markup = this.markup;
+		const table = this.table;
 		const nav = model.navigation;
 		const canExecute = () => model.edit().editMode === 'view';
 
@@ -170,7 +168,7 @@ export default class Navigation {
 					const hasNextColumn = this.nextColumn >= 0;
 					const hasNextRow = this.nextRow >= 0;
 					if (!hasNextColumn && !hasNextRow) {
-						markup.table.blur();
+						table.blur();
 						return;
 					}
 
@@ -188,7 +186,7 @@ export default class Navigation {
 					const hasPrevColumn = this.prevColumn >= 0;
 					const hasPrevRow = this.prevRow >= 0;
 					if (!hasPrevColumn && !hasPrevRow) {
-						markup.table.blur();
+						table.blur();
 						return;
 					}
 
@@ -219,9 +217,9 @@ export default class Navigation {
 				shortcut: 'pageUp',
 				canExecute: () => canExecute() && this.prevRow >= 0,
 				execute: () => {
-					const body = markup.body;
-					const {row: row, offset: offset} = this.moveTo(body.scrollTop - body.getBoundingClientRect().height, 'up');
-					body.scrollTop = offset;
+					const body = table.body;
+					const {row: row, offset: offset} = this.moveTo(body.scrollTop() - body.bounds.height, 'up');
+					body.scrollTop(offset);
 					nav({row: row, column: this.currentColumn}, {source: 'navigation'});
 				}
 			}),
@@ -229,9 +227,9 @@ export default class Navigation {
 				shortcut: 'pageDown',
 				canExecute: () => canExecute() && this.nextRow >= 0,
 				execute: () => {
-					const body = markup.body;
-					let {row: row, offset: offset} = this.moveTo(body.scrollTop + body.getBoundingClientRect().height, 'down');
-					body.scrollTop = offset;
+					const body = table.body;
+					let {row: row, offset: offset} = this.moveTo(body.scrollTop() + body.bounds.height, 'down');
+					body.scrollTop(offset);
 					nav({row: row, column: this.currentColumn}, {source: 'navigation'});
 				}
 			})
