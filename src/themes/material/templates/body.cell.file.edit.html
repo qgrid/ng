@@ -2,24 +2,24 @@
 	<h2 class="md-title">Edit {{::$cell.column.title}}</h2>
 	<div layout="column" flex>
 		<div class="q-grid-file-upload-area"
-			  ng-class="{'q-grid-file-has-preview': $cell.column.hasPreview($cell.label)}">
+			  ng-class="{'q-grid-file-has-preview': $cell.column.hasPreview($view.edit.cell.label)}">
 			<div class="q-grid-file-upload-message" layout="column"
-				  ng-switch="!!$cell.value">
+				  ng-switch="!!$view.edit.cell.value">
 				<span class="q-grid-file-upload-filename"
-						ng-switch-when="true">{{$cell.label}}</span>
+						ng-switch-when="true">{{$view.edit.cell.label}}</span>
 				<div layout="row" layout-align="center center">
 					<md-icon>file_upload</md-icon>
 					<span ng-switch-when="false">Drag and drop a file here or click</span>
 					<span ng-switch-when="true">Drag and drop or click to replace </span>
 				</div>
 			</div>
-			<input q-grid:file-upload="$cell.value"
-					 q-grid:file-upload-label="$cell.label"
-					 q-grid:can-upload="$cell.column.canUpload($event)"
+			<input q-grid:file-upload="$view.edit.cell.value"
+					 q-grid:file-upload-label="$view.edit.cell.label"
+					 q-grid:can-upload="cell.column.canUpload($event)"
 					 type="file"></input>
 			<div class="q-grid-file-preview"
-				  ng-if="$cell.column.hasPreview($cell.label)">
-				<img ng-src="{{$cell.value}}"/>
+				  ng-if="$cell.column.hasPreview($view.edit.cell.label)">
+				<img ng-src="{{$view.edit.cell.value}}"/>
 			</div>
 		</div>
 	</div>

@@ -28,6 +28,7 @@ class FileUpload extends Directive(FILE_UPLOAD_NAME) {
 
 	onClick() {
 		this.file = null;
+		this.label = null;
 	}
 
 	upload(e) {
@@ -48,7 +49,7 @@ class FileUpload extends Directive(FILE_UPLOAD_NAME) {
 
 	setDataUrl(e) {
 		if (e.target.readyState == FileReader.DONE) {
-			this.file = e.target.result;
+			this.$scope.$applyAsync(() => this.file = e.target.result);
 		}
 	}
 }

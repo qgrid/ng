@@ -53,7 +53,7 @@ export default class EditCellView {
 					const parse = parseFactory(cell.column.type);
 					const value = isUndefined(cell.value) ? null : parse(clone(cell.value));
 					const label = isUndefined(cell.label) ? null : parse(clone(cell.label));
-					if (cell && model.edit().enter.execute(this.contextFactory(cell, value)) !== false) {
+					if (cell && model.edit().enter.execute(this.contextFactory(cell, value, label)) !== false) {
 						this.value = value;
 						this.label = label;
 						this.mode = 'edit';
@@ -78,7 +78,7 @@ export default class EditCellView {
 					}
 
 					cell = cell || model.navigation().active.cell;
-					if (cell && model.edit().commit.execute(this.contextFactory(cell, this.value)) !== false) {
+					if (cell && model.edit().commit.execute(this.contextFactory(cell, this.value, this.label)) !== false) {
 						const column = cell.column;
 						const row = cell.row;
 						this.setValue(row, column, this.value);
@@ -100,7 +100,7 @@ export default class EditCellView {
 				canExecute: cell => {
 					cell = cell || model.navigation().active.cell;
 					return cell
-						&& model.edit().cancel.canExecute(this.contextFactory(cell, this.value))
+						&& model.edit().cancel.canExecute(this.contextFactory(cell, this.value, this.label))
 						&& model.edit().editMode === 'edit';
 				},
 				execute: (cell, e) => {
@@ -110,7 +110,7 @@ export default class EditCellView {
 					}
 
 					cell = cell || model.navigation().active.cell;
-					if (cell && model.edit().cancel.execute(this.contextFactory(cell, this.value)) !== false) {
+					if (cell && model.edit().cancel.execute(this.contextFactory(cell, this.value, this.label)) !== false) {
 						this.value = null;
 						this.label = null;
 						this.mode = 'view';
@@ -125,7 +125,7 @@ export default class EditCellView {
 				canExecute: cell => {
 					cell = cell || model.navigation().active.cell;
 					return cell
-						&& model.edit().reset.canExecute(this.contextFactory(cell, this.value))
+						&& model.edit().reset.canExecute(this.contextFactory(cell, this.value, this.label))
 						&& model.edit().editMode === 'edit';
 				},
 				execute: (cell, e) => {
@@ -135,7 +135,7 @@ export default class EditCellView {
 					}
 
 					cell = cell || model.navigation().active.cell;
-					if (cell && model.edit().reset.execute(this.contextFactory(cell, this.value)) !== false) {
+					if (cell && model.edit().reset.execute(this.contextFactory(cell, this.value, this.label)) !== false) {
 						const parse = parseFactory(cell.column.type);
 						this.value = parse(cell.value);
 						cell.mode(this.mode);
@@ -149,7 +149,7 @@ export default class EditCellView {
 		);
 	}
 
-	contextFactory(cell, value) {
+	contextFactory(cell, value, label) {
 		return {
 			column: cell.column,
 			row: cell.row,
@@ -157,7 +157,8 @@ export default class EditCellView {
 			rowIndex: cell.rowIndex,
 			oldValue: cell.value,
 			newValue: arguments.length === 2 ? value : cell.value,
-			label: cell.label,
+			oldLabel: cell.label,
+			newLabel: arguments.length === 3 ? label : cell.label,
 			valueFactory: this.valueFactory,
 			labelFactory: this.labelFactory,
 			unit: 'cell'

@@ -9,7 +9,7 @@ export default function Controller($http, $mdToast, qgrid, $timeout) {
 		execute: e => {
 			if(e.column.key === 'attachment' || e.column.key === 'avatar'){
 				$timeout(() => {
-					const filename = e.label;
+					const filename = e.newLabel;
 					$mdToast.show(
 						$mdToast.simple()
 							.textContent(`File ${filename} loaded`)
