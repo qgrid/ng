@@ -18,7 +18,7 @@ export default class SelectionView extends View {
 		this.selectionState = stateFactory(model);
 		this.buildRange = rangeBuilder(model);
 
-		const shortcut = new Shortcut(markup.document, markup.table, apply);
+		const shortcut = new Shortcut(table, apply);
 		const commands = this.commands;
 		this.shortcutOff = shortcut.register('selectionNavigation', commands);
 		this.toggleRow = commands.get('toggleRow');
@@ -207,7 +207,7 @@ export default class SelectionView extends View {
 			if (this.state() || this.model.selection().mode === 'single') {
 				this.selectionState.clear();
 			}
-			else{
+			else {
 				this.selectionState.select(this.model.view().rows, true);
 			}
 		}
