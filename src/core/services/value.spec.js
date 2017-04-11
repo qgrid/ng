@@ -68,13 +68,13 @@ describe('value service', () => {
 			};
 		});
 
-		it('should set new value for column with value getter in template', () => {
+		it('should set new value for column with value setter in template', () => {
 			valueService.set(row, templateDefinedColumn, 'new_value');
 
 			expect(row.nested.field).to.equal('new_value');
 		});
 
-		it('should set new value for column with value getter in controller', () => {
+		it('should set new value for column with value setter in controller', () => {
 			valueService.set(row, controllerDefinedColumn, 'new_value');
 
 			expect(row.nested.field).to.equal('new_value');
@@ -96,7 +96,7 @@ describe('value service', () => {
 			const column = {
 				key: 'wrongKey'
 			};
-			
+
 			const setter = () => valueService.set(row, column, 'new_value');
 
 			expect(setter).to.throw(/Row can't be edit on "wrongKey" column/);
