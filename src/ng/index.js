@@ -26,6 +26,7 @@ import Indeterminate from './directives/indeterminate';
 import Focus from './directives/focus';
 import Resize from './directives/resize';
 import Markup from './directives/markup';
+import FileUpload from './directives/file.upload';
 
 import ThemeProvider from './services/theme';
 import Range from './filters/range';
@@ -40,10 +41,14 @@ const coreModule = angular.module(def.MODULE_CORE_NAME, [])
 	.directive(def.INDETERMINATE_NAME, () => Indeterminate)
 	.directive(def.FOCUS_NAME, () => Focus)
 	.directive(def.RESIZE_NAME, () => Resize)
+	.directive(def.FILE_UPLOAD_NAME, () => FileUpload)
 	.provider(def.THEME_NAME, () => new ThemeProvider())
 	.service(def.TEMPLATE_PATH_NAME, () => () => TemplatePath)
 	.filter(def.RANGE_NAME, () => Range)
 	.filter(def.HIGHLIGHT_NAME, () => Highlight)
+	.config(['$compileProvider',
+		$compileProvider => $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|tel|file|data):/)
+	])
 	.name;
 
 import pluginModule from './plugins';
@@ -153,6 +158,26 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.body.cell.email.tpl.html', require('./components/cell/email/body.cell.email.html'));
 		theme.put('qgrid.foot.cell.email.tpl.html', require('./components/cell/text/foot.cell.text.html'));
 		theme.put('qgrid.body.cell.email.edit.tpl.html', require('./components/cell/text/body.cell.text.edit.html'));
+
+		theme.put('qgrid.head.cell.time.tpl.html', require('./components/cell/text/head.cell.text.html'));
+		theme.put('qgrid.body.cell.time.tpl.html', require('./components/cell/time/body.cell.time.html'));
+		theme.put('qgrid.foot.cell.time.tpl.html', require('./components/cell/text/foot.cell.text.html'));
+		theme.put('qgrid.body.cell.time.edit.tpl.html', require('./components/cell/time/body.cell.time.edit.html'));
+
+		theme.put('qgrid.head.cell.url.tpl.html', require('./components/cell/text/head.cell.text.html'));
+		theme.put('qgrid.body.cell.url.tpl.html', require('./components/cell/url/body.cell.url.html'));
+		theme.put('qgrid.foot.cell.url.tpl.html', require('./components/cell/text/foot.cell.text.html'));
+		theme.put('qgrid.body.cell.url.edit.tpl.html', require('./components/cell/url/body.cell.url.edit.html'));
+
+		theme.put('qgrid.head.cell.file.tpl.html', require('./components/cell/text/head.cell.text.html'));
+		theme.put('qgrid.body.cell.file.tpl.html', require('./components/cell/file/body.cell.file.html'));
+		theme.put('qgrid.foot.cell.file.tpl.html', require('./components/cell/text/foot.cell.text.html'));
+		theme.put('qgrid.body.cell.file.edit.tpl.html', require('./components/cell/file/body.cell.file.edit.html'));
+
+		theme.put('qgrid.head.cell.image.tpl.html', require('./components/cell/text/head.cell.text.html'));
+		theme.put('qgrid.body.cell.image.tpl.html', require('./components/cell/image/body.cell.image.html'));
+		theme.put('qgrid.foot.cell.image.tpl.html', require('./components/cell/text/foot.cell.text.html'));
+		theme.put('qgrid.body.cell.image.edit.tpl.html', require('./components/cell/image/body.cell.image.edit.html'));
 
 		theme.put('qgrid.head.cell.select.tpl.html', require('./components/cell/select/head.cell.select.html'));
 		theme.put('qgrid.body.cell.select.tpl.html', require('./components/cell/select/body.cell.select.html'));

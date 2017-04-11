@@ -1,6 +1,7 @@
 <q-grid columns="$ctrl.columns"
 		  rows="$ctrl.rows"
-		  edit-mode="cell">
+		  edit-mode="cell"
+		  edit-commit="$ctrl.commitCommand">
 	<q-grid:columns>
 		<q-grid:column key="name.first">
 			<q-grid:template for="edit">
