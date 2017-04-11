@@ -12,12 +12,19 @@ class CellCore {
 	rect() {
 		return {};
 	}
+
+	addClass() {
+	}
+
+	removeClass() {
+	}
 }
 
 export default class Cell extends Element {
 	static get empty() {
 		return new CellCore();
 	}
+
 	get model() {
 		const $scope = angular.element(this.element).scope();
 		if (!$scope) {
@@ -28,6 +35,14 @@ export default class Cell extends Element {
 
 	rect() {
 		return this.element.getBoundingClientRect();
+	}
+
+	addClass(name) {
+		this.element.classList.add(name);
+	}
+
+	removeClass(name) {
+		this.element.classList.remove(name);
 	}
 }
 
