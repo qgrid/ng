@@ -5,7 +5,7 @@ import PipeUnit from 'core/pipe/units/pipe.unit';
 import Log from 'core/infrastructure/log';
 import Command from 'core/infrastructure/command';
 import {noop} from 'core/services/utility';
-import {getFactory} from './value';
+import {getFactory} from 'core/services/value';
 
 export default class Grid {
 	constructor($rootScope) {

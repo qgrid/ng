@@ -1,9 +1,10 @@
 import View from 'core/view/view';
 import Command from 'core/infrastructure/command';
 import {flatView as nodeFlatView} from 'core/node/node.service';
+import {getFactory as valueFactory} from 'core/services/value';
 
 export default class GroupView extends View {
-	constructor(model, valueFactory) {
+	constructor(model) {
 		super(model);
 
 		this.valueFactory = valueFactory;
