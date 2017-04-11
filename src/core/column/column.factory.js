@@ -15,6 +15,10 @@ import RowNumberColumn from 'core/column-type/row.number.column';
 import RowIndicatorColumn from 'core/column-type/row.indicator.column';
 import RowExpandColumn from 'core/column-type/row.expand.column';
 import PadColumn from 'core/column-type/pad.column';
+import TimeColumn from 'core/column-type/time.column';
+import UrlColumn from 'core/column-type/url.column';
+import FileColumn from 'core/column-type/file.column';
+import ImageColumn from 'core/column-type/image.column';
 
 function merge(target, source) {
 	if (target && source) {
@@ -41,6 +45,10 @@ export default function (model) {
 		'row-indicator': RowIndicatorColumn,
 		'row-expand': RowExpandColumn,
 		'pad': PadColumn,
+		'time': TimeColumn,
+		'url': UrlColumn,
+		'file': FileColumn,
+		'image': ImageColumn,
 		'custom': CustomColumn
 	};
 
