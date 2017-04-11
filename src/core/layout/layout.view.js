@@ -10,7 +10,6 @@ export default class LayoutView extends View {
 		super(model);
 		this.model = model;
 		this.table = table;
-		this.markup = table.markup;
 		this.service = service;
 
 		this.onInit();

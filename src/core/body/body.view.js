@@ -10,7 +10,6 @@ export default class BodyView extends View {
 		super(model);
 
 		this.table = table;
-		this.markup = table.markup;
 		this.rows = [];
 		this.columns = [];
 		this._valueFactory = valueFactory;
