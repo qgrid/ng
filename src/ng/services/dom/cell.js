@@ -1,28 +1,9 @@
 import Element from './element';
 import AppError from 'core/infrastructure/error';
 
-class CellCore {
-	constructor() {
-	}
-
-	get model() {
-		return null;
-	}
-
-	rect() {
-		return {};
-	}
-
-	addClass() {
-	}
-
-	removeClass() {
-	}
-}
-
 export default class Cell extends Element {
 	static get empty() {
-		return new CellCore();
+		return Element.empty;
 	}
 
 	get model() {
@@ -31,18 +12,6 @@ export default class Cell extends Element {
 			throw new AppError('cell', `Scope for is not found`)
 		}
 		return $scope.$cell;
-	}
-
-	rect() {
-		return this.element.getBoundingClientRect();
-	}
-
-	addClass(name) {
-		this.element.classList.add(name);
-	}
-
-	removeClass(name) {
-		this.element.classList.remove(name);
 	}
 }
 
