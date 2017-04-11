@@ -86,7 +86,7 @@ export default class BodyView extends View {
 	}
 
 	labelFactory(column) {
-		const getLabel = thus._labelFactory(column);
+		const getLabel = this._labelFactory(column);
 		return row => getLabel(row);
 	}
 
