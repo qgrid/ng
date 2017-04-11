@@ -1,15 +1,15 @@
 import * as columnService from 'core/column/column.service';
 import AppError from 'core/infrastructure/error';
 
-export default (model, markup) => {
+export default (model, table) => {
 	function getRows(items) {
 		const result = [];
 		const rows = model.view().rows;
 		
 		for (let item of items) {
 			const index = rows.indexOf(item);
-			if (index > -1 && markup.body.rows[index]) {
-				for (let cell of markup.body.rows[index].cells) {
+			if (index > -1 && table.body.row(index)) {
+				for (let cell of table.body.row(index).cells()) {
 					result.push(cell);
 				}
 			}
@@ -25,8 +25,8 @@ export default (model, markup) => {
 		for (let item of items) {
 			const index = columns.findIndex((c) => c.model === item);
 			if (index > -1) {
-				for (let row of markup.body.rows) {
-					result.push(row.cells[index]);
+				for (let row of table.body.rows()) {
+					result.push(row.cell(index));
 				}
 			}
 		}
@@ -43,10 +43,10 @@ export default (model, markup) => {
 			const rowIndex = rows.indexOf(item.row);
 			const columnIndex = columns.findIndex((c) => c.model === item.column);
 
-			if (rowIndex > -1 && markup.body.rows[rowIndex]) {
-				const row = markup.body.rows[rowIndex];
-				if (columnIndex > -1 && row && row.cells[columnIndex]) {
-					result.push(row.cells[columnIndex]);
+			if (rowIndex > -1 && table.body.row(rowIndex)) {
+				const row = table.body.row(rowIndex);
+				if (columnIndex > -1 && row && row.cell(columnIndex)) {
+					result.push(row.cell(columnIndex));
 				}
 			}
 		}

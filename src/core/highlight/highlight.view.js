@@ -11,9 +11,8 @@ export default class HighlightView extends View {
 	constructor(model, table, apply) {
 		super(model);
 
-		this.markup = table.markup;
 		this.apply = apply;
-		this.behavior = new HighlightBehavior(model, cellSelector(model, table.markup));
+		this.behavior = new HighlightBehavior(model, cellSelector(model, table));
 		this.table = table;
 
 		// TODO: get rid of this variable, maybe using table class?
@@ -116,14 +115,13 @@ export default class HighlightView extends View {
 
 	highlight(key, cls) {
 		const table = this.table;
-		const markup = this.markup;
 		const index = this.columnIndex(key);
 		if (index < 0) {
 			return noop;
 		}
 
 		const head = table.head;
-		if (markup.head.rows.length) {
+		if (table.head.rowCount()) {
 			const cells = head.column(index).cells();
 			cells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}`));
 			if (index > 0) {
@@ -131,16 +129,16 @@ export default class HighlightView extends View {
 				cells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}-prev`));
 			}
 
-			if (index < markup.head.rows.length - 1) {
+			if (index < table.head.rowCount() - 1) {
 				const cells = head.column(index + 1).cells();
 				cells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}-next`));
 			}
 		}
-		if (markup.body.rows.length) {
+		if (table.body.rowCount()) {
 			const cells = table.body.column(index).cells();
 			cells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}`));
 		}
-		if (markup.foot.rows.length) {
+		if (table.foot.rowCount()) {
 			const cells = table.foot.column(index).cells();
 			cells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}`));
 		}
@@ -150,7 +148,6 @@ export default class HighlightView extends View {
 
 	blur(key, cls) {
 		const table = this.table;
-		const markup = this.markup;
 		const index = this.columnIndex(key);
 		if (index < 0) {
 			return noop;
@@ -158,24 +155,24 @@ export default class HighlightView extends View {
 
 		return () => {
 			const head = table.head;
-			if (markup.head.rows.length) {
+			if (table.head.rowCount()) {
 				const cells = head.column(index).cells();
 				cells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}`));
 				if (index > 0) {
 					const cells = head.column(index - 1).cells();
 					cells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}-prev`));
 				}
-				if (index < markup.head.rows.length - 1) {
+				if (index < table.head.rowCount() - 1) {
 					const cells = head.column(index + 1).cells();
 					cells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}-next`));
 				}
 			}
 
-			if (markup.body.rows.length) {
+			if (table.body.rowCount()) {
 				const cells = table.body.column(index).cells();
 				cells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}`));
 			}
-			if (markup.foot.rows.length) {
+			if (table.foot.rowCount()) {
 				const cells = table.foot.column(index).cells();
 				cells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}`));
 			}
