@@ -71,7 +71,14 @@ export default class Box extends BoxCore {
 				}
 			}
 		}
-		return null;
+		return {
+			cells: () => {
+				return [];
+			},
+			cell: () => {
+				return null;
+			}
+		};
 	}
 
 	row(index) {
@@ -81,7 +88,14 @@ export default class Box extends BoxCore {
 				return new Row(rows[index]);
 			}
 		}
-		return null;
+		return {
+			cells: () => {
+				return [];
+			},
+			cell: () => {
+				return null;
+			}
+		};
 	}
 
 	rows() {

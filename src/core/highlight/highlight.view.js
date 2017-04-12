@@ -121,27 +121,21 @@ export default class HighlightView extends View {
 		}
 
 		const head = table.head;
-		if (table.head.rowCount()) {
-			const cells = head.column(index).cells();
-			cells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}`));
-			if (index > 0) {
-				const cells = head.column(index - 1).cells();
-				cells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}-prev`));
-			}
+		const headCells = head.column(index).cells();
+		headCells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}`));
+		if (index > 0) {
+			const cells = head.column(index - 1).cells();
+			cells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}-prev`));
+		}
 
-			if (index < table.head.rowCount() - 1) {
-				const cells = head.column(index + 1).cells();
-				cells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}-next`));
-			}
+		if (index < table.head.rowCount() - 1) {
+			const cells = head.column(index + 1).cells();
+			cells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}-next`));
 		}
-		if (table.body.rowCount()) {
-			const cells = table.body.column(index).cells();
-			cells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}`));
-		}
-		if (table.foot.rowCount()) {
-			const cells = table.foot.column(index).cells();
-			cells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}`));
-		}
+		const bodyCells = table.body.column(index).cells();
+		bodyCells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}`));
+		const footCells = table.foot.column(index).cells();
+		footCells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}`));
 
 		return this.blur(key, cls);
 	}
@@ -155,27 +149,20 @@ export default class HighlightView extends View {
 
 		return () => {
 			const head = table.head;
-			if (table.head.rowCount()) {
-				const cells = head.column(index).cells();
-				cells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}`));
-				if (index > 0) {
-					const cells = head.column(index - 1).cells();
-					cells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}-prev`));
-				}
-				if (index < table.head.rowCount() - 1) {
-					const cells = head.column(index + 1).cells();
-					cells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}-next`));
-				}
+			const headCells = head.column(index).cells();
+			headCells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}`));
+			if (index > 0) {
+				const cells = head.column(index - 1).cells();
+				cells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}-prev`));
 			}
-
-			if (table.body.rowCount()) {
-				const cells = table.body.column(index).cells();
-				cells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}`));
+			if (index < table.head.rowCount() - 1) {
+				const cells = head.column(index + 1).cells();
+				cells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}-next`));
 			}
-			if (table.foot.rowCount()) {
-				const cells = table.foot.column(index).cells();
-				cells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}`));
-			}
+			const bodyCells = table.body.column(index).cells();
+			bodyCells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}`));
+			const footCells = table.foot.column(index).cells();
+			footCells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}`));
 		};
 	}
 }
