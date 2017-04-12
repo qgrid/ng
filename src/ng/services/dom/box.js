@@ -11,6 +11,9 @@ class BoxCore {
 		return {
 			cells: () => {
 				return [];
+			},
+			cell: () => {
+				return null;
 			}
 		};
 	}
@@ -19,6 +22,9 @@ class BoxCore {
 		return {
 			cells: () => {
 				return [];
+			},
+			cell: () => {
+				return null;
 			}
 		};
 	}
@@ -71,14 +77,7 @@ export default class Box extends BoxCore {
 				}
 			}
 		}
-		return {
-			cells: () => {
-				return [];
-			},
-			cell: () => {
-				return null;
-			}
-		};
+		return Box.empty.column();
 	}
 
 	row(index) {
@@ -88,14 +87,7 @@ export default class Box extends BoxCore {
 				return new Row(rows[index]);
 			}
 		}
-		return {
-			cells: () => {
-				return [];
-			},
-			cell: () => {
-				return null;
-			}
-		};
+		return Box.empty.row();
 	}
 
 	rows() {
