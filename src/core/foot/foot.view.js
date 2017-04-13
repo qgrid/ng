@@ -3,15 +3,17 @@ import * as columnService from 'core/column/column.service';
 import Aggregation from 'core/services/aggregation';
 import AppError from 'core/infrastructure/error';
 import Log from 'core/infrastructure/log';
+import {getFactory as valueFactory} from 'core/services/value';
 
 export default class FootView extends View {
-	constructor(model, valueFactory) {
+	constructor(model) {
 		super(model);
 
 		this.rows = [];
 		this.columns = [];
 
 		this.valueFactory = valueFactory;
+
 		model.viewChanged.watch(() => this.invalidate(model));
 	}
 
@@ -48,8 +50,8 @@ export default class FootView extends View {
 					`Aggregation ${aggregation} is not registered`);
 			}
 
-			const rows = this.model.data().rows,
-				getValue = this.valueFactory(column);
+			const rows = this.model.data().rows;
+			const getValue = this.valueFactory(column);
 
 			return Aggregation[aggregation](rows, getValue, aggregationOptions);
 		}

@@ -3,14 +3,16 @@ import Log from 'core/infrastructure/log';
 import {parseFactory} from 'core/services/convert';
 import {clone, isUndefined} from 'core/services/utility';
 import Shortcut from 'core/infrastructure/shortcut';
+import {set as setValue, getFactory as valueFactory} from 'core/services/value';
+import {set as setLabel, getFactory as labelFactory} from 'core/services/label';
 import Fetch from 'core/infrastructure/fetch';
 
 export default class EditCellView {
-	constructor(model, setValue, valueFactory, setLabel, labelFactory, table, apply) {
+	constructor(model, table, apply) {
 		this.model = model;
-		this.setValue = setValue;
 		this.table = table;
-
+		
+		this.setValue = setValue;
 		this.valueFactory = valueFactory;
 		this.setLabel = setLabel;
 		this.labelFactory = labelFactory;
