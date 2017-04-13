@@ -20,7 +20,7 @@ class EmailColumnModel extends DataColumnModel {
 	constructor() {
 		super('email');
 
-		this.editorOptions.editTrigger = 'button';
+		this.editorOptions.trigger = 'custom';
 	}
 }
 

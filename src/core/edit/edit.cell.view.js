@@ -1,7 +1,7 @@
 import Command from 'core/infrastructure/command';
 import Log from 'core/infrastructure/log';
 import {parseFactory} from 'core/services/convert';
-import {clone, isUndefined} from 'core/services/utility';
+import {clone, isUndefined, noop} from 'core/services/utility';
 import Shortcut from 'core/infrastructure/shortcut';
 import {set as setValue, getFactory as valueFactory} from 'core/services/value';
 import {set as setLabel, getFactory as labelFactory} from 'core/services/label';
@@ -11,7 +11,7 @@ export default class EditCellView {
 	constructor(model, table, apply) {
 		this.model = model;
 		this.table = table;
-		
+
 		this.setValue = setValue;
 		this.valueFactory = valueFactory;
 		this.setLabel = setLabel;
@@ -29,8 +29,10 @@ export default class EditCellView {
 		this.commit = commands.get('commit');
 		this.cancel = commands.get('cancel');
 		this.reset = commands.get('reset');
-		
-		this.fetch = null;
+
+
+		this.fetch = this.fetchFactory();
+		this.resetFetch = noop;
 	}
 
 	get commands() {
@@ -61,11 +63,8 @@ export default class EditCellView {
 					if (cell && model.edit().enter.execute(this.contextFactory(cell, value, label)) !== false) {
 						this.value = value;
 						this.label = label;
-						const editorFetch = cell.column.editorOptions.fetch;
-						if (editorFetch) {
-							this.fetch = new Fetch(editorFetch);
-							this.fetch.run(cell.row);
-						}
+						this.fetch = this.fetchFactory(cell);
+						this.resetFetch = this.fetch.run(cell.row);
 
 						this.mode = 'edit';
 						model.edit({editMode: 'edit'});
@@ -99,9 +98,10 @@ export default class EditCellView {
 
 						this.value = null;
 						this.label = null;
-						if (this.fetch) {
-							this.fetch.reset();
-						}
+
+						this.resetFetch();
+						this.resetFetch = noop;
+
 						this.mode = 'view';
 						model.edit({editMode: 'view'});
 						cell.mode(this.mode);
@@ -127,9 +127,10 @@ export default class EditCellView {
 					if (cell && model.edit().cancel.execute(this.contextFactory(cell, this.value, this.label)) !== false) {
 						this.value = null;
 						this.label = null;
-						if (this.fetch) {
-							this.fetch.reset();
-						}
+
+						this.resetFetch();
+						this.resetFetch = noop;
+
 						this.mode = 'view';
 						model.edit({editMode: 'view'});
 						cell.mode(this.mode);
@@ -155,9 +156,10 @@ export default class EditCellView {
 					if (cell && model.edit().reset.execute(this.contextFactory(cell, this.value, this.label)) !== false) {
 						const parse = parseFactory(cell.column.type);
 						this.value = parse(cell.value);
-						if (this.fetch) {
-							this.fetch.reset();
-						}
+
+						this.resetFetch();
+						this.resetFetch = noop;
+
 						cell.mode(this.mode);
 						return false;
 					}
@@ -209,6 +211,19 @@ export default class EditCellView {
 			return commitShortcuts[cell.column.type];
 		}
 		return commitShortcuts['$default'];
+	}
+
+	fetchFactory(cell) {
+		cell = cell || this.model.navigation().active.cell;
+		let select = null;
+		if (cell && cell.column.editorOptions.fetch) {
+			select = cell.column.editorOptions.fetch;
+		}
+		else {
+			select = () => cell.value;
+		}
+
+		return new Fetch(select);
 	}
 
 	destroy() {

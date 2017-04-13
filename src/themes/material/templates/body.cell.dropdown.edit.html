@@ -1,4 +1,5 @@
-<md-select ng-model="$view.edit.cell.value"
+<md-select q-grid:init-click
+			  ng-model="$view.edit.cell.value"
 			  placeholder="Select a value"
 			  ng-blur="$view.edit.cell.cancel.execute($cell)"
 			  md-on-open="$view.edit.cell.fetch.busy"

@@ -20,13 +20,25 @@ export default function Controller($http, $q, $timeout) {
 			path: 'name.first'
 		},
 		{
-			key: 'gender',
+			key: 'isFemale',
 			title: 'Is Female',
 			type: 'bool',
 			value: (item, value) => isUndef(value) ? item.gender === 'female' : item.gender = value,
 			editor: 'dropdown',
 			editorOptions: {
 				fetch: ['female', 'male']
+			}
+		},
+		{
+			key: 'gender',
+			title: 'Gender',
+			type: 'text',
+			value: (item, value) => isUndef(value) ? item.gender: item.gender = value,
+			editor: 'dropdown',
+			editorOptions: {
+				fetch: (item, d) => {
+					$timeout(() => d.resolve(['female', 'male']), 2000);
+				}
 			}
 		},
 		{

@@ -9,7 +9,7 @@ export default class ColumnModel {
 		this.source = 'user';
 		this.editor = null;
 		this.editorOptions = {
-			editTrigger: 'click'
+			trigger: 'click'
 		};
 
 		this.width = null;

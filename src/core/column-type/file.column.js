@@ -23,7 +23,7 @@ class FileColumnModel extends DataColumnModel {
 		super('file');
 
 		this.canUpload = yes;
-		this.editorOptions.editTrigger = 'button';
+		this.editorOptions.trigger = 'custom';
 
 		this.hasPreview =
 			name => isImage(name);

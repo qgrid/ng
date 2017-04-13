@@ -44,6 +44,7 @@ export const ON_DROP_NAME = `${GRID}OnDrop`;
 export const INDETERMINATE_NAME = `${GRID}Indeterminate`;
 export const FOCUS_NAME = `${GRID}Focus`;
 export const RESIZE_NAME = `${GRID}Resize`;
+export const INIT_CLICK_NAME = `${GRID}InitClick`;
 
 export const FILE_UPLOAD_NAME = `${GRID}FileUpload`;
 export const FILE_UPLOAD_LABEL_NAME = `${GRID}FileUploadLabel`;
