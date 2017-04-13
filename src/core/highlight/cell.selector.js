@@ -5,13 +5,11 @@ export default (model, table) => {
 	function getRows(items) {
 		const result = [];
 		const rows = model.view().rows;
-		
+
 		for (let item of items) {
 			const index = rows.indexOf(item);
-			if (index > -1 && table.body.row(index)) {
-				for (let cell of table.body.row(index).cells()) {
-					result.push(cell);
-				}
+			for (let cell of table.body.row(index).cells()) {
+				result.push(cell);
 			}
 		}
 
@@ -24,10 +22,8 @@ export default (model, table) => {
 
 		for (let item of items) {
 			const index = columns.findIndex((c) => c.model === item);
-			if (index > -1) {
-				for (let row of table.body.rows()) {
-					result.push(row.cell(index));
-				}
+			for (let row of table.body.rows()) {
+				result.push(row.cell(index));
 			}
 		}
 
@@ -43,12 +39,8 @@ export default (model, table) => {
 			const rowIndex = rows.indexOf(item.row);
 			const columnIndex = columns.findIndex((c) => c.model === item.column);
 
-			if (rowIndex > -1 && table.body.row(rowIndex)) {
-				const row = table.body.row(rowIndex);
-				if (columnIndex > -1 && row && row.cell(columnIndex)) {
-					result.push(row.cell(columnIndex));
-				}
-			}
+			const row = table.body.row(rowIndex);
+			result.push(row.cell(columnIndex));
 		}
 
 		return result;
