@@ -182,5 +182,7 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.head.cell.select.tpl.html', require('./components/cell/select/head.cell.select.html'));
 		theme.put('qgrid.body.cell.select.tpl.html', require('./components/cell/select/body.cell.select.html'));
 		theme.put('qgrid.foot.cell.select.tpl.html', EMPTY);
+
+		theme.put('qgrid.body.cell.dropdown.edit.tpl.html', require('./components/cell/dropdown/body.cell.dropdown.edit.html'));
 	});
 }

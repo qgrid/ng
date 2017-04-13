@@ -22,8 +22,8 @@ class FileColumnModel extends DataColumnModel {
 	constructor() {
 		super('file');
 
-		this.canEdit = false;
 		this.canUpload = yes;
+		this.editorOptions.editTrigger = 'button';
 
 		this.hasPreview =
 			name => isImage(name);

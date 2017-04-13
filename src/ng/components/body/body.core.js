@@ -49,7 +49,8 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 		if (cell) {
 			this.navigate(cell);
 
-			if (this.view.edit.cell.enter.canExecute(cell)) {
+			if (cell.column.editorOptions.editTrigger === 'click'
+				&& this.view.edit.cell.enter.canExecute(cell)) {
 				this.$scope.$evalAsync(() => this.view.edit.cell.enter.execute(cell));
 			}
 

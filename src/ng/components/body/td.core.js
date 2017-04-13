@@ -60,6 +60,9 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 				}
 
 				link(this.$element, templateScope);
+				if (column.editor === 'dropdown') {
+					this.$element.children()[0].click();
+				}
 				element.classList.add(`${GRID_PREFIX}-edit`);
 			}
 				break;

@@ -24,10 +24,11 @@ class Column extends Component {
 		const $attrs = this.$attrs;
 		const withKey = !isUndefined(this.key);
 		if (!withKey) {
-			if ($attrs.hasOwnProperty('type')) {
+			if ($attrs.hasOwnProperty('editor')) {
+				this.key = `$default.${$attrs.editor}`;
+			} else if ($attrs.hasOwnProperty('type')) {
 				this.key = `$default.${$attrs.type}`;
-			}
-			else {
+			} else {
 				this.key = '$default';
 			}
 		}
@@ -52,6 +53,10 @@ class Column extends Component {
 		// HACK: to understand if need to pass {$row: row} instead of just row in cell.core.js
 		if ($attrs.hasOwnProperty('value')) {
 			column.$value = isUndefined(this.value) ? null : this.value;
+		}
+
+		if ($attrs.hasOwnProperty('label')) {
+			column.$label = isUndefined(this.label) ? null : this.label;
 		}
 
 		if (withKey) {

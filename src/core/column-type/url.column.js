@@ -20,7 +20,7 @@ class UrlColumnModel extends DataColumnModel {
 	constructor() {
 		super('url');
 
-		this.canEdit = false;
+		this.editorOptions.editTrigger = 'button';
 	}
 }
 

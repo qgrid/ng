@@ -3,6 +3,7 @@ import Log from 'core/infrastructure/log';
 import {parseFactory} from 'core/services/convert';
 import {clone, isUndefined} from 'core/services/utility';
 import Shortcut from 'core/infrastructure/shortcut';
+import Fetch from 'core/infrastructure/fetch';
 
 export default class EditCellView {
 	constructor(model, setValue, valueFactory, setLabel, labelFactory, table, apply) {
@@ -26,6 +27,8 @@ export default class EditCellView {
 		this.commit = commands.get('commit');
 		this.cancel = commands.get('cancel');
 		this.reset = commands.get('reset');
+		
+		this.fetch = null;
 	}
 
 	get commands() {
@@ -36,7 +39,7 @@ export default class EditCellView {
 				shortcut: 'F2|Enter',
 				canExecute: cell => {
 					cell = cell || model.navigation().active.cell;
-					if (cell && this.mode !== 'edit' && model.edit().mode === 'cell' && cell) {
+					if (cell && this.mode !== 'edit' && model.edit().mode === 'cell') {
 						return cell.column.canEdit
 							&& model.edit().enter.canExecute(this.contextFactory(cell))
 							&& model.edit().editMode === 'view';
@@ -56,6 +59,12 @@ export default class EditCellView {
 					if (cell && model.edit().enter.execute(this.contextFactory(cell, value, label)) !== false) {
 						this.value = value;
 						this.label = label;
+						const editorFetch = cell.column.editorOptions.fetch;
+						if (editorFetch) {
+							this.fetch = new Fetch(editorFetch);
+							this.fetch.run(cell.row);
+						}
+
 						this.mode = 'edit';
 						model.edit({editMode: 'edit'});
 						cell.mode(this.mode);
@@ -88,6 +97,9 @@ export default class EditCellView {
 
 						this.value = null;
 						this.label = null;
+						if (this.fetch) {
+							this.fetch.reset();
+						}
 						this.mode = 'view';
 						model.edit({editMode: 'view'});
 						cell.mode(this.mode);
@@ -113,6 +125,9 @@ export default class EditCellView {
 					if (cell && model.edit().cancel.execute(this.contextFactory(cell, this.value, this.label)) !== false) {
 						this.value = null;
 						this.label = null;
+						if (this.fetch) {
+							this.fetch.reset();
+						}
 						this.mode = 'view';
 						model.edit({editMode: 'view'});
 						cell.mode(this.mode);
@@ -138,6 +153,9 @@ export default class EditCellView {
 					if (cell && model.edit().reset.execute(this.contextFactory(cell, this.value, this.label)) !== false) {
 						const parse = parseFactory(cell.column.type);
 						this.value = parse(cell.value);
+						if (this.fetch) {
+							this.fetch.reset();
+						}
 						cell.mode(this.mode);
 						return false;
 					}
