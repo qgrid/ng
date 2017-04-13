@@ -25,7 +25,7 @@ export default class Column extends Element {
 			const row = rows[row];
 			return new Cell(row.cells[this.index]);
 		}
-		return null;
+		return Cell.empty;
 	}
 
 	cellCount() {
