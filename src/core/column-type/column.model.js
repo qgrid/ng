@@ -7,6 +7,10 @@ export default class ColumnModel {
 		this.pin = null;
 		this.origin = 'specific';
 		this.source = 'user';
+		this.editor = null;
+		this.editorOptions = {
+			trigger: 'click'
+		};
 
 		this.width = null;
 		this.minWidth = 20;
