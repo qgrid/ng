@@ -1,11 +1,34 @@
-import Element from './element';
 import Cell from './cell';
+import Element from './element';
 
+class ColumnCore {
+	cells() {
+		return [];
+	}
+
+	cell() {
+		return Cell.empty;
+	}
+
+	cellCount() {
+		return 0;
+	}
+
+	_rows() {
+		return [];
+	}
+}
+
+const empty = new ColumnCore();
 export default class Column extends Element {
 	constructor(element, index) {
 		super();
 		this.element = element;
 		this.index = index;
+	}
+
+	static get empty() {
+		return empty;
 	}
 
 	cells() {

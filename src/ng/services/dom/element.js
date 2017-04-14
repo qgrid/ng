@@ -31,13 +31,14 @@ class ElementCore {
 		return 0;
 	}
 }
+const empty = new ElementCore();
 export default class Element {
 	constructor(element) {
 		this.element = element;
 	}
 
 	static get empty() {
-		return new ElementCore();
+		return empty;
 	}
 
 	rect() {

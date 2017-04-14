@@ -5,6 +5,7 @@ class LayerCore extends Element {
 	resource() {
 	}
 }
+const empty = new LayerCore();
 
 export default class Layer extends LayerCore {
 	constructor(element, template) {
@@ -15,7 +16,7 @@ export default class Layer extends LayerCore {
 	}
 
 	static get empty() {
-		return new LayerCore();
+		return empty;
 	}
 
 	resource(id, state) {

@@ -8,29 +8,23 @@ class BoxCore {
 	}
 
 	column() {
-		return {
-			cells: () => {
-				return [];
-			},
-			cell: () => {
-				return null;
-			}
-		};
+		return Column.empty
 	}
 
 	row() {
-		return {
-			cells: () => {
-				return [];
-			},
-			cell: () => {
-				return null;
-			}
-		};
+		return Row.empty
 	}
 
 	rows() {
 		return [];
+	}
+
+	rowCount() {
+		return 0;
+	}
+
+	columnCount() {
+		return 0;
 	}
 
 	cell() {
@@ -51,7 +45,20 @@ class BoxCore {
 	scrollTop() {
 		return 0;
 	}
+
+	rect() {
+		return {
+			top: 0,
+			left: 0,
+			right: 0,
+			bottom: 0,
+			width: 0,
+			height: 0
+		};
+	}
+
 }
+const empty = new BoxCore();
 
 export default class Box extends BoxCore {
 	constructor(document, element, template) {
@@ -64,7 +71,7 @@ export default class Box extends BoxCore {
 	}
 
 	static get empty() {
-		return new BoxCore();
+		return empty;
 	}
 
 	column(index) {
