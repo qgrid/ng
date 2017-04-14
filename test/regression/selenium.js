@@ -20,8 +20,5 @@ new Screen(browser, webdriver, {
 	element: 'page-details',
 	output: 'custom-filter.png'
 }])
-	.then(() => browser.quit())
-	.catch(e => {
-		console.log(e);
-		browser.quit();
-	});
+	.catch(e => console.log(e))
+	.finally(() => browser.quit());

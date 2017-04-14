@@ -1,4 +1,5 @@
 const captureElement = require('../utils/capture').captureElement;
+const FinallyPromise = require('../utils/promise');
 
 class Screen {
 	constructor(browser, driver, hooks = {}) {
@@ -15,19 +16,16 @@ class Screen {
 	capture(tasks) {
 		this.before(this.browser, this.webdriver);
 
-		return Promise.all(tasks.map(task => {
+		return FinallyPromise.all(tasks.map(task => {
 			this.beforeEach(this.browser, this.webdriver);
 
 			return this.screenshot(this.transform(task))
-				.then(() => this.afterEach(this.browser, this.webdriver))
-				.catch(() => this.afterEach(this.browser, this.webdriver));
-		}))
-			.then(() => this.after(this.browser, this.webdriver))
-			.catch(() => this.after(this.browser, this.webdriver));
+				.finally(() => this.afterEach(this.browser, this.webdriver));
+		})).finally(() => this.after(this.browser, this.webdriver));
 	}
 
 	screenshot(task) {
-		return new Promise((resolve, reject) => {
+		return new FinallyPromise((resolve, reject) => {
 			const self = this;
 			this.browser.get(task.url);
 

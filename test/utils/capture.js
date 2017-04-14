@@ -27,7 +27,6 @@ function captureElement(driver, element, file) {
 					}
 				});
 			}).catch(function (e) {
-				console.log(`EXCEPTION OCCURED: ${e}`);
 				reject(err);
 			});
 		});
