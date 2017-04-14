@@ -27,7 +27,7 @@ import Focus from './directives/focus';
 import Resize from './directives/resize';
 import Markup from './directives/markup';
 import FileUpload from './directives/file.upload';
-import InitClick from './directives/init.click';
+import Raise from './directives/raise';
 
 import ThemeProvider from './services/theme';
 import Range from './filters/range';
@@ -43,7 +43,7 @@ const coreModule = angular.module(def.MODULE_CORE_NAME, [])
 	.directive(def.FOCUS_NAME, () => Focus)
 	.directive(def.RESIZE_NAME, () => Resize)
 	.directive(def.FILE_UPLOAD_NAME, () => FileUpload)
-	.directive(def.INIT_CLICK_NAME, () => InitClick)
+	.directive(def.RAISE_NAME, () => Raise)
 	.provider(def.THEME_NAME, () => new ThemeProvider())
 	.service(def.TEMPLATE_PATH_NAME, () => () => TemplatePath)
 	.filter(def.RANGE_NAME, () => Range)
@@ -186,5 +186,6 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.foot.cell.select.tpl.html', EMPTY);
 
 		theme.put('qgrid.body.cell.dropdown.edit.tpl.html', require('./components/cell/dropdown/body.cell.dropdown.edit.html'));
+		theme.put('qgrid.body.cell.autocomplete.edit.tpl.html', require('./components/cell/autocomplete/body.cell.autocomplete.edit.html'));
 	});
 }

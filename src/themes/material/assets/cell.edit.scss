@@ -192,6 +192,12 @@ td.q-grid-edit {
 		}
 	}
 
+	&.q-grid-autocomplete {
+		md-autocomplete {
+			min-width: 30px;
+		}
+	}
+
 	md-checkbox {
 		margin: 0;
 	}
