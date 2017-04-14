@@ -1,31 +1,120 @@
-require('chromedriver');
 const fs = require('fs');
+const webdriver = require('selenium-webdriver');
+const by = webdriver.By;
+
 const captureElement = require('../utils/capture').captureElement;
-const phantomjs_exe = require('phantomjs-prebuilt').path;
+const browserFactory = require('./driver.factory');
+const browser = browserFactory('chrome');
 
-var webdriver = require('selenium-webdriver'),
-	by = webdriver.By,
-	until = webdriver.until;
+// capture(browser, 'https://qgrid.github.io/ng/#!/sorting-model', by.tagName('page-details'), 'output.png')
+// 	.then(() => browser.quit())
+// 	.catch(() => browser.quit());
 
-var customPhantom = webdriver.Capabilities.chrome();
-// customPhantom.set("phantomjs.binary.path", phantomjs_exe);
-// customPhantom.set("webdriver.ie.driver", `C:\Users\valentin.korolev\Downloads\IEDriverServer_x64_3.3.0\IEDriverServer.exe`);
+function capture(browser, url, element, file) {
+	return new Promise((resolve, reject) => {
+		browser.get(url);
 
-var driver = new webdriver.Builder()
-	.withCapabilities(customPhantom)
-	.build();
-
-driver.get('http://www.google.com');
-
-driver.manage().window().setSize(1280, 1024).then(function () {
-	driver.findElement(by.name('q')).sendKeys('w');
-	driver.findElement(by.name('btnG')).click();
-
-	driver.wait(until.titleMatches(/^w/), 5000);
-
-	driver.findElement(by.css('.tsf')).then(function (input) {
-		captureElement(driver, input, 'output.png').then(function () {
-			driver.quit();
-		});
+		browser.manage()
+			.window()
+			.maximize()
+			.then(function () {
+				browser.findElement(element).then(function (element) {
+					captureElement(browser, element, file)
+						.then(function () {
+							resolve();
+						})
+						.catch(e => reject(e));
+				});
+			})
+			.catch(e => reject(e));
 	});
-});
+}
+
+class Screen {
+	constructor(browser, driver, hooks = {}) {
+		this.before = isFunction(hooks.before) ? hooks.before : () => null;
+		this.after = isFunction(hooks.after) ? hooks.after : () => null;
+
+		this.beforeEach = isFunction(hooks.beforeEach) ? hooks.beforeEach : () => null;
+		this.afterEach = isFunction(hooks.afterEach) ? hooks.afterEach : () => null;
+
+		this.browser = browser;
+		this.transform = transformTask(driver);
+	}
+
+	capture(tasks) {
+		this.before(this.browser, this.webdriver);
+
+		return Promise.all(tasks.map(task => {
+			this.beforeEach(this.browser, this.webdriver);
+
+			return this.screenshot(this.transform(task))
+				.then(() => this.afterEach(this.browser, this.webdriver))
+				.catch(() => this.afterEach(this.browser, this.webdriver));
+		}))
+			.then(() => this.after(this.browser, this.webdriver))
+			.catch(() => this.after(this.browser, this.webdriver));
+	}
+
+	screenshot(task) {
+		return new Promise((resolve, reject) => {
+			const self = this;
+			this.browser.get(task.url);
+
+			browser.manage()
+				.window()
+				.maximize()
+				.then(function () {
+					browser.findElement(task.element(self.browser)).then(function (element) {
+						captureElement(browser, element, task.output(self.browser))
+							.then(function () {
+								resolve();
+							})
+							.catch(e => reject(e));
+					});
+				})
+				.catch(e => reject(e));
+		});
+	}
+}
+
+function transformTask(webDriver) {
+	return function (task) {
+		return {
+			url: task.url,
+			element: isFunction(task.element) ? task.element : () => {
+				return webDriver.By.css(task.element);
+			},
+			output: isFunction(task.output) ? task.output : () => {
+				return task.output;
+			},
+			before: task.before || (() => null),
+			after: task.after || (() => null),
+		}
+	};
+}
+
+function isFunction(obj) {
+	return typeof obj == 'function';
+}
+
+new Screen(browser, webdriver, {
+	beforeEach: function (browser) {
+		console.log('SLEEP');
+		browser.sleep(5000);
+		console.log('WAKE');
+	}
+}).capture([{
+	url: 'https://qgrid.github.io/ng/#!/sorting-model',
+	element: 'page-details',
+	output: 'sorting-model.png'
+}, {
+	url: 'https://qgrid.github.io/ng/#!/custom-filter',
+	element: 'page-details',
+	output: 'custom-filter.png'
+}])
+	.then(() => browser.quit())
+	.catch(e => {
+		console.log(e);
+		browser.quit();
+	});
