@@ -55,12 +55,31 @@ export default function Controller($http, $q, $timeout) {
 				: item.contact.email.primary = value,
 			editor: 'dropdown',
 			editorOptions: {
-				fetch: (item) => {
+				fetch: item => {
 					const deferred = $q.defer();
 
 					$timeout(() => deferred.resolve(item.contact.email), 2000);
 
 					return deferred.promise;
+				}
+			}
+		},
+		{
+			key: 'contact.email.secondary',
+			title: 'Secondary Email',
+			type: 'email',
+			value: (item, value) => isUndef(value)
+				? item.contact.email.secondary || ''
+				: item.contact.email.secondary = value,
+			editor: 'autocomplete',
+			editorOptions: {
+				fetch: (item, d, search='') => {
+					$http.get('data/people/100.json').then(function (response) {
+						const emails = response.data.reduce((result, item) => {
+							return result.concat(item.contact.email.filter(email => email.indexOf(search) > -1));
+						}, []);
+						d.resolve(emails);
+					});
 				}
 			}
 		}

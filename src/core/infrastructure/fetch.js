@@ -7,7 +7,7 @@ export default class Fetch {
 		this.result = null;
 	}
 
-	run() {
+	run(item) {
 		const select = this.select;
 
 		this.result = null;
@@ -16,7 +16,7 @@ export default class Fetch {
 			const resolve = data => {
 				if (alive) {
 					this.result = data;
-					resolveBusy();
+					resolveBusy(data);
 				}
 			};
 
@@ -26,7 +26,8 @@ export default class Fetch {
 					reject: rejectBusy
 				};
 
-				const result = select(...arguments, deferred);
+				const args = Array.from(arguments).slice(1) || [];
+				const result = select(item, deferred, ...args);
 				if (!isUndefined(result)) {
 					if (isFunction(result.then)) {
 						// when options.fetch returns promise
