@@ -84,7 +84,7 @@ export default class Box extends BoxCore {
 				}
 			}
 		}
-		return Box.empty.column();
+		return Column.empty;
 	}
 
 	row(index) {
@@ -94,7 +94,7 @@ export default class Box extends BoxCore {
 				return new Row(rows[index]);
 			}
 		}
-		return Box.empty.row();
+		return Row.empty;
 	}
 
 	rows() {
