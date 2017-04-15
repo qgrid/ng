@@ -55,6 +55,28 @@ export default function Controller($http) {
 			key: 'myTypeFromJS',
 			title: 'My Type From js',
 			type: 'my-type'
+		},
+		{
+			key: 'timeNow',
+			title: 'Time Now',
+			type: 'time',
+			value: () => new Date().getTime()
+		},
+		{
+			key: 'webPage',
+			title: 'Web Page',
+			type: 'url',
+			value: (item) => `https://corp.portal.com/${item.name.last}.${item.name.first}`
+		},
+		{
+			key: 'attachments',
+			title: 'Attachments',
+			type: 'file'
+		},
+		{
+			key: 'avatar',
+			title: 'Avatar',
+			type: 'image'
 		}
 	];
 

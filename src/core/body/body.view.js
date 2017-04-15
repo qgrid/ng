@@ -4,9 +4,11 @@ import Aggregation from 'core/services/aggregation';
 import AppError from 'core/infrastructure/error';
 import Log from 'core/infrastructure/log';
 import Node from 'core/node/node';
+import {getFactory as valueFactory} from 'core/services/value';
+import {getFactory as labelFactory} from 'core/services/label';
 
 export default class BodyView extends View {
-	constructor(model, table, valueFactory) {
+	constructor(model, table) {
 		super(model);
 
 		this.table = table;
@@ -14,6 +16,7 @@ export default class BodyView extends View {
 		this.rows = [];
 		this.columns = [];
 		this._valueFactory = valueFactory;
+		this._labelFactory = labelFactory;
 
 		model.viewChanged.watch(() => this.invalidate(model));
 	}
@@ -82,8 +85,18 @@ export default class BodyView extends View {
 		};
 	}
 
+	labelFactory(column) {
+		const getLabel = this._labelFactory(column);
+		return row => getLabel(row);
+	}
+
 	value(row, column) {
 		const getValue = this.valueFactory(column);
 		return getValue(row);
+	}
+
+	label(row, column) {
+		const getLabel = this.labelFactory(column);
+		return getLabel(row);
 	}
 }

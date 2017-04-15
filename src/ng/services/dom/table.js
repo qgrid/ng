@@ -81,4 +81,8 @@ export default class Table {
 		this.markup.table.focus();
 	}
 
+	blur() {
+		this.markup.table.blur();
+	}
+
 }

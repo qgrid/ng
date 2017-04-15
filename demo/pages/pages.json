@@ -276,6 +276,10 @@
 				"path": "edit-templates"
 			},
 			{
+				"title": "Editors",
+				"path": "editors"
+			},
+			{
 				"title": "Batch Editing",
 				"path": "batch-editing"
 			},

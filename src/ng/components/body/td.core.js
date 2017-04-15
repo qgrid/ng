@@ -89,6 +89,18 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 		this.view.edit.cell.setValue(row, column, value);
 	}
 
+	get label() {
+		const column = this.column;
+		const row = this.row;
+		return this.view.body.label(row, column);
+	}
+
+	set label(label) {
+		const column = this.column;
+		const row = this.row;
+		this.view.edit.cell.setLabel(row, column, label);
+	}
+
 	get rowIndex() {
 		return this.view.scroll.y.context.container.position + this.$scope.$parent.$index;
 	}

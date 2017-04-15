@@ -9,7 +9,6 @@ export default class NavigationView extends View {
 		super(model);
 
 		this.table = table;
-		const markup = table.markup;
 		const shortcut = new Shortcut(table, apply);
 		const navigation = new Navigation(model, table);
 
@@ -31,8 +30,7 @@ export default class NavigationView extends View {
 		});
 
 		this.scrollTo = new Command({
-			// TODO: get rid of '.element'
-			execute: (row, column) => this.scroll(markup.body, table.body.cell(row, column).element),
+			execute: (row, column) => this.scroll(table.body, table.body.cell(row, column)),
 			canExecute: (row, column) => table.body.cell(row, column) !== null
 		});
 
@@ -84,8 +82,8 @@ export default class NavigationView extends View {
 	}
 
 	scroll(container, target) {
-		const tr = target.getBoundingClientRect();
-		const cr = container.getBoundingClientRect();
+		const tr = target.rect();
+		const cr = container.rect();
 		const scrollState = this.model.scroll();
 
 		if (cr.left > tr.left
@@ -94,10 +92,10 @@ export default class NavigationView extends View {
 			|| cr.right < tr.right) {
 			if (cr.left < tr.left
 				|| cr.right < tr.right) {
-				container.scrollLeft = tr.right - cr.right + scrollState.left;
+				container.scrollLeft(tr.right - cr.right + scrollState.left);
 			} else if (cr.left > tr.left
 				|| cr.left > tr.right) {
-				container.scrollLeft = tr.left - cr.left + scrollState.left;
+				container.scrollLeft(tr.left - cr.left + scrollState.left);
 			}
 		}
 
@@ -107,10 +105,10 @@ export default class NavigationView extends View {
 			|| cr.bottom < tr.bottom) {
 			if (cr.top < tr.top
 				|| cr.bottom < tr.bottom) {
-				container.scrollTop = tr.bottom - cr.bottom + scrollState.top;
+				container.scrollTop(tr.bottom - cr.bottom + scrollState.top);
 			} else if (cr.top > tr.top
 				|| cr.top > tr.bottom) {
-				container.scrollTop = tr.top - cr.top + scrollState.top;
+				container.scrollTop(tr.top - cr.top + scrollState.top);
 			}
 
 		}
