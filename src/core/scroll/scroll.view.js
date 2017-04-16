@@ -27,7 +27,8 @@ export default class ScrollView extends View {
 					this.model.pagination({
 						current: Math.floor(skip / take)
 					}, {
-						source: 'scroll.view'
+						source: 'scroll.view',
+						behavior: 'core'
 					});
 
 					service.invalidate('scroll.view')
