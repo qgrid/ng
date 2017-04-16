@@ -13,7 +13,8 @@ export default class ScrollView extends View {
 		this.y = {
 			context: vscroll({
 				threshold: model.pagination().size,
-				apply: apply
+				apply: apply,
+				itemHeight: model.row().height
 			})
 		};
 

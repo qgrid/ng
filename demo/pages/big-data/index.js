@@ -5,14 +5,10 @@ export default function Controller($http, qgrid) {
 	ctrl.model = qgrid.model();
 	const service = qgrid.service(ctrl.model);
 
-	ctrl.model.pagination({
-		// Number of item in viewport
-		size: 20
-	});
-
-	ctrl.model.scroll({
-		mode: 'virtual'
-	});
+	ctrl.model
+		.pagination({size: 20})
+		.scroll({mode: 'virtual'})
+		.row({height: 48});
 
 	const cancelBusy = service.busy();
 	$http.get('data/people/100000.json')
