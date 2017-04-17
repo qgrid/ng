@@ -178,6 +178,24 @@ td.q-grid-edit {
 				}
 			}
 		}
+
+		&.q-grid-dropdown {
+			margin: 0;
+			max-height: 30px;
+		}
+	}
+
+	&.q-grid-dropdown {
+		md-select {
+			margin: 5px 0;
+			max-height: 30px;
+		}
+	}
+
+	&.q-grid-autocomplete {
+		md-autocomplete {
+			min-width: 30px;
+		}
 	}
 
 	md-checkbox {
