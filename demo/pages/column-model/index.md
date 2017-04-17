@@ -20,7 +20,9 @@ A grid column is a visual representation of a set of data values that have a par
 	  		<li>bool</li>
 	  		<li>date</li>
 	  		<li>email</li>
+	  		<li>file</li>
 	  		<li>group</li>
+	  		<li>image</li>
 	  		<li>number</li>
 	  		<li>pad</li>
 	  		<li>password</li>
@@ -29,6 +31,8 @@ A grid column is a visual representation of a set of data values that have a par
 	  		<li>row-number</li>
 	  		<li>select</li>
 	  		<li>text</li>
+	  		<li>time</li>
+	  		<li>url</li>
 	   </ul>
 	  </td>
 	</tr>
@@ -123,15 +127,36 @@ A grid column is a visual representation of a set of data values that have a par
      		</ul>
      	</td>
    </tr>   
-   	<tr>
-        	<td>aggregationOptions</td>
-        	<td><code>object</code></td>
-        	<td>Setup options for the column aggregation.
-     			<ul>
-     				<li>distinct - 'false' by default</li>
-     				<li>separator - '; ' by default</li>
-     			</ul>
-        	</td>
-      </tr>   
+	<tr>
+		<td>aggregationOptions</td>
+		<td><code>object</code></td>
+		<td>Setup options for the column aggregation.
+			<ul>
+				<li>distinct - 'false' by default</li>
+				<li>separator - '; ' by default</li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td>editor</td>
+		<td><code>string</code></td>
+		<td>Defines editor for the column. Predefined editors:
+			<ul>
+				<li>dropdown</li>
+				<li>autocomplete</li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td>editorOptions</td>
+		<td><code>object</code></td>
+		<td>Setup options for the column editor.
+			<ul>
+				<li>trigger - 'click' by default</li>
+				<li>fetch - returns column value by default</li>
+			</ul>
+			<a href="#!/editors">More details</a>
+		</td>
+	</tr>
 </tbody>
 </table>
