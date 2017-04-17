@@ -1,6 +1,5 @@
 import Cell from './cell';
-import ElementCore from './elementCore';
-import Element from './element';
+import {Element, ElementCore} from './element';
 
 class RowCore extends ElementCore {
 	constructor() {

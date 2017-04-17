@@ -2,7 +2,7 @@ import Layer from './layer';
 import Row from './row';
 import Column from './column';
 import Cell from './cell';
-import ElementCore from './elementCore';
+import {ElementCore} from './element';
 
 class BoxCore extends ElementCore {
 	constructor() {

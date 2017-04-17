@@ -123,15 +123,10 @@ export default class HighlightView extends View {
 		const head = table.head;
 		const headCells = head.column(index).cells();
 		headCells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}`));
-		if (index > 0) {
-			const cells = head.column(index - 1).cells();
-			cells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}-prev`));
-		}
-
-		if (index < head.rowCount() - 1) {
-			const cells = head.column(index + 1).cells();
-			cells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}-next`));
-		}
+		const cellsPrev = head.column(index - 1).cells();
+		cellsPrev.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}-prev`));
+		const cellsNext = head.column(index + 1).cells();
+		cellsNext.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}-next`));
 		const bodyCells = table.body.column(index).cells();
 		bodyCells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}`));
 		const footCells = table.foot.column(index).cells();
@@ -151,14 +146,10 @@ export default class HighlightView extends View {
 			const head = table.head;
 			const headCells = head.column(index).cells();
 			headCells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}`));
-			if (index > 0) {
-				const cells = head.column(index - 1).cells();
-				cells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}-prev`));
-			}
-			if (index < head.rowCount() - 1) {
-				const cells = head.column(index + 1).cells();
-				cells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}-next`));
-			}
+			const cellsPrev = head.column(index - 1).cells();
+			cellsPrev.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}-prev`));
+			const cellsNext = head.column(index + 1).cells();
+			cellsNext.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}-next`));
 			const bodyCells = table.body.column(index).cells();
 			bodyCells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}`));
 			const footCells = table.foot.column(index).cells();

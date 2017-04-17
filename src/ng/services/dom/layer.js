@@ -1,4 +1,4 @@
-import Element from './element';
+import {Element} from './element';
 import AppError from 'core/infrastructure/error';
 
 class LayerCore extends Element {

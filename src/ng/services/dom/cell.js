@@ -1,6 +1,5 @@
 import AppError from 'core/infrastructure/error';
-import Element from './element';
-import ElementCore from './elementCore';
+import {Element, ElementCore} from './element';
 
 class CellCore extends ElementCore {
 	constructor() {
