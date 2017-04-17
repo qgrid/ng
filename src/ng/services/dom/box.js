@@ -2,9 +2,11 @@ import Layer from './layer';
 import Row from './row';
 import Column from './column';
 import Cell from './cell';
+import ElementCore from './elementCore';
 
-class BoxCore {
+class BoxCore extends ElementCore {
 	constructor() {
+		super();
 	}
 
 	column() {
@@ -44,17 +46,6 @@ class BoxCore {
 
 	scrollTop() {
 		return 0;
-	}
-
-	rect() {
-		return {
-			top: 0,
-			left: 0,
-			right: 0,
-			bottom: 0,
-			width: 0,
-			height: 0
-		};
 	}
 
 }

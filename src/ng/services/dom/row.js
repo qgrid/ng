@@ -1,7 +1,11 @@
 import Cell from './cell';
+import ElementCore from './elementCore';
 import Element from './element';
 
-class RowCore {
+class RowCore extends ElementCore {
+	constructor() {
+		super();
+	}
 	cells() {
 		return [];
 	}
