@@ -15,7 +15,7 @@ User can assign a predefined editor to any type column. The editor will be shown
 	  <td>trigger</td>
 	  <td><code>string</code></td>
 	  <td>
-	    Вefines how switch to the edit mode. 'click' by default
+	    Defines how switch to the edit mode. 'click' by default
 	    <ul>
 	      <li>'click' - react to click on the cell</li>
 	      <li>'custom' - react to click on the custom control, e.g. button</li>
@@ -25,7 +25,7 @@ User can assign a predefined editor to any type column. The editor will be shown
 	<tr>
 	  <td>fetch</td>
 	  <td><code>any</code></td>
-	  <td>Вefines way to get data for the editor. It can be
+	  <td>Defines way to get data for the editor. It can be
 	    <ul>
      	   <li>any - data itself</li>
      	   <li>function(row, deferred, args) - defines dynamic way to get data for editor. Returns:
