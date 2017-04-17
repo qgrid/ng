@@ -35,18 +35,18 @@ describe('Table', () => {
 		it('column', () => {
 			const column = table.body.column();
 			const cells = column.cells();
-			expect(column).to.deep.equal(Column.empty);
+			expect(column).to.equal(Column.empty);
 			expect(cells).to.be.an.instanceOf(Array).with.lengthOf(0);
 		});
 		it('row', () => {
 			const row = table.body.row();
 			const cells = row.cells();
-			expect(row).to.deep.equal(Row.empty);
+			expect(row).to.equal(Row.empty);
 			expect(cells).to.be.an.instanceOf(Array).with.lengthOf(0);
 		});
 		it('cell', () => {
 			tableProps.forEach((prop) => {
-				expect(table[prop].cell(0, 0)).to.be.deep.equal(Cell.empty);
+				expect(table[prop].cell(0, 0)).to.equal(Cell.empty);
 			});
 		});
 	});
@@ -62,13 +62,5 @@ describe('Table', () => {
 			expect(row).to.be.an.instanceOf(Object).and.to.have.property('cells');
 			expect(row.cells()).to.be.an.instanceOf(Array).with.lengthOf(2);
 		});
-		// it('cell', () => {
-		// 	tableProps.forEach((prop) => {
-		// 		const cell = table[prop].cell(0, 0);
-		// 		prop === 'foot' ?
-		// 			expect(cell).to.be.null :
-		// 			expect(cell).to.be.an.instanceOf(Object).and.to.have.property('model');
-		// 	});
-		// });
 	});
 });

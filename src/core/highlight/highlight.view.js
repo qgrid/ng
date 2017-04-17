@@ -128,7 +128,7 @@ export default class HighlightView extends View {
 			cells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}-prev`));
 		}
 
-		if (index < table.head.rowCount() - 1) {
+		if (index < head.rowCount() - 1) {
 			const cells = head.column(index + 1).cells();
 			cells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}-next`));
 		}
@@ -155,7 +155,7 @@ export default class HighlightView extends View {
 				const cells = head.column(index - 1).cells();
 				cells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}-prev`));
 			}
-			if (index < table.head.rowCount() - 1) {
+			if (index < head.rowCount() - 1) {
 				const cells = head.column(index + 1).cells();
 				cells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}-next`));
 			}
