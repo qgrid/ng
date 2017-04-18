@@ -4,7 +4,7 @@ import {set as setLabel, getFactory as labelFactory} from 'core/services/label';
 import Fetch from 'core/infrastructure/fetch';
 
 export default class CellEditor {
-	constructor(row, column) {
+	constructor(row, column, current) {
 		this.setValue = setValue;
 		this.getValue = valueFactory(column);
 		this.setLabel = setLabel;
@@ -12,7 +12,7 @@ export default class CellEditor {
 
 		this.column = column;
 		this.origin = row;
-		this.current = cloneDeep(row);
+		this.current = current || cloneDeep(row);
 		this.fetch = new Fetch(this.column.editorOptions.fetch || (() => this.getValue(this.origin)));
 		this.resetFetch = this.fetch.run(row);
 	}
