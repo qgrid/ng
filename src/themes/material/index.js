@@ -1,7 +1,9 @@
 require('./index.scss');
+import ReferenceEdit from './templates/body.cell.reference.edit';
 
 export default angular
 	.module('qgrid.theme.material', ['qgrid'])
+	.controller('qgrid.body.cell.reference.edit', ReferenceEdit)
 	.config(Setup)
 	.name;
 
