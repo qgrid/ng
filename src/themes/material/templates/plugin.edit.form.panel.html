@@ -1,0 +1,15 @@
+<div class="q-grid-column-filter-panel" layout="column" flex="100">
+	<div class="q-grid-column-filter-panel-actions" flex="none">
+		<md-button ng-click="$editFormPanel.cancel.execute()">
+			Cancel
+		</md-button>
+		<md-button ng-click="$editFormPanel.reset.execute()">
+			Reset
+		</md-button>
+		<md-button class="md-primary"
+					  ng-click="$editFormPanel.submit.execute()"
+					  ng-disabled="!$editFormPanel.submit.canExecute()">
+			Apply
+		</md-button>
+	</div>
+</div>

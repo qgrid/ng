@@ -1,7 +1,5 @@
 import Command from 'core/infrastructure/command';
 import Log from 'core/infrastructure/log';
-import {parseFactory} from 'core/services/convert';
-import {clone, isUndefined} from 'core/services/utility';
 import Shortcut from 'core/infrastructure/shortcut';
 import RowEditor from './edit.row';
 
@@ -15,7 +13,7 @@ export default class EditRowView {
 
 		const shortcut = new Shortcut(table, apply);
 		const commands = this.commands;
-		this.shortcutOff = shortcut.register('editCellNavigation', commands);
+		this.shortcutOff = shortcut.register('editRowNavigation', commands);
 
 		this.enter = commands.get('enter');
 		this.commit = commands.get('commit');

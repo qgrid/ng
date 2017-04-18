@@ -12,7 +12,7 @@ export default class RowEditor {
 					return {
 						column: c,
 						editor: new CellEditor(row, c, this.current)
-					}
+					};
 				});
 	}
 
