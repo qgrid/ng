@@ -3,7 +3,7 @@ import ReferenceEdit from './templates/body.cell.reference.edit';
 
 export default angular
 	.module('qgrid.theme.material', ['qgrid'])
-	.controller('qgrid.body.cell.reference.edit', ReferenceEdit)
+	.controller('Body.Cell.Reference.Edit.Controller', ReferenceEdit)
 	.config(Setup)
 	.name;
 

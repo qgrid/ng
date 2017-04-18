@@ -10,8 +10,8 @@ export default class ColumnModel {
 		this.editor = null;
 		this.editorOptions = {
 			trigger: 'click',
-			relationship: 'toOne',
-			foreignKey: null
+			selectionMode: 'single',
+			selectionKey: null
 		};
 
 		this.width = null;

@@ -61,9 +61,7 @@ export default function Controller($http, $mdToast, qgrid, $timeout) {
 			type: 'reference',
 			value: (item, value) => isUndef(value) ? item.teammates || [] : item.teammates = value,
 			label: (item) => (item.teammates || [])
-				.map(teammate => {
-					return `${ctrl.rows[teammate].name.last} ${ctrl.rows[teammate].name.first}`;
-				})
+				.map(teammate => `${ctrl.rows[teammate].name.last} ${ctrl.rows[teammate].name.first}`)
 				.join(', '),
 			editorOptions: {
 				fetch: (item, d) => {
@@ -72,9 +70,9 @@ export default function Controller($http, $mdToast, qgrid, $timeout) {
 							return d.resolve(response.data);
 						});
 				},
-				relationship: 'toMany',
-				foreignKey: {
-					row: row => 'row ' + ctrl.rows.indexOf(row)
+				selectionMode: 'multiple',
+				selectionKey: {
+					row: row => ctrl.rows.findIndex(r => r.name.last === row.name.last)
 				}
 			}
 		},

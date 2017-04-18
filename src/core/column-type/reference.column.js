@@ -22,7 +22,9 @@ class ReferenceColumnModel extends DataColumnModel {
 		super('reference');
 
 		this.editorOptions.trigger = 'custom';
-		this.editorOptions.foreignKey = noop;
+		this.editorOptions.selectionKey = {
+			row: noop
+		};
 	}
 }
 

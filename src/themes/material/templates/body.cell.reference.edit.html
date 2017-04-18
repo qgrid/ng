@@ -1,12 +1,12 @@
 <div ng-cloak
 	  class="q-grid-editor q-grid-reference"
-	  ng-controller="qgrid.body.cell.reference.edit as $ctrl">
+	  ng-controller="Body.Cell.Reference.Edit.Controller as $ctrl">
 	<h2 class="md-title">Edit {{::$cell.column.title}}</h2>
 	<q-grid rows="$view.edit.cell.fetch.result"
 			  model="$ctrl.gridModel"
 			  selection-unit="row"
-			  selection-mode="{{$cell.column.editorOptions.relationship === 'toMany' ? 'multiple' : 'single'}}"
-			  selection-key="$cell.column.editorOptions.foreignKey"
+			  selection-mode="{{$cell.column.editorOptions.selectionMode}}"
+			  selection-key="$cell.column.editorOptions.selectionKey"
 			  selection="$view.edit.cell.value">
 		<q-grid:columns generation="deep"></q-grid:columns>
 		<q-grid:toolbar>
