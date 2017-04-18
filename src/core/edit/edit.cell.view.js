@@ -1,11 +1,11 @@
 import Command from 'core/infrastructure/command';
 import Log from 'core/infrastructure/log';
 import {parseFactory} from 'core/services/convert';
-import {clone, isUndefined, noop} from 'core/services/utility';
+import {clone, isUndefined} from 'core/services/utility';
 import Shortcut from 'core/infrastructure/shortcut';
 import {set as setValue, getFactory as valueFactory} from 'core/services/value';
 import {set as setLabel, getFactory as labelFactory} from 'core/services/label';
-import Fetch from 'core/infrastructure/fetch';
+import CellEditor from './edit.value';
 
 export default class EditCellView {
 	constructor(model, table, apply) {
@@ -18,8 +18,7 @@ export default class EditCellView {
 		this.labelFactory = labelFactory;
 
 		this.mode = 'view';
-		this._value = null;
-		this._label = null;
+		this._editor = CellEditor.empty;
 
 		const shortcut = new Shortcut(table, apply);
 		const commands = this.commands;
@@ -29,10 +28,6 @@ export default class EditCellView {
 		this.commit = commands.get('commit');
 		this.cancel = commands.get('cancel');
 		this.reset = commands.get('reset');
-
-
-		this.fetch = this.fetchFactory();
-		this.resetFetch = noop;
 	}
 
 	get commands() {
@@ -61,10 +56,7 @@ export default class EditCellView {
 					const value = isUndefined(cell.value) ? null : parse(clone(cell.value));
 					const label = isUndefined(cell.label) ? null : parse(clone(cell.label));
 					if (cell && model.edit().enter.execute(this.contextFactory(cell, value, label)) !== false) {
-						this.value = value;
-						this.label = label;
-						this.fetch = this.fetchFactory(cell);
-						this.resetFetch = this.fetch.run(cell.row);
+						this._editor = new CellEditor(cell.row, cell.column);
 
 						this.mode = 'edit';
 						model.edit({editMode: 'edit'});
@@ -89,18 +81,8 @@ export default class EditCellView {
 
 					cell = cell || model.navigation().active.cell;
 					if (cell && model.edit().commit.execute(this.contextFactory(cell, this.value, this.label)) !== false) {
-						const column = cell.column;
-						const row = cell.row;
-						this.setValue(row, column, this.value);
-						if (this.label !== null) {
-							this.setLabel(row, column, this.label);
-						}
-
-						this.value = null;
-						this.label = null;
-
-						this.resetFetch();
-						this.resetFetch = noop;
+						this._editor.commit();
+						this._editor = CellEditor.empty;
 
 						this.mode = 'view';
 						model.edit({editMode: 'view'});
@@ -125,11 +107,8 @@ export default class EditCellView {
 
 					cell = cell || model.navigation().active.cell;
 					if (cell && model.edit().cancel.execute(this.contextFactory(cell, this.value, this.label)) !== false) {
-						this.value = null;
-						this.label = null;
-
-						this.resetFetch();
-						this.resetFetch = noop;
+						this._editor.reset();
+						this._editor = CellEditor.empty;
 
 						this.mode = 'view';
 						model.edit({editMode: 'view'});
@@ -154,11 +133,7 @@ export default class EditCellView {
 
 					cell = cell || model.navigation().active.cell;
 					if (cell && model.edit().reset.execute(this.contextFactory(cell, this.value, this.label)) !== false) {
-						const parse = parseFactory(cell.column.type);
-						this.value = parse(cell.value);
-
-						this.resetFetch();
-						this.resetFetch = noop;
+						this._editor.reset();
 
 						cell.mode(this.mode);
 						return false;
@@ -187,20 +162,24 @@ export default class EditCellView {
 		};
 	}
 
+	get fetch() {
+		return this._editor.fetch;
+	}
+
 	get value() {
-		return this._value;
+		return this._editor.value;
 	}
 
 	set value(value) {
-		this._value = value;
+		this._editor.value = value;
 	}
 
 	get label() {
-		return this._label;
+		return this._editor.label;
 	}
 
 	set label(label) {
-		this._label = label;
+		this._editor.label = label;
 	}
 
 	get commitShortcut() {
@@ -211,19 +190,6 @@ export default class EditCellView {
 			return commitShortcuts[cell.column.type];
 		}
 		return commitShortcuts['$default'];
-	}
-
-	fetchFactory(cell) {
-		cell = cell || this.model.navigation().active.cell;
-		let select = null;
-		if (cell && cell.column.editorOptions.fetch) {
-			select = cell.column.editorOptions.fetch;
-		}
-		else {
-			select = () => cell.value;
-		}
-
-		return new Fetch(select);
 	}
 
 	destroy() {
