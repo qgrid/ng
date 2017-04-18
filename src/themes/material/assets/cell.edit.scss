@@ -179,9 +179,9 @@ td.q-grid-edit {
 			}
 		}
 
-		&.q-grid-dropdown {
-			margin: 0;
-			max-height: 30px;
+		&.q-grid-reference {
+			height: auto;
+			width: 450px;
 		}
 	}
 

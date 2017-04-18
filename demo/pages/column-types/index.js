@@ -6,6 +6,12 @@ export default function Controller($http) {
 	this.rows = [];
 	this.columns = [
 		{
+			key: 'avatar',
+			title: 'Avatar',
+			type: 'image',
+			width: 80
+		},
+		{
 			key: 'name.last',
 			title: 'Last Name',
 			type: 'text',
@@ -72,11 +78,6 @@ export default function Controller($http) {
 			key: 'attachments',
 			title: 'Attachments',
 			type: 'file'
-		},
-		{
-			key: 'avatar',
-			title: 'Avatar',
-			type: 'image'
 		}
 	];
 
