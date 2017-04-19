@@ -13,7 +13,7 @@ export default class CellEditor {
 		this.column = column;
 		this.origin = row;
 		this.current = current || cloneDeep(row);
-		this.fetch = new Fetch(this.column.editorOptions.fetch || (() => this.getValue(this.origin)));
+		this.fetch = this.fetchFactory();
 		this.resetFetch = this.fetch.run(row);
 	}
 
@@ -47,6 +47,18 @@ export default class CellEditor {
 
 	set value(value) {
 		this.setValue(this.current, this.column, value);
+	}
+
+	options() {
+		return this.column.editorOptions;
+	}
+
+	fetchFactory() {
+		const options = this.options();
+		if (options && options.fetch) {
+			return new Fetch(options.fetch);
+		}
+		return new Fetch(() => this.getValue(this.origin));
 	}
 
 	static get empty() {

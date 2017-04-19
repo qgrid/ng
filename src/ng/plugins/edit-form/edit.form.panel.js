@@ -1,6 +1,5 @@
 import PluginComponent from '../plugin.component';
 import Command from 'core/infrastructure/command';
-import {uniq, clone, noop} from 'core/services/utility';
 
 const Plugin = PluginComponent('edit-form-panel', {inject: []});
 class EditFormPanel extends Plugin {

@@ -7,7 +7,7 @@ export default function Controller($http, $mdToast, qgrid, $timeout) {
 
 	this.commitCommand = new qgrid.Command({
 		execute: e => {
-			if(e.column.key === 'attachment' || e.column.key === 'avatar'){
+			if (e.column.key === 'attachment' || e.column.key === 'avatar') {
 				$timeout(() => {
 					const filename = e.newLabel;
 					$mdToast.show(
@@ -64,15 +64,30 @@ export default function Controller($http, $mdToast, qgrid, $timeout) {
 				.map(teammate => `${ctrl.rows[teammate].name.last} ${ctrl.rows[teammate].name.first}`)
 				.join(', '),
 			editorOptions: {
-				fetch: (item, d) => {
-					$http.get('data/people/10.json')
-						.then(function (response) {
-							return d.resolve(response.data);
+				modelFactory: () => {
+					const model = qgrid.model();
+					model
+						.selection({
+							mode: 'multiple',
+							unit: 'row',
+							key: {row: row => ctrl.rows.findIndex(r => r.name.last === row.name.last)}
+						})
+						// .scroll({
+						// 	mode: 'virtual'
+						// })
+						.columnList({
+							generation: 'deep'
+						})
+						.data({
+							pipe: [(data, context, next) => {
+								$http.get('data/people/10.json')
+									.then(function (response) {
+										return next(response.data);
+									});
+							}]
+								.concat(qgrid.pipeUnit.default)
 						});
-				},
-				selectionMode: 'multiple',
-				selectionKey: {
-					row: row => ctrl.rows.findIndex(r => r.name.last === row.name.last)
+					return model;
 				}
 			}
 		},
