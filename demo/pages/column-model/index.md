@@ -27,6 +27,7 @@ A grid column is a visual representation of a set of data values that have a par
 	  		<li>pad</li>
 	  		<li>password</li>
 	  		<li>pivot</li>
+	  		<li>reference</li>
 	  		<li>row-indicator</li>
 	  		<li>row-number</li>
 	  		<li>select</li>

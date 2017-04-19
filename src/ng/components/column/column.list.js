@@ -73,6 +73,7 @@ class ColumnList extends ModelComponent {
 		const model = this.root.model;
 		const data = model.data;
 		let columns = Array.from(data().columns);
+		const statistics = [];
 		const tag = {
 			source: 'column.list',
 			behavior: 'core'
@@ -82,11 +83,12 @@ class ColumnList extends ModelComponent {
 			const generatedColumnMap = columnService.map(generatedColumns);
 			const templateColumnMap = columnService.map(this.columns);
 			const dataColumns = columns.filter(c => !generatedColumnMap.hasOwnProperty(c.key) && !templateColumnMap.hasOwnProperty(c.key));
-			columns = this.merge(generatedColumns, dataColumns);
+			columns = generatedColumns;
+			statistics.push(this.merge(columns, dataColumns));
 		}
 
-		columns = this.merge(columns, this.columns);
-		if (columns.length) {
+		statistics.push(this.merge(columns, this.columns));
+		if (this.hasChanges(statistics)) {
 			data({columns: columns}, tag);
 		}
 	}
@@ -99,8 +101,7 @@ class ColumnList extends ModelComponent {
 			remove: noop
 		});
 
-		doMerge(left, right);
-		return left;
+		return doMerge(left, right);
 	}
 
 	copy(target, source) {
@@ -118,8 +119,8 @@ class ColumnList extends ModelComponent {
 					parse !== identity
 						? parse(value)
 						: isObject(targetValue)
-							? $parse(value)($scope)
-							: value;
+						? $parse(value)($scope)
+						: value;
 
 				accessor(target, sourceValue);
 			});
@@ -136,6 +137,10 @@ class ColumnList extends ModelComponent {
 		columnList({
 			columns: columns
 		});
+	}
+
+	hasChanges(statistics) {
+		return statistics.some(st => st.inserted || st.update || st.removed);
 	}
 }
 

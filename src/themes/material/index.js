@@ -1,7 +1,9 @@
 require('./index.scss');
+import ReferenceEdit from './templates/body.cell.reference.edit';
 
 export default angular
 	.module('qgrid.theme.material', ['qgrid'])
+	.controller('Body.Cell.Reference.Edit.Controller', ReferenceEdit)
 	.config(Setup)
 	.name;
 
@@ -29,6 +31,8 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.body.cell.file.edit.tpl.html', require('themes/material/templates/body.cell.file.edit.html'));
 		theme.put('qgrid.body.cell.image.tpl.html', require('themes/material/templates/body.cell.image.html'));
 		theme.put('qgrid.body.cell.image.edit.tpl.html', require('themes/material/templates/body.cell.file.edit.html'));
+		theme.put('qgrid.body.cell.reference.tpl.html', require('themes/material/templates/body.cell.reference.html'));
+		theme.put('qgrid.body.cell.reference.edit.tpl.html', require('themes/material/templates/body.cell.reference.edit.html'));
 		theme.put('qgrid.body.cell.dropdown.edit.tpl.html', require('themes/material/templates/body.cell.dropdown.edit.html'));
 		theme.put('qgrid.body.cell.autocomplete.edit.tpl.html', require('themes/material/templates/body.cell.autocomplete.edit.html'));
 
@@ -43,6 +47,7 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.head.cell.url.tpl.html', require('themes/material/templates/head.cell.text.html'));
 		theme.put('qgrid.head.cell.file.tpl.html', require('themes/material/templates/head.cell.text.html'));
 		theme.put('qgrid.head.cell.image.tpl.html', require('themes/material/templates/head.cell.text.html'));
+		theme.put('qgrid.head.cell.reference.tpl.html', require('themes/material/templates/head.cell.text.html'));
 		theme.put('qgrid.head.cell.pivot.tpl.html', require('themes/material/templates/head.cell.pivot.html'));
 		theme.put('qgrid.head.cell.select.tpl.html', require('themes/material/templates/head.cell.select.html'));
 

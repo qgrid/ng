@@ -56,6 +56,27 @@ export default function Controller($http, $mdToast, qgrid, $timeout) {
 			type: 'date'
 		},
 		{
+			key: 'teammates',
+			title: 'Teammates',
+			type: 'reference',
+			value: (item, value) => isUndef(value) ? item.teammates || [] : item.teammates = value,
+			label: (item) => (item.teammates || [])
+				.map(teammate => `${ctrl.rows[teammate].name.last} ${ctrl.rows[teammate].name.first}`)
+				.join(', '),
+			editorOptions: {
+				fetch: (item, d) => {
+					$http.get('data/people/10.json')
+						.then(function (response) {
+							return d.resolve(response.data);
+						});
+				},
+				selectionMode: 'multiple',
+				selectionKey: {
+					row: row => ctrl.rows.findIndex(r => r.name.last === row.name.last)
+				}
+			}
+		},
+		{
 			key: 'comment',
 			title: 'Comment',
 			type: 'text',
@@ -141,5 +162,6 @@ export default function Controller($http, $mdToast, qgrid, $timeout) {
 			ctrl.rows[0].password = 'foo';
 			ctrl.rows[3].password = 'bar';
 			ctrl.rows[4].comment = 'Johnson Creek is a 25-mile (40 km) tributary of the Willamette River in the Portland.';
+			ctrl.rows[2].teammates = [0];		// array of ids of reference data set
 		});
 }

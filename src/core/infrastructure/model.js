@@ -78,6 +78,7 @@ export default class Model {
 							source: 'emit'
 						});
 					}
+					return this;
 				}
 
 				return model;
