@@ -67,6 +67,10 @@ class Pager extends Plugin {
 	get totalPages() {
 		return Math.max(1, Math.ceil(this.total / this.size));
 	}
+
+	get scroll() {
+		return this.model.scroll();
+	}
 }
 
 export default Pager.component({
