@@ -92,7 +92,8 @@ tbody {
 
 			&.q-grid-file,
 			&.q-grid-url,
-			&.q-grid-email {
+			&.q-grid-email,
+			&.q-grid-reference {
 				> div {
 					overflow: hidden;
 					text-overflow: ellipsis;
@@ -102,7 +103,8 @@ tbody {
 				.q-grid-file-download,
 				.q-grid-file-edit,
 				.q-grid-url-edit,
-				.q-grid-email-edit {
+				.q-grid-email-edit,
+				.q-grid-reference-edit {
 					position: absolute;
 					top: calc(50% - 8px);
 
@@ -129,7 +131,8 @@ tbody {
 
 				.q-grid-file-edit,
 				.q-grid-url-edit,
-				.q-grid-email-edit {
+				.q-grid-email-edit,
+				.q-grid-reference-edit {
 					right: 0;
 				}
 

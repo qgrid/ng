@@ -9,7 +9,9 @@ export default class ColumnModel {
 		this.source = 'user';
 		this.editor = null;
 		this.editorOptions = {
-			trigger: 'click'
+			trigger: 'click',
+			selectionMode: 'single',
+			selectionKey: null
 		};
 
 		this.width = null;
