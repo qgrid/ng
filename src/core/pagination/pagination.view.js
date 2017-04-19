@@ -5,7 +5,7 @@ export default class PaginationView extends View {
 		super(model);
 
 		model.dataChanged.watch(e => {
-			if (e.hasChanges('rows')) {
+			if (e.hasChanges('rows') && e.tag.behavior !== 'core') {
 				model.pagination({
 					current: 0
 				});
