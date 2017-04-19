@@ -9,7 +9,9 @@ export function get(row, column) {
 			? column.label(row)
 			: column.labelPath
 				? compile(column.labelPath)(row)
-				: getValue(row, column);
+				: column.title
+					? column.title
+					: getValue(row, column);
 }
 
 export function getFactory(column) {
@@ -19,7 +21,9 @@ export function getFactory(column) {
 			? row => column.label(row)
 			: column.labelPath
 				? compile(column.labelPath)
-				: row => getValue(row, column);
+				: column.title
+					? () => column.title
+					: row => getValue(row, column);
 
 	return row => get(row);
 }
