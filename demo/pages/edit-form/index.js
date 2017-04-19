@@ -7,12 +7,24 @@ export default function Controller($http, qgrid) {
 		{
 			key: 'name.last',
 			title: 'Last Name',
-			value: item => item.name.last
+			value: function (item, value) {
+				if (arguments.length == 2) {
+					item.name.last = value;
+					return;
+				}
+				return item.name.last;
+			}
 		},
 		{
 			key: 'name.first',
 			title: 'First Name',
-			value: item => item.name.first
+			value: function (item, value) {
+				if (arguments.length == 2) {
+					item.name.first = value;
+					return;
+				}
+				return item.name.first;
+			}
 		},
 		{
 			key: 'gender',
@@ -20,11 +32,13 @@ export default function Controller($http, qgrid) {
 		},
 		{
 			key: 'birthday',
-			title: 'Birthday'
+			title: 'Birthday',
+			type: 'date'
 		},
 		{
 			key: 'contact.address.zip',
 			title: 'Zip',
+			type: 'number',
 			value: item => item.contact.address.zip
 		},
 		{
@@ -54,7 +68,8 @@ export default function Controller($http, qgrid) {
 		},
 		{
 			key: 'memberSince',
-			title: 'Member Since'
+			title: 'Member Since',
+			type: 'date'
 		}, {
 			key: 'itemSettings',
 			type: 'item-settings',
