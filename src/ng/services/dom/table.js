@@ -1,6 +1,7 @@
 import Box from './box';
 import Data from './data';
 import EventListener from 'core/infrastructure/event.listener';
+import {Element} from './element';
 
 export default class Table {
 	constructor(model, markup, template) {
@@ -10,6 +11,7 @@ export default class Table {
 		this._head = null;
 		this._body = null;
 		this._foot = null;
+		this._view = null;
 		this.isFocused = this.isFocused.bind(this);
 	}
 
@@ -75,6 +77,18 @@ export default class Table {
 
 	get data() {
 		return new Data(this.model);
+	}
+
+	get view() {
+		if (this._view) {
+			return this._view;
+		}
+
+		const view = this.markup.view;
+		if (view) {
+			return this._view = new Element(view);
+		}
+		return Element.empty;
 	}
 
 	focus() {
