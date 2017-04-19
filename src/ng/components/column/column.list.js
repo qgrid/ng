@@ -21,13 +21,13 @@ class ColumnList extends ModelComponent {
 
 	// Use onLink to wait while this.columns will be filled by column components
 	onLink() {
-		const generation = this.columnListGeneration;
 		const model = this.root.model;
 		model.dataChanged.watch(e => {
 			if (e.tag.source === 'column.list') {
 				return;
 			}
 
+			const generation = model.columnList().generation;
 			if (generation) {
 				if (e.hasChanges('rows')) {
 					this.updateOn(generation);

@@ -1,7 +1,7 @@
 import ColumnView from 'core/column-type/column.model.view';
 import DataColumnModel from './data.column.model';
 import TemplatePath from 'core/template/template.path';
-import {noop} from 'core/services/utility';
+import Model from 'core/infrastructure/model';
 
 TemplatePath.register('reference-cell', (template, column) => {
 	return {
@@ -22,9 +22,7 @@ class ReferenceColumnModel extends DataColumnModel {
 		super('reference');
 
 		this.editorOptions.trigger = 'custom';
-		this.editorOptions.selectionKey = {
-			row: noop
-		};
+		this.editorOptions.modelFactory = () => new Model();
 	}
 }
 

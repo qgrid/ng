@@ -56,7 +56,20 @@ export default class EditCellView {
 					if (e) {
 						e.stopImmediatePropagation();
 					}
-					cell = cell || model.navigation().active.cell;
+
+					if (cell) {
+						if (model.navigation().active.cell !== cell) {
+							model.navigation({
+								active: {
+									cell: cell
+								}
+							});
+						}
+					}
+					else {
+						cell = model.navigation().active.cell;
+					}
+
 					const parse = parseFactory(cell.column.type);
 					const value = isUndefined(cell.value) ? null : parse(clone(cell.value));
 					const label = isUndefined(cell.label) ? null : parse(clone(cell.label));
@@ -203,6 +216,15 @@ export default class EditCellView {
 		this._label = label;
 	}
 
+	options(cell) {
+		cell = cell || this.model.navigation().active.cell;
+		if (cell) {
+			return cell.column.editorOptions;
+		}
+
+		return null;
+	}
+
 	get commitShortcut() {
 		const model = this.model;
 		const commitShortcuts = model.edit().commitShortcuts;
@@ -216,8 +238,9 @@ export default class EditCellView {
 	fetchFactory(cell) {
 		cell = cell || this.model.navigation().active.cell;
 		let select = null;
-		if (cell && cell.column.editorOptions.fetch) {
-			select = cell.column.editorOptions.fetch;
+		const options = this.options(cell);
+		if (options && options.fetch) {
+			select = options.fetch;
 		}
 		else {
 			select = () => cell.value;
