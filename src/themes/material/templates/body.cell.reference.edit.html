@@ -9,7 +9,8 @@
 			  ng-controller="Body.Cell.Reference.Edit.Controller as $ctrl">
 			<div flex="90">
 				<q-grid model="$ctrl.gridModel">
-					<q-grid:columns generation="deep"></q-grid:columns>
+					<q-grid:columns>
+					</q-grid:columns>
 					<q-grid:toolbar>
 						<q-grid:template for="top">
 							<div class="q-grid-progress">
@@ -20,10 +21,10 @@
 				</q-grid>
 			</div>
 			<div flex="10" class="q-grid-actions">
-				<md-button class="md-primary md-confirm-button" ng-click="$ctrl.commit($cell, $event);$popup.close()">Save
+				<md-button class="md-primary md-confirm-button" ng-click="$ctrl.commit($cell, $event)">Save
 				</md-button>
 				<md-button class="md-primary md-cancel-button"
-							  ng-click="$view.edit.cell.cancel.execute($cell, $event);$popup.close()">Cancel
+							  ng-click="$ctrl.cancel($cell, $event)">Cancel
 				</md-button>
 			</div>
 		</div>

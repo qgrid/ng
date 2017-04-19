@@ -72,6 +72,12 @@ export default function Controller($http, $mdToast, qgrid, $timeout) {
 							unit: 'row',
 							key: {row: row => ctrl.rows.findIndex(r => r.name.last === row.name.last)}
 						})
+						// .scroll({
+						// 	mode: 'virtual'
+						// })
+						.columnList({
+							generation: 'deep'
+						})
 						.data({
 							pipe: [(data, context, next) => {
 								$http.get('data/people/10.json')
