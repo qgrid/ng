@@ -26,23 +26,6 @@ export default function ReferenceEdit($scope, qgrid) {
 		close();
 	};
 
-	const fetch = this.cell().fetch;
-	if (fetch.busy) {
-		const cancelBusy = service.busy();
-		fetch.busy
-			.then(() => {
-				this.gridModel.data({
-					rows: fetch.result
-				});
-				cancelBusy();
-			});
-	}
-	else if (fetch.result) {
-		this.gridModel.data({
-			rows: fetch.result
-		});
-	}
-
 	$scope.$on('$destroy', () => {
 		close();
 	});
