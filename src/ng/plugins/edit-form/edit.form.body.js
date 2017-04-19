@@ -11,8 +11,11 @@ class EditFormBody extends Plugin {
 	onInit() {
 		const editor = angular.element('<div layout="column"></div>');
 
-		this.editor = new RowEditor(this.row, this.model.data().columns);
-		this.editor.editors.map(e => {
+		const rowEditor = new RowEditor(this.row, this.model.data().columns);
+
+		this.register(rowEditor);
+
+		rowEditor.editors.map(e => {
 			const build = cellBuilder(this.template, 'edit');
 			const link = build('form', this.model, e.column);
 			const element = angular.element('<div></div>');
@@ -31,6 +34,7 @@ export default EditFormBody.component({
 	controller: EditFormBody,
 	controllerAs: '$editFormBody',
 	bindings: {
-		row: '<'
+		row: '<',
+		register: '<?'
 	}
 });
