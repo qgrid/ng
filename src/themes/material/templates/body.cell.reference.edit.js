@@ -1,6 +1,6 @@
 ReferenceEdit.$inject = ['$scope', 'qgrid'];
 export default function ReferenceEdit($scope, qgrid) {
-	this.cell = () => $scope.$view.edit.cell;
+	this.cell = () => $scope.$editor || $scope.$view.edit.cell;
 
 	let closed = false;
 	const close = () => {
