@@ -7,6 +7,9 @@ import Visibility from './visibility/visibility';
 import ColumnChooser from './column-chooser/column.chooser';
 import ColumnFilter from './column-filter/column.filter';
 import ColumnFilterPanel from './column-filter/column.filter.panel';
+import EditForm from './edit-form/edit.form';
+import EditFormPanel from './edit-form/edit.form.panel';
+import EditFormBody from './edit-form/edit.form.body';
 import Progress from './progress/progress';
 import Popup from './popup/popup';
 import PopupTrigger from './popup/popup.trigger';
@@ -28,6 +31,9 @@ export default angular
 	.component(def.COLUMN_CHOOSER_NAME, ColumnChooser)
 	.component(def.COLUMN_FILTER_NAME, ColumnFilter)
 	.component(def.COLUMN_FILTER_PANEL_NAME, ColumnFilterPanel)
+	.component(def.EDIT_FORM_NAME, EditForm)
+	.component(def.EDIT_FORM_PANEL_NAME, EditFormPanel)
+	.component(def.EDIT_FORM_BODY_NAME, EditFormBody)
 	.component(def.PROGRESS_NAME, Progress)
 	.component(def.POPUP_NAME, Popup)
 	.component(def.POPUP_TRIGGER_NAME, PopupTrigger)
@@ -52,6 +58,9 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.plugin.visibility.tpl.html', require('./visibility/visibility.html'));
 		theme.put('qgrid.plugin.column-chooser.tpl.html', require('./column-chooser/column.chooser.html'));
 		theme.put('qgrid.plugin.column-filter.tpl.html', require('./column-filter/column.filter.html'));
+		theme.put('qgrid.plugin.edit-form.tpl.html', require('./edit-form/edit.form.html'));
+		theme.put('qgrid.plugin.edit-form-panel.tpl.html', EMPTY);
+		theme.put('qgrid.plugin.edit-form-body.tpl.html', EMPTY);
 
 		theme.put('qgrid.plugin.popup.tpl.html', require('./popup/popup.html'));
 		theme.put('qgrid.plugin.popup-panel.tpl.html', require('./popup/popup.panel.html'));

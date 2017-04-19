@@ -394,6 +394,10 @@
 				"path": "column-filter"
 			},
 			{
+				"title": "Edit Form",
+				"path": "edit-form"
+			},
+			{
 				"title": "Group Bar",
 				"path": "group-bar"
 			},
