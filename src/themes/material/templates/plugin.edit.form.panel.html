@@ -1,5 +1,8 @@
-<div class="q-grid-column-filter-panel" layout="column" flex="100">
-	<div class="q-grid-column-filter-panel-actions" flex="none">
+<div class="q-grid-edit-form-panel" layout="column" flex="100">
+	<q-grid:edit-form-body row="$editFormPanel.row" register="$editFormPanel.register">
+	</q-grid:edit-form-body>
+	
+	<div class="q-grid-edit-form-panel-actions">
 		<md-button ng-click="$editFormPanel.cancel.execute()">
 			Cancel
 		</md-button>
@@ -7,8 +10,7 @@
 			Reset
 		</md-button>
 		<md-button class="md-primary"
-					  ng-click="$editFormPanel.submit.execute()"
-					  ng-disabled="!$editFormPanel.submit.canExecute()">
+					  ng-click="$editFormPanel.submit.execute()">
 			Apply
 		</md-button>
 	</div>

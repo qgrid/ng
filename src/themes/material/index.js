@@ -51,6 +51,12 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.head.cell.pivot.tpl.html', require('themes/material/templates/head.cell.pivot.html'));
 		theme.put('qgrid.head.cell.select.tpl.html', require('themes/material/templates/head.cell.select.html'));
 
+		theme.put('qgrid.form.cell.text.edit.tpl.html', require('themes/material/templates/form.cell.text.edit.html'));
+		theme.put('qgrid.form.cell.number.edit.tpl.html', require('themes/material/templates/form.cell.number.edit.html'));
+		theme.put('qgrid.form.cell.date.edit.tpl.html', require('themes/material/templates/form.cell.date.edit.html'));
+		theme.put('qgrid.form.cell.bool.edit.tpl.html', require('themes/material/templates/form.cell.bool.edit.html'));
+		theme.put('qgrid.form.cell.reference.edit.tpl.html', require('themes/material/templates/form.cell.reference.edit.html'));
+
 		theme.put('qgrid.toolbar.top.tpl.html', require('themes/material/templates/toolbar.top.html'));
 		theme.put('qgrid.plugin.column-chooser.tpl.html', require('themes/material/templates/plugin.column.chooser.html'));
 		theme.put('qgrid.plugin.column-filter-panel.tpl.html', require('themes/material/templates/plugin.column.filter.panel.html'));

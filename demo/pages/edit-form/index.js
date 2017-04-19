@@ -1,6 +1,7 @@
 Controller.$inject = ['$http', 'qgrid'];
 export default function Controller($http, qgrid) {
 	const ctrl = this;
+	const isUndef = angular.isUndefined;
 	ctrl.gridModel = qgrid.model();
 
 	const columns = [
@@ -62,6 +63,27 @@ export default function Controller($http, qgrid) {
 			value: item => item.contact.email[0]
 		},
 		{
+			key: 'teammates',
+			title: 'Teammates',
+			type: 'reference',
+			value: (item, value) => isUndef(value) ? item.teammates || [] : item.teammates = value,
+			label: (item) => (item.teammates || [])
+				.map(teammate => `${ctrl.rows[teammate].name.last} ${ctrl.rows[teammate].name.first}`)
+				.join(', '),
+			editorOptions: {
+				fetch: (item, d) => {
+					$http.get('data/people/10.json')
+						.then(function (response) {
+							return d.resolve(response.data);
+						});
+				},
+				selectionMode: 'multiple',
+				selectionKey: {
+					row: row => ctrl.rows.findIndex(r => r.name.last === row.name.last)
+				}
+			}
+		},
+		{
 			key: 'likes',
 			title: 'Likes',
 			value: item => item.likes.join(', ')
@@ -76,15 +98,6 @@ export default function Controller($http, qgrid) {
 			canEdit: false
 		}
 	];
-
-	ctrl.gridModel.visibility({
-		toolbar: {
-			left: false,
-			right: true,
-			top: true,
-			bottom: true
-		}
-	});
 
 	$http.get('data/people/100.json')
 		.then(function (response) {
