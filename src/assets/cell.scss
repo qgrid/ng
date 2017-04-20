@@ -123,5 +123,11 @@ tbody {
 		&.q-grid-select {
 			text-align: center;
 		}
+
+		&.q-grid-dropdown {
+			select {
+				width: 100%;
+			}
+		}
 	}
 }

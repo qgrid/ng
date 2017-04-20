@@ -1,6 +1,5 @@
 import View from '../view/view';
 import log from 'core/infrastructure/log';
-import {noop} from 'core/services/utility';
 
 export default class ScrollView extends View {
 	constructor(model, table, vscroll, service, apply) {
@@ -13,7 +12,8 @@ export default class ScrollView extends View {
 		this.y = {
 			context: vscroll({
 				threshold: model.pagination().size,
-				apply: apply
+				apply: apply,
+				rowHeight: model.row().height
 			})
 		};
 
@@ -27,7 +27,8 @@ export default class ScrollView extends View {
 					this.model.pagination({
 						current: Math.floor(skip / take)
 					}, {
-						source: 'scroll.view'
+						source: 'scroll.view',
+						behavior: 'core'
 					});
 
 					service.invalidate('scroll.view')

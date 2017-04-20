@@ -5,20 +5,20 @@ import {clone, isUndefined} from 'core/services/utility';
 import Shortcut from 'core/infrastructure/shortcut';
 import {set as setValue, getFactory as valueFactory} from 'core/services/value';
 import {set as setLabel, getFactory as labelFactory} from 'core/services/label';
+import CellEditor from './edit.value';
 
 export default class EditCellView {
 	constructor(model, table, apply) {
 		this.model = model;
 		this.table = table;
-		
+
 		this.setValue = setValue;
 		this.valueFactory = valueFactory;
 		this.setLabel = setLabel;
 		this.labelFactory = labelFactory;
 
 		this.mode = 'view';
-		this._value = null;
-		this._label = null;
+		this._editor = CellEditor.empty;
 
 		const shortcut = new Shortcut(table, apply);
 		const commands = this.commands;
@@ -38,7 +38,7 @@ export default class EditCellView {
 				shortcut: 'F2|Enter',
 				canExecute: cell => {
 					cell = cell || model.navigation().active.cell;
-					if (cell && this.mode !== 'edit' && model.edit().mode === 'cell' && cell) {
+					if (cell && this.mode !== 'edit' && model.edit().mode === 'cell') {
 						return cell.column.canEdit
 							&& model.edit().enter.canExecute(this.contextFactory(cell))
 							&& model.edit().editMode === 'view';
@@ -51,13 +51,26 @@ export default class EditCellView {
 					if (e) {
 						e.stopImmediatePropagation();
 					}
-					cell = cell || model.navigation().active.cell;
+
+					if (cell) {
+						if (model.navigation().active.cell !== cell) {
+							model.navigation({
+								active: {
+									cell: cell
+								}
+							});
+						}
+					}
+					else {
+						cell = model.navigation().active.cell;
+					}
+
 					const parse = parseFactory(cell.column.type);
 					const value = isUndefined(cell.value) ? null : parse(clone(cell.value));
 					const label = isUndefined(cell.label) ? null : parse(clone(cell.label));
 					if (cell && model.edit().enter.execute(this.contextFactory(cell, value, label)) !== false) {
-						this.value = value;
-						this.label = label;
+						this._editor = new CellEditor(cell.row, cell.column);
+
 						this.mode = 'edit';
 						model.edit({editMode: 'edit'});
 						cell.mode(this.mode);
@@ -81,15 +94,9 @@ export default class EditCellView {
 
 					cell = cell || model.navigation().active.cell;
 					if (cell && model.edit().commit.execute(this.contextFactory(cell, this.value, this.label)) !== false) {
-						const column = cell.column;
-						const row = cell.row;
-						this.setValue(row, column, this.value);
-						if (this.label !== null) {
-							this.setLabel(row, column, this.label);
-						}
+						this._editor.commit();
+						this._editor = CellEditor.empty;
 
-						this.value = null;
-						this.label = null;
 						this.mode = 'view';
 						model.edit({editMode: 'view'});
 						cell.mode(this.mode);
@@ -113,8 +120,9 @@ export default class EditCellView {
 
 					cell = cell || model.navigation().active.cell;
 					if (cell && model.edit().cancel.execute(this.contextFactory(cell, this.value, this.label)) !== false) {
-						this.value = null;
-						this.label = null;
+						this._editor.reset();
+						this._editor = CellEditor.empty;
+
 						this.mode = 'view';
 						model.edit({editMode: 'view'});
 						cell.mode(this.mode);
@@ -138,8 +146,8 @@ export default class EditCellView {
 
 					cell = cell || model.navigation().active.cell;
 					if (cell && model.edit().reset.execute(this.contextFactory(cell, this.value, this.label)) !== false) {
-						const parse = parseFactory(cell.column.type);
-						this.value = parse(cell.value);
+						this._editor.reset();
+
 						cell.mode(this.mode);
 						return false;
 					}
@@ -167,20 +175,24 @@ export default class EditCellView {
 		};
 	}
 
+	get fetch() {
+		return this._editor.fetch;
+	}
+
 	get value() {
-		return this._value;
+		return this._editor.value;
 	}
 
 	set value(value) {
-		this._value = value;
+		this._editor.value = value;
 	}
 
 	get label() {
-		return this._label;
+		return this._editor.label;
 	}
 
 	set label(label) {
-		this._label = label;
+		this._editor.label = label;
 	}
 
 	get commitShortcut() {
@@ -191,6 +203,10 @@ export default class EditCellView {
 			return commitShortcuts[cell.column.type];
 		}
 		return commitShortcuts['$default'];
+	}
+
+	options() {
+		return this._editor.options();
 	}
 
 	destroy() {

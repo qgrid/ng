@@ -12,6 +12,9 @@ export const VISIBILITY_NAME = `${GRID}Visibility`;
 export const COLUMN_CHOOSER_NAME = `${GRID}ColumnChooser`;
 export const COLUMN_FILTER_NAME = `${GRID}ColumnFilter`;
 export const COLUMN_FILTER_PANEL_NAME = `${GRID}ColumnFilterPanel`;
+export const EDIT_FORM_NAME = `${GRID}EditForm`;
+export const EDIT_FORM_PANEL_NAME = `${GRID}EditFormPanel`;
+export const EDIT_FORM_BODY_NAME = `${GRID}EditFormBody`;
 
 export const POPUP_NAME = `${GRID}Popup`;
 export const POPUP_TRIGGER_NAME = `${GRID}PopupTrigger`;

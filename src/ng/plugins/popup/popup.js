@@ -39,7 +39,7 @@ class Popup extends Plugin {
 	}
 
 	open(settings = {}) {
-		settings.id = this.id
+		settings.id = this.id;
 		this.qGridPopupService.open(
 			settings,
 			this.model,

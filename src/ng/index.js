@@ -27,6 +27,7 @@ import Focus from './directives/focus';
 import Resize from './directives/resize';
 import Markup from './directives/markup';
 import FileUpload from './directives/file.upload';
+import Raise from './directives/raise';
 
 import ThemeProvider from './services/theme';
 import Range from './filters/range';
@@ -42,6 +43,7 @@ const coreModule = angular.module(def.MODULE_CORE_NAME, [])
 	.directive(def.FOCUS_NAME, () => Focus)
 	.directive(def.RESIZE_NAME, () => Resize)
 	.directive(def.FILE_UPLOAD_NAME, () => FileUpload)
+	.directive(def.RAISE_NAME, () => Raise)
 	.provider(def.THEME_NAME, () => new ThemeProvider())
 	.service(def.TEMPLATE_PATH_NAME, () => () => TemplatePath)
 	.filter(def.RANGE_NAME, () => Range)
@@ -120,6 +122,7 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.foot.cell.text.tpl.html', require('./components/cell/text/foot.cell.text.html'));
 		theme.put('qgrid.body.cell.text.edit.tpl.html', require('./components/cell/text/body.cell.text.edit.html'));
 		theme.put('qgrid.body.cell.text-area.edit.tpl.html', require('./components/cell/text/body.cell.text.edit.html'));
+		theme.put('qgrid.form.cell.text.edit.tpl.html', EMPTY);
 
 		theme.put('qgrid.head.cell.row-number.tpl.html', require('./components/cell/row-number/head.cell.row.number.html'));
 		theme.put('qgrid.body.cell.row-number.tpl.html', require('./components/cell/row-number/body.cell.row.number.html'));
@@ -179,8 +182,16 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.foot.cell.image.tpl.html', require('./components/cell/text/foot.cell.text.html'));
 		theme.put('qgrid.body.cell.image.edit.tpl.html', require('./components/cell/image/body.cell.image.edit.html'));
 
+		theme.put('qgrid.head.cell.reference.tpl.html', require('./components/cell/text/head.cell.text.html'));
+		theme.put('qgrid.body.cell.reference.tpl.html', require('./components/cell/reference/body.cell.reference.html'));
+		theme.put('qgrid.foot.cell.reference.tpl.html', require('./components/cell/text/foot.cell.text.html'));
+		theme.put('qgrid.body.cell.reference.edit.tpl.html', require('./components/cell/reference/body.cell.reference.edit.html'));
+
 		theme.put('qgrid.head.cell.select.tpl.html', require('./components/cell/select/head.cell.select.html'));
 		theme.put('qgrid.body.cell.select.tpl.html', require('./components/cell/select/body.cell.select.html'));
 		theme.put('qgrid.foot.cell.select.tpl.html', EMPTY);
+
+		theme.put('qgrid.body.cell.dropdown.edit.tpl.html', require('./components/cell/dropdown/body.cell.dropdown.edit.html'));
+		theme.put('qgrid.body.cell.autocomplete.edit.tpl.html', require('./components/cell/autocomplete/body.cell.autocomplete.edit.html'));
 	});
 }

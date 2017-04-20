@@ -276,6 +276,10 @@
 				"path": "edit-templates"
 			},
 			{
+				"title": "Editors",
+				"path": "editors"
+			},
+			{
 				"title": "Batch Editing",
 				"path": "batch-editing"
 			},
@@ -388,6 +392,10 @@
 			{
 				"title": "Column Filter",
 				"path": "column-filter"
+			},
+			{
+				"title": "Edit Form",
+				"path": "edit-form"
 			},
 			{
 				"title": "Group Bar",

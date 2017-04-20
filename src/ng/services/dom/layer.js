@@ -1,10 +1,11 @@
-import Element from './element';
+import {Element} from './element';
 import AppError from 'core/infrastructure/error';
 
 class LayerCore extends Element {
 	resource() {
 	}
 }
+const empty = new LayerCore();
 
 export default class Layer extends LayerCore {
 	constructor(element, template) {
@@ -15,7 +16,7 @@ export default class Layer extends LayerCore {
 	}
 
 	static get empty() {
-		return new LayerCore();
+		return empty;
 	}
 
 	resource(id, state) {

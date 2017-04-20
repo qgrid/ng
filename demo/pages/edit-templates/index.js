@@ -7,7 +7,7 @@ export default function Controller($http, $mdToast, qgrid, $timeout) {
 
 	this.commitCommand = new qgrid.Command({
 		execute: e => {
-			if(e.column.key === 'attachment' || e.column.key === 'avatar'){
+			if (e.column.key === 'attachment' || e.column.key === 'avatar') {
 				$timeout(() => {
 					const filename = e.newLabel;
 					$mdToast.show(
@@ -56,6 +56,42 @@ export default function Controller($http, $mdToast, qgrid, $timeout) {
 			type: 'date'
 		},
 		{
+			key: 'teammates',
+			title: 'Teammates',
+			type: 'reference',
+			value: (item, value) => isUndef(value) ? item.teammates || [] : item.teammates = value,
+			label: (item) => (item.teammates || [])
+				.map(teammate => `${ctrl.rows[teammate].name.last} ${ctrl.rows[teammate].name.first}`)
+				.join(', '),
+			editorOptions: {
+				modelFactory: () => {
+					const model = qgrid.model();
+					model
+						.selection({
+							mode: 'multiple',
+							unit: 'row',
+							key: {row: row => ctrl.rows.findIndex(r => r.name.last === row.name.last)}
+						})
+						// .scroll({
+						// 	mode: 'virtual'
+						// })
+						.columnList({
+							generation: 'deep'
+						})
+						.data({
+							pipe: [(data, context, next) => {
+								$http.get('data/people/10.json')
+									.then(function (response) {
+										return next(response.data);
+									});
+							}]
+								.concat(qgrid.pipeUnit.default)
+						});
+					return model;
+				}
+			}
+		},
+		{
 			key: 'comment',
 			title: 'Comment',
 			type: 'text',
@@ -96,8 +132,7 @@ export default function Controller($http, $mdToast, qgrid, $timeout) {
 			key: 'contact.email.primary',
 			title: 'Primary Email',
 			type: 'email',
-			value: item => item.contact.email[0],
-			canEdit: false
+			value: item => item.contact.email[0]
 		},
 		{
 			key: 'likes',
@@ -146,5 +181,6 @@ export default function Controller($http, $mdToast, qgrid, $timeout) {
 			ctrl.rows[0].password = 'foo';
 			ctrl.rows[3].password = 'bar';
 			ctrl.rows[4].comment = 'Johnson Creek is a 25-mile (40 km) tributary of the Willamette River in the Portland.';
+			ctrl.rows[2].teammates = [0];		// array of ids of reference data set
 		});
 }

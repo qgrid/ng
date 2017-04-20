@@ -54,13 +54,6 @@ td.q-grid-edit {
 			margin-top: 0;
 		}
 
-		.q-grid-actions {
-			.md-button {
-				margin: 8px 0 8px 8px;
-				float: right;
-			}
-		}
-
 		&.q-grid-array {
 			height: 120px;
 			width: 300px;
@@ -180,7 +173,34 @@ td.q-grid-edit {
 		}
 	}
 
+	&.q-grid-dropdown {
+		md-select {
+			margin: 5px 0;
+			max-height: 30px;
+		}
+	}
+
+	&.q-grid-autocomplete {
+		md-autocomplete {
+			min-width: 30px;
+		}
+	}
+
 	md-checkbox {
 		margin: 0;
+	}
+}
+
+.q-grid-editor{
+	&.q-grid-reference {
+		height: 350px;
+		width: 500px;
+	}
+}
+
+.q-grid-actions {
+	.md-button {
+		margin: 8px 0 8px 8px;
+		float: right;
 	}
 }
