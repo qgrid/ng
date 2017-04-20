@@ -2,33 +2,35 @@ import Layer from './layer';
 import Row from './row';
 import Column from './column';
 import Cell from './cell';
+import {ElementCore} from './element';
 
-class BoxCore {
+class BoxCore extends ElementCore {
 	constructor() {
+		super();
 	}
 
 	column() {
-		return {
-			cells: () => {
-				return [];
-			}
-		};
+		return Column.empty
 	}
 
 	row() {
-		return {
-			cells: () => {
-				return [];
-			}
-		};
+		return Row.empty
 	}
 
 	rows() {
 		return [];
 	}
 
+	rowCount() {
+		return 0;
+	}
+
+	columnCount() {
+		return 0;
+	}
+
 	cell() {
-		return null;
+		return Cell.empty;
 	}
 
 	addLayer() {
@@ -45,7 +47,9 @@ class BoxCore {
 	scrollTop() {
 		return 0;
 	}
+
 }
+const empty = new BoxCore();
 
 export default class Box extends BoxCore {
 	constructor(document, element, template) {
@@ -58,7 +62,7 @@ export default class Box extends BoxCore {
 	}
 
 	static get empty() {
-		return new BoxCore();
+		return empty;
 	}
 
 	column(index) {
@@ -71,7 +75,7 @@ export default class Box extends BoxCore {
 				}
 			}
 		}
-		return null;
+		return Column.empty;
 	}
 
 	row(index) {
@@ -81,7 +85,7 @@ export default class Box extends BoxCore {
 				return new Row(rows[index]);
 			}
 		}
-		return null;
+		return Row.empty;
 	}
 
 	rows() {
@@ -112,7 +116,7 @@ export default class Box extends BoxCore {
 				}
 			}
 		}
-		return null;
+		return Cell.empty;
 	}
 
 	addLayer(name) {

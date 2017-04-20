@@ -1,7 +1,19 @@
-import Element from './element';
 import AppError from 'core/infrastructure/error';
+import {Element, ElementCore} from './element';
+
+class CellCore extends ElementCore {
+	constructor() {
+		super();
+	}
+}
+
+const empty = new CellCore();
 
 export default class Cell extends Element {
+	static get empty() {
+		return empty;
+	}
+
 	get model() {
 		const $scope = angular.element(this.element).scope();
 		if (!$scope) {
