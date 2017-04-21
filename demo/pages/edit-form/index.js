@@ -6,6 +6,11 @@ export default function Controller($http, qgrid) {
 
 	const columns = [
 		{
+			key: 'itemSettings',
+			type: 'item-settings',
+			canEdit: false
+		},
+		{
 			key: 'name.last',
 			title: 'Last Name',
 			value: function (item, value) {
@@ -31,11 +36,11 @@ export default function Controller($http, qgrid) {
 			key: 'gender',
 			title: 'Gender'
 		},
-		{
-			key: 'birthday',
-			title: 'Birthday',
-			type: 'date'
-		},
+		// {
+		// 	key: 'birthday',
+		// 	title: 'Birthday',
+		// 	type: 'date'
+		// },
 		{
 			key: 'contact.address.zip',
 			title: 'Zip',
@@ -103,15 +108,11 @@ export default function Controller($http, qgrid) {
 			title: 'Likes',
 			value: item => item.likes.join(', ')
 		},
-		{
-			key: 'memberSince',
-			title: 'Member Since',
-			type: 'date'
-		}, {
-			key: 'itemSettings',
-			type: 'item-settings',
-			canEdit: false
-		}
+		// {
+		// 	key: 'memberSince',
+		// 	title: 'Member Since',
+		// 	type: 'date'
+		// }
 	];
 
 	$http.get('data/people/100.json')
