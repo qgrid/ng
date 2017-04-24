@@ -168,7 +168,6 @@ export default function Controller($http, $mdToast, qgrid, $timeout) {
 			value: (item, value) => isUndef(value) ? item.attachment : item.attachment = value,
 			label: (item, label) => isUndef(label) ? item.attachmentLabel || null : item.attachmentLabel = label,
 			fetch: function(item, d){
-				"use strict";
 				$http().then(result => d.resolve(result));
 			}
 		}

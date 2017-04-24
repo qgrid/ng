@@ -1,9 +1,8 @@
 import ModelComponent from '../model.component';
 import * as ng from 'ng/services/ng';
 import * as path from 'core/services/path'
-import {isUndefined, assignWith, noop, clone, isObject, identity} from 'core/services/utility';
+import {isUndefined, clone, isObject, identity} from 'core/services/utility';
 import {parseFactory, getType} from 'core/services/convert';
-import {generate} from 'core/column-list/column.list.generate';
 import {GRID_NAME} from 'ng/definition';
 
 class ColumnList extends ModelComponent {
@@ -12,12 +11,6 @@ class ColumnList extends ModelComponent {
 
 		this.$scope = $scope;
 		this.$parse = $parse;
-	}
-
-	onInit() {
-		this.model.columnList({
-			generation: this.columnListGeneration
-		});
 	}
 
 	copy(target, source) {

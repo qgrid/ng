@@ -1,4 +1,7 @@
+import angular from 'angular';
+
 Controller.$inject = ['$http', 'qgrid'];
+
 export default function Controller($http, qgrid) {
 	const ctrl = this;
 	const isUndef = angular.isUndefined;

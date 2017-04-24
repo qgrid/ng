@@ -3,8 +3,8 @@ import Log from 'core/infrastructure/log';
 export default function (pages) {
 	const routes = buildRoutes(pages);
 
-	Setup.$inject = ['$routeProvider', '$locationProvider'];
-	function Setup($routeProvider, $locationProvider) {
+	Setup.$inject = ['$routeProvider', '$locationProvider', '$compileProvider'];
+	function Setup($routeProvider, $locationProvider, $compileProvider) {
 		Object.keys(routes)
 			.forEach(key => {
 				const route = routes[key];
@@ -31,6 +31,11 @@ export default function (pages) {
 		$locationProvider
 			.html5Mode(false)
 			.hashPrefix('!');
+
+		// Comment this if you want to have support of tools such as batarang
+		$compileProvider.debugInfoEnabled(false);
+		$compileProvider.commentDirectivesEnabled(false);
+		$compileProvider.cssClassDirectivesEnabled(false);
 	}
 
 	return Setup;

@@ -2,8 +2,9 @@ import View from 'core/view/view';
 import columnFactory from 'core/column/column.factory';
 import AppError from 'core/infrastructure/error';
 import merge from 'core/services/merge';
-import * as columnService from 'core/column/column.service'
-import {assignWith} from 'core/services/utility';
+import * as columnService from 'core/column/column.service';
+import {assignWith, noop, isUndefined} from 'core/services/utility';
+import {generate} from 'core/column-list/column.list.generate';
 
 export default class ColumnView extends View {
 	constructor(model) {
@@ -36,7 +37,7 @@ export default class ColumnView extends View {
 	}
 
 	updateOn(generation) {
-		const model = this.root.model;
+		const model = this.model;
 		const data = model.data;
 
 		const columns = [];
@@ -60,7 +61,7 @@ export default class ColumnView extends View {
 	}
 
 	update(generatedColumns) {
-		const model = this.root.model;
+		const model = this.model;
 		const data = model.data;
 		let columns = Array.from(data().columns);
 		const statistics = [];
@@ -71,13 +72,13 @@ export default class ColumnView extends View {
 
 		if (arguments.length) {
 			const generatedColumnMap = columnService.map(generatedColumns);
-			const templateColumnMap = columnService.map(this.columns);
+			const templateColumnMap = columnService.map(model.columnList().columns);
 			const dataColumns = columns.filter(c => !generatedColumnMap.hasOwnProperty(c.key) && !templateColumnMap.hasOwnProperty(c.key));
 			columns = generatedColumns;
 			statistics.push(this.merge(columns, dataColumns));
 		}
 
-		statistics.push(this.merge(columns, this.columns));
+		statistics.push(this.merge(columns, model.columnList().columns));
 		if (this.hasChanges(statistics)) {
 			data({columns: columns}, tag);
 		}
