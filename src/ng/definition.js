@@ -35,6 +35,7 @@ export const DROP_NAME = `${GRID}Drop`;
 export const MARKUP_NAME = `${GRID}Markup`;
 export const TOOLBAR_NAME = `${GRID}Toolbar`;
 export const LAYER_NAME = `${GRID}Layer`;
+export const CELL_VALUE_NAME = `${GRID}CellValue`;
 
 export const CAN_DROP_NAME = `${GRID}CanDrop`;
 export const CAN_DRAG_NAME = `${GRID}CanDrag`;
