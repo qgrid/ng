@@ -2,6 +2,7 @@ import Box from './box';
 import Data from './data';
 import EventListener from 'core/infrastructure/event.listener';
 import {Element} from './element';
+import {HEAD_CORE_NAME, BODY_CORE_NAME, FOOT_CORE_NAME} from 'ng/definition';
 
 export default class Table {
 	constructor(model, markup, template) {
@@ -43,7 +44,7 @@ export default class Table {
 		const document = this.markup.document;
 		const head = this.markup.head;
 		if (document && head) {
-			return this._head = new Box(document, head, this.template);
+			return this._head = new Box(document, head, this.template, HEAD_CORE_NAME);
 		}
 
 		return Box.empty;
@@ -57,7 +58,7 @@ export default class Table {
 		const document = this.markup.document;
 		const body = this.markup.body;
 		if (document && body) {
-			return this._body = new Box(document, body, this.template);
+			return this._body = new Box(document, body, this.template, BODY_CORE_NAME);
 		}
 		return Box.empty;
 	}
@@ -70,7 +71,7 @@ export default class Table {
 		const document = this.markup.document;
 		const foot = this.markup.foot;
 		if (document && foot) {
-			return this._foot = new Box(document, foot, this.template);
+			return this._foot = new Box(document, foot, this.template, FOOT_CORE_NAME);
 		}
 		return Box.empty;
 	}
@@ -98,5 +99,4 @@ export default class Table {
 	blur() {
 		this.markup.table.blur();
 	}
-
 }

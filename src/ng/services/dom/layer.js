@@ -1,5 +1,4 @@
 import {Element} from './element';
-import AppError from 'core/infrastructure/error';
 
 class LayerCore extends Element {
 	resource() {
@@ -8,11 +7,12 @@ class LayerCore extends Element {
 const empty = new LayerCore();
 
 export default class Layer extends LayerCore {
-	constructor(element, template) {
+	constructor($scope, element, template) {
 		super(element);
 
+		this.$scope = $scope;
 		this.template = template;
-		this.$scope = null;
+		this.$layerScope = null;
 	}
 
 	static get empty() {
@@ -27,24 +27,14 @@ export default class Layer extends LayerCore {
 		);
 
 		const $element = angular.element(this.element);
-		const ctrl = $element.controller();
-		if (!ctrl) {
-			throw new AppError('layer', `Ctrl for "${id}" is not found`)
-		}
-
-		const $scope = ctrl.$scope;
-		if(!$scope){
-			throw new AppError('layer', `Ctrl.scope for "${id}" is not found`)
-		}
-
-		this.$scope = $scope.$new();
-		link($element, $scope);
+		this.$layerScope = this.$scope.$new();
+		link($element, this.$layerScope);
 	}
 
 	destroy() {
-		if (this.$scope) {
-			this.$scope.$destroy();
-			this.$scope = null;
+		if (this.$layerScope) {
+			this.$layerScope.$destroy();
+			this.$layerScope = null;
 		}
 	}
 }

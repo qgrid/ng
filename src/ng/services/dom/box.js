@@ -3,6 +3,7 @@ import Row from './row';
 import Column from './column';
 import Cell from './cell';
 import {ElementCore} from './element';
+import AppError from 'core/infrastructure/error';
 
 class BoxCore extends ElementCore {
 	constructor() {
@@ -52,13 +53,14 @@ class BoxCore extends ElementCore {
 const empty = new BoxCore();
 
 export default class Box extends BoxCore {
-	constructor(document, element, template) {
+	constructor(document, element, template, name) {
 		super();
 
 		this.document = document;
 		this.element = element;
 		this.template = template;
 		this.layers = new Map();
+		this.name = name;
 	}
 
 	static get empty() {
@@ -129,7 +131,16 @@ export default class Box extends BoxCore {
 		node.classList.add(name);
 		this.element.appendChild(node);
 
-		const layer = new Layer(node, this.template);
+		const ctrl = angular.element(this.element).controller(this.name);
+		if (!ctrl) {
+			throw new AppError('box', 'Controller for box is not found')
+		}
+
+		if(!ctrl.$scope){
+			throw new AppError('box', 'Controller scope for box is not found')
+		}
+
+		const layer = new Layer(ctrl.$scope, node, this.template);
 		layers.set(name, layer);
 		return layer;
 	}
