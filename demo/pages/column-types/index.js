@@ -46,6 +46,12 @@ export default function Controller($http) {
 			path: 'contact.address.zip'
 		},
 		{
+			key: 'salary',
+			title: 'Salary',
+			type: 'number',
+			format: 2
+		},
+		{
 			key: 'contact.phone',
 			title: 'Contact Phones',
 			type: 'array',
@@ -87,5 +93,7 @@ export default function Controller($http) {
 
 			ctrl.rows[4].comment = 'Johnson Creek is a 25-mile (40 km) tributary of the Willamette River in the Portland.';
 			ctrl.rows[1].password = '123';
+			ctrl.rows[0].salary = 50000;
+			ctrl.rows[2].salary = 120000;
 		});
 }

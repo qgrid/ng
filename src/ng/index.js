@@ -148,7 +148,7 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.body.cell.bool.edit.tpl.html', require('./components/cell/bool/body.cell.bool.edit.html'));
 
 		theme.put('qgrid.head.cell.number.tpl.html', require('./components/cell/text/head.cell.text.html'));
-		theme.put('qgrid.body.cell.number.tpl.html', require('./components/cell/text/body.cell.text.html'));
+		theme.put('qgrid.body.cell.number.tpl.html', require('./components/cell/number/body.cell.number.html'));
 		theme.put('qgrid.foot.cell.number.tpl.html', require('./components/cell/text/foot.cell.text.html'));
 		theme.put('qgrid.body.cell.number.edit.tpl.html', require('./components/cell/number/body.cell.number.edit.html'));
 

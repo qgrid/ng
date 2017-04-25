@@ -1,0 +1,4 @@
+<div ng-switch="$cell.column.format !== null">
+	<span ng-switch-when="true">{{$cell.value | number: $cell.column.format}}</span>
+	<span ng-switch-default>{{$cell.value}}</span>
+</div>
