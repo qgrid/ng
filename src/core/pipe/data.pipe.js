@@ -5,5 +5,5 @@ export default function pipeData(data, context, next) {
 		model.data({rows: result}, {source: 'data.pipe', behavior: 'core'});
 	}
 
-	next(Array.from(result));
+	next(result);
 }

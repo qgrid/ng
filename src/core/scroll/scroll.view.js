@@ -9,21 +9,32 @@ export default class ScrollView extends View {
 
 		const scroll = model.scroll;
 
-		this.y = {
-			context: vscroll({
-				threshold: model.pagination().size,
-				apply: apply,
-				rowHeight: model.row().height
-			})
+		this.y = vscroll({
+			threshold: model.pagination().size,
+			rowHeight: model.row().height
+		});
+
+		this.y.container.apply = f => {
+			apply(() => {
+				f();
+				const container = this.y.container;
+				this.model.pagination({
+					current: Math.floor(container.position / model.pagination().size),
+					count: container.total
+				}, {
+					source: 'scroll.view',
+					behavior: 'core'
+				});
+			});
 		};
 
 		switch (scroll().mode) {
 			case 'virtual': {
 				// model.viewChanged.watch(() => {
-				// 	this.y.context.container.reset();
+				// 	this.y.container.reset();
 				// });
 
-				this.y.context.settings.fetch = (skip, take, d) => {
+				this.y.settings.fetch = (skip, take, d) => {
 					this.model.pagination({
 						current: Math.floor(skip / take)
 					}, {
@@ -35,23 +46,11 @@ export default class ScrollView extends View {
 						.then(d.resolve(model.view().rows.length));
 				};
 
-				this.y.context.container.drawEvent.on(e =>
-					apply(() =>
-						this.model.pagination({
-							current: Math.floor(e.position / model.pagination().size),
-							count: this.y.context.container.total
-						}, {
-							source: 'scroll.view',
-							behavior: 'core'
-						})
-					)
-				);
-
 				break;
 			}
 			default:
 				model.paginationChanged.watch(() => {
-					this.y.context.container.reset();
+					this.y.container.reset();
 				});
 		}
 

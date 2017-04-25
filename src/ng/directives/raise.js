@@ -24,5 +24,6 @@ export default {
 	controllerAs: '$raise',
 	controller: Raise,
 	require: Raise.require,
-	link: Raise.link
+	link: Raise.link,
+	scope: false
 };

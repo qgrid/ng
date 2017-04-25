@@ -27,5 +27,6 @@ export default {
 	controllerAs: '$resize',
 	controller: Markup,
 	require: Markup.require,
-	link: Markup.link
+	link: Markup.link,
+	scope: false
 };

@@ -102,7 +102,7 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	}
 
 	get rowIndex() {
-		return this.view.scroll.y.context.container.position + this.$scope.$parent.$index;
+		return this.view.scroll.y.container.position + this.$scope.$parent.$index;
 	}
 
 	get columnIndex() {
