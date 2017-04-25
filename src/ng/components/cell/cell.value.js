@@ -24,5 +24,6 @@ export default {
 	restrict: 'A',
 	controller: CellValue,
 	require: CellValue.require,
-	link: CellValue.link
+	link: CellValue.link,
+	scope: false
 };

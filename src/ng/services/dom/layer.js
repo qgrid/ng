@@ -27,13 +27,18 @@ export default class Layer extends LayerCore {
 		);
 
 		const $element = angular.element(this.element);
-		const $scope = $element.scope();
-		if (!$scope) {
-			throw new AppError('element', `Scope for "${id}" is not found`)
+		const ctrl = $element.controller();
+		if (!ctrl) {
+			throw new AppError('layer', `Ctrl for "${id}" is not found`)
+		}
+
+		const $scope = ctrl.$scope;
+		if(!$scope){
+			throw new AppError('layer', `Ctrl.scope for "${id}" is not found`)
 		}
 
 		this.$scope = $scope.$new();
-		link($element, this.$scope);
+		link($element, $scope);
 	}
 
 	destroy() {

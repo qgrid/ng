@@ -138,5 +138,6 @@ export default {
 	controllerAs: '$cell',
 	controller: TdCore,
 	require: TdCore.require,
-	link: TdCore.link
+	link: TdCore.link,
+	scope: false
 };

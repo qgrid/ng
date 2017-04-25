@@ -30,5 +30,6 @@ export default {
 	controllerAs: '$tr',
 	controller: TrCore,
 	require: TrCore.require,
-	link: TrCore.link
+	link: TrCore.link,
+	scope: false
 };
