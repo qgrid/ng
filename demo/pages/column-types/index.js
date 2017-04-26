@@ -42,7 +42,7 @@ export default function Controller($http) {
 		{
 			key: 'contact.address.zip',
 			title: 'Zip',
-			type: 'number',
+			type: 'id',
 			path: 'contact.address.zip'
 		},
 		{

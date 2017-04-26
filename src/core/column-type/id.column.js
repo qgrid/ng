@@ -2,34 +2,34 @@ import ColumnView from 'core/column-type/column.model.view';
 import DataColumnModel from './data.column.model';
 import TemplatePath from 'core/template/template.path';
 
-TemplatePath.register('number-cell', (template, column) => {
+TemplatePath.register('id-cell', (template, column) => {
 	return {
 		model: template.for,
 		resource: column.key
 	};
 });
 
-TemplatePath.register('number-cell-edit', (template, column) => {
+TemplatePath.register('id-cell-edit', (template, column) => {
 	return {
 		model: 'edit',
 		resource: column.key
 	};
 });
 
-class NumberColumnModel extends DataColumnModel{
+class IdColumnModel extends DataColumnModel{
 	constructor(){
-		super('number');
+		super('id');
 
 		this.format = '';
 	}
 }
 
-export default class NumberColumn extends ColumnView {
+export default class IdColumn extends ColumnView {
 	constructor(model) {
 		super(model);
 	}
 
 	static model(model) {
-		return model ? NumberColumn.assign(model) : new NumberColumnModel();
+		return model ? IdColumn.assign(model) : new IdColumnModel();
 	}
 }

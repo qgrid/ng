@@ -44,7 +44,7 @@ export default function Controller($http, qgrid) {
 		{
 			key: 'contact.address.zip',
 			title: 'Zip',
-			type: 'number',
+			type: 'id',
 			value: item => item.contact.address.zip
 		},
 		{
