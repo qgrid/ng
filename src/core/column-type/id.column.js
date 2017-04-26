@@ -19,8 +19,6 @@ TemplatePath.register('id-cell-edit', (template, column) => {
 class IdColumnModel extends DataColumnModel{
 	constructor(){
 		super('id');
-
-		this.format = '';
 	}
 }
 

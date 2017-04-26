@@ -114,8 +114,7 @@ thead, tfoot, tbody {
 
 tbody {
 	td {
-		&.q-grid-number,
-		&.q-grid-id {
+		&.q-grid-number {
 			text-align: right;
 		}
 
