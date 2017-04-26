@@ -107,7 +107,7 @@ export default function Controller($http, $mdToast, qgrid, $timeout) {
 		{
 			key: 'contact.address.zip',
 			title: 'Zip',
-			type: 'number',
+			type: 'id',
 			path: 'contact.address.zip'
 		},
 		{

@@ -19,6 +19,7 @@ import UrlColumn from 'core/column-type/url.column';
 import FileColumn from 'core/column-type/file.column';
 import ImageColumn from 'core/column-type/image.column';
 import ReferenceColumn from 'core/column-type/reference.column';
+import IdColumn from 'core/column-type/id.column';
 
 function merge(target, source) {
 	if (target && source) {
@@ -49,6 +50,7 @@ export default function (model) {
 		'file': FileColumn,
 		'image': ImageColumn,
 		'reference': ReferenceColumn,
+		'id': IdColumn,
 		'custom': CustomColumn
 	};
 

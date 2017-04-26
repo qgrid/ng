@@ -148,7 +148,7 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.body.cell.bool.edit.tpl.html', require('./components/cell/bool/body.cell.bool.edit.html'));
 
 		theme.put('qgrid.head.cell.number.tpl.html', require('./components/cell/text/head.cell.text.html'));
-		theme.put('qgrid.body.cell.number.tpl.html', require('./components/cell/text/body.cell.text.html'));
+		theme.put('qgrid.body.cell.number.tpl.html', require('./components/cell/number/body.cell.number.html'));
 		theme.put('qgrid.foot.cell.number.tpl.html', require('./components/cell/text/foot.cell.text.html'));
 		theme.put('qgrid.body.cell.number.edit.tpl.html', require('./components/cell/number/body.cell.number.edit.html'));
 
@@ -186,6 +186,11 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.body.cell.reference.tpl.html', require('./components/cell/reference/body.cell.reference.html'));
 		theme.put('qgrid.foot.cell.reference.tpl.html', require('./components/cell/text/foot.cell.text.html'));
 		theme.put('qgrid.body.cell.reference.edit.tpl.html', require('./components/cell/reference/body.cell.reference.edit.html'));
+
+		theme.put('qgrid.head.cell.id.tpl.html', require('./components/cell/text/head.cell.text.html'));
+		theme.put('qgrid.body.cell.id.tpl.html', require('./components/cell/text/body.cell.text.html'));
+		theme.put('qgrid.foot.cell.id.tpl.html', require('./components/cell/text/foot.cell.text.html'));
+		theme.put('qgrid.body.cell.id.edit.tpl.html', require('./components/cell/text/body.cell.text.edit.html'));
 
 		theme.put('qgrid.head.cell.select.tpl.html', require('./components/cell/select/head.cell.select.html'));
 		theme.put('qgrid.body.cell.select.tpl.html', require('./components/cell/select/body.cell.select.html'));
