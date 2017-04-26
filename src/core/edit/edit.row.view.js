@@ -1,7 +1,7 @@
 import Command from 'core/infrastructure/command';
 import Log from 'core/infrastructure/log';
 import Shortcut from 'core/infrastructure/shortcut';
-import RowEditor from './edit.row';
+import RowEditor from './edit.row.unit';
 
 export default class EditRowView {
 	constructor(model, table, apply) {

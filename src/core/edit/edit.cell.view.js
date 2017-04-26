@@ -5,7 +5,7 @@ import {clone, isUndefined} from 'core/services/utility';
 import Shortcut from 'core/infrastructure/shortcut';
 import {set as setValue, getFactory as valueFactory} from 'core/services/value';
 import {set as setLabel, getFactory as labelFactory} from 'core/services/label';
-import CellEditor from './edit.value';
+import CellEditor from './edit.cell.unit';
 
 export default class EditCellView {
 	constructor(model, table, apply) {
