@@ -25,6 +25,7 @@ export default class SortView extends View {
 					switch (dir) {
 						case 'desc': {
 							by.splice(index, 1);
+							this.hover = false;
 							break;
 						}
 						case 'asc': {
