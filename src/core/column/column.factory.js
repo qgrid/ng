@@ -56,7 +56,7 @@ export default function (model) {
 
 	const create = (entityType, columnType, body) => {
 		const Type = columnMap[entityType];
-		const settings = columnList().columns[columnType];
+		const settings = columnList().reference[columnType];
 		body = merge(body, settings);
 
 		const model = Type.model(body);

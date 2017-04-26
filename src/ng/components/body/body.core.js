@@ -7,6 +7,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	constructor($scope, $element, $document) {
 		super();
 
+		// this.$scope should be set cause it used by box.js
 		this.$scope = $scope;
 		this.element = $element[0];
 		this.document = $document[0];

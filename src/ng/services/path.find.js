@@ -1,10 +1,15 @@
-export function cell(path){
+import AppError from 'core/infrastructure/error';
+import {TD_CORE_NAME, TR_CORE_NAME} from 'ng/definition'
+
+export function cell(path) {
 	for (let node of path) {
 		if (node.nodeName === 'TD' || node.nodeName === 'TH') {
-			const scope = angular.element(node).scope();
-			if (scope.hasOwnProperty('$cell')) {
-				return scope.$cell;
+			const ctrl = angular.element(node).controller(TD_CORE_NAME);
+			if (!ctrl) {
+				new AppError('path.find', `Can't find controller for ${node.nodeName}`);
 			}
+
+			return ctrl;
 		}
 	}
 
@@ -14,10 +19,12 @@ export function cell(path){
 export function row(path) {
 	for (let node of path) {
 		if (node.nodeName === 'TR') {
-			const scope = angular.element(node).scope();
-			if (scope.hasOwnProperty('$row')) {
-				return scope.$row;
+			const ctrl = angular.element(node).controller(TR_CORE_NAME);
+			if (!ctrl) {
+				new AppError('path.find', `Can't find controller for ${node.nodeName}`);
 			}
+
+			return ctrl;
 		}
 	}
 

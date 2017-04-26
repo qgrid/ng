@@ -66,5 +66,6 @@ export default {
 	controllerAs: '$fileUpload',
 	controller: FileUpload,
 	require: FileUpload.require,
-	link: FileUpload.link
+	link: FileUpload.link,
+	scope: false
 };

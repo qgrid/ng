@@ -61,7 +61,8 @@ export default class StyleView extends View {
 		try {
 			for (let i = 0, rowsLength = Math.min(bodyRows.length, dataRows.length); i < rowsLength; i++) {
 				const dataRow = dataRows[i];
-				const bodyRow = bodyRows[i];
+				// TODO: get rid of '.element'
+				const bodyRow = bodyRows[i].element;
 
 				if (active.row) {
 					const rowContext = {

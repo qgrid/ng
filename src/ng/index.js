@@ -10,6 +10,7 @@ import Toolbar from './components/toolbar/toolbar';
 import Drag from './components/dnd/drag';
 import Drop from './components/dnd/drop';
 import Layer from './components/layer/layer';
+import CellValue from './components/cell/cell.value';
 
 import BoxCore from './components/grid/box.core';
 import ViewCore from './components/view/view.core';
@@ -28,6 +29,7 @@ import Resize from './directives/resize';
 import Markup from './directives/markup';
 import FileUpload from './directives/file.upload';
 import Raise from './directives/raise';
+import Animate from './directives/animate';
 
 import ThemeProvider from './services/theme';
 import Range from './filters/range';
@@ -44,6 +46,8 @@ const coreModule = angular.module(def.MODULE_CORE_NAME, [])
 	.directive(def.RESIZE_NAME, () => Resize)
 	.directive(def.FILE_UPLOAD_NAME, () => FileUpload)
 	.directive(def.RAISE_NAME, () => Raise)
+	.directive(def.CELL_VALUE_NAME, () => CellValue)
+	.directive(def.ANIMATE_NAME, () => Animate)
 	.provider(def.THEME_NAME, () => new ThemeProvider())
 	.service(def.TEMPLATE_PATH_NAME, () => () => TemplatePath)
 	.filter(def.RANGE_NAME, () => Range)
