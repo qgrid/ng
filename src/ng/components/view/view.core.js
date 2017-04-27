@@ -23,7 +23,7 @@ import TemplateLink from '../template/template.link';
 import PipeUnit from 'core/pipe/units/pipe.unit'
 
 class ViewCore extends Component {
-	constructor($scope, $element, $timeout, $compile, $templateCache, grid, vscroll) {
+	constructor($scope, $element, $document, $timeout, $compile, $templateCache, grid, vscroll) {
 		super();
 
 		this.$scope = $scope;
@@ -33,11 +33,15 @@ class ViewCore extends Component {
 		this.serviceFactory = grid.service.bind(grid);
 		this.template = new TemplateLink($compile, $templateCache);
 		this.vscroll = vscroll;
+
+		this.markup = {
+			document: $document[0]
+		};
 	}
 
 	onLink() {
 		const model = this.model;
-		const table = new Table(model, this.root.markup, this.template);
+		const table = new Table(model, this.markup, this.template);
 
 		const service = this.serviceFactory(model);
 		const apply = (f, timeout) => {
@@ -130,6 +134,7 @@ class ViewCore extends Component {
 ViewCore.$inject = [
 	'$scope',
 	'$element',
+	'$document',
 	'$timeout',
 	'$compile',
 	'$templateCache',
@@ -143,5 +148,8 @@ export default {
 	templateUrl: 'qgrid.view.tpl.html',
 	require: {
 		'root': `^^${GRID_NAME}`
+	},
+	bindings: {
+		'pin': '@'
 	}
 }

@@ -1,14 +1,11 @@
 import RootComponent from '../root.component';
 
 export class Grid extends RootComponent {
-	constructor($element, $transclude, $document) {
+	constructor($element, $transclude) {
 		super('data', 'selection', 'sort', 'group', 'pivot', 'edit');
 
 		this.$element = $element;
 		this.$transclude = $transclude;
-		this.markup = {
-			document: $document[0]
-		};
 	}
 
 	onInit() {
@@ -38,8 +35,7 @@ export class Grid extends RootComponent {
 
 Grid.$inject = [
 	'$element',
-	'$transclude',
-	'$document'
+	'$transclude'
 ];
 
 /**
