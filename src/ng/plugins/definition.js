@@ -15,6 +15,7 @@ export const COLUMN_FILTER_PANEL_NAME = `${GRID}ColumnFilterPanel`;
 export const EDIT_FORM_NAME = `${GRID}EditForm`;
 export const EDIT_FORM_PANEL_NAME = `${GRID}EditFormPanel`;
 export const EDIT_FORM_BODY_NAME = `${GRID}EditFormBody`;
+export const EXPORT_NAME = `${GRID}Export`;
 
 export const POPUP_NAME = `${GRID}Popup`;
 export const POPUP_TRIGGER_NAME = `${GRID}PopupTrigger`;
