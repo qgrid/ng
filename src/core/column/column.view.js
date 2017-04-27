@@ -34,6 +34,12 @@ export default class ColumnView extends View {
 				}
 			}
 		});
+
+		model.columnListChanged.watch(e => {
+			if (e.hasChanges('columns')) {
+				this.update();
+			}
+		});
 	}
 
 	updateOn(generation) {
@@ -65,21 +71,23 @@ export default class ColumnView extends View {
 		const data = model.data;
 		let columns = Array.from(data().columns);
 		const statistics = [];
-		const tag = {
-			source: 'column.list',
-			behavior: 'core'
-		};
+		const templateColumns = model.columnList().columns;
 
 		if (arguments.length) {
 			const generatedColumnMap = columnService.map(generatedColumns);
-			const templateColumnMap = columnService.map(model.columnList().columns);
+			const templateColumnMap = columnService.map(templateColumns);
 			const dataColumns = columns.filter(c => !generatedColumnMap.hasOwnProperty(c.key) && !templateColumnMap.hasOwnProperty(c.key));
 			columns = generatedColumns;
 			statistics.push(this.merge(columns, dataColumns));
 		}
 
-		statistics.push(this.merge(columns, model.columnList().columns));
+		statistics.push(this.merge(columns, templateColumns));
 		if (this.hasChanges(statistics)) {
+			const tag = {
+				source: 'column.list',
+				behavior: 'core'
+			};
+
 			data({columns: columns}, tag);
 		}
 	}
