@@ -10,6 +10,12 @@ export class Grid extends RootComponent {
 
 	onInit() {
 		this.compile();
+
+		this.model.viewChanged.watch(e => {
+			if (e.hasChanges('columns')) {
+				this.invalidateVisibility();
+			}
+		});
 	}
 
 	compile() {
@@ -25,6 +31,17 @@ export class Grid extends RootComponent {
 
 		template.remove();
 		templateScope.$destroy();
+	}
+
+	invalidateVisibility() {
+		const columns = this.model.data().columns;
+		const visibility = this.model.visibility;
+		visibility({
+			pin: {
+				left: columns.some(c => c.pin === 'left'),
+				right: columns.some(c => c.pin === 'right')
+			}
+		});
 	}
 
 	get visibility() {

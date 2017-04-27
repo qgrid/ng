@@ -46,7 +46,6 @@ export default class HighlightView extends View {
 							columns: columns
 						},{
 							source: 'highlight.view',
-							pin: table.pin
 						});
 					}
 				}
@@ -93,7 +92,6 @@ export default class HighlightView extends View {
 	invalidateSortBy(dispose) {
 		dispose.forEach(f => f());
 		dispose = [];
-
 
 		const sortBy = this.model.sort().by;
 		for (let entry of sortBy) {

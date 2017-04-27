@@ -21,7 +21,6 @@ export default class LayoutView extends View {
 		model.viewChanged.watch(e => {
 			if (e.hasChanges('columns')) {
 				this.invalidateColumns();
-				this.invalidateVisibility();
 			}
 		});
 
@@ -116,17 +115,6 @@ export default class LayoutView extends View {
 
 		const sheet = css.sheet(`${model.grid().id}-layout`);
 		sheet.set(style);
-	}
-
-	invalidateVisibility() {
-		const columns = this.table.data.columns();
-		const visibility = this.model.visibility;
-		visibility({
-			pin: {
-				left: columns.some(c => c.pin === 'left'),
-				right: columns.some(c => c.pin === 'right')
-			}
-		});
 	}
 
 	destroy() {

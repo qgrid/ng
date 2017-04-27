@@ -1,13 +1,17 @@
 import * as columnService from 'core/column/column.service';
 
 export default class Data {
-	constructor(model) {
-		this.model = model
+	constructor(model, pin) {
+		this.model = model;
+		this.pin = pin;
 	}
 
 	columns() {
 		const columns = this.model.view().columns;
-		return columnService.lineView(columns).map(v => v.model);
+		return columnService
+			.lineView(columns)
+			.map(v => v.model)
+			.filter(c => c.pin === this.pin);
 	}
 
 	columnMap() {
