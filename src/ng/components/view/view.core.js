@@ -41,8 +41,10 @@ class ViewCore extends Component {
 
 	onLink() {
 		const model = this.model;
+		this.pin = this.pin || null;
 		const table = new Table(model, this.markup, this.template);
-		const pin = this.pin = this.pin || null;
+		table.pin = this.pin;
+
 		const service = this.serviceFactory(model);
 		const apply = (f, timeout) => {
 			if (isUndefined(timeout)) {
@@ -54,9 +56,9 @@ class ViewCore extends Component {
 
 		this.style = new StyleView(model, table);
 		this.table = new TableView(model);
-		this.head = new HeadView(model, table, pin, TH_CORE_NAME);
-		this.body = new BodyView(model, table, pin);
-		this.foot = new FootView(model, pin);
+		this.head = new HeadView(model, table, TH_CORE_NAME);
+		this.body = new BodyView(model, table);
+		this.foot = new FootView(model, table);
 		this.columns = new ColumnView(model);
 		this.layout = new LayoutView(model, table, service);
 		this.selection = new SelectionView(model, table, apply);
@@ -68,7 +70,7 @@ class ViewCore extends Component {
 		this.edit = new EditView(model, table, apply);
 		this.nav = new NavigationView(model, table, apply);
 		this.pagination = new PaginationView(model);
-		this.scroll = new ScrollView(model, table, pin, this.vscroll, service, apply);
+		this.scroll = new ScrollView(model, table, this.vscroll, service, apply);
 
 		// TODO: how we can avoid that?
 		this.$scope.$watch(this.style.invalidate.bind(this.style));

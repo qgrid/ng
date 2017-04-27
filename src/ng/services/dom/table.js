@@ -14,6 +14,7 @@ export default class Table {
 		this._foot = null;
 		this._view = null;
 		this.isFocused = this.isFocused.bind(this);
+		this.pin = null;
 	}
 
 	isFocused() {

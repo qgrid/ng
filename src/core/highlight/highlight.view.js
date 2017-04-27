@@ -42,7 +42,12 @@ export default class HighlightView extends View {
 					}
 
 					if (hasChanges) {
-						model.highlight({columns: columns});
+						model.highlight({
+							columns: columns
+						},{
+							source: 'highlight.view',
+							pin: table.pin
+						});
 					}
 				}
 			}

@@ -8,11 +8,10 @@ import {getFactory as valueFactory} from 'core/services/value';
 import {getFactory as labelFactory} from 'core/services/label';
 
 export default class BodyView extends View {
-	constructor(model, table, pin) {
+	constructor(model, table) {
 		super(model);
 
 		this.table = table;
-		this.pin = pin;
 		this.rows = [];
 		this.columns = [];
 		this._valueFactory = valueFactory;
@@ -42,7 +41,7 @@ export default class BodyView extends View {
 
 	invalidateColumns(model) {
 		const columns = model.view().columns;
-		this.columns = columnService.lineView(columns).filter(c => c.model.pin === this.pin);
+		this.columns = columnService.lineView(columns).filter(c => c.model.pin === this.table.pin);
 	}
 
 	valueFactory(column) {

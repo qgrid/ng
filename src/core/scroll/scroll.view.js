@@ -2,12 +2,10 @@ import View from '../view/view';
 import log from 'core/infrastructure/log';
 
 export default class ScrollView extends View {
-	constructor(model, table, pin, vscroll, service, apply) {
+	constructor(model, table, vscroll, service, apply) {
 		super(model);
 
 		this.table = table;
-		this.pin = pin;
-
 		const scroll = model.scroll;
 
 		this.y = vscroll({
@@ -31,10 +29,6 @@ export default class ScrollView extends View {
 
 		switch (scroll().mode) {
 			case 'virtual': {
-				// model.viewChanged.watch(() => {
-				// 	this.y.container.reset();
-				// });
-
 				this.y.settings.fetch = (skip, take, d) => {
 					this.model.pagination({
 						current: Math.floor(skip / take)
@@ -68,7 +62,7 @@ export default class ScrollView extends View {
 
 		const table = this.table;
 		const scroll = this.model.scroll();
-		if(pin === this.pin) {
+		if(pin === this.table.pin) {
 			table.head.scrollLeft(scroll.left);
 			table.foot.scrollLeft(scroll.left);
 		}
