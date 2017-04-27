@@ -2,10 +2,11 @@ import View from '../view/view';
 import log from 'core/infrastructure/log';
 
 export default class ScrollView extends View {
-	constructor(model, table, vscroll, service, apply) {
+	constructor(model, table, pin, vscroll, service, apply) {
 		super(model);
 
 		this.table = table;
+		this.pin = pin;
 
 		const scroll = model.scroll;
 
@@ -56,19 +57,23 @@ export default class ScrollView extends View {
 
 
 		model.scrollChanged.watch(e => {
-			if (e.hasChanges('left')) {
-				this.invalidate();
+			if (e.hasChanges('left') || e.hasChanges('top')) {
+				this.invalidate(e.tag.pin);
 			}
 		});
 	}
 
-	invalidate() {
+	invalidate(pin) {
 		log.info('layout', 'invalidate scroll');
 
 		const table = this.table;
 		const scroll = this.model.scroll();
-		table.head.scrollLeft(scroll.left);
-		table.foot.scrollLeft(scroll.left);
+		if(pin === this.pin) {
+			table.head.scrollLeft(scroll.left);
+			table.foot.scrollLeft(scroll.left);
+		}
+
+		table.body.scrollTop(scroll.top);
 	}
 
 	get mode() {

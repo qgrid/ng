@@ -6,9 +6,10 @@ import Log from 'core/infrastructure/log';
 import {getFactory as valueFactory} from 'core/services/value';
 
 export default class FootView extends View {
-	constructor(model) {
+	constructor(model, pin) {
 		super(model);
 
+		this.pin = pin;
 		this.rows = [];
 		this.columns = [];
 
@@ -21,7 +22,7 @@ export default class FootView extends View {
 		Log.info('view.foot', 'invalidate');
 
 		const columns = model.view().columns;
-		this.columns = columnService.lineView(columns);
+		this.columns = columnService.lineView(columns).filter(c => c.model.pin === this.pin);
 		this.rows = new Array(this.count);
 	}
 

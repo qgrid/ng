@@ -4,11 +4,12 @@ import Command from 'core/infrastructure/command';
 import * as columnService from 'core/column/column.service';
 
 export default class HeadView extends View {
-	constructor(model, table, tagName) {
+	constructor(model, table, pin, tagName) {
 		super(model);
 
 		this.tagName = tagName;
 		this.rows = [];
+		this.pin = pin;
 
 		this.drop = new Command({
 			canExecute: e => {
@@ -75,7 +76,7 @@ export default class HeadView extends View {
 	invalidate(model) {
 		Log.info('view.head', 'invalidate');
 
-		const columns = model.view().columns;
+		const columns = model.view().columns.map(row => row.filter(c => c.model.pin === this.pin));
 		this.rows = columns;
 	}
 }

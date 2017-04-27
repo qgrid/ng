@@ -7,4 +7,17 @@
 			}
 		}
 	}
+
+	&.q-grid-view-left,
+	&.g-grid-view-right {
+		tbody {
+			overflow-x: hidden;
+		}
+	}
+
+	&.q-grid-view-left {
+		tbody {
+			overflow-y: hidden;
+		}
+	}
 }
