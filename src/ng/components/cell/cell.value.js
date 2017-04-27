@@ -1,6 +1,8 @@
 import Directive from 'ng/directives/directive';
 import {CELL_VALUE_NAME} from 'ng/definition';
 
+const stringify = angular.$$stringify; // eslint-disable-line angular/no-private-call
+
 class CellValue extends Directive(CELL_VALUE_NAME) {
 	constructor($scope, $element) {
 		super();
@@ -11,10 +13,12 @@ class CellValue extends Directive(CELL_VALUE_NAME) {
 
 	onInit() {
 		const $scope = this.$scope;
+		const $cell = $scope.$cell;
 		const element = this.element;
-		$scope.$watch('$cell.value', value => {
-			element.innerText = 	value;
-		});
+		$scope.$watch(
+			() => stringify($cell.value),
+			value => element.textContent = 	value
+		);
 	}
 }
 

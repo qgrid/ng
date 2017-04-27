@@ -1,13 +1,11 @@
 import RootComponent from '../root.component';
-import PipeUnit from 'core/pipe/units/pipe.unit'
 
 export class Grid extends RootComponent {
-	constructor($element, $transclude, $document, serviceFactory) {
+	constructor($element, $transclude, $document) {
 		super('data', 'selection', 'sort', 'group', 'pivot', 'edit');
 
 		this.$element = $element;
 		this.$transclude = $transclude;
-		this.serviceFactory = model => serviceFactory.service(model);
 		this.markup = {
 			document: $document[0]
 		};
@@ -15,43 +13,6 @@ export class Grid extends RootComponent {
 
 	onInit() {
 		this.compile();
-
-		const model = this.model;
-		const service = this.serviceFactory(model);
-
-		model.selectionChanged.watch(e => {
-			if (e.hasChanges('entries')) {
-				this.onSelectionChanged({
-					$event: {
-						state: model.selection(),
-						changes: e.changes
-					}
-				});
-			}
-
-			if (e.hasChanges('unit') || e.hasChanges('mode')) {
-				service.invalidate('selection', e.changes, PipeUnit.column);
-			}
-		});
-
-		const triggers = model.data().triggers;
-
-		// TODO: think about invalidation queue
-		let isInvalidated = false;
-		Object.keys(triggers)
-			.forEach(name =>
-				model[name + 'Changed']
-					.watch(e => {
-						const changes = Object.keys(e.changes);
-						if (e.tag.behavior !== 'core' && triggers[name].find(key => changes.indexOf(key) >= 0)) {
-							isInvalidated = true;
-							service.invalidate(name, e.changes);
-						}
-					}));
-
-		if (!isInvalidated) {
-			service.invalidate('grid');
-		}
 	}
 
 	compile() {
@@ -78,8 +39,7 @@ export class Grid extends RootComponent {
 Grid.$inject = [
 	'$element',
 	'$transclude',
-	'$document',
-	'qgrid'
+	'$document'
 ];
 
 /**

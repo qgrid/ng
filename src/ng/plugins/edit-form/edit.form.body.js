@@ -1,5 +1,5 @@
 import PluginComponent from '../plugin.component';
-import RowEditor from 'core/edit/edit.row';
+import RowEditor from 'core/edit/edit.row.unit';
 import cellBuilder from 'ng/components/cell/cell.build';
 
 const Plugin = PluginComponent('edit-form-body');

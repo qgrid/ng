@@ -20,6 +20,7 @@ import ScrollView from 'core/scroll/scroll.view';
 import {GRID_NAME, TH_CORE_NAME} from 'ng/definition';
 import {isUndefined} from 'core/services/utility';
 import TemplateLink from '../template/template.link';
+import PipeUnit from 'core/pipe/units/pipe.unit'
 
 class ViewCore extends Component {
 	constructor($scope, $element, $timeout, $compile, $templateCache, grid, vscroll) {
@@ -66,9 +67,41 @@ class ViewCore extends Component {
 		this.scroll = new ScrollView(model, table, this.vscroll, service, apply);
 
 		// TODO: how we can avoid that?
-		this.$scope.$watch(() => {
-			this.style.invalidate();
+		this.$scope.$watch(this.style.invalidate.bind(this.style));
+
+		model.selectionChanged.watch(e => {
+			if (e.hasChanges('entries')) {
+				this.root.onSelectionChanged({
+					$event: {
+						state: model.selection(),
+						changes: e.changes
+					}
+				});
+			}
+
+			if (e.hasChanges('unit') || e.hasChanges('mode')) {
+				service.invalidate('selection', e.changes, PipeUnit.column);
+			}
 		});
+
+		const triggers = model.data().triggers;
+
+		// TODO: think about invalidation queue
+		let needInvalidate = true;
+		Object.keys(triggers)
+			.forEach(name =>
+				model[name + 'Changed']
+					.watch(e => {
+						const changes = Object.keys(e.changes);
+						if (e.tag.behavior !== 'core' && triggers[name].find(key => changes.indexOf(key) >= 0)) {
+							needInvalidate = false;
+							service.invalidate(name, e.changes);
+						}
+					}));
+
+		if (needInvalidate) {
+			service.invalidate('grid');
+		}
 	}
 
 	onDestroy() {
