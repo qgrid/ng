@@ -6,7 +6,7 @@ export default class DataModel {
 		this.columns = [];
 		this.pipe = PipeUnit.default;
 		this.triggers = {
-			'data': ['rows'],
+			'data': ['rows', 'columns'], // TODO: do we need to remove columns as a trigger here?
 			'pagination': ['current', 'size'],
 			'sort': ['by'],
 			'filter': ['by'],
