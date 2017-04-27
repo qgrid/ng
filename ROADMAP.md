@@ -89,7 +89,7 @@
 *	Browser support
 	*	Chrome
 
-## 10 April – version 1.1
+## 28 April – version 1.1
 *	Row
 	*	Row Details
 	*	Row inline edit
@@ -112,19 +112,21 @@
 *  Sorting depends on position
 *	Edit API
 *	Style API
+*	Scroll
+	*	Virtual scroll
+	*	Infinite scroll
+*	Frozen/pinned columns
 
 
-## 27 April – version 1.2
+## 31 May – version 1.2
 *	Actions
 	*	Action model
 	*	Action bar plugin
 *	Filter row
 *	Scroll
 	*	Focus service
-	*	Virtual scroll
-	*	Infinite scroll
+	*	Virtual scroll with grouping and pivoting
 	*	“Catch page” scroll
-*	Frozen/pinned columns
 *	Expressive states
 	*	“can-edit”, “can-sort” will support expressions
 *	Multi row header on auto generation
@@ -134,7 +136,7 @@
 *	State persistence
 
 
-## 29 May – version 1.3
+## 30 June – version 1.3
 *	Mobile device support
 *	Localization
 *	Master/details
@@ -151,6 +153,6 @@
 *	Default theme
 
 
-## 12 June
+## 12 July
 *	Core to separate repo
 *	Angular 2 environment
