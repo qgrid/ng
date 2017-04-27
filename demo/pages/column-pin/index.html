@@ -1,10 +1,6 @@
 <q-grid rows="$ctrl.rows">
-	<q-grid:columns>
-		<q-grid:column key="name.first" title="First Name" value="$ctrl.getValue($row, 'name.first')" pin="left"></q-grid:column>
-		<q-grid:column key="name.last" title="Last Name" value="$ctrl.getValue($row, 'name.last')"></q-grid:column>
-		<q-grid:column key="birthday" title="Birthday"></q-grid:column>
-		<q-grid:column key="gender" title="Gender"></q-grid:column>
-		<q-grid:column key="memberSince" title="Member since"></q-grid:column>
-		<q-grid:column key="contact.address.street" title="Street" value="$ctrl.getValue($row, 'contact.address.street')"></q-grid:column>
+	<q-grid:columns generation="deep">
+		<q-grid:column key="name.last" pin="left"></q-grid:column>
+		<q-grid:column key="name.first" pin="right"></q-grid:column>
 	</q-grid:columns>
 </q-grid>
