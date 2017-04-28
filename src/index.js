@@ -25,6 +25,7 @@ import FilterModel from 'core/filter/filter.model';
 import DragModel from 'core/drag/drag.model';
 import StyleModel from 'core/style/style.model';
 import ScrollModel from 'core/scroll/scroll.model';
+import ExportModel from 'core/export/export.model';
 
 import ColumnChooserModel from 'ng/plugins/column-chooser/column.chooser.model';
 import ColumnFilterModel from 'ng/plugins/column-filter/column.filter.model';
@@ -60,6 +61,7 @@ Model.register('grid', GridModel)
 	.register('columnChooser', ColumnChooserModel)
 	.register('columnFilter', ColumnFilterModel)
 	.register('popup', PopupModel)
-	.register('scroll', ScrollModel);
+	.register('scroll', ScrollModel)
+	.register('export', ExportModel);
 
 export default ng;
