@@ -42,7 +42,11 @@ export default class HighlightView extends View {
 					}
 
 					if (hasChanges) {
-						model.highlight({columns: columns});
+						model.highlight({
+							columns: columns
+						},{
+							source: 'highlight.view',
+						});
 					}
 				}
 			}
@@ -88,7 +92,6 @@ export default class HighlightView extends View {
 	invalidateSortBy(dispose) {
 		dispose.forEach(f => f());
 		dispose = [];
-
 
 		const sortBy = this.model.sort().by;
 		for (let entry of sortBy) {

@@ -14,6 +14,7 @@ export default class Table {
 		this._foot = null;
 		this._view = null;
 		this.isFocused = this.isFocused.bind(this);
+		this.pin = null;
 	}
 
 	isFocused() {
@@ -77,7 +78,7 @@ export default class Table {
 	}
 
 	get data() {
-		return new Data(this.model);
+		return new Data(this.model, this.pin);
 	}
 
 	get view() {

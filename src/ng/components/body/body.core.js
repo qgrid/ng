@@ -29,6 +29,9 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 			left: element.scrollLeft,
 			width: element.scrollWidth,
 			height: element.scrollHeight
+		}, {
+			source: 'body.core',
+			pin: this.view.pin
 		});
 	}
 

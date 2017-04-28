@@ -1,18 +1,21 @@
 import RootComponent from '../root.component';
 
 export class Grid extends RootComponent {
-	constructor($element, $transclude, $document) {
+	constructor($element, $transclude) {
 		super('data', 'selection', 'sort', 'group', 'pivot', 'edit');
 
 		this.$element = $element;
 		this.$transclude = $transclude;
-		this.markup = {
-			document: $document[0]
-		};
 	}
 
 	onInit() {
 		this.compile();
+
+		this.model.viewChanged.watch(e => {
+			if (e.hasChanges('columns')) {
+				this.invalidateVisibility();
+			}
+		});
 	}
 
 	compile() {
@@ -30,6 +33,17 @@ export class Grid extends RootComponent {
 		templateScope.$destroy();
 	}
 
+	invalidateVisibility() {
+		const columns = this.model.data().columns;
+		const visibility = this.model.visibility;
+		visibility({
+			pin: {
+				left: columns.some(c => c.pin === 'left'),
+				right: columns.some(c => c.pin === 'right')
+			}
+		});
+	}
+
 	get visibility() {
 		// TODO: get rid of that
 		return this.model.visibility();
@@ -38,8 +52,7 @@ export class Grid extends RootComponent {
 
 Grid.$inject = [
 	'$element',
-	'$transclude',
-	'$document'
+	'$transclude'
 ];
 
 /**

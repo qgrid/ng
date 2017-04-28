@@ -6,7 +6,6 @@ export default class ScrollView extends View {
 		super(model);
 
 		this.table = table;
-
 		const scroll = model.scroll;
 
 		this.y = vscroll({
@@ -30,10 +29,6 @@ export default class ScrollView extends View {
 
 		switch (scroll().mode) {
 			case 'virtual': {
-				// model.viewChanged.watch(() => {
-				// 	this.y.container.reset();
-				// });
-
 				this.y.settings.fetch = (skip, take, d) => {
 					this.model.pagination({
 						current: Math.floor(skip / take)
@@ -56,19 +51,23 @@ export default class ScrollView extends View {
 
 
 		model.scrollChanged.watch(e => {
-			if (e.hasChanges('left')) {
-				this.invalidate();
+			if (e.hasChanges('left') || e.hasChanges('top')) {
+				this.invalidate(e.tag.pin);
 			}
 		});
 	}
 
-	invalidate() {
+	invalidate(pin) {
 		log.info('layout', 'invalidate scroll');
 
 		const table = this.table;
 		const scroll = this.model.scroll();
-		table.head.scrollLeft(scroll.left);
-		table.foot.scrollLeft(scroll.left);
+		if(pin === this.table.pin) {
+			table.head.scrollLeft(scroll.left);
+			table.foot.scrollLeft(scroll.left);
+		}
+
+		table.body.scrollTop(scroll.top);
 	}
 
 	get mode() {

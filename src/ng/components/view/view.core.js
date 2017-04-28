@@ -23,7 +23,7 @@ import TemplateLink from '../template/template.link';
 import PipeUnit from 'core/pipe/units/pipe.unit'
 
 class ViewCore extends Component {
-	constructor($scope, $element, $timeout, $compile, $templateCache, grid, vscroll) {
+	constructor($scope, $element, $document, $timeout, $compile, $templateCache, grid, vscroll) {
 		super();
 
 		this.$scope = $scope;
@@ -33,11 +33,17 @@ class ViewCore extends Component {
 		this.serviceFactory = grid.service.bind(grid);
 		this.template = new TemplateLink($compile, $templateCache);
 		this.vscroll = vscroll;
+
+		this.markup = {
+			document: $document[0]
+		};
 	}
 
 	onLink() {
 		const model = this.model;
-		const table = new Table(model, this.root.markup, this.template);
+		this.pin = this.pin || null;
+		const table = new Table(model, this.markup, this.template);
+		table.pin = this.pin;
 
 		const service = this.serviceFactory(model);
 		const apply = (f, timeout) => {
@@ -52,7 +58,7 @@ class ViewCore extends Component {
 		this.table = new TableView(model);
 		this.head = new HeadView(model, table, TH_CORE_NAME);
 		this.body = new BodyView(model, table);
-		this.foot = new FootView(model);
+		this.foot = new FootView(model, table);
 		this.columns = new ColumnView(model);
 		this.layout = new LayoutView(model, table, service);
 		this.selection = new SelectionView(model, table, apply);
@@ -130,6 +136,7 @@ class ViewCore extends Component {
 ViewCore.$inject = [
 	'$scope',
 	'$element',
+	'$document',
 	'$timeout',
 	'$compile',
 	'$templateCache',
@@ -143,5 +150,8 @@ export default {
 	templateUrl: 'qgrid.view.tpl.html',
 	require: {
 		'root': `^^${GRID_NAME}`
+	},
+	bindings: {
+		'pin': '@'
 	}
 }
