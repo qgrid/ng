@@ -52,12 +52,14 @@
   .q-grid .layout-column > .flex {
     -ms-flex-basis: auto;
     flex-basis: auto; }
+  .q-grid tbody > tr.vscroll-mark {
+    height: 0; }
   .q-grid ::-webkit-scrollbar {
     width: 8px;
     height: 8px; }
   .q-grid ::-webkit-scrollbar-thumb {
-    border-radius: 0;
-    background-color: rgba(0, 0, 0, 0.2);
+    height: 15px;
+    background-color: #c8c8c8;
     -webkit-box-shadow: inset 1px 1px 0 rgba(0, 0, 0, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.07); }
   .q-grid ::-webkit-scrollbar-button {
     width: 0;
@@ -65,10 +67,15 @@
     display: none; }
   .q-grid ::-webkit-scrollbar-corner {
     background-color: transparent; }
+  .q-grid ::-webkit-scrollbar-track,
+  .q-grid ::-webkit-scrollbar-track-piece {
+    background-color: #f8f8f8; }
   .q-grid.q-grid-box {
     height: 100%;
     min-height: 100%;
     max-height: 100%; }
+  .q-grid tbody > tr.vscroll-mark {
+    height: 0; }
   .q-grid table {
     border-spacing: 0;
     overflow: hidden;
@@ -169,6 +176,8 @@
     text-align: right; }
   .q-grid tbody td.q-grid-bool, .q-grid tbody td.q-grid-password, .q-grid tbody td.q-grid-select {
     text-align: center; }
+  .q-grid tbody td.q-grid-dropdown select {
+    width: 100%; }
   .q-grid .q-grid-can-drag {
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -199,3 +208,9 @@
     -ms-user-select: none;
     user-select: none;
     cursor: default; }
+  .q-grid .q-grid-view.q-grid-view-left tbody, .q-grid .q-grid-view.g-grid-view-right tbody {
+    overflow-x: hidden; }
+  .q-grid .q-grid-view.q-grid-view-left tbody {
+    overflow-y: hidden; }
+  .q-grid .q-grid-with-right-pin .q-grid-view-center tbody {
+    overflow-y: hidden; }
