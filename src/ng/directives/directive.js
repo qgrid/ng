@@ -12,9 +12,13 @@ export default function (name, require = {}) {
 
 	class Directive {
 		constructor() {
+			this.$postLink = this.onLink;
 		}
 
 		onInit() {
+		}
+
+		onLink() {
 		}
 
 		static link($scope, $element, $attrs, $ctrls) {

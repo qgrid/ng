@@ -1,5 +1,4 @@
 import Component from '../component';
-import {getFactory as valueFactory, set as setValue} from 'ng/services/value';
 import Table from 'ng/services/dom/table';
 import BodyView from 'core/body/body.view';
 import HeadView from 'core/head/head.view';
@@ -21,9 +20,10 @@ import ScrollView from 'core/scroll/scroll.view';
 import {GRID_NAME, TH_CORE_NAME} from 'ng/definition';
 import {isUndefined} from 'core/services/utility';
 import TemplateLink from '../template/template.link';
+import PipeUnit from 'core/pipe/units/pipe.unit'
 
 class ViewCore extends Component {
-	constructor($scope, $element, $timeout, $compile, $templateCache, grid, vscroll) {
+	constructor($scope, $element, $document, $timeout, $compile, $templateCache, grid, vscroll) {
 		super();
 
 		this.$scope = $scope;
@@ -33,43 +33,81 @@ class ViewCore extends Component {
 		this.serviceFactory = grid.service.bind(grid);
 		this.template = new TemplateLink($compile, $templateCache);
 		this.vscroll = vscroll;
+
+		this.markup = {
+			document: $document[0]
+		};
 	}
 
 	onLink() {
 		const model = this.model;
-		const table = new Table(model, this.root.markup, this.template);
+		this.pin = this.pin || null;
+		const table = new Table(model, this.markup, this.template);
+		table.pin = this.pin;
 
 		const service = this.serviceFactory(model);
 		const apply = (f, timeout) => {
 			if (isUndefined(timeout)) {
-				return this.$scope.$evalAsync(f);
+				this.$scope.$applyAsync(f);
 			}
 
 			return this.$timeout(f, timeout);
 		};
 
-		this.style = new StyleView(model, table, valueFactory);
+		this.style = new StyleView(model, table);
 		this.table = new TableView(model);
 		this.head = new HeadView(model, table, TH_CORE_NAME);
-		this.body = new BodyView(model, table, valueFactory);
-		this.foot = new FootView(model, valueFactory);
+		this.body = new BodyView(model, table);
+		this.foot = new FootView(model, table);
 		this.columns = new ColumnView(model);
 		this.layout = new LayoutView(model, table, service);
 		this.selection = new SelectionView(model, table, apply);
-		this.group = new GroupView(model, valueFactory);
-		this.pivot = new PivotView(model, valueFactory);
+		this.group = new GroupView(model);
+		this.pivot = new PivotView(model);
 		this.highlight = new HighlightView(model, table, apply);
 		this.sort = new SortView(model);
 		this.filter = new FilterView(model);
-		this.edit = new EditView(model, setValue, valueFactory, table, apply);
+		this.edit = new EditView(model, table, apply);
 		this.nav = new NavigationView(model, table, apply);
 		this.pagination = new PaginationView(model);
-		this.scroll = new ScrollView(model, table, this.vscroll, apply);
+		this.scroll = new ScrollView(model, table, this.vscroll, service, apply);
 
 		// TODO: how we can avoid that?
-		this.$scope.$watch(() => {
-			this.style.invalidate();
+		this.$scope.$watch(this.style.invalidate.bind(this.style));
+
+		model.selectionChanged.watch(e => {
+			if (e.hasChanges('entries')) {
+				this.root.onSelectionChanged({
+					$event: {
+						state: model.selection(),
+						changes: e.changes
+					}
+				});
+			}
+
+			if (e.hasChanges('unit') || e.hasChanges('mode')) {
+				service.invalidate('selection', e.changes, PipeUnit.column);
+			}
 		});
+
+		const triggers = model.data().triggers;
+
+		// TODO: think about invalidation queue
+		let needInvalidate = true;
+		Object.keys(triggers)
+			.forEach(name =>
+				model[name + 'Changed']
+					.watch(e => {
+						const changes = Object.keys(e.changes);
+						if (e.tag.behavior !== 'core' && triggers[name].find(key => changes.indexOf(key) >= 0)) {
+							needInvalidate = false;
+							service.invalidate(name, e.changes);
+						}
+					}));
+
+		if (needInvalidate) {
+			service.invalidate('grid');
+		}
 	}
 
 	onDestroy() {
@@ -98,6 +136,7 @@ class ViewCore extends Component {
 ViewCore.$inject = [
 	'$scope',
 	'$element',
+	'$document',
 	'$timeout',
 	'$compile',
 	'$templateCache',
@@ -111,5 +150,8 @@ export default {
 	templateUrl: 'qgrid.view.tpl.html',
 	require: {
 		'root': `^^${GRID_NAME}`
+	},
+	bindings: {
+		'pin': '@'
 	}
 }

@@ -14,6 +14,12 @@ import PivotColumn from 'core/column-type/pivot.column';
 import RowNumberColumn from 'core/column-type/row.number.column';
 import RowIndicatorColumn from 'core/column-type/row.indicator.column';
 import PadColumn from 'core/column-type/pad.column';
+import TimeColumn from 'core/column-type/time.column';
+import UrlColumn from 'core/column-type/url.column';
+import FileColumn from 'core/column-type/file.column';
+import ImageColumn from 'core/column-type/image.column';
+import ReferenceColumn from 'core/column-type/reference.column';
+import IdColumn from 'core/column-type/id.column';
 
 function merge(target, source) {
 	if (target && source) {
@@ -39,12 +45,18 @@ export default function (model) {
 		'row-number': RowNumberColumn,
 		'row-indicator': RowIndicatorColumn,
 		'pad': PadColumn,
+		'time': TimeColumn,
+		'url': UrlColumn,
+		'file': FileColumn,
+		'image': ImageColumn,
+		'reference': ReferenceColumn,
+		'id': IdColumn,
 		'custom': CustomColumn
 	};
 
 	const create = (entityType, columnType, body) => {
 		const Type = columnMap[entityType];
-		const settings = columnList().columns[columnType];
+		const settings = columnList().reference[columnType];
 		body = merge(body, settings);
 
 		const model = Type.model(body);

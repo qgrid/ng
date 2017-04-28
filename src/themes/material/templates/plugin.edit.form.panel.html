@@ -1,0 +1,18 @@
+<div class="q-grid-edit-form-panel" layout="column">
+	<div flex="90" class="q-grid-edit-form-panel-body">
+		<q-grid:edit-form-body
+			row="$editFormPanel.row"
+			register="$editFormPanel.register">
+			register="$editFormPanel.register">
+		</q-grid:edit-form-body>
+	</div>
+	<div flex="10" class="q-grid-edit-form-panel-actions">
+		<md-button class="md-primary"
+					  ng-click="$editFormPanel.submit.execute()">
+			Submit
+		</md-button>
+		<md-button ng-click="$editFormPanel.cancel.execute()">
+			Cancel
+		</md-button>
+	</div>
+</div>

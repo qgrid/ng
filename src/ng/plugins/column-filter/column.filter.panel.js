@@ -1,7 +1,7 @@
 import PluginComponent from '../plugin.component';
 import Command from 'core/infrastructure/command';
 import {uniq, clone, noop} from 'core/services/utility';
-import {getFactory as valueFactory} from 'ng/services/value';
+import {getFactory as valueFactory} from 'core/services/value';
 import * as columnService from 'core/column/column.service';
 
 const Plugin = PluginComponent('column-filter-panel', {inject: ['vscroll', '$filter', 'qgrid']});

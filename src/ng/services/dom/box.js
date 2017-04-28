@@ -2,33 +2,36 @@ import Layer from './layer';
 import Row from './row';
 import Column from './column';
 import Cell from './cell';
+import {ElementCore} from './element';
+import AppError from 'core/infrastructure/error';
 
-class BoxCore {
+class BoxCore extends ElementCore {
 	constructor() {
+		super();
 	}
 
 	column() {
-		return {
-			cells: () => {
-				return [];
-			}
-		};
+		return Column.empty
 	}
 
 	row() {
-		return {
-			cells: () => {
-				return [];
-			}
-		};
+		return Row.empty
 	}
 
 	rows() {
 		return [];
 	}
 
+	rowCount() {
+		return 0;
+	}
+
+	columnCount() {
+		return 0;
+	}
+
 	cell() {
-		return null;
+		return Cell.empty;
 	}
 
 	addLayer() {
@@ -45,20 +48,23 @@ class BoxCore {
 	scrollTop() {
 		return 0;
 	}
+
 }
+const empty = new BoxCore();
 
 export default class Box extends BoxCore {
-	constructor(document, element, template) {
+	constructor(document, element, template, name) {
 		super();
 
 		this.document = document;
 		this.element = element;
 		this.template = template;
 		this.layers = new Map();
+		this.name = name;
 	}
 
 	static get empty() {
-		return new BoxCore();
+		return empty;
 	}
 
 	column(index) {
@@ -71,7 +77,7 @@ export default class Box extends BoxCore {
 				}
 			}
 		}
-		return null;
+		return Column.empty;
 	}
 
 	row(index) {
@@ -81,7 +87,7 @@ export default class Box extends BoxCore {
 				return new Row(rows[index]);
 			}
 		}
-		return null;
+		return Row.empty;
 	}
 
 	rows() {
@@ -112,7 +118,7 @@ export default class Box extends BoxCore {
 				}
 			}
 		}
-		return null;
+		return Cell.empty;
 	}
 
 	addLayer(name) {
@@ -125,7 +131,16 @@ export default class Box extends BoxCore {
 		node.classList.add(name);
 		this.element.appendChild(node);
 
-		const layer = new Layer(node, this.template);
+		const ctrl = angular.element(this.element).controller(this.name);
+		if (!ctrl) {
+			throw new AppError('box', 'Controller for box is not found')
+		}
+
+		if(!ctrl.$scope){
+			throw new AppError('box', 'Controller scope for box is not found')
+		}
+
+		const layer = new Layer(ctrl.$scope, node, this.template);
 		layers.set(name, layer);
 		return layer;
 	}
@@ -158,5 +173,9 @@ export default class Box extends BoxCore {
 		}
 
 		this.element.scrollTop = value;
+	}
+
+	rect() {
+		return this.element.getBoundingClientRect();
 	}
 }

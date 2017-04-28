@@ -26,5 +26,6 @@ export default {
 	controllerAs: '$focus',
 	controller: Focus,
 	require: Focus.require,
-	link: Focus.link
+	link: Focus.link,
+	scope: false
 };

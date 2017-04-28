@@ -7,6 +7,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	constructor($scope, $element, $document) {
 		super();
 
+		// this.$scope should be set cause it used by box.js
 		this.$scope = $scope;
 		this.element = $element[0];
 		this.document = $document[0];
@@ -28,6 +29,9 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 			left: element.scrollLeft,
 			width: element.scrollWidth,
 			height: element.scrollHeight
+		}, {
+			source: 'body.core',
+			pin: this.view.pin
 		});
 	}
 
@@ -49,7 +53,8 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 		if (cell) {
 			this.navigate(cell);
 
-			if (this.view.edit.cell.enter.canExecute(cell)) {
+			if (cell.column.editorOptions.trigger === 'click'
+				&& this.view.edit.cell.enter.canExecute(cell)) {
 				this.$scope.$evalAsync(() => this.view.edit.cell.enter.execute(cell));
 			}
 

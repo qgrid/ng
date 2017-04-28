@@ -11,8 +11,6 @@ export default class SelectionView extends View {
 		super(model);
 
 		this.table = table;
-		const markup = table.markup;
-		this.markup = markup;
 		this.apply = apply;
 
 		this.selectionState = stateFactory(model);
@@ -48,11 +46,12 @@ export default class SelectionView extends View {
 			if (e.hasChanges('mode')) {
 				apply(() => {
 					const newClassName = `${GRID_PREFIX}-select-${model.selection().mode}`;
-					this.markup.view.classList.add(newClassName);
+					const view = table.view;
+					view.addClass(newClassName);
 
 					if (e.changes.mode.oldValue != e.changes.mode.newValue) {
 						const oldClassName = `${GRID_PREFIX}-select-${e.changes.mode.oldValue}`;
-						this.markup.view.classList.remove(oldClassName);
+						view.removeClass(oldClassName);
 					}
 				});
 			}
@@ -76,6 +75,7 @@ export default class SelectionView extends View {
 
 	get commands() {
 		const model = this.model;
+		const table = this.table;
 		const commands = {
 			toggleRow: new Command({
 				execute: (item, state) => {
@@ -140,7 +140,7 @@ export default class SelectionView extends View {
 				execute: () => {
 					const index = model.navigation().column;
 					const entries = Array.from(model.selection().entries);
-					const columns = this.table.data.columns();
+					const columns = table.data.columns();
 					const column = columns[index].key;
 					this.select([...entries, column]);
 				},
@@ -149,7 +149,7 @@ export default class SelectionView extends View {
 			toggleNextColumn: new Command({
 				shortcut: 'shift+right',
 				execute: () => {
-					const columns = this.table.data.columns();
+					const columns = table.data.columns();
 					const index = model.navigation().column + 1;
 					const column = columns[index].key;
 
@@ -157,12 +157,13 @@ export default class SelectionView extends View {
 
 					model.navigation({column: index}, {source: 'selection'});
 				},
-				canExecute: () => model.selection().unit === 'column' && model.navigation().column < this.table.data.columns().length - 1
+				canExecute: () => model.selection().unit === 'column'
+				&& model.navigation().column < table.data.columns().length - 1
 			}),
 			togglePrevColumn: new Command({
 				shortcut: 'shift+left',
 				execute: () => {
-					const columns = this.table.data.columns();
+					const columns = table.data.columns();
 					const index = model.navigation().column - 1;
 					const column = columns[index].key;
 

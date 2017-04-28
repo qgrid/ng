@@ -1,11 +1,39 @@
-import Element from './element';
 import Cell from './cell';
+import {Element, ElementCore} from './element';
 
+
+class ColumnCore extends ElementCore {
+	constructor() {
+		super();
+	}
+
+	cells() {
+		return [];
+	}
+
+	cell() {
+		return Cell.empty;
+	}
+
+	cellCount() {
+		return 0;
+	}
+
+	_rows() {
+		return [];
+	}
+}
+
+const empty = new ColumnCore();
 export default class Column extends Element {
 	constructor(element, index) {
 		super();
 		this.element = element;
 		this.index = index;
+	}
+
+	static get empty() {
+		return empty;
 	}
 
 	cells() {
@@ -25,7 +53,7 @@ export default class Column extends Element {
 			const row = rows[row];
 			return new Cell(row.cells[this.index]);
 		}
-		return null;
+		return Cell.empty;
 	}
 
 	cellCount() {

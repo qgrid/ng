@@ -10,6 +10,7 @@ import Toolbar from './components/toolbar/toolbar';
 import Drag from './components/dnd/drag';
 import Drop from './components/dnd/drop';
 import Layer from './components/layer/layer';
+import CellValue from './components/cell/cell.value';
 
 import BoxCore from './components/grid/box.core';
 import ViewCore from './components/view/view.core';
@@ -26,6 +27,9 @@ import Indeterminate from './directives/indeterminate';
 import Focus from './directives/focus';
 import Resize from './directives/resize';
 import Markup from './directives/markup';
+import FileUpload from './directives/file.upload';
+import Raise from './directives/raise';
+import Animate from './directives/animate';
 
 import ThemeProvider from './services/theme';
 import Range from './filters/range';
@@ -40,10 +44,17 @@ const coreModule = angular.module(def.MODULE_CORE_NAME, [])
 	.directive(def.INDETERMINATE_NAME, () => Indeterminate)
 	.directive(def.FOCUS_NAME, () => Focus)
 	.directive(def.RESIZE_NAME, () => Resize)
+	.directive(def.FILE_UPLOAD_NAME, () => FileUpload)
+	.directive(def.RAISE_NAME, () => Raise)
+	.directive(def.CELL_VALUE_NAME, () => CellValue)
+	.directive(def.ANIMATE_NAME, () => Animate)
 	.provider(def.THEME_NAME, () => new ThemeProvider())
 	.service(def.TEMPLATE_PATH_NAME, () => () => TemplatePath)
 	.filter(def.RANGE_NAME, () => Range)
 	.filter(def.HIGHLIGHT_NAME, () => Highlight)
+	.config(['$compileProvider',
+		$compileProvider => $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|tel|file|data):/)
+	])
 	.name;
 
 import pluginModule from './plugins';
@@ -115,6 +126,7 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.foot.cell.text.tpl.html', require('./components/cell/text/foot.cell.text.html'));
 		theme.put('qgrid.body.cell.text.edit.tpl.html', require('./components/cell/text/body.cell.text.edit.html'));
 		theme.put('qgrid.body.cell.text-area.edit.tpl.html', require('./components/cell/text/body.cell.text.edit.html'));
+		theme.put('qgrid.form.cell.text.edit.tpl.html', EMPTY);
 
 		theme.put('qgrid.head.cell.row-number.tpl.html', require('./components/cell/row-number/head.cell.row.number.html'));
 		theme.put('qgrid.body.cell.row-number.tpl.html', require('./components/cell/row-number/body.cell.row.number.html'));
@@ -140,7 +152,7 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.body.cell.bool.edit.tpl.html', require('./components/cell/bool/body.cell.bool.edit.html'));
 
 		theme.put('qgrid.head.cell.number.tpl.html', require('./components/cell/text/head.cell.text.html'));
-		theme.put('qgrid.body.cell.number.tpl.html', require('./components/cell/text/body.cell.text.html'));
+		theme.put('qgrid.body.cell.number.tpl.html', require('./components/cell/number/body.cell.number.html'));
 		theme.put('qgrid.foot.cell.number.tpl.html', require('./components/cell/text/foot.cell.text.html'));
 		theme.put('qgrid.body.cell.number.edit.tpl.html', require('./components/cell/number/body.cell.number.edit.html'));
 
@@ -154,8 +166,41 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.foot.cell.email.tpl.html', require('./components/cell/text/foot.cell.text.html'));
 		theme.put('qgrid.body.cell.email.edit.tpl.html', require('./components/cell/text/body.cell.text.edit.html'));
 
+		theme.put('qgrid.head.cell.time.tpl.html', require('./components/cell/text/head.cell.text.html'));
+		theme.put('qgrid.body.cell.time.tpl.html', require('./components/cell/time/body.cell.time.html'));
+		theme.put('qgrid.foot.cell.time.tpl.html', require('./components/cell/text/foot.cell.text.html'));
+		theme.put('qgrid.body.cell.time.edit.tpl.html', require('./components/cell/time/body.cell.time.edit.html'));
+
+		theme.put('qgrid.head.cell.url.tpl.html', require('./components/cell/text/head.cell.text.html'));
+		theme.put('qgrid.body.cell.url.tpl.html', require('./components/cell/url/body.cell.url.html'));
+		theme.put('qgrid.foot.cell.url.tpl.html', require('./components/cell/text/foot.cell.text.html'));
+		theme.put('qgrid.body.cell.url.edit.tpl.html', require('./components/cell/url/body.cell.url.edit.html'));
+
+		theme.put('qgrid.head.cell.file.tpl.html', require('./components/cell/text/head.cell.text.html'));
+		theme.put('qgrid.body.cell.file.tpl.html', require('./components/cell/file/body.cell.file.html'));
+		theme.put('qgrid.foot.cell.file.tpl.html', require('./components/cell/text/foot.cell.text.html'));
+		theme.put('qgrid.body.cell.file.edit.tpl.html', require('./components/cell/file/body.cell.file.edit.html'));
+
+		theme.put('qgrid.head.cell.image.tpl.html', require('./components/cell/text/head.cell.text.html'));
+		theme.put('qgrid.body.cell.image.tpl.html', require('./components/cell/image/body.cell.image.html'));
+		theme.put('qgrid.foot.cell.image.tpl.html', require('./components/cell/text/foot.cell.text.html'));
+		theme.put('qgrid.body.cell.image.edit.tpl.html', require('./components/cell/image/body.cell.image.edit.html'));
+
+		theme.put('qgrid.head.cell.reference.tpl.html', require('./components/cell/text/head.cell.text.html'));
+		theme.put('qgrid.body.cell.reference.tpl.html', require('./components/cell/reference/body.cell.reference.html'));
+		theme.put('qgrid.foot.cell.reference.tpl.html', require('./components/cell/text/foot.cell.text.html'));
+		theme.put('qgrid.body.cell.reference.edit.tpl.html', require('./components/cell/reference/body.cell.reference.edit.html'));
+
+		theme.put('qgrid.head.cell.id.tpl.html', require('./components/cell/text/head.cell.text.html'));
+		theme.put('qgrid.body.cell.id.tpl.html', require('./components/cell/text/body.cell.text.html'));
+		theme.put('qgrid.foot.cell.id.tpl.html', require('./components/cell/text/foot.cell.text.html'));
+		theme.put('qgrid.body.cell.id.edit.tpl.html', require('./components/cell/text/body.cell.text.edit.html'));
+
 		theme.put('qgrid.head.cell.select.tpl.html', require('./components/cell/select/head.cell.select.html'));
 		theme.put('qgrid.body.cell.select.tpl.html', require('./components/cell/select/body.cell.select.html'));
 		theme.put('qgrid.foot.cell.select.tpl.html', EMPTY);
+
+		theme.put('qgrid.body.cell.dropdown.edit.tpl.html', require('./components/cell/dropdown/body.cell.dropdown.edit.html'));
+		theme.put('qgrid.body.cell.autocomplete.edit.tpl.html', require('./components/cell/autocomplete/body.cell.autocomplete.edit.html'));
 	});
 }
