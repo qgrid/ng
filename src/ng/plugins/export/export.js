@@ -2,6 +2,17 @@ import PluginComponent from '../plugin.component';
 import {EXPORT_NAME} from '../definition';
 import Command from 'core/infrastructure/command';
 import TemplatePath from 'core/template/template.path';
+// import {get as valueFactory} from 'core/services/value';
+function iterate(obj) {
+	for (let property of obj) {
+		if (obj.hasOwnProperty(property)) {
+			if (typeof obj[property] == "object")
+				iterate(obj[property]);
+			else
+				console.log(property + "   " + obj[property]);
+		}
+	}
+}
 
 TemplatePath
 	.register(EXPORT_NAME, () => {
@@ -33,7 +44,12 @@ class Export extends Plugin {
 	}
 
 	_toCsv() {
-		return this.columns.map(column => column.title).join(",");
+		let result = '';
+		const head = this.columns.map(column => {
+			return column.title
+		}).join(",");
+		iterate(this.rows[0]);
+		return result + head;
 	}
 
 	_download(csv) {
