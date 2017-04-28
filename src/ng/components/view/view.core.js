@@ -59,7 +59,7 @@ class ViewCore extends Component {
 		this.head = new HeadView(model, table, TH_CORE_NAME);
 		this.body = new BodyView(model, table);
 		this.foot = new FootView(model, table);
-		this.columns = new ColumnView(model);
+		this.columns = new ColumnView(model, service);
 		this.layout = new LayoutView(model, table, service);
 		this.selection = new SelectionView(model, table, apply);
 		this.group = new GroupView(model);
