@@ -576,6 +576,9 @@
     min-height: 16px;
     min-width: 16px; }
 
+.q-grid.q-grid-theme-material td.q-grid-select md-checkbox .md-label, .q-grid.q-grid-theme-material th.q-grid-select md-checkbox .md-label {
+  display: none; }
+
 .q-grid.q-grid-theme-material td.q-grid-edit {
   overflow: visible !important; }
   .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor {

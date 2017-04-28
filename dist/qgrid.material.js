@@ -233,7 +233,7 @@ module.exports = "<md-icon>keyboard_arrow_right</md-icon>"
 /***/ 150:
 /***/ (function(module, exports) {
 
-module.exports = "<md-checkbox md-indeterminate=\"$view.selection.isIndeterminate($row)\"\n             ng-checked=\"$view.selection.state($row)\"\n             ng-click=\"$view.selection.toggleRow.execute($row)\"\n             ng-disabled=\"!$view.selection.toggleRow.canExecute($row)\"\n             aria-label=\"Selection\"/>\n"
+module.exports = "<md-checkbox md-indeterminate=\"$view.selection.isIndeterminate($row)\"\n\t\t\t\t ng-checked=\"$view.selection.state($row)\"\n\t\t\t\t ng-click=\"$view.selection.toggleRow.execute($row)\"\n\t\t\t\t ng-disabled=\"!$view.selection.toggleRow.canExecute($row)\"\n\t\t\t\t aria-label=\"Selection\">\n</md-checkbox>\n"
 
 /***/ }),
 
