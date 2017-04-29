@@ -1,18 +1,15 @@
 import PluginComponent from '../plugin.component';
 import Command from 'core/infrastructure/command';
+import RowEditor from 'core/edit/edit.row.editor';
 
 const Plugin = PluginComponent('edit-form-panel', {inject: []});
 class EditFormPanel extends Plugin {
 	constructor() {
 		super(...arguments);
 
-		this.editors = [];
-
-		this.register = editor => this.editors.push(editor);
-
 		this.submit = new Command({
 			execute: () => {
-				this.editors.forEach(e => e.commit());
+				this.editor.editors.forEach(e => e.commit());
 				this.onSubmit()
 			}
 		});
@@ -23,18 +20,14 @@ class EditFormPanel extends Plugin {
 
 		this.reset = new Command({
 			execute: () => {
-				this.editors.forEach(e => e.reset());
+				this.editor.editors.forEach(e => e.reset());
 				this.onReset()
 			}
 		});
 	}
 
-	onDestroy() {
-		this.editors = [];
-	}
-
-	register(editor) {
-		this.editors.push(editor);
+	onInit(){
+		this.editor = new RowEditor(this.row, this.model.data().columns);
 	}
 }
 
@@ -44,7 +37,7 @@ export default EditFormPanel.component({
 	bindings: {
 		'onSubmit': '&',
 		'onCancel': '&',
-		'key': '<',
+		'onReset': '&',
 		'row': '<'
 	}
 });
