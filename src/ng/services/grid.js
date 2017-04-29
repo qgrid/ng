@@ -44,7 +44,7 @@ export default class Grid {
 	}
 
 	get labelFactory() {
-		return labelFactory();
+		return labelFactory;
 	}
 }
 
