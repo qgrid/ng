@@ -5,7 +5,8 @@ import PipeUnit from 'core/pipe/units/pipe.unit';
 import Log from 'core/infrastructure/log';
 import Command from 'core/infrastructure/command';
 import {noop} from 'core/services/utility';
-import {getFactory} from 'core/services/value';
+import {getFactory as valueFactory} from 'core/services/value';
+import {getFactory as labelFactory} from 'core/services/label';
 
 export default class Grid {
 	constructor($rootScope) {
@@ -23,7 +24,7 @@ export default class Grid {
 			$rootScope.$evalAsync(noop);
 		};
 
-		return new GridService(model, getFactory, apply);
+		return new GridService(model, apply);
 	}
 
 	get pipe() {
@@ -36,6 +37,14 @@ export default class Grid {
 
 	get Command() {
 		return Command;
+	}
+
+	get valueFactory() {
+		return valueFactory;
+	}
+
+	get labelFactory() {
+		return labelFactory();
 	}
 }
 

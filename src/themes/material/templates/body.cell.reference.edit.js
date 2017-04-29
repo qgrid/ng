@@ -10,7 +10,7 @@ export default function ReferenceEdit($scope, qgrid) {
 		}
 	};
 
-	const options = this.cell().options();
+	const options = this.cell().options;
 
 	this.gridModel = (options && options.modelFactory && options.modelFactory()) || qgrid.model();
 	this.commit = ($cell, $event) => {

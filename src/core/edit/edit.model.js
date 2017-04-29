@@ -5,7 +5,7 @@ export default class EditModel {
 	constructor() {
 		this.resource = new Resource();
 		this.mode = null; // cell | row
-		this.editMode = 'view'; // edit
+		this.state = 'view'; // view | edit
 		this.enter = new Command();
 		this.commit = new Command();
 		this.cancel = new Command();

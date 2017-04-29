@@ -1,5 +1,5 @@
 import {cloneDeep} from 'core/services/utility';
-import CellEditor from './edit.cell.unit';
+import CellEditor from './edit.cell.editor';
 
 export default class RowEditor {
 	constructor(row, columns) {
