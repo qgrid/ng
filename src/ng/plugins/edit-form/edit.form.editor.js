@@ -10,9 +10,16 @@ class EditFormBody extends Plugin {
 	onInit() {
 		const build = cellBuilder(this.template, 'edit');
 		const link = build('form', this.model, this.editor.cell.column);
-		const templateScope = this.$scope.$new();
-		templateScope.$editor = this.editor;
-		link(this.$element, templateScope);
+		this.templateScope = this.$scope.$new();
+		this.templateScope.$editor = this.editor;
+		link(this.$element, this.templateScope);
+	}
+
+	onDestroy(){
+		if(this.templateScope){
+			this.templateScope.$destroy();
+			this.templateScope = null;
+		}
 	}
 }
 
