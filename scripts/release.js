@@ -23,7 +23,8 @@ function main() {
 	shell.exec(`git commit -m "Release ${version}"`);
 	shell.exec(`git tag ${version}`);
 
-	shell.exec(`git push --follow-tags`);
+	shell.exec(`git push`);
+	shell.exec(`git push origin ${version}`);
 
 	shell.exec(`npm publish`);
 
