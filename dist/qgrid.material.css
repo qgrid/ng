@@ -848,6 +848,8 @@
   .q-grid.q-grid-theme-material .q-grid-edit-form-panel .q-grid-edit-form-reference {
     height: 300px;
     margin-bottom: 40px; }
+  .q-grid.q-grid-theme-material .q-grid-edit-form-panel .q-grid-edit-form-panel-actions {
+    margin-bottom: -20px; }
   .q-grid.q-grid-theme-material .q-grid-edit-form-panel md-input-container {
     margin: 0;
     width: 100%; }

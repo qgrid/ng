@@ -90,7 +90,7 @@ function ReferenceEdit($scope, qgrid) {
 		}
 	};
 
-	var options = this.cell().options();
+	var options = this.cell().options;
 
 	this.gridModel = options && options.modelFactory && options.modelFactory() || qgrid.model();
 	this.commit = function ($cell, $event) {
@@ -282,7 +282,7 @@ module.exports = "<div class=\"q-grid-editor q-grid-number\">\n\t<md-input-conta
 /***/ 157:
 /***/ (function(module, exports) {
 
-module.exports = "<h4 class=\"md-title\" style=\"margin:0\">{{$editor.column.title}}</h4>\n<div ng-cloak\n\t  layout=\"column\"\n\t  ng-controller=\"Body.Cell.Reference.Edit.Controller as $ctrl\">\n\t<q-grid class=\"q-grid-edit-form-reference\" model=\"$ctrl.gridModel\">\n\t\t<q-grid:columns>\n\t\t</q-grid:columns>\n\t\t<q-grid:toolbar>\n\t\t\t<q-grid:template for=\"top\">\n\t\t\t\t<div class=\"q-grid-progress\">\n\t\t\t\t\t<q-grid:progress></q-grid:progress>\n\t\t\t\t</div>\n\t\t\t</q-grid:template>\n\t\t\t<q-grid:template for=\"bottom\">\n\t\t\t</q-grid:template>\n\t\t</q-grid:toolbar>\n\t</q-grid>\n</div>"
+module.exports = "<h4 class=\"md-title\" style=\"margin:0\" ng-bind=\"$editor.cell.column.title\"></h4>\n<div ng-cloak\n\t  layout=\"column\"\n\t  ng-controller=\"Body.Cell.Reference.Edit.Controller as $ctrl\">\n\t<q-grid class=\"q-grid-edit-form-reference\" model=\"$ctrl.gridModel\">\n\t\t<q-grid:columns>\n\t\t</q-grid:columns>\n\t\t<q-grid:toolbar>\n\t\t\t<q-grid:template for=\"top\">\n\t\t\t\t<div class=\"q-grid-progress\">\n\t\t\t\t\t<q-grid:progress></q-grid:progress>\n\t\t\t\t</div>\n\t\t\t</q-grid:template>\n\t\t\t<q-grid:template for=\"bottom\">\n\t\t\t</q-grid:template>\n\t\t</q-grid:toolbar>\n\t</q-grid>\n</div>"
 
 /***/ }),
 
@@ -324,7 +324,7 @@ module.exports = "<div class=\"q-grid-column-filter-panel\" layout=\"column\" fl
 /***/ 163:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"q-grid-edit-form-panel\" layout=\"column\">\n\t<div flex=\"90\" class=\"q-grid-edit-form-panel-body\">\n\t\t<q-grid:edit-form-body\n\t\t\trow=\"$editFormPanel.row\"\n\t\t\tregister=\"$editFormPanel.register\">\n\t\t\tregister=\"$editFormPanel.register\">\n\t\t</q-grid:edit-form-body>\n\t</div>\n\t<div flex=\"10\" class=\"q-grid-edit-form-panel-actions\">\n\t\t<md-button class=\"md-primary\"\n\t\t\t\t\t  ng-click=\"$editFormPanel.submit.execute()\">\n\t\t\tSubmit\n\t\t</md-button>\n\t\t<md-button ng-click=\"$editFormPanel.cancel.execute()\">\n\t\t\tCancel\n\t\t</md-button>\n\t</div>\n</div>"
+module.exports = "<div class=\"q-grid-edit-form-panel\" layout=\"column\">\n\t<div flex layout=\"column\" class=\"q-grid-edit-form-panel-body\">\n\t\t<div ng-repeat=\"editor in $editFormPanel.editor.editors\">\n\t\t\t<q-grid:edit-form-editor editor=\"editor\"></q-grid:edit-form-editor>\n\t\t</div>\n\t</div>\n\t<div flex=\"none\" class=\"q-grid-edit-form-panel-actions\">\n\t\t<md-button class=\"md-primary\"\n\t\t\t\t\t  ng-click=\"$editFormPanel.submit.execute()\">\n\t\t\tSubmit\n\t\t</md-button>\n\t\t<md-button ng-click=\"$editFormPanel.cancel.execute()\">\n\t\t\tCancel\n\t\t</md-button>\n\t</div>\n</div>"
 
 /***/ }),
 
@@ -400,7 +400,7 @@ function Setup(qgridThemeProvider) {
 	qgridThemeProvider.register('material', function (theme) {
 		theme.put('qgrid.plugin.progress.tpl.html', __webpack_require__(168));
 
-		theme.put('qgrid.body.cell.text.edit.tpl.html', __webpack_require__(62));
+		theme.put('qgrid.body.cell.text.edit.tpl.html', __webpack_require__(63));
 		theme.put('qgrid.body.cell.text-area.edit.tpl.html', __webpack_require__(151));
 		theme.put('qgrid.body.cell.bool.edit.tpl.html', __webpack_require__(137));
 		theme.put('qgrid.body.cell.date.edit.tpl.html', __webpack_require__(139));
@@ -416,14 +416,14 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.body.cell.email.tpl.html', __webpack_require__(142));
 		theme.put('qgrid.body.cell.email.edit.tpl.html', __webpack_require__(141));
 		theme.put('qgrid.body.cell.file.tpl.html', __webpack_require__(143));
-		theme.put('qgrid.body.cell.file.edit.tpl.html', __webpack_require__(61));
+		theme.put('qgrid.body.cell.file.edit.tpl.html', __webpack_require__(62));
 		theme.put('qgrid.body.cell.image.tpl.html', __webpack_require__(144));
-		theme.put('qgrid.body.cell.image.edit.tpl.html', __webpack_require__(61));
+		theme.put('qgrid.body.cell.image.edit.tpl.html', __webpack_require__(62));
 		theme.put('qgrid.body.cell.reference.tpl.html', __webpack_require__(148));
 		theme.put('qgrid.body.cell.reference.edit.tpl.html', __webpack_require__(147));
 		theme.put('qgrid.body.cell.dropdown.edit.tpl.html', __webpack_require__(140));
 		theme.put('qgrid.body.cell.autocomplete.edit.tpl.html', __webpack_require__(136));
-		theme.put('qgrid.body.cell.id.edit.tpl.html', __webpack_require__(62));
+		theme.put('qgrid.body.cell.id.edit.tpl.html', __webpack_require__(63));
 
 		theme.put('qgrid.head.cell.text.tpl.html', __webpack_require__(4));
 		theme.put('qgrid.head.cell.bool.tpl.html', __webpack_require__(4));
@@ -469,14 +469,14 @@ module.exports = "<div ng-click=\"$view.sort.toggle.execute($cell.column)\"\n\t 
 
 /***/ }),
 
-/***/ 61:
+/***/ 62:
 /***/ (function(module, exports) {
 
 module.exports = "<div ng-cloak class=\"q-grid-editor q-grid-file\">\n\t<h2 class=\"md-title\">Edit {{::$cell.column.title}}</h2>\n\t<div layout=\"column\" flex>\n\t\t<div class=\"q-grid-file-upload-area\"\n\t\t\t  ng-class=\"{'q-grid-file-has-preview': $cell.column.hasPreview($view.edit.cell.label)}\">\n\t\t\t<div class=\"q-grid-file-upload-message\" layout=\"column\"\n\t\t\t\t  ng-switch=\"!!$view.edit.cell.value\">\n\t\t\t\t<span class=\"q-grid-file-upload-filename\"\n\t\t\t\t\t\tng-switch-when=\"true\">{{$view.edit.cell.label}}</span>\n\t\t\t\t<div layout=\"row\" layout-align=\"center center\">\n\t\t\t\t\t<md-icon>file_upload</md-icon>\n\t\t\t\t\t<span ng-switch-when=\"false\">Drag and drop a file here or click</span>\n\t\t\t\t\t<span ng-switch-when=\"true\">Drag and drop or click to replace </span>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<input q-grid:file-upload=\"$view.edit.cell.value\"\n\t\t\t\t\t q-grid:file-upload-label=\"$view.edit.cell.label\"\n\t\t\t\t\t q-grid:can-upload=\"cell.column.canUpload($event)\"\n\t\t\t\t\t type=\"file\"></input>\n\t\t\t<div class=\"q-grid-file-preview\"\n\t\t\t\t  ng-if=\"$cell.column.hasPreview($view.edit.cell.label)\">\n\t\t\t\t<img ng-src=\"{{$view.edit.cell.value}}\"/>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n\t<div class=\"q-grid-actions\">\n\t\t<md-button class=\"md-primary md-confirm-button\" ng-click=\"$view.edit.cell.commit.execute($cell, $event)\">Save\n\t\t</md-button>\n\t\t<md-button class=\"md-primary md-cancel-button\" ng-click=\"$view.edit.cell.cancel.execute($cell, $event)\">Cancel\n\t\t</md-button>\n\t</div>\n</div>"
 
 /***/ }),
 
-/***/ 62:
+/***/ 63:
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"q-grid-editor q-grid-text\">\n\t<md-input-container>\n\t\t<input type=\"text\"\n\t\t\t\t q-grid:focus\n\t\t\t\t ng-blur=\"$view.edit.cell.commit.execute($cell)\"\n\t\t\t\t ng-model=\"$view.edit.cell.value\"\n\t\t\t\t md-maxlength=\"{{::$cell.column.maxLength}}\" />\n\t</md-input-container>\n</div>"
