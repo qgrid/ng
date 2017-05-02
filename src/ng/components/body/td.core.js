@@ -86,7 +86,7 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	set value(value) {
 		const column = this.column;
 		const row = this.row;
-		this.view.edit.cell.setValue(row, column, value);
+		this.view.body.value(row, column, value);
 	}
 
 	get label() {
@@ -98,7 +98,7 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	set label(label) {
 		const column = this.column;
 		const row = this.row;
-		this.view.edit.cell.setLabel(row, column, label);
+		this.view.body.label(row, column, label);
 	}
 
 	get rowIndex() {

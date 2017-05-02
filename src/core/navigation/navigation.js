@@ -144,7 +144,7 @@ export default class Navigation {
 		const model = this.model;
 		const table = this.table;
 		const nav = model.navigation;
-		const canExecute = () => model.edit().editMode === 'view';
+		const canExecute = () => model.edit().state === 'view';
 
 		const commands = {
 			goDown: new Command({

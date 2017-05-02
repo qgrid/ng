@@ -13,7 +13,7 @@ class Markup extends Directive(MARKUP_NAME, {view: `^${VIEW_CORE_NAME}`}) {
 	}
 
 	onDestroy() {
-
+		delete this.view.markup[this.name];
 	}
 }
 
