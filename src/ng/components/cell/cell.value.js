@@ -2,6 +2,7 @@ import Directive from 'ng/directives/directive';
 import {CELL_VALUE_NAME} from 'ng/definition';
 
 const isDate = angular.isDate;
+const isArray = angular.isArray;
 const toJson = angular.toJson;
 const hasCustomToString = angular.hasCustomToString;
 
