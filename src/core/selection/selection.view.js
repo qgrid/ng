@@ -7,16 +7,16 @@ import {GRID_PREFIX} from 'core/definition';
 import {isUndefined} from 'core/services/utility';
 
 export default class SelectionView extends View {
-	constructor(model, table, apply) {
+	constructor(model, table, applyFactory) {
 		super(model);
 
 		this.table = table;
-		this.apply = apply;
+		this.apply = applyFactory('async');
 
 		this.selectionState = stateFactory(model);
 		this.buildRange = rangeBuilder(model);
 
-		const shortcut = new Shortcut(table, apply);
+		const shortcut = new Shortcut(table, applyFactory('async'));
 		const commands = this.commands;
 		this.shortcutOff = shortcut.register('selectionNavigation', commands);
 		this.toggleRow = commands.get('toggleRow');
@@ -44,7 +44,7 @@ export default class SelectionView extends View {
 
 		model.selectionChanged.watch(e => {
 			if (e.hasChanges('mode')) {
-				apply(() => {
+				this.apply(() => {
 					const newClassName = `${GRID_PREFIX}-select-${model.selection().mode}`;
 					const view = table.view;
 					view.addClass(newClassName);

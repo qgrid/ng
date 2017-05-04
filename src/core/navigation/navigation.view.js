@@ -5,11 +5,11 @@ import Navigation from 'core/navigation/navigation';
 import {GRID_PREFIX} from 'core/definition';
 
 export default class NavigationView extends View {
-	constructor(model, table, apply) {
+	constructor(model, table, applyFactory) {
 		super(model);
 
 		this.table = table;
-		const shortcut = new Shortcut(table, apply);
+		const shortcut = new Shortcut(table, applyFactory('async'));
 		const navigation = new Navigation(model, table);
 
 		this.shortcutOff = shortcut.register('navigation', navigation.commands);
@@ -48,7 +48,7 @@ export default class NavigationView extends View {
 
 				if (this.focus.canExecute(newRow, newColumn)) {
 					this.focus.execute(newRow, newColumn);
-					if (e.tag.source !== 'navigation') {
+					if (e.tag.source !== 'navigation.scroll') {
 						this.scrollTo.execute(newRow, newColumn);
 					}
 				}
@@ -60,9 +60,9 @@ export default class NavigationView extends View {
 		});
 	}
 
-	scroll(container, target) {
+	scroll(body, target) {
 		const tr = target.rect();
-		const cr = container.rect();
+		const cr = body.rect();
 		const scrollState = this.model.scroll();
 
 		if (cr.left > tr.left
@@ -71,10 +71,10 @@ export default class NavigationView extends View {
 			|| cr.right < tr.right) {
 			if (cr.left < tr.left
 				|| cr.right < tr.right) {
-				container.scrollLeft(tr.right - cr.right + scrollState.left);
+				body.scrollLeft(tr.right - cr.right + scrollState.left);
 			} else if (cr.left > tr.left
 				|| cr.left > tr.right) {
-				container.scrollLeft(tr.left - cr.left + scrollState.left);
+				body.scrollLeft(tr.left - cr.left + scrollState.left);
 			}
 		}
 
@@ -84,12 +84,11 @@ export default class NavigationView extends View {
 			|| cr.bottom < tr.bottom) {
 			if (cr.top < tr.top
 				|| cr.bottom < tr.bottom) {
-				container.scrollTop(tr.bottom - cr.bottom + scrollState.top);
+				body.scrollTop(tr.bottom - cr.bottom + scrollState.top);
 			} else if (cr.top > tr.top
 				|| cr.top > tr.bottom) {
-				container.scrollTop(tr.top - cr.top + scrollState.top);
+				body.scrollTop(tr.top - cr.top + scrollState.top);
 			}
-
 		}
 	}
 

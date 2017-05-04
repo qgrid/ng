@@ -6,13 +6,13 @@ import {getFactory as valueFactory} from 'core/services/value';
 import {getFactory as labelFactory} from 'core/services/label';
 
 export default class EditCellView {
-	constructor(model, table, apply) {
+	constructor(model, table, applyFactory) {
 		this.model = model;
 		this.table = table;
 
 		this.editor = CellEditor.empty;
 
-		const shortcut = new Shortcut(table, apply);
+		const shortcut = new Shortcut(table, applyFactory('async'));
 		const commands = this.commands;
 		this.shortcutOff = shortcut.register('editCellNavigation', commands);
 

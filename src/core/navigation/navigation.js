@@ -6,7 +6,7 @@ export default class Navigation {
 		this.table = table;
 	}
 
-	moveTo(y, direction) {
+	positon(y, direction) {
 		const body = this.table.body;
 		let index = 0;
 		let offset = 0;
@@ -23,6 +23,11 @@ export default class Navigation {
 			row: Math.max(this.firstRow, Math.min(this.lastRow, index)),
 			offset: offset
 		};
+	}
+
+	goTo(row, column, source = 'navigation') {
+		const cell = this.cell(row, column);
+		this.model.navigation({cell: cell}, {source: source});
 	}
 
 	get columns() {
@@ -147,24 +152,23 @@ export default class Navigation {
 	get commands() {
 		const model = this.model;
 		const table = this.table;
-		const nav = model.navigation;
 		const canExecute = () => model.edit().state === 'view';
 
 		const commands = {
 			goDown: new Command({
 				shortcut: 'down',
 				canExecute: () => canExecute() && this.nextRow >= 0,
-				execute: () => nav({cell: this.cell(this.nextRow, this.currentColumn)})
+				execute: () => this.goTo(this.nextRow, this.currentColumn)
 			}),
 			goUp: new Command({
 				shortcut: 'up',
 				canExecute: () => canExecute() && this.prevRow >= 0,
-				execute: () => nav({cell: this.cell(this.prevRow, this.currentColumn)})
+				execute: () => this.goTo(this.prevRow, this.currentColumn)
 			}),
 			goRight: new Command({
 				shortcut: 'right',
 				canExecute: () => canExecute() && this.nextColumn >= 0,
-				execute: () => nav({cell: this.cell(this.currentRow, this.nextColumn)})
+				execute: () => this.goTo(this.currentRow, this.nextColumn)
 			}),
 			tab: new Command({
 				shortcut: 'tab',
@@ -177,11 +181,11 @@ export default class Navigation {
 					}
 
 					if (!hasNextColumn) {
-						nav({cell: this.cell(this.nextRow, this.firstColumn)});
+						this.goTo(this.nextRow, this.firstColumn);
 						return;
 					}
 
-					nav({cell: this.cell(this.currentRow, this.nextColumn)});
+					this.goTo(this.currentRow, this.nextColumn);
 				}
 			}),
 			shiftTab: new Command({
@@ -195,36 +199,36 @@ export default class Navigation {
 					}
 
 					if (!hasPrevColumn) {
-						nav({cell: this.cell(this.prevRow, this.lastColumn)});
+						this.goTo(this.prevRow, this.lastColumn);
 						return;
 					}
 
-					nav({cell: this.cell(this.currentRow, this.prevColumn)});
+					this.goTo(this.currentRow, this.prevColumn);
 				}
 			}),
 			goLeft: new Command({
 				shortcut: 'left',
 				canExecute: () => canExecute() && this.prevColumn >= 0,
-				execute: () => nav({cell: this.cell(this.currentRow, this.prevColumn)})
+				execute: () => this.goTo(this.currentRow, this.prevColumn)
 			}),
 			home: new Command({
 				shortcut: 'home',
 				canExecute: () => canExecute() && this.prevRow >= 0,
-				execute: () => nav({cell: this.cell(this.firstRow, this.currentColumn)})
+				execute: () => this.goTo(this.firstRow, this.currentColumn)
 			}),
 			end: new Command({
 				shortcut: 'end',
 				canExecute: () => canExecute() && this.nextRow >= 0,
-				execute: () => nav({cell: this.cell(this.lastRow, this.currentColumn)})
+				execute: () => this.goTo(this.lastRow, this.currentColumn)
 			}),
 			pageUp: new Command({
 				shortcut: 'pageUp',
 				canExecute: () => canExecute() && this.prevRow >= 0,
 				execute: () => {
 					const body = table.body;
-					const {row: row, offset: offset} = this.moveTo(body.scrollTop() - body.rect().height, 'up');
-					body.scrollTop(offset);
-					nav({cell: this.cell(row, this.currentColumn)}, {source: 'navigation'});
+					const position = this.positon(body.scrollTop() - body.rect().height, 'up');
+					body.scrollTop(position.offset);
+					this.goTo(position.row, this.currentColumn, 'navigation.scroll');
 				}
 			}),
 			pageDown: new Command({
@@ -232,9 +236,9 @@ export default class Navigation {
 				canExecute: () => canExecute() && this.nextRow >= 0,
 				execute: () => {
 					const body = table.body;
-					let {row: row, offset: offset} = this.moveTo(body.scrollTop() + body.rect().height, 'down');
-					body.scrollTop(offset);
-					nav({cell: this.cell(row, this.currentColumn)}, {source: 'navigation'});
+					let position = this.positon(body.scrollTop() + body.rect().height, 'down');
+					body.scrollTop(position.offset);
+					this.goTo(position.row, this.currentColumn, 'navigation.scroll');
 				}
 			})
 		};

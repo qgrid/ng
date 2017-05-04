@@ -4,12 +4,12 @@ import Shortcut from 'core/infrastructure/shortcut';
 import RowEditor from './edit.row.editor';
 
 export default class EditRowView {
-	constructor(model, table, apply) {
+	constructor(model, table, applyFactory) {
 		this.model = model;
 		this.table = table;
 		this.editor = RowEditor.empty;
 
-		const shortcut = new Shortcut(table, apply);
+		const shortcut = new Shortcut(table, applyFactory('async'));
 		const commands = this.commands;
 		this.shortcutOff = shortcut.register('editRowNavigation', commands);
 

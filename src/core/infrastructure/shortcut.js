@@ -41,12 +41,16 @@ export default class Shortcut {
 			const code = this.translate(e);
 			if (this.shortcuts.has(code)) {
 				const cmds = this.shortcuts.get(code);
-				cmds.forEach(cmd => {
-					if (cmd.canExecute()) {
-						e.preventDefault();
-						this.apply(() => cmd.execute());
-					}
-				});
+				if (cmds.length) {
+					e.preventDefault();
+				}
+
+				cmds.forEach(cmd =>
+					this.apply(() => {
+						if (cmd.canExecute()) {
+							cmd.execute()
+						}
+					}));
 			}
 		}
 	}
