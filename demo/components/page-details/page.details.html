@@ -1,8 +1,9 @@
 <md-card class="page-details-example"
 			ng-class="$ctrl.selection.path"
 			flex="100"
+			style="min-height: 100%"
 			ng-if="$ctrl.selection.code['html']">
-	<md-card-content flex="100" style="display: flex;">
+	<md-card-content flex="100" style="display: flex;padding: 5px 15px;">
 		<ng-view flex="100"></ng-view>
 	</md-card-content>
 </md-card>

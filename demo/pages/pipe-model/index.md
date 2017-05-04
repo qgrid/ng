@@ -73,7 +73,7 @@ There is a property called `triggers` in the data model which indicates on what 
 ```javascript
 	// data model constructor
 	this.triggers = {
-			'data': ['rows', 'columns'],
+			'data': ['rows'],
 			'pagination': ['current', 'size'],
 			'sort': ['by'],
 			'filter': ['by'],
