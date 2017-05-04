@@ -36,6 +36,12 @@
 			max-width: none;
 		}
 	}
+
+	h4 {
+		&.md-title {
+			margin-top: 0;
+		}
+	}
 }
 
 .q-grid-edit-form-popup {

@@ -6,7 +6,6 @@ class CellEditorCore {
 	constructor() {
 
 		this.value = null;
-		this.label = null;
 		this.fetch = noop;
 		this.resetFetch = noop;
 	}
@@ -46,9 +45,12 @@ export default class CellEditor extends CellEditorCore {
 
 	reset() {
 		this.value = this.cell.value;
-		this.label = this.cell.label;
 		this.resetFetch();
 		this.resetFetch = noop;
+	}
+
+	get title() {
+		return this.cell.column.title;
 	}
 
 	get options() {

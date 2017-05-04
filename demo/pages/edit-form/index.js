@@ -73,6 +73,17 @@ export default function Controller($http, qgrid) {
 			value: item => item.contact.email[0]
 		},
 		{
+			key: 'webPage',
+			title: 'Web Page',
+			type: 'url',
+			value: (item, value) => isUndef(value)
+				? item.webPage || `https://corp.portal.com/${item.name.last}.${item.name.first}`
+				: item.webPage = value,
+			label: (item, label) => isUndef(label)
+				? item.webPageLabel || `${item.name.last} ${item.name.first}`
+				: item.webPageLabel = label
+		},
+		{
 			key: 'teammates',
 			title: 'Teammates',
 			type: 'reference',
