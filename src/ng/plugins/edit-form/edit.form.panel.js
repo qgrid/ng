@@ -9,7 +9,7 @@ class EditFormPanel extends Plugin {
 
 		this.submit = new Command({
 			execute: () => {
-				this.editor.editors.forEach(e => e.commit());
+				this.editor.commit();
 				this.onSubmit()
 			}
 		});

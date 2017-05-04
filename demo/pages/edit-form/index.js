@@ -7,6 +7,8 @@ export default function Controller($http, qgrid) {
 	const isUndef = angular.isUndefined;
 	ctrl.gridModel = qgrid.model();
 
+	ctrl.rows = [];
+
 	const columns = [
 		{
 			key: 'itemSettings',
@@ -120,6 +122,7 @@ export default function Controller($http, qgrid) {
 
 	$http.get('data/people/100.json')
 		.then(function (response) {
+			ctrl.rows = response.data;
 			ctrl.gridModel.data({
 				rows: response.data,
 				columns: columns

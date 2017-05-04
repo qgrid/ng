@@ -34,7 +34,7 @@ export default class CellEditor extends CellEditorCore {
 
 		const parse = parseFactory(cell.column.type);
 		this.value = isUndefined(cell.value) ? null : parse(clone(cell.value));
-		this.label = isUndefined(cell.label) ? null : parse(clone(cell.label));
+		this.label = isUndefined(cell.label) ? null : clone(cell.label);
 	}
 
 	commit() {
