@@ -16,31 +16,31 @@ export default class NavigationView extends View {
 
 		this.blur = new Command({
 			execute: (row, column) => table.body.cell(row, column).removeClass(`${GRID_PREFIX}-focus`),
-			canExecute: (row, column) => table.body.cell(row, column) !== null
+			canExecute: (row, column) => table.body.cell(row, column).model !== null
 		});
 
 		this.focus = new Command({
 			execute: (row, column) => table.body.cell(row, column).addClass(`${GRID_PREFIX}-focus`),
-			canExecute: (row, column) => table.body.cell(row, column) !== null
+			canExecute: (row, column) => table.body.cell(row, column).model !== null
 		});
 
 		this.focusCell = new Command({
-			execute: cell => model.navigation({row: cell.rowIndex, column: cell.columnIndex, active: {cell: cell}}),
-			canExecute: cell => cell && cell.column.canFocus && cell !== model.navigation().active.cell
+			execute: cell => model.navigation({cell: cell}),
+			canExecute: cell => cell && cell.column.canFocus && cell !== model.navigation().cell
 		});
 
 		this.scrollTo = new Command({
 			execute: (row, column) => this.scroll(table.body, table.body.cell(row, column)),
-			canExecute: (row, column) => table.body.cell(row, column) !== null
+			canExecute: (row, column) => table.body.cell(row, column).model !== null
 		});
 
 		model.navigationChanged.watch(e => {
-			if (e.hasChanges('row') || e.hasChanges('column')) {
+			if (e.hasChanges('cell')) {
 				const navState = model.navigation();
-				const newRow = navState.row;
-				const newColumn = navState.column;
-				const oldRow = e.hasChanges('row') ? e.changes.row.oldValue : newRow;
-				const oldColumn = e.hasChanges('column') ? e.changes.column.oldValue : newColumn;
+				const newRow =  navState.rowIndex;
+				const newColumn = navState.columnIndex;
+				const oldRow = e.changes.cell.oldValue ? e.changes.cell.oldValue.rowIndex : -1;
+				const oldColumn = e.changes.cell.oldValue ? e.changes.cell.oldValue.columnIndex : -1;
 
 				if (this.blur.canExecute(oldRow, oldColumn)) {
 					this.blur.execute(oldRow, oldColumn);
@@ -52,32 +52,11 @@ export default class NavigationView extends View {
 						this.scrollTo.execute(newRow, newColumn);
 					}
 				}
-
-				const cell = table.body.cell(navState.row, navState.column);
-				if (cell) {
-					if (cell.model !== navState.active.cell) {
-						model.navigation({
-							active: {
-								cell: cell.model
-							}
-						});
-					}
-				}
-				else {
-					model.navigation({
-						active: {
-							cell: null
-						}
-					});
-				}
 			}
 		});
 
 		model.viewChanged.watch(() => {
-			model.navigation({
-				column: -1,
-				row: -1
-			});
+			model.navigation({cell: null});
 		});
 	}
 

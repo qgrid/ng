@@ -27,7 +27,7 @@ export default class EditRowView {
 			enter: new Command({
 				shortcut: 'F2|Enter',
 				canExecute: row => {
-					row = row || model.navigation().active.row;
+					row = row || model.navigation().row;
 					if (row && this.mode !== 'edit') {
 						return model.edit().enter.canExecute(this.contextFactory(row))
 							&& model.edit().state === 'view';
@@ -52,8 +52,10 @@ export default class EditRowView {
 				shortcut: this.commitShortcut,
 				// TODO: add validation support
 				canExecute: row => {
-					row = row || model.navigation().active.row;
-					return this.mode === 'edit' && model.edit().mode === 'row'
+					row = row || model.navigation().row;
+					return row
+						&& this.mode === 'edit'
+						&& model.edit().mode === 'row'
 						&& model.edit().commit.canExecute(this.contextFactory(row))
 						&& model.edit().state === 'edit';
 				},
@@ -71,7 +73,7 @@ export default class EditRowView {
 			cancel: new Command({
 				shortcut: 'Escape',
 				canExecute: row => {
-					row = row || model.navigation().active.row;
+					row = row || model.navigation().row;
 					return row
 						&& model.edit().cancel.canExecute(this.contextFactory(row))
 						&& model.edit().state === 'edit';
@@ -89,7 +91,7 @@ export default class EditRowView {
 			}),
 			reset: new Command({
 				canExecute: row => {
-					row = row || model.navigation().active.row;
+					row = row || model.navigation().row;
 					return row
 						&& model.edit().reset.canExecute(this.contextFactory(row))
 						&& model.edit().state === 'edit';

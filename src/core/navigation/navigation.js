@@ -47,7 +47,7 @@ export default class Navigation {
 			return -1;
 		}
 
-		const column = this.model.navigation().column;
+		const column = this.model.navigation().columnIndex;
 		const index = columns.indexOf(column);
 		return columns[Math.max(0, index)];
 	}
@@ -58,7 +58,7 @@ export default class Navigation {
 			return -1;
 		}
 
-		const column = this.model.navigation().column;
+		const column = this.model.navigation().columnIndex;
 		const index = columns.indexOf(column);
 		return index < columns.length - 1 ? columns[index + 1] : -1;
 	}
@@ -69,7 +69,7 @@ export default class Navigation {
 			return -1;
 		}
 
-		const column = this.model.navigation().column;
+		const column = this.model.navigation().columnIndex;
 		const index = columns.indexOf(column);
 		return index > 0 ? columns[index - 1] : -1;
 	}
@@ -98,7 +98,7 @@ export default class Navigation {
 			return -1;
 		}
 
-		const row = this.model.navigation().row;
+		const row = this.model.navigation().rowIndex;
 		return rows[Math.max(0, row)];
 	}
 
@@ -108,7 +108,7 @@ export default class Navigation {
 			return -1;
 		}
 
-		const row = this.model.navigation().row;
+		const row = this.model.navigation().rowIndex;
 		return row < rows.length - 1 ? rows[row + 1] : -1;
 	}
 
@@ -118,7 +118,7 @@ export default class Navigation {
 			return -1;
 		}
 
-		const row = this.model.navigation().row;
+		const row = this.model.navigation().rowIndex;
 		return row > 0 ? rows[row - 1] : -1;
 	}
 
@@ -140,6 +140,10 @@ export default class Navigation {
 		return rows[rows.length - 1];
 	}
 
+	cell(row, column) {
+		return this.table.body.cell(row, column).model;
+	}
+
 	get commands() {
 		const model = this.model;
 		const table = this.table;
@@ -150,17 +154,17 @@ export default class Navigation {
 			goDown: new Command({
 				shortcut: 'down',
 				canExecute: () => canExecute() && this.nextRow >= 0,
-				execute: () => nav({row: this.nextRow, column: this.currentColumn})
+				execute: () => nav({cell: this.cell(this.nextRow, this.currentColumn)})
 			}),
 			goUp: new Command({
 				shortcut: 'up',
 				canExecute: () => canExecute() && this.prevRow >= 0,
-				execute: () => nav({row: this.prevRow, column: this.currentColumn})
+				execute: () => nav({cell: this.cell(this.prevRow, this.currentColumn)})
 			}),
 			goRight: new Command({
 				shortcut: 'right',
 				canExecute: () => canExecute() && this.nextColumn >= 0,
-				execute: () => nav({row: this.currentRow, column: this.nextColumn})
+				execute: () => nav({cell: this.cell(this.currentRow, this.nextColumn)})
 			}),
 			tab: new Command({
 				shortcut: 'tab',
@@ -173,11 +177,11 @@ export default class Navigation {
 					}
 
 					if (!hasNextColumn) {
-						nav({row: this.nextRow, column: this.firstColumn});
+						nav({cell: this.cell(this.nextRow, this.firstColumn)});
 						return;
 					}
 
-					nav({row: this.currentRow, column: this.nextColumn});
+					nav({cell: this.cell(this.currentRow, this.nextColumn)});
 				}
 			}),
 			shiftTab: new Command({
@@ -191,27 +195,27 @@ export default class Navigation {
 					}
 
 					if (!hasPrevColumn) {
-						nav({row: this.prevRow, column: this.lastColumn});
+						nav({cell: this.cell(this.prevRow, this.lastColumn)});
 						return;
 					}
 
-					nav({row: this.currentRow, column: this.prevColumn});
+					nav({cell: this.cell(this.currentRow, this.prevColumn)});
 				}
 			}),
 			goLeft: new Command({
 				shortcut: 'left',
 				canExecute: () => canExecute() && this.prevColumn >= 0,
-				execute: () => nav({row: this.currentRow, column: this.prevColumn})
+				execute: () => nav({cell: this.cell(this.currentRow, this.prevColumn)})
 			}),
 			home: new Command({
 				shortcut: 'home',
 				canExecute: () => canExecute() && this.prevRow >= 0,
-				execute: () => nav({row: this.firstRow, column: this.currentColumn})
+				execute: () => nav({cell: this.cell(this.firstRow, this.currentColumn)})
 			}),
 			end: new Command({
 				shortcut: 'end',
 				canExecute: () => canExecute() && this.nextRow >= 0,
-				execute: () => nav({row: this.lastRow, column: this.currentColumn})
+				execute: () => nav({cell: this.cell(this.lastRow, this.currentColumn)})
 			}),
 			pageUp: new Command({
 				shortcut: 'pageUp',
@@ -220,7 +224,7 @@ export default class Navigation {
 					const body = table.body;
 					const {row: row, offset: offset} = this.moveTo(body.scrollTop() - body.rect().height, 'up');
 					body.scrollTop(offset);
-					nav({row: row, column: this.currentColumn}, {source: 'navigation'});
+					nav({cell: this.cell(row, this.currentColumn)}, {source: 'navigation'});
 				}
 			}),
 			pageDown: new Command({
@@ -230,7 +234,7 @@ export default class Navigation {
 					const body = table.body;
 					let {row: row, offset: offset} = this.moveTo(body.scrollTop() + body.rect().height, 'down');
 					body.scrollTop(offset);
-					nav({row: row, column: this.currentColumn}, {source: 'navigation'});
+					nav({cell: this.cell(row, this.currentColumn)}, {source: 'navigation'});
 				}
 			})
 		};
