@@ -30,13 +30,10 @@ export default class EditCellView {
 				shortcut: 'F2|Enter',
 				canExecute: cell => {
 					cell = cell || model.navigation().cell;
-					if (cell && model.edit().mode === 'cell' && model.edit().state !== 'edit') {
-						return cell.column.canEdit
-							&& model.edit().enter.canExecute(this.contextFactory(cell))
-							&& model.edit().state === 'view';
-					}
-
-					return false;
+					return cell
+						&& model.edit().mode === 'cell'
+						&& model.edit().state === 'view'
+						&& model.edit().enter.canExecute(this.contextFactory(cell));
 				},
 				execute: (cell, e) => {
 					Log.info('cell.edit', 'edit mode');

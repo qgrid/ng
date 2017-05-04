@@ -48,7 +48,7 @@ class ViewCore extends Component {
 		const service = this.serviceFactory(model);
 		const apply = (f, timeout) => {
 			if (isUndefined(timeout)) {
-				this.$scope.$applyAsync(f);
+				return this.$scope.$applyAsync(f);
 			}
 
 			return this.$timeout(f, timeout);

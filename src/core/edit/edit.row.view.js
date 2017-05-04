@@ -7,8 +7,6 @@ export default class EditRowView {
 	constructor(model, table, apply) {
 		this.model = model;
 		this.table = table;
-
-		this.mode = 'view';
 		this.editor = RowEditor.empty;
 
 		const shortcut = new Shortcut(table, apply);
@@ -28,12 +26,10 @@ export default class EditRowView {
 				shortcut: 'F2|Enter',
 				canExecute: row => {
 					row = row || model.navigation().row;
-					if (row && this.mode !== 'edit') {
-						return model.edit().enter.canExecute(this.contextFactory(row))
-							&& model.edit().state === 'view';
-					}
-
-					return false;
+					return row
+						&& model.edit().state === 'view'
+						&& model.edit().mode === 'row'
+						&& model.edit().enter.canExecute(this.contextFactory(row));
 				},
 				execute: (row, e) => {
 					Log.info('row.edit', 'edit mode');
@@ -43,9 +39,7 @@ export default class EditRowView {
 
 					const columns = this.model.data().columns;
 					this.editor = new RowEditor(row, columns);
-
-					this.mode = 'edit';
-					model.edit({state: 'edit', mode: 'row'});
+					model.edit({state: 'edit'});
 				}
 			}),
 			commit: new Command({
@@ -54,10 +48,9 @@ export default class EditRowView {
 				canExecute: row => {
 					row = row || model.navigation().row;
 					return row
-						&& this.mode === 'edit'
 						&& model.edit().mode === 'row'
-						&& model.edit().commit.canExecute(this.contextFactory(row))
-						&& model.edit().state === 'edit';
+						&& model.edit().state === 'edit'
+						&& model.edit().commit.canExecute(this.contextFactory(row));
 				},
 				execute: (cell, e) => {
 					Log.info('row.edit', 'commit');
@@ -67,7 +60,7 @@ export default class EditRowView {
 
 					this.editor.commit();
 					this.editor = RowEditor.empty;
-					model.edit({state: 'view', mode: null});
+					model.edit({state: 'view'});
 				}
 			}),
 			cancel: new Command({
@@ -75,8 +68,9 @@ export default class EditRowView {
 				canExecute: row => {
 					row = row || model.navigation().row;
 					return row
-						&& model.edit().cancel.canExecute(this.contextFactory(row))
-						&& model.edit().state === 'edit';
+						&& model.edit().state === 'edit'
+						&& model.edit().mode === 'row'
+						&& model.edit().cancel.canExecute(this.contextFactory(row));
 				},
 				execute: (row, e) => {
 					Log.info('cell.edit', 'cancel');
@@ -86,15 +80,16 @@ export default class EditRowView {
 
 					this.editor.reset();
 					this.editor = RowEditor.empty;
-					model.edit({state: 'view', mode: null});
+					model.edit({state: 'view'});
 				}
 			}),
 			reset: new Command({
 				canExecute: row => {
 					row = row || model.navigation().row;
 					return row
-						&& model.edit().reset.canExecute(this.contextFactory(row))
-						&& model.edit().state === 'edit';
+						&& model.edit().state === 'edit'
+						&& model.edit().mode === 'row'
+						&& model.edit().reset.canExecute(this.contextFactory(row));
 				},
 				execute: (row, e) => {
 					Log.info('row.edit', 'reset');
