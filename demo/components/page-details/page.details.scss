@@ -7,8 +7,49 @@ page-details {
 		}
 	}
 
+	.page-details-example {
+		height: calc(100% - 40px);
+
+		md-tabs-wrapper {
+			display: none;
+		}
+
+		md-tabs-content-wrapper {
+			top: 0;
+			md-tab-content {
+				overflow: hidden;
+			}
+		}
+
+		.page-details-example-code {
+			margin-top: 56px;
+			overflow: auto;
+			width: 100%;
+			height: calc(100% - 56px);
+			background-color: #f5f2f0;
+			pre {
+				margin: 1em;
+			}
+		}
+
+		.page-details-example-tabs {
+			position: absolute;
+			bottom: 0;
+			right: 0;
+			//width: 100%;
+			//margin: 0 15px;
+			//background-color: #2C80D2;
+			.md-button {
+				//float: right;
+				&.active {
+					background-color: rgba(158, 158, 158, 0.2);
+				}
+			}
+		}
+	}
+
 	.page-details-example + .page-details-doc {
-		margin-top: 20px;
+		margin-top: 50px;
 	}
 
 	.page-details-doc {
