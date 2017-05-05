@@ -1,8 +1,6 @@
 ReferenceEdit.$inject = ['$scope', 'qgrid'];
 export default function ReferenceEdit($scope, qgrid) {
-	const view = $scope.$view;
-	const ownerModel = view.model;
-	this.cell = () => $scope.$editor || view.edit.cell;
+	this.cell = () => $scope.$editor || $scope.$view.edit.cell;
 
 	let closed = false;
 	const close = () => {
@@ -13,8 +11,11 @@ export default function ReferenceEdit($scope, qgrid) {
 	};
 
 	const options = this.cell().options;
+	this.gridModel = (options
+		&& options.modelFactory
+		&& options.modelFactory($scope.$view ? $scope.$view.model.navigation() : {}))
+		|| qgrid.model();
 
-	this.gridModel = (options && options.modelFactory && options.modelFactory(ownerModel.navigation())) || qgrid.model();
 	this.commit = ($cell, $event) => {
 		this.cell().value = this.gridModel.selection().items;
 		this.cell().commit.execute($cell, $event);
