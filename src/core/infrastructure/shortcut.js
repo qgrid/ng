@@ -86,7 +86,7 @@ export default class Shortcut {
 	find(code) {
 		let result = [];
 		if (this.shortcuts.has(code)) {
-			result = result.concat(this.shortcuts.get(code))
+			result = result.concat(this.shortcuts.get(code));
 		}
 
 		result = result.concat(this.commands.filter(cmd => this.test(cmd.shortcut(), code)));
