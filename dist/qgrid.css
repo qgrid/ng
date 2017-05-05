@@ -208,8 +208,10 @@
     -ms-user-select: none;
     user-select: none;
     cursor: default; }
-  .q-grid .q-grid-view.q-grid-view-left tbody, .q-grid .q-grid-view.g-grid-view-right tbody {
-    overflow-x: hidden; }
+  .q-grid .q-grid-view.q-grid-view-left, .q-grid .q-grid-view.g-grid-view-right {
+    margin-bottom: 8px; }
+    .q-grid .q-grid-view.q-grid-view-left tbody, .q-grid .q-grid-view.g-grid-view-right tbody {
+      overflow-x: hidden; }
   .q-grid .q-grid-view.q-grid-view-left tbody {
     overflow-y: hidden; }
   .q-grid .q-grid-with-right-pin .q-grid-view-center tbody {
