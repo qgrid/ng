@@ -5,6 +5,9 @@ export default class MultipleSelectionState extends SelectionState {
 		super(model);
 
 		this.items = new Map();
+
+		const keys = model.selection().items;
+		super.selectByKeys(keys);
 	}
 
 	entries() {

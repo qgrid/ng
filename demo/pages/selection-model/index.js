@@ -17,16 +17,11 @@ export default function Controller($http, qgrid) {
 	this.model.dataChanged.watch((e) => {
 		if (e.hasChanges('columns')) {
 			if (e.state.columns.length > 0 && e.state.rows.length > 0) {
-				const gender = e.state.columns.find(c => c.key === 'gender');
+				// const gender = e.state.columns.find(c => c.key === 'gender');
 
 				// Default selection
 				this.model.selection({
-					entries: e.state.rows.slice(0, 4).map((row) => {
-						return {
-							row: row,
-							column: gender
-						};
-					})
+					items: e.state.rows.slice(2, 4).map(row => this.selectionKey.row(row))
 				});
 			}
 		}

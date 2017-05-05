@@ -115,7 +115,40 @@ export default class SelectionState {
 			return item.item;
 		}
 
+		if (unit === 'row') {
+			return keySelector('row', this.model.selection().key)(item);
+		}
+
 		return item;
+	}
+
+	selectByKeys(keys) {
+		if (keys.length === 0) {
+			return;
+		}
+
+		const unit = this.model.selection().unit;
+		const data = this.model.data();
+
+		switch (unit) {
+			case 'row': {
+				const rows = data.rows;
+				rows.forEach(row => {
+					const rowKey = this.key(row);
+					const found = keys.indexOf(rowKey) > -1;
+					if (found) {
+						this.select(row);
+					}
+				});
+				break;
+			}
+			case 'column':
+				  break;
+			case 'cell':
+				  break;
+			case 'mix':
+				  break;
+		}
 	}
 
 	selectCore() {

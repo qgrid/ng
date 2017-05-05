@@ -25,10 +25,16 @@ export default class SelectionView extends View {
 
 		this.reset = commands.get('reset');
 
+		model.dataChanged.watch(() => {
+			this.selectionState = stateFactory(model);
+
+			model.selection({entries: this.selectionState.entries()});
+		});
+
 		model.sortChanged.watch(() => {
 			this.selectionState = stateFactory(model);
 
-			model.selection({items: this.selectionState.view});
+			// model.selection({items: this.selectionState.view});
 		});
 
 		model.navigationChanged.watch(e => {
@@ -61,15 +67,20 @@ export default class SelectionView extends View {
 
 				model.navigation({cell: null}, {source: 'selection'});
 				const entries = this.selectionState.entries();
-				model.selection({
-					entries: entries,
-					items: this.selectionState.view(entries)
-				});
+				// model.selection({
+				// 	entries: entries,
+				// 	items: this.selectionState.view(entries)
+				// });
 			}
 
-			if (e.tag.source !== 'toggle' && e.hasChanges('entries')) {
-				this.select(model.selection().entries, true);
+			if (e.hasChanges('entries') && !e.hasChanges('items')) {
+				model.selection({
+					items: this.selectionState.view(model.selection().entries)
+				});
 			}
+			// if (e.tag.source !== 'toggle' && e.hasChanges('entries')) {
+			// 	this.select(model.selection().entries, true);
+			// }
 		});
 	}
 
@@ -210,7 +221,7 @@ export default class SelectionView extends View {
 
 		const entries = this.selectionState.entries();
 		this.model.selection({
-			items: this.selectionState.view(entries),
+			// items: this.selectionState.view(entries),
 			entries: entries,
 		}, {source: 'toggle'});
 	}
