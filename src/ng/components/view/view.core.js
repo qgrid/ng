@@ -20,12 +20,14 @@ import ScrollView from 'core/scroll/scroll.view';
 import {GRID_NAME, TH_CORE_NAME} from 'ng/definition';
 import {isUndefined} from 'core/services/utility';
 import TemplateLink from '../template/template.link';
-import PipeUnit from 'core/pipe/units/pipe.unit'
+import PipeUnit from 'core/pipe/units/pipe.unit';
+import AppError from 'core/infrastructure/error';
 
 class ViewCore extends Component {
-	constructor($scope, $element, $document, $timeout, $compile, $templateCache, grid, vscroll) {
+	constructor($rootScope, $scope, $element, $document, $timeout, $compile, $templateCache, grid, vscroll) {
 		super();
 
+		this.$rootScope = $rootScope;
 		this.$scope = $scope;
 		this.element = $element[0];
 		this.$timeout = $timeout;
@@ -46,9 +48,22 @@ class ViewCore extends Component {
 		table.pin = this.pin;
 
 		const service = this.serviceFactory(model);
-		const apply = (f, timeout) => {
+		const applyFactory = mode => (f, timeout) => {
 			if (isUndefined(timeout)) {
-				this.$scope.$applyAsync(f);
+				switch (mode) {
+					case 'async': {
+						return this.$scope.$applyAsync(f);
+					}
+					case 'sync': {
+						const phase = this.$rootScope.$$phase; // eslint-disable-line angular/no-private-call
+						if (phase == '$apply' || phase == '$digest') {
+							return f();
+						}
+						return this.$scope.$apply(f);
+					}
+					default:
+						throw new AppError('view.core', `Invalid apply mode '${mode}'`);
+				}
 			}
 
 			return this.$timeout(f, timeout);
@@ -61,16 +76,16 @@ class ViewCore extends Component {
 		this.foot = new FootView(model, table);
 		this.columns = new ColumnView(model, service);
 		this.layout = new LayoutView(model, table, service);
-		this.selection = new SelectionView(model, table, apply);
+		this.selection = new SelectionView(model, table, applyFactory);
 		this.group = new GroupView(model);
 		this.pivot = new PivotView(model);
-		this.highlight = new HighlightView(model, table, apply);
+		this.highlight = new HighlightView(model, table, applyFactory);
 		this.sort = new SortView(model);
 		this.filter = new FilterView(model);
-		this.edit = new EditView(model, table, apply);
-		this.nav = new NavigationView(model, table, apply);
+		this.edit = new EditView(model, table, applyFactory);
+		this.nav = new NavigationView(model, table, applyFactory);
 		this.pagination = new PaginationView(model);
-		this.scroll = new ScrollView(model, table, this.vscroll, service, apply);
+		this.scroll = new ScrollView(model, table, this.vscroll, service, applyFactory);
 
 		// TODO: how we can avoid that?
 		this.$scope.$watch(this.style.invalidate.bind(this.style));
@@ -134,6 +149,7 @@ class ViewCore extends Component {
 }
 
 ViewCore.$inject = [
+	'$rootScope',
 	'$scope',
 	'$element',
 	'$document',

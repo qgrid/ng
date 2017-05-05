@@ -17,7 +17,7 @@ export default class Shortcut {
 			.set(40, 'down')
 			.set(113, 'f2');
 
-		this.canExecute = table.isFocused;
+		this.canExecute = table.isFocused.bind(table);
 		this.off = table.keyDown(this.onKeyDown.bind(this));
 	}
 
@@ -41,12 +41,16 @@ export default class Shortcut {
 			const code = this.translate(e);
 			if (this.shortcuts.has(code)) {
 				const cmds = this.shortcuts.get(code);
-				cmds.forEach(cmd => {
-					if (cmd.canExecute()) {
-						e.preventDefault();
-						this.apply(() => cmd.execute());
-					}
-				});
+				if (cmds.length) {
+					e.preventDefault();
+
+					cmds.forEach(cmd =>
+						this.apply(() => {
+							if (cmd.canExecute()) {
+								cmd.execute();
+							}
+						}));
+				}
 			}
 		}
 	}

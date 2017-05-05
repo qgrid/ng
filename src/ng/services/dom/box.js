@@ -48,10 +48,9 @@ class BoxCore extends ElementCore {
 	scrollTop() {
 		return 0;
 	}
-
 }
-const empty = new BoxCore();
 
+const empty = new BoxCore();
 export default class Box extends BoxCore {
 	constructor(document, element, template, name) {
 		super();

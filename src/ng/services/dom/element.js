@@ -31,6 +31,7 @@ export class ElementCore {
 		return 0;
 	}
 }
+
 const empty = new ElementCore();
 export class Element {
 	constructor(element) {
