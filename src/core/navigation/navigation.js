@@ -10,7 +10,10 @@ export default class Navigation {
 		const body = this.table.body;
 		let index = 0;
 		let offset = 0;
-		while (offset <= y && body.row(index)) {
+		const count = body.rowCount();
+
+		// TODO: improve performance
+		while (index < count && offset <= y) {
 			offset += body.row(index).height;
 			index++;
 		}

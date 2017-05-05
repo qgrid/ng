@@ -55,7 +55,7 @@ class ViewCore extends Component {
 						return this.$scope.$applyAsync(f);
 					}
 					case 'sync': {
-						const phase = this.$rootScope.$$phase;
+						const phase = this.$rootScope.$$phase; // eslint-disable-line angular/no-private-call
 						if (phase == '$apply' || phase == '$digest') {
 							return f();
 						}

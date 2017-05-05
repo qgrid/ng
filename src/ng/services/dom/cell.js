@@ -9,7 +9,6 @@ class CellCore extends ElementCore {
 }
 
 const empty = new CellCore();
-
 export default class Cell extends Element {
 	static get empty() {
 		return empty;

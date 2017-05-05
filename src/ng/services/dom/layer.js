@@ -4,8 +4,8 @@ class LayerCore extends Element {
 	resource() {
 	}
 }
-const empty = new LayerCore();
 
+const empty = new LayerCore();
 export default class Layer extends LayerCore {
 	constructor($scope, element, template) {
 		super(element);

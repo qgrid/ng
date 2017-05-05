@@ -43,14 +43,14 @@ export default class Shortcut {
 				const cmds = this.shortcuts.get(code);
 				if (cmds.length) {
 					e.preventDefault();
-				}
 
-				cmds.forEach(cmd =>
-					this.apply(() => {
-						if (cmd.canExecute()) {
-							cmd.execute()
-						}
-					}));
+					cmds.forEach(cmd =>
+						this.apply(() => {
+							if (cmd.canExecute()) {
+								cmd.execute();
+							}
+						}));
+				}
 			}
 		}
 	}
