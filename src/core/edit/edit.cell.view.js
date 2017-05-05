@@ -31,6 +31,7 @@ export default class EditCellView {
 				canExecute: cell => {
 					cell = cell || model.navigation().cell;
 					return cell
+						&& cell.column.canEdit
 						&& model.edit().mode === 'cell'
 						&& model.edit().state === 'view'
 						&& model.edit().enter.canExecute(this.contextFactory(cell));
@@ -66,6 +67,7 @@ export default class EditCellView {
 				canExecute: cell => {
 					cell = cell || model.navigation().cell;
 					return cell
+						&& cell.column.canEdit
 						&& model.edit().mode === 'cell'
 						&& model.edit().state === 'edit'
 						&& model.edit().commit.canExecute(this.contextFactory(cell));
@@ -95,8 +97,10 @@ export default class EditCellView {
 				canExecute: cell => {
 					cell = cell || model.navigation().cell;
 					return cell
-						&& model.edit().cancel.canExecute(this.contextFactory(cell, this.value, this.label))
-						&& model.edit().state === 'edit';
+						&& cell.column.canEdit
+						&& model.edit().mode === 'cell'
+						&& model.edit().state === 'edit'
+						&& model.edit().cancel.canExecute(this.contextFactory(cell, this.value, this.label));
 				},
 				execute: (cell, e) => {
 					Log.info('cell.edit', 'cancel');
@@ -122,8 +126,10 @@ export default class EditCellView {
 				canExecute: cell => {
 					cell = cell || model.navigation().cell;
 					return cell
-						&& model.edit().reset.canExecute(this.contextFactory(cell, this.value, this.label))
-						&& model.edit().state === 'edit';
+						&& cell.column.canEdit
+						&& model.edit().mode === 'cell'
+						&& model.edit().state === 'edit'
+						&& model.edit().reset.canExecute(this.contextFactory(cell, this.value, this.label));
 				},
 				execute: (cell, e) => {
 					Log.info('cell.edit', 'reset');

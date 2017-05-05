@@ -27,8 +27,8 @@ export default class EditRowView {
 				canExecute: row => {
 					row = row || model.navigation().row;
 					return row
-						&& model.edit().state === 'view'
 						&& model.edit().mode === 'row'
+						&& model.edit().state === 'view'
 						&& model.edit().enter.canExecute(this.contextFactory(row));
 				},
 				execute: (row, e) => {
@@ -68,8 +68,8 @@ export default class EditRowView {
 				canExecute: row => {
 					row = row || model.navigation().row;
 					return row
-						&& model.edit().state === 'edit'
 						&& model.edit().mode === 'row'
+						&& model.edit().state === 'edit'
 						&& model.edit().cancel.canExecute(this.contextFactory(row));
 				},
 				execute: (row, e) => {
@@ -87,8 +87,8 @@ export default class EditRowView {
 				canExecute: row => {
 					row = row || model.navigation().row;
 					return row
-						&& model.edit().state === 'edit'
 						&& model.edit().mode === 'row'
+						&& model.edit().state === 'edit'
 						&& model.edit().reset.canExecute(this.contextFactory(row));
 				},
 				execute: (row, e) => {
