@@ -16,17 +16,30 @@ export default class NavigationView extends View {
 
 		this.blur = new Command({
 			execute: (row, column) => table.body.cell(row, column).removeClass(`${GRID_PREFIX}-focus`),
-			canExecute: (row, column) => table.body.cell(row, column).model !== null
+			canExecute: (row, column, cell) => {
+				return (cell && table.data.columns().indexOf(cell.column) >= 0)
+					|| (!cell && table.body.cell(row, column).model !== null);
+			}
 		});
 
 		this.focus = new Command({
 			execute: (row, column) => table.body.cell(row, column).addClass(`${GRID_PREFIX}-focus`),
-			canExecute: (row, column) => table.body.cell(row, column).model !== null
+			canExecute: (row, column, cell) => {
+				cell = cell || table.body.cell(row, column).model;
+				return cell
+					&& cell.column.canFocus
+					&& table.data.columns().indexOf(cell.column) >= 0;
+			}
 		});
 
 		this.focusCell = new Command({
 			execute: cell => model.navigation({cell: cell}),
-			canExecute: cell => cell && cell.column.canFocus && cell !== model.navigation().cell
+			canExecute: cell => {
+				return cell
+					&& cell.column.canFocus
+					&& table.data.columns().indexOf(cell.column) >= 0
+					&& cell !== model.navigation().cell;
+			}
 		});
 
 		this.scrollTo = new Command({
@@ -37,20 +50,23 @@ export default class NavigationView extends View {
 		model.navigationChanged.watch(e => {
 			if (e.hasChanges('cell')) {
 				const navState = model.navigation();
-				const newRow =  navState.rowIndex;
+				const newTarget = e.changes.cell.newValue;
+				const oldTarget = e.changes.cell.oldValue;
+				const newRow = navState.rowIndex;
 				const newColumn = navState.columnIndex;
 				const oldRow = e.changes.cell.oldValue ? e.changes.cell.oldValue.rowIndex : -1;
 				const oldColumn = e.changes.cell.oldValue ? e.changes.cell.oldValue.columnIndex : -1;
 
-				if (this.blur.canExecute(oldRow, oldColumn)) {
+				if (this.blur.canExecute(oldRow, oldColumn, oldTarget)) {
 					this.blur.execute(oldRow, oldColumn);
 				}
 
-				if (this.focus.canExecute(newRow, newColumn)) {
+				if (this.focus.canExecute(newRow, newColumn, newTarget)) {
 					this.focus.execute(newRow, newColumn);
-					if (e.tag.source !== 'navigation.scroll') {
-						this.scrollTo.execute(newRow, newColumn);
-					}
+				}
+
+				if (e.tag.source !== 'navigation.scroll' && this.scrollTo.canExecute(newRow, newColumn)) {
+					this.scrollTo.execute(newRow, newColumn);
 				}
 			}
 		});
