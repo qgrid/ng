@@ -4,7 +4,9 @@ import {CELL_VALUE_NAME} from 'ng/definition';
 const isDate = angular.isDate;
 const isArray = angular.isArray;
 const toJson = angular.toJson;
-const hasCustomToString = angular.hasCustomToString;
+const isFunction = angular.isFunction;
+const toString = Object.prototype.toString;
+const hasCustomToString = obj => isFunction(obj.toString) && obj.toString !== toString;
 
 const stringify = value => {
 	if (value == null) { // null || undefined

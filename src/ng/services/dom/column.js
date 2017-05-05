@@ -1,7 +1,6 @@
 import Cell from './cell';
 import {Element, ElementCore} from './element';
 
-
 class ColumnCore extends ElementCore {
 	constructor() {
 		super();

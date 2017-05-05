@@ -22,6 +22,10 @@
 			{
 				"title": "Architecture",
 				"path": "architecture"
+			},
+			{
+				"title": "Model",
+				"path": "grid-model"
 			}
 		]
 	},

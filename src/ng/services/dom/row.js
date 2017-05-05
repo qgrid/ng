@@ -17,8 +17,8 @@ class RowCore extends ElementCore {
 		return 0;
 	}
 }
-const rowCore = new RowCore();
 
+const empty = new RowCore();
 export default class Row extends Element {
 	constructor(element) {
 		super(element);
@@ -26,7 +26,7 @@ export default class Row extends Element {
 	}
 
 	static get empty() {
-		return rowCore;
+		return empty;
 	}
 
 	cells() {
