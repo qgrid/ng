@@ -5,9 +5,10 @@ import merge from 'core/services/merge';
 import * as columnService from 'core/column/column.service';
 import {assignWith, noop, isUndefined} from 'core/services/utility';
 import {generate} from 'core/column-list/column.list.generate';
+import PipeUnit from 'core/pipe/units/pipe.unit';
 
 export default class ColumnView extends View {
-	constructor(model) {
+	constructor(model, service) {
 		super(model);
 
 		const factory = columnFactory(model);
@@ -18,6 +19,7 @@ export default class ColumnView extends View {
 				return;
 			}
 
+			let needInvalidate = false;
 			if (e.hasChanges('columns')) {
 				e.state.columns.forEach(c => factory(c.type || 'text', c));
 			}
@@ -26,12 +28,25 @@ export default class ColumnView extends View {
 			if (generation) {
 				if (e.hasChanges('rows')) {
 					this.updateOn(generation);
+					needInvalidate = true;
 				}
 			}
 			else {
 				if (e.hasChanges('columns')) {
 					this.update();
+					needInvalidate = true;
 				}
+			}
+
+			if (needInvalidate) {
+				service.invalidate('column.view', e.changes, PipeUnit.column);
+			}
+		});
+
+		model.columnListChanged.watch(e => {
+			if (e.hasChanges('columns')) {
+				this.update();
+				service.invalidate('column.view', e.changes, PipeUnit.column);
 			}
 		});
 	}
@@ -65,21 +80,23 @@ export default class ColumnView extends View {
 		const data = model.data;
 		let columns = Array.from(data().columns);
 		const statistics = [];
-		const tag = {
-			source: 'column.list',
-			behavior: 'core'
-		};
+		const templateColumns = model.columnList().columns;
 
 		if (arguments.length) {
 			const generatedColumnMap = columnService.map(generatedColumns);
-			const templateColumnMap = columnService.map(model.columnList().columns);
+			const templateColumnMap = columnService.map(templateColumns);
 			const dataColumns = columns.filter(c => !generatedColumnMap.hasOwnProperty(c.key) && !templateColumnMap.hasOwnProperty(c.key));
 			columns = generatedColumns;
 			statistics.push(this.merge(columns, dataColumns));
 		}
 
-		statistics.push(this.merge(columns, model.columnList().columns));
+		statistics.push(this.merge(columns, templateColumns));
 		if (this.hasChanges(statistics)) {
+			const tag = {
+				source: 'column.list',
+				behavior: 'core'
+			};
+
 			data({columns: columns}, tag);
 		}
 	}

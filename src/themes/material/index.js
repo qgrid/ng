@@ -59,10 +59,13 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.form.cell.date.edit.tpl.html', require('themes/material/templates/form.cell.date.edit.html'));
 		theme.put('qgrid.form.cell.bool.edit.tpl.html', require('themes/material/templates/form.cell.bool.edit.html'));
 		theme.put('qgrid.form.cell.reference.edit.tpl.html', require('themes/material/templates/form.cell.reference.edit.html'));
+		theme.put('qgrid.form.cell.id.edit.tpl.html', require('themes/material/templates/form.cell.text.edit.html'));
+		theme.put('qgrid.form.cell.url.edit.tpl.html', require('themes/material/templates/form.cell.url.edit.html'));
 
 		theme.put('qgrid.toolbar.top.tpl.html', require('themes/material/templates/toolbar.top.html'));
 		theme.put('qgrid.plugin.column-chooser.tpl.html', require('themes/material/templates/plugin.column.chooser.html'));
 		theme.put('qgrid.plugin.column-filter-panel.tpl.html', require('themes/material/templates/plugin.column.filter.panel.html'));
+		theme.put('qgrid.plugin.edit-form.tpl.html', require('themes/material/templates/plugin.edit.form.html'));
 		theme.put('qgrid.plugin.edit-form-panel.tpl.html', require('themes/material/templates/plugin.edit.form.panel.html'));
 		theme.put('qgrid.plugin.popup-panel.tpl.html', require('themes/material/templates/plugin.popup.panel.html'));
 		theme.put('qgrid.plugin.group-bar.tpl.html', require('themes/material/templates/plugin.group.bar.html'));

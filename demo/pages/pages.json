@@ -31,6 +31,10 @@
 			{
 				"title": "Architecture",
 				"path": "architecture"
+			},
+			{
+				"title": "Model",
+				"path": "grid-model"
 			}
 		]
 	},
@@ -89,8 +93,8 @@
 				"path": "infinite-scrolling"
 			},
 			{
-				"title": "Frozen Columns",
-				"path": "frozen-columns"
+				"title": "Pinned Columns",
+				"path": "column-pin"
 			}
 		]
 	},

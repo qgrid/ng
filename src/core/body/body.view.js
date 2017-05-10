@@ -4,8 +4,8 @@ import Aggregation from 'core/services/aggregation';
 import AppError from 'core/infrastructure/error';
 import Log from 'core/infrastructure/log';
 import Node from 'core/node/node';
-import {getFactory as valueFactory} from 'core/services/value';
-import {getFactory as labelFactory} from 'core/services/label';
+import {getFactory as valueFactory, set as setValue} from 'core/services/value';
+import {getFactory as labelFactory, set as setLabel} from 'core/services/label';
 
 export default class BodyView extends View {
 	constructor(model, table) {
@@ -14,8 +14,6 @@ export default class BodyView extends View {
 		this.table = table;
 		this.rows = [];
 		this.columns = [];
-		this._valueFactory = valueFactory;
-		this._labelFactory = labelFactory;
 
 		model.viewChanged.watch(() => this.invalidate(model));
 	}
@@ -41,12 +39,12 @@ export default class BodyView extends View {
 
 	invalidateColumns(model) {
 		const columns = model.view().columns;
-		this.columns = columnService.lineView(columns);
+		this.columns = columnService.lineView(columns).filter(c => c.model.pin === this.table.pin);
 	}
 
 	valueFactory(column) {
 		const model = this.model;
-		const getValue = this._valueFactory(column);
+		const getValue = valueFactory(column);
 
 		return row => {
 			if (row instanceof Node) {
@@ -85,17 +83,27 @@ export default class BodyView extends View {
 	}
 
 	labelFactory(column) {
-		const getLabel = this._labelFactory(column);
+		const getLabel = labelFactory(column);
 		return row => getLabel(row);
 	}
 
-	value(row, column) {
+	value(row, column, value) {
+		if (arguments.length == 3) {
+			setValue(row, column, value);
+			return;
+		}
+
 		const getValue = this.valueFactory(column);
 		return getValue(row);
 	}
 
-	label(row, column) {
-		const getLabel = this.labelFactory(column);
+	label(row, column, value) {
+		if (arguments.length === 3) {
+			setLabel(row, column, value);
+			return;
+		}
+
+		const getLabel = labelFactory(column);
 		return getLabel(row);
 	}
 }

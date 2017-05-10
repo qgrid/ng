@@ -8,10 +8,10 @@ import {noop} from 'core/services/utility';
 import {GRID_PREFIX} from 'core/definition';
 
 export default class HighlightView extends View {
-	constructor(model, table, apply) {
+	constructor(model, table, applyFactory) {
 		super(model);
 
-		this.apply = apply;
+		this.apply = applyFactory('async');
 		this.behavior = new HighlightBehavior(model, cellSelector(model, table));
 		this.table = table;
 
@@ -42,7 +42,11 @@ export default class HighlightView extends View {
 					}
 
 					if (hasChanges) {
-						model.highlight({columns: columns});
+						model.highlight({
+							columns: columns
+						},{
+							source: 'highlight.view',
+						});
 					}
 				}
 			}
@@ -54,7 +58,7 @@ export default class HighlightView extends View {
 
 		model.viewChanged.watch(() => {
 			waitForLayout = true;
-			apply(() => {
+			this.apply(() => {
 				hoverBlurs = this.invalidateHover(hoverBlurs);
 				sortBlurs = this.invalidateSortBy(sortBlurs);
 				waitForLayout = false;
@@ -88,7 +92,6 @@ export default class HighlightView extends View {
 	invalidateSortBy(dispose) {
 		dispose.forEach(f => f());
 		dispose = [];
-
 
 		const sortBy = this.model.sort().by;
 		for (let entry of sortBy) {

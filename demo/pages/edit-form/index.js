@@ -7,6 +7,8 @@ export default function Controller($http, qgrid) {
 	const isUndef = angular.isUndefined;
 	ctrl.gridModel = qgrid.model();
 
+	ctrl.rows = [];
+
 	const columns = [
 		{
 			key: 'itemSettings',
@@ -39,11 +41,11 @@ export default function Controller($http, qgrid) {
 			key: 'gender',
 			title: 'Gender'
 		},
-		// {
-		// 	key: 'birthday',
-		// 	title: 'Birthday',
-		// 	type: 'date'
-		// },
+		{
+			key: 'birthday',
+			title: 'Birthday',
+			type: 'date'
+		},
 		{
 			key: 'contact.address.zip',
 			title: 'Zip',
@@ -69,6 +71,17 @@ export default function Controller($http, qgrid) {
 			key: 'contact.email.primary',
 			title: 'Primary Email',
 			value: item => item.contact.email[0]
+		},
+		{
+			key: 'webPage',
+			title: 'Web Page',
+			type: 'url',
+			value: (item, value) => isUndef(value)
+				? item.webPage || `https://corp.portal.com/${item.name.last}.${item.name.first}`
+				: item.webPage = value,
+			label: (item, label) => isUndef(label)
+				? item.webPageLabel || `${item.name.last} ${item.name.first}`
+				: item.webPageLabel = label
 		},
 		{
 			key: 'teammates',
@@ -111,15 +124,16 @@ export default function Controller($http, qgrid) {
 			title: 'Likes',
 			value: item => item.likes.join(', ')
 		},
-		// {
-		// 	key: 'memberSince',
-		// 	title: 'Member Since',
-		// 	type: 'date'
-		// }
+		{
+			key: 'memberSince',
+			title: 'Member Since',
+			type: 'date'
+		}
 	];
 
 	$http.get('data/people/100.json')
 		.then(function (response) {
+			ctrl.rows = response.data;
 			ctrl.gridModel.data({
 				rows: response.data,
 				columns: columns

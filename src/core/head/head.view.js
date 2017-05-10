@@ -7,6 +7,7 @@ export default class HeadView extends View {
 	constructor(model, table, tagName) {
 		super(model);
 
+		this.table = table;
 		this.tagName = tagName;
 		this.rows = [];
 
@@ -75,7 +76,7 @@ export default class HeadView extends View {
 	invalidate(model) {
 		Log.info('view.head', 'invalidate');
 
-		const columns = model.view().columns;
+		const columns = model.view().columns.map(row => row.filter(c => c.model.pin === this.table.pin));
 		this.rows = columns;
 	}
 }
