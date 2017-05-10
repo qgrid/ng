@@ -1,9 +1,9 @@
-import angular from 'angular';
+// import angular from 'angular';
 import PluginComponent from '../plugin.component';
 import {EXPORT_NAME} from '../definition';
 import Command from 'core/infrastructure/command';
 import TemplatePath from 'core/template/template.path';
-import {getFactory as valueFactory} from 'core/services/value';
+import {get as valueFactory} from 'core/services/value';
 
 TemplatePath
 	.register(EXPORT_NAME, () => {
@@ -35,21 +35,25 @@ class Export extends Plugin {
 	}
 
 	_toCsv() {
-		let body = '';
+		let columns = [];
+		let rows = [];
 		const head = this.columns.map(column => {
-			const getValue = valueFactory(column);
-			body = this.rows.map(row => {
-				row = getValue(row);
-				if (angular.isArray(row)) {
-					row = '"' + row.join(', ') + '"';
-				} else {
-					row = row + ',';
-				}
-				return row;
-			}).join('\n');
-			return column.title
-		}).join(",");
-		return head + '\n' + body;
+			return column.title;
+		}).join(',');
+		this.rows.map(item => {
+			columns.push(this.columns.map(column => {
+				let cellValue = valueFactory(item, column);
+				// if (angular.isArray(cellValue)) {
+				// 	cellValue = '"' + cellValue.join(', ') + '"';
+				// }
+				return '"' + cellValue + '"'
+			}));
+		});
+		rows.push(head);
+		for (let i = 0; i < this.rows.length; i++) {
+			rows.push(columns[i].join(','));
+		}
+		return rows.join('\n');
 	}
 
 	_download(csv) {
