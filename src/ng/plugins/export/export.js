@@ -1,18 +1,9 @@
+import angular from 'angular';
 import PluginComponent from '../plugin.component';
 import {EXPORT_NAME} from '../definition';
 import Command from 'core/infrastructure/command';
 import TemplatePath from 'core/template/template.path';
-// import {get as valueFactory} from 'core/services/value';
-function iterate(obj) {
-	for (let property of obj) {
-		if (obj.hasOwnProperty(property)) {
-			if (typeof obj[property] == "object")
-				iterate(obj[property]);
-			else
-				console.log(property + "   " + obj[property]);
-		}
-	}
-}
+import {getFactory as valueFactory} from 'core/services/value';
 
 TemplatePath
 	.register(EXPORT_NAME, () => {
@@ -44,12 +35,21 @@ class Export extends Plugin {
 	}
 
 	_toCsv() {
-		let result = '';
+		let body = '';
 		const head = this.columns.map(column => {
+			const getValue = valueFactory(column);
+			body = this.rows.map(row => {
+				row = getValue(row);
+				if (angular.isArray(row)) {
+					row = '"' + row.join(', ') + '"';
+				} else {
+					row = row + ',';
+				}
+				return row;
+			}).join('\n');
 			return column.title
 		}).join(",");
-		iterate(this.rows[0]);
-		return result + head;
+		return head + '\n' + body;
 	}
 
 	_download(csv) {
