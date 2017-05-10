@@ -1,4 +1,3 @@
-// import angular from 'angular';
 import PluginComponent from '../plugin.component';
 import {EXPORT_NAME} from '../definition';
 import Command from 'core/infrastructure/command';
@@ -35,21 +34,18 @@ class Export extends Plugin {
 	}
 
 	_toCsv() {
-		let columns = [];
-		let rows = [];
+		const columns = [];
+		const rows = [];
 		const head = this.columns.map(column => {
 			return column.title;
 		}).join(',');
+
+		rows.push(head);
 		this.rows.map(item => {
 			columns.push(this.columns.map(column => {
-				let cellValue = valueFactory(item, column);
-				// if (angular.isArray(cellValue)) {
-				// 	cellValue = '"' + cellValue.join(', ') + '"';
-				// }
-				return '"' + cellValue + '"'
+				return '"' + valueFactory(item, column) + '"';
 			}));
 		});
-		rows.push(head);
 		for (let i = 0; i < this.rows.length; i++) {
 			rows.push(columns[i].join(','));
 		}
