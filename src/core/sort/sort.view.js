@@ -7,7 +7,7 @@ import * as sortService from 'core/sort/sort.service';
 export default class SortView extends View {
 	constructor(model) {
 		super(model);
-
+		this.hover = false;
 		this.toggle = new Command({
 			canExecute: column => {
 				const key = column.key;
@@ -25,12 +25,14 @@ export default class SortView extends View {
 					switch (dir) {
 						case 'desc': {
 							by.splice(index, 1);
+							this.hover = false;
 							break;
 						}
 						case 'asc': {
 							const entry = {[key]: 'desc'};
 							by.splice(index, 1);
 							by.splice(index, 0, entry);
+							this.hover = false;
 							break;
 						}
 						default:

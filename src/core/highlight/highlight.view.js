@@ -8,12 +8,11 @@ import {noop} from 'core/services/utility';
 import {GRID_PREFIX} from 'core/definition';
 
 export default class HighlightView extends View {
-	constructor(model, table, apply) {
+	constructor(model, table, applyFactory) {
 		super(model);
 
-		this.markup = table.markup;
-		this.apply = apply;
-		this.behavior = new HighlightBehavior(model, cellSelector(model, table.markup));
+		this.apply = applyFactory('async');
+		this.behavior = new HighlightBehavior(model, cellSelector(model, table));
 		this.table = table;
 
 		// TODO: get rid of this variable, maybe using table class?
@@ -43,7 +42,11 @@ export default class HighlightView extends View {
 					}
 
 					if (hasChanges) {
-						model.highlight({columns: columns});
+						model.highlight({
+							columns: columns
+						},{
+							source: 'highlight.view',
+						});
 					}
 				}
 			}
@@ -55,7 +58,7 @@ export default class HighlightView extends View {
 
 		model.viewChanged.watch(() => {
 			waitForLayout = true;
-			apply(() => {
+			this.apply(() => {
 				hoverBlurs = this.invalidateHover(hoverBlurs);
 				sortBlurs = this.invalidateSortBy(sortBlurs);
 				waitForLayout = false;
@@ -90,7 +93,6 @@ export default class HighlightView extends View {
 		dispose.forEach(f => f());
 		dispose = [];
 
-
 		const sortBy = this.model.sort().by;
 		for (let entry of sortBy) {
 			const key = sortService.key(entry);
@@ -116,41 +118,28 @@ export default class HighlightView extends View {
 
 	highlight(key, cls) {
 		const table = this.table;
-		const markup = this.markup;
 		const index = this.columnIndex(key);
 		if (index < 0) {
 			return noop;
 		}
 
 		const head = table.head;
-		if (markup.head.rows.length) {
-			const cells = head.column(index).cells();
-			cells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}`));
-			if (index > 0) {
-				const cells = head.column(index - 1).cells();
-				cells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}-prev`));
-			}
-
-			if (index < markup.head.rows.length - 1) {
-				const cells = head.column(index + 1).cells();
-				cells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}-next`));
-			}
-		}
-		if (markup.body.rows.length) {
-			const cells = table.body.column(index).cells();
-			cells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}`));
-		}
-		if (markup.foot.rows.length) {
-			const cells = table.foot.column(index).cells();
-			cells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}`));
-		}
+		const headCells = head.column(index).cells();
+		headCells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}`));
+		const cellsPrev = head.column(index - 1).cells();
+		cellsPrev.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}-prev`));
+		const cellsNext = head.column(index + 1).cells();
+		cellsNext.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}-next`));
+		const bodyCells = table.body.column(index).cells();
+		bodyCells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}`));
+		const footCells = table.foot.column(index).cells();
+		footCells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}`));
 
 		return this.blur(key, cls);
 	}
 
 	blur(key, cls) {
 		const table = this.table;
-		const markup = this.markup;
 		const index = this.columnIndex(key);
 		if (index < 0) {
 			return noop;
@@ -158,27 +147,16 @@ export default class HighlightView extends View {
 
 		return () => {
 			const head = table.head;
-			if (markup.head.rows.length) {
-				const cells = head.column(index).cells();
-				cells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}`));
-				if (index > 0) {
-					const cells = head.column(index - 1).cells();
-					cells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}-prev`));
-				}
-				if (index < markup.head.rows.length - 1) {
-					const cells = head.column(index + 1).cells();
-					cells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}-next`));
-				}
-			}
-
-			if (markup.body.rows.length) {
-				const cells = table.body.column(index).cells();
-				cells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}`));
-			}
-			if (markup.foot.rows.length) {
-				const cells = table.foot.column(index).cells();
-				cells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}`));
-			}
+			const headCells = head.column(index).cells();
+			headCells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}`));
+			const cellsPrev = head.column(index - 1).cells();
+			cellsPrev.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}-prev`));
+			const cellsNext = head.column(index + 1).cells();
+			cellsNext.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}-next`));
+			const bodyCells = table.body.column(index).cells();
+			bodyCells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}`));
+			const footCells = table.foot.column(index).cells();
+			footCells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}`));
 		};
 	}
 }

@@ -1,6 +1,7 @@
 import ColumnModel from './column.model';
 import View from 'core/view/view';
 import TemplatePath from 'core/template/template.path';
+import {isObject, isFunction} from 'core/services/utility';
 
 TemplatePath.register('custom-cell', (template, column) => {
 	return {
@@ -25,10 +26,10 @@ export default class ColumnView extends View {
 	}
 
 	static model(model) {
-		if(model){
+		if(model) {
 			ColumnView.assign(model);
 		}
-		else{
+		else {
 			model = new ColumnModel();
 		}
 
@@ -41,6 +42,8 @@ export default class ColumnView extends View {
 		for (let key of Object.keys(etalon)) {
 			if (!body.hasOwnProperty(key)) {
 				body[key] = etalon[key];
+			} else if (isObject(body[key]) && !isFunction(body[key])) {
+				body[key] = Object.assign({}, etalon[key], body[key]);
 			}
 		}
 		return body;

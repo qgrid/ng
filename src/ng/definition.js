@@ -35,6 +35,7 @@ export const DROP_NAME = `${GRID}Drop`;
 export const MARKUP_NAME = `${GRID}Markup`;
 export const TOOLBAR_NAME = `${GRID}Toolbar`;
 export const LAYER_NAME = `${GRID}Layer`;
+export const CELL_VALUE_NAME = `${GRID}CellValue`;
 
 export const CAN_DROP_NAME = `${GRID}CanDrop`;
 export const CAN_DRAG_NAME = `${GRID}CanDrag`;
@@ -44,3 +45,9 @@ export const ON_DROP_NAME = `${GRID}OnDrop`;
 export const INDETERMINATE_NAME = `${GRID}Indeterminate`;
 export const FOCUS_NAME = `${GRID}Focus`;
 export const RESIZE_NAME = `${GRID}Resize`;
+export const RAISE_NAME = `${GRID}Raise`;
+export const ANIMATE_NAME = `${GRID}Animate`;
+
+export const FILE_UPLOAD_NAME = `${GRID}FileUpload`;
+export const FILE_UPLOAD_LABEL_NAME = `${GRID}FileUploadLabel`;
+export const CAN_UPLOAD_NAME = `${GRID}CanUpload`;

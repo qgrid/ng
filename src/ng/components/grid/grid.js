@@ -1,49 +1,21 @@
 import RootComponent from '../root.component';
-import PipeUnit from 'core/pipe/units/pipe.unit'
 
 export class Grid extends RootComponent {
-	constructor($element, $transclude, $document, serviceFactory) {
+	constructor($element, $transclude) {
 		super('data', 'selection', 'sort', 'group', 'pivot', 'edit');
 
 		this.$element = $element;
 		this.$transclude = $transclude;
-		this.serviceFactory = model => serviceFactory.service(model);
-		this.markup = {
-			document: $document[0]
-		};
 	}
 
 	onInit() {
 		this.compile();
 
-		const model = this.model;
-		const service = this.serviceFactory(model);
-
-		model.selectionChanged.watch(e => {
-			if (e.hasChanges('entries')) {
-				this.onSelectionChanged({
-					$event: {
-						state: model.selection(),
-						changes: e.changes
-					}
-				});
-			}
-
-			if (e.hasChanges('unit') || e.hasChanges('mode')) {
-				service.invalidate('selection', e.changes, PipeUnit.column);
+		this.model.viewChanged.watch(e => {
+			if (e.hasChanges('columns')) {
+				this.invalidateVisibility();
 			}
 		});
-
-		const triggers = model.data().triggers;
-		Object.keys(triggers)
-			.forEach(name =>
-				model[name + 'Changed']
-					.watch(e => {
-						const changes = Object.keys(e.changes);
-						if (e.tag.behavior !== 'core' && triggers[name].find(key => changes.indexOf(key) >= 0)) {
-							service.invalidate(name, e.changes);
-						}
-					}));
 	}
 
 	compile() {
@@ -61,6 +33,17 @@ export class Grid extends RootComponent {
 		templateScope.$destroy();
 	}
 
+	invalidateVisibility() {
+		const columns = this.model.data().columns;
+		const visibility = this.model.visibility;
+		visibility({
+			pin: {
+				left: columns.some(c => c.pin === 'left'),
+				right: columns.some(c => c.pin === 'right')
+			}
+		});
+	}
+
 	get visibility() {
 		// TODO: get rid of that
 		return this.model.visibility();
@@ -69,9 +52,7 @@ export class Grid extends RootComponent {
 
 Grid.$inject = [
 	'$element',
-	'$transclude',
-	'$document',
-	'qgrid'
+	'$transclude'
 ];
 
 /**

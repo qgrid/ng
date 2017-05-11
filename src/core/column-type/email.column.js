@@ -19,6 +19,8 @@ TemplatePath.register('email-cell-edit', (template, column) => {
 class EmailColumnModel extends DataColumnModel {
 	constructor() {
 		super('email');
+
+		this.editorOptions.trigger = 'custom';
 	}
 }
 

@@ -22,6 +22,10 @@
 			{
 				"title": "Architecture",
 				"path": "architecture"
+			},
+			{
+				"title": "Model",
+				"path": "grid-model"
 			}
 		]
 	},
@@ -72,7 +76,7 @@
 				"path": "data-virtualization"
 			},
 			{
-				"title": "Scrolling 1 Billion Cells",
+				"title": "Scrolling 100000 Rows",
 				"path": "big-data"
 			},
 			{
@@ -80,8 +84,8 @@
 				"path": "infinite-scrolling"
 			},
 			{
-				"title": "Frozen Columns",
-				"path": "frozen-columns"
+				"title": "Pinned Columns",
+				"path": "column-pin"
 			}
 		]
 	},
@@ -276,6 +280,10 @@
 				"path": "edit-templates"
 			},
 			{
+				"title": "Editors",
+				"path": "editors"
+			},
+			{
 				"title": "Batch Editing",
 				"path": "batch-editing"
 			},
@@ -388,6 +396,10 @@
 			{
 				"title": "Column Filter",
 				"path": "column-filter"
+			},
+			{
+				"title": "Edit Form",
+				"path": "edit-form"
 			},
 			{
 				"title": "Group Bar",

@@ -1,16 +1,15 @@
 import View from 'core/view/view';
 import * as css from 'core/services/css';
 import * as columnService from 'core/column/column.service';
-import log from 'core/infrastructure/log';
 import {clone} from 'core/services/utility';
 import PipeUnit from 'core/pipe/units/pipe.unit';
+import log from 'core/infrastructure/log';
 
 export default class LayoutView extends View {
 	constructor(model, table, service) {
 		super(model);
 		this.model = model;
 		this.table = table;
-		this.markup = table.markup;
 		this.service = service;
 
 		this.onInit();
@@ -29,12 +28,7 @@ export default class LayoutView extends View {
 			if (e.hasChanges('columns')) {
 				this.invalidateColumns(this.form);
 			}
-
-			if (e.hasChanges('scroll')) {
-				this.invalidateScroll();
-			}
 		});
-
 
 		model.dataChanged.watch(e => {
 			if (e.hasChanges('columns')) {
@@ -98,15 +92,6 @@ export default class LayoutView extends View {
 		return state;
 	}
 
-	invalidateScroll() {
-		log.info('layout', 'invalidate scroll');
-
-		const markup = this.markup;
-		const scroll = this.model.layout().scroll;
-		markup.head.scrollLeft = scroll.left;
-		markup.foot.scrollLeft = scroll.left;
-	}
-
 	invalidateColumns(form) {
 		log.info('layout', 'invalidate columns');
 
@@ -128,12 +113,16 @@ export default class LayoutView extends View {
 			}
 		}
 
-		const sheet = css.sheet(`${model.grid().id}-layout`);
+		const sheet = css.sheet(this.styleId);
 		sheet.set(style);
 	}
 
 	destroy() {
-		const sheet = css.sheet(`${this.model.grid().id}-layout`);
+		const sheet = css.sheet(this.styleId);
 		sheet.remove();
+	}
+
+	get styleId() {
+		return `${this.model.grid().id}-${this.table.pin || 'center'}-layout`;
 	}
 }

@@ -23,6 +23,7 @@ export default {
 	restrict: 'A',
 	controller: Indeterminate,
 	require: Indeterminate.require,
-	link: Indeterminate.link
+	link: Indeterminate.link,
+	scope: false
 };
 

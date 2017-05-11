@@ -2,6 +2,86 @@ import columnFactory from 'core/column/column.factory';
 import * as columnService from 'core/column/column.service';
 import {noop} from 'core/services/utility';
 
+export default function columnPipe(memo, context, next) {
+	const model = context.model;
+	const pivot = memo.pivot;
+	const nodes = memo.nodes;
+	const heads = pivot.heads;
+	const columns = [];
+	const addSelectColumn = selectColumnFactory(model);
+	const addGroupColumn = groupColumnFactory(model, nodes);
+	const addDataColumns = dataColumnsFactory(model);
+	const addPivotColumns = pivotColumnsFactory(model);
+	const addPadColumn = padColumnFactory(model);
+
+	/*
+	 * Add column with select boxes
+	 * if selection unit is row
+	 *
+	 */
+	addSelectColumn(columns, {rowspan: heads.length, row: 0});
+
+	/*
+	 * Add group column with nodes
+	 *
+	 */
+	addGroupColumn(columns, {rowspan: heads.length, row: 0});
+
+	columns.forEach((c, i) => c.index = i);
+
+	/*
+	 * Add columns defined by user
+	 * that are visible
+	 *
+	 */
+	addDataColumns(columns, {rowspan: heads.length, row: 0});
+
+
+	/*
+	 * Persist order of draggable columns
+	 *
+	 */
+	let index = 0;
+	const columnMap = columnService.map(columns.map(c => c.model));
+	const indexMap = model.columnList()
+		.index
+		.filter(key => columnMap.hasOwnProperty(key))
+		.reduce((memo, key) => {
+			memo[key] = index++;
+			return memo;
+		}, {});
+
+	const hangoutColumns = columns.filter(c => !indexMap.hasOwnProperty(c.model.key));
+	const indexedColumns = columns.filter(c => indexMap.hasOwnProperty(c.model.key));
+	const startIndex = hangoutColumns.length;
+
+	hangoutColumns.forEach((c, i) => c.model.index = i);
+	indexedColumns.forEach(c => c.model.index = startIndex + indexMap[c.model.key]);
+
+	columns.sort((x, y) => x.model.index - y.model.index);
+
+	if (heads.length) {
+		/*
+		 * Add column rows for pivoted data
+		 * if pivot is turned on
+		 *
+		 */
+
+		memo.columns = addPivotColumns(columns, heads);
+	}
+	else {
+		/*
+		 * Add special column type
+		 * that fills remaining place (width = 100%)
+		 *
+		 */
+		addPadColumn(columns, {rowspan: heads.length, row: 0});
+		memo.columns = [columns];
+	}
+
+	next(memo);
+}
+
 function selectColumnFactory(model) {
 	const dataColumns = model.data().columns;
 	const selection = model.selection();
@@ -149,84 +229,4 @@ function pivotColumnsFactory(model) {
 
 		return rows;
 	};
-}
-
-export default function columnPipe(memo, context, next) {
-	const model = context.model;
-	const pivot = memo.pivot;
-	const nodes = memo.nodes;
-	const heads = pivot.heads;
-	const columns = [];
-	const addSelectColumn = selectColumnFactory(model);
-	const addGroupColumn = groupColumnFactory(model, nodes);
-	const addDataColumns = dataColumnsFactory(model);
-	const addPivotColumns = pivotColumnsFactory(model);
-	const addPadColumn = padColumnFactory(model);
-
-	/*
-	 * Add column with select boxes
-	 * if selection unit is row
-	 *
-	 */
-	addSelectColumn(columns, {rowspan: heads.length, row: 0});
-
-	/*
-	 * Add group column with nodes
-	 *
-	 */
-	addGroupColumn(columns, {rowspan: heads.length, row: 0});
-
-	columns.forEach((c, i) => c.index = i);
-
-	/*
-	 * Add columns defined by user
-	 * that are visible
-	 *
-	 */
-	addDataColumns(columns, {rowspan: heads.length, row: 0});
-
-
-	/*
-	 * Persist order of draggable columns
-	 *
-	 */
-	let index = 0;
-	const columnMap = columnService.map(columns.map(c => c.model));
-	const indexMap = model.columnList()
-		.index
-		.filter(key => columnMap.hasOwnProperty(key))
-		.reduce((memo, key) => {
-			memo[key] = index++;
-			return memo;
-		}, {});
-
-	const hangoutColumns = columns.filter(c => !indexMap.hasOwnProperty(c.model.key));
-	const indexedColumns = columns.filter(c => indexMap.hasOwnProperty(c.model.key));
-	const startIndex = hangoutColumns.length;
-
-	hangoutColumns.forEach((c, i) => c.model.index = i);
-	indexedColumns.forEach(c => c.model.index = startIndex + indexMap[c.model.key]);
-
-	columns.sort((x, y) => x.model.index - y.model.index);
-
-	if (heads.length) {
-		/*
-		 * Add column rows for pivoted data
-		 * if pivot is turned on
-		 *
-		 */
-
-		memo.columns = addPivotColumns(columns, heads);
-	}
-	else {
-		/*
-		 * Add special column type
-		 * that fills remaining place (width = 100%)
-		 *
-		 */
-		addPadColumn(columns, {rowspan: heads.length, row: 0});
-		memo.columns = [columns];
-	}
-
-	next(memo);
 }

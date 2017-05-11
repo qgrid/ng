@@ -6,6 +6,12 @@ export default function Controller($http) {
 	this.rows = [];
 	this.columns = [
 		{
+			key: 'avatar',
+			title: 'Avatar',
+			type: 'image',
+			width: 80
+		},
+		{
 			key: 'name.last',
 			title: 'Last Name',
 			type: 'text',
@@ -36,8 +42,14 @@ export default function Controller($http) {
 		{
 			key: 'contact.address.zip',
 			title: 'Zip',
-			type: 'number',
+			type: 'id',
 			path: 'contact.address.zip'
+		},
+		{
+			key: 'salary',
+			title: 'Salary',
+			type: 'number',
+			format: 2
 		},
 		{
 			key: 'contact.phone',
@@ -55,6 +67,23 @@ export default function Controller($http) {
 			key: 'myTypeFromJS',
 			title: 'My Type From js',
 			type: 'my-type'
+		},
+		{
+			key: 'timeNow',
+			title: 'Time Now',
+			type: 'time',
+			value: () => new Date().getTime()
+		},
+		{
+			key: 'webPage',
+			title: 'Web Page',
+			type: 'url',
+			value: (item) => `https://corp.portal.com/${item.name.last}.${item.name.first}`
+		},
+		{
+			key: 'attachments',
+			title: 'Attachments',
+			type: 'file'
 		}
 	];
 
@@ -64,5 +93,7 @@ export default function Controller($http) {
 
 			ctrl.rows[4].comment = 'Johnson Creek is a 25-mile (40 km) tributary of the Willamette River in the Portland.';
 			ctrl.rows[1].password = '123';
+			ctrl.rows[0].salary = 50000;
+			ctrl.rows[2].salary = 120000;
 		});
 }

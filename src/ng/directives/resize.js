@@ -92,5 +92,6 @@ export default {
 	controllerAs: '$resize',
 	controller: Resize,
 	require: Resize.require,
-	link: Resize.link
+	link: Resize.link,
+	scope: false
 };

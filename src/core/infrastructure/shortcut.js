@@ -1,10 +1,9 @@
-import EventListener from './event.listener';
+import {isFunction} from 'core/services/utility';
 
 export default class Shortcut {
-	constructor(document, target, apply) {
-		this.document = document;
-		this.target = target;
+	constructor(table, apply) {
 		this.apply = apply;
+		this.commands = [];
 		this.shortcuts = new Map();
 		this.codeMap = new Map()
 			.set(9, 'tab')
@@ -21,42 +20,12 @@ export default class Shortcut {
 			.set(40, 'down')
 			.set(113, 'f2');
 
-		this.listener =
-			new EventListener(this, document)
-				.on('keydown', this.onKeyDown);
-	}
-
-	canExecute(){
-		const target = this.target;
-		let current = this.document.activeElement;
-		while (current){
-			if(current === target){
-				return true;
-			}
-
-			current = current.parentNode;
-		}
-
-		return false;
-	}
-
-	onKeyDown(e) {
-		if(this.canExecute()) {
-			const code = this.translate(e);
-			if (this.shortcuts.has(code)) {
-				const cmds = this.shortcuts.get(code);
-				cmds.forEach(cmd => {
-					if (cmd.canExecute()) {
-						e.preventDefault();
-						this.apply(() => cmd.execute());
-					}
-				});
-			}
-		}
+		this.canExecute = table.isFocused.bind(table);
+		this.off = table.keyDown(this.onKeyDown.bind(this));
 	}
 
 	translate(e) {
-		let codes = [];
+		const codes = [];
 		if (e.ctrlKey) {
 			codes.push('ctrl');
 		}
@@ -70,25 +39,68 @@ export default class Shortcut {
 		return codes.join('+');
 	}
 
-	register(id, commands) {
-		for (let value of commands.values()) {
-			if (value.shortcut) {
-				value.shortcut
-					.toLowerCase()
-					.split('|')
-					.forEach(shortcut => {
-						let temp = [];
-						if (this.shortcuts.has(shortcut)) {
-							temp = this.shortcuts.get(shortcut);
+	onKeyDown(e) {
+		if (this.canExecute()) {
+			const code = this.translate(e);
+			const cmds = this.find(code);
+			if (cmds.length) {
+				e.preventDefault();
+
+				cmds.forEach(cmd =>
+					this.apply(() => {
+						if (cmd.canExecute()) {
+							cmd.execute();
 						}
-						temp.push(value);
-						this.shortcuts.set(shortcut, temp);
-					});
+					}));
+			}
+		}
+	}
+
+	register(id, commands) {
+		for (let cmd of commands.values()) {
+			if (cmd.shortcut) {
+				if (isFunction(cmd.shortcut)) {
+					this.commands.push(cmd);
+				}
+				else {
+					cmd.shortcut
+						.toLowerCase()
+						.split('|')
+						.forEach(shortcut => {
+							let temp = [];
+							if (this.shortcuts.has(shortcut)) {
+								temp = this.shortcuts.get(shortcut);
+							}
+							temp.push(cmd);
+							this.shortcuts.set(shortcut, temp);
+						});
+				}
 			}
 		}
 
 		return () => {
 			this.shortcuts.delete(id);
 		};
+	}
+
+	find(code) {
+		let result = [];
+		if (this.shortcuts.has(code)) {
+			result = result.concat(this.shortcuts.get(code));
+		}
+
+		result = result.concat(this.commands.filter(cmd => this.test(cmd.shortcut(), code)));
+		return result;
+	}
+
+	test(shortcut, code) {
+		return ('' + shortcut)
+			.toLowerCase()
+			.split('|')
+			.some(shct => code === shct);
+	}
+
+	onDestroy() {
+		this.off();
 	}
 }

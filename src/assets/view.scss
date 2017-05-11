@@ -7,4 +7,28 @@
 			}
 		}
 	}
+
+	&.q-grid-view-left,
+	&.g-grid-view-right {
+		tbody {
+			overflow-x: hidden;
+		}
+
+		// Scroll bottom offset
+		margin-bottom: 8px;
+	}
+
+	&.q-grid-view-left {
+		tbody {
+			overflow-y: hidden;
+		}
+	}
+}
+
+.q-grid-with-right-pin {
+	.q-grid-view-center {
+		tbody {
+			overflow-y: hidden;
+		}
+	}
 }
