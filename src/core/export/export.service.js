@@ -1,4 +1,4 @@
-import {get as valueFactory} from 'core/services/value';
+import {get as valueFactory} from '@grid/core/services/value';
 
 export function toCsv(rows, columns) {
 	const CSV_DELIMETER = ',';
