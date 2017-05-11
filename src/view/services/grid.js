@@ -1,9 +1,7 @@
-import Model from '@grid/core/infrastructure/model';
-import GridService from '@grid/core/services/grid';
-import Pipe from '@grid/core/pipe/pipe';
-import PipeUnit from '@grid/core/pipe/units/pipe.unit';
-import Log from '@grid/core/infrastructure/log';
-import Command from '@grid/core/infrastructure/command';
+import {Model, Log, Command} from '@grid/core/infrastructure';
+import {GridService} from '@grid/core/services';
+import {Pipe} from '@grid/core/pipe';
+import {PipeUnit} from '@grid/core/pipe/units';
 import {noop} from '@grid/core/services/utility';
 import {getFactory as valueFactory} from '@grid/core/services/value';
 import {getFactory as labelFactory} from '@grid/core/services/label';

@@ -1,12 +1,11 @@
 import ModelComponent from '@grid/view/components/model.component';
-import AppError from '@grid/core/infrastructure/error';
-import * as guard from '@grid/core/infrastructure/guard';
+import {AppError, Guard} from '@grid/core/infrastructure';
 import {merge, clone, assignWith} from '@grid/core/services/utility';
 import TemplateLink from '@grid/view/components/template/template.link';
 import {BOX_CORE_NAME, GRID_NAME} from '@grid/view/definition';
 
 export default function (pluginName, context) {
-	guard.notNullOrEmpty(pluginName, 'pluginName');
+	Guard.notNullOrEmpty(pluginName, 'pluginName');
 
 	context = assignWith({
 		models: [],

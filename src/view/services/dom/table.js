@@ -1,6 +1,6 @@
 import Box from './box';
 import Data from './data';
-import EventListener from '@grid/core/infrastructure/event.listener';
+import {EventListener} from '@grid/core/infrastructure';
 import {Element} from './element';
 import {HEAD_CORE_NAME, BODY_CORE_NAME, FOOT_CORE_NAME} from '@grid/view/definition';
 

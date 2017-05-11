@@ -1,6 +1,5 @@
-import ColumnView from '@grid/core/column-type/column.model.view';
-import DataColumnModel from './data.column.model';
-import TemplatePath from '@grid/core/template/template.path';
+import {ColumnView, DataColumnModel} from './';
+import {TemplatePath} from '../template';
 
 TemplatePath.register('date-cell', (template, column) => {
 	return {
@@ -16,7 +15,7 @@ TemplatePath.register('date-cell-edit', (template, column) => {
 	};
 });
 
-class DateColumnModel extends DataColumnModel {
+export class DateColumnModel extends DataColumnModel {
 	constructor() {
 		super('date');
 
@@ -24,7 +23,7 @@ class DateColumnModel extends DataColumnModel {
 	}
 }
 
-export default class DateColumn extends ColumnView {
+export class DateColumn extends ColumnView {
 	constructor(model) {
 		super(model);
 	}

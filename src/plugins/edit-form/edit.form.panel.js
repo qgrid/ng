@@ -1,6 +1,6 @@
 import PluginComponent from '../plugin.component';
-import Command from '@grid/core/infrastructure/command';
-import RowEditor from '@grid/core/edit/edit.row.editor';
+import {Command} from '@grid/core/infrastructure';
+import {RowEditor} from '@grid/core/edit';
 
 const Plugin = PluginComponent('edit-form-panel', {inject: []});
 class EditFormPanel extends Plugin {
@@ -10,7 +10,7 @@ class EditFormPanel extends Plugin {
 		this.submit = new Command({
 			execute: () => {
 				this.editor.commit();
-				this.onSubmit()
+				this.onSubmit();
 			}
 		});
 
@@ -21,7 +21,7 @@ class EditFormPanel extends Plugin {
 		this.reset = new Command({
 			execute: () => {
 				this.editor.editors.forEach(e => e.reset());
-				this.onReset()
+				this.onReset();
 			}
 		});
 	}

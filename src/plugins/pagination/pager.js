@@ -1,7 +1,7 @@
 import PluginComponent from '../plugin.component';
 import {PAGER_NAME} from '../definition';
-import Command from '@grid/core/infrastructure/command';
-import TemplatePath from '@grid/core/template/template.path';
+import {Command} from '@grid/core/infrastructure';
+import {TemplatePath} from '@grid/core/template';
 
 TemplatePath
 	.register(PAGER_NAME, () => {
@@ -57,7 +57,7 @@ class Pager extends Plugin {
 	}
 
 	get to() {
-		return Math.min(this.total, (this.current + 1) * this.size)
+		return Math.min(this.total, (this.current + 1) * this.size);
 	}
 
 	get total() {

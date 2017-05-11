@@ -1,4 +1,4 @@
-import Event from '@grid/core/infrastructure/event';
+import {Event} from '@grid/core/infrastructure';
 import {isFunction, noop} from '@grid/core/services/utility';
 
 export default class Popup {

@@ -1,6 +1,5 @@
-import ColumnView from '@grid/core/column-type/column.model.view';
-import DataColumnModel from './data.column.model';
-import TemplatePath from '@grid/core/template/template.path';
+import {ColumnView, DataColumnModel} from './';
+import {TemplatePath} from '../template';
 
 TemplatePath.register('url-cell', (template, column) => {
 	return {
@@ -16,7 +15,7 @@ TemplatePath.register('url-cell-edit', (template, column) => {
 	};
 });
 
-class UrlColumnModel extends DataColumnModel {
+export class UrlColumnModel extends DataColumnModel {
 	constructor() {
 		super('url');
 
@@ -24,7 +23,7 @@ class UrlColumnModel extends DataColumnModel {
 	}
 }
 
-export default class UrlColumn extends ColumnView {
+export class UrlColumn extends ColumnView {
 	constructor(model) {
 		super(model);
 	}

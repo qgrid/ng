@@ -1,4 +1,4 @@
-import Event from '@grid/core/infrastructure/event';
+import {Event} from '@grid/core/infrastructure';
 
 const DefaultTheme = 'default';
 

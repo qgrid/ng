@@ -1,11 +1,11 @@
 import PluginComponent from '../plugin.component';
-import Command from '@grid/core/infrastructure/command';
-import TemplatePath from '@grid/core/template/template.path';
-import Aggregation from '@grid/core/services/aggregation';
+import {Command} from '@grid/core/infrastructure';
+import {TemplatePath} from '@grid/core/template';
+import {Aggregation} from '@grid/core/services';
 import * as columnService from '@grid/core/column/column.service';
 import {isFunction, noop} from '@grid/core/services/utility';
 import {COLUMN_CHOOSER_NAME} from '../definition';
-import PipeUnit from '@grid/core/pipe/units/pipe.unit';
+import {PipeUnit} from '@grid/core/pipe/units';
 
 TemplatePath
 	.register(COLUMN_CHOOSER_NAME, () => {
@@ -50,7 +50,7 @@ class ColumnChooser extends Plugin {
 
 		this.toggleAggregation = new Command({
 			execute: () => {
-				this.service.invalidate('column.chooser', {}, PipeUnit.column)
+				this.service.invalidate('column.chooser', {}, PipeUnit.column);
 			},
 		});
 
@@ -143,7 +143,7 @@ class ColumnChooser extends Plugin {
 						isVisible: column.isVisible,
 						aggregation: column.aggregation
 					};
-					return memo
+					return memo;
 				}, {})
 		};
 

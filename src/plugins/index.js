@@ -20,7 +20,7 @@ import PopupService from './popup/popup.service';
 
 import * as def from './definition';
 
-export default angular
+export default angular  // eslint-disable-line no-undef
 	.module(def.MODULE_NAME, [def.MODULE_CORE_NAME])
 	.component(def.PAGER_NAME, Pager)
 	.component(def.SORT_BAR_NAME, SortBar)

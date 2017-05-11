@@ -1,6 +1,5 @@
-import ColumnView from '@grid/core/column-type/column.model.view';
-import TemplatePath from '@grid/core/template/template.path';
-import ColumnModel from './column.model';
+import {ColumnView, ColumnModel} from './';
+import {TemplatePath} from '../template';
 
 TemplatePath.register('group-cell', (template, column) => {
 	return {
@@ -9,7 +8,7 @@ TemplatePath.register('group-cell', (template, column) => {
 	};
 });
 
-class GroupColumnModel extends ColumnModel {
+export class GroupColumnModel extends ColumnModel {
 	constructor() {
 		super('group');
 
@@ -21,7 +20,7 @@ class GroupColumnModel extends ColumnModel {
 	}
 }
 
-export default class GroupColumn extends ColumnView {
+export class GroupColumn extends ColumnView {
 	constructor(model) {
 		super(model);
 	}

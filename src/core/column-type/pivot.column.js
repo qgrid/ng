@@ -1,6 +1,5 @@
-import ColumnView from '@grid/core/column-type/column.model.view';
-import TemplatePath from '@grid/core/template/template.path';
-import ColumnModel from './column.model';
+import {ColumnView, ColumnModel} from './';
+import {TemplatePath} from '../template';
 
 TemplatePath.register('pivot-cell', (template) => {
 	return {
@@ -9,7 +8,7 @@ TemplatePath.register('pivot-cell', (template) => {
 	};
 });
 
-class PivotColumnModel extends ColumnModel {
+export class PivotColumnModel extends ColumnModel {
 	constructor() {
 		super('pivot');
 
@@ -25,7 +24,7 @@ class PivotColumnModel extends ColumnModel {
 	}
 }
 
-export default class PivotColumn extends ColumnView {
+export class PivotColumn extends ColumnView {
 	constructor(model) {
 		super(model);
 	}

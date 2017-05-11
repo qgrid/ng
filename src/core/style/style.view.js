@@ -1,9 +1,9 @@
-import View from '@grid/core/view/view';
-import {Monitor} from '@grid/core/services/style';
-import * as columnService from '@grid/core/column/column.service';
-import {getFactory as valueFactory} from '@grid/core/services/value';
+import {View} from '../view';
+import {Monitor} from '../services/style';
+import * as columnService from '../column/column.service';
+import {getFactory as valueFactory} from '../services/value';
 
-export default class StyleView extends View {
+export class StyleView extends View {
 	constructor(model, table) {
 		super(model);
 

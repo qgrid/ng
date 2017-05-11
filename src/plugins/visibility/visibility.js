@@ -1,10 +1,10 @@
 import PluginComponent from '../plugin.component';
-import Command from '@grid/core/infrastructure/command';
-import Node from '@grid/core/node/node'
-import * as path from '@grid/core/services/path'
+import {Command} from '@grid/core/infrastructure';
+import {Node} from '@grid/core/node';
+import * as path from '@grid/core/services/path';
 import * as ng from '@grid/view/services/ng';
 import {VISIBILITY_NAME} from '../definition';
-import TemplatePath from '@grid/core/template/template.path';
+import {TemplatePath} from '@grid/core/template';
 import {isObject, cloneDeep} from '@grid/core/services/utility';
 
 TemplatePath

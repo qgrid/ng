@@ -1,47 +1,49 @@
-import filter from './filter.pipe';
-import pagination from './pagination.pipe';
-import sort from './sort.pipe';
-import data from './data.pipe';
-import memo from './memo.pipe';
-import group from './group.pipe';
-import pivot from './pivot.pipe';
-import column from './column.pipe';
-import view from './view.pipe';
+import {
+	filterPipe,
+	paginationPipe,
+	sortPipe,
+	dataPipe,
+	memoPipe,
+	groupPipe,
+	pivotPipe,
+	columnPipe,
+	viewPipe
+} from './';
 
-export default class Pipe {
+export class Pipe {
 	static get data() {
-		return data;
+		return dataPipe;
 	}
 
 	static get filter() {
-		return filter;
+		return filterPipe;
 	}
 
 	static get pagination() {
-		return pagination;
+		return paginationPipe;
 	}
 
 	static get sort() {
-		return sort;
+		return sortPipe;
 	}
 
 	static get memo(){
-		return memo;
+		return memoPipe;
 	}
 
 	static get group() {
-		return group;
+		return groupPipe;
 	}
 
 	static get pivot() {
-		return pivot;
+		return pivotPipe;
 	}
 
 	static get column(){
-		return column;
+		return columnPipe;
 	}
 
 	static get view(){
-		return view;
+		return viewPipe;
 	}
 }

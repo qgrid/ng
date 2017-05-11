@@ -1,6 +1,6 @@
 import Component from '../component';
 import {GRID_NAME, LAYER_NAME} from '@grid/view/definition';
-import TemplatePath from '@grid/core/template/template.path';
+import {TemplatePath} from '@grid/core/template';
 
 TemplatePath
 	.register(LAYER_NAME, template => {

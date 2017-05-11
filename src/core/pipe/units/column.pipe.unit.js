@@ -1,6 +1,6 @@
-import columnPipe from '../column.pipe';
+import {columnPipe} from '../column.pipe';
 
-export default [
+export const columnPipeUnit = [
 	(memo, context, next) => {
 		const view = context.model.view();
 		next({

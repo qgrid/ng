@@ -1,6 +1,6 @@
-import Pipe from '@grid/core/pipe/pipe';
+import {Pipe} from '../';
 
-export default [
+export const viewPipeUnit = [
 	Pipe.data,
 	Pipe.memo,
 	Pipe.column,

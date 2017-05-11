@@ -1,6 +1,5 @@
-import ColumnView from '@grid/core/column-type/column.model.view';
-import DataColumnModel from './data.column.model';
-import TemplatePath from '@grid/core/template/template.path';
+import {ColumnView, DataColumnModel} from './';
+import {TemplatePath} from '../template';
 
 TemplatePath.register('password-cell', (template, column) => {
 	return {
@@ -16,7 +15,7 @@ TemplatePath.register('password-cell-edit', (template, column) => {
 	};
 });
 
-class PasswordColumnModel extends DataColumnModel {
+export class PasswordColumnModel extends DataColumnModel {
 	constructor() {
 		super('password');
 
@@ -25,7 +24,7 @@ class PasswordColumnModel extends DataColumnModel {
 	}
 }
 
-export default class PasswordColumn extends ColumnView {
+export class PasswordColumn extends ColumnView {
 	constructor(model) {
 		super(model);
 	}

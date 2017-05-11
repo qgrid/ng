@@ -17,7 +17,7 @@ class PopupBody extends Component {
 		this.$popup = this.popup;
 
 		const model = this.model;
-		const templateUrl = `qgrid.plugin.popup-body.tpl.html`;
+		const templateUrl = 'qgrid.plugin.popup-body.tpl.html';
 		const templateScope = this.$scope.$new();
 		const link = this.template.link(
 			templateUrl,

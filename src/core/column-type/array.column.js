@@ -1,6 +1,5 @@
-import ColumnView from '@grid/core/column-type/column.model.view';
-import DataColumnModel from './data.column.model';
-import TemplatePath from '@grid/core/template/template.path';
+import {ColumnView, DataColumnModel} from './';
+import {TemplatePath} from '../template';
 
 TemplatePath.register('array-cell', (template, column) => {
 	return {
@@ -16,13 +15,13 @@ TemplatePath.register('array-cell-edit', (template, column) => {
 	};
 });
 
-class ArrayColumnModel extends DataColumnModel {
+export class ArrayColumnModel extends DataColumnModel {
 	constructor() {
 		super('array');
 	}
 }
 
-export default class ArrayColumn extends ColumnView {
+export class ArrayColumn extends ColumnView {
 	constructor(model) {
 		super(model);
 	}

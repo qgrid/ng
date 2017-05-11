@@ -14,7 +14,7 @@ class PopupTrigger extends Component {
 
 	onInit() {
 		const model = this.popup.model;
-		const templateUrl = `qgrid.plugin.popup-trigger.tpl.html`;
+		const templateUrl = 'qgrid.plugin.popup-trigger.tpl.html';
 		const templateScope = this.$scope.$new();
 		const link = this.template.link(
 			templateUrl,

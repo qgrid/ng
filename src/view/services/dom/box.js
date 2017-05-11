@@ -3,7 +3,7 @@ import Row from './row';
 import Column from './column';
 import Cell from './cell';
 import {ElementCore} from './element';
-import AppError from '@grid/core/infrastructure/error';
+import {AppError} from '@grid/core/infrastructure';
 
 class BoxCore extends ElementCore {
 	constructor() {

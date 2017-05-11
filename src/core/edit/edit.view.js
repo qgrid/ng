@@ -1,8 +1,7 @@
-import View from '@grid/core/view/view';
-import EditCellView from './edit.cell.view';
-import EditRowView from './edit.row.view';
+import {View} from '../view';
+import {EditCellView, EditRowView} from './';
 
-export default class EditView extends View {
+export class EditView extends View {
 	constructor(model, table, applyFactory) {
 		super(model);
 

@@ -1,9 +1,9 @@
 import PluginComponent from '../plugin.component';
-import Command from '@grid/core/infrastructure/command'
+import {Command} from '@grid/core/infrastructure';
 import * as SortSevice from '@grid/core/sort/sort.service';
 import {SORT_BAR_NAME} from '../definition';
 import {TH_CORE_NAME} from '@grid/view/definition';
-import TemplatePath from '@grid/core/template/template.path';
+import {TemplatePath} from '@grid/core/template';
 
 TemplatePath
 	.register(SORT_BAR_NAME, () => {
@@ -20,13 +20,13 @@ class SortBar extends Plugin {
 
 		this.newSort = null;
 		this.selectedItems = null;
-		
+
 		this.replace = new Command({
 				execute: key => {
 					const sort = this.model.sort;
 
 					sort({
-						by: key.map((item) => { return {[item]: 'asc'} })
+						by: key.map(item => ({[item]: 'asc'}))
 					});
 				},
 				canExecute: () => this.columns.length > 0
@@ -63,7 +63,7 @@ class SortBar extends Plugin {
 				const temp = Array.from(state.by);
 				temp.splice(index, 1);
 				this.selectedItems = temp.slice();
-				
+
 				sort({
 					by: temp
 				});

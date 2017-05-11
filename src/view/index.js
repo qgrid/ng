@@ -1,7 +1,7 @@
 import Grid from './components/grid/grid';
 import GridService from './services/grid';
 
-import TemplatePath from '@grid/core/template/template.path';
+import {TemplatePath} from '@grid/core/template';
 import Head from './components/head/head';
 import Foot from './components/foot/foot';
 import ColumnList from './components/column/column.list';

@@ -1,8 +1,8 @@
 import PluginComponent from '../plugin.component';
-import Command from '@grid/core/infrastructure/command'
+import {Command} from '@grid/core/infrastructure';
 import {TH_CORE_NAME} from '@grid/view/definition';
 import {PIVOT_BAR_NAME} from '../definition';
-import TemplatePath from '@grid/core/template/template.path';
+import {TemplatePath} from '@grid/core/template';
 
 TemplatePath
 	.register(PIVOT_BAR_NAME, () => {
@@ -17,9 +17,9 @@ class PivotBar extends Plugin {
 	constructor() {
 		super(...arguments);
 
-		this.newGroup = null;		
+		this.newGroup = null;
 		this.selectedItems = null;
-		
+
 		this.replace = new Command({
 				execute: key => {
 					const pivot = this.model.pivot;
@@ -37,9 +37,9 @@ class PivotBar extends Plugin {
 					const pivot = this.model.pivot;
 					const state = pivot();
 					const temp = state.by.concat(key);
-				
+
 					this.selectedItems = temp.slice();
-					
+
 					pivot({
 						by: temp
 					});

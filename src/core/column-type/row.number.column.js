@@ -1,6 +1,5 @@
-import ColumnView from '@grid/core/column-type/column.model.view';
-import TemplatePath from '@grid/core/template/template.path';
-import ColumnModel from './column.model';
+import {ColumnView, ColumnModel} from './';
+import {TemplatePath} from '../template';
 
 TemplatePath.register('row-number-cell', (template, column) => {
 	return {
@@ -9,7 +8,7 @@ TemplatePath.register('row-number-cell', (template, column) => {
 	};
 });
 
-class RowNumberColumnModel extends ColumnModel {
+export class RowNumberColumnModel extends ColumnModel {
 	constructor() {
 		super('row-number');
 
@@ -22,7 +21,7 @@ class RowNumberColumnModel extends ColumnModel {
 	}
 }
 
-export default class RowNumberColumn extends ColumnView {
+export class RowNumberColumn extends ColumnView {
 	constructor(model) {
 		super(model);
 	}

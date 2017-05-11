@@ -1,6 +1,5 @@
-import ColumnView from '@grid/core/column-type/column.model.view';
-import TemplatePath from '@grid/core/template/template.path';
-import ColumnModel from './column.model';
+import {ColumnView, ColumnModel} from './';
+import {TemplatePath} from '../template';
 
 TemplatePath.register('select-cell', (template, column) => {
 	return {
@@ -9,7 +8,7 @@ TemplatePath.register('select-cell', (template, column) => {
 	};
 });
 
-class SelectColumnModel extends ColumnModel {
+export class SelectColumnModel extends ColumnModel {
 	constructor() {
 		super('select');
 
@@ -20,7 +19,7 @@ class SelectColumnModel extends ColumnModel {
 	}
 }
 
-export default class SelectColumn extends ColumnView {
+export class SelectColumn extends ColumnView {
 	constructor(model) {
 		super(model);
 	}

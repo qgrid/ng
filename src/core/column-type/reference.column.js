@@ -1,7 +1,6 @@
-import ColumnView from '@grid/core/column-type/column.model.view';
-import DataColumnModel from './data.column.model';
-import TemplatePath from '@grid/core/template/template.path';
-import Model from '@grid/core/infrastructure/model';
+import {ColumnView, DataColumnModel} from './';
+import {TemplatePath} from '../template';
+import {Model} from '../infrastructure';
 
 TemplatePath.register('reference-cell', (template, column) => {
 	return {
@@ -17,7 +16,7 @@ TemplatePath.register('reference-cell-edit', (template, column) => {
 	};
 });
 
-class ReferenceColumnModel extends DataColumnModel {
+export class ReferenceColumnModel extends DataColumnModel {
 	constructor() {
 		super('reference');
 
@@ -26,7 +25,7 @@ class ReferenceColumnModel extends DataColumnModel {
 	}
 }
 
-export default class ReferenceColumn extends ColumnView {
+export class ReferenceColumn extends ColumnView {
 	constructor(model) {
 		super(model);
 	}

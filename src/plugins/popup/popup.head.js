@@ -1,6 +1,6 @@
 import Component from '@grid/view/components/component';
 import TemplateLink from '@grid/view/components/template/template.link';
-import EventListener from '@grid/core/infrastructure/event.listener';
+import {EventListener} from '@grid/core/infrastructure';
 import * as def from '../definition';
 
 class PopupHead extends Component {
@@ -28,7 +28,7 @@ class PopupHead extends Component {
 		const popup = this.popup;
 		const popupElement = popup.$element;
 		const model = this.model;
-		const templateUrl = `qgrid.plugin.popup-head.tpl.html`;
+		const templateUrl = 'qgrid.plugin.popup-head.tpl.html';
 		const templateScope = this.$scope.$new();
 		const link = this.template.link(
 			templateUrl,
@@ -44,24 +44,24 @@ class PopupHead extends Component {
 			this.position.y = e.offsetY;
 
 			popupElement.addClass('drag');
-			e.dataTransfer.setDragImage(angular.element('<div></div>')[0], 0, 0);
+			e.dataTransfer.setDragImage(angular.element('<div></div>')[0], 0, 0); // eslint-disable-line no-undef
 		});
 
 		this.eventListener.on('drag', event => {
-			const cx = event.clientX,
-				cy = event.clientY,
-				x = this.position.x,
-				y = this.position.y;
+			const cx = event.clientX;
+			const cy = event.clientY;
+			const x = this.position.x;
+			const y = this.position.y;
 
 			if (cx || cy) {
-				var l = cx - x,
-					t = cy - y,
-					w = this.$element.clientWidth,
-					h = this.$element.clientHeight,
-					el = 0,
-					er = this.$window.innerWidth - w,
-					et = 0,
-					eb = this.$window.innerHeight - h;
+				let l = cx - x;
+				let t = cy - y;
+				const w = this.$element.clientWidth;
+				const h = this.$element.clientHeight;
+				const el = 0;
+				const er = this.$window.innerWidth - w;
+				const et = 0;
+				const eb = this.$window.innerHeight - h;
 
 				l = l <= el ? el : l >= er ? er : l;
 				t = t <= et ? et : t >= eb ? eb : t;
@@ -79,7 +79,7 @@ class PopupHead extends Component {
 	}
 
 	onDragOver(e) {
-		e.preventDefault()
+		e.preventDefault();
 	}
 
 	onDestroy() {

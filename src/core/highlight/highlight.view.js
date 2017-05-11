@@ -1,13 +1,13 @@
-import View from '@grid/core/view/view';
-import Command from '@grid/core/infrastructure/command';
-import * as columnService from '@grid/core/column/column.service';
-import * as sortService from '@grid/core/sort/sort.service';
-import HighlightBehavior from './behaviors/highlight.behavior';
-import cellSelector from './cell.selector';
-import {noop} from '@grid/core/services/utility';
-import {GRID_PREFIX} from '@grid/core/definition';
+import {View} from '../view';
+import {Command} from '../infrastructure';
+import * as columnService from '../column/column.service';
+import * as sortService from '../sort/sort.service';
+import {HighlightBehavior} from './behaviors';
+import {cellSelector} from './';
+import {noop} from '../services/utility';
+import {GRID_PREFIX} from '../definition';
 
-export default class HighlightView extends View {
+export class HighlightView extends View {
 	constructor(model, table, applyFactory) {
 		super(model);
 

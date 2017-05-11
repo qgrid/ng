@@ -1,6 +1,5 @@
-import ColumnView from '@grid/core/column-type/column.model.view';
-import DataColumnModel from './data.column.model';
-import TemplatePath from '@grid/core/template/template.path';
+import {ColumnView, DataColumnModel} from './';
+import {TemplatePath} from '../template';
 
 TemplatePath.register('time-cell', (template, column) => {
 	return {
@@ -16,7 +15,7 @@ TemplatePath.register('time-cell-edit', (template, column) => {
 	};
 });
 
-class TimeColumnModel extends DataColumnModel {
+export class TimeColumnModel extends DataColumnModel {
 	constructor() {
 		super('time');
 
@@ -24,7 +23,7 @@ class TimeColumnModel extends DataColumnModel {
 	}
 }
 
-export default class TimeColumn extends ColumnView {
+export class TimeColumn extends ColumnView {
 	constructor(model) {
 		super(model);
 	}

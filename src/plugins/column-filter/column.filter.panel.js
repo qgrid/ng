@@ -1,5 +1,5 @@
 import PluginComponent from '../plugin.component';
-import Command from '@grid/core/infrastructure/command';
+import {Command} from '@grid/core/infrastructure';
 import {uniq, clone, noop} from '@grid/core/services/utility';
 import {getFactory as valueFactory} from '@grid/core/services/value';
 import * as columnService from '@grid/core/column/column.service';
@@ -15,7 +15,7 @@ class ColumnFilterPanel extends Plugin {
 		this.toggle = new Command({
 			execute: (item) => {
 				if (this.by.has(item)) {
-					this.by.delete(item)
+					this.by.delete(item);
 				}
 				else {
 					this.by.add(item);
@@ -51,7 +51,7 @@ class ColumnFilterPanel extends Plugin {
 
 				filter({by: by});
 
-				this.onSubmit()
+				this.onSubmit();
 			}
 		});
 
@@ -62,7 +62,7 @@ class ColumnFilterPanel extends Plugin {
 		this.reset = new Command({
 			execute: () => {
 				this.by = new Set([]);
-				this.onReset()
+				this.onReset();
 			}
 		});
 

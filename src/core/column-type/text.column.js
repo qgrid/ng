@@ -1,6 +1,5 @@
-import ColumnView from '@grid/core/column-type/column.model.view';
-import DataColumnModel from './data.column.model';
-import TemplatePath from '@grid/core/template/template.path';
+import {ColumnView, DataColumnModel} from './';
+import {TemplatePath} from '../template';
 
 TemplatePath.register('text-cell', (template, column) => {
 	return {
@@ -23,7 +22,7 @@ TemplatePath.register('text-area-cell-edit', (template, column) => {
 	};
 });
 
-class TextColumnModel extends DataColumnModel {
+export class TextColumnModel extends DataColumnModel {
 	constructor() {
 		super('text');
 
@@ -31,7 +30,7 @@ class TextColumnModel extends DataColumnModel {
 	}
 }
 
-export default class TextColumn extends ColumnView {
+export class TextColumn extends ColumnView {
 	constructor(model) {
 		super(model);
 	}

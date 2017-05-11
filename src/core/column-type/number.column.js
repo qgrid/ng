@@ -1,6 +1,5 @@
-import ColumnView from '@grid/core/column-type/column.model.view';
-import DataColumnModel from './data.column.model';
-import TemplatePath from '@grid/core/template/template.path';
+import {ColumnView, DataColumnModel} from './';
+import {TemplatePath} from '../template';
 
 TemplatePath.register('number-cell', (template, column) => {
 	return {
@@ -16,7 +15,7 @@ TemplatePath.register('number-cell-edit', (template, column) => {
 	};
 });
 
-class NumberColumnModel extends DataColumnModel{
+export class NumberColumnModel extends DataColumnModel{
 	constructor(){
 		super('number');
 
@@ -24,7 +23,7 @@ class NumberColumnModel extends DataColumnModel{
 	}
 }
 
-export default class NumberColumn extends ColumnView {
+export class NumberColumn extends ColumnView {
 	constructor(model) {
 		super(model);
 	}

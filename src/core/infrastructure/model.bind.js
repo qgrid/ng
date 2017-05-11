@@ -1,7 +1,7 @@
 import {noop, toCamelCase, isUndefined} from '../services/utility';
-import Log from '@grid/core/infrastructure/log';
+import {Log} from './';
 
-export default class ModelBinder {
+export class ModelBinder {
 	constructor(source) {
 		this.source = source;
 		this.off = noop;

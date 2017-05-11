@@ -1,6 +1,6 @@
 import PluginComponent from '../plugin.component';
 import {PROGRESS_NAME} from '../definition';
-import TemplatePath from '@grid/core/template/template.path';
+import {TemplatePath} from '@grid/core/template';
 
 TemplatePath
 	.register(PROGRESS_NAME, () => {

@@ -1,4 +1,4 @@
-import AppError from '@grid/core/infrastructure/error';
+import {AppError} from '@grid/core/infrastructure';
 
 export default class TemplateLink {
 	constructor($compile, $templateCache) {

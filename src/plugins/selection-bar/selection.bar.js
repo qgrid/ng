@@ -1,7 +1,7 @@
 import PluginComponent from '../plugin.component';
-import Command from '@grid/core/infrastructure/command';
+import {Command} from '@grid/core/infrastructure';
 import {SELECTION_BAR_NAME} from '../definition';
-import TemplatePath from '@grid/core/template/template.path';
+import {TemplatePath} from '@grid/core/template';
 
 TemplatePath
 	.register(SELECTION_BAR_NAME, () => {

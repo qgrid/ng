@@ -14,7 +14,7 @@ class PopupPanel extends Component {
 
 	onInit() {
 		const model = this.model;
-		const templateUrl = `qgrid.plugin.popup-panel.tpl.html`;
+		const templateUrl = 'qgrid.plugin.popup-panel.tpl.html';
 		const templateScope = this.$scope.$new();
 		const link = this.template.link(
 			templateUrl,

@@ -1,7 +1,5 @@
-import Model from '@grid/core/infrastructure/model';
-import ModelBinder from '@grid/core/infrastructure/model.bind';
+import {Model, ModelBinder, Event} from '@grid/core/infrastructure';
 import {noop} from '@grid/core/services/utility';
-import Event from '@grid/core/infrastructure/event';
 
 export default class RootComponent {
 	constructor(...names) {
