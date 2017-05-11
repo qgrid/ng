@@ -75,8 +75,8 @@ export default class Popup {
 
 	resize(settings) {
 		this.element.css({
-			width: Math.min(settings.width, this.body.clientWidth - this.element.offsetLeft) + "px",
-			height: Math.min(settings.height, this.body.clientHeight - this.element.offsetTop) + "px"
+			width: Math.min(settings.width, this.body.clientWidth - this.element.offsetLeft) + 'px',
+			height: Math.min(settings.height, this.body.clientHeight - this.element.offsetTop) + 'px'
 		});
 		this.event.emit('resize');
 	}
