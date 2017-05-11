@@ -11,7 +11,8 @@ export function toCsv(rows, columns) {
 	rowsArr.push(head);
 	rows.map(item => {
 		columnsArr.push(columns.map(column => {
-			return '"' + valueFactory(item, column) + '"';
+			const value = valueFactory(item, column).toString();
+			return '"' + value.replace(/"/g, '""') + '"';
 		}));
 	});
 	for (let i = 0; i < rows.length; i++) {
