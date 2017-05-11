@@ -1,4 +1,4 @@
-import {columnPipe} from '../column.pipe';
+import {Pipe} from '../pipe';
 
 export const columnPipeUnit = [
 	(memo, context, next) => {
@@ -9,7 +9,7 @@ export const columnPipeUnit = [
 			nodes: view.nodes
 		});
 	},
-	columnPipe,
+	Pipe.column,
 	(memo, context, next) => {
 		context.model.view({
 			columns: memo.columns
