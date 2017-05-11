@@ -4,7 +4,7 @@ import stateFactory from './state/selection.state.factory';
 import rangeBuilder from './range.build';
 import Shortcut from 'core/infrastructure/shortcut';
 import {GRID_PREFIX} from 'core/definition';
-import {isUndefined} from 'core/services/utility';
+import {isUndefined, noop} from 'core/services/utility';
 
 export default class SelectionView extends View {
 	constructor(model, table, applyFactory) {
@@ -32,9 +32,10 @@ export default class SelectionView extends View {
 		});
 
 		model.sortChanged.watch(() => {
+			const entries = this.selectionState.entries();
 			this.selectionState = stateFactory(model);
 
-			// model.selection({items: this.selectionState.view});
+			model.selection({items: this.selectionState.view(entries)});
 		});
 
 		model.navigationChanged.watch(e => {
@@ -45,6 +46,12 @@ export default class SelectionView extends View {
 						this.select(e.state.cell, true);
 					}
 				}
+			}
+		});
+
+		model.paginationChanged.watch(e => {
+			if (e.hasChanges('current')) {
+				this.apply(noop, 0);
 			}
 		});
 
@@ -63,24 +70,33 @@ export default class SelectionView extends View {
 			}
 
 			if (e.hasChanges('unit') || e.hasChanges('mode')) {
+				if (!e.hasChanges('items') && !e.hasChanges('entries')) {
+					model.selection({
+						items: [],
+						entries: []
+					});
+				}
 				this.selectionState = stateFactory(model);
 
 				model.navigation({cell: null}, {source: 'selection'});
-				const entries = this.selectionState.entries();
-				// model.selection({
-				// 	entries: entries,
-				// 	items: this.selectionState.view(entries)
-				// });
 			}
 
 			if (e.hasChanges('entries') && !e.hasChanges('items')) {
+				const entries = model.selection().entries;
 				model.selection({
-					items: this.selectionState.view(model.selection().entries)
+					items: this.selectionState.view(entries),
+					entries: entries
 				});
 			}
-			// if (e.tag.source !== 'toggle' && e.hasChanges('entries')) {
-			// 	this.select(model.selection().entries, true);
-			// }
+
+			if (e.hasChanges('items') && !e.hasChanges('entries')) {
+				this.selectionState = stateFactory(model);
+				const entries = this.selectionState.entries();
+				model.selection({
+					items: this.selectionState.view(entries),
+					entries: entries
+				});
+			}
 		});
 	}
 
