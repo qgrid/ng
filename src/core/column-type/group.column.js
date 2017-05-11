@@ -1,4 +1,5 @@
-import {ColumnView, ColumnModel} from './';
+import {ColumnView} from './column.model.view';
+import {ColumnModel} from './column.model';
 import {TemplatePath} from '../template';
 
 TemplatePath.register('group-cell', (template, column) => {

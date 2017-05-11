@@ -1,4 +1,4 @@
-import {SelectionState} from './';
+import {SelectionState} from './selection.state';
 
 export class SingleSelectionState extends SelectionState {
 	constructor(model) {

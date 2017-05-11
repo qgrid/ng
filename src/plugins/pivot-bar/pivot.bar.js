@@ -1,3 +1,5 @@
+/* eslint-disable indent */
+
 import PluginComponent from '../plugin.component';
 import {Command} from '@grid/core/infrastructure';
 import {TH_CORE_NAME} from '@grid/view/definition';
@@ -102,3 +104,5 @@ export default PivotBar.component({
 	controller: PivotBar,
 	controllerAs: '$pivotBar'
 });
+
+/* eslint-enable indent */

@@ -1,14 +1,12 @@
-import {
-	filterPipe,
-	paginationPipe,
-	sortPipe,
-	dataPipe,
-	memoPipe,
-	groupPipe,
-	pivotPipe,
-	columnPipe,
-	viewPipe
-} from './';
+import {filterPipe} from './filter.pipe';
+import {paginationPipe} from './pagination.pipe';
+import {sortPipe} from './sort.pipe';
+import {dataPipe} from './data.pipe';
+import {memoPipe} from './memo.pipe';
+import {groupPipe} from './group.pipe';
+import {pivotPipe} from './pivot.pipe';
+import {columnPipe} from './column.pipe';
+import {viewPipe} from './view.pipe';
 
 export class Pipe {
 	static get data() {
@@ -27,7 +25,7 @@ export class Pipe {
 		return sortPipe;
 	}
 
-	static get memo(){
+	static get memo() {
 		return memoPipe;
 	}
 
@@ -39,11 +37,11 @@ export class Pipe {
 		return pivotPipe;
 	}
 
-	static get column(){
+	static get column() {
 		return columnPipe;
 	}
 
-	static get view(){
+	static get view() {
 		return viewPipe;
 	}
 }

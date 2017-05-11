@@ -1,4 +1,5 @@
-import {Resource, EnumerableResource} from './';
+import {Resource} from './resource';
+import {EnumerableResource} from './resource.enumerable';
 
 export function factory(resource, key) {
 	const data = resource.data;

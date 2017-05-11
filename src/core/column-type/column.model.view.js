@@ -1,4 +1,4 @@
-import {ColumnModel} from './';
+import {ColumnModel} from './column.model';
 import {View} from '../view';
 import {TemplatePath} from '../template';
 import {isObject, isFunction} from '../services/utility';

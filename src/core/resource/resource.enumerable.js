@@ -1,4 +1,4 @@
-import {Resource} from './';
+import {Resource} from './resource';
 
 export class EnumerableResource extends Resource{
 	constructor(data = {}, scope = {}, count = 0) {

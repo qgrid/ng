@@ -1,4 +1,5 @@
-import {ColumnView, DataColumnModel} from './';
+import {ColumnView} from './column.model.view';
+import {DataColumnModel} from './data.column.model';
 import {TemplatePath} from '../template';
 
 TemplatePath.register('number-cell', (template, column) => {
@@ -15,8 +16,8 @@ TemplatePath.register('number-cell-edit', (template, column) => {
 	};
 });
 
-export class NumberColumnModel extends DataColumnModel{
-	constructor(){
+export class NumberColumnModel extends DataColumnModel {
+	constructor() {
 		super('number');
 
 		this.format = '';

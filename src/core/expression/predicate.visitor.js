@@ -1,5 +1,6 @@
 import {AppError} from '../infrastructure';
-import {castFactory as castAsFactory, Visitor} from './';
+import {castFactory as castAsFactory} from './cast.factory';
+import {Visitor} from './expression.visitor';
 
 export class PredicateVisitor extends Visitor {
 	constructor(valueFactory) {

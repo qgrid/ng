@@ -1,4 +1,4 @@
-import {AppError} from './';
+import {AppError} from './error';
 
 export class Cache {
 	constructor() {

@@ -1,5 +1,5 @@
 import {AppError} from '../infrastructure';
-import {Node} from './';
+import {Node} from './node';
 
 export function nodeBuilder(columnMap, groupBy, valueFactory, level = 0) {
 	if (groupBy.length === 0) {

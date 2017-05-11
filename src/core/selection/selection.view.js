@@ -1,7 +1,7 @@
 import {View} from '../view';
 import {Command, Shortcut} from '../infrastructure';
 import {selectionStateFactory as stateFactory} from './state';
-import {rangeBuilder} from './';
+import {rangeBuilder} from './range.build';
 import {GRID_PREFIX} from '../definition';
 import {isUndefined} from '../services/utility';
 

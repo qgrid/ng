@@ -3,7 +3,7 @@ import {Command} from '../infrastructure';
 import * as columnService from '../column/column.service';
 import * as sortService from '../sort/sort.service';
 import {HighlightBehavior} from './behaviors';
-import {cellSelector} from './';
+import {cellSelector} from './cell.selector';
 import {noop} from '../services/utility';
 import {GRID_PREFIX} from '../definition';
 

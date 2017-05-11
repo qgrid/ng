@@ -1,5 +1,5 @@
 import {Resource} from '../resource';
-import {match} from './';
+import {match} from './match';
 import {noop} from '../services/utility';
 
 export class FilterModel {

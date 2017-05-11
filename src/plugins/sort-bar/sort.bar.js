@@ -1,3 +1,5 @@
+/* eslint-disable indent */
+
 import PluginComponent from '../plugin.component';
 import {Command} from '@grid/core/infrastructure';
 import * as SortSevice from '@grid/core/sort/sort.service';
@@ -105,3 +107,5 @@ export default SortBar.component({
 	controller: SortBar,
 	controllerAs: '$sortBar'
 });
+
+/* eslint-enable indent */

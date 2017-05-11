@@ -1,5 +1,5 @@
 import {cloneDeep} from '../services/utility';
-import {CellEditor} from './';
+import {CellEditor} from './edit.cell.editor';
 import {get as getValue, set as setValue} from '../services/value';
 import {get as getLabel, set as setLabel} from '../services/label';
 

@@ -1,5 +1,5 @@
 import {Log, Shortcut, Command} from '../infrastructure';
-import {RowEditor} from './';
+import {RowEditor} from './edit.row.editor';
 
 export class EditRowView {
 	constructor(model, table, applyFactory) {

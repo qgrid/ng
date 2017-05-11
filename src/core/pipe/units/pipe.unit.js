@@ -1,8 +1,6 @@
-import {
-	defaultPipeUnit,
-	viewPipeUnit,
-	columnPipeUnit
-}from './';
+import {defaultPipeUnit} from './default.pipe.unit';
+import {viewPipeUnit} from './view.pipe.unit';
+import {columnPipeUnit} from './column.pipe.unit';
 
 export class PipeUnit {
 	static get default() {

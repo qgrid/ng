@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import PluginComponent from '../plugin.component';
 import {Command} from '@grid/core/infrastructure';
 import {TH_CORE_NAME} from '@grid/view/definition';
@@ -102,3 +103,4 @@ export default GroupBar.component({
 	controller: GroupBar,
 	controllerAs: '$groupBar'
 });
+/* eslint-enable indent */

@@ -1,4 +1,5 @@
-import {ColumnView, DataColumnModel} from './';
+import {ColumnView} from './column.model.view';
+import {DataColumnModel} from './data.column.model';
 import {TemplatePath} from '../template';
 import {yes} from '../services/utility';
 import {isImage} from '../services/file';

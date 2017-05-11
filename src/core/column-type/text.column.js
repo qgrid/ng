@@ -1,4 +1,5 @@
-import {ColumnView, DataColumnModel} from './';
+import {ColumnView} from './column.model.view';
+import {DataColumnModel} from './data.column.model';
 import {TemplatePath} from '../template';
 
 TemplatePath.register('text-cell', (template, column) => {

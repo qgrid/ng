@@ -1,5 +1,6 @@
 import {identity} from '../services/utility';
-import {pivot, pivotForm} from './';
+import {pivot} from './pivot';
+import {pivotForm} from './pivot.form';
 
 function buildFactory(columnMap, valueFactory) {
 	return function run(pivot, pivotBy, level = 0) {
