@@ -1,6 +1,6 @@
 import Model from './core/infrastructure/model';
 import * as def from './definition';
-import {setup as setupCore} from './core/setup';
+import {setup as setupCore} from './core';
 import {setup as setupPlugins} from './plugins/setup';
 import pluginModule from './plugins';
 import {coreModule, layoutModule} from './view';

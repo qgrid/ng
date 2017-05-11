@@ -113,7 +113,7 @@ export default function (pluginName, context) {
 		}
 
 		show() {
-			const templateUrl = `qgrid.plugin.${pluginName}.tpl.html`
+			const templateUrl = `qgrid.plugin.${pluginName}.tpl.html`;
 			const templateScope = this.$scope.$new();
 			const link = this.template.link(
 				templateUrl,
