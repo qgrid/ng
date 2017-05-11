@@ -49,7 +49,7 @@ export default class NavigationView extends View {
 
 		model.navigationChanged.watch(e => {
 			if (e.hasChanges('cell')) {
-				const navState = model.navigation();
+				const navState = e.state;
 				const newTarget = e.changes.cell.newValue;
 				const oldTarget = e.changes.cell.oldValue;
 				const newRow = navState.rowIndex;
@@ -68,12 +68,25 @@ export default class NavigationView extends View {
 				if (e.tag.source !== 'navigation.scroll' && this.scrollTo.canExecute(newRow, newColumn)) {
 					this.scrollTo.execute(newRow, newColumn);
 				}
+
+				model.focus({
+					rowIndex: newRow,
+					columnIndex: newColumn
+				}, {
+					source: 'navigation.view'
+				});
 			}
 		});
 
-		model.viewChanged.watch(() => {
-			model.navigation({cell: null});
+		model.focusChanged.watch(e => {
+			if (e.tag.source !== 'navigation.view') {
+				model.navigation({
+					cell: table.body.cell(e.state.rowIndex, e.state.columnIndex).model
+				});
+			}
 		});
+
+		model.viewChanged.watch(() => model.navigation({cell: null}));
 	}
 
 	scroll(body, target) {
