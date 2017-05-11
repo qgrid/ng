@@ -1,4 +1,4 @@
-import {columnFactory} from '../column';
+import {columnFactory} from '../column/column.factory';
 import * as columnService from '../column/column.service';
 import {noop} from '../services/utility';
 

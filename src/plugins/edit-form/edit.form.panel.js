@@ -1,6 +1,6 @@
 import PluginComponent from '../plugin.component';
 import {Command} from '@grid/core/infrastructure';
-import {RowEditor} from '@grid/core/edit';
+import {RowEditor} from '@grid/core/edit/edit.row.editor';
 
 const Plugin = PluginComponent('edit-form-panel', {inject: []});
 class EditFormPanel extends Plugin {

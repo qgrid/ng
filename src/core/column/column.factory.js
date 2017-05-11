@@ -1,7 +1,7 @@
 import {Guard} from '../infrastructure';
 import {assignWith, clone, isUndefined} from '../services/utility';
+import {ColumnView as CustomColumn} from '../column-type/column.model.view';
 import {
-	ColumnView as CustomColumn,
 	TextColumn,
 	NumberColumn,
 	BoolColumn,

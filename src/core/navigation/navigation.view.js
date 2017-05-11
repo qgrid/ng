@@ -1,6 +1,6 @@
 import {View} from '../view';
 import {Command, Shortcut} from '../infrastructure';
-import {Navigation} from '../navigation';
+import {Navigation} from './navigation';
 import {GRID_PREFIX} from '../definition';
 
 export class NavigationView extends View {
