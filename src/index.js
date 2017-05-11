@@ -6,6 +6,7 @@ import HeadModel from 'core/head/head.model';
 import BodyModel from 'core/body/body.model';
 import LayoutModel from 'core/layout/layout.model';
 import NavigationModel from 'core/navigation/navigation.model';
+import FocusModel from 'core/focus/focus.model';
 import ColumnListModel from 'core/column-list/column.list.model';
 import RowModel from 'core/row/row.model';
 import SelectionModel from 'core/selection/selection.model';
@@ -39,6 +40,7 @@ Model.register('grid', GridModel)
 	.register('head', HeadModel)
 	.register('body', BodyModel)
 	.register('navigation', NavigationModel)
+	.register('focus', FocusModel)
 	.register('foot', FootModel)
 	.register('layout', LayoutModel)
 	.register('row', RowModel)
