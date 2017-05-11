@@ -186,7 +186,7 @@ export default class SelectionState {
 					.map(key => key.item);
 
 				this.selectByKeys(rowKeys, 'row');
-				this.selectByKeys(colKeys, 'col');
+				this.selectByKeys(colKeys, 'column');
 				this.selectByKeys(cellKeys, 'cell');
 				break;
 			}
