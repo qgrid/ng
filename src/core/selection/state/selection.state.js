@@ -127,7 +127,7 @@ export default class SelectionState {
 			return;
 		}
 
-		if (unit == undefined) {
+		if (isUndefined(unit)) {
 			unit = this.model.selection().unit;
 		}
 		const data = this.model.data();
