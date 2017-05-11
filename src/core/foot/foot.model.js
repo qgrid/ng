@@ -1,5 +1,5 @@
 import EnumerableResource from '../resource/resource.enumerable';
-import Cache from 'core/infrastructure/cache';
+import Cache from '@grid/core/infrastructure/cache';
 
 export default class FootModel {
 	constructor() {

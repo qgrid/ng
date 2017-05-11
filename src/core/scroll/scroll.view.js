@@ -1,5 +1,5 @@
 import View from '../view/view';
-import log from 'core/infrastructure/log';
+import log from '@grid/core/infrastructure/log';
 
 export default class ScrollView extends View {
 	constructor(model, table, vscroll, service, applyFactory) {

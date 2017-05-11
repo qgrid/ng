@@ -1,4 +1,4 @@
-import PipeUnit from 'core/pipe/units/pipe.unit';
+import PipeUnit from '@grid/core/pipe/units/pipe.unit';
 
 export default class DataModel {
 	constructor() {

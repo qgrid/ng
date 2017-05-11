@@ -1,7 +1,7 @@
-import View from 'core/view/view';
-import groupBuilder from 'core/group/group.build';
-import Log from 'core/infrastructure/log';
-import {getFactory as valueFactory} from 'core/services/value';
+import View from '@grid/core/view/view';
+import groupBuilder from '@grid/core/group/group.build';
+import Log from '@grid/core/infrastructure/log';
+import {getFactory as valueFactory} from '@grid/core/services/value';
 
 export default class PivotView extends View {
 	constructor(model) {

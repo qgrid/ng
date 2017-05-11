@@ -2,7 +2,7 @@ import Event from './event';
 import {isObject, isFunction} from '../services/utility';
 import AppError from './error';
 import * as guard from './guard';
-import Log from 'core/infrastructure/log';
+import Log from '@grid/core/infrastructure/log';
 
 const models = {};
 let close = false;

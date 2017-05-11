@@ -1,4 +1,4 @@
-import {identity} from 'core/services/utility';
+import {identity} from '@grid/core/services/utility';
 import pivot from './pivot';
 import pivotForm from './pivot.form';
 

@@ -1,8 +1,8 @@
-import View from 'core/view/view';
-import Command from 'core/infrastructure/command';
-import Shortcut from 'core/infrastructure/shortcut';
-import Navigation from 'core/navigation/navigation';
-import {GRID_PREFIX} from 'core/definition';
+import View from '@grid/core/view/view';
+import Command from '@grid/core/infrastructure/command';
+import Shortcut from '@grid/core/infrastructure/shortcut';
+import Navigation from '@grid/core/navigation/navigation';
+import {GRID_PREFIX} from '@grid/core/definition';
 
 export default class NavigationView extends View {
 	constructor(model, table, applyFactory) {

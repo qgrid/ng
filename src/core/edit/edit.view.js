@@ -1,4 +1,4 @@
-import View from 'core/view/view';
+import View from '@grid/core/view/view';
 import EditCellView from './edit.cell.view';
 import EditRowView from './edit.row.view';
 

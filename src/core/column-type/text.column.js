@@ -1,6 +1,6 @@
-import ColumnView from 'core/column-type/column.model.view';
+import ColumnView from '@grid/core/column-type/column.model.view';
 import DataColumnModel from './data.column.model';
-import TemplatePath from 'core/template/template.path';
+import TemplatePath from '@grid/core/template/template.path';
 
 TemplatePath.register('text-cell', (template, column) => {
 	return {

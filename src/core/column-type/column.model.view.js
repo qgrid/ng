@@ -1,7 +1,7 @@
 import ColumnModel from './column.model';
-import View from 'core/view/view';
-import TemplatePath from 'core/template/template.path';
-import {isObject, isFunction} from 'core/services/utility';
+import View from '@grid/core/view/view';
+import TemplatePath from '@grid/core/template/template.path';
+import {isObject, isFunction} from '@grid/core/services/utility';
 
 TemplatePath.register('custom-cell', (template, column) => {
 	return {

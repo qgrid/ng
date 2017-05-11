@@ -1,6 +1,6 @@
-import Fetch from 'core/infrastructure/fetch';
-import {parseFactory} from 'core/services/convert';
-import {clone, isUndefined, noop} from 'core/services/utility';
+import Fetch from '@grid/core/infrastructure/fetch';
+import {parseFactory} from '@grid/core/services/convert';
+import {clone, isUndefined, noop} from '@grid/core/services/utility';
 
 class CellEditorCore {
 	constructor() {
