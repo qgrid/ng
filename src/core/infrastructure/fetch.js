@@ -1,4 +1,4 @@
-import {isFunction, isUndefined} from 'core/services/utility';
+import {isFunction, isUndefined} from '@grid/core/services/utility';
 
 export default class Fetch {
 	constructor(select) {

@@ -1,4 +1,4 @@
-import {GRID_PREFIX} from 'core/definition';
+import {GRID_PREFIX} from '@grid/core/definition';
 
 export default class HighlightBehavior {
 	constructor(model, cellSelector) {

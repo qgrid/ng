@@ -1,4 +1,4 @@
-import Pipe from 'core/pipe/pipe';
+import Pipe from '@grid/core/pipe/pipe';
 
 export default [
 	Pipe.data,

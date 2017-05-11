@@ -1,7 +1,7 @@
-import {cloneDeep} from 'core/services/utility';
+import {cloneDeep} from '@grid/core/services/utility';
 import CellEditor from './edit.cell.editor';
-import {get as getValue, set as setValue} from 'core/services/value';
-import {get as getLabel, set as setLabel} from 'core/services/label';
+import {get as getValue, set as setValue} from '@grid/core/services/value';
+import {get as getLabel, set as setLabel} from '@grid/core/services/label';
 
 
 class RowEditorCore {

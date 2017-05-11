@@ -1,6 +1,6 @@
-import columnFactory from 'core/column/column.factory';
-import * as columnService from 'core/column/column.service';
-import {noop} from 'core/services/utility';
+import columnFactory from '@grid/core/column/column.factory';
+import * as columnService from '@grid/core/column/column.service';
+import {noop} from '@grid/core/services/utility';
 
 export default function columnPipe(memo, context, next) {
 	const model = context.model;

@@ -1,6 +1,6 @@
-import AppError from 'core/infrastructure/error';
-import {isArray, isUndefined} from 'core/services/utility';
-import Node from 'core/node/node';
+import AppError from '@grid/core/infrastructure/error';
+import {isArray, isUndefined} from '@grid/core/services/utility';
+import Node from '@grid/core/node/node';
 
 const keySelector = (unit, selector) => {
 	switch (unit) {

@@ -1,9 +1,9 @@
-import Command from 'core/infrastructure/command';
-import Log from 'core/infrastructure/log';
-import Shortcut from 'core/infrastructure/shortcut';
+import Command from '@grid/core/infrastructure/command';
+import Log from '@grid/core/infrastructure/log';
+import Shortcut from '@grid/core/infrastructure/shortcut';
 import CellEditor from './edit.cell.editor';
-import {getFactory as valueFactory} from 'core/services/value';
-import {getFactory as labelFactory} from 'core/services/label';
+import {getFactory as valueFactory} from '@grid/core/services/value';
+import {getFactory as labelFactory} from '@grid/core/services/label';
 
 export default class EditCellView {
 	constructor(model, table, applyFactory) {
@@ -62,7 +62,7 @@ export default class EditCellView {
 				}
 			}),
 			commit: new Command({
-				shortcut: this.commitShortcut,
+				shortcut: this.commitShortcut.bind(this),
 				// TODO: add validation support
 				canExecute: cell => {
 					cell = cell || model.navigation().cell;
@@ -188,13 +188,14 @@ export default class EditCellView {
 		this.editor.label = label;
 	}
 
-	get commitShortcut() {
+	commitShortcut() {
 		const model = this.model;
 		const commitShortcuts = model.edit().commitShortcuts;
 		const cell = model.navigation().cell;
 		if (cell && commitShortcuts.hasOwnProperty(cell.column.type)) {
 			return commitShortcuts[cell.column.type];
 		}
+
 		return commitShortcuts['$default'];
 	}
 

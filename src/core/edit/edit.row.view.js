@@ -1,6 +1,6 @@
-import Command from 'core/infrastructure/command';
-import Log from 'core/infrastructure/log';
-import Shortcut from 'core/infrastructure/shortcut';
+import Command from '@grid/core/infrastructure/command';
+import Log from '@grid/core/infrastructure/log';
+import Shortcut from '@grid/core/infrastructure/shortcut';
 import RowEditor from './edit.row.editor';
 
 export default class EditRowView {
@@ -43,7 +43,7 @@ export default class EditRowView {
 				}
 			}),
 			commit: new Command({
-				shortcut: this.commitShortcut,
+				shortcut: this.commitShortcut.bind(this),
 				// TODO: add validation support
 				canExecute: row => {
 					row = row || model.navigation().row;
@@ -115,6 +115,17 @@ export default class EditRowView {
 			current: this.editor.current,
 			unit: 'row'
 		};
+	}
+
+	commitShortcut() {
+		const model = this.model;
+		const commitShortcuts = model.edit().commitShortcuts;
+		const cell = model.navigation().cell;
+		if (cell && commitShortcuts.hasOwnProperty(cell.column.type)) {
+			return commitShortcuts[cell.column.type];
+		}
+
+		return commitShortcuts['$default'];
 	}
 
 	destroy() {

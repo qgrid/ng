@@ -1,5 +1,5 @@
-import AppError from 'core/infrastructure/error';
-import {isUndefined} from 'core/services/utility';
+import AppError from '@grid/core/infrastructure/error';
+import {isUndefined} from '@grid/core/services/utility';
 
 const resolvers = {};
 export default class TemplatePath {

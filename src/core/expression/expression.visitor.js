@@ -1,4 +1,4 @@
-import AppError from 'core/infrastructure/error';
+import AppError from '@grid/core/infrastructure/error';
 
 export default class Visitor {
 	constructor() {

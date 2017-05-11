@@ -1,4 +1,4 @@
-import {flatten} from 'core/services/utility';
+import {flatten} from '@grid/core/services/utility';
 
 function injectData(schema, source, target) {
 	return Object

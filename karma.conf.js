@@ -23,10 +23,10 @@ module.exports = function (config) {
 		webpack: {
 			resolve: {
 				alias: {
-					src: path.resolve(__dirname, 'src'),
-					core: path.resolve(__dirname, 'src/core'),
-					ng: path.resolve(__dirname, 'src/ng'),
-					themes: path.resolve(__dirname, 'src/themes')
+					'@grid/src': path.resolve(__dirname, 'src'),
+					'@grid/core': path.resolve(__dirname, 'src/core'),
+					'@grid/view': path.resolve(__dirname, 'src/view'),
+					'@grid/themes': path.resolve(__dirname, 'src/themes')
 				}
 			},
 			devtool: 'inline-source-map',

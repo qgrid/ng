@@ -1,4 +1,4 @@
-import Command from 'core/infrastructure/command';
+import Command from '@grid/core/infrastructure/command';
 
 export default class Navigation {
 	constructor(model, table) {

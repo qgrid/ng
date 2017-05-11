@@ -1,6 +1,6 @@
-import {isFunction} from 'core/services/utility';
-import {compile} from 'core/services/path';
-import {get as getValue} from 'core/services/value';
+import {isFunction} from '@grid/core/services/utility';
+import {compile} from '@grid/core/services/path';
+import {get as getValue} from '@grid/core/services/value';
 
 export function get(row, column) {
 	return column.$label

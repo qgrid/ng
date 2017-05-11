@@ -1,5 +1,5 @@
-import ColumnView from 'core/column-type/column.model.view';
-import TemplatePath from 'core/template/template.path';
+import ColumnView from '@grid/core/column-type/column.model.view';
+import TemplatePath from '@grid/core/template/template.path';
 import ColumnModel from './column.model';
 
 TemplatePath.register('row-indicator-cell', (template, column) => {

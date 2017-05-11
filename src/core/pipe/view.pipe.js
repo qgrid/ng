@@ -1,4 +1,4 @@
-import {flatView as nodeFlatView} from 'core/node/node.service';
+import {flatView as nodeFlatView} from '@grid/core/node/node.service';
 
 export default function pipeView(memo, context, next) {
 	const model = context.model;
