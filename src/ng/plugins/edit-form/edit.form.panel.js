@@ -26,7 +26,7 @@ class EditFormPanel extends Plugin {
 		});
 	}
 
-	onInit(){
+	onInit() {
 		this.editor = new RowEditor(this.row, this.model.data().columns);
 	}
 }

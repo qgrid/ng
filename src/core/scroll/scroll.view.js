@@ -63,7 +63,7 @@ export default class ScrollView extends View {
 
 		const table = this.table;
 		const scroll = this.model.scroll();
-		if(pin === this.table.pin) {
+		if (pin === this.table.pin) {
 			table.head.scrollLeft(scroll.left);
 			table.foot.scrollLeft(scroll.left);
 		}
