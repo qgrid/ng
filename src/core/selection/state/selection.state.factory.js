@@ -1,4 +1,4 @@
-import AppError from 'core/infrastructure/error';
+import AppError from '@grid/core/infrastructure/error';
 import SingleSelectionState from './single.selection.state';
 import MultipleSelectionState from './multiple.selection.state';
 

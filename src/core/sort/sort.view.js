@@ -1,8 +1,8 @@
-import View from 'core/view/view';
-import AppError from 'core/infrastructure/error';
-import Command from 'core/infrastructure/command';
-import * as columnService from 'core/column/column.service';
-import * as sortService from 'core/sort/sort.service';
+import View from '@grid/core/view/view';
+import AppError from '@grid/core/infrastructure/error';
+import Command from '@grid/core/infrastructure/command';
+import * as columnService from '@grid/core/column/column.service';
+import * as sortService from '@grid/core/sort/sort.service';
 
 export default class SortView extends View {
 	constructor(model) {

@@ -1,6 +1,6 @@
-import {startCase} from 'core/services/utility';
-import {compile} from 'core/services/path';
-import {getType} from 'core/services/convert';
+import {startCase} from '@grid/core/services/utility';
+import {compile} from '@grid/core/services/path';
+import {getType} from '@grid/core/services/convert';
 
 export function generate(rows, columnFactory, deep = true) {
 	if (!rows || rows.length === 0) {

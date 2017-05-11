@@ -1,7 +1,7 @@
-import ColumnView from 'core/column-type/column.model.view';
+import ColumnView from '@grid/core/column-type/column.model.view';
 import DataColumnModel from './data.column.model';
-import TemplatePath from 'core/template/template.path';
-import Model from 'core/infrastructure/model';
+import TemplatePath from '@grid/core/template/template.path';
+import Model from '@grid/core/infrastructure/model';
 
 TemplatePath.register('reference-cell', (template, column) => {
 	return {

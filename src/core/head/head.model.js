@@ -1,5 +1,5 @@
 import Resource from '../resource/resource';
-import Cache from 'core/infrastructure/cache';
+import Cache from '@grid/core/infrastructure/cache';
 
 export default class HeadModel {
 	constructor() {

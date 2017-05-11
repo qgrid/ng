@@ -1,4 +1,4 @@
-import Component from 'ng/components/component';
+import Component from '@grid/view/components/component';
 require('./page.list.scss');
 
 class PageList extends Component {

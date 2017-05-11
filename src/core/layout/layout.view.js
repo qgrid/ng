@@ -1,9 +1,9 @@
-import View from 'core/view/view';
-import * as css from 'core/services/css';
-import * as columnService from 'core/column/column.service';
-import {clone} from 'core/services/utility';
-import PipeUnit from 'core/pipe/units/pipe.unit';
-import log from 'core/infrastructure/log';
+import View from '@grid/core/view/view';
+import * as css from '@grid/core/services/css';
+import * as columnService from '@grid/core/column/column.service';
+import {clone} from '@grid/core/services/utility';
+import PipeUnit from '@grid/core/pipe/units/pipe.unit';
+import log from '@grid/core/infrastructure/log';
 
 export default class LayoutView extends View {
 	constructor(model, table, service) {

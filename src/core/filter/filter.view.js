@@ -1,4 +1,4 @@
-import View from 'core/view/view';
+import View from '@grid/core/view/view';
 
 export default class FilterView extends View {
 	constructor(model) {

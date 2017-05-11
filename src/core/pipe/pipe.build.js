@@ -1,4 +1,4 @@
-import Middleware from 'core/services/middleware';
+import Middleware from '@grid/core/services/middleware';
 
 export default function build(model, valueFactory) {
 	return function run(source, changes, pipe) {

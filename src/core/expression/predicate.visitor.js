@@ -1,4 +1,4 @@
-import AppError from 'core/infrastructure/error';
+import AppError from '@grid/core/infrastructure/error';
 import castAsFactory from './cast.factory';
 import Visitor from './expression.visitor';
 

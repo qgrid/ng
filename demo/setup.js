@@ -1,4 +1,4 @@
-import Log from 'core/infrastructure/log';
+import Log from '@grid/core/infrastructure/log';
 
 export default function (pages) {
 	const routes = buildRoutes(pages);

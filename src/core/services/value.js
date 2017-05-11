@@ -1,6 +1,6 @@
-import {isFunction} from 'core/services/utility';
-import {compile} from 'core/services/path';
-import AppError from 'core/infrastructure/error';
+import {isFunction} from '@grid/core/services/utility';
+import {compile} from '@grid/core/services/path';
+import AppError from '@grid/core/infrastructure/error';
 
 export function get(row, column) {
 	return column.$value

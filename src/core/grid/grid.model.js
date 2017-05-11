@@ -1,4 +1,4 @@
-import guid from 'core/services/guid';
+import guid from '@grid/core/services/guid';
 
 export default class GridModel {
 	constructor() {

@@ -1,5 +1,5 @@
-import Resource from 'core/resource/resource';
-import {identity} from 'core/services/utility';
+import Resource from '@grid/core/resource/resource';
+import {identity} from '@grid/core/services/utility';
 
 export default class SelectionModel {
 	constructor() {
