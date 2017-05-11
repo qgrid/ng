@@ -1,6 +1,6 @@
-import {map as getColumnMap} from 'core/column/column.service';
-import AppError from 'core/infrastructure/error';
-import Aggregation from 'core/services/aggregation';
+import {map as getColumnMap} from '@grid/core/column/column.service';
+import AppError from '@grid/core/infrastructure/error';
+import Aggregation from '@grid/core/services/aggregation';
 
 export default function GroupBuilder(model) {
 	const viewState = model.view();

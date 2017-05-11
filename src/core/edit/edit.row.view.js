@@ -1,6 +1,6 @@
-import Command from 'core/infrastructure/command';
-import Log from 'core/infrastructure/log';
-import Shortcut from 'core/infrastructure/shortcut';
+import Command from '@grid/core/infrastructure/command';
+import Log from '@grid/core/infrastructure/log';
+import Shortcut from '@grid/core/infrastructure/shortcut';
 import RowEditor from './edit.row.editor';
 
 export default class EditRowView {

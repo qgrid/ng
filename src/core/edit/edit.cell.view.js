@@ -1,9 +1,9 @@
-import Command from 'core/infrastructure/command';
-import Log from 'core/infrastructure/log';
-import Shortcut from 'core/infrastructure/shortcut';
+import Command from '@grid/core/infrastructure/command';
+import Log from '@grid/core/infrastructure/log';
+import Shortcut from '@grid/core/infrastructure/shortcut';
 import CellEditor from './edit.cell.editor';
-import {getFactory as valueFactory} from 'core/services/value';
-import {getFactory as labelFactory} from 'core/services/label';
+import {getFactory as valueFactory} from '@grid/core/services/value';
+import {getFactory as labelFactory} from '@grid/core/services/label';
 
 export default class EditCellView {
 	constructor(model, table, applyFactory) {

@@ -1,7 +1,7 @@
-import PredicateVisitor from 'core/expression/predicate.visitor';
-import buildExpression from 'core/expression/expression.build';
-import * as columnService from 'core/column/column.service';
-import {yes} from 'core/services/utility';
+import PredicateVisitor from '@grid/core/expression/predicate.visitor';
+import buildExpression from '@grid/core/expression/expression.build';
+import * as columnService from '@grid/core/column/column.service';
+import {yes} from '@grid/core/services/utility';
 
 export default function (context) {
 	const model = context.model;

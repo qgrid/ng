@@ -2,10 +2,10 @@
 	"compilerOptions": {
 		"target": "es6",
 		"paths": {
-			"src": ["./src"],
-			"core": ["./src/core"],
-			"ng": ["./src/ng"],
-			"themes": ["./src/themes"]
+			"@grid/src": ["./src"],
+			"@grid/core": ["./src/core"],
+			"@grid/view": ["./src/view"],
+			"@grid/themes": ["./src/themes"]
 		}
 	}
 }

@@ -1,7 +1,7 @@
-import View from 'core/view/view';
-import Log from 'core/infrastructure/log';
-import Command from 'core/infrastructure/command';
-import * as columnService from 'core/column/column.service';
+import View from '@grid/core/view/view';
+import Log from '@grid/core/infrastructure/log';
+import Command from '@grid/core/infrastructure/command';
+import * as columnService from '@grid/core/column/column.service';
 
 export default class HeadView extends View {
 	constructor(model, table, tagName) {

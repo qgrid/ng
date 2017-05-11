@@ -1,10 +1,10 @@
 import View from '../view/view';
-import Command from 'core/infrastructure/command';
+import Command from '@grid/core/infrastructure/command';
 import stateFactory from './state/selection.state.factory';
 import rangeBuilder from './range.build';
-import Shortcut from 'core/infrastructure/shortcut';
-import {GRID_PREFIX} from 'core/definition';
-import {isUndefined} from 'core/services/utility';
+import Shortcut from '@grid/core/infrastructure/shortcut';
+import {GRID_PREFIX} from '@grid/core/definition';
+import {isUndefined} from '@grid/core/services/utility';
 
 export default class SelectionView extends View {
 	constructor(model, table, applyFactory) {

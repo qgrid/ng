@@ -1,4 +1,4 @@
-import {isFunction} from 'core/services/utility';
+import {isFunction} from '@grid/core/services/utility';
 
 export default class Shortcut {
 	constructor(table, apply) {

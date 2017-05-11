@@ -1,5 +1,5 @@
-import {map as getColumnMap} from 'core/column/column.service';
-import nodeBuilder from 'core/node/node.builder';
+import {map as getColumnMap} from '@grid/core/column/column.service';
+import nodeBuilder from '@grid/core/node/node.builder';
 
 export default function pipeGroup(memo, context, next) {
 	const model = context.model;

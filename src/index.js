@@ -1,37 +1,38 @@
-import Model from 'core/infrastructure/model';
-import GridModel from 'core/grid/grid.model';
-import ViewModel from 'core/view/view.model';
-import DataModel from 'core/data/data.model';
-import HeadModel from 'core/head/head.model';
-import BodyModel from 'core/body/body.model';
-import LayoutModel from 'core/layout/layout.model';
-import NavigationModel from 'core/navigation/navigation.model';
-import ColumnListModel from 'core/column-list/column.list.model';
-import RowModel from 'core/row/row.model';
-import SelectionModel from 'core/selection/selection.model';
-import FootModel from 'core/foot/foot.model';
-import SortModel from './core/sort/sort.model';
-import GroupModel from 'core/group/group.model';
-import PivotModel from 'core/pivot/pivot.model';
-import PluginModel from 'core/plugin/plugin.model';
-import EditModel from 'core/edit/edit.model';
-import ToolbarModel from 'core/toolbar/toolbar.model';
-import LayerModel from 'core/layer/layer.model';
-import PaginationModel from 'core/pagination/pagination.model';
-import ProgressModel from 'core/progress/progress.model';
-import HighlightModel from 'core/highlight/highlight.model';
-import VisibilityModel from 'core/visibility/visibility.model';
-import FilterModel from 'core/filter/filter.model';
-import DragModel from 'core/drag/drag.model';
-import StyleModel from 'core/style/style.model';
-import ScrollModel from 'core/scroll/scroll.model';
-import ExportModel from 'core/export/export.model';
+import Model from '@grid/core/infrastructure/model';
+import GridModel from '@grid/core/grid/grid.model';
+import ViewModel from '@grid/core/view/view.model';
+import DataModel from '@grid/core/data/data.model';
+import HeadModel from '@grid/core/head/head.model';
+import BodyModel from '@grid/core/body/body.model';
+import LayoutModel from '@grid/core/layout/layout.model';
+import NavigationModel from '@grid/core/navigation/navigation.model';
+import FocusModel from '@grid/core/focus/focus.model';
+import ColumnListModel from '@grid/core/column-list/column.list.model';
+import RowModel from '@grid/core/row/row.model';
+import SelectionModel from '@grid/core/selection/selection.model';
+import FootModel from '@grid/core/foot/foot.model';
+import SortModel from '@grid/core/sort/sort.model';
+import GroupModel from '@grid/core/group/group.model';
+import PivotModel from '@grid/core/pivot/pivot.model';
+import PluginModel from '@grid/core/plugin/plugin.model';
+import EditModel from '@grid/core/edit/edit.model';
+import ToolbarModel from '@grid/core/toolbar/toolbar.model';
+import LayerModel from '@grid/core/layer/layer.model';
+import PaginationModel from '@grid/core/pagination/pagination.model';
+import ProgressModel from '@grid/core/progress/progress.model';
+import HighlightModel from '@grid/core/highlight/highlight.model';
+import VisibilityModel from '@grid/core/visibility/visibility.model';
+import FilterModel from '@grid/core/filter/filter.model';
+import DragModel from '@grid/core/drag/drag.model';
+import StyleModel from '@grid/core/style/style.model';
+import ScrollModel from '@grid/core/scroll/scroll.model';
+import ExportModel from '@grid/core/export/export.model';
 
-import ColumnChooserModel from 'ng/plugins/column-chooser/column.chooser.model';
-import ColumnFilterModel from 'ng/plugins/column-filter/column.filter.model';
-import PopupModel from 'ng/plugins/popup/popup.model';
+import ColumnChooserModel from '@grid/view/plugins/column-chooser/column.chooser.model';
+import ColumnFilterModel from '@grid/view/plugins/column-filter/column.filter.model';
+import PopupModel from '@grid/view/plugins/popup/popup.model';
 
-import ng from './ng';
+import view from './view';
 
 Model.register('grid', GridModel)
 	.register('view', ViewModel)
@@ -40,6 +41,7 @@ Model.register('grid', GridModel)
 	.register('head', HeadModel)
 	.register('body', BodyModel)
 	.register('navigation', NavigationModel)
+	.register('focus', FocusModel)
 	.register('foot', FootModel)
 	.register('layout', LayoutModel)
 	.register('row', RowModel)
@@ -64,4 +66,4 @@ Model.register('grid', GridModel)
 	.register('scroll', ScrollModel)
 	.register('export', ExportModel);
 
-export default ng;
+export default view;

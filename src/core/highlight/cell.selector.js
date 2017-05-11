@@ -1,5 +1,5 @@
-import * as columnService from 'core/column/column.service';
-import AppError from 'core/infrastructure/error';
+import * as columnService from '@grid/core/column/column.service';
+import AppError from '@grid/core/infrastructure/error';
 
 export default (model, table) => {
 	function getRows(items) {

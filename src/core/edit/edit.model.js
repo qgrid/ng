@@ -1,5 +1,5 @@
-import Resource from 'core/resource/resource';
-import Command from 'core/infrastructure/command';
+import Resource from '@grid/core/resource/resource';
+import Command from '@grid/core/infrastructure/command';
 
 export default class EditModel {
 	constructor() {

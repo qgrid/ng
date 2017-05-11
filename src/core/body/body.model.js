@@ -1,5 +1,5 @@
-import Resource from 'core/resource/resource';
-import Cache from 'core/infrastructure/cache';
+import Resource from '@grid/core/resource/resource';
+import Cache from '@grid/core/infrastructure/cache';
 
 export default class BodyModel {
 	constructor() {

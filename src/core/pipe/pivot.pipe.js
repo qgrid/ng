@@ -1,5 +1,5 @@
-import {map as getColumnMap} from 'core/column/column.service';
-import pivotBuilder from 'core/pivot/pivot.build';
+import {map as getColumnMap} from '@grid/core/column/column.service';
+import pivotBuilder from '@grid/core/pivot/pivot.build';
 
 export default function pipePivot(memo, context, next) {
 	const model = context.model;
