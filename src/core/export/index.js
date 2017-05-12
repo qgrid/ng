@@ -1,3 +1,1 @@
-/**
- * Created by katy on 12.05.17.
- */
+export * from './export.model';

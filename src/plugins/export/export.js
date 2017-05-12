@@ -1,9 +1,9 @@
 import PluginComponent from '../plugin.component';
 import {EXPORT_NAME} from '../definition';
-import Command from '../infrastructure/command';
-import TemplatePath from '../template/template.path';
-import toCsv from '../export/csv';
-import download from '../services/download';
+import {Command} from '@grid/core/infrastructure';
+import {TemplatePath} from '@grid/core/template';
+import toCsv from '@grid/core/export/csv';
+import download from '@grid/core/services/download';
 
 TemplatePath
 	.register(EXPORT_NAME, () => {

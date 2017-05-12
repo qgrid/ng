@@ -1,4 +1,4 @@
-import guid from '@grid/core/services/guid';
+import {guid} from '../services';
 
 export default function download(csv) {
 	const csvFile = new Blob([csv], {type: 'text/csv'});
