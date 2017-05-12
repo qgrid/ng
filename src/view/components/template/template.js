@@ -1,8 +1,8 @@
 import Directive from '@grid/view/directives/directive';
-import AppError from '@grid/core/infrastructure/error';
+import {AppError} from '@grid/core/infrastructure';
 import templateScope from './template.scope';
-import TemplatePath from '@grid/core/template/template.path';
-import resourceFactory from '@grid/core/resource/resource.factory';
+import {TemplatePath} from '@grid/core/template';
+import {factory as resourceFactory} from '@grid/core/resource';
 import {merge} from '@grid/core/services/utility';
 import {GRID_NAME, TEMPLATE_NAME} from '@grid/view/definition';
 

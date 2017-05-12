@@ -1,8 +1,8 @@
 import ModelComponent from '../model.component';
 import * as ng from '@grid/view/services/ng';
-import * as path from '@grid/core/services/path'
+import {compile} from '@grid/core/services'
 import {isUndefined, clone, isObject, identity} from '@grid/core/services/utility';
-import {parseFactory, getType} from '@grid/core/services/convert';
+import {parseFactory, getType} from '@grid/core/services';
 import {GRID_NAME} from '@grid/view/definition';
 
 class ColumnList extends ModelComponent {
@@ -21,7 +21,7 @@ class ColumnList extends ModelComponent {
 			.filter(key => !ng.isSystem(key) && !isUndefined(source[key]) && key !== 'value')
 			.forEach(key => {
 				const value = source[key];
-				const accessor = path.compile(key);
+				const accessor = compile(key);
 				const targetValue = accessor(target);
 				const parse = parseFactory(getType(targetValue));
 				const sourceValue =

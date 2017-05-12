@@ -1,4 +1,4 @@
-import AppError from '@grid/core/infrastructure/error';
+import {AppError} from '@grid/core/infrastructure';
 import {Element, ElementCore} from './element';
 import {TD_CORE_NAME} from '@grid/view/definition'
 

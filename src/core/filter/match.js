@@ -1,9 +1,8 @@
-import PredicateVisitor from '@grid/core/expression/predicate.visitor';
-import buildExpression from '@grid/core/expression/expression.build';
-import * as columnService from '@grid/core/column/column.service';
-import {yes} from '@grid/core/services/utility';
+import {PredicateVisitor, build as buildExpression} from '../expression';
+import * as columnService from '../column/column.service';
+import {yes} from '../services/utility';
 
-export default function (context) {
+export function match(context) {
 	const model = context.model;
 	const expression = buildExpression(model.filter().by);
 	if (expression !== null) {

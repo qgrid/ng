@@ -1,6 +1,6 @@
 import Directive from '@grid/view/directives/directive';
 import cellBuilder from '../cell/cell.build';
-import AppError from '@grid/core/infrastructure/error'
+import {AppError} from '@grid/core/infrastructure'
 import {VIEW_CORE_NAME, TD_CORE_NAME} from '@grid/view/definition';
 import {GRID_PREFIX} from '@grid/core/definition';
 

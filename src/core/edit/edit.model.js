@@ -1,7 +1,7 @@
-import Resource from '@grid/core/resource/resource';
-import Command from '@grid/core/infrastructure/command';
+import {Resource} from '../resource';
+import {Command} from '../infrastructure';
 
-export default class EditModel {
+export class EditModel {
 	constructor() {
 		this.resource = new Resource();
 		this.mode = null; // cell | row

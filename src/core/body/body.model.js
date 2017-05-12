@@ -1,7 +1,7 @@
-import Resource from '@grid/core/resource/resource';
-import Cache from '@grid/core/infrastructure/cache';
+import {Resource} from '../resource';
+import {Cache} from '../infrastructure';
 
-export default class BodyModel {
+export class BodyModel {
 	constructor() {
 		this.resource = new Resource();
 		this.cache = new Cache();
