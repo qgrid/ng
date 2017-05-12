@@ -1,7 +1,6 @@
 import Component from './component';
-import ModelBinder from '@grid/core/infrastructure/model.bind';
+import {Guard, ModelBinder} from '@grid/core/infrastructure';
 import {noop} from '@grid/core/services/utility';
-import * as guard from '@grid/core/infrastructure/guard';
 
 export default class ModelComponent extends Component {
 	constructor(...names) {
@@ -34,7 +33,7 @@ export default class ModelComponent extends Component {
 	}
 
 	get model() {
-		guard.notNull(this.root, 'root');
+		Guard.notNull(this.root, 'root');
 
 		return this.root.model;
 	}

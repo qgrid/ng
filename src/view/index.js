@@ -1,7 +1,7 @@
 import Grid from './components/grid/grid';
 import GridService from './services/grid';
 
-import TemplatePath from '@grid/core/template/template.path';
+import {TemplatePath} from '@grid/core/template';
 import Head from './components/head/head';
 import Foot from './components/foot/foot';
 import ColumnList from './components/column/column.list';
@@ -38,7 +38,7 @@ import Highlight from './filters/highlight';
 import * as def from './definition';
 require('vscroll'); // TODO: make vscroll export
 
-const coreModule = angular.module(def.MODULE_CORE_NAME, [])
+export const coreModule = angular.module(def.MODULE_CORE_NAME, [])
 	.directive(def.DRAG_NAME, () => Drag)
 	.directive(def.DROP_NAME, () => Drop)
 	.directive(def.INDETERMINATE_NAME, () => Indeterminate)
@@ -57,14 +57,12 @@ const coreModule = angular.module(def.MODULE_CORE_NAME, [])
 	])
 	.name;
 
-import pluginModule from './plugins';
-
 // For now should be the last in import list cause use TemplatePath.require
 // that should be filled before importing this
 // TODO: get rid of static require
 import Template from './components/template/template';
 
-const layoutModel = angular.module(def.MODULE_LAYOUT_NAME, [coreModule])
+export const layoutModule = angular.module(def.MODULE_LAYOUT_NAME, [coreModule])
 	.component(def.GRID_NAME, Grid)
 	.component(def.BOX_CORE_NAME, BoxCore)
 	.component(def.VIEW_CORE_NAME, ViewCore)
@@ -86,10 +84,6 @@ const layoutModel = angular.module(def.MODULE_LAYOUT_NAME, [coreModule])
 	.directive(def.FOOT_CORE_NAME, () => FootCore)
 	.service(def.SERVICE_NAME, GridService)
 	.config(Setup)
-	.name;
-
-export default angular
-	.module(def.MODULE_NAME, [coreModule, layoutModel, pluginModule, 'vscroll'])
 	.name;
 
 Setup.$inject = ['qgridThemeProvider'];

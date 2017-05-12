@@ -1,9 +1,7 @@
-import Command from '@grid/core/infrastructure/command';
-import Log from '@grid/core/infrastructure/log';
-import Shortcut from '@grid/core/infrastructure/shortcut';
-import RowEditor from './edit.row.editor';
+import {Log, Shortcut, Command} from '../infrastructure';
+import {RowEditor} from './edit.row.editor';
 
-export default class EditRowView {
+export class EditRowView {
 	constructor(model, table, applyFactory) {
 		this.model = model;
 		this.table = table;

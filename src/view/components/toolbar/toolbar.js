@@ -1,6 +1,6 @@
 import Component from '../component';
 import {GRID_NAME, TOOLBAR_NAME} from '@grid/view/definition';
-import TemplatePath from '@grid/core/template/template.path';
+import {TemplatePath} from '@grid/core/template';
 
 TemplatePath
 	.register(TOOLBAR_NAME, template => {

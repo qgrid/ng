@@ -1,6 +1,6 @@
-import AppError from '@grid/core/infrastructure/error';
+import {AppError} from '../infrastructure';
 
-export default function castFactory(r) {
+export function castFactory(r) {
 	const rt = typeof r,
 		asString = '' + r,
 		asNumber = +r,

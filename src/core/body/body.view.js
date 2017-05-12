@@ -1,13 +1,12 @@
-import View from '@grid/core/view/view';
-import * as columnService from '@grid/core/column/column.service';
-import Aggregation from '@grid/core/services/aggregation';
-import AppError from '@grid/core/infrastructure/error';
-import Log from '@grid/core/infrastructure/log';
-import Node from '@grid/core/node/node';
-import {getFactory as valueFactory, set as setValue} from '@grid/core/services/value';
-import {getFactory as labelFactory, set as setLabel} from '@grid/core/services/label';
+import {View} from '../view';
+import * as columnService from '../column/column.service';
+import {Aggregation} from '../services';
+import {AppError, Log} from '../infrastructure';
+import {Node} from '../node';
+import {getFactory as valueFactory, set as setValue} from '../services/value';
+import {getFactory as labelFactory, set as setLabel} from '../services/label';
 
-export default class BodyView extends View {
+export class BodyView extends View {
 	constructor(model, table) {
 		super(model);
 

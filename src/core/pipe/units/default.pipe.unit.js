@@ -1,6 +1,6 @@
-import Pipe from '@grid/core/pipe/pipe';
+import {Pipe} from '../pipe';
 
-export default [
+export const defaultPipeUnit = [
 	Pipe.data,
 	Pipe.filter,
 	Pipe.sort,
