@@ -2,8 +2,8 @@ import PluginComponent from '../plugin.component';
 import {EXPORT_NAME} from '../definition';
 import Command from '@grid/core/infrastructure/command';
 import TemplatePath from '@grid/core/template/template.path';
-import {toCsv} from '@grid/core/export/export.service';
-import {download} from '@grid/core/download/download.service';
+import toCsv from '@grid/core/export/csv';
+import download from '@grid/core/services/download';
 
 TemplatePath
 	.register(EXPORT_NAME, () => {
@@ -13,7 +13,7 @@ TemplatePath
 		};
 	});
 
-const Plugin = PluginComponent('export', {inject: ['$window', '$document']});
+const Plugin = PluginComponent('export');
 class Export extends Plugin {
 	constructor() {
 		super(...arguments);
@@ -21,7 +21,7 @@ class Export extends Plugin {
 			canExecute: () => this.type.toLowerCase() === 'csv',
 			execute: () => {
 				const csv = toCsv(this.rows, this.columns);
-				download(csv, this.$window, this.$document);
+				download(csv);
 			}
 		});
 	}
