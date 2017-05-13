@@ -1,25 +1,36 @@
-import {get as valueFactory} from '../services/value';
+import {getFactory as valueFactory} from '../services/value';
 
-export default class ToCsv {
-	write(rowsModel, columnsModel) {
-		const CSV_DELIMETER = ',';
-		const columns = [];
-		const rows = [];
-		const head = columnsModel.map(column => {
-			return column.title;
-		}).join(CSV_DELIMETER);
-		rows.push(head);
+const DELIMETER = ',';
 
-		rowsModel.map(item => {
-			columns.push(columnsModel.map(column => {
-				const value = '' + valueFactory(item, column);
-				const result = value.replace(/"/g, '""');
-				return /[\n",]/.test(value) ? '"' + result + '"' : result;
-			}));
-		});
-		for (let i = 0; i < rowsModel.length; i++) {
-			rows.push(columns[i].join(CSV_DELIMETER));
+function Reverse(A) {
+	const AT = [];
+	const result = [];
+	for (let i = 0; i < A[0].length; i++) {
+		AT[i] = [];
+		for (let j = 0; j < A.length; j++) {
+			AT[i][j] = A[j][i];
 		}
-		return rows.join('\n');
+		result.push(AT[i].join(DELIMETER));
+	}
+	return result;
+}
+
+export class Csv {
+	write(rows, columns) {
+		const data = [];
+		const head = [];
+		for (let j = 0; j < columns.length; j++) {
+			data.push([]);
+			head[j] = columns[j].title;
+			const value = valueFactory(columns[j]);
+			let result = '';
+			for (let i = 0; i < rows.length; i++) {
+				result = '' + value(rows[i]);
+				result = result.replace(/"/g, '""');
+				result = /[\n",]/.test(result) ? `"${result}"` : result;
+				data[j][i] = result;
+			}
+		}
+		return [head.join(DELIMETER), ...Reverse(data)].join('\n');
 	}
 }

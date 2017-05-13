@@ -2,7 +2,7 @@ import PluginComponent from '../plugin.component';
 import {EXPORT_NAME} from '../definition';
 import {Command} from '@grid/core/infrastructure';
 import {TemplatePath} from '@grid/core/template';
-import ToCsv from '@grid/core/export/csv';
+import {Csv} from '@grid/core/export/csv';
 import download from '@grid/core/services/download';
 
 TemplatePath
@@ -20,7 +20,7 @@ class Export extends Plugin {
 		this.csv = new Command({
 			canExecute: () => this.type.toLowerCase() === 'csv',
 			execute: () => {
-				const data = new ToCsv();
+				const data = new Csv();
 				const csv = data.write(this.rows, this.columns);
 				download(csv);
 			}
