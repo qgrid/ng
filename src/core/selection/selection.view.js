@@ -25,17 +25,13 @@ export default class SelectionView extends View {
 
 		this.reset = commands.get('reset');
 
-		model.dataChanged.watch(() => {
+		model.viewChanged.watch(() => {
 			this.selectionState = stateFactory(model);
 
-			model.selection({entries: this.selectionState.entries()});
-		});
+			const items = model.selection().items;
+			const entries = this.selectionState.lookup(items);
 
-		model.sortChanged.watch(() => {
-			const entries = this.selectionState.entries();
-			this.selectionState = stateFactory(model);
-
-			model.selection({items: this.selectionState.view(entries)});
+			this.select(entries);
 		});
 
 		model.navigationChanged.watch(e => {
@@ -70,22 +66,12 @@ export default class SelectionView extends View {
 						entries: []
 					});
 				}
-				this.selectionState = stateFactory(model);
 
 				model.navigation({cell: null}, {source: 'selection'});
 			}
 
 			if (e.hasChanges('entries') && !e.hasChanges('items')) {
 				const entries = model.selection().entries;
-				model.selection({
-					items: this.selectionState.view(entries),
-					entries: entries
-				});
-			}
-
-			if (e.hasChanges('items') && !e.hasChanges('entries')) {
-				this.selectionState = stateFactory(model);
-				const entries = this.selectionState.entries();
 				model.selection({
 					items: this.selectionState.view(entries),
 					entries: entries

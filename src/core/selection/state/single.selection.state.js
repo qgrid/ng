@@ -5,9 +5,6 @@ export default class SingleSelectionState extends SelectionState {
 		super(model);
 
 		this.item = null;
-
-		const keys = model.selection().items;
-		super.selectByKeys(keys);
 	}
 
 	entries() {

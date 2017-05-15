@@ -18,6 +18,10 @@ const keySelector = (unit, selector) => {
 	}
 };
 
+const stringifyCellKey = (key) => {
+	return `${key.column}[${key.row}]`;
+};
+
 export default class SelectionState {
 	constructor(model) {
 		this.model = model;
@@ -93,7 +97,7 @@ export default class SelectionState {
 		const getCellKey = (item, unit) => {
 			if (item.column && item.row) {
 				const key = keySelector(unit, selection.key)(item);
-				return `${key.column}[${key.row}]`;
+				return stringifyCellKey(key);
 			}
 
 			return item;
@@ -122,43 +126,45 @@ export default class SelectionState {
 		return item;
 	}
 
-	selectByKeys(keys, unit) {
-		if (keys.length === 0) {
-			return;
+	lookup(items, unit) {
+		const entries = [];
+
+		if (items.length === 0) {
+			return entries;
 		}
 
 		if (isUndefined(unit)) {
 			unit = this.model.selection().unit;
 		}
-		const data = this.model.data();
+		const view = this.model.view();
 
 		switch (unit) {
 			case 'row': {
-				const rows = data.rows;
+				const rows = view.rows;
 				rows.forEach(row => {
 					const rowKey = this.key(row);
-					const found = keys.indexOf(rowKey) > -1;
+					const found = items.indexOf(rowKey) > -1;
 					if (found) {
-						this.select(row);
+						entries.push(row);
 					}
 				});
 				break;
 			}
 			case 'column': {
-				const columns = data.columns;
+				const columns = view.columns;
 				columns.forEach(column => {
 					const colKey = this.key(column);
-					const found = keys.indexOf(colKey) > -1;
+					const found = items.indexOf(colKey) > -1;
 					if (found) {
-						this.select(column);
+						entries.push(column);
 					}
 				});
 				break;
 			}
 			case 'cell': {
 				const cells = [];
-				data.columns.forEach(column => {
-					data.rows.forEach(row => {
+				view.columns.forEach(column => {
+					view.rows.forEach(row => {
 						cells.push({
 							column: column,
 							row: row
@@ -167,32 +173,34 @@ export default class SelectionState {
 				});
 				cells.forEach(cell => {
 					const cellKey = this.key(cell);
-					const found = keys.findIndex(key => `${key.column}[${key.row}]` == cellKey) > -1;
+					const found = items.findIndex(item => stringifyCellKey(item) === cellKey) > -1;
 					if (found) {
-						this.select(cell);
+						entries.push(cell);
 					}
 				});
 				break;
 			}
 			case 'mix': {
-				const rowKeys = keys
+				const rowKeys = items
 					.filter(key => key.unit === 'row')
 					.map(key => key.item);
-				const colKeys = keys
+				const colKeys = items
 					.filter(key => key.unit === 'column')
 					.map(key => key.item);
-				const cellKeys = keys
+				const cellKeys = items
 					.filter(key => key.unit === 'cell')
 					.map(key => key.item);
 
-				this.selectByKeys(rowKeys, 'row');
-				this.selectByKeys(colKeys, 'column');
-				this.selectByKeys(cellKeys, 'cell');
+				this.lookup(rowKeys, 'row')
+					.concat(this.lookup(colKeys, 'column'))
+					.concat(this.lookup(cellKeys, 'cell'));
 				break;
 			}
 			default:
 				throw new AppError('selection.state', `Invalid unit ${unit}`);
 		}
+
+		return entries;
 	}
 
 	selectCore() {
