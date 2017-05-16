@@ -1,4 +1,4 @@
-import Component from 'ng/components/component';
+import Component from '@grid/view/components/component';
 import Prism from 'prismjs';
 require('./page.details.scss');
 

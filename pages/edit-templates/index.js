@@ -84,8 +84,7 @@ export default function Controller($http, $mdToast, qgrid, $timeout) {
 									.then(function (response) {
 										return next(response.data);
 									});
-							}]
-								.concat(qgrid.pipeUnit.default)
+							}].concat(qgrid.pipeUnit.default)
 						});
 					return model;
 				}
