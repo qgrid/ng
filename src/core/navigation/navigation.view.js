@@ -1,15 +1,14 @@
-import View from 'core/view/view';
-import Command from 'core/infrastructure/command';
-import Shortcut from 'core/infrastructure/shortcut';
-import Navigation from 'core/navigation/navigation';
-import {GRID_PREFIX} from 'core/definition';
+import {View} from '../view';
+import {Command, Shortcut} from '../infrastructure';
+import {Navigation} from './navigation';
+import {GRID_PREFIX} from '../definition';
 
-export default class NavigationView extends View {
-	constructor(model, table, applyFactory) {
+export class NavigationView extends View {
+	constructor(model, table, commandManager) {
 		super(model);
 
 		this.table = table;
-		const shortcut = new Shortcut(table, applyFactory('async'));
+		const shortcut = new Shortcut(table, commandManager);
 		const navigation = new Navigation(model, table);
 
 		this.shortcutOff = shortcut.register('navigation', navigation.commands);

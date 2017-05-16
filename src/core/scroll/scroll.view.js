@@ -1,19 +1,19 @@
-import View from '../view/view';
-import log from 'core/infrastructure/log';
+import {View} from '../view';
+import {Log} from '../infrastructure';
 
-export default class ScrollView extends View {
-	constructor(model, table, vscroll, service, applyFactory) {
+export class ScrollView extends View {
+	constructor(model, table, vscroll, gridService) {
 		super(model);
 
 		this.table = table;
-		const scroll = model.scroll;
-		const apply = applyFactory('async');
 
-		this.y = vscroll({
+		const scroll = model.scroll;
+		this.y = vscroll.factory({
 			threshold: model.pagination().size,
 			rowHeight: model.row().height
 		});
 
+		const apply = this.y.container.apply;
 		this.y.container.apply = f => {
 			apply(() => {
 				f();
@@ -38,7 +38,8 @@ export default class ScrollView extends View {
 						behavior: 'core'
 					});
 
-					service.invalidate('scroll.view')
+					gridService
+						.invalidate('scroll.view')
 						.then(d.resolve(model.view().rows.length));
 				};
 
@@ -50,7 +51,6 @@ export default class ScrollView extends View {
 				});
 		}
 
-
 		model.scrollChanged.watch(e => {
 			if (e.hasChanges('left') || e.hasChanges('top')) {
 				this.invalidate(e.tag.pin);
@@ -59,7 +59,7 @@ export default class ScrollView extends View {
 	}
 
 	invalidate(pin) {
-		log.info('layout', 'invalidate scroll');
+		Log.info('layout', 'invalidate scroll');
 
 		const table = this.table;
 		const scroll = this.model.scroll();

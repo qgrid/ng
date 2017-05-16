@@ -1,22 +1,20 @@
-import View from '../view/view';
-import Command from 'core/infrastructure/command';
-import stateFactory from './state/selection.state.factory';
-import rangeBuilder from './range.build';
-import Shortcut from 'core/infrastructure/shortcut';
-import {GRID_PREFIX} from 'core/definition';
-import {isUndefined} from 'core/services/utility';
+import {View} from '../view';
+import {Command, Shortcut} from '../infrastructure';
+import {selectionStateFactory as stateFactory} from './state';
+import {rangeBuilder} from './range.build';
+import {GRID_PREFIX} from '../definition';
+import {isUndefined} from '../services/utility';
 
-export default class SelectionView extends View {
-	constructor(model, table, applyFactory) {
+export class SelectionView extends View {
+	constructor(model, table, commandManager) {
 		super(model);
 
 		this.table = table;
-		this.apply = applyFactory('async');
 
 		this.selectionState = stateFactory(model);
 		this.buildRange = rangeBuilder(model);
 
-		const shortcut = new Shortcut(table, applyFactory('async'));
+		const shortcut = new Shortcut(table, commandManager);
 		const commands = this.commands;
 		this.shortcutOff = shortcut.register('selectionNavigation', commands);
 		this.toggleRow = commands.get('toggleRow');
@@ -25,10 +23,13 @@ export default class SelectionView extends View {
 
 		this.reset = commands.get('reset');
 
-		model.sortChanged.watch(() => {
+		model.dataChanged.watch(() => {
 			this.selectionState = stateFactory(model);
 
-			model.selection({items: this.selectionState.view});
+			const items = model.selection().items;
+			const entries = this.selectionState.lookup(items);
+
+			this.select(entries);
 		});
 
 		model.navigationChanged.watch(e => {
@@ -44,31 +45,34 @@ export default class SelectionView extends View {
 
 		model.selectionChanged.watch(e => {
 			if (e.hasChanges('mode')) {
-				this.apply(() => {
-					const newClassName = `${GRID_PREFIX}-select-${model.selection().mode}`;
-					const view = table.view;
-					view.addClass(newClassName);
+				const newClassName = `${GRID_PREFIX}-select-${model.selection().mode}`;
+				const view = table.view;
+				view.addClass(newClassName);
 
-					if (e.changes.mode.oldValue != e.changes.mode.newValue) {
-						const oldClassName = `${GRID_PREFIX}-select-${e.changes.mode.oldValue}`;
-						view.removeClass(oldClassName);
-					}
-				});
+				if (e.changes.mode.oldValue != e.changes.mode.newValue) {
+					const oldClassName = `${GRID_PREFIX}-select-${e.changes.mode.oldValue}`;
+					view.removeClass(oldClassName);
+				}
 			}
 
 			if (e.hasChanges('unit') || e.hasChanges('mode')) {
-				this.selectionState = stateFactory(model);
+				if (!e.hasChanges('items') && !e.hasChanges('entries')) {
+					model.selection({
+						items: [],
+						entries: []
+					});
+					this.selectionState = stateFactory(model);
+				}
 
 				model.navigation({cell: null}, {source: 'selection'});
-				const entries = this.selectionState.entries();
-				model.selection({
-					entries: entries,
-					items: this.selectionState.view(entries)
-				});
 			}
 
-			if (e.tag.source !== 'toggle' && e.hasChanges('entries')) {
-				this.select(model.selection().entries, true);
+			if (e.hasChanges('entries') && !e.hasChanges('items')) {
+				const entries = model.selection().entries;
+				model.selection({
+					items: this.selectionState.view(entries),
+					entries: entries
+				});
 			}
 		});
 	}
@@ -210,7 +214,6 @@ export default class SelectionView extends View {
 
 		const entries = this.selectionState.entries();
 		this.model.selection({
-			items: this.selectionState.view(entries),
 			entries: entries,
 		}, {source: 'toggle'});
 	}

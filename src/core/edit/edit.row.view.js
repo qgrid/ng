@@ -1,15 +1,13 @@
-import Command from 'core/infrastructure/command';
-import Log from 'core/infrastructure/log';
-import Shortcut from 'core/infrastructure/shortcut';
-import RowEditor from './edit.row.editor';
+import {Log, Shortcut, Command} from '../infrastructure';
+import {RowEditor} from './edit.row.editor';
 
-export default class EditRowView {
-	constructor(model, table, applyFactory) {
+export class EditRowView {
+	constructor(model, table, commandManager) {
 		this.model = model;
 		this.table = table;
 		this.editor = RowEditor.empty;
 
-		const shortcut = new Shortcut(table, applyFactory('async'));
+		const shortcut = new Shortcut(table, commandManager);
 		const commands = this.commands;
 		this.shortcutOff = shortcut.register('editRowNavigation', commands);
 

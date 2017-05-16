@@ -1,4 +1,4 @@
-import Component from 'ng/components/component';
+import Component from '@grid/view/components/component';
 require('./theme.selector.scss');
 
 class ThemeSelector extends Component {

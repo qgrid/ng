@@ -1,0 +1,12 @@
+export class CommandManager {
+	constructor(apply) {
+		this.apply = apply;
+	}
+
+	execute(commands) {
+		// First we need to get list of executable commands, cause execution of prev command can
+		// impact on canExecute of next command
+		const executableCommands = commands.filter(cmd => cmd.canExecute());
+		this.apply(() => executableCommands.forEach(cmd => cmd.execute()));
+	}
+}

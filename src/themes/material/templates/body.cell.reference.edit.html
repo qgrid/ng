@@ -1,4 +1,5 @@
-<q-grid:popup id="q-grid-reference-popup" ng-init="$popup.show()">
+<q-grid:popup id="q-grid-reference-popup" ng-init="$popup.show()"
+				  q-grid:popup-close="$view.edit.cell.cancel.execute($cell, $event)">
 	<q-grid:template for="trigger">
 		<span ng-init="$popup.open({width: 350, height: 500})"></span>
 	</q-grid:template>
@@ -8,7 +9,8 @@
 			  layout="column"
 			  ng-controller="Body.Cell.Reference.Edit.Controller as $ctrl">
 			<div flex="90">
-				<q-grid model="$ctrl.gridModel">
+				<q-grid model="$ctrl.gridModel"
+						  selection="$view.edit.cell.value">
 					<q-grid:columns>
 					</q-grid:columns>
 					<q-grid:toolbar>
