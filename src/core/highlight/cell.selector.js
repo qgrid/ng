@@ -1,7 +1,7 @@
-import * as columnService from '@grid/core/column/column.service';
-import AppError from '@grid/core/infrastructure/error';
+import * as columnService from '../column/column.service';
+import {AppError} from '../infrastructure';
 
-export default (model, table) => {
+export function cellSelector(model, table) {
 	function getRows(items) {
 		const result = [];
 		const rows = model.view().rows;
@@ -74,4 +74,4 @@ export default (model, table) => {
 
 		return cellSelector(...args);
 	};
-};
+}

@@ -1,27 +1,27 @@
 import Component from '../component';
 import Table from '@grid/view/services/dom/table';
-import BodyView from '@grid/core/body/body.view';
-import HeadView from '@grid/core/head/head.view';
-import FootView from '@grid/core/foot/foot.view';
-import LayoutView from '@grid/core/layout/layout.view';
-import GroupView from '@grid/core/group/group.view';
-import PivotView from '@grid/core/pivot/pivot.view';
-import NavigationView from '@grid/core/navigation/navigation.view';
-import HighlightView from '@grid/core/highlight/highlight.view';
-import SortView from '@grid/core/sort/sort.view';
-import FilterView from '@grid/core/filter/filter.view';
-import EditView from '@grid/core/edit/edit.view';
-import SelectionView from '@grid/core/selection/selection.view';
-import PaginationView from '@grid/core/pagination/pagination.view';
-import TableView from '@grid/core/table/table.view';
-import StyleView from '@grid/core/style/style.view';
-import ColumnView from '@grid/core/column/column.view';
-import ScrollView from '@grid/core/scroll/scroll.view';
+import {BodyView} from '@grid/core/body';
+import {HeadView} from '@grid/core/head';
+import {FootView} from '@grid/core/foot';
+import {LayoutView} from '@grid/core/layout';
+import {GroupView} from '@grid/core/group';
+import {PivotView} from '@grid/core/pivot';
+import {NavigationView} from '@grid/core/navigation';
+import {HighlightView} from '@grid/core/highlight';
+import {SortView} from '@grid/core/sort';
+import {FilterView} from '@grid/core/filter';
+import {EditView} from '@grid/core/edit';
+import {SelectionView} from '@grid/core/selection';
+import {PaginationView} from '@grid/core/pagination';
+import {TableView} from '@grid/core/table';
+import {StyleView} from '@grid/core/style';
+import {ColumnView} from '@grid/core/column';
+import {ScrollView} from '@grid/core/scroll';
 import {GRID_NAME, TH_CORE_NAME} from '@grid/view/definition';
 import {isUndefined} from '@grid/core/services/utility';
+import {PipeUnit} from '@grid/core/pipe/units';
+import {AppError} from '@grid/core/infrastructure';
 import TemplateLink from '../template/template.link';
-import PipeUnit from '@grid/core/pipe/units/pipe.unit';
-import AppError from '@grid/core/infrastructure/error';
 
 class ViewCore extends Component {
 	constructor($rootScope, $scope, $element, $document, $timeout, $compile, $templateCache, grid, vscroll) {

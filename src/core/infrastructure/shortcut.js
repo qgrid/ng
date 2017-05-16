@@ -1,6 +1,6 @@
-import {isFunction} from '@grid/core/services/utility';
+import {isFunction} from '../services/utility';
 
-export default class Shortcut {
+export class Shortcut {
 	constructor(table, apply) {
 		this.apply = apply;
 		this.commands = [];

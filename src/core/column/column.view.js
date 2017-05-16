@@ -1,13 +1,13 @@
-import View from '@grid/core/view/view';
-import columnFactory from '@grid/core/column/column.factory';
-import AppError from '@grid/core/infrastructure/error';
-import merge from '@grid/core/services/merge';
-import * as columnService from '@grid/core/column/column.service';
-import {assignWith, noop, isUndefined} from '@grid/core/services/utility';
-import {generate} from '@grid/core/column-list/column.list.generate';
-import PipeUnit from '@grid/core/pipe/units/pipe.unit';
+import {View} from '../view';
+import {columnFactory} from './column.factory';
+import {AppError} from '../infrastructure';
+import {merge} from '../services';
+import * as columnService from '../column/column.service';
+import {assignWith, noop, isUndefined} from '../services/utility';
+import {generate} from '../column-list';
+import {PipeUnit} from '../pipe/units';
 
-export default class ColumnView extends View {
+export class ColumnView extends View {
 	constructor(model, service) {
 		super(model);
 

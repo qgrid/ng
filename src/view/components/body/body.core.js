@@ -1,6 +1,6 @@
 import Directive from '@grid/view/directives/directive';
 import {VIEW_CORE_NAME, BODY_CORE_NAME} from '@grid/view/definition';
-import EventListener from '@grid/core/infrastructure/event.listener';
+import {EventListener} from '@grid/core/infrastructure';
 import * as pathFinder from '@grid/view/services/path.find';
 
 class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {

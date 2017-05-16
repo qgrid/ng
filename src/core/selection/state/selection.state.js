@@ -1,6 +1,6 @@
-import AppError from '@grid/core/infrastructure/error';
-import {isArray, isUndefined} from '@grid/core/services/utility';
-import Node from '@grid/core/node/node';
+import {AppError} from '../../infrastructure';
+import {isArray, isUndefined} from '../../services/utility';
+import {Node} from '../../node';
 
 const keySelector = (unit, selector) => {
 	switch (unit) {
@@ -22,7 +22,7 @@ const stringifyCellKey = (key) => {
 	return `${key.column}[${key.row}]`;
 };
 
-export default class SelectionState {
+export class SelectionState {
 	constructor(model) {
 		this.model = model;
 	}

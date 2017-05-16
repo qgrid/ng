@@ -1,6 +1,6 @@
 import setup from './setup';
 import ExceptionHandler from './exception';
-import Log from '@grid/core/infrastructure/log';
+import {Log} from '@grid/core/infrastructure';
 
 import angular from 'angular';
 import ngRoute from 'angular-route';

@@ -1,5 +1,5 @@
-import TemplatePath from '@grid/core/template/template.path';
-import AppError from '@grid/core/infrastructure/error';
+import {TemplatePath} from '@grid/core/template';
+import {AppError} from '@grid/core/infrastructure';
 import {noop} from '@grid/core/services/utility';
 
 function canBuild(column) {

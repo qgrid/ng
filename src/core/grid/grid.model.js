@@ -1,6 +1,6 @@
-import guid from '@grid/core/services/guid';
+import {guid} from '../services';
 
-export default class GridModel {
+export class GridModel {
 	constructor() {
 		this.id = `q-grid-${guid()}`;
 	}
