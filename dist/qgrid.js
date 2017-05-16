@@ -3599,15 +3599,11 @@ var CellEditor = function (_CellEditorCore) {
 	}, {
 		key: 'fetchFactory',
 		value: function fetchFactory() {
-			var _this2 = this;
-
 			var options = this.options;
 			if (options && options.fetch) {
 				return new __WEBPACK_IMPORTED_MODULE_0__infrastructure__["h" /* Fetch */](options.fetch);
 			}
-			return new __WEBPACK_IMPORTED_MODULE_0__infrastructure__["h" /* Fetch */](function () {
-				return _this2.cell.value;
-			});
+			return new __WEBPACK_IMPORTED_MODULE_0__infrastructure__["h" /* Fetch */](this.cell.value);
 		}
 	}, {
 		key: 'title',
@@ -4617,7 +4613,7 @@ var SingleSelectionState = function (_SelectionState) {
 	}, {
 		key: 'stateCore',
 		value: function stateCore(item) {
-			return this.item && this.key(item) === this.key(this.item);
+			return this.item !== null && this.key(item) === this.key(this.item);
 		}
 	}, {
 		key: 'clearCore',
