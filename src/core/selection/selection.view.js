@@ -6,16 +6,15 @@ import {GRID_PREFIX} from '../definition';
 import {isUndefined} from '../services/utility';
 
 export class SelectionView extends View {
-	constructor(model, table, applyFactory) {
+	constructor(model, table, commandManager) {
 		super(model);
 
 		this.table = table;
-		this.apply = applyFactory('async');
 
 		this.selectionState = stateFactory(model);
 		this.buildRange = rangeBuilder(model);
 
-		const shortcut = new Shortcut(table, applyFactory('async'));
+		const shortcut = new Shortcut(table, commandManager);
 		const commands = this.commands;
 		this.shortcutOff = shortcut.register('selectionNavigation', commands);
 		this.toggleRow = commands.get('toggleRow');
@@ -46,16 +45,14 @@ export class SelectionView extends View {
 
 		model.selectionChanged.watch(e => {
 			if (e.hasChanges('mode')) {
-				this.apply(() => {
-					const newClassName = `${GRID_PREFIX}-select-${model.selection().mode}`;
-					const view = table.view;
-					view.addClass(newClassName);
+				const newClassName = `${GRID_PREFIX}-select-${model.selection().mode}`;
+				const view = table.view;
+				view.addClass(newClassName);
 
-					if (e.changes.mode.oldValue != e.changes.mode.newValue) {
-						const oldClassName = `${GRID_PREFIX}-select-${e.changes.mode.oldValue}`;
-						view.removeClass(oldClassName);
-					}
-				});
+				if (e.changes.mode.oldValue != e.changes.mode.newValue) {
+					const oldClassName = `${GRID_PREFIX}-select-${e.changes.mode.oldValue}`;
+					view.removeClass(oldClassName);
+				}
 			}
 
 			if (e.hasChanges('unit') || e.hasChanges('mode')) {
