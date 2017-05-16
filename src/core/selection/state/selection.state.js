@@ -136,11 +136,11 @@ export class SelectionState {
 		if (isUndefined(unit)) {
 			unit = this.model.selection().unit;
 		}
-		const view = this.model.view();
+		const data = this.model.data();
 
 		switch (unit) {
 			case 'row': {
-				const rows = view.rows;
+				const rows = data.rows;
 				rows.forEach(row => {
 					const rowKey = this.key(row);
 					const found = items.indexOf(rowKey) > -1;
@@ -151,7 +151,7 @@ export class SelectionState {
 				break;
 			}
 			case 'column': {
-				const columns = view.columns;
+				const columns = data.columns;
 				columns.forEach(column => {
 					const colKey = this.key(column);
 					const found = items.indexOf(colKey) > -1;
@@ -163,8 +163,8 @@ export class SelectionState {
 			}
 			case 'cell': {
 				const cells = [];
-				view.columns.forEach(column => {
-					view.rows.forEach(row => {
+				data.columns.forEach(column => {
+					data.rows.forEach(row => {
 						cells.push({
 							column: column,
 							row: row
