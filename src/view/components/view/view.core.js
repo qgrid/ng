@@ -22,6 +22,7 @@ import {isUndefined} from '@grid/core/services/utility';
 import {PipeUnit} from '@grid/core/pipe/units';
 import {AppError} from '@grid/core/infrastructure';
 import TemplateLink from '../template/template.link';
+import {CommandManager} from '@grid/view/services/command.manager';
 
 class ViewCore extends Component {
 	constructor($rootScope, $scope, $element, $document, $timeout, $compile, $templateCache, grid, vscroll) {
@@ -69,6 +70,8 @@ class ViewCore extends Component {
 			return this.$timeout(f, timeout);
 		};
 
+		const commandManager = new CommandManager(applyFactory('async'));
+
 		this.style = new StyleView(model, table);
 		this.table = new TableView(model);
 		this.head = new HeadView(model, table, TH_CORE_NAME);
@@ -76,14 +79,14 @@ class ViewCore extends Component {
 		this.foot = new FootView(model, table);
 		this.columns = new ColumnView(model, service);
 		this.layout = new LayoutView(model, table, service);
-		this.selection = new SelectionView(model, table, applyFactory);
+		this.selection = new SelectionView(model, table, applyFactory, commandManager);
 		this.group = new GroupView(model);
 		this.pivot = new PivotView(model);
 		this.highlight = new HighlightView(model, table, applyFactory);
 		this.sort = new SortView(model);
 		this.filter = new FilterView(model);
-		this.edit = new EditView(model, table, applyFactory);
-		this.nav = new NavigationView(model, table, applyFactory);
+		this.edit = new EditView(model, table, commandManager);
+		this.nav = new NavigationView(model, table, commandManager);
 		this.pagination = new PaginationView(model);
 		this.scroll = new ScrollView(model, table, this.vscroll, service, applyFactory);
 

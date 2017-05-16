@@ -6,7 +6,7 @@ import {GRID_PREFIX} from '../definition';
 import {isUndefined} from '../services/utility';
 
 export class SelectionView extends View {
-	constructor(model, table, applyFactory) {
+	constructor(model, table, applyFactory, commandManager) {
 		super(model);
 
 		this.table = table;
@@ -15,7 +15,7 @@ export class SelectionView extends View {
 		this.selectionState = stateFactory(model);
 		this.buildRange = rangeBuilder(model);
 
-		const shortcut = new Shortcut(table, applyFactory('async'));
+		const shortcut = new Shortcut(table, commandManager);
 		const commands = this.commands;
 		this.shortcutOff = shortcut.register('selectionNavigation', commands);
 		this.toggleRow = commands.get('toggleRow');
