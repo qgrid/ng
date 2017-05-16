@@ -24,10 +24,13 @@ export class SelectionView extends View {
 
 		this.reset = commands.get('reset');
 
-		model.sortChanged.watch(() => {
+		model.viewChanged.watch(() => {
 			this.selectionState = stateFactory(model);
 
-			model.selection({items: this.selectionState.view});
+			const items = model.selection().items;
+			const entries = this.selectionState.lookup(items);
+
+			this.select(entries);
 		});
 
 		model.navigationChanged.watch(e => {
@@ -56,18 +59,22 @@ export class SelectionView extends View {
 			}
 
 			if (e.hasChanges('unit') || e.hasChanges('mode')) {
-				this.selectionState = stateFactory(model);
+				if (!e.hasChanges('items') && !e.hasChanges('entries')) {
+					model.selection({
+						items: [],
+						entries: []
+					});
+				}
 
 				model.navigation({cell: null}, {source: 'selection'});
-				const entries = this.selectionState.entries();
-				model.selection({
-					entries: entries,
-					items: this.selectionState.view(entries)
-				});
 			}
 
-			if (e.tag.source !== 'toggle' && e.hasChanges('entries')) {
-				this.select(model.selection().entries, true);
+			if (e.hasChanges('entries') && !e.hasChanges('items')) {
+				const entries = model.selection().entries;
+				model.selection({
+					items: this.selectionState.view(entries),
+					entries: entries
+				});
 			}
 		});
 	}
@@ -209,7 +216,6 @@ export class SelectionView extends View {
 
 		const entries = this.selectionState.entries();
 		this.model.selection({
-			items: this.selectionState.view(entries),
 			entries: entries,
 		}, {source: 'toggle'});
 	}
