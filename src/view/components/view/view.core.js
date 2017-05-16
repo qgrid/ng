@@ -49,29 +49,9 @@ class ViewCore extends Component {
 		table.pin = this.pin;
 
 		const gridService = this.serviceFactory(model);
-		const applyFactory = mode => (f, timeout) => {
-			if (isUndefined(timeout)) {
-				switch (mode) {
-					case 'async': {
-						return this.$scope.$applyAsync(f);
-					}
-					case 'sync': {
-						const phase = this.$rootScope.$$phase; // eslint-disable-line angular/no-private-call
-						if (phase == '$apply' || phase == '$digest') {
-							return f();
-						}
-						return this.$scope.$apply(f);
-					}
-					default:
-						throw new AppError('view.core', `Invalid apply mode '${mode}'`);
-				}
-			}
 
-			return this.$timeout(f, timeout);
-		};
-
-		const commandManager = new CommandManager(applyFactory('async'));
-		const vscroll = new Vscroll(this.vscroll, applyFactory('async'));
+		const commandManager = new CommandManager(this.applyFactory('async'));
+		const vscroll = new Vscroll(this.vscroll, this.applyFactory('async'));
 
 		this.style = new StyleView(model, table);
 		this.table = new TableView(model);
@@ -80,10 +60,10 @@ class ViewCore extends Component {
 		this.foot = new FootView(model, table);
 		this.columns = new ColumnView(model, gridService);
 		this.layout = new LayoutView(model, table, gridService);
-		this.selection = new SelectionView(model, table, applyFactory, commandManager);
+		this.selection = new SelectionView(model, table, commandManager);
 		this.group = new GroupView(model);
 		this.pivot = new PivotView(model);
-		this.highlight = new HighlightView(model, table, applyFactory);
+		this.highlight = new HighlightView(model, table, this.applyFactory.bind(this));
 		this.sort = new SortView(model);
 		this.filter = new FilterView(model);
 		this.edit = new EditView(model, table, commandManager);
@@ -127,6 +107,29 @@ class ViewCore extends Component {
 		if (needInvalidate) {
 			gridService.invalidate('grid');
 		}
+	}
+
+	applyFactory(mode) {
+		return (f, timeout) => {
+			if (isUndefined(timeout)) {
+				switch (mode) {
+					case 'async': {
+						return this.$scope.$applyAsync(f);
+					}
+					case 'sync': {
+						const phase = this.$rootScope.$$phase; // eslint-disable-line angular/no-private-call
+						if (phase == '$apply' || phase == '$digest') {
+							return f();
+						}
+						return this.$scope.$apply(f);
+					}
+					default:
+						throw new AppError('view.core', `Invalid apply mode '${mode}'`);
+				}
+			}
+
+			return this.$timeout(f, timeout);
+		};
 	}
 
 	onDestroy() {
