@@ -1,7 +1,7 @@
-import SelectionState from './selection.state';
-import Model from '@grid/core/infrastructure/model';
-import ViewModel from '@grid/core/view/view.model';
-import SelectionModel from '@grid/core/selection/selection.model';
+import {SelectionState} from './selection.state';
+import {Model} from '../../infrastructure/model';
+import {DataModel} from '../../data/data.model';
+import {SelectionModel} from '../../selection/selection.model';
 
 let model;
 const rows = [{
@@ -28,13 +28,13 @@ const columns = [{
 
 describe('selection state', () => {
 	before('init model', () => {
-		// Model.register('view', ViewModel)
+		// Model.register('data', DataModel)
 		// 	.register('selection', SelectionModel);
 
 		model = new Model();
 
 		model
-			.view({
+			.data({
 				rows: rows,
 				columns: columns
 			});

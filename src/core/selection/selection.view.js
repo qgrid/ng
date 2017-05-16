@@ -24,7 +24,7 @@ export class SelectionView extends View {
 
 		this.reset = commands.get('reset');
 
-		model.viewChanged.watch(() => {
+		model.dataChanged.watch(() => {
 			this.selectionState = stateFactory(model);
 
 			const items = model.selection().items;
@@ -64,6 +64,7 @@ export class SelectionView extends View {
 						items: [],
 						entries: []
 					});
+					this.selectionState = stateFactory(model);
 				}
 
 				model.navigation({cell: null}, {source: 'selection'});

@@ -62,6 +62,7 @@ export class HighlightView extends View {
 				hoverBlurs = this.invalidateHover(hoverBlurs);
 				sortBlurs = this.invalidateSortBy(sortBlurs);
 				waitForLayout = false;
+				this.behavior.update(this.model.selection().entries);
 			}, 100);
 		});
 

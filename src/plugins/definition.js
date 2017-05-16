@@ -22,3 +22,4 @@ export const POPUP_HEAD_NAME = `${GRID}PopupHead`;
 export const POPUP_BODY_NAME = `${GRID}PopupBody`;
 export const POPUP_PANEL_NAME = `${GRID}PopupPanel`;
 export const POPUP_SERVICE = `${GRID}PopupService`;
+export const POPUP_CLOSE_NAME = `${GRID}PopupClose`;

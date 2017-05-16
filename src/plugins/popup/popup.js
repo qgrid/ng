@@ -1,5 +1,5 @@
 import PluginComponent from '../plugin.component';
-import {POPUP_NAME} from '../definition';
+import {POPUP_NAME, POPUP_CLOSE_NAME} from '../definition';
 import {TemplatePath} from '@grid/core/template';
 
 require('./popup.scss');
@@ -40,6 +40,7 @@ class Popup extends Plugin {
 
 	open(settings = {}) {
 		settings.id = this.id;
+		settings.close = this.onClose;
 		this.qGridPopupService.open(
 			settings,
 			this.model,
@@ -62,6 +63,7 @@ export default Popup.component({
 	controllerAs: '$popup',
 	bindings: {
 		id: '@',
-		resourceModel: '@resource'
+		resourceModel: '@resource',
+		'onClose': `&${POPUP_CLOSE_NAME}`,
 	}
 });

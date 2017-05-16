@@ -1,7 +1,7 @@
-import MultipleSelectionState from './multiple.selection.state';
-import Model from '@grid/core/infrastructure/model';
-import ViewModel from '@grid/core/view/view.model';
-import SelectionModel from '@grid/core/selection/selection.model';
+import {MultipleSelectionState} from './multiple.selection.state';
+import {Model} from '../../infrastructure/model';
+import {DataModel} from '../../data/data.model';
+import {SelectionModel} from '../../selection/selection.model';
 
 let model;
 const rows = [{
@@ -28,13 +28,13 @@ const columns = [{
 
 describe('multiple selection state', () => {
 	before('init model', () => {
-		Model.register('view', ViewModel)
+		Model.register('data', DataModel)
 			.register('selection', SelectionModel);
 
 		model = new Model();
 
 		model
-			.view({
+			.data({
 				rows: rows,
 				columns: columns
 			})
@@ -189,15 +189,16 @@ describe('multiple selection state', () => {
 		describe('state function', () => {
 			it('should return state of cell', () => {
 				const selectionState = new MultipleSelectionState(model);
+				const last = cells.length-1;
 				selectionState.select([
 					cells[0],
-					cells[cells.length-1]
+					cells[last]
 				]);
 
 				const states = cells.map(cell => selectionState.state(cell));
 
 				expect(states[0]).to.be.true;
-				expect(states[8]).to.be.true;
+				expect(states[last]).to.be.true;
 			});
 		});
 	});
