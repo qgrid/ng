@@ -1,7 +1,7 @@
 import {guid} from '../services';
 
 export default function download(data, textMimeType) {
-	const csvFile = new Blob([data], {type: 'text/' + textMimeType});
+	const csvFile = new Blob([data], {type: `text/${textMimeType}`});
 	const downloadLink = document.createElement('a');
 	const body = document.body;
 
