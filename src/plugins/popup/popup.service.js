@@ -11,9 +11,9 @@ export default class PopupService {
 
 	close(id) {
 		const item = this.popups[id];
-		item.close();
-
 		delete this.popups[id];
+
+		item.close();
 	}
 
 	closeAll() {

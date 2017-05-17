@@ -22,6 +22,7 @@ import {isUndefined} from '@grid/core/services/utility';
 import {PipeUnit} from '@grid/core/pipe/units';
 import {AppError} from '@grid/core/infrastructure';
 import TemplateLink from '../template/template.link';
+import {CommandManager, Vscroll} from '@grid/view/services';
 
 class ViewCore extends Component {
 	constructor($rootScope, $scope, $element, $document, $timeout, $compile, $templateCache, grid, vscroll) {
@@ -31,7 +32,7 @@ class ViewCore extends Component {
 		this.$scope = $scope;
 		this.element = $element[0];
 		this.$timeout = $timeout;
-		this.$postLink = this.onLink;
+		this.$postLink = this.build;
 		this.serviceFactory = grid.service.bind(grid);
 		this.template = new TemplateLink($compile, $templateCache);
 		this.vscroll = vscroll;
@@ -41,14 +42,75 @@ class ViewCore extends Component {
 		};
 	}
 
-	onLink() {
+	build() {
 		const model = this.model;
 		this.pin = this.pin || null;
 		const table = new Table(model, this.markup, this.template);
 		table.pin = this.pin;
 
-		const service = this.serviceFactory(model);
-		const applyFactory = mode => (f, timeout) => {
+		const gridService = this.serviceFactory(model);
+
+		const commandManager = new CommandManager(this.applyFactory('async'));
+		const vscroll = new Vscroll(this.vscroll, this.applyFactory('async'));
+
+		this.style = new StyleView(model, table);
+		this.table = new TableView(model);
+		this.head = new HeadView(model, table, TH_CORE_NAME);
+		this.body = new BodyView(model, table);
+		this.foot = new FootView(model, table);
+		this.columns = new ColumnView(model, gridService);
+		this.layout = new LayoutView(model, table, gridService);
+		this.selection = new SelectionView(model, table, commandManager);
+		this.group = new GroupView(model);
+		this.pivot = new PivotView(model);
+		this.highlight = new HighlightView(model, table, this.$timeout);
+		this.sort = new SortView(model);
+		this.filter = new FilterView(model);
+		this.edit = new EditView(model, table, commandManager);
+		this.nav = new NavigationView(model, table, commandManager);
+		this.pagination = new PaginationView(model);
+		this.scroll = new ScrollView(model, table, vscroll, gridService);
+
+		// TODO: how we can avoid that?
+		this.$scope.$watch(this.style.invalidate.bind(this.style));
+
+		model.selectionChanged.watch(e => {
+			if (e.hasChanges('entries')) {
+				this.root.onSelectionChanged({
+					$event: {
+						state: model.selection(),
+						changes: e.changes
+					}
+				});
+			}
+
+			if (e.hasChanges('unit') || e.hasChanges('mode')) {
+				gridService.invalidate('selection', e.changes, PipeUnit.column);
+			}
+		});
+
+		const triggers = model.data().triggers;
+
+		// TODO: think about invalidation queue
+		let needInvalidate = true;
+		Object.keys(triggers)
+			.forEach(name =>
+				model[name + 'Changed']
+					.watch(e => {
+						const changes = Object.keys(e.changes);
+						if (e.tag.behavior !== 'core' && triggers[name].find(key => changes.indexOf(key) >= 0)) {
+							needInvalidate = false;
+							gridService.invalidate(name, e.changes);
+						}
+					}));
+
+		if (needInvalidate) {
+			gridService.invalidate('grid');
+		}
+	}
+
+	applyFactory(mode) {
+		return (f, timeout) => {
 			if (isUndefined(timeout)) {
 				switch (mode) {
 					case 'async': {
@@ -68,61 +130,6 @@ class ViewCore extends Component {
 
 			return this.$timeout(f, timeout);
 		};
-
-		this.style = new StyleView(model, table);
-		this.table = new TableView(model);
-		this.head = new HeadView(model, table, TH_CORE_NAME);
-		this.body = new BodyView(model, table);
-		this.foot = new FootView(model, table);
-		this.columns = new ColumnView(model, service);
-		this.layout = new LayoutView(model, table, service);
-		this.selection = new SelectionView(model, table, applyFactory);
-		this.group = new GroupView(model);
-		this.pivot = new PivotView(model);
-		this.highlight = new HighlightView(model, table, applyFactory);
-		this.sort = new SortView(model);
-		this.filter = new FilterView(model);
-		this.edit = new EditView(model, table, applyFactory);
-		this.nav = new NavigationView(model, table, applyFactory);
-		this.pagination = new PaginationView(model);
-		this.scroll = new ScrollView(model, table, this.vscroll, service, applyFactory);
-
-		// TODO: how we can avoid that?
-		this.$scope.$watch(this.style.invalidate.bind(this.style));
-
-		model.selectionChanged.watch(e => {
-			if (e.hasChanges('entries')) {
-				this.root.onSelectionChanged({
-					$event: {
-						state: model.selection(),
-						changes: e.changes
-					}
-				});
-			}
-
-			if (e.hasChanges('unit') || e.hasChanges('mode')) {
-				service.invalidate('selection', e.changes, PipeUnit.column);
-			}
-		});
-
-		const triggers = model.data().triggers;
-
-		// TODO: think about invalidation queue
-		let needInvalidate = true;
-		Object.keys(triggers)
-			.forEach(name =>
-				model[name + 'Changed']
-					.watch(e => {
-						const changes = Object.keys(e.changes);
-						if (e.tag.behavior !== 'core' && triggers[name].find(key => changes.indexOf(key) >= 0)) {
-							needInvalidate = false;
-							service.invalidate(name, e.changes);
-						}
-					}));
-
-		if (needInvalidate) {
-			service.invalidate('grid');
-		}
 	}
 
 	onDestroy() {
