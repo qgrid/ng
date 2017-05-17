@@ -22,7 +22,7 @@ class Export extends Plugin {
 			execute: () => {
 				const data = new Csv();
 				const csv = data.write(this.rows, this.columns);
-				download(csv);
+				download(csv, this.type.toLowerCase());
 			}
 		});
 	}
