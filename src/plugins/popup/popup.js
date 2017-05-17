@@ -53,7 +53,9 @@ class Popup extends Plugin {
 	}
 
 	onDestroy() {
-		this.qGridPopupService.closeAll();
+		if (this.qGridPopupService.isOpened(this.id)) {
+			this.qGridPopupService.close(this.id);
+		}
 	}
 }
 
