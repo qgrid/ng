@@ -55,21 +55,19 @@ export class ScrollView extends View {
 
 		model.scrollChanged.watch(e => {
 			if (e.hasChanges('left') || e.hasChanges('top')) {
-				this.invalidate(e.tag.pin);
+				this.invalidate();
 			}
 		});
 	}
 
-	invalidate(pin) {
+	invalidate() {
 		Log.info('layout', 'invalidate scroll');
 
 		const table = this.table;
 		const scroll = this.model.scroll();
-		if(pin === this.table.pin) {
-			table.head.scrollLeft(scroll.left);
-			table.foot.scrollLeft(scroll.left);
-		}
 
+		table.head.scrollLeft(scroll.left);
+		table.foot.scrollLeft(scroll.left);
 		table.body.scrollTop(scroll.top);
 	}
 
