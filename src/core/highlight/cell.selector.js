@@ -18,10 +18,10 @@ export function cellSelector(model, table) {
 
 	function getColumns(items) {
 		const result = [];
-		const columns = columnService.lineView(model.view().columns);
+		const columns = table.data.columns();
 
 		for (let item of items) {
-			const index = columns.findIndex((c) => c.model === item);
+			const index = columns.findIndex(c => c === item);
 			for (let row of table.body.rows()) {
 				result.push(row.cell(index));
 			}
@@ -33,11 +33,11 @@ export function cellSelector(model, table) {
 	function getCells(items) {
 		const result = [];
 		const rows = model.view().rows;
-		const columns = columnService.lineView(model.view().columns);
+		const columns = table.data.columns();
 
 		for (let item of items) {
 			const rowIndex = rows.indexOf(item.row);
-			const columnIndex = columns.findIndex((c) => c.model === item.column);
+			const columnIndex = columns.findIndex((c) => c === item.column);
 
 			const row = table.body.row(rowIndex);
 			result.push(row.cell(columnIndex));

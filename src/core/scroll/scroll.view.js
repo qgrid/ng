@@ -18,9 +18,11 @@ export class ScrollView extends View {
 			apply(() => {
 				f();
 				const container = this.y.container;
+				const currentPage = Math.floor(container.position / model.pagination().size);
+				const totalCount = container.total;
 				this.model.pagination({
-					current: Math.floor(container.position / model.pagination().size),
-					count: container.total
+					current: currentPage,
+					count: totalCount
 				}, {
 					source: 'scroll.view',
 					behavior: 'core'
