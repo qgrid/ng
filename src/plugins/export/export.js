@@ -22,9 +22,13 @@ class Export extends Plugin {
 			execute: () => {
 				const data = new Csv();
 				const csv = data.write(this.rows, this.columns);
-				download(csv, this.type);
+				download(csv, this.type, this.id);
 			}
 		});
+	}
+
+	get id() {
+		return this.model.grid().id;
 	}
 
 	get rows() {
