@@ -8,8 +8,8 @@
 		}
 	}
 
-	&.q-grid-table-left,
-	&.g-grid-table-right {
+	.q-grid-table-left,
+	.g-grid-table-right {
 		tbody {
 			overflow-x: hidden;
 		}
@@ -18,7 +18,7 @@
 		margin-bottom: 8px;
 	}
 
-	&.q-grid-table-left {
+	> .q-grid-table-left {
 		tbody {
 			overflow-y: hidden;
 		}

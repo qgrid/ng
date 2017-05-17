@@ -13,6 +13,10 @@ class TableCore extends Component {
 			this.pin = null;
 		}
 	}
+
+	get model() {
+		return this.view.model;
+	}
 }
 
 TableCore.$inject = ['$scope'];
