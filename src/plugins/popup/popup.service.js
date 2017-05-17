@@ -1,5 +1,6 @@
 import TemplateLink from '@grid/view/components/template/template.link';
 import PopupManager from './popup.manager';
+import {AppError} from '@grid/core/infrastructure';
 
 export default class PopupService {
 	constructor() {
@@ -10,10 +11,17 @@ export default class PopupService {
 	}
 
 	close(id) {
+		if(!this.isOpened(id)){
+			throw new AppError('popup.service', `Can't close popup '${id}', it's not opened`);
+		}
 		const item = this.popups[id];
-		delete this.popups[id];
 
+		delete this.popups[id];
 		item.close();
+	}
+
+	isOpened(id) {
+		return this.popups.hasOwnProperty(id);
 	}
 
 	closeAll() {
