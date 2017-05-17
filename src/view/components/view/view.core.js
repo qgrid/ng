@@ -44,12 +44,9 @@ class ViewCore extends Component {
 
 	build() {
 		const model = this.model;
-		this.pin = this.pin || null;
 		const table = new Table(model, this.markup, this.template);
-		table.pin = this.pin;
 
 		const gridService = this.serviceFactory(model);
-
 		const commandManager = new CommandManager(this.applyFactory('async'));
 		const vscroll = new Vscroll(this.vscroll, this.applyFactory('async'));
 
@@ -173,8 +170,5 @@ export default {
 	templateUrl: 'qgrid.view.tpl.html',
 	require: {
 		'root': `^^${GRID_NAME}`
-	},
-	bindings: {
-		'pin': '@'
 	}
 }

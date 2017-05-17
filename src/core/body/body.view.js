@@ -38,7 +38,7 @@ export class BodyView extends View {
 
 	invalidateColumns(model) {
 		const columns = model.view().columns;
-		this.columns = columnService.lineView(columns).filter(c => c.model.pin === this.table.pin);
+		this.columns = columnService.lineView(columns);
 	}
 
 	valueFactory(column) {

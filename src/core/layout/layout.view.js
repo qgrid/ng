@@ -124,6 +124,6 @@ export class LayoutView extends View {
 	}
 
 	get styleId() {
-		return `${this.model.grid().id}-${this.table.pin || 'center'}-layout`;
+		return `${this.model.grid().id}-layout`;
 	}
 }

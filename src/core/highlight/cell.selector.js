@@ -1,4 +1,3 @@
-import * as columnService from '../column/column.service';
 import {AppError} from '../infrastructure';
 
 export function cellSelector(model, table) {
