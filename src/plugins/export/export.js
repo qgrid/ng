@@ -18,11 +18,11 @@ class Export extends Plugin {
 	constructor() {
 		super(...arguments);
 		this.csv = new Command({
-			canExecute: () => this.type.toLowerCase() === 'csv',
+			canExecute: () => this.type === 'csv',
 			execute: () => {
 				const data = new Csv();
 				const csv = data.write(this.rows, this.columns);
-				download(csv, this.type.toLowerCase());
+				download(csv, this.type);
 			}
 		});
 	}
