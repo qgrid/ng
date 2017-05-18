@@ -9,10 +9,10 @@ export class Bucket {
 		let entry = this.items[row];
 		if (!entry) {
 			entry = [];
-			this.items[row] = item;
+			this.items[row] = entry;
 		}
 
-		if (arguments.length === 3) {
+		if (arguments.length > 2) {
 			if (entry[column]) {
 				throw new AppError('bucket', `Item already exists at index ${column}`);
 			}
@@ -22,6 +22,16 @@ export class Bucket {
 		else {
 			entry.push(item);
 		}
+	}
+
+	set(item, row, column) {
+		let entry = this.items[row];
+		if (!entry) {
+			entry = [];
+			this.items[row] = entry;
+		}
+
+		entry[column] = item;
 	}
 
 	remove(item, row, column) {
@@ -35,7 +45,7 @@ export class Bucket {
 			throw  new AppError('bucket', `Can't find item ${item}`);
 		}
 
-		if (arguments.length) {
+		if (arguments.length > 2) {
 			if (itemIndex !== column) {
 				throw  new AppError('bucket', `Can't find item ${item} at index ${column}`);
 			}
@@ -48,7 +58,7 @@ export class Bucket {
 	find(row, column) {
 		if (row >= 0 && row < this.items.length) {
 			const entry = this.items[row];
-			if (arguments.length) {
+			if (arguments.length > 1) {
 				return column >= 0 && column < entry.length ? entry[column] : null;
 			}
 

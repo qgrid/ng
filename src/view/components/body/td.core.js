@@ -17,7 +17,7 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 		const column = this.column;
 		const element = this.element;
 
-		this.view.table.body.cellBucket.add(this, this.rowIndex, this.columnIndex);
+		this.view.table.body.cellBucket.set(this, this.rowIndex, this.columnIndex);
 		this.view.style.monitor.cell.add(element);
 
 		element.classList.add(`${GRID_PREFIX}-${column.key}`);
