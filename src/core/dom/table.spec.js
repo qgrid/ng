@@ -1,7 +1,7 @@
-import Table from './table';
-import Cell from './cell';
-import Row from './row';
-import Column from './column';
+import Table from '../../view/services/dom/table';
+import Cell from '../../view/services/dom/cell';
+import Row from '../../view/services/dom/row';
+import Column from '../../view/services/dom/column';
 import angular from 'angular'; //necessary to test CellDom model property
 
 const myWindow = window.open("", "MsgWindow", "width=100,height=50");

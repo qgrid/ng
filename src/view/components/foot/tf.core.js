@@ -13,11 +13,13 @@ class TfCore extends Directive(TF_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 
 	onInit() {
 		const column = this.column;
-		const element = this.$element[0];
+		const element = this.element;
+
+		this.view.table.foot.cellBucket.add(this, this.rowIndex, this.columnIndex);
 
 		element.classList.add(`${GRID_PREFIX}-${column.key}`);
 		element.classList.add(`${GRID_PREFIX}-${column.type}`);
-		if(column.hasOwnProperty('editor')) {
+		if (column.hasOwnProperty('editor')) {
 			element.classList.add(`${GRID_PREFIX}-${column.editor}`);
 		}
 
@@ -44,8 +46,16 @@ class TfCore extends Directive(TF_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 		return this.$scope.$parent.$index;
 	}
 
-	get column() {
-		return this.$scope.$column.model;
+	get columnIndex() {
+		return this.$scope.$index;
+	}
+
+	get element() {
+		return this.$element[0];
+	}
+
+	onDestroy() {
+		this.view.table.foot.cellBucket.remove(this, this.rowIndex, this.columnIndex);
 	}
 }
 

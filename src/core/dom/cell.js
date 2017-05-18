@@ -1,16 +1,9 @@
 import {Element} from './element';
 
-const empty = new Cell();
 export class Cell extends Element {
-	constructor() {
-		super();
-	}
+	constructor(model = null, element = null) {
+		super(element);
 
-	static empty() {
-		return empty;
-	}
-
-	get model() {
-		return null;
+		this.model = model;
 	}
 }

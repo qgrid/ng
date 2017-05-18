@@ -179,7 +179,7 @@ export class Navigation {
 					const hasNextColumn = this.nextColumn >= 0;
 					const hasNextRow = this.nextRow >= 0;
 					if (!hasNextColumn && !hasNextRow) {
-						table.blur();
+						table.view.blur();
 						return;
 					}
 
@@ -197,7 +197,7 @@ export class Navigation {
 					const hasPrevColumn = this.prevColumn >= 0;
 					const hasPrevRow = this.prevRow >= 0;
 					if (!hasPrevColumn && !hasPrevRow) {
-						table.blur();
+						table.view.blur();
 						return;
 					}
 

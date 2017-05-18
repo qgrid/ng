@@ -1,37 +1,16 @@
-import {Head} from './head';
-import {Body} from './body';
-import {Foot} from './foot';
+import {Box} from './box';
 import {View} from './view';
 import {Data} from './data';
-import {EventListener} from '../infrastructure';
 
-export default class Table {
-	constructor(markup) {
+export class Table {
+	constructor(model, markup) {
+		this.model = model;
 		this.markup = markup;
 
 		this._head = null;
 		this._body = null;
 		this._foot = null;
 		this._view = null;
-	}
-
-	isFocused() {
-		const markup = this.markup;
-		const target = markup.table;
-		let current = markup.document.activeElement;
-		while (current) {
-			if (current === target) {
-				return true;
-			}
-
-			current = current.parentNode;
-		}
-
-		return false;
-	}
-
-	keyDown(f) {
-		return new EventListener(this, this.markup.document).on('keydown', f);
 	}
 
 	get head() {
@@ -58,10 +37,6 @@ export default class Table {
 		return this._foot = this.footCore();
 	}
 
-	get data() {
-		return new Data(this.model);
-	}
-
 	get view() {
 		if (this._view) {
 			return this._view;
@@ -70,24 +45,20 @@ export default class Table {
 		return this._view = this.viewCore();
 	}
 
-	focus() {
-		this.markup.table.focus();
-	}
-
-	blur() {
-		this.markup.table.blur();
+	get data() {
+		return new Data(this.model);
 	}
 
 	headCore() {
-		return new Head(this.markup);
+		return new Box();
 	}
 
 	bodyCore() {
-		return new Body(this.markup);
+		return new Box();
 	}
 
 	footCore() {
-		return new Foot(this.markup);
+		return new Box();
 	}
 
 	viewCore() {

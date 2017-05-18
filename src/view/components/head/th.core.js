@@ -14,8 +14,9 @@ class ThCore extends Directive(TH_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 
 	onInit() {
 		const column = this.column;
-		const element = this.$element[0];
+		const element = this.element;
 
+		this.view.table.head.cellBucket.add(this, this.rowIndex, this.columnIndex);
 		element.classList.add(`${GRID_PREFIX}-${column.key}`);
 		element.classList.add(`${GRID_PREFIX}-${column.type}`);
 		if (column.hasOwnProperty('editor')) {
@@ -38,6 +39,22 @@ class ThCore extends Directive(TH_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 
 	get column() {
 		return this.$scope.$column.model;
+	}
+
+	get rowIndex() {
+		return this.$scope.$parent.$index;
+	}
+
+	get columnIndex() {
+		return this.$scope.$index;
+	}
+
+	get element() {
+		return this.$element[0];
+	}
+
+	onDestroy() {
+		this.view.table.head.cellBucket.remove(this, this.rowIndex, this.columnIndex);
 	}
 }
 

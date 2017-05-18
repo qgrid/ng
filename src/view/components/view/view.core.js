@@ -1,5 +1,5 @@
 import Component from '../component';
-import Table from '@grid/view/services/dom/table';
+import {Table} from '@grid/core/dom';
 import {BodyView} from '@grid/core/body';
 import {HeadView} from '@grid/core/head';
 import {FootView} from '@grid/core/foot';
@@ -13,7 +13,6 @@ import {FilterView} from '@grid/core/filter';
 import {EditView} from '@grid/core/edit';
 import {SelectionView} from '@grid/core/selection';
 import {PaginationView} from '@grid/core/pagination';
-import {TableView} from '@grid/core/table';
 import {StyleView} from '@grid/core/style';
 import {ColumnView} from '@grid/core/column';
 import {ScrollView} from '@grid/core/scroll';
@@ -44,14 +43,14 @@ class ViewCore extends Component {
 
 	build() {
 		const model = this.model;
-		const table = new Table(model, this.markup, this.template);
+		const table = new Table(this.model, this.markup);
+		this.table = table;
 
 		const gridService = this.serviceFactory(model);
 		const commandManager = new CommandManager(this.applyFactory('async'));
 		const vscroll = new Vscroll(this.vscroll, this.applyFactory('async'));
 
 		this.style = new StyleView(model, table);
-		this.table = new TableView(model);
 		this.head = new HeadView(model, table, TH_CORE_NAME);
 		this.body = new BodyView(model, table);
 		this.foot = new FootView(model, table);

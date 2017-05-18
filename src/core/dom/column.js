@@ -1,25 +1,28 @@
 import {Cell} from './cell';
-import {Element} from './element';
 
-const empty = new Column();
-export class Column extends Element {
-	constructor() {
-		super();
-	}
-
-	static empty() {
-		return empty;
+export class Column {
+	constructor(bucket, index) {
+		this.bucket = bucket;
+		this.index = index;
 	}
 
 	cells() {
-		return [];
+		const column = this.index;
+		return this.bucket
+			.asArray()
+			.map(entry => {
+				const item = entry[column];
+				return item ? new Cell(item, item.element) : new Cell();
+			});
 	}
 
-	cell() {
-		return Cell.empty;
+	cell(row) {
+		const item = this.bucket.find(row, this.index);
+		return item ? new Cell(item, item.element) : new Cell();
 	}
 
 	cellCount() {
-		return 0;
+		// TODO: improve that
+		return this.cells().length;
 	}
 }

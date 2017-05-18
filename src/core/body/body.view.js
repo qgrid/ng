@@ -25,12 +25,12 @@ export class BodyView extends View {
 	}
 
 	invalidateRows(model) {
-		this.table.removeLayer('blank');
+		this.table.view.removeLayer('blank');
 		this.rows = model.view().rows;
 		if (!this.rows.length) {
 			const laterState = model.layer();
 			if (laterState.resource.data.hasOwnProperty('blank')) {
-				const layer = this.table.addLayer('blank');
+				const layer = this.table.view.addLayer('blank');
 				layer.resource('blank', laterState.resource);
 			}
 		}

@@ -1,15 +1,7 @@
-import {Element} from './element';
-
-const empty = new Layer();
-
-class Layer extends Element {
+export class Layer {
 	constructor() {
-		super();
 	}
 
-	static empty() {
-		return empty;
-	}
 
 	resource() {
 	}

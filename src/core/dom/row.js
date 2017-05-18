@@ -1,25 +1,20 @@
 import {Cell} from './cell';
-import {Element} from './element';
 
-const empty = new Row();
-class Row extends Element {
-	constructor() {
-		super();
-	}
-
-	static empty() {
-		return empty;
+export class Row {
+	constructor(entry) {
+		this.entry = entry;
 	}
 
 	cells() {
-		return [];
+		return this.entry.map(item => new Cell(item, item.element));
 	}
 
-	cell() {
-		return Cell.empty;
+	cell(column) {
+		const item = this.entry[column];
+		return item ? new Cell(item, item.element) : new Cell();
 	}
 
 	cellCount() {
-		return 0;
+		return this.entry.length;
 	}
 }

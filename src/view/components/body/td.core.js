@@ -15,9 +15,10 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 
 	onInit() {
 		const column = this.column;
-		const element = this.$element[0];
+		const element = this.element;
 
-		this.view.style.monitor.cell.add(this.element);
+		this.view.table.body.cellBucket.add(this, this.rowIndex, this.columnIndex);
+		this.view.style.monitor.cell.add(element);
 
 		element.classList.add(`${GRID_PREFIX}-${column.key}`);
 		element.classList.add(`${GRID_PREFIX}-${column.type}`);
@@ -33,7 +34,7 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 		const column = this.column;
 		const templateScope = this.setup();
 		const cache = model.body().cache;
-		const element = this.$element[0];
+		const element = this.element;
 
 		switch (value) {
 			case 'view':
@@ -118,12 +119,17 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 		return this.$scope.$row;
 	}
 
+	get element(){
+		return this.$element[0];
+	}
+
 	onDestroy() {
 		if (this.$templateScope) {
 			this.$templateScope.$destroy();
 		}
 
-		this.view.style.monitor.cell.remove(this.$element[0]);
+		this.view.table.body.cellBucket.remove(this, this.rowIndex, this.columnIndex);
+		this.view.style.monitor.cell.remove(this.element);
 	}
 }
 

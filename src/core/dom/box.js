@@ -1,34 +1,37 @@
 import {Row} from './row';
 import {Column} from './column';
 import {Cell} from './cell';
-import {Element} from './element';
+import {Bucket} from '../infrastructure';
 
-class Box extends Element {
+export class Box {
 	constructor() {
-		super();
+		this.cellBucket = new Bucket();
 	}
 
-	column() {
-		return Column.empty
+	column(index) {
+		return new Column(this.cellBucket, index);
 	}
 
-	row() {
-		return Row.empty
+	row(index) {
+		const entry = this.cellBucket.find(index);
+		return new Row(entry);
 	}
 
 	rows() {
-		return [];
+		return this.cellBucket.asArray().map(entry => new Row(entry));
 	}
 
 	rowCount() {
-		return 0;
+		return this.cellBucket.count;
 	}
 
 	columnCount() {
-		return 0;
+		const entry = this.cellBucket.find(0);
+		return entry.length;
 	}
 
-	cell() {
-		return Cell.empty;
+	cell(row, column) {
+		const item = this.cellBucket.find(row, column);
+		return item ? new Cell(item) : new Cell();
 	}
 }
