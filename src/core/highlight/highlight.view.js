@@ -44,7 +44,7 @@ export class HighlightView extends View {
 					if (hasChanges) {
 						model.highlight({
 							columns: columns
-						},{
+						}, {
 							source: 'highlight.view',
 						});
 					}

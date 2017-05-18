@@ -15,8 +15,8 @@ class EditFormBody extends Plugin {
 		link(this.$element, this.templateScope);
 	}
 
-	onDestroy(){
-		if(this.templateScope){
+	onDestroy() {
+		if (this.templateScope) {
 			this.templateScope.$destroy();
 			this.templateScope = null;
 		}
