@@ -1,6 +1,6 @@
-import * as columnService from '@grid/core/column/column.service';
+import * as columnService from '../column/column.service';
 
-export default class Data {
+export class Data {
 	constructor(model) {
 		this.model = model;
 	}

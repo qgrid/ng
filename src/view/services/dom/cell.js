@@ -22,9 +22,5 @@ export default class Cell extends Element {
 
 		return ctrl;
 	}
-
-	rect() {
-		return this.element.getBoundingClientRect();
-	}
 }
 

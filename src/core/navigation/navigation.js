@@ -229,7 +229,7 @@ export class Navigation {
 				canExecute: () => canExecute() && this.prevRow >= 0,
 				execute: () => {
 					const body = table.body;
-					const position = this.positon(body.scrollTop() - body.rect().height, 'up');
+					const position = this.positon(body.scrollTop() - body.height(), 'up');
 					body.scrollTop(position.offset);
 					this.goTo(position.row, this.currentColumn, 'navigation.scroll');
 				}
@@ -239,7 +239,7 @@ export class Navigation {
 				canExecute: () => canExecute() && this.nextRow >= 0,
 				execute: () => {
 					const body = table.body;
-					let position = this.positon(body.scrollTop() + body.rect().height, 'down');
+					let position = this.positon(body.scrollTop() + body.height(), 'down');
 					body.scrollTop(position.offset);
 					this.goTo(position.row, this.currentColumn, 'navigation.scroll');
 				}

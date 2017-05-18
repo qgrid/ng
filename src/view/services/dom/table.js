@@ -1,20 +1,24 @@
 import Box from './box';
 import Data from './data';
+import Layer from './layer';
 import {EventListener} from '@grid/core/infrastructure';
 import {Element} from './element';
 import {HEAD_CORE_NAME, BODY_CORE_NAME, FOOT_CORE_NAME} from '@grid/view/definition';
+import {AppError} from '@grid/core/infrastructure';
 
 export default class Table {
 	constructor(model, markup, template) {
 		this.model = model;
 		this.markup = markup;
 		this.template = template;
+		this.layers = new Map();
+
 		this._head = null;
 		this._body = null;
 		this._foot = null;
 		this._view = null;
+
 		this.isFocused = this.isFocused.bind(this);
-		this.pin = null;
 	}
 
 	isFocused() {
@@ -44,11 +48,7 @@ export default class Table {
 
 		const document = this.markup.document;
 		const head = this.markup.head;
-		if (document && head) {
-			return this._head = new Box(document, head, this.template, HEAD_CORE_NAME);
-		}
-
-		return Box.empty;
+		return this._head = new Box(document, head, this.template, HEAD_CORE_NAME);
 	}
 
 	get body() {
@@ -78,7 +78,7 @@ export default class Table {
 	}
 
 	get data() {
-		return new Data(this.model, this.pin);
+		return new Data(this.model);
 	}
 
 	get view() {
@@ -99,5 +99,39 @@ export default class Table {
 
 	blur() {
 		this.markup.table.blur();
+	}
+
+	addLayer(name) {
+		const layers = this.layers;
+		if (layers.has(name)) {
+			return layers.get(name);
+		}
+
+		const node = this.document.createElement(`div`);
+		node.classList.add(name);
+		this.element.appendChild(node);
+
+		const ctrl = angular.element(this.element).controller(this.name);
+		if (!ctrl) {
+			throw new AppError('box', 'Controller for box is not found')
+		}
+
+		if (!ctrl.$scope) {
+			throw new AppError('box', 'Controller scope for box is not found')
+		}
+
+		const layer = new Layer(ctrl.$scope, node, this.template);
+		layers.set(name, layer);
+		return layer;
+	}
+
+	removeLayer(name) {
+		const layers = this.layers;
+		if (layers.has(name)) {
+			const layer = layers.get(name);
+			layer.destroy();
+			layer.element.parentElement.removeChild(layer.element);
+			layers.delete(name);
+		}
 	}
 }

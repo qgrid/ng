@@ -1,9 +1,7 @@
-import Layer from './layer';
 import Row from './row';
 import Column from './column';
 import Cell from './cell';
 import {ElementCore} from './element';
-import {AppError} from '@grid/core/infrastructure';
 
 class BoxCore extends ElementCore {
 	constructor() {
@@ -34,13 +32,6 @@ class BoxCore extends ElementCore {
 		return Cell.empty;
 	}
 
-	addLayer() {
-		return Layer.empty;
-	}
-
-	removeLayer() {
-	}
-
 	scrollLeft() {
 		return 0;
 	}
@@ -52,14 +43,10 @@ class BoxCore extends ElementCore {
 
 const empty = new BoxCore();
 export default class Box extends BoxCore {
-	constructor(document, element, template, name) {
+	constructor(element) {
 		super();
 
-		this.document = document;
 		this.element = element;
-		this.template = template;
-		this.layers = new Map();
-		this.name = name;
 	}
 
 	static get empty() {
@@ -118,40 +105,6 @@ export default class Box extends BoxCore {
 			}
 		}
 		return Cell.empty;
-	}
-
-	addLayer(name) {
-		const layers = this.layers;
-		if (layers.has(name)) {
-			return layers.get(name);
-		}
-
-		const node = this.document.createElement(`div`);
-		node.classList.add(name);
-		this.element.appendChild(node);
-
-		const ctrl = angular.element(this.element).controller(this.name);
-		if (!ctrl) {
-			throw new AppError('box', 'Controller for box is not found')
-		}
-
-		if(!ctrl.$scope){
-			throw new AppError('box', 'Controller scope for box is not found')
-		}
-
-		const layer = new Layer(ctrl.$scope, node, this.template);
-		layers.set(name, layer);
-		return layer;
-	}
-
-	removeLayer(name) {
-		const layers = this.layers;
-		if (layers.has(name)) {
-			const layer = layers.get(name);
-			layer.destroy();
-			layer.element.parentElement.removeChild(layer.element);
-			layers.delete(name);
-		}
 	}
 
 	_rows() {
