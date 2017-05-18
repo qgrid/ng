@@ -884,3 +884,6 @@
   width: 16px;
   min-height: 16px;
   min-width: 16px; }
+
+.q-grid.q-grid-theme-material .q-grid-export {
+  padding: 10px 0; }
