@@ -44,6 +44,20 @@ export class View extends Container {
 	removeLayer() {
 	}
 
+	scrollLeft(value) {
+		const markup = this.markup;
+		if (markup.head) {
+			markup.head.scrollLeft = value;
+		}
+
+		if (markup.foot) {
+			markup.foot.scrollLeft = value;
+		}
+	}
+
+	scrollTop() {
+	}
+
 	getElementCore() {
 		return this.markup.view;
 	}

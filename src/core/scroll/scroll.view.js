@@ -66,9 +66,8 @@ export class ScrollView extends View {
 		const table = this.table;
 		const scroll = this.model.scroll();
 
-		table.head.scrollLeft(scroll.left);
-		table.foot.scrollLeft(scroll.left);
-		table.body.scrollTop(scroll.top);
+		table.view.scrollLeft(scroll.left);
+		table.view.scrollTop(scroll.top);
 	}
 
 	get mode() {
