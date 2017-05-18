@@ -10,10 +10,11 @@ export class Bucket {
 	constructor(indexMapper = identityIndexMapper) {
 		this.items = [];
 		this.indexMapper = indexMapper;
+		this.empty = {};
 	}
 
 	add(item, row, column) {
-		row = this.indexMapper.row(row);
+		row = this.indexMapper.row(row, item);
 		let entry = this.items[row];
 		if (!entry) {
 			entry = new BucketEntry({}, this.indexMapper);
@@ -21,18 +22,20 @@ export class Bucket {
 		}
 
 		entry.add(item, column);
+		delete this.empty[row];
 	}
 
 	remove(item, row, column) {
-		row = this.indexMapper.row(row);
+		row = this.indexMapper.row(row, item);
 		const entry = this.items[row];
 		if (!entry) {
 			throw  new AppError('bucket', `Can't find entry at index ${row}`);
 		}
 
+		// TODO: refactor this, can be memory leaks
 		const isEmpty = entry.remove(item, column);
 		if (isEmpty) {
-			this.items.splice(row, 1);
+			this.empty[row] = true;
 		}
 	}
 
@@ -50,12 +53,21 @@ export class Bucket {
 		return {};
 	}
 
-	get count() {
-		return this.items.length;
+	count() {
+		return this.items
+			.filter((_, i) => !this.isEmpty(i))
+			.length;
 	}
 
 	map(f) {
-		return this.items.map(entry => f(entry));
+		return this.items
+			.filter((_, i) => !this.isEmpty(i))
+			.map(entry => f(entry));
+	}
+
+	isEmpty(row) {
+		row = this.indexMapper.row(row);
+		return this.empty.hasOwnProperty(row) || !this.items[row];
 	}
 }
 
@@ -83,7 +95,7 @@ class BucketEntry {
 
 	add(item, column) {
 		const entry = this.entry;
-		column = this.mapper.column(column);
+		column = this.mapper.column(column, item);
 		if (entry.hasOwnProperty(column)) {
 			throw new AppError('bucket', `Item already exists at index ${column}`);
 		}
@@ -93,7 +105,7 @@ class BucketEntry {
 
 	remove(item, column) {
 		const entry = this.entry;
-		column = this.mapper.column(column);
+		column = this.mapper.column(column, item);
 		if (!entry.hasOwnProperty(column) || entry[column] !== item) {
 			throw  new AppError('bucket', `Can't find item ${item}`);
 		}
@@ -102,7 +114,7 @@ class BucketEntry {
 		return Object.keys(entry).length === 0;
 	}
 
-	get count() {
+	count() {
 		return Object.keys(this.entry).length;
 	}
 }

@@ -15,6 +15,6 @@ export class Row {
 	}
 
 	cellCount() {
-		return this.entry.length;
+		return this.entry.count();
 	}
 }

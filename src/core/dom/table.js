@@ -1,11 +1,16 @@
 import {Box} from './box';
 import {View} from './view';
 import {Data} from './data';
+import {indexMapperFactory} from './index.map.factory';
+import {assignWith} from  '../services/utility';
 
 export class Table {
-	constructor(model, markup) {
+	constructor(model, markup, context = {}) {
 		this.model = model;
 		this.markup = markup;
+		this.context = assignWith({
+			mapper: indexMapperFactory(model),
+		}, context);
 
 		this._head = null;
 		this._body = null;
@@ -50,15 +55,15 @@ export class Table {
 	}
 
 	headCore() {
-		return new Box(this.model);
+		return new Box(this.context);
 	}
 
 	bodyCore() {
-		return new Box(this.model);
+		return new Box(this.context);
 	}
 
 	footCore() {
-		return new Box(this.model);
+		return new Box(this.context);
 	}
 
 	viewCore() {
