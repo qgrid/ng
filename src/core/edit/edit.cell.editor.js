@@ -1,10 +1,9 @@
-import Fetch from 'core/infrastructure/fetch';
-import {parseFactory} from 'core/services/convert';
-import {clone, isUndefined, noop} from 'core/services/utility';
+import {Fetch} from '../infrastructure';
+import {parseFactory} from '../services';
+import {clone, isUndefined, noop} from '../services/utility';
 
 class CellEditorCore {
 	constructor() {
-
 		this.value = null;
 		this.fetch = noop;
 		this.resetFetch = noop;
@@ -23,7 +22,7 @@ class CellEditorCore {
 
 const empty = new CellEditorCore();
 
-export default class CellEditor extends CellEditorCore {
+export class CellEditor extends CellEditorCore {
 	constructor(cell) {
 		super();
 
@@ -62,7 +61,7 @@ export default class CellEditor extends CellEditorCore {
 		if (options && options.fetch) {
 			return new Fetch(options.fetch);
 		}
-		return new Fetch(() => this.cell.value);
+		return new Fetch(this.cell.value);
 	}
 
 	static get empty() {

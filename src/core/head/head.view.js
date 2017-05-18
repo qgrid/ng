@@ -1,9 +1,8 @@
-import View from 'core/view/view';
-import Log from 'core/infrastructure/log';
-import Command from 'core/infrastructure/command';
-import * as columnService from 'core/column/column.service';
+import {View} from '../view';
+import {Log, Command} from '../infrastructure';
+import * as columnService from '../column/column.service';
 
-export default class HeadView extends View {
+export class HeadView extends View {
 	constructor(model, table, tagName) {
 		super(model);
 
@@ -66,17 +65,19 @@ export default class HeadView extends View {
 		model.viewChanged.watch(() => this.invalidate(model));
 	}
 
-	transfer(cell) {
+	transfer(column) {
 		return {
 			key: this.tagName,
-			value: cell.column.key
+			value: column.key
 		};
 	}
 
 	invalidate(model) {
 		Log.info('view.head', 'invalidate');
 
-		const columns = model.view().columns.map(row => row.filter(c => c.model.pin === this.table.pin));
-		this.rows = columns;
+		this.rows = model.view()
+			.columns
+			.map(row =>
+				row.filter(c => c.model.pin === this.table.pin));
 	}
 }

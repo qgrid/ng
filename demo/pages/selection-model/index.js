@@ -21,10 +21,10 @@ export default function Controller($http, qgrid) {
 
 				// Default selection
 				this.model.selection({
-					entries: e.state.rows.slice(0, 4).map((row) => {
+					items: e.state.rows.slice(2, 4).map(row => {
 						return {
-							row: row,
-							column: gender
+							row: this.selectionKey.row(row),
+							column: this.selectionKey.column(gender)
 						};
 					})
 				});

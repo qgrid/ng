@@ -1,8 +1,8 @@
-import {isFunction} from 'core/services/utility';
+import {isFunction} from '../services/utility';
 
-export default class Shortcut {
-	constructor(table, apply) {
-		this.apply = apply;
+export class Shortcut {
+	constructor(table, manager) {
+		this.manager = manager;
 		this.commands = [];
 		this.shortcuts = new Map();
 		this.codeMap = new Map()
@@ -42,16 +42,10 @@ export default class Shortcut {
 	onKeyDown(e) {
 		if (this.canExecute()) {
 			const code = this.translate(e);
-			const cmds = this.find(code);
-			if (cmds.length) {
+			const commands = this.find(code);
+			if (commands.length) {
 				e.preventDefault();
-
-				cmds.forEach(cmd =>
-					this.apply(() => {
-						if (cmd.canExecute()) {
-							cmd.execute();
-						}
-					}));
+				this.manager.execute(commands);
 			}
 		}
 	}
@@ -78,9 +72,7 @@ export default class Shortcut {
 			}
 		}
 
-		return () => {
-			this.shortcuts.delete(id);
-		};
+		return () => this.shortcuts.delete(id);
 	}
 
 	find(code) {

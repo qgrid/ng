@@ -1,15 +1,14 @@
-import View from 'core/view/view';
-import Command from 'core/infrastructure/command';
-import Shortcut from 'core/infrastructure/shortcut';
-import Navigation from 'core/navigation/navigation';
-import {GRID_PREFIX} from 'core/definition';
+import {View} from '../view';
+import {Command, Shortcut} from '../infrastructure';
+import {Navigation} from './navigation';
+import {GRID_PREFIX} from '../definition';
 
-export default class NavigationView extends View {
-	constructor(model, table, applyFactory) {
+export class NavigationView extends View {
+	constructor(model, table, commandManager) {
 		super(model);
 
 		this.table = table;
-		const shortcut = new Shortcut(table, applyFactory('async'));
+		const shortcut = new Shortcut(table, commandManager);
 		const navigation = new Navigation(model, table);
 
 		this.shortcutOff = shortcut.register('navigation', navigation.commands);
@@ -49,7 +48,7 @@ export default class NavigationView extends View {
 
 		model.navigationChanged.watch(e => {
 			if (e.hasChanges('cell')) {
-				const navState = model.navigation();
+				const navState = e.state;
 				const newTarget = e.changes.cell.newValue;
 				const oldTarget = e.changes.cell.oldValue;
 				const newRow = navState.rowIndex;
@@ -68,12 +67,25 @@ export default class NavigationView extends View {
 				if (e.tag.source !== 'navigation.scroll' && this.scrollTo.canExecute(newRow, newColumn)) {
 					this.scrollTo.execute(newRow, newColumn);
 				}
+
+				model.focus({
+					rowIndex: newRow,
+					columnIndex: newColumn
+				}, {
+					source: 'navigation.view'
+				});
 			}
 		});
 
-		model.viewChanged.watch(() => {
-			model.navigation({cell: null});
+		model.focusChanged.watch(e => {
+			if (e.tag.source !== 'navigation.view') {
+				model.navigation({
+					cell: table.body.cell(e.state.rowIndex, e.state.columnIndex).model
+				});
+			}
 		});
+
+		model.viewChanged.watch(() => model.navigation({cell: null}));
 	}
 
 	scroll(body, target) {
