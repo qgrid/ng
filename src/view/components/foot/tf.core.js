@@ -15,7 +15,7 @@ class TfCore extends Directive(TF_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 		const column = this.column;
 		const element = this.element;
 
-		this.view.table.foot.cellBucket.set(this, this.rowIndex, this.columnIndex);
+		this.view.table.foot.cellBucket.add(this, this.rowIndex, this.columnIndex);
 
 		element.classList.add(`${GRID_PREFIX}-${column.key}`);
 		element.classList.add(`${GRID_PREFIX}-${column.type}`);

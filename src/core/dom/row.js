@@ -10,7 +10,7 @@ export class Row {
 	}
 
 	cell(column) {
-		const item = this.entry[column];
+		const item = this.entry.find(column);
 		return item ? new Cell(item, item.element) : new Cell();
 	}
 

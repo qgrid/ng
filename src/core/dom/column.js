@@ -9,9 +9,8 @@ export class Column {
 	cells() {
 		const column = this.index;
 		return this.bucket
-			.asArray()
 			.map(entry => {
-				const item = entry[column];
+				const item = entry.find(column);
 				return item ? new Cell(item, item.element) : new Cell();
 			});
 	}

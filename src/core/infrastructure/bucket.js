@@ -1,78 +1,108 @@
 import {AppError} from './error';
+import {identity} from '../services/utility';
+
+const identityIndexMapper = {
+	row: identity,
+	column: identity
+};
 
 export class Bucket {
-	constructor() {
+	constructor(indexMapper = identityIndexMapper) {
 		this.items = [];
+		this.indexMapper = indexMapper;
 	}
 
 	add(item, row, column) {
+		row = this.indexMapper.row(row);
 		let entry = this.items[row];
 		if (!entry) {
-			entry = [];
+			entry = new BucketEntry({}, this.indexMapper);
 			this.items[row] = entry;
 		}
 
-		if (arguments.length > 2) {
-			if (entry[column]) {
-				throw new AppError('bucket', `Item already exists at index ${column}`);
-			}
-
-			entry[column] = item;
-		}
-		else {
-			entry.push(item);
-		}
-	}
-
-	set(item, row, column) {
-		let entry = this.items[row];
-		if (!entry) {
-			entry = [];
-			this.items[row] = entry;
-		}
-
-		entry[column] = item;
+		entry.add(item, column);
 	}
 
 	remove(item, row, column) {
-		let entry = this.items[row];
+		row = this.indexMapper.row(row);
+		const entry = this.items[row];
 		if (!entry) {
 			throw  new AppError('bucket', `Can't find entry at index ${row}`);
 		}
 
-		const itemIndex = entry.indexOf(item);
-		if (itemIndex < 0) {
-			throw  new AppError('bucket', `Can't find item ${item}`);
-		}
-
-		if (arguments.length > 2) {
-			if (itemIndex !== column) {
-				throw  new AppError('bucket', `Can't find item ${item} at index ${column}`);
-			}
-		}
-		else {
-			entry.splice(itemIndex, 1);
+		const isEmpty = entry.remove(item, column);
+		if (isEmpty) {
+			this.items.splice(row, 1);
 		}
 	}
 
 	find(row, column) {
-		if (row >= 0 && row < this.items.length) {
-			const entry = this.items[row];
+		row = this.indexMapper.row(row);
+		const entry = this.items[row];
+		if (entry) {
 			if (arguments.length > 1) {
-				return column >= 0 && column < entry.length ? entry[column] : null;
+				return entry.find(column);
 			}
 
 			return entry;
 		}
 
-		return [];
+		return {};
 	}
 
 	get count() {
 		return this.items.length;
 	}
 
-	asArray() {
-		return this.items;
+	map(f) {
+		return this.items.map(entry => f(entry));
+	}
+}
+
+class BucketEntry {
+	constructor(entry, mapper) {
+		this.entry = entry;
+		this.mapper = mapper;
+	}
+
+	map(f) {
+		const entry = this.entry;
+		const mapper = this.mapper;
+		return new Array(this.count).map((_, i) => f(entry[mapper.column(i)]));
+	}
+
+	find(column) {
+		const entry = this.entry;
+		column = this.mapper.column(column);
+		if (entry.hasOwnProperty(column)) {
+			return entry[column];
+		}
+
+		return null;
+	}
+
+	add(item, column) {
+		const entry = this.entry;
+		column = this.mapper.column(column);
+		if (entry.hasOwnProperty(column)) {
+			throw new AppError('bucket', `Item already exists at index ${column}`);
+		}
+
+		entry[column] = item;
+	}
+
+	remove(item, column) {
+		const entry = this.entry;
+		column = this.mapper.column(column);
+		if (!entry.hasOwnProperty(column) || entry[column] !== item) {
+			throw  new AppError('bucket', `Can't find item ${item}`);
+		}
+
+		delete entry[column];
+		return Object.keys(entry).length === 0;
+	}
+
+	get count() {
+		return Object.keys(this.entry).length;
 	}
 }

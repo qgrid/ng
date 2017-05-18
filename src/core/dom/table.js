@@ -50,15 +50,15 @@ export class Table {
 	}
 
 	headCore() {
-		return new Box();
+		return new Box(this.model);
 	}
 
 	bodyCore() {
-		return new Box();
+		return new Box(this.model);
 	}
 
 	footCore() {
-		return new Box();
+		return new Box(this.model);
 	}
 
 	viewCore() {

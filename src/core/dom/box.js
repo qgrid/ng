@@ -2,10 +2,12 @@ import {Row} from './row';
 import {Column} from './column';
 import {Cell} from './cell';
 import {Bucket} from '../infrastructure';
+import {indexMapperFactory} from './index.map.factory';
 
 export class Box {
-	constructor() {
-		this.cellBucket = new Bucket();
+	constructor(model) {
+		const mapper = indexMapperFactory(model);
+		this.cellBucket = new Bucket(mapper);
 	}
 
 	column(index) {
@@ -18,7 +20,7 @@ export class Box {
 	}
 
 	rows() {
-		return this.cellBucket.asArray().map(entry => new Row(entry));
+		return this.cellBucket.map(entry => new Row(entry));
 	}
 
 	rowCount() {

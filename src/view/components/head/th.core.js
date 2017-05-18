@@ -16,7 +16,7 @@ class ThCore extends Directive(TH_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 		const column = this.column;
 		const element = this.element;
 
-		this.view.table.head.cellBucket.set(this, this.rowIndex, this.columnIndex);
+		this.view.table.head.cellBucket.add(this, this.rowIndex, this.columnIndex);
 		element.classList.add(`${GRID_PREFIX}-${column.key}`);
 		element.classList.add(`${GRID_PREFIX}-${column.type}`);
 		if (column.hasOwnProperty('editor')) {
