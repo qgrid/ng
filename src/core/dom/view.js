@@ -72,7 +72,22 @@ export class View extends Container {
 		}
 	}
 
-	scrollTop() {
+	scrollTop(value) {
+		const markup = this.markup;
+		const body = markup.body;
+		const bodyLeft = markup['body-left'];
+		const bodyRight = markup['body-right'];
+		if (bodyLeft) {
+			bodyLeft.scrollTop = value;
+		}
+
+		if (body) {
+			body.scrollTop = value;
+		}
+
+		if (bodyRight) {
+			bodyRight.scrollTop = value;
+		}
 	}
 
 	getElementCore() {

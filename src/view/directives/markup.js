@@ -18,7 +18,7 @@ class Markup extends Directive(MARKUP_NAME, {view: `^${VIEW_CORE_NAME}`, table: 
 
 	getName() {
 		if (this.table && this.table.pin) {
-			return `${this.name}-${this.table.pin};`
+			return `${this.name}-${this.table.pin}`;
 		}
 
 		return this.name;
