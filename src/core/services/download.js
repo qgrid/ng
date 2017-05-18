@@ -1,10 +1,10 @@
-export default function download(data, textMimeType, fileName) {
-	const csvFile = new Blob([data], {type: `text/${textMimeType}`});
+export function download(name, data, mimeType) {
+	const blob = new Blob([data], {type: mimeType});
 	const downloadLink = document.createElement('a');
 	const body = document.body;
-
-	downloadLink.download = `${fileName}.${textMimeType}`;
-	downloadLink.href = window.URL.createObjectURL(csvFile);
+	const type = mimeType.split('/')[1];
+	downloadLink.download = `${name}.${type}`;
+	downloadLink.href = window.URL.createObjectURL(blob);
 	downloadLink.style.display = 'none';
 	body.appendChild(downloadLink);
 	downloadLink.click();

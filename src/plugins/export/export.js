@@ -3,7 +3,7 @@ import {EXPORT_NAME} from '../definition';
 import {Command} from '@grid/core/infrastructure';
 import {TemplatePath} from '@grid/core/template';
 import {Csv} from '@grid/core/export/csv';
-import download from '@grid/core/services/download';
+import {download} from '@grid/core/services/download';
 
 TemplatePath
 	.register(EXPORT_NAME, () => {
@@ -20,9 +20,9 @@ class Export extends Plugin {
 		this.csv = new Command({
 			canExecute: () => this.type === 'csv',
 			execute: () => {
-				const data = new Csv();
-				const csv = data.write(this.rows, this.columns);
-				download(csv, this.type, this.id);
+				const csv = new Csv();
+				const data = csv.write(this.rows, this.columns);
+				download(this.id, data, `text/${this.type}`);
 			}
 		});
 	}
