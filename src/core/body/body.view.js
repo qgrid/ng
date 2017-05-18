@@ -28,10 +28,10 @@ export class BodyView extends View {
 		this.table.view.removeLayer('blank');
 		this.rows = model.view().rows;
 		if (!this.rows.length) {
-			const laterState = model.layer();
-			if (laterState.resource.data.hasOwnProperty('blank')) {
+			const layerState = model.layer();
+			if (layerState.resource.data.hasOwnProperty('blank')) {
 				const layer = this.table.view.addLayer('blank');
-				layer.resource('blank', laterState.resource);
+				layer.resource('blank', layerState.resource);
 			}
 		}
 	}

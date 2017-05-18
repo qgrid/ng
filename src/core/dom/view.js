@@ -1,12 +1,13 @@
-import {Layer} from './layer';
 import {Container} from './container';
 import {EventListener} from '../infrastructure';
 
 export class View extends Container {
-	constructor(markup) {
+	constructor(markup, context) {
 		super();
 
 		this.markup = markup;
+		this.context = context;
+		this.layers = new Map();
 	}
 
 	focus() {
@@ -37,11 +38,27 @@ export class View extends Container {
 	}
 
 
-	addLayer() {
-		return new Layer();
+	addLayer(name) {
+		const layers = this.layers;
+		if (layers.has(name)) {
+			return layers.get(name);
+		}
+
+		const layer = this.context.layer(name);
+		layers.set(name, layer);
+		return layer;
 	}
 
-	removeLayer() {
+	removeLayer(name) {
+		const layers = this.layers;
+		if (layers.has(name)) {
+			const layer = layers.get(name);
+			layer.destroy();
+			layers.delete(name);
+			return true;
+		}
+
+		return false;
 	}
 
 	scrollLeft(value) {

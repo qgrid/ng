@@ -1,4 +1,6 @@
 .q-grid-view {
+	position: relative;
+
 	&.q-grid-select-range {
 		thead, tfoot, tbody {
 			td, th {

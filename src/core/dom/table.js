@@ -3,6 +3,7 @@ import {View} from './view';
 import {Data} from './data';
 import {indexMapperFactory} from './index.map.factory';
 import {assignWith} from  '../services/utility';
+import {FakeLayer} from './fake';
 
 export class Table {
 	constructor(model, markup, context = {}) {
@@ -10,6 +11,7 @@ export class Table {
 		this.markup = markup;
 		this.context = assignWith({
 			mapper: indexMapperFactory(model),
+			layer: () => new FakeLayer()
 		}, context);
 
 		this._head = null;
@@ -67,6 +69,6 @@ export class Table {
 	}
 
 	viewCore() {
-		return new View(this.markup);
+		return new View(this.markup, this.context);
 	}
 }

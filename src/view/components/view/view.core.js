@@ -21,7 +21,7 @@ import {isUndefined} from '@grid/core/services/utility';
 import {PipeUnit} from '@grid/core/pipe/units';
 import {AppError} from '@grid/core/infrastructure';
 import TemplateLink from '../template/template.link';
-import {CommandManager, Vscroll} from '@grid/view/services';
+import {CommandManager, Vscroll, LayerFactory} from '@grid/view/services';
 
 class ViewCore extends Component {
 	constructor($rootScope, $scope, $element, $document, $timeout, $compile, $templateCache, grid, vscroll) {
@@ -43,7 +43,10 @@ class ViewCore extends Component {
 
 	build() {
 		const model = this.model;
-		const table = new Table(this.model, this.markup);
+		const layerFactory = new LayerFactory(this.markup, this.template);
+		const tableContext = {layer: name => layerFactory.create(name)};
+		const table = new Table(this.model, this.markup, tableContext);
+
 		this.table = table;
 
 		const gridService = this.serviceFactory(model);
