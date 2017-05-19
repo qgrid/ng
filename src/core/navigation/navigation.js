@@ -14,12 +14,12 @@ export class Navigation {
 
 		// TODO: improve performance
 		while (index < count && offset <= y) {
-			offset += body.row(index).height;
+			offset += body.row(index).height();
 			index++;
 		}
 
 		if (direction === 'down' && body.row(index)) {
-			offset -= body.row(index).height;
+			offset -= body.row(index).height();
 			index--;
 		}
 		return {
@@ -228,9 +228,9 @@ export class Navigation {
 				shortcut: 'pageUp',
 				canExecute: () => canExecute() && this.prevRow >= 0,
 				execute: () => {
-					const body = table.body;
-					const position = this.positon(body.scrollTop() - body.height(), 'up');
-					body.scrollTop(position.offset);
+					const view = table.view;
+					const position = this.positon(view.scrollTop() - view.height(), 'up');
+					view.scrollTop(position.offset);
 					this.goTo(position.row, this.currentColumn, 'navigation.scroll');
 				}
 			}),
@@ -238,9 +238,9 @@ export class Navigation {
 				shortcut: 'pageDown',
 				canExecute: () => canExecute() && this.nextRow >= 0,
 				execute: () => {
-					const body = table.body;
-					let position = this.positon(body.scrollTop() + body.height(), 'down');
-					body.scrollTop(position.offset);
+					const view = table.view;
+					let position = this.positon(view.scrollTop() + view.height(), 'down');
+					view.scrollTop(position.offset);
 					this.goTo(position.row, this.currentColumn, 'navigation.scroll');
 				}
 			})

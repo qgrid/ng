@@ -1,120 +1,67 @@
 import {AppError} from './error';
-import {identity} from '../services/utility';
 
-const identityIndexMapper = {
-	row: identity,
-	column: identity
-};
-
+const EMPTY = {tag: 'empty'};
 export class Bucket {
-	constructor(indexMapper = identityIndexMapper) {
+	constructor() {
 		this.items = [];
-		this.indexMapper = indexMapper;
-		this.empty = {};
 	}
 
-	add(item, row, column) {
-		row = this.indexMapper.row(row, item);
-		let entry = this.items[row];
-		if (!entry) {
-			entry = new BucketEntry({}, this.indexMapper);
-			this.items[row] = entry;
+	add(item, row) {
+		if (!this.isEmpty(row)) {
+			throw new AppError('bucket', `Can't add item, index ${row} is busy already`);
 		}
 
-		entry.add(item, column);
-		delete this.empty[row];
+		this.items[row] = item;
 	}
 
-	remove(item, row, column) {
-		row = this.indexMapper.row(row, item);
-		const entry = this.items[row];
-		if (!entry) {
-			throw  new AppError('bucket', `Can't find entry at index ${row}`);
+	remove(item, row) {
+		if (this.isEmpty(row) || item !== this.items[row]) {
+			throw new AppError('bucket', `Can't find entry at index ${row}`);
 		}
 
-		// TODO: refactor this, can be memory leaks
-		const isEmpty = entry.remove(item, column);
-		if (isEmpty) {
-			this.empty[row] = true;
-		}
-	}
+		const items = this.items;
+		items[row] = EMPTY;
 
-	find(row, column) {
-		row = this.indexMapper.row(row);
-		const entry = this.items[row];
-		if (entry) {
-			if (arguments.length > 1) {
-				return entry.find(column);
+		let length = items.length;
+		if (row === length) {
+			items.pop();
+			const isEmpty = this.isEmpty;
+			while (length-- && isEmpty(length)) {
+				items.pop();
 			}
-
-			return entry;
 		}
-
-		return {};
 	}
 
-	count() {
-		return this.items
-			.filter((_, i) => !this.isEmpty(i))
-			.length;
-	}
-
-	map(f) {
-		return this.items
-			.filter((_, i) => !this.isEmpty(i))
-			.map(entry => f(entry));
-	}
-
-	isEmpty(row) {
-		row = this.indexMapper.row(row);
-		return this.empty.hasOwnProperty(row) || !this.items[row];
-	}
-}
-
-class BucketEntry {
-	constructor(entry, mapper) {
-		this.entry = entry;
-		this.mapper = mapper;
-	}
-
-	map(f) {
-		const entry = this.entry;
-		const mapper = this.mapper;
-		return new Array(this.count).map((_, i) => f(entry[mapper.column(i)]));
-	}
-
-	find(column) {
-		const entry = this.entry;
-		column = this.mapper.column(column);
-		if (entry.hasOwnProperty(column)) {
-			return entry[column];
+	find(row) {
+		if (!this.isEmpty(row)) {
+			return this.items[row];
 		}
 
 		return null;
 	}
 
-	add(item, column) {
-		const entry = this.entry;
-		column = this.mapper.column(column, item);
-		if (entry.hasOwnProperty(column)) {
-			throw new AppError('bucket', `Item already exists at index ${column}`);
-		}
-
-		entry[column] = item;
-	}
-
-	remove(item, column) {
-		const entry = this.entry;
-		column = this.mapper.column(column, item);
-		if (!entry.hasOwnProperty(column) || entry[column] !== item) {
-			throw  new AppError('bucket', `Can't find item ${item}`);
-		}
-
-		delete entry[column];
-		return Object.keys(entry).length === 0;
-	}
-
 	count() {
-		return Object.keys(this.entry).length;
+		const isEmpty = this.isEmpty;
+		return this.items
+			.filter((_, i) => isEmpty(i))
+			.length;
+	}
+
+	map(f) {
+		const isEmpty = this.isEmpty;
+		return this.items
+			.map((item, i) => {
+				if (!isEmpty(i)) {
+					f(item, i);
+				}
+			});
+	}
+
+	isEmpty(row) {
+		if (row < 0 || row >= this.items.length) {
+			return true;
+		}
+
+		return this.items[row] === EMPTY;
 	}
 }

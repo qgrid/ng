@@ -1,7 +1,10 @@
 import {Cell} from './cell';
+import {Element} from './element';
 
-export class Row {
-	constructor(entry) {
+export class Row extends Element {
+	constructor(entry, element = null) {
+		super(element);
+
 		this.entry = entry;
 	}
 

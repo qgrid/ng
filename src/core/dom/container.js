@@ -17,11 +17,11 @@ export class Container {
 		this.getElement().classList.remove(name);
 	}
 
-	get width() {
+	width() {
 		return this.getElement().clientWidth;
 	}
 
-	get height() {
+	height() {
 		return this.getElement().clientHeight;
 	}
 

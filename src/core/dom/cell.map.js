@@ -1,6 +1,6 @@
 import * as columnService from '../column/column.service';
 
-export function indexMapperFactory(model) {
+export function cellMapFactory(model) {
 	const view = model.view;
 	return {
 		row: (index, entry) => {

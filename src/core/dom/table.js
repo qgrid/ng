@@ -1,7 +1,7 @@
 import {Box} from './box';
 import {View} from './view';
 import {Data} from './data';
-import {indexMapperFactory} from './index.map.factory';
+import {cellMapFactory} from './cell.map';
 import {assignWith} from  '../services/utility';
 import {FakeLayer} from './fake';
 
@@ -10,7 +10,7 @@ export class Table {
 		this.model = model;
 		this.markup = markup;
 		this.context = assignWith({
-			mapper: indexMapperFactory(model),
+			mapper: cellMapFactory(model),
 			layer: () => new FakeLayer()
 		}, context);
 

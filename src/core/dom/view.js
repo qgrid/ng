@@ -37,7 +37,6 @@ export class View extends Container {
 		return new EventListener(this, this.markup.document).on('keydown', f);
 	}
 
-
 	addLayer(name) {
 		const layers = this.layers;
 		if (layers.has(name)) {
@@ -61,36 +60,69 @@ export class View extends Container {
 		return false;
 	}
 
+	addClass(name){
+		if(this.markup.view){
+			this.markup.view.classList.add(name);
+		}
+	}
+
+	removeClass(name){
+		if(this.markup.view) {
+			this.markup.view.classList.remove(name);
+		}
+	}
+
 	scrollLeft(value) {
 		const markup = this.markup;
-		if (markup.head) {
-			markup.head.scrollLeft = value;
+		if (arguments.length) {
+			if (markup.head) {
+				markup.head.scrollLeft = value;
+			}
+
+			if (markup.foot) {
+				markup.foot.scrollLeft = value;
+			}
+
+			if (markup.body) {
+				markup.body.scrollLeft = value;
+			}
 		}
 
-		if (markup.foot) {
-			markup.foot.scrollLeft = value;
-		}
+		return this.getElement().scrollLeft;
 	}
 
 	scrollTop(value) {
 		const markup = this.markup;
 		const body = markup.body;
-		const bodyLeft = markup['body-left'];
-		const bodyRight = markup['body-right'];
-		if (bodyLeft) {
-			bodyLeft.scrollTop = value;
+		if (arguments.length) {
+			const bodyLeft = markup['body-left'];
+			const bodyRight = markup['body-right'];
+			if (bodyLeft) {
+				bodyLeft.scrollTop = value;
+			}
+
+			if (body) {
+				body.scrollTop = value;
+			}
+
+			if (bodyRight) {
+				bodyRight.scrollTop = value;
+			}
 		}
 
-		if (body) {
-			body.scrollTop = value;
+		return this.getElement().scrollTop;
+	}
+
+	rect() {
+		const markup = this.markup;
+		if (markup.body) {
+			return markup.body.getBoundingClientRect();
 		}
 
-		if (bodyRight) {
-			bodyRight.scrollTop = value;
-		}
+		return super.rect();
 	}
 
 	getElementCore() {
-		return this.markup.view;
+		return this.markup.body;
 	}
 }
