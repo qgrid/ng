@@ -11,14 +11,12 @@ class TrCore extends Directive(TR_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	}
 
 	onInit() {
-		const source = this.$attrs[TR_CORE_NAME];
-		this.view.table[source].rowBucket.add(this, this.index);
+		this.view.bag.set(this.element, this);
 		this.view.style.monitor.row.add(this.element);
 	}
 
 	onDestroy() {
-		const source = this.$attrs[TR_CORE_NAME];
-		this.view.table[source].rowBucket.remove(this, this.index);
+		this.view.bag.delete(this.element);
 		this.view.style.monitor.row.remove(this.element);
 	}
 

@@ -14,6 +14,18 @@ class TableCore extends Component {
 		}
 	}
 
+	get columnStartIndex() {
+		const columns = this.view.table.data.columns();
+		switch (this.pin) {
+			case 'left':
+				return 0;
+			case 'right':
+				return columns.filter(c => c.pin !== 'right').length;
+			default:
+				return columns.filter(c => c.pin === 'left').length;
+		}
+	}
+
 	get model() {
 		return this.view.model;
 	}

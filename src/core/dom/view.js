@@ -1,7 +1,7 @@
-import {Container} from './container';
+import {Unit} from './unit';
 import {EventListener} from '../infrastructure';
 
-export class View extends Container {
+export class View extends Unit {
 	constructor(markup, context) {
 		super();
 

@@ -1,9 +1,9 @@
 import Directive from '@grid/view/directives/directive';
 import cellBuilder from '../cell/cell.build';
-import {VIEW_CORE_NAME, TH_CORE_NAME,} from '@grid/view/definition';
+import {VIEW_CORE_NAME, TH_CORE_NAME, TABLE_CORE_NAME} from '@grid/view/definition';
 import {GRID_PREFIX} from '@grid/core/definition';
 
-class ThCore extends Directive(TH_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
+class ThCore extends Directive(TH_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, table: `^^${TABLE_CORE_NAME}`}) {
 	constructor($scope, $element, $attrs) {
 		super();
 
@@ -16,7 +16,7 @@ class ThCore extends Directive(TH_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 		const column = this.column;
 		const element = this.element;
 
-		this.view.table.head.cellBucket.add(this, this.rowIndex, this.columnIndex);
+		this.view.bag.set(element, this);
 		element.classList.add(`${GRID_PREFIX}-${column.key}`);
 		element.classList.add(`${GRID_PREFIX}-${column.type}`);
 		if (column.hasOwnProperty('editor')) {
@@ -46,7 +46,7 @@ class ThCore extends Directive(TH_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	}
 
 	get columnIndex() {
-		return this.$scope.$index;
+		return  this.table.columnStartIndex + this.$scope.$index;
 	}
 
 	get element() {
@@ -54,7 +54,8 @@ class ThCore extends Directive(TH_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	}
 
 	onDestroy() {
-		this.view.table.head.cellBucket.remove(this, this.rowIndex, this.columnIndex);
+		this.view.bag.delete(this.element);
+
 	}
 }
 

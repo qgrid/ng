@@ -1,35 +1,37 @@
-import {FakeElement} from './fake';
+import {Unit} from './unit';
 
-const fakeElement = new FakeElement();
-export class Container {
-	constructor() {
+export class Container extends Unit {
+	constructor(elements) {
+		super();
+
+		this.elements = elements;
 	}
 
 	rect() {
-		return this.getElement().getBoundingClientRect();
+		const rects = this.elements.map(element => element.getBoundingClientRect());
+		const top = rects.min(r => r.top);
+		const left = rects.min(r => r.left);
+		const bottom = rects.max(r => bottom);
+		const right = rects.max(r => r.right);
+		return {
+			height: bottom - top,
+			width: right - left
+		};
 	}
 
 	addClass(name) {
-		this.getElement().classList.add(name);
+		this.elements.forEach(element => element.classList.add(name));
 	}
 
 	removeClass(name) {
-		this.getElement().classList.remove(name);
+		this.elements.forEach(element => element.classList.remove(name));
 	}
 
 	width() {
-		return this.getElement().clientWidth;
+		return this.elements.max(element => element.clientWidth);
 	}
 
 	height() {
-		return this.getElement().clientHeight;
-	}
-
-	getElement() {
-		return this.getElementCore() || fakeElement;
-	}
-
-	getElementCore() {
-		return null;
+		return this.elements.max(element => element.clientHeight);
 	}
 }

@@ -2,22 +2,26 @@ import {Cell} from './cell';
 import {Element} from './element';
 
 export class Row extends Element {
-	constructor(entry, element = null) {
+	constructor(box, index, element = null) {
 		super(element);
 
-		this.entry = entry;
+		this.box = box;
+		this.index = index;
 	}
 
 	cells() {
-		return this.entry.map(item => new Cell(item, item.element));
+		return this.box.rowCellsCore(this.index);
 	}
 
 	cell(column) {
-		const item = this.entry.find(column);
-		return item ? new Cell(item, item.element) : new Cell();
+		return this.box.cell(this.index, column);
 	}
 
-	cellCount() {
-		return this.entry.count();
+	addClass(name) {
+		this.cells().forEach(cell => cell.addClass(name));
+	}
+
+	removeClass(name) {
+		this.cells().forEach(cell => cell.removeClass(name));
 	}
 }

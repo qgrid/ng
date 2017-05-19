@@ -1,27 +1,24 @@
 import {Cell} from './cell';
 
 export class Column {
-	constructor(bucket, index) {
-		this.bucket = bucket;
+	constructor(box, index) {
+		this.box = box;
 		this.index = index;
 	}
 
 	cells() {
-		const column = this.index;
-		return this.bucket
-			.map(entry => {
-				const item = entry.find(column);
-				return item ? new Cell(item, item.element) : new Cell();
-			});
+		return this.box.columnCellsCore(this.index);
 	}
 
 	cell(row) {
-		const item = this.bucket.find(row, this.index);
-		return item ? new Cell(item, item.element) : new Cell();
+		return this.box.cell(row, this.index);
 	}
 
-	cellCount() {
-		// TODO: improve that
-		return this.cells().length;
+	addClass(name) {
+		this.cells().forEach(cell => cell.addClass(name));
+	}
+
+	removeClass(name) {
+		this.cells().forEach(cell => cell.removeClass(name));
 	}
 }

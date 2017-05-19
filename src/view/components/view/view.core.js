@@ -39,12 +39,19 @@ class ViewCore extends Component {
 		this.markup = {
 			document: $document[0]
 		};
+
+		this.bag = new Map();
 	}
 
 	build() {
 		const model = this.model;
+		const bag = this.bag;
 		const layerFactory = new LayerFactory(this.markup, this.template);
-		const tableContext = {layer: name => layerFactory.create(name)};
+		const tableContext = {
+			layer: name => layerFactory.create(name),
+			model: element => bag.get(element) || null
+		};
+
 		const table = new Table(this.model, this.markup, tableContext);
 
 		this.table = table;

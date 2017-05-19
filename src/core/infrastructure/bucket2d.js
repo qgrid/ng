@@ -136,15 +136,20 @@ export class Bucket2d {
 	}
 
 	count() {
+		const isEmpty = this.isEmpty;
 		return this.items
-			.filter((_, i) => !this.isEmpty(i))
+			.filter((_, i) => !isEmpty(i))
 			.length;
 	}
 
 	map(f) {
+		const isEmpty = this.isEmpty;
 		return this.items
-			.filter((_, i) => !this.isEmpty(i))
-			.map(entry => f(entry));
+			.map((entry, i) => {
+				if (!isEmpty(i)) {
+					f(entry, i);
+				}
+			});
 	}
 
 	isEmpty(row) {

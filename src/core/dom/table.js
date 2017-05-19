@@ -4,6 +4,9 @@ import {Data} from './data';
 import {cellMapFactory} from './cell.map';
 import {assignWith} from  '../services/utility';
 import {FakeLayer} from './fake';
+import {Head} from './head';
+import {Body} from './body';
+import {Foot} from './foot';
 
 export class Table {
 	constructor(model, markup, context = {}) {
@@ -11,7 +14,8 @@ export class Table {
 		this.markup = markup;
 		this.context = assignWith({
 			mapper: cellMapFactory(model),
-			layer: () => new FakeLayer()
+			layer: () => new FakeLayer(),
+			model: () => null
 		}, context);
 
 		this._head = null;
@@ -57,15 +61,15 @@ export class Table {
 	}
 
 	headCore() {
-		return new Box(this.context);
+		return new Head(this.context, this.markup);
 	}
 
 	bodyCore() {
-		return new Box(this.context);
+		return new Body(this.context, this.markup);
 	}
 
 	footCore() {
-		return new Box(this.context);
+		return new Foot(this.context, this.markup);
 	}
 
 	viewCore() {

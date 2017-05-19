@@ -1,6 +1,6 @@
-import {Container} from './container';
+import {Unit} from './unit';
 
-export class Element extends Container {
+export class Element extends Unit {
 	constructor(element) {
 		super();
 

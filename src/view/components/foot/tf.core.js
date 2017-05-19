@@ -1,9 +1,9 @@
 import Directive from '@grid/view/directives/directive';
 import cellBuilder from '../cell/cell.build';
-import {VIEW_CORE_NAME, TF_CORE_NAME} from '@grid/view/definition';
+import {VIEW_CORE_NAME, TF_CORE_NAME, TABLE_CORE_NAME} from '@grid/view/definition';
 import {GRID_PREFIX} from '@grid/core/definition';
 
-class TfCore extends Directive(TF_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
+class TfCore extends Directive(TF_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, table: `^^${TABLE_CORE_NAME}`}) {
 	constructor($scope, $element) {
 		super();
 
@@ -15,7 +15,7 @@ class TfCore extends Directive(TF_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 		const column = this.column;
 		const element = this.element;
 
-		this.view.table.foot.cellBucket.add(this, this.rowIndex, this.columnIndex);
+		this.view.bag.set(element, this);
 
 		element.classList.add(`${GRID_PREFIX}-${column.key}`);
 		element.classList.add(`${GRID_PREFIX}-${column.type}`);
@@ -47,7 +47,7 @@ class TfCore extends Directive(TF_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	}
 
 	get columnIndex() {
-		return this.$scope.$index;
+		return this.table.columnStartIndex + this.$scope.$index;
 	}
 
 	get element() {
@@ -55,7 +55,7 @@ class TfCore extends Directive(TF_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	}
 
 	onDestroy() {
-		this.view.table.foot.cellBucket.remove(this, this.rowIndex, this.columnIndex);
+		this.view.bag.remove(element, this);
 	}
 }
 

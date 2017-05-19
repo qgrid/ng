@@ -1,9 +1,13 @@
 import {Element} from './element';
 
 export class Cell extends Element {
-	constructor(model = null, element = null) {
+	constructor(context, element = null) {
 		super(element);
 
-		this.model = model;
+		this.context = context;
+	}
+
+	get model() {
+		return this.context.model(this.getElement());
 	}
 }
