@@ -1,5 +1,3 @@
-import {Cell} from './cell';
-
 export class Column {
 	constructor(box, index) {
 		this.box = box;

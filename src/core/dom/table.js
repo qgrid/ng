@@ -1,4 +1,3 @@
-import {Box} from './box';
 import {View} from './view';
 import {Data} from './data';
 import {cellMapFactory} from './cell.map';

@@ -126,10 +126,10 @@ export class HighlightView extends View {
 
 		const head = table.head;
 		head.column(index).addClass(`${GRID_PREFIX}-${cls}`);
-		head.column(index - 1).cells().addClass(`${GRID_PREFIX}-${cls}-prev`);
-		head.column(index + 1).cells().addClass(`${GRID_PREFIX}-${cls}-next`);
-		table.body.column(index).cells().addClass(`${GRID_PREFIX}-${cls}`);
-		table.foot.column(index).cells().addClass(`${GRID_PREFIX}-${cls}`);
+		head.column(index - 1).addClass(`${GRID_PREFIX}-${cls}-prev`);
+		head.column(index + 1).addClass(`${GRID_PREFIX}-${cls}-next`);
+		table.body.column(index).addClass(`${GRID_PREFIX}-${cls}`);
+		table.foot.column(index).addClass(`${GRID_PREFIX}-${cls}`);
 
 		return this.blur(key, cls);
 	}
@@ -143,11 +143,11 @@ export class HighlightView extends View {
 
 		return () => {
 			const head = table.head;
-			head.column(index).cells().removeClass(`${GRID_PREFIX}-${cls}`);
-			head.column(index - 1).cells().removeClass(`${GRID_PREFIX}-${cls}-prev`);
-			head.column(index + 1).cells().removeClass(`${GRID_PREFIX}-${cls}-next`);
-			table.body.column(index).cells().removeClass(`${GRID_PREFIX}-${cls}`);
-			table.foot.column(index).cells().removeClass(`${GRID_PREFIX}-${cls}`);
+			head.column(index).removeClass(`${GRID_PREFIX}-${cls}`);
+			head.column(index - 1).removeClass(`${GRID_PREFIX}-${cls}-prev`);
+			head.column(index + 1).removeClass(`${GRID_PREFIX}-${cls}-next`);
+			table.body.column(index).removeClass(`${GRID_PREFIX}-${cls}`);
+			table.foot.column(index).removeClass(`${GRID_PREFIX}-${cls}`);
 		};
 	}
 }

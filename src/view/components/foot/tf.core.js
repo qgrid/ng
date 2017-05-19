@@ -55,7 +55,7 @@ class TfCore extends Directive(TF_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, table
 	}
 
 	onDestroy() {
-		this.view.bag.remove(element, this);
+		this.view.bag.delete(this.element, this);
 	}
 }
 

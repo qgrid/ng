@@ -128,7 +128,7 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, table
 			this.$templateScope.$destroy();
 		}
 
-		this.view.bag.remove(this.element);
+		this.view.bag.delete(this.element);
 		this.view.style.monitor.cell.remove(this.element);
 	}
 }

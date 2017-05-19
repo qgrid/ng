@@ -1,4 +1,3 @@
-import {Cell} from './cell';
 import {Element} from './element';
 
 export class Row extends Element {

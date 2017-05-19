@@ -1,4 +1,5 @@
 import {Unit} from './unit';
+import {min, max} from '../services/utility';
 
 export class Container extends Unit {
 	constructor(elements) {
@@ -9,10 +10,10 @@ export class Container extends Unit {
 
 	rect() {
 		const rects = this.elements.map(element => element.getBoundingClientRect());
-		const top = rects.min(r => r.top);
-		const left = rects.min(r => r.left);
-		const bottom = rects.max(r => bottom);
-		const right = rects.max(r => r.right);
+		const top = min(rects.map(r => r.top));
+		const left = min(rects.map(r => r.left));
+		const bottom = max(rects.map(r => r.bottom));
+		const right = max(rects.map(r => r.right));
 		return {
 			height: bottom - top,
 			width: right - left

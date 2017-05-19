@@ -3,7 +3,7 @@ import {Column} from './column';
 import {Cell} from './cell';
 import {FakeTable, FakeElement} from './fake';
 import {Container} from './container';
-import {flatten} from '../services/utility'
+import {flatten, sumBy, max} from '../services/utility';
 
 export class Box {
 	constructor(context) {
@@ -15,7 +15,7 @@ export class Box {
 			if (column >= 0 && column < this.columnCount()) {
 				const elements = this.getElements();
 				const cells = flatten(elements.map(element => element.rows[row].cells));
-				return new Cell(this.context, cells[column])
+				return new Cell(this.context, cells[column]);
 			}
 		}
 
@@ -34,7 +34,7 @@ export class Box {
 		if (index >= 0 && index < this.rowCount()) {
 			const elements = this.getElements();
 			const box = elements.map(element => element.rows[index]);
-			return new Row(this, index, new Container(box))
+			return new Row(this, index, new Container(box));
 		}
 
 		return new Row(this, -1, new FakeElement());
@@ -47,12 +47,12 @@ export class Box {
 
 	rowCount() {
 		const elements = this.getElements();
-		return elements.max(element => element.rows.length);
+		return max(elements.map(element => element.rows.length));
 	}
 
 	columnCount() {
 		const elements = this.getElements();
-		return elements.sum(element => element.rows.length > 0 ? elements.rows[0].cells.length : 0);
+		return sumBy(elements, element => element.rows.length > 0 ? element.rows[0].cells.length : 0);
 	}
 
 	getElements() {
@@ -78,7 +78,7 @@ export class Box {
 		const context = this.context;
 		const element = this.findColumnElementCore(index);
 		if (element) {
-			return element.rows.map(row => new Cell(context, row.cells[index]));
+			return Array.from(element.rows).map(row => new Cell(context, row.cells[index]));
 		}
 
 		return [];
@@ -99,7 +99,7 @@ export class Box {
 				startIndex = endIndex;
 			}
 
-			return elements.find(element => element.rows[0].cells)
+			return elements.find(element => element.rows[0].cells);
 		}
 
 		return null;
