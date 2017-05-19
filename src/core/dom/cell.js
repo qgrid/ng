@@ -5,6 +5,7 @@ export class Cell extends Element {
 		super(element);
 
 		this.context = context;
+		//console.log(element);
 	}
 
 	get model() {

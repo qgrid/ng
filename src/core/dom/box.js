@@ -14,10 +14,11 @@ export class Box {
 		if (row >= 0 && row < this.rowCount()) {
 			if (column >= 0 && column < this.columnCount()) {
 				const elements = this.getElements();
-				const cells = flatten(elements.map(element => element.rows[row].cells));
+				const cells = flatten(elements.map(element => Array.from(element.rows[row].cells)));
 				return new Cell(this.context, cells[column]);
 			}
 		}
+
 
 		return new Cell(this.context, new FakeElement());
 	}
@@ -67,7 +68,7 @@ export class Box {
 		if (index >= 0 && index < this.rowCount()) {
 			const elements = this.getElements();
 			const context = this.context;
-			const cells = flatten(elements.map(element => element.rows[index].cells));
+			const cells = flatten(elements.map(element => Array.from(element.rows[index].cells)));
 			return cells.map(cell => new Cell(context, cell));
 		}
 
@@ -76,15 +77,15 @@ export class Box {
 
 	columnCellsCore(index) {
 		const context = this.context;
-		const element = this.findColumnElementCore(index);
-		if (element) {
-			return Array.from(element.rows).map(row => new Cell(context, row.cells[index]));
+		const column = this.findColumnCore(index);
+		if (column) {
+			return Array.from(column.rows).map(row => new Cell(context, row.cells[column.index]));
 		}
 
 		return [];
 	}
 
-	findColumnElementCore(index) {
+	findColumnCore(index) {
 		if (index >= 0 && this.rowCount() > 0) {
 			const elements = this.getElements();
 			let startIndex = 0;
@@ -93,13 +94,14 @@ export class Box {
 				const cells = element.rows[0].cells;
 				const endIndex = startIndex + cells.length;
 				if (index < endIndex) {
-					return element;
+					return {
+						rows: element.rows,
+						index: index - startIndex
+					};
 				}
 
 				startIndex = endIndex;
 			}
-
-			return elements.find(element => element.rows[0].cells);
 		}
 
 		return null;
