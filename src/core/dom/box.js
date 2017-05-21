@@ -3,11 +3,12 @@ import {Column} from './column';
 import {Cell} from './cell';
 import {FakeTable, FakeElement} from './fake';
 import {Container} from './container';
-import {flatten, sumBy, max} from '../services/utility';
+import {flatten, sumBy, max, zip} from '../services/utility';
 
 export class Box {
-	constructor(context) {
+	constructor(context, model) {
 		this.context = context;
+		this.gridModel = model;
 	}
 
 	cell(row, column) {
@@ -42,8 +43,16 @@ export class Box {
 	}
 
 	rows() {
-		const rows = this.getElements().map(element => element.rows);
-		return rows.map((box, index) => new Row(this, index, new Container(box)));
+		const elements = this.getElements();
+		if(elements.length > 0) {
+			if(elements.length > 1) {
+				const rows = zip(...elements.map(element => Array.from(element.rows)));
+				return rows.map((entry, index) => new Row(this, index, new Container(entry)));
+			}
+			return Array.from(elements[0].rows).map((row, index) => new Row(this, index, row));
+		}
+
+		return [];
 	}
 
 	rowCount() {

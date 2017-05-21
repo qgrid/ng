@@ -15,6 +15,7 @@ import uniq from 'lodash/uniq';
 import sumBy from 'lodash/sumBy';
 import max from 'lodash/maxBy';
 import min from 'lodash/minBy';
+import zip from 'lodash/zip';
 
 const noop = () => {
 };
@@ -67,5 +68,6 @@ export {
 	orderBy,
 	max,
 	min,
-	sumBy
+	sumBy,
+	zip
 };

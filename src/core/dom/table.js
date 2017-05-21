@@ -60,15 +60,15 @@ export class Table {
 	}
 
 	headCore() {
-		return new Head(this.context, this.markup);
+		return new Head(this.context, this.model, this.markup);
 	}
 
 	bodyCore() {
-		return new Body(this.context, this.markup);
+		return new Body(this.context, this.model, this.markup);
 	}
 
 	footCore() {
-		return new Foot(this.context, this.markup);
+		return new Foot(this.context, this.model, this.markup);
 	}
 
 	viewCore() {

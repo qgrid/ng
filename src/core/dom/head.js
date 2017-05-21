@@ -1,8 +1,8 @@
 import {Box} from './box';
 
 export class Head extends Box {
-	constructor(context, markup) {
-		super(context);
+	constructor(context, model, markup) {
+		super(context, model);
 
 		this.markup = markup;
 	}
