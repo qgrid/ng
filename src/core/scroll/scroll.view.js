@@ -13,22 +13,18 @@ export class ScrollView extends View {
 			rowHeight: model.row().height
 		});
 
-		const apply = this.y.container.apply;
-		this.y.container.apply = f => {
-			apply(() => {
-				f();
-				const container = this.y.container;
-				const currentPage = Math.floor(container.position / model.pagination().size);
-				const totalCount = container.total;
-				this.model.pagination({
-					current: currentPage,
-					count: totalCount
-				}, {
-					source: 'scroll.view',
-					behavior: 'core'
-				});
+		this.y.container.drawEvent.on(e => {
+			const container = this.y.container;
+			const currentPage = Math.floor(e.position / model.pagination().size);
+			const totalCount = container.total;
+			this.model.pagination({
+				current: currentPage,
+				count: totalCount
+			}, {
+				source: 'scroll.view',
+				behavior: 'core'
 			});
-		};
+		});
 
 		switch (scroll().mode) {
 			case 'virtual': {

@@ -46,6 +46,10 @@ class TfCore extends Directive(TF_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, table
 		return this.$scope.$parent.$index;
 	}
 
+	get column() {
+		return this.$scope.$column.model;
+	}
+
 	get columnIndex() {
 		return this.table.columnStartIndex + this.$scope.$index;
 	}

@@ -21,7 +21,7 @@ class TrCore extends Directive(TR_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	}
 
 	get index() {
-		return this.$scope.$index;
+		return this.view.scroll.y.container.position + this.$scope.$index;
 	}
 }
 

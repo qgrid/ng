@@ -5,6 +5,21 @@ import {FakeTable, FakeElement} from './fake';
 import {Container} from './container';
 import {flatten, sumBy, max, zip} from '../services/utility';
 
+// function getRows(element) {
+// 	const rows = element.rows;
+// 	const result = [];
+// 	for (let i = 0, length = rows.length; i < length; i++) {
+// 		const row = rows[i];
+// 		if (row.classList.contains('vscroll-mark')) {
+// 			continue;
+// 		}
+//
+// 		result.push(row);
+// 	}
+//
+// 	return result;
+// }
+
 export class Box {
 	constructor(context, model) {
 		this.context = context;
@@ -19,7 +34,6 @@ export class Box {
 				return new Cell(this.context, cells[column]);
 			}
 		}
-
 
 		return new Cell(this.context, new FakeElement());
 	}
@@ -44,8 +58,8 @@ export class Box {
 
 	rows() {
 		const elements = this.getElements();
-		if(elements.length > 0) {
-			if(elements.length > 1) {
+		if (elements.length > 0) {
+			if (elements.length > 1) {
 				const rows = zip(...elements.map(element => Array.from(element.rows)));
 				return rows.map((entry, index) => new Row(this, index, new Container(entry)));
 			}
