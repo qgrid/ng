@@ -4,6 +4,7 @@ import {Command} from '@grid/core/infrastructure';
 import {TemplatePath} from '@grid/core/template';
 import {Csv} from '@grid/core/export/csv';
 import {Json} from '@grid/core/export/json';
+import {Xml} from '@grid/core/export/xml';
 import {download} from '@grid/core/services/download';
 
 TemplatePath
@@ -31,6 +32,14 @@ class Export extends Plugin {
 			execute: () => {
 				const json = new Json();
 				const data = json.write(this.rows, this.columns);
+				download(this.id, data, `text/${this.type}`);
+			}
+		});
+		this.xml = new Command({
+			canExecute: () => this.type === 'xml',
+			execute: () => {
+				const xml = new Xml();
+				const data = xml.write(this.rows);
 				download(this.id, data, `text/${this.type}`);
 			}
 		});
