@@ -1,6 +1,18 @@
 import {Unit} from './unit';
 import {EventListener} from '../infrastructure';
 
+function isParentOf(parent, element) {
+	while (element) {
+		if (element === parent) {
+			return true;
+		}
+
+		element = element.parentNode;
+	}
+
+	return false;
+}
+
 export class View extends Unit {
 	constructor(markup, context) {
 		super();
@@ -11,7 +23,7 @@ export class View extends Unit {
 	}
 
 	focus() {
-		const elements = this.elementsCore('table');
+		const elements = this.getElementsCore('table');
 		if (elements.length) {
 			elements[0].focus();
 			return true;
@@ -21,12 +33,12 @@ export class View extends Unit {
 	}
 
 	blur() {
-		this.elementsCore('table')
+		this.getElementsCore('table')
 			.forEach(element => element.blur());
 	}
 
 	isFocused() {
-		return this.elementsCore('table')
+		return this.getElementsCore('table')
 			.some(element => this.isFocusedCore(element));
 	}
 
@@ -90,11 +102,32 @@ export class View extends Unit {
 
 	scrollTop(value) {
 		if (arguments.length) {
-			this.elementsCore('body')
+			this.getElementsCore('body')
 				.forEach(element => element.scrollTop = value);
 		}
 
 		return this.getElement().scrollTop;
+	}
+
+	canScrollTo(element, direction) {
+		if (element) {
+			switch (direction) {
+				case 'left': {
+					element = element.element;
+					if (element) {
+						const markup = this.markup;
+						if (markup.table) {
+							return isParentOf(markup.table, element);
+						}
+					}
+					break;
+				}
+				case 'top':
+					return true;
+			}
+		}
+
+		return false;
 	}
 
 	rect() {
@@ -113,18 +146,10 @@ export class View extends Unit {
 	isFocusedCore(target) {
 		const markup = this.markup;
 		let current = markup.document.activeElement;
-		while (current) {
-			if (current === target) {
-				return true;
-			}
-
-			current = current.parentNode;
-		}
-
-		return false;
+		return isParentOf(target, current);
 	}
 
-	elementsCore(key) {
+	getElementsCore(key) {
 		const markup = this.markup;
 		return [`${key}-left`, key, `${key}-right`]
 			.filter(key => markup.hasOwnProperty(key))
