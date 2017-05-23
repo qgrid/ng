@@ -49,7 +49,8 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 		this.listener.on('mousedown', this.onMouseDown);
 		this.listener.on('mouseup', this.onMouseUp);
 
-		this.documentListener.on('mousemove', this.onMouseMove);
+		this.listener.on('mousemove', this.onMouseMove);
+		this.listener.on('mouseleave', this.onMouseLeave)
 	}
 
 	onDestroy() {
@@ -111,6 +112,15 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 				this.navigate(endCell);
 			}
 		}
+	}
+
+	onMouseLeave() {
+		const highlightRow = this.view.highlight.row;
+		this.view
+			.model
+			.highlight()
+			.rows
+			.forEach(i => highlightRow.execute(i, false));
 	}
 
 	onMouseUp() {

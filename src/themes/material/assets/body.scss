@@ -9,9 +9,12 @@ tbody {
 	> tr {
 		height: $row-height;
 
+		&.q-grid-highlighted {
+			background-color: #eee;
+		}
+
 		&:hover {
 			td {
-//				background-color: #eee !important;
 				&.q-grid-text-area {
 					> span {
 						@include multiLine($lineCount: 3, $bgColor: #eee);
