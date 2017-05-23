@@ -85,8 +85,24 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	}
 
 	onMouseMove(e) {
+		const pathFinder = new PathService(this.view.bag);
+		const row = pathFinder.row(e.path);
+		if (row) {
+			const index = row.index;
+			const highlightRow = this.view.highlight.row;
+			if (highlightRow.canExecute(index)) {
+				this.view
+					.model
+					.highlight()
+					.rows
+					.filter(i => i !== index)
+					.forEach(i => highlightRow.execute(i, false));
+
+				highlightRow.execute(index, true);
+			}
+		}
+
 		if (this.selection.mode === 'range') {
-			const pathFinder = new PathService(this.view.bag);
 			const startCell = this.rangeStartCell;
 			const endCell = pathFinder.cell(e.path);
 

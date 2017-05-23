@@ -11,7 +11,7 @@ tbody {
 
 		&:hover {
 			td {
-				background-color: #eee !important;
+//				background-color: #eee !important;
 				&.q-grid-text-area {
 					> span {
 						@include multiLine($lineCount: 3, $bgColor: #eee);
