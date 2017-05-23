@@ -8,7 +8,7 @@ $row-height: 48px;
 			> tr {
 				height: $row-height;
 
-				&:hover {
+				&.q-grid-highlighted {
 					background-color: #eee;
 				}
 

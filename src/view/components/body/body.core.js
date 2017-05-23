@@ -1,7 +1,7 @@
 import Directive from '@grid/view/directives/directive';
 import {VIEW_CORE_NAME, BODY_CORE_NAME} from '@grid/view/definition';
 import {EventListener} from '@grid/core/infrastructure';
-import * as pathFinder from '@grid/view/services/path.find';
+import {PathService} from '@grid/core/path';
 
 class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	constructor($scope, $element, $document) {
@@ -16,6 +16,10 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 		this.listener = new EventListener(this, this.element);
 
 		this.rangeStartCell = null;
+		this.scrollContext = {
+			top: this.element.scrollTop,
+			left: this.element.scrollLeft,
+		};
 
 		Object.defineProperty($scope, '$view', {get: () => this.view});
 	}
@@ -24,15 +28,19 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 		const element = this.element;
 		const scroll = this.view.model.scroll;
 
-		scroll({
-			top: element.scrollTop,
-			left: element.scrollLeft,
-			width: element.scrollWidth,
-			height: element.scrollHeight
-		}, {
-			source: 'body.core',
-			pin: this.view.pin
-		});
+		const oldValue = this.scrollContext;
+		const newValue = {};
+		if (oldValue.top !== element.scrollTop) {
+			oldValue.top = newValue.top = element.scrollTop;
+		}
+
+		if (oldValue.left !== element.scrollLeft) {
+			oldValue.left = newValue.left = element.scrollLeft;
+		}
+
+		if (Object.keys(newValue)) {
+			scroll(newValue, {source: 'body.core'});
+		}
 	}
 
 	onInit() {
@@ -41,7 +49,8 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 		this.listener.on('mousedown', this.onMouseDown);
 		this.listener.on('mouseup', this.onMouseUp);
 
-		this.documentListener.on('mousemove', this.onMouseMove);
+		this.listener.on('mousemove', this.onMouseMove);
+		this.listener.on('mouseleave', this.onMouseLeave)
 	}
 
 	onDestroy() {
@@ -49,6 +58,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	}
 
 	onClick(e) {
+		const pathFinder = new PathService(this.view.bag);
 		const cell = pathFinder.cell(e.path);
 		if (cell) {
 			this.navigate(cell);
@@ -66,6 +76,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 
 	onMouseDown(e) {
 		if (this.selection.mode === 'range') {
+			const pathFinder = new PathService(this.view.bag);
 			this.rangeStartCell = pathFinder.cell(e.path);
 
 			if (this.rangeStartCell) {
@@ -75,6 +86,23 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	}
 
 	onMouseMove(e) {
+		const pathFinder = new PathService(this.view.bag);
+		const row = pathFinder.row(e.path);
+		if (row) {
+			const index = row.index;
+			const highlightRow = this.view.highlight.row;
+			if (highlightRow.canExecute(index)) {
+				this.view
+					.model
+					.highlight()
+					.rows
+					.filter(i => i !== index)
+					.forEach(i => highlightRow.execute(i, false));
+
+				highlightRow.execute(index, true);
+			}
+		}
+
 		if (this.selection.mode === 'range') {
 			const startCell = this.rangeStartCell;
 			const endCell = pathFinder.cell(e.path);
@@ -84,6 +112,15 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 				this.navigate(endCell);
 			}
 		}
+	}
+
+	onMouseLeave() {
+		const highlightRow = this.view.highlight.row;
+		this.view
+			.model
+			.highlight()
+			.rows
+			.forEach(i => highlightRow.execute(i, false));
 	}
 
 	onMouseUp() {

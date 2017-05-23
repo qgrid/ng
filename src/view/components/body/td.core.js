@@ -1,10 +1,10 @@
 import Directive from '@grid/view/directives/directive';
 import cellBuilder from '../cell/cell.build';
 import {AppError} from '@grid/core/infrastructure'
-import {VIEW_CORE_NAME, TD_CORE_NAME} from '@grid/view/definition';
+import {VIEW_CORE_NAME, TD_CORE_NAME, TABLE_CORE_NAME} from '@grid/view/definition';
 import {GRID_PREFIX} from '@grid/core/definition';
 
-class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
+class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, table: `^^${TABLE_CORE_NAME}`}) {
 	constructor($scope, $element) {
 		super();
 
@@ -15,9 +15,10 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 
 	onInit() {
 		const column = this.column;
-		const element = this.$element[0];
+		const element = this.element;
 
-		this.view.style.monitor.cell.add(this.element);
+		this.view.bag.set(element, this);
+		this.view.style.monitor.cell.add(element);
 
 		element.classList.add(`${GRID_PREFIX}-${column.key}`);
 		element.classList.add(`${GRID_PREFIX}-${column.type}`);
@@ -33,7 +34,7 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 		const column = this.column;
 		const templateScope = this.setup();
 		const cache = model.body().cache;
-		const element = this.$element[0];
+		const element = this.element;
 
 		switch (value) {
 			case 'view':
@@ -107,7 +108,7 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 
 	get columnIndex() {
 		// use vscroll.column + vscroll.position in the future
-		return this.$scope.$index;
+		return this.table.columnStartIndex + this.$scope.$index;
 	}
 
 	get column() {
@@ -118,12 +119,17 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 		return this.$scope.$row;
 	}
 
+	get element() {
+		return this.$element[0];
+	}
+
 	onDestroy() {
 		if (this.$templateScope) {
 			this.$templateScope.$destroy();
 		}
 
-		this.view.style.monitor.cell.remove(this.$element[0]);
+		this.view.bag.delete(this.element);
+		this.view.style.monitor.cell.remove(this.element);
 	}
 }
 

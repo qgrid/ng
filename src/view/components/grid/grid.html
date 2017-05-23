@@ -1,5 +1,4 @@
-<q-grid-core:box ng-cloak
-					  class="q-grid-box layout-column">
+<q-grid-core:box ng-cloak class="q-grid-box layout-column">
 	<q-grid-core:toolbar position="top"
 								class="q-grid-toolbar q-grid-toolbar-top flex-auto"
 								ng-if="$grid.visibility.toolbar.top">
@@ -13,17 +12,7 @@
 									class="q-grid-toolbar q-grid-toolbar-left flex-auto"
 									ng-if="$grid.visibility.toolbar.left">
 		</q-grid-core:toolbar>
-		<q-grid-core:view ng-if="$grid.visibility.pin.left"
-								class="q-grid-view q-grid-view-left layout-column"
-								pin="left"
-								q-grid:markup="view">
-		</q-grid-core:view>
-		<q-grid-core:view class="q-grid-view q-grid-view-center layout-column flex"
-								q-grid:markup="view">
-		</q-grid-core:view>
-		<q-grid-core:view ng-if="$grid.visibility.pin.right"
-								pin="right"
-								class="q-grid-view q-grid-view-right layout-column"
+		<q-grid-core:view class="q-grid-view flex-100 layout-row"
 								q-grid:markup="view">
 		</q-grid-core:view>
 		<q-grid-core:toolbar position="right"
