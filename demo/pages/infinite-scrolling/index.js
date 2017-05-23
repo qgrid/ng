@@ -7,7 +7,7 @@ export default function Controller($http, qgrid) {
 	ctrl.model = model;
 
 	model.pagination({
-		size: 11
+		size: 50
 	});
 
 	model.scroll({

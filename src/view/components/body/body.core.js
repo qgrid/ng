@@ -1,7 +1,7 @@
 import Directive from '@grid/view/directives/directive';
 import {VIEW_CORE_NAME, BODY_CORE_NAME} from '@grid/view/definition';
 import {EventListener} from '@grid/core/infrastructure';
-import * as pathFinder from '@grid/view/services/path.find';
+import {PathService} from '@grid/core/path';
 
 class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	constructor($scope, $element, $document) {
@@ -57,6 +57,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	}
 
 	onClick(e) {
+		const pathFinder = new PathService(this.view.bag);
 		const cell = pathFinder.cell(e.path);
 		if (cell) {
 			this.navigate(cell);
@@ -74,6 +75,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 
 	onMouseDown(e) {
 		if (this.selection.mode === 'range') {
+			const pathFinder = new PathService(this.view.bag);
 			this.rangeStartCell = pathFinder.cell(e.path);
 
 			if (this.rangeStartCell) {
@@ -84,6 +86,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 
 	onMouseMove(e) {
 		if (this.selection.mode === 'range') {
+			const pathFinder = new PathService(this.view.bag);
 			const startCell = this.rangeStartCell;
 			const endCell = pathFinder.cell(e.path);
 
