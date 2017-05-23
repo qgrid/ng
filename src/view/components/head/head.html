@@ -1,7 +1,7 @@
 <tr ng-repeat="$row in $view.head.rows track by $index" q-grid-core:tr="head">
 	<th ng-repeat="$column in $row | qgridPin: $table.pin track by $column.model.key"
-		 ng-mouseenter="$view.highlightColumn.column.execute($column.model, true)"
-		 ng-mouseleave="$view.highlightColumn.column.execute($column.model, false)"
+		 ng-mouseenter="$view.highlight.column.execute($column.model, true)"
+		 ng-mouseleave="$view.highlight.column.execute($column.model, false)"
 		 rowspan="{{$column.rowspan}}"
 		 colspan="{{$column.colspan}}"
 		 q-grid:drag="$view.head.transfer($column.model)"
