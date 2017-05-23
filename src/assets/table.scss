@@ -1,4 +1,5 @@
 @import "scroll";
+
 .q-grid-table {
 	table {
 		border-spacing: 0;
@@ -31,4 +32,19 @@
 			table-layout: fixed;
 		}
 	}
+
+	&.q-grid-table-left {
+		thead, tfoot {
+			width: 100%;
+		}
+	}
 }
+
+.q-grid-with-right-pin {
+	.q-grid-table.q-grid-table-center {
+		thead, tfoot {
+			width: 100%;
+		}
+	}
+}
+
