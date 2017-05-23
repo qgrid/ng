@@ -40,7 +40,7 @@ class Export extends Plugin {
 			execute: () => {
 				const xml = new Xml();
 				const data = xml.write(this.rows);
-				download(this.id, data, `text/${this.type}`);
+				download(this.id, data, `application/${this.type}`);
 			}
 		});
 	}
