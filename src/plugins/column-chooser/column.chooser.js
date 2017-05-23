@@ -78,7 +78,7 @@ class ColumnChooser extends Plugin {
 						const targetColumnIndex = indexMap.indexOf(targetColumn.key);
 						indexMap.splice(sourceColumnIndex, 1);
 						indexMap.splice(targetColumnIndex, 0, sourceColumn.key);
-						model.columnList({index: indexMap});
+						model.columnList({index: indexMap}, {source: 'column.chooser'});
 					}
 				}
 			}
@@ -120,9 +120,7 @@ class ColumnChooser extends Plugin {
 					column.aggregation = originColumn.aggregation;
 				});
 
-				this.service.invalidate(
-					'reset', {}, PipeUnit.column
-				);
+				this.service.invalidate('column.chooser', {}, PipeUnit.column);
 			}
 		});
 	}
@@ -148,6 +146,10 @@ class ColumnChooser extends Plugin {
 		};
 
 		model.viewChanged.watch(e => {
+			if (e.tag.source === 'column.chooser') {
+				return;
+			}
+
 			if (e.hasChanges('columns')) {
 				this.columns = Array.from(model.data().columns);
 				this.columns.sort((x, y) => x.index - y.index);
