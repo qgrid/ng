@@ -14,6 +14,7 @@ import CellValue from './components/cell/cell.value';
 
 import BoxCore from './components/grid/box.core';
 import ViewCore from './components/view/view.core';
+import TableCore from './components/table/table.core';
 import TrCore from './components/row/tr.core';
 import TdCore from './components/body/td.core';
 import ThCore from './components/head/th.core';
@@ -34,6 +35,7 @@ import Animate from './directives/animate';
 import ThemeProvider from './services/theme';
 import Range from './filters/range';
 import Highlight from './filters/highlight';
+import Pin from './filters/pin';
 
 import * as def from './definition';
 require('vscroll'); // TODO: make vscroll export
@@ -52,6 +54,7 @@ export const coreModule = angular.module(def.MODULE_CORE_NAME, [])
 	.service(def.TEMPLATE_PATH_NAME, () => () => TemplatePath)
 	.filter(def.RANGE_NAME, () => Range)
 	.filter(def.HIGHLIGHT_NAME, () => Highlight)
+	.filter(def.Pin_NAME, () => Pin)
 	.config(['$compileProvider',
 		$compileProvider => $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|tel|file|data):/)
 	])
@@ -66,6 +69,7 @@ export const layoutModule = angular.module(def.MODULE_LAYOUT_NAME, [coreModule])
 	.component(def.GRID_NAME, Grid)
 	.component(def.BOX_CORE_NAME, BoxCore)
 	.component(def.VIEW_CORE_NAME, ViewCore)
+	.component(def.TABLE_CORE_NAME, TableCore)
 	.component(def.HEAD_NAME, Head)
 	.component(def.FOOT_NAME, Foot)
 	.component(def.COLUMN_LIST_NAME, ColumnList)
@@ -93,6 +97,7 @@ function Setup(qgridThemeProvider) {
 	qgridThemeProvider.register('default', theme => {
 		theme.put('qgrid.grid.tpl.html', require('./components/grid/grid.html'));
 		theme.put('qgrid.view.tpl.html', require('./components/view/view.html'));
+		theme.put('qgrid.table.tpl.html', require('./components/table/table.html'));
 		theme.put('qgrid.head.tpl.html', require('./components/head/head.html'));
 		theme.put('qgrid.body.tpl.html', require('./components/body/body.html'));
 		theme.put('qgrid.body.virtual.tpl.html', require('./components/body/body.virtual.html'));

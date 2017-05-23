@@ -1,14 +1,5 @@
 [
 	{
-		"title": "Export/ Import",
-		"items": [
-			{
-				"title": "Export",
-				"path": "export"
-			}
-		]
-	},
-	{
 		"title": "Highlights",
 		"items": [
 			{
@@ -365,6 +356,10 @@
 	{
 		"title": "Exporting and Printing",
 		"items": [
+			{
+				"title": "Export",
+				"path": "export"
+			}
 		]
 	},
 	{

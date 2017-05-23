@@ -1,6 +1,6 @@
 import * as css from '../services/css';
 
-class Element {
+class Entry {
 	constructor(element, sheets) {
 		this.element = element;
 		this.oldList = {};
@@ -46,7 +46,7 @@ export class Monitor {
 				entry.newList = {};
 			}
 			else {
-				entry = new Element(element);
+				entry = new Entry(element);
 				this.map.set(element, entry);
 			}
 
@@ -61,19 +61,17 @@ export class Monitor {
 		let length = entries.length;
 		while (length-- > 0) {
 			const entry = entries[length];
-			const classList = entry.element.classList;
+			const element = entry.element;
 			const newList = entry.newList;
 			const oldList = entry.oldList;
 			for (let cls of Object.keys(oldList)) {
 				if (!newList.hasOwnProperty(cls)) {
-					classList.remove(cls);
+					element.addClass(cls);
 				}
 			}
 
 			for (let cls of Object.keys(newList)) {
-				if (!classList.contains(cls)) {
-					classList.add(cls);
-				}
+				element.addClass(cls);
 			}
 		}
 
