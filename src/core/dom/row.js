@@ -27,12 +27,4 @@ export class Row extends Element {
 	cell(column) {
 		return this.box.cell(this.index, column);
 	}
-
-	addClass(name) {
-		this.cells().forEach(cell => cell.addClass(name));
-	}
-
-	removeClass(name) {
-		this.cells().forEach(cell => cell.removeClass(name));
-	}
 }

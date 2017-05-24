@@ -14,7 +14,8 @@ export class Table {
 		this.context = assignWith({
 			mapper: cellMapFactory(model),
 			layer: () => new FakeLayer(),
-			model: () => null
+			model: () => null,
+			isDataRow: row => !row.classList.contains('vscroll-mark')
 		}, context);
 
 		this._head = null;
