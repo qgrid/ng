@@ -3,7 +3,8 @@ import {Column} from './column';
 import {Cell} from './cell';
 import {FakeTable, FakeElement} from './fake';
 import {Container} from './container';
-import {flatten, sumBy, max, zip} from '../services/utility';
+import {flatten, sumBy, zip} from '../services/utility';
+import * as columnService from '../column/column.service';
 
 export class Box {
 	constructor(context, model) {
@@ -56,18 +57,12 @@ export class Box {
 	}
 
 	rowCount() {
-		// TODO: improve performance
-		const elements = this.getElements();
-		return max(elements.map(element => this.rowsCore(element).length));
+		return this.gridModel.view().rows.length;
 	}
 
 	columnCount() {
-		// TODO: improve performance
-		const elements = this.getElements();
-		return sumBy(elements, element => {
-			const rows = this.rowsCore(element);
-			return rows.length ? rows[0].cells.length : 0;
-		});
+		const columns = this.gridModel.view().columns;
+		return columnService.lineView(columns).length;
 	}
 
 	getElements() {
