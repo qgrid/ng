@@ -15,7 +15,7 @@ function rewriteProperties(rows, titles) {
 }
 
 function flattenObject(obj) {
-	const toReturn = {};
+	const result = {};
 
 	for (let prop in obj) {
 		if (obj.hasOwnProperty(prop)) {
@@ -23,15 +23,15 @@ function flattenObject(obj) {
 				const flatObject = flattenObject(obj[prop]);
 				for (let flatProp in flatObject) {
 					if (flatObject.hasOwnProperty(flatProp)) {
-						toReturn[prop + '.' + flatProp] = flatObject[flatProp];
+						result[prop + '.' + flatProp] = flatObject[flatProp];
 					}
 				}
 			} else {
-				toReturn[prop] = obj[prop];
+				result[prop] = obj[prop];
 			}
 		}
 	}
-	return toReturn;
+	return result;
 }
 
 export class Json {
