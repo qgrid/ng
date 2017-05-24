@@ -24,7 +24,7 @@ export class Row extends Element {
 		return this.box.rowCellsCore(this.index);
 	}
 
-	cell(column) {
-		return this.box.cell(this.index, column);
+	cell(columnIndex) {
+		return this.box.cell(this.index, columnIndex);
 	}
 }

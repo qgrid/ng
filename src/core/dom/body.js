@@ -1,10 +1,20 @@
 import {Box} from './box';
+import * as columnService from '../column/column.service';
 
 export class Body extends Box {
 	constructor(context, model, markup) {
 		super(context, model);
 
 		this.markup = markup;
+	}
+
+	rowCount() {
+		return this.gridModel.view().rows.length;
+	}
+
+	columnCount() {
+		const columns = this.gridModel.view().columns;
+		return columnService.lineView(columns).length;
 	}
 
 	getElementsCore() {

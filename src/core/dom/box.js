@@ -3,8 +3,7 @@ import {Column} from './column';
 import {Cell} from './cell';
 import {FakeTable, FakeElement} from './fake';
 import {Container} from './container';
-import {flatten, sumBy, zip} from '../services/utility';
-import * as columnService from '../column/column.service';
+import {flatten, zip, sumBy, max} from '../services/utility';
 
 export class Box {
 	constructor(context, model) {
@@ -12,12 +11,15 @@ export class Box {
 		this.gridModel = model;
 	}
 
-	cell(row, column) {
-		if (row >= 0 && row < this.rowCount()) {
-			if (column >= 0 && column < this.columnCount()) {
+	cell(rowIndex, columnIndex) {
+		rowIndex = this.context.mapper.row(rowIndex);
+		columnIndex = this.context.mapper.column(columnIndex);
+
+		if (rowIndex >= 0 && rowIndex < this.rowCount()) {
+			if (columnIndex >= 0 && columnIndex < this.columnCount()) {
 				const elements = this.getElements();
-				const cells = flatten(elements.map(element => Array.from(this.rowsCore(element)[row].cells)));
-				return new Cell(this.context, cells[column]);
+				const cells = flatten(elements.map(element => Array.from(this.rowsCore(element)[rowIndex].cells)));
+				return new Cell(this.context, cells[columnIndex]);
 			}
 		}
 
@@ -25,6 +27,7 @@ export class Box {
 	}
 
 	column(index) {
+		index = this.context.mapper.column(index);
 		if (index >= 0 && index < this.columnCount()) {
 			return new Column(this, index);
 		}
@@ -33,6 +36,7 @@ export class Box {
 	}
 
 	row(index) {
+		index = this.context.mapper.row(index);
 		if (index >= 0 && index < this.rowCount()) {
 			const elements = this.getElements();
 			const box = elements.map(element => this.rowsCore(element)[index]);
@@ -57,12 +61,18 @@ export class Box {
 	}
 
 	rowCount() {
-		return this.gridModel.view().rows.length;
+		// TODO: improve performance
+		const elements = this.getElements();
+		return max(elements.map(element => this.rowsCore(element).length));
 	}
 
 	columnCount() {
-		const columns = this.gridModel.view().columns;
-		return columnService.lineView(columns).length;
+		// TODO: improve performance
+		const elements = this.getElements();
+		return sumBy(elements, element => {
+			const rows = this.rowsCore(element);
+			return rows.length ? rows[0].cells.length : 0;
+		});
 	}
 
 	getElements() {
