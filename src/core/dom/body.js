@@ -8,14 +8,19 @@ export class Body extends Box {
 		this.markup = markup;
 	}
 
-	rowCount() {
-		return this.gridModel.view().rows.length;
-	}
-
 	columnCount() {
 		const columns = this.gridModel.view().columns;
 		return columnService.lineView(columns).length;
 	}
+
+	// rowCount() {
+	// 	const model = this.gridModel;
+	// 	if (model.scroll().mode === 'virtual') {
+	// 		return Math.min(model.view().rows.length, model.pagination().size);
+	// 	}
+   //
+	// 	return model.view().rows.length;
+	// }
 
 	getElementsCore() {
 		const markup = this.markup;
