@@ -103,7 +103,7 @@ export class Box {
 		if (index >= 0 && index < this.rowCount()) {
 			const elements = this.getElements();
 			const context = this.context;
-			const cells = flatten(Array.from(elements.map(element => this.rowsCore(element)[index].cells)));
+			const cells = flatten(Array.from(elements.map(element => Array.from(this.rowsCore(element)[index].cells))));
 			return cells.map(cell => new Cell(context, cell));
 		}
 
