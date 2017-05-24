@@ -5,6 +5,7 @@ import {TemplatePath} from '@grid/core/template';
 import {Csv} from '@grid/core/export/csv';
 import {Json} from '@grid/core/export/json';
 import {Xml} from '@grid/core/export/xml';
+import {Xlsx} from '@grid/core/export/xlsx';
 import {download} from '@grid/core/services/download';
 
 TemplatePath
@@ -41,6 +42,14 @@ class Export extends Plugin {
 				const xml = new Xml();
 				const data = xml.write(this.rows);
 				download(this.id, data, `application/${this.type}`);
+			}
+		});
+		this.xlsx = new Command({
+			canExecute: () => this.type === 'xlsx',
+			execute: () => {
+				const xlsx = new Xlsx();
+				const data = xlsx.write(this.rows, this.columns);
+				download(this.id, data, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'xlsx');
 			}
 		});
 	}
