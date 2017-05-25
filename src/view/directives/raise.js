@@ -12,7 +12,7 @@ class Raise extends Directive(RAISE_NAME) {
 
 	onLink() {
 		const eventType = this.$attrs[RAISE_NAME];
-		this.$timeout(() => this.$element.triggerHandler(eventType));
+		this.$timeout(() => this.$element.triggerHandler(eventType), 0);
 	}
 }
 
