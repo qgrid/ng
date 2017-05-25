@@ -42,7 +42,7 @@ function s2ab(s) {
 function rewriteHeaders(ws, headers) {
 	const range = XLSX.utils.decode_range(ws['!ref']);
 	for (let i = range.s.r; i <= range.e.r; ++i) {
-		const address = XLSX.utils.encode_col(i) + '1'; // <-- first row, column number i
+		const address = XLSX.utils.encode_col(i) + '1';
 		if (!ws[address]) continue;
 		ws[address].v = headers[i];
 	}

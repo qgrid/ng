@@ -6,6 +6,7 @@ import {Csv} from '@grid/core/export/csv';
 import {Json} from '@grid/core/export/json';
 import {Xml} from '@grid/core/export/xml';
 import {Xlsx} from '@grid/core/export/xlsx';
+import {Pdf} from '@grid/core/export/pdf';
 import {download} from '@grid/core/services/download';
 
 TemplatePath
@@ -50,6 +51,13 @@ class Export extends Plugin {
 				const xlsx = new Xlsx();
 				const data = xlsx.write(this.rows, this.columns);
 				download(this.id, data, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'xlsx');
+			}
+		});
+		this.pdf = new Command({
+			canExecute: () => this.type === 'pdf',
+			execute: () => {
+				const pdf = new Pdf();
+				pdf.write(this.rows, this.columns, this.id);
 			}
 		});
 	}
