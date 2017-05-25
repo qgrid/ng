@@ -48,11 +48,8 @@ export class Pdf {
 			styles: {
 				overflow: 'linebreak',
 				fontSize: 8,
-				columnWidth: 'wrap'
-			},
-			headerStyles: {
-				lineWidth: 0,
-				overflow: 'linebreak',
+				columnWidth: 'auto',
+				overflowColumns: true
 			},
 			pageBreak: 'auto',
 			margin: 0
