@@ -2,7 +2,7 @@ import RootComponent from '../root.component';
 
 export class Grid extends RootComponent {
 	constructor($element, $transclude) {
-		super('data', 'selection', 'sort', 'group', 'pivot', 'edit');
+		super('grid', 'data', 'selection', 'sort', 'group', 'pivot', 'edit');
 
 		this.$element = $element;
 		this.$transclude = $transclude;
@@ -64,6 +64,7 @@ export default {
 	controller: Grid,
 	controllerAs: '$grid',
 	bindings: {
+		gridId: '@id',
 		model: '<',
 		dataRows: '<rows',
 		dataColumns: '<columns',

@@ -51,6 +51,9 @@ export class Pdf {
 				columnWidth: 'auto',
 				overflowColumns: true
 			},
+			headerStyles:{
+				overflow: 'ellipsize',
+			},
 			pageBreak: 'auto',
 			margin: 0
 		});
