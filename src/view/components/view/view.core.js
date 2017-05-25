@@ -17,7 +17,7 @@ import {StyleView} from '@grid/core/style';
 import {ColumnView} from '@grid/core/column';
 import {ScrollView} from '@grid/core/scroll';
 import {GRID_NAME, TH_CORE_NAME} from '@grid/view/definition';
-import {isUndefined} from '@grid/core/services/utility';
+import {isUndefined, identity} from '@grid/core/services/utility';
 import {PipeUnit} from '@grid/core/pipe/units';
 import {AppError} from '@grid/core/infrastructure';
 import TemplateLink from '../template/template.link';
@@ -49,7 +49,18 @@ class ViewCore extends Component {
 		const layerFactory = new LayerFactory(this.markup, this.template);
 		const tableContext = {
 			layer: name => layerFactory.create(name),
-			model: element => bag.get(element) || null
+			model: element => bag.get(element) || null,
+			mapper: {
+				row: index => {
+					const scrollState = model.scroll();
+					if (scrollState.mode === 'virtual') {
+						return index - this.scroll.y.container.position;
+					}
+
+					return index;
+				},
+				column: identity
+			}
 		};
 
 		const table = new Table(this.model, this.markup, tableContext);
