@@ -24,15 +24,7 @@ export class Row extends Element {
 		return this.box.rowCellsCore(this.index);
 	}
 
-	cell(column) {
-		return this.box.cell(this.index, column);
-	}
-
-	addClass(name) {
-		this.cells().forEach(cell => cell.addClass(name));
-	}
-
-	removeClass(name) {
-		this.cells().forEach(cell => cell.removeClass(name));
+	cell(columnIndex) {
+		return this.box.cell(this.index, columnIndex);
 	}
 }
