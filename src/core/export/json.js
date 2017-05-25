@@ -1,7 +1,7 @@
 import {isObject, isArray} from '@grid/core/services/utility';
 
 
-function rewriteProperties(rows, titles) {
+function rewriteHeaders(rows, titles) {
 	const result = [];
 	for (let row of rows) {
 		const obj = {};
@@ -45,6 +45,6 @@ export class Json {
 			result.push(flattenObject(row));
 		}
 
-		return rewriteProperties(result, titles);
+		return rewriteHeaders(result, titles);
 	}
 }
