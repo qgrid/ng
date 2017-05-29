@@ -12,6 +12,7 @@ export class Box {
 	}
 
 	cell(rowIndex, columnIndex) {
+		const cellFactory = this.createCellCore.bind(this);
 		rowIndex = this.context.mapper.row(rowIndex);
 		columnIndex = this.context.mapper.column(columnIndex);
 
@@ -19,42 +20,45 @@ export class Box {
 			if (columnIndex >= 0 && columnIndex < this.columnCount()) {
 				const elements = this.getElements();
 				const cells = flatten(elements.map(element => Array.from(this.rowsCore(element)[rowIndex].cells)));
-				return new Cell(this.context, cells[columnIndex]);
+				return cellFactory(cells[columnIndex]);
 			}
 		}
 
-		return new Cell(this.context, new FakeElement());
+		return cellFactory(new FakeElement());
 	}
 
 	column(index) {
+		const columnFactory = this.createColumnCore.bind(this);
 		index = this.context.mapper.column(index);
 		if (index >= 0 && index < this.columnCount()) {
-			return new Column(this, index);
+			return columnFactory(index);
 		}
 
-		return new Column(this, -1);
+		return columnFactory(-1);
 	}
 
 	row(index) {
+		const rowFactory = this.createRowCore.bind(this);
 		index = this.context.mapper.row(index);
 		if (index >= 0 && index < this.rowCount()) {
 			const elements = this.getElements();
 			const box = elements.map(element => this.rowsCore(element)[index]);
-			return new Row(this, index, new Container(box));
+			return rowFactory(index, new Container(box));
 		}
 
-		return new Row(this, -1, new FakeElement());
+		return rowFactory(-1, new FakeElement());
 	}
 
 	rows() {
+		const rowFactory = this.createRowCore.bind(this);
 		const elements = this.getElements();
 		if (elements.length > 0) {
 			if (elements.length > 1) {
 				const rows = zip(...elements.map(element => this.rowsCore(element)));
-				return rows.map((entry, index) => new Row(this, index, new Container(entry)));
+				return rows.map((entry, index) => rowFactory(index, new Container(entry)));
 			}
 
-			return this.rowsCore(elements[0]).map((row, index) => new Row(this, index, row));
+			return this.rowsCore(elements[0]).map((row, index) => rowFactory(index, row));
 		}
 
 		return [];
@@ -100,21 +104,22 @@ export class Box {
 	}
 
 	rowCellsCore(index) {
+		const cellFactory = this.createCellCore.bind(this);
 		if (index >= 0 && index < this.rowCount()) {
 			const elements = this.getElements();
 			const context = this.context;
 			const cells = flatten(elements.map(element => Array.from(this.rowsCore(element)[index].cells)));
-			return cells.map(cell => new Cell(context, cell));
+			return cells.map(cell => cellFactory(cell));
 		}
 
 		return [];
 	}
 
 	columnCellsCore(index) {
-		const context = this.context;
+		const cellFactory = this.createCellCore.bind(this);
 		const column = this.findColumnCore(index);
 		if (column) {
-			return column.rows.map(row => new Cell(context, row.cells[column.index]));
+			return column.rows.map(row => cellFactory(row.cells[column.index]));
 		}
 
 		return [];
@@ -141,5 +146,17 @@ export class Box {
 		}
 
 		return null;
+	}
+
+	createRowCore(index, element) {
+		return new Row(this, index, element);
+	}
+
+	createColumnCore(index) {
+		return new Column(this, index);
+	}
+
+	createCellCore(element) {
+		return new Cell(this.context, element);
 	}
 }

@@ -24,6 +24,10 @@ export class ScrollView extends View {
 				source: 'scroll.view',
 				behavior: 'core'
 			});
+
+			if (table.body.invalidate) {
+				table.body.invalidate();
+			}
 		});
 
 		switch (scroll().mode) {
@@ -52,6 +56,11 @@ export class ScrollView extends View {
 		model.scrollChanged.watch(e => {
 			if (e.hasChanges('left') || e.hasChanges('top')) {
 				this.invalidate();
+			}
+		});
+
+		model.viewChanged.watch(e => {
+			if (e.tag.behavior !== 'core' && scroll().mode === 'virtual') {
 			}
 		});
 	}

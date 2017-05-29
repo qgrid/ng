@@ -1,7 +1,7 @@
-import {Box} from './box';
+import {VirtualBox} from './virtual';
 import * as columnService from '../column/column.service';
 
-export class Body extends Box {
+export class Body extends VirtualBox {
 	constructor(context, model, markup) {
 		super(context, model);
 

@@ -22,7 +22,7 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, table
 
 		element.classList.add(`${GRID_PREFIX}-${column.key}`);
 		element.classList.add(`${GRID_PREFIX}-${column.type}`);
-		if (column.hasOwnProperty('editor')) {
+		if (column.editor) {
 			element.classList.add(`${GRID_PREFIX}-${column.editor}`);
 		}
 

@@ -6,6 +6,7 @@ import {Head} from './head';
 import {Body} from './body';
 import {Foot} from './foot';
 import {identity} from '../services/utility';
+import {VirtualBox} from './virtual';
 
 export class Table {
 	constructor(model, markup, context = {}) {
@@ -18,7 +19,8 @@ export class Table {
 			},
 			layer: () => new FakeLayer(),
 			model: () => null,
-			isDataRow: row => !row.classList.contains('vscroll-mark')
+			isDataRow: row => !row.classList.contains('vscroll-mark'),
+			virtualBox: new VirtualBox(this)
 		}, context);
 
 		this._head = null;
