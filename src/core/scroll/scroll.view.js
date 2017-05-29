@@ -24,10 +24,6 @@ export class ScrollView extends View {
 				source: 'scroll.view',
 				behavior: 'core'
 			});
-
-			if (table.body.invalidate) {
-				table.body.invalidate();
-			}
 		});
 
 		switch (scroll().mode) {

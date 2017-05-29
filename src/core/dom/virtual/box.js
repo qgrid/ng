@@ -18,52 +18,22 @@ export class VirtualBox extends Box {
 	}
 
 	addCellClass(cell, name) {
-		const model = cell.model;
-		if (model) {
-			this.cellBox
-				.addClass(
-					model.rowIndex,
-					model.columnIndex,
-					name);
-		}
-
+		this.cellBox.addClass(cell, name);
 		cell.addClassCore(name);
 	}
 
 	removeCellClass(cell, name) {
-		const model = cell.model;
-		if (model) {
-			this.cellBox
-				.removeClass(
-					model.rowIndex,
-					model.columnIndex,
-					name);
-		}
-
+		this.cellBox.removeClass(cell, name);
 		cell.removeClassCore(name);
 	}
 
 	addRowClass(row, name) {
-		const model = row.model;
-		if (model) {
-			this.rowBox
-				.addClass(
-					model.index,
-					name);
-		}
-
+		this.rowBox.addClass(row, name);
 		row.addClassCore(name);
 	}
 
 	removeRowClass(row, name) {
-		const model = row.model;
-		if (model) {
-			this.rowBox
-				.removeClass(
-					model.index,
-					name);
-		}
-
+		this.rowBox.removeClass(row, name);
 		row.removeClassCore(name);
 	}
 
