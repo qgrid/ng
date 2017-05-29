@@ -19,8 +19,7 @@ export class Table {
 			},
 			layer: () => new FakeLayer(),
 			model: () => null,
-			isDataRow: row => !row.classList.contains('vscroll-mark'),
-			virtualBox: new VirtualBox(this)
+			isDataRow: row => !row.classList.contains('vscroll-mark')
 		}, context);
 
 		this._head = null;
