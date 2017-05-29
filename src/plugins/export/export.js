@@ -10,10 +10,10 @@ import {Pdf} from '@grid/core/export/pdf';
 import {download} from '@grid/core/services/download';
 
 TemplatePath
-	.register(EXPORT_NAME, () => {
+	.register(EXPORT_NAME, (template, element) => {
 		return {
 			model: 'export',
-			resource: 'content'
+			resource: `${element.type}`
 		};
 	});
 
@@ -41,7 +41,7 @@ class Export extends Plugin {
 			canExecute: () => this.type === 'xml',
 			execute: () => {
 				const xml = new Xml();
-				const data = xml.write(this.rows);
+				const data = xml.write(this.rows, this.columns);
 				download(this.id, data, `application/${this.type}`);
 			}
 		});

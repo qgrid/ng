@@ -47,12 +47,16 @@ function objToXml(obj) {
 }
 
 export class Xml {
-	write(rows) {
+	write(rows, columns) {
 		const result = [`${begin}<rows xmlns:xsd="http://www.w3.org/2001/XMLSchema">${schema}`];
+		// const headers = [];
 		for (let row of rows) {
 			const item = objToXml(row);
 			result.push(`<row>${item}</row>`);
 		}
+		// for (let column of columns) {
+		// 	headers.push(column.title);
+		// }
 		result.push('</rows>');
 		return result.join('');
 	}
