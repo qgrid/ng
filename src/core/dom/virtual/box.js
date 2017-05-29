@@ -8,12 +8,13 @@ export class VirtualBox extends Box {
 	constructor(context, model) {
 		super(context, model);
 
-		this.cellBox = new CellBox();
-		this.rowBox = new RowBox();
+		this.cellBox = new CellBox(this);
+		this.rowBox = new RowBox(this);
 	}
 
 	invalidate() {
-
+		this.rowBox.invalidate();
+		this.cellBox.invalidate();
 	}
 
 	addCellClass(cell, name) {

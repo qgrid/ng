@@ -1,5 +1,7 @@
 export class CellBox {
-	constructor() {
+	constructor(box) {
+		this.box = box;
+		this.items = {};
 	}
 
 	addClass(rowIndex, columnIndex, name) {
@@ -7,6 +9,8 @@ export class CellBox {
 	}
 
 	removeClass(rowIndex, columnIndex, name) {
+	}
 
+	invalidate() {
 	}
 }

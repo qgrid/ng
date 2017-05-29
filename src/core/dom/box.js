@@ -107,7 +107,6 @@ export class Box {
 		const cellFactory = this.createCellCore.bind(this);
 		if (index >= 0 && index < this.rowCount()) {
 			const elements = this.getElements();
-			const context = this.context;
 			const cells = flatten(elements.map(element => Array.from(this.rowsCore(element)[index].cells)));
 			return cells.map(cell => cellFactory(cell));
 		}

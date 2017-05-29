@@ -6,7 +6,6 @@ import {Head} from './head';
 import {Body} from './body';
 import {Foot} from './foot';
 import {identity} from '../services/utility';
-import {VirtualBox} from './virtual';
 
 export class Table {
 	constructor(model, markup, context = {}) {

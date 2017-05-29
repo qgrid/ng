@@ -59,10 +59,10 @@ export class ScrollView extends View {
 			}
 		});
 
-		model.viewChanged.watch(e => {
-			if (e.tag.behavior !== 'core' && scroll().mode === 'virtual') {
-			}
-		});
+		// model.viewChanged.watch(e => {
+		// 	if (e.tag.behavior !== 'core' && scroll().mode === 'virtual') {
+		// 	}
+		// });
 	}
 
 	invalidate() {

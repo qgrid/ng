@@ -3,6 +3,7 @@ import {FakeElement} from './fake';
 const fakeElement = new FakeElement();
 export class Unit {
 	constructor() {
+		this.classList = new Set();
 	}
 
 	rect() {
@@ -15,6 +16,14 @@ export class Unit {
 
 	removeClass(name) {
 		this.removeClassCore(name);
+	}
+
+	clearClassList() {
+		for (let cls of this.classList.values()) {
+			this.removeClassCore(cls);
+		}
+
+		this.classList.clear();
 	}
 
 	width() {
@@ -30,10 +39,12 @@ export class Unit {
 	}
 
 	addClassCore(name) {
+		this.classList.add(name);
 		this.getElement().classList.add(name);
 	}
 
 	removeClassCore(name) {
+		this.classList.delete(name);
 		this.getElement().classList.remove(name);
 	}
 
