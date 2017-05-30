@@ -1,79 +1,48 @@
 export class RowBox {
 	constructor(box) {
 		this.box = box;
-		this.view = new Map();
-		this.data = new Map();
+		this.entries = new Map();
 	}
 
 	addClass(row, name) {
-		const viewIndex = row.index;
-		let viewEntry = this.view.get(viewIndex);
-		if (!viewEntry) {
-			viewEntry = new Set();
-			this.view.set(viewIndex, viewEntry);
-		}
-		viewEntry.add(name);
-
+		const key = row.index;
 		const model = row.model;
 		if (model) {
-			const dataIndex = model.index;
-			let dataEntry = this.data.get(dataIndex);
-			if (!dataEntry) {
-				dataEntry = new Set();
-				this.data.set(dataIndex, dataEntry);
+			let entry = this.entries.get(key);
+			if (!entry) {
+				entry = {
+					classList: new Set([name]),
+					viewIndex: row.index,
+					dataIndex: model.rowIndex,
+				};
+				this.entries.set(key, entry);
 			}
-			dataEntry.add(name);
+
+			entry.classList.add(name);
 		}
 	}
 
 	removeClass(row, name) {
-		const viewIndex = row.index;
-		const viewEntry = this.view.get(viewIndex);
-		if (viewEntry) {
-			viewEntry.delete(name);
-			if (!viewEntry.size) {
-				this.view.delete(viewIndex);
-			}
-		}
-
-		const model = row.model;
-		if (model) {
-			const dataIndex = model.index;
-			const dataEntry = this.data[dataIndex];
-			if (dataEntry) {
-				dataEntry.delete(name);
-				if (!dataEntry.size) {
-					this.data.delete(dataIndex);
-				}
+		const key = row.index;
+		let entry = this.entries.get(key);
+		if (entry) {
+			entry.classList.delete(name);
+			if (!entry.classList.size) {
+				this.entries.delete(key);
 			}
 		}
 	}
 
 	invalidate() {
-		const rows = this.box.rows();
-		const mapper = this.box.context.mapper;
-		const data = this.data;
-		this.data = new Map();
-		for (let {viewIndex, classList} of this.view.entries()) {
-			const row = rows[viewIndex];
-			if (row) {
-				for (let cls of classList) {
-					row.removeClass(cls);
-				}
+		const box = this.box;
+		for (let entry of this.entries.values()) {
+			const viewRow = box.rowCore(entry.viewIndex);
+			const dataRow = box.row(entry.dataIndex);
+			for (let cls of entry.classList) {
+				viewRow.removeClassCore(cls);
+				dataRow.addClassCore(cls);
+				entry.viewIndex = dataRow.index;
 			}
 		}
-
-		for (let {dataIndex, classList} of data.entries()) {
-			const viewIndex = mapper.row(dataIndex);
-			const row = rows[viewIndex];
-			if (row && row.model) {
-
-				for (let cls of classList) {
-					row.addClass(cls);
-				}
-			}
-		}
-
-		this.data = data;
 	}
 }

@@ -1,82 +1,52 @@
 export class CellBox {
 	constructor(box) {
 		this.box = box;
-		this.view = new Map();
-		this.data = new Map();
+		this.entries = new Map();
 	}
 
 	addClass(cell, name) {
-		const viewKey = this.key(cell);
-		let viewEntry = this.view.get(viewKey);
-		if (!viewEntry) {
-			viewEntry = {
-				classList: new Set([name]),
-				rowIndex: cell.rowIndex,
-				columnIndex: cell.columnIndex
-			};
-			this.view.set(viewKey, viewEntry);
-		}
-		viewEntry.classList.add(name);
-
+		const key = this.key(cell);
 		const model = cell.model;
 		if (model) {
-			const dataKey = this.key(model);
-			let dataEntry = this.data.get(dataKey);
-			if (!dataEntry) {
-				dataEntry = {
+			let entry = this.entries.get(key);
+			if (!entry) {
+				entry = {
 					classList: new Set([name]),
-					rowIndex: model.rowIndex,
-					columnIndex: model.columnIndex
+					viewRowIndex: cell.rowIndex,
+					viewColumnIndex: cell.columnIndex,
+					dataRowIndex: model.rowIndex,
+					dataColumnIndex: model.rowIndex
 				};
-				this.data.set(dataKey, dataEntry);
+				this.entries.set(key, entry);
 			}
-			dataEntry.classList.add(name);
+
+			entry.classList.add(name);
 		}
 	}
 
 	removeClass(cell, name) {
-		const viewKey = this.key(cell);
-		let viewEntry = this.view.get(viewKey);
-		if (viewEntry) {
-			viewEntry.classList.delete(name);
-			if (!viewEntry.classList.size) {
-				this.view.delete(viewKey);
-			}
-		}
-
-		const model = cell.model;
-		if (model) {
-			const dataKey = this.key(model);
-			let dataEntry = this.data.get(dataKey);
-			if (dataEntry) {
-				dataEntry.classList.delete(name);
-				if (!dataEntry.classList.size) {
-					this.data.delete(dataKey);
-				}
+		const key = this.key(cell);
+		let entry = this.entries.get(key);
+		if (entry) {
+			entry.classList.delete(name);
+			if (!entry.classList.size) {
+				this.entries.delete(key);
 			}
 		}
 	}
 
 	invalidate() {
 		const box = this.box;
-		const data = this.data;
-		this.data = new Map();
-
-		for (let viewEntry of this.view.values()) {
-			const cell = box.cellCore(viewEntry.rowIndex, viewEntry.columnIndex);
-			for (let cls of viewEntry.classList) {
-				cell.removeClass(cls);
+		for (let entry of this.entries.values()) {
+			const viewCell = box.cellCore(entry.viewRowIndex, entry.viewColumnIndex);
+			const dataCell = box.cell(entry.dataRowIndex, entry.dataColumnIndex);
+			for (let cls of entry.classList) {
+				viewCell.removeClassCore(cls);
+				dataCell.addClassCore(cls);
+				entry.viewRowIndex = dataCell.rowIndex;
+				entry.viewColumnIndex = dataCell.columnIndex;
 			}
 		}
-
-		for (let dataEntry of data.values()) {
-			const cell = box.cell(dataEntry.rowIndex, dataEntry.columnIndex);
-			for (let cls of dataEntry.classList) {
-				cell.addClass(cls);
-			}
-		}
-
-		this.data = data;
 	}
 
 	key(model) {
