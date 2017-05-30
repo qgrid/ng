@@ -1,6 +1,5 @@
 import Directive from '@grid/view/directives/directive';
 import {VIEW_CORE_NAME, TR_CORE_NAME} from '@grid/view/definition';
-import {GRID_PREFIX} from '@grid/core/definition';
 
 class TrCore extends Directive(TR_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	constructor($scope, $element, $attrs) {
@@ -14,7 +13,6 @@ class TrCore extends Directive(TR_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	onInit() {
 		this.view.bag.set(this.element, this);
 		this.view.style.monitor.row.add(this.element);
-		this.element.classList.add(`${GRID_PREFIX}-row-${this.index}`);
 	}
 
 	onDestroy() {

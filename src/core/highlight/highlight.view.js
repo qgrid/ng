@@ -116,6 +116,17 @@ export class HighlightView extends View {
 				}
 			}
 		});
+
+		model.scrollChanged.watch(() => {
+			const highlight = model.highlight;
+			if (highlight().rows.length) {
+				highlight({
+					rows: []
+				}, {
+					source: 'highlight.view',
+				});
+			}
+		});
 	}
 
 	invalidateColumnHover(dispose) {
