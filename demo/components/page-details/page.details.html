@@ -1,12 +1,15 @@
-<md-card class="page-details-example"
-			ng-class="$ctrl.selection.path"
+<md-card class="page-details-example {{$ctrl.selection.path}}"
+			ng-class="{'without-code': !$ctrl.isCodeVisible}"
 			flex="100"
 			ng-if="$ctrl.selection.code['html']">
-	<md-card-content flex="100" style="display: flex;padding: 5px 15px;">
-		<md-tabs md-selected="$ctrl.selectedTab" flex="100">
-			<md-tab label="GRID">
-				<ng-view flex="100"></ng-view>
-			</md-tab>
+	<div class="page-details-example-nav">
+		<md-button class="md-icon-button" ng-click="$ctrl.isCodeVisible = !$ctrl.isCodeVisible">
+			<md-icon>code</md-icon>
+		</md-button>
+	</div>
+
+	<md-card-content flex="100" style="display: flex;padding: 5px 15px;" layout="column">
+		<md-tabs md-selected="$ctrl.selectedTab" flex ng-if="$ctrl.isCodeVisible">
 			<md-tab label="HTML">
 				<div class="page-details-example-code">
 					<pre ng-bind-html="$ctrl.selection.code['html'] | html"></pre>
@@ -18,12 +21,8 @@
 				</div>
 			</md-tab>
 		</md-tabs>
+		<ng-view flex></ng-view>
 	</md-card-content>
-	<div class="page-details-example-tabs">
-		<md-button ng-class="{active: !$ctrl.selectedTab}" ng-click="$ctrl.selectedTab = 0">GRID</md-button>
-		<md-button ng-class="{active: $ctrl.selectedTab === 1}" ng-click="$ctrl.selectedTab = 1">HTML</md-button>
-		<md-button ng-class="{active: $ctrl.selectedTab === 2}" ng-click="$ctrl.selectedTab = 2">JAVASCRIPT</md-button>
-	</div>
 </md-card>
 <div class="page-details-doc markdown-body"
 	  ng-if="$ctrl.selection.code['md']">

@@ -1,22 +1,8 @@
-import {Element} from './element';
-
-class LayerCore extends Element {
-	resource() {
-	}
-}
-
-const empty = new LayerCore();
-export default class Layer extends LayerCore {
+export class Layer {
 	constructor($scope, element, template) {
-		super(element);
-
 		this.$scope = $scope;
+		this.element = element
 		this.template = template;
-		this.$layerScope = null;
-	}
-
-	static get empty() {
-		return empty;
 	}
 
 	resource(id, state) {
@@ -32,11 +18,10 @@ export default class Layer extends LayerCore {
 	}
 
 	destroy() {
+		this.element.remove();
 		if (this.$layerScope) {
 			this.$layerScope.$destroy();
 			this.$layerScope = null;
 		}
 	}
 }
-
-

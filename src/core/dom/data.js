@@ -1,17 +1,15 @@
-import * as columnService from '@grid/core/column/column.service';
+import * as columnService from '../column/column.service';
 
-export default class Data {
-	constructor(model, pin) {
+export class Data {
+	constructor(model) {
 		this.model = model;
-		this.pin = pin;
 	}
 
 	columns() {
 		const columns = this.model.view().columns;
 		return columnService
 			.lineView(columns)
-			.map(v => v.model)
-			.filter(c => c.pin === this.pin);
+			.map(v => v.model);
 	}
 
 	columnMap() {

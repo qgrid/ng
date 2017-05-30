@@ -89,7 +89,7 @@
 *	Browser support
 	*	Chrome
 
-## 28 April – version 1.1
+## 31 May – version 1.1
 *	Row
 	*	Row Details
 	*	Row inline edit
@@ -118,7 +118,7 @@
 *	Frozen/pinned columns
 
 
-## 31 May – version 1.2
+## 23 June – version 1.2
 *	Actions
 	*	Action model
 	*	Action bar plugin
@@ -136,7 +136,7 @@
 *	State persistence
 
 
-## 30 June – version 1.3
+## 21 July – version 1.3
 *	Mobile device support
 *	Localization
 *	Master/details
@@ -153,6 +153,6 @@
 *	Default theme
 
 
-## 12 July
+## 30 July - version 1.4
 *	Core to separate repo
 *	Angular 2 environment

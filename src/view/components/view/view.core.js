@@ -1,5 +1,5 @@
 import Component from '../component';
-import Table from '@grid/view/services/dom/table';
+import {Table} from '@grid/core/dom';
 import {BodyView} from '@grid/core/body';
 import {HeadView} from '@grid/core/head';
 import {FootView} from '@grid/core/foot';
@@ -13,16 +13,15 @@ import {FilterView} from '@grid/core/filter';
 import {EditView} from '@grid/core/edit';
 import {SelectionView} from '@grid/core/selection';
 import {PaginationView} from '@grid/core/pagination';
-import {TableView} from '@grid/core/table';
 import {StyleView} from '@grid/core/style';
 import {ColumnView} from '@grid/core/column';
 import {ScrollView} from '@grid/core/scroll';
 import {GRID_NAME, TH_CORE_NAME} from '@grid/view/definition';
-import {isUndefined} from '@grid/core/services/utility';
+import {isUndefined, identity} from '@grid/core/services/utility';
 import {PipeUnit} from '@grid/core/pipe/units';
 import {AppError} from '@grid/core/infrastructure';
 import TemplateLink from '../template/template.link';
-import {CommandManager, Vscroll} from '@grid/view/services';
+import {CommandManager, Vscroll, LayerFactory} from '@grid/view/services';
 
 class ViewCore extends Component {
 	constructor($rootScope, $scope, $element, $document, $timeout, $compile, $templateCache, grid, vscroll) {
@@ -40,21 +39,39 @@ class ViewCore extends Component {
 		this.markup = {
 			document: $document[0]
 		};
+
+		this.bag = new Map();
 	}
 
 	build() {
 		const model = this.model;
-		this.pin = this.pin || null;
-		const table = new Table(model, this.markup, this.template);
-		table.pin = this.pin;
+		const bag = this.bag;
+		const layerFactory = new LayerFactory(this.markup, this.template);
+		const tableContext = {
+			layer: name => layerFactory.create(name),
+			model: element => bag.get(element) || null,
+			mapper: {
+				row: index => {
+					const scrollState = model.scroll();
+					if (scrollState.mode === 'virtual') {
+						return index - this.scroll.y.container.position;
+					}
+
+					return index;
+				},
+				column: identity
+			}
+		};
+
+		const table = new Table(this.model, this.markup, tableContext);
+
+		this.table = table;
 
 		const gridService = this.serviceFactory(model);
-
 		const commandManager = new CommandManager(this.applyFactory('async'));
 		const vscroll = new Vscroll(this.vscroll, this.applyFactory('async'));
 
 		this.style = new StyleView(model, table);
-		this.table = new TableView(model);
 		this.head = new HeadView(model, table, TH_CORE_NAME);
 		this.body = new BodyView(model, table);
 		this.foot = new FootView(model, table);
@@ -173,8 +190,5 @@ export default {
 	templateUrl: 'qgrid.view.tpl.html',
 	require: {
 		'root': `^^${GRID_NAME}`
-	},
-	bindings: {
-		'pin': '@'
 	}
 }

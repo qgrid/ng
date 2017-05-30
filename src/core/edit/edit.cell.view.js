@@ -83,7 +83,7 @@ export class EditCellView {
 
 						model.edit({state: 'view'});
 						cell.mode('view');
-						table.focus();
+						table.view.focus();
 						return true;
 					}
 
@@ -113,7 +113,7 @@ export class EditCellView {
 
 						model.edit({state: 'view'});
 						cell.mode('view');
-						table.focus();
+						table.view.focus();
 						return true;
 					}
 
