@@ -74,8 +74,14 @@ export class Box {
 		const rowFactory = this.createRowCore.bind(this);
 		if (index >= 0 && index < this.rowCount()) {
 			const elements = this.getElements();
-			const box = elements.map(element => this.rowsCore(element)[index]);
-			return rowFactory(index, new Container(box));
+			if (elements.length > 0) {
+				if (elements.length > 1) {
+					const box = elements.map(element => this.rowsCore(element)[index]);
+					return rowFactory(index, new Container(box));
+				}
+
+				return rowFactory(index, this.rowsCore(elements[0])[index]);
+			}
 		}
 
 		return rowFactory(-1, new FakeElement());
