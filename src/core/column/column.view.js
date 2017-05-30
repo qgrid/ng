@@ -78,26 +78,25 @@ export class ColumnView extends View {
 	update(generatedColumns) {
 		const model = this.model;
 		const data = model.data;
-		let columns = Array.from(data().columns);
+		const dataColumns = Array.from(data().columns);
 		const statistics = [];
 		const templateColumns = model.columnList().columns;
 
 		if (arguments.length) {
-			const generatedColumnMap = columnService.map(generatedColumns);
 			const templateColumnMap = columnService.map(templateColumns);
-			const dataColumns = columns.filter(c => !generatedColumnMap.hasOwnProperty(c.key) && !templateColumnMap.hasOwnProperty(c.key));
-			columns = generatedColumns;
-			statistics.push(this.merge(columns, dataColumns));
+			const dataColumnMap = columnService.map(dataColumns);
+			generatedColumns = generatedColumns.filter(c => !dataColumnMap.hasOwnProperty(c.key) && !templateColumnMap.hasOwnProperty(c.key));
+			statistics.push(this.merge(dataColumns, generatedColumns));
 		}
 
-		statistics.push(this.merge(columns, templateColumns));
+		statistics.push(this.merge(dataColumns, templateColumns));
 		if (this.hasChanges(statistics)) {
 			const tag = {
 				source: 'column.list',
 				behavior: 'core'
 			};
 
-			data({columns: columns}, tag);
+			data({columns: dataColumns}, tag);
 		}
 	}
 
@@ -113,6 +112,6 @@ export class ColumnView extends View {
 	}
 
 	hasChanges(statistics) {
-		return statistics.some(st => st.inserted || st.update || st.removed);
+		return statistics.some(st => st.inserted || st.update);
 	}
 }

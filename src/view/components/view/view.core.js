@@ -53,7 +53,8 @@ class ViewCore extends Component {
 				row: index => {
 					const scrollState = model.scroll();
 					if (scrollState.mode === 'virtual') {
-						return index - this.scroll.y.container.position;
+						//console.log(JSON.stringify(this.scroll.y.container));
+						return index - this.scroll.y.container.cursor;
 					}
 
 					return index;

@@ -8,16 +8,8 @@ export class Row extends Element {
 		this.index = index;
 	}
 
-	model() {
-		const index = this.index;
-		if (index >= 0) {
-			const rows = this.box.gridModel.view().rows;
-			if (index < rows.length) {
-				return rows[index];
-			}
-		}
-
-		return null;
+	get model() {
+		return this.box.context.model(this.getElement());
 	}
 
 	cells() {
@@ -25,6 +17,9 @@ export class Row extends Element {
 	}
 
 	cell(columnIndex) {
-		return this.box.cell(this.index, columnIndex);
+		return this.box.cellCore(
+			this.index,
+			this.box.context.mapper.column(columnIndex)
+		);
 	}
 }

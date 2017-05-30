@@ -25,6 +25,10 @@ class TrCore extends Directive(TR_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	get index() {
 		return this.view.scroll.y.container.position + this.$scope.$index;
 	}
+
+	get model() {
+		return this.view().rows[this.$scope.$index];
+	}
 }
 
 TrCore.$inject = [

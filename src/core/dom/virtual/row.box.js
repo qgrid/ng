@@ -6,16 +6,16 @@ export class RowBox {
 	}
 
 	addClass(row, name) {
+		const viewIndex = row.index;
+		let viewEntry = this.view.get(viewIndex);
+		if (!viewEntry) {
+			viewEntry = new Set();
+			this.view.set(viewIndex, viewEntry);
+		}
+		viewEntry.add(name);
+
 		const model = row.model;
 		if (model) {
-			const viewIndex = row.index;
-			let viewEntry = this.view.get(viewIndex);
-			if (!viewEntry) {
-				viewEntry = new Set();
-				this.view.set(viewIndex, viewEntry);
-			}
-			viewEntry.add(name);
-
 			const dataIndex = model.index;
 			let dataEntry = this.data.get(dataIndex);
 			if (!dataEntry) {
@@ -51,24 +51,29 @@ export class RowBox {
 
 	invalidate() {
 		const rows = this.box.rows();
+		const mapper = this.box.context.mapper;
+		const data = this.data;
+		this.data = new Map();
 		for (let {viewIndex, classList} of this.view.entries()) {
 			const row = rows[viewIndex];
 			if (row) {
 				for (let cls of classList) {
-					row.removeClassCore(cls);
+					row.removeClass(cls);
 				}
 			}
 		}
 
-		const mapper = this.box.context.mapper;
-		for (let {dataIndex, classList} of this.data.entries()) {
+		for (let {dataIndex, classList} of data.entries()) {
 			const viewIndex = mapper.row(dataIndex);
 			const row = rows[viewIndex];
-			if (row) {
+			if (row && row.model) {
+
 				for (let cls of classList) {
-					row.addClassCore(cls);
+					row.addClass(cls);
 				}
 			}
 		}
+
+		this.data = data;
 	}
 }

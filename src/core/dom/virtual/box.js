@@ -41,7 +41,7 @@ export class VirtualBox extends Box {
 		return new VirtualRow(this, index, element);
 	}
 
-	createCellCore(element) {
-		return new VirtualCell(this, this.context, element);
+	createCellCore(rowIndex, columnIndex, element) {
+		return new VirtualCell(this, rowIndex, columnIndex, element);
 	}
 }

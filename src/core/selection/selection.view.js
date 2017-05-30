@@ -108,7 +108,7 @@ export class SelectionView extends View {
 					} else {
 						row = this.rows[rowIndex + 1];
 						model.navigation({
-							cell: table.body.cell(rowIndex + 1, navState.columnIndex)
+							cell: table.body.cell(rowIndex + 1, navState.columnIndex).model
 						}, {
 							source: 'selection'
 						});

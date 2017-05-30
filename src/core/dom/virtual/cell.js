@@ -1,8 +1,8 @@
 import {Cell} from '../cell';
 
 export class VirtualCell extends Cell {
-	constructor(box, context, element = null) {
-		super(context, element);
+	constructor(box, rowIndex, columnIndex, element = null) {
+		super(box.context, rowIndex, columnIndex, element);
 
 		this.box = box;
 	}
