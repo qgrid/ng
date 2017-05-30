@@ -27,14 +27,12 @@ export class ColumnView extends View {
 			const generation = model.columnList().generation;
 			if (generation) {
 				if (e.hasChanges('rows')) {
-					this.updateOn(generation);
-					needInvalidate = true;
+					needInvalidate = this.updateOn(generation);
 				}
 			}
 			else {
 				if (e.hasChanges('columns')) {
-					this.update();
-					needInvalidate = true;
+					needInvalidate = this.update();
 				}
 			}
 
@@ -72,7 +70,7 @@ export class ColumnView extends View {
 				);
 		}
 
-		this.update(columns);
+		return this.update(columns);
 	}
 
 	update(generatedColumns) {
@@ -97,7 +95,10 @@ export class ColumnView extends View {
 			};
 
 			data({columns: dataColumns}, tag);
+			return true;
 		}
+
+		return false;
 	}
 
 	merge(left, right) {

@@ -86,7 +86,11 @@ export class NavigationView extends View {
 			}
 		});
 
-		model.viewChanged.watch(() => model.navigation({cell: null}));
+		model.viewChanged.watch(e => {
+			if (e.tag.behavior !== 'core') {
+				model.navigation({cell: null});
+			}
+		});
 	}
 
 	scroll(view, target) {

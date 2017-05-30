@@ -15,7 +15,7 @@ export class CellBox {
 					viewRowIndex: cell.rowIndex,
 					viewColumnIndex: cell.columnIndex,
 					dataRowIndex: model.rowIndex,
-					dataColumnIndex: model.rowIndex
+					dataColumnIndex: model.columnIndex
 				};
 				this.entries.set(key, entry);
 			}
@@ -37,16 +37,28 @@ export class CellBox {
 
 	invalidate() {
 		const box = this.box;
-		for (let entry of this.entries.values()) {
+		const getKey = this.key;
+		const entries = new Map();
+		for (let [key, entry] of this.entries) {
 			const viewCell = box.cellCore(entry.viewRowIndex, entry.viewColumnIndex);
 			const dataCell = box.cell(entry.dataRowIndex, entry.dataColumnIndex);
-			for (let cls of entry.classList) {
-				viewCell.removeClassCore(cls);
-				dataCell.addClassCore(cls);
-				entry.viewRowIndex = dataCell.rowIndex;
-				entry.viewColumnIndex = dataCell.columnIndex;
+			const newKey = getKey(dataCell);
+			if (key !== newKey) {
+				for (let cls of entry.classList) {
+					viewCell.removeClassCore(cls);
+					dataCell.addClassCore(cls);
+					entry.viewRowIndex = dataCell.rowIndex;
+					entry.viewColumnIndex = dataCell.columnIndex;
+				}
+
+				entries.set(newKey, entry);
+			}
+			else {
+				entries.set(key, entry);
 			}
 		}
+
+		this.entries = entries;
 	}
 
 	key(model) {
