@@ -2,7 +2,7 @@ import {VirtualBox} from './virtual';
 import {Box} from './box';
 import * as columnService from '../column/column.service';
 
-function getElements(markup){
+function getElements(markup) {
 	const result = [];
 	if (markup.hasOwnProperty('body-left')) {
 		result.push(markup['body-left']);
@@ -32,7 +32,12 @@ export class Body extends Box {
 	}
 
 	rowCount() {
-		return this.model.view().rows.length;
+		const elements = this.getElements();
+		if (elements.length) {
+			return elements[0].rows.length;
+		}
+
+		return 0;
 	}
 
 	getElementsCore() {

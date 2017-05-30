@@ -35,7 +35,7 @@ export class SelectionView extends View {
 		model.navigationChanged.watch(e => {
 			if (e.hasChanges('cell') && e.tag.source !== 'selection') {
 				const selectionState = model.selection();
-				if (selectionState.unit === 'cell' && selectionState.mode === 'single') {
+				if (selectionState.unit === 'cell') {
 					if (e.state.cell) {
 						this.select(e.state.cell, true);
 					}

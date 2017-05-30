@@ -63,13 +63,8 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 		if (cell) {
 			this.navigate(cell);
 
-			if (cell.column.editorOptions.trigger === 'click'
-				&& this.view.edit.cell.enter.canExecute(cell)) {
+			if (cell.column.editorOptions.trigger === 'click' && this.view.edit.cell.enter.canExecute(cell)) {
 				this.$scope.$evalAsync(() => this.view.edit.cell.enter.execute(cell));
-			}
-
-			if (cell.column.type !== 'select') {
-				this.view.selection.selectRange(cell);
 			}
 		}
 	}
@@ -82,6 +77,28 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 			if (this.rangeStartCell) {
 				this.view.selection.selectRange(this.rangeStartCell);
 			}
+
+			return;
+		}
+
+		if (this.selection.unit === 'row') {
+			const pathFinder = new PathService(this.view.bag);
+			const cell = pathFinder.cell(e.path);
+			if (cell && cell.column.type !== 'select') {
+				this.view.selection.toggleRow.execute(cell.row);
+			}
+
+			return;
+		}
+
+		if (this.selection.unit === 'column') {
+			const pathFinder = new PathService(this.view.bag);
+			const cell = pathFinder.cell(e.path);
+			if (cell) {
+				this.view.selection.toggleColumn.execute(cell.column);
+			}
+
+			return;
 		}
 	}
 
