@@ -4,12 +4,12 @@
 		<q-grid:template for="top">
 			<div layout="row" layout-align="center center">
 				<q-grid:export type="pdf">
-					<q-grid:template>
+					<q-grid:template for="format">
 						<button>pdf</button>
 					</q-grid:template>
 				</q-grid:export>
 				<q-grid:export type="json">
-					<q-grid:template>
+					<q-grid:template for="format">
 						<md-button>
 							<md-icon>file_download</md-icon>
 							Kate
@@ -17,17 +17,17 @@
 					</q-grid:template>
 				</q-grid:export>
 				<q-grid:export type="xml">
-					<q-grid:template>
+					<q-grid:template for="format">
 						<button>xml</button>
 					</q-grid:template>
 				</q-grid:export>
 				<q-grid:export type="xlsx">
-					<q-grid:template>
+					<q-grid:template for="format">
 						<button>xlsx</button>
 					</q-grid:template>
 				</q-grid:export>
 				<q-grid:export type="csv">
-					<q-grid:template>
+					<q-grid:template for="format">
 						<button>csv</button>
 					</q-grid:template>
 				</q-grid:export>

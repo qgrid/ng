@@ -1,5 +1,6 @@
 import PluginComponent from '../plugin.component';
 import {EXPORT_NAME} from '../definition';
+import {GRID_NAME} from '@grid/view/definition';
 import {Command} from '@grid/core/infrastructure';
 import {TemplatePath} from '@grid/core/template';
 import {Csv} from '@grid/core/export/csv';
@@ -10,10 +11,10 @@ import {Pdf} from '@grid/core/export/pdf';
 import {download} from '@grid/core/services/download';
 
 TemplatePath
-	.register(EXPORT_NAME, (template, element) => {
+	.register(EXPORT_NAME, () => {
 		return {
 			model: 'export',
-			resource: `${element.type}`
+			resource: 'content'
 		};
 	});
 
@@ -77,6 +78,9 @@ class Export extends Plugin {
 
 export default Export.component({
 	controller: Export,
+	require: {
+		root: `^^${GRID_NAME}`,
+	},
 	controllerAs: '$export',
 	bindings: {
 		'type': '@'
