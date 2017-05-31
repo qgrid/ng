@@ -3,7 +3,7 @@ import {Data} from './data';
 import {assignWith} from  '../services/utility';
 import {FakeLayer} from './fake';
 import {Head} from './head';
-import {Body} from './body';
+import {Body, VirtualBody} from './body';
 import {Foot} from './foot';
 import {identity} from '../services/utility';
 
@@ -68,6 +68,10 @@ export class Table {
 	}
 
 	bodyCore() {
+		if (this.model.scroll().mode === 'virtual') {
+			return new VirtualBody(this.context, this.model, this.markup);
+		}
+
 		return new Body(this.context, this.model, this.markup);
 	}
 
