@@ -8,9 +8,6 @@ export class CellBox {
 		const key = this.key(cell);
 		const model = cell.model;
 		if (model) {
-
-			console.log('add class: ' + name);
-
 			let entry = this.entries.get(key);
 			if (!entry) {
 				entry = {
@@ -33,7 +30,6 @@ export class CellBox {
 		if (entry) {
 			entry.classList.delete(name);
 			if (!entry.classList.size) {
-				console.log('remove class: ' + name);
 				this.entries.delete(key);
 			}
 		}
@@ -43,11 +39,6 @@ export class CellBox {
 		const box = this.box;
 		const getKey = this.key;
 		const entries = new Map();
-
-		console.log('============BEFORE================');
-		console.log(JSON.stringify(this.entries));
-		console.log('==================================');
-
 		for (let [key, entry] of this.entries) {
 			const viewCell = box.cellCore(entry.viewRowIndex, entry.viewColumnIndex);
 			const dataCell = box.cell(entry.dataRowIndex, entry.dataColumnIndex);
@@ -66,11 +57,6 @@ export class CellBox {
 				entries.set(key, entry);
 			}
 		}
-
-		console.log('============AFTER================');
-		console.log(JSON.stringify(entries));
-		console.log('=================================');
-
 		this.entries = entries;
 	}
 

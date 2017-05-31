@@ -43,6 +43,14 @@ export class Cell {
 		this.entry.label = label;
 	}
 
+	mode(value) {
+		if (!this.entry.mode) {
+			throw new AppError('cell', 'Internal model doesn\'t support mode');
+		}
+
+		this.entry.mode(value);
+	}
+
 	static equals(x, y) {
 		if (x === y) {
 			return true;

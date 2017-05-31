@@ -81,13 +81,10 @@ export class ColumnView extends View {
 		const templateColumns = model.columnList().columns;
 
 		if (arguments.length) {
-			const templateColumnMap = columnService.map(templateColumns);
-			const dataColumnMap = columnService.map(dataColumns);
-			generatedColumns = generatedColumns.filter(c => !dataColumnMap.hasOwnProperty(c.key) && !templateColumnMap.hasOwnProperty(c.key));
-			statistics.push(this.merge(dataColumns, generatedColumns));
+			statistics.push(this.merge(dataColumns, generatedColumns, false));
 		}
 
-		statistics.push(this.merge(dataColumns, templateColumns));
+		statistics.push(this.merge(dataColumns, templateColumns, true));
 		if (this.hasChanges(statistics)) {
 			const tag = {
 				source: 'column.list',
@@ -101,10 +98,18 @@ export class ColumnView extends View {
 		return false;
 	}
 
-	merge(left, right) {
+	merge(left, right, force = false) {
+		let canAssign;
+		if (force) {
+			canAssign = (source, target) => !isUndefined(target) && target !== null ? target : source;
+		}
+		else {
+			canAssign = (source, target) => !isUndefined(target) && target !== null && source === null ? target : source;
+		}
+
 		const doMerge = merge({
 			equals: (l, r) => l.key === r.key,
-			update: (l, r) => assignWith(l, r, (source, target) => !isUndefined(target) && target !== null ? target : source),
+			update: (l, r) => assignWith(l, r, canAssign),
 			insert: (r, left) => left.push(r),
 			remove: noop
 		});
