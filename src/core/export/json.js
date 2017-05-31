@@ -14,16 +14,34 @@ const rewriteHeaders = (rows, titles) => {
 };
 
 export class Json {
-	write(rows, columns) {
+	write(rows, columns, structure = 'tree') {
 		const titles = [];
 		const result = [];
-		for (let column of columns) {
-			titles.push(column.title);
-		}
-		for (let row of rows) {
-			result.push(flattenObject(row));
+
+		if (structure === 'tree') {
+			for (let column of columns) {
+				titles.push({
+					key: column.key,
+					title: column.title,
+					type: column.type
+				});
+			}
+			const obj = {
+				head: titles,
+				body: rows
+			};
+			return JSON.stringify(obj);
+		} else {
+
+			for (let row of rows) {
+				result.push(flattenObject(row));
+			}
+			for (let column of columns) {
+				titles.push(column.title);
+			}
+
+			return rewriteHeaders(result, titles);
 		}
 
-		return rewriteHeaders(result, titles);
 	}
 }
