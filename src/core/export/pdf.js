@@ -6,7 +6,7 @@ export class Pdf {
 	write(rows, columns, name) {
 		const titles = [];
 		const values = [];
-		const doc = new jsPDF({orientation: 'landscape'});
+		const doc = new jsPDF({orientation: 'landscape', unit: 'in'});
 		const tableOptions = {
 			styles: {
 				overflow: 'linebreak',

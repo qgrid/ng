@@ -1,6 +1,6 @@
 import {isObject, isArray, isString} from '@grid/core/services/utility';
 
-const begin = '<?xml version="1.0" encoding="UTF-8"?><?mso-application progid="Excel.Sheet"?>';
+const begin = '<?xml version="1.0" encoding="UTF-8"?><?mso-application progid="Excel.Sheet"?><rows xmlns:xsd="http://www.w3.org/2001/XMLSchema">';
 const schema = '<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"><xsd:element name="rows"><xsd:complexType>' +
 	'<xsd:sequence><xsd:element name="head"><xsd:complexType><xsd:sequence><xsd:element name="column" maxOccurs="unbounded">' +
 	'<xsd:complexType><xsd:sequence><xsd:element name="key" type="xsd:string" minOccurs="1" maxOccurs="1"/>' +
@@ -64,7 +64,7 @@ function formHead(columns) {
 
 export class Xml {
 	write(rows, columns) {
-		const result = [`${begin}<rows xmlns:xsd="http://www.w3.org/2001/XMLSchema">${schema}`];
+		const result = [`${begin}${schema}`];
 		result.push(...formHead(columns), '<body>');
 		for (let row of rows) {
 			const item = objToXml(row);

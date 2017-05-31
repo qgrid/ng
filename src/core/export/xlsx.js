@@ -1,5 +1,4 @@
 import XLSX from 'xlsx';
-import {isObject, isArray} from '@grid/core/services/utility';
 import {flattenObject} from './export.common';
 
 function sheet_to_workbook(sheet) {
@@ -8,37 +7,39 @@ function sheet_to_workbook(sheet) {
 	return {SheetNames: ['Sheet1'], Sheets: sheets};
 }
 
-function s2ab(s) {
-	const buf = new ArrayBuffer(s.length);
-	const view = new Uint8Array(buf);
-	for (let i = 0; i < s.length; ++i) {
-		view[i] = s.charCodeAt(i) & 0xFF;
+function toArrayBuffer(excel) {
+	const buffer = new ArrayBuffer(excel.length);
+	const view = new Uint8Array(buffer);
+	for (let i = 0; i < excel.length; ++i) {
+		view[i] = excel.charCodeAt(i) & 0xFF;
 	}
-	return buf;
+	return buffer;
 }
-function rewriteHeaders(ws, headers) {
-	const range = XLSX.utils.decode_range(ws['!ref']);
+function rewriteHeaders(worksheet, headers) {
+	const range = XLSX.utils.decode_range(worksheet['!ref']);
 	for (let i = range.s.r; i <= range.e.r; ++i) {
 		const address = XLSX.utils.encode_col(i) + '1';
-		if (!ws[address]) continue;
-		ws[address].v = headers[i];
+		if (!worksheet[address]) continue;
+		worksheet[address].v = headers[i];
 	}
+	return worksheet;
 }
 export class Xlsx {
 	write(rows, columns) {
 		const result = [];
 		const headers = [];
+		const excelOptions = {bookType: 'xlsx', bookSST: true, cellDates: true, compression: true, type: 'binary'};
+
 		for (let row of rows) {
 			result.push(flattenObject(row));
 		}
 		for (let column of columns) {
 			headers.push(column.title);
 		}
-		const ws = XLSX.utils.json_to_sheet(result);
-		rewriteHeaders(ws, headers);
-		const wb = sheet_to_workbook(ws);
-		const opts = {bookType: 'xlsx', bookSST: true, cellDates: true, compression: true, type: 'binary'};
-		const wbOut = XLSX.write(wb, opts);
-		return s2ab(wbOut);
+		const worksheet = XLSX.utils.json_to_sheet(result);
+		const workbook = sheet_to_workbook(rewriteHeaders(worksheet, headers));
+		const excel = XLSX.write(workbook, excelOptions);
+
+		return toArrayBuffer(excel);
 	}
 }
