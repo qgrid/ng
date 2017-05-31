@@ -1,5 +1,10 @@
 <q-grid model="$ctrl.model">
 	<q-grid:columns generation="deep">
 		<q-grid:column type="row-number" key="rowNumber"></q-grid:column>
+		<q-grid:column type="row-number" key="rowNumber1">
+			<q-grid:template for="body">
+				{{$cell.$scope.$parent.$index}}
+			</q-grid:template>
+		</q-grid:column>
 	</q-grid:columns>
 </q-grid>
