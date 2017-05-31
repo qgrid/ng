@@ -30,7 +30,7 @@ export class Json {
 				head: titles,
 				body: rows
 			};
-			return JSON.stringify(obj);
+			return JSON.stringify(obj,  '', 4);
 		} else {
 
 			for (let row of rows) {
