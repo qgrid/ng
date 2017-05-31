@@ -80,7 +80,7 @@ export default function Controller($http, $mdToast, qgrid, $timeout) {
 						.data({
 							pipe: [(data, context, next) => {
 								$http.get('data/people/10.json')
-									.then(function (response) {
+									.then(response => {
 										return next(response.data);
 									});
 							}].concat(qgrid.pipeUnit.default)
@@ -166,14 +166,14 @@ export default function Controller($http, $mdToast, qgrid, $timeout) {
 			type: 'file',
 			value: (item, value) => isUndef(value) ? item.attachment : item.attachment = value,
 			label: (item, label) => isUndef(label) ? item.attachmentLabel || null : item.attachmentLabel = label,
-			fetch: function (item, d) {
+			fetch: (item, d) => {
 				$http().then(result => d.resolve(result));
 			}
 		}
 	];
 
 	$http.get('data/people/100.json')
-		.then(function (response) {
+		.then(response => {
 			ctrl.rows = response.data;
 
 			ctrl.rows[0].password = 'foo';
