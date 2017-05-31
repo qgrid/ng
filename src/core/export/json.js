@@ -1,5 +1,4 @@
-import {isObject, isArray} from '@grid/core/services/utility';
-
+import {flattenObject} from './export.common';
 
 function rewriteHeaders(rows, titles) {
 	const result = [];
@@ -12,26 +11,6 @@ function rewriteHeaders(rows, titles) {
 		result.push(obj);
 	}
 	return JSON.stringify(result, '', 4);
-}
-
-function flattenObject(obj) {
-	const result = {};
-
-	for (let prop in obj) {
-		if (obj.hasOwnProperty(prop)) {
-			if (isObject(obj[prop]) && !isArray(obj[prop])) {
-				const flatObject = flattenObject(obj[prop]);
-				for (let flatProp in flatObject) {
-					if (flatObject.hasOwnProperty(flatProp)) {
-						result[prop + '.' + flatProp] = flatObject[flatProp];
-					}
-				}
-			} else {
-				result[prop] = obj[prop];
-			}
-		}
-	}
-	return result;
 }
 
 export class Json {

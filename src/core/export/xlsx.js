@@ -1,36 +1,13 @@
 import XLSX from 'xlsx';
 import {isObject, isArray} from '@grid/core/services/utility';
+import {flattenObject} from './export.common';
 
 function sheet_to_workbook(sheet) {
 	const sheets = {};
 	sheets['Sheet1'] = sheet;
 	return {SheetNames: ['Sheet1'], Sheets: sheets};
 }
-function flattenObject(obj) {
-	const result = {};
 
-	for (let prop in obj) {
-		if (obj.hasOwnProperty(prop)) {
-			if (isObject(obj[prop]) && !isArray(obj[prop])) {
-				const flatObject = flattenObject(obj[prop]);
-				for (let flatProp in flatObject) {
-					if (flatObject.hasOwnProperty(flatProp)) {
-						result[prop + '.' + flatProp] = flatObject[flatProp];
-					}
-				}
-			} else if (isArray(obj[prop])) {
-				const items = [];
-				for (let item of obj[prop]) {
-					items.push(item);
-				}
-				result[prop] = items.join(', ');
-			} else {
-				result[prop] = obj[prop];
-			}
-		}
-	}
-	return result;
-}
 function s2ab(s) {
 	const buf = new ArrayBuffer(s.length);
 	const view = new Uint8Array(buf);
