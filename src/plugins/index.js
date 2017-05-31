@@ -18,7 +18,6 @@ import PopupBody from './popup/popup.body';
 import PopupPanel from './popup/popup.panel';
 import PopupService from './popup/popup.service';
 import Export from './export/export';
-import ExportFormat from './export/export.format';
 
 import * as def from './definition';
 
@@ -43,7 +42,6 @@ export default angular  // eslint-disable-line no-undef
 	.component(def.POPUP_BODY_NAME, PopupBody)
 	.component(def.POPUP_PANEL_NAME, PopupPanel)
 	.component(def.EXPORT_NAME, Export)
-	.component(def.EXPORT_FORMAT_NAME, ExportFormat)
 	.service(def.POPUP_SERVICE, PopupService)
 	.config(Setup)
 	.name;
@@ -65,7 +63,6 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.plugin.edit-form.tpl.html', require('./edit-form/edit.form.html'));
 		theme.put('qgrid.plugin.edit-form-panel.tpl.html', EMPTY);
 		theme.put('qgrid.plugin.export.tpl.html', require('./export/export.html'));
-		theme.put('qgrid.plugin.export-format.tpl.html', EMPTY);
 
 		theme.put('qgrid.plugin.popup.tpl.html', require('./popup/popup.html'));
 		theme.put('qgrid.plugin.popup-panel.tpl.html', require('./popup/popup.panel.html'));
