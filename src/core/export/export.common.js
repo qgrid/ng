@@ -1,6 +1,6 @@
 import {isObject, isArray} from '@grid/core/services/utility';
 
-function flattenObject(obj, separator = ' ,') {
+const flattenObject = (obj, separator = ' ,') => {
 	const result = {};
 	for (let prop in obj) {
 		if (obj.hasOwnProperty(prop)) {
@@ -23,7 +23,7 @@ function flattenObject(obj, separator = ' ,') {
 		}
 	}
 	return result;
-}
+};
 
 export {
 	flattenObject

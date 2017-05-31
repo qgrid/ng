@@ -64,11 +64,9 @@ function formHead(columns) {
 
 export class Xml {
 	write(rows, columns) {
-		const result = [`${begin}${schema}`];
-		result.push(...formHead(columns), '<body>');
+		const result = [`${begin}${schema}`, ...formHead(columns), '<body>'];
 		for (let row of rows) {
-			const item = objToXml(row);
-			result.push(`<row>${item}</row>`);
+			result.push(`<row>${objToXml(row)}</row>`);
 		}
 		result.push('</body></rows>');
 		return result.join('');

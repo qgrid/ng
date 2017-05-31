@@ -1,21 +1,21 @@
 import XLSX from 'xlsx';
 import {flattenObject} from './export.common';
 
-function sheet_to_workbook(sheet) {
+const sheet_to_workbook = (sheet) => {
 	const sheets = {};
 	sheets['Sheet1'] = sheet;
 	return {SheetNames: ['Sheet1'], Sheets: sheets};
-}
+};
 
-function toArrayBuffer(excel) {
+const toArrayBuffer = (excel) => {
 	const buffer = new ArrayBuffer(excel.length);
 	const view = new Uint8Array(buffer);
 	for (let i = 0; i < excel.length; ++i) {
 		view[i] = excel.charCodeAt(i) & 0xFF;
 	}
 	return buffer;
-}
-function rewriteHeaders(worksheet, headers) {
+};
+const rewriteHeaders = (worksheet, headers) => {
 	const range = XLSX.utils.decode_range(worksheet['!ref']);
 	for (let i = range.s.r; i <= range.e.r; ++i) {
 		const address = XLSX.utils.encode_col(i) + '1';
@@ -23,7 +23,7 @@ function rewriteHeaders(worksheet, headers) {
 		worksheet[address].v = headers[i];
 	}
 	return worksheet;
-}
+};
 export class Xlsx {
 	write(rows, columns) {
 		const result = [];
