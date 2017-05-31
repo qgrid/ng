@@ -13,8 +13,8 @@ export class EditModel {
 		this.commitShortcuts = {
 			'$default': 'tab|shift+tab|enter',
 			'text': 'enter',
-			'password': 'ctrl+s',
-			'number': 'ctrl+s',
+			'password': 'enter',
+			'number': 'enter',
 			'date': 'ctrl+s',
 			'array': 'ctrl+s'
 		};

@@ -25,7 +25,7 @@ class TrCore extends Directive(TR_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	}
 
 	get model() {
-		return this.view().rows[this.$scope.$index];
+		return this.$scope.$row;
 	}
 }
 
