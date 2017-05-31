@@ -5,8 +5,8 @@ import {TemplatePath} from '@grid/core/template';
 import {Csv} from '@grid/core/export/csv';
 import {Json} from '@grid/core/export/json';
 import {Xml} from '@grid/core/export/xml';
-import {Xlsx} from '@grid/core/export/xlsx';
-import {Pdf} from '@grid/core/export/pdf';
+import {Xlsx} from './xlsx';
+import {Pdf} from './pdf';
 import {download} from '@grid/core/services/download';
 
 TemplatePath
