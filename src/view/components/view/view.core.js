@@ -19,7 +19,6 @@ import {ScrollView} from '@grid/core/scroll';
 import {GRID_NAME, TH_CORE_NAME} from '@grid/view/definition';
 import {isUndefined, identity} from '@grid/core/services/utility';
 import {PipeUnit} from '@grid/core/pipe/units';
-import {AppError} from '@grid/core/infrastructure';
 import TemplateLink from '../template/template.link';
 import {CommandManager, Vscroll, LayerFactory} from '@grid/view/services';
 
@@ -54,7 +53,8 @@ class ViewCore extends Component {
 				row: index => {
 					const scrollState = model.scroll();
 					if (scrollState.mode === 'virtual') {
-						return index - this.scroll.y.container.position;
+						//console.log(JSON.stringify(this.scroll.y.container));
+						return index - this.scroll.y.container.cursor;
 					}
 
 					return index;
@@ -68,8 +68,14 @@ class ViewCore extends Component {
 		this.table = table;
 
 		const gridService = this.serviceFactory(model);
-		const commandManager = new CommandManager(this.applyFactory('async'));
-		const vscroll = new Vscroll(this.vscroll, this.applyFactory('async'));
+		const commandManager = new CommandManager(this.applyFactory());
+		const vscroll = new Vscroll(
+			this.vscroll,
+			this.applyFactory(() => {
+				if (table.body.invalidate) {
+					table.body.invalidate();
+				}
+			}));
 
 		this.style = new StyleView(model, table);
 		this.head = new HeadView(model, table, TH_CORE_NAME);
@@ -126,26 +132,25 @@ class ViewCore extends Component {
 		}
 	}
 
-	applyFactory(mode) {
-		return (f, timeout) => {
+	applyFactory(gf) {
+		return (lf, timeout) => {
 			if (isUndefined(timeout)) {
-				switch (mode) {
-					case 'async': {
-						return this.$scope.$applyAsync(f);
+				return this.$scope.$applyAsync(() => {
+					lf();
+
+					if (gf) {
+						gf();
 					}
-					case 'sync': {
-						const phase = this.$rootScope.$$phase; // eslint-disable-line angular/no-private-call
-						if (phase == '$apply' || phase == '$digest') {
-							return f();
-						}
-						return this.$scope.$apply(f);
-					}
-					default:
-						throw new AppError('view.core', `Invalid apply mode '${mode}'`);
-				}
+				});
 			}
 
-			return this.$timeout(f, timeout);
+			return this.$timeout(() => {
+				lf();
+
+				if (gf) {
+					gf();
+				}
+			}, timeout);
 		};
 	}
 

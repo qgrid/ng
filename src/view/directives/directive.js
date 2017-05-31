@@ -12,7 +12,7 @@ export default function (name, require = {}) {
 
 	class Directive {
 		constructor() {
-			this.$link = this.onLink;
+			this.$postLink = this.onLink;
 		}
 
 		onInit() {
