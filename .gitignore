@@ -9,5 +9,5 @@
 node_modules
 
 #bundles
-dist
+dist/vendor.*
 demo/dist
