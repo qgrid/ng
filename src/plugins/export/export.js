@@ -7,7 +7,7 @@ import {Json} from '@grid/core/export/json';
 import {Xml} from '@grid/core/export/xml';
 import {Xlsx} from './xlsx';
 import {Pdf} from './pdf';
-import {download} from '@grid/core/services/download';
+import {download} from './download';
 
 TemplatePath
 	.register(EXPORT_NAME, (template) => {
