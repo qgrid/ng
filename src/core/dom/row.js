@@ -1,4 +1,5 @@
 import {Element} from './element';
+import {Row as RowModel} from '../row';
 
 export class Row extends Element {
 	constructor(box, index, element = null) {
@@ -8,16 +9,9 @@ export class Row extends Element {
 		this.index = index;
 	}
 
-	model() {
-		const index = this.index;
-		if (index >= 0) {
-			const rows = this.box.gridModel.view().rows;
-			if (index < rows.length) {
-				return rows[index];
-			}
-		}
-
-		return null;
+	get model() {
+		const model = this.box.context.model(this.getKeyElementCore());
+		return model ? new RowModel(model) : null;
 	}
 
 	cells() {
@@ -25,6 +19,18 @@ export class Row extends Element {
 	}
 
 	cell(columnIndex) {
-		return this.box.cell(this.index, columnIndex);
+		return this.box.cellCore(
+			this.index,
+			this.box.context.mapper.column(columnIndex)
+		);
+	}
+
+	getKeyElementCore() {
+		const element = super.getElement();
+		if (element.elements) {
+			return element.elements[0];
+		}
+
+		return element;
 	}
 }

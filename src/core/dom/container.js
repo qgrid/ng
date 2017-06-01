@@ -1,10 +1,7 @@
-import {Unit} from './unit';
 import {min, max} from '../services/utility';
 
-export class Container extends Unit {
+export class Container {
 	constructor(elements) {
-		super();
-
 		this.elements = elements;
 	}
 
@@ -16,7 +13,11 @@ export class Container extends Unit {
 		const right = max(rects.map(r => r.right));
 		return {
 			height: bottom - top,
-			width: right - left
+			width: right - left,
+			top: top,
+			left: left,
+			right: right,
+			bottom: bottom
 		};
 	}
 
