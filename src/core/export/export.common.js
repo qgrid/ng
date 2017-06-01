@@ -2,24 +2,21 @@ import {isObject, isArray} from '@grid/core/services/utility';
 
 const flattenObject = (obj, separator = ' ,') => {
 	const result = {};
-	for (let prop in obj) {
-		if (obj.hasOwnProperty(prop)) {
-			if (isObject(obj[prop]) && !isArray(obj[prop])) {
-				const flatObject = flattenObject(obj[prop]);
-				for (let flatProp in flatObject) {
-					if (flatObject.hasOwnProperty(flatProp)) {
-						result[prop + '.' + flatProp] = flatObject[flatProp];
-					}
-				}
-			} else if (isArray(obj[prop])) {
-				const items = [];
-				for (let item of obj[prop]) {
-					items.push(item);
-				}
-				result[prop] = items.join(separator);
-			} else {
-				result[prop] = obj[prop];
+
+	for (let [prop, value] of Object.entries(obj)) {
+		if (isArray(value)) {
+			const items = [];
+			for (let item of value) {
+				items.push(item);
 			}
+			result[prop] = items.join(separator);
+		} else if (isObject(value)) {
+			const flatObject = flattenObject(value);
+			for (let [flatProp, flatValue] of Object.entries(flatObject)) {
+				result[prop + '.' + flatProp] = flatValue;
+			}
+		} else {
+			result[prop] = value;
 		}
 	}
 	return result;
