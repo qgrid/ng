@@ -14,11 +14,11 @@ const rewriteHeaders = (rows, titles) => {
 };
 
 export class Json {
-	write(rows, columns, structure = 'tree') {
+	write(rows, columns, options = {structure: 'tree'}) {
 		const titles = [];
 		const result = [];
 
-		if (structure === 'tree') {
+		if (options.structure === 'tree') {
 			for (let column of columns) {
 				titles.push({
 					key: column.key,
@@ -30,7 +30,7 @@ export class Json {
 				head: titles,
 				body: rows
 			};
-			return JSON.stringify(obj,  '', 4);
+			return JSON.stringify(obj, '', 4);
 		} else {
 
 			for (let row of rows) {
