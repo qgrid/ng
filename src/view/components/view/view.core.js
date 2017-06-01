@@ -98,7 +98,7 @@ class ViewCore extends Component {
 		this.$scope.$watch(this.style.invalidate.bind(this.style));
 
 		model.selectionChanged.watch(e => {
-			if (e.hasChanges('entries')) {
+			if (e.hasChanges('items')) {
 				this.root.onSelectionChanged({
 					$event: {
 						state: model.selection(),

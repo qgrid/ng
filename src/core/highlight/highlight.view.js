@@ -85,7 +85,9 @@ export class HighlightView extends View {
 		});
 
 		model.selectionChanged.watch(e => {
-			this.timeout(() => this.behavior.update(e.state.entries), 0);
+			if(e.hasChanges('items')) {
+				this.timeout(() => this.behavior.update(e.state.items), 0);
+			}
 		});
 
 		model.viewChanged.watch(() => {
@@ -95,7 +97,7 @@ export class HighlightView extends View {
 				rowHoverBlurs = this.invalidateRowHover(rowHoverBlurs);
 				sortBlurs = this.invalidateSortBy(sortBlurs);
 				waitForLayout = false;
-				this.behavior.update(this.model.selection().entries);
+				this.behavior.update(this.model.selection().items);
 			}, 100);
 		});
 

@@ -19,7 +19,8 @@ export class CellBox {
 				};
 				this.entries.set(key, entry);
 			}
-
+			console.log('==================ADD CLASS========================');
+			console.log(name);
 			entry.classList.add(name);
 		}
 	}
@@ -32,6 +33,8 @@ export class CellBox {
 			if (!entry.classList.size) {
 				this.entries.delete(key);
 			}
+			console.log('==================REMOVE CLASS=====================');
+			console.log(name);
 		}
 	}
 
@@ -39,6 +42,8 @@ export class CellBox {
 		const box = this.box;
 		const getKey = this.key;
 		const entries = new Map();
+		console.log('==================OLD ENTRIES=====================');
+		console.log(JSON.stringify(this.entries));
 		for (let [key, entry] of this.entries) {
 			const viewCell = box.cellCore(entry.viewRowIndex, entry.viewColumnIndex);
 			const dataCell = box.cell(entry.dataRowIndex, entry.dataColumnIndex);
@@ -58,6 +63,8 @@ export class CellBox {
 			}
 		}
 		this.entries = entries;
+		console.log('==================NEW ENTRIES=====================');
+		console.log(JSON.stringify(this.entries));
 	}
 
 	key(model) {

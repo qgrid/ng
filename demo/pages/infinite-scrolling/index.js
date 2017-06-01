@@ -5,6 +5,7 @@ export default function Controller($http, qgrid) {
 	let rows = [];
 
 	ctrl.model = model;
+	ctrl.selection = () => model.selection().items;
 
 	model.pagination({
 		size: 20

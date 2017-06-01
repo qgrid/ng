@@ -25,15 +25,13 @@ export class SelectionView extends View {
 
 		model.dataChanged.watch(() => {
 			this.selectionState = stateFactory(model);
-
 			const items = model.selection().items;
 			const entries = this.selectionState.lookup(items);
-
 			this.select(entries);
 		});
 
 		model.navigationChanged.watch(e => {
-			if (e.hasChanges('cell') && e.tag.source !== 'selection') {
+			if (e.hasChanges('cell') && e.tag.source !== 'selection.view') {
 				const selectionState = model.selection();
 				if (selectionState.unit === 'cell') {
 					if (e.state.cell) {
@@ -56,23 +54,16 @@ export class SelectionView extends View {
 			}
 
 			if (e.hasChanges('unit') || e.hasChanges('mode')) {
-				if (!e.hasChanges('items') && !e.hasChanges('entries')) {
+				if (!e.hasChanges('items')) {
 					model.selection({
-						items: [],
-						entries: []
+						items: []
+					}, {
+						source: 'selection.view'
 					});
 					this.selectionState = stateFactory(model);
 				}
 
-				model.navigation({cell: null}, {source: 'selection'});
-			}
-
-			if (e.hasChanges('entries') && !e.hasChanges('items')) {
-				const entries = model.selection().entries;
-				model.selection({
-					items: this.selectionState.view(entries),
-					entries: entries
-				});
+				model.navigation({cell: null}, {source: 'selection.view'});
 			}
 		});
 	}
@@ -110,7 +101,7 @@ export class SelectionView extends View {
 						model.navigation({
 							cell: table.body.cell(rowIndex + 1, navState.columnIndex).model
 						}, {
-							source: 'selection'
+							source: 'selection.view'
 						});
 					}
 
@@ -125,7 +116,7 @@ export class SelectionView extends View {
 					const rowIndex = navState.rowIndex - 1;
 					const row = this.rows[rowIndex];
 					this.select(row);
-					model.navigation({cell: table.body.cell(rowIndex, navState.columnIndex).model}, {source: 'selection'});
+					model.navigation({cell: table.body.cell(rowIndex, navState.columnIndex).model}, {source: 'selection.view'});
 				},
 				canExecute: () => model.selection().unit === 'row' && model.navigation().rowIndex > 0
 			}),
@@ -136,7 +127,7 @@ export class SelectionView extends View {
 					const rowIndex = navState.rowIndex + 1;
 					const row = this.rows[rowIndex];
 					this.select(row);
-					model.navigation({cell: table.body.cell(rowIndex, navState.columnIndex).model}, {source: 'selection'});
+					model.navigation({cell: table.body.cell(rowIndex, navState.columnIndex).model}, {source: 'selection.view'});
 				},
 				canExecute: () => model.selection().unit === 'row' && model.navigation().rowIndex < this.rows.length - 1
 			}),
@@ -144,8 +135,9 @@ export class SelectionView extends View {
 				shortcut: 'ctrl+space',
 				execute: () => {
 					const columnIndex = model.navigation().columnIndex;
-					const entries = Array.from(model.selection().entries);
 					const column = this.columns[columnIndex].key;
+					const items = model.selection().items;
+					const entries = this.selectionState.lookup(items);
 					this.select([...entries, column]);
 				},
 				canExecute: () => model.selection().unit === 'column' && model.navigation().columnIndex >= 0
@@ -157,7 +149,7 @@ export class SelectionView extends View {
 					const columnIndex = navState.columnIndex + 1;
 					const column = this.columns[columnIndex].key;
 					this.select(column);
-					model.navigation({cell: table.body.cell(navState.rowIndex, columnIndex).model}, {source: 'selection'});
+					model.navigation({cell: table.body.cell(navState.rowIndex, columnIndex).model}, {source: 'selection.view'});
 				},
 				canExecute: () => model.selection().unit === 'column' && model.navigation().columnIndex < this.columns().length - 1
 			}),
@@ -168,7 +160,7 @@ export class SelectionView extends View {
 					const columnIndex = navState.columnIndex - 1;
 					const column = this.columns[columnIndex].key;
 					this.select(column);
-					model.navigation({cell: table.body.cell(navState.rowIndex, columnIndex).model}, {source: 'selection'});
+					model.navigation({cell: table.body.cell(navState.rowIndex, columnIndex).model}, {source: 'selection.view'});
 				},
 				canExecute: () => model.selection().unit === 'column' && model.navigation().columnIndex > 0
 			}),
@@ -214,8 +206,10 @@ export class SelectionView extends View {
 
 		const entries = this.selectionState.entries();
 		this.model.selection({
-			entries: entries,
-		}, {source: 'toggle'});
+			items: entries,
+		}, {
+			source: 'selection.view.toggle'
+		});
 	}
 
 	state(item) {
