@@ -1,6 +1,6 @@
 import {flattenObject} from './export.common';
 
-const rewriteHeaders = (rows, titles) => {
+function rewriteHeaders(rows, titles) {
 	const result = [];
 	for (let row of rows) {
 		const obj = {};
@@ -11,7 +11,7 @@ const rewriteHeaders = (rows, titles) => {
 		result.push(obj);
 	}
 	return JSON.stringify(result, '', 4);
-};
+}
 
 export class Json {
 	write(rows, columns, options = {structure: 'tree'}) {

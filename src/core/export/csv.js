@@ -2,12 +2,12 @@ import {getFactory as valueFactory} from '../services/value';
 
 const DELIMETER = ',';
 
-const escape = (value) => {
+function escape(value) {
 	let result = '' + value;
 	result = result.replace(/"/g, '""');
 	result = /[\n",]/.test(result) ? `"${result}"` : result;
 	return result;
-};
+}
 
 export class Csv {
 	write(rows, columns) {
