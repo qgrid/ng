@@ -32,6 +32,7 @@ class ActionBar extends Plugin {
 			this.$onChanges = () => {
 				if (this.shortcutOff) {
 					this.shortcutOff();
+					this.shortcutOff = null;
 				}
 
 				if (this.actions) {
@@ -45,6 +46,7 @@ class ActionBar extends Plugin {
 	onDestroy() {
 		if (this.shortcutOff) {
 			this.shortcutOff();
+			this.shortcutOff = null;
 		}
 	}
 }
