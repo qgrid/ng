@@ -6,7 +6,7 @@ import TemplateLink from '../template/template.link';
 
 export class Grid extends RootComponent {
 	constructor($scope, $element, $transclude, $document, $timeout, $templateCache, $compile) {
-		super('data', 'selection', 'sort', 'group', 'pivot', 'edit', 'style');
+		super('data', 'selection', 'sort', 'group', 'pivot', 'edit', 'style', 'action');
 
 		this.$scope = $scope;
 		this.$element = $element;
@@ -132,6 +132,7 @@ export default {
 		editCancel: '<',
 		editReset: '<',
 		styleRow: '<',
-		styleCell: '<'
+		styleCell: '<',
+		actionItems: '<actions'
 	}
 };
