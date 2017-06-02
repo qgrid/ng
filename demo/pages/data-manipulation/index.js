@@ -3,6 +3,30 @@ export default function Controller($http, qgrid) {
 	const ctrl = this;
 
 	this.rows = [];
+	this.changes = {
+		deleted: new Set(),
+		added: new Set(),
+		edited: new Set()
+	};
+
+	this.commitCommand = new qgrid.Command({
+		execute: e => {
+			this.changes.edited.add(e.row);
+			this.changes.edited.add(e.column);
+		}
+	});
+
+	this.styleRow = (row, context) => {
+		if (this.changes.deleted.has(row)) {
+			context.class('deleted', {opacity: 0.3});
+		}
+	};
+
+	this.styleCell = (row, column, context) => {
+		if (this.changes.edited.has(row) && this.changes.edited.has(column)) {
+			context.class('edited', {background: '#E3F2FD'});
+		}
+	};
 
 	this.rowOptions = {
 		trigger: 'click',
@@ -10,7 +34,7 @@ export default function Controller($http, qgrid) {
 			new qgrid.Action(
 				new qgrid.Command({
 					execute: e => {
-						this.rows = this.rows.slice(e.rowIndex, 1);
+						this.changes.deleted.add(e.row)
 					}
 				}),
 				'Delete Row',

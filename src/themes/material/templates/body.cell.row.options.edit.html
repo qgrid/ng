@@ -7,7 +7,8 @@
 	</md-button>
 	<md-menu-content width="4">
 		<md-menu-item ng-repeat="$action in $cell.column.editorOptions.actions">
-			<md-button ng-click="$action.command.execute($cell)" ng-disabled="!$action.command.canExecute($cell)">
+			<md-button ng-click="$action.command.execute($cell)"
+						  ng-disabled="!$action.command.canExecute($cell)">
 				<md-icon ng-bind="$action.icon"></md-icon>
 				{{$action.title}}
 			</md-button>
