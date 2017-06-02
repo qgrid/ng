@@ -16,22 +16,7 @@
 
 	<q-grid:toolbar>
 		<q-grid:template for="top" let="$ctrl">
-			<div layout="row">
-				<div flex="100"
-					  layout="row"
-					  layout-align="start center"
-					  layout-align-xs="start start"
-					  layout-align-sm="start start"
-					  layout-xs="column"
-					  layout-sm="column">
-				</div>
-				<div class="q-grid-actions" flex="none" layout="row" layout-align="end center">
-					<md-button class="md-icon-button"
-								  ng-click="$ctrl.addRowCommand.execute()">
-						<md-icon>add</md-icon>
-					</md-button>
-				</div>
-			</div>
+			<q-grid:action-bar actions="$ctrl.actions"></q-grid:action-bar>
 		</q-grid:template>
 	</q-grid:toolbar>
 

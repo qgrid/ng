@@ -64,11 +64,12 @@ class ViewCore extends Component {
 		};
 
 		const table = new Table(this.model, this.markup, tableContext);
-
 		this.table = table;
 
-		const gridService = this.serviceFactory(model);
 		const commandManager = new CommandManager(this.applyFactory());
+		this.commandManager = commandManager;
+
+		const gridService = this.serviceFactory(model);
 		const vscroll = new Vscroll(
 			this.vscroll,
 			this.applyFactory(() => {
