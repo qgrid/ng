@@ -1,7 +1,6 @@
 Controller.$inject = ['$http', 'qgrid'];
 export default function Controller($http, qgrid) {
 	const ctrl = this;
-	const gridService = qgrid.service(this.model)
 
 	this.rows = [];
 	this.changes = {
@@ -46,7 +45,7 @@ export default function Controller($http, qgrid) {
 					this.changes.added.add(newRow);
 					this.rows = [newRow].concat(this.rows);
 				},
-				shortcut: 'ctrl+N'
+				shortcut: 'F7'
 			}),
 			'Add New Row',
 			'add'

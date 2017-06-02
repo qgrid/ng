@@ -1,9 +1,9 @@
 import Directive from '@grid/view/directives/directive';
 import cellBuilder from '../cell/cell.build';
-import {VIEW_CORE_NAME, TF_CORE_NAME, TABLE_CORE_NAME} from '@grid/view/definition';
+import {VIEW_CORE_NAME, TF_CORE_NAME, TABLE_CORE_NAME, GRID_NAME} from '@grid/view/definition';
 import {GRID_PREFIX} from '@grid/core/definition';
 
-class TfCore extends Directive(TF_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, table: `^^${TABLE_CORE_NAME}`}) {
+class TfCore extends Directive(TF_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, table: `^^${TABLE_CORE_NAME}`, root: `^^${GRID_NAME}`}) {
 	constructor($scope, $element) {
 		super();
 
@@ -15,7 +15,7 @@ class TfCore extends Directive(TF_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, table
 		const column = this.column;
 		const element = this.element;
 
-		this.view.bag.set(element, this);
+		this.root.bag.set(element, this);
 
 		element.classList.add(`${GRID_PREFIX}-${column.key}`);
 		element.classList.add(`${GRID_PREFIX}-${column.type}`);
@@ -59,7 +59,7 @@ class TfCore extends Directive(TF_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, table
 	}
 
 	onDestroy() {
-		this.view.bag.delete(this.element, this);
+		this.root.bag.delete(this.element, this);
 	}
 }
 

@@ -1,9 +1,9 @@
 /* eslint-disable indent */
 
 import PluginComponent from '../plugin.component';
-import {Command} from '@grid/core/infrastructure';
 import {ACTION_BAR_NAME} from '../definition';
 import {TemplatePath} from '@grid/core/template';
+import {Shortcut} from '@grid/core/infrastructure';
 
 TemplatePath
 	.register(ACTION_BAR_NAME, () => {
@@ -17,9 +17,35 @@ const Plugin = PluginComponent('action-bar');
 class ActionBar extends Plugin {
 	constructor() {
 		super(...arguments);
+
+
 	}
 
 	onInit() {
+		const root = this._root;
+		if (root) {
+			const shortcut = new Shortcut(root.table, root.commandManager);
+			if (this.actions) {
+				this.shortcutOff = shortcut.register('actionBar', this.actions.map(act => act.command));
+			}
+
+			this.$onChanges = () => {
+				if (this.shortcutOff) {
+					this.shortcutOff();
+				}
+
+				if (this.actions) {
+					this.shortcutOff = shortcut.register('actionBar', this.actions.map(act => act.command));
+				}
+			};
+
+		}
+	}
+
+	onDestroy() {
+		if (this.shortcutOff) {
+			this.shortcutOff();
+		}
 	}
 }
 
