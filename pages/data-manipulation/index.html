@@ -1,0 +1,23 @@
+<q-grid rows="$ctrl.rows"
+		  edit-mode="cell"
+		  edit-commit="$ctrl.commitCommand"
+		  style-row="$ctrl.styleRow"
+		  style-cell="$ctrl.styleCell">
+
+	<q-grid:columns generation="deep">
+		<q-grid:column type="row-indicator" key="rowIndicator" width="10" min-width="10">
+			<q-grid:template for="body"></q-grid:template>
+		</q-grid:column>
+		<q-grid:column type="row-options"
+							key="rowOptions"
+							editor-options="$ctrl.rowOptions">
+		</q-grid:column>
+	</q-grid:columns>
+
+	<q-grid:toolbar>
+		<q-grid:template for="top" let="$ctrl">
+			<q-grid:action-bar actions="$ctrl.actions"></q-grid:action-bar>
+		</q-grid:template>
+	</q-grid:toolbar>
+
+</q-grid>
