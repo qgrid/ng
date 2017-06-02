@@ -64,7 +64,7 @@ var qgrid =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 537);
+/******/ 	return __webpack_require__(__webpack_require__.s = 539);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -8280,7 +8280,7 @@ module.exports = "<div layout=\"column\"\n\t  class=\"q-grid-sort-bar\"\n\t  q-g
 /* 356 */
 /***/ (function(module, exports) {
 
-module.exports = "<div layout=\"row\">\n\t<div flex=\"100\"\n\t\t  layout=\"row\"\n\t\t  layout-align=\"start center\"\n\t\t  layout-align-xs=\"start start\"\n\t\t  layout-align-sm=\"start start\"\n\t\t  layout-xs=\"column\"\n\t\t  layout-sm=\"column\">\n\t</div>\n\t<div class=\"q-grid-actions\" flex=\"none\" layout=\"row\" layout-align=\"end center\">\n\t\t<!--<div>-->\n\t\t\t<!--<q-grid:popup id=\"q-grid-filter-popup\">-->\n\t\t\t\t<!--<q-grid:template for=\"trigger\">-->\n\t\t\t\t\t<!--<md-button ng-click=\"$popup.open({width: 352, height: 652})\" class=\"md-icon-button\">-->\n\t\t\t\t\t\t<!--<md-icon>filter_list</md-icon>-->\n\t\t\t\t\t<!--</md-button>-->\n\t\t\t\t<!--</q-grid:template>-->\n\t\t\t\t<!--<q-grid:template for=\"body\">-->\n\t\t\t\t\t<!--<q-grid:expression-builder on:submit=\"$popup.close()\"-->\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<!--on:cancel=\"$popup.close()\">-->\n\t\t\t\t\t<!--</q-grid:expression-builder>-->\n\t\t\t\t<!--</q-grid:template>-->\n\t\t\t\t<!--<q-grid:template for=\"head\">-->\n\t\t\t\t\t<!--Filter-->\n\t\t\t\t<!--</q-grid:template>-->\n\t\t\t<!--</q-grid:popup>-->\n\t\t<!--</div>-->\n\t\t<div>\n\t\t\t<q-grid:popup id=\"q-grid-column-chooser-popup\">\n\t\t\t\t<q-grid:template for=\"trigger\">\n\t\t\t\t\t<md-button ng-click=\"$popup.open({width: 352, height: 652})\" class=\"md-icon-button\">\n\t\t\t\t\t\t<md-icon>more_vert</md-icon>\n\t\t\t\t\t</md-button>\n\t\t\t\t</q-grid:template>\n\t\t\t\t<q-grid:template for=\"body\">\n\t\t\t\t\t<q-grid:column-chooser on:submit=\"$popupBody.close()\"\n\t\t\t\t\t\t\t\t\t\t\t\t  on:cancel=\"$popupBody.close()\">\n\t\t\t\t\t</q-grid:column-chooser>\n\t\t\t\t</q-grid:template>\n\t\t\t\t<q-grid:template for=\"head\">\n\t\t\t\t\t<span class=\"md-subhead\">Column Chooser</span>\n\t\t\t\t</q-grid:template>\n\t\t\t</q-grid:popup>\n\t\t</div>\n\t</div>\n</div>\n<div class=\"q-grid-progress\">\n\t<q-grid:progress>\n\t</q-grid:progress>\n</div>"
+module.exports = "<div layout=\"row\">\n\t<div flex=\"100\"\n\t\t  layout=\"row\"\n\t\t  layout-align=\"start center\"\n\t\t  layout-align-xs=\"start start\"\n\t\t  layout-align-sm=\"start start\"\n\t\t  layout-xs=\"column\"\n\t\t  layout-sm=\"column\">\n\t</div>\n\t<div class=\"q-grid-actions\" flex=\"none\" layout=\"row\" layout-align=\"end center\">\n\t\t<!--<div>-->\n\t\t\t<!--<q-grid:popup id=\"q-grid-filter-popup\">-->\n\t\t\t\t<!--<q-grid:template for=\"trigger\">-->\n\t\t\t\t\t<!--<md-button ng-click=\"$popup.open({width: 352, height: 652})\" class=\"md-icon-button\">-->\n\t\t\t\t\t\t<!--<md-icon>filter_list</md-icon>-->\n\t\t\t\t\t<!--</md-button>-->\n\t\t\t\t<!--</q-grid:template>-->\n\t\t\t\t<!--<q-grid:template for=\"body\">-->\n\t\t\t\t\t<!--<q-grid:expression-builder on:submit=\"$popup.close()\"-->\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<!--on:cancel=\"$popup.close()\">-->\n\t\t\t\t\t<!--</q-grid:expression-builder>-->\n\t\t\t\t<!--</q-grid:template>-->\n\t\t\t\t<!--<q-grid:template for=\"head\">-->\n\t\t\t\t\t<!--Filter-->\n\t\t\t\t<!--</q-grid:template>-->\n\t\t\t<!--</q-grid:popup>-->\n\t\t<!--</div>-->\n\t\t<div>\n\t\t\t<q-grid:action-bar></q-grid:action-bar>\n\t\t</div>\n\t\t<div>\n\t\t\t<q-grid:popup id=\"q-grid-column-chooser-popup\">\n\t\t\t\t<q-grid:template for=\"trigger\">\n\t\t\t\t\t<md-button ng-click=\"$popup.open({width: 352, height: 652})\" class=\"md-icon-button\">\n\t\t\t\t\t\t<md-icon>more_vert</md-icon>\n\t\t\t\t\t</md-button>\n\t\t\t\t</q-grid:template>\n\t\t\t\t<q-grid:template for=\"body\">\n\t\t\t\t\t<q-grid:column-chooser on:submit=\"$popupBody.close()\"\n\t\t\t\t\t\t\t\t\t\t\t\t  on:cancel=\"$popupBody.close()\">\n\t\t\t\t\t</q-grid:column-chooser>\n\t\t\t\t</q-grid:template>\n\t\t\t\t<q-grid:template for=\"head\">\n\t\t\t\t\t<span class=\"md-subhead\">Column Chooser</span>\n\t\t\t\t</q-grid:template>\n\t\t\t</q-grid:popup>\n\t\t</div>\n\t</div>\n</div>\n<div class=\"q-grid-progress\">\n\t<q-grid:progress>\n\t</q-grid:progress>\n</div>"
 
 /***/ }),
 /* 357 */,
@@ -8463,7 +8463,9 @@ module.exports = "<div layout=\"row\">\n\t<div flex=\"100\"\n\t\t  layout=\"row\
 /* 534 */,
 /* 535 */,
 /* 536 */,
-/* 537 */
+/* 537 */,
+/* 538 */,
+/* 539 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
