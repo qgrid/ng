@@ -1,4 +1,4 @@
-import {Model, Log, Command} from '@grid/core/infrastructure';
+import {Model, Log, Command, Action} from '@grid/core/infrastructure';
 import {GridService} from '@grid/core/services';
 import {Pipe} from '@grid/core/pipe';
 import {PipeUnit} from '@grid/core/pipe/units';
@@ -35,6 +35,10 @@ export default class Grid {
 
 	get Command() {
 		return Command;
+	}
+
+	get Action() {
+		return Action;
 	}
 
 	get valueFactory() {

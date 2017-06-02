@@ -1,0 +1,27 @@
+<q-grid rows="$ctrl.rows" edit-mode="cell">
+	<q-grid:columns generation="deep">
+		<q-grid:column type="row-options"
+							key="rowOptions"
+							editor-options="$ctrl.rowOptions">
+		</q-grid:column>
+	</q-grid:columns>
+	<q-grid:toolbar>
+		<q-grid:template for="top">
+			<div layout="row">
+				<div flex="100"
+					  layout="row"
+					  layout-align="start center"
+					  layout-align-xs="start start"
+					  layout-align-sm="start start"
+					  layout-xs="column"
+					  layout-sm="column">
+				</div>
+				<div class="q-grid-actions" flex="none" layout="row" layout-align="end center">
+					<md-button class="md-icon-button">
+						<md-icon>add</md-icon>
+					</md-button>
+				</div>
+			</div>
+		</q-grid:template>
+	</q-grid:toolbar>
+</q-grid>

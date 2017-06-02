@@ -282,6 +282,10 @@
 				"path": "editors"
 			},
 			{
+				"title": "Data Manipulation",
+				"path": "data-manipulation"
+			},
+			{
 				"title": "Batch Editing",
 				"path": "batch-editing"
 			},

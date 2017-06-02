@@ -1,0 +1,16 @@
+<md-menu ng-controller="Body.Cell.Row.Options.Controller as $ctrl">
+	<md-button aria-label="Open row menu"
+				  class="md-icon-button"
+				  q-grid:raise="click"
+				  ng-click="$ctrl.openMenu($mdMenu, $event)">
+		<md-icon>more_vert</md-icon>
+	</md-button>
+	<md-menu-content width="4">
+		<md-menu-item ng-repeat="$action in $cell.column.editorOptions.actions">
+			<md-button ng-click="$action.command.execute($cell)" ng-disabled="!$action.command.canExecute($cell)">
+				<md-icon ng-bind="$action.icon"></md-icon>
+				{{$action.title}}
+			</md-button>
+		</md-menu-item>
+	</md-menu-content>
+</md-menu>
