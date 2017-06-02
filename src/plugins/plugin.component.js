@@ -116,7 +116,8 @@ export default function (pluginName, context) {
 			const templateScope = this.$scope.$new();
 			const link = this.template.link(
 				templateUrl,
-				this.resource
+				this.resource,
+				this.resourceKey
 			);
 
 			link(this.$element, templateScope);
@@ -134,6 +135,10 @@ export default function (pluginName, context) {
 
 		get isShown() {
 			return this.templateScope !== null;
+		}
+
+		get resourceKey() {
+			return ['content', '$default'];
 		}
 	}
 
