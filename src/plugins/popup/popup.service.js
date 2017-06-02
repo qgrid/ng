@@ -11,7 +11,7 @@ export default class PopupService {
 	}
 
 	close(id) {
-		if(!this.isOpened(id)){
+		if (!this.isOpened(id)) {
 			throw new AppError('popup.service', `Can't close popup '${id}', it's not opened`);
 		}
 		const item = this.popups[id];

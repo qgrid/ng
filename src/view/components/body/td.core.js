@@ -4,7 +4,11 @@ import {AppError} from '@grid/core/infrastructure'
 import {VIEW_CORE_NAME, TD_CORE_NAME, TABLE_CORE_NAME, GRID_NAME} from '@grid/view/definition';
 import {GRID_PREFIX} from '@grid/core/definition';
 
-class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, table: `^^${TABLE_CORE_NAME}`, root: `^^${GRID_NAME}`}) {
+class TdCore extends Directive(TD_CORE_NAME, {
+	view: `^^${VIEW_CORE_NAME}`,
+	table: `^^${TABLE_CORE_NAME}`,
+	root: `^^${GRID_NAME}`
+}) {
 	constructor($scope, $element) {
 		super();
 

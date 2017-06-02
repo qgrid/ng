@@ -14,7 +14,7 @@ export class Pdf {
 				columnWidth: 'auto',
 				overflowColumns: true
 			},
-			headerStyles:{
+			headerStyles: {
 				overflow: 'ellipsize',
 			},
 			pageBreak: 'auto',

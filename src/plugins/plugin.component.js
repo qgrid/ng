@@ -137,7 +137,7 @@ export default function (pluginName, context) {
 			return this.templateScope !== null;
 		}
 
-		get resourceKey(){
+		get resourceKey() {
 			return ['content', '$default'];
 		}
 	}

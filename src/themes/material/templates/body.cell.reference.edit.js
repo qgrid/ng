@@ -18,15 +18,16 @@ export default function ReferenceEdit($scope, qgrid) {
 		&& options.modelFactory($scope.$view ? $scope.$view.model.navigation() : {}))
 		|| qgrid.model();
 
-		const dataChangedOff = this.gridModel.dataChanged.watch(e => {
-			if (e.hasChanges('rows') && e.state.rows.length > 0) {
-				const cell = this.cell();
-				this.gridModel.selection({
-					items: isArray(cell.value) ? cell.value : [cell.value]
-				});
+	const dataChangedOff = this.gridModel.dataChanged.watch(e => {
+		if (e.hasChanges('rows') && e.state.rows.length > 0) {
+			const cell = this.cell();
+			this.gridModel.selection({
+				items: isArray(cell.value) ? cell.value : [cell.value]
+			});
 
-				dataChangedOff();
-		}});
+			dataChangedOff();
+		}
+	});
 
 	this.commit = ($cell, $event) => {
 		this.cell().value = this.gridModel.selection().items;
