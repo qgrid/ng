@@ -2,7 +2,7 @@ import RootComponent from '../root.component';
 
 export class Grid extends RootComponent {
 	constructor($element, $transclude) {
-		super('data', 'selection', 'sort', 'group', 'pivot', 'edit');
+		super('data', 'selection', 'sort', 'group', 'pivot', 'edit', 'style');
 
 		this.$element = $element;
 		this.$transclude = $transclude;
@@ -82,5 +82,7 @@ export default {
 		editCommit: '<',
 		editCancel: '<',
 		editReset: '<',
+		styleRow: '<',
+		styleCell: '<'
 	}
 };

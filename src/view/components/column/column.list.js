@@ -28,7 +28,7 @@ class ColumnList extends ModelComponent {
 					parse !== identity
 						? parse(value)
 						: isObject(targetValue)
-						? $parse(value)($scope)
+						? $parse(value)($scope.$parent)
 						: value;
 
 				accessor(target, sourceValue);
@@ -59,6 +59,7 @@ export default {
 		root: `^^${GRID_NAME}`
 	},
 	controller: ColumnList,
+	controllerAs: '$columnList',
 	bindings: {
 		columnListGeneration: '@generation'
 	}

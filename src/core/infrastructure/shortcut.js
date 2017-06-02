@@ -44,8 +44,9 @@ export class Shortcut {
 			const code = this.translate(e);
 			const commands = this.find(code);
 			if (commands.length) {
-				e.preventDefault();
-				this.manager.execute(commands);
+				if (this.manager.execute(commands)) {
+					e.preventDefault();
+				}
 			}
 		}
 	}
