@@ -8,5 +8,6 @@ export class CommandManager {
 		// impact on canExecute of next command
 		const executableCommands = commands.filter(cmd => cmd.canExecute());
 		this.apply(() => executableCommands.forEach(cmd => cmd.execute()));
+		return executableCommands.length > 0;
 	}
 }
