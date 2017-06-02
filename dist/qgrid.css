@@ -1499,6 +1499,8 @@
     text-align: center; }
   .q-grid tbody td.q-grid-dropdown select {
     width: 100%; }
+  .q-grid tbody td.q-grid-row-options {
+    cursor: pointer; }
   .q-grid .q-grid-can-drag {
     -webkit-user-select: none;
     -moz-user-select: none;
