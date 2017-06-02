@@ -135,6 +135,10 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.body.cell.row-indicator.tpl.html', require('./components/cell/row-indicator/body.cell.row.indicator.html'));
 		theme.put('qgrid.foot.cell.row-indicator.tpl.html', EMPTY);
 
+		theme.put('qgrid.head.cell.row-options.tpl.html', EMPTY);
+		theme.put('qgrid.body.cell.row-options.tpl.html', require('./components/cell/row-options/body.cell.row.options.html'));
+		theme.put('qgrid.foot.cell.row-options.tpl.html', EMPTY);
+
 		theme.put('qgrid.head.cell.date.tpl.html', require('./components/cell/text/head.cell.text.html'));
 		theme.put('qgrid.body.cell.date.tpl.html', require('./components/cell/date/body.cell.date.html'));
 		theme.put('qgrid.foot.cell.date.tpl.html', require('./components/cell/text/foot.cell.text.html'));

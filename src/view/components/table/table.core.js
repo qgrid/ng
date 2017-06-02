@@ -1,5 +1,5 @@
 import Component from '../component';
-import {VIEW_CORE_NAME} from '@grid/view/definition';
+import {VIEW_CORE_NAME, GRID_NAME} from '@grid/view/definition';
 
 class TableCore extends Component {
 	constructor($scope) {
@@ -15,7 +15,7 @@ class TableCore extends Component {
 	}
 
 	get columnStartIndex() {
-		const columns = this.view.table.data.columns();
+		const columns = this.root.table.data.columns();
 		switch (this.pin) {
 			case 'left':
 				return 0;
@@ -38,7 +38,8 @@ export default {
 	controllerAs: '$table',
 	templateUrl: 'qgrid.table.tpl.html',
 	require: {
-		'view': `^${VIEW_CORE_NAME}`
+		'view': `^${VIEW_CORE_NAME}`,
+		'root': `^${GRID_NAME}`
 	},
 	bindings: {
 		'pin': '@'
