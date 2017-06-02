@@ -16,17 +16,34 @@ export default function Controller($http, qgrid) {
 		}
 	});
 
-	this.styleRow = (row, context) => {
-		if (this.changes.deleted.has(row)) {
-			context.class('deleted', {opacity: 0.3});
-		}
-	};
+	this.addRowCommand = new qgrid.Command({
+		execute: () => {
+			const newRow = {
+				"name": {
+					"first": null,
+					"last": null
+				},
+				"gender": "male",
+				"birthday": null,
+				"contact": {
+					"address": {
+						"street": null,
+						"zip": null,
+						"city": null,
+						"state": null
+					},
+					"email": [],
+					"region": null,
+					"phone": []
+				},
+				"likes": [],
+				"memberSince": null
+			};
 
-	this.styleCell = (row, column, context) => {
-		if (this.changes.edited.has(row) && this.changes.edited.has(column)) {
-			context.class('edited', {background: '#E3F2FD'});
+			this.changes.added.add(newRow);
+			this.rows = [newRow].concat(this.rows);
 		}
-	};
+	});
 
 	this.rowOptions = {
 		trigger: 'click',
@@ -34,11 +51,27 @@ export default function Controller($http, qgrid) {
 			new qgrid.Action(
 				new qgrid.Command({
 					execute: e => {
-						this.changes.deleted.add(e.row)
+						if (this.changes.added.has(e.row)) {
+							this.changes.added.delete(e.row);
+							this.rows = this.rows.filter(row => row !== e.row);
+						}
+						else {
+							this.changes.deleted.add(e.row)
+						}
 					}
 				}),
 				'Delete Row',
 				'delete'
+			),
+			new qgrid.Action(
+				new qgrid.Command({
+					execute: e => {
+						this.changes.deleted.delete(e.row)
+					},
+					canExecute: e => this.changes.deleted.has(e.row)
+				}),
+				'Restore',
+				'restore'
 			),
 			new qgrid.Action(
 				new qgrid.Command({
@@ -50,6 +83,30 @@ export default function Controller($http, qgrid) {
 				'edit'
 			)
 		]
+	};
+
+	this.styleRow = (row, context) => {
+		if (this.changes.deleted.has(row)) {
+			context.class('deleted', {opacity: 0.3});
+		}
+	};
+
+	this.styleCell = (row, column, context) => {
+		if (column.type === 'row-indicator') {
+			if (this.changes.deleted.has(row)) {
+				context.class('delete-indicator', {background: '#EF5350'});
+			}
+			else if (this.changes.added.has(row)) {
+				context.class('add-indicator', {background: '#C8E6C9'});
+			}
+			else if (this.changes.edited.has(row)) {
+				context.class('edit-indicator', {background: '#E3F2FD'});
+			}
+		}
+
+		if (this.changes.edited.has(row) && this.changes.edited.has(column)) {
+			context.class('edited', {background: '#E3F2FD'});
+		}
 	};
 
 	$http.get('data/people/10.json')
