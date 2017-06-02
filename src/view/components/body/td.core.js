@@ -41,7 +41,7 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, table
 			case 'init': {
 				let link = cache.find(column.key);
 				if (!link) {
-					const build = cellBuilder(this.view.template);
+					const build = cellBuilder(this.root.template);
 					link = build('body', model, column);
 					cache.set(column.key, link);
 				}
@@ -55,7 +55,7 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, table
 			case 'edit': {
 				let link = cache.find(`${column.key}.edit`);
 				if (!link) {
-					const build = cellBuilder(this.view.template, 'edit');
+					const build = cellBuilder(this.root.template, 'edit');
 					link = build('body', model, column);
 					cache.set(`${column.key}.edit`, link);
 				}

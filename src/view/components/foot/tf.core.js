@@ -29,7 +29,7 @@ class TfCore extends Directive(TF_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, table
 		const key = rowIndex > 0 ? column.key + rowIndex : column.key;
 		let link = cache.find(key);
 		if (!link) {
-			const build = cellBuilder(this.view.template);
+			const build = cellBuilder(this.root.template);
 			link = build('foot', this.view.model, this.column);
 			cache.set(key, link);
 		}

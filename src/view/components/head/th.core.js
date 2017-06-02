@@ -28,7 +28,7 @@ class ThCore extends Directive(TH_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, table
 			const cache = model.head().cache;
 			let link = cache.find(column.key);
 			if (!link) {
-				const build = cellBuilder(this.view.template);
+				const build = cellBuilder(this.root.template);
 				link = build('head', model, this.column);
 				cache.set(column.key, link);
 			}

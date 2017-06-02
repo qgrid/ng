@@ -1,16 +1,19 @@
 import RootComponent from '../root.component';
 import {Table} from '@grid/core/dom';
 import {CommandManager, LayerFactory} from '@grid/view/services';
-import {isUndefined, identity} from '@grid/core/services/utility';
+import {isUndefined} from '@grid/core/services/utility';
+import TemplateLink from '../template/template.link';
 
 export class Grid extends RootComponent {
-	constructor($scope, $element, $transclude, $document) {
+	constructor($scope, $element, $transclude, $document, $timeout, $templateCache, $compile) {
 		super('data', 'selection', 'sort', 'group', 'pivot', 'edit', 'style');
 
 		this.$scope = $scope;
 		this.$element = $element;
 		this.$transclude = $transclude;
+		this.$timeout = $timeout;
 
+		this.template = new TemplateLink($compile, $templateCache);
 		this.commandManager = new CommandManager(this.applyFactory());
 		this.markup = {
 			document: $document[0]
@@ -25,24 +28,11 @@ export class Grid extends RootComponent {
 		const layerFactory = new LayerFactory(this.markup, this.template);
 		const tableContext = {
 			layer: name => layerFactory.create(name),
-			model: element => bag.get(element) || null,
-			mapper: {
-				row: index => {
-					const scrollState = model.scroll();
-					if (scrollState.mode === 'virtual') {
-						return index - this.scroll.y.container.cursor;
-					}
-
-					return index;
-				},
-				column: identity
-			}
+			model: element => bag.get(element) || null
 		};
-
 		this.table = new Table(model, this.markup, tableContext);
 
 		this.compile();
-
 		this.model.viewChanged.watch(e => {
 			if (e.hasChanges('columns')) {
 				this.invalidateVisibility();
@@ -108,7 +98,10 @@ Grid.$inject = [
 	'$scope',
 	'$element',
 	'$transclude',
-	'$document'
+	'$document',
+	'$timeout',
+	'$templateCache',
+	'$compile'
 ];
 
 /**

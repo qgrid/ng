@@ -17,11 +17,10 @@ import {ColumnView} from '@grid/core/column';
 import {ScrollView} from '@grid/core/scroll';
 import {GRID_NAME, TH_CORE_NAME} from '@grid/view/definition';
 import {PipeUnit} from '@grid/core/pipe/units';
-import TemplateLink from '../template/template.link';
 import {Vscroll} from '@grid/view/services';
 
 class ViewCore extends Component {
-	constructor($rootScope, $scope, $element, $timeout, $compile, $templateCache, grid, vscroll) {
+	constructor($rootScope, $scope, $element, $timeout, grid, vscroll) {
 		super();
 
 		this.$rootScope = $rootScope;
@@ -30,7 +29,6 @@ class ViewCore extends Component {
 		this.$timeout = $timeout;
 		this.$postLink = this.build;
 		this.serviceFactory = grid.service.bind(grid);
-		this.template = new TemplateLink($compile, $templateCache);
 		this.vscroll = vscroll;
 	}
 
@@ -47,6 +45,11 @@ class ViewCore extends Component {
 					root.table.body.invalidate();
 				}
 			}));
+
+
+		if (model.scroll().mode === 'virtual') {
+			table.context.mapper.row = index => index - this.scroll.y.container.cursor;
+		}
 
 		this.style = new StyleView(model, table);
 		this.head = new HeadView(model, table, TH_CORE_NAME);
@@ -131,8 +134,6 @@ ViewCore.$inject = [
 	'$scope',
 	'$element',
 	'$timeout',
-	'$compile',
-	'$templateCache',
 	'qgrid',
 	'vscroll'
 ];
