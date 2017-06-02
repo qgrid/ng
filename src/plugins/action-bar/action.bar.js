@@ -13,34 +13,31 @@ TemplatePath
 		};
 	});
 
-const Plugin = PluginComponent('action-bar');
+const Plugin = PluginComponent('action-bar', {models: ['action']});
 class ActionBar extends Plugin {
 	constructor() {
 		super(...arguments);
-
-
 	}
 
 	onInit() {
 		const root = this._root;
 		if (root) {
 			const shortcut = new Shortcut(root.table, root.commandManager);
-			if (this.actions) {
-				this.shortcutOff = shortcut.register('actionBar', this.actions.map(act => act.command));
-			}
+			this.model.actionChanged.watch(e => {
+				if (e.hasChanges('items')) {
+					if (this.shortcutOff) {
+						this.shortcutOff();
+						this.shortcutOff = null;
+					}
 
-			this.$onChanges = () => {
-				if (this.shortcutOff) {
-					this.shortcutOff();
-					this.shortcutOff = null;
+					this.shortcutOff = shortcut.register('actionBar', e.state.items.map(act => act.command));
 				}
-
-				if (this.actions) {
-					this.shortcutOff = shortcut.register('actionBar', this.actions.map(act => act.command));
-				}
-			};
-
+			});
 		}
+	}
+
+	get actions() {
+		return this.model.action().items;
 	}
 
 	onDestroy() {
@@ -55,7 +52,7 @@ export default ActionBar.component({
 	controller: ActionBar,
 	controllerAs: '$actionBar',
 	bindings: {
-		actions: '<'
+		actionItems: '<actions'
 	}
 });
 
