@@ -1,7 +1,7 @@
 import Directive from '@grid/view/directives/directive';
-import {VIEW_CORE_NAME, TR_CORE_NAME} from '@grid/view/definition';
+import {VIEW_CORE_NAME, TR_CORE_NAME, GRID_NAME} from '@grid/view/definition';
 
-class TrCore extends Directive(TR_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
+class TrCore extends Directive(TR_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, root: `^^${GRID_NAME}`}) {
 	constructor($scope, $element, $attrs) {
 		super();
 
@@ -11,12 +11,12 @@ class TrCore extends Directive(TR_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	}
 
 	onInit() {
-		this.view.bag.set(this.element, this);
+		this.root.bag.set(this.element, this);
 		this.view.style.monitor.row.add(this.element);
 	}
 
 	onDestroy() {
-		this.view.bag.delete(this.element);
+		this.root.bag.delete(this.element);
 		this.view.style.monitor.row.remove(this.element);
 	}
 

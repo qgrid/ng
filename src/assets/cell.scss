@@ -129,5 +129,9 @@ tbody {
 				width: 100%;
 			}
 		}
+
+		&.q-grid-row-options {
+			cursor: pointer;
+		}
 	}
 }

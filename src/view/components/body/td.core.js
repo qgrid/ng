@@ -1,10 +1,10 @@
 import Directive from '@grid/view/directives/directive';
 import cellBuilder from '../cell/cell.build';
 import {AppError} from '@grid/core/infrastructure'
-import {VIEW_CORE_NAME, TD_CORE_NAME, TABLE_CORE_NAME} from '@grid/view/definition';
+import {VIEW_CORE_NAME, TD_CORE_NAME, TABLE_CORE_NAME, GRID_NAME} from '@grid/view/definition';
 import {GRID_PREFIX} from '@grid/core/definition';
 
-class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, table: `^^${TABLE_CORE_NAME}`}) {
+class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, table: `^^${TABLE_CORE_NAME}`, root: `^^${GRID_NAME}`}) {
 	constructor($scope, $element) {
 		super();
 
@@ -17,7 +17,7 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, table
 		const column = this.column;
 		const element = this.element;
 
-		this.view.bag.set(element, this);
+		this.root.bag.set(element, this);
 		this.view.style.monitor.cell.add(element);
 
 		element.classList.add(`${GRID_PREFIX}-${column.key}`);
@@ -41,7 +41,7 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, table
 			case 'init': {
 				let link = cache.find(column.key);
 				if (!link) {
-					const build = cellBuilder(this.view.template);
+					const build = cellBuilder(this.root.template);
 					link = build('body', model, column);
 					cache.set(column.key, link);
 				}
@@ -55,7 +55,7 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, table
 			case 'edit': {
 				let link = cache.find(`${column.key}.edit`);
 				if (!link) {
-					const build = cellBuilder(this.view.template, 'edit');
+					const build = cellBuilder(this.root.template, 'edit');
 					link = build('body', model, column);
 					cache.set(`${column.key}.edit`, link);
 				}
@@ -128,7 +128,7 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, table
 			this.$templateScope.$destroy();
 		}
 
-		this.view.bag.delete(this.element);
+		this.root.bag.delete(this.element);
 		this.view.style.monitor.cell.remove(this.element);
 	}
 }

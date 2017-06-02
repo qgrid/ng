@@ -1,9 +1,9 @@
 import Directive from '@grid/view/directives/directive';
-import {VIEW_CORE_NAME, BODY_CORE_NAME} from '@grid/view/definition';
+import {VIEW_CORE_NAME, BODY_CORE_NAME, GRID_NAME} from '@grid/view/definition';
 import {EventListener} from '@grid/core/infrastructure';
 import {PathService} from '@grid/core/path';
 
-class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
+class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, root: `^^${GRID_NAME}`}) {
 	constructor($scope, $element, $document) {
 		super();
 
@@ -58,7 +58,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	}
 
 	onClick(e) {
-		const pathFinder = new PathService(this.view.bag);
+		const pathFinder = new PathService(this.root.bag);
 		const cell = pathFinder.cell(e.path);
 		if (cell) {
 			this.navigate(cell);
@@ -71,7 +71,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 
 	onMouseDown(e) {
 		if (this.selection.mode === 'range') {
-			const pathFinder = new PathService(this.view.bag);
+			const pathFinder = new PathService(this.root.bag);
 			this.rangeStartCell = pathFinder.cell(e.path);
 
 			if (this.rangeStartCell) {
@@ -82,7 +82,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 		}
 
 		if (this.selection.unit === 'row') {
-			const pathFinder = new PathService(this.view.bag);
+			const pathFinder = new PathService(this.root.bag);
 			const cell = pathFinder.cell(e.path);
 			if (cell && cell.column.type !== 'select') {
 				this.view.selection.toggleRow.execute(cell.row);
@@ -92,7 +92,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 		}
 
 		if (this.selection.unit === 'column') {
-			const pathFinder = new PathService(this.view.bag);
+			const pathFinder = new PathService(this.root.bag);
 			const cell = pathFinder.cell(e.path);
 			if (cell) {
 				this.view.selection.toggleColumn.execute(cell.column);
@@ -103,7 +103,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	}
 
 	onMouseMove(e) {
-		const pathFinder = new PathService(this.view.bag);
+		const pathFinder = new PathService(this.root.bag);
 		const row = pathFinder.row(e.path);
 		if (row) {
 			const index = row.index;
