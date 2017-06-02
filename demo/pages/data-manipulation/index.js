@@ -16,34 +16,40 @@ export default function Controller($http, qgrid) {
 		}
 	});
 
-	this.addRowCommand = new qgrid.Command({
-		execute: () => {
-			const newRow = {
-				"name": {
-					"first": null,
-					"last": null
-				},
-				"gender": "male",
-				"birthday": null,
-				"contact": {
-					"address": {
-						"street": null,
-						"zip": null,
-						"city": null,
-						"state": null
-					},
-					"email": [],
-					"region": null,
-					"phone": []
-				},
-				"likes": [],
-				"memberSince": null
-			};
+	this.actions = [
+		new qgrid.Action(
+			new qgrid.Command({
+				execute: () => {
+					const newRow = {
+						'name': {
+							'first': null,
+							'last': null
+						},
+						'gender': 'male',
+						'birthday': null,
+						'contact': {
+							'address': {
+								'street': null,
+								'zip': null,
+								'city': null,
+								'state': null
+							},
+							'email': [],
+							'region': null,
+							'phone': []
+						},
+						'likes': [],
+						'memberSince': null
+					};
 
-			this.changes.added.add(newRow);
-			this.rows = [newRow].concat(this.rows);
-		}
-	});
+					this.changes.added.add(newRow);
+					this.rows = [newRow].concat(this.rows);
+				},
+				shortcut: 'F7'
+			}),
+			'Add New Row',
+			'add'
+		)];
 
 	this.rowOptions = {
 		trigger: 'click',
@@ -56,7 +62,7 @@ export default function Controller($http, qgrid) {
 							this.rows = this.rows.filter(row => row !== e.row);
 						}
 						else {
-							this.changes.deleted.add(e.row)
+							this.changes.deleted.add(e.row);
 						}
 					}
 				}),
@@ -66,7 +72,7 @@ export default function Controller($http, qgrid) {
 			new qgrid.Action(
 				new qgrid.Command({
 					execute: e => {
-						this.changes.deleted.delete(e.row)
+						this.changes.deleted.delete(e.row);
 					},
 					canExecute: e => this.changes.deleted.has(e.row)
 				}),
@@ -75,8 +81,8 @@ export default function Controller($http, qgrid) {
 			),
 			new qgrid.Action(
 				new qgrid.Command({
-					execute: e => {
-
+					execute: () => {
+						// TODO make edit form service
 					}
 				}),
 				'Edit Form',

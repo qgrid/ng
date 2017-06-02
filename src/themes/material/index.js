@@ -73,6 +73,7 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.plugin.edit-form-panel.tpl.html', require('@grid/themes/material/templates/plugin.edit.form.panel.html'));
 		theme.put('qgrid.plugin.popup-panel.tpl.html', require('@grid/themes/material/templates/plugin.popup.panel.html'));
 		theme.put('qgrid.plugin.group-bar.tpl.html', require('@grid/themes/material/templates/plugin.group.bar.html'));
+		theme.put('qgrid.plugin.action-bar.tpl.html', require('@grid/themes/material/templates/plugin.action.bar.html'));
 		theme.put('qgrid.plugin.sort-bar.tpl.html', require('@grid/themes/material/templates/plugin.sort.bar.html'));
 		theme.put('qgrid.plugin.pivot-bar.tpl.html', require('@grid/themes/material/templates/plugin.pivot.bar.html'));
 		theme.put('qgrid.plugin.selection-bar.tpl.html', require('@grid/themes/material/templates/plugin.selection.bar.html'));
