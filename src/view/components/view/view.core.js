@@ -16,7 +16,6 @@ import {StyleView} from '@grid/core/style';
 import {ColumnView} from '@grid/core/column';
 import {ScrollView} from '@grid/core/scroll';
 import {GRID_NAME, TH_CORE_NAME} from '@grid/view/definition';
-import {isUndefined, identity} from '@grid/core/services/utility';
 import {PipeUnit} from '@grid/core/pipe/units';
 import TemplateLink from '../template/template.link';
 import {Vscroll} from '@grid/view/services';
