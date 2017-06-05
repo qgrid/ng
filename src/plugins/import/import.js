@@ -14,8 +14,12 @@ class Import extends Plugin {
 	constructor() {
 		super(...arguments);
 	}
+
 	get resource() {
 		return this.model.import().resource;
+	}
+
+	onInit() {
 	}
 }
 

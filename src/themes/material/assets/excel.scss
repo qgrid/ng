@@ -1,18 +1,10 @@
 $excel-default-color: #227447;
 
-.excel-style .q-grid tbody {
-  border: {
-    style: solid;
-    width: 1px 0 0 1px; //left, top
-    color: #CCC;
-  }
+.q-grid-table tbody {
+  border-collapse: collapse;
   tr {
     td, th {
-      border: {
-        style: solid;
-        width: 0 1px 1px 0; //right, bottom
-        color: #CCC;
-      }
+      border: 1px solid #CCC;
       line-height: 21px;
       padding: 0 4px 0 4px;
       background-color: white;

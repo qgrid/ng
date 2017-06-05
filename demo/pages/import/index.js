@@ -31,18 +31,19 @@ function arrayPlug(size) {
 Controller.$inject = ['$http', 'qgrid'];
 export default function Controller($http, qgrid) {
 	const ctrl = this;
-	const model = qgrid.model();
 	let rows = [];
-	ctrl.model = model;
+	ctrl.model = qgrid.model();
 
-	model.scroll({
-		mode: 'virtual'
-	});
+	ctrl.model
+		.scroll({
+			mode: 'virtual'
+		})
+		.data({
+			pipe: [(data, context, next) => {
+				const size = ctrl.model.pagination().size;
+				next(rows = rows.concat(arrayPlug(size)));
+			}]
+				.concat(qgrid.pipeUnit.view)
+		});
 
-	ctrl.model.data({
-		pipe: [(data, context, next) => {
-			const size = model.pagination().size;
-			next(rows = rows.concat(arrayPlug(size)));
-		}].concat(qgrid.pipeUnit.view)
-	});
 }
