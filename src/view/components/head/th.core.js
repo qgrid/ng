@@ -3,7 +3,11 @@ import cellBuilder from '../cell/cell.build';
 import {VIEW_CORE_NAME, TH_CORE_NAME, TABLE_CORE_NAME, GRID_NAME} from '@grid/view/definition';
 import {GRID_PREFIX} from '@grid/core/definition';
 
-class ThCore extends Directive(TH_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, table: `^^${TABLE_CORE_NAME}`, root: `^^${GRID_NAME}`}) {
+class ThCore extends Directive(TH_CORE_NAME, {
+	view: `^^${VIEW_CORE_NAME}`,
+	table: `^^${TABLE_CORE_NAME}`,
+	root: `^^${GRID_NAME}`
+}) {
 	constructor($scope, $element, $attrs) {
 		super();
 
@@ -46,7 +50,7 @@ class ThCore extends Directive(TH_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, table
 	}
 
 	get columnIndex() {
-		return  this.table.columnStartIndex + this.$scope.$index;
+		return this.table.columnStartIndex + this.$scope.$index;
 	}
 
 	get element() {
