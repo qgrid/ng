@@ -1,0 +1,58 @@
+$excel-default-color: #227447;
+
+.excel-style .q-grid tbody {
+  border: {
+    style: solid;
+    width: 1px 0 0 1px; //left, top
+    color: #CCC;
+  }
+  tr {
+    td, th {
+      border: {
+        style: solid;
+        width: 0 1px 1px 0; //right, bottom
+        color: #CCC;
+      }
+      line-height: 21px;
+      padding: 0 4px 0 4px;
+      background-color: white;
+      vertical-align: top;
+      overflow: hidden;
+      outline-width: 0;
+      border-collapse: collapse;
+      border-spacing: 0;
+      &.q-grid-array ul {
+        display: inline-block;
+        vertical-align: middle;
+      }
+      &.q-grid-array ul li {
+        //display: inline-block;
+        display: block;
+        min-width: 0;
+        text-align: left;
+        padding: 0;
+        vertical-align: middle;
+        background-color: transparent;
+        border-radius: 0;
+        margin-right: 0;
+        &::after {
+          //margin-right: 5px;
+          content: ',';
+          white-space: pre;
+        }
+        &:last-child::after {
+          //margin-right: 0;
+          content: '';
+        }
+      }
+
+      &.q-grid-focus {
+        background-color: white !important;
+        border-color: $excel-default-color;
+      }
+      &.q-grid-selected {
+        background-color: white !important;
+      }
+    }
+  }
+}

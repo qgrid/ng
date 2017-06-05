@@ -363,6 +363,10 @@
 			{
 				"title": "Export",
 				"path": "export"
+			},
+			{
+				"title": "Import",
+				"path": "import"
 			}
 		]
 	},
