@@ -1534,10 +1534,10 @@
       user-select: none;
       cursor: default; }
     .q-grid .q-grid-view .q-grid-table-left,
-    .q-grid .q-grid-view .g-grid-table-right {
+    .q-grid .q-grid-view .q-grid-table-right {
       margin-bottom: 8px; }
       .q-grid .q-grid-view .q-grid-table-left tbody,
-      .q-grid .q-grid-view .g-grid-table-right tbody {
+      .q-grid .q-grid-view .q-grid-table-right tbody {
         overflow-x: hidden; }
     .q-grid .q-grid-view > .q-grid-table-left tbody {
       overflow-y: hidden; }
