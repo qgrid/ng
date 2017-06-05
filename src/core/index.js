@@ -26,6 +26,7 @@ import {DragModel} from './drag';
 import {StyleModel} from './style';
 import {ScrollModel} from './scroll';
 import {ExportModel} from './export';
+import {ImportModel} from './import';
 import {ActionModel} from './action';
 
 export function setup(model) {
@@ -57,5 +58,6 @@ export function setup(model) {
 		.register('style', StyleModel)
 		.register('scroll', ScrollModel)
 		.register('export', ExportModel)
+		.register('import', ImportModel)
 		.register('action', ActionModel);
 }

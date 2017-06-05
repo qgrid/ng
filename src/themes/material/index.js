@@ -14,6 +14,7 @@ function Setup(qgridThemeProvider) {
 	qgridThemeProvider.register('material', theme => {
 		theme.put('qgrid.plugin.progress.tpl.html', require('@grid/themes/material/templates/plugin.progress.html'));
 		theme.put('qgrid.plugin.export.tpl.html', require('@grid/themes/material/templates/plugin.export.html'));
+		theme.put('qgrid.plugin.import.tpl.html', require('@grid/themes/material/templates/plugin.import.html'));
 
 		theme.put('qgrid.body.cell.text.edit.tpl.html', require('@grid/themes/material/templates/body.cell.text.edit.html'));
 		theme.put('qgrid.body.cell.text-area.edit.tpl.html', require('@grid/themes/material/templates/body.cell.text.area.edit.html'));

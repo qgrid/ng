@@ -17,6 +17,7 @@ export const EDIT_FORM_NAME = `${GRID}EditForm`;
 export const EDIT_FORM_PANEL_NAME = `${GRID}EditFormPanel`;
 export const EDIT_FORM_EDITOR = `${GRID}EditFormEditor`;
 export const EXPORT_NAME = `${GRID}Export`;
+export const IMPORT_NAME = `${GRID}Import`;
 
 export const POPUP_NAME = `${GRID}Popup`;
 export const POPUP_TRIGGER_NAME = `${GRID}PopupTrigger`;
