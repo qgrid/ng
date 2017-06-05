@@ -1,6 +1,7 @@
 <div class="q-grid-export" layout="row" layout-align="end center">
-	<md-button>
+	<md-button ng-if="$import[$import.type].canExecute()"
+	           ng-click="$import[$import.type].execute()">
 		<md-icon>file_upload</md-icon>
-		import from {{$import.type}}
+		Import from {{$import.type}}
 	</md-button>
 </div>
