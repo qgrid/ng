@@ -1,7 +1,7 @@
 import ModelComponent from '../model.component';
 import * as ng from '@grid/view/services/ng';
 import {compile} from '@grid/core/services'
-import {isUndefined, clone, isObject, identity} from '@grid/core/services/utility';
+import {isUndefined, clone, isObject, identity} from '@grid/core/utility';
 import {parseFactory, getType} from '@grid/core/services';
 import {GRID_NAME} from '@grid/view/definition';
 

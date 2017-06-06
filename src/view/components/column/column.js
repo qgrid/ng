@@ -1,6 +1,6 @@
 import Component from '../component';
 import {GRID_NAME, COLUMN_NAME, COLUMN_LIST_NAME} from '@grid/view/definition';
-import {clone, isUndefined} from '@grid/core/services/utility';
+import {clone, isUndefined} from '@grid/core/utility';
 import {TemplatePath} from '@grid/core/template';
 import * as columnService from '@grid/core/column/column.service';
 import {columnFactory} from '@grid/core/column/column.factory';

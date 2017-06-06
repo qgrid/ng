@@ -1,4 +1,4 @@
-import {isArray} from '@grid/core/services/utility';
+import {isArray} from '@grid/core/utility';
 
 ReferenceEdit.$inject = ['$scope', 'qgrid'];
 export default function ReferenceEdit($scope, qgrid) {
