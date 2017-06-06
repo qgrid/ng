@@ -3,6 +3,7 @@ import isFunction from 'lodash/isFunction';
 import isArray from 'lodash/isArray';
 import isString from 'lodash/isString';
 import isBoolean from 'lodash/isBoolean';
+import camelCase from 'lodash/camelCase';
 import clone from 'lodash/clone';
 import cloneDeep from 'lodash/cloneDeep';
 import isUndefined from 'lodash/isUndefined';
@@ -27,11 +28,7 @@ const identity = arg => arg;
 const toCamelCase = (...names) => {
 	const length = names.length;
 	if (length > 0) {
-		return names[0] +
-			names.slice(1)
-				.map(name =>
-				name[0].toUpperCase() +
-				name.substring(1, name.length));
+		return camelCase(names.join(' '));
 	}
 
 	return '';

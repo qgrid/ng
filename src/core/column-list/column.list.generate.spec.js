@@ -145,4 +145,14 @@ describe('column generate', () => {
 		expect(columns[2].title).to.equal('Likes');
 		expect(columns[2].value(row)).to.equal(row.likes);
 	});
+
+	it('should convert labels to camel case', () => {
+		const rows = [{
+			'First Name': 'John'
+		}];
+
+		const columns = generate(rows);
+		expect(columns[0].key).to.equal('firstName');
+		expect(columns[0].title).to.equal('First Name');
+	});
 });
