@@ -1,7 +1,8 @@
 <div class="q-grid-export" layout="row" layout-align="end center">
-	<md-button ng-if="$import[$import.type].canExecute()"
-	           ng-click="$import[$import.type].execute()">
+	<input class="ng-hide" id="input-file-id" type="file"
+	       ng-if="$import.upload.canExecute()"/>
+	<label for="input-file-id" class="md-button">
 		<md-icon>file_upload</md-icon>
-		Import from {{$import.type}}
-	</md-button>
+		Upload file</label>
+	<span ng-if="$import.file">{{$import.file.name}}</span>
 </div>

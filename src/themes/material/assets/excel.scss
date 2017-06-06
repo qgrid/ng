@@ -40,7 +40,7 @@ $excel-default-color: #227447;
 
       &.q-grid-focus {
         background-color: white !important;
-        border-color: $excel-default-color;
+        border: 1px solid $excel-default-color;
       }
       &.q-grid-selected {
         background-color: white !important;
