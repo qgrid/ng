@@ -56,6 +56,9 @@ export default function Controller($http, qgrid) {
 		actions: [
 			new qgrid.Action(
 				new qgrid.Command({
+					canExecute: e => {
+						return !this.changes.deleted.has(e.row);
+					},
 					execute: e => {
 						if (this.changes.added.has(e.row)) {
 							this.changes.added.delete(e.row);
