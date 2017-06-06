@@ -1,49 +1,37 @@
-function arrayPlug(size) {
-	const result = [];
-	const emptyRow = {
-		birthday: '',
-		contact: {
-			address: {
-				city: '',
-				state: '',
-				street: '',
-				zip: ''
-			},
-			email: [],
-			phone: [],
-			region: ''
-		},
-		gender: '',
-		likes: [],
-		memberSince: '',
-		name: {
-			first: '',
-			last: ''
-		}
-	};
-	for (let i = 0; i < size; i++) {
-		result.push(emptyRow);
-	}
-
-	return result;
-}
+// function plug(size) {
+// 	const rows = [];
+// 	const columns = [];
+// 	const letters = 'ABCDEFGHIJKLM'.split('');
+// 	const emptyRow = {};
+// 	for (let letter of letters) {
+// 		emptyRow[letter] = '';
+// 		columns.push({
+// 			key: letter,
+// 			title: letter
+// 		});
+// 	}
+// 	for (let i = 0; i < size; i++) {
+// 		rows.push(emptyRow);
+// 	}
+//
+// 	return {
+// 		rows: rows,
+// 		columns: columns
+// 	};
+// }
 
 Controller.$inject = ['$http', 'qgrid'];
 export default function Controller($http, qgrid) {
 	const ctrl = this;
-	let rows = [];
 	ctrl.model = qgrid.model();
-
+	// const size = ctrl.model.pagination().size;
 	ctrl.model
 		.scroll({
 			mode: 'virtual'
-		})
-		.data({
-			pipe: [(data, context, next) => {
-				const size = ctrl.model.pagination().size;
-				next(rows = rows.concat(arrayPlug(size)));
-			}]
-				.concat(qgrid.pipeUnit.view)
 		});
+		// .data({
+		// 	rows: plug(size).rows,
+		// 	columns:plug(size).columns
+		// });
 
 }

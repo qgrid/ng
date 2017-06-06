@@ -1,19 +1,17 @@
 import PluginComponent from '../plugin.component';
 import {IMPORT_NAME} from '../definition';
 import {TemplatePath} from '@grid/core/template';
-import {Command, EventListener, Log} from '@grid/core/infrastructure';
-import {flatToTree} from '@grid/core/import/import.common';
+import {Command, EventListener} from '@grid/core/infrastructure';
 import XLSX from 'xlsx';
 
 function to_json(workbook) {
-	const headers = ['name.first', 'name.last', 'gender', 'birthday', 'contact.address.street', 'contact.address.zip',
-		'contact.address.city', 'contact.address.state', 'contact.email', 'contact.region', 'contact.phone', 'likes', 'member.since'];
 	let result = [];
 	for (let sheetName of workbook.SheetNames) {
-		const patial = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], {header: headers});
-		result = patial.concat(result);
+		const partial = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], {header: 'A'});
+		result = partial.concat(result);
 	}
-	return result.slice(1);
+
+	return result;
 }
 
 TemplatePath
@@ -37,12 +35,18 @@ class Import extends Plugin {
 		for (let file of files) {
 			const reader = new FileReader();
 			reader.onload = e => {
+				const columns = [];
 				const data = e.target.result;
 				const workbook = XLSX.read(data, {type: 'binary'});
 				const json = to_json(workbook);
-				flatToTree(json);
-				Log.info(JSON.stringify(json));
-				// this.model.data({rows: json});
+				const headers = Object.keys(json[0]);
+				for (let header of headers) {
+					columns.push({
+						key: header,
+						title: header
+					});
+				}
+				this.model.data({rows: json, columns: columns});
 			};
 			reader.readAsBinaryString(file);
 		}
