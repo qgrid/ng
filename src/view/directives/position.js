@@ -1,6 +1,6 @@
 import Directive from './directive';
 import {POSITION_NAME, GRID_NAME} from '@grid/view/definition';
-import {max} from '@grid/core/services/utility';
+import {max} from '@grid/core/utility';
 
 class Position extends Directive(POSITION_NAME, {root: `^${GRID_NAME}`}) {
 	constructor($element, $attrs, $timeout) {

@@ -1,6 +1,6 @@
 import Component from './component';
 import {Guard, ModelBinder} from '@grid/core/infrastructure';
-import {noop} from '@grid/core/services/utility';
+import {noop} from '@grid/core/utility';
 
 export default class ModelComponent extends Component {
 	constructor(...names) {
