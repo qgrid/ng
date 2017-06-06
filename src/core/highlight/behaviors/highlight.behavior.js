@@ -1,6 +1,6 @@
-import {GRID_PREFIX} from 'core/definition';
+import {GRID_PREFIX} from '../../definition';
 
-export default class HighlightBehavior {
+export class HighlightBehavior {
 	constructor(model, cellSelector) {
 		this.model = model;
 		this.cellSelector = cellSelector;
@@ -10,10 +10,10 @@ export default class HighlightBehavior {
 
 	state(cell, state) {
 		if (state) {
-			cell.classList.add(`${GRID_PREFIX}-selected`);
+			cell.addClass(`${GRID_PREFIX}-selected`);
 		}
 		else {
-			cell.classList.remove(`${GRID_PREFIX}-selected`);
+			cell.removeClass(`${GRID_PREFIX}-selected`);
 		}
 	}
 

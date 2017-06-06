@@ -12,7 +12,7 @@ export default function Handler($log, $injector) {
 		return toast;
 	}
 
-	return (exception, cause) => {
+	return (exception, cause='qgrid') => {
 		$log.error(exception, cause);
 
 		const toast = getToast();

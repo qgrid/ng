@@ -1,3 +1,24 @@
+$baseline-grid: 8px !default;
+$layout-gutter-width: ($baseline-grid * 2) !default;
+
+// mixin definition ; sets LTR and RTL within the same style call
+// @see https://css-tricks.com/almanac/properties/d/direction/
+
+@mixin rtl($prop, $ltr-value, $rtl-value) {
+	#{$prop}: $ltr-value;
+	[dir=rtl] & {
+		#{$prop}: $rtl-value;
+	}
+}
+
+@mixin rtl-prop($ltr-prop, $rtl-prop, $value, $reset-value) {
+	#{$ltr-prop}: $value;
+	[dir=rtl] & {
+		#{$ltr-prop}: $reset-value;
+		#{$rtl-prop}: $value;
+	}
+}
+
 /*
 *
 *  Responsive attributes
@@ -518,3 +539,8 @@
 	-ms-flex-basis: auto;
 	flex-basis: auto;
 }
+
+/* Apply Mixins to create Layout/Flexbox styles */
+
+@include layouts_for_breakpoint();
+@include layout-padding-margin();

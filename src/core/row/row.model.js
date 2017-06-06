@@ -1,8 +1,10 @@
-import Resource from '../resource/resource';
+import {Resource} from '../resource';
 
-export default class RowModel {
+export class RowModel {
 	constructor() {
 		this.mode = 'data';//data|details
 		this.resource = new Resource();
+
+		this.height = 0;
 	}
 }

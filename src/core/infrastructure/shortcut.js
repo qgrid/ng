@@ -1,6 +1,9 @@
-export default class Shortcut {
-	constructor(table, apply) {
-		this.apply = apply;
+import {isFunction} from '../utility';
+
+export class Shortcut {
+	constructor(table, manager) {
+		this.manager = manager;
+		this.commands = [];
 		this.shortcuts = new Map();
 		this.codeMap = new Map()
 			.set(9, 'tab')
@@ -15,10 +18,11 @@ export default class Shortcut {
 			.set(38, 'up')
 			.set(39, 'right')
 			.set(40, 'down')
-			.set(113, 'f2');
+			.set(113, 'f2')
+			.set(118, 'f7');
 
-		this.canExecute = table.isFocused;
-		this.off = table.keyDown(this.onKeyDown.bind(this));
+		this.canExecute = () => table.view.isFocused();
+		this.off = table.view.keyDown(this.onKeyDown.bind(this));
 	}
 
 	translate(e) {
@@ -39,38 +43,56 @@ export default class Shortcut {
 	onKeyDown(e) {
 		if (this.canExecute()) {
 			const code = this.translate(e);
-			if (this.shortcuts.has(code)) {
-				const cmds = this.shortcuts.get(code);
-				cmds.forEach(cmd => {
-					if (cmd.canExecute()) {
-						e.preventDefault();
-						this.apply(() => cmd.execute());
-					}
-				});
+			const commands = this.find(code);
+			if (commands.length) {
+				if (this.manager.execute(commands)) {
+					e.preventDefault();
+				}
 			}
 		}
 	}
 
 	register(id, commands) {
-		for (let value of commands.values()) {
-			if (value.shortcut) {
-				value.shortcut
-					.toLowerCase()
-					.split('|')
-					.forEach(shortcut => {
-						let temp = [];
-						if (this.shortcuts.has(shortcut)) {
-							temp = this.shortcuts.get(shortcut);
-						}
-						temp.push(value);
-						this.shortcuts.set(shortcut, temp);
-					});
+		const cmds = commands.values ? commands.values() : commands;
+		for (let cmd of cmds) {
+			if (cmd.shortcut) {
+				if (isFunction(cmd.shortcut)) {
+					this.commands.push(cmd);
+				}
+				else {
+					cmd.shortcut
+						.toLowerCase()
+						.split('|')
+						.forEach(shortcut => {
+							let temp = [];
+							if (this.shortcuts.has(shortcut)) {
+								temp = this.shortcuts.get(shortcut);
+							}
+							temp.push(cmd);
+							this.shortcuts.set(shortcut, temp);
+						});
+				}
 			}
 		}
 
-		return () => {
-			this.shortcuts.delete(id);
-		};
+		return () => this.shortcuts.delete(id);
+	}
+
+	find(code) {
+		let result = [];
+		if (this.shortcuts.has(code)) {
+			result = result.concat(this.shortcuts.get(code));
+		}
+
+		result = result.concat(this.commands.filter(cmd => this.test(cmd.shortcut(), code)));
+		return result;
+	}
+
+	test(shortcut, code) {
+		return ('' + shortcut)
+			.toLowerCase()
+			.split('|')
+			.some(shct => code === shct);
 	}
 
 	onDestroy() {

@@ -1,17 +1,14 @@
-import * as columnService from 'core/column/column.service';
-import AppError from 'core/infrastructure/error';
+import {AppError} from '../infrastructure';
 
-export default (model, markup) => {
+export function cellSelector(model, table) {
 	function getRows(items) {
 		const result = [];
-		const rows = model.view().rows;
-		
+		const rows = table.data.rows();
+
 		for (let item of items) {
-			const index = rows.indexOf(item) * 2;
-			if (index > -1 && markup.body.rows[index]) {
-				for (let cell of markup.body.rows[index].cells) {
-					result.push(cell);
-				}
+			const index = rows.indexOf(item);
+			for (let cell of table.body.row(index).cells()) {
+				result.push(cell);
 			}
 		}
 
@@ -20,16 +17,12 @@ export default (model, markup) => {
 
 	function getColumns(items) {
 		const result = [];
-		const columns = columnService.lineView(model.view().columns);
+		const columns = table.data.columns();
 
 		for (let item of items) {
-			const index = columns.findIndex((c) => c.model === item);
-			if (index > -1) {
-				for (let row of markup.body.rows) {
-					if (row.cells[index]) {
-						result.push(row.cells[index]);
-					}
-				}
+			const index = columns.findIndex(c => c === item);
+			for (let row of table.body.rows()) {
+				result.push(row.cell(index));
 			}
 		}
 
@@ -38,29 +31,22 @@ export default (model, markup) => {
 
 	function getCells(items) {
 		const result = [];
-		const rows = model.view().rows;
-		const columns = columnService.lineView(model.view().columns);
+		const rows = table.data.rows();
+		const columns = table.data.columns();
 
 		for (let item of items) {
-			const rowIndex = rows.indexOf(item.row) * 2;
-			const columnIndex = columns.findIndex((c) => c.model === item.column);
-
-			if (rowIndex > -1 && markup.body.rows[rowIndex]) {
-				const row = markup.body.rows[rowIndex];
-				if (columnIndex > -1 && row && row.cells[columnIndex]) {
-					result.push(row.cells[columnIndex]);
-				}
-			}
+			const rowIndex = rows.indexOf(item.row);
+			const columnIndex = columns.findIndex((c) => c === item.column);
+			result.push(table.body.cell(rowIndex, columnIndex));
 		}
 
 		return result;
 	}
 
 	function getMix(items) {
-		const itemsArray = Array.from(items);
-
-		const rows = itemsArray.filter(item => item.unit === 'row').map(item => item.item);
-		const cells = itemsArray.filter(item => item.unit === 'row').map(item => item.item);
+		const entries = Array.from(items);
+		const rows = entries.filter(item => item.unit === 'row').map(item => item.item);
+		const cells = entries.filter(item => item.unit === 'row').map(item => item.item);
 
 		return [
 			...getRows(rows),
@@ -84,4 +70,4 @@ export default (model, markup) => {
 
 		return cellSelector(...args);
 	};
-};
+}

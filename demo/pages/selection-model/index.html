@@ -1,6 +1,6 @@
 <q-grid model="$ctrl.model"
 		  rows="$ctrl.rows"
-		  selection-mode="range"
+		  selection-mode="multiple"
 		  selection-unit="cell"
 		  selection-key="$ctrl.selectionKey"
 		  on:selection-changed="$ctrl.selectionChanged($event)">
@@ -21,7 +21,7 @@
 								 class="md-warn"
 								 aria-label="Selection"/>
 			</q-grid:template>
-			</g-grid:column>
+		</q-grid:column>
 	</q-grid:columns>
 
 	<q-grid:toolbar>

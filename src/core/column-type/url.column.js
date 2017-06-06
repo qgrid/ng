@@ -1,6 +1,6 @@
-import ColumnView from 'core/column-type/column.model.view';
-import DataColumnModel from './data.column.model';
-import TemplatePath from 'core/template/template.path';
+import {ColumnView} from './column.model.view';
+import {DataColumnModel} from './data.column.model';
+import {TemplatePath} from '../template';
 
 TemplatePath.register('url-cell', (template, column) => {
 	return {
@@ -16,15 +16,15 @@ TemplatePath.register('url-cell-edit', (template, column) => {
 	};
 });
 
-class UrlColumnModel extends DataColumnModel {
+export class UrlColumnModel extends DataColumnModel {
 	constructor() {
 		super('url');
 
-		this.canEdit = false;
+		this.editorOptions.trigger = 'button';
 	}
 }
 
-export default class UrlColumn extends ColumnView {
+export class UrlColumn extends ColumnView {
 	constructor(model) {
 		super(model);
 	}

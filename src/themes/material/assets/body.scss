@@ -9,9 +9,12 @@ tbody {
 	> tr {
 		height: $row-height;
 
+		&.q-grid-highlighted {
+			background-color: #eee;
+		}
+
 		&:hover {
 			td {
-				background-color: #eee !important;
 				&.q-grid-text-area {
 					> span {
 						@include multiLine($lineCount: 3, $bgColor: #eee);
@@ -92,7 +95,8 @@ tbody {
 
 			&.q-grid-file,
 			&.q-grid-url,
-			&.q-grid-email {
+			&.q-grid-email,
+			&.q-grid-reference {
 				> div {
 					overflow: hidden;
 					text-overflow: ellipsis;
@@ -102,13 +106,14 @@ tbody {
 				.q-grid-file-download,
 				.q-grid-file-edit,
 				.q-grid-url-edit,
-				.q-grid-email-edit {
+				.q-grid-email-edit,
+				.q-grid-reference-edit {
 					position: absolute;
 					top: calc(50% - 8px);
 
 					font-size: 12px;
-					width: 16px;
 					min-width: 16px;
+					width: 16px;
 					min-height: 16px;
 					height: 16px;
 					outline: none;
@@ -129,7 +134,8 @@ tbody {
 
 				.q-grid-file-edit,
 				.q-grid-url-edit,
-				.q-grid-email-edit {
+				.q-grid-email-edit,
+				.q-grid-reference-edit {
 					right: 0;
 				}
 

@@ -1,6 +1,6 @@
-import {isFunction} from 'core/services/utility';
-import {compile} from 'core/services/path';
-import {get as getValue} from 'core/services/value';
+import {isFunction} from '../utility';
+import {compile} from '../services/path';
+import {get as getValue} from '../services/value';
 
 export function get(row, column) {
 	return column.$label
@@ -9,7 +9,9 @@ export function get(row, column) {
 			? column.label(row)
 			: column.labelPath
 				? compile(column.labelPath)(row)
-				: getValue(row, column);
+				: column.title
+					? column.title
+					: getValue(row, column);
 }
 
 export function getFactory(column) {
@@ -19,7 +21,9 @@ export function getFactory(column) {
 			? row => column.label(row)
 			: column.labelPath
 				? compile(column.labelPath)
-				: row => getValue(row, column);
+				: column.title
+					? () => column.title
+					: row => getValue(row, column);
 
 	return row => get(row);
 }

@@ -1,24 +1,28 @@
-import * as guard from 'core/infrastructure/guard';
-import {assignWith, clone, isUndefined} from 'core/services/utility';
-import CustomColumn from 'core/column-type/column.model.view';
-import TextColumn from 'core/column-type/text.column';
-import NumberColumn from 'core/column-type/number.column';
-import BoolColumn from 'core/column-type/bool.column';
-import DateColumn from 'core/column-type/date.column';
-import PasswordColumn from 'core/column-type/password.column';
-import ArrayColumn from 'core/column-type/array.column';
-import EmailColumn from 'core/column-type/email.column';
-import SelectColumn from 'core/column-type/select.column';
-import GroupColumn from 'core/column-type/group.column';
-import PivotColumn from 'core/column-type/pivot.column';
-import RowNumberColumn from 'core/column-type/row.number.column';
-import RowIndicatorColumn from 'core/column-type/row.indicator.column';
-import RowExpandColumn from 'core/column-type/row.expand.column';
-import PadColumn from 'core/column-type/pad.column';
-import TimeColumn from 'core/column-type/time.column';
-import UrlColumn from 'core/column-type/url.column';
-import FileColumn from 'core/column-type/file.column';
-import ImageColumn from 'core/column-type/image.column';
+import {Guard} from '../infrastructure';
+import {assignWith, clone, isUndefined} from '../utility';
+import {ColumnView as CustomColumn} from '../column-type/column.model.view';
+import {
+	TextColumn,
+	NumberColumn,
+	BoolColumn,
+	DateColumn,
+	PasswordColumn,
+	ArrayColumn,
+	EmailColumn,
+	SelectColumn,
+	GroupColumn,
+	PivotColumn,
+	RowNumberColumn,
+	RowIndicatorColumn,
+	RowOptionsColumn,
+	PadColumn,
+	TimeColumn,
+	UrlColumn,
+	FileColumn,
+	ImageColumn,
+	ReferenceColumn,
+	IdColumn
+} from '../column-type';
 
 function merge(target, source) {
 	if (target && source) {
@@ -28,7 +32,7 @@ function merge(target, source) {
 	return target || clone(source);
 }
 
-export default function (model) {
+export function columnFactory(model) {
 	const columnList = model.columnList;
 	const columnMap = {
 		'text': TextColumn,
@@ -43,18 +47,20 @@ export default function (model) {
 		'pivot': PivotColumn,
 		'row-number': RowNumberColumn,
 		'row-indicator': RowIndicatorColumn,
-		'row-expand': RowExpandColumn,
+		'row-options': RowOptionsColumn,
 		'pad': PadColumn,
 		'time': TimeColumn,
 		'url': UrlColumn,
 		'file': FileColumn,
 		'image': ImageColumn,
+		'reference': ReferenceColumn,
+		'id': IdColumn,
 		'custom': CustomColumn
 	};
 
 	const create = (entityType, columnType, body) => {
 		const Type = columnMap[entityType];
-		const settings = columnList().columns[columnType];
+		const settings = columnList().reference[columnType];
 		body = merge(body, settings);
 
 		const model = Type.model(body);
@@ -62,7 +68,7 @@ export default function (model) {
 	};
 
 	return (type, body = null) => {
-		guard.notNullOrEmpty(type, 'type');
+		Guard.notNullOrEmpty(type, 'type');
 
 		if (columnMap.hasOwnProperty(type)) {
 			return create(type, type, body);

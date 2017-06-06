@@ -1,6 +1,6 @@
-import Resource from '../resource/resource';
+import {Resource} from '../resource';
 
-export default class VisibilityModel {
+export class VisibilityModel {
 	constructor() {
 		this.resource = new Resource();
 		this.head = true;
@@ -12,7 +12,12 @@ export default class VisibilityModel {
 			right: false,
 			left: false
 		};
-		this.plugin = {
+
+		this.pin = {
+			left: false,
+			right: false,
 		};
+
+		this.plugin = {};
 	}
 }

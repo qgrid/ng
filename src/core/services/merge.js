@@ -1,6 +1,6 @@
-﻿import {assignWith} from './utility';
+﻿import {assignWith} from '../utility';
 
-export default function (settings) {
+export function merge(settings) {
 	const context = assignWith({
 		equals: (l, r) => l === r,
 		update: (l, r /*left, i*/) => {

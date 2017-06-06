@@ -1,7 +1,7 @@
-import * as columnService from 'core/column/column.service';
-import AppError from 'core/infrastructure/error';
+import * as columnService from '../column/column.service';
+import {AppError} from '../infrastructure';
 
-export default function rangeBuilder(model) {
+export function rangeBuilder(model) {
 	function rangeRows(startCell, endCell) {
 		const rows = model.view().rows;
 		if (!endCell) {
@@ -47,7 +47,7 @@ export default function rangeBuilder(model) {
 		const items = [];
 		rowsSelected.forEach(row => {
 			columnsSelected
-				.filter(column => column.model.type !== 'row-indicator')
+				.filter(column => column.model.type !== 'row-indicator' && column.model.type !== 'row-options')
 				.forEach(column => {
 					items.push({
 						column: column.model,

@@ -54,28 +54,15 @@ td.q-grid-edit {
 			margin-top: 0;
 		}
 
-		.q-grid-actions {
-			.md-button {
-				margin: 8px 0 8px 8px;
-				float: right;
-			}
-		}
-
 		&.q-grid-array {
-			height: 120px;
-			width: 300px;
+			min-height: 120px;
+			width: 400px;
+			height: inherit;
+			padding-bottom: 0;
 
-			md-chips {
-				display: inline-flex;
-				overflow-x: auto;
-				overflow-y: hidden;
-				width: 100%;
-
-				md-chips-wrap {
-					width: auto;
-					box-shadow: none;
-					display: flex;
-				}
+			.q-grid-array-view {
+				max-height: 400px;
+				overflow-y: auto;
 			}
 		}
 
@@ -180,7 +167,62 @@ td.q-grid-edit {
 		}
 	}
 
+	&.q-grid-dropdown {
+		md-select {
+			margin: 5px 0;
+			max-height: 30px;
+		}
+	}
+
+	&.q-grid-autocomplete {
+		md-autocomplete {
+			min-width: 30px;
+			background-color: transparent;
+		}
+
+		md-autocomplete-wrap {
+			box-shadow: none;
+		}
+
+		input {
+			border-color: rgba(0, 0, 0, 0.12);
+			border-width: 0 0 1px 0;
+			border-radius: 0;
+			border-style: solid;
+			line-height: 26px;
+			padding: 2px 2px 1px 2px;
+			height: 30px;
+		}
+
+		&:not(.q-grid-selected) {
+			input {
+				border-color: rgb(63, 81, 181);
+				border-width: 0 0 2px 0;
+			}
+		}
+	}
+
+	&.q-grid-row-options {
+		padding: 0;
+		margin: 0;
+		width: 100%;
+	}
+
 	md-checkbox {
 		margin: 0;
+	}
+}
+
+.q-grid-editor {
+	&.q-grid-reference {
+		height: 350px;
+		width: 500px;
+	}
+}
+
+.q-grid-actions {
+	.md-button {
+		margin: 8px 0 8px 8px;
+		float: right;
 	}
 }

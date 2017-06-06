@@ -1,47 +1,81 @@
-import View from '../view/view';
-import log from 'core/infrastructure/log';
+import {View} from '../view';
+import {Log} from '../infrastructure';
 
-export default class ScrollView extends View {
-	constructor(model, table, scroll, apply) {
+export class ScrollView extends View {
+	constructor(model, table, vscroll, gridService) {
 		super(model);
 
-		const scrollState = model.scroll();
 		this.table = table;
-		this.y = {
-			context: scroll({
-				threshold: scrollState.y.threshold,
-				apply: apply,
-				fetch: scrollState.y.fetch
-			})
-		};
+
+		const scroll = model.scroll;
+		this.y = vscroll.factory({
+			threshold: model.pagination().size,
+			rowHeight: model.row().height
+		});
+
+		this.y.container.drawEvent.on(e => {
+			const currentPage = Math.floor(e.position / model.pagination().size);
+			model.pagination({
+				current: currentPage
+			}, {
+				source: 'scroll.view',
+				behavior: 'core'
+			});
+		});
+
+		switch (scroll().mode) {
+			case 'virtual': {
+				this.y.settings.fetch = (skip, take, d) => {
+					model.fetch({
+						skip: skip
+					}, {
+						source: 'scroll.view',
+						behavior: 'core'
+					});
+
+					gridService
+						.invalidate('scroll.view')
+						.then(() => {
+							const total = model.data().rows.length;
+							model.pagination({
+								count: total
+							}, {
+								source: 'scroll.view',
+								behavior: 'core'
+							});
+
+							d.resolve(total);
+						});
+				};
+
+				break;
+			}
+			default:
+				model.paginationChanged.watch(() => {
+					this.y.container.reset();
+				});
+		}
 
 		model.scrollChanged.watch(e => {
-			if (e.hasChanges('left')) {
+			if (e.hasChanges('left') || e.hasChanges('top')) {
 				this.invalidate();
 			}
 		});
 
-		switch (scrollState.mode) {
-			case 'virtual': {
-				model.viewChanged.watch(() => {
-					this.y.context.container.reset();
-				});
-			}
-				break;
-			default:
-				model.paginationChanged.watch(() => {
-					this.y.context.container.reset();
-				});
-		}
+		// model.viewChanged.watch(e => {
+		// 	if (e.tag.behavior !== 'core' && scroll().mode === 'virtual') {
+		// 	}
+		// });
 	}
 
 	invalidate() {
-		log.info('layout', 'invalidate scroll');
+		Log.info('layout', 'invalidate scroll');
 
 		const table = this.table;
 		const scroll = this.model.scroll();
-		table.head.scrollLeft(scroll.left);
-		table.foot.scrollLeft(scroll.left);
+
+		table.view.scrollLeft(scroll.left);
+		table.view.scrollTop(scroll.top);
 	}
 
 	get mode() {

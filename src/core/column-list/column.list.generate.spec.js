@@ -1,7 +1,7 @@
 import {generate as doGenerate} from './column.list.generate';
-import columnFactory from 'core/column/column.factory';
+import {columnFactory} from '../column/column.factory';
 
-const createColumn = columnFactory({columnList: () => ({columns: []})});
+const createColumn = columnFactory({columnList: () => ({columns: [], reference: {}})});
 const generate = (rows, deep = true) => doGenerate(rows, createColumn, deep);
 
 describe('column generate', () => {

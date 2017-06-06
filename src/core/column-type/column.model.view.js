@@ -1,6 +1,7 @@
-import ColumnModel from './column.model';
-import View from 'core/view/view';
-import TemplatePath from 'core/template/template.path';
+import {ColumnModel} from './column.model';
+import {View} from '../view';
+import {TemplatePath} from '../template';
+import {isObject, isFunction} from '../utility';
 
 TemplatePath.register('custom-cell', (template, column) => {
 	return {
@@ -16,19 +17,19 @@ TemplatePath.register('custom-cell-edit', (template, column) => {
 	};
 });
 
-export default class ColumnView extends View {
+export class ColumnView extends View {
 	constructor(model) {
 		super(model);
 
-		this.colspan = 0;
-		this.rowspan = 0;
+		this.colspan = 1;
+		this.rowspan = 1;
 	}
 
 	static model(model) {
-		if(model){
+		if (model) {
 			ColumnView.assign(model);
 		}
-		else{
+		else {
 			model = new ColumnModel();
 		}
 
@@ -41,6 +42,8 @@ export default class ColumnView extends View {
 		for (let key of Object.keys(etalon)) {
 			if (!body.hasOwnProperty(key)) {
 				body[key] = etalon[key];
+			} else if (isObject(body[key]) && !isFunction(body[key])) {
+				body[key] = Object.assign({}, etalon[key], body[key]);
 			}
 		}
 		return body;

@@ -1,24 +1,20 @@
-import View from '../view/view';
-import Command from 'core/infrastructure/command';
-import stateFactory from './state/selection.state.factory';
-import rangeBuilder from './range.build';
-import Shortcut from 'core/infrastructure/shortcut';
-import {GRID_PREFIX} from 'core/definition';
-import {isUndefined} from 'core/services/utility';
+import {View} from '../view';
+import {Command, Shortcut} from '../infrastructure';
+import {selectionStateFactory as stateFactory} from './state';
+import {rangeBuilder} from './range.build';
+import {GRID_PREFIX} from '../definition';
+import {isUndefined} from '../utility';
 
-export default class SelectionView extends View {
-	constructor(model, table, apply) {
+export class SelectionView extends View {
+	constructor(model, table, commandManager) {
 		super(model);
 
 		this.table = table;
-		const markup = table.markup;
-		this.markup = markup;
-		this.apply = apply;
 
 		this.selectionState = stateFactory(model);
 		this.buildRange = rangeBuilder(model);
 
-		const shortcut = new Shortcut(table, apply);
+		const shortcut = new Shortcut(table, commandManager);
 		const commands = this.commands;
 		this.shortcutOff = shortcut.register('selectionNavigation', commands);
 		this.toggleRow = commands.get('toggleRow');
@@ -27,18 +23,21 @@ export default class SelectionView extends View {
 
 		this.reset = commands.get('reset');
 
-		model.sortChanged.watch(() => {
+		model.dataChanged.watch(() => {
 			this.selectionState = stateFactory(model);
 
-			model.selection({items: this.selectionState.view});
+			const items = model.selection().items;
+			const entries = this.selectionState.lookup(items);
+
+			this.select(entries);
 		});
 
 		model.navigationChanged.watch(e => {
-			if (e.hasChanges('active') && e.tag.source !== 'selection') {
+			if (e.hasChanges('cell') && e.tag.source !== 'selection') {
 				const selectionState = model.selection();
-				if (selectionState.unit === 'cell' && selectionState.mode === 'single') {
-					if (e.state.active.cell) {
-						this.select(e.state.active.cell, true);
+				if (selectionState.unit === 'cell') {
+					if (e.state.cell) {
+						this.select(e.state.cell, true);
 					}
 				}
 			}
@@ -46,36 +45,41 @@ export default class SelectionView extends View {
 
 		model.selectionChanged.watch(e => {
 			if (e.hasChanges('mode')) {
-				apply(() => {
-					const newClassName = `${GRID_PREFIX}-select-${model.selection().mode}`;
-					this.markup.view.classList.add(newClassName);
+				const newClassName = `${GRID_PREFIX}-select-${model.selection().mode}`;
+				const view = table.view;
+				view.addClass(newClassName);
 
-					if (e.changes.mode.oldValue != e.changes.mode.newValue) {
-						const oldClassName = `${GRID_PREFIX}-select-${e.changes.mode.oldValue}`;
-						this.markup.view.classList.remove(oldClassName);
-					}
-				});
+				if (e.changes.mode.oldValue != e.changes.mode.newValue) {
+					const oldClassName = `${GRID_PREFIX}-select-${e.changes.mode.oldValue}`;
+					view.removeClass(oldClassName);
+				}
 			}
 
 			if (e.hasChanges('unit') || e.hasChanges('mode')) {
-				this.selectionState = stateFactory(model);
+				if (!e.hasChanges('items') && !e.hasChanges('entries')) {
+					model.selection({
+						items: [],
+						entries: []
+					});
+					this.selectionState = stateFactory(model);
+				}
 
-				model.navigation({column: -1, row: -1}, {source: 'selection'});
-				const entries = this.selectionState.entries();
-				model.selection({
-					entries: entries,
-					items: this.selectionState.view(entries)
-				});
+				model.navigation({cell: null}, {source: 'selection'});
 			}
 
-			if (e.tag.source !== 'toggle' && e.hasChanges('entries')) {
-				this.select(model.selection().entries, true);
+			if (e.hasChanges('entries') && !e.hasChanges('items')) {
+				const entries = model.selection().entries;
+				model.selection({
+					items: this.selectionState.view(entries),
+					entries: entries
+				});
 			}
 		});
 	}
 
 	get commands() {
 		const model = this.model;
+		const table = this.table;
 		const commands = {
 			toggleRow: new Command({
 				execute: (item, state) => {
@@ -95,82 +99,78 @@ export default class SelectionView extends View {
 			toggleActiveRow: new Command({
 				shortcut: 'shift+space',
 				execute: () => {
-					const itemIndex = model.navigation().row;
+					const navState = model.navigation();
+					const rowIndex = navState.rowIndex;
 
-					let item;
-					if (itemIndex >= 0) {
-						item = model.view().rows[itemIndex];
+					let row;
+					if (rowIndex >= 0) {
+						row = this.rows[rowIndex];
 					} else {
-						item = model.view().rows[itemIndex + 1];
-						model.navigation({row: itemIndex + 1}, {source: 'selection'});
+						row = this.rows[rowIndex + 1];
+						model.navigation({
+							cell: table.body.cell(rowIndex + 1, navState.columnIndex).model
+						}, {
+							source: 'selection'
+						});
 					}
 
-					this.select(item);
+					this.select(row);
 				},
-				canExecute: () => model.selection().unit === 'row'
+				canExecute: () => model.selection().unit === 'row' && this.rows.length > 0
 			}),
 			togglePrevRow: new Command({
 				shortcut: 'shift+up',
 				execute: () => {
-					const itemIndex = model.navigation().row;
-
-					if (itemIndex > 0) {
-						const item = model.view().rows[itemIndex - 1];
-						this.select(item);
-						model.navigation({row: itemIndex - 1}, {source: 'selection'});
-					}
+					const navState = model.navigation();
+					const rowIndex = navState.rowIndex - 1;
+					const row = this.rows[rowIndex];
+					this.select(row);
+					model.navigation({cell: table.body.cell(rowIndex, navState.columnIndex).model}, {source: 'selection'});
 				},
-				canExecute: () => model.selection().unit === 'row'
+				canExecute: () => model.selection().unit === 'row' && model.navigation().rowIndex > 0
 			}),
 			toggleNextRow: new Command({
 				shortcut: 'shift+down',
 				execute: () => {
-
-					const itemIndex = model.navigation().row;
-					if (itemIndex < model.view().rows.length - 1) {
-						const item = model.view().rows[itemIndex + 1];
-						this.select(item);
-						model.navigation({row: itemIndex + 1});
-					}
+					const navState = model.navigation();
+					const rowIndex = navState.rowIndex + 1;
+					const row = this.rows[rowIndex];
+					this.select(row);
+					model.navigation({cell: table.body.cell(rowIndex, navState.columnIndex).model}, {source: 'selection'});
 				},
-				canExecute: () => model.selection().unit === 'row'
+				canExecute: () => model.selection().unit === 'row' && model.navigation().rowIndex < this.rows.length - 1
 			}),
 			toggleActiveColumn: new Command({
 				shortcut: 'ctrl+space',
 				execute: () => {
-					const index = model.navigation().column;
+					const columnIndex = model.navigation().columnIndex;
 					const entries = Array.from(model.selection().entries);
-					const columns = this.table.data.columns();
-					const column = columns[index].key;
+					const column = this.columns[columnIndex].key;
 					this.select([...entries, column]);
 				},
-				canExecute: () => model.selection().unit === 'column'
+				canExecute: () => model.selection().unit === 'column' && model.navigation().columnIndex >= 0
 			}),
 			toggleNextColumn: new Command({
 				shortcut: 'shift+right',
 				execute: () => {
-					const columns = this.table.data.columns();
-					const index = model.navigation().column + 1;
-					const column = columns[index].key;
-
+					const navState = model.navigation();
+					const columnIndex = navState.columnIndex + 1;
+					const column = this.columns[columnIndex].key;
 					this.select(column);
-
-					model.navigation({column: index}, {source: 'selection'});
+					model.navigation({cell: table.body.cell(navState.rowIndex, columnIndex).model}, {source: 'selection'});
 				},
-				canExecute: () => model.selection().unit === 'column' && model.navigation().column < this.table.data.columns().length - 1
+				canExecute: () => model.selection().unit === 'column' && model.navigation().columnIndex < this.columns().length - 1
 			}),
 			togglePrevColumn: new Command({
 				shortcut: 'shift+left',
 				execute: () => {
-					const columns = this.table.data.columns();
-					const index = model.navigation().column - 1;
-					const column = columns[index].key;
-
+					const navState = model.navigation();
+					const columnIndex = navState.columnIndex - 1;
+					const column = this.columns[columnIndex].key;
 					this.select(column);
-
-					model.navigation({column: index}, {source: 'selection'});
+					model.navigation({cell: table.body.cell(navState.rowIndex, columnIndex).model}, {source: 'selection'});
 				},
-				canExecute: () => model.selection().unit === 'column' && model.navigation().column > 0
+				canExecute: () => model.selection().unit === 'column' && model.navigation().columnIndex > 0
 			}),
 			selectAll: new Command({
 				shortcut: 'ctrl+a',
@@ -214,7 +214,6 @@ export default class SelectionView extends View {
 
 		const entries = this.selectionState.entries();
 		this.model.selection({
-			items: this.selectionState.view(entries),
 			entries: entries,
 		}, {source: 'toggle'});
 	}
@@ -241,5 +240,13 @@ export default class SelectionView extends View {
 
 	get selection() {
 		return this.model.selection();
+	}
+
+	get rows() {
+		return this.table.data.rows();
+	}
+
+	get columns() {
+		return this.table.data.columns();
 	}
 }
