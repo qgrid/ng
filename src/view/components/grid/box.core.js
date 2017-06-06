@@ -1,6 +1,7 @@
 import Component from '../component';
 import {GRID_NAME} from '@grid/view/definition';
 import {GRID_PREFIX} from '@grid/core/definition';
+import {escapeClass} from '@grid/core/services/css';
 
 class BoxCore extends Component {
 	constructor($element, theme) {
@@ -32,10 +33,10 @@ class BoxCore extends Component {
 		element.classList.add(GRID_PREFIX);
 		this.theme.changed.watch(e => {
 			if(e) {
-				element.classList.remove(`${GRID_PREFIX}-theme-${e.oldValue}`);
+				element.classList.remove(escapeClass(`${GRID_PREFIX}-theme-${e.oldValue}`));
 			}
 
-			element.classList.add(`${GRID_PREFIX}-theme-${this.theme.name}`);
+			element.classList.add(escapeClass(`${GRID_PREFIX}-theme-${this.theme.name}`));
 		});
 	}
 
