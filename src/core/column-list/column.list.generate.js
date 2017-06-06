@@ -1,4 +1,4 @@
-import {startCase, toCamelCase} from '../services/utility';
+import {startCase} from '../services/utility';
 import {compile, getType} from '../services';
 
 export function generate(rows, columnFactory, deep = true) {
@@ -12,7 +12,6 @@ export function generate(rows, columnFactory, deep = true) {
 function build(graph, path, columnFactory, deep) {
 	const props = Object.getOwnPropertyNames(graph);
 	return props.reduce((columns, prop) => {
-		prop = toCamelCase(prop);
 		const value = graph[prop];
 		const propPath = path ? `${path}.${prop}` : prop;
 		const type = getType(value);
