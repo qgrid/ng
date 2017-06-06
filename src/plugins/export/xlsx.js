@@ -1,5 +1,5 @@
 import XLSX from 'xlsx';
-import {flattenObject} from '@grid/core/export//export.common';
+import {flattenObject} from '@grid/core/export/export.common';
 
 function sheet_to_workbook(sheet) {
 	const sheets = {};

@@ -1,6 +1,6 @@
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import {flattenObject} from '@grid/core/export//export.common';
+import {flattenObject} from '@grid/core/export/export.common';
 
 export class Pdf {
 	write(rows, columns, name) {
