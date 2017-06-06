@@ -1,5 +1,5 @@
-import {min, max} from '../services/utility';
 import {escapeClass} from '../services/css';
+import {min, max} from '../utility';
 
 export class Container {
 	constructor(elements) {
@@ -30,6 +30,10 @@ export class Container {
 		this.elements.forEach(element => element.classList.remove(escapeClass(name)));
 	}
 
+	hasClass(name) {
+		return this.elements.some(element => element.classList.contains(name));
+	}
+
 	get clientWidth() {
 		return max(this.elements.map(element => element.clientWidth));
 	}
@@ -41,7 +45,8 @@ export class Container {
 	get classList() {
 		return {
 			add: name => this.addClass(name),
-			remove: name => this.removeClass(name)
+			remove: name => this.removeClass(name),
+			contains: name => this.hasClass(name)
 		};
 	}
 }

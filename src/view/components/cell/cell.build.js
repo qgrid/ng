@@ -1,6 +1,6 @@
 import {TemplatePath} from '@grid/core/template';
 import {AppError} from '@grid/core/infrastructure';
-import {noop} from '@grid/core/services/utility';
+import {noop} from '@grid/core/utility';
 
 function canBuild(column) {
 	return column.type !== 'pad';

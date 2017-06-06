@@ -1,3 +1,5 @@
+import {guid} from '@grid/core/services';
+
 Controller.$inject = ['$http', 'qgrid'];
 export default function Controller($http, qgrid) {
 	const ctrl = this;
@@ -11,8 +13,8 @@ export default function Controller($http, qgrid) {
 
 	this.commitCommand = new qgrid.Command({
 		execute: e => {
-			this.changes.edited.add(e.row);
-			this.changes.edited.add(e.column);
+			this.changes.edited.add(e.row.id);
+			this.changes.edited.add(`${e.row.id}x${e.column.key}`);
 		}
 	});
 
@@ -21,6 +23,7 @@ export default function Controller($http, qgrid) {
 			new qgrid.Command({
 				execute: () => {
 					const newRow = {
+						'id': guid(),
 						'name': {
 							'first': null,
 							'last': null
@@ -42,7 +45,7 @@ export default function Controller($http, qgrid) {
 						'memberSince': null
 					};
 
-					this.changes.added.add(newRow);
+					this.changes.added.add(newRow.id);
 					this.rows = [newRow].concat(this.rows);
 				},
 				shortcut: 'F7'
@@ -56,13 +59,16 @@ export default function Controller($http, qgrid) {
 		actions: [
 			new qgrid.Action(
 				new qgrid.Command({
+					canExecute: e => {
+						return !this.changes.deleted.has(e.row.id);
+					},
 					execute: e => {
-						if (this.changes.added.has(e.row)) {
-							this.changes.added.delete(e.row);
-							this.rows = this.rows.filter(row => row !== e.row);
+						if (this.changes.added.has(e.row.id)) {
+							this.changes.added.delete(e.row.id);
+							this.rows = this.rows.filter(row => row.id !== e.row.id);
 						}
 						else {
-							this.changes.deleted.add(e.row);
+							this.changes.deleted.add(e.row.id);
 						}
 					}
 				}),
@@ -72,9 +78,9 @@ export default function Controller($http, qgrid) {
 			new qgrid.Action(
 				new qgrid.Command({
 					execute: e => {
-						this.changes.deleted.delete(e.row);
+						this.changes.deleted.delete(e.row.id);
 					},
-					canExecute: e => this.changes.deleted.has(e.row)
+					canExecute: e => this.changes.deleted.has(e.row.id)
 				}),
 				'Restore',
 				'restore'
@@ -92,31 +98,37 @@ export default function Controller($http, qgrid) {
 	};
 
 	this.styleRow = (row, context) => {
-		if (this.changes.deleted.has(row)) {
+		if (this.changes.deleted.has(row.id)) {
 			context.class('deleted', {opacity: 0.3});
 		}
 	};
 
 	this.styleCell = (row, column, context) => {
 		if (column.type === 'row-indicator') {
-			if (this.changes.deleted.has(row)) {
+			if (this.changes.deleted.has(row.id)) {
 				context.class('delete-indicator', {background: '#EF5350'});
 			}
-			else if (this.changes.added.has(row)) {
+			else if (this.changes.added.has(row.id)) {
 				context.class('add-indicator', {background: '#C8E6C9'});
 			}
-			else if (this.changes.edited.has(row)) {
+			else if (this.changes.edited.has(row.id)) {
 				context.class('edit-indicator', {background: '#E3F2FD'});
 			}
+
+			return;
 		}
 
-		if (this.changes.edited.has(row) && this.changes.edited.has(column)) {
+		if (this.changes.edited.has(`${row.id}x${column.key}`)) {
 			context.class('edited', {background: '#E3F2FD'});
 		}
 	};
 
 	$http.get('data/people/10.json')
 		.then(function (response) {
-			ctrl.rows = response.data;
+			ctrl.rows = response.data
+				.map(row => {
+					row.id = guid();
+					return row;
+				});
 		});
 }

@@ -1,6 +1,6 @@
 import PluginComponent from '../plugin.component';
 import {Command} from '@grid/core/infrastructure';
-import {uniq, clone, noop} from '@grid/core/services/utility';
+import {uniq, clone, noop} from '@grid/core/utility';
 import {getFactory as valueFactory} from '@grid/core/services/value';
 import * as columnService from '@grid/core/column/column.service';
 

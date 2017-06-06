@@ -2,7 +2,7 @@ import Directive from './directive';
 import {RESIZE_NAME, VIEW_CORE_NAME, DRAG_NAME, GRID_NAME} from '@grid/view/definition';
 import {GRID_PREFIX} from '@grid/core/definition';
 import {EventListener} from '@grid/core/infrastructure';
-import {clone} from '@grid/core/services/utility';
+import {clone} from '@grid/core/utility';
 
 class Resize extends Directive(RESIZE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	constructor($scope, $element, $document, $timeout) {
