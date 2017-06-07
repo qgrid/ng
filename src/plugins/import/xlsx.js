@@ -12,7 +12,7 @@ function to_json(workbook) {
 
 export class Xlsx {
 	read(data) {
-		const columns = [];
+		const columns = [{key: '__rowNum__', title: '', pin: 'left'}];
 		const workbook = XLSX.read(data, {type: 'binary'});
 		const json = to_json(workbook);
 		const headers = Object.keys(json[0]);
