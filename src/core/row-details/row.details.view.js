@@ -16,31 +16,34 @@ export class RowDetailsView extends View {
 					status.expand = !status.expand;
 				}
 
+				model.row({
+					status: new Map(status.entries())
+				}, {
+					source: 'row.details.view',
+					behavior: 'core'
+				});
+
 				model.view({
-						rows: flatView(model.view().rows, status),
-						status: new Map(status.entries())
-					},
-					{
-						source: 'row.details.view',
-						behavior: 'core'
-					});
+					rows: flatView(model.view().rows, status),
+				}, {
+					source: 'row.details.view',
+					behavior: 'core'
+				});
 			}
 		});
 
 		model.viewChanged.watch(e => {
 			if (e.tag.source !== 'row.details.view') {
-				model.view({
-						rows: expandView(rows),
-						status: new Map(
-							model.view()
-								.status
-								.entries()
-								.filter(entry => entry[1] instanceof RowDetailsStatus))
-					},
-					{
-						source: 'row.details.view',
-						behavior: 'core'
-					});
+				model.row({
+					status: new Map(
+						model.view()
+							.status
+							.entries()
+							.filter(entry => entry[1] instanceof RowDetailsStatus))
+				}, {
+					source: 'row.details.view',
+					behavior: 'core'
+				});
 			}
 		});
 	}
