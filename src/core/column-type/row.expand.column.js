@@ -1,6 +1,6 @@
-import ColumnView from 'core/column-type/column.model.view';
-import TemplatePath from 'core/template/template.path';
-import ColumnModel from './column.model';
+import {ColumnView} from './column.model.view';
+import {ColumnModel} from './column.model';
+import {TemplatePath} from '../template';
 
 TemplatePath.register('row-expand-cell', (template, column) => {
 	return {
@@ -21,7 +21,7 @@ class RowExpandColumnModel extends ColumnModel {
 	}
 }
 
-export default class RowExpandColumn extends ColumnView {
+export class RowExpandColumn extends ColumnView {
 	constructor(model) {
 		super(model);
 	}

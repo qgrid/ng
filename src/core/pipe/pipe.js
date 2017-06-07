@@ -7,7 +7,6 @@ import {groupPipe} from './group.pipe';
 import {pivotPipe} from './pivot.pipe';
 import {columnPipe} from './column.pipe';
 import {viewPipe} from './view.pipe';
-import {rowDetailsPipe} from './row.details.pipe';
 
 export class Pipe {
 	static get data() {
@@ -36,10 +35,6 @@ export class Pipe {
 
 	static get pivot() {
 		return pivotPipe;
-	}
-
-	static get rowDetails() {
-		return rowDetailsPipe;
 	}
 
 	static get column() {

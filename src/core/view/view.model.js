@@ -4,7 +4,6 @@ export class ViewModel {
 		this.rows = [];
 		this.columns = [];
 		this.nodes = [];
-		this.rowDetails = [];
 		this.pivot = {heads: [], rows: []};
 	}
 }

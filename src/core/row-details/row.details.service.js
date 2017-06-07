@@ -1,10 +1,14 @@
-import {Node} from '../node';
+import {RowDetails} from '../row.details';
+import {RowDetailsStatus} from './row.details.status';
 
-export function expandView(rows, result = []) {
+export function flatView(rows, status) {
+	const result = [];
+
 	rows.forEach(row => {
 		result.push(row);
-		if (row.type === 'row' && row.state.expand) {
-			result.push(new Node(row.row, 1, 'details'));
+		const state = status.get(row);
+		if (state && state instanceof RowDetailsStatus && state.expand) {
+			result.push(new RowDetails(row));
 		}
 	});
 

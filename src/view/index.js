@@ -135,6 +135,11 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.body.cell.row-number.tpl.html', require('./components/cell/row-number/body.cell.row.number.html'));
 		theme.put('qgrid.foot.cell.row-number.tpl.html', EMPTY);
 
+		theme.put('qgrid.head.cell.row-expand.tpl.html', EMPTY);
+		theme.put('qgrid.body.cell.row-expand.tpl.html', require('./components/cell/row-expand/body.cell.row.expand.html'));
+		theme.put('qgrid.foot.cell.row-expand.tpl.html', EMPTY);
+
+
 		theme.put('qgrid.head.cell.row-indicator.tpl.html', EMPTY);
 		theme.put('qgrid.body.cell.row-indicator.tpl.html', require('./components/cell/row-indicator/body.cell.row.indicator.html'));
 		theme.put('qgrid.foot.cell.row-indicator.tpl.html', EMPTY);
