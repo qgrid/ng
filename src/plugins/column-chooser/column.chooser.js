@@ -3,7 +3,7 @@ import {Command} from '@grid/core/infrastructure';
 import {TemplatePath} from '@grid/core/template';
 import {Aggregation} from '@grid/core/services';
 import * as columnService from '@grid/core/column/column.service';
-import {isFunction, noop} from '@grid/core/services/utility';
+import {isFunction, noop} from '@grid/core/utility';
 import {COLUMN_CHOOSER_NAME} from '../definition';
 import {PipeUnit} from '@grid/core/pipe/units';
 

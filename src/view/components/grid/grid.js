@@ -1,7 +1,7 @@
 import RootComponent from '../root.component';
 import {Table} from '@grid/core/dom';
 import {CommandManager, LayerFactory} from '@grid/view/services';
-import {isUndefined} from '@grid/core/services/utility';
+import {isUndefined} from '@grid/core/utility';
 import TemplateLink from '../template/template.link';
 
 export class Grid extends RootComponent {

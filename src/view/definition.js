@@ -49,6 +49,7 @@ export const FOCUS_NAME = `${GRID}Focus`;
 export const RESIZE_NAME = `${GRID}Resize`;
 export const RAISE_NAME = `${GRID}Raise`;
 export const ANIMATE_NAME = `${GRID}Animate`;
+export const POSITION_NAME = `${GRID}Position`;
 
 export const FILE_UPLOAD_NAME = `${GRID}FileUpload`;
 export const FILE_UPLOAD_LABEL_NAME = `${GRID}FileUploadLabel`;

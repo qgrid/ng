@@ -2,6 +2,7 @@ import Directive from '@grid/view/directives/directive';
 import cellBuilder from '../cell/cell.build';
 import {VIEW_CORE_NAME, TH_CORE_NAME, TABLE_CORE_NAME, GRID_NAME} from '@grid/view/definition';
 import {GRID_PREFIX} from '@grid/core/definition';
+import {escapeClass} from '@grid/core/services/css';
 
 class ThCore extends Directive(TH_CORE_NAME, {
 	view: `^^${VIEW_CORE_NAME}`,
@@ -21,10 +22,10 @@ class ThCore extends Directive(TH_CORE_NAME, {
 		const element = this.element;
 
 		this.root.bag.set(element, this);
-		element.classList.add(`${GRID_PREFIX}-${column.key}`);
-		element.classList.add(`${GRID_PREFIX}-${column.type}`);
+		element.classList.add(escapeClass(`${GRID_PREFIX}-${column.key}`));
+		element.classList.add(escapeClass(`${GRID_PREFIX}-${column.type}`));
 		if (column.hasOwnProperty('editor')) {
-			element.classList.add(`${GRID_PREFIX}-${column.editor}`);
+			element.classList.add(escapeClass(`${GRID_PREFIX}-${column.editor}`));
 		}
 
 		if (this.$attrs[TH_CORE_NAME] !== 'body') {

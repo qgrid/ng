@@ -3,7 +3,7 @@ import {AppError} from '@grid/core/infrastructure';
 import templateScope from './template.scope';
 import {TemplatePath} from '@grid/core/template';
 import {factory as resourceFactory} from '@grid/core/resource';
-import {merge} from '@grid/core/services/utility';
+import {merge} from '@grid/core/utility';
 import {GRID_NAME, TEMPLATE_NAME} from '@grid/view/definition';
 
 class Template extends Directive(TEMPLATE_NAME, merge({root: `^^${GRID_NAME}`}, TemplatePath.require)) {

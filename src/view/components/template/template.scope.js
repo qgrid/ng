@@ -1,4 +1,4 @@
-import {isUndefined, isArray} from '@grid/core/services/utility';
+import {isUndefined, isArray} from '@grid/core/utility';
 
 export default function create(key, value) {
 	const env = {};
