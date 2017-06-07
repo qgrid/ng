@@ -1,6 +1,9 @@
 <div>
 	<button ng-click="$view.rowDetails.toggleStatus.execute($cell.row)"
-			  ng-if="$view.rowDetails.toggleStatus.canExecute($cell.row)">
-		<span ng-bind="$view.rowDetails.status($cell.row) === 'expand' ? '-' : '+'" ></span>
+			  ng-if="$view.rowDetails.toggleStatus.canExecute($cell.row)"
+			  ng-switch="$view.rowDetails.status($cell.row)">
+		<span ng-switch-when="expand">-</span>
+		<span ng-switch-when="collapse">+</span>
+		<span ng-switch-default></span>
 	</button>
 </div>
