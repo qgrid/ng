@@ -10,10 +10,11 @@ export class RowDetailsView extends View {
 		this.toggleStatus = new Command({
 			execute: row => {
 				const status = model.row().status;
-				if (!status.has(row)) {
+				const state = status.get(row);
+				if (!state) {
 					status.set(row, new RowDetailsStatus(true));
 				} else {
-					status.expand = !status.expand;
+					state.expand = !state.expand;
 				}
 
 				model.row({

@@ -5,10 +5,14 @@ export function flatView(rows, status) {
 	const result = [];
 
 	rows.forEach(row => {
-		result.push(row);
-		const state = status.get(row);
-		if (state && state instanceof RowDetailsStatus && state.expand) {
-			result.push(new RowDetails(row));
+		if (!(row instanceof RowDetails)) {
+			const state = status.get(row);
+			result.push(row);
+			if (state && state instanceof RowDetailsStatus) {
+				if (state.expand) {
+					result.push(new RowDetails(row));
+				}
+			}
 		}
 	});
 

@@ -3,6 +3,7 @@ import * as columnService from '../column/column.service';
 import {Aggregation} from '../services';
 import {AppError, Log} from '../infrastructure';
 import {Node} from '../node';
+import {RowDetails} from '../row-details';
 import {getFactory as valueFactory, set as setValue} from '../services/value';
 import {getFactory as labelFactory, set as setLabel} from '../services/label';
 
@@ -75,6 +76,10 @@ export class BodyView extends View {
 							`Invalid node type ${node.type}`
 						);
 				}
+			}
+
+			if (row instanceof RowDetails) {
+				return null;
 			}
 
 			return getValue(row);
