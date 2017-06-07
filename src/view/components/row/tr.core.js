@@ -12,12 +12,10 @@ class TrCore extends Directive(TR_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, root:
 
 	onInit() {
 		this.root.bag.set(this.element, this);
-		this.view.style.monitor.row.add(this.element);
 	}
 
 	onDestroy() {
 		this.root.bag.delete(this.element);
-		this.view.style.monitor.row.remove(this.element);
 	}
 
 	get index() {

@@ -1,8 +1,8 @@
 import Directive from './directive';
 import {POSITION_NAME, GRID_NAME} from '@grid/view/definition';
-import {max} from '@grid/core/services/utility';
+import {max} from '@grid/core/utility';
 
-class Position extends Directive(POSITION_NAME, {root: `^${GRID_NAME}`}) {
+class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 	constructor($element, $attrs, $timeout) {
 		super();
 
@@ -12,19 +12,21 @@ class Position extends Directive(POSITION_NAME, {root: `^${GRID_NAME}`}) {
 	}
 
 	onLink() {
-		const opacity = this.element.style.opacity;
-		this.element.style.opacity = 0;
-		const targetName = (this.$attrs[POSITION_NAME] || '').toLowerCase();
-		let node = this.element.parentNode;
-		while (node) {
-			if (node.nodeName.toLowerCase() === targetName) {
-				this.$timeout(() => {
-					this.layout(node, this.element);
-					this.element.style.opacity = opacity;
-				}, 50);
-				return;
+		if(this.root) {
+			const opacity = this.element.style.opacity;
+			this.element.style.opacity = 0;
+			const targetName = (this.$attrs[POSITION_NAME] || '').toLowerCase();
+			let node = this.element.parentNode;
+			while (node) {
+				if (node.nodeName.toLowerCase() === targetName) {
+					this.$timeout(() => {
+						this.layout(node, this.element);
+						this.element.style.opacity = opacity;
+					}, 50);
+					return;
+				}
+				node = node.parentNode;
 			}
-			node = node.parentNode;
 		}
 	}
 

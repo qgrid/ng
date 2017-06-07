@@ -1,6 +1,6 @@
 import ModelComponent from '@grid/view/components/model.component';
 import {AppError, Guard} from '@grid/core/infrastructure';
-import {merge, clone, assignWith} from '@grid/core/services/utility';
+import {merge, clone, assignWith} from '@grid/core/utility';
 import TemplateLink from '@grid/view/components/template/template.link';
 import {BOX_CORE_NAME, GRID_NAME} from '@grid/view/definition';
 
