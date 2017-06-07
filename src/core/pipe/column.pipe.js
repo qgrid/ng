@@ -140,7 +140,7 @@ function groupColumnFactory(model, nodes) {
 function expandColumnFactory(model) {
 	const dataColumns = model.data().columns;
 	const expandColumn = dataColumns.find(item => item.type === 'row-expand');
-	if (model.row().mode === 'details' && !expandColumn) {
+	if (model.row().unit === 'details' && !expandColumn) {
 		const createColumn = columnFactory(model);
 		return (columns, context) => {
 			const expandColumn = createColumn('row-expand');

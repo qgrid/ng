@@ -1,11 +1,11 @@
 <q-grid rows="$ctrl.rows">
 	<q-grid:columns generation="deep"></q-grid:columns>
-	<q-grid:row mode="details">
-			<q-grid:template for="details">
-				<h4>Name</h4>
-				<p>{{$details.row.name.first}}, {{$details.row.name.last}}</p>
-				<h4>Birthday</h4>
-				<p>{{$details.row.birthday}}</p>
-			</q-grid:template>
-	<q-grid:row>
+	<q-grid:row unit="details" mode="single">
+		<q-grid:template for="details">
+			<h4>Name</h4>
+			<p>{{$details.row.name.first}}, {{$details.row.name.last}}</p>
+			<h4>Birthday</h4>
+			<p>{{$details.row.birthday}}</p>
+		</q-grid:template>
+	</q-grid:row>
 </q-grid>

@@ -15,7 +15,7 @@ class RowDetailsCore extends Directive(ROW_DETAILS_CORE_NAME, {view: `^^${VIEW_C
 		const model = this.model;
 		model.rowChanged.watch((e) => {
 			if (e.hasChanges('mode')) {
-				if (model.row().mode === 'details') {
+				if (model.row().unit === 'details') {
 					this.show();
 				} else {
 					this.hide();

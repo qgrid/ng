@@ -24,6 +24,7 @@ export default {
 	},
 	controller: Row,
 	bindings: {
-		rowMode: '@mode'
+		rowMode: '@mode',
+		rowUnit: '@unit'
 	}
 };

@@ -1,7 +1,6 @@
 import {View} from '../view';
 import {Command} from '../infrastructure';
-import {flatView} from './row.details.service';
-import {RowDetailsStatus} from './row.details.status';
+import {flatView, toggleStatus} from './row.details.service';
 
 export class RowDetailsView extends View {
 	constructor(model) {
@@ -9,16 +8,10 @@ export class RowDetailsView extends View {
 
 		this.toggleStatus = new Command({
 			execute: row => {
-				const status = model.row().status;
-				const state = status.get(row);
-				if (!state) {
-					status.set(row, new RowDetailsStatus(true));
-				} else {
-					state.expand = !state.expand;
-				}
+				const status = toggleStatus([row], model.row().status, model.row().mode);
 
 				model.row({
-					status: new Map(status.entries())
+					status: status
 				}, {
 					source: 'row.details.view',
 					behavior: 'core'
@@ -36,11 +29,7 @@ export class RowDetailsView extends View {
 		model.viewChanged.watch(e => {
 			if (e.tag.source !== 'row.details.view') {
 				model.row({
-					status: new Map(
-						model.view()
-							.status
-							.entries()
-							.filter(entry => entry[1] instanceof RowDetailsStatus))
+					status: toggleStatus([], model.row().status)
 				}, {
 					source: 'row.details.view',
 					behavior: 'core'
