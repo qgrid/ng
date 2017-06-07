@@ -1,6 +1,7 @@
 $excel-greyscale-light: #eee;
 $excel-greyscale-medium: #ccc;
-$excel-greyscale-lightdark: #c6c6c6;
+$excel-greyscale-lightdark: #d2d2d2;
+$excel-greyscale-dark: #c6c6c6;
 
 $excel-greenscale-light: #D3F0E0;
 $excel-greenscale-medium: #9FD5B7;
@@ -9,7 +10,13 @@ $excel-greenscale-dark: #227447;
 .q-grid-view thead tr {
   height: 24px;
   background-color: $excel-greyscale-light;
+  border-spacing: 0;
+  border-collapse: collapse;
   th {
+    border-left: 1px solid $excel-greyscale-lightdark;
+    //&:first-child {
+    //  border-left: 1px solid $excel-greyscale-lightdark;
+    //}
     label {
       color: black;
       font-weight: normal;
@@ -19,6 +26,17 @@ $excel-greenscale-dark: #227447;
     }
     &.q-grid-sorted {
       background-color: $excel-greenscale-light;
+      border-bottom: 2px solid $excel-greenscale-dark;
+    }
+    .q-grid-divider {
+      display: none;
+    }
+    &.q-grid-focus-coordinates {
+      background-color: $excel-greyscale-lightdark;
+      border-bottom: 2px solid $excel-greenscale-dark;
+      label {
+        color: $excel-greenscale-dark;
+      }
     }
   }
 }
@@ -72,8 +90,12 @@ $excel-greenscale-dark: #227447;
       background-color: $excel-greyscale-light;
     }
     &.q-grid-sorted {
-      background-color: $excel-greyscale-lightdark;
+      background-color: $excel-greyscale-dark;
       border-left: 2px solid $excel-greenscale-dark;
+      border-right: 2px solid $excel-greenscale-dark;
+    }
+    &.q-grid-focus-coordinates {
+      background-color: $excel-greyscale-lightdark;
       border-right: 2px solid $excel-greenscale-dark;
     }
   }
