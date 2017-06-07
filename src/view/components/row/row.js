@@ -1,9 +1,9 @@
 import ModelComponent from '../model.component';
-import { GRID_NAME, ROW_NAME } from 'ng/definition';
-import TemplatePath from 'core/template/template.path';
+import {GRID_NAME, ROW_NAME} from '@grid/view/definition';
+import{TemplatePath} from '@grid/core/template';
 
 TemplatePath
-	.register(ROW_NAME, (template) => {
+	.register(ROW_NAME, template => {
 		return {
 			model: 'row',
 			resource: template.for

@@ -11,6 +11,7 @@ import Drag from './components/dnd/drag';
 import Drop from './components/dnd/drop';
 import Layer from './components/layer/layer';
 import CellValue from './components/cell/cell.value';
+import Row from './components/row/row';
 
 import BoxCore from './components/grid/box.core';
 import ViewCore from './components/view/view.core';
@@ -79,6 +80,7 @@ export const layoutModule = angular.module(def.MODULE_LAYOUT_NAME, [coreModule])
 	.component(def.LAYER_NAME, Layer)
 	.component(def.TOOLBAR_NAME, Toolbar)
 	.component(def.TOOLBAR_CORE_NAME, ToolbarCore)
+	.component(def.ROW_NAME, Row)
 	.directive(def.TEMPLATE_NAME, () => Template)
 	.directive(def.MARKUP_NAME, () => Markup)
 	.directive(def.TR_CORE_NAME, () => TrCore)

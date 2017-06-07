@@ -12,12 +12,13 @@ TemplatePath.register('row-expand-cell', (template, column) => {
 class RowExpandColumnModel extends ColumnModel {
 	constructor() {
 		super('row-expand');
+
 		this.key = '$row.expand';
 		this.title = 'Expand';
+
 		this.canEdit = false;
 		this.canResize = false;
 	}
-
 }
 
 export default class RowExpandColumn extends ColumnView {

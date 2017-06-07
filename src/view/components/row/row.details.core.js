@@ -1,6 +1,6 @@
-import Directive from 'ng/directives/directive';
+import Directive from '@grid/view/directives/directive';
 import TemplateLink from '../template/template.link';
-import { VIEW_CORE_NAME, ROW_DETAILS_CORE_NAME} from 'ng/definition';
+import {VIEW_CORE_NAME, ROW_DETAILS_CORE_NAME} from '@grid/view/definition';
 
 class RowDetailsCore extends Directive(ROW_DETAILS_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	constructor($scope, $element, $compile, $templateCache) {
