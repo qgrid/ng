@@ -1,6 +1,6 @@
-import rowDetailsBuilder from 'core/row/row.details.builder';
+import {rowDetailsBuilder} from '../row-details';
 
-export default function pipRowDetails(memo, context, next) {
+export function rowDetailsPipe(memo, context, next) {
 	const model = context.model;
 	const mode = model.row().mode;
 

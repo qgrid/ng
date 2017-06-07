@@ -1,8 +1,8 @@
-import View from 'core/view/view';
-import Command from 'core/infrastructure/command';
-import { expandView } from './row.details.service';
+import {View} from '../view';
+import {Command} from '../infrastructure';
+import {expandView} from './row.details.service';
 
-export default class RowDetailsView extends View {
+export class RowDetailsView extends View {
 	constructor(model) {
 		super(model);
 
@@ -13,9 +13,7 @@ export default class RowDetailsView extends View {
 				const rowDetails = view().rowDetails;
 				view({rows: expandView(rowDetails)});
 			},
-			canExecute: (row) => {
-				return row.type === 'row';
-			}
+			canExecute: row => row.type === 'row'
 		});
 	}
 
