@@ -23,8 +23,11 @@ export function flatView(rows, status) {
 export function toggleStatus(rows, status, mode = 'single') {
 	switch (mode) {
 		case 'single':
-			status = new Map(Array.from(status.entries())
-				.filter(entry => !(entry[1] instanceof RowDetailsStatus)));
+			status = new Map(Array.from(status.entries()).filter(entry => {
+				const row = entry[0];
+				const status = entry[1];
+				return rows.indexOf(row) >= 0 || !(status instanceof RowDetailsStatus);
+			}));
 			break;
 		case 'multiple':
 			status = new Map(status.entries());
