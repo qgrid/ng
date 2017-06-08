@@ -2,10 +2,15 @@
 	<q-grid:columns generation="deep"></q-grid:columns>
 	<q-grid:row unit="details" mode="single">
 		<q-grid:template for="details">
-			<h4>Name</h4>
-			<p>{{$details.row.name.first}}, {{$details.row.name.last}}</p>
-			<h4>Birthday</h4>
-			<p>{{$details.row.birthday}}</p>
+			<div>
+				<ul style="list-style-type: none; padding-left: 0; ">
+					<li ng-repeat="column in $view.body.columns($cell.row.item, null) track by column.model.key"
+						 ng-if="column.model.class === 'data'">
+						<span style="font-weight: bold;">{{column.model.title}}</span>:
+						<span style="font-style: italic">{{$view.body.value($cell.row.item, column.model)}}</span>
+					</li>
+				</ul>
+			</div>
 		</q-grid:template>
 	</q-grid:row>
 </q-grid>

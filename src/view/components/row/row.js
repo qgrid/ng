@@ -5,8 +5,8 @@ import{TemplatePath} from '@grid/core/template';
 TemplatePath
 	.register(ROW_NAME, template => {
 		return {
-			model: 'row',
-			resource: template.for
+			model: 'body',
+			resource: '$row.details'
 		};
 	});
 
