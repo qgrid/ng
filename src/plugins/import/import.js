@@ -1,7 +1,7 @@
 import PluginComponent from '../plugin.component';
 import {IMPORT_NAME} from '../definition';
 import {TemplatePath} from '@grid/core/template';
-import {Command, EventListener} from '@grid/core/infrastructure';
+import {Command, EventListener, AppError} from '@grid/core/infrastructure';
 import {Json} from '@grid/core/import/json';
 import {Xlsx} from './xlsx';
 
@@ -11,7 +11,7 @@ function getType(name) {
 		let type = name.split('.');
 		return type[type.length - 1];
 	}
-	return 'unknown';
+	return;
 }
 
 TemplatePath
@@ -45,16 +45,19 @@ class Import extends Plugin {
 					}
 					case 'json': {
 						const json = new Json();
-						this.model.data(json.read(data));
+						const read = json.read(data);
+						if (read) {
+							this.model.data(read);
+						} else {
+							throw new AppError('Import plugin', 'JSON for input should be an array of objects');
+						}
 						break;
 					}
-					case 'text/xml':
-						alert('Kate xml');
-						//add xml to model
-						break;
-					case 'unknown':
-					default:
-						alert('This is not valid file type ' + getType(file));
+					// case 'text/xml':
+					// 	break;
+					default: {
+						throw new AppError('Import plugin', `This is not valid file type ${getType(file)}`);
+					}
 				}
 			};
 			reader.readAsBinaryString(file);

@@ -14,9 +14,6 @@ $excel-greenscale-dark: #227447;
   border-collapse: collapse;
   th {
     border-left: 1px solid $excel-greyscale-lightdark;
-    //&:first-child {
-    //  border-left: 1px solid $excel-greyscale-lightdark;
-    //}
     label {
       color: black;
       font-weight: normal;
@@ -26,14 +23,13 @@ $excel-greenscale-dark: #227447;
     }
     &.q-grid-sorted {
       background-color: $excel-greenscale-light;
-      border-bottom: 2px solid $excel-greenscale-dark;
     }
     .q-grid-divider {
       display: none;
     }
     &.q-grid-focus-coordinates {
       background-color: $excel-greyscale-lightdark;
-      border-bottom: 2px solid $excel-greenscale-dark;
+      border-bottom: 1px solid $excel-greenscale-dark;
       label {
         color: $excel-greenscale-dark;
       }
