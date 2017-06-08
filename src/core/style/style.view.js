@@ -2,6 +2,8 @@ import {View} from '../view';
 import {Monitor} from './style.monitor';
 import * as columnService from '../column/column.service';
 import {getFactory as valueFactory} from '../services/value';
+import {noop} from '../utility';
+import {VirtualRowStyle, VirtualCellStyle} from './style.virtual';
 
 export class StyleView extends View {
 	constructor(model, table) {
@@ -25,11 +27,11 @@ export class StyleView extends View {
 
 		model.styleChanged.watch(e => {
 			if (e.hasChanges('row')) {
-				this.active.row = true;
+				this.active.row = e.state.row !== noop;
 			}
 
 			if (e.hasChanges('cell')) {
-				this.active.cell = true;
+				this.active.cell = e.state.row !== noop;
 			}
 
 			this.invalidate();
@@ -38,13 +40,15 @@ export class StyleView extends View {
 
 	invalidate() {
 		const active = this.active;
-		if (!(active.row || active.cell)) {
+		const model = this.model;
+		const isVirtual = model.scroll().mode === 'virtual';
+		const isActive = isVirtual || active.row || active.cell;
+		if (!isActive) {
 			return;
 		}
 
 		const table = this.table;
 		const valueFactory = this.valueFactory;
-		const model = this.model;
 		const styleState = model.style();
 		const bodyRows = table.body.rows();
 		const rowMonitor = this.monitor.row;
@@ -52,9 +56,29 @@ export class StyleView extends View {
 		const columns = table.data.columns();
 		const columnMap = columnService.map(columns);
 		// TODO: improve perfomance
+		const valueCache = new Map();
 		const value = (row, column) => {
-			return valueFactory(column)(row);
+			let getValue = valueCache.get(column)
+			if (!getValue) {
+				getValue = valueFactory(column);
+				valueCache.set(column, getValue);
+			}
+
+			return getValue(row);
 		};
+
+		let isRowActive = active.row;
+		let isCellActive = active.cell;
+		let styleRow = styleState.row;
+		let styleCell = styleState.cell;
+		if (isVirtual) {
+			isRowActive = true;
+			isCellActive = true;
+			const vRowStyle = new VirtualRowStyle(model);
+			const vCellStyle = new VirtualCellStyle(model);
+			styleRow = vRowStyle.apply.bind(vRowStyle);
+			styleCell = vCellStyle.apply.bind(vCellStyle);
+		}
 
 		const domCell = cellMonitor.enter();
 		const domRow = rowMonitor.enter();
@@ -66,7 +90,7 @@ export class StyleView extends View {
 					continue;
 				}
 
-				if (active.row) {
+				if (isRowActive) {
 					const rowContext = {
 						class: domRow(bodyRow),
 						row: i,
@@ -77,10 +101,10 @@ export class StyleView extends View {
 						}
 					};
 
-					styleState.row(dataRow, rowContext);
+					styleCell(dataRow, rowContext);
 				}
 
-				if (active.cell) {
+				if (isCellActive) {
 					const cells = bodyRow.cells();
 					for (let j = 0, cellsLength = cells.length; j < cellsLength; j++) {
 						const cell = cells[j];
@@ -96,7 +120,7 @@ export class StyleView extends View {
 							}
 						};
 
-						styleState.cell(dataRow, column, cellContext);
+						styleRow(dataRow, column, cellContext);
 					}
 				}
 			}

@@ -67,9 +67,9 @@ export class Table {
 	}
 
 	bodyCore() {
-		if (this.model.scroll().mode === 'virtual') {
-			return new VirtualBody(this.context, this.model, this.markup);
-		}
+		// if (this.model.scroll().mode === 'virtual') {
+		// 	return new VirtualBody(this.context, this.model, this.markup);
+		// }
 
 		return new Body(this.context, this.model, this.markup);
 	}
