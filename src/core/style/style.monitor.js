@@ -1,5 +1,4 @@
 import * as css from '../services/css';
-import {GRID_PREFIX} from '../definition';
 
 class Entry {
 	constructor(element, sheets) {
@@ -9,7 +8,7 @@ class Entry {
 	}
 
 	class(key, style) {
-		key = `${GRID_PREFIX}-style-monitor-${css.escape(key)}`;
+		key = css.escape(key);
 		this.list.add(key);
 		if (style) {
 			const sheets = this.sheets;

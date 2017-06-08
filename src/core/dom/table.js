@@ -12,7 +12,9 @@ export class Table {
 		this.markup = markup;
 		this.context = assignWith({
 			mapper: {
-				row: identity,
+				row: model.scroll().mode === 'virtual'
+					? index => index - model.scroll().cursor
+					: identity,
 				column: identity
 			},
 			layer: () => new FakeLayer(),
@@ -67,9 +69,9 @@ export class Table {
 	}
 
 	bodyCore() {
-		// if (this.model.scroll().mode === 'virtual') {
-		// 	return new VirtualBody(this.context, this.model, this.markup);
-		// }
+		if (this.model.scroll().mode === 'virtual') {
+			return new VirtualBody(this.context, this.model, this.markup);
+		}
 
 		return new Body(this.context, this.model, this.markup);
 	}

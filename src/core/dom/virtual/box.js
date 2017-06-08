@@ -8,33 +8,28 @@ export class VirtualBox extends Box {
 	constructor(context, model) {
 		super(context, model);
 
-		this.cellBox = new CellBox(this);
-		this.rowBox = new RowBox(this);
-	}
-
-	invalidate() {
-		this.rowBox.invalidate();
-		this.cellBox.invalidate();
+		this.cellBox = new CellBox();
+		this.rowBox = new RowBox();
 	}
 
 	addCellClass(cell, name) {
 		this.cellBox.addClass(cell, name);
-		cell.addClassCore(name);
+		//cell.addClassCore(name);
 	}
 
 	removeCellClass(cell, name) {
 		this.cellBox.removeClass(cell, name);
-		cell.removeClassCore(name);
+		//cell.removeClassCore(name);
 	}
 
 	addRowClass(row, name) {
 		this.rowBox.addClass(row, name);
-		row.addClassCore(name);
+		//row.addClassCore(name);
 	}
 
 	removeRowClass(row, name) {
 		this.rowBox.removeClass(row, name);
-		row.removeClassCore(name);
+		//row.removeClassCore(name);
 	}
 
 	createRowCore(index, element) {

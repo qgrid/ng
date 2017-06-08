@@ -74,10 +74,10 @@ export class StyleView extends View {
 		if (isVirtual) {
 			isRowActive = true;
 			isCellActive = true;
-			const vRowStyle = new VirtualRowStyle(model);
-			const vCellStyle = new VirtualCellStyle(model);
-			styleRow = vRowStyle.apply.bind(vRowStyle);
-			styleCell = vCellStyle.apply.bind(vCellStyle);
+			const vRowStyle = new VirtualRowStyle(table);
+			const vCellStyle = new VirtualCellStyle(table);
+			styleRow = vRowStyle.applyFactory();
+			styleCell = vCellStyle.applyFactory();
 		}
 
 		const domCell = cellMonitor.enter();
@@ -101,7 +101,7 @@ export class StyleView extends View {
 						}
 					};
 
-					styleCell(dataRow, rowContext);
+					styleRow(dataRow, rowContext);
 				}
 
 				if (isCellActive) {
@@ -120,7 +120,7 @@ export class StyleView extends View {
 							}
 						};
 
-						styleRow(dataRow, column, cellContext);
+						styleCell(dataRow, column, cellContext);
 					}
 				}
 			}
