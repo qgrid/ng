@@ -68,7 +68,7 @@ class ViewCore extends Component {
 		this.nav = new NavigationView(model, table, commandManager);
 		this.pagination = new PaginationView(model);
 		this.scroll = new ScrollView(model, table, vscroll, gridService);
-		this.rowDetails = new RowDetailsView(model);
+		this.rowDetails = new RowDetailsView(model, table);
 
 		// TODO: how we can avoid that?
 		this.$scope.$watch(this.style.invalidate.bind(this.style));

@@ -3,9 +3,13 @@ import {RowDetailsStatus} from './row.details.status';
 import {AppError} from '../infrastructure';
 import {columnFactory} from '../column/column.factory';
 
-export function flatView(rows, status, model) {
+export function flatView(table) {
 	const result = [];
+	const model = table.model;
 	const createColumn = columnFactory(model);
+	const colspan = table.data.columns().length;
+	const rows = model.view().rows;
+	const status = model.row().status;
 
 	rows.forEach(row => {
 		if (!(row instanceof RowDetails)) {
@@ -13,7 +17,9 @@ export function flatView(rows, status, model) {
 			result.push(row);
 			if (state && state instanceof RowDetailsStatus) {
 				if (state.expand) {
-					result.push(new RowDetails(row, createColumn('row-details')));
+					const column = createColumn('row-details');
+					result.push(new RowDetails(row, column));
+					column.colspan = colspan;
 				}
 			}
 		}

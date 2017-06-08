@@ -4,7 +4,7 @@ import {flatView, toggleStatus} from './row.details.service';
 import {RowDetails} from './row.details';
 
 export class RowDetailsView extends View {
-	constructor(model) {
+	constructor(model, table) {
 		super(model);
 
 		this.toggleStatus = new Command({
@@ -19,7 +19,7 @@ export class RowDetailsView extends View {
 				});
 
 				model.view({
-					rows: flatView(model.view().rows, status, model),
+					rows: flatView(table),
 				}, {
 					source: 'row.details.view',
 					behavior: 'core'
