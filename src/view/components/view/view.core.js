@@ -15,6 +15,7 @@ import {PaginationView} from '@grid/core/pagination';
 import {StyleView} from '@grid/core/style';
 import {ColumnView} from '@grid/core/column';
 import {ScrollView} from '@grid/core/scroll';
+import {RowDetailsView} from '@grid/core/row-details';
 import {GRID_NAME, TH_CORE_NAME} from '@grid/view/definition';
 import {PipeUnit} from '@grid/core/pipe/units';
 import {Vscroll} from '@grid/view/services';
@@ -67,6 +68,7 @@ class ViewCore extends Component {
 		this.nav = new NavigationView(model, table, commandManager);
 		this.pagination = new PaginationView(model);
 		this.scroll = new ScrollView(model, table, vscroll, gridService);
+		this.rowDetails = new RowDetailsView(model, table);
 
 		// TODO: how we can avoid that?
 		this.$scope.$watch(this.style.invalidate.bind(this.style));

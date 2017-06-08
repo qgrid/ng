@@ -11,6 +11,7 @@ import Drag from './components/dnd/drag';
 import Drop from './components/dnd/drop';
 import Layer from './components/layer/layer';
 import CellValue from './components/cell/cell.value';
+import Row from './components/row/row';
 
 import BoxCore from './components/grid/box.core';
 import ViewCore from './components/view/view.core';
@@ -56,7 +57,7 @@ export const coreModule = angular.module(def.MODULE_CORE_NAME, [])
 	.service(def.TEMPLATE_PATH_NAME, () => () => TemplatePath)
 	.filter(def.RANGE_NAME, () => Range)
 	.filter(def.HIGHLIGHT_NAME, () => Highlight)
-	.filter(def.Pin_NAME, () => Pin)
+	.filter(def.PIN_NAME, () => Pin)
 	.config(['$compileProvider',
 		$compileProvider => $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|tel|file|data):/)
 	])
@@ -79,6 +80,7 @@ export const layoutModule = angular.module(def.MODULE_LAYOUT_NAME, [coreModule])
 	.component(def.LAYER_NAME, Layer)
 	.component(def.TOOLBAR_NAME, Toolbar)
 	.component(def.TOOLBAR_CORE_NAME, ToolbarCore)
+	.component(def.ROW_NAME, Row)
 	.directive(def.TEMPLATE_NAME, () => Template)
 	.directive(def.MARKUP_NAME, () => Markup)
 	.directive(def.TR_CORE_NAME, () => TrCore)
@@ -132,6 +134,14 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.head.cell.row-number.tpl.html', require('./components/cell/row-number/head.cell.row.number.html'));
 		theme.put('qgrid.body.cell.row-number.tpl.html', require('./components/cell/row-number/body.cell.row.number.html'));
 		theme.put('qgrid.foot.cell.row-number.tpl.html', EMPTY);
+
+		theme.put('qgrid.head.cell.row-expand.tpl.html', EMPTY);
+		theme.put('qgrid.body.cell.row-expand.tpl.html', require('./components/cell/row-expand/body.cell.row.expand.html'));
+		theme.put('qgrid.foot.cell.row-expand.tpl.html', EMPTY);
+
+		theme.put('qgrid.head.cell.row-details.tpl.html', EMPTY);
+		theme.put('qgrid.body.cell.row-details.tpl.html', require('./components/cell/row-details/body.cell.row.details.html'));
+		theme.put('qgrid.foot.cell.row-details.tpl.html', EMPTY);
 
 		theme.put('qgrid.head.cell.row-indicator.tpl.html', EMPTY);
 		theme.put('qgrid.body.cell.row-indicator.tpl.html', require('./components/cell/row-indicator/body.cell.row.indicator.html'));
