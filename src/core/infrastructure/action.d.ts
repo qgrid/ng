@@ -1,9 +1,11 @@
+import {Command} from './command';
+
 export declare class Action {
 
-	constructor(command: Object, title: Object, icon: Object);
+	constructor(command: Command, title: string, icon: string);
 
-	command: Object;
-	title: Object;
-	icon: Object;
+	command: Command;
+	title: string;
+	icon: string;
 
 }

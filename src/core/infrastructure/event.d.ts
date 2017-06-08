@@ -1,15 +1,10 @@
 export declare class Event {
 
-	constructor(e: Object) ;
+	constructor(e: object) ;
 
-	handlers: Array<any>
-	isDirty: Boolean;
-	e: Object;
+	on(f: object): void;
 
+	watch(f: object): void
 
-	on(f: Object): void;
-
-	watch(f: Object): void
-
-	emit(e: Object): void;
+	emit(e: object): void;
 }

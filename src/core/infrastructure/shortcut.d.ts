@@ -1,24 +1,26 @@
+import {Command} from './command';
+
 export declare class Shortcut {
 
-	constructor(table: Object, manager: Object);
+	constructor(table: object, manager: object);
 
-	manager: Object;
-	commands: Array<any>;
-	shortcuts: Object;
-	codeMap: Object;
-   canExecute : Object;
-	off: Object;
+	manager: object;
+	commands: Command[];
+	shortcuts: object;
+	codeMap: object;
+   canExecute : object;
+	off: object;
 
 
-	translate(e: Object): Array<any>;
+	translate(e: object): any[];
 
-	onKeyDown(e: Object): void;
+	onKeyDown(e: object): void;
 
-	register(id: Number, commands: Object): any;
+	register(id: number, commands: object): any;
 
-	find(code: String): Array<any>;
+	find(code: string): any[];
 
-	test(shortcut: Object, code: String): any;
+	test(shortcut: object, code: string): any;
 
 	onDestroy(): void;
 }

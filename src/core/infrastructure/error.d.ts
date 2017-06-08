@@ -1,7 +1,5 @@
 export declare class AppError{
 
-	constructor(name: String, message: String);
+	constructor(name: string, message: string);
 
-	name: String;
-	message: String;
 }
