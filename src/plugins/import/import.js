@@ -2,6 +2,7 @@ import PluginComponent from '../plugin.component';
 import {IMPORT_NAME} from '../definition';
 import {TemplatePath} from '@grid/core/template';
 import {Command, EventListener} from '@grid/core/infrastructure';
+import {Json} from '@grid/core/import/json';
 import {Xlsx} from './xlsx';
 
 function getType(name) {
@@ -37,19 +38,16 @@ class Import extends Plugin {
 				const data = e.target.result;
 				const type = file.type === '' ? getType(file.name) : file.type;
 				switch (type) {
-					case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':{
+					case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': {
 						const xlsx = new Xlsx();
 						this.model.data(xlsx.read(data));
 						break;
 					}
-					case 'json':
-						alert('Kate json');
-						console.log(data);
-						this.model.data({
-							rows: data
-						});
-						//add json to model
+					case 'json': {
+						const json = new Json();
+						this.model.data(json.read(data));
 						break;
+					}
 					case 'text/xml':
 						alert('Kate xml');
 						//add xml to model
