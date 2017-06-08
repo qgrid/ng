@@ -1,15 +1,15 @@
-export declare class Cache {
+export declare class Cache <K, V> {
 	constructor();
 
-	set(key: String, value: any);
+	set(key: K, value: V);
 
-	get(key: String): any ;
+	get(key: K): any ;
 
-	has(key: String): boolean;
+	has(key: K): boolean;
 
-	find(key: String): any;
+	find(key: K): any;
 
-	remove(key: String): void;
+	remove(key: K): void;
 
 	clear(): void;
 }
