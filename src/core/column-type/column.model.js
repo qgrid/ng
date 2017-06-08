@@ -10,7 +10,8 @@ export class ColumnModel {
 		this.source = 'user';
 		this.editor = null;
 		this.editorOptions = {
-			trigger: 'click'
+			trigger: 'click',
+			label: null
 		};
 
 		this.width = null;
