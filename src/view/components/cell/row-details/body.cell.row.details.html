@@ -1,0 +1,7 @@
+<div>
+	<ul>
+		<li ng-repeat="column in $view.body.columnList track by column.model.key">
+			{{column.model.title}}: {{$view.body.value($cell.row.row, column.model)}}
+		</li>
+	</ul>
+</div>

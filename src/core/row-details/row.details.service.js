@@ -1,9 +1,11 @@
 import {RowDetails} from './row.details';
 import {RowDetailsStatus} from './row.details.status';
 import {AppError} from '../infrastructure';
+import {columnFactory} from '../column/column.factory';
 
-export function flatView(rows, status) {
+export function flatView(rows, status, model) {
 	const result = [];
+	const createColumn = columnFactory(model);
 
 	rows.forEach(row => {
 		if (!(row instanceof RowDetails)) {
@@ -11,7 +13,7 @@ export function flatView(rows, status) {
 			result.push(row);
 			if (state && state instanceof RowDetailsStatus) {
 				if (state.expand) {
-					result.push(new RowDetails(row));
+					result.push(new RowDetails(row, createColumn('row-details')));
 				}
 			}
 		}

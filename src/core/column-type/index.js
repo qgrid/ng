@@ -15,6 +15,7 @@ export * from './row.indicator.column';
 export * from './row.number.column';
 export * from './row.options.column';
 export * from './row.expand.column';
+export * from './row.details.column';
 export * from './select.column';
 export * from './text.column';
 export * from './time.column';

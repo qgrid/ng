@@ -14,7 +14,6 @@ export class BodyView extends View {
 		this.table = table;
 		this.rows = [];
 		this.columnList = [];
-
 		model.viewChanged.watch(() => this.invalidate(model));
 	}
 
@@ -44,7 +43,7 @@ export class BodyView extends View {
 
 	columns(row, pin) {
 		if (row instanceof RowDetails) {
-			return [];
+			return [row.column];
 		}
 
 		return this.columnList.filter(c => c.model.pin === pin);

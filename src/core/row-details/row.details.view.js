@@ -19,7 +19,7 @@ export class RowDetailsView extends View {
 				});
 
 				model.view({
-					rows: flatView(model.view().rows, status),
+					rows: flatView(model.view().rows, status, model),
 				}, {
 					source: 'row.details.view',
 					behavior: 'core'
