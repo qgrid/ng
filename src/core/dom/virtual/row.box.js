@@ -1,11 +1,13 @@
 import {StyleBox} from './style.box';
 
 export class RowBox extends StyleBox {
-	constructor() {
-		super();
+	constructor(context) {
+		super(context);
 	}
 
 	key(row) {
-		return row.index;
+		const mapper = this.context.mapper;
+		const dataRow = mapper.rowBack(row.index);
+		return dataRow;
 	}
 }

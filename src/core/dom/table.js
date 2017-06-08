@@ -15,7 +15,11 @@ export class Table {
 				row: model.scroll().mode === 'virtual'
 					? index => index - model.scroll().cursor
 					: identity,
-				column: identity
+				column: identity,
+				rowBack: model.scroll().mode === 'virtual'
+					? index => index + model.scroll().cursor
+					: identity,
+				columnBack: identity
 			},
 			layer: () => new FakeLayer(),
 			model: () => null,

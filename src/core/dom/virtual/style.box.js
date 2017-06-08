@@ -1,5 +1,6 @@
 export class StyleBox {
-	constructor() {
+	constructor(context) {
+		this.context = context;
 		this.entries = new Map();
 	}
 

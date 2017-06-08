@@ -13,7 +13,7 @@ export class VirtualRowStyle {
 		const entries = box.entries;
 
 		return (row, context) => {
-			context.row = context.row - scroll().cursor;
+			context.row = context.row + scroll().cursor;
 			style(row, context);
 
 			const model = {
@@ -27,7 +27,7 @@ export class VirtualRowStyle {
 					context.class(cls);
 				}
 			}
-		}
+		};
 	}
 }
 
@@ -46,7 +46,7 @@ export class VirtualCellStyle {
 		const entries = box.entries;
 
 		return (row, column, context) => {
-			context.row = context.row - scroll().cursor;
+			context.row = context.row + scroll().cursor;
 			style(row, column, context);
 
 			const model = {
@@ -61,6 +61,6 @@ export class VirtualCellStyle {
 					context.class(cls);
 				}
 			}
-		}
+		};
 	}
 }

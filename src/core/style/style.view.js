@@ -58,7 +58,7 @@ export class StyleView extends View {
 		// TODO: improve perfomance
 		const valueCache = new Map();
 		const value = (row, column) => {
-			let getValue = valueCache.get(column)
+			let getValue = valueCache.get(column);
 			if (!getValue) {
 				getValue = valueFactory(column);
 				valueCache.set(column, getValue);
@@ -85,6 +85,7 @@ export class StyleView extends View {
 		try {
 			for (let i = 0, rowsLength = bodyRows.length; i < rowsLength; i++) {
 				const bodyRow = bodyRows[i];
+				const rowIndex = bodyRow.index;
 				const dataRow = (bodyRow.model || {}).model;
 				if (!dataRow) {
 					continue;
@@ -93,7 +94,7 @@ export class StyleView extends View {
 				if (isRowActive) {
 					const rowContext = {
 						class: domRow(bodyRow),
-						row: i,
+						row: rowIndex,
 						value: value,
 						columns: {
 							map: columnMap,
@@ -111,7 +112,7 @@ export class StyleView extends View {
 						const column = columns[j];
 						const cellContext = {
 							class: domCell(cell),
-							row: i,
+							row: rowIndex,
 							column: j,
 							value: value,
 							columns: {

@@ -34,7 +34,7 @@ export class Monitor {
 		while (length-- > 0) {
 			const entry = entries[length];
 			for (let cls of entry.list) {
-				entry.element.removeClass(cls);
+				entry.element.removeClass(cls, true);
 			}
 		}
 
@@ -52,7 +52,7 @@ export class Monitor {
 		while (length-- > 0) {
 			const entry = entries[length];
 			for (let cls of entry.list) {
-				entry.element.addClass(cls);
+				entry.element.addClass(cls, true);
 			}
 		}
 
