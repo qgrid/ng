@@ -4,6 +4,6 @@
 			  md-on-open="$view.edit.cell.fetch.busy"
 			  md-on-close="$view.edit.cell.commit.execute($cell)">
 	<md-option ng-value="option"
-				  ng-repeat="option in $view.edit.cell.fetch.result">{{ ::$view.edit.cell.editor.optionLabel(option) }}
+				  ng-repeat="option in $view.edit.cell.fetch.result">{{ ::$view.edit.cell.editor.getLabel(option) }}
 	</md-option>
 </md-select>

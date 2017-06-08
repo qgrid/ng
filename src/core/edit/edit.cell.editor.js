@@ -57,8 +57,8 @@ export class CellEditor extends CellEditorCore {
 		return this.cell.column.editorOptions;
 	}
 
-	optionLabel(option) {
-		return getLabel(option, this.options);
+	getLabel(item) {
+		return getLabel(item, this.options);
 	}
 
 	fetchFactory() {
