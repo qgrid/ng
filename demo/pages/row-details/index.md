@@ -1,0 +1,2 @@
+## description
+Row details functionality allows you to show details area for each row which can be expanded and collapsed. This might be convinient for secondary data or too large data to fit into the grid's row.

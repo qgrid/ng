@@ -98,6 +98,13 @@ thead, tfoot, tbody {
 			max-width: 55px;
 		}
 
+		&.q-grid-row-expand {
+			width: 55px;
+			min-width: 55px;
+			max-width: 55px;
+		}
+
+
 		&.q-grid-row-number {
 			width: 55px;
 			min-width: 55px;
