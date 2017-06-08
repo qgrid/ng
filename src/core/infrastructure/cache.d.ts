@@ -3,11 +3,11 @@ export declare class Cache <K, V> {
 
 	set(key: K, value: V);
 
-	get(key: K): any ;
+	get(key: K): V ;
 
 	has(key: K): boolean;
 
-	find(key: K): any;
+	find(key: K): V;
 
 	remove(key: K): void;
 
