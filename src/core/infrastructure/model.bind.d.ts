@@ -1,12 +1,8 @@
-import {noop} from '../utility';
-
-
 export class ModelBinder {
-	constructor();
+	constructor(source: Object);
 
-	source: String;
-	off: noop;
+	source: Object;
+	off: Object;
 
-
-	bind(model: Object, names: Array, run: Boolean): any;
+	bind(model: Object, names: Array, run: Boolean): Object;
 }
