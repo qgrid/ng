@@ -2,6 +2,8 @@ import PluginComponent from '../plugin.component';
 import {IMPORT_NAME} from '../definition';
 import {TemplatePath} from '@grid/core/template';
 import {Command, EventListener, AppError} from '@grid/core/infrastructure';
+import {columnFactory} from '@grid/core/column/column.factory';
+import {generate} from '@grid/core/column-list';
 import {Json} from '@grid/core/import/json';
 import {Xlsx} from './xlsx';
 
@@ -11,7 +13,6 @@ function getType(name) {
 		let type = name.split('.');
 		return type[type.length - 1];
 	}
-	return;
 }
 
 TemplatePath
@@ -32,6 +33,7 @@ class Import extends Plugin {
 
 	handleFile(e) {
 		const files = e.target.files;
+		const model = this.model;
 		for (let file of files) {
 			const reader = new FileReader();
 			reader.onload = e => {
@@ -40,14 +42,17 @@ class Import extends Plugin {
 				switch (type) {
 					case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': {
 						const xlsx = new Xlsx();
-						this.model.data(xlsx.read(data));
+						model.data(xlsx.read(data));
 						break;
 					}
 					case 'json': {
 						const json = new Json();
-						const read = json.read(data);
-						if (read) {
-							this.model.data(read);
+						const rows = json.read(data);
+						if (rows.length) {
+							model.data({
+								rows: rows,
+								columns: generate(rows, columnFactory(model), true)
+							});
 						} else {
 							throw new AppError('Import plugin', 'JSON for input should be an array of objects');
 						}
