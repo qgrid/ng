@@ -74,10 +74,8 @@ export class StyleView extends View {
 		if (isVirtual) {
 			isRowActive = true;
 			isCellActive = true;
-			const vRowStyle = new VirtualRowStyle(table);
-			const vCellStyle = new VirtualCellStyle(table);
-			styleRow = vRowStyle.applyFactory();
-			styleCell = vCellStyle.applyFactory();
+			styleRow = new VirtualRowStyle(table).applyFactory();
+			styleCell = new VirtualCellStyle(table).applyFactory();
 		}
 
 		const domCell = cellMonitor.enter();
