@@ -3,7 +3,7 @@ import {GRID_NAME, ROW_NAME} from '@grid/view/definition';
 import{TemplatePath} from '@grid/core/template';
 
 TemplatePath
-	.register(ROW_NAME, template => {
+	.register(ROW_NAME, () => {
 		return {
 			model: 'body',
 			resource: '$row.details'
