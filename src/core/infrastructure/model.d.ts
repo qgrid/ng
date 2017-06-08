@@ -1,5 +1,5 @@
 export declare class Model {
 	constructor();
 
-	register(name: String, model: Object): Model;
+	register(name: String, model: Object): Object;
 }
