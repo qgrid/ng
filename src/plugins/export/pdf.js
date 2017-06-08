@@ -1,6 +1,6 @@
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import {flattenObject} from '@grid/core/export/export.common';
+import {flatView} from '@grid/core/export/export.service';
 
 export class Pdf {
 	write(rows, columns, name) {
@@ -24,7 +24,7 @@ export class Pdf {
 			titles.push({title: column.title, dataKey: column.path});
 		}
 		for (let row of rows) {
-			values.push(flattenObject(row));
+			values.push(flatView(row));
 		}
 
 		doc.autoTable(titles, values, tableOptions);

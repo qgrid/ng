@@ -1,5 +1,5 @@
 import XLSX from 'xlsx';
-import {flattenObject} from '@grid/core/export/export.common';
+import {flatView} from '@grid/core/export/export.service';
 
 function sheet_to_workbook(sheet) {
 	const sheets = {};
@@ -31,7 +31,7 @@ export class Xlsx {
 		const excelOptions = {bookType: 'xlsx', bookSST: true, cellDates: true, compression: true, type: 'binary'};
 
 		for (let row of rows) {
-			result.push(flattenObject(row));
+			result.push(flatView(row));
 		}
 		for (let column of columns) {
 			headers.push(column.title);

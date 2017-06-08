@@ -1,4 +1,4 @@
-import {flattenObject} from './export.common';
+import {flatView} from './export.service';
 
 function rewriteHeaders(rows, titles) {
 	const result = [];
@@ -14,34 +14,17 @@ function rewriteHeaders(rows, titles) {
 }
 
 export class Json {
-	write(rows, columns, options = {structure: 'tree'}) {
+	write(rows, columns) {
 		const titles = [];
 		const result = [];
 
-		if (options.structure === 'tree') {
-			for (let column of columns) {
-				titles.push({
-					key: column.key,
-					title: column.title,
-					type: column.type
-				});
-			}
-			const obj = {
-				head: titles,
-				body: rows
-			};
-			return JSON.stringify(obj, '', 4);
-		} else {
-
-			for (let row of rows) {
-				result.push(flattenObject(row));
-			}
-			for (let column of columns) {
-				titles.push(column.title);
-			}
-
-			return rewriteHeaders(result, titles);
+		for (let row of rows) {
+			result.push(flatView(row));
+		}
+		for (let column of columns) {
+			titles.push(column.title);
 		}
 
+		return rewriteHeaders(result, titles);
 	}
 }
