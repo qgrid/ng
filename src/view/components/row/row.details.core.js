@@ -14,7 +14,7 @@ class RowDetailsCore extends Directive(ROW_DETAILS_CORE_NAME, {view: `^^${VIEW_C
 	onInit() {
 		const model = this.model;
 		model.rowChanged.watch((e) => {
-			if (e.hasChanges('mode')) {
+			if (e.hasChanges('unit')) {
 				if (model.row().unit === 'details') {
 					this.show();
 				} else {
@@ -26,7 +26,7 @@ class RowDetailsCore extends Directive(ROW_DETAILS_CORE_NAME, {view: `^^${VIEW_C
 
 	show() {
 		const state = this.model.row();
-		const templateUrl = `qgrid.body.row.details.tpl.html`;
+		const templateUrl = 'qgrid.body.row.details.tpl.html';
 		const templateScope = this.$scope.$new();
 		const link = this.template.link(
 			templateUrl,

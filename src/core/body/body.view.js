@@ -13,7 +13,7 @@ export class BodyView extends View {
 
 		this.table = table;
 		this.rows = [];
-		this.columns = [];
+		this.columnList = [];
 
 		model.viewChanged.watch(() => this.invalidate(model));
 	}
@@ -39,7 +39,16 @@ export class BodyView extends View {
 
 	invalidateColumns(model) {
 		const columns = model.view().columns;
-		this.columns = columnService.lineView(columns);
+		this.columnList = columnService.lineView(columns);
+	}
+
+	columns(row, pin) {
+		if (row instanceof RowDetails) {
+			return [];
+		}
+
+		return this.columnList.filter(c => c.model.pin === pin);
+
 	}
 
 	valueFactory(column) {
