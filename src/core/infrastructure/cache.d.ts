@@ -1,18 +1,15 @@
-import {AppError} from './error';
-
 export declare class Cache {
 	constructor();
 
-	set(key: String, value: Object);
+	set(key: String, value: any);
 
-	get(key: String) ;
+	get(key: String): any ;
 
+	has(key: String): boolean;
 
-	has(key: Object);
+	find(key: String): any;
 
-	find(key: Object);
+	remove(key: String): void;
 
-	remove(key: Object);
-
-	clear();
+	clear(): void;
 }
