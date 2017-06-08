@@ -18,6 +18,7 @@ class RowExpandColumnModel extends ColumnModel {
 
 		this.canEdit = false;
 		this.canResize = false;
+		this.class = 'control';
 	}
 }
 

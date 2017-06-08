@@ -1,6 +1,6 @@
 export class RowDetails {
-	constructor(row, column) {
-		this.row = row;
+	constructor(item, column) {
+		this.item = item;
 		this.column = column;
 	}
 }

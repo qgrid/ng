@@ -31,16 +31,6 @@ thead {
 }
 
 thead, tfoot, tbody {
-	tr {
-		&.q-grid-row-details {
-			display: none;
-
-			&.expanded {
-				display: table-row;
-			}
-		}
-	}
-
 	td, th {
 		width: 150px;
 		min-width: 150px;
