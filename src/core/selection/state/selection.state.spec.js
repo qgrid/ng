@@ -52,24 +52,23 @@ describe('selection state', () => {
 
 		beforeEach('reset selection', () => {
 			model.selection({
-				items: [],
-				entries: []
+				items: []
 			});
 		});
 
-		describe('lookup function', () => {
-			it('should return rows by keys', () => {
-				const selectionState = new SelectionState(model);
-
-				const entries = selectionState.lookup([101, 102]);
-
-				expect(entries.length).to.equal(2);
-				expect(entries[0].id).to.equal(101);
-				expect(entries[0].name).to.equal('John Doe');
-				expect(entries[1].id).to.equal(102);
-				expect(entries[1].name).to.equal('David Smith');
-			});
-		});
+		// describe('lookup function', () => {
+		// 	it('should return rows by keys', () => {
+		// 		const selectionState = new SelectionState(model);
+      //
+		// 		const entries = selectionState.lookup([101, 102]);
+      //
+		// 		expect(entries.length).to.equal(2);
+		// 		expect(entries[0].id).to.equal(101);
+		// 		expect(entries[0].name).to.equal('John Doe');
+		// 		expect(entries[1].id).to.equal(102);
+		// 		expect(entries[1].name).to.equal('David Smith');
+		// 	});
+		// });
 
 		describe('key function', () => {
 			it('should return key of corresponding row', () => {
@@ -101,17 +100,17 @@ describe('selection state', () => {
 			});
 		});
 
-		describe('lookup function', () => {
-			it('should return columns by keys', () => {
-				const selectionState = new SelectionState(model);
-
-				const entries = selectionState.lookup(['name', 'age']);
-
-				expect(entries.length).to.equal(2);
-				expect(entries[0].key).to.equal('name');
-				expect(entries[1].key).to.equal('age');
-			});
-		});
+		// describe('lookup function', () => {
+		// 	it('should return columns by keys', () => {
+		// 		const selectionState = new SelectionState(model);
+      //
+		// 		const entries = selectionState.lookup(['name', 'age']);
+      //
+		// 		expect(entries.length).to.equal(2);
+		// 		expect(entries[0].key).to.equal('name');
+		// 		expect(entries[1].key).to.equal('age');
+		// 	});
+		// });
 
 		describe('key function', () => {
 			it('should return key of corresponding column', () => {
@@ -139,34 +138,33 @@ describe('selection state', () => {
 
 		beforeEach('reset selection', () => {
 			model.selection({
-				items: [],
-				entries: []
+				items: []
 			});
 		});
 
-		describe('lookup function', () => {
-			it('should return cells by keys', () => {
-				const selectionState = new SelectionState(model);
-
-				const entries = selectionState.lookup([{
-					row: 102,
-					column: 'name'
-				}, {
-					row: 103,
-					column: 'age'
-				}]);
-
-				expect(entries.length).to.equal(2);
-				expect(entries[0].row.id).to.equal(102);
-				expect(entries[0].row.name).to.equal('David Smith');
-				expect(entries[0].row.age).to.equal(30);
-				expect(entries[0].column.key).to.equal('name');
-				expect(entries[1].row.id).to.equal(103);
-				expect(entries[1].row.name).to.equal('Lue Laserna');
-				expect(entries[1].row.age).to.equal(25);
-				expect(entries[1].column.key).to.equal('age');
-			});
-		});
+		// describe('lookup function', () => {
+		// 	it('should return cells by keys', () => {
+		// 		const selectionState = new SelectionState(model);
+      //
+		// 		const entries = selectionState.lookup([{
+		// 			row: 102,
+		// 			column: 'name'
+		// 		}, {
+		// 			row: 103,
+		// 			column: 'age'
+		// 		}]);
+      //
+		// 		expect(entries.length).to.equal(2);
+		// 		expect(entries[0].row.id).to.equal(102);
+		// 		expect(entries[0].row.name).to.equal('David Smith');
+		// 		expect(entries[0].row.age).to.equal(30);
+		// 		expect(entries[0].column.key).to.equal('name');
+		// 		expect(entries[1].row.id).to.equal(103);
+		// 		expect(entries[1].row.name).to.equal('Lue Laserna');
+		// 		expect(entries[1].row.age).to.equal(25);
+		// 		expect(entries[1].column.key).to.equal('age');
+		// 	});
+		// });
 
 		describe('key function', () => {
 			it('should return stringified key of corresponding cell', () => {

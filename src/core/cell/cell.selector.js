@@ -1,7 +1,29 @@
 import {AppError} from '../infrastructure';
 
-export function cellSelector(model, table) {
-	function getRows(items) {
+export class CellSelector {
+	constructor(model, table) {
+		this.model = model;
+		this.table = table;
+	}
+
+	map(items) {
+		const selectionState = this.model.selection();
+		switch (selectionState.unit) {
+			case 'row':
+				return this.mapFromRows(items);
+			case 'column':
+				return this.mapFromColumns(items);
+			case 'cell':
+				return this.mapFromCells(items);
+			case 'mix':
+				return this.mapFromMix(items);
+			default:
+				throw new AppError('cell.selector', `Invalid unit ${selectionState.unit}`);
+		}
+	}
+
+	mapFromRows(items) {
+		const table = this.table;
 		const result = [];
 		const rows = table.data.rows();
 
@@ -15,7 +37,8 @@ export function cellSelector(model, table) {
 		return result;
 	}
 
-	function getColumns(items) {
+	mapFromColumns(items) {
+		const table = this.table;
 		const result = [];
 		const columns = table.data.columns();
 
@@ -29,7 +52,8 @@ export function cellSelector(model, table) {
 		return result;
 	}
 
-	function getCells(items) {
+	mapFromCells(items) {
+		const table = this.table;
 		const result = [];
 		const rows = table.data.rows();
 		const columns = table.data.columns();
@@ -43,31 +67,14 @@ export function cellSelector(model, table) {
 		return result;
 	}
 
-	function getMix(items) {
+	mapFromMix(items) {
 		const entries = Array.from(items);
 		const rows = entries.filter(item => item.unit === 'row').map(item => item.item);
 		const cells = entries.filter(item => item.unit === 'row').map(item => item.item);
 
 		return [
-			...getRows(rows),
-			...getCells(cells)
+			...this.mapFromRows(rows),
+			...this.mapFromCells(cells)
 		];
 	}
-
-	const selectorMap = {
-		'row': getRows,
-		'column': getColumns,
-		'cell': getCells,
-		'mix': getMix,
-	};
-
-	return (...args) => {
-		const selection = model.selection();
-		const cellSelector = selectorMap[selection.unit];
-		if (!cellSelector) {
-			throw new AppError('cell.selector', `Invalid unit ${selection.unit}`);
-		}
-
-		return cellSelector(...args);
-	};
 }

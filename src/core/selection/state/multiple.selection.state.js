@@ -27,5 +27,4 @@ export class MultipleSelectionState extends SelectionState {
 	clearCore() {
 		this.items = new Map();
 	}
-
 }

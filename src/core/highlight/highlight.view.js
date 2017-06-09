@@ -3,7 +3,7 @@ import {Command} from '../infrastructure';
 import * as columnService from '../column/column.service';
 import * as sortService from '../sort/sort.service';
 import {HighlightBehavior} from './behaviors';
-import {cellSelector} from './cell.selector';
+import {CellSelector} from '../cell';
 import {noop} from '../utility';
 import {GRID_PREFIX} from '../definition';
 
@@ -12,8 +12,10 @@ export class HighlightView extends View {
 		super(model);
 
 		this.timeout = timeout;
-		this.behavior = new HighlightBehavior(model, cellSelector(model, table));
 		this.table = table;
+
+		const cellSelector = new CellSelector(model, table);
+		this.behavior = new HighlightBehavior(model, cellSelector.get.bind(cellSelector));
 
 		// TODO: get rid of this variable, maybe using table class?
 		let waitForLayout = false;
@@ -85,7 +87,9 @@ export class HighlightView extends View {
 		});
 
 		model.selectionChanged.watch(e => {
-			this.timeout(() => this.behavior.update(e.state.entries), 0);
+			if (e.hasChanges('items')) {
+				this.timeout(() => this.behavior.update(e.state.items), 0);
+			}
 		});
 
 		model.viewChanged.watch(() => {
@@ -95,7 +99,7 @@ export class HighlightView extends View {
 				rowHoverBlurs = this.invalidateRowHover(rowHoverBlurs);
 				sortBlurs = this.invalidateSortBy(sortBlurs);
 				waitForLayout = false;
-				this.behavior.update(this.model.selection().entries);
+				this.behavior.update(this.model.selection().items);
 			}, 100);
 		});
 
