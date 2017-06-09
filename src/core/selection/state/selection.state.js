@@ -4,9 +4,9 @@ import {SelectionService} from '../selection.service';
 
 
 export class SelectionState {
-	constructor(model) {
+	constructor(model, service) {
 		this.model = model;
-		this.service = new SelectionService(model);
+		this.service = service;
 	}
 
 	select(item, state = true) {
@@ -24,13 +24,9 @@ export class SelectionState {
 		this.selectCore(item, state);
 	}
 
-	toggle(item, state) {
-		if (arguments.length < 2) {
-			state = this.state(item);
-			return this.select(item, state === null || !state);
-		}
-
-		return this.select(item, state);
+	toggle(item) {
+		const state = this.state(item);
+		return this.select(item, state === null || !state);
 	}
 
 	state(item) {

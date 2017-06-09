@@ -107,6 +107,24 @@ export class SelectionService {
 		return entries;
 	}
 
+	map(entries) {
+		const selectionState = this.model.selection();
+		switch (selectionState.unit) {
+			case 'row':
+			case 'column':
+			case 'cell':
+				return entries.map(keySelector(selectionState.unit, selectionState.key));
+			case 'mix':
+				return entries.map(entry => ({
+					unit: entry.unit,
+					item: keySelector(entry.unit, selectionState.key)(entry.item)
+				}));
+			default:
+				throw new AppError('selection.state', `Invalid unit ${selectionState.unit}`);
+		}
+	}
+
+
 	keyFactory() {
 		const selection = this.model.selection();
 		const unit = selection.unit;
