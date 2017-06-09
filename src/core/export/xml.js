@@ -1,6 +1,6 @@
 import {isObject, isArray, isString} from '@grid/core/utility';
 
-const begin = '<?xml version="1.0" encoding="UTF-8"?><?mso-application progid="Excel.Sheet"?><rows xmlns:xsd="http://www.w3.org/2001/XMLSchema">';
+const begin = '<?xml version="1.0" encoding="UTF-8"?><rows xmlns:xsd="http://www.w3.org/2001/XMLSchema">';
 const schema = require('raw-loader!./schema.xml');
 
 function escape(value) {
