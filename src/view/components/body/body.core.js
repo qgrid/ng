@@ -62,13 +62,14 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, r
 			this.navigate(cell);
 
 			if (cell.column.editorOptions.trigger === 'click' && this.view.edit.cell.enter.canExecute(cell)) {
-				this.$scope.$evalAsync(() => this.view.edit.cell.enter.execute(cell));
+				this.view.edit.cell.enter.execute(cell);
 			}
 		}
 	}
 
 	onMouseDown(e) {
-		if (this.selection.mode === 'range') {
+		const selectionState = this.selection;
+		if (selectionState.mode === 'range') {
 			const pathFinder = new PathService(this.root.bag);
 			this.rangeStartCell = pathFinder.cell(e.path);
 
@@ -79,24 +80,32 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, r
 			return;
 		}
 
-		if (this.selection.unit === 'row') {
-			const pathFinder = new PathService(this.root.bag);
-			const cell = pathFinder.cell(e.path);
-			if (cell && cell.column.type !== 'select') {
-				this.view.selection.toggleRow.execute(cell.row);
+		switch (selectionState.unit) {
+			case 'row': {
+				const pathFinder = new PathService(this.root.bag);
+				const cell = pathFinder.cell(e.path);
+				if (cell && cell.column.type !== 'select') {
+					this.view.selection.toggleRow.execute(cell.row);
+				}
+				break;
 			}
 
-			return;
-		}
-
-		if (this.selection.unit === 'column') {
-			const pathFinder = new PathService(this.root.bag);
-			const cell = pathFinder.cell(e.path);
-			if (cell) {
-				this.view.selection.toggleColumn.execute(cell.column);
+			case 'column': {
+				const pathFinder = new PathService(this.root.bag);
+				const cell = pathFinder.cell(e.path);
+				if (cell) {
+					this.view.selection.toggleColumn.execute(cell.column);
+				}
+				break;
 			}
 
-			return;
+			case 'mix': {
+				const pathFinder = new PathService(this.root.bag);
+				const cell = pathFinder.cell(e.path);
+				if (cell && cell.column.type === 'row-indicator') {
+					this.view.selection.selectCell.execute(cell, true);
+				}
+			}
 		}
 	}
 
