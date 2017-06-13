@@ -1,4 +1,5 @@
-import {min, max} from '../services/utility';
+import {escapeClass} from '../services/css';
+import {min, max} from '../utility';
 
 export class Container {
 	constructor(elements) {
@@ -13,16 +14,24 @@ export class Container {
 		const right = max(rects.map(r => r.right));
 		return {
 			height: bottom - top,
-			width: right - left
+			width: right - left,
+			top: top,
+			left: left,
+			right: right,
+			bottom: bottom
 		};
 	}
 
 	addClass(name) {
-		this.elements.forEach(element => element.classList.add(name));
+		this.elements.forEach(element => element.classList.add(escapeClass(name)));
 	}
 
 	removeClass(name) {
-		this.elements.forEach(element => element.classList.remove(name));
+		this.elements.forEach(element => element.classList.remove(escapeClass(name)));
+	}
+
+	hasClass(name) {
+		return this.elements.some(element => element.classList.contains(name));
 	}
 
 	get clientWidth() {
@@ -36,7 +45,8 @@ export class Container {
 	get classList() {
 		return {
 			add: name => this.addClass(name),
-			remove: name => this.removeClass(name)
+			remove: name => this.removeClass(name),
+			contains: name => this.hasClass(name)
 		};
 	}
 }

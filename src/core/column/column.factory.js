@@ -1,5 +1,5 @@
 import {Guard} from '../infrastructure';
-import {assignWith, clone, isUndefined} from '../services/utility';
+import {assignWith, clone, isUndefined} from '../utility';
 import {ColumnView as CustomColumn} from '../column-type/column.model.view';
 import {
 	TextColumn,
@@ -14,6 +14,9 @@ import {
 	PivotColumn,
 	RowNumberColumn,
 	RowIndicatorColumn,
+	RowOptionsColumn,
+	RowExpandColumn,
+	RowDetailsColumn,
 	PadColumn,
 	TimeColumn,
 	UrlColumn,
@@ -46,6 +49,9 @@ export function columnFactory(model) {
 		'pivot': PivotColumn,
 		'row-number': RowNumberColumn,
 		'row-indicator': RowIndicatorColumn,
+		'row-options': RowOptionsColumn,
+		'row-expand': RowExpandColumn,
+		'row-details': RowDetailsColumn,
 		'pad': PadColumn,
 		'time': TimeColumn,
 		'url': UrlColumn,

@@ -1,16 +1,41 @@
 import RootComponent from '../root.component';
+import {Table} from '@grid/core/dom';
+import {LayerFactory} from '@grid/view/services';
+import {CommandManager, AppError} from '@grid/core/infrastructure'
+import {isUndefined} from '@grid/core/utility';
+import TemplateLink from '../template/template.link';
 
 export class Grid extends RootComponent {
-	constructor($element, $transclude) {
-		super('data', 'selection', 'sort', 'group', 'pivot', 'edit');
+	constructor($rootScope, $scope, $element, $transclude, $document, $timeout, $templateCache, $compile) {
+		super('grid', 'data', 'selection', 'sort', 'group', 'pivot', 'edit', 'style', 'action');
 
+		this.$rootScope = $rootScope;
+		this.$scope = $scope;
 		this.$element = $element;
 		this.$transclude = $transclude;
+		this.$timeout = $timeout;
+
+		this.template = new TemplateLink($compile, $templateCache);
+		this.commandManager = new CommandManager(this.applyFactory());
+		this.markup = {
+			document: $document[0]
+		};
+
+		this.bag = new Map();
 	}
 
 	onInit() {
-		this.compile();
+		const model = this.model;
+		const bag = this.bag;
+		const layerFactory = new LayerFactory(this.markup, this.template);
+		const tableContext = {
+			layer: name => layerFactory.create(name),
+			model: element => bag.get(element) || null
+		};
 
+		this.table = new Table(model, this.markup, tableContext);
+
+		this.compile();
 		this.model.viewChanged.watch(e => {
 			if (e.hasChanges('columns')) {
 				this.invalidateVisibility();
@@ -34,7 +59,7 @@ export class Grid extends RootComponent {
 	}
 
 	invalidateVisibility() {
-		const columns = this.model.data().columns;
+		const columns = this.table.data.columns();
 		const visibility = this.model.visibility;
 		visibility({
 			pin: {
@@ -44,6 +69,41 @@ export class Grid extends RootComponent {
 		});
 	}
 
+	applyFactory(gf = null, mode = 'async') {
+		return (lf, timeout) => {
+			if (isUndefined(timeout)) {
+				switch (mode) {
+					case 'async': {
+						return this.$scope.$applyAsync(() => {
+							lf();
+
+							if (gf) {
+								gf();
+							}
+						});
+					}
+					case 'sync': {
+						const phase = this.$rootScope.$$phase; // eslint-disable-line angular/no-private-call
+						if (phase == '$apply' || phase == '$digest') {
+							return lf();
+						}
+						return this.$scope.$apply(lf);
+					}
+					default:
+						throw new AppError('grid', `Invalid mode ${mode}`);
+				}
+			}
+
+			return this.$timeout(() => {
+				lf();
+
+				if (gf) {
+					gf();
+				}
+			}, timeout);
+		};
+	}
+
 	get visibility() {
 		// TODO: get rid of that
 		return this.model.visibility();
@@ -51,8 +111,14 @@ export class Grid extends RootComponent {
 }
 
 Grid.$inject = [
+	'$rootScope',
+	'$scope',
 	'$element',
-	'$transclude'
+	'$transclude',
+	'$document',
+	'$timeout',
+	'$templateCache',
+	'$compile'
 ];
 
 /**
@@ -64,6 +130,7 @@ export default {
 	controller: Grid,
 	controllerAs: '$grid',
 	bindings: {
+		gridId: '@id',
 		model: '<',
 		dataRows: '<rows',
 		dataColumns: '<columns',
@@ -82,5 +149,8 @@ export default {
 		editCommit: '<',
 		editCancel: '<',
 		editReset: '<',
+		styleRow: '<',
+		styleCell: '<',
+		actionItems: '<actions'
 	}
 };

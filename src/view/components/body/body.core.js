@@ -1,19 +1,15 @@
 import Directive from '@grid/view/directives/directive';
-import {VIEW_CORE_NAME, BODY_CORE_NAME} from '@grid/view/definition';
-import {EventListener} from '@grid/core/infrastructure';
+import {VIEW_CORE_NAME, BODY_CORE_NAME, GRID_NAME} from '@grid/view/definition';
+import {EventListener, EventManager} from '@grid/core/infrastructure';
 import {PathService} from '@grid/core/path';
 
-class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
-	constructor($scope, $element, $document) {
+class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, root: `^^${GRID_NAME}`}) {
+	constructor($scope, $element) {
 		super();
 
 		// this.$scope should be set cause it used by box.js
 		this.$scope = $scope;
 		this.element = $element[0];
-		this.document = $document[0];
-
-		this.documentListener = new EventListener(this, this.document);
-		this.listener = new EventListener(this, this.element);
 
 		this.rangeStartCell = null;
 		this.scrollContext = {
@@ -44,6 +40,8 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	}
 
 	onInit() {
+		this.listener = new EventListener(this.element, new EventManager(this, this.root.applyFactory(null, 'sync')));
+
 		this.listener.on('scroll', this.onScroll);
 		this.listener.on('click', this.onClick);
 		this.listener.on('mousedown', this.onMouseDown);
@@ -58,20 +56,21 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	}
 
 	onClick(e) {
-		const pathFinder = new PathService(this.view.bag);
+		const pathFinder = new PathService(this.root.bag);
 		const cell = pathFinder.cell(e.path);
 		if (cell) {
 			this.navigate(cell);
 
 			if (cell.column.editorOptions.trigger === 'click' && this.view.edit.cell.enter.canExecute(cell)) {
-				this.$scope.$evalAsync(() => this.view.edit.cell.enter.execute(cell));
+				this.view.edit.cell.enter.execute(cell);
 			}
 		}
 	}
 
 	onMouseDown(e) {
-		if (this.selection.mode === 'range') {
-			const pathFinder = new PathService(this.view.bag);
+		const selectionState = this.selection;
+		if (selectionState.mode === 'range') {
+			const pathFinder = new PathService(this.root.bag);
 			this.rangeStartCell = pathFinder.cell(e.path);
 
 			if (this.rangeStartCell) {
@@ -81,29 +80,37 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 			return;
 		}
 
-		if (this.selection.unit === 'row') {
-			const pathFinder = new PathService(this.view.bag);
-			const cell = pathFinder.cell(e.path);
-			if (cell && cell.column.type !== 'select') {
-				this.view.selection.toggleRow.execute(cell.row);
+		switch (selectionState.unit) {
+			case 'row': {
+				const pathFinder = new PathService(this.root.bag);
+				const cell = pathFinder.cell(e.path);
+				if (cell && cell.column.type !== 'select') {
+					this.view.selection.toggleRow.execute(cell.row);
+				}
+				break;
 			}
 
-			return;
-		}
-
-		if (this.selection.unit === 'column') {
-			const pathFinder = new PathService(this.view.bag);
-			const cell = pathFinder.cell(e.path);
-			if (cell) {
-				this.view.selection.toggleColumn.execute(cell.column);
+			case 'column': {
+				const pathFinder = new PathService(this.root.bag);
+				const cell = pathFinder.cell(e.path);
+				if (cell) {
+					this.view.selection.toggleColumn.execute(cell.column);
+				}
+				break;
 			}
 
-			return;
+			case 'mix': {
+				const pathFinder = new PathService(this.root.bag);
+				const cell = pathFinder.cell(e.path);
+				if (cell && cell.column.type === 'row-indicator') {
+					this.view.selection.toggleCell.execute(cell);
+				}
+			}
 		}
 	}
 
 	onMouseMove(e) {
-		const pathFinder = new PathService(this.view.bag);
+		const pathFinder = new PathService(this.root.bag);
 		const row = pathFinder.row(e.path);
 		if (row) {
 			const index = row.index;
@@ -160,8 +167,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 
 BodyCore.$inject = [
 	'$scope',
-	'$element',
-	'$document'
+	'$element'
 ];
 
 export default {

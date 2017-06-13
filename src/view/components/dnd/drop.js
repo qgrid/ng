@@ -1,5 +1,5 @@
 import Directive from '@grid/view/directives/directive';
-import {EventListener} from '@grid/core/infrastructure';
+import {EventListener, EventManager} from '@grid/core/infrastructure';
 import DragService from './drag.service';
 import {DROP_NAME, CAN_DROP_NAME, DROP_EFFECT_NAME, ON_DROP_NAME} from '@grid/view/definition';
 import {GRID_PREFIX} from '@grid/core/definition';
@@ -10,7 +10,7 @@ class Drop extends Directive(DROP_NAME) {
 
 		this.$scope = $scope;
 		this.element = $element[0];
-		this.listener = new EventListener(this, this.element);
+		this.listener = new EventListener(this.element, new EventManager(this));
 	}
 
 	onInit() {

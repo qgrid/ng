@@ -1,9 +1,11 @@
 require('./index.scss');
 import ReferenceEdit from './templates/body.cell.reference.edit';
+import RowOptions from './templates/body.cell.row.options.edit';
 
 export default angular
 	.module('qgrid.theme.material', ['qgrid'])
 	.controller('Body.Cell.Reference.Edit.Controller', ReferenceEdit)
+	.controller('Body.Cell.Row.Options.Controller', RowOptions)
 	.config(Setup)
 	.name;
 
@@ -24,6 +26,8 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.body.cell.bool.tpl.html', require('@grid/themes/material/templates/body.cell.bool.html'));
 		theme.put('qgrid.body.cell.select.tpl.html', require('@grid/themes/material/templates/body.cell.select.html'));
 		theme.put('qgrid.body.cell.row-indicator.tpl.html', require('@grid/themes/material/templates/body.cell.row.indicator.html'));
+		theme.put('qgrid.body.cell.row-options.tpl.html', require('@grid/themes/material/templates/body.cell.row.options.html'));
+		theme.put('qgrid.body.cell.row-options.edit.tpl.html', require('@grid/themes/material/templates/body.cell.row.options.edit.html'));
 		theme.put('qgrid.body.cell.url.tpl.html', require('@grid/themes/material/templates/body.cell.url.html'));
 		theme.put('qgrid.body.cell.url.edit.tpl.html', require('@grid/themes/material/templates/body.cell.url.edit.html'));
 		theme.put('qgrid.body.cell.email.tpl.html', require('@grid/themes/material/templates/body.cell.email.html'));
@@ -69,6 +73,7 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.plugin.edit-form-panel.tpl.html', require('@grid/themes/material/templates/plugin.edit.form.panel.html'));
 		theme.put('qgrid.plugin.popup-panel.tpl.html', require('@grid/themes/material/templates/plugin.popup.panel.html'));
 		theme.put('qgrid.plugin.group-bar.tpl.html', require('@grid/themes/material/templates/plugin.group.bar.html'));
+		theme.put('qgrid.plugin.action-bar.tpl.html', require('@grid/themes/material/templates/plugin.action.bar.html'));
 		theme.put('qgrid.plugin.sort-bar.tpl.html', require('@grid/themes/material/templates/plugin.sort.bar.html'));
 		theme.put('qgrid.plugin.pivot-bar.tpl.html', require('@grid/themes/material/templates/plugin.pivot.bar.html'));
 		theme.put('qgrid.plugin.selection-bar.tpl.html', require('@grid/themes/material/templates/plugin.selection.bar.html'));

@@ -1,5 +1,4 @@
 import Component from '../component';
-import {Table} from '@grid/core/dom';
 import {BodyView} from '@grid/core/body';
 import {HeadView} from '@grid/core/head';
 import {FootView} from '@grid/core/foot';
@@ -16,14 +15,13 @@ import {PaginationView} from '@grid/core/pagination';
 import {StyleView} from '@grid/core/style';
 import {ColumnView} from '@grid/core/column';
 import {ScrollView} from '@grid/core/scroll';
+import {RowDetailsView} from '@grid/core/row-details';
 import {GRID_NAME, TH_CORE_NAME} from '@grid/view/definition';
-import {isUndefined, identity} from '@grid/core/services/utility';
 import {PipeUnit} from '@grid/core/pipe/units';
-import TemplateLink from '../template/template.link';
-import {CommandManager, Vscroll, LayerFactory} from '@grid/view/services';
+import {Vscroll} from '@grid/view/services';
 
 class ViewCore extends Component {
-	constructor($rootScope, $scope, $element, $document, $timeout, $compile, $templateCache, grid, vscroll) {
+	constructor($rootScope, $scope, $element, $timeout, grid, vscroll) {
 		super();
 
 		this.$rootScope = $rootScope;
@@ -32,50 +30,16 @@ class ViewCore extends Component {
 		this.$timeout = $timeout;
 		this.$postLink = this.build;
 		this.serviceFactory = grid.service.bind(grid);
-		this.template = new TemplateLink($compile, $templateCache);
 		this.vscroll = vscroll;
-
-		this.markup = {
-			document: $document[0]
-		};
-
-		this.bag = new Map();
 	}
 
 	build() {
 		const model = this.model;
-		const bag = this.bag;
-		const layerFactory = new LayerFactory(this.markup, this.template);
-		const tableContext = {
-			layer: name => layerFactory.create(name),
-			model: element => bag.get(element) || null,
-			mapper: {
-				row: index => {
-					const scrollState = model.scroll();
-					if (scrollState.mode === 'virtual') {
-						//console.log(JSON.stringify(this.scroll.y.container));
-						return index - this.scroll.y.container.cursor;
-					}
-
-					return index;
-				},
-				column: identity
-			}
-		};
-
-		const table = new Table(this.model, this.markup, tableContext);
-
-		this.table = table;
-
+		const root = this.root;
+		const table = root.table;
+		const commandManager = root.commandManager;
 		const gridService = this.serviceFactory(model);
-		const commandManager = new CommandManager(this.applyFactory());
-		const vscroll = new Vscroll(
-			this.vscroll,
-			this.applyFactory(() => {
-				if (table.body.invalidate) {
-					table.body.invalidate();
-				}
-			}));
+		const vscroll = new Vscroll(this.vscroll, root.applyFactory());
 
 		this.style = new StyleView(model, table);
 		this.head = new HeadView(model, table, TH_CORE_NAME);
@@ -93,12 +57,13 @@ class ViewCore extends Component {
 		this.nav = new NavigationView(model, table, commandManager);
 		this.pagination = new PaginationView(model);
 		this.scroll = new ScrollView(model, table, vscroll, gridService);
+		this.rowDetails = new RowDetailsView(model, table);
 
 		// TODO: how we can avoid that?
 		this.$scope.$watch(this.style.invalidate.bind(this.style));
 
 		model.selectionChanged.watch(e => {
-			if (e.hasChanges('entries')) {
+			if (e.hasChanges('items')) {
 				this.root.onSelectionChanged({
 					$event: {
 						state: model.selection(),
@@ -132,28 +97,6 @@ class ViewCore extends Component {
 		}
 	}
 
-	applyFactory(gf) {
-		return (lf, timeout) => {
-			if (isUndefined(timeout)) {
-				return this.$scope.$applyAsync(() => {
-					lf();
-
-					if (gf) {
-						gf();
-					}
-				});
-			}
-
-			return this.$timeout(() => {
-				lf();
-
-				if (gf) {
-					gf();
-				}
-			}, timeout);
-		};
-	}
-
 	onDestroy() {
 		this.layout.destroy();
 		this.nav.destroy();
@@ -181,10 +124,7 @@ ViewCore.$inject = [
 	'$rootScope',
 	'$scope',
 	'$element',
-	'$document',
 	'$timeout',
-	'$compile',
-	'$templateCache',
 	'qgrid',
 	'vscroll'
 ];

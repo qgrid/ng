@@ -5,6 +5,7 @@ export default function Controller($http, qgrid) {
 	let rows = [];
 
 	ctrl.model = model;
+	ctrl.selection = () => model.selection().items;
 
 	model.pagination({
 		size: 20
@@ -16,14 +17,12 @@ export default function Controller($http, qgrid) {
 
 	ctrl.model.data({
 		pipe: [(data, context, next) => {
-			const paginationState = model.pagination();
-			const size = paginationState.size;
-			const current = paginationState.current;
-			const start = current * size;
+			const skip = model.fetch().skip;
+			const take = model.pagination().size;
 
 			$http.get('data/people/100.json')
 				.then(response =>
-					next(rows = rows.concat(response.data.slice(start, start + size))));
+					next(rows = rows.concat(response.data.slice(skip, skip + take))));
 		}]
 			.concat(qgrid.pipeUnit.view)
 	});

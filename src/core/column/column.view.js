@@ -2,7 +2,7 @@ import {View} from '../view';
 import {columnFactory} from './column.factory';
 import {AppError} from '../infrastructure';
 import {merge} from '../services';
-import {assignWith, noop, isUndefined} from '../services/utility';
+import {assignWith, noop, isUndefined} from '../utility';
 import {generate} from '../column-list';
 import {PipeUnit} from '../pipe/units';
 
@@ -14,7 +14,7 @@ export class ColumnView extends View {
 
 		// this should be first place(with column.pipe) where columns are processed
 		model.dataChanged.watch(e => {
-			if (e.tag.source === 'column.list') {
+			if (e.tag.source === 'column.view') {
 				return;
 			}
 
@@ -86,7 +86,7 @@ export class ColumnView extends View {
 		statistics.push(this.merge(dataColumns, templateColumns, true));
 		if (this.hasChanges(statistics)) {
 			const tag = {
-				source: 'column.list',
+				source: 'column.view',
 				behavior: 'core'
 			};
 

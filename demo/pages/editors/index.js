@@ -20,25 +20,16 @@ export default function Controller($http, $q, $timeout) {
 			path: 'name.first'
 		},
 		{
-			key: 'isFemale',
-			title: 'Is Female',
-			type: 'bool',
-			value: (item, value) => isUndef(value) ? item.gender === 'female' : item.gender = value,
-			editor: 'dropdown',
-			editorOptions: {
-				fetch: ['female', 'male']
-			}
-		},
-		{
 			key: 'gender',
 			title: 'Gender',
 			type: 'text',
 			value: (item, value) => isUndef(value) ? item.gender: item.gender = value,
 			editor: 'dropdown',
 			editorOptions: {
-				fetch: (item, d) => {
-					$timeout(() => d.resolve(['female', 'male']), 2000);
-				}
+				// fetch: (item, d) => {
+				// 	$timeout(() => d.resolve(['female', 'male']), 2000);
+				// }
+				fetch: ['female', 'male']
 			}
 		},
 		{
@@ -82,8 +73,39 @@ export default function Controller($http, $q, $timeout) {
 					});
 				}
 			}
+		},
+		{
+			key: 'chief',
+			title: 'Chief',
+			type: 'text',
+			value: (item, value) => isUndef(value)
+				? item.chief || null
+				: item.chief = value.id,
+			label: item => {
+				if (isUndef(item.chief) || item.chief === null) {
+					return '';
+				}
+				const selectedOption = ctrl.dropdownOptions.find(option => option.id === item.chief);
+				return `${selectedOption.name.last} ${selectedOption.name.first}`;
+			},
+			editor: 'dropdown',
+			editorOptions: {
+				fetch: (item, d) => {
+					d.resolve(ctrl.dropdownOptions);
+				},
+				label: option => `${option.name.last} ${option.name.first}`
+			}
 		}
 	];
+
+	ctrl.dropdownOptions = [];
+
+	$http.get('data/people/100.json').then(function (response) {
+		ctrl.dropdownOptions = response.data.map((option, index) => {
+			option.id = index;
+			return option;
+		});
+	});
 
 	$http.get('data/people/100.json')
 		.then(function (response) {

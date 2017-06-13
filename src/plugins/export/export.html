@@ -1,6 +1,6 @@
 <div class="q-grid-export">
-	<button ng-if="$export.csv.canExecute()"
-			  ng-click="$export.csv.execute()">
-		export
+	<button ng-if="$export[$export.type].canExecute()"
+			  ng-click="$export[$export.type].execute()">
+		export to {{$export.type}}
 	</button>
 </div>

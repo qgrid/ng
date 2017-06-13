@@ -202,6 +202,12 @@ td.q-grid-edit {
 		}
 	}
 
+	&.q-grid-row-options {
+		padding: 0;
+		margin: 0;
+		width: 100%;
+	}
+
 	md-checkbox {
 		margin: 0;
 	}

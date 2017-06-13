@@ -1,6 +1,6 @@
 import Directive from './directive';
 import {FILE_UPLOAD_NAME, FILE_UPLOAD_LABEL_NAME, CAN_UPLOAD_NAME} from '@grid/view/definition';
-import {AppError, EventListener} from '@grid/core/infrastructure';
+import {AppError, EventListener, EventManager} from '@grid/core/infrastructure';
 
 class FileUpload extends Directive(FILE_UPLOAD_NAME) {
 	constructor($scope, $element) {
@@ -9,7 +9,7 @@ class FileUpload extends Directive(FILE_UPLOAD_NAME) {
 		this.$scope = $scope;
 		this.element = $element[0];
 		
-		this.listener = new EventListener(this, this.element);
+		this.listener = new EventListener(this.element, new EventManager(this));
 
 		this.reader = new FileReader();
 		this.reader.onloadend = e => this.setDataUrl(e);

@@ -14,7 +14,11 @@ module.exports = webpackMerge(commonConfig, {
 			'angular-animate',
 			'angular-aria',
 			'angular-material',
-			'angular-sanitize'
+			'angular-sanitize',
+			'file-saver',
+			'jspdf',
+			'jspdf-autotable',
+			'xlsx'
 		]
 	},
 	devtool: 'inline-source-map',
