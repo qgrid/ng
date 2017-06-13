@@ -103,7 +103,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, r
 				const pathFinder = new PathService(this.root.bag);
 				const cell = pathFinder.cell(e.path);
 				if (cell && cell.column.type === 'row-indicator') {
-					this.view.selection.selectCell.execute(cell, true);
+					this.view.selection.toggleCell.execute(cell);
 				}
 			}
 		}

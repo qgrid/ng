@@ -22,7 +22,6 @@ export class SelectionView extends View {
 		this.toggleRow = commands.get('toggleRow');
 		this.toggleColumn = commands.get('toggleColumn');
 		this.toggleCell = commands.get('toggleCell');
-		this.selectCell = commands.get('selectCell');
 		this.reset = commands.get('reset');
 
 		model.navigationChanged.watch(e => {
@@ -31,8 +30,8 @@ export class SelectionView extends View {
 			}
 
 			if (e.hasChanges('cell')) {
-				if (this.selectCell.canExecute(e.state.cell)) {
-					this.selectCell.execute(e.state.cell, true);
+				if (this.toggleCell.canExecute(e.state.cell)) {
+					this.toggleCell.execute(e.state.cell);
 				}
 			}
 		});
@@ -73,6 +72,34 @@ export class SelectionView extends View {
 	get commands() {
 		const model = this.model;
 		const commands = {
+			toggleCell: new Command({
+				canExecute: item => {
+					const selectionState = model.selection();
+					return item && selectionState.mode !== 'range' && (selectionState.unit === 'cell' || selectionState.unit === 'mix');
+				},
+				execute: item => {
+					const selectionState = model.selection();
+					switch (selectionState.unit) {
+						case 'cell': {
+							const commit = this.toggle(item);
+							commit();
+							break;
+						}
+						case 'mix': {
+							if (item.column.type === 'row-indicator') {
+								const commit = this.toggle({item: item.row, unit: 'row'});
+								commit();
+								break;
+							}
+							else {
+								const commit = this.toggle({item: item, unit: 'cell'});
+								commit();
+								break;
+							}
+						}
+					}
+				}
+			}),
 			toggleRow: new Command({
 				execute: item => {
 					const commit = this.toggle(item);
@@ -80,12 +107,6 @@ export class SelectionView extends View {
 				}
 			}),
 			toggleColumn: new Command({
-				execute: item => {
-					const commit = this.toggle(item);
-					commit();
-				}
-			}),
-			toggleCell: new Command({
 				execute: item => {
 					const commit = this.toggle(item);
 					commit();
@@ -173,34 +194,6 @@ export class SelectionView extends View {
 					this.navigateTo(navState.rowIndex, columnIndex);
 				},
 				shortcut: 'shift+left'
-			}),
-			selectCell: new Command({
-				canExecute: item => {
-					const selectionState = model.selection();
-					return item && selectionState.mode !== 'range' && (selectionState.unit === 'cell' || selectionState.unit === 'mix');
-				},
-				execute: (item, state) => {
-					const selectionState = model.selection();
-					switch (selectionState.unit) {
-						case 'cell': {
-							const commit = this.select(item, state);
-							commit();
-							break;
-						}
-						case 'mix': {
-							if (item.column.type === 'row-indicator') {
-								const commit = this.select({item: item.row, unit: 'row'}, state);
-								commit();
-								break;
-							}
-							else {
-								const commit = this.select({item: item, unit: 'cell'}, state);
-								commit();
-								break;
-							}
-						}
-					}
-				}
 			}),
 			selectAll: new Command({
 				canExecute: () => model.selection().mode === 'multiple',
