@@ -85,7 +85,7 @@ export class Grid extends RootComponent {
 					case 'sync': {
 						const phase = this.$rootScope.$$phase; // eslint-disable-line angular/no-private-call
 						if (phase == '$apply' || phase == '$digest') {
-							return f();
+							return lf();
 						}
 						return this.$scope.$apply(lf);
 					}
