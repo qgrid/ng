@@ -2,7 +2,7 @@ import {TemplatePath} from '@grid/core/template';
 import PluginComponent from '../plugin.component';
 import {IMPORT_NAME} from '../definition';
 import {readFile} from './read';
-import {Command, EventListener} from '@grid/core/infrastructure';
+import {Command, EventListener, EventManager} from '@grid/core/infrastructure';
 
 TemplatePath
 	.register(IMPORT_NAME, () => {
@@ -16,7 +16,7 @@ const Plugin = PluginComponent('import');
 class Import extends Plugin {
 	constructor() {
 		super(...arguments);
-		this.eventListener = new EventListener(this, this.$element[0]);
+		this.eventListener = new EventListener(this.$element[0], new EventManager(this));
 		this.upload = new Command({});
 	}
 
