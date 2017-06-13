@@ -1,5 +1,5 @@
 import Directive from '@grid/view/directives/directive';
-import {EventListener} from '@grid/core/infrastructure';
+import {EventListener, EventManager} from '@grid/core/infrastructure';
 import DragService from './drag.service';
 import {DRAG_NAME, DROP_EFFECT_NAME, CAN_DRAG_NAME, VIEW_CORE_NAME} from '@grid/view/definition';
 import {GRID_PREFIX} from '@grid/core/definition';
@@ -9,7 +9,7 @@ class Drag extends Directive(DRAG_NAME, {view: `^^?${VIEW_CORE_NAME}`}) {
 		super();
 
 		this.element = $element[0];
-		this.listener = new EventListener(this, this.element);
+		this.listener = new EventListener(this.element, new EventManager(this));
 	}
 
 	onInit() {
@@ -54,7 +54,7 @@ class Drag extends Directive(DRAG_NAME, {view: `^^?${VIEW_CORE_NAME}`}) {
 	}
 
 	event() {
-		const source = this.transfer()
+		const source = this.transfer();
 		return {
 			$event: {
 				source: source,

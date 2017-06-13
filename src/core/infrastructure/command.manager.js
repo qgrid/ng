@@ -1,5 +1,5 @@
 export class CommandManager {
-	constructor(apply) {
+	constructor(apply = f => f()) {
 		this.apply = apply;
 	}
 
