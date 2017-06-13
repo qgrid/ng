@@ -30,11 +30,12 @@ export default function ReferenceEdit($scope, qgrid) {
 	});
 
 	this.commit = ($cell, $event) => {
-		this.cell().value = this.gridModel.selection().items;
-		this.cell().tag = {
+		const cell = this.cell();
+		cell.value = this.gridModel.selection().items;
+		cell.tag = {
 			columns: this.gridModel.data().columns
 		};
-		this.cell().commit.execute($cell, $event);
+		cell.commit.execute($cell, $event);
 		close();
 	};
 
