@@ -1,14 +1,15 @@
 import RootComponent from '../root.component';
 import {Table} from '@grid/core/dom';
 import {LayerFactory} from '@grid/view/services';
-import {CommandManager} from '@grid/core/infrastructure'
+import {CommandManager, AppError} from '@grid/core/infrastructure'
 import {isUndefined} from '@grid/core/utility';
 import TemplateLink from '../template/template.link';
 
 export class Grid extends RootComponent {
-	constructor($scope, $element, $transclude, $document, $timeout, $templateCache, $compile) {
+	constructor($rootScope, $scope, $element, $transclude, $document, $timeout, $templateCache, $compile) {
 		super('grid', 'data', 'selection', 'sort', 'group', 'pivot', 'edit', 'style', 'action');
 
+		this.$rootScope = $rootScope;
 		this.$scope = $scope;
 		this.$element = $element;
 		this.$transclude = $transclude;
@@ -67,16 +68,29 @@ export class Grid extends RootComponent {
 		});
 	}
 
-	applyFactory(gf) {
+	applyFactory(gf = null, mode = 'async') {
 		return (lf, timeout) => {
 			if (isUndefined(timeout)) {
-				return this.$scope.$applyAsync(() => {
-					lf();
+				switch (mode) {
+					case 'async': {
+						return this.$scope.$applyAsync(() => {
+							lf();
 
-					if (gf) {
-						gf();
+							if (gf) {
+								gf();
+							}
+						});
 					}
-				});
+					case 'sync': {
+						const phase = this.$rootScope.$$phase; // eslint-disable-line angular/no-private-call
+						if (phase == '$apply' || phase == '$digest') {
+							return f();
+						}
+						return this.$scope.$apply(lf);
+					}
+					default:
+						throw new AppError('grid', `Invalid mode ${mode}`);
+				}
 			}
 
 			return this.$timeout(() => {
@@ -96,6 +110,7 @@ export class Grid extends RootComponent {
 }
 
 Grid.$inject = [
+	'$rootScope',
 	'$scope',
 	'$element',
 	'$transclude',
