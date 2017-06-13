@@ -1,1 +1,1 @@
-﻿export declare function merge(settings): any;
+﻿export declare function merge(settings: object): any;

@@ -2,7 +2,7 @@ export class ModelBinder {
 
 	constructor(source: object);
 
-	off: object;
+	off: () => void;
 
 	bind(model: object, names: string[], run: boolean): () => any;
 }

@@ -1,5 +1,5 @@
-export declare function children(element: object): object;
+export declare function children(element: HTMLElement): object;
 
-export function style(element: object): object;
+export function style(element: HTMLElement): object;
 
-export function className(element: object): object;
+export function className(element: HTMLElement): object;

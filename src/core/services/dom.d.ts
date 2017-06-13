@@ -1,4 +1,4 @@
-export declare function css(element: object, property: string, value: string): any;
+export declare function css(element: HTMLElement, property: string, value: string): any;
 
 export declare function normalize(property: string): string;
 

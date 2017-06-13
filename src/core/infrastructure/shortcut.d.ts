@@ -8,11 +8,4 @@ export declare class Shortcut {
 	manager: CommandManager;
 	commands: Command[];
 
-	register(id: number, commands: object): any;
-
-	find(code: string): any[];
-
-	test(shortcut: object, code: string): any;
-
-	onDestroy(): void;
 }
