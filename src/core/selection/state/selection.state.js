@@ -1,7 +1,5 @@
 import {isArray} from '../../utility';
 import {Node} from '../../node';
-import {SelectionService} from '../selection.service';
-
 
 export class SelectionState {
 	constructor(model, service) {

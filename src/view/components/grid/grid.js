@@ -1,6 +1,7 @@
 import RootComponent from '../root.component';
 import {Table} from '@grid/core/dom';
-import {CommandManager, LayerFactory} from '@grid/view/services';
+import {LayerFactory} from '@grid/view/services';
+import {CommandManager} from '@grid/core/infrastructure'
 import {isUndefined} from '@grid/core/utility';
 import TemplateLink from '../template/template.link';
 

@@ -247,11 +247,11 @@ export class HighlightView extends View {
 	}
 
 	highlightCell(cell, cls) {
-		cell.addClass(cls);
+		cell.addClass(`${GRID_PREFIX}-${cls}`);
 		return this.blurCell(cell, cls);
 	}
 
 	blurCell(cell, cls) {
-		return () => cell.removeClass(cls);
+		return () => cell.removeClass(`${GRID_PREFIX}-${cls}`);
 	}
 }

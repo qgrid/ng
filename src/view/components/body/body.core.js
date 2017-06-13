@@ -1,19 +1,15 @@
 import Directive from '@grid/view/directives/directive';
 import {VIEW_CORE_NAME, BODY_CORE_NAME, GRID_NAME} from '@grid/view/definition';
-import {EventListener} from '@grid/core/infrastructure';
+import {EventListener, EventManager} from '@grid/core/infrastructure';
 import {PathService} from '@grid/core/path';
 
 class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, root: `^^${GRID_NAME}`}) {
-	constructor($scope, $element, $document) {
+	constructor($scope, $element) {
 		super();
 
 		// this.$scope should be set cause it used by box.js
 		this.$scope = $scope;
 		this.element = $element[0];
-		this.document = $document[0];
-
-		this.documentListener = new EventListener(this, this.document);
-		this.listener = new EventListener(this, this.element);
 
 		this.rangeStartCell = null;
 		this.scrollContext = {
@@ -44,6 +40,8 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, r
 	}
 
 	onInit() {
+		this.listener = new EventListener(this.element, new EventManager(this, this.root.applyFactory()));
+
 		this.listener.on('scroll', this.onScroll);
 		this.listener.on('click', this.onClick);
 		this.listener.on('mousedown', this.onMouseDown);
@@ -160,8 +158,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, r
 
 BodyCore.$inject = [
 	'$scope',
-	'$element',
-	'$document'
+	'$element'
 ];
 
 export default {

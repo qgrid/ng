@@ -28,7 +28,7 @@ export class SelectionView extends View {
 		model.navigationChanged.watch(e => {
 			if (e.hasChanges('cell') && e.tag.source !== 'selection.view') {
 				const selectionState = model.selection();
-				if (selectionState.unit === 'cell') {
+				if (selectionState.unit === 'cell' && selectionState.mode !== 'range') {
 					if (e.state.cell) {
 						const commit = this.select(e.state.cell, true);
 						commit();
@@ -51,7 +51,8 @@ export class SelectionView extends View {
 
 			if (e.hasChanges('unit') || e.hasChanges('mode')) {
 				if (!e.hasChanges('items')) {
-					const commit = this.select(this.selectionService.lookup([]));
+					const entries = this.selectionService.lookup(e.state.items);
+					const commit = this.select(entries, false);
 					commit();
 
 					this.selectionState = stateFactory(model, this.selectionService);
@@ -61,7 +62,7 @@ export class SelectionView extends View {
 			if (e.hasChanges('items') && e.tag.source !== 'selection.view') {
 				const entries = this.selectionService.lookup(e.state.items);
 				// Don't use commit it came outside already
-				this.select(entries);
+				this.select(entries, true);
 			}
 		});
 	}
@@ -70,20 +71,20 @@ export class SelectionView extends View {
 		const model = this.model;
 		const commands = {
 			toggleRow: new Command({
-				execute: (item, state) => {
-					const commit = this.select(item, state);
+				execute: item => {
+					const commit = this.toggle(item);
 					commit();
 				}
 			}),
 			toggleColumn: new Command({
-				execute: (item, state) => {
-					const commit = this.select(item, state);
+				execute: item => {
+					const commit = this.toggle(item);
 					commit();
 				}
 			}),
 			toggleCell: new Command({
-				execute: (item, state) => {
-					const commit = this.select(item, state);
+				execute: item => {
+					const commit = this.toggle(item);
 					commit();
 				}
 			}),
@@ -98,11 +99,12 @@ export class SelectionView extends View {
 						row = this.rows[rowIndex];
 					} else {
 						row = this.rows[rowIndex + 1];
-						this.navigateTo(rowIndex + 1, navState.columnIndex);
 					}
 
-					const commit = this.select(row);
+					const commit = this.toggle(row);
 					commit();
+
+					this.navigateTo(rowIndex + 1, navState.columnIndex);
 				},
 				shortcut: 'shift+space'
 			}),
@@ -112,7 +114,7 @@ export class SelectionView extends View {
 					const navState = model.navigation();
 					const rowIndex = navState.rowIndex - 1;
 					const row = this.rows[rowIndex];
-					const commit = this.select(row);
+					const commit = this.toggle(row);
 					commit();
 
 					this.navigateTo(rowIndex, navState.columnIndex);
@@ -125,7 +127,7 @@ export class SelectionView extends View {
 					const navState = model.navigation();
 					const rowIndex = navState.rowIndex + 1;
 					const row = this.rows[rowIndex];
-					const commit = this.select(row);
+					const commit = this.toggle(row);
 					commit();
 
 					this.navigateTo(rowIndex, navState.columnIndex);
@@ -138,7 +140,7 @@ export class SelectionView extends View {
 					const columnIndex = model.navigation().columnIndex;
 					const entries = Array.from(model.selection().entries);
 					const column = this.columns[columnIndex].key;
-					const commit = this.select([...entries, column]);
+					const commit = this.toggle([...entries, column]);
 					commit();
 				},
 				shortcut: 'ctrl+space'
@@ -149,7 +151,7 @@ export class SelectionView extends View {
 					const navState = model.navigation();
 					const columnIndex = navState.columnIndex + 1;
 					const column = this.columns[columnIndex].key;
-					const commit = this.select(column);
+					const commit = this.toggle(column);
 					commit();
 
 					this.navigateTo(navState.rowIndex, columnIndex);
@@ -162,7 +164,7 @@ export class SelectionView extends View {
 					const navState = model.navigation();
 					const columnIndex = navState.columnIndex - 1;
 					const column = this.columns[columnIndex].key;
-					const commit = this.select(column);
+					const commit = this.toggle(column);
 					commit();
 
 					this.navigateTo(navState.rowIndex, columnIndex);
@@ -172,7 +174,7 @@ export class SelectionView extends View {
 			selectAll: new Command({
 				canExecute: () => model.selection().mode === 'multiple',
 				execute: () => {
-					const commit = this.select();
+					const commit = this.select(this.model.data.rows(), true);
 					commit();
 				},
 				shortcut: 'ctrl+a'
@@ -185,12 +187,18 @@ export class SelectionView extends View {
 	}
 
 	selectRange(startCell, endCell) {
-		const range = this.selectionRange.build(startCell, endCell);
-		this.select(range);
+		const buildRange = this.selectionRange.build();
+		const range = buildRange(startCell, endCell);
+		const commit = this.select(range, true);
+		commit();
 	}
 
 	toggle(items) {
 		const selectionState = this.selectionState;
+		if (!arguments.length || isUndefined(items)) {
+			items = this.model.view().rows;
+		}
+
 		selectionState.toggle(items);
 
 		return () => {
