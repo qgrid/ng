@@ -42,23 +42,40 @@ export class VirtualCellStyle {
 		const model = this.model;
 		const style = model.style().cell;
 		const mapper = this.table.context.mapper;
-		const box = this.table.body.cellBox;
-		const entries = box.entries;
+		const cellBox = this.table.body.cellBox;
+		const cellEntries = cellBox.entries;
+		const columnBox = this.table.body.columnBox;
+		const columnEntries = columnBox.entries;
 
 		return (row, column, context) => {
-			const model = {
-				rowIndex: context.row,
-				columnIndex: context.column,
+			// column level
+			const columnModel = {
+				index: context.column
 			};
 
-			const key = box.key(model);
-			const classList = entries.get(key);
-			if (classList) {
-				for (let cls of classList) {
+			const columnKey = columnBox.key(columnModel);
+			const columnClassList = columnEntries.get(columnKey);
+			if (columnClassList) {
+				for (let cls of columnClassList) {
 					context.class(cls);
 				}
 			}
 
+			// cell level
+			const cellModel = {
+				rowIndex: context.row,
+				columnIndex: context.column,
+			};
+
+			const cellKey = cellBox.key(cellModel);
+			const cellClassList = cellEntries.get(cellKey);
+			if (cellClassList) {
+				for (let cls of cellClassList) {
+					context.class(cls);
+				}
+			}
+
+			// add classes
 			context.row = mapper.rowBack(context.row);
 			context.column = mapper.columnBack(context.column);
 			style(row, column, context);
