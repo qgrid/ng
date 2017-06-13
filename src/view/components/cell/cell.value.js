@@ -43,7 +43,7 @@ class CellValue extends Directive(CELL_VALUE_NAME) {
 		const $cell = $scope.$cell;
 		const element = this.element;
 		$scope.$watch(
-			() => stringify($cell.value),
+			() => stringify($cell.label),
 			value => element.textContent = value
 		);
 	}

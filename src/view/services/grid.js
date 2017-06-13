@@ -25,6 +25,10 @@ export default class Grid {
 		return new GridService(model, apply);
 	}
 
+	get noop() {
+		return noop;
+	}
+
 	get pipe() {
 		return Pipe;
 	}

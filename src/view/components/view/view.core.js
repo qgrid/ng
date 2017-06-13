@@ -39,18 +39,7 @@ class ViewCore extends Component {
 		const table = root.table;
 		const commandManager = root.commandManager;
 		const gridService = this.serviceFactory(model);
-		const vscroll = new Vscroll(
-			this.vscroll,
-			root.applyFactory(() => {
-				if (root.table.body.invalidate) {
-					root.table.body.invalidate();
-				}
-			}));
-
-
-		if (model.scroll().mode === 'virtual') {
-			table.context.mapper.row = index => index - this.scroll.y.container.cursor;
-		}
+		const vscroll = new Vscroll(this.vscroll, root.applyFactory());
 
 		this.style = new StyleView(model, table);
 		this.head = new HeadView(model, table, TH_CORE_NAME);
