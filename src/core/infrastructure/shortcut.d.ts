@@ -7,15 +7,6 @@ export declare class Shortcut {
 
 	manager: CommandManager;
 	commands: Command[];
-	shortcuts: () => any;
-	codeMap: () => any;
-   canExecute: () => boolean;
-	off: object;
-
-
-	translate(e: object): any[];
-
-	onKeyDown(e: object): void;
 
 	register(id: number, commands: object): any;
 

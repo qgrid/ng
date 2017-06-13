@@ -1,5 +1,5 @@
 export declare class Model {
 	constructor();
 
-	register(name: string, model: object): object;
+	register(name: string, model: object): Model;
 }

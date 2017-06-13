@@ -3,8 +3,8 @@ export declare class Fetch {
 	constructor(select: any);
 
 	select: any;
-	busy: object;
+	busy: Promise<any>;
 	result: any;
 
-	run(item: object): any;
+	run(item: any): any;
 }
