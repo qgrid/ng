@@ -32,6 +32,7 @@ export class Grid extends RootComponent {
 			layer: name => layerFactory.create(name),
 			model: element => bag.get(element) || null
 		};
+
 		this.table = new Table(model, this.markup, tableContext);
 
 		this.compile();
@@ -58,7 +59,7 @@ export class Grid extends RootComponent {
 	}
 
 	invalidateVisibility() {
-		const columns = this.model.data().columns;
+		const columns = this.table.data.columns();
 		const visibility = this.model.visibility;
 		visibility({
 			pin: {
