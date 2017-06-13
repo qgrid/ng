@@ -7,19 +7,20 @@ export class SelectionState {
 		this.service = service;
 	}
 
-	select(item, state = true) {
+	select(item, state = true, key) {
+		key = key || this.keyFactory();
 		if (isArray(item)) {
-			item.forEach(item => this.select(item, state));
+			item.forEach(item => this.select(item, state, key));
 			return;
 		}
 
 		if (item instanceof Node) {
 			const rows = this.model.data().rows;
-			item.rows.forEach(index => this.select(rows[index], state));
+			item.rows.forEach(index => this.select(rows[index], state, key));
 			return;
 		}
 
-		this.selectCore(item, state);
+		this.selectCore(item, state, key);
 	}
 
 	toggle(item) {
@@ -27,23 +28,24 @@ export class SelectionState {
 		return this.select(item, state === null || !state);
 	}
 
-	state(item) {
+	state(item, key) {
+		key = key || this.keyFactory();
 		if (isArray(item)) {
-			const all = item.every(item => this.state(item));
-			return all ? true : item.some(item => this.state(item)) ? null : false;
+			const all = item.every(item => this.state(item, key));
+			return all ? true : item.some(item => this.state(item, key)) ? null : false;
 		}
 
 		if (item instanceof Node) {
 			const rows = this.model.data().rows;
-			const all = item.rows.every(index => this.state(rows[index]));
-			return all ? true : item.rows.some(index => this.state(rows[index])) ? null : false;
+			const all = item.rows.every(index => this.state(rows[index], key));
+			return all ? true : item.rows.some(index => this.state(rows[index], key)) ? null : false;
 		}
 
-		return this.stateCore(item);
+		return this.stateCore(item, key);
 	}
 
-	key(item) {
-		return this.service.keyFactory()(item);
+	keyFactory() {
+		return this.service.keyFactory(this.model.selection().unit);
 	}
 
 	clear() {

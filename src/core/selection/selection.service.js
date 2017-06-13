@@ -41,7 +41,7 @@ export class SelectionService {
 		switch (unit) {
 			case 'row': {
 				const rows = data.rows;
-				const key = this.keyFactory();
+				const key = this.keyFactory('row');
 				rows.forEach(row => {
 					const rowKey = key(row);
 					const found = items.indexOf(rowKey) > -1;
@@ -53,7 +53,7 @@ export class SelectionService {
 			}
 			case 'column': {
 				const columns = data.columns;
-				const key = this.keyFactory();
+				const key = this.keyFactory('column');
 				columns.forEach(column => {
 					const colKey = key(column);
 					const found = items.indexOf(colKey) > -1;
@@ -75,7 +75,7 @@ export class SelectionService {
 				});
 
 				cells.forEach(cell => {
-					const key = this.keyFactory();
+					const key = this.keyFactory('cell');
 					const cellKey = key(cell);
 					const found = items.findIndex(item => stringifyCellKey(item) === cellKey) > -1;
 					if (found) {
@@ -85,19 +85,13 @@ export class SelectionService {
 				break;
 			}
 			case 'mix': {
-				const rowKeys = items
-					.filter(key => key.unit === 'row')
-					.map(key => key.item);
-				const colKeys = items
-					.filter(key => key.unit === 'column')
-					.map(key => key.item);
-				const cellKeys = items
-					.filter(key => key.unit === 'cell')
-					.map(key => key.item);
+				const rowKeys = items.filter(key => key.unit === 'row').map(key => key.item);
+				const columnKeys = items.filter(key => key.unit === 'column').map(key => key.item);
+				const cellKeys = items.filter(key => key.unit === 'cell').map(key => key.item);
 
-				this.lookup(rowKeys, 'row')
-					.concat(this.lookup(colKeys, 'column'))
-					.concat(this.lookup(cellKeys, 'cell'));
+				entries.push(...this.lookup(rowKeys, 'row').map(entry => ({item: entry, unit: 'row'})));
+				entries.push(...this.lookup(columnKeys, 'column').map(entry => ({item: entry, unit: 'column'})));
+				entries.push(...this.lookup(cellKeys, 'cell').map(entry => ({item: entry, unit: 'cell'})));
 				break;
 			}
 			default:
@@ -125,10 +119,8 @@ export class SelectionService {
 	}
 
 
-	keyFactory() {
+	keyFactory(unit) {
 		const selection = this.model.selection();
-		const unit = selection.unit;
-
 		const getCellKey = (item, unit) => {
 			if (item.column && item.row) {
 				const key = keySelector(unit, selection.key)(item);

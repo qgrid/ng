@@ -70,7 +70,7 @@ export class CellSelector {
 	mapFromMix(items) {
 		const entries = Array.from(items);
 		const rows = entries.filter(item => item.unit === 'row').map(item => item.item);
-		const cells = entries.filter(item => item.unit === 'row').map(item => item.item);
+		const cells = entries.filter(item => item.unit === 'cell').map(item => item.item);
 
 		return [
 			...this.mapFromRows(rows),
