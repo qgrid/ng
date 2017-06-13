@@ -51,9 +51,12 @@ export class SelectionView extends View {
 
 			if (e.hasChanges('unit') || e.hasChanges('mode')) {
 				if (!e.hasChanges('items')) {
-					const entries = this.selectionService.lookup(e.state.items);
-					const commit = this.select(entries, false);
-					commit();
+					this.selectionState.clear();
+					model.selection({
+						items: []
+					}, {
+						source: 'selection.view'
+					});
 
 					this.selectionState = stateFactory(model, this.selectionService);
 				}
