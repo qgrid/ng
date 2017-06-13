@@ -7,7 +7,7 @@ class BucketEntryCore {
 
 	map(): any[];
 
-	find(): null;
+	find(): any;
 
 	add(): void;
 
