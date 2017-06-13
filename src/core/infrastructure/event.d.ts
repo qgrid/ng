@@ -1,10 +1,10 @@
 export declare class Event {
 
-	constructor(e: object) ;
+	constructor(e: () => null) ;
 
-	on(f: object): void;
+	on(f: () => any): any;
 
-	watch(f: object): void
+	watch(f: () => any): void
 
-	emit(e: object): void;
+	emit(e: () => void): void;
 }

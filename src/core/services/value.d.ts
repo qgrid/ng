@@ -1,5 +1,8 @@
-export declare function get(row: object, column: object): any;
+import {ColumnModel} from '../column-type/column.model';
+import {Row} from '../row/row';
 
-export declare function getFactory(column: object): any;
+export declare function get(row: Row, column: ColumnModel): any;
 
-export function set(row: object, column: object, value: string): any;
+export declare function getFactory(column: ColumnModel): any;
+
+export function set(row: Row, column: ColumnModel, value: string): any;

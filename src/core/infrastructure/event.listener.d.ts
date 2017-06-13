@@ -2,12 +2,12 @@ export declare class EventListener {
 
 	constructor(context: object, element: object);
 
-	private element: object;
-	private context: object;
-	private handlers: object;
+	element: object;
+	context: object;
+	handlers: object;
 
 
-	on(name: string, f: Function): void;
+	on(name: string, f: () => void): void;
 
 	off(): void;
 }

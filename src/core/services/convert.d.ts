@@ -1,4 +1,4 @@
-export declare function parseFactory (type: string): any;
+export declare function parseFactory<V>(type: string): (any) => V;
 
 export declare function getType(value: any): string;
 

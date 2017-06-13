@@ -1,8 +1,10 @@
+import {Row} from '../row/row';
+
 export declare class Aggregation {
 
 	constructor();
 
-	static first(rows: any[], getValue: () => any) any;
+	static first(rows: Row[], getValue: (object) => any ) any;
 
 	static last(rows: any[], getValue: () => any) any;
 

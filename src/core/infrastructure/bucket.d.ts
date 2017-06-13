@@ -1,20 +1,20 @@
-export declare const EMPTY: Object;
+export declare const EMPTY: object;
 
 export declare class Bucket {
 
 	constructor();
 
-	items: Array<any>;
+	items: any[];
 
-	add(item: Object, row: Object): void;
+	add(item: object, row: object): void;
 
-	remove(item: Object, row: Object): void;
+	remove(item: object, row: object): void;
 
-	find(row: Object): Object;
+	find(row: object): object;
 
-	count(): Number;
+	count(): number;
 
-	map(f: Object) void;
+	map(f: () => void) any;
 
-	isEmpty(row: Object): Boolean;
+	isEmpty(row: object): boolean;
 }

@@ -1,8 +1,8 @@
 export class ModelBinder {
-	constructor(source: Object);
+	constructor(source: object);
 
-	source: Object;
-	off: Object;
+	source: object;
+	off: object;
 
-	bind(model: Object, names: Array, run: Boolean): Object;
+	bind(model: object, names: string[], run: boolean): object;
 }

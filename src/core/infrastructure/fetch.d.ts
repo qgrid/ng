@@ -1,9 +1,10 @@
 export declare class Fetch {
-	constructor(select: Object);
 
-	select: Object;
-	busy: null;
-	result: null;
+	constructor(select: any);
 
-	run(item: Object): any;
+	select: any;
+	busy: object;
+	result: any;
+
+	run(item: object): any;
 }

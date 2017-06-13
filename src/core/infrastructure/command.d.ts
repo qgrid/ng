@@ -1,7 +1,7 @@
 export declare class Command {
-   constructor();
+   constructor(context: object);
 
    execute(): void;
 	canExecute(): boolean;
-	shortcut: String;
+	shortcut: string;
 }

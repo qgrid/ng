@@ -1,10 +1,11 @@
-export declare const identityIndexMapper: Object;
+export declare const identityIndexMapper: object;
+
 
 class BucketEntryCore {
 
 	constructor();
 
-	map(): Array<any>;
+	map(): any[];
 
 	find(): null;
 
@@ -12,44 +13,47 @@ class BucketEntryCore {
 
 	remove(): void;
 
-	count(): Number;
+	count(): number;
 }
 
 class BucketEntry {
 
-	constructor(entry: Object, mapper: Object);
+	constructor(entry: object, mapper: object);
 
-	map(f: Object): Array<any>;
+	entry: object;
+	mapper: object;
 
-	find(column: String): any;
+	map(f: () => any): any[];
 
-	add(item: Object, column: String): void;
+	find(column: string): any;
 
-	remove(item: Object, column: String): Boolean;
+	add(item: object, column: string): void;
 
-	count(): Number;
+	remove(item: object, column: string): boolean;
+
+	count(): number;
 }
 
 export declare const EMPTY: BucketEntryCore;
 
 export declare class Bucket2d {
 
-	constructor(indexMapper: Object);
+	constructor(indexMapper: object);
 
-	items: Array<any>;
-	indexMapper: Object;
-	empty: Object;
+	items: any[];
+	indexMapper: object;
+	empty: object;
 
 
-	add(item: Object, row: String, column: Object): void;
+	add(item: object, row: object, column: object): void;
 
-	remove(item, row: String, column: Object): void;
+	remove(item: object, row: object, column: object): void;
 
-	find(row: Object, column: Object): any;
+	find(row: object, column: object): any;
 
-	count(): Number;
+	count(): number;
 
-	map(f: Object): void;
+	map(f: () => any): void;
 
-	isEmpty(row: Object): Boolean;
+	isEmpty(row: object): boolean;
 }
