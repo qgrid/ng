@@ -1,6 +1,18 @@
 <q-grid model="$ctrl.model"
-        class="q-grid-excel">
-	<q-grid:columns></q-grid:columns>
+        class="q-grid-excel"
+        edit-mode="cell"
+        selection-mode="range">
+	<q-grid:columns>
+		<q-grid:column type="row-number" key="rowNumber" can-focus="false" pin="left"></q-grid:column>
+		<q-grid:column>
+			<q-grid:template for="edit">
+				<input type="text"
+				       q-grid:focus
+				       ng-blur="$view.edit.cell.commit.execute($cell)"
+				       ng-model="$view.edit.cell.value"/>
+			</q-grid:template>
+		</q-grid:column>
+	</q-grid:columns>
 	<q-grid:toolbar>
 		<q-grid:template for="top">
 			<q-grid:import></q-grid:import>
