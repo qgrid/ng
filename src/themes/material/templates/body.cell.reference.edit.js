@@ -1,4 +1,5 @@
 import {isArray} from '@grid/core/utility';
+import {SelectionService} from '@grid/core/selection';
 
 ReferenceEdit.$inject = ['$scope', 'qgrid'];
 export default function ReferenceEdit($scope, qgrid) {
@@ -30,12 +31,18 @@ export default function ReferenceEdit($scope, qgrid) {
 	});
 
 	this.commit = ($cell, $event) => {
-		this.cell().value = this.gridModel.selection().items;
-		this.cell().tag = {
-			entries: this.gridModel.selection().entries,
-			schema: this.gridModel.data().columns
+		const model = this.gridModel;
+		const selectionItems = model.selection().items;
+		const entries = new SelectionService(model).lookup(selectionItems);
+
+		const cell = this.cell();
+		cell.value = model.selection().items;
+		cell.tag = {
+			entries: entries,
+			columns: model.data().columns
 		};
-		this.cell().commit.execute($cell, $event);
+		cell.commit.execute($cell, $event);
+
 		close();
 	};
 

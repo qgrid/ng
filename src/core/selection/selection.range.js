@@ -1,8 +1,33 @@
 import * as columnService from '../column/column.service';
 import {AppError} from '../infrastructure';
 
-export function rangeBuilder(model) {
-	function rangeRows(startCell, endCell) {
+export class SelectionRange {
+	constructor(model) {
+		this.model = model;
+	}
+
+	build() {
+		const rangeMap = {
+			'row': this.buildRows.bind(this),
+			'column': this.buildColumns.bind(this),
+			'cell': this.buildCells.bind(this),
+			'mix': this.buildMix.bind(this)
+		};
+
+		const model = this.model;
+		return (...args) => {
+			const selection = model.selection();
+			const buildRange = rangeMap[selection.unit];
+			if (!buildRange) {
+				throw new AppError('range.builder', `Invalid unit ${selection.unit}`);
+			}
+
+			return buildRange(...args);
+		};
+	}
+
+	buildRows(startCell, endCell) {
+		const model = this.model;
 		const rows = model.view().rows;
 		if (!endCell) {
 			return [rows[startCell.rowIndex]];
@@ -13,7 +38,8 @@ export function rangeBuilder(model) {
 		return rows.slice(startIndex, endIndex + 1);
 	}
 
-	function rangeColumns(startCell, endCell) {
+	buildColumns(startCell, endCell) {
+		const model = this.model;
 		const columns = columnService.lineView(model.view().columns);
 		if (!endCell) {
 			return [columns.find(c => c.model === startCell.column).model];
@@ -24,7 +50,7 @@ export function rangeBuilder(model) {
 		return columns.slice(startIndex, endIndex + 1).map(column => column.model);
 	}
 
-	function rangeCells(startCell, endCell) {
+	buildCells(startCell, endCell) {
 		if (!endCell) {
 			return [{
 				column: startCell.column,
@@ -32,6 +58,7 @@ export function rangeBuilder(model) {
 			}];
 		}
 
+		const model = this.model;
 		const rows = model.view().rows;
 		const columns = columnService.lineView(model.view().columns);
 
@@ -59,30 +86,13 @@ export function rangeBuilder(model) {
 		return items;
 	}
 
-	function rangeMix(startCell, endCell) {
+	buildMix(startCell, endCell) {
 		const mixUnit = startCell.column.type === 'row-indicator' ? 'row' : 'cell';
-		const range = (mixUnit === 'row' ? rangeRows(startCell, endCell) : rangeCells(startCell, endCell));
+		const range = (mixUnit === 'row' ? this.buildRows(startCell, endCell) : this.buildCells(startCell, endCell));
 		return range
 			.map(item => ({
 				item: item,
 				unit: mixUnit
 			}));
 	}
-
-	const rangeMap = {
-		'row': rangeRows,
-		'column': rangeColumns,
-		'cell': rangeCells,
-		'mix': rangeMix,
-	};
-
-	return (...args) => {
-		const selection = model.selection();
-		const getRange = rangeMap[selection.unit];
-		if (!getRange) {
-			throw new AppError('range.builder', `Invalid unit ${selection.unit}`);
-		}
-
-		return getRange(...args);
-	};
 }
