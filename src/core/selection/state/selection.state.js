@@ -45,7 +45,7 @@ export class SelectionState {
 	}
 
 	keyFactory() {
-		return this.service.keyFactory(this.model.selection().unit);
+		return this.service.hashFactory();
 	}
 
 	clear() {

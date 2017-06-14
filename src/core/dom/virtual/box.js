@@ -1,8 +1,10 @@
 import {VirtualCell} from './cell';
 import {VirtualRow} from './row';
+import {VirtualColumn} from './column';
 import {Box} from '../box';
 import {CellBox} from './cell.box';
 import {RowBox} from './row.box';
+import {ColumnBox} from './column.box';
 
 export class VirtualBox extends Box {
 	constructor(context, model) {
@@ -10,6 +12,7 @@ export class VirtualBox extends Box {
 
 		this.cellBox = new CellBox(context);
 		this.rowBox = new RowBox(context);
+		this.columnBox = new ColumnBox(context);
 	}
 
 	addCellClass(cell, name, force = false) {
@@ -48,11 +51,33 @@ export class VirtualBox extends Box {
 		}
 	}
 
+	addColumnClass(column, name, force = false) {
+		if (force) {
+			column.addClassCore(name);
+		}
+		else {
+			this.columnBox.addClass(column, name);
+		}
+	}
+
+	removeColumnClass(column, name, force = false) {
+		if (force) {
+			column.removeClassCore(name);
+		}
+		else {
+			this.columnBox.removeClass(column, name);
+		}
+	}
+
 	createRowCore(index, element) {
 		return new VirtualRow(this, index, element);
 	}
 
 	createCellCore(rowIndex, columnIndex, element) {
 		return new VirtualCell(this, rowIndex, columnIndex, element);
+	}
+
+	createColumnCore(index) {
+		return new VirtualColumn(this, index);
 	}
 }

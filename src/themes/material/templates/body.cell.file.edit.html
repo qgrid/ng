@@ -16,7 +16,7 @@
 			<input q-grid:file-upload="$view.edit.cell.value"
 					 q-grid:file-upload-label="$view.edit.cell.label"
 					 q-grid:can-upload="cell.column.canUpload($event)"
-					 type="file"></input>
+					 type="file"/>
 			<div class="q-grid-file-preview"
 				  ng-if="$cell.column.hasPreview($view.edit.cell.label)">
 				<img ng-src="{{$view.edit.cell.value}}"/>

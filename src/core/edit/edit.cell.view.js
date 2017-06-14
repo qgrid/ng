@@ -188,6 +188,14 @@ export class EditCellView {
 		this.editor.label = label;
 	}
 
+	canEdit(cell) {
+		if (cell) {
+			return cell.column.canEdit && this.model.edit().mode === 'cell';
+		}
+
+		return false;
+	}
+
 	commitShortcut() {
 		const model = this.model;
 		const commitShortcuts = model.edit().commitShortcuts;

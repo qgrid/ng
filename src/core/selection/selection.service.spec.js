@@ -176,7 +176,7 @@ describe('selection service', () => {
 					column: columns[1]
 				};
 
-				const key = service.keyFactory('cell')(cell);
+				const key = service.hashFactory('cell')(cell);
 
 				expect(key).to.equal('name[102]');
 			});

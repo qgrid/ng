@@ -46,7 +46,7 @@ export default class PopupService {
 
 		const popup = angular.element('<q-grid:popup-panel id="id" model="model"></q-grid:popup-panel>'); // eslint-disable-line no-undef
 
-		this.$document[0].body.append(popup[0]);
+		this.$document[0].body.appendChild(popup[0]);
 		this.$compile(popup)(popupScope);
 
 		popup.attr('id', settings.id);
