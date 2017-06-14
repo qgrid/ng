@@ -13,6 +13,21 @@ function getType(name) {
 		return type[type.length - 1];
 	}
 }
+//
+// function toObj(row) {
+// 	const obj = {};
+// 	const regexp = /".+?"/g;
+// 	if (regexp.test(row)) {
+// 		for (let match of row.match(regexp)) {
+// 			const unquoted = match.split('"')[1];
+// 			const escaped = match.replace(/,/g, '~~');
+// 		}
+// 	}
+// 	for (let i = 0; i < row.length; i++) {
+// 		obj[i] = row[i];
+// 	}
+// 	return obj;
+// }
 
 function readFile(e, file, model) {
 	const data = e.target.result;
@@ -54,8 +69,21 @@ function readFile(e, file, model) {
 			});
 			break;
 		}
+		case 'application/vnd.ms-excel':
+		case 'csv': {
+			// const rows = data.split(/\r\n|\n/);
+			// for (let row of rows) {
+			// 	row = toObj(row);
+			// }
+			// const columns = generate(rows, columnFactory(model), false);
+			// model.data({
+			// 	columns: columns,
+			// 	rows: rows
+			// });
+			break;
+		}
 		default: {
-			throw new AppError('import', `This is not valid file type ${getType(file)}`);
+			throw new AppError('import', `This is not valid file type ${type}`);
 		}
 	}
 }
