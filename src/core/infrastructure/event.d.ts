@@ -4,7 +4,7 @@ interface IReturn{
 
 export declare class Event {
 
-	constructor(e: () => null);
+	constructor(e: () => void);
 
 	on(f: () => any): IReturn;
 

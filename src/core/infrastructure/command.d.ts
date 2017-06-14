@@ -1,5 +1,5 @@
 interface IContext{
-	execute(param: object): boolean;
+	execute(param: object): any;
 	canExecute(param: object): boolean;
 	shortcut: string;
 }

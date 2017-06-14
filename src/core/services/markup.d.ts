@@ -1,1 +1,1 @@
-export declare function build(style: object): object;
+export declare function build(style: object): string;
