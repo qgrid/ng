@@ -1,10 +1,10 @@
-export declare const noop: object;
+export declare const noop: () => Object;
 
-export declare const yes: boolean;
+export declare const yes: () => boolean;
 
-export declare const no: boolean;
+export declare const no: () => boolean;
 
-export declare const identity: object;
+export declare const identity: (arg: object) => any;
 
 export declare const toCamelCase: (...names: string[]) => string;
 
