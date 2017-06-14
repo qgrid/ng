@@ -1,5 +1,5 @@
 import {isArray} from '@grid/core/utility';
-import {SelectionService} from '@grid/core/selection';
+import {Command} from '@grid/core/infrastructure';
 
 ReferenceEdit.$inject = ['$scope', 'qgrid'];
 export default function ReferenceEdit($scope, qgrid) {
@@ -30,26 +30,29 @@ export default function ReferenceEdit($scope, qgrid) {
 		}
 	});
 
-	this.commit = ($cell, $event) => {
-		const model = this.gridModel;
-		const selectionItems = model.selection().items;
-		const entries = new SelectionService(model).lookup(selectionItems);
-
-		const cell = this.cell();
-		cell.value = model.selection().items;
-		cell.tag = {
-			entries: entries,
-			columns: model.data().columns
-		};
-		cell.commit.execute($cell, $event);
-
-		close();
+	this.commands = {
+		commit: new Command({
+			shortcut: 'ctrl+s',
+			execute: ($cell, $event) => {
+				this.cell().value = this.gridModel.selection().items;
+				this.cell().tag = {
+					entries: this.gridModel.selection().entries,
+					schema: this.gridModel.data().columns
+				};
+				this.cell().commit.execute($cell, $event);
+				close();
+			}
+		}),
+		cancel: new Command({
+			shortcut: 'Escape',
+			execute: ($cell, $event) => {
+				this.cell().cancel.execute($cell, $event);
+				close();
+			}
+		})
 	};
 
-	this.cancel = ($cell, $event) => {
-		this.cell().cancel.execute($cell, $event);
-		close();
-	};
+	this.test = (smth) => alert(smth);
 
 	$scope.$on('$destroy', () => {
 		close();

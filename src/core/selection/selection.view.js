@@ -16,7 +16,7 @@ export class SelectionView extends View {
 		this.selectionState = stateFactory(model, this.selectionService);
 		this.selectionRange = new SelectionRange(model);
 
-		const shortcut = new Shortcut(table, commandManager);
+		const shortcut = new Shortcut(commandManager);
 		const commands = this.commands;
 		this.shortcutOff = shortcut.register('selectionNavigation', commands);
 		this.toggleRow = commands.get('toggleRow');

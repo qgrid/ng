@@ -1,5 +1,6 @@
-import {Event} from '@grid/core/infrastructure';
+import {Event, Shortcut, EventListener, EventManager} from '@grid/core/infrastructure';
 import {isFunction, noop} from '@grid/core/utility';
+import {PopupCommandManager} from './popup.command.manager';
 
 export default class Popup {
 	constructor(element, settings, body) {
@@ -17,11 +18,20 @@ export default class Popup {
 		this.settings = settings;
 
 		this.onClose = isFunction(settings.close) ? settings.close : noop;
+
+		this.commands = settings.commands;
+
+		const commandManager = new PopupCommandManager(f => f(), this);
+		const shortcut = new Shortcut(commandManager);
+		this.shortcutOff = shortcut.register(settings.id, new Map(
+			Object.entries(settings.commands)
+		));
 	}
 
 	close() {
 		this.onClose();
 		this.element.remove();
+		this.shortcutOff();
 	}
 
 	expand() {
@@ -71,6 +81,14 @@ export default class Popup {
 		this.state.active = false;
 		this.element.removeClass('active');
 		this.element.removeAttr('tabindex');
+	}
+
+	isFocused() {
+		return this.state.active;
+	}
+	
+	keyDown(f) {
+		return new EventListener(this.element[0], new EventManager(this)).on('keydown', f);
 	}
 
 	resize(settings) {

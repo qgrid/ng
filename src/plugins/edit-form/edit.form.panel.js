@@ -15,6 +15,7 @@ class EditFormPanel extends Plugin {
 		});
 
 		this.cancel = new Command({
+			shortcut: 'Escape',
 			execute: () => this.onCancel()
 		});
 

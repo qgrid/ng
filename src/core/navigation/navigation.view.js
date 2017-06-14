@@ -9,7 +9,7 @@ export class NavigationView extends View {
 		super(model);
 
 		this.table = table;
-		const shortcut = new Shortcut(table, commandManager);
+		const shortcut = new Shortcut(commandManager);
 		const navigation = new Navigation(model, table);
 
 		this.shortcutOff = shortcut.register('navigation', navigation.commands);
