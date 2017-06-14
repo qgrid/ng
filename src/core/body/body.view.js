@@ -41,13 +41,24 @@ export class BodyView extends View {
 		this.columnList = columnService.lineView(columns);
 	}
 
+	colspan(column, row) {
+		if (row instanceof RowDetails && column.type === 'row-details') {
+			return this.table.data.columns().length;
+		}
+
+		return 1;
+	}
+
+	rowspan() {
+		return 1;
+	}
+
 	columns(row, pin) {
 		if (row instanceof RowDetails) {
 			return [row.column];
 		}
 
 		return this.columnList.filter(c => c.model.pin === pin);
-
 	}
 
 	valueFactory(column, getValueFactory = null) {

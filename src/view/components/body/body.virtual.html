@@ -4,8 +4,8 @@
 	 vscroll-row="{{::$index}}"
 	 q-grid-core:tr="body">
 	<td ng-repeat="$column in $view.body.columns($row, $table.pin) track by $column.model.key"
-		 rowspan="{{$column.rowspan}}"
-		 colspan="{{$column.colspan}}"
+		 rowspan="{{$view.body.rowspan($column.model, $row)}}"
+		 rowspan="{{$view.body.colspan($column.model, $row)}}"
 		 q-grid-core:td>
 	</td>
 </tr>
