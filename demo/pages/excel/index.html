@@ -1,8 +1,23 @@
 <q-grid model="$ctrl.model"
         class="q-grid-excel"
         edit-mode="cell"
-        selection-mode="range">
-	<q-grid:columns>
+        selection-mode="range"
+        id="excel-example">
+	<q-grid:export>
+		<q-grid:template for="xlsx">
+			<md-button ng-disabled="!$export.xlsx.canExecute()" ng-click="$export.xlsx.execute()">
+				<md-icon>file_upload</md-icon>save
+			</md-button>
+		</q-grid:template>
+	</q-grid:export>
+	<q-grid:import>
+		<q-grid:template>
+			<md-button ng-if="$import.upload.canExecute()" ng-click="$import.upload.execute()">
+				<md-icon>file_upload</md-icon>open
+			</md-button>
+		</q-grid:template>
+	</q-grid:import>
+	<q-grid:columns ng-if="$ctrl.model.data().rows.length">
 		<q-grid:column type="row-number" key="rowNumber" can-focus="false" pin="left"></q-grid:column>
 		<q-grid:column>
 			<q-grid:template for="edit">
@@ -15,7 +30,10 @@
 	</q-grid:columns>
 	<q-grid:toolbar>
 		<q-grid:template for="top">
-			<q-grid:import></q-grid:import>
+			<div layout="row" layout-align="center center">
+				<q-grid:import></q-grid:import>
+				<q-grid:export type="xlsx"></q-grid:export>
+			</div>
 		</q-grid:template>
 	</q-grid:toolbar>
 </q-grid>
