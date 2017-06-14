@@ -53,6 +53,10 @@ export class CellEditor extends CellEditorCore {
 		return this.cell.column.title;
 	}
 
+	get column() {
+		return this.cell.column;
+	}
+
 	get options() {
 		return this.cell.column.editorOptions;
 	}

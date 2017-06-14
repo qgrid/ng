@@ -1,45 +1,55 @@
 import angular from 'angular';
 
-Controller.$inject = ['$http', 'qgrid'];
+Controller.$inject = ['$http', 'qgrid', '$q', '$timeout', '$mdToast'];
 
-export default function Controller($http, qgrid) {
+export default function Controller($http, qgrid,  $q, $timeout, $mdToast) {
 	const ctrl = this;
 	const isUndef = angular.isUndefined;
-	ctrl.gridModel = qgrid.model();
 
-	ctrl.rows = [];
+	this.commitCommand = new qgrid.Command({
+		execute: e => {
+			if (e.column.key === 'attachment' || e.column.key === 'avatar') {
+				$timeout(() => {
+					const filename = e.newLabel;
+					$mdToast.show(
+						$mdToast.simple()
+							.textContent(`File ${filename} loaded`)
+							.position('top right')
+							.hideDelay(2000)
+					);
+					e.column.value(e.row, `https://fake.data.server.com/attachment/${encodeURI(filename)}`);
+				}, 1000);
+			}
+		}
+	});
 
-	const columns = [
+	this.rows = [];
+	this.columns = [
 		{
-			key: 'itemSettings',
-			type: 'item-settings',
-			canEdit: false
+			key: 'avatar',
+			title: 'Avatar',
+			type: 'image',
+			width: 80,
+			value: (item, value) => isUndef(value) ? item.avatar : item.avatar = value,
+			labelPath: 'avatarFileName'
 		},
 		{
 			key: 'name.last',
 			title: 'Last Name',
-			value: function (item, value) {
-				if (arguments.length == 2) {
-					item.name.last = value;
-					return;
-				}
-				return item.name.last;
-			}
+			type: 'text',
+			path: 'name.last'
 		},
 		{
 			key: 'name.first',
 			title: 'First Name',
-			value: function (item, value) {
-				if (arguments.length == 2) {
-					item.name.first = value;
-					return;
-				}
-				return item.name.first;
-			}
+			type: 'text',
+			path: 'name.first'
 		},
 		{
 			key: 'gender',
-			title: 'Gender'
+			title: 'Is Female',
+			type: 'bool',
+			value: (item, value) => isUndef(value) ? item.gender === 'female' : item.gender = value ? 'female' : 'male'
 		},
 		{
 			key: 'birthday',
@@ -47,30 +57,98 @@ export default function Controller($http, qgrid) {
 			type: 'date'
 		},
 		{
+			key: 'teammates',
+			title: 'Teammates',
+			type: 'reference',
+			value: (item, value) => isUndef(value) ? item.teammates || [] : item.teammates = value,
+			label: (item) =>
+				(item.teammates || [])
+					.filter(rowNo => !!ctrl.rows[rowNo])
+					.map(rowNo => `${ctrl.rows[rowNo].name.last} ${ctrl.rows[rowNo].name.first}`)
+					.join(', '),
+			editorOptions: {
+				modelFactory: () => {
+					const model = qgrid.model();
+					model
+						.selection({
+							mode: 'multiple',
+							unit: 'row',
+							key: {row: row => ctrl.rows.findIndex(r => r.name.last === row.name.last && r.name.first === row.name.first)}
+						})
+						.columnList({
+							generation: 'deep'
+						})
+						.data({
+							pipe: [(data, context, next) => {
+								$http.get('data/people/10.json')
+									.then(response => {
+										return next(response.data);
+									});
+							}].concat(qgrid.pipeUnit.default)
+						});
+
+					return model;
+				}
+			}
+		},
+		{
+			key: 'comment',
+			title: 'Comment',
+			type: 'text',
+			value: (item, value) => isUndef(value) ? item.comment || '' : item.comment = value,
+			editor: 'text-area'
+		},
+		{
+			key: 'password',
+			title: 'Password',
+			type: 'password',
+			value: (item, value) => isUndef(value) ? item.password || '' : item.password = value
+		},
+		{
 			key: 'contact.address.zip',
 			title: 'Zip',
 			type: 'id',
-			value: item => item.contact.address.zip
+			path: 'contact.address.zip'
 		},
 		{
 			key: 'contact.address.state',
 			title: 'State',
-			value: item => item.contact.address.state
+			type: 'text',
+			path: 'contact.address.state'
 		},
 		{
 			key: 'contact.address.city',
 			title: 'City',
-			value: item => item.contact.address.city
+			type: 'text',
+			path: 'contact.address.city'
 		},
 		{
-			key: 'contact.phone.primary',
-			title: 'Primary Phone',
-			value: item => item.contact.phone[0]
+			key: 'contact.phone',
+			title: 'Contact Phones',
+			type: 'array',
+			path: 'contact.phone',
 		},
 		{
 			key: 'contact.email.primary',
 			title: 'Primary Email',
+			type: 'email',
 			value: item => item.contact.email[0]
+		},
+		{
+			key: 'likes',
+			title: 'Likes',
+			type: 'array'
+		},
+		{
+			key: 'memberSince',
+			title: 'Member Since',
+			type: 'date'
+		},
+		{
+			key: 'modifiedTime',
+			title: 'Modified Time',
+			type: 'time',
+			value: (item, value) => isUndef(value) ? item.modified || '' : item.modified = value
 		},
 		{
 			key: 'webPage',
@@ -84,59 +162,24 @@ export default function Controller($http, qgrid) {
 				: item.webPageLabel = label
 		},
 		{
-			key: 'teammates',
-			title: 'Teammates',
-			type: 'reference',
-			value: (item, value) => isUndef(value) ? item.teammates || [] : item.teammates = value,
-			label: (item) => (item.teammates || [])
-				.map(teammate => `${ctrl.rows[teammate].name.last} ${ctrl.rows[teammate].name.first}`)
-				.join(', '),
-			editorOptions: {
-				modelFactory: () => {
-					const model = qgrid.model();
-					model
-						.selection({
-							mode: 'multiple',
-							unit: 'row',
-							key: {row: row => ctrl.rows.findIndex(r => r.name.last === row.name.last)}
-						})
-						// .scroll({
-						// 	mode: 'virtual'
-						// })
-						.columnList({
-							generation: 'deep'
-						})
-						.data({
-							pipe: [(data, context, next) => {
-								$http.get('data/people/10.json')
-									.then(function (response) {
-										return next(response.data);
-									});
-							}]
-								.concat(qgrid.pipeUnit.default)
-						});
-					return model;
-				}
+			key: 'attachment',
+			title: 'Attachment',
+			type: 'file',
+			value: (item, value) => isUndef(value) ? item.attachment : item.attachment = value,
+			label: (item, label) => isUndef(label) ? item.attachmentLabel || null : item.attachmentLabel = label,
+			fetch: (item, d) => {
+				$http().then(result => d.resolve(result));
 			}
-		},
-		{
-			key: 'likes',
-			title: 'Likes',
-			value: item => item.likes.join(', ')
-		},
-		{
-			key: 'memberSince',
-			title: 'Member Since',
-			type: 'date'
 		}
 	];
 
 	$http.get('data/people/100.json')
-		.then(function (response) {
+		.then(response => {
 			ctrl.rows = response.data;
-			ctrl.gridModel.data({
-				rows: response.data,
-				columns: columns
-			});
+
+			ctrl.rows[0].password = 'foo';
+			ctrl.rows[3].password = 'bar';
+			ctrl.rows[4].comment = 'Johnson Creek is a 25-mile (40 km) tributary of the Willamette River in the Portland.';
+			ctrl.rows[2].teammates = [0];		// array of ids of reference data set
 		});
 }
