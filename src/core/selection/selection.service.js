@@ -42,12 +42,12 @@ function hashKeyFactory(model) {
 		case 'column':
 			return hashColumnKeyFactory(model);
 		case 'cell': {
-			const hashColumnKey = hashRowKeyFactory(model);
+			const hashColumnKey = hashColumnKeyFactory(model);
 			const hashRowKey = hashRowKeyFactory(model);
 			return key => `${hashColumnKey(key.column)}[${hashRowKey(key.row)}]`;
 		}
 		case 'mix': {
-			const hashColumnKey = hashRowKeyFactory(model);
+			const hashColumnKey = hashColumnKeyFactory(model);
 			const hashRowKey = hashRowKeyFactory(model);
 			return (key, entry) => {
 				switch (entry.unit) {
