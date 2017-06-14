@@ -52,8 +52,6 @@ export default function ReferenceEdit($scope, qgrid) {
 		})
 	};
 
-	this.test = (smth) => alert(smth);
-
 	$scope.$on('$destroy', () => {
 		close();
 	});

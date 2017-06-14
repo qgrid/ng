@@ -41,6 +41,7 @@ class Popup extends Plugin {
 	open(settings = {}) {
 		settings.id = this.id;
 		settings.close = this.onClose;
+		settings.commands = settings.commands || {};
 		this.qGridPopupService.open(
 			settings,
 			this.model,

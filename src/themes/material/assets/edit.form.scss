@@ -15,15 +15,6 @@
 		margin-bottom: 40px;
 	}
 
-	.q-grid-edit-form-panel-actions {
-		margin-bottom: -20px;
-
-		.md-button {
-			margin: 8px 0 8px 8px;
-			float: right;
-		}
-	}
-
 	md-input-container {
 		margin: 0;
 		width: 100%;
@@ -56,5 +47,12 @@
 		width: 16px;
 		min-height: 16px;
 		min-width: 16px;
+	}
+}
+
+.q-grid-edit-form-actions {
+	.md-button {
+		margin: 8px 0 8px 8px;
+		float: right;
 	}
 }
