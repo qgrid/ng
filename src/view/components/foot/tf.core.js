@@ -24,7 +24,7 @@ class TfCore extends Directive(TF_CORE_NAME, {
 
 		element.classList.add(escapeClass(`${GRID_PREFIX}-${column.key}`));
 		element.classList.add(escapeClass(`${GRID_PREFIX}-${column.type}`));
-		if (column.hasOwnProperty('editor')) {
+		if (column.editor) {
 			element.classList.add(escapeClass(`${GRID_PREFIX}-${column.editor}`));
 		}
 
