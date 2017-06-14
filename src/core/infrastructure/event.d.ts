@@ -1,4 +1,4 @@
-interface IReturn{
+export interface IReturn{
 	(): void;
 }
 

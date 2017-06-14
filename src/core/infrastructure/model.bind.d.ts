@@ -1,8 +1,8 @@
-interface IBindResult{
+export interface IBindResult{
 	(): any;
 }
 
-interface IOffResult{
+export interface IOffResult{
 	(): void;
 }
 
