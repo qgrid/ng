@@ -1,5 +1,3 @@
-import {Row} from '../row/row';
-
 export declare class Aggregation {
 
 	constructor();
