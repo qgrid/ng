@@ -12,7 +12,7 @@
 		</md-list>
 	</div>
 	<div flex class="page-list-items">
-		<md-list ng-repeat="node in $ctrl.items | filter: $ctrl.filter track by node.title">
+		<md-list ng-repeat="node in $ctrl.items | filter: {title: $ctrl.filter} track by node.title">
 			<md-subheader ng-if="node.items">
 				<span ng-bind-html="node.title | qgridHighlight : $ctrl.filterText"></span>
 			</md-subheader>

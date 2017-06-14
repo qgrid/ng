@@ -2,7 +2,7 @@ import {Model, Log, Command, Action} from '@grid/core/infrastructure';
 import {GridService} from '@grid/core/services';
 import {Pipe} from '@grid/core/pipe';
 import {PipeUnit} from '@grid/core/pipe/units';
-import {noop} from '@grid/core/utility';
+import {noop, identity} from '@grid/core/utility';
 import {getFactory as valueFactory} from '@grid/core/services/value';
 import {getFactory as labelFactory} from '@grid/core/services/label';
 
@@ -23,6 +23,14 @@ export default class Grid {
 		};
 
 		return new GridService(model, apply);
+	}
+
+	get noop() {
+		return noop;
+	}
+
+	get identity() {
+		return identity;
 	}
 
 	get pipe() {

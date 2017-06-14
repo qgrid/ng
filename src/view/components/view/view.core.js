@@ -15,6 +15,7 @@ import {PaginationView} from '@grid/core/pagination';
 import {StyleView} from '@grid/core/style';
 import {ColumnView} from '@grid/core/column';
 import {ScrollView} from '@grid/core/scroll';
+import {RowDetailsView} from '@grid/core/row-details';
 import {GRID_NAME, TH_CORE_NAME} from '@grid/view/definition';
 import {PipeUnit} from '@grid/core/pipe/units';
 import {Vscroll} from '@grid/view/services';
@@ -38,18 +39,7 @@ class ViewCore extends Component {
 		const table = root.table;
 		const commandManager = root.commandManager;
 		const gridService = this.serviceFactory(model);
-		const vscroll = new Vscroll(
-			this.vscroll,
-			root.applyFactory(() => {
-				if (root.table.body.invalidate) {
-					root.table.body.invalidate();
-				}
-			}));
-
-
-		if (model.scroll().mode === 'virtual') {
-			table.context.mapper.row = index => index - this.scroll.y.container.cursor;
-		}
+		const vscroll = new Vscroll(this.vscroll, root.applyFactory());
 
 		this.style = new StyleView(model, table);
 		this.head = new HeadView(model, table, TH_CORE_NAME);
@@ -67,12 +57,13 @@ class ViewCore extends Component {
 		this.nav = new NavigationView(model, table, commandManager);
 		this.pagination = new PaginationView(model);
 		this.scroll = new ScrollView(model, table, vscroll, gridService);
+		this.rowDetails = new RowDetailsView(model, table);
 
 		// TODO: how we can avoid that?
 		this.$scope.$watch(this.style.invalidate.bind(this.style));
 
 		model.selectionChanged.watch(e => {
-			if (e.hasChanges('entries')) {
+			if (e.hasChanges('items')) {
 				this.root.onSelectionChanged({
 					$event: {
 						state: model.selection(),

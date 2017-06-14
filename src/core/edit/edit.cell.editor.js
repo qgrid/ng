@@ -1,6 +1,7 @@
 import {Fetch} from '../infrastructure';
 import {parseFactory} from '../services';
 import {clone, isUndefined, noop} from '../utility';
+import {get as getLabel} from '../services/label';
 
 class CellEditorCore {
 	constructor() {
@@ -52,8 +53,16 @@ export class CellEditor extends CellEditorCore {
 		return this.cell.column.title;
 	}
 
+	get column() {
+		return this.cell.column;
+	}
+
 	get options() {
 		return this.cell.column.editorOptions;
+	}
+
+	getLabel(item) {
+		return getLabel(item, this.options);
 	}
 
 	fetchFactory() {

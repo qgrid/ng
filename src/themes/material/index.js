@@ -65,6 +65,13 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.form.cell.reference.edit.tpl.html', require('@grid/themes/material/templates/form.cell.reference.edit.html'));
 		theme.put('qgrid.form.cell.id.edit.tpl.html', require('@grid/themes/material/templates/form.cell.text.edit.html'));
 		theme.put('qgrid.form.cell.url.edit.tpl.html', require('@grid/themes/material/templates/form.cell.url.edit.html'));
+		theme.put('qgrid.form.cell.image.edit.tpl.html', require('@grid/themes/material/templates/form.cell.file.edit.html'));
+		theme.put('qgrid.form.cell.file.edit.tpl.html', require('@grid/themes/material/templates/form.cell.file.edit.html'));
+		theme.put('qgrid.form.cell.text-area.edit.tpl.html', require('@grid/themes/material/templates/form.cell.text.area.edit.html'));
+		theme.put('qgrid.form.cell.password.edit.tpl.html', require('@grid/themes/material/templates/form.cell.password.edit.html'));
+		theme.put('qgrid.form.cell.array.edit.tpl.html', require('@grid/themes/material/templates/form.cell.array.edit.html'));
+		theme.put('qgrid.form.cell.email.edit.tpl.html', require('@grid/themes/material/templates/form.cell.email.edit.html'));
+		theme.put('qgrid.form.cell.time.edit.tpl.html', require('@grid/themes/material/templates/form.cell.time.edit.html'));
 
 		theme.put('qgrid.toolbar.top.tpl.html', require('@grid/themes/material/templates/toolbar.top.html'));
 		theme.put('qgrid.plugin.column-chooser.tpl.html', require('@grid/themes/material/templates/plugin.column.chooser.html'));

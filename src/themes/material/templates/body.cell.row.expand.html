@@ -1,0 +1,7 @@
+<div>
+	<button ng-click="$view.rowDetails.toggleStatus.execute($cell.row)"
+			  ng-if="$view.rowDetails.toggleStatus.canExecute($cell.row)">
+		<span ng-bind="$view.rowDetails.status($cell.row) === 'expand' ? '-' : '+'" ></span>
+	</button>
+	<div ng-if="!$view.rowDetails.toggleStatus.canExecute($cell.row)" q-grid-core:details></div>
+</div>

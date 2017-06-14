@@ -1,13 +1,15 @@
 import RootComponent from '../root.component';
 import {Table} from '@grid/core/dom';
-import {CommandManager, LayerFactory} from '@grid/view/services';
+import {LayerFactory} from '@grid/view/services';
+import {CommandManager, AppError} from '@grid/core/infrastructure'
 import {isUndefined} from '@grid/core/utility';
 import TemplateLink from '../template/template.link';
 
 export class Grid extends RootComponent {
-	constructor($scope, $element, $transclude, $document, $timeout, $templateCache, $compile) {
+	constructor($rootScope, $scope, $element, $transclude, $document, $timeout, $templateCache, $compile) {
 		super('grid', 'data', 'selection', 'sort', 'group', 'pivot', 'edit', 'style', 'action');
 
+		this.$rootScope = $rootScope;
 		this.$scope = $scope;
 		this.$element = $element;
 		this.$transclude = $transclude;
@@ -30,6 +32,7 @@ export class Grid extends RootComponent {
 			layer: name => layerFactory.create(name),
 			model: element => bag.get(element) || null
 		};
+
 		this.table = new Table(model, this.markup, tableContext);
 
 		this.compile();
@@ -56,7 +59,7 @@ export class Grid extends RootComponent {
 	}
 
 	invalidateVisibility() {
-		const columns = this.model.data().columns;
+		const columns = this.table.data.columns();
 		const visibility = this.model.visibility;
 		visibility({
 			pin: {
@@ -66,16 +69,29 @@ export class Grid extends RootComponent {
 		});
 	}
 
-	applyFactory(gf) {
+	applyFactory(gf = null, mode = 'async') {
 		return (lf, timeout) => {
 			if (isUndefined(timeout)) {
-				return this.$scope.$applyAsync(() => {
-					lf();
+				switch (mode) {
+					case 'async': {
+						return this.$scope.$applyAsync(() => {
+							lf();
 
-					if (gf) {
-						gf();
+							if (gf) {
+								gf();
+							}
+						});
 					}
-				});
+					case 'sync': {
+						const phase = this.$rootScope.$$phase; // eslint-disable-line angular/no-private-call
+						if (phase == '$apply' || phase == '$digest') {
+							return lf();
+						}
+						return this.$scope.$apply(lf);
+					}
+					default:
+						throw new AppError('grid', `Invalid mode ${mode}`);
+				}
 			}
 
 			return this.$timeout(() => {
@@ -95,6 +111,7 @@ export class Grid extends RootComponent {
 }
 
 Grid.$inject = [
+	'$rootScope',
 	'$scope',
 	'$element',
 	'$transclude',

@@ -38,16 +38,6 @@ There are situations when you would like to enable the end user to select rows o
 			 <li><code>column</code> - map column to user defined entity </li>
 	    </ul>
 	  </td>
-	</tr>					
-	<tr>
-	  <td>entries</td>
-	  <td><code>array</code></td>
-	  <td>Selected data items depend on selection unit (column, rows or <code>{row, column}</code>)
-	    <ul>
-			 <li><code>row</code> - map row to user defined entity</li>
-			 <li><code>column</code> - map column to user defined entity </li>
-	    </ul>
-	  </td>
-	</tr>					
+	</tr>										
 </tbody>
 </table>

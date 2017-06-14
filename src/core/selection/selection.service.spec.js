@@ -1,7 +1,7 @@
-import {SelectionState} from './selection.state';
-import {Model} from '../../infrastructure/model';
-import {DataModel} from '../../data/data.model';
-import {SelectionModel} from '../../selection/selection.model';
+import {SelectionService} from './selection.service';
+import {Model} from '../infrastructure/model';
+import {DataModel} from '../data/data.model';
+import {SelectionModel} from '../selection/selection.model';
 
 let model;
 const rows = [{
@@ -26,10 +26,11 @@ const columns = [{
 	key: 'age'
 }];
 
-describe('selection state', () => {
+describe('selection service', () => {
 	before('init model', () => {
-		// Model.register('data', DataModel)
-		// 	.register('selection', SelectionModel);
+		Model
+			.register('data', DataModel)
+			.register('selection', SelectionModel);
 
 		model = new Model();
 
@@ -52,16 +53,15 @@ describe('selection state', () => {
 
 		beforeEach('reset selection', () => {
 			model.selection({
-				items: [],
-				entries: []
+				items: []
 			});
 		});
 
 		describe('lookup function', () => {
 			it('should return rows by keys', () => {
-				const selectionState = new SelectionState(model);
+				const service = new SelectionService(model);
 
-				const entries = selectionState.lookup([101, 102]);
+				const entries = service.lookup([101, 102]);
 
 				expect(entries.length).to.equal(2);
 				expect(entries[0].id).to.equal(101);
@@ -73,9 +73,10 @@ describe('selection state', () => {
 
 		describe('key function', () => {
 			it('should return key of corresponding row', () => {
-				const selectionState = new SelectionState(model);
+				const service = new SelectionService(model);
+				const key = service.keyFactory('row')
 
-				const keys = rows.map(row => selectionState.key(row));
+				const keys = rows.map(row => key(row));
 
 				expect(keys[0]).to.equal(101);
 				expect(keys[1]).to.equal(102);
@@ -96,16 +97,15 @@ describe('selection state', () => {
 
 		beforeEach('reset selection', () => {
 			model.selection({
-				items: [],
-				entries: []
+				items: []
 			});
 		});
 
 		describe('lookup function', () => {
 			it('should return columns by keys', () => {
-				const selectionState = new SelectionState(model);
+				const service = new SelectionService(model);
 
-				const entries = selectionState.lookup(['name', 'age']);
+				const entries = service.lookup(['name', 'age']);
 
 				expect(entries.length).to.equal(2);
 				expect(entries[0].key).to.equal('name');
@@ -115,9 +115,10 @@ describe('selection state', () => {
 
 		describe('key function', () => {
 			it('should return key of corresponding column', () => {
-				const selectionState = new SelectionState(model);
+				const service = new SelectionService(model);
+				const key = service.keyFactory('column');
 
-				const keys = columns.map(column => selectionState.key(column));
+				const keys = columns.map(column => key(column));
 
 				expect(keys[0]).to.equal('id');
 				expect(keys[1]).to.equal('name');
@@ -139,16 +140,15 @@ describe('selection state', () => {
 
 		beforeEach('reset selection', () => {
 			model.selection({
-				items: [],
-				entries: []
+				items: []
 			});
 		});
 
 		describe('lookup function', () => {
 			it('should return cells by keys', () => {
-				const selectionState = new SelectionState(model);
+				const service = new SelectionService(model);
 
-				const entries = selectionState.lookup([{
+				const entries = service.lookup([{
 					row: 102,
 					column: 'name'
 				}, {
@@ -170,13 +170,13 @@ describe('selection state', () => {
 
 		describe('key function', () => {
 			it('should return stringified key of corresponding cell', () => {
-				const selectionState = new SelectionState(model);
+				const service = new SelectionService(model);
 				const cell = {
 					row: rows[1],
 					column: columns[1]
 				};
-				
-				const key = selectionState.key(cell);
+
+				const key = service.hashFactory('cell')(cell);
 
 				expect(key).to.equal('name[102]');
 			});
