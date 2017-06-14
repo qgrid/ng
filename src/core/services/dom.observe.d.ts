@@ -1,5 +1,7 @@
-export declare function children(element: HTMLElement): object;
+import {Event} from '../infrastructure/event';
 
-export function style(element: HTMLElement): object;
+export declare function children(element: HTMLElement): Event;
 
-export function className(element: HTMLElement): object;
+export declare function style(element: HTMLElement): Event;
+
+export declare function className(element: HTMLElement): Event;

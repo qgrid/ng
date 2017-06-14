@@ -1,8 +1,16 @@
+interface IBindResult{
+	(): any;
+}
+
+interface IOffResult{
+	(): void;
+}
+
 export class ModelBinder {
 
 	constructor(source: object);
 
-	off: () => void;
+	off: IOffResult;
 
-	bind(model: object, names: string[], run: boolean): () => any;
+	bind(model: object, names: string[], run: boolean): IBindResult;
 }

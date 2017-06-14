@@ -6,5 +6,5 @@ export declare class Fetch {
 	busy: Promise<any>;
 	result: any;
 
-	run(item: any): any;
+	run(item: any): void;
 }

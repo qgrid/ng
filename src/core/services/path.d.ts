@@ -1,6 +1,6 @@
-interface IReturnFunc{
-	(entry: object, value: any): string;
+interface ICompileResult{
+	(entry: object, value: any): any;
 }
 
-export declare function compile(path: string): IReturnFunc;
+export declare function compile(path: string): ICompileResult;
 
