@@ -1,5 +1,6 @@
 <span ng-bind="$cell.label"></span>
-<md-button class="md-icon-button q-grid-reference-edit"
+<md-button ng-if="$view.edit.cell.canEdit($cell)"
+			  class="md-icon-button q-grid-reference-edit"
 			  aria-label="reference-edit"
 			  ng-disabled="!$view.edit.cell.enter.canExecute($cell)"
 			  ng-click="$view.edit.cell.enter.execute($cell)">
