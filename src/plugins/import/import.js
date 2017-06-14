@@ -16,8 +16,18 @@ const Plugin = PluginComponent('import');
 class Import extends Plugin {
 	constructor() {
 		super(...arguments);
-		this.eventListener = new EventListener(this.$element[0], new EventManager(this));
-		this.upload = new Command({});
+		const element = this.$element[0];
+		const doc = element.ownerDocument;
+		this.eventListener = new EventListener(element, new EventManager(this));
+		this.upload = new Command({
+			execute: () => {
+				const input = doc.createElement('input');
+				input.type = 'file';
+				input.className = 'ng-hide';
+				element.appendChild(input);
+				input.click();
+			}
+		});
 	}
 
 	handleFile(e) {
@@ -30,10 +40,6 @@ class Import extends Plugin {
 			};
 			reader.readAsBinaryString(file);
 		}
-	}
-
-	get columns() {
-		return this.model.data().columns;
 	}
 
 	get resource() {
@@ -51,9 +57,5 @@ class Import extends Plugin {
 
 export default Import.component({
 	controller: Import,
-	controllerAs: '$import',
-	bindings: {
-		'type': '@',
-		'importOptions': '@'
-	}
+	controllerAs: '$import'
 });
