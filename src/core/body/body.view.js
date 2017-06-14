@@ -50,9 +50,9 @@ export class BodyView extends View {
 
 	}
 
-	valueFactory(column) {
+	valueFactory(column, getValueFactory = null) {
 		const model = this.model;
-		const getValue = valueFactory(column);
+		const getValue = (getValueFactory || valueFactory)(column);
 
 		return row => {
 			if (row instanceof Node) {
@@ -95,8 +95,7 @@ export class BodyView extends View {
 	}
 
 	labelFactory(column) {
-		const getLabel = labelFactory(column);
-		return row => getLabel(row);
+		return this.valueFactory(column, labelFactory);
 	}
 
 	value(row, column, value) {
@@ -115,7 +114,7 @@ export class BodyView extends View {
 			return;
 		}
 
-		const getLabel = labelFactory(column);
+		const getLabel = this.labelFactory(column);
 		return getLabel(row);
 	}
 }
