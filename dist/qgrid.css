@@ -1485,6 +1485,10 @@
       width: 55px;
       min-width: 55px;
       max-width: 55px; }
+    .q-grid thead td.q-grid-row-expand, .q-grid thead th.q-grid-row-expand, .q-grid tfoot td.q-grid-row-expand, .q-grid tfoot th.q-grid-row-expand, .q-grid tbody td.q-grid-row-expand, .q-grid tbody th.q-grid-row-expand {
+      width: 55px;
+      min-width: 55px;
+      max-width: 55px; }
     .q-grid thead td.q-grid-row-number, .q-grid thead th.q-grid-row-number, .q-grid tfoot td.q-grid-row-number, .q-grid tfoot th.q-grid-row-number, .q-grid tbody td.q-grid-row-number, .q-grid tbody th.q-grid-row-number {
       width: 55px;
       min-width: 55px;
