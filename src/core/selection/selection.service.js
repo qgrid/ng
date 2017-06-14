@@ -1,8 +1,74 @@
-import {isUndefined} from '../utility';
+import {isUndefined, identity} from '../utility';
 import {AppError} from '../infrastructure';
+import {getFactory} from '../services/value';
 
-function stringifyCellKey(key) {
-	return `${key.column}[${key.row}]`;
+function hashColumnKeyFactory(model) {
+	const selectionState = model.selection();
+	const selectionKey = selectionState.key;
+	if (selectionKey.column === identity) {
+		return column => column.key;
+	}
+
+	// TODO: investigate if is it necessary to use JSON.stringify here
+	return identity;
+}
+
+function hashRowKeyFactory(model) {
+	const selectionState = model.selection();
+	const selectionKey = selectionState.key;
+	if (selectionKey.row === identity) {
+		const columns = model.data().columns;
+		const index = columns.findIndex(column => column.type === 'id');
+		if (index >= 0) {
+			const idColumn = columns[index];
+			const getId = getFactory(idColumn);
+			return getId;
+		}
+		else {
+			const rows = model.data().rows;
+			return row => rows.indexOf(row);
+		}
+	}
+
+	// TODO: investigate if is it necessary to use JSON.stringify here
+	return identity;
+}
+
+function hashKeyFactory(model) {
+	const selectionState = model.selection();
+	switch (selectionState.unit) {
+		case 'row':
+			return hashRowKeyFactory(model);
+		case 'column':
+			return hashColumnKeyFactory(model);
+		case 'cell': {
+			const hashColumnKey = hashColumnKeyFactory(model);
+			const hashRowKey = hashRowKeyFactory(model);
+			return key => `${hashColumnKey(key.column)}[${hashRowKey(key.row)}]`;
+		}
+		case 'mix': {
+			const hashColumnKey = hashColumnKeyFactory(model);
+			const hashRowKey = hashRowKeyFactory(model);
+			return (key, entry) => {
+				switch (entry.unit) {
+					case 'column':
+						return hashColumnKey(key);
+					case 'row':
+						return hashRowKey(key);
+					case 'cell':
+						return `${hashColumnKey(key.column)}[${hashRowKey(key.row)}]`;
+					default:
+						throw new AppError('selection.service', `Invalid unit ${entry.unit}`);
+				}
+			};
+		}
+		default:
+			throw new AppError('selection.service', `Invalid unit ${selectionState.unit}`);
+	}
+}
+
+function cellMatchFactory() {
+	return (x, y) => x.column === y.column && x.row === y.row;
 }
 
 function keySelector(unit, selector) {
@@ -39,23 +105,11 @@ export class SelectionService {
 
 		const data = model.data();
 		switch (unit) {
-			case 'row': {
-				const rows = data.rows;
-				const key = this.keyFactory('row');
-				rows.forEach(row => {
-					const rowKey = key(row);
-					const found = items.indexOf(rowKey) > -1;
-					if (found) {
-						entries.push(row);
-					}
-				});
-				break;
-			}
 			case 'column': {
+				const selectKey = this.keyFactory('column');
 				const columns = data.columns;
-				const key = this.keyFactory('column');
 				columns.forEach(column => {
-					const colKey = key(column);
+					const colKey = selectKey(column);
 					const found = items.indexOf(colKey) > -1;
 					if (found) {
 						entries.push(column);
@@ -63,24 +117,33 @@ export class SelectionService {
 				});
 				break;
 			}
+			case 'row': {
+				const selectKey = this.keyFactory('row');
+				const rows = data.rows;
+				rows.forEach(row => {
+					const rowKey = selectKey(row);
+					const found = items.indexOf(rowKey) > -1;
+					if (found) {
+						entries.push(row);
+					}
+				});
+				break;
+			}
 			case 'cell': {
-				const cells = [];
+				const selectKey = this.keyFactory('cell');
+				const match = cellMatchFactory();
 				data.columns.forEach(column => {
 					data.rows.forEach(row => {
-						cells.push({
+						const cell = {
 							column: column,
 							row: row
-						});
-					});
-				});
+						};
 
-				cells.forEach(cell => {
-					const key = this.keyFactory('cell');
-					const cellKey = key(cell);
-					const found = items.findIndex(item => stringifyCellKey(item) === cellKey) > -1;
-					if (found) {
-						entries.push(cell);
-					}
+						const index = items.findIndex(item => match(item, selectKey(cell)));
+						if (index >= 0) {
+							entries.push(cell);
+						}
+					});
 				});
 				break;
 			}
@@ -103,57 +166,60 @@ export class SelectionService {
 
 	map(entries) {
 		const selectionState = this.model.selection();
+		const selectKey = this.keyFactory();
 		switch (selectionState.unit) {
-			case 'row':
 			case 'column':
+			case 'row':
 			case 'cell':
-				return entries.map(keySelector(selectionState.unit, selectionState.key));
+				return entries.map(selectKey);
 			case 'mix':
 				return entries.map(entry => ({
 					unit: entry.unit,
-					item: keySelector(entry.unit, selectionState.key)(entry.item)
+					item: selectKey(entry)
 				}));
 			default:
 				throw new AppError('selection.state', `Invalid unit ${selectionState.unit}`);
 		}
 	}
 
-
 	keyFactory(unit) {
-		const selection = this.model.selection();
-		const getCellKey = (item, unit) => {
-			if (item.column && item.row) {
-				const key = keySelector(unit, selection.key)(item);
-				return stringifyCellKey(key);
-			}
-
-			return item;
-		};
-
+		const selectionState = this.model.selection();
+		unit = unit || selectionState.unit;
 		switch (unit) {
-			case 'cell':
-				return item => getCellKey(item, unit);
-			case 'row':
 			case 'column':
-				return keySelector(unit, selection.key);
-			case 'mix':
-				return item => {
-					if (item.item) {
-						if (item.unit === 'cell') {
-							return getCellKey(item.item, item.unit);
-						}
+			case 'row':
+			case 'cell':
+				return keySelector(unit, selectionState.key);
+			case 'mix': {
+				const cellKey = keySelector('cell', selectionState.key);
+				const rowKey = keySelector('row', selectionState.key);
+				const columnKey = keySelector('column', selectionState.key);
 
-						if (item.unit === 'row' || item.unit === 'column') {
-							return keySelector(item.unit, selection.key)(item.item);
-						}
-
-						return item.item;
+				return entry => {
+					switch (entry.unit) {
+						case 'column':
+							return columnKey(entry.item);
+						case 'row':
+							return rowKey(entry.item);
+						case 'cell':
+							return cellKey(entry.item);
+						default:
+							throw new AppError('selection.service', `Invalid unit ${entry.unit}`);
 					}
-
-					return item;
 				};
+			}
 			default:
-				throw new AppError('selection.service', `Invalid selection unit ${unit}`);
+				throw new AppError('selection.service', `Invalid unit ${unit}`);
 		}
+	}
+
+	hashFactory() {
+		const selectKey = this.keyFactory();
+		const selectHash = hashKeyFactory(this.model);
+		return entry => {
+			const key = selectKey(entry);
+			const hashKey = selectHash(key, entry);
+			return hashKey;
+		};
 	}
 }
