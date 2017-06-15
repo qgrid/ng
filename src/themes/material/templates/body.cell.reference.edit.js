@@ -5,12 +5,11 @@ import {SelectionService} from '@grid/core/selection';
 ReferenceEdit.$inject = ['$scope', 'qgrid', 'qGridPopupService'];
 export default function ReferenceEdit($scope, qgrid, popupService) {
 	this.cell = () => $scope.$editor || $scope.$view.edit.cell;
-
-	let closed = false;
+	
+	const id = 'q-grid-reference-popup';
 	const close = () => {
-		if ($scope.$popup && !closed) {
+		if ($scope.$popup && popupService.isOpened(id)) {
 			$scope.$popup.close();
-			closed = true;
 		}
 	};
 
@@ -60,7 +59,6 @@ export default function ReferenceEdit($scope, qgrid, popupService) {
 	};
 
 	if (!$scope.$editor) {
-		const id = 'q-grid-reference-popup';
 		popupService.commands(id, this.commands);
 	}
 

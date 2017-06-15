@@ -2,11 +2,11 @@ import {Command} from '@grid/core/infrastructure';
 
 EditFormPlugin.$inject = ['$scope', 'qGridPopupService'];
 export default function EditFormPlugin($scope, popupService) {
-	let closed = false;
+	const id = `q-grid-edit-form-popup-${$scope.$editForm.key}`;
+
 	const close = () => {
-		if ($scope.$popupBody && !closed) {
+		if ($scope.$popupBody && popupService.isOpened(id)) {
 			$scope.$popupBody.close();
-			closed = true;
 		}
 	};
 
@@ -26,8 +26,6 @@ export default function EditFormPlugin($scope, popupService) {
 			}
 		})
 	};
-
-	const id = `q-grid-edit-form-popup-${$scope.$editForm.key}`;
 	popupService.commands(id, this.commands);
 
 	$scope.$on('$destroy', () => {
