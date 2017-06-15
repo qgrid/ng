@@ -14,14 +14,14 @@ function getType(name) {
 	}
 }
 
-function readFile(e, file, model) {
+function readFile(e, file, model, options) {
 	const data = e.target.result;
 	const type = file.type === '' ? getType(file.name) : file.type;
 	switch (type) {
 		case 'xlsx':
 		case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': {
 			const xlsx = new Xlsx();
-			const rows = xlsx.read(data);
+			const rows = xlsx.read(data, options);
 			const createColumn = columnFactory(model);
 			const columns = generate(rows, (type, body) => createColumn('text', body), false);
 			model.data({
@@ -48,12 +48,14 @@ function readFile(e, file, model) {
 		case 'xml':
 		case 'text/xml': {
 			const xml = new Xml();
-			const rows = xml.read(data);
-			const columns = generate(rows, columnFactory(model), false);
-			model.data({
-				columns: columns,
-				rows: rows
-			});
+			xml.read(data);
+
+			// const rows = xml.read(data);
+			// const columns = generate(rows, columnFactory(model), false);
+			// model.data({
+			// 	columns: columns,
+			// 	rows: rows
+			// });
 			break;
 		}
 		case 'application/vnd.ms-excel':

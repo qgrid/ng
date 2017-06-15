@@ -36,7 +36,7 @@ class Import extends Plugin {
 		for (let file of files) {
 			const reader = new FileReader();
 			reader.onload = e => {
-				readFile(e, file, this.model);
+				readFile(e, file, this.model, this.importOptions);
 			};
 			reader.readAsBinaryString(file);
 		}
@@ -57,5 +57,8 @@ class Import extends Plugin {
 
 export default Import.component({
 	controller: Import,
-	controllerAs: '$import'
+	controllerAs: '$import',
+	bindings: {
+		'importOptions': '='
+	}
 });

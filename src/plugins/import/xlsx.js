@@ -1,9 +1,13 @@
 import XLSX from 'xlsx';
 
-function toJson(workbook) {
+function toJson(workbook, options = {}) {
+	const wbOptions = {};
+	if (options.header) {
+		wbOptions.header = options.header;
+	}
 	let result = [];
 	for (let sheetName of workbook.SheetNames) {
-		const partial = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], {header: 'A'});
+		const partial = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], wbOptions);
 		result = partial.concat(result);
 	}
 
@@ -18,8 +22,8 @@ function rewriteObject(obj) {
 }
 
 export class Xlsx {
-	read(data) {
+	read(data, options) {
 		const workbook = XLSX.read(data, {type: 'binary'});
-		return toJson(workbook);
+		return toJson(workbook, options);
 	}
 }
