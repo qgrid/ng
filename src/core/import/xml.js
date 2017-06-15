@@ -1,5 +1,3 @@
-// const schema = require('raw-loader!@grid/core/export/schema.xml');
-
 const KEY_DELIMETER = '-';
 
 function flatView(xml, separator = ', ') {
@@ -45,12 +43,6 @@ export class Xml {
 	read(data) {
 		const parser = new DOMParser();
 		const root = parser.parseFromString(data, 'text/xml').documentElement;
-		// const xsd = parser.parseFromString(schema, 'text/xml').firstChild;
-		// const dataXsd = root.getElementsByTagNameNS('*', 'schema').item(0);
-
-		// if (xsd.isEqualNode(dataXsd)) {
-		// 	parseLight(root);
-		// }
 
 		return parseLight(root);
 	}

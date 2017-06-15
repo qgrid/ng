@@ -41,7 +41,7 @@ class Export extends Plugin {
 			canExecute: () => this.type === 'xml' && this.rows.length,
 			execute: () => {
 				const xml = new Xml();
-				const data = xml.write(this.rows, this.columns);
+				const data = xml.write(this.rows);
 				download(this.id, data, `application/${this.type}`);
 			}
 		});

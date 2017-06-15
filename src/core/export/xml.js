@@ -1,7 +1,6 @@
 import {isObject, isArray, isString} from '@grid/core/utility';
 
-const begin = '<?xml version="1.0" encoding="UTF-8"?><rows xmlns:xsd="http://www.w3.org/2001/XMLSchema">';
-const schema = require('raw-loader!./schema.xml');
+const begin = '<?xml version="1.0" encoding="UTF-8"?><root>';
 
 function escape(value) {
 	let result = '' + value;
@@ -35,22 +34,14 @@ function objToXml(obj) {
 	}
 	return result;
 }
-function formHead(columns) {
-	const headers = ['<head>'];
-	for (let column of columns) {
-		headers.push(`<column><key>${column.key}</key><title>${column.title}</title><type>${column.type}</type></column>`);
-	}
-	headers.push('</head>');
-	return headers.join('');
-}
 
 export class Xml {
-	write(rows, columns) {
-		const result = [`${begin}${schema}`, ...formHead(columns), '<body>'];
+	write(rows) {
+		const result = [begin];
 		for (let row of rows) {
 			result.push(`<row>${objToXml(row)}</row>`);
 		}
-		result.push('</body></rows>');
+		result.push('</root>');
 		return result.join('');
 	}
 }
