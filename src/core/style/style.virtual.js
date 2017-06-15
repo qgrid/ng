@@ -13,8 +13,10 @@ export class VirtualRowStyle {
 		const entries = box.entries;
 
 		return (row, context) => {
+			context.row = mapper.viewToRow(context.row);
+
 			const model = {
-				index: context.row,
+				dataIndex: context.row,
 			};
 
 			const key = box.key(model);
@@ -25,7 +27,6 @@ export class VirtualRowStyle {
 				}
 			}
 
-			context.row = mapper.rowBack(context.row);
 			style(row, context);
 		};
 	}
@@ -48,9 +49,12 @@ export class VirtualCellStyle {
 		const columnEntries = columnBox.entries;
 
 		return (row, column, context) => {
+			context.column = mapper.viewToColumn(context.column);
+			context.row = mapper.viewToRow(context.row);
+
 			// column level
 			const columnModel = {
-				index: context.column
+				dataIndex: context.column,
 			};
 
 			const columnKey = columnBox.key(columnModel);
@@ -63,8 +67,8 @@ export class VirtualCellStyle {
 
 			// cell level
 			const cellModel = {
-				rowIndex: context.row,
-				columnIndex: context.column,
+				dataRowIndex: context.row,
+				dataColumnIndex: context.column,
 			};
 
 			const cellKey = cellBox.key(cellModel);
@@ -76,8 +80,6 @@ export class VirtualCellStyle {
 			}
 
 			// add classes
-			context.row = mapper.rowBack(context.row);
-			context.column = mapper.columnBack(context.column);
 			style(row, column, context);
 		};
 	}
