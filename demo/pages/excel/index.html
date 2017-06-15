@@ -12,12 +12,12 @@
 	</q-grid:export>
 	<q-grid:import>
 		<q-grid:template>
-			<md-button ng-if="$import.upload.canExecute()" ng-click="$import.upload.execute()">
+			<md-button ng-disabled="!$import.upload.canExecute()" ng-click="$import.upload.execute()">
 				<md-icon>file_upload</md-icon>open
 			</md-button>
 		</q-grid:template>
 	</q-grid:import>
-	<q-grid:columns ng-if="$ctrl.model.data().rows.length">
+	<q-grid:columns>
 		<q-grid:column type="row-number" key="rowNumber" can-focus="false" pin="left"></q-grid:column>
 		<q-grid:column>
 			<q-grid:template for="edit">
