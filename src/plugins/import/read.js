@@ -22,7 +22,8 @@ function readFile(e, file, model) {
 		case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': {
 			const xlsx = new Xlsx();
 			const rows = xlsx.read(data);
-			const columns = generate(rows, columnFactory(model), false);
+			const createColumn = columnFactory(model);
+			const columns = generate(rows, (type, body) => createColumn('text', body), false);
 			model.data({
 				columns: columns,
 				rows: rows
