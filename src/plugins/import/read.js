@@ -18,6 +18,7 @@ function readFile(e, file, model) {
 	const data = e.target.result;
 	const type = file.type === '' ? getType(file.name) : file.type;
 	switch (type) {
+		case 'xlsx':
 		case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': {
 			const xlsx = new Xlsx();
 			const rows = xlsx.read(data);
