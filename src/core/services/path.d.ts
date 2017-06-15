@@ -1,4 +1,4 @@
-export interface ICompileResult{
+export declare interface ICompileResult{
 	(entry: object, value: any): any;
 }
 

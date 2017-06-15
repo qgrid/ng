@@ -1,7 +1,7 @@
 export declare const identityIndexMapper: object;
 
 
-class BucketEntryCore {
+export declare class BucketEntryCore {
 
 	constructor();
 
@@ -16,7 +16,7 @@ class BucketEntryCore {
 	count(): number;
 }
 
-class BucketEntry {
+export declare class BucketEntry {
 
 	constructor(entry: object, mapper: object);
 

@@ -1,6 +1,6 @@
 import {Model} from "../infrastructure/model";
 
-export interface IPipe{
+export declare interface IPipe{
 	(memo: any, context: any, next: (memo: any) => void);
 }
 

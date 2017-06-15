@@ -1,4 +1,4 @@
-export interface IAggregationOptions{
+export declare interface IAggregationOptions{
 	distinct: boolean;
 	separator: string;
 }

@@ -1,6 +1,6 @@
 import {ColumnModel} from '../column-type/column.model';
 
-export interface IGetResult{
+export declare interface IGetResult{
 	(row: any): any;
 }
 
