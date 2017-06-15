@@ -19,13 +19,7 @@ export default class Popup {
 
 		this.onClose = isFunction(settings.close) ? settings.close : noop;
 
-		this.commands = settings.commands;
-
-		const commandManager = new PopupCommandManager(f => f(), this);
-		const shortcut = new Shortcut(commandManager);
-		this.shortcutOff = shortcut.register(settings.id, new Map(
-			Object.entries(settings.commands)
-		));
+		this.shortcutOff = noop;
 	}
 
 	close() {
@@ -97,5 +91,13 @@ export default class Popup {
 			height: Math.min(settings.height, this.body.clientHeight - this.element.offsetTop) + 'px'
 		});
 		this.event.emit('resize');
+	}
+
+	commands(commands) {
+		const commandManager = new PopupCommandManager(f => f(), this);
+		const shortcut = new Shortcut(commandManager);
+		this.shortcutOff = shortcut.register(this.settings.id, new Map(
+			Object.entries(commands)
+		));
 	}
 }

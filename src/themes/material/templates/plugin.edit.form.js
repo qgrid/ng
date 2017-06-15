@@ -1,12 +1,12 @@
 import {Command} from '@grid/core/infrastructure';
 
-EditFormPlugin.$inject = ['$scope'];
-export default function EditFormPlugin($scope) {
-	this.editForm = () => $scope.$editForm;
-
+EditFormPlugin.$inject = ['$scope', 'qGridPopupService'];
+export default function EditFormPlugin($scope, popupService) {
+	let closed = false;
 	const close = () => {
-		if (this.$popupBody) {
-			this.$popupBody.close();
+		if ($scope.$popupBody && !closed) {
+			$scope.$popupBody.close();
+			closed = true;
 		}
 	};
 
@@ -14,18 +14,21 @@ export default function EditFormPlugin($scope) {
 		submit: new Command({
 			shortcut: 'ctrl+s',
 			execute: () => {
-				this.editForm().submit.execute();
+				$scope.$editForm.submit.execute();
 				close();
 			}
 		}),
 		cancel: new Command({
 			shortcut: 'Escape',
 			execute: () => {
-				this.editForm().cancel.execute();
+				$scope.$editForm.cancel.execute();
 				close();
 			}
 		})
 	};
+
+	const id = `q-grid-edit-form-popup-${$scope.$editForm.key}`;
+	popupService.commands(id, this.commands);
 
 	$scope.$on('$destroy', () => {
 		close();

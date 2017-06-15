@@ -45,6 +45,7 @@ export default class PopupService {
 		popupScope.id = settings.id;
 
 		const popup = angular.element('<q-grid:popup-panel id="id" model="model"></q-grid:popup-panel>'); // eslint-disable-line no-undef
+		this.popups[settings.id] = new PopupManager(popup, settings, this.$document[0].body);
 
 		this.$document[0].body.appendChild(popup[0]);
 		this.$compile(popup)(popupScope);
@@ -64,7 +65,6 @@ export default class PopupService {
 			popup.addClass(settings.cls);
 		}
 
-		this.popups[settings.id] = new PopupManager(popup, settings, this.$document[0].body);
 		this.popups[settings.id].focus();
 	}
 
@@ -157,6 +157,11 @@ export default class PopupService {
 			left: l,
 			top: t
 		};
+	}
+
+	commands(id, commands) {
+		const item = this.popups[id];
+		item.commands(commands);
 	}
 }
 
