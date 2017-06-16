@@ -1,13 +1,13 @@
-import {ColumnModel} from './column.model';
 import {View} from '../view/view';
+import {Model} from "../infrastructure/model";
 
 export declare class ColumnView extends View {
-	constructor(model: ColumnModel);
+	constructor(model: Model);
 
-	colspan: number;
-	rowspan: number
+	colspan?: number;
+	rowspan?: number
 
-	static model(model: ColumnModel): ColumnModel;
+	static model(model: Model): Model;
 
 	static assign(body: object): object;
 }

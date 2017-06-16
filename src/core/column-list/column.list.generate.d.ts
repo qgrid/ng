@@ -1,9 +1,10 @@
-import {ColumnListModel} from "../column-list/column.list.model";
 import {IEntity} from "../column/column.factory";
+import {Model} from "../infrastructure/model";
+import {ColumnModel} from "../column-type/column.model";
 
 
 export declare interface IColumnFactory{
-	(model: ColumnListModel): IEntity;
+	(model: Model): IEntity;
 }
 
-export declare function generate(rows: any[], columnFactory: IColumnFactory, deep: boolean): ColumnListModel;
+export declare function generate(rows: any[], columnFactory: IColumnFactory, deep: boolean): ColumnModel[];

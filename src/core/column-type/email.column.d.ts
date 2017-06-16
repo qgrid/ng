@@ -1,10 +1,10 @@
 import {ColumnView} from './column.model.view';
 import {DataColumnModel} from './data.column.model';
-import {ColumnModel} from "./column.model";
+import {Model} from "../infrastructure/model";
 
 export declare interface IEditorOptions {
 	trigger?: string;
-	modelFactory?: () => ColumnModel;
+	modelFactory?: () => Model;
 	label?: string;
 }
 

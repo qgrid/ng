@@ -1,9 +1,10 @@
 import {View} from '../view/view';
 import {ColumnListModel} from "../column-list/column.list.model";
 import {ColumnModel} from "../column-type/column.model";
+import {Model} from "../infrastructure/model";
 
 export declare class BodyView extends View {
-	constructor(model: object, table: object);
+	constructor(model: Model, table: object);
 
 	table: object;
 	rows: any[];

@@ -5,7 +5,7 @@ import {IEditorOptions} from './email.column';
 export declare class ReferenceColumnModel extends DataColumnModel {
 	constructor();
 
-	editorOptions: IEditorOptions;
+	editorOptions?: IEditorOptions;
 }
 
 export class ReferenceColumn extends ColumnView {
