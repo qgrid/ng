@@ -11,11 +11,11 @@ function isTextContainer(xml) {
 }
 function generateArray(child) {
 	const parent = child.parentNode;
-	const siblings = parent.getElementsByTagName(child.tagName);
+	const childrenCollection = parent.getElementsByTagName(child.tagName);
+	const siblings = Array.from(childrenCollection);
 	const result = [];
 
-	for (let i = 0; i < siblings.length; i++) {
-		const item = siblings.item(i);
+	for (let item of siblings) {
 		if (isTextContainer(item)) {
 			result.push(item.textContent);
 		} else {
@@ -30,11 +30,11 @@ function generateArray(child) {
 function isVisited(xml) {
 	return xml.getAttribute('visited');
 }
-function parse(xml, obj) {
-	const children = xml.children;
+function parse(xml, obj, tagName) {
+	const childrenCollection = tagName ? xml.getElementsByTagName(tagName) : xml.children;
+	const children = Array.from(childrenCollection);
 	if (children && children.length > 0) {
-		for (let i = 0; i < children.length; i++) {
-			const child = children.item(i);
+		for (let child of children) {
 			if (isPartOfArray(child) && !isVisited(child)) {
 				obj[child.nodeName] = generateArray(child);
 			} else if (isTextContainer(child)) {
@@ -46,19 +46,19 @@ function parse(xml, obj) {
 			}
 		}
 	}
-	else {
+	else if (isTextContainer(xml)) {
 		obj[xml.nodeName] = xml.textContent;
 	}
 }
 
 
 export class Xml {
-	read(data) {
+	read(data, tagName) {
 		const result = {};
 		const parser = new DOMParser();
 		const root = parser.parseFromString(data, 'text/xml').documentElement;
 		parse(root, result);
 
-		return result;
+		return result[tagName];
 	}
 }
