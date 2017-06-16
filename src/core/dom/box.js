@@ -8,18 +8,18 @@ import {flatten, zip, sumBy, max} from '../utility';
 export class Box {
 	constructor(context, model) {
 		this.context = context;
-		this.gridModel = model;
+		this.model = model;
 	}
 
 	cell(rowIndex, columnIndex) {
-		rowIndex = this.context.mapper.row(rowIndex);
-		columnIndex = this.context.mapper.column(columnIndex);
+		rowIndex = this.context.mapper.rowToView(rowIndex);
+		columnIndex = this.context.mapper.columnToView(columnIndex);
 		return this.cellCore(rowIndex, columnIndex);
 	}
 
 	column(index) {
 		const columnFactory = this.createColumnCore.bind(this);
-		index = this.context.mapper.column(index);
+		index = this.context.mapper.columnToView(index);
 		if (index >= 0 && index < this.columnCount()) {
 			return columnFactory(index);
 		}
@@ -28,7 +28,7 @@ export class Box {
 	}
 
 	row(index) {
-		index = this.context.mapper.row(index);
+		index = this.context.mapper.rowToView(index);
 		return this.rowCore(index);
 	}
 

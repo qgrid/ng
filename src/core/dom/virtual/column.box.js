@@ -6,8 +6,6 @@ export class ColumnBox extends StyleBox {
 	}
 
 	key(column) {
-		const mapper = this.context.mapper;
-		const index = mapper.columnBack(column.index);
-		return index;
+		return column.dataIndex;
 	}
 }
