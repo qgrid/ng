@@ -12,7 +12,6 @@ export declare class ImageColumnModel extends DataColumnModel {
 }
 
 export declare class ImageColumn extends ColumnView {
-	constructor(model: ColumnModel);
+	constructor();
 
-	static model(model: ColumnModel): any;
 }

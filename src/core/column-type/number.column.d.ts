@@ -10,7 +10,6 @@ export declare class NumberColumnModel extends DataColumnModel {
 }
 
 export declare class NumberColumn extends ColumnView {
-	constructor(model: ColumnModel);
+	constructor();
 
-	static model(model: ColumnModel): any;
 }

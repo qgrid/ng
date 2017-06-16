@@ -5,13 +5,9 @@ import {ColumnModel} from "./column.model";
 
 export declare class PasswordColumnModel extends DataColumnModel {
 	constructor();
-
-	canSort: boolean;
-	canFilter: boolean;
 }
 
 export declare class PasswordColumn extends ColumnView {
-	constructor(model: ColumnModel);
+	constructor();
 
-	static model(model: ColumnModel): any;
 }

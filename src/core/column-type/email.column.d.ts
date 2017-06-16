@@ -3,18 +3,16 @@ import {DataColumnModel} from './data.column.model';
 import {ColumnModel} from "./column.model";
 
 export declare interface IEditorOptions {
-	trigger: string;
-	modelFactory: Function;
+	trigger?: string;
+	modelFactory?: () => ColumnModel;
+	label?: string;
 }
 
 export declare class EmailColumnModel extends DataColumnModel {
 	constructor();
-
-	editorOptions: IEditorOptions;
 }
 
 export declare class EmailColumn extends ColumnView {
-	constructor(model: ColumnModel);
+	constructor();
 
-	static model(model: ColumnModel): any;
 }

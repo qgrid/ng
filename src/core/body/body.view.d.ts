@@ -14,7 +14,7 @@ export declare class BodyView extends View {
 
 	colspan(column: ColumnModel, row: any): number;
 
-	value(row: any, column: ColumnModel, value: string): string;
+	value(row: any, column: ColumnModel, value: any): string;
 
-	label(row: any, column: ColumnModel, value: string): string;
+	label(row: any, column: ColumnModel, value: any): string;
 }

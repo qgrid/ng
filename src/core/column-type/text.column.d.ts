@@ -5,12 +5,10 @@ import {ColumnModel} from "./column.model";
 
 export declare class TextColumnModel extends DataColumnModel {
 	constructor();
-
 	maxLength: number;
 }
 
 export declare class TextColumn extends ColumnView {
-	constructor(model: ColumnModel);
+	constructor();
 
-	static model(model: ColumnModel): any;
 }

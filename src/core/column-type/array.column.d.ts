@@ -8,7 +8,6 @@ export declare class ArrayColumnModel extends DataColumnModel {
 }
 
 export declare class ArrayColumn extends ColumnView {
-	constructor(model: ColumnModel);
+	constructor();
 
-	static model(model: ColumnModel): any;
 }

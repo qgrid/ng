@@ -10,13 +10,12 @@ export declare interface IHasPreview {
 export declare class FileColumnModel extends DataColumnModel {
 	constructor();
 
-	canUpload: boolean
+	canUpload: boolean;
 	editorOptions: IEditorOptions;
 	hasPreview: IHasPreview;
 }
 
 export declare class FileColumn extends ColumnView {
-	constructor(model: ColumnModel);
+	constructor();
 
-	static model(model: ColumnModel): any;
 }

@@ -4,16 +4,9 @@ import {ColumnModel} from './column.model';
 
 export declare class SelectColumnModel extends ColumnModel {
 	constructor();
-
-	key: string;
-	title: string;
-	canEdit: boolean;
-	canResize: boolean;
-
 }
 
 export declare class SelectColumn extends ColumnView {
-	constructor(model: ColumnModel);
+	constructor();
 
-	static model(model: ColumnModel): any;
 }

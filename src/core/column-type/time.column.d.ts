@@ -6,11 +6,10 @@ import {ColumnModel} from "./column.model";
 export declare class TimeColumnModel extends DataColumnModel {
 	constructor();
 
-	format: string;
+	format?: string;
 }
 
 export declare class TimeColumn extends ColumnView {
-	constructor(model: ColumnModel);
+	constructor();
 
-	static model(model: ColumnModel): any;
 }

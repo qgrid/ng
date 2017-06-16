@@ -9,7 +9,7 @@ export class DataColumnModel extends ColumnModel {
 	constructor();
 
 	isDefault: boolean;
-	aggregation: object
+	aggregation: string;
 	aggregationOptions: IAggregationOptions;
 
 }

@@ -5,6 +5,6 @@ export declare class CellSelector {
 
 	constructor(model: Model, table: Table);
 
-	map(items: any[]): Cell;
+	map(items: any[]): Cell[];
 
 }

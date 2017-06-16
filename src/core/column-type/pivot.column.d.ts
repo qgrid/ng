@@ -5,19 +5,10 @@ import {ColumnModel} from './column.model';
 export declare class PivotColumnModel extends ColumnModel {
 	constructor();
 
-	key: string;
-	title: string;
-	source: string;
-	canEdit: boolean;
-	canSort: boolean;
-	canResize: boolean;
-	canHighlight: boolean;
-	width: number;
-	rowIndex: number;
+	rowIndex?: number;
 }
 
 export declare class PivotColumn extends ColumnView {
-	constructor(model: ColumnModel);
+	constructor();
 
-	static model(model: ColumnModel): any;
 }

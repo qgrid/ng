@@ -7,7 +7,6 @@ export declare class BoolColumnModel extends DataColumnModel {
 }
 
 export declare class BoolColumn extends ColumnView {
-	constructor(model: ColumnModel);
+	constructor();
 
-	static model(model: ColumnModel): any;
 }

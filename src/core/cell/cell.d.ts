@@ -10,13 +10,13 @@ export declare class Cell {
 
 	constructor(cell: ICell);
 
-	get value(): string ;
+	get value(): any ;
 
-	set value(value: string);
+	set value(value: any);
 
 	get label(): object;
 
 	set label(label: object);
 
-	mode(value: string): void;
+	mode(value: any): void;
 }
