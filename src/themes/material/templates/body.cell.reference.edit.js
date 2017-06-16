@@ -5,7 +5,7 @@ import {SelectionService} from '@grid/core/selection';
 ReferenceEdit.$inject = ['$scope', 'qgrid', 'qGridPopupService'];
 export default function ReferenceEdit($scope, qgrid, popupService) {
 	this.cell = () => $scope.$editor || $scope.$view.edit.cell;
-	
+
 	const id = 'q-grid-reference-popup';
 	const close = () => {
 		if ($scope.$popup && popupService.isOpened(id)) {
@@ -30,7 +30,7 @@ export default function ReferenceEdit($scope, qgrid, popupService) {
 		}
 	});
 
-	this.commands = {
+	const commands = {
 		commit: new Command({
 			shortcut: 'ctrl+s',
 			execute: ($cell, $event) => {
@@ -59,8 +59,11 @@ export default function ReferenceEdit($scope, qgrid, popupService) {
 	};
 
 	if (!$scope.$editor) {
-		popupService.commands(id, this.commands);
+		popupService.commands(id, commands);
 	}
+
+	this.commit = commands.commit;
+	this.cancel = commands.cancel;
 
 	$scope.$on('$destroy', () => {
 		close();

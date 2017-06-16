@@ -3,6 +3,8 @@ export class CommandManager {
 		this.apply = apply;
 	}
 
+	keyDown() { }
+
 	canExecute() {
 		return true;
 	}

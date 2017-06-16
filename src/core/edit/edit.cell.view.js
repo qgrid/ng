@@ -10,6 +10,7 @@ export class EditCellView {
 		this.table = table;
 
 		this.editor = CellEditor.empty;
+		this.commandManager = commandManager;
 
 		const shortcut = new Shortcut(commandManager);
 		const commands = this.commands;

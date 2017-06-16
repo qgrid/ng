@@ -10,7 +10,7 @@ export default function EditFormPlugin($scope, popupService) {
 		}
 	};
 
-	this.commands = {
+	const commands = {
 		submit: new Command({
 			shortcut: 'ctrl+s',
 			execute: () => {
@@ -26,7 +26,10 @@ export default function EditFormPlugin($scope, popupService) {
 			}
 		})
 	};
-	popupService.commands(id, this.commands);
+	popupService.commands(id, commands);
+
+	this.submit = commands.submit;
+	this.cancel = commands.cancel;
 
 	$scope.$on('$destroy', () => {
 		close();

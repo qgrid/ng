@@ -94,6 +94,8 @@ export default class Popup {
 	}
 
 	commands(commands) {
+		this.shortcutOff();
+
 		const commandManager = new PopupCommandManager(f => f(), this);
 		const shortcut = new Shortcut(commandManager);
 		this.shortcutOff = shortcut.register(this.settings.id, new Map(

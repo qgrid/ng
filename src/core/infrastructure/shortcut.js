@@ -6,6 +6,7 @@ export class Shortcut {
 		this.commands = [];
 		this.shortcuts = new Map();
 		this.codeMap = new Map()
+			.set(8, 'backspace')
 			.set(9, 'tab')
 			.set(13, 'enter')
 			.set(27, 'escape')
