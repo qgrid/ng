@@ -19,6 +19,4 @@ export declare class Cell {
 	set label(label: object);
 
 	mode(value: string): void;
-
-	static equals(x: any, y: any): boolean;
 }
