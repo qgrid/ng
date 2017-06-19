@@ -59,11 +59,7 @@ export class Xml {
 		const result = {};
 		const parser = new DOMParser();
 		const root = parser.parseFromString(data, 'text/xml').documentElement;
-		console.time('parse xml');
-
 		parse(root, result);
-
-		console.timeEnd('parse xml');
 
 		return result[tagName];
 	}

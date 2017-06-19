@@ -27,8 +27,9 @@ function alphabeticalTitle(index) {
 	if (index < alphabet.length) {
 		result = alphabet[index];
 	} else {
-		const alphIndex = index % alphabet.length;
-		result = `${alphabet[alphIndex]}${alphabet[alphIndex]}`;
+		const indexFirst = Math.floor(index / alphabet.length - 1);
+		const indexSecond = index % alphabet.length;
+		result = `${alphabet[indexFirst]}${alphabet[indexSecond]}`;
 	}
 	return result;
 }
@@ -37,8 +38,8 @@ function readFile(e, file, model, options = {}) {
 	const data = e.target.result;
 	const type = file.type === '' ? getType(file.name) : file.type;
 	switch (type) {
-		case 'xlsx':
-		case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': {
+		case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+		case 'xlsx': {
 			const xlsx = new Xlsx();
 			const rows = xlsx.read(data, options);
 			const createColumn = columnFactory(model);
@@ -49,6 +50,7 @@ function readFile(e, file, model, options = {}) {
 			});
 			break;
 		}
+		case 'application/json':
 		case 'text/json':
 		case 'json': {
 			const json = new Json();
@@ -64,8 +66,9 @@ function readFile(e, file, model, options = {}) {
 			}
 			break;
 		}
-		case 'xml':
-		case 'text/xml': {
+		case 'application/xml':
+		case 'text/xml':
+		case 'xml': {
 			const xml = new Xml();
 			const rows = xml.read(data, 'row');
 			const createColumn = columnFactory(model);
