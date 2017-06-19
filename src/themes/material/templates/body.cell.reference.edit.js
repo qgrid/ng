@@ -6,7 +6,7 @@ ReferenceEdit.$inject = ['$scope', 'qgrid', 'qGridPopupService'];
 export default function ReferenceEdit($scope, qgrid, popupService) {
 	this.cell = () => $scope.$editor || $scope.$view.edit.cell;
 
-	const id = 'q-grid-reference-popup';
+	const id = 'q-grid-reference-edit';
 	const close = () => {
 		if ($scope.$popup && popupService.isOpened(id)) {
 			$scope.$popup.close();

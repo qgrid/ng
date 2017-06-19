@@ -1,5 +1,5 @@
 import TemplateLink from '@grid/view/components/template/template.link';
-import PopupManager from './popup.manager';
+import PopupEntry from './popup.entry';
 import {AppError} from '@grid/core/infrastructure';
 
 export default class PopupService {
@@ -43,7 +43,7 @@ export default class PopupService {
 		popupScope.id = settings.id;
 
 		const popup = angular.element('<q-grid:popup-panel id="id" model="model"></q-grid:popup-panel>'); // eslint-disable-line no-undef
-		this.popups[settings.id] = new PopupManager(popup, settings, this.$document[0].body);
+		this.popups[settings.id] = new PopupEntry(popup, settings, this.$document[0].body);
 
 		this.$document[0].body.appendChild(popup[0]);
 		this.$compile(popup)(popupScope);

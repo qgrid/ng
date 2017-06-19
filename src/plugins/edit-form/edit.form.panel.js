@@ -1,7 +1,7 @@
 import PluginComponent from '../plugin.component';
 import {Command} from '@grid/core/infrastructure';
 import {RowEditor} from '@grid/core/edit/edit.row.editor';
-import {noop} from '@grid/core/utility';
+import {noop, isUndefined} from '@grid/core/utility';
 
 const Plugin = PluginComponent('edit-form-panel', {inject: []});
 class EditFormPanel extends Plugin {
@@ -20,9 +20,11 @@ class EditFormPanel extends Plugin {
 	onInit() {
 		this.editor = new RowEditor(this.row, this.model.data().columns);
 
-		this.shortcutOff = this.shortcut.register('editFormManagement', new Map(
-			Object.entries(this.commands)
-		));
+		if (!isUndefined(this.shortcut)) {
+			this.shortcutOff = this.shortcut.register('editFormManagement', new Map(
+				Object.entries(this.commands)
+			));
+		}
 	}
 
 	get commands() {
