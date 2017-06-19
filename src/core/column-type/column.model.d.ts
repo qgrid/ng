@@ -1,4 +1,19 @@
-import {IEditorOptions} from "./email.column";
+import {Model} from "../infrastructure/model";
+
+export declare interface ILabel{
+	(): any;
+}
+
+export declare  interface IValue{
+	(): any;
+}
+
+export declare interface IEditorOptions {
+	trigger?: string;
+	modelFactory?: () => Model;
+	label?: () => any;
+}
+
 export declare class ColumnModel {
 
 	constructor(type: string);
@@ -6,7 +21,7 @@ export declare class ColumnModel {
 	type: string;
 	key: string;
 	title: string;
-	value: string;
+	value: IValue;
 	path: string;
 	pin: string;
 	origin: string;
@@ -25,8 +40,8 @@ export declare class ColumnModel {
 	canHighlight: boolean;
 	canFocus: boolean;
    isVisible: boolean;
-	index: boolean;
-   label: string;
+	index: number;
+   label: ILabel;
 
 	toString(): string;
 }

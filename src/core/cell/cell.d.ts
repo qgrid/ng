@@ -1,9 +1,10 @@
+import {ColumnModel} from "../column-type/column.model";
+
 export declare interface ICell{
-	entry: ICell;
 	rowIndex: number;
 	columnIndex: number;
-	column: object;
-	row: object;
+	column: ColumnModel;
+	row: any;
 }
 
 export declare class Cell {
@@ -14,9 +15,9 @@ export declare class Cell {
 
 	set value(value: any);
 
-	get label(): object;
+	get label(): any;
 
-	set label(label: object);
+	set label(label: any);
 
-	mode(value: any): void;
+	mode(value: string): void;
 }
