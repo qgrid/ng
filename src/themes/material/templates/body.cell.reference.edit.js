@@ -58,14 +58,16 @@ export default function ReferenceEdit($scope, qgrid, popupService) {
 		})
 	};
 
-	if (!$scope.$editor) {
-		popupService.commands(id, commands);
-	}
-
 	this.commit = commands.commit;
+
 	this.cancel = commands.cancel;
 
+	const shortcutOff = $scope.$popupBody.shortcut.register('referenceEditManagement', new Map(
+		Object.entries(commands)
+	));
+
 	$scope.$on('$destroy', () => {
+		shortcutOff();
 		close();
 	});
 }
