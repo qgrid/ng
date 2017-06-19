@@ -2,14 +2,12 @@ require('./index.scss');
 import ReferenceEdit from './templates/body.cell.reference.edit';
 import DateEdit from './templates/body.cell.date.edit';
 import RowOptions from './templates/body.cell.row.options.edit';
-import EditFormPlugin from './templates/plugin.edit.form';
 
 export default angular
 	.module('qgrid.theme.material', ['qgrid'])
 	.controller('Body.Cell.Reference.Edit.Controller', ReferenceEdit)
 	.controller('Body.Cell.Date.Edit.Controller', DateEdit)
 	.controller('Body.Cell.Row.Options.Controller', RowOptions)
-	.controller('Plugin.Edit.Form.Controller', EditFormPlugin)
 	.config(Setup)
 	.name;
 

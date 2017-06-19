@@ -1,6 +1,5 @@
-import {Event, Shortcut, EventListener, EventManager} from '@grid/core/infrastructure';
+import {Event, EventListener, EventManager} from '@grid/core/infrastructure';
 import {isFunction, noop} from '@grid/core/utility';
-import {PopupCommandManager} from './popup.command.manager';
 
 export default class Popup {
 	constructor(element, settings, body) {
@@ -18,14 +17,11 @@ export default class Popup {
 		this.settings = settings;
 
 		this.onClose = isFunction(settings.close) ? settings.close : noop;
-
-		this.shortcutOff = noop;
 	}
 
 	close() {
 		this.onClose();
 		this.element.remove();
-		this.shortcutOff();
 	}
 
 	expand() {
@@ -91,15 +87,5 @@ export default class Popup {
 			height: Math.min(settings.height, this.body.clientHeight - this.element.offsetTop) + 'px'
 		});
 		this.event.emit('resize');
-	}
-
-	commands(commands) {
-		this.shortcutOff();
-
-		const commandManager = new PopupCommandManager(f => f(), this);
-		const shortcut = new Shortcut(commandManager);
-		this.shortcutOff = shortcut.register(this.settings.id, new Map(
-			Object.entries(commands)
-		));
 	}
 }

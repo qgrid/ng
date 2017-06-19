@@ -1,7 +1,6 @@
 import TemplateLink from '@grid/view/components/template/template.link';
 import PopupManager from './popup.manager';
 import {AppError} from '@grid/core/infrastructure';
-import {noop} from '@grid/core/utility';
 
 export default class PopupService {
 	constructor() {
@@ -9,7 +8,6 @@ export default class PopupService {
 
 		this.template = new TemplateLink(this.$compile, this.$templateCache);
 		this.popups = {};
-		this.shortcutOff = noop;
 	}
 
 	close(id) {
@@ -159,9 +157,8 @@ export default class PopupService {
 		};
 	}
 
-	commands(id, commands) {
-		const item = this.popups[id];
-		item.commands(commands);
+	get(id) {
+		return this.popups[id];
 	}
 }
 
