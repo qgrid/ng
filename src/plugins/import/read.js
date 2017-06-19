@@ -21,17 +21,15 @@ function numericTitle(index) {
 	return index;
 }
 function alphabeticalTitle(index) {
-	let result;
 	const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 	if (index < alphabet.length) {
-		result = alphabet[index];
+		return alphabet[index];
 	} else {
 		const indexFirst = Math.floor(index / alphabet.length - 1);
 		const indexSecond = index % alphabet.length;
-		result = `${alphabet[indexFirst]}${alphabet[indexSecond]}`;
+		return `${alphabet[indexFirst]}${alphabet[indexSecond]}`;
 	}
-	return result;
 }
 
 function readFile(e, file, model, options = {}) {
