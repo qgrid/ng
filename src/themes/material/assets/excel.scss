@@ -40,6 +40,10 @@ $excel-greenscale-dark: #227447;
 .q-grid-table tbody {
   border-collapse: collapse;
   border-spacing: 0;
+  tr:first-child td.q-grid-focus:first-child {
+    border-left-width: 1px;
+    border-top-width: 1px;
+  }
   tr td {
     color: black;
     border: 1px solid $excel-greyscale-medium;
@@ -78,6 +82,9 @@ $excel-greenscale-dark: #227447;
     &.q-grid-focus {
       background-color: white !important;
       border: 2px solid $excel-greenscale-dark;
+    }
+    &.q-grid-focus.q-grid-edit input {
+      border: none;
     }
     &.q-grid-selected {
       background-color: white !important;

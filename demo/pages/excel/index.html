@@ -5,9 +5,29 @@
         id="excel-example">
 	<q-grid:export>
 		<q-grid:template for="xlsx">
-			<md-button ng-disabled="!$export.xlsx.canExecute()" ng-click="$export.xlsx.execute()">
-				<md-icon>file_download</md-icon>save
-			</md-button>
+			<button class="md-button" ng-click="$export.xlsx.execute()">
+				xlsx
+			</button>
+		</q-grid:template>
+		<q-grid:template for="csv">
+			<button class="md-button" ng-click="$export.csv.execute()">
+				csv
+			</button>
+		</q-grid:template>
+		<q-grid:template for="json">
+			<button class="md-button" ng-click="$export.json.execute()">
+				json
+			</button>
+		</q-grid:template>
+		<q-grid:template for="xml">
+			<button class="md-button" ng-click="$export.xml.execute()">
+				xml
+			</button>
+		</q-grid:template>
+		<q-grid:template for="pdf">
+			<button class="md-button" ng-click="$export.pdf.execute()">
+				pdf
+			</button>
 		</q-grid:template>
 	</q-grid:export>
 	<q-grid:import>
@@ -32,7 +52,28 @@
 		<q-grid:template for="top">
 			<div layout="row" layout-align="end center">
 				<q-grid:import></q-grid:import>
-				<q-grid:export type="xlsx"></q-grid:export>
+				<md-menu>
+					<md-button ng-click="$mdMenu.open($event)">
+						<md-icon>file_download</md-icon>Save as ...
+					</md-button>
+					<md-menu-content class="excel-export-menu" width="4">
+						<md-menu-item>
+							<q-grid:export type="xlsx"></q-grid:export>
+						</md-menu-item>
+						<md-menu-item>
+							<q-grid:export type="csv"></q-grid:export>
+						</md-menu-item>
+						<md-menu-item>
+							<q-grid:export type="json"></q-grid:export>
+						</md-menu-item>
+						<md-menu-item>
+							<q-grid:export type="xml"></q-grid:export>
+						</md-menu-item>
+						<md-menu-item>
+							<q-grid:export type="pdf"></q-grid:export>
+						</md-menu-item>
+					</md-menu-content>
+				</md-menu>
 			</div>
 		</q-grid:template>
 	</q-grid:toolbar>
