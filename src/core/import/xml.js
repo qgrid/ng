@@ -11,7 +11,6 @@ function isTextContainer(xml) {
 }
 
 function generateArray(child) {
-	console.log(child.ownerDocument.documentElement.getElementsByTagName('city'));
 	const parent = child.parentNode;
 	const childrenCollection = parent.getElementsByTagName(child.tagName);
 	const siblings = Array.from(childrenCollection);
