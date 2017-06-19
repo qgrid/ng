@@ -33,7 +33,8 @@
 	<q-grid:import>
 		<q-grid:template>
 			<md-button ng-disabled="!$import.upload.canExecute()" ng-click="$import.upload.execute()">
-				<md-icon>file_upload</md-icon>open
+				<md-icon>file_upload</md-icon>
+				open
 			</md-button>
 		</q-grid:template>
 	</q-grid:import>
@@ -51,12 +52,13 @@
 	<q-grid:toolbar>
 		<q-grid:template for="top">
 			<div layout="row" layout-align="end center">
-				<q-grid:import></q-grid:import>
+				<q-grid:import import-options="{header:'A'}"></q-grid:import>
 				<md-menu>
 					<md-button ng-click="$mdMenu.open($event)">
-						<md-icon>file_download</md-icon>Save as ...
+						<md-icon>file_download</md-icon>
+						Save as ...
 					</md-button>
-					<md-menu-content class="excel-export-menu" width="4">
+					<md-menu-content width="4">
 						<md-menu-item>
 							<q-grid:export type="xlsx"></q-grid:export>
 						</md-menu-item>

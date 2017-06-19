@@ -14,7 +14,26 @@ function getType(name) {
 	}
 }
 
-function readFile(e, file, model, options) {
+function firstRowTitle(index, row) {
+	return row[index];
+}
+function numericTitle(index) {
+	return index;
+}
+function alphabeticalTitle(index) {
+	let result;
+	const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+	if (index < alphabet.length) {
+		result = alphabet[index];
+	} else {
+		const alphIndex = index % alphabet.length;
+		result = `${alphabet[alphIndex]}${alphabet[alphIndex]}`;
+	}
+	return result;
+}
+
+function readFile(e, file, model, options = {}) {
 	const data = e.target.result;
 	const type = file.type === '' ? getType(file.name) : file.type;
 	switch (type) {
@@ -23,7 +42,7 @@ function readFile(e, file, model, options) {
 			const xlsx = new Xlsx();
 			const rows = xlsx.read(data, options);
 			const createColumn = columnFactory(model);
-			const columns = generate(rows, (type, body) => createColumn('text', body), false);
+			const columns = generate({rows: rows, columnFactory: (type, body) => createColumn('text', body), deep: false});
 			model.data({
 				columns: columns,
 				rows: rows
@@ -35,7 +54,7 @@ function readFile(e, file, model, options) {
 			const json = new Json();
 			const rows = json.read(data);
 			if (rows.length) {
-				const columns = generate(rows, columnFactory(model), true);
+				const columns = generate({rows: rows, columnFactory: columnFactory(model), deep: true});
 				model.data({
 					columns: columns,
 					rows: rows
@@ -49,7 +68,8 @@ function readFile(e, file, model, options) {
 		case 'text/xml': {
 			const xml = new Xml();
 			const rows = xml.read(data, 'row');
-			const columns = generate(rows, columnFactory(model), true);
+			const createColumn = columnFactory(model);
+			const columns = generate({rows: rows, columnFactory: (type, body) => createColumn('text', body), deep: true});
 			model.data({
 				columns: columns,
 				rows: rows
@@ -61,7 +81,14 @@ function readFile(e, file, model, options) {
 		case 'csv': {
 			const csv = new Csv();
 			const rows = csv.read(data);
-			const columns = generate(rows, columnFactory(model), false);
+			let title = firstRowTitle;
+			if (options.header === 1) {
+				title = numericTitle;
+			} else if (options.header === 'A') {
+				title = alphabeticalTitle;
+			}
+			const columns = generate({rows: rows, columnFactory: columnFactory(model), deep: false, title: title});
+			rows.shift(0);
 			model.data({
 				columns: columns,
 				rows: rows
