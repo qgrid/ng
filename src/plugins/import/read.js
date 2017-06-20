@@ -1,6 +1,7 @@
 import {AppError} from '@grid/core/infrastructure';
 import {columnFactory} from '@grid/core/column/column.factory';
 import {generate} from '@grid/core/column-list';
+import {firstRowTitle, numericTitle, alphabeticalTitle} from '@grid/core/services/title';
 import {Json} from '@grid/core/import/json';
 import {Xml} from '@grid/core/import/xml';
 import {Csv} from '@grid/core/import/csv';
@@ -11,24 +12,6 @@ function getType(name) {
 	if (dotDelimeter) {
 		let type = name.split('.');
 		return type[type.length - 1];
-	}
-}
-
-function firstRowTitle(index, row) {
-	return row[index];
-}
-function numericTitle(index) {
-	return index;
-}
-function alphabeticalTitle(index) {
-	const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-	if (index < alphabet.length) {
-		return alphabet[index];
-	} else {
-		const indexFirst = Math.floor(index / alphabet.length - 1);
-		const indexSecond = index % alphabet.length;
-		return `${alphabet[indexFirst]}${alphabet[indexSecond]}`;
 	}
 }
 
@@ -54,7 +37,8 @@ function readFile(e, file, model, options = {}) {
 			const json = new Json();
 			const rows = json.read(data);
 			if (rows.length) {
-				const columns = generate({rows: rows, columnFactory: columnFactory(model), deep: true});
+				const createColumn = columnFactory(model);
+				const columns = generate({rows: rows, columnFactory: (type, body) => createColumn('text', body), deep: true});
 				model.data({
 					columns: columns,
 					rows: rows
@@ -89,7 +73,9 @@ function readFile(e, file, model, options = {}) {
 				title = alphabeticalTitle;
 			}
 			const columns = generate({rows: rows, columnFactory: columnFactory(model), deep: false, title: title});
-			rows.shift(0);
+			if (title === firstRowTitle) {
+				rows.shift(0);
+			}
 			model.data({
 				columns: columns,
 				rows: rows
