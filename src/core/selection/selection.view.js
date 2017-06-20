@@ -198,7 +198,7 @@ export class SelectionView extends View {
 			selectAll: new Command({
 				canExecute: () => model.selection().mode === 'multiple',
 				execute: () => {
-					const commit = this.select(this.model.data.rows(), true);
+					const commit = this.select(this.model.data().rows, true);
 					commit();
 				},
 				shortcut: 'ctrl+a'
