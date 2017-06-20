@@ -29,6 +29,8 @@ class SortBar extends Plugin {
 
 					sort({
 						by: key.map(item => ({[item]: 'asc'}))
+					}, {
+						source: 'sort.bar'
 					});
 				},
 				canExecute: () => this.columns.length > 0
@@ -46,6 +48,8 @@ class SortBar extends Plugin {
 
 					sort({
 						by: temp
+					}, {
+						source: 'sort.bar'
 					});
 
 					this.newSort = null;
@@ -68,6 +72,8 @@ class SortBar extends Plugin {
 
 				sort({
 					by: temp
+				}, {
+					source: 'sort.bar'
 				});
 			}
 		});
