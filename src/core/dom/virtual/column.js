@@ -5,6 +5,9 @@ export class VirtualColumn extends Column {
 		super(box, index);
 
 		this.box = box;
+
+		const mapper = box.context.mapper;
+		this.dataIndex = mapper.viewToColumn(index);
 	}
 
 	addClass(name, force = false) {
