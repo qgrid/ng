@@ -1,5 +1,5 @@
 import {View} from '../view';
-import {Command, Shortcut} from '../infrastructure';
+import {Command, Shortcut, AppError} from '../infrastructure';
 import {selectionStateFactory as stateFactory} from './state';
 import {SelectionRange} from './selection.range';
 import {SelectionService} from './selection.service';
@@ -198,7 +198,30 @@ export class SelectionView extends View {
 			selectAll: new Command({
 				canExecute: () => model.selection().mode === 'multiple',
 				execute: () => {
-					const commit = this.select(this.model.data.rows(), true);
+					let entries = [];
+					switch (model.selection().unit){
+						case 'row':{
+							entries = model.data().rows;
+							break;
+						}
+						case 'column':{
+							entries = model.data().columns;
+							break;
+						}
+						case 'cell':
+						case 'mix': {
+							const buildRange = this.selectionRange.build();
+							const body = this.table.body;
+							const startCell = body.cell(0, 0);
+							const endCell = body.cell(body.rowCount() - 1, body.columnCount() - 1);
+							entries = buildRange(startCell, endCell);
+							break;
+						}
+						default:
+							throw new AppError('selection.view', `Invalid unit ${model.selection().unit}`);
+					}
+
+					const commit = this.select(entries, true);
 					commit();
 				},
 				shortcut: 'ctrl+a'
