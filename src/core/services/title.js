@@ -4,7 +4,7 @@ function firstRowTitle(index, row) {
 function numericTitle(index) {
 	return index;
 }
-function alphabeticalTitle(index) {
+function alphaTitle(index) {
 	const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 	if (index < alphabet.length) {
@@ -19,5 +19,5 @@ function alphabeticalTitle(index) {
 export {
 	firstRowTitle,
 	numericTitle,
-	alphabeticalTitle
+	alphaTitle
 };

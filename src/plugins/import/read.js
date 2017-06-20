@@ -1,7 +1,7 @@
 import {AppError} from '@grid/core/infrastructure';
 import {columnFactory} from '@grid/core/column/column.factory';
 import {generate} from '@grid/core/column-list';
-import {firstRowTitle, numericTitle, alphabeticalTitle} from '@grid/core/services/title';
+import {firstRowTitle, numericTitle, alphaTitle} from '@grid/core/services/title';
 import {Json} from '@grid/core/import/json';
 import {Xml} from '@grid/core/import/xml';
 import {Csv} from '@grid/core/import/csv';
@@ -38,7 +38,11 @@ function readFile(e, file, model, options = {}) {
 			const rows = json.read(data);
 			if (rows.length) {
 				const createColumn = columnFactory(model);
-				const columns = generate({rows: rows, columnFactory: (type, body) => createColumn('text', body), deep: true});
+				const columns = generate({
+					rows: rows,
+					columnFactory: (type, body) => createColumn('text', body),
+					deep: true
+				});
 				model.data({
 					columns: columns,
 					rows: rows
@@ -70,7 +74,7 @@ function readFile(e, file, model, options = {}) {
 			if (options.header === 1) {
 				title = numericTitle;
 			} else if (options.header === 'A') {
-				title = alphabeticalTitle;
+				title = alphaTitle;
 			}
 			const columns = generate({rows: rows, columnFactory: columnFactory(model), deep: false, title: title});
 			if (title === firstRowTitle) {
