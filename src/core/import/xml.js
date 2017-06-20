@@ -1,13 +1,17 @@
+const types = {
+	ELEMENT_NODE: 1
+};
+
 function isPartOfArray(child) {
 	const parent = child.parentNode;
 	const children = parent.getElementsByTagName(child.tagName);
 	return children.length > 1;
 }
 function isElement(xml) {
-	return xml.nodeType === 1;
+	return xml.nodeType === types.ELEMENT_NODE;
 }
 function isTextContainer(xml) {
-	return xml.nodeType === 1 && !xml.children.length && xml.childNodes.length;
+	return xml.nodeType === types.ELEMENT_NODE && !xml.children.length && xml.childNodes.length;
 }
 
 function generateArray(child) {

@@ -22,7 +22,7 @@ class Export extends Plugin {
 	constructor() {
 		super(...arguments);
 		this.csv = new Command({
-			canExecute: () => this.type === 'csv' && this.rows.length,
+			canExecute: () => this.type === 'csv',
 			execute: () => {
 				const csv = new Csv();
 				const data = csv.write(this.rows, this.columns);
@@ -30,7 +30,7 @@ class Export extends Plugin {
 			}
 		});
 		this.json = new Command({
-			canExecute: () => this.type === 'json' && this.rows.length,
+			canExecute: () => this.type === 'json',
 			execute: () => {
 				const json = new Json();
 				const data = json.write(this.rows, this.columns);
@@ -38,7 +38,7 @@ class Export extends Plugin {
 			}
 		});
 		this.xml = new Command({
-			canExecute: () => this.type === 'xml' && this.rows.length,
+			canExecute: () => this.type === 'xml',
 			execute: () => {
 				const xml = new Xml();
 				const data = xml.write(this.rows);
@@ -46,7 +46,7 @@ class Export extends Plugin {
 			}
 		});
 		this.xlsx = new Command({
-			canExecute: () => this.type === 'xlsx' && this.rows.length,
+			canExecute: () => this.type === 'xlsx',
 			execute: () => {
 				const xlsx = new Xlsx();
 				const data = xlsx.write(this.rows, this.columns);
@@ -54,7 +54,7 @@ class Export extends Plugin {
 			}
 		});
 		this.pdf = new Command({
-			canExecute: () => this.type === 'pdf' && this.rows.length,
+			canExecute: () => this.type === 'pdf',
 			execute: () => {
 				const pdf = new Pdf();
 				pdf.write(this.rows, this.columns, this.id);

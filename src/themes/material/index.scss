@@ -1,5 +1,3 @@
-@import "assets/menu";
-
 .q-grid.q-grid-theme-material {
 	@import "assets/grid";
 	@import "assets/head";
@@ -24,6 +22,7 @@
 	@import "assets/column.filter";
 	@import "assets/edit.form";
 	@import "assets/export";
+	@import "assets/menu";
 }
 .q-grid-excel .q-grid.q-grid-theme-material{
 	@import "assets/excel";
