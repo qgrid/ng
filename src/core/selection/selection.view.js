@@ -127,8 +127,6 @@ export class SelectionView extends View {
 
 					const commit = this.toggle(row);
 					commit();
-
-					this.navigateTo(rowIndex + 1, navState.columnIndex);
 				},
 				shortcut: 'shift+space'
 			}),
@@ -136,12 +134,12 @@ export class SelectionView extends View {
 				canExecute: () => model.selection().unit === 'row' && model.navigation().rowIndex > 0,
 				execute: () => {
 					const navState = model.navigation();
-					const rowIndex = navState.rowIndex - 1;
+					const rowIndex = navState.rowIndex;
 					const row = this.rows[rowIndex];
 					const commit = this.toggle(row);
 					commit();
 
-					this.navigateTo(rowIndex, navState.columnIndex);
+					this.navigateTo(rowIndex - 1, navState.columnIndex);
 				},
 				shortcut: 'shift+up'
 			}),
@@ -149,12 +147,12 @@ export class SelectionView extends View {
 				canExecute: () => model.selection().unit === 'row' && model.navigation().rowIndex < this.rows.length - 1,
 				execute: () => {
 					const navState = model.navigation();
-					const rowIndex = navState.rowIndex + 1;
+					const rowIndex = navState.rowIndex;
 					const row = this.rows[rowIndex];
 					const commit = this.toggle(row);
 					commit();
 
-					this.navigateTo(rowIndex, navState.columnIndex);
+					this.navigateTo(rowIndex + 1, navState.columnIndex);
 				},
 				shortcut: 'shift+down'
 			}),
@@ -162,23 +160,22 @@ export class SelectionView extends View {
 				canExecute: () => model.selection().unit === 'column' && model.navigation().columnIndex >= 0,
 				execute: () => {
 					const columnIndex = model.navigation().columnIndex;
-					const entries = Array.from(model.selection().entries);
-					const column = this.columns[columnIndex].key;
-					const commit = this.toggle([...entries, column]);
+					const column = this.columns[columnIndex];
+					const commit = this.toggle(column);
 					commit();
 				},
 				shortcut: 'ctrl+space'
 			}),
 			toggleNextColumn: new Command({
-				canExecute: () => model.selection().unit === 'column' && model.navigation().columnIndex < this.columns().length - 1,
+				canExecute: () => model.selection().unit === 'column' && model.navigation().columnIndex < this.columns.length - 1,
 				execute: () => {
 					const navState = model.navigation();
-					const columnIndex = navState.columnIndex + 1;
-					const column = this.columns[columnIndex].key;
+					const columnIndex = navState.columnIndex;
+					const column = this.columns[columnIndex];
 					const commit = this.toggle(column);
 					commit();
 
-					this.navigateTo(navState.rowIndex, columnIndex);
+					this.navigateTo(navState.rowIndex, columnIndex + 1);
 				},
 				shortcut: 'shift+right'
 			}),
@@ -186,12 +183,12 @@ export class SelectionView extends View {
 				canExecute: () => model.selection().unit === 'column' && model.navigation().columnIndex > 0,
 				execute: () => {
 					const navState = model.navigation();
-					const columnIndex = navState.columnIndex - 1;
-					const column = this.columns[columnIndex].key;
+					const columnIndex = navState.columnIndex;
+					const column = this.columns[columnIndex];
 					const commit = this.toggle(column);
 					commit();
 
-					this.navigateTo(navState.rowIndex, columnIndex);
+					this.navigateTo(navState.rowIndex, columnIndex - 1);
 				},
 				shortcut: 'shift+left'
 			}),
