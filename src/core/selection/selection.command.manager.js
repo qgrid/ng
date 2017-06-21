@@ -1,19 +1,14 @@
-import {CommandManager} from '@grid/core/infrastructure';
+import {CompositeCommandManager} from '@grid/core/infrastructure';
 
-export class SelectionCommandManager extends CommandManager {
+export class SelectionCommandManager extends CompositeCommandManager {
 	constructor(model, manager) {
-		super();
+		super(manager);
 
 		this.model = model;
-		this.manager = manager;
-	}
-
-	keyDown(f) {
-		this.manager.keyDown(f);
 	}
 
 	canExecute() {
 		return this.model.edit().state !== 'edit'
-			&& this.manager.canExecute();
+			&& super.canExecute();
 	}
 }
