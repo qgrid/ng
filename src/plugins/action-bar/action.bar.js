@@ -22,7 +22,7 @@ class ActionBar extends Plugin {
 	onInit() {
 		const root = this._root;
 		if (root) {
-			const shortcut = new Shortcut(root.table, root.commandManager);
+			const shortcut = new Shortcut(root.commandManager);
 			this.model.actionChanged.watch(e => {
 				if (e.hasChanges('items')) {
 					if (this.shortcutOff) {

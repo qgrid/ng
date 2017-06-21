@@ -12,3 +12,4 @@ export * from './model';
 export * from './shortcut';
 export * from './command.manager';
 export * from './event.manager';
+export * from './table.command.manager';

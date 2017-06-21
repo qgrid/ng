@@ -1,7 +1,7 @@
 import RootComponent from '../root.component';
 import {Table} from '@grid/core/dom';
 import {LayerFactory} from '@grid/view/services';
-import {CommandManager, AppError} from '@grid/core/infrastructure'
+import {TableCommandManager, AppError} from '@grid/core/infrastructure';
 import {isUndefined} from '@grid/core/utility';
 import TemplateLink from '../template/template.link';
 
@@ -16,7 +16,6 @@ export class Grid extends RootComponent {
 		this.$timeout = $timeout;
 
 		this.template = new TemplateLink($compile, $templateCache);
-		this.commandManager = new CommandManager(this.applyFactory());
 		this.markup = {
 			document: $document[0]
 		};
@@ -34,6 +33,7 @@ export class Grid extends RootComponent {
 		};
 
 		this.table = new Table(model, this.markup, tableContext);
+		this.commandManager = new TableCommandManager(this.applyFactory(), this.table);
 
 		this.compile();
 		this.model.viewChanged.watch(e => {
