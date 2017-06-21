@@ -69,6 +69,10 @@ export class VirtualBox extends Box {
 		}
 	}
 
+	rowCount() {
+		return this.model.data().rows.length;
+	}
+
 	createRowCore(index, element) {
 		return new VirtualRow(this, index, element);
 	}

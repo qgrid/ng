@@ -1,6 +1,6 @@
 export class ScrollModel {
 	constructor() {
-		this.mode = 'default';
+		this.mode = 'virtual';
 
 		this.top = 0;
 		this.left = 0;

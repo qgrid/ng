@@ -10,10 +10,10 @@ export class Navigation {
 		const body = this.table.body;
 		let index = 0;
 		let offset = 0;
-		const count = body.rowCount();
+		const lastRow = this.lastRow;
 
 		// TODO: improve performance
-		while (index < count && offset <= y) {
+		while (index <= lastRow && offset <= y) {
 			offset += body.row(index).height();
 			index++;
 		}
@@ -22,8 +22,9 @@ export class Navigation {
 			offset -= body.row(index).height();
 			index--;
 		}
+
 		return {
-			row: Math.max(this.firstRow, Math.min(this.lastRow, index)),
+			row: Math.max(this.firstRow, Math.min(lastRow, index)),
 			offset: offset
 		};
 	}
