@@ -11,5 +11,6 @@ export * from './model.bind';
 export * from './model';
 export * from './shortcut';
 export * from './command.manager';
+export * from './composite.command.manager';
 export * from './event.manager';
 export * from './table.command.manager';
