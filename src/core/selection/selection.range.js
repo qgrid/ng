@@ -68,12 +68,12 @@ export class SelectionRange {
 		const startColumnIndex = Math.min(startCell.columnIndex, endCell.columnIndex);
 		const endColumnIndex = Math.max(startCell.columnIndex, endCell.columnIndex);
 
-		const rowsSelected = rows.slice(startRowIndex, endRowIndex + 1);
-		const columnsSelected = columns.slice(startColumnIndex, endColumnIndex + 1);
+		const selectedRows = rows.slice(startRowIndex, endRowIndex + 1);
+		const selectedColumns = columns.slice(startColumnIndex, endColumnIndex + 1);
 
 		const items = [];
-		rowsSelected.forEach(row => {
-			columnsSelected
+		selectedRows.forEach(row => {
+			selectedColumns
 				.filter(column => column.model.type !== 'row-indicator' && column.model.type !== 'row-options')
 				.forEach(column => {
 					items.push({

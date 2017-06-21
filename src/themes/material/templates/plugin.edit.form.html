@@ -8,11 +8,12 @@
 	<q-grid:template for="body" let="$editForm">
 		<q-grid:edit-form-panel key="$editForm.key"
 										row="$editForm.row"
+										shortcut="$popupBody.shortcut"
 										on:submit="$popupBody.close()"
 										on:cancel="$popupBody.close()">
 		</q-grid:edit-form-panel>
 	</q-grid:template>
 	<q-grid:template for="head" let="$editForm">
-		<h2 class="md-title" style="margin-bottom: 0;">{{$editForm.title}}</h2>
+		<h2 class="md-title">{{$editForm.title}}</h2>
 	</q-grid:template>
 </q-grid:popup>

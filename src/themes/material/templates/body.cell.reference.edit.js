@@ -1,15 +1,15 @@
-import {isArray} from '@grid/core/utility';
+import {isArray, noop} from '@grid/core/utility';
+import {Command} from '@grid/core/infrastructure';
 import {SelectionService} from '@grid/core/selection';
 
-ReferenceEdit.$inject = ['$scope', 'qgrid'];
-export default function ReferenceEdit($scope, qgrid) {
+ReferenceEdit.$inject = ['$scope', 'qgrid', 'qGridPopupService'];
+export default function ReferenceEdit($scope, qgrid, popupService) {
 	this.cell = () => $scope.$editor || $scope.$view.edit.cell;
 
-	let closed = false;
+	const id = 'q-grid-reference-edit';
 	const close = () => {
-		if ($scope.$popup && !closed) {
+		if ($scope.$popup && popupService.isOpened(id)) {
 			$scope.$popup.close();
-			closed = true;
 		}
 	};
 
@@ -19,6 +19,21 @@ export default function ReferenceEdit($scope, qgrid) {
 		&& options.modelFactory($scope.$view ? $scope.$view.model.navigation() : {}))
 		|| qgrid.model();
 
+	const watchSelection = e => {
+		if (e.hasChanges('items')) {
+			const model = this.gridModel;
+			const selectionItems = model.selection().items;
+			const entries = new SelectionService(model).lookup(selectionItems);
+
+			const cell = this.cell();
+			cell.value = selectionItems;
+			cell.tag = {
+				entries: entries,
+				columns: model.data().columns
+			};
+		}
+	};
+
 	const dataChangedOff = this.gridModel.dataChanged.watch(e => {
 		if (e.hasChanges('rows') && e.state.rows.length > 0) {
 			const cell = this.cell();
@@ -26,32 +41,41 @@ export default function ReferenceEdit($scope, qgrid) {
 				items: isArray(cell.value) ? cell.value : [cell.value]
 			});
 
+			this.gridModel.selectionChanged.watch(watchSelection);
+
 			dataChangedOff();
 		}
 	});
 
-	this.commit = ($cell, $event) => {
-		const model = this.gridModel;
-		const selectionItems = model.selection().items;
-		const entries = new SelectionService(model).lookup(selectionItems);
-
-		const cell = this.cell();
-		cell.value = model.selection().items;
-		cell.tag = {
-			entries: entries,
-			columns: model.data().columns
-		};
-		cell.commit.execute($cell, $event);
-
-		close();
+	const commands = {
+		commit: new Command({
+			shortcut: 'ctrl+s',
+			execute: ($cell, $event) => {
+				this.cell().commit.execute($cell, $event);
+				close();
+			}
+		}),
+		cancel: new Command({
+			shortcut: 'Escape',
+			execute: ($cell, $event) => {
+				this.cell().cancel.execute($cell, $event);
+				close();
+			}
+		})
 	};
 
-	this.cancel = ($cell, $event) => {
-		this.cell().cancel.execute($cell, $event);
-		close();
-	};
+	this.commit = commands.commit;
+
+	this.cancel = commands.cancel;
+
+	const shortcutOff = popupService.isOpened(id)
+		? $scope.$popupBody.shortcut.register('referenceEditManagement', new Map(
+			Object.entries(commands)
+		))
+		: noop;
 
 	$scope.$on('$destroy', () => {
+		shortcutOff();
 		close();
 	});
 }

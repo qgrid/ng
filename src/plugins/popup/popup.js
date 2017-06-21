@@ -66,6 +66,6 @@ export default Popup.component({
 	bindings: {
 		id: '@',
 		resourceModel: '@resource',
-		'onClose': `&${POPUP_CLOSE_NAME}`,
+		'onClose': `&${POPUP_CLOSE_NAME}`
 	}
 });

@@ -3,6 +3,12 @@ export class CommandManager {
 		this.apply = apply;
 	}
 
+	keyDown() { }
+
+	canExecute() {
+		return true;
+	}
+
 	execute(commands) {
 		// First we need to get list of executable commands, cause execution of prev command can
 		// impact on canExecute of next command

@@ -21,7 +21,7 @@ export class Row extends Element {
 	cell(columnIndex) {
 		return this.box.cellCore(
 			this.index,
-			this.box.context.mapper.columnIndexToView(columnIndex)
+			this.box.context.mapper.columnToView(columnIndex)
 		);
 	}
 

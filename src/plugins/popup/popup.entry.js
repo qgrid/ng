@@ -1,4 +1,4 @@
-import {Event} from '@grid/core/infrastructure';
+import {Event, EventListener, EventManager} from '@grid/core/infrastructure';
 import {isFunction, noop} from '@grid/core/utility';
 
 export default class Popup {
@@ -71,6 +71,14 @@ export default class Popup {
 		this.state.active = false;
 		this.element.removeClass('active');
 		this.element.removeAttr('tabindex');
+	}
+
+	isFocused() {
+		return this.state.active;
+	}
+	
+	keyDown(f) {
+		return new EventListener(this.element[0], new EventManager(this)).on('keydown', f);
 	}
 
 	resize(settings) {
