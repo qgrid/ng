@@ -1,9 +1,5 @@
-import CommandManager from './command.manager';
-
-export class CompositeCommandManager extends CommandManager {
+export class CompositeCommandManager {
 	constructor(manager) {
-		super();
-
 		this.manager = manager;
 	}
 
@@ -13,5 +9,9 @@ export class CompositeCommandManager extends CommandManager {
 
 	canExecute() {
 		return this.manager.canExecute();
+	}
+
+	execute(commands) {
+		return this.manager.execute(commands);
 	}
 }
