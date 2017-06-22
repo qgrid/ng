@@ -14,29 +14,30 @@ class Autofocus extends Directive(AUTOFOCUS_NAME, {root: `${GRID_NAME}`}) {
 	}
 
 	onInit() {
-		this.dataChangedOff = this.model.viewChanged.watch(e => {
-			if (e.hasChanges('rows') && e.state.rows.length > 0
-				|| e.hasChanges('nodes') && e.state.nodes.length > 0) {
-				this.$timeout(() => {
-					if (this.table.body.rowCount === 0) {
-						return;
-					}
+		const markupOff = this.$scope.$watch(
+			() => Object.keys(this.table.markup).find(p => p.startsWith('table')),
+			key => {
+				if (key) {
+					this.$timeout(() => {
+						this.root.markup[key].focus();
+					}, 100);
+					markupOff();
+				}
+			});
 
-					const table = Object.keys(this.table.markup).find(p => p.startsWith('table'));
-					if (isUndefined(table)) {
-						return;
-					}
-
-					this.table.markup[table].focus();
+		const rowsOff = this.$scope.$watch(
+			() => this.table.body.rowCount(),
+			count => {
+				if (count) {
+					const focusableIndex = this.table.data.columns().findIndex(c => c.canFocus);
 					this.model.focus({
 						rowIndex: 0,
-						columnIndex: 0
+						columnIndex: focusableIndex
 					});
-				}, 200);
 
-				this.dataChangedOff();
-			}
-		});
+					rowsOff();
+				}
+			});
 	}
 
 	get model() {
