@@ -78,11 +78,6 @@ md-toolbar {
 	}
 }
 
-.q-grid {
-	.q-grid-toolbar-top {
-		padding-left: 200px;;
-	}
-}
 
 .q-grid-highlight-part {
 	background-color: yellow;
@@ -99,6 +94,7 @@ md-toolbar {
 		max-width: 230px;
 		overflow: hidden;
 		text-overflow: ellipsis;
+		z-index: 1;
 	}
 
 	@include scroll();

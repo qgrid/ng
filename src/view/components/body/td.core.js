@@ -1,10 +1,15 @@
 import Directive from '@grid/view/directives/directive';
 import cellBuilder from '../cell/cell.build';
 import {AppError} from '@grid/core/infrastructure'
-import {VIEW_CORE_NAME, TD_CORE_NAME} from '@grid/view/definition';
+import {VIEW_CORE_NAME, TD_CORE_NAME, TABLE_CORE_NAME, GRID_NAME} from '@grid/view/definition';
 import {GRID_PREFIX} from '@grid/core/definition';
+import {escapeClass} from '@grid/core/services/css';
 
-class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
+class TdCore extends Directive(TD_CORE_NAME, {
+	view: `^^${VIEW_CORE_NAME}`,
+	table: `^^${TABLE_CORE_NAME}`,
+	root: `^^${GRID_NAME}`
+}) {
 	constructor($scope, $element) {
 		super();
 
@@ -15,14 +20,14 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 
 	onInit() {
 		const column = this.column;
-		const element = this.$element[0];
+		const element = this.element;
 
-		this.view.style.monitor.cell.add(this.element);
+		this.root.bag.set(element, this);
 
-		element.classList.add(`${GRID_PREFIX}-${column.key}`);
-		element.classList.add(`${GRID_PREFIX}-${column.type}`);
-		if (column.hasOwnProperty('editor')) {
-			element.classList.add(`${GRID_PREFIX}-${column.editor}`);
+		element.classList.add(escapeClass(`${GRID_PREFIX}-${column.key}`));
+		element.classList.add(escapeClass(`${GRID_PREFIX}-${column.type}`));
+		if (column.editor) {
+			element.classList.add(escapeClass(`${GRID_PREFIX}-${column.editor}`));
 		}
 
 		this.mode('init');
@@ -33,14 +38,14 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 		const column = this.column;
 		const templateScope = this.setup();
 		const cache = model.body().cache;
-		const element = this.$element[0];
+		const element = this.element;
 
 		switch (value) {
 			case 'view':
 			case 'init': {
 				let link = cache.find(column.key);
 				if (!link) {
-					const build = cellBuilder(this.view.template);
+					const build = cellBuilder(this.root.template);
 					link = build('body', model, column);
 					cache.set(column.key, link);
 				}
@@ -54,7 +59,7 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 			case 'edit': {
 				let link = cache.find(`${column.key}.edit`);
 				if (!link) {
-					const build = cellBuilder(this.view.template, 'edit');
+					const build = cellBuilder(this.root.template, 'edit');
 					link = build('body', model, column);
 					cache.set(`${column.key}.edit`, link);
 				}
@@ -107,7 +112,7 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 
 	get columnIndex() {
 		// use vscroll.column + vscroll.position in the future
-		return this.$scope.$index;
+		return this.table.columnStartIndex + this.$scope.$index;
 	}
 
 	get column() {
@@ -118,12 +123,16 @@ class TdCore extends Directive(TD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 		return this.$scope.$row;
 	}
 
+	get element() {
+		return this.$element[0];
+	}
+
 	onDestroy() {
 		if (this.$templateScope) {
 			this.$templateScope.$destroy();
 		}
 
-		this.view.style.monitor.cell.remove(this.$element[0]);
+		this.root.bag.delete(this.element);
 	}
 }
 

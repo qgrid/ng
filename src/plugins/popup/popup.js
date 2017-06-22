@@ -53,7 +53,9 @@ class Popup extends Plugin {
 	}
 
 	onDestroy() {
-		this.qGridPopupService.closeAll();
+		if (this.qGridPopupService.isOpened(this.id)) {
+			this.qGridPopupService.close(this.id);
+		}
 	}
 }
 
@@ -64,6 +66,6 @@ export default Popup.component({
 	bindings: {
 		id: '@',
 		resourceModel: '@resource',
-		'onClose': `&${POPUP_CLOSE_NAME}`,
+		'onClose': `&${POPUP_CLOSE_NAME}`
 	}
 });

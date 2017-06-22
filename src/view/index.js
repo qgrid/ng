@@ -11,9 +11,11 @@ import Drag from './components/dnd/drag';
 import Drop from './components/dnd/drop';
 import Layer from './components/layer/layer';
 import CellValue from './components/cell/cell.value';
+import Row from './components/row/row';
 
 import BoxCore from './components/grid/box.core';
 import ViewCore from './components/view/view.core';
+import TableCore from './components/table/table.core';
 import TrCore from './components/row/tr.core';
 import TdCore from './components/body/td.core';
 import ThCore from './components/head/th.core';
@@ -30,10 +32,13 @@ import Markup from './directives/markup';
 import FileUpload from './directives/file.upload';
 import Raise from './directives/raise';
 import Animate from './directives/animate';
+import Position from './directives/position';
+import Autofocus from './directives/autofocus';
 
 import ThemeProvider from './services/theme';
 import Range from './filters/range';
 import Highlight from './filters/highlight';
+import Pin from './filters/pin';
 
 import * as def from './definition';
 require('vscroll'); // TODO: make vscroll export
@@ -48,10 +53,13 @@ export const coreModule = angular.module(def.MODULE_CORE_NAME, [])
 	.directive(def.RAISE_NAME, () => Raise)
 	.directive(def.CELL_VALUE_NAME, () => CellValue)
 	.directive(def.ANIMATE_NAME, () => Animate)
+	.directive(def.POSITION_NAME, () => Position)
+	.directive(def.AUTOFOCUS_NAME, () => Autofocus)
 	.provider(def.THEME_NAME, () => new ThemeProvider())
 	.service(def.TEMPLATE_PATH_NAME, () => () => TemplatePath)
 	.filter(def.RANGE_NAME, () => Range)
 	.filter(def.HIGHLIGHT_NAME, () => Highlight)
+	.filter(def.PIN_NAME, () => Pin)
 	.config(['$compileProvider',
 		$compileProvider => $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|tel|file|data):/)
 	])
@@ -66,6 +74,7 @@ export const layoutModule = angular.module(def.MODULE_LAYOUT_NAME, [coreModule])
 	.component(def.GRID_NAME, Grid)
 	.component(def.BOX_CORE_NAME, BoxCore)
 	.component(def.VIEW_CORE_NAME, ViewCore)
+	.component(def.TABLE_CORE_NAME, TableCore)
 	.component(def.HEAD_NAME, Head)
 	.component(def.FOOT_NAME, Foot)
 	.component(def.COLUMN_LIST_NAME, ColumnList)
@@ -73,6 +82,7 @@ export const layoutModule = angular.module(def.MODULE_LAYOUT_NAME, [coreModule])
 	.component(def.LAYER_NAME, Layer)
 	.component(def.TOOLBAR_NAME, Toolbar)
 	.component(def.TOOLBAR_CORE_NAME, ToolbarCore)
+	.component(def.ROW_NAME, Row)
 	.directive(def.TEMPLATE_NAME, () => Template)
 	.directive(def.MARKUP_NAME, () => Markup)
 	.directive(def.TR_CORE_NAME, () => TrCore)
@@ -93,6 +103,7 @@ function Setup(qgridThemeProvider) {
 	qgridThemeProvider.register('default', theme => {
 		theme.put('qgrid.grid.tpl.html', require('./components/grid/grid.html'));
 		theme.put('qgrid.view.tpl.html', require('./components/view/view.html'));
+		theme.put('qgrid.table.tpl.html', require('./components/table/table.html'));
 		theme.put('qgrid.head.tpl.html', require('./components/head/head.html'));
 		theme.put('qgrid.body.tpl.html', require('./components/body/body.html'));
 		theme.put('qgrid.body.virtual.tpl.html', require('./components/body/body.virtual.html'));
@@ -126,9 +137,21 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.body.cell.row-number.tpl.html', require('./components/cell/row-number/body.cell.row.number.html'));
 		theme.put('qgrid.foot.cell.row-number.tpl.html', EMPTY);
 
+		theme.put('qgrid.head.cell.row-expand.tpl.html', EMPTY);
+		theme.put('qgrid.body.cell.row-expand.tpl.html', require('./components/cell/row-expand/body.cell.row.expand.html'));
+		theme.put('qgrid.foot.cell.row-expand.tpl.html', EMPTY);
+
+		theme.put('qgrid.head.cell.row-details.tpl.html', EMPTY);
+		theme.put('qgrid.body.cell.row-details.tpl.html', require('./components/cell/row-details/body.cell.row.details.html'));
+		theme.put('qgrid.foot.cell.row-details.tpl.html', EMPTY);
+
 		theme.put('qgrid.head.cell.row-indicator.tpl.html', EMPTY);
 		theme.put('qgrid.body.cell.row-indicator.tpl.html', require('./components/cell/row-indicator/body.cell.row.indicator.html'));
 		theme.put('qgrid.foot.cell.row-indicator.tpl.html', EMPTY);
+
+		theme.put('qgrid.head.cell.row-options.tpl.html', EMPTY);
+		theme.put('qgrid.body.cell.row-options.tpl.html', require('./components/cell/row-options/body.cell.row.options.html'));
+		theme.put('qgrid.foot.cell.row-options.tpl.html', EMPTY);
 
 		theme.put('qgrid.head.cell.date.tpl.html', require('./components/cell/text/head.cell.text.html'));
 		theme.put('qgrid.body.cell.date.tpl.html', require('./components/cell/date/body.cell.date.html'));

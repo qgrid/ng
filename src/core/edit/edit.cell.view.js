@@ -2,6 +2,7 @@ import {Command, Log, Shortcut} from '../infrastructure';
 import {CellEditor} from './edit.cell.editor';
 import {getFactory as valueFactory} from '../services/value';
 import {getFactory as labelFactory} from '../services/label';
+import {Cell} from '../cell';
 
 export class EditCellView {
 	constructor(model, table, commandManager) {
@@ -9,8 +10,9 @@ export class EditCellView {
 		this.table = table;
 
 		this.editor = CellEditor.empty;
+		this.commandManager = commandManager;
 
-		const shortcut = new Shortcut(table, commandManager);
+		const shortcut = new Shortcut(commandManager);
 		const commands = this.commands;
 		this.shortcutOff = shortcut.register('editCellNavigation', commands);
 
@@ -41,8 +43,8 @@ export class EditCellView {
 					}
 
 					if (cell) {
-						if (model.navigation().cell !== cell) {
-							model.navigation({cell: cell});
+						if (!Cell.equals(model.navigation().cell, cell)) {
+							model.navigation({cell: new Cell(cell)});
 						}
 					}
 					else {
@@ -63,7 +65,7 @@ export class EditCellView {
 				shortcut: this.commitShortcut.bind(this),
 				// TODO: add validation support
 				canExecute: cell => {
-					cell = cell || model.navigation().cell;
+					cell = cell || this.editor.cell || model.navigation().cell;
 					return cell
 						&& cell.column.canEdit
 						&& model.edit().mode === 'cell'
@@ -76,14 +78,14 @@ export class EditCellView {
 						e.stopImmediatePropagation();
 					}
 
-					cell = cell || model.navigation().cell;
-					if (cell && model.edit().commit.execute(this.contextFactory(cell, this.value, this.label)) !== false) {
+					cell = cell || this.editor.cell || model.navigation().cell;
+					if (cell && model.edit().commit.execute(this.contextFactory(cell, this.value, this.label, this.tag)) !== false) {
 						this.editor.commit();
 						this.editor = CellEditor.empty;
 
 						model.edit({state: 'view'});
 						cell.mode('view');
-						table.focus();
+						table.view.focus();
 						return true;
 					}
 
@@ -93,7 +95,7 @@ export class EditCellView {
 			cancel: new Command({
 				shortcut: 'Escape',
 				canExecute: cell => {
-					cell = cell || model.navigation().cell;
+					cell = cell || this.editor.cell || model.navigation().cell;
 					return cell
 						&& cell.column.canEdit
 						&& model.edit().mode === 'cell'
@@ -106,14 +108,14 @@ export class EditCellView {
 						e.stopImmediatePropagation();
 					}
 
-					cell = cell || model.navigation().cell;
+					cell = cell || this.editor.cell || model.navigation().cell;
 					if (cell && model.edit().cancel.execute(this.contextFactory(cell, this.value, this.label)) !== false) {
 						this.editor.reset();
 						this.editor = CellEditor.empty;
 
 						model.edit({state: 'view'});
 						cell.mode('view');
-						table.focus();
+						table.view.focus();
 						return true;
 					}
 
@@ -122,7 +124,7 @@ export class EditCellView {
 			}),
 			reset: new Command({
 				canExecute: cell => {
-					cell = cell || model.navigation().cell;
+					cell = cell || this.editor.cell || model.navigation().cell;
 					return cell
 						&& cell.column.canEdit
 						&& model.edit().mode === 'cell'
@@ -135,7 +137,7 @@ export class EditCellView {
 						e.stopImmediatePropagation();
 					}
 
-					cell = cell || model.navigation().cell;
+					cell = cell || this.editor.cell || model.navigation().cell;
 					if (cell && model.edit().reset.execute(this.contextFactory(cell, this.value, this.label)) !== false) {
 						this.editor.reset();
 						return true;
@@ -150,17 +152,18 @@ export class EditCellView {
 		);
 	}
 
-	contextFactory(cell, value, label) {
+	contextFactory(cell, value, label, tag) {
 		return {
 			column: cell.column,
 			row: cell.row,
 			columnIndex: cell.columnIndex,
 			rowIndex: cell.rowIndex,
 			oldValue: cell.value,
-			newValue: arguments.length === 2 ? value : cell.value,
+			newValue: arguments.length >= 2 ? value : cell.value,
 			oldLabel: cell.label,
-			newLabel: arguments.length === 3 ? label : cell.label,
+			newLabel: arguments.length >= 3 ? label : cell.label,
 			unit: 'cell',
+			tag: tag,
 			valueFactory: valueFactory,
 			labelFactory: labelFactory
 		};
@@ -186,10 +189,18 @@ export class EditCellView {
 		this.editor.label = label;
 	}
 
+	canEdit(cell) {
+		if (cell) {
+			return cell.column.canEdit && this.model.edit().mode === 'cell';
+		}
+
+		return false;
+	}
+
 	commitShortcut() {
 		const model = this.model;
 		const commitShortcuts = model.edit().commitShortcuts;
-		const cell = model.navigation().cell;
+		const cell = this.editor.cell || model.navigation().cell;
 		if (cell && commitShortcuts.hasOwnProperty(cell.column.type)) {
 			return commitShortcuts[cell.column.type];
 		}

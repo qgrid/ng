@@ -1,11 +1,12 @@
-import {isFunction} from '../services/utility';
+import {isFunction} from '../utility';
 
 export class Shortcut {
-	constructor(table, manager) {
+	constructor(manager) {
 		this.manager = manager;
 		this.commands = [];
 		this.shortcuts = new Map();
 		this.codeMap = new Map()
+			.set(8, 'backspace')
 			.set(9, 'tab')
 			.set(13, 'enter')
 			.set(27, 'escape')
@@ -18,10 +19,10 @@ export class Shortcut {
 			.set(38, 'up')
 			.set(39, 'right')
 			.set(40, 'down')
-			.set(113, 'f2');
+			.set(113, 'f2')
+			.set(118, 'f7');
 
-		this.canExecute = table.isFocused.bind(table);
-		this.off = table.keyDown(this.onKeyDown.bind(this));
+		this.off = manager.keyDown(this.onKeyDown.bind(this));
 	}
 
 	translate(e) {
@@ -40,18 +41,20 @@ export class Shortcut {
 	}
 
 	onKeyDown(e) {
-		if (this.canExecute()) {
+		if (this.manager.canExecute()) {
 			const code = this.translate(e);
 			const commands = this.find(code);
 			if (commands.length) {
-				e.preventDefault();
-				this.manager.execute(commands);
+				if (this.manager.execute(commands)) {
+					e.preventDefault();
+				}
 			}
 		}
 	}
 
 	register(id, commands) {
-		for (let cmd of commands.values()) {
+		const cmds = commands.values ? commands.values() : commands;
+		for (let cmd of cmds) {
 			if (cmd.shortcut) {
 				if (isFunction(cmd.shortcut)) {
 					this.commands.push(cmd);

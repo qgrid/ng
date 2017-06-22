@@ -1,7 +1,7 @@
 import {ColumnModel} from './column.model';
 import {View} from '../view';
 import {TemplatePath} from '../template';
-import {isObject, isFunction} from '../services/utility';
+import {isObject, isFunction} from '../utility';
 
 TemplatePath.register('custom-cell', (template, column) => {
 	return {
@@ -21,8 +21,8 @@ export class ColumnView extends View {
 	constructor(model) {
 		super(model);
 
-		this.colspan = 0;
-		this.rowspan = 0;
+		this.colspan = 1;
+		this.rowspan = 1;
 	}
 
 	static model(model) {

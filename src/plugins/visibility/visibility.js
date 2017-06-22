@@ -5,7 +5,7 @@ import * as path from '@grid/core/services/path';
 import * as ng from '@grid/view/services/ng';
 import {VISIBILITY_NAME} from '../definition';
 import {TemplatePath} from '@grid/core/template';
-import {isObject, cloneDeep} from '@grid/core/services/utility';
+import {isObject, cloneDeep} from '@grid/core/utility';
 
 TemplatePath
 	.register(VISIBILITY_NAME, () => {

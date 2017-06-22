@@ -1,0 +1,8 @@
+<div>
+	<ul>
+		<li ng-repeat="column in $view.body.columns($cell.row.item, null) track by column.model.key"
+			 ng-if="column.model.class === 'data'">
+			{{column.model.title}}: {{$view.body.value($cell.row.item, column.model)}}
+		</li>
+	</ul>
+</div>

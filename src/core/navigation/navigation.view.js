@@ -2,13 +2,14 @@ import {View} from '../view';
 import {Command, Shortcut} from '../infrastructure';
 import {Navigation} from './navigation';
 import {GRID_PREFIX} from '../definition';
+import {Cell} from '../cell';
 
 export class NavigationView extends View {
 	constructor(model, table, commandManager) {
 		super(model);
 
 		this.table = table;
-		const shortcut = new Shortcut(table, commandManager);
+		const shortcut = new Shortcut(commandManager);
 		const navigation = new Navigation(model, table);
 
 		this.shortcutOff = shortcut.register('navigation', navigation.commands);
@@ -32,17 +33,17 @@ export class NavigationView extends View {
 		});
 
 		this.focusCell = new Command({
-			execute: cell => model.navigation({cell: cell}),
+			execute: cell => model.navigation({cell: new Cell(cell)}),
 			canExecute: cell => {
 				return cell
 					&& cell.column.canFocus
 					&& table.data.columns().indexOf(cell.column) >= 0
-					&& cell !== model.navigation().cell;
+					&& !Cell.equals(cell, model.navigation().cell);
 			}
 		});
 
 		this.scrollTo = new Command({
-			execute: (row, column) => this.scroll(table.body, table.body.cell(row, column)),
+			execute: (row, column) => this.scroll(table.view, table.body.cell(row, column)),
 			canExecute: (row, column) => table.body.cell(row, column).model !== null
 		});
 
@@ -85,37 +86,45 @@ export class NavigationView extends View {
 			}
 		});
 
-		model.viewChanged.watch(() => model.navigation({cell: null}));
+		model.viewChanged.watch(e => {
+			if (e.tag.behavior !== 'core') {
+				model.navigation({cell: null});
+			}
+		});
 	}
 
-	scroll(body, target) {
+	scroll(view, target) {
 		const tr = target.rect();
-		const cr = body.rect();
+		const cr = view.rect();
 		const scrollState = this.model.scroll();
 
-		if (cr.left > tr.left
-			|| cr.left > tr.right
-			|| cr.right < tr.left
-			|| cr.right < tr.right) {
-			if (cr.left < tr.left
+		if (view.canScrollTo(target, 'left')) {
+			if (cr.left > tr.left
+				|| cr.left > tr.right
+				|| cr.right < tr.left
 				|| cr.right < tr.right) {
-				body.scrollLeft(tr.right - cr.right + scrollState.left);
-			} else if (cr.left > tr.left
-				|| cr.left > tr.right) {
-				body.scrollLeft(tr.left - cr.left + scrollState.left);
+				if (cr.left < tr.left
+					|| cr.right < tr.right) {
+					view.scrollLeft(tr.right - cr.right + scrollState.left);
+				} else if (cr.left > tr.left
+					|| cr.left > tr.right) {
+					view.scrollLeft(tr.left - cr.left + scrollState.left);
+				}
 			}
 		}
 
-		if (cr.top > tr.top
-			|| cr.top > tr.bottom
-			|| cr.bottom < tr.top
-			|| cr.bottom < tr.bottom) {
-			if (cr.top < tr.top
+		if (view.canScrollTo(target, 'top')) {
+			if (cr.top > tr.top
+				|| cr.top > tr.bottom
+				|| cr.bottom < tr.top
 				|| cr.bottom < tr.bottom) {
-				body.scrollTop(tr.bottom - cr.bottom + scrollState.top);
-			} else if (cr.top > tr.top
-				|| cr.top > tr.bottom) {
-				body.scrollTop(tr.top - cr.top + scrollState.top);
+				if (cr.top < tr.top
+					|| cr.bottom < tr.bottom) {
+					view.scrollTop(tr.bottom - cr.bottom + scrollState.top);
+				} else if (cr.top > tr.top
+					|| cr.top > tr.bottom) {
+					view.scrollTop(tr.top - cr.top + scrollState.top);
+				}
 			}
 		}
 	}

@@ -213,7 +213,6 @@
 				"title": "No Data Template",
 				"path": "no-data"
 			}
-
 		]
 	},
 	{
@@ -257,7 +256,6 @@
 				"title": "Column Size",
 				"path": "column-size"
 			},
-
 			{
 				"title": "Column Groups",
 				"path": "column-groups"
@@ -282,6 +280,10 @@
 			{
 				"title": "Editors",
 				"path": "editors"
+			},
+			{
+				"title": "Data Manipulation",
+				"path": "data-manipulation"
 			},
 			{
 				"title": "Batch Editing",
@@ -348,16 +350,16 @@
 			{
 				"title": "Keyboard Navigation",
 				"path": "keyboard-navigation"
-			},
-			{
-				"title": "Focus",
-				"path": "focus"
 			}
 		]
 	},
 	{
 		"title": "Exporting and Printing",
 		"items": [
+			{
+				"title": "Export",
+				"path": "export"
+			}
 		]
 	},
 	{

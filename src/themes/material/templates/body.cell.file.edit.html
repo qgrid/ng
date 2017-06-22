@@ -1,4 +1,4 @@
-<div ng-cloak class="q-grid-editor q-grid-file">
+<div ng-cloak class="q-grid-editor q-grid-file" q-grid-position="td">
 	<h2 class="md-title">Edit {{::$cell.column.title}}</h2>
 	<div layout="column" flex>
 		<div class="q-grid-file-upload-area"
@@ -16,7 +16,7 @@
 			<input q-grid:file-upload="$view.edit.cell.value"
 					 q-grid:file-upload-label="$view.edit.cell.label"
 					 q-grid:can-upload="cell.column.canUpload($event)"
-					 type="file"></input>
+					 type="file"/>
 			<div class="q-grid-file-preview"
 				  ng-if="$cell.column.hasPreview($view.edit.cell.label)">
 				<img ng-src="{{$view.edit.cell.value}}"/>

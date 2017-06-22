@@ -1,4 +1,5 @@
 import Pager from './pagination/pager';
+import ActionBar from './action-bar/action.bar';
 import SortBar from './sort-bar/sort.bar';
 import GroupBar from './group-bar/group.bar';
 import PivotBar from './pivot-bar/pivot.bar';
@@ -17,12 +18,14 @@ import PopupHead from './popup/popup.head';
 import PopupBody from './popup/popup.body';
 import PopupPanel from './popup/popup.panel';
 import PopupService from './popup/popup.service';
+import Export from './export/export';
 
 import * as def from './definition';
 
 export default angular  // eslint-disable-line no-undef
 	.module(def.MODULE_NAME, [def.MODULE_CORE_NAME])
 	.component(def.PAGER_NAME, Pager)
+	.component(def.ACTION_BAR_NAME, ActionBar)
 	.component(def.SORT_BAR_NAME, SortBar)
 	.component(def.GROUP_BAR_NAME, GroupBar)
 	.component(def.PIVOT_BAR_NAME, PivotBar)
@@ -40,6 +43,7 @@ export default angular  // eslint-disable-line no-undef
 	.component(def.POPUP_HEAD_NAME, PopupHead)
 	.component(def.POPUP_BODY_NAME, PopupBody)
 	.component(def.POPUP_PANEL_NAME, PopupPanel)
+	.component(def.EXPORT_NAME, Export)
 	.service(def.POPUP_SERVICE, PopupService)
 	.config(Setup)
 	.name;
@@ -60,6 +64,7 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.plugin.column-filter.tpl.html', require('./column-filter/column.filter.html'));
 		theme.put('qgrid.plugin.edit-form.tpl.html', require('./edit-form/edit.form.html'));
 		theme.put('qgrid.plugin.edit-form-panel.tpl.html', EMPTY);
+		theme.put('qgrid.plugin.export.tpl.html', require('./export/export.html'));
 
 		theme.put('qgrid.plugin.popup.tpl.html', require('./popup/popup.html'));
 		theme.put('qgrid.plugin.popup-panel.tpl.html', require('./popup/popup.panel.html'));

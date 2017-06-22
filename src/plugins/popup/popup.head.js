@@ -1,6 +1,6 @@
 import Component from '@grid/view/components/component';
 import TemplateLink from '@grid/view/components/template/template.link';
-import {EventListener} from '@grid/core/infrastructure';
+import {EventListener, EventManager} from '@grid/core/infrastructure';
 import * as def from '../definition';
 
 class PopupHead extends Component {
@@ -19,7 +19,7 @@ class PopupHead extends Component {
 		this.qGridPopupService = qGridPopupService;
 		this.$templateScope = null;
 		this.template = new TemplateLink($compile, $templateCache);
-		this.eventListener = new EventListener(this, this.$element[0]);
+		this.eventListener = new EventListener(this.$element[0], new EventManager(this));
 
 		this.$element.attr('draggable', true);
 	}

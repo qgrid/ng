@@ -1,8 +1,8 @@
 import Directive from './directive';
 import {RESIZE_NAME, VIEW_CORE_NAME, DRAG_NAME, GRID_NAME} from '@grid/view/definition';
 import {GRID_PREFIX} from '@grid/core/definition';
-import {EventListener} from '@grid/core/infrastructure';
-import {clone} from '@grid/core/services/utility';
+import {EventListener, EventManager} from '@grid/core/infrastructure';
+import {clone} from '@grid/core/utility';
 
 class Resize extends Directive(RESIZE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	constructor($scope, $element, $document, $timeout) {
@@ -15,8 +15,8 @@ class Resize extends Directive(RESIZE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 		this.divider = angular.element(`<div class="${GRID_PREFIX}-divider"></div>`);
 
 		this.listener = {
-			divider: new EventListener(this, this.divider[0]),
-			document: new EventListener(this, this.$document[0])
+			divider: new EventListener(this.divider[0], new EventManager(this)),
+			document: new EventListener(this.$document[0], new EventManager(this))
 		};
 
 		this.context = {

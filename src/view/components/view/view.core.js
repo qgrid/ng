@@ -1,5 +1,4 @@
 import Component from '../component';
-import Table from '@grid/view/services/dom/table';
 import {BodyView} from '@grid/core/body';
 import {HeadView} from '@grid/core/head';
 import {FootView} from '@grid/core/foot';
@@ -13,19 +12,16 @@ import {FilterView} from '@grid/core/filter';
 import {EditView} from '@grid/core/edit';
 import {SelectionView} from '@grid/core/selection';
 import {PaginationView} from '@grid/core/pagination';
-import {TableView} from '@grid/core/table';
 import {StyleView} from '@grid/core/style';
 import {ColumnView} from '@grid/core/column';
 import {ScrollView} from '@grid/core/scroll';
+import {RowDetailsView} from '@grid/core/row-details';
 import {GRID_NAME, TH_CORE_NAME} from '@grid/view/definition';
-import {isUndefined} from '@grid/core/services/utility';
 import {PipeUnit} from '@grid/core/pipe/units';
-import {AppError} from '@grid/core/infrastructure';
-import TemplateLink from '../template/template.link';
-import {CommandManager, Vscroll} from '@grid/view/services';
+import {Vscroll} from '@grid/view/services';
 
 class ViewCore extends Component {
-	constructor($rootScope, $scope, $element, $document, $timeout, $compile, $templateCache, grid, vscroll) {
+	constructor($rootScope, $scope, $element, $timeout, grid, vscroll) {
 		super();
 
 		this.$rootScope = $rootScope;
@@ -34,27 +30,18 @@ class ViewCore extends Component {
 		this.$timeout = $timeout;
 		this.$postLink = this.build;
 		this.serviceFactory = grid.service.bind(grid);
-		this.template = new TemplateLink($compile, $templateCache);
 		this.vscroll = vscroll;
-
-		this.markup = {
-			document: $document[0]
-		};
 	}
 
 	build() {
 		const model = this.model;
-		this.pin = this.pin || null;
-		const table = new Table(model, this.markup, this.template);
-		table.pin = this.pin;
-
+		const root = this.root;
+		const table = root.table;
+		const commandManager = root.commandManager;
 		const gridService = this.serviceFactory(model);
-
-		const commandManager = new CommandManager(this.applyFactory('async'));
-		const vscroll = new Vscroll(this.vscroll, this.applyFactory('async'));
+		const vscroll = new Vscroll(this.vscroll, root.applyFactory());
 
 		this.style = new StyleView(model, table);
-		this.table = new TableView(model);
 		this.head = new HeadView(model, table, TH_CORE_NAME);
 		this.body = new BodyView(model, table);
 		this.foot = new FootView(model, table);
@@ -70,12 +57,13 @@ class ViewCore extends Component {
 		this.nav = new NavigationView(model, table, commandManager);
 		this.pagination = new PaginationView(model);
 		this.scroll = new ScrollView(model, table, vscroll, gridService);
+		this.rowDetails = new RowDetailsView(model, table);
 
 		// TODO: how we can avoid that?
 		this.$scope.$watch(this.style.invalidate.bind(this.style));
 
 		model.selectionChanged.watch(e => {
-			if (e.hasChanges('entries')) {
+			if (e.hasChanges('items')) {
 				this.root.onSelectionChanged({
 					$event: {
 						state: model.selection(),
@@ -109,29 +97,6 @@ class ViewCore extends Component {
 		}
 	}
 
-	applyFactory(mode) {
-		return (f, timeout) => {
-			if (isUndefined(timeout)) {
-				switch (mode) {
-					case 'async': {
-						return this.$scope.$applyAsync(f);
-					}
-					case 'sync': {
-						const phase = this.$rootScope.$$phase; // eslint-disable-line angular/no-private-call
-						if (phase == '$apply' || phase == '$digest') {
-							return f();
-						}
-						return this.$scope.$apply(f);
-					}
-					default:
-						throw new AppError('view.core', `Invalid apply mode '${mode}'`);
-				}
-			}
-
-			return this.$timeout(f, timeout);
-		};
-	}
-
 	onDestroy() {
 		this.layout.destroy();
 		this.nav.destroy();
@@ -159,10 +124,7 @@ ViewCore.$inject = [
 	'$rootScope',
 	'$scope',
 	'$element',
-	'$document',
 	'$timeout',
-	'$compile',
-	'$templateCache',
 	'qgrid',
 	'vscroll'
 ];
@@ -173,8 +135,5 @@ export default {
 	templateUrl: 'qgrid.view.tpl.html',
 	require: {
 		'root': `^^${GRID_NAME}`
-	},
-	bindings: {
-		'pin': '@'
 	}
 }

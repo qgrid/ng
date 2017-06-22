@@ -60,9 +60,11 @@ export default function Controller($http, $mdToast, qgrid, $timeout) {
 			title: 'Teammates',
 			type: 'reference',
 			value: (item, value) => isUndef(value) ? item.teammates || [] : item.teammates = value,
-			label: (item) => (item.teammates || [])
-				.map(teammate => `${ctrl.rows[teammate].name.last} ${ctrl.rows[teammate].name.first}`)
-				.join(', '),
+			label: (item) =>
+				(item.teammates || [])
+					.filter(rowNo => !!ctrl.rows[rowNo])
+					.map(rowNo => `${ctrl.rows[rowNo].name.last} ${ctrl.rows[rowNo].name.first}`)
+					.join(', '),
 			editorOptions: {
 				modelFactory: () => {
 					const model = qgrid.model();
@@ -70,22 +72,20 @@ export default function Controller($http, $mdToast, qgrid, $timeout) {
 						.selection({
 							mode: 'multiple',
 							unit: 'row',
-							key: {row: row => ctrl.rows.findIndex(r => r.name.last === row.name.last)}
+							key: {row: row => ctrl.rows.findIndex(r => r.name.last === row.name.last && r.name.first === row.name.first)}
 						})
-						// .scroll({
-						// 	mode: 'virtual'
-						// })
 						.columnList({
 							generation: 'deep'
 						})
 						.data({
 							pipe: [(data, context, next) => {
 								$http.get('data/people/10.json')
-									.then(function (response) {
+									.then(response => {
 										return next(response.data);
 									});
 							}].concat(qgrid.pipeUnit.default)
 						});
+
 					return model;
 				}
 			}
@@ -166,14 +166,14 @@ export default function Controller($http, $mdToast, qgrid, $timeout) {
 			type: 'file',
 			value: (item, value) => isUndef(value) ? item.attachment : item.attachment = value,
 			label: (item, label) => isUndef(label) ? item.attachmentLabel || null : item.attachmentLabel = label,
-			fetch: function(item, d){
+			fetch: (item, d) => {
 				$http().then(result => d.resolve(result));
 			}
 		}
 	];
 
 	$http.get('data/people/100.json')
-		.then(function (response) {
+		.then(response => {
 			ctrl.rows = response.data;
 
 			ctrl.rows[0].password = 'foo';

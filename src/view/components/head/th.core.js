@@ -1,9 +1,14 @@
 import Directive from '@grid/view/directives/directive';
 import cellBuilder from '../cell/cell.build';
-import {VIEW_CORE_NAME, TH_CORE_NAME,} from '@grid/view/definition';
+import {VIEW_CORE_NAME, TH_CORE_NAME, TABLE_CORE_NAME, GRID_NAME} from '@grid/view/definition';
 import {GRID_PREFIX} from '@grid/core/definition';
+import {escapeClass} from '@grid/core/services/css';
 
-class ThCore extends Directive(TH_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
+class ThCore extends Directive(TH_CORE_NAME, {
+	view: `^^${VIEW_CORE_NAME}`,
+	table: `^^${TABLE_CORE_NAME}`,
+	root: `^^${GRID_NAME}`
+}) {
 	constructor($scope, $element, $attrs) {
 		super();
 
@@ -14,12 +19,13 @@ class ThCore extends Directive(TH_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 
 	onInit() {
 		const column = this.column;
-		const element = this.$element[0];
+		const element = this.element;
 
-		element.classList.add(`${GRID_PREFIX}-${column.key}`);
-		element.classList.add(`${GRID_PREFIX}-${column.type}`);
-		if (column.hasOwnProperty('editor')) {
-			element.classList.add(`${GRID_PREFIX}-${column.editor}`);
+		this.root.bag.set(element, this);
+		element.classList.add(escapeClass(`${GRID_PREFIX}-${column.key}`));
+		element.classList.add(escapeClass(`${GRID_PREFIX}-${column.type}`));
+		if (column.editor) {
+			element.classList.add(escapeClass(`${GRID_PREFIX}-${column.editor}`));
 		}
 
 		if (this.$attrs[TH_CORE_NAME] !== 'body') {
@@ -27,7 +33,7 @@ class ThCore extends Directive(TH_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 			const cache = model.head().cache;
 			let link = cache.find(column.key);
 			if (!link) {
-				const build = cellBuilder(this.view.template);
+				const build = cellBuilder(this.root.template);
 				link = build('head', model, this.column);
 				cache.set(column.key, link);
 			}
@@ -38,6 +44,23 @@ class ThCore extends Directive(TH_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 
 	get column() {
 		return this.$scope.$column.model;
+	}
+
+	get rowIndex() {
+		return this.$scope.$parent.$index;
+	}
+
+	get columnIndex() {
+		return this.table.columnStartIndex + this.$scope.$index;
+	}
+
+	get element() {
+		return this.$element[0];
+	}
+
+	onDestroy() {
+		this.root.bag.delete(this.element);
+
 	}
 }
 

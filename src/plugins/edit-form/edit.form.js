@@ -6,6 +6,10 @@ class EditForm extends Plugin {
 	constructor() {
 		super(...arguments);
 	}
+	
+	onInit() {
+		
+	}
 }
 
 export default EditForm.component({

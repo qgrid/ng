@@ -1,7 +1,7 @@
 import ModelComponent from '../model.component';
 import * as ng from '@grid/view/services/ng';
 import {compile} from '@grid/core/services'
-import {isUndefined, clone, isObject, identity} from '@grid/core/services/utility';
+import {isUndefined, clone, isObject, identity} from '@grid/core/utility';
 import {parseFactory, getType} from '@grid/core/services';
 import {GRID_NAME} from '@grid/view/definition';
 
@@ -28,7 +28,7 @@ class ColumnList extends ModelComponent {
 					parse !== identity
 						? parse(value)
 						: isObject(targetValue)
-						? $parse(value)($scope)
+							? $parse(value)($scope.$parent)
 						: value;
 
 				accessor(target, sourceValue);
@@ -59,6 +59,7 @@ export default {
 		root: `^^${GRID_NAME}`
 	},
 	controller: ColumnList,
+	controllerAs: '$columnList',
 	bindings: {
 		columnListGeneration: '@generation'
 	}

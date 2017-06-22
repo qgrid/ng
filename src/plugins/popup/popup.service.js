@@ -1,5 +1,6 @@
 import TemplateLink from '@grid/view/components/template/template.link';
-import PopupManager from './popup.manager';
+import PopupEntry from './popup.entry';
+import {AppError} from '@grid/core/infrastructure';
 
 export default class PopupService {
 	constructor() {
@@ -10,10 +11,17 @@ export default class PopupService {
 	}
 
 	close(id) {
+		if (!this.isOpened(id)) {
+			throw new AppError('popup.service', `Can't close popup '${id}', it's not opened`);
+		}
 		const item = this.popups[id];
-		delete this.popups[id];
 
+		delete this.popups[id];
 		item.close();
+	}
+
+	isOpened(id) {
+		return this.popups.hasOwnProperty(id);
 	}
 
 	closeAll() {
@@ -35,8 +43,9 @@ export default class PopupService {
 		popupScope.id = settings.id;
 
 		const popup = angular.element('<q-grid:popup-panel id="id" model="model"></q-grid:popup-panel>'); // eslint-disable-line no-undef
+		this.popups[settings.id] = new PopupEntry(popup, settings, this.$document[0].body);
 
-		this.$document[0].body.append(popup[0]);
+		this.$document[0].body.appendChild(popup[0]);
 		this.$compile(popup)(popupScope);
 
 		popup.attr('id', settings.id);
@@ -54,7 +63,6 @@ export default class PopupService {
 			popup.addClass(settings.cls);
 		}
 
-		this.popups[settings.id] = new PopupManager(popup, settings, this.$document[0].body);
 		this.popups[settings.id].focus();
 	}
 
@@ -147,6 +155,10 @@ export default class PopupService {
 			left: l,
 			top: t
 		};
+	}
+
+	get(id) {
+		return this.popups[id];
 	}
 }
 
