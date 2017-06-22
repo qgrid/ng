@@ -9,9 +9,10 @@ export declare  interface IValue{
 }
 
 export declare interface IEditorOptions {
-	trigger?: string;
-	modelFactory?: () => Model;
-	label?: () => any;
+	trigger: string;
+	modelFactory: () => Model;
+	label: () => any;
+	fetch: any;
 }
 
 export declare class ColumnModel {

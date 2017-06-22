@@ -5,13 +5,15 @@ export declare interface ICell{
 	columnIndex: number;
 	column: ColumnModel;
 	row: any;
+	value: any;
+	label: any;
 }
 
 export declare class Cell {
 
-	constructor(cell: ICell);
+	constructor(public cell: ICell);
 
-	get value(): any ;
+	get value(): any;
 
 	set value(value: any);
 

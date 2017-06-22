@@ -1,8 +1,8 @@
 import {View} from '../view/view';
-import {ColumnListModel} from "../column-list/column.list.model";
 import {ColumnModel} from "../column-type/column.model";
 import {Model} from "../infrastructure/model";
-import {getFactory as labelFactory, set as setLabel} from '../services/label';
+import {getFactory as labelFactory} from '../services/label';
+import {Table} from "../dom/table";
 
 export declare interface IGetValueFactory{
 	(): any;
@@ -13,9 +13,9 @@ export declare interface IValueFactory{
 }
 
 export declare class BodyView extends View {
-	constructor(model: Model, table: object);
+	constructor(public model: Model, public table: Table);
 
-	table: object;
+	table: Table;
 	rows: any[];
 
 	columns(row: any, pin: string): ColumnModel[];

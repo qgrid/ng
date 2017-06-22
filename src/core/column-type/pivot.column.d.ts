@@ -1,14 +1,12 @@
 import {ColumnView} from './column.model.view';
 import {ColumnModel} from './column.model';
 
-
 export declare class PivotColumnModel extends ColumnModel {
 	constructor();
 
-	rowIndex?: number;
+	rowIndex: number;
 }
 
 export declare class PivotColumn extends ColumnView {
 	constructor();
-
 }

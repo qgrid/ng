@@ -23,4 +23,4 @@ export declare function dataView(columns: ColumnModel[], model: Model): ColumnMo
 
 export declare function lineView(columnRows: ColumnView[]): any[];
 
-export declare function widthFactory(model: Model, form: object): any;
+export declare function widthFactory(model: Model, form: object): number;
