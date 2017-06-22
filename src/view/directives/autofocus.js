@@ -1,6 +1,5 @@
 import Directive from './directive';
 import {AUTOFOCUS_NAME, GRID_NAME} from '@grid/view/definition';
-import {noop, isUndefined} from '@grid/core/utility';
 
 class Autofocus extends Directive(AUTOFOCUS_NAME, {root: `${GRID_NAME}`}) {
 	constructor($scope, $element, $timeout) {
@@ -9,8 +8,6 @@ class Autofocus extends Directive(AUTOFOCUS_NAME, {root: `${GRID_NAME}`}) {
 		this.$scope = $scope;
 		this.$element = $element;
 		this.$timeout = $timeout;
-
-		this.dataChangedOff = noop;
 	}
 
 	onInit() {
@@ -46,10 +43,6 @@ class Autofocus extends Directive(AUTOFOCUS_NAME, {root: `${GRID_NAME}`}) {
 
 	get table() {
 		return this.root.table;
-	}
-
-	onDestroy() {
-		this.dataChangedOff();
 	}
 }
 
