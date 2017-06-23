@@ -1,12 +1,12 @@
 import {startCase, assignWith} from '../utility';
 import {compile, getType} from '../services';
-import {TextColumnViewModel} from '../column-list';
+import {TextColumnModel} from '../column-type';
 
 export function generate(settings) {
 	const context = assignWith({
 		deep:true,
 		rows:[],
-		columnFactory: () => new TextColumnViewModel(),
+		columnFactory: () => new TextColumnModel(),
 		title: startCase
 	}, settings);
 
