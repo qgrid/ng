@@ -4,6 +4,8 @@ The grid allows you to import data in different formats.
 ## supported formats
 csv, json, xlsx, xml
 
+Make work import from xlsx by installing http://github.com/SheetJS/js-xlsx library
+
 ## predefined options
 <table class="attributes">
 <thead>
