@@ -1,5 +1,5 @@
-Controller.$inject = ['$http', 'qgrid'];
-export default function Controller($http, qgrid) {
+Controller.$inject = ['$http', 'qgrid', '$timeout'];
+export default function Controller($http, qgrid, $timeout) {
 	const ctrl = this;
 	this.gridModel = qgrid.model();
 	this.rows = [];
@@ -11,6 +11,6 @@ export default function Controller($http, qgrid) {
 		});
 	};
 
-	$http.get('data/people/100.json')
-		.then(response => this.rows = response.data);
+	$timeout(() => $http.get('data/people/100.json')
+		.then(response => this.rows = response.data), 1000);
 }

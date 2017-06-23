@@ -354,10 +354,6 @@
 			{
 				"title": "Keyboard Navigation",
 				"path": "keyboard-navigation"
-			},
-			{
-				"title": "Focus",
-				"path": "focus"
 			}
 		]
 	},
