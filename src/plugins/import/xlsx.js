@@ -1,4 +1,4 @@
-import XLSX from 'xlsx';
+import {AppError} from '@grid/core/infrastructure';
 
 function toJson(workbook, options = {}) {
 	const wbOptions = {};
@@ -23,6 +23,11 @@ function rewriteObject(obj) {
 
 export class Xlsx {
 	read(data, options) {
+		if (!window.XLSX) {
+			throw new AppError('xlsx', 'To use import plugin for xlsx format please add http://github.com/SheetJS/js-xlsx library to your project');
+		}
+
+
 		const workbook = XLSX.read(data, {type: 'binary'});
 		return toJson(workbook, options);
 	}

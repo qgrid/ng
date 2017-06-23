@@ -10,6 +10,7 @@ import ngSanitize from 'angular-sanitize';
 import {} from 'angular-material';
 
 import qgrid from '../src/index';
+import XLSX from 'xlsx';
 
 //import themeDefault from '../src/themes/default';
 import themeMaterial from '../src/themes/material';
@@ -35,6 +36,8 @@ const theme = themeMaterial;
 // 	.indexOf('?theme=default') >= 0
 // 	? themeDefault
 // 	: themeMaterial;
+
+window.XLSX = XLSX;
 
 const dependencies = [
 	ngRoute,

@@ -1,4 +1,4 @@
-import XLSX from 'xlsx';
+import {AppError} from '@grid/core/infrastructure';
 import {flatView} from '@grid/core/export/export.service';
 
 function sheet_to_workbook(sheet) {
@@ -26,6 +26,10 @@ function rewriteHeaders(worksheet, headers) {
 }
 export class Xlsx {
 	write(rows, columns) {
+		if (!window.XLSX) {
+			throw new AppError('xlsx', 'To use export plugin for xlsx format please add http://github.com/SheetJS/js-xlsx library to your project');
+		}
+
 		const result = [];
 		const headers = [];
 		const excelOptions = {bookType: 'xlsx', bookSST: true, cellDates: true, compression: true, type: 'binary'};
