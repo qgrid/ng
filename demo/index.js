@@ -10,7 +10,6 @@ import ngSanitize from 'angular-sanitize';
 import {} from 'angular-material';
 
 import qgrid from '../src/index';
-import XLSX from 'xlsx';
 
 //import themeDefault from '../src/themes/default';
 import themeMaterial from '../src/themes/material';
@@ -22,6 +21,11 @@ import PageDetails from './components/page-details/page.details';
 import ThemeSelector from './components/theme-selector/theme.selector';
 import JsFilter from './filters/js';
 import HtmlFilter from './filters/html';
+
+import fileSaver from 'file-saver';
+import XLSX from 'xlsx';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 require('./index.scss');
 require('./markdown.scss');
@@ -38,6 +42,8 @@ const theme = themeMaterial;
 // 	: themeMaterial;
 
 window.XLSX = XLSX;
+window.jsPDF = jsPDF;
+window.fileSaver = fileSaver;
 
 const dependencies = [
 	ngRoute,
