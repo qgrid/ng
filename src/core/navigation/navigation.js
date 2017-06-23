@@ -46,10 +46,6 @@ export class Navigation {
 		return indicies;
 	}
 
-	get rows() {
-		return this.table.data.rows().map((r, i) => i);
-	}
-
 	get currentColumn() {
 		const columns = this.columns;
 		if (!columns.length) {
@@ -102,51 +98,25 @@ export class Navigation {
 	}
 
 	get currentRow() {
-		const rows = this.rows;
-		if (!rows.length) {
-			return -1;
-		}
-
-		const row = this.model.navigation().rowIndex;
-		return rows[Math.max(0, row)];
+		return this.model.navigation().rowIndex;
 	}
 
 	get nextRow() {
-		const rows = this.rows;
-		if (!rows.length) {
-			return -1;
-		}
-
-		const row = this.model.navigation().rowIndex;
-		return row < rows.length - 1 ? rows[row + 1] : -1;
+		const row = this.model.navigation().rowIndex + 1;
+		return row <= this.lastRow ? row : -1;
 	}
 
 	get prevRow() {
-		const rows = this.rows;
-		if (!rows.length) {
-			return -1;
-		}
-
-		const row = this.model.navigation().rowIndex;
-		return row > 0 ? rows[row - 1] : -1;
+		const row = this.model.navigation().rowIndex - 1;
+		return row >= 0 ? row : -1;
 	}
 
 	get firstRow() {
-		const rows = this.rows;
-		if (!rows.length) {
-			return -1;
-		}
-
-		return rows[0];
+		return 0;
 	}
 
 	get lastRow() {
-		const rows = this.rows;
-		if (!rows.length) {
-			return -1;
-		}
-
-		return rows[rows.length - 1];
+		return this.table.body.rowCount() - 1;
 	}
 
 	cell(row, column) {
