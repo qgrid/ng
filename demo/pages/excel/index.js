@@ -3,9 +3,9 @@ export default function Controller($http, qgrid) {
 	const model = qgrid.model();
 	this.model = model;
 
-	model.scroll({
-		mode: 'virtual'
-	});
+	// model.scroll({
+	// 	mode: 'virtual'
+	// });
 
 	model.data({
 		pipe: [(data, context, next) => {
@@ -41,7 +41,7 @@ export default function Controller($http, qgrid) {
 		cell: (row, column, context) => {
 			const focusState = model.focus();
 			if (context.row === focusState.rowIndex && context.column === 0) {
-				context.class('focused-row-header', {background: 'red'});
+				context.class('focused-row-header');
 			}
 
 		}

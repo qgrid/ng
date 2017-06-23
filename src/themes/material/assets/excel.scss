@@ -27,7 +27,7 @@ $excel-greenscale-dark: #227447;
     .q-grid-divider {
       display: none;
     }
-    &.q-grid-focus-coordinates {
+    &.focused-row-header {
       background-color: $excel-greyscale-lightdark;
       border-bottom: 1px solid $excel-greenscale-dark;
       label {
@@ -97,7 +97,7 @@ $excel-greenscale-dark: #227447;
       border-left: 2px solid $excel-greenscale-dark;
       border-right: 2px solid $excel-greenscale-dark;
     }
-    &.q-grid-focus-coordinates {
+    &.focused-row-header {
       background-color: $excel-greyscale-lightdark;
       border-right: 2px solid $excel-greenscale-dark;
     }
