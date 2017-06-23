@@ -1,13 +1,20 @@
-import {startCase} from '../utility';
+import {startCase, assignWith} from '../utility';
 import {compile, getType} from '../services';
+import {TextColumnViewModel} from '../column-list';
 
-export function generate(context) {
-	const deep = context.deep || true;
-	if (!context.rows || context.rows.length === 0 || !context.columnFactory) {
+export function generate(settings) {
+	const context = assignWith({
+		deep:true,
+		rows:[],
+		columnFactory: () => new TextColumnViewModel(),
+		title: startCase
+	}, settings);
+
+	if (context.rows.length === 0) {
 		return [];
 	}
 
-	return build(context.rows[0], null, context.columnFactory, deep, context.title);
+	return build(context.rows[0], null, context.columnFactory, context.deep, context.title);
 }
 
 function build(graph, path, columnFactory, deep, title) {
@@ -20,7 +27,7 @@ function build(graph, path, columnFactory, deep, title) {
 			case 'array': {
 				const column = columnFactory(type).model;
 				column.key = propPath;
-				column.title = title ? title(columns.length, graph) : startCase(propPath);
+				column.title = title(propPath, graph, column.length);
 				column.path = propPath;
 				column.value = compile(propPath);
 				column.source = 'generation';
@@ -39,7 +46,7 @@ function build(graph, path, columnFactory, deep, title) {
 			default: {
 				const column = columnFactory(type).model;
 				column.key = propPath;
-				column.title = title ? title(columns.length, graph) : startCase(propPath);
+				column.title = title(propPath, graph, column.length);
 				column.path = propPath;
 				column.value = compile(propPath);
 				column.source = 'generation';
