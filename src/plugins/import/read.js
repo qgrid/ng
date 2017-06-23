@@ -70,13 +70,17 @@ function readFile(e, file, model, options = {}) {
 		case 'csv': {
 			const csv = new Csv();
 			const rows = csv.read(data);
+
 			let title = firstRowTitle;
-			if (options.header === 1) {
-				title = numericTitle;
-			} else if (options.header === 'A') {
+
+			if (options.head === 'alpha') {
 				title = alphaTitle;
+			} else if (options.head === 'numeric') {
+				title = numericTitle;
 			}
+
 			const columns = generate({rows: rows, columnFactory: columnFactory(model), deep: false, title: title});
+
 			if (title === firstRowTitle) {
 				rows.shift(0);
 			}

@@ -35,14 +35,14 @@ csv, json, xlsx, xml
 </thead>
 <tbody>
     <tr>
-        <td>header</td>
-        <td><code>string</code> or <code>number</code></td>
+        <td>head</td>
+        <td><code>string</code></td>
         <td>
         <b>Only for xlsx, csv</b><br><br>
-        Takes one of two values : <code>'A'</code> or <code>1</code>. This option is applied to choose the type of title to import into the grid.
-        <br><br><code>'A'</code> - imported columns titles will be shown in alphanumeric format;
-        <br><br><code>1</code> - imported columns titles will be shown in numeric format<br><br>
-        If header option doesn't set or it is smth else - then first row of the imported document will be considered as column titles.</td>
+        Takes one of three values : <code>alpha</code>, <code>numeric</code> or <code>default</code>. This option is applied to choose the type of title to import into the grid.
+        <br><br><code>alpha</code> - imported columns titles will be shown in alphanumeric format;
+        <br><br><code>numeric</code> - imported columns titles will be shown in numeric format<br><br>
+        If header option isn't set or it's smth else - then first row of the imported document will be considered as column titles.</td>
 	</tr>
 </tbody>
 </table>

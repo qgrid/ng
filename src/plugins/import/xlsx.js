@@ -2,8 +2,18 @@ import {AppError} from '@grid/core/infrastructure';
 
 function toJson(workbook, options = {}) {
 	const wbOptions = {};
-	if (options.header) {
-		wbOptions.header = options.header;
+	switch (options.head) {
+		case 'alpha': {
+			wbOptions.header = 'A';
+			break;
+		}
+		case 'numeric': {
+			wbOptions.header = 1;
+			break;
+		}
+		default: {
+			break;
+		}
 	}
 	let result = [];
 	for (let sheetName of workbook.SheetNames) {
