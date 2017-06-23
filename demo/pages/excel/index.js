@@ -15,9 +15,9 @@ export default function Controller($http, qgrid) {
 			const dataState = model.data();
 			const rows = dataState.rows.slice(skip, skip + take);
 			const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-			for(let i = rows.length; i < take; i++){
+			for (let i = rows.length; i < take; i++) {
 				const row = {};
-				for(let j = 0; j < alphabet.length; j++){
+				for (let j = 0; j < alphabet.length; j++) {
 					row[alphabet[j]] = '';
 				}
 				rows.push(row);
@@ -25,7 +25,7 @@ export default function Controller($http, qgrid) {
 
 			next(rows);
 		}]
-		.concat(qgrid.pipeUnit.view)
+			.concat(qgrid.pipeUnit.view)
 	});
 
 	model.style({
