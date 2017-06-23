@@ -111,13 +111,14 @@ export class NavigationView extends View {
 				|| cr.left > tr.right
 				|| cr.right < tr.left
 				|| cr.right < tr.right) {
-				if (cr.left < tr.left
-					|| cr.right < tr.right) {
+
+				if (cr.left < tr.left || cr.right < tr.right) {
 					view.scrollLeft(tr.right - cr.right + scrollState.left);
-				} else if (cr.left > tr.left
-					|| cr.left > tr.right) {
+				}
+				else if (cr.left > tr.left || cr.left > tr.right) {
 					view.scrollLeft(tr.left - cr.left + scrollState.left);
 				}
+
 			}
 		}
 
@@ -126,13 +127,14 @@ export class NavigationView extends View {
 				|| cr.top > tr.bottom
 				|| cr.bottom < tr.top
 				|| cr.bottom < tr.bottom) {
-				if (cr.top < tr.top
-					|| cr.bottom < tr.bottom) {
+
+				if (cr.top < tr.top || cr.bottom < tr.bottom) {
 					view.scrollTop(tr.bottom - cr.bottom + scrollState.top);
-				} else if (cr.top > tr.top
-					|| cr.top > tr.bottom) {
+				}
+				else if (cr.top > tr.top || cr.top > tr.bottom) {
 					view.scrollTop(tr.top - cr.top + scrollState.top);
 				}
+
 			}
 		}
 	}

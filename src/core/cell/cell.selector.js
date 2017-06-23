@@ -44,9 +44,7 @@ export class CellSelector {
 
 		for (let item of items) {
 			const index = columns.findIndex(c => c === item);
-			for (let row of table.body.rows()) {
-				result.push(row.cell(index));
-			}
+			result.push(...table.body.column(index).cells());
 		}
 
 		return result;
