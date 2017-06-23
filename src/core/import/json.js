@@ -6,6 +6,6 @@ export class Json {
 		if (isArray(rows)) {
 			return rows;
 		}
-		return [];
+		return [rows];
 	}
 }
