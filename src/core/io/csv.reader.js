@@ -2,12 +2,12 @@ import {CharReader} from './char.reader';
 
 export class CsvReader {
 	constructor(delimiter = ',') {
-		this.delimiter = delimiter;
+		this.delimeter = delimiter;
 	}
 
 	read(text) {
 		const reader = new CharReader(text);
-		const delimiter = this.delimiter;
+		const delimiter = this.delimeter;
 
 		const result = [];
 		let line = [];
@@ -104,10 +104,10 @@ export class CsvReader {
 	}
 
 	readUnescapedValue(reader, term) {
-		const delimiter = this.delimiter;
+		const delimeter = this.delimeter;
 		let c = reader.peek();
 		while (c !== CharReader.eof) {
-			if (c === delimiter || c === '\n' ||
+			if (c === delimeter || c === '\n' ||
 				(c === '\r' && reader.peekPeek() === '\n'))
 				break;
 
