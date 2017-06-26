@@ -219,5 +219,9 @@ function Setup(qgridThemeProvider) {
 
 		theme.put('qgrid.body.cell.dropdown.edit.tpl.html', require('./components/cell/dropdown/body.cell.dropdown.edit.html'));
 		theme.put('qgrid.body.cell.autocomplete.edit.tpl.html', require('./components/cell/autocomplete/body.cell.autocomplete.edit.html'));
+
+		theme.put('qgrid.head.cell.filter-row.tpl.html', require('./components/cell/filter-row/head.cell.filter.row.html'));
+		theme.put('qgrid.body.cell.filter-row.tpl.html', EMPTY);
+		theme.put('qgrid.foot.cell.filter-row.tpl.html', EMPTY);
 	});
 }

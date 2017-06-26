@@ -12,6 +12,17 @@
 					}
 				}
 
+				&.q-grid-filter-row {
+					md-input-container {
+						margin: 0;
+						padding: 0;
+
+						.md-errors-spacer{
+							min-height: 0px !important;
+						}
+					}
+				}
+
 				label {
 					display: inline;
 				}
