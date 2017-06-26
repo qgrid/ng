@@ -5,6 +5,7 @@ import {SelectionRange} from './selection.range';
 import {SelectionService} from './selection.service';
 import {GRID_PREFIX} from '../definition';
 import {isUndefined} from '../utility';
+import {SelectionCommandManager} from './selection.command.manager';
 
 export class SelectionView extends View {
 	constructor(model, table, commandManager) {
@@ -16,7 +17,8 @@ export class SelectionView extends View {
 		this.selectionState = stateFactory(model, this.selectionService);
 		this.selectionRange = new SelectionRange(model);
 
-		const shortcut = new Shortcut(commandManager);
+		const selectionCommandManager = new SelectionCommandManager(model, commandManager);
+		const shortcut = new Shortcut(selectionCommandManager);
 		const commands = this.commands;
 		this.shortcutOff = shortcut.register('selectionNavigation', commands);
 		this.toggleRow = commands.get('toggleRow');

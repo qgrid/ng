@@ -33,6 +33,7 @@ import FileUpload from './directives/file.upload';
 import Raise from './directives/raise';
 import Animate from './directives/animate';
 import Position from './directives/position';
+import Autofocus from './directives/autofocus';
 
 import ThemeProvider from './services/theme';
 import Range from './filters/range';
@@ -53,6 +54,7 @@ export const coreModule = angular.module(def.MODULE_CORE_NAME, [])
 	.directive(def.CELL_VALUE_NAME, () => CellValue)
 	.directive(def.ANIMATE_NAME, () => Animate)
 	.directive(def.POSITION_NAME, () => Position)
+	.directive(def.AUTOFOCUS_NAME, () => Autofocus)
 	.provider(def.THEME_NAME, () => new ThemeProvider())
 	.service(def.TEMPLATE_PATH_NAME, () => () => TemplatePath)
 	.filter(def.RANGE_NAME, () => Range)

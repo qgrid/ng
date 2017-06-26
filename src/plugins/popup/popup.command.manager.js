@@ -8,7 +8,7 @@ export class PopupCommandManager extends CommandManager {
 	}
 
 	keyDown(f) {
-		this.popup.keyDown(f);
+		return this.popup.keyDown(f);
 	}
 
 	canExecute() {
