@@ -21,6 +21,6 @@ export declare function findView(columns: ColumnModel[], key: string): ColumnMod
 
 export declare function dataView(columns: ColumnModel[], model: Model): ColumnModel[];
 
-export declare function lineView(columnRows: ColumnView[]): any[];
+export declare function lineView(columnRows: ColumnView[]): string;
 
 export declare function widthFactory(model: Model, form: object): number;
