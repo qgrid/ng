@@ -1,9 +1,9 @@
 export class CharReader {
 	constructor(text) {
-		this.text = text;
+		this.text = text || '';
 		this.peeks = [];
 		this.position = 0;
-		this.length = text.length;
+		this.length = this.text.length;
 	}
 
 	static get eof() {
