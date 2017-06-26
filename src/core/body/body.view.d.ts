@@ -13,7 +13,7 @@ export declare interface IValueFactory{
 }
 
 export declare class BodyView extends View {
-	constructor(public model: Model, public table: Table);
+	constructor(model: Model, public table: Table);
 
 	table: Table;
 	rows: any[];
