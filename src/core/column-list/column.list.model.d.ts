@@ -1,11 +1,11 @@
 import {ColumnModel} from "../column-type/column.model";
 
-type Generation = 'deep' | 'shallow';
+export declare type GenerationMode = 'deep' | 'shallow';
 
 export declare class ColumnListModel {
 	constructor();
 
-	generation: Generation; // deep | shallow
+	generation: GenerationMode; // deep | shallow
 	index: string[];
 	columns: ColumnModel[];
 	reference: object;

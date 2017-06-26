@@ -1,25 +1,25 @@
 import {Model} from "../infrastructure/model";
 
-export declare interface ILabel{
-	(): any;
-}
-
-export declare  interface IValue{
-	(): any;
-}
-
 export declare interface IEditorOptions {
 	trigger: string;
 	modelFactory: () => Model;
-	label: () => any;
+	label: any;
 	fetch: any;
+	value: any;
+}
+
+export declare interface IValue{
+	(row: any, value?: any): any;
+}
+
+export declare interface ILabel{
+	(row: any, value?: any): any;
 }
 
 export declare class ColumnModel {
 
-	constructor(type: string);
+	constructor(public type: string);
 
-	type: string;
 	key: string;
 	title: string;
 	value: IValue;
