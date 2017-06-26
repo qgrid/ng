@@ -1,9 +1,8 @@
-<div class="q-grid-filter-row">
-	<md-input-container md-no-float class="md-block">
-		<input type="text"
-				 ng-init="search=''"
-				 ng-model="search"
-				 ng-change="$view.head.filter.execute({source: $cell.column, search: search })"
-				 placeholder="Filter {{::$cell.column.title}}"/>
-	</md-input-container>
-</div>
+<md-input-container ng-if="$cell.column.canFilter"
+						  md-no-float class="md-block">
+	<input type="text"
+			 ng-init="search=''"
+			 ng-model="search"
+			 ng-change="$view.head.filter.execute({source: $cell.column, search: search })"
+			 placeholder="Filter {{::$cell.column.title}}"/>
+</md-input-container>

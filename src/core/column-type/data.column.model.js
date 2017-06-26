@@ -4,6 +4,8 @@ export class DataColumnModel extends ColumnModel {
 	constructor() {
 		super(...arguments);
 
+		this.class = 'data';
+
 		this.isDefault = true;
 		this.aggregation = null;
 		this.aggregationOptions = {

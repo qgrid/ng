@@ -111,7 +111,6 @@ export class HeadView extends View {
 
 		if (model.filter().unit === 'row') {
 			const filterRow = this.table.data.columns()
-				// .filter(c => c.class === 'data')
 				.map(c => new FilterRowColumn(c));
 			this.rows.push(filterRow);
 		}

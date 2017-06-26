@@ -13,15 +13,15 @@ export class FilterRowColumnModel extends ColumnModel {
 	constructor(model) {
 		super();
 
+		Object.assign(this, model);
+
 		this.key = `$filter.row.${model.key}`;
 		this.type= 'filter-row';
 		this.class = 'filter';
-		this.title = model.title;
-		this.width = model.width;
-		this.minWidth = model.minWidth;
-		this.maxWidth = model.maxWidth;
+		this.canFilter = model.canFilter && model.class === 'data';
 
 		this.sourceKey = model.key;
+		this.sourceType = model.type;
 	}
 }
 

@@ -10,7 +10,7 @@ export class ColumnModel {
 		this.pin = null;
 		this.origin = 'specific';
 		this.source = 'user';
-		this.class = 'data';
+		this.class = '';
 		this.editor = null;
 		this.editorOptions = {
 			trigger: 'click',
