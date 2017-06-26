@@ -4,17 +4,15 @@ import {TextColumnModel} from '../column-type';
 
 export function generate(settings) {
 	const context = assignWith({
-		deep:true,
-		rows:[],
+		deep: true,
+		rows: [],
 		columnFactory: () => new TextColumnModel(),
 		title: startCase
 	}, settings);
-
-	if (context.rows.length === 0) {
-		return [];
+	if (context.rows && context.rows.length) {
+		return build(context.rows[0], null, context.columnFactory, context.deep, context.title);
 	}
-
-	return build(context.rows[0], null, context.columnFactory, context.deep, context.title);
+	return [];
 }
 
 function build(graph, path, columnFactory, deep, title) {
