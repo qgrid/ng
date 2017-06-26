@@ -1,8 +1,8 @@
-import {generate as doGenerate} from './column.list.generate';
+import {generate as doGenerate} from '../column-list';
 import {columnFactory} from '../column/column.factory';
 
 const createColumn = columnFactory({columnList: () => ({columns: [], reference: {}})});
-const generate = (rows, deep = true) => doGenerate(rows, createColumn, deep);
+const generate = (rows, deep = true) => doGenerate({rows: rows, columnFactory: createColumn, deep: deep});
 
 describe('column generate', () => {
 	it('should return empty array without parameters', () => {
