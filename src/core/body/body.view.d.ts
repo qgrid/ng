@@ -4,6 +4,7 @@ import {Model} from "../infrastructure/model";
 import {getFactory as labelFactory} from '../services/label';
 import {Table} from "../dom/table";
 import {IGetResult} from "../services/value";
+import {RowModel} from "../row/row.model";
 
 export declare interface IGetValueFactory{
 	(column: ColumnModel): IGetResult;
