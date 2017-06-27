@@ -24,6 +24,10 @@ class ThCore extends Directive(TH_CORE_NAME, {
 		this.root.bag.set(element, this);
 		element.classList.add(escapeClass(`${GRID_PREFIX}-${column.key}`));
 		element.classList.add(escapeClass(`${GRID_PREFIX}-${column.type}`));
+		if (column.type === 'filter-row') {
+			element.classList.add(escapeClass(`${GRID_PREFIX}-${column.sourceKey}`));
+			element.classList.add(escapeClass(`${GRID_PREFIX}-${column.sourceType}`));
+		}
 		if (column.editor) {
 			element.classList.add(escapeClass(`${GRID_PREFIX}-${column.editor}`));
 		}
