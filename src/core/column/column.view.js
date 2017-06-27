@@ -46,6 +46,13 @@ export class ColumnView extends View {
 				service.invalidate('column.view', e.changes, PipeUnit.column);
 			}
 		});
+
+		model.filterChanged.watch(e => {
+			if (e.hasChanges('unit')) {
+				this.update();
+				service.invalidate('column.view', e.changes, PipeUnit.column);
+			}
+		});
 	}
 
 	updateOn(generation) {

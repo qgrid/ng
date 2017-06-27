@@ -16,8 +16,8 @@ export class FilterRowColumnModel extends ColumnModel {
 		Object.assign(this, model);
 
 		this.key = `$filter.row.${model.key}`;
-		this.type= 'filter-row';
-		this.class = 'filter';
+		this.type = 'filter-row';
+		this.class = 'control';
 		this.canFilter = model.canFilter && model.class === 'data';
 
 		this.sourceKey = model.key;
