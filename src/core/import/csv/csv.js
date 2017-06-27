@@ -1,6 +1,6 @@
-import {CharReader} from './char.reader';
+import {CharReader} from '@grid/core/io';
 
-export class CsvReader {
+export class Csv {
 	constructor(delimiter = ',') {
 		this.delimeter = delimiter;
 	}
@@ -82,7 +82,7 @@ export class CsvReader {
 		}
 		while (condition);
 
-		return result;
+		return result.map(this.lineToObj);
 	}
 
 	readEscapedValue(reader, term) {
@@ -116,5 +116,13 @@ export class CsvReader {
 		}
 
 		return term;
+	}
+
+	lineToObj(line) {
+		const result = {};
+		for (let i = 0, length = line.length; i < length; i++) {
+			result[i] = line[i];
+		}
+		return result;
 	}
 }

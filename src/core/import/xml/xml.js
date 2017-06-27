@@ -5,10 +5,7 @@ const NODE_TYPE = {
 	TEXT: 3
 };
 
-export class XmlReader {
-	constructor() {
-	}
-
+export class Xml {
 	read(text) {
 		const parser = new DOMParser();
 		const root = parser.parseFromString(text, 'text/xml').documentElement;
