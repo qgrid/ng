@@ -55,8 +55,9 @@ function readFile(e, file, model, options = {}) {
 		case 'application/xml':
 		case 'text/xml':
 		case 'xml': {
+			const tag = options.tag || 'row';
 			const xml = new Xml();
-			const rows = xml.read(data);
+			const rows = xml.read(data)[tag];
 			const createColumn = columnFactory(model);
 			const columns = generate({rows: rows, columnFactory: (type, body) => createColumn('text', body), deep: true});
 			model.data({

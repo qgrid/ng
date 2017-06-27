@@ -11,13 +11,12 @@ export class XmlReader {
 		const parser = new DOMParser();
 		const root = parser.parseFromString(text, 'text/xml').documentElement;
 
-		this.parse(root);
-		return this.result;
+		return this.parse(root, this.result);
 	}
 
-	isPartOfArray(child) {
-		const parent = child.parentNode;
-		const children = parent.getElementsByTagName(child.tagName);
+	isPartOfArray(xml) {
+		const parent = xml.parentNode;
+		const children = parent.getElementsByTagName(xml.tagName);
 		return children.length > 1;
 	}
 
@@ -29,9 +28,9 @@ export class XmlReader {
 		return xml.nodeType === types.ELEMENT_NODE && !xml.children.length && xml.childNodes.length;
 	}
 
-	generateArray(child) {
-		const parent = child.parentNode;
-		const childrenCollection = parent.getElementsByTagName(child.tagName);
+	generateArray(xml) {
+		const parent = xml.parentNode;
+		const childrenCollection = parent.getElementsByTagName(xml.tagName);
 		const siblings = Array.from(childrenCollection);
 		const result = [];
 
@@ -39,11 +38,9 @@ export class XmlReader {
 			if (this.isTextContainer(item)) {
 				result.push(item.textContent);
 			} else {
-				const obj = {};
-				this.parse(item, obj);
-				result.push(obj);
+				result.push(this.parse(item, {}));
 			}
-			child.setAttribute('visited', '');
+			xml.setAttribute('visited', '');
 		}
 		return result;
 	}
@@ -52,27 +49,25 @@ export class XmlReader {
 		return xml.getAttribute('visited');
 	}
 
-	parse(xml) {
+	parse(xml, obj) {
 		const childrenCollection = xml.children;
 		const children = Array.from(childrenCollection);
-		const obj = this.result;
 		if (children && children.length > 0) {
-			for (let i = 0; i < children.length; i++) {
-				const child = children[i];
+			for (let child of children) {
 				if (this.isPartOfArray(child) && !this.isVisited(child)) {
 					obj[child.nodeName] = this.generateArray(child);
 				} else if (this.isTextContainer(child)) {
 					obj[child.nodeName] = child.textContent;
 				} else if (this.isElement(child)) {
-					const childObj = {};
-					this.parse(child, childObj);
-					obj[child.nodeName] = childObj;
+					obj[child.nodeName] = this.parse(child, {});
 				}
 			}
 		}
 		else if (this.isTextContainer(xml)) {
 			obj[xml.nodeName] = xml.textContent;
 		}
+
+		return obj;
 	}
 
 
