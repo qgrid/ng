@@ -24,7 +24,11 @@ function readFile(e, file, model, options = {}) {
 			const xlsx = new Xlsx();
 			const rows = xlsx.read(data, options);
 			const createColumn = columnFactory(model);
-			const columns = generate({rows: rows, columnFactory: (type, body) => createColumn('text', body), deep: false});
+			const columns = generate({
+				rows: rows,
+				columnFactory: (type, body) => createColumn('text', body),
+				deep: false
+			});
 			model.data({
 				columns: columns,
 				rows: rows
@@ -55,11 +59,13 @@ function readFile(e, file, model, options = {}) {
 		case 'application/xml':
 		case 'text/xml':
 		case 'xml': {
-			const tag = options.tag || 'row';
 			const xml = new Xml();
-			const rows = xml.read(data)[tag];
-			const createColumn = columnFactory(model);
-			const columns = generate({rows: rows, columnFactory: (type, body) => createColumn('text', body), deep: true});
+			const rows = xml.read(data);
+			const columns = generate({
+				rows: rows,
+				columnFactory: columnFactory(model),
+				deep: true
+			});
 			model.data({
 				columns: columns,
 				rows: rows
@@ -80,7 +86,12 @@ function readFile(e, file, model, options = {}) {
 				title = numericTitle;
 			}
 
-			const columns = generate({rows: rows, columnFactory: columnFactory(model), deep: false, title: title});
+			const columns = generate({
+				rows: rows,
+				columnFactory: columnFactory(model),
+				deep: false,
+				title: title
+			});
 
 			if (title === firstRowTitle) {
 				rows.shift(0);
