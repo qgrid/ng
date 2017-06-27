@@ -95,6 +95,12 @@ export class HeadView extends View {
 		});
 
 		model.viewChanged.watch(() => this.invalidate(model));
+
+		model.filterChanged.watch(e => {
+			if (e.hasChanges('unit')) {
+				this.invalidate(model);
+			}
+		});
 	}
 
 	transfer(column) {
@@ -107,7 +113,7 @@ export class HeadView extends View {
 	invalidate(model) {
 		Log.info('view.head', 'invalidate');
 
-		this.rows = model.view().columns;
+		this.rows = Array.from(model.view().columns);
 
 		if (model.filter().unit === 'row') {
 			const filterRow = this.table.data.columns()
