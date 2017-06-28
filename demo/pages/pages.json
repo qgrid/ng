@@ -452,8 +452,15 @@
 		]
 	},
 	{
-		"title": "ContextMenu",
+		"title": "Context Menu",
 		"items": [
 		]
+	},
+	{
+		"title": "Other Examples",
+		"items": [{
+			"title": "Open Within A Dialog",
+			"path": "dialog"
+		}]
 	}
 ]
