@@ -32,8 +32,8 @@ export class Monitor {
 	enter() {
 		const newSheets = this.newSheets;
 		let entries = this.entries;
-		for(let entry of entries){
-			for(let cls of entry.list){
+		for (let entry of entries) {
+			for (let cls of entry.list) {
 				entry.element.removeClass(cls, true);
 			}
 		}
@@ -49,8 +49,8 @@ export class Monitor {
 
 	exit() {
 		const entries = this.entries;
-		for(let entry of entries){
-			for(let cls of entry.list){
+		for (let entry of entries) {
+			for (let cls of entry.list) {
 				entry.element.addClass(cls, true);
 			}
 		}
