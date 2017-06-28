@@ -2,6 +2,7 @@ import {isArray} from '@grid/core/utility';
 
 const NODE_TYPE = {
 	ELEMENT: 1,
+	ATTRIBUTE: 2,
 	TEXT: 3
 };
 
@@ -9,9 +10,10 @@ export class Xml {
 	read(text) {
 		const parser = new DOMParser();
 		const root = parser.parseFromString(text, 'text/xml').documentElement;
-
+		this.elementsFromAttributes(root);
 		const statistics = this.getStatistics(root);
 		const graph = this.build(root, statistics, 'root');
+
 		if (isArray(graph)) {
 			return graph;
 		}
@@ -19,14 +21,32 @@ export class Xml {
 		return [graph];
 	}
 
-	isTextContainer(xml) {
-		return xml.nodeType === NODE_TYPE.ELEMENT && !xml.children.length && xml.childNodes.length;
+	isTextContainer(node) {
+		return node.nodeType === NODE_TYPE.ELEMENT && !node.children.length && node.childNodes.length;
 	}
 
-	objectFromAttributes() {
-		// node, statistics, path
-		// TODO: implement
-		return {};
+	hasAttributes(node) {
+		return Array.from(node.attributes).length > 0;
+	}
+
+	elementsFromAttributes(node) {
+		if (this.hasAttributes(node)) {
+			const owner = node.ownerDocument;
+			for (let attr of Array.from(node.attributes)) {
+				const element = owner.createElement(attr.name);
+				const text = owner.createTextNode(attr.value);
+				element.appendChild(text);
+				node.appendChild(element);
+				node.removeAttributeNode(attr);
+			}
+		}
+		const children = Array.from(node.children);
+		if (children.length > 0) {
+			for (let child of children) {
+				this.elementsFromAttributes(child);
+			}
+		}
+		return node;
 	}
 
 	objectFromChildren(node, statistics, path) {
@@ -65,7 +85,7 @@ export class Xml {
 	}
 
 
-	build(node, statistics, path = 'root', graph = {}) {
+	build(node, statistics, path = 'root') {
 		if (node.children.length) {
 			const testPath = `${path}/${node.children.item(0).nodeName}`;
 			const testSt = statistics.get(testPath);
@@ -79,9 +99,7 @@ export class Xml {
 			return node.textContent;
 		}
 
-		const result = this.objectFromAttributes(node);
-		graph[node.nodeName] = result;
-		return result;
+		return node.nodeValue;
 	}
 
 	info(node, lastInfo) {
@@ -95,6 +113,7 @@ export class Xml {
 	}
 
 	getStatistics(node, path = 'root', statistics = new Map()) {
+
 		statistics.set(path, this.info(node, statistics.get(path)));
 
 		const children = Array.from(node.children);
