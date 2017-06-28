@@ -59,6 +59,7 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.head.cell.id.tpl.html', require('@grid/themes/material/templates/head.cell.text.html'));
 		theme.put('qgrid.head.cell.pivot.tpl.html', require('@grid/themes/material/templates/head.cell.pivot.html'));
 		theme.put('qgrid.head.cell.select.tpl.html', require('@grid/themes/material/templates/head.cell.select.html'));
+		theme.put('qgrid.head.cell.filter-row.tpl.html', require('@grid/themes/material/templates/head.cell.filter.row.html'));
 
 		theme.put('qgrid.form.cell.text.edit.tpl.html', require('@grid/themes/material/templates/form.cell.text.edit.html'));
 		theme.put('qgrid.form.cell.number.edit.tpl.html', require('@grid/themes/material/templates/form.cell.number.edit.html'));
