@@ -15,9 +15,7 @@ export class NavigationView extends View {
 		this.shortcutOff = shortcut.register('navigation', navigation.commands);
 
 		this.blur = new Command({
-			execute: (row, column) =>{
-				table.body.cell(row, column).removeClass(`${GRID_PREFIX}-focus`);
-			},
+			execute: (row, column) => table.body.cell(row, column).removeClass(`${GRID_PREFIX}-focus`),
 			canExecute: (row, column, cell) => {
 				return (cell && table.data.columns().indexOf(cell.column) >= 0)
 					|| (!cell && table.body.cell(row, column).model !== null);
@@ -25,9 +23,7 @@ export class NavigationView extends View {
 		});
 
 		this.focus = new Command({
-			execute: (row, column) => {
-				table.body.cell(row, column).addClass(`${GRID_PREFIX}-focus`);
-			},
+			execute: (row, column) => table.body.cell(row, column).addClass(`${GRID_PREFIX}-focus`),
 			canExecute: (row, column, cell) => {
 				cell = cell || table.body.cell(row, column).model;
 				return cell

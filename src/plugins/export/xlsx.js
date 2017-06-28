@@ -15,7 +15,7 @@ function toArrayBuffer(excel) {
 	}
 	return buffer;
 }
-function rewriteHeaders(worksheet, headers) {
+function updateTitles(worksheet, headers) {
 	const range = XLSX.utils.decode_range(worksheet['!ref']);
 	for (let i = range.s.r; i <= range.e.r; ++i) {
 		const address = XLSX.utils.encode_col(i) + '1';
@@ -41,7 +41,7 @@ export class Xlsx {
 			headers.push(column.title);
 		}
 		const worksheet = XLSX.utils.json_to_sheet(result);
-		const workbook = sheet_to_workbook(rewriteHeaders(worksheet, headers));
+		const workbook = sheet_to_workbook(updateTitles(worksheet, headers));
 		const excel = XLSX.write(workbook, excelOptions);
 
 		return toArrayBuffer(excel);

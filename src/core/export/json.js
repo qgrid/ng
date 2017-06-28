@@ -1,6 +1,6 @@
 import {flatView} from './export.service';
 
-function rewriteHeaders(rows, titles) {
+function updateTitles(rows, titles) {
 	const result = [];
 	for (let row of rows) {
 		const obj = {};
@@ -25,6 +25,6 @@ export class Json {
 			titles.push(column.title);
 		}
 
-		return rewriteHeaders(result, titles);
+		return updateTitles(result, titles);
 	}
 }

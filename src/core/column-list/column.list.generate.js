@@ -1,4 +1,4 @@
-import {startCase, assignWith} from '../utility';
+import {startCase, assignWith} from '@grid/core/utility';
 import {compile, getType} from '../services';
 import {TextColumnModel} from '../column-type';
 
@@ -9,7 +9,7 @@ export function generate(settings) {
 		columnFactory: () => new TextColumnModel(),
 		title: startCase
 	}, settings);
-	if (context.rows && context.rows.length) {
+	if (context.rows.length) {
 		return build(context.rows[0], null, context.columnFactory, context.deep, context.title);
 	}
 	return [];

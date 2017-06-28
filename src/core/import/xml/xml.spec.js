@@ -4,12 +4,42 @@ const xml = new Xml();
 
 describe('xml parser', () => {
 
-	it('should return empty array', () => {
+	it('should return empty array when input is not defined', () => {
 		expect(xml.read()).to.eql([]);
 	});
 
 	it('should return empty array when passed empty string', () => {
 		expect(xml.read('')).to.eql([]);
+	});
+	it('should return array of one element', () => {
+		const text = `<?xml version="1.0" encoding="UTF-8"?>
+		<root>
+			<row>
+				<name>
+					<first>Lue</first>
+					<last>Laserna</last>
+				</name>
+				<gender>female</gender>
+				<birthday>1983-09-18</birthday>
+				<contact>
+					<address>
+						<street>19 Deer Loop</street>
+						<zip>90732</zip>
+						<city>San Pedro</city>
+						<state>CA</state>
+					</address>
+					<email>lue.laserna@nosql-matters.org</email>
+					<email>laserna@nosql-matters.org</email>
+					<region>310</region>
+					<phone>310-8268551</phone>
+					<phone>310-7618427</phone>
+				</contact>
+				<likes>chatting</likes>
+				<memberSince>2011-05-05</memberSince>
+			</row>
+		</root>`;
+		const lines = xml.read(text);
+		expect(lines.length).to.equal(1);
 	});
 
 	it('should return array of rows', () => {
