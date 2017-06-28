@@ -29,15 +29,6 @@ export default function Controller($http, qgrid) {
 	});
 
 	model.style({
-		// row: (row, context) => {
-		// 	if (row.gender === 'female') {
-		// 		context.class(`female-row-${this.femaleColor}`, {background: '#' + this.femaleColor});
-		// 	}
-		//
-		// 	if (row.gender === 'male') {
-		// 		context.class(`male-row-${this.maleColor}`, {background: '#' + this.maleColor});
-		// 	}
-		// },
 		cell: (row, column, context) => {
 			const focusState = model.focus();
 			if (context.row === focusState.rowIndex && context.column === 0) {
