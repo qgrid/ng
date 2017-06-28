@@ -30,7 +30,7 @@ class Import extends Plugin {
 		});
 	}
 
-	handleFile(e) {
+	load(e) {
 		const files = e.target.files;
 
 		for (let file of files) {
@@ -47,7 +47,7 @@ class Import extends Plugin {
 	}
 
 	onInit() {
-		this.eventListener.on('change', this.handleFile);
+		this.eventListener.on('change', this.load);
 	}
 
 	onDestroy() {
