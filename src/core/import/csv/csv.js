@@ -66,9 +66,7 @@ export class Csv {
 
 				if (line.length > 0 || term.length > 0) {
 					line.push(term);
-					if (line.length > 0) {
-						result.push(line);
-					}
+					result.push(line);
 				}
 				break;
 			}
