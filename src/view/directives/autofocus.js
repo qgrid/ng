@@ -2,12 +2,13 @@ import Directive from './directive';
 import {AUTOFOCUS_NAME, GRID_NAME} from '@grid/view/definition';
 
 class Autofocus extends Directive(AUTOFOCUS_NAME, {root: `${GRID_NAME}`}) {
-	constructor($scope, $element, $timeout) {
+	constructor($scope, $element, $attrs, $timeout) {
 		super();
 
 		this.$scope = $scope;
 		this.$element = $element;
 		this.$timeout = $timeout;
+		this.delay = parseInt($attrs[AUTOFOCUS_NAME]) || 100;
 	}
 
 	onInit() {
@@ -15,7 +16,7 @@ class Autofocus extends Directive(AUTOFOCUS_NAME, {root: `${GRID_NAME}`}) {
 			() => Object.keys(this.markup).find(p => p.startsWith('table')),
 			key => {
 				if (key) {
-					this.$timeout(() => this.markup[key].focus(), 100);
+					this.$timeout(() => this.markup[key].focus(), this.delay);
 					markupOff();
 				}
 			});
@@ -48,7 +49,7 @@ class Autofocus extends Directive(AUTOFOCUS_NAME, {root: `${GRID_NAME}`}) {
 	}
 }
 
-Autofocus.$inject = ['$scope', '$element', '$timeout'];
+Autofocus.$inject = ['$scope', '$element', '$attrs', '$timeout'];
 
 export default {
 	restrict: 'A',
