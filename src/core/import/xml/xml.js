@@ -3,13 +3,18 @@ import {isArray} from '@grid/core/utility';
 const NODE_TYPE = {
 	ELEMENT: 1,
 	ATTRIBUTE: 2,
-	TEXT: 3
+	TEXT: 3,
+	DOCUMENT: 9
 };
 
 export class Xml {
 	read(text) {
+		if (!text) {
+			return [];
+		}
 		const parser = new DOMParser();
 		const root = parser.parseFromString(text, 'text/xml').documentElement;
+
 		this.elementsFromAttributes(root);
 		const statistics = this.getStatistics(root);
 		const graph = this.build(root, statistics, 'root');
