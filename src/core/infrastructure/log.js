@@ -1,4 +1,4 @@
-/*eslint-disable  no-console*/
+/*eslint-disable  no-console, no-unused-vars*/
 
 export class Log {
 	constructor() {

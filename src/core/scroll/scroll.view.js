@@ -32,14 +32,6 @@ export class ScrollView extends View {
 
 		switch (scroll().mode) {
 			case 'virtual': {
-				model.viewChanged.watch(e => {
-					if (e.tag.source !== 'scroll.view') {
-						if (e.tag.source !== 'column.list') {
-							this.y.container.reset();
-						}
-					}
-				});
-
 				this.y.settings.fetch = (skip, take, d) => {
 					model.fetch({
 						skip: skip

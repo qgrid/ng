@@ -10,6 +10,14 @@ export class VirtualColumn extends Column {
 		this.dataIndex = mapper.viewToColumn(index);
 	}
 
+	cells() {
+		return this.box.columnCellsCore(this.dataIndex);
+	}
+
+	cell(rowIndex) {
+		return this.box.cell(rowIndex, this.dataIndex);
+	}
+
 	addClass(name, force = false) {
 		this.box.addColumnClass(this, name, force);
 	}
