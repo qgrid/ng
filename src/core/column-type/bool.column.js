@@ -23,7 +23,7 @@ export class BoolColumnModel extends DataColumnModel {
 		this.trueValue = true;
 		this.falseValue = false;
 
-		// as we use this inside, we can't use lambda in 2 here
+		// as we use 'this' pointer inside, we can't use lambda in 2 here
 		this.isIndeterminate = function (value) {
 			return !(value === this.trueValue || value === this.falseValue);
 		};
