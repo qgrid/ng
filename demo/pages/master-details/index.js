@@ -17,16 +17,7 @@ export default function Controller($http, qgrid) {
 			$http.get('data/people/10.json')
 				.then(response => {
 					const detailsRows = response.data.filter(r => {
-						const likes = r.likes;
-						if (likes.length !== selection.length) {
-							return false;
-						}
-						for (let i = likes.length; i--;) {
-							if (likes[i] !== selection[i])
-								return false;
-						}
-
-						return true;
+						return selection.every(val => r.likes.indexOf(val) >= 0);
 					});
 					this.detailsRows = detailsRows;
 				});
