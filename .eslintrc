@@ -24,7 +24,7 @@
 		],
 		"no-var": [
 			2
-		]
+        ]
 	},
 	"env": {
 		"es6": true,
@@ -35,6 +35,9 @@
 		"node": true
 	},
 	"globals": {
+        "fileSaver": false,
+        "XLSX": false,
+        "jsPDF": false,
 		"chai": false,
 		"describe": false,
 		"it": false,

@@ -212,6 +212,10 @@
 			{
 				"title": "No Data Template",
 				"path": "no-data"
+			},
+			{
+				"title": "Excel",
+				"path": "excel"
 			}
 		]
 	},
@@ -359,6 +363,10 @@
 			{
 				"title": "Export",
 				"path": "export"
+			},
+			{
+				"title": "Import",
+				"path": "import"
 			}
 		]
 	},

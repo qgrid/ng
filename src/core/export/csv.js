@@ -15,8 +15,10 @@ export class Csv {
 		const values = [];
 		let head = [];
 		for (let column of columns) {
-			values.push(valueFactory(column));
-			head.push(escape(column.title));
+			if (column.class === 'data') {
+				values.push(valueFactory(column));
+				head.push(escape(column.title));
+			}
 		}
 		result.push(head.join(DELIMETER));
 

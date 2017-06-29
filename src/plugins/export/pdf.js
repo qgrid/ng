@@ -1,9 +1,12 @@
-import jsPDF from 'jspdf';
-import 'jspdf-autotable';
-import {flattenObject} from '@grid/core/export//export.common';
+import {AppError} from '@grid/core/infrastructure';
+import {flatView} from '@grid/core/export/export.service';
 
 export class Pdf {
 	write(rows, columns, name) {
+		if (!window.jsPDF) {
+			throw new AppError('jsPDF', 'To use export plugin for pdf format please add https://github.com/MrRio/jsPDF and https://github.com/simonbengtsson/jsPDF-AutoTable libraries to your project');
+		}
+
 		const titles = [];
 		const values = [];
 		const doc = new jsPDF({orientation: 'landscape', unit: 'in'});
@@ -24,7 +27,7 @@ export class Pdf {
 			titles.push({title: column.title, dataKey: column.path});
 		}
 		for (let row of rows) {
-			values.push(flattenObject(row));
+			values.push(flatView(row));
 		}
 
 		doc.autoTable(titles, values, tableOptions);

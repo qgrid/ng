@@ -1,5 +1,5 @@
-import XLSX from 'xlsx';
-import {flattenObject} from '@grid/core/export//export.common';
+import {AppError} from '@grid/core/infrastructure';
+import {flatView} from '@grid/core/export/export.service';
 
 function sheet_to_workbook(sheet) {
 	const sheets = {};
@@ -15,7 +15,7 @@ function toArrayBuffer(excel) {
 	}
 	return buffer;
 }
-function rewriteHeaders(worksheet, headers) {
+function updateTitles(worksheet, headers) {
 	const range = XLSX.utils.decode_range(worksheet['!ref']);
 	for (let i = range.s.r; i <= range.e.r; ++i) {
 		const address = XLSX.utils.encode_col(i) + '1';
@@ -26,18 +26,22 @@ function rewriteHeaders(worksheet, headers) {
 }
 export class Xlsx {
 	write(rows, columns) {
+		if (!window.XLSX) {
+			throw new AppError('xlsx', 'To use export plugin for xlsx format please add http://github.com/SheetJS/js-xlsx library to your project');
+		}
+
 		const result = [];
 		const headers = [];
 		const excelOptions = {bookType: 'xlsx', bookSST: true, cellDates: true, compression: true, type: 'binary'};
 
 		for (let row of rows) {
-			result.push(flattenObject(row));
+			result.push(flatView(row));
 		}
 		for (let column of columns) {
 			headers.push(column.title);
 		}
 		const worksheet = XLSX.utils.json_to_sheet(result);
-		const workbook = sheet_to_workbook(rewriteHeaders(worksheet, headers));
+		const workbook = sheet_to_workbook(updateTitles(worksheet, headers));
 		const excel = XLSX.write(workbook, excelOptions);
 
 		return toArrayBuffer(excel);
