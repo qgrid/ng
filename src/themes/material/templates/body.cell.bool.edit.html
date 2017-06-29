@@ -2,8 +2,9 @@
 				 class="md-primary"
 				 q-grid:focus
 				 md-indeterminate="$view.edit.cell.editor.column.isIndeterminate($view.edit.cell.value)"
-				 ng-blur="$view.edit.cell.commit.execute($cell)"
-				 ng-model="$view.edit.cell.value">
+				 ng-checked="$view.edit.cell.editor.column.isChecked($view.edit.cell.value)"
+				 ng-true-value="{{$view.edit.cell.editor.column.trueValue}}"
+				 ng-false-value="{{$view.edit.cell.editor.column.falseValue}}"
+				 ng-model="$view.edit.cell.value"
+				 ng-blur="$view.edit.cell.commit.execute($cell)">
 </md-checkbox>
-
-{{$view.edit.cell.column}}

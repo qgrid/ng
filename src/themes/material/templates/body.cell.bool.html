@@ -1,5 +1,2 @@
-<span ng-switch="$cell.value">
-	<md-icon ng-switch-when="true">check</md-icon>
-	<md-icon ng-switch-when="false"></md-icon>
-	<md-icon ng-switch-default ng-if="$cell.column.isIndeterminate($cell.value)">remove</md-icon>
-</span>
+<md-icon ng-if="$cell.value === $cell.column.trueValue">check</md-icon>
+<md-icon ng-if="$cell.column.isIndeterminate($cell.value)">remove</md-icon>

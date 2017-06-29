@@ -20,7 +20,11 @@ export class BoolColumnModel extends DataColumnModel {
 	constructor() {
 		super('bool');
 
-		this.isIndeterminate = value => !(value === false || value === true);
+		this.trueValue = true;
+		this.falseValue = false;
+
+		this.isIndeterminate = value => !(value === this.trueValue || value === this.falseValue);
+		this.isChecked = value => value === this.trueValue;
 	}
 }
 
