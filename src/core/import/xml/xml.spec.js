@@ -75,8 +75,8 @@ describe('xml parser', () => {
 
 		const lines = xml.read(text);
 		expect(lines[0].jobTitle).to.equal('manager');
-		expect(lines[1].contact.phone).to.eql(['316-2417120', '316-2767391', '911']);
-		expect(lines[1].contact.email).to.eql(['jasper.grebel@nosql-matters.org', 'test@email.com']);
-		expect(lines[1].likes).to.eql(['shopping', 'wakeboarding']);
+		expect(lines[1].contact.phone).to.eql(['316-2417120', '316-2767391']);
+		expect(lines[1].contact.email).to.eql('jasper.grebel@nosql-matters.org');
+		expect(lines[1].likes).to.eql('shopping');
 	});
 });
