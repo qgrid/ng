@@ -93,7 +93,13 @@ export default function Controller($http) {
 			title: 'Member Since',
 			type: 'date',
 			isDefault: false
-		}
+		},
+		{
+			key: 'isOnline',
+			title: 'Online',
+			type: 'bool',
+			value: (item, value) => isUndef(value) ? item.isOnline : item.isOnline = value
+		},
 	];
 
 	$http.get('data/people/100.json')

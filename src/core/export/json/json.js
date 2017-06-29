@@ -1,4 +1,4 @@
-import {flatView} from './export.service';
+import {flatView} from '../export.service';
 
 function updateTitles(rows, titles) {
 	const result = [];

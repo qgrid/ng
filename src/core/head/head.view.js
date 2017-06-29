@@ -2,7 +2,7 @@ import {View} from '../view';
 import {Log, Command} from '../infrastructure';
 import * as columnService from '../column/column.service';
 import {FilterRowColumn} from '../column-type';
-import {clone} from '@grid/core/utility';
+import {clone} from '../utility';
 
 export class HeadView extends View {
 	constructor(model, table, tagName) {

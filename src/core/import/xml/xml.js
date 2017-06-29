@@ -1,4 +1,4 @@
-import {isArray} from '@grid/core/utility';
+import {isArray} from '../../utility';
 
 const NODE_TYPE = {
 	ELEMENT: 1,

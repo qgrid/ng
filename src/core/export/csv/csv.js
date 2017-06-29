@@ -1,6 +1,6 @@
-import {getFactory as valueFactory} from '../services/value';
+import {getFactory as valueFactory} from '../../services/value';
 
-const DELIMETER = ',';
+const DELIMITER = ',';
 
 function escape(value) {
 	let result = '' + value;
@@ -20,14 +20,14 @@ export class Csv {
 				head.push(escape(column.title));
 			}
 		}
-		result.push(head.join(DELIMETER));
+		result.push(head.join(DELIMITER));
 
 		for (let row of rows) {
 			const line = [];
 			for (let getValue of values) {
 				line.push(escape(getValue(row)));
 			}
-			result.push(line.join(DELIMETER));
+			result.push(line.join(DELIMITER));
 		}
 
 		return result.join('\n');

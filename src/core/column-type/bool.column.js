@@ -19,6 +19,8 @@ TemplatePath.register('bool-cell-edit', (template, column) => {
 export class BoolColumnModel extends DataColumnModel {
 	constructor() {
 		super('bool');
+
+		this.isIndeterminate = value => !(value === false || value === true);
 	}
 }
 
