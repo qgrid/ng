@@ -1,12 +1,15 @@
 require('./index.scss');
+
 import ReferenceEdit from './templates/body.cell.reference.edit';
 import DateEdit from './templates/body.cell.date.edit';
+import BoolEdit from './templates/body.cell.bool.edit';
 import RowOptions from './templates/body.cell.row.options.edit';
 
 export default angular
 	.module('qgrid.theme.material', ['qgrid'])
 	.controller('Body.Cell.Reference.Edit.Controller', ReferenceEdit)
 	.controller('Body.Cell.Date.Edit.Controller', DateEdit)
+	.controller('Body.Cell.Bool.Edit.Controller', BoolEdit)
 	.controller('Body.Cell.Row.Options.Controller', RowOptions)
 	.config(Setup)
 	.name;

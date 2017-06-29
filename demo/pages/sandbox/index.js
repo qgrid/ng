@@ -23,7 +23,8 @@ export default function Controller($http) {
 			key: 'gender',
 			title: 'Is Female',
 			type: 'bool',
-			value: (item, value) => isUndef(value) ? item.gender === 'female' : item.gender = value ? 'female' : 'male'
+			trueValue: 'female',
+			falseValue: 'male'
 		},
 		{
 			key: 'birthday',

@@ -189,6 +189,10 @@ export class EditCellView {
 		this.editor.label = label;
 	}
 
+	get column() {
+		return this.editor.column;
+	}
+
 	canEdit(cell) {
 		if (cell) {
 			return cell.column.canEdit && this.model.edit().mode === 'cell';

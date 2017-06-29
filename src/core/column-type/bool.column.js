@@ -23,8 +23,14 @@ export class BoolColumnModel extends DataColumnModel {
 		this.trueValue = true;
 		this.falseValue = false;
 
-		this.isIndeterminate = value => !(value === this.trueValue || value === this.falseValue);
-		this.isChecked = value => value === this.trueValue;
+		// as we use this inside, we can't use lambda in 2 here
+		this.isIndeterminate = function (value) {
+			return !(value === this.trueValue || value === this.falseValue);
+		};
+
+		this.isChecked = function (value) {
+			return value === this.trueValue;
+		};
 	}
 }
 
