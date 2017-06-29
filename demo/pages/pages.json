@@ -319,6 +319,10 @@
 				"path": "selection-model"
 			},
 			{
+                "title": "Master Details",
+                "path": "master-details"
+            },
+            {
 				"title": "Row Number",
 				"path": "row-number"
 			},
