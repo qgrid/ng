@@ -2,26 +2,39 @@ Controller.$inject = ['$http', 'qgrid'];
 export default function Controller($http, qgrid) {
 
 	this.model = qgrid.model();
+
 	this.selection = [];
-	this.rows = [];
-	this.columns = [];
+	this.masterRows = [];
+	this.detailsRows = [];
+
+	this.likes = [];
+
 	this.selectionChanged = (e) => {
 		this.selection = e.state.items;
-		this.columns = this.model.data().columns;
-		// const column = this.columns.find(c => c.key === 'likes');
-		this.model.filter({by: {'likes': ['chatting']}});
-		const filterBy = this.model.filter().by;
-		console.log(filterBy, this.model.filter());
-		// // filter.by['likes'] = {items:items};
+		if (this.selection.length) {
+			const selection = this.selection[0].likes;
+			this.likes = selection;
+			$http.get('data/people/10.json')
+				.then(response => {
+					const detailsRows = response.data.filter(r => {
+						const likes = r.likes;
+						if (likes.length !== selection.length) {
+							return false;
+						}
+						for (let i = likes.length; i--;) {
+							if (likes[i] !== selection[i])
+								return false;
+						}
+
+						return true;
+					});
+					this.detailsRows = detailsRows;
+				});
+		}
 	};
 
 	$http.get('data/people/10.json')
 		.then(response => {
-			this.rows = response.data;
+			this.masterRows = response.data;
 		});
-	this.selectionKey = {
-		row: row => `row ${this.rows.indexOf(row)}`,
-		column: column => column.key,
-	};
-
 }

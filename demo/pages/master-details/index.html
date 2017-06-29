@@ -1,14 +1,16 @@
-<div ng-class="{multigrid: $ctrl.selection.length}">
-	<q-grid rows="$ctrl.rows"
-	        selection-mode="single"
-	        selection-unit="row"
-	        on:selection-changed="$ctrl.selectionChanged($event)">
-		<q-grid:columns generation="deep"></q-grid:columns>
-	</q-grid>
-	<div ng-if="$ctrl.selection.length">
-		<h3 class="md-title">People who likes books</h3>
-		<q-grid rows="$ctrl.selection">
-			<q-grid:columns generation="deep"></q-grid:columns>
-		</q-grid>
-	</div>
-</div>
+<q-grid rows="$ctrl.masterRows"
+        selection-mode="single"
+        selection-unit="row"
+        on:selection-changed="$ctrl.selectionChanged($event)"
+        class="multigrid">
+	<q-grid:columns generation="deep"></q-grid:columns>
+</q-grid>
+<h3 class="md-title">People who likes
+	<md-chips ng-model="$ctrl.likes" readonly="true"></md-chips>
+</h3>
+<q-grid rows="$ctrl.detailsRows"
+        class="multigrid">
+	<q-grid:columns generation="deep"></q-grid:columns>
+	<q-grid:visibility toolbar.top="false">
+	</q-grid:visibility>
+</q-grid>
