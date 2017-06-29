@@ -50,6 +50,10 @@ function hashKeyFactory(model) {
 			const hashColumnKey = hashColumnKeyFactory(model);
 			const hashRowKey = hashRowKeyFactory(model);
 			return (key, entry) => {
+				if (!entry.unit) {
+					return key;
+				}
+
 				switch (entry.unit) {
 					case 'column':
 						return hashColumnKey(key);
@@ -78,10 +82,16 @@ function keySelector(unit, selector) {
 		case 'column':
 			return selector.column;
 		case 'cell':
-			return entry => ({
-				row: selector.row(entry.row),
-				column: selector.column(entry.column)
-			});
+			return entry => {
+				if (entry.row && entry.column) {
+					return {
+						row: selector.row(entry.row),
+						column: selector.column(entry.column)
+					};
+				}
+
+				return entry;
+			};
 		default:
 			throw new AppError('selection.state', `Invalid unit ${unit}`);
 	}
@@ -243,6 +253,10 @@ export class SelectionService {
 				const columnKey = keySelector('column', selectionState.key);
 
 				return entry => {
+					if (!entry.unit) {
+						return identity;
+					}
+
 					switch (entry.unit) {
 						case 'column':
 							return columnKey(entry.item);
