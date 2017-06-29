@@ -11,6 +11,19 @@
     .q-grid.q-grid-theme-material .q-grid-view thead tr th.q-grid-select md-checkbox, .q-grid.q-grid-theme-material .q-grid-view thead tr td.q-grid-select md-checkbox, .q-grid.q-grid-theme-material .q-grid-view tfoot tr th.q-grid-select md-checkbox, .q-grid.q-grid-theme-material .q-grid-view tfoot tr td.q-grid-select md-checkbox {
       margin: 0;
       margin-left: 2px; }
+    .q-grid.q-grid-theme-material .q-grid-view thead tr th.q-grid-filter-row md-input-container, .q-grid.q-grid-theme-material .q-grid-view thead tr td.q-grid-filter-row md-input-container, .q-grid.q-grid-theme-material .q-grid-view tfoot tr th.q-grid-filter-row md-input-container, .q-grid.q-grid-theme-material .q-grid-view tfoot tr td.q-grid-filter-row md-input-container {
+      margin: 0;
+      padding: 0; }
+      .q-grid.q-grid-theme-material .q-grid-view thead tr th.q-grid-filter-row md-input-container .md-errors-spacer, .q-grid.q-grid-theme-material .q-grid-view thead tr td.q-grid-filter-row md-input-container .md-errors-spacer, .q-grid.q-grid-theme-material .q-grid-view tfoot tr th.q-grid-filter-row md-input-container .md-errors-spacer, .q-grid.q-grid-theme-material .q-grid-view tfoot tr td.q-grid-filter-row md-input-container .md-errors-spacer {
+        min-height: 0 !important; }
+    .q-grid.q-grid-theme-material .q-grid-view thead tr th.q-grid-filter-row input[placeholder], .q-grid.q-grid-theme-material .q-grid-view thead tr td.q-grid-filter-row input[placeholder], .q-grid.q-grid-theme-material .q-grid-view tfoot tr th.q-grid-filter-row input[placeholder], .q-grid.q-grid-theme-material .q-grid-view tfoot tr td.q-grid-filter-row input[placeholder] {
+      text-overflow: ellipsis; }
+    .q-grid.q-grid-theme-material .q-grid-view thead tr th.q-grid-filter-row input::-moz-placeholder, .q-grid.q-grid-theme-material .q-grid-view thead tr td.q-grid-filter-row input::-moz-placeholder, .q-grid.q-grid-theme-material .q-grid-view tfoot tr th.q-grid-filter-row input::-moz-placeholder, .q-grid.q-grid-theme-material .q-grid-view tfoot tr td.q-grid-filter-row input::-moz-placeholder {
+      text-overflow: ellipsis; }
+    .q-grid.q-grid-theme-material .q-grid-view thead tr th.q-grid-filter-row input:-moz-placeholder, .q-grid.q-grid-theme-material .q-grid-view thead tr td.q-grid-filter-row input:-moz-placeholder, .q-grid.q-grid-theme-material .q-grid-view tfoot tr th.q-grid-filter-row input:-moz-placeholder, .q-grid.q-grid-theme-material .q-grid-view tfoot tr td.q-grid-filter-row input:-moz-placeholder {
+      text-overflow: ellipsis; }
+    .q-grid.q-grid-theme-material .q-grid-view thead tr th.q-grid-filter-row input:-ms-input-placeholder, .q-grid.q-grid-theme-material .q-grid-view thead tr td.q-grid-filter-row input:-ms-input-placeholder, .q-grid.q-grid-theme-material .q-grid-view tfoot tr th.q-grid-filter-row input:-ms-input-placeholder, .q-grid.q-grid-theme-material .q-grid-view tfoot tr td.q-grid-filter-row input:-ms-input-placeholder {
+      text-overflow: ellipsis; }
     .q-grid.q-grid-theme-material .q-grid-view thead tr th label, .q-grid.q-grid-theme-material .q-grid-view thead tr td label, .q-grid.q-grid-theme-material .q-grid-view tfoot tr th label, .q-grid.q-grid-theme-material .q-grid-view tfoot tr td label {
       display: inline; }
     .q-grid.q-grid-theme-material .q-grid-view thead tr th:hover label, .q-grid.q-grid-theme-material .q-grid-view thead tr td:hover label, .q-grid.q-grid-theme-material .q-grid-view tfoot tr th:hover label, .q-grid.q-grid-theme-material .q-grid-view tfoot tr td:hover label {
@@ -653,16 +666,13 @@
   .q-grid.q-grid-theme-material td.q-grid-edit.q-grid-autocomplete md-autocomplete-wrap {
     box-shadow: none; }
   .q-grid.q-grid-theme-material td.q-grid-edit.q-grid-autocomplete input {
-    border-color: rgba(0, 0, 0, 0.12);
-    border-width: 0 0 1px 0;
+    border-color: #3f51b5;
+    border-width: 0 0 2px 0;
     border-radius: 0;
     border-style: solid;
     line-height: 26px;
     padding: 2px 2px 1px 2px;
     height: 30px; }
-  .q-grid.q-grid-theme-material td.q-grid-edit.q-grid-autocomplete:not(.q-grid-selected) input {
-    border-color: #3f51b5;
-    border-width: 0 0 2px 0; }
   .q-grid.q-grid-theme-material td.q-grid-edit.q-grid-row-options {
     padding: 0;
     margin: 0;
@@ -901,3 +911,91 @@
 
 .q-grid.q-grid-theme-material .q-grid-export {
   padding: 10px 0; }
+
+.q-grid.q-grid-theme-material md-menu-item .md-button {
+  text-align: left;
+  display: inline-block;
+  border-radius: 0;
+  margin: auto 0;
+  font-size: 15px;
+  text-transform: none;
+  font-weight: 400;
+  height: 100%;
+  padding-left: 16px;
+  padding-right: 16px;
+  width: 100%; }
+
+.q-grid-excel .q-grid.q-grid-theme-material .q-grid-view thead tr {
+  height: 24px;
+  background-color: #eee;
+  border-spacing: 0;
+  border-collapse: collapse; }
+  .q-grid-excel .q-grid.q-grid-theme-material .q-grid-view thead tr th {
+    border-left: 1px solid #d2d2d2; }
+    .q-grid-excel .q-grid.q-grid-theme-material .q-grid-view thead tr th label {
+      color: black;
+      font-weight: normal; }
+    .q-grid-excel .q-grid.q-grid-theme-material .q-grid-view thead tr th.q-grid-highlighted {
+      background-color: #9FD5B7; }
+    .q-grid-excel .q-grid.q-grid-theme-material .q-grid-view thead tr th.q-grid-sorted {
+      background-color: #D3F0E0; }
+    .q-grid-excel .q-grid.q-grid-theme-material .q-grid-view thead tr th .q-grid-divider {
+      display: none; }
+    .q-grid-excel .q-grid.q-grid-theme-material .q-grid-view thead tr th.focused-row-header {
+      background-color: #d2d2d2;
+      border-bottom: 1px solid #227447; }
+      .q-grid-excel .q-grid.q-grid-theme-material .q-grid-view thead tr th.focused-row-header label {
+        color: #227447; }
+
+.q-grid-excel .q-grid.q-grid-theme-material .q-grid-table tbody {
+  border-collapse: collapse;
+  border-spacing: 0; }
+  .q-grid-excel .q-grid.q-grid-theme-material .q-grid-table tbody tr:first-child td.q-grid-focus:first-child {
+    border-left-width: 1px;
+    border-top-width: 1px; }
+  .q-grid-excel .q-grid.q-grid-theme-material .q-grid-table tbody tr td {
+    color: black;
+    border: 1px solid #ccc;
+    line-height: 21px;
+    padding: 0 4px 0 4px;
+    background-color: white;
+    vertical-align: top;
+    overflow: hidden;
+    outline-width: 0;
+    border-collapse: collapse;
+    border-spacing: 0; }
+    .q-grid-excel .q-grid.q-grid-theme-material .q-grid-table tbody tr td:not(.q-grid-row-number) {
+      cursor: cell; }
+    .q-grid-excel .q-grid.q-grid-theme-material .q-grid-table tbody tr td.q-grid-array ul {
+      display: inline-block;
+      vertical-align: middle; }
+    .q-grid-excel .q-grid.q-grid-theme-material .q-grid-table tbody tr td.q-grid-array ul li {
+      display: block;
+      min-width: 0;
+      text-align: left;
+      padding: 0;
+      vertical-align: middle;
+      background-color: transparent;
+      border-radius: 0;
+      margin-right: 0; }
+      .q-grid-excel .q-grid.q-grid-theme-material .q-grid-table tbody tr td.q-grid-array ul li::after {
+        content: ',';
+        white-space: pre; }
+      .q-grid-excel .q-grid.q-grid-theme-material .q-grid-table tbody tr td.q-grid-array ul li:last-child::after {
+        content: ''; }
+    .q-grid-excel .q-grid.q-grid-theme-material .q-grid-table tbody tr td.q-grid-focus {
+      background-color: white !important;
+      border: 2px solid #227447; }
+    .q-grid-excel .q-grid.q-grid-theme-material .q-grid-table tbody tr td.q-grid-focus.q-grid-edit input {
+      border: none; }
+    .q-grid-excel .q-grid.q-grid-theme-material .q-grid-table tbody tr td.q-grid-selected {
+      background-color: white !important; }
+    .q-grid-excel .q-grid.q-grid-theme-material .q-grid-table tbody tr td.q-grid-row-number {
+      background-color: #eee; }
+    .q-grid-excel .q-grid.q-grid-theme-material .q-grid-table tbody tr td.q-grid-sorted {
+      background-color: #c6c6c6;
+      border-left: 2px solid #227447;
+      border-right: 2px solid #227447; }
+    .q-grid-excel .q-grid.q-grid-theme-material .q-grid-table tbody tr td.focused-row-header {
+      background-color: #d2d2d2;
+      border-right: 2px solid #227447; }
