@@ -1,13 +1,13 @@
-import {CharReader} from '@grid/core/io';
+import {CharReader} from '../../io';
 
 export class Csv {
 	constructor(delimiter = ',') {
-		this.delimeter = delimiter;
+		this.delimiter = delimiter;
 	}
 
 	read(text) {
 		const reader = new CharReader(text);
-		const delimiter = this.delimeter;
+		const delimiter = this.delimiter;
 
 		const result = [];
 		let line = [];
@@ -102,10 +102,10 @@ export class Csv {
 	}
 
 	readUnescapedValue(reader, term) {
-		const delimeter = this.delimeter;
+		const delimiter = this.delimiter;
 		let c = reader.peek();
 		while (c !== CharReader.eof) {
-			if (c === delimeter || c === '\n' ||
+			if (c === delimiter || c === '\n' ||
 				(c === '\r' && reader.peekPeek() === '\n'))
 				break;
 

@@ -1,4 +1,4 @@
-import {isObject, isArray} from '@grid/core/utility';
+import {isObject, isArray} from '../utility';
 
 function flatView(obj, separator = ', ') {
 	const result = {};

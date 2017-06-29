@@ -1,4 +1,4 @@
-import {identity} from '@grid/core/utility';
+import {identity} from '../utility';
 
 export class ColumnModel {
 	constructor(type = 'text') {
