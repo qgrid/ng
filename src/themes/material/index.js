@@ -1,12 +1,15 @@
 require('./index.scss');
+
 import ReferenceEdit from './templates/body.cell.reference.edit';
 import DateEdit from './templates/body.cell.date.edit';
+import BoolEdit from './templates/body.cell.bool.edit';
 import RowOptions from './templates/body.cell.row.options.edit';
 
 export default angular
 	.module('qgrid.theme.material', ['qgrid'])
 	.controller('Body.Cell.Reference.Edit.Controller', ReferenceEdit)
 	.controller('Body.Cell.Date.Edit.Controller', DateEdit)
+	.controller('Body.Cell.Bool.Edit.Controller', BoolEdit)
 	.controller('Body.Cell.Row.Options.Controller', RowOptions)
 	.config(Setup)
 	.name;
@@ -16,6 +19,7 @@ function Setup(qgridThemeProvider) {
 	qgridThemeProvider.register('material', theme => {
 		theme.put('qgrid.plugin.progress.tpl.html', require('@grid/themes/material/templates/plugin.progress.html'));
 		theme.put('qgrid.plugin.export.tpl.html', require('@grid/themes/material/templates/plugin.export.html'));
+		theme.put('qgrid.plugin.import.tpl.html', require('@grid/themes/material/templates/plugin.import.html'));
 
 		theme.put('qgrid.body.cell.text.edit.tpl.html', require('@grid/themes/material/templates/body.cell.text.edit.html'));
 		theme.put('qgrid.body.cell.text-area.edit.tpl.html', require('@grid/themes/material/templates/body.cell.text.area.edit.html'));
@@ -59,6 +63,7 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.head.cell.id.tpl.html', require('@grid/themes/material/templates/head.cell.text.html'));
 		theme.put('qgrid.head.cell.pivot.tpl.html', require('@grid/themes/material/templates/head.cell.pivot.html'));
 		theme.put('qgrid.head.cell.select.tpl.html', require('@grid/themes/material/templates/head.cell.select.html'));
+		theme.put('qgrid.head.cell.filter-row.tpl.html', require('@grid/themes/material/templates/head.cell.filter.row.html'));
 
 		theme.put('qgrid.form.cell.text.edit.tpl.html', require('@grid/themes/material/templates/form.cell.text.edit.html'));
 		theme.put('qgrid.form.cell.number.edit.tpl.html', require('@grid/themes/material/templates/form.cell.number.edit.html'));

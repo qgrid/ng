@@ -1,0 +1,19 @@
+<q-grid model="$ctrl.model"
+        edit-mode="cell"
+        selection-mode="range">
+	<q-grid:columns>
+		<q-grid:column>
+			<q-grid:template for="edit">
+				<input type="text"
+				       q-grid:focus
+				       ng-blur="$view.edit.cell.commit.execute($cell)"
+				       ng-model="$view.edit.cell.value"/>
+			</q-grid:template>
+		</q-grid:column>
+	</q-grid:columns>
+	<q-grid:toolbar>
+		<q-grid:template for="top">
+			<q-grid:import import-options="{head:'numeric'}"></q-grid:import>
+		</q-grid:template>
+	</q-grid:toolbar>
+</q-grid>

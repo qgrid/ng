@@ -5,6 +5,8 @@ import {Box} from '../box';
 import {CellBox} from './cell.box';
 import {RowBox} from './row.box';
 import {ColumnBox} from './column.box';
+import {FakeElement} from '../fake';
+import * as columnService from '../../column/column.service';
 
 export class VirtualBox extends Box {
 	constructor(context, model) {
@@ -67,6 +69,49 @@ export class VirtualBox extends Box {
 		else {
 			this.columnBox.removeClass(column, name);
 		}
+	}
+
+	rowCount() {
+		return this.model.data().rows.length;
+	}
+
+	columnCount() {
+		const columns = this.model.view().columns;
+		return columnService
+			.lineView(columns)
+			.length;
+	}
+
+	rowCore(index) {
+		const viewIndex = this.context.mapper.rowToView(index);
+		if (viewIndex >= 0 && viewIndex < super.rowCount()) {
+			return super.rowCore(viewIndex);
+		}
+
+		const rowFactory = this.createRowCore.bind(this);
+		return rowFactory(viewIndex, new FakeElement());
+	}
+
+	cellCore(rowIndex, columnIndex) {
+		const mapper = this.context.mapper;
+		const viewRowIndex = mapper.rowToView(rowIndex);
+		const viewColumnIndex = mapper.columnToView(columnIndex);
+		if (viewRowIndex >= 0 && viewRowIndex < super.rowCount()) {
+			return super.cellCore(viewRowIndex, viewColumnIndex);
+		}
+
+		const cellFactory = this.createCellCore.bind(this);
+		return cellFactory(viewRowIndex, viewColumnIndex, new FakeElement());
+	}
+
+	rowCellsCore(index) {
+		const viewIndex = this.context.mapper.rowToView(index);
+		if (viewIndex >= 0 && viewIndex < super.rowCount()) {
+			return super.rowCellsCore(viewIndex);
+		}
+
+		const cellFactory = this.createCellCore.bind(this);
+		return super.rowCellsCore(0).map((cell, i) => cellFactory(viewIndex, i, new FakeElement()));
 	}
 
 	createRowCore(index, element) {

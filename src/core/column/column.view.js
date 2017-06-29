@@ -56,17 +56,17 @@ export class ColumnView extends View {
 		const createColumn = columnFactory(model);
 		const rows = data().rows;
 		switch (generation) {
-			case 'deep':
-				columns.push(...generate(rows, createColumn, true));
+			case 'deep': {
+				columns.push(...generate({rows: rows, columnFactory: createColumn, deep: true}));
 				break;
-			case 'shallow':
-				columns.push(...generate(rows, createColumn, false));
+			}
+			case
+			'shallow': {
+				columns.push(...generate({rows: rows, columnFactory: createColumn, deep: false}));
 				break;
+			}
 			default:
-				throw new AppError(
-					'column.list',
-					`Invalid generation mode "${generation}"`
-				);
+				throw new AppError('column.list', `Invalid generation mode "${generation}"`);
 		}
 
 		return this.update(columns);

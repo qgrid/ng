@@ -12,23 +12,15 @@ export class Box {
 	}
 
 	cell(rowIndex, columnIndex) {
-		rowIndex = this.context.mapper.rowToView(rowIndex);
-		columnIndex = this.context.mapper.columnToView(columnIndex);
 		return this.cellCore(rowIndex, columnIndex);
 	}
 
 	column(index) {
 		const columnFactory = this.createColumnCore.bind(this);
-		index = this.context.mapper.columnToView(index);
-		if (index >= 0 && index < this.columnCount()) {
-			return columnFactory(index);
-		}
-
-		return columnFactory(-1);
+		return columnFactory(index);
 	}
 
 	row(index) {
-		index = this.context.mapper.rowToView(index);
 		return this.rowCore(index);
 	}
 
@@ -84,7 +76,7 @@ export class Box {
 			}
 		}
 
-		return rowFactory(-1, new FakeElement());
+		return rowFactory(index, new FakeElement());
 	}
 
 	cellCore(rowIndex, columnIndex) {

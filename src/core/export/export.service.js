@@ -1,6 +1,6 @@
-import {isObject, isArray} from '@grid/core/utility';
+import {isObject, isArray} from '../utility';
 
-function flattenObject(obj, separator = ', ') {
+function flatView(obj, separator = ', ') {
 	const result = {};
 
 	for (let [prop, value] of Object.entries(obj)) {
@@ -11,7 +11,7 @@ function flattenObject(obj, separator = ', ') {
 			}
 			result[prop] = items.join(separator);
 		} else if (isObject(value)) {
-			const flatObject = flattenObject(value);
+			const flatObject = flatView(value, separator);
 			for (let [flatProp, flatValue] of Object.entries(flatObject)) {
 				result[prop + '.' + flatProp] = flatValue;
 			}
@@ -23,5 +23,5 @@ function flattenObject(obj, separator = ', ') {
 }
 
 export {
-	flattenObject
+	flatView
 };

@@ -50,6 +50,10 @@ function hashKeyFactory(model) {
 			const hashColumnKey = hashColumnKeyFactory(model);
 			const hashRowKey = hashRowKeyFactory(model);
 			return (key, entry) => {
+				if (!entry.unit) {
+					return key;
+				}
+
 				switch (entry.unit) {
 					case 'column':
 						return hashColumnKey(key);
@@ -78,13 +82,91 @@ function keySelector(unit, selector) {
 		case 'column':
 			return selector.column;
 		case 'cell':
-			return entry => ({
-				row: selector.row(entry.row),
-				column: selector.column(entry.column)
-			});
+			return entry => {
+				if (entry.row && entry.column) {
+					return {
+						row: selector.row(entry.row),
+						column: selector.column(entry.column)
+					};
+				}
+
+				return entry;
+			};
 		default:
 			throw new AppError('selection.state', `Invalid unit ${unit}`);
 	}
+}
+
+function lookupColumnFactory(model, selectKey) {
+	const selectionState = model.selection();
+	if (selectionState.key.column === identity) {
+		return identity;
+	}
+
+	const dataState = model.data();
+	const columns = dataState.columns;
+	return items => {
+		const result = [];
+		columns.forEach(column => {
+			const colKey = selectKey(column);
+			const found = items.indexOf(colKey) > -1;
+			if (found) {
+				result.push(column);
+			}
+		});
+
+		return result;
+	};
+}
+
+function lookupRowFactory(model, selectKey) {
+	const selectionState = model.selection();
+	if (selectionState.key.row === identity) {
+		return identity;
+	}
+
+	const dataState = model.data();
+	const rows = dataState.rows;
+	return items => {
+		const result = [];
+		rows.forEach(row => {
+			const rowKey = selectKey(row);
+			const found = items.indexOf(rowKey) > -1;
+			if (found) {
+				result.push(row);
+			}
+		});
+		return result;
+	};
+}
+
+function lookupCellFactory(model, selectKey) {
+	const selectionState = model.selection();
+	if (selectionState.key.row === identity && selectionState.key.column === identity) {
+		return identity;
+	}
+
+	const dataState = model.data();
+	const rows = dataState.rows;
+	const columns = dataState.columns;
+	const match = cellMatchFactory();
+	return items => {
+		const result = [];
+		columns.forEach(column => {
+			rows.forEach(row => {
+				const cell = {
+					column: column,
+					row: row
+				};
+
+				const index = items.findIndex(item => match(item, selectKey(cell)));
+				if (index >= 0) {
+					result.push(cell);
+				}
+			});
+		});
+		return result;
+	};
 }
 
 export class SelectionService {
@@ -93,7 +175,7 @@ export class SelectionService {
 	}
 
 	lookup(items, unit) {
-		const entries = [];
+		let entries = [];
 		if (items.length === 0) {
 			return entries;
 		}
@@ -103,48 +185,23 @@ export class SelectionService {
 			unit = model.selection().unit;
 		}
 
-		const data = model.data();
 		switch (unit) {
 			case 'column': {
 				const selectKey = this.keyFactory('column');
-				const columns = data.columns;
-				columns.forEach(column => {
-					const colKey = selectKey(column);
-					const found = items.indexOf(colKey) > -1;
-					if (found) {
-						entries.push(column);
-					}
-				});
+				const lookup = lookupColumnFactory(model, selectKey);
+				entries = lookup(items);
 				break;
 			}
 			case 'row': {
 				const selectKey = this.keyFactory('row');
-				const rows = data.rows;
-				rows.forEach(row => {
-					const rowKey = selectKey(row);
-					const found = items.indexOf(rowKey) > -1;
-					if (found) {
-						entries.push(row);
-					}
-				});
+				const lookup = lookupRowFactory(model, selectKey);
+				entries = lookup(items);
 				break;
 			}
 			case 'cell': {
 				const selectKey = this.keyFactory('cell');
-				const match = cellMatchFactory();
-				data.columns.forEach(column => {
-					data.rows.forEach(row => {
-						const cell = {
-							column: column,
-							row: row
-						};
-
-						const index = items.findIndex(item => match(item, selectKey(cell)));
-						if (index >= 0) {
-							entries.push(cell);
-						}
-					});
-				});
+				const lookup = lookupCellFactory(model, selectKey);
+				entries = lookup(items);
 				break;
 			}
 			case 'mix': {
@@ -196,6 +253,10 @@ export class SelectionService {
 				const columnKey = keySelector('column', selectionState.key);
 
 				return entry => {
+					if (!entry.unit) {
+						return identity;
+					}
+
 					switch (entry.unit) {
 						case 'column':
 							return columnKey(entry.item);

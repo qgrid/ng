@@ -33,7 +33,7 @@ class Export extends Plugin {
 			canExecute: () => this.type === 'json',
 			execute: () => {
 				const json = new Json();
-				const data = json.write(this.rows, this.columns, this.exportOptions);
+				const data = json.write(this.rows, this.columns);
 				download(this.id, data, `text/${this.type}`);
 			}
 		});
@@ -41,7 +41,7 @@ class Export extends Plugin {
 			canExecute: () => this.type === 'xml',
 			execute: () => {
 				const xml = new Xml();
-				const data = xml.write(this.rows, this.columns);
+				const data = xml.write(this.rows);
 				download(this.id, data, `application/${this.type}`);
 			}
 		});
@@ -87,7 +87,6 @@ export default Export.component({
 	controller: Export,
 	controllerAs: '$export',
 	bindings: {
-		'type': '@',
-		'exportOptions': '@'
+		'type': '@'
 	}
 });

@@ -19,6 +19,7 @@ import {RowDetailsView} from '@grid/core/row-details';
 import {GRID_NAME, TH_CORE_NAME} from '@grid/view/definition';
 import {PipeUnit} from '@grid/core/pipe/units';
 import {Vscroll} from '@grid/view/services';
+import {jobLine} from '@grid/core/services';
 
 class ViewCore extends Component {
 	constructor($rootScope, $scope, $element, $timeout, grid, vscroll) {
@@ -78,23 +79,17 @@ class ViewCore extends Component {
 		});
 
 		const triggers = model.data().triggers;
-
-		// TODO: think about invalidation queue
-		let needInvalidate = true;
+		const job = jobLine(10);
+		job(() => gridService.invalidate('grid'));
 		Object.keys(triggers)
 			.forEach(name =>
 				model[name + 'Changed']
 					.watch(e => {
 						const changes = Object.keys(e.changes);
 						if (e.tag.behavior !== 'core' && triggers[name].find(key => changes.indexOf(key) >= 0)) {
-							needInvalidate = false;
-							gridService.invalidate(name, e.changes);
+							job(() => gridService.invalidate(name, e.changes));
 						}
 					}));
-
-		if (needInvalidate) {
-			gridService.invalidate('grid');
-		}
 	}
 
 	onDestroy() {

@@ -1,20 +1,36 @@
 import Directive from './directive';
 import {FOCUS_NAME} from '@grid/view/definition';
+import {AppError} from '@grid/core/infrastructure';
 
 class Focus extends Directive(FOCUS_NAME) {
 	constructor($scope, $element, $attrs) {
 		super();
 
 		this.$scope = $scope;
-		this.element = $element[0];
+		this.$element = $element;
 		this.$attrs = $attrs;
 	}
 
 	onInit() {
-		if (!this.$attrs.tabindex) {
-			this.element.setAttribute('tabindex', -1);
+		let element = this.$element[0];
+
+		const targetName = this.$attrs[FOCUS_NAME];
+		if (targetName !== '') {
+			const target = this.$element.find(targetName);
+			if (target.length > 0) {
+				element = target[0];
+			}
+			else {
+				throw new AppError('focus', `Element "${targetName}" is not found`);
+			}
 		}
-		this.$scope.$evalAsync(() => this.element.focus());
+
+		if (element.getAttribute('tabindex') === null
+			|| element.getAttribute('tabindex') !== '') {
+			element.setAttribute('tabindex', -1);
+		}
+
+		this.$scope.$evalAsync(() => element.focus());
 	}
 }
 

@@ -1,7 +1,7 @@
 import {Action} from '../infrastructure/action';
 
-declare class ActionModel{
+export declare class ActionModel{
 	constructor();
 
-	private items: Array<Action>;
+	items: Action[];
 }

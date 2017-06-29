@@ -21,8 +21,11 @@ export default function Controller($http, qgrid) {
 			const take = model.pagination().size;
 
 			$http.get('data/people/100.json')
-				.then(response =>
-					next(rows = rows.concat(response.data.slice(skip, skip + take))));
+				.then(response => {
+					const newPage = response.data.slice(skip, skip + take);
+					rows = rows.concat(newPage);
+					next(rows);
+				});
 		}]
 			.concat(qgrid.pipeUnit.view)
 	});

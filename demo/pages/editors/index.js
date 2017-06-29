@@ -26,9 +26,6 @@ export default function Controller($http, $q, $timeout) {
 			value: (item, value) => isUndef(value) ? item.gender: item.gender = value,
 			editor: 'dropdown',
 			editorOptions: {
-				// fetch: (item, d) => {
-				// 	$timeout(() => d.resolve(['female', 'male']), 2000);
-				// }
 				fetch: ['female', 'male']
 			}
 		},
@@ -80,7 +77,7 @@ export default function Controller($http, $q, $timeout) {
 			type: 'text',
 			value: (item, value) => isUndef(value)
 				? item.chief || null
-				: item.chief = value.id,
+				: item.chief = value !== null ? value.id : null,
 			label: item => {
 				if (isUndef(item.chief) || item.chief === null) {
 					return '';

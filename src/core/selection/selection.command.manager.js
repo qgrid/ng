@@ -1,4 +1,4 @@
-import {CompositeCommandManager} from '@grid/core/infrastructure';
+import {CompositeCommandManager} from '../infrastructure';
 
 export class SelectionCommandManager extends CompositeCommandManager {
 	constructor(model, manager) {

@@ -23,6 +23,14 @@ export class VirtualRow extends Row {
 		return null;
 	}
 
+	cells() {
+		return this.box.rowCellsCore(this.dataIndex);
+	}
+
+	cell(columnIndex) {
+		return this.box.cellCore(this.dataIndex, columnIndex);
+	}
+
 	addClass(name, force = false) {
 		this.box.addRowClass(this, name, force);
 	}

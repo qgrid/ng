@@ -40,7 +40,7 @@ export class SelectionView extends View {
 
 		model.selectionChanged.watch(e => {
 			if (e.hasChanges('mode')) {
-				const newClassName = `${GRID_PREFIX}-select-${model.selection().mode}`;
+				const newClassName = `${GRID_PREFIX}-select-${e.state.mode}`;
 				const view = table.view;
 				view.addClass(newClassName);
 
@@ -198,12 +198,12 @@ export class SelectionView extends View {
 				canExecute: () => model.selection().mode === 'multiple',
 				execute: () => {
 					let entries = [];
-					switch (model.selection().unit){
-						case 'row':{
+					switch (model.selection().unit) {
+						case 'row': {
 							entries = model.data().rows;
 							break;
 						}
-						case 'column':{
+						case 'column': {
 							entries = model.data().columns;
 							break;
 						}
@@ -273,7 +273,7 @@ export class SelectionView extends View {
 
 	state(item) {
 		if (!arguments.length) {
-			item = this.model.view().rows;
+			item = this.rows;
 		}
 
 		return this.selectionState.state(item) === true;
@@ -281,7 +281,7 @@ export class SelectionView extends View {
 
 	isIndeterminate(item) {
 		if (!arguments.length) {
-			item = this.model.view().rows;
+			item = this.rows;
 		}
 
 		return this.selectionState.state(item) === null;
