@@ -72,4 +72,9 @@ page-details {
 			white-space: normal;
 		}
 	}
+  .multigrid .q-grid.q-grid-box {
+    height: initial;
+    min-height: initial;
+    max-height: initial;
+  }
 }

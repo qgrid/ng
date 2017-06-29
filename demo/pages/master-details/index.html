@@ -1,11 +1,14 @@
-<q-grid rows="$ctrl.rows"
-        model="$ctrl.model"
-        selection-mode="single"
-        selection-unit="row"
-        on:selection-changed="$ctrl.selectionChanged($event)">
-	<q-grid:columns generation="deep"></q-grid:columns>
-</q-grid>
-
-<div>
-	{{$ctrl.selection[0].name.first}}
+<div ng-class="{multigrid: $ctrl.selection.length}">
+	<q-grid rows="$ctrl.rows"
+	        selection-mode="single"
+	        selection-unit="row"
+	        on:selection-changed="$ctrl.selectionChanged($event)">
+		<q-grid:columns generation="deep"></q-grid:columns>
+	</q-grid>
+	<div ng-if="$ctrl.selection.length">
+		<h3 class="md-title">People who likes books</h3>
+		<q-grid rows="$ctrl.selection">
+			<q-grid:columns generation="deep"></q-grid:columns>
+		</q-grid>
+	</div>
 </div>
