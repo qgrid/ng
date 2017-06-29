@@ -1,11 +1,8 @@
 import {Command} from './command';
-import {CommandManager} from 'view/services/command.manager';
+import {CommandManager} from './command.manager';
 
 export declare class Shortcut {
+	constructor(manager: CommandManager);
 
-	constructor(table: object, manager: CommandManager);
-
-	manager: CommandManager;
-	commands: Command[];
-
+	register(id: string, commands: Command[]);
 }

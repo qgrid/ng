@@ -358,6 +358,10 @@
 			{
 				"title": "Keyboard Navigation",
 				"path": "keyboard-navigation"
+			},
+			{
+				"title": "Dialog",
+				"path": "dialog"
 			}
 		]
 	},
@@ -467,12 +471,5 @@
 		"title": "Context Menu",
 		"items": [
 		]
-	},
-	{
-		"title": "Other Examples",
-		"items": [{
-			"title": "Open Within A Dialog",
-			"path": "dialog"
-		}]
 	}
 ]
