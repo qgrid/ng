@@ -2542,22 +2542,27 @@ var Event = function () {
 		key: "on",
 		value: function on(f) {
 			var handlers = this.handlers;
-			handlers.push(f);
-			return function () {
-				var index = handlers.indexOf(f);
+			var handler = { f: f };
+			var off = function off() {
+				var index = handlers.indexOf(handler);
 				if (index >= 0) {
 					handlers.splice(index, 1);
 				}
 			};
+
+			handler.off = off;
+			handlers.push(handler);
+			return off;
 		}
 	}, {
 		key: "watch",
 		value: function watch(f) {
+			var off = this.on(f);
 			if (this.isDirty) {
-				f(this.e());
+				f(this.e(), off);
 			}
 
-			return this.on(f);
+			return off;
 		}
 	}, {
 		key: "emit",
@@ -2565,7 +2570,8 @@ var Event = function () {
 			this.isDirty = true;
 			var temp = Array.from(this.handlers);
 			for (var i = 0, length = temp.length; i < length; i++) {
-				temp[i](e);
+				var handler = temp[i];
+				handler.f(e, handler.off);
 			}
 		}
 	}]);
@@ -15003,16 +15009,18 @@ function ReferenceEdit($scope, qgrid, popupService) {
 		}
 	};
 
-	var dataChangedOff = this.gridModel.dataChanged.watch(function (e) {
+	this.gridModel.dataChanged.watch(function (e, off) {
 		if (e.hasChanges('rows') && e.state.rows.length > 0) {
+			off();
 			var cell = _this.cell();
-			_this.gridModel.selection({
-				items: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__grid_core_utility__["g" /* isArray */])(cell.value) ? cell.value : [cell.value]
-			});
+			var model = _this.gridModel;
+			if (!model.selection().items.length) {
+				model.selection({
+					items: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__grid_core_utility__["g" /* isArray */])(cell.value) ? cell.value : [cell.value]
+				});
+			}
 
-			_this.gridModel.selectionChanged.watch(watchSelection);
-
-			dataChangedOff();
+			model.selectionChanged.watch(watchSelection);
 		}
 	});
 
@@ -15150,7 +15158,7 @@ module.exports = "<div class=\"q-grid-editor q-grid-password\" q-grid-position=\
 /* 412 */
 /***/ (function(module, exports) {
 
-module.exports = "<q-grid:popup id=\"q-grid-reference-edit\" ng-init=\"$popup.show()\"\n\t\t\t\t  q-grid:popup-close=\"$view.edit.cell.cancel.execute($cell, $event)\">\n\t<q-grid:template for=\"trigger\">\n\t\t<span ng-init=\"$popup.open({width: 350, height: 500})\"></span>\n\t</q-grid:template>\n\t<q-grid:template for=\"body\" let=\"[$view, $cell]\">\n\t\t<div ng-cloak\n\t\t\t  class=\"q-grid-editor q-grid-reference\"\n\t\t\t  layout=\"column\"\n\t\t\t  ng-controller=\"Body.Cell.Reference.Edit.Controller as $referenceEdit\">\n\t\t\t<div flex=\"90\">\n\t\t\t\t<q-grid model=\"$referenceEdit.gridModel\"\n\t\t\t\t\t\t  q-grid:autofocus>\n\t\t\t\t\t<q-grid:columns>\n\t\t\t\t\t</q-grid:columns>\n\t\t\t\t\t<q-grid:toolbar>\n\t\t\t\t\t\t<q-grid:template for=\"top\">\n\t\t\t\t\t\t\t<div class=\"q-grid-progress\">\n\t\t\t\t\t\t\t\t<q-grid:progress></q-grid:progress>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</q-grid:template>\n\t\t\t\t\t</q-grid:toolbar>\n\t\t\t\t</q-grid>\n\t\t\t</div>\n\t\t\t<div flex=\"10\" class=\"q-grid-actions\">\n\t\t\t\t<md-button class=\"md-primary md-confirm-button\" ng-click=\"$referenceEdit.commit.execute($cell, $event)\">Save\n\t\t\t\t</md-button>\n\t\t\t\t<md-button class=\"md-primary md-cancel-button\"\n\t\t\t\t\t\t\t  ng-click=\"$referenceEdit.cancel.execute($cell, $event)\">Cancel\n\t\t\t\t</md-button>\n\t\t\t</div>\n\t\t</div>\n\t</q-grid:template>\n\t<q-grid:template for=\"head\" let=\"$cell\">\n\t\t<h2 class=\"md-title\">Edit {{::$cell.column.title}}</h2>\n\t</q-grid:template>\n</q-grid:popup>\n"
+module.exports = "<q-grid:popup id=\"q-grid-reference-edit\"\n\t\t\t\t  ng-init=\"$popup.show()\"\n\t\t\t\t  q-grid:popup-close=\"$view.edit.cell.cancel.execute($cell, $event)\">\n\t<q-grid:template for=\"trigger\">\n\t\t<span ng-init=\"$popup.open({width: 350, height: 500})\"></span>\n\t</q-grid:template>\n\t<q-grid:template for=\"body\" let=\"[$view, $cell]\">\n\t\t<div ng-cloak\n\t\t\t  class=\"q-grid-editor q-grid-reference\"\n\t\t\t  layout=\"column\"\n\t\t\t  ng-controller=\"Body.Cell.Reference.Edit.Controller as $referenceEdit\">\n\t\t\t<div flex=\"90\">\n\t\t\t\t<q-grid model=\"$referenceEdit.gridModel\"\n\t\t\t\t\t\t  q-grid:autofocus>\n\t\t\t\t\t<q-grid:columns>\n\t\t\t\t\t</q-grid:columns>\n\t\t\t\t\t<q-grid:toolbar>\n\t\t\t\t\t\t<q-grid:template for=\"top\">\n\t\t\t\t\t\t\t<div class=\"q-grid-progress\">\n\t\t\t\t\t\t\t\t<q-grid:progress></q-grid:progress>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</q-grid:template>\n\t\t\t\t\t</q-grid:toolbar>\n\t\t\t\t</q-grid>\n\t\t\t</div>\n\t\t\t<div flex=\"10\" class=\"q-grid-actions\">\n\t\t\t\t<md-button class=\"md-primary md-confirm-button\" ng-click=\"$referenceEdit.commit.execute($cell, $event)\">Save\n\t\t\t\t</md-button>\n\t\t\t\t<md-button class=\"md-primary md-cancel-button\"\n\t\t\t\t\t\t\t  ng-click=\"$referenceEdit.cancel.execute($cell, $event)\">Cancel\n\t\t\t\t</md-button>\n\t\t\t</div>\n\t\t</div>\n\t</q-grid:template>\n\t<q-grid:template for=\"head\" let=\"$cell\">\n\t\t<h2 class=\"md-title\">Edit {{::$cell.column.title}}</h2>\n\t</q-grid:template>\n</q-grid:popup>\n"
 
 /***/ }),
 /* 413 */

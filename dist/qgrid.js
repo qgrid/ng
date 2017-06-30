@@ -974,25 +974,33 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 				if (this.isLinked()) {
 					var visibility = this.model.visibility;
-					var plugins = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__grid_core_utility__["j" /* clone */])(visibility().plugin);
-					if (!plugins.hasOwnProperty(pluginName)) {
-						plugins[pluginName] = true;
-						this.model.visibility({ plugin: plugins });
-					}
-
+					var tryToShow = false;
 					this.model.visibilityChanged.watch(function (e) {
 						if (e.hasChanges('plugin')) {
-							var _plugins = _this2.model.visibility().plugin;
+							var _plugins = e.state.plugin;
 							var pluginState = _plugins[pluginName];
 							if (pluginState !== _this2.isShown) {
 								if (pluginState) {
-									_this2.templateScope = _this2.show();
+									if (!tryToShow) {
+										tryToShow = true;
+										try {
+											_this2.templateScope = _this2.show();
+										} finally {
+											tryToShow = false;
+										}
+									}
 								} else {
 									_this2.templateScope = _this2.hide();
 								}
 							}
 						}
 					});
+
+					var plugins = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__grid_core_utility__["j" /* clone */])(visibility().plugin);
+					if (!plugins.hasOwnProperty(pluginName)) {
+						plugins[pluginName] = true;
+						this.model.visibility({ plugin: plugins });
+					}
 				}
 
 				_get(Plugin.prototype.__proto__ || Object.getPrototypeOf(Plugin.prototype), 'onInitCore', this).call(this);
@@ -3191,22 +3199,27 @@ var Event = function () {
 		key: "on",
 		value: function on(f) {
 			var handlers = this.handlers;
-			handlers.push(f);
-			return function () {
-				var index = handlers.indexOf(f);
+			var handler = { f: f };
+			var off = function off() {
+				var index = handlers.indexOf(handler);
 				if (index >= 0) {
 					handlers.splice(index, 1);
 				}
 			};
+
+			handler.off = off;
+			handlers.push(handler);
+			return off;
 		}
 	}, {
 		key: "watch",
 		value: function watch(f) {
+			var off = this.on(f);
 			if (this.isDirty) {
-				f(this.e());
+				f(this.e(), off);
 			}
 
-			return this.on(f);
+			return off;
 		}
 	}, {
 		key: "emit",
@@ -3214,7 +3227,8 @@ var Event = function () {
 			this.isDirty = true;
 			var temp = Array.from(this.handlers);
 			for (var i = 0, length = temp.length; i < length; i++) {
-				temp[i](e);
+				var handler = temp[i];
+				handler.f(e, handler.off);
 			}
 		}
 	}]);
