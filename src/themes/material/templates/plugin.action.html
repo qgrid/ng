@@ -1,6 +1,8 @@
 <div class="q-grid-action">
-	<md-button>
-		Action
+	<md-button class="md-icon-button">
 		<md-icon>{{$action.icon}}</md-icon>
+		<md-tooltip>
+			<span>{{$action.title}}</span><span ng-if="$action.command.shortcut"> ({{$action.command.shortcut | uppercase}})</span>
+		</md-tooltip>
 	</md-button>
 </div>

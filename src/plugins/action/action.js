@@ -42,6 +42,8 @@ export default Action.component({
 	controller: Action,
 	controllerAs: '$action',
 	bindings: {
-		'icon': '@'
+		'type': '@',
+		'icon': '@',
+		'title': '@'
 	}
 });
