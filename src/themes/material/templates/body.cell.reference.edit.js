@@ -39,10 +39,11 @@ export default function ReferenceEdit($scope, qgrid, popupService) {
 			off();
 			const cell = this.cell();
 			const model = this.gridModel;
-			const service = new SelectionService(model);
-			model.selection({
-				items: service.map(isArray(cell.value) ? cell.value : [cell.value])
-			});
+			if (!model.selection().items.length) {
+				model.selection({
+					items: isArray(cell.value) ? cell.value : [cell.value]
+				});
+			}
 
 			model.selectionChanged.watch(watchSelection);
 		}

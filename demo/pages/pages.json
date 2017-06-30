@@ -295,7 +295,7 @@
 			},
 			{
 				"title": "Form Editing",
-				"path": "form-editing"
+				"path": "edit-form"
 			},
 			{
 				"title": "Validation",
@@ -414,10 +414,6 @@
 			{
 				"title": "Column Filter",
 				"path": "column-filter"
-			},
-			{
-				"title": "Edit Form",
-				"path": "edit-form"
 			},
 			{
 				"title": "Group Bar",
