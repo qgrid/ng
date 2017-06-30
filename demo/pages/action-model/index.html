@@ -1,20 +1,19 @@
-<q-grid rows="$ctrl.rows"
-        actions="$ctrl.actions">
+<q-grid rows="$ctrl.rows">
 	<q-grid:columns generation="deep">
 	</q-grid:columns>
 
-	<q-grid:action>
-		<q-grid:template for="add">
-			<button style="border:1px solid #267ed5; background-color: #267ed5; color: #ffffff">add
-			</button>
-		</q-grid:template>
-	</q-grid:action>
+	<!--<q-grid:action>-->
+	<!--<q-grid:template for="add">-->
+	<!--<button style="border:1px solid #267ed5; background-color: #267ed5; color: #ffffff">add-->
+	<!--</button>-->
+	<!--</q-grid:template>-->
+	<!--</q-grid:action>-->
 
 
 	<q-grid:toolbar>
 		<q-grid:template for="top">
 			<div layout="row" layout-align="end center">
-				<q-grid:action type="add" icon="add" title="Add new row">
+				<q-grid:action type="add" icon="add" title="Add new row" command="$ctrl.addCommand">
 				</q-grid:action>
 			</div>
 		</q-grid:template>

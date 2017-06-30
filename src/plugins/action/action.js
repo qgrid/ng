@@ -44,6 +44,7 @@ export default Action.component({
 	bindings: {
 		'type': '@',
 		'icon': '@',
-		'title': '@'
+		'title': '@',
+		'command': '='
 	}
 });
