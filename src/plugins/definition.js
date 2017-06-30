@@ -5,6 +5,7 @@ export const MODULE_NAME = `${GRID_MODULE_NAME}.plugin`;
 export const PAGER_NAME = `${GRID}Pager`;
 export const PROGRESS_NAME = `${GRID}Progress`;
 export const ACTION_BAR_NAME = `${GRID}ActionBar`;
+export const ACTION_BAR_CORE_NAME = `${GRID}ActionBarCore`;
 export const SORT_BAR_NAME = `${GRID}SortBar`;
 export const GROUP_BAR_NAME = `${GRID}GroupBar`;
 export const PIVOT_BAR_NAME = `${GRID}PivotBar`;

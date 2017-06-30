@@ -1,6 +1,6 @@
-import PluginComponent from '../plugin.component';
-import {ACTION_NAME} from '../definition';
-// import {Command} from '@grid/core/infrastructure';
+import Component from '../../view/components/component';
+import {ACTION_NAME, ACTION_BAR_NAME} from '../definition';
+import {Action as ActionItem} from '@grid/core/infrastructure/action';
 import {TemplatePath} from '@grid/core/template';
 
 TemplatePath
@@ -11,40 +11,43 @@ TemplatePath
 		};
 	});
 
-const Plugin = PluginComponent('action');
-class Action extends Plugin {
+class Action extends Component {
 	constructor() {
 		super(...arguments);
 	}
 
-	get id() {
-		return this.model.grid().id;
+	execute() {
+		return this.command.execute();
 	}
 
-	get rows() {
-		return this.model.data().rows;
+	canExecute() {
+		return this.command.canExecute();
 	}
 
-	get columns() {
-		return this.model.data().columns;
+	onInit() {
+		const model = this.model;
+		const actions = Array.from(model.action().items);
+		actions.push(new ActionItem(this.command, this.title, this.icon));
+		model.action({
+			items: actions
+		});
 	}
 
-	get resource() {
-		return this.model.export().resource;
-	}
-
-	get resourceKey() {
-		return [this.type];
+	get model() {
+		return this.bar.root.model;
 	}
 }
 
-export default Action.component({
+export default {
 	controller: Action,
+	require: {
+		bar: `^^${ACTION_BAR_NAME}`
+	},
 	controllerAs: '$action',
 	bindings: {
-		'type': '@',
+		'id': '@',
 		'icon': '@',
 		'title': '@',
-		'command': '&'
+		'command': '<'
 	}
-});
+};

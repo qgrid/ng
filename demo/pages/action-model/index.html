@@ -9,13 +9,11 @@
 	<!--</q-grid:template>-->
 	<!--</q-grid:action>-->
 
-
-	<q-grid:toolbar>
-		<q-grid:template for="top">
-			<div layout="row" layout-align="end center">
-				<q-grid:action type="add" icon="add" title="Add new row" command="$ctrl.addCommand">
-				</q-grid:action>
-			</div>
-		</q-grid:template>
-	</q-grid:toolbar>
+	<q-grid:action-bar>
+		<q-grid:action id="add" icon="add" title="Add new row" command="$ctrl.addCommand">
+			<q-grid:template let="$ctrl">
+				<md-button ng-click="$action.execute()" ng-disabled="!$action.canExecute()">add</md-button>
+			</q-grid:template>
+		</q-grid:action>
+	</q-grid:action-bar>
 </q-grid>

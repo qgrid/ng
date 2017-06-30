@@ -27,7 +27,6 @@ import {StyleModel} from './style';
 import {ScrollModel} from './scroll';
 import {ExportModel} from './export';
 import {ImportModel} from './import';
-import {ActionbarModel} from './action';
 import {ActionModel} from './action';
 import {FetchModel} from './fetch';
 
@@ -61,7 +60,6 @@ export function setup(model) {
 		.register('scroll', ScrollModel)
 		.register('export', ExportModel)
 		.register('import', ImportModel)
-		.register('actionbar', ActionbarModel)
 		.register('action', ActionModel)
 		.register('fetch', FetchModel);
 }
