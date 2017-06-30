@@ -1,0 +1,3 @@
+const ENV = {
+	PRODUCTION: false
+};
