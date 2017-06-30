@@ -1,4 +1,4 @@
-import {startCase, assignWith} from '@grid/core/utility';
+import {startCase, assignWith} from '../utility';
 import {compile, getType} from '../services';
 import {TextColumnModel} from '../column-type';
 

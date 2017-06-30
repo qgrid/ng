@@ -21,7 +21,8 @@ export default function Controller($http) {
 			key: 'gender',
 			title: 'Is Female',
 			type: 'bool',
-			value: (item) => item.gender === 'female'
+			trueValue: 'female',
+			falseValue: 'male'
 		},
 		{
 			key: 'birthday',

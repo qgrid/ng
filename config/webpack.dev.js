@@ -33,6 +33,9 @@ module.exports = webpackMerge(commonConfig, {
 		publicPath: '/demo/dist'
 	},
 	plugins: [
+		new webpack.DefinePlugin({
+			'ENV.PRODUCTION': JSON.stringify(false),
+		}),
 		new webpack.LoaderOptionsPlugin({
 			options: {
 				eslint: {

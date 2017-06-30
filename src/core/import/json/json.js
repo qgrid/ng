@@ -1,4 +1,4 @@
-import {isArray} from '@grid/core/utility';
+import {isArray} from '../../utility';
 
 export class Json {
 	read(data) {
