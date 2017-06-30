@@ -45,19 +45,22 @@ export default function (pluginName, context) {
 		onInitCore() {
 			if (this.isLinked()) {
 				const visibility = this.model.visibility;
-				const plugins = clone(visibility().plugin);
-				if (!plugins.hasOwnProperty(pluginName)) {
-					plugins[pluginName] = true;
-					this.model.visibility({plugin: plugins});
-				}
-
+				let tryToShow = false;
 				this.model.visibilityChanged.watch(e => {
 					if (e.hasChanges('plugin')) {
-						const plugins = this.model.visibility().plugin;
+						const plugins = e.state.plugin;
 						const pluginState = plugins[pluginName];
 						if (pluginState !== this.isShown) {
 							if (pluginState) {
-								this.templateScope = this.show();
+								if (!tryToShow) {
+									tryToShow = true;
+									try {
+										this.templateScope = this.show();
+									}
+									finally {
+										tryToShow = false;
+									}
+								}
 							}
 							else {
 								this.templateScope = this.hide();
@@ -65,6 +68,12 @@ export default function (pluginName, context) {
 						}
 					}
 				});
+
+				const plugins = clone(visibility().plugin);
+				if (!plugins.hasOwnProperty(pluginName)) {
+					plugins[pluginName] = true;
+					this.model.visibility({plugin: plugins});
+				}
 			}
 
 			super.onInitCore();
