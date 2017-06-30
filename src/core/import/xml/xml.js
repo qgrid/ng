@@ -19,7 +19,7 @@ export class Xml {
 		const key = Object.keys(graph)[0];
 		const result = graph[key];
 		if (isArray(result)) {
-			return result
+			return result;
 		}
 
 		return [result];
@@ -60,7 +60,7 @@ export class Xml {
 				}
 
 				visited.add(childPath);
-				result[child.nodeName] = this.build(child, statistics, childPath)
+				result[child.nodeName] = this.build(child, statistics, childPath);
 			}
 
 			return result;
