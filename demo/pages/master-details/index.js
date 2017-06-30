@@ -1,8 +1,8 @@
 Controller.$inject = ['$http', 'qgrid'];
 export default function Controller($http, qgrid) {
+	const src = 'data/people/100.json';
 
 	this.model = qgrid.model();
-
 	this.selection = [];
 	this.masterRows = [];
 	this.detailsRows = [];
@@ -12,19 +12,22 @@ export default function Controller($http, qgrid) {
 	this.selectionChanged = (e) => {
 		this.selection = e.state.items;
 		if (this.selection.length) {
-			const selection = this.selection[0].likes;
-			this.likes = selection;
-			$http.get('data/people/10.json')
+			const likes = this.selection[0].likes;
+			this.likes = likes;
+			$http.get(src)
 				.then(response => {
-					const detailsRows = response.data.filter(r => {
-						return selection.every(val => r.likes.indexOf(val) >= 0);
-					});
-					this.detailsRows = detailsRows;
+					const filter = r => {
+						return likes.every(like => r.likes.indexOf(like) >= 0);
+					};
+					this.detailsRows = response.data.filter(filter);
 				});
+		}
+		else {
+			this.detailsRows = [];
 		}
 	};
 
-	$http.get('data/people/10.json')
+	$http.get(src)
 		.then(response => {
 			this.masterRows = response.data;
 		});
