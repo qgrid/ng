@@ -1,4 +1,4 @@
-@import '../src/assets/scroll.scss';
+@import '../src/assets/scroll';
 
 html, body {
 	font-family: Roboto, 'Helvetica Neue', sans-serif;
@@ -98,4 +98,18 @@ md-toolbar {
 	}
 
 	@include scroll();
+}
+
+.dialog-grid {
+	overflow-y: auto;
+	padding: 10px 20px;
+	height: 100%;
+
+	md-toolbar {
+		display: flex !important;
+	}
+
+	md-dialog-content {
+		overflow: hidden;
+	}
 }

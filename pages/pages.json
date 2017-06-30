@@ -212,6 +212,10 @@
 			{
 				"title": "No Data Template",
 				"path": "no-data"
+			},
+			{
+				"title": "Excel",
+				"path": "excel"
 			}
 		]
 	},
@@ -315,6 +319,10 @@
 				"path": "selection-model"
 			},
 			{
+                "title": "Master Details",
+                "path": "master-details"
+            },
+            {
 				"title": "Row Number",
 				"path": "row-number"
 			},
@@ -350,6 +358,10 @@
 			{
 				"title": "Keyboard Navigation",
 				"path": "keyboard-navigation"
+			},
+			{
+				"title": "Dialog",
+				"path": "dialog"
 			}
 		]
 	},
@@ -359,6 +371,10 @@
 			{
 				"title": "Export",
 				"path": "export"
+			},
+			{
+				"title": "Import",
+				"path": "import"
 			}
 		]
 	},
@@ -452,7 +468,7 @@
 		]
 	},
 	{
-		"title": "ContextMenu",
+		"title": "Context Menu",
 		"items": [
 		]
 	}
