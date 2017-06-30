@@ -34,16 +34,17 @@ export default function ReferenceEdit($scope, qgrid, popupService) {
 		}
 	};
 
-	const dataChangedOff = this.gridModel.dataChanged.watch(e => {
+	this.gridModel.dataChanged.watch((e, off) => {
 		if (e.hasChanges('rows') && e.state.rows.length > 0) {
+			off();
 			const cell = this.cell();
-			this.gridModel.selection({
-				items: isArray(cell.value) ? cell.value : [cell.value]
+			const model = this.gridModel;
+			const service = new SelectionService(model);
+			model.selection({
+				items: service.map(isArray(cell.value) ? cell.value : [cell.value])
 			});
 
-			this.gridModel.selectionChanged.watch(watchSelection);
-
-			dataChangedOff();
+			model.selectionChanged.watch(watchSelection);
 		}
 	});
 
