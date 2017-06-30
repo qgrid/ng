@@ -45,6 +45,6 @@ export default Action.component({
 		'type': '@',
 		'icon': '@',
 		'title': '@',
-		'command': '='
+		'command': '&'
 	}
 });
