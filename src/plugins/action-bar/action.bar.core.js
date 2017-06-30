@@ -1,7 +1,6 @@
 /* eslint-disable indent */
 
 import PluginComponent from '../plugin.component';
-import {TemplatePath} from '@grid/core/template';
 import {Shortcut} from '@grid/core/infrastructure';
 
 const Plugin = PluginComponent('action-bar', {models: ['action']});
