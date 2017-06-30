@@ -30,7 +30,8 @@ class ActionBar extends Plugin {
 						this.shortcutOff = null;
 					}
 
-					this.shortcutOff = shortcut.register('actionBar', e.state.items.map(act => act.command));
+					this.shortcutOff = shortcut
+						.register('actionBar', e.state.items.map(act => act.command));
 				}
 			});
 		}
