@@ -5,6 +5,7 @@ export const MODULE_NAME = `${GRID_MODULE_NAME}.plugin`;
 export const PAGER_NAME = `${GRID}Pager`;
 export const PROGRESS_NAME = `${GRID}Progress`;
 export const ACTION_BAR_NAME = `${GRID}ActionBar`;
+export const ACTION_BAR_CORE_NAME = `${GRID}ActionBarCore`;
 export const SORT_BAR_NAME = `${GRID}SortBar`;
 export const GROUP_BAR_NAME = `${GRID}GroupBar`;
 export const PIVOT_BAR_NAME = `${GRID}PivotBar`;
@@ -18,6 +19,7 @@ export const EDIT_FORM_PANEL_NAME = `${GRID}EditFormPanel`;
 export const EDIT_FORM_EDITOR = `${GRID}EditFormEditor`;
 export const EXPORT_NAME = `${GRID}Export`;
 export const IMPORT_NAME = `${GRID}Import`;
+export const ACTION_NAME = `${GRID}Action`;
 
 export const POPUP_NAME = `${GRID}Popup`;
 export const POPUP_TRIGGER_NAME = `${GRID}PopupTrigger`;

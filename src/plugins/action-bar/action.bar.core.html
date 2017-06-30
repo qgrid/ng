@@ -1,0 +1,12 @@
+<div class="q-grid-actions" flex="none" layout="row" layout-align="end center">
+	<button ng-repeat="action in $actionBar.actions"
+	        ng-click="action.command.execute()"
+	        ng-disabled="!action.command.canExecute()"
+	        class="md-icon-button">
+		<md-tooltip>
+			<span>{{action.title}}</span><span
+			ng-if="action.command.shortcut"> ({{action.command.shortcut | uppercase}})</span>
+		</md-tooltip>
+		<md-icon ng-bind="action.icon"></md-icon>
+	</button>
+</div>
