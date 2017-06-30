@@ -20,6 +20,7 @@ import PopupPanel from './popup/popup.panel';
 import PopupService from './popup/popup.service';
 import Export from './export/export';
 import Import from './import/import';
+import Action from './action/action';
 
 import * as def from './definition';
 
@@ -46,6 +47,7 @@ export default angular  // eslint-disable-line no-undef
 	.component(def.POPUP_PANEL_NAME, PopupPanel)
 	.component(def.EXPORT_NAME, Export)
 	.component(def.IMPORT_NAME, Import)
+	.component(def.ACTION_NAME, Action)
 	.service(def.POPUP_SERVICE, PopupService)
 	.config(Setup)
 	.name;
@@ -68,6 +70,7 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.plugin.edit-form-panel.tpl.html', EMPTY);
 		theme.put('qgrid.plugin.export.tpl.html', require('./export/export.html'));
 		theme.put('qgrid.plugin.import.tpl.html', require('./import/import.html'));
+		theme.put('qgrid.plugin.action.tpl.html', require('./action/action.html'));
 
 		theme.put('qgrid.plugin.popup.tpl.html', require('./popup/popup.html'));
 		theme.put('qgrid.plugin.popup-panel.tpl.html', require('./popup/popup.panel.html'));
