@@ -1,16 +1,13 @@
-export declare interface IBindResult{
-	(): any;
-}
+import {INoopResult} from "../utility/utility";
 
-export declare interface IOffResult{
+export interface IBindResult{
 	(): void;
 }
 
-export class ModelBinder {
+export declare class ModelBinder {
+	constructor(public source: object);
 
-	constructor(source: object);
-
-	off: IOffResult;
+	off: INoopResult;
 
 	bind(model: object, names: string[], run: boolean): IBindResult;
 }

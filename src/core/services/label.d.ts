@@ -1,10 +1,10 @@
-import {ColumnModel} from '../column-type/column.model';
+import {ColumnModel, ILabel} from '../column-type/column.model';
 
-export declare interface IGetResult{
+export interface IGetResult{
 	(row: any): any;
 }
 
-export declare function get(row: object, column: ColumnModel): any;
+export declare function get(row: object, column: ColumnModel): ILabel;
 
 export declare function getFactory(column: ColumnModel): IGetResult;
 

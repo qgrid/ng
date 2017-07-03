@@ -1,4 +1,4 @@
-export declare interface IContext{
+export interface IContext{
 	execute(param: object): any;
 	canExecute(param: object): boolean;
 	shortcut: string;

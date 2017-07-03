@@ -1,5 +1,8 @@
-export declare class Middleware {
-	constructor();
+import {IContext, IMemo} from "../pipe/column.pipe";
+import {Pipe} from "../pipe/pipe";
 
-	run(context: any, memo: any): Promise<any>;
+export declare class Middleware {
+	constructor(public pipes: Pipe[]);
+
+	run(context: IContext, memo: IMemo): Promise<any>;
 }

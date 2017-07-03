@@ -1,28 +1,31 @@
-export declare interface IAggregationOptions{
+export interface IAggregationOptions{
 	distinct: boolean;
 	separator: string;
 }
 
-export declare class Aggregation {
+export interface IGetValue{
+	(row: any): string;
+}
 
+export declare class Aggregation {
 	constructor();
 
-	static first(rows: object[], getValue: (row: string) => any ) any;
+	static first(rows: any[], getValue: IGetValue): IGetValue;
 
-	static last(rows: object[], getValue: (row: string) => any) any;
+	static last(rows: any[], getValue: IGetValue): IGetValue;
 
-	static max(rows: object[], getValue: (row: string) => any) any;
+	static max(rows: any[], getValue: IGetValue): IGetValue;
 
-	static min(rows: object[], getValue: (row: string) => any) any;
+	static min(rows: any[], getValue: IGetValue): IGetValue;
 
-	static minMax(rows: object[], getValue: (row: string) => any) any;
+	static minMax(rows: any[], getValue: IGetValue): IGetValue;
 
-	static avg(rows: object[], getValue: (row: string) => any, options: IAggregationOptions[]) any;
+	static avg(rows: any[], getValue: IGetValue, options: IAggregationOptions[]): IGetValue;
 
-	static sum(rows: object[], getValue: (row: string) => any, options: IAggregationOptions[], container: any) any;
+	static sum(rows: any[], getValue: IGetValue, options: IAggregationOptions[], container: any): IGetValue; // CONTAINER TYPE?
 
-	static join(rows: object[], getValue: (row: string) => any, options: IAggregationOptions[]) any;
+	static join(rows: any[], getValue: IGetValue, options: IAggregationOptions[]): IGetValue;
 
-	static count(rows: object[], getValue: (row: string) => any, options: IAggregationOptions[]) any;
+	static count(rows: any[], getValue: IGetValue, options: IAggregationOptions[]): IGetValue;
 
 }

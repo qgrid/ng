@@ -1,14 +1,19 @@
 import {Model} from "../infrastructure/model";
+import {INoopResult} from "../utility/utility";
 
-export declare interface IPipe{
+export interface IBusyResult{
+	(): void;
+}
+
+export interface IPipe{
 	(memo: any, context: any, next: (memo: any) => void);
 }
 
-export class GridService {
+export declare class GridService {
 
-	constructor(model: Model, apply: () => void);
+	constructor(public model: Model, public apply: INoopResult);
 
 	invalidate(source: string, changes: object, pipe: IPipe[]): Promise<any>;
 
-	busy(): any;
+	busy(): IBusyResult;
 }
