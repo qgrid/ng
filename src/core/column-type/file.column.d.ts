@@ -3,7 +3,7 @@ import {DataColumnModel} from './data.column.model';
 import {IEditorOptions} from './column.model';
 import {Model} from "../infrastructure/model";
 
-export declare interface IHasPreview {
+export interface IHasPreview {
 	(name: string): boolean;
 }
 
