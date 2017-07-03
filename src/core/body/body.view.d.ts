@@ -1,19 +1,18 @@
 import {View} from '../view/view';
 import {ColumnModel} from "../column-type/column.model";
 import {Model} from "../infrastructure/model";
+import {getFactory as labelFactory} from '../services/label';
 import {Table} from "../dom/table";
 import {IGetResult} from "../services/value";
-import {RowModel} from "../row/row.model";
 
-export declare interface IGetValueFactory{
+export interface IGetValueFactory{
 	(column: ColumnModel): IGetResult;
 }
 
 export declare class BodyView extends View {
-	constructor(public model: Model, public table: Table);
+	constructor(model: Model, public table: Table);
 
-	table: Table;
-	rows: RowModel[];
+	rows: any[];
 
 	columns(row: any, pin: string): ColumnModel[];
 
