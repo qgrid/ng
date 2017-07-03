@@ -3,7 +3,7 @@
 import PluginComponent from '../plugin.component';
 import {Shortcut} from '@grid/core/infrastructure';
 
-const Plugin = PluginComponent('action-bar', {models: ['action']});
+const Plugin = PluginComponent('action-bar-core', {models: ['action']});
 class ActionBarCore extends Plugin {
 	constructor() {
 		super(...arguments);
@@ -21,7 +21,7 @@ class ActionBarCore extends Plugin {
 					}
 
 					this.shortcutOff = shortcut
-						.register('actionBar', e.state.items.map(act => act.command));
+						.register('actionBarCore', e.state.items.map(act => act.command));
 				}
 			});
 		}
@@ -42,9 +42,6 @@ class ActionBarCore extends Plugin {
 export default ActionBarCore.component({
 	controller: ActionBarCore,
 	controllerAs: '$actionBar',
-	bindings: {
-		actionItems: '<actions'
-	}
 });
 
 /* eslint-enable indent */

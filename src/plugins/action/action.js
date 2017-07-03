@@ -4,10 +4,10 @@ import {Action as ActionItem} from '@grid/core/infrastructure/action';
 import {TemplatePath} from '@grid/core/template';
 
 TemplatePath
-	.register(ACTION_NAME, (template) => {
+	.register(ACTION_NAME, (template, action) => {
 		return {
 			model: 'action',
-			resource: template.for
+			resource: action.id
 		};
 	});
 
@@ -17,17 +17,21 @@ class Action extends Component {
 	}
 
 	execute() {
-		return this.command.execute();
+		return this.command && this.command.execute();
 	}
 
 	canExecute() {
-		return this.command.canExecute();
+		return this.command && this.command.canExecute();
 	}
 
 	onInit() {
 		const model = this.model;
+		const action = new ActionItem(this.command, this.title, this.icon);
+		action.id = this.id;
+
 		const actions = Array.from(model.action().items);
-		actions.push(new ActionItem(this.command, this.title, this.icon));
+		actions.push(action);
+
 		model.action({
 			items: actions
 		});

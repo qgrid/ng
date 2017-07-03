@@ -1,9 +1,10 @@
 <div class="q-grid-action">
-	<md-button class="md-icon-button" ng-click="$action.command.execute()"
-	           ng-disabled="!$action.command.canExecute()">
+	<md-button class="md-icon-button" ng-click="$action.execute()"
+	           ng-disabled="!$action.canExecute()">
 		<md-icon>{{$action.icon}}</md-icon>
 		<md-tooltip>
-			<span>{{$action.title}}</span><span ng-if="$action.command.shortcut"> ({{$action.command.shortcut | uppercase}})</span>
+			<span>{{$action.title}}</span>
+			<span ng-if="$action.shortcut"> ({{$action.shortcut | uppercase}})</span>
 		</md-tooltip>
 	</md-button>
 </div>

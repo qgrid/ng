@@ -13,5 +13,6 @@ export default {
 	require: {
 		root: `^^${GRID_NAME}`
 	},
-	controller: ActionBar
+	controller: ActionBar,
+	controllerAs: '$actionBar'
 };
