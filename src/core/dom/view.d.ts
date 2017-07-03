@@ -3,7 +3,7 @@ import {Unit} from './unit';
 import {IContext} from "./box";
 
 export declare interface IFunc{
-	(): void;
+	(e: any): void;
 }
 
 export declare class View extends Unit {
@@ -17,7 +17,7 @@ export declare class View extends Unit {
 
 	isFocused(): boolean;
 
-	keyDown(f: IFunc ): void;
+	keyDown(f: IFunc ): EventListener;
 
 	addLayer(name: string): any;
 
