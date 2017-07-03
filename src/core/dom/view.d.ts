@@ -1,3 +1,4 @@
+import {IRect} from "./fake/element";
 import {Unit} from './unit';
 import {IContext} from "./box";
 
@@ -28,5 +29,5 @@ export declare class View extends Unit {
 
 	canScrollTo(element: Element, direction: string): boolean;
 
-	rect(): object;
+	rect(): IRect;
 }

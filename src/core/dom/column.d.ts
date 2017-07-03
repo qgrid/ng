@@ -1,11 +1,12 @@
-import {Box, ICellCore} from './box';
+import {Box} from './box';
+import {Cell} from "./cell";
 
 export declare class Column {
 	constructor(public box: Box, public index: number);
 
-	cells(): any[];
+	cells(): Cell[];
 
-	cell(rowIndex: number): ICellCore;
+	cell(rowIndex: number): Cell;
 
 	addClass(name: string): void;
 
