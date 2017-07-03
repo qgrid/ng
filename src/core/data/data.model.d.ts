@@ -7,5 +7,5 @@ export declare class DataModel {
 	rows: any[];
 	columns: ColumnModel[];
 	pipe: PipeUnit;
-	triggers: any[];
+	triggers: string[];
 }
