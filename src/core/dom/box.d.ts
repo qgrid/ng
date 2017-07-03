@@ -3,7 +3,7 @@ import {Model} from "../infrastructure/model";
 import {Cell} from "./cell";
 import {Column} from "./column";
 
-export interface IIsDataRow{
+export interface IsDataRow{
 	(row: any): boolean;
 }
 
@@ -11,7 +11,7 @@ export interface IContext{
 	mapper: IMapper;
 	layer: any;
 	model: (elem: Element) => any;
-	isDataRow: IIsDataRow;
+	isDataRow: IsDataRow;
 }
 
 export interface IMapper{
