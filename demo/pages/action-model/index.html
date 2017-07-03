@@ -4,7 +4,7 @@
 
 	<q-grid:action-bar>
 		<q-grid:action id="add" icon="add" title="Add new row" command="$ctrl.addCommand">
-			<q-grid:template let="$ctrl">
+			<q-grid:template>
 				<md-button ng-click="$action.execute()" ng-disabled="!$action.canExecute()">add</md-button>
 			</q-grid:template>
 		</q-grid:action>
