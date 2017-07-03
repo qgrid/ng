@@ -1,6 +1,6 @@
 import {ColumnModel} from './column.model';
 
-export declare interface IAggregationOptions{
+export interface IAggregationOptions{
 	distinct: boolean;
 	separator: string;
 }
