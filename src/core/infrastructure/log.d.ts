@@ -1,5 +1,3 @@
-/*eslint-disable  no-console*/
-
 export declare class Log {
 	constructor();
 
@@ -9,5 +7,3 @@ export declare class Log {
 
 	static error(source: string, message: string): void;
 }
-
-/*eslint-enable*/
