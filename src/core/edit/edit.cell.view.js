@@ -15,7 +15,7 @@ export class EditCellView {
 
 		const shortcut = new Shortcut(commandManager);
 		const commands = this.commands;
-		this.shortcutOff = shortcut.register('editCellNavigation', commands);
+		this.shortcutOff = shortcut.register(commands);
 
 		this.enter = commands.get('enter');
 		this.commit = commands.get('commit');

@@ -21,7 +21,7 @@ class EditFormPanel extends Plugin {
 		this.editor = new RowEditor(this.row, this.model.data().columns);
 
 		if (!isUndefined(this.shortcut)) {
-			this.shortcutOff = this.shortcut.register('editFormManagement', new Map(
+			this.shortcutOff = this.shortcut.register(new Map(
 				Object.entries(this.commands)
 			));
 		}

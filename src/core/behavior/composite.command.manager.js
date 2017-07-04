@@ -3,15 +3,11 @@ export class CompositeCommandManager {
 		this.manager = manager;
 	}
 
-	keyDown(f) {
-		return this.manager.keyDown(f);
+	filter(commands) {
+		return this.manager.filter(commands);
 	}
 
-	canExecute() {
-		return this.manager.canExecute();
-	}
-
-	execute(commands) {
-		return this.manager.execute(commands);
+	invoke(commands) {
+		return this.manager.invoke(commands);
 	}
 }

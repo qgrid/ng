@@ -71,7 +71,7 @@ export default function ReferenceEdit($scope, qgrid, popupService) {
 	this.cancel = commands.cancel;
 
 	const shortcutOff = popupService.isOpened(id)
-		? $scope.$popupBody.shortcut.register('referenceEditManagement', new Map(
+		? $scope.$popupBody.shortcut.register(new Map(
 			Object.entries(commands)
 		))
 		: noop;

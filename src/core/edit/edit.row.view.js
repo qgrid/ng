@@ -10,7 +10,7 @@ export class EditRowView {
 
 		const shortcut = new Shortcut(commandManager);
 		const commands = this.commands;
-		this.shortcutOff = shortcut.register('editRowNavigation', commands);
+		this.shortcutOff = shortcut.register(commands);
 
 		this.enter = commands.get('enter');
 		this.commit = commands.get('commit');

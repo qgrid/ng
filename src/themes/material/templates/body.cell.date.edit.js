@@ -16,7 +16,7 @@ export default function DateEdit($scope) {
 	};
 
 	const shortcut = new Shortcut(this.cell().commandManager);
-	const shortcutOff = shortcut.register('dateEditCellManagement', new Map(
+	const shortcutOff = shortcut.register(new Map(
 		Object.entries(commands)
 	));
 

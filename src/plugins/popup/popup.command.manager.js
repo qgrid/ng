@@ -7,11 +7,11 @@ export class PopupCommandManager extends CommandManager {
 		this.popup = popup;
 	}
 
-	keyDown(f) {
-		return this.popup.keyDown(f);
-	}
+	filter(commands) {
+		if (this.popup.isFocused) {
+			return super.filter(commands);
+		}
 
-	canExecute() {
-		return this.popup.isFocused();
+		return [];
 	}
 }

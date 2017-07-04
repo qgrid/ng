@@ -7,8 +7,11 @@ export class SelectionCommandManager extends CompositeCommandManager {
 		this.model = model;
 	}
 
-	canExecute() {
-		return this.model.edit().state !== 'edit'
-			&& super.canExecute();
+	filter(commands) {
+		if (this.model.edit().state !== 'edit') {
+			return super.filter(commands);
+		}
+
+		return [];
 	}
 }
