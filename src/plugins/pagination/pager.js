@@ -1,6 +1,6 @@
 import PluginComponent from '../plugin.component';
 import {PAGER_NAME} from '../definition';
-import {Command} from '@grid/core/infrastructure';
+import {Command} from '@grid/core/behavior';
 import {TemplatePath} from '@grid/core/template';
 
 TemplatePath

@@ -1,4 +1,4 @@
-import {CommandManager} from '@grid/core/infrastructure';
+import {CommandManager} from '@grid/core/behavior';
 
 export class PopupCommandManager extends CommandManager {
 	constructor(apply, popup) {

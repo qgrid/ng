@@ -1,4 +1,5 @@
-import {Command, Log, Shortcut} from '../infrastructure';
+import {Log} from '../infrastructure';
+import {Command, Shortcut} from '../behavior';
 import {CellEditor} from './edit.cell.editor';
 import {getFactory as valueFactory} from '../services/value';
 import {getFactory as labelFactory} from '../services/label';
@@ -27,7 +28,7 @@ export class EditCellView {
 		const table = this.table;
 		const commands = {
 			enter: new Command({
-				shortcut: 'F2|Enter',
+				shortcut: this.enterShortcut.bind(this),
 				canExecute: cell => {
 					cell = cell || model.navigation().cell;
 					return cell
@@ -201,19 +202,30 @@ export class EditCellView {
 		return false;
 	}
 
-	commitShortcut() {
-		const model = this.model;
-		const commitShortcuts = model.edit().commitShortcuts;
-		const cell = this.editor.cell || model.navigation().cell;
-		if (cell && commitShortcuts.hasOwnProperty(cell.column.type)) {
-			return commitShortcuts[cell.column.type];
-		}
-
-		return commitShortcuts['$default'];
-	}
-
 	get options() {
 		return this.editor.options;
+	}
+
+	commitShortcut() {
+		const model = this.model;
+		const shortcuts = model.edit().commitShortcuts;
+		const cell = this.editor.cell || model.navigation().cell;
+		if (cell && shortcuts.hasOwnProperty(cell.column.type)) {
+			return shortcuts[cell.column.type];
+		}
+
+		return shortcuts['$default'];
+	}
+
+	enterShortcut() {
+		const model = this.model;
+		const shortcuts = model.edit().enterShortcuts;
+		const cell = this.editor.cell || model.navigation().cell;
+		if (cell && shortcuts.hasOwnProperty(cell.column.type)) {
+			return shortcuts[cell.column.type];
+		}
+
+		return shortcuts['$default'];
 	}
 
 	destroy() {

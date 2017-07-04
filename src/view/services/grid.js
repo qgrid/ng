@@ -1,4 +1,5 @@
-import {Model, Log, Command, Action} from '@grid/core/infrastructure';
+import {Model, Log} from '@grid/core/infrastructure';
+import {Command, Action} from '@grid/core/behavior';
 import {GridService} from '@grid/core/services';
 import {Pipe} from '@grid/core/pipe';
 import {PipeUnit} from '@grid/core/pipe/units';

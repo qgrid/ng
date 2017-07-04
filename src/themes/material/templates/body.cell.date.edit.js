@@ -1,4 +1,4 @@
-import {Shortcut, Command} from '@grid/core/infrastructure';
+import {Shortcut, Command} from '@grid/core/behavior';
 
 DateEdit.$inject = ['$scope'];
 export default function DateEdit($scope) {

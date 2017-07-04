@@ -1,4 +1,4 @@
-import {Command} from '../infrastructure';
+import {Command} from '../behavior';
 
 export class Navigation {
 	constructor(model, table) {

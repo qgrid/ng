@@ -1,5 +1,8 @@
 import {isFunction} from '../utility';
 
+
+const commandSet = new Set();
+
 export class Shortcut {
 	constructor(manager) {
 		this.manager = manager;
@@ -55,6 +58,8 @@ export class Shortcut {
 	register(id, commands) {
 		const cmds = commands.values ? commands.values() : commands;
 		for (let cmd of cmds) {
+			commandSet.add(cmd);
+
 			if (cmd.shortcut) {
 				if (isFunction(cmd.shortcut)) {
 					this.commands.push(cmd);
@@ -75,7 +80,10 @@ export class Shortcut {
 			}
 		}
 
-		return () => this.shortcuts.delete(id);
+		return () => {
+			commands.forEach(cmd => commandSet.delete(cmd));
+			this.shortcuts.delete(id);
+		};
 	}
 
 	find(code) {
@@ -83,7 +91,6 @@ export class Shortcut {
 		if (this.shortcuts.has(code)) {
 			result = result.concat(this.shortcuts.get(code));
 		}
-
 		result = result.concat(this.commands.filter(cmd => this.test(cmd.shortcut(), code)));
 		return result;
 	}
@@ -92,7 +99,7 @@ export class Shortcut {
 		return ('' + shortcut)
 			.toLowerCase()
 			.split('|')
-			.some(shct => code === shct);
+			.some(shct => shct === '*' || code === shct);
 	}
 
 	onDestroy() {

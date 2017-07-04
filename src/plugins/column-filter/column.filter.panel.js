@@ -1,5 +1,5 @@
 import PluginComponent from '../plugin.component';
-import {Command} from '@grid/core/infrastructure';
+import {Command} from '@grid/core/behavior';
 import {uniq, clone, noop} from '@grid/core/utility';
 import {getFactory as valueFactory} from '@grid/core/services/value';
 import * as columnService from '@grid/core/column/column.service';

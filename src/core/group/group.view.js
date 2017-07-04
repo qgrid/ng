@@ -1,5 +1,5 @@
 import {View} from '../view';
-import {Command} from '../infrastructure';
+import {Command} from '../behavior';
 import {flatView as nodeFlatView} from '../node';
 import {getFactory as valueFactory} from '../services/value';
 

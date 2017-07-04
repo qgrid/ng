@@ -1,5 +1,5 @@
 import {isArray, noop} from '@grid/core/utility';
-import {Command} from '@grid/core/infrastructure';
+import {Command} from '@grid/core/behavior';
 import {SelectionService} from '@grid/core/selection';
 
 ReferenceEdit.$inject = ['$scope', 'qgrid', 'qGridPopupService'];

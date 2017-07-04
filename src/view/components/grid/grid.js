@@ -1,7 +1,8 @@
 import RootComponent from '../root.component';
 import {Table} from '@grid/core/dom';
 import {LayerFactory} from '@grid/view/services';
-import {TableCommandManager, AppError} from '@grid/core/infrastructure';
+import {AppError} from '@grid/core/infrastructure';
+import {TableCommandManager} from '@grid/core/behavior';
 import {isUndefined} from '@grid/core/utility';
 import TemplateLink from '../template/template.link';
 
