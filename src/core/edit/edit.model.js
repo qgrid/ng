@@ -12,8 +12,7 @@ export class EditModel {
 		this.reset = new Command();
 
 		this.enterShortcuts = {
-			'$default': '*',
-			// 'text':'F2|Enter'
+			'$default': '*'
 		};
 
 		this.commitShortcuts = {
