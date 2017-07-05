@@ -23,13 +23,12 @@ export class Shortcut {
 	constructor(manager) {
 		this.manager = manager;
 	}
-
-	get codeMap() {
-		return codeMap;
+	get keyCode() {
+		return Shortcut.keyCode;
 	}
 
-	get keyCode() {
-		return Shortcut.keyCode || '';
+	get isControl() {
+		return Array.from(codeMap.values()).some(val => val === Shortcut.keyCode);
 	}
 
 	static translate(e) {

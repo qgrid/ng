@@ -53,12 +53,9 @@ export class EditCellView {
 					else {
 						cell = model.navigation().cell;
 						const code = this.shortcut.keyCode;
-						if (code && code.length > 0) {
-							const reserved = Array.from(this.shortcut.codeMap.values()).some(val => val === code);
-							if (!reserved) {
-								this.memory = code;
-								cell.value += code;
-							}
+						if (cell && !this.shortcut.isControl) {
+							this.memory = code;
+							cell.value += code;
 						}
 					}
 
@@ -229,8 +226,11 @@ export class EditCellView {
 		const model = this.model;
 		const shortcuts = model.edit().commitShortcuts;
 		const cell = this.editor.cell || model.navigation().cell;
-		if (cell && shortcuts.hasOwnProperty(cell.column.type)) {
-			return shortcuts[cell.column.type];
+		if (cell) {
+			const type = cell.column && cell.column.editor ? cell.column.editor : cell.column.type;
+			if (shortcuts.hasOwnProperty(type)) {
+				return shortcuts[type];
+			}
 		}
 
 		return shortcuts['$default'];
@@ -240,8 +240,11 @@ export class EditCellView {
 		const model = this.model;
 		const shortcuts = model.edit().enterShortcuts;
 		const cell = this.editor.cell || model.navigation().cell;
-		if (cell && shortcuts.hasOwnProperty(cell.column.type)) {
-			return shortcuts[cell.column.type];
+		if (cell) {
+			const type = cell.column && cell.column.editor ? cell.column.editor : cell.column.type;
+			if (shortcuts.hasOwnProperty(type)) {
+				return shortcuts[type];
+			}
 		}
 
 		return shortcuts['$default'];
