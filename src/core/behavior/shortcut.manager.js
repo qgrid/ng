@@ -1,9 +1,10 @@
-import {flatten, yes, isFunction} from '../utility';
+import {flatten, isFunction} from '../utility';
 import {Command} from './command';
 
 export class ShortcutManager {
 	constructor() {
 		this.managerMap = new Map();
+		this.keyCode = '';
 	}
 
 	register(manager, commands) {
@@ -59,6 +60,14 @@ export class ShortcutManager {
 	}
 
 	execute(code) {
+		const notWildcard = (cmd) => {
+			this.keyCode = '';
+			return cmd.shortcut !== '*';
+		};
+		const isWildcard = () => {
+			this.keyCode = code;
+			return true;
+		};
 		const find = this.findFactory(code);
 		const xs = Array.from(this.managerMap.entries())
 			.map(entry => ({
@@ -68,7 +77,7 @@ export class ShortcutManager {
 			.filter(x => x.commands.length);
 
 		const allCommands = flatten(xs.map(x => x.commands));
-		const filter = allCommands.filter(cmd => cmd.shortcut !== '*').length > 0 ? cmd => cmd.shortcut !== '*' : yes;
+		const filter = allCommands.filter(notWildcard).length > 0 ? notWildcard : isWildcard;
 		return xs.reduce((memo, x) => {
 			memo |= x.manager.invoke(x.commands.filter(filter));
 			return memo;

@@ -24,6 +24,14 @@ export class Shortcut {
 		this.manager = manager;
 	}
 
+	get codeMap() {
+		return codeMap;
+	}
+
+	get keyCode() {
+		return Shortcut.keyCode || '';
+	}
+
 	static translate(e) {
 		const codes = [];
 		if (e.ctrlKey) {
@@ -43,6 +51,7 @@ export class Shortcut {
 		const code = Shortcut.translate(e);
 		if (shortcutManager.execute(code)) {
 			e.preventDefault();
+			Shortcut.keyCode = code;
 			return true;
 		}
 
