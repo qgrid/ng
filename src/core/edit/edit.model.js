@@ -22,8 +22,7 @@ export class EditModel {
 			'reference': 'ctrl+s',
 			'email': 'ctrl+s',
 			'file': 'ctrl+s',
-			'image': 'ctrl+s',
-			'text-area': 'tab|shift+tab'
+			'image': 'ctrl+s'
 		};
 	}
 }
