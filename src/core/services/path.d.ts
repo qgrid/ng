@@ -1,5 +1,5 @@
-export declare interface ICompileResult{
-	(entry: object, value: any): any;
+export interface ICompileResult{
+	(entry: object, value: any): string;
 }
 
 export declare function compile(path: string): ICompileResult;
