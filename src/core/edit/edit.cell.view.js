@@ -59,7 +59,7 @@ export class EditCellView {
 						}
 					}
 
-					if (model.edit().enter.execute(this.contextFactory(cell, cell.value, cell.label)) !== false) {
+					if (cell && model.edit().enter.execute(this.contextFactory(cell, cell.value, cell.label)) !== false) {
 						this.editor = new CellEditor(cell);
 						model.edit({state: 'edit'});
 						cell.mode('edit');
