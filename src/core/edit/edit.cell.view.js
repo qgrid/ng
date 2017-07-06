@@ -21,8 +21,6 @@ export class EditCellView {
 		this.commit = commands.get('commit');
 		this.cancel = commands.get('cancel');
 		this.reset = commands.get('reset');
-
-		this.memory = '';
 	}
 
 	get commands() {
@@ -44,23 +42,21 @@ export class EditCellView {
 					if (e) {
 						e.stopImmediatePropagation();
 					}
-
 					if (cell) {
 						if (!Cell.equals(model.navigation().cell, cell)) {
 							model.navigation({cell: new Cell(cell)});
 						}
 					}
-					else {
-						cell = model.navigation().cell;
-						const code = this.shortcut.keyCode;
-						if (cell && !this.shortcut.isControl) {
-							this.memory = code;
-							cell.value += code;
-						}
-					}
 
+					cell = cell || model.navigation().cell;
 					if (cell && model.edit().enter.execute(this.contextFactory(cell, cell.value, cell.label)) !== false) {
 						this.editor = new CellEditor(cell);
+						const code = this.shortcut.keyCode;
+						if (code && code.length && !this.shortcut.isControl(code)) {
+							this.value += code;
+							this.shortcut.setKeyCode('');
+						}
+
 						model.edit({state: 'edit'});
 						cell.mode('edit');
 						return true;
@@ -90,7 +86,6 @@ export class EditCellView {
 					if (cell && model.edit().commit.execute(this.contextFactory(cell, this.value, this.label, this.tag)) !== false) {
 						this.editor.commit();
 						this.editor = CellEditor.empty;
-						this.memory = '';
 						model.edit({state: 'view'});
 						cell.mode('view');
 						table.view.focus();
@@ -119,12 +114,6 @@ export class EditCellView {
 					cell = cell || this.editor.cell || model.navigation().cell;
 					let label = this.label;
 					let value = cell.value;
-					if (this.memory.length > 0) {
-						value = value.substring(0, value.length - 1);
-						label = label.substring(0, label.length - 1);
-						cell.value = value;
-						this.memory = '';
-					}
 
 					if (cell && model.edit().cancel.execute(this.contextFactory(cell, value, label)) !== false) {
 						this.editor.reset();
