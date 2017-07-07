@@ -3,7 +3,6 @@ import {Table} from '@grid/core/dom';
 import {LayerFactory} from '@grid/view/services';
 import {AppError} from '@grid/core/infrastructure';
 import {TableCommandManager} from '@grid/core/command';
-import {Shortcut} from '@grid/core/shortcut';
 import {isUndefined} from '@grid/core/utility';
 import TemplateLink from '../template/template.link';
 
@@ -36,7 +35,7 @@ export class Grid extends RootComponent {
 
 		this.table = new Table(model, this.markup, tableContext);
 		this.commandManager = new TableCommandManager(this.applyFactory(), this.table);
-		this.keyDownOff = this.table.view.keyDown(Shortcut.keyDown);
+		this.keyDownOff = this.table.view.keyDown(e => model.action().shortcut.keyDown(e));
 
 		this.compile();
 		this.model.viewChanged.watch(e => {

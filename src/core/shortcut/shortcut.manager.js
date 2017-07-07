@@ -59,9 +59,7 @@ export class ShortcutManager {
 	}
 
 	execute(code) {
-		const notWildcard = (cmd) => {
-			return cmd.shortcut !== '*';
-		};
+		const notWildcard = cmd => cmd.shortcut !== '*';
 		const find = this.findFactory(code);
 		const entries = Array.from(this.managerMap.entries())
 			.map(entry => ({

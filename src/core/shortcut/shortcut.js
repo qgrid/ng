@@ -1,7 +1,4 @@
-import {ShortcutManager} from './shortcut.manager';
 import {Keyboard} from '../io';
-
-const shortcutManager = new ShortcutManager();
 
 export class Shortcut {
 	constructor(manager) {
@@ -59,14 +56,14 @@ export class Shortcut {
 		return codes.join('+');
 	}
 
-	static keyDown(e) {
+	keyDown(e) {
 		const code = Shortcut.translate(e);
-		Shortcut.keyCode = {
+		this.keyCode = {
 			key: e.key,
 			code: code
 		};
 
-		if (shortcutManager.execute(code)) {
+		if (this.manager.execute(code)) {
 			e.preventDefault();
 			return true;
 		}
@@ -74,7 +71,7 @@ export class Shortcut {
 		return false;
 	}
 
-	register(commands) {
-		return shortcutManager.register(this.manager, commands);
+	register(commandManager, commands) {
+		return this.manager.register(commandManager, commands);
 	}
 }

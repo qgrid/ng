@@ -1,5 +1,5 @@
 import {Command} from '@grid/core/command';
-import {Shortcut} from '@grid/core/shortcut';
+import {Shortcut, ShortcutManager} from '@grid/core/shortcut';
 
 DateEdit.$inject = ['$scope'];
 export default function DateEdit($scope) {
@@ -16,10 +16,11 @@ export default function DateEdit($scope) {
 		})
 	};
 
-	const shortcut = new Shortcut(this.cell().commandManager);
-	const shortcutOff = shortcut.register(new Map(
-		Object.entries(commands)
-	));
+	const shortcut = new Shortcut(new ShortcutManager());
+	const shortcutOff = shortcut.register(
+		this.cell().commandManager,
+		new Map(Object.entries(commands))
+	);
 
 	$scope.$on('$destroy', () => {
 		shortcutOff();

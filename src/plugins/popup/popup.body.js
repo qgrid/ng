@@ -1,8 +1,8 @@
 import Component from '@grid/view/components/component';
 import TemplateLink from '@grid/view/components/template/template.link';
 import * as def from '../definition';
+import {Shortcut, ShortcutManager} from '@grid/core/shortcut';
 import {PopupCommandManager} from './popup.command.manager';
-import {Shortcut} from '@grid/core/shortcut';
 
 class PopupBody extends Component {
 	constructor($scope, $element, $compile, $templateCache, qGridPopupService) {
@@ -17,9 +17,8 @@ class PopupBody extends Component {
 
 	onInit() {
 		this.$popup = this.popup;
-
-		const commandManager = new PopupCommandManager(f => f(), this.qGridPopupService.get(this.id));
-		this.shortcut = new Shortcut(commandManager);
+		this.shortcut = new Shortcut(new ShortcutManager());
+		this.commandManager = new PopupCommandManager(f => f(), this.qGridPopupService.get(this.id));
 
 		const model = this.model;
 		const templateUrl = 'qgrid.plugin.popup-body.tpl.html';
@@ -32,6 +31,10 @@ class PopupBody extends Component {
 
 		link(this.$element, templateScope);
 		this.$templateScope = templateScope;
+	}
+
+	registerShortcuts(commands){
+		return this.shortcut.register(this.commandManager, commands);
 	}
 
 	onDestroy(){

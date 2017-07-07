@@ -14,9 +14,9 @@ export class EditCellView {
 		this.editor = CellEditor.empty;
 		this.commandManager = commandManager;
 
-		this.shortcut = new Shortcut(commandManager);
+		this.shortcut = model.action().shortcut;
 		const commands = this.commands;
-		this.shortcutOff = this.shortcut.register(commands);
+		this.shortcutOff = this.shortcut.register(commandManager, commands);
 
 		this.enter = commands.get('enter');
 		this.commit = commands.get('commit');
