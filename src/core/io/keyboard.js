@@ -7,6 +7,14 @@ const controlSet = new Set([
 	'capslock',
 	'escape',
 	'insert',
+	'left',
+	'right',
+	'end',
+	'home',
+	'pageup',
+	'pagedown',
+	'up',
+	'down',
 	'f1',
 	'f2',
 	'f3',
@@ -22,6 +30,7 @@ const controlSet = new Set([
 	'numlock',
 	'scrolllock'
 ]);
+
 const nonPrintableSet = new Set([
 	'enter'
 ]);

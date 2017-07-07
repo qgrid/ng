@@ -3,6 +3,7 @@ import TemplateLink from '@grid/view/components/template/template.link';
 import * as def from '../definition';
 import {Shortcut, ShortcutManager} from '@grid/core/shortcut';
 import {PopupCommandManager} from './popup.command.manager';
+import {EventListener, EventManager} from '@grid/core/infrastructure';
 
 class PopupBody extends Component {
 	constructor($scope, $element, $compile, $templateCache, qGridPopupService) {
@@ -13,12 +14,14 @@ class PopupBody extends Component {
 		this.qGridPopupService = qGridPopupService;
 		this.$templateScope = null;
 		this.template = new TemplateLink($compile, $templateCache);
+		this.listener = new EventListener($element[0], new EventManager(this));
 	}
 
 	onInit() {
 		this.$popup = this.popup;
 		this.shortcut = new Shortcut(new ShortcutManager());
 		this.commandManager = new PopupCommandManager(f => f(), this.qGridPopupService.get(this.id));
+		this.listener.on('keydown', e => this.shortcut.keyDown(e));
 
 		const model = this.model;
 		const templateUrl = 'qgrid.plugin.popup-body.tpl.html';
@@ -33,11 +36,12 @@ class PopupBody extends Component {
 		this.$templateScope = templateScope;
 	}
 
-	registerShortcuts(commands){
+	registerShortcuts(commands) {
 		return this.shortcut.register(this.commandManager, commands);
 	}
 
-	onDestroy(){
+	onDestroy() {
+		this.listener.off();
 		if (this.$templateScope) {
 			this.$templateScope.$destroy();
 		}

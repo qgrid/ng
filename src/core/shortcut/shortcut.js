@@ -21,7 +21,9 @@ export class Shortcut {
 			return false;
 		}
 
-		return Keyboard.isPrintable(keyCode.code);
+		const code = keyCode.code;
+		const parts = code.split('+');
+		return parts.some(part => Keyboard.isPrintable(part));
 	}
 
 	static stringify(keyCode) {

@@ -62,22 +62,24 @@ export class ShortcutManager {
 		const notWildcard = cmd => cmd.shortcut !== '*';
 		const find = this.findFactory(code);
 		const entries = Array.from(this.managerMap.entries())
-			.map(entry => ({
-				commands: find(entry[1]),
-				manager: entry[0]
-			}));
+			.map(entry => {
+				const manager = entry[0];
+				const commands = entry[1];
+				return {
+					commands: manager.filter(find(commands)),
+					manager: entry[0]
+				};
+			})
+			.filter(entry => entry.commands.length > 0);
 
 		const allCommands = flatten(entries.map(x => x.commands));
 		const wildCardPredicate = allCommands.filter(notWildcard).length > 0 ? notWildcard : yes;
 		return entries.reduce((memo, entry) => {
 			const commands = entry.commands;
 			const manager = entry.manager;
-			const invokableCommands = manager
-				.filter(commands)
-				.filter(wildCardPredicate);
-
+			const invokableCommands = commands.filter(wildCardPredicate);
 			if (invokableCommands.length) {
-				memo |= entry.manager.invoke(invokableCommands);
+				memo |= manager.invoke(invokableCommands);
 			}
 
 			return memo;
@@ -100,6 +102,7 @@ export class ShortcutManager {
 	}
 
 	test(shortcut, code) {
+		code = code.toLowerCase();
 		return ('' + shortcut)
 			.toLowerCase()
 			.split('|')
