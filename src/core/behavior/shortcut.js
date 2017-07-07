@@ -1,73 +1,73 @@
 import {ShortcutManager} from './shortcut.manager';
+import {Keyboard} from '../io';
 
 const shortcutManager = new ShortcutManager();
-const codeMap = new Map()
-	.set(8, 'backspace')
-	.set(9, 'tab')
-	.set(13, 'enter')
-	.set(16, 'shift')
-	.set(17, 'ctrl')
-	.set(27, 'escape')
-	.set(32, 'space')
-	.set(33, 'pageUp')
-	.set(34, 'pageDown')
-	.set(35, 'end')
-	.set(36, 'home')
-	.set(37, 'left')
-	.set(38, 'up')
-	.set(39, 'right')
-	.set(40, 'down')
-	.set(112, 'f1')
-	.set(113, 'f2')
-	.set(114, 'f3')
-	.set(115, 'f4')
-	.set(116, 'f5')
-	.set(117, 'f6')
-	.set(118, 'f7')
-	.set(119, 'f8')
-	.set(120, 'f9')
-	.set(121, 'f10')
-	.set(122, 'f11')
-	.set(123, 'f12');
-
 
 export class Shortcut {
 	constructor(manager) {
 		this.manager = manager;
 	}
 
-	get keyCode() {
-		return Shortcut.keyCode;
+	static isControl(keyCode) {
+		if (!keyCode) {
+			return false;
+		}
+
+		const code = keyCode.code;
+		const parts = code.split('+');
+		return parts.some(part => part === 'ctrl' || part === 'alt') ||
+			parts.every(part => Keyboard.isControl(part));
 	}
 
-	setKeyCode(code) {
-		Shortcut.keyCode = code;
+	static isPrintable(keyCode) {
+		if (!keyCode) {
+			return false;
+		}
+
+		return Keyboard.isPrintable(keyCode.code);
 	}
 
-	isControl(code) {
-		const codes = code.split('+');
-		return Array.from(codeMap.values()).some(val => codes.some(code => val === code));
+	static stringify(keyCode) {
+		if (!keyCode) {
+			return '';
+		}
+
+		return Keyboard.stringify(keyCode.code, keyCode.key);
 	}
 
 	static translate(e) {
 		const codes = [];
-		const char = (codeMap.get(e.keyCode) || String.fromCharCode(e.keyCode)).toLowerCase();
-		if (e.ctrlKey && e.keyCode !== 17) {
+		const code = Keyboard.translate(e.keyCode).toLowerCase();
+		if (e.ctrlKey) {
 			codes.push('ctrl');
 		}
 
-		if (e.shiftKey && e.keyCode !== 16) {
+		if (e.shiftKey) {
 			codes.push('shift');
 		}
-		codes.push(char);
+
+		if (e.altKey) {
+			codes.push('alt');
+		}
+
+		if (code !== 'ctrl' &&
+			code !== 'shift' &&
+			code !== 'alt') {
+			codes.push(code);
+		}
+
 		return codes.join('+');
 	}
 
 	static keyDown(e) {
 		const code = Shortcut.translate(e);
+		Shortcut.keyCode = {
+			key: e.key,
+			code: code
+		};
+
 		if (shortcutManager.execute(code)) {
 			e.preventDefault();
-			Shortcut.keyCode = code;
 			return true;
 		}
 
