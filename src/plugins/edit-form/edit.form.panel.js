@@ -1,5 +1,5 @@
 import PluginComponent from '../plugin.component';
-import {Command} from '@grid/core/behavior';
+import {Command} from '@grid/core/command';
 import {RowEditor} from '@grid/core/edit/edit.row.editor';
 import {noop, isUndefined} from '@grid/core/utility';
 

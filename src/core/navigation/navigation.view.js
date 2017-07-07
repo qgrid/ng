@@ -1,5 +1,6 @@
 import {View} from '../view';
-import {Command, Shortcut} from '../behavior';
+import {Command} from '../command';
+import {Shortcut} from '../shortcut';
 import {Navigation} from './navigation';
 import {GRID_PREFIX} from '../definition';
 import {Cell} from '../cell';

@@ -1,6 +1,6 @@
 import {View} from '../view';
 import {Log} from '../infrastructure';
-import {Command} from '../behavior';
+import {Command} from '../command';
 import * as columnService from '../column/column.service';
 import {FilterRowColumn} from '../column-type';
 import {clone} from '../utility';

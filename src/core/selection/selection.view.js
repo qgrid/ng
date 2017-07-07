@@ -1,6 +1,7 @@
 import {View} from '../view';
 import {AppError} from '../infrastructure';
-import {Command, Shortcut} from '../behavior';
+import {Command} from '../command';
+import {Shortcut} from '../shortcut';
 import {selectionStateFactory as stateFactory} from './state';
 import {SelectionRange} from './selection.range';
 import {SelectionService} from './selection.service';

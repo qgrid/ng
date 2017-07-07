@@ -1,5 +1,5 @@
 import {flatten, isFunction, yes} from '../utility';
-import {Command} from './command';
+import {Command} from '../command';
 
 export class ShortcutManager {
 	constructor() {
@@ -63,17 +63,25 @@ export class ShortcutManager {
 			return cmd.shortcut !== '*';
 		};
 		const find = this.findFactory(code);
-		const xs = Array.from(this.managerMap.entries())
+		const entries = Array.from(this.managerMap.entries())
 			.map(entry => ({
-				commands: entry[0].filter(find(entry[1])),
+				commands: find(entry[1]),
 				manager: entry[0]
-			}))
-			.filter(x => x.commands.length);
+			}));
 
-		const allCommands = flatten(xs.map(x => x.commands));
-		const filter = allCommands.filter(notWildcard).length > 0 ? notWildcard : yes;
-		return xs.reduce((memo, x) => {
-			memo |= x.manager.invoke(x.commands.filter(filter));
+		const allCommands = flatten(entries.map(x => x.commands));
+		const wildCardPredicate = allCommands.filter(notWildcard).length > 0 ? notWildcard : yes;
+		return entries.reduce((memo, entry) => {
+			const commands = entry.commands;
+			const manager = entry.manager;
+			const invokableCommands = manager
+				.filter(commands)
+				.filter(wildCardPredicate);
+
+			if (invokableCommands.length) {
+				memo |= entry.manager.invoke(invokableCommands);
+			}
+
 			return memo;
 		}, false);
 	}

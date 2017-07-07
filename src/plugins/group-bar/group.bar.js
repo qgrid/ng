@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 import PluginComponent from '../plugin.component';
-import {Command} from '@grid/core/behavior';
+import {Command} from '@grid/core/command';
 import {TH_CORE_NAME} from '@grid/view/definition';
 import {GROUP_BAR_NAME} from '../definition';
 import {TemplatePath} from '@grid/core/template';

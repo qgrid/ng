@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 
 import PluginComponent from '../plugin.component';
-import {Shortcut} from '@grid/core/behavior';
+import {Shortcut} from '@grid/core/shortcut';
 
 const Plugin = PluginComponent('action-bar-core', {models: ['action']});
 class ActionBarCore extends Plugin {

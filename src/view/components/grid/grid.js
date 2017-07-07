@@ -2,7 +2,8 @@ import RootComponent from '../root.component';
 import {Table} from '@grid/core/dom';
 import {LayerFactory} from '@grid/view/services';
 import {AppError} from '@grid/core/infrastructure';
-import {TableCommandManager, Shortcut} from '@grid/core/behavior';
+import {TableCommandManager} from '@grid/core/command';
+import {Shortcut} from '@grid/core/shortcut';
 import {isUndefined} from '@grid/core/utility';
 import TemplateLink from '../template/template.link';
 

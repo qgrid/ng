@@ -1,6 +1,6 @@
 import {View} from '../view';
 import {AppError} from '../infrastructure';
-import {Command} from '../behavior';
+import {Command} from '../command';
 import * as columnService from '../column/column.service';
 import * as sortService from '../sort/sort.service';
 

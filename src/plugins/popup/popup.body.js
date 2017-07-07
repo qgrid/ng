@@ -2,7 +2,7 @@ import Component from '@grid/view/components/component';
 import TemplateLink from '@grid/view/components/template/template.link';
 import * as def from '../definition';
 import {PopupCommandManager} from './popup.command.manager';
-import {Shortcut} from '@grid/core/behavior';
+import {Shortcut} from '@grid/core/shortcut';
 
 class PopupBody extends Component {
 	constructor($scope, $element, $compile, $templateCache, qGridPopupService) {

@@ -1,5 +1,6 @@
 import {Log} from '../infrastructure';
-import {Shortcut, Command} from '../behavior';
+import {Command} from '../command';
+import {Shortcut} from '../shortcut';
 import {RowEditor} from './edit.row.editor';
 
 export class EditRowView {
