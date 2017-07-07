@@ -111,6 +111,10 @@ export class Grid extends RootComponent {
 		return this.model.visibility();
 	}
 
+	get isActive() {
+		return this.table.view.isFocused();
+	}
+
 	onDestroy() {
 		if (this.keyDownOff) {
 			this.keyDownOff();

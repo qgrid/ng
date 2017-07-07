@@ -1,18 +1,30 @@
 &.q-grid-box:not(.q-grid-drag) {
-	tbody {
-		td, tr {
-			&.q-grid-highlighted {
-				background-color: #eee;
-			}
+  tbody {
+    td, tr {
+      &.q-grid-highlighted {
+        background-color: #eee;
+      }
 
-			&.q-grid-focus {
-				background-color: #ddd !important;
-			}
-		}
-	}
+      &.q-grid-focus {
+        background-color: #ddd !important;
+      }
+    }
+  }
+}
+
+&.q-grid-box:not(.q-grid-active) {
+  tbody {
+    td {
+      border-top-color: rgba(0, 0, 0, 0.06);
+
+      &.q-grid-focus {
+        background-color: #f9f9f9 !important;
+      }
+    }
+  }
 }
 
 .q-grid-highlight-part {
-	background-color: yellow;
-	color: #000;
+  background-color: yellow;
+  color: #000;
 }
