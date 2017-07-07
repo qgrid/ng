@@ -21,7 +21,7 @@ class ActionBarCore extends Plugin {
 					}
 
 					this.shortcutOff = shortcut
-						.register('actionBarCore', e.state.items.map(act => act.command));
+						.register(e.state.items.map(act => act.command));
 				}
 			});
 		}
