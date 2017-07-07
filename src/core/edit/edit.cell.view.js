@@ -1,5 +1,6 @@
 import {Log} from '../infrastructure';
-import {Command, Shortcut} from '../behavior';
+import {Command} from '../command';
+import {Shortcut} from '../shortcut';
 import {CellEditor} from './edit.cell.editor';
 import {getFactory as valueFactory} from '../services/value';
 import {getFactory as labelFactory} from '../services/label';
@@ -13,9 +14,9 @@ export class EditCellView {
 		this.editor = CellEditor.empty;
 		this.commandManager = commandManager;
 
-		this.shortcut = new Shortcut(commandManager);
+		this.shortcut = model.action().shortcut;
 		const commands = this.commands;
-		this.shortcutOff = this.shortcut.register(commands);
+		this.shortcutOff = this.shortcut.register(commandManager, commands);
 
 		this.enter = commands.get('enter');
 		this.commit = commands.get('commit');
@@ -32,7 +33,7 @@ export class EditCellView {
 				canExecute: cell => {
 					// TODO: source should be set up from outside
 					const source = cell ? 'mouse' : 'keyboard';
-					if (source === 'keyboard' && Shortcut.isControl(Shortcut.keyCode)) {
+					if (source === 'keyboard' && Shortcut.isControl(this.shortcut.keyCode)) {
 						return false;
 					}
 
@@ -54,9 +55,9 @@ export class EditCellView {
 					cell = cell || model.navigation().cell;
 					if (cell && model.edit().enter.execute(this.contextFactory(cell, cell.value, cell.label)) !== false) {
 						this.editor = new CellEditor(cell);
-						if (source === 'keyboard' && Shortcut.isPrintable(Shortcut.keyCode)) {
+						if (source === 'keyboard' && Shortcut.isPrintable(this.shortcut.keyCode)) {
 							const parse = parseFactory(cell.column.type);
-							const value = Shortcut.stringify(Shortcut.keyCode);
+							const value = Shortcut.stringify(this.shortcut.keyCode);
 							const typedValue = parse(value);
 							if (typedValue !== null) {
 								this.value = typedValue;

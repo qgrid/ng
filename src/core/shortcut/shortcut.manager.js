@@ -1,5 +1,5 @@
 import {flatten, isFunction, yes} from '../utility';
-import {Command} from './command';
+import {Command} from '../command';
 
 export class ShortcutManager {
 	constructor() {
@@ -59,21 +59,29 @@ export class ShortcutManager {
 	}
 
 	execute(code) {
-		const notWildcard = (cmd) => {
-			return cmd.shortcut !== '*';
-		};
+		const notWildcard = cmd => cmd.shortcut !== '*';
 		const find = this.findFactory(code);
-		const xs = Array.from(this.managerMap.entries())
-			.map(entry => ({
-				commands: entry[0].filter(find(entry[1])),
-				manager: entry[0]
-			}))
-			.filter(x => x.commands.length);
+		const entries = Array.from(this.managerMap.entries())
+			.map(entry => {
+				const manager = entry[0];
+				const commands = entry[1];
+				return {
+					commands: manager.filter(find(commands)),
+					manager: entry[0]
+				};
+			})
+			.filter(entry => entry.commands.length > 0);
 
-		const allCommands = flatten(xs.map(x => x.commands));
-		const filter = allCommands.filter(notWildcard).length > 0 ? notWildcard : yes;
-		return xs.reduce((memo, x) => {
-			memo |= x.manager.invoke(x.commands.filter(filter));
+		const allCommands = flatten(entries.map(x => x.commands));
+		const wildCardPredicate = allCommands.filter(notWildcard).length > 0 ? notWildcard : yes;
+		return entries.reduce((memo, entry) => {
+			const commands = entry.commands;
+			const manager = entry.manager;
+			const invokableCommands = commands.filter(wildCardPredicate);
+			if (invokableCommands.length) {
+				memo |= manager.invoke(invokableCommands);
+			}
+
 			return memo;
 		}, false);
 	}
@@ -94,6 +102,7 @@ export class ShortcutManager {
 	}
 
 	test(shortcut, code) {
+		code = code.toLowerCase();
 		return ('' + shortcut)
 			.toLowerCase()
 			.split('|')

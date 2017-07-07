@@ -1,7 +1,6 @@
 /* eslint-disable indent */
 
 import PluginComponent from '../plugin.component';
-import {Shortcut} from '@grid/core/behavior';
 
 const Plugin = PluginComponent('action-bar-core', {models: ['action']});
 class ActionBarCore extends Plugin {
@@ -12,7 +11,7 @@ class ActionBarCore extends Plugin {
 	onInit() {
 		const root = this._root;
 		if (root) {
-			const shortcut = new Shortcut(root.commandManager);
+			const shortcut = this.model.action().shortcut;
 			this.model.actionChanged.watch(e => {
 				if (e.hasChanges('items')) {
 					if (this.shortcutOff) {
@@ -21,7 +20,7 @@ class ActionBarCore extends Plugin {
 					}
 
 					this.shortcutOff = shortcut
-						.register(e.state.items.map(act => act.command));
+						.register(root.commandManager, e.state.items.map(act => act.command));
 				}
 			});
 		}

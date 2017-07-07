@@ -1,4 +1,4 @@
-import {CompositeCommandManager} from '../behavior';
+import {CompositeCommandManager} from '../command';
 
 export class SelectionCommandManager extends CompositeCommandManager {
 	constructor(model, manager) {

@@ -1,5 +1,5 @@
 import {Resource} from '../resource';
-import {Command} from '../behavior';
+import {Command} from '../command';
 
 export class EditModel {
 	constructor() {
