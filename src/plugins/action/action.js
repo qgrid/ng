@@ -1,6 +1,6 @@
 import Component from '../../view/components/component';
 import {ACTION_NAME, ACTION_BAR_NAME} from '../definition';
-import {Action as ActionItem} from '@grid/core/infrastructure/action';
+import {Action as ActionItem} from '@grid/core/behavior';
 import {TemplatePath} from '@grid/core/template';
 
 TemplatePath

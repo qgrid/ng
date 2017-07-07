@@ -1,5 +1,5 @@
 import {View} from '../view';
-import {Command, Shortcut} from '../infrastructure';
+import {Command, Shortcut} from '../behavior';
 import {Navigation} from './navigation';
 import {GRID_PREFIX} from '../definition';
 import {Cell} from '../cell';
@@ -12,7 +12,7 @@ export class NavigationView extends View {
 		const shortcut = new Shortcut(commandManager);
 		const navigation = new Navigation(model, table);
 
-		this.shortcutOff = shortcut.register('navigation', navigation.commands);
+		this.shortcutOff = shortcut.register(navigation.commands);
 
 		this.blur = new Command({
 			execute: (row, column) => table.body.cell(row, column).removeClass(`${GRID_PREFIX}-focus`),

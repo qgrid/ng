@@ -1,8 +1,9 @@
-import {Command, Log, Shortcut} from '../infrastructure';
+import {Log} from '../infrastructure';
+import {Command, Shortcut} from '../behavior';
 import {CellEditor} from './edit.cell.editor';
 import {getFactory as valueFactory} from '../services/value';
 import {getFactory as labelFactory} from '../services/label';
-import {Cell} from '../cell';
+import {parseFactory} from '../services';
 
 export class EditCellView {
 	constructor(model, table, commandManager) {
@@ -12,9 +13,9 @@ export class EditCellView {
 		this.editor = CellEditor.empty;
 		this.commandManager = commandManager;
 
-		const shortcut = new Shortcut(commandManager);
+		this.shortcut = new Shortcut(commandManager);
 		const commands = this.commands;
-		this.shortcutOff = shortcut.register('editCellNavigation', commands);
+		this.shortcutOff = this.shortcut.register(commands);
 
 		this.enter = commands.get('enter');
 		this.commit = commands.get('commit');
@@ -27,8 +28,14 @@ export class EditCellView {
 		const table = this.table;
 		const commands = {
 			enter: new Command({
-				shortcut: 'F2|Enter',
+				shortcut: this.enterShortcut.bind(this),
 				canExecute: cell => {
+					// TODO: source should be set up from outside
+					const source = cell ? 'mouse' : 'keyboard';
+					if (source === 'keyboard' && Shortcut.isControl(Shortcut.keyCode)) {
+						return false;
+					}
+
 					cell = cell || model.navigation().cell;
 					return cell
 						&& cell.column.canEdit
@@ -42,17 +49,20 @@ export class EditCellView {
 						e.stopImmediatePropagation();
 					}
 
-					if (cell) {
-						if (!Cell.equals(model.navigation().cell, cell)) {
-							model.navigation({cell: new Cell(cell)});
-						}
-					}
-					else {
-						cell = model.navigation().cell;
-					}
-
+					// TODO: source should be set up from outside
+					const source = cell ? 'mouse' : 'keyboard';
+					cell = cell || model.navigation().cell;
 					if (cell && model.edit().enter.execute(this.contextFactory(cell, cell.value, cell.label)) !== false) {
 						this.editor = new CellEditor(cell);
+						if (source === 'keyboard' && Shortcut.isPrintable(Shortcut.keyCode)) {
+							const parse = parseFactory(cell.column.type);
+							const value = Shortcut.stringify(Shortcut.keyCode);
+							const typedValue = parse(value);
+							if (typedValue !== null) {
+								this.value = typedValue;
+							}
+						}
+
 						model.edit({state: 'edit'});
 						cell.mode('edit');
 						return true;
@@ -82,7 +92,6 @@ export class EditCellView {
 					if (cell && model.edit().commit.execute(this.contextFactory(cell, this.value, this.label, this.tag)) !== false) {
 						this.editor.commit();
 						this.editor = CellEditor.empty;
-
 						model.edit({state: 'view'});
 						cell.mode('view');
 						table.view.focus();
@@ -109,7 +118,10 @@ export class EditCellView {
 					}
 
 					cell = cell || this.editor.cell || model.navigation().cell;
-					if (cell && model.edit().cancel.execute(this.contextFactory(cell, this.value, this.label)) !== false) {
+					let label = this.label;
+					let value = cell.value;
+
+					if (cell && model.edit().cancel.execute(this.contextFactory(cell, value, label)) !== false) {
 						this.editor.reset();
 						this.editor = CellEditor.empty;
 
@@ -201,19 +213,36 @@ export class EditCellView {
 		return false;
 	}
 
-	commitShortcut() {
-		const model = this.model;
-		const commitShortcuts = model.edit().commitShortcuts;
-		const cell = this.editor.cell || model.navigation().cell;
-		if (cell && commitShortcuts.hasOwnProperty(cell.column.type)) {
-			return commitShortcuts[cell.column.type];
-		}
-
-		return commitShortcuts['$default'];
-	}
-
 	get options() {
 		return this.editor.options;
+	}
+
+	commitShortcut() {
+		const model = this.model;
+		const shortcuts = model.edit().commitShortcuts;
+		const cell = this.editor.cell || model.navigation().cell;
+		if (cell) {
+			const type = cell.column && cell.column.editor ? cell.column.editor : cell.column.type;
+			if (shortcuts.hasOwnProperty(type)) {
+				return shortcuts[type];
+			}
+		}
+
+		return shortcuts['$default'];
+	}
+
+	enterShortcut() {
+		const model = this.model;
+		const shortcuts = model.edit().enterShortcuts;
+		const cell = this.editor.cell || model.navigation().cell;
+		if (cell) {
+			const type = cell.column && cell.column.editor ? cell.column.editor : cell.column.type;
+			if (shortcuts.hasOwnProperty(type)) {
+				return shortcuts[type];
+			}
+		}
+
+		return shortcuts['$default'];
 	}
 
 	destroy() {

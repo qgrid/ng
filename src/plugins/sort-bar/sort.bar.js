@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 
 import PluginComponent from '../plugin.component';
-import {Command} from '@grid/core/infrastructure';
+import {Command} from '@grid/core/behavior';
 import * as SortSevice from '@grid/core/sort/sort.service';
 import {SORT_BAR_NAME} from '../definition';
 import {TH_CORE_NAME} from '@grid/view/definition';

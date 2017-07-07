@@ -2,11 +2,11 @@ import {CommandManager} from "./command.manager";
 import {IFunc} from "../dom/view";
 
 export declare class CompositeCommandManager {
-	constructor(public manager: CommandManager);
+    constructor(public manager: CommandManager);
 
-	keyDown(f: IFunc): void;
+    keyDown(f: IFunc): void;
 
-	canExecute(): boolean;
+    canExecute(): boolean;
 
-	execute(commands): boolean;
+    execute(commands): boolean;
 }

@@ -1,4 +1,4 @@
-import {Shortcut, Command} from '@grid/core/infrastructure';
+import {Shortcut, Command} from '@grid/core/behavior';
 
 DateEdit.$inject = ['$scope'];
 export default function DateEdit($scope) {
@@ -16,7 +16,7 @@ export default function DateEdit($scope) {
 	};
 
 	const shortcut = new Shortcut(this.cell().commandManager);
-	const shortcutOff = shortcut.register('dateEditCellManagement', new Map(
+	const shortcutOff = shortcut.register(new Map(
 		Object.entries(commands)
 	));
 

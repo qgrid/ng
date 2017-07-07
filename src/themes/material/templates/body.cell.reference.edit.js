@@ -1,5 +1,5 @@
 import {isArray, noop} from '@grid/core/utility';
-import {Command} from '@grid/core/infrastructure';
+import {Command} from '@grid/core/behavior';
 import {SelectionService} from '@grid/core/selection';
 
 ReferenceEdit.$inject = ['$scope', 'qgrid', 'qGridPopupService'];
@@ -71,7 +71,7 @@ export default function ReferenceEdit($scope, qgrid, popupService) {
 	this.cancel = commands.cancel;
 
 	const shortcutOff = popupService.isOpened(id)
-		? $scope.$popupBody.shortcut.register('referenceEditManagement', new Map(
+		? $scope.$popupBody.shortcut.register(new Map(
 			Object.entries(commands)
 		))
 		: noop;
