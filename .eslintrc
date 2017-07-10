@@ -35,9 +35,6 @@
 		"node": true
 	},
 	"globals": {
-        "fileSaver": false,
-        "XLSX": false,
-        "jsPDF": false,
 		"chai": false,
 		"describe": false,
 		"it": false,

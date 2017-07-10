@@ -16,8 +16,8 @@ function toArrayBuffer(excel) {
 }
 
 export class Xlsx {
-	constructor(lib) {
-		this.XLSX = lib;
+	constructor(xlsx) {
+		this.xlsx = xlsx;
 	}
 	write(rows, columns) {
 		const result = [];
@@ -30,17 +30,17 @@ export class Xlsx {
 		for (let column of columns) {
 			headers.push(column.title);
 		}
-		const worksheet = this.XLSX.utils.json_to_sheet(result);
+		const worksheet = this.xlsx.utils.json_to_sheet(result);
 		const workbook = sheet_to_workbook(this.updateTitles(worksheet, headers));
-		const excel = this.XLSX.write(workbook, excelOptions);
+		const excel = this.xlsx.write(workbook, excelOptions);
 
 		return toArrayBuffer(excel);
 	}
 
 	updateTitles(worksheet, headers) {
-		const range = this.XLSX.utils.decode_range(worksheet['!ref']);
+		const range = this.xlsx.utils.decode_range(worksheet['!ref']);
 		for (let i = range.s.r; i <= range.e.r; ++i) {
-			const address = this.XLSX.utils.encode_col(i) + '1';
+			const address = this.xlsx.utils.encode_col(i) + '1';
 			if (!worksheet[address]) continue;
 			worksheet[address].v = headers[i];
 		}

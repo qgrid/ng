@@ -1,8 +1,8 @@
 import {flatView} from '@grid/core/export/export.service';
 
 export class Pdf {
-	constructor(lib) {
-		this.jsPDF = lib;
+	constructor(jsPDF) {
+		this.jsPDF = jsPDF;
 	}
 	write(rows, columns, name) {
 		const jsPDF = this.jsPDF;

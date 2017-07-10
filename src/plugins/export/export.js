@@ -25,10 +25,7 @@ class Export extends Plugin {
 		this.csv = new Command({
 			canExecute: () => this.type === 'csv',
 			execute: () => {
-				const fileSaver = this.imports.file;
-				if (!fileSaver) {
-					throw new AppError('fileSaver', 'To use export plugin for pdf format please add https://github.com/eligrey/FileSaver.js library to your project');
-				}
+				const fileSaver = this.importLib('file');
 				const csv = new Csv();
 				const data = csv.write(this.rows, this.columns);
 				download(fileSaver, this.id, data, `text/${this.type}`);
@@ -37,10 +34,7 @@ class Export extends Plugin {
 		this.json = new Command({
 			canExecute: () => this.type === 'json',
 			execute: () => {
-				const fileSaver = this.imports.file;
-				if (!fileSaver) {
-					throw new AppError('fileSaver', 'To use export plugin for pdf format please add https://github.com/eligrey/FileSaver.js library to your project');
-				}
+				const fileSaver = this.importLib('file');
 				const json = new Json();
 				const data = json.write(this.rows, this.columns);
 				download(fileSaver, this.id, data, `text/${this.type}`);
@@ -49,10 +43,7 @@ class Export extends Plugin {
 		this.xml = new Command({
 			canExecute: () => this.type === 'xml',
 			execute: () => {
-				const fileSaver = this.imports.file;
-				if (!fileSaver) {
-					throw new AppError('fileSaver', 'To use export plugin for pdf format please add https://github.com/eligrey/FileSaver.js library to your project');
-				}
+				const fileSaver = this.importLib('file');
 				const xml = new Xml();
 				const data = xml.write(this.rows);
 				download(fileSaver, this.id, data, `application/${this.type}`);
@@ -61,15 +52,8 @@ class Export extends Plugin {
 		this.xlsx = new Command({
 			canExecute: () => this.type === 'xlsx',
 			execute: () => {
-				const lib = this.imports.xlsx;
-				const fileSaver = this.imports.file;
-
-				if (!lib) {
-					throw new AppError('xlsx', 'To use export plugin for xlsx format please add http://github.com/SheetJS/js-xlsx library to your project');
-				}
-				if (!fileSaver) {
-					throw new AppError('fileSaver', 'To use export plugin for pdf format please add https://github.com/eligrey/FileSaver.js library to your project');
-				}
+				const lib = this.importLib('xlsx');
+				const fileSaver = this.importLib('file');
 				const xlsx = new Xlsx(lib);
 				const data = xlsx.write(this.rows, this.columns);
 				download(fileSaver, this.id, data, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'xlsx');
@@ -78,24 +62,32 @@ class Export extends Plugin {
 		this.pdf = new Command({
 			canExecute: () => this.type === 'pdf',
 			execute: () => {
-				const fileSaver = this.imports.file;
-				const pdfLib = this.imports.pdf;
-				const autotableLib = this.imports.pdf;
-
-				if (!fileSaver) {
-					throw new AppError('fileSaver', 'To use export plugin for pdf format please add https://github.com/eligrey/FileSaver.js library to your project');
-				}
-				if (!pdfLib || !autotableLib) {
-					throw new AppError('jsPDF', 'To use export plugin for pdf format please add https://github.com/MrRio/jsPDF and https://github.com/simonbengtsson/jsPDF-AutoTable libraries to your project');
-				}
+				const pdfLib = this.importLib('pdf');
 				const pdf = new Pdf(pdfLib);
 				pdf.write(this.rows, this.columns, this.id);
 			}
 		});
 	}
 
-	get imports() {
-		return this.model.plugin().imports;
+	importLib(name) {
+		const lib = this.model.plugin().imports[name];
+		if (!lib) {
+			switch (name) {
+				case 'xlsx': {
+					throw new AppError('xlsx', 'To use export plugin for xlsx format please add http://github.com/SheetJS/js-xlsx library to your project');
+				}
+				case 'file': {
+					throw new AppError('fileSaver', 'To use export plugin for file saving please add https://github.com/eligrey/FileSaver.js library to your project');
+				}
+				case 'pdf': {
+					throw new AppError('jsPDF', 'To use export plugin for pdf format please add https://github.com/MrRio/jsPDF and https://github.com/simonbengtsson/jsPDF-AutoTable libraries to your project');
+				}
+				default: {
+					throw new AppError('import library', 'No such library in imports');
+				}
+			}
+		}
+		return this.model.plugin().imports[name];
 	}
 
 	get id() {

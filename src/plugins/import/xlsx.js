@@ -33,7 +33,7 @@ function rewriteObject(obj) {
 
 export class Xlsx {
 	read(data, options) {
-		if (!window.XLSX) {
+		if (!window.xlsx) {
 			throw new AppError('xlsx', 'To use import plugin for xlsx format please add http://github.com/SheetJS/js-xlsx library to your project');
 		}
 
