@@ -1,6 +1,6 @@
 import PluginComponent from '../plugin.component';
 import {EXPORT_NAME} from '../definition';
-import {Command} from '@grid/core/infrastructure';
+import {Command} from '@grid/core/command';
 import {TemplatePath} from '@grid/core/template';
 import {Csv} from '@grid/core/export/csv';
 import {Json} from '@grid/core/export/json';

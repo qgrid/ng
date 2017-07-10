@@ -1,5 +1,5 @@
 import PluginComponent from '../plugin.component';
-import {Command} from '@grid/core/infrastructure';
+import {Command} from '@grid/core/command';
 import {TemplatePath} from '@grid/core/template';
 import {Aggregation} from '@grid/core/services';
 import * as columnService from '@grid/core/column/column.service';

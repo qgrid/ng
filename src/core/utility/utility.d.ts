@@ -1,23 +1,23 @@
-export declare interface INoopResult{
+export interface INoopResult{
 	(): void;
 }
-export declare interface IYesResult{
+export interface IYesResult{
 	(): boolean;
 }
 
-export declare interface INoResult{
+export interface INoResult{
 	(): boolean;
 }
 
-export declare interface IIdentityResult{
+export interface IIdentityResult{
 	(any): any;
 }
 
-export declare interface IToCamelCaseResult{
+export interface IToCamelCaseResult{
 	(...names: string[]): string;
 }
 
-export declare interface IIsEmailResult{
+export interface IIsEmailResult{
 	(value: string): boolean;
 }
 

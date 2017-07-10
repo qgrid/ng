@@ -1,5 +1,4 @@
 import {Model} from "../infrastructure/model";
-import {ColumnView as CustomColumn} from '../column-type/column.model.view';
 import {TextColumn} from '../column-type/text.column';
 import {NumberColumn} from '../column-type/number.column';
 import {BoolColumn} from '../column-type/bool.column';

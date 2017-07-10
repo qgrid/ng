@@ -1,5 +1,4 @@
 import Pager from './pagination/pager';
-import ActionBar from './action-bar/action.bar';
 import SortBar from './sort-bar/sort.bar';
 import GroupBar from './group-bar/group.bar';
 import PivotBar from './pivot-bar/pivot.bar';
@@ -20,13 +19,16 @@ import PopupPanel from './popup/popup.panel';
 import PopupService from './popup/popup.service';
 import Export from './export/export';
 import Import from './import/import';
+import ActionBarCore from './action-bar/action.bar.core';
+import ActionBar from './action-bar/action.bar';
+import Action from './action/action';
+import ActionCore from './action/action.core';
 
 import * as def from './definition';
 
 export default angular  // eslint-disable-line no-undef
 	.module(def.MODULE_NAME, [def.MODULE_CORE_NAME])
 	.component(def.PAGER_NAME, Pager)
-	.component(def.ACTION_BAR_NAME, ActionBar)
 	.component(def.SORT_BAR_NAME, SortBar)
 	.component(def.GROUP_BAR_NAME, GroupBar)
 	.component(def.PIVOT_BAR_NAME, PivotBar)
@@ -46,6 +48,10 @@ export default angular  // eslint-disable-line no-undef
 	.component(def.POPUP_PANEL_NAME, PopupPanel)
 	.component(def.EXPORT_NAME, Export)
 	.component(def.IMPORT_NAME, Import)
+	.component(def.ACTION_BAR_CORE_NAME, ActionBarCore)
+	.component(def.ACTION_BAR_NAME, ActionBar)
+	.component(def.ACTION_NAME, Action)
+	.component(def.ACTION_CORE_NAME, ActionCore)
 	.service(def.POPUP_SERVICE, PopupService)
 	.config(Setup)
 	.name;

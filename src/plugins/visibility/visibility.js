@@ -1,5 +1,5 @@
 import PluginComponent from '../plugin.component';
-import {Command} from '@grid/core/infrastructure';
+import {Command} from '@grid/core/command';
 import {Node} from '@grid/core/node';
 import * as path from '@grid/core/services/path';
 import * as ng from '@grid/view/services/ng';

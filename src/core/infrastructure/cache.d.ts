@@ -1,5 +1,4 @@
 export declare class Cache <K, V> {
-
 	constructor();
 
 	set(key: K, value: V);

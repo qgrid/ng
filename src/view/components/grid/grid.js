@@ -1,7 +1,8 @@
 import RootComponent from '../root.component';
 import {Table} from '@grid/core/dom';
 import {LayerFactory} from '@grid/view/services';
-import {TableCommandManager, AppError} from '@grid/core/infrastructure';
+import {AppError} from '@grid/core/infrastructure';
+import {TableCommandManager} from '@grid/core/command';
 import {isUndefined} from '@grid/core/utility';
 import TemplateLink from '../template/template.link';
 
@@ -34,6 +35,7 @@ export class Grid extends RootComponent {
 
 		this.table = new Table(model, this.markup, tableContext);
 		this.commandManager = new TableCommandManager(this.applyFactory(), this.table);
+		this.keyDownOff = this.table.view.keyDown(e => model.action().shortcut.keyDown(e));
 
 		this.compile();
 		this.model.viewChanged.watch(e => {
@@ -107,6 +109,16 @@ export class Grid extends RootComponent {
 	get visibility() {
 		// TODO: get rid of that
 		return this.model.visibility();
+	}
+
+	get isActive() {
+		return this.table.view.isFocused();
+	}
+
+	onDestroy() {
+		if (this.keyDownOff) {
+			this.keyDownOff();
+		}
 	}
 }
 

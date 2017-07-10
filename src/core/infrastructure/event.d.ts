@@ -1,14 +1,20 @@
-export declare interface IReturn{
+import {IFunc} from "../dom/view";
+
+export interface IEventShape{
+	(): void;
+}
+
+export interface IReturn{
 	(): void;
 }
 
 export declare class Event {
 
-	constructor(e: () => void);
+	constructor(e: IEventShape);
 
-	on(f: () => any): IReturn;
+	on(f: IFunc): IReturn;
 
-	watch(f: () => any): void;
+	watch(f: IFunc): void;
 
-	emit(e: () => void): void;
+	emit(e: IEventShape): void;
 }

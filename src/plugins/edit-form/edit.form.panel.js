@@ -1,5 +1,5 @@
 import PluginComponent from '../plugin.component';
-import {Command} from '@grid/core/infrastructure';
+import {Command} from '@grid/core/command';
 import {RowEditor} from '@grid/core/edit/edit.row.editor';
 import {noop, isUndefined} from '@grid/core/utility';
 
@@ -21,7 +21,7 @@ class EditFormPanel extends Plugin {
 		this.editor = new RowEditor(this.row, this.model.data().columns);
 
 		if (!isUndefined(this.shortcut)) {
-			this.shortcutOff = this.shortcut.register('editFormManagement', new Map(
+			this.shortcutOff = this.shortcut.register(new Map(
 				Object.entries(this.commands)
 			));
 		}
