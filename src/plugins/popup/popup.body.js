@@ -15,13 +15,14 @@ class PopupBody extends Component {
 		this.$templateScope = null;
 		this.template = new TemplateLink($compile, $templateCache);
 		this.listener = new EventListener($element[0], new EventManager(this));
+		this.shortcutService = new Shortcut(new ShortcutManager());
+		this.listener.on('keydown', e => this.shortcutService.keyDown(e));
 	}
 
 	onInit() {
 		this.$popup = this.popup;
-		this.shortcut = new Shortcut(new ShortcutManager());
-		this.commandManager = new PopupCommandManager(f => f(), this.qGridPopupService.get(this.id));
-		this.listener.on('keydown', e => this.shortcut.keyDown(e));
+		const commandManager = new PopupCommandManager(f => f(), this.qGridPopupService.get(this.id));
+		this.shortcut = this.shortcutService.factory(commandManager);
 
 		const model = this.model;
 		const templateUrl = 'qgrid.plugin.popup-body.tpl.html';
@@ -34,10 +35,6 @@ class PopupBody extends Component {
 
 		link(this.$element, templateScope);
 		this.$templateScope = templateScope;
-	}
-
-	registerShortcuts(commands) {
-		return this.shortcut.register(this.commandManager, commands);
 	}
 
 	onDestroy() {

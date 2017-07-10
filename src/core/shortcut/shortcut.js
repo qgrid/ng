@@ -58,6 +58,13 @@ export class Shortcut {
 		return codes.join('+');
 	}
 
+	factory(commandManager) {
+		const self = this;
+		return {
+			register: commands => self.register(commandManager, commands)
+		};
+	}
+
 	keyDown(e) {
 		const code = Shortcut.translate(e);
 		this.keyCode = {
