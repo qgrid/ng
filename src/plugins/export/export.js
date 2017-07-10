@@ -8,7 +8,7 @@ import {Json} from '@grid/core/export/json';
 import {Xml} from '@grid/core/export/xml';
 import {Xlsx} from './xlsx';
 import {Pdf} from './pdf';
-import {download} from './download';
+import {downloadFactory} from './download';
 
 TemplatePath
 	.register(EXPORT_NAME, (template) => {
@@ -28,7 +28,8 @@ class Export extends Plugin {
 				const fileSaver = this.importLib('fileSaver');
 				const csv = new Csv();
 				const data = csv.write(this.rows, this.columns);
-				download(fileSaver, this.id, data, `text/${this.type}`);
+				const download = downloadFactory(fileSaver);
+				download(this.id, data, `text/${this.type}`);
 			}
 		});
 		this.json = new Command({
@@ -37,7 +38,8 @@ class Export extends Plugin {
 				const fileSaver = this.importLib('fileSaver');
 				const json = new Json();
 				const data = json.write(this.rows, this.columns);
-				download(fileSaver, this.id, data, `text/${this.type}`);
+				const download = downloadFactory(fileSaver);
+				download(this.id, data, `text/${this.type}`);
 			}
 		});
 		this.xml = new Command({
@@ -46,7 +48,8 @@ class Export extends Plugin {
 				const fileSaver = this.importLib('fileSaver');
 				const xml = new Xml();
 				const data = xml.write(this.rows);
-				download(fileSaver, this.id, data, `application/${this.type}`);
+				const download = downloadFactory(fileSaver);
+				download(this.id, data, `application/${this.type}`);
 			}
 		});
 		this.xlsx = new Command({
@@ -56,7 +59,8 @@ class Export extends Plugin {
 				const fileSaver = this.importLib('fileSaver');
 				const xlsx = new Xlsx(lib);
 				const data = xlsx.write(this.rows, this.columns);
-				download(fileSaver, this.id, data, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'xlsx');
+				const download = downloadFactory(fileSaver);
+				download(this.id, data, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'xlsx');
 			}
 		});
 		this.pdf = new Command({
