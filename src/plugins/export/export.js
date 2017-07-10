@@ -1,8 +1,8 @@
 import PluginComponent from '../plugin.component';
+import {resolve} from '@grid/core/plugin';
 import {EXPORT_NAME} from '../definition';
 import {Command} from '@grid/core/command';
 import {TemplatePath} from '@grid/core/template';
-import {AppError} from '@grid/core/infrastructure';
 import {Csv} from '@grid/core/export/csv';
 import {Json} from '@grid/core/export/json';
 import {Xml} from '@grid/core/export/xml';
@@ -25,7 +25,7 @@ class Export extends Plugin {
 		this.csv = new Command({
 			canExecute: () => this.type === 'csv',
 			execute: () => {
-				const fileSaver = this.importLib('fileSaver');
+				const fileSaver = resolve(this.model, 'fileSaver');
 				const csv = new Csv();
 				const data = csv.write(this.rows, this.columns);
 				const download = downloadFactory(fileSaver);
@@ -35,7 +35,7 @@ class Export extends Plugin {
 		this.json = new Command({
 			canExecute: () => this.type === 'json',
 			execute: () => {
-				const fileSaver = this.importLib('fileSaver');
+				const fileSaver = resolve(this.model, 'fileSaver');
 				const json = new Json();
 				const data = json.write(this.rows, this.columns);
 				const download = downloadFactory(fileSaver);
@@ -45,7 +45,7 @@ class Export extends Plugin {
 		this.xml = new Command({
 			canExecute: () => this.type === 'xml',
 			execute: () => {
-				const fileSaver = this.importLib('fileSaver');
+				const fileSaver = resolve(this.model, 'fileSaver');
 				const xml = new Xml();
 				const data = xml.write(this.rows);
 				const download = downloadFactory(fileSaver);
@@ -55,8 +55,8 @@ class Export extends Plugin {
 		this.xlsx = new Command({
 			canExecute: () => this.type === 'xlsx',
 			execute: () => {
-				const lib = this.importLib('xlsx');
-				const fileSaver = this.importLib('fileSaver');
+				const lib = resolve(this.model, 'xlsx');
+				const fileSaver = resolve(this.model, 'fileSaver');
 				const xlsx = new Xlsx(lib);
 				const data = xlsx.write(this.rows, this.columns);
 				const download = downloadFactory(fileSaver);
@@ -66,32 +66,11 @@ class Export extends Plugin {
 		this.pdf = new Command({
 			canExecute: () => this.type === 'pdf',
 			execute: () => {
-				const pdfLib = this.importLib('pdf');
-				const pdf = new Pdf(pdfLib);
+				const lib = resolve(this.model, 'pdf');
+				const pdf = new Pdf(lib);
 				pdf.write(this.rows, this.columns, this.id);
 			}
 		});
-	}
-
-	importLib(name) {
-		const lib = this.model.plugin().imports[name];
-		if (!lib) {
-			switch (name) {
-				case 'xlsx': {
-					throw new AppError('xlsx', 'To use export plugin for xlsx format please add http://github.com/SheetJS/js-xlsx library to your project');
-				}
-				case 'fileSaver': {
-					throw new AppError('fileSaver', 'To use export plugin for file saving please add https://github.com/eligrey/FileSaver.js library to your project');
-				}
-				case 'pdf': {
-					throw new AppError('jsPDF', 'To use export plugin for pdf format please add https://github.com/MrRio/jsPDF and https://github.com/simonbengtsson/jsPDF-AutoTable libraries to your project');
-				}
-				default: {
-					throw new AppError('import library', 'No such library in imports');
-				}
-			}
-		}
-		return lib;
 	}
 
 	get id() {
