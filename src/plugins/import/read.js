@@ -21,7 +21,8 @@ function readFile(e, file, model, options = {}) {
 	switch (type) {
 		case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
 		case 'xlsx': {
-			const xlsx = new Xlsx();
+			const lib = importLib(model, 'xlsx');
+			const xlsx = new Xlsx(lib);
 			const rows = xlsx.read(data, options);
 			const createColumn = columnFactory(model);
 			const columns = generate({
@@ -106,6 +107,26 @@ function readFile(e, file, model, options = {}) {
 			throw new AppError('import', `This is not valid file type ${type}`);
 		}
 	}
+}
+function importLib(model, name) {
+	const lib = model.plugin().imports[name];
+	if (!lib) {
+		switch (name) {
+			case 'xlsx': {
+				throw new AppError('xlsx', 'To use export plugin for xlsx format please add http://github.com/SheetJS/js-xlsx library to your project');
+			}
+			case 'fileSaver': {
+				throw new AppError('fileSaver', 'To use export plugin for file saving please add https://github.com/eligrey/FileSaver.js library to your project');
+			}
+			case 'pdf': {
+				throw new AppError('jsPDF', 'To use export plugin for pdf format please add https://github.com/MrRio/jsPDF and https://github.com/simonbengtsson/jsPDF-AutoTable libraries to your project');
+			}
+			default: {
+				throw new AppError('import library', 'No such library in imports');
+			}
+		}
+	}
+	return lib;
 }
 
 export {

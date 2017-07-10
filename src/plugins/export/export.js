@@ -25,7 +25,7 @@ class Export extends Plugin {
 		this.csv = new Command({
 			canExecute: () => this.type === 'csv',
 			execute: () => {
-				const fileSaver = this.importLib('file');
+				const fileSaver = this.importLib('fileSaver');
 				const csv = new Csv();
 				const data = csv.write(this.rows, this.columns);
 				download(fileSaver, this.id, data, `text/${this.type}`);
@@ -34,7 +34,7 @@ class Export extends Plugin {
 		this.json = new Command({
 			canExecute: () => this.type === 'json',
 			execute: () => {
-				const fileSaver = this.importLib('file');
+				const fileSaver = this.importLib('fileSaver');
 				const json = new Json();
 				const data = json.write(this.rows, this.columns);
 				download(fileSaver, this.id, data, `text/${this.type}`);
@@ -43,7 +43,7 @@ class Export extends Plugin {
 		this.xml = new Command({
 			canExecute: () => this.type === 'xml',
 			execute: () => {
-				const fileSaver = this.importLib('file');
+				const fileSaver = this.importLib('fileSaver');
 				const xml = new Xml();
 				const data = xml.write(this.rows);
 				download(fileSaver, this.id, data, `application/${this.type}`);
@@ -53,7 +53,7 @@ class Export extends Plugin {
 			canExecute: () => this.type === 'xlsx',
 			execute: () => {
 				const lib = this.importLib('xlsx');
-				const fileSaver = this.importLib('file');
+				const fileSaver = this.importLib('fileSaver');
 				const xlsx = new Xlsx(lib);
 				const data = xlsx.write(this.rows, this.columns);
 				download(fileSaver, this.id, data, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'xlsx');
@@ -76,7 +76,7 @@ class Export extends Plugin {
 				case 'xlsx': {
 					throw new AppError('xlsx', 'To use export plugin for xlsx format please add http://github.com/SheetJS/js-xlsx library to your project');
 				}
-				case 'file': {
+				case 'fileSaver': {
 					throw new AppError('fileSaver', 'To use export plugin for file saving please add https://github.com/eligrey/FileSaver.js library to your project');
 				}
 				case 'pdf': {
@@ -87,7 +87,7 @@ class Export extends Plugin {
 				}
 			}
 		}
-		return this.model.plugin().imports[name];
+		return lib;
 	}
 
 	get id() {
