@@ -10,7 +10,7 @@ export default function Controller($http, qgrid) {
 	this.model = qgrid.model();
 	this.model.plugin({
 		imports: {
-			'file': fileSaver,
+			'fileSaver': fileSaver,
 			'xlsx': XLSX,
 			'pdf': jsPDF
 		}
