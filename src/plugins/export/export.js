@@ -79,15 +79,16 @@ class Export extends Plugin {
 			canExecute: () => this.type === 'pdf',
 			execute: () => {
 				const fileSaver = this.imports.file;
-				const lib = this.imports.pdf;
+				const pdfLib = this.imports.pdf;
+				const autotableLib = this.imports.pdf;
 
 				if (!fileSaver) {
 					throw new AppError('fileSaver', 'To use export plugin for pdf format please add https://github.com/eligrey/FileSaver.js library to your project');
 				}
-				if (!lib) {
+				if (!pdfLib || !autotableLib) {
 					throw new AppError('jsPDF', 'To use export plugin for pdf format please add https://github.com/MrRio/jsPDF and https://github.com/simonbengtsson/jsPDF-AutoTable libraries to your project');
 				}
-				const pdf = new Pdf(lib);
+				const pdf = new Pdf(pdfLib);
 				pdf.write(this.rows, this.columns, this.id);
 			}
 		});

@@ -1,7 +1,7 @@
 import fileSaver from 'file-saver';
 import XLSX from 'xlsx';
 import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import autotable from 'jspdf-autotable';
 
 Controller.$inject = ['$http', 'qgrid'];
 export default function Controller($http, qgrid) {
@@ -12,7 +12,8 @@ export default function Controller($http, qgrid) {
 		imports: {
 			'file': fileSaver,
 			'xlsx': XLSX,
-			'pdf': jsPDF
+			'pdf': jsPDF,
+			'autotable': autotable
 		}
 	});
 
