@@ -1,6 +1,6 @@
 import {ColumnModel} from '../column-type/column.model';
 
-export interface ICell{
+export interface ICell {
 	rowIndex: number;
 	columnIndex: number;
 	column: ColumnModel;
