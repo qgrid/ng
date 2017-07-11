@@ -28,139 +28,139 @@ export class EditCellView {
 		const model = this.model;
 		const table = this.table;
 		const commands = {
-				enter: new Command({
-					shortcut: this.shortcutFactory('enter'),
-					canExecute: cell => {
-						// TODO: source should be set up from outside
-						const source = cell ? 'mouse' : 'keyboard';
-						if (source === 'keyboard' && Shortcut.isControl(this.shortcut.keyCode)) {
-							return false;
-						}
+			enter: new Command({
+				shortcut: this.shortcutFactory('enter'),
+				canExecute: cell => {
+					// TODO: source should be set up from outside
+					const source = cell ? 'mouse' : 'keyboard';
+					if (source === 'keyboard' && Shortcut.isControl(this.shortcut.keyCode)) {
+						return false;
+					}
 
-						cell = cell || model.navigation().cell;
-						return cell
-							&& cell.column.canEdit
-							&& model.edit().mode === 'cell'
-							&& model.edit().state === 'view'
-							&& model.edit().enter.canExecute(this.contextFactory(cell));
-					},
-					execute: (cell, e) => {
-						Log.info('cell.edit', 'edit mode');
-						if (e) {
-							e.stopImmediatePropagation();
-						}
+					cell = cell || model.navigation().cell;
+					return cell
+						&& cell.column.canEdit
+						&& model.edit().mode === 'cell'
+						&& model.edit().state === 'view'
+						&& model.edit().enter.canExecute(this.contextFactory(cell));
+				},
+				execute: (cell, e) => {
+					Log.info('cell.edit', 'edit mode');
+					if (e) {
+						e.stopImmediatePropagation();
+					}
 
-						// TODO: source should be set up from outside
-						const source = cell ? 'mouse' : 'keyboard';
-						cell = cell || model.navigation().cell;
-						if (cell && model.edit().enter.execute(this.contextFactory(cell, cell.value, cell.label)) !== false) {
-							this.editor = new CellEditor(cell);
-							if (source === 'keyboard' && Shortcut.isPrintable(this.shortcut.keyCode)) {
-								const parse = parseFactory(cell.column.type);
-								const value = Shortcut.stringify(this.shortcut.keyCode);
-								const typedValue = parse(value);
-								if (typedValue !== null) {
-									this.value = typedValue;
-								}
+					// TODO: source should be set up from outside
+					const source = cell ? 'mouse' : 'keyboard';
+					cell = cell || model.navigation().cell;
+					if (cell && model.edit().enter.execute(this.contextFactory(cell, cell.value, cell.label)) !== false) {
+						this.editor = new CellEditor(cell);
+						if (source === 'keyboard' && Shortcut.isPrintable(this.shortcut.keyCode)) {
+							const parse = parseFactory(cell.column.type);
+							const value = Shortcut.stringify(this.shortcut.keyCode);
+							const typedValue = parse(value);
+							if (typedValue !== null) {
+								this.value = typedValue;
 							}
-
-							model.edit({state: 'edit'});
-							cell.mode('edit');
-							return true;
 						}
 
-						return false;
+						model.edit({state: 'edit'});
+						cell.mode('edit');
+						return true;
 					}
-				}),
-				commit: new Command({
-					shortcut: this.shortcutFactory('commit'),
-					// TODO: add validation support
-					canExecute: cell => {
-						cell = cell || this.editor.cell || model.navigation().cell;
-						return cell
-							&& cell.column.canEdit
-							&& model.edit().mode === 'cell'
-							&& model.edit().state === 'edit'
-							&& model.edit().commit.canExecute(this.contextFactory(cell));
-					},
-					execute: (cell, e) => {
-						Log.info('cell.edit', 'commit');
-						if (e) {
-							e.stopImmediatePropagation();
-						}
 
-						cell = cell || this.editor.cell || model.navigation().cell;
-						if (cell && model.edit().commit.execute(this.contextFactory(cell, this.value, this.label, this.tag)) !== false) {
-							this.editor.commit();
-							this.editor = CellEditor.empty;
-							model.edit({state: 'view'});
-							cell.mode('view');
-							table.view.focus();
-							return true;
-						}
-
-						return false;
+					return false;
+				}
+			}),
+			commit: new Command({
+				shortcut: this.shortcutFactory('commit'),
+				// TODO: add validation support
+				canExecute: cell => {
+					cell = cell || this.editor.cell || model.navigation().cell;
+					return cell
+						&& cell.column.canEdit
+						&& model.edit().mode === 'cell'
+						&& model.edit().state === 'edit'
+						&& model.edit().commit.canExecute(this.contextFactory(cell));
+				},
+				execute: (cell, e) => {
+					Log.info('cell.edit', 'commit');
+					if (e) {
+						e.stopImmediatePropagation();
 					}
-				}),
-				cancel: new Command({
-					shortcut: this.shortcutFactory('cancel'),
-					canExecute: cell => {
-						cell = cell || this.editor.cell || model.navigation().cell;
-						return cell
-							&& cell.column.canEdit
-							&& model.edit().mode === 'cell'
-							&& model.edit().state === 'edit'
-							&& model.edit().cancel.canExecute(this.contextFactory(cell, this.value, this.label));
-					},
-					execute: (cell, e) => {
-						Log.info('cell.edit', 'cancel');
-						if (e) {
-							e.stopImmediatePropagation();
-						}
 
-						cell = cell || this.editor.cell || model.navigation().cell;
-						let label = this.label;
-						let value = cell.value;
-
-						if (cell && model.edit().cancel.execute(this.contextFactory(cell, value, label)) !== false) {
-							this.editor.reset();
-							this.editor = CellEditor.empty;
-
-							model.edit({state: 'view'});
-							cell.mode('view');
-							table.view.focus();
-							return true;
-						}
-
-						return false;
+					cell = cell || this.editor.cell || model.navigation().cell;
+					if (cell && model.edit().commit.execute(this.contextFactory(cell, this.value, this.label, this.tag)) !== false) {
+						this.editor.commit();
+						this.editor = CellEditor.empty;
+						model.edit({state: 'view'});
+						cell.mode('view');
+						table.view.focus();
+						return true;
 					}
-				}),
-				reset: new Command({
-					canExecute: cell => {
-						cell = cell || this.editor.cell || model.navigation().cell;
-						return cell
-							&& cell.column.canEdit
-							&& model.edit().mode === 'cell'
-							&& model.edit().state === 'edit'
-							&& model.edit().reset.canExecute(this.contextFactory(cell, this.value, this.label));
-					},
-					execute: (cell, e) => {
-						Log.info('cell.edit', 'reset');
-						if (e) {
-							e.stopImmediatePropagation();
-						}
 
-						cell = cell || this.editor.cell || model.navigation().cell;
-						if (cell && model.edit().reset.execute(this.contextFactory(cell, this.value, this.label)) !== false) {
-							this.editor.reset();
-							return true;
-						}
-
-						return false;
+					return false;
+				}
+			}),
+			cancel: new Command({
+				shortcut: this.shortcutFactory('cancel'),
+				canExecute: cell => {
+					cell = cell || this.editor.cell || model.navigation().cell;
+					return cell
+						&& cell.column.canEdit
+						&& model.edit().mode === 'cell'
+						&& model.edit().state === 'edit'
+						&& model.edit().cancel.canExecute(this.contextFactory(cell, this.value, this.label));
+				},
+				execute: (cell, e) => {
+					Log.info('cell.edit', 'cancel');
+					if (e) {
+						e.stopImmediatePropagation();
 					}
-				})
-			}
-		;
+
+					cell = cell || this.editor.cell || model.navigation().cell;
+					let label = this.label;
+					let value = cell.value;
+
+					if (cell && model.edit().cancel.execute(this.contextFactory(cell, value, label)) !== false) {
+						this.editor.reset();
+						this.editor = CellEditor.empty;
+
+						model.edit({state: 'view'});
+						cell.mode('view');
+						table.view.focus();
+						return true;
+					}
+
+					return false;
+				}
+			}),
+			reset: new Command({
+				canExecute: cell => {
+					cell = cell || this.editor.cell || model.navigation().cell;
+					return cell
+						&& cell.column.canEdit
+						&& model.edit().mode === 'cell'
+						&& model.edit().state === 'edit'
+						&& model.edit().reset.canExecute(this.contextFactory(cell, this.value, this.label));
+				},
+				execute: (cell, e) => {
+					Log.info('cell.edit', 'reset');
+					if (e) {
+						e.stopImmediatePropagation();
+					}
+
+					cell = cell || this.editor.cell || model.navigation().cell;
+					if (cell && model.edit().reset.execute(this.contextFactory(cell, this.value, this.label)) !== false) {
+						this.editor.reset();
+						return true;
+					}
+
+					return false;
+				}
+			})
+		};
+
 		return new Map(
 			Object.entries(commands)
 		);
@@ -220,9 +220,10 @@ export class EditCellView {
 	}
 
 	shortcutFactory(type) {
+		const model = this.model;
+		const edit = model.edit;
 		return () => {
-			const model = this.model;
-			const shortcuts = model.edit()[type + 'Shortcuts'];
+			const shortcuts = edit()[type + 'Shortcuts'];
 			const cell = this.editor.cell || model.navigation().cell;
 			if (cell) {
 				const type = cell.column && cell.column.editor ? cell.column.editor : cell.column.type;

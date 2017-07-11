@@ -8,17 +8,16 @@ class EditFormPanel extends Plugin {
 	constructor() {
 		super(...arguments);
 
-		this.submit = this.commands.submit;
-
-		this.cancel = this.commands.cancel;
-
-		this.reset = this.commands.reset;
 
 		this.shortcutOff = noop;
 	}
 
 	onInit() {
 		this.editor = new RowEditor(this.row, this.model.data().columns);
+
+		this.submit = this.commands.submit;
+		this.cancel = this.commands.cancel;
+		this.reset = this.commands.reset;
 
 		if (!isUndefined(this.shortcut)) {
 			this.shortcutOff = this.shortcut.register(new Map(

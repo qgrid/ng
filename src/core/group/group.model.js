@@ -4,7 +4,6 @@ export class GroupModel {
 	constructor() {
 		this.resource = new Resource();
 		this.by = [];
-
 		this.shortcut = {
 			toggle: 'space'
 		};

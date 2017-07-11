@@ -26,6 +26,7 @@ export class GroupColumnModel extends ColumnModel {
 		this.canEdit = false;
 		this.canSort = false;
 		this.class = 'control';
+		this.value = row => row.key;
 	}
 }
 

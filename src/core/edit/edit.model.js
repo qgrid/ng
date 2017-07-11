@@ -12,7 +12,7 @@ export class EditModel {
 		this.reset = new Command();
 
 		this.cancelShortcuts = {
-			'$default': 'esc'
+			'$default': 'escape'
 		};
 
 		this.enterShortcuts = {

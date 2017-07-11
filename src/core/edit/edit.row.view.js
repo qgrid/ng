@@ -117,7 +117,7 @@ export class EditRowView {
 	}
 
 	shortcutFactory(type) {
-		const edit = this.model;
+		const edit = this.model.edit;
 		return () => {
 			const shortcuts = edit()[type + 'Shortcuts'];
 			return shortcuts['row'] || shortcuts['$default'];
