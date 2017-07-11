@@ -17,18 +17,17 @@ function buildView(source, mode, column) {
 			return {
 				key: getKey(column),
 				url: `qgrid.${source}.cell.${type}.tpl.html`,
-				defaults: [`$default.${type}`, '$default']
+				defaults: [column.key, `$default.${type}`, '$default']
 			};
 		}
 		case 'edit': {
 			const type = column.editor || column.type;
-
 			return {
 				key: `${getKey(column)}-${mode}`,
 				url: `qgrid.${source}.cell.${type}.${mode}.tpl.html`,
 				defaults: column.editor
-					? [`$default.${column.editor}`, `$default.${type}`, '$default']
-					: [`$default.${type}`, '$default']
+					? [column.key, `$default.${column.editor}`, `$default.${type}`, '$default']
+					: [column.key, `$default.${type}`, '$default']
 			};
 		}
 		default:

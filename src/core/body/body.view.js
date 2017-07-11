@@ -83,11 +83,14 @@ export class BodyView extends View {
 							return Aggregation[aggregation](groupRows, getValue, column.aggregationOptions);
 						}
 
-						return null;
+						return getValue(row);
 					}
 					case 'row': {
 						const rowIndex = node.rows[0];
 						return getValue(rows[rowIndex], column);
+					}
+					case 'value': {
+						return getValue(node, column);
 					}
 					default:
 						throw new AppError(

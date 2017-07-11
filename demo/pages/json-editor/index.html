@@ -1,0 +1,27 @@
+<q-grid model="$ctrl.model" edit-mode="cell" edit-enter="$ctrl.enterCommand">
+	<q-grid:columns>
+		<q-grid:column key="key"
+							type="group"
+							title="Key"
+							value="$ctrl.key($row, $value)"
+							can-edit="true"
+							editor-options="{trigger: 'custom'}">
+			<q-grid:template for="body">
+				<div ng-style="{'padding-left': $view.group.offset($cell.row) + 'px'}">
+					<button ng-click="$view.group.toggleStatus.execute($cell.row)"
+							  ng-if="$view.group.toggleStatus.canExecute($cell.row)">
+						<span ng-bind="$view.group.status($cell.row) === 'expand' ? '-' : '+'"></span>
+					</button>
+					<span ng-click="$view.edit.cell.enter.canExecute($cell) && $view.edit.cell.enter.execute($cell, $event)">{{$view.group.value($cell.row)}}</span>
+					<span ng-if="$cell.row.kind === 'array'">({{$view.group.count($cell.row)}})</span>
+				</div>
+			</q-grid:template>
+		</q-grid:column>
+		<q-grid:column key="value"
+							title="Value"
+							value="$ctrl.value($row, $value)"
+							can-sort="false"
+							can-filter="false">
+		</q-grid:column>
+	</q-grid:columns>
+</q-grid>
