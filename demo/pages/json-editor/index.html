@@ -1,6 +1,16 @@
-<q-grid model="$ctrl.model">
+<q-grid model="$ctrl.model" edit-mode="cell" edit-enter="$ctrl.enterCommand">
 	<q-grid:columns>
-		<q-grid:column key="key" type="group" title="Key"></q-grid:column>
-		<q-grid:column key="value" title="Value" value="$ctrl.value($row)"></q-grid:column>
+		<q-grid:column key="key"
+							type="group"
+							title="Key"
+							value="$ctrl.key($row, $value)"
+							can-edit="true">
+		</q-grid:column>
+		<q-grid:column key="value"
+							title="Value"
+							value="$ctrl.value($row, $value)"
+							can-sort="false"
+							can-filter="false">
+		</q-grid:column>
 	</q-grid:columns>
 </q-grid>
