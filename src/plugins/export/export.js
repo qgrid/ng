@@ -1,5 +1,5 @@
 import PluginComponent from '../plugin.component';
-import {resolve} from '@grid/core/plugin';
+import {PluginService} from '@grid/core/plugin';
 import {EXPORT_NAME} from '../definition';
 import {Command} from '@grid/core/command';
 import {TemplatePath} from '@grid/core/template';
@@ -25,7 +25,8 @@ class Export extends Plugin {
 		this.csv = new Command({
 			canExecute: () => this.type === 'csv',
 			execute: () => {
-				const fileSaver = resolve(this.model, 'fileSaver');
+				const pluginService = new PluginService(this.model);
+				const fileSaver = pluginService.resolve('fileSaver');
 				const csv = new Csv();
 				const data = csv.write(this.rows, this.columns);
 				const download = downloadFactory(fileSaver);
@@ -35,7 +36,8 @@ class Export extends Plugin {
 		this.json = new Command({
 			canExecute: () => this.type === 'json',
 			execute: () => {
-				const fileSaver = resolve(this.model, 'fileSaver');
+				const pluginService = new PluginService(this.model);
+				const fileSaver = pluginService.resolve('fileSaver');
 				const json = new Json();
 				const data = json.write(this.rows, this.columns);
 				const download = downloadFactory(fileSaver);
@@ -45,7 +47,8 @@ class Export extends Plugin {
 		this.xml = new Command({
 			canExecute: () => this.type === 'xml',
 			execute: () => {
-				const fileSaver = resolve(this.model, 'fileSaver');
+				const pluginService = new PluginService(this.model);
+				const fileSaver = pluginService.resolve('fileSaver');
 				const xml = new Xml();
 				const data = xml.write(this.rows);
 				const download = downloadFactory(fileSaver);
@@ -55,8 +58,9 @@ class Export extends Plugin {
 		this.xlsx = new Command({
 			canExecute: () => this.type === 'xlsx',
 			execute: () => {
-				const lib = resolve(this.model, 'xlsx');
-				const fileSaver = resolve(this.model, 'fileSaver');
+				const pluginService = new PluginService(this.model);
+				const lib = pluginService.resolve('xlsx');
+				const fileSaver = pluginService.resolve('fileSaver');
 				const xlsx = new Xlsx(lib);
 				const data = xlsx.write(this.rows, this.columns);
 				const download = downloadFactory(fileSaver);
@@ -66,7 +70,8 @@ class Export extends Plugin {
 		this.pdf = new Command({
 			canExecute: () => this.type === 'pdf',
 			execute: () => {
-				const lib = resolve(this.model, 'pdf');
+				const pluginService = new PluginService(this.model);
+				const lib = pluginService.resolve('pdf');
 				const pdf = new Pdf(lib);
 				pdf.write(this.rows, this.columns, this.id);
 			}
