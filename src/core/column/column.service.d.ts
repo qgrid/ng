@@ -2,7 +2,7 @@ import {ColumnModel} from '../column-type/column.model';
 import {ColumnView} from './column.view';
 import {Model} from '../infrastructure/model';
 
-export declare class IMapResult{
+export declare class IMapResult {
 	[key: string]: ColumnModel;
 }
 
