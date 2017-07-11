@@ -1,4 +1,4 @@
-<q-grid rows="$ctrl.rows" id="export-example">
+<q-grid rows="$ctrl.rows" model="$ctrl.model" id="export-example">
 	<q-grid:columns generation="deep"></q-grid:columns>
 	<q-grid:export>
 		<q-grid:template for="pdf">
@@ -12,7 +12,6 @@
 				XML
 			</md-button>
 		</q-grid:template>
-	</q-grid:export>
 	</q-grid:export>
 
 	<q-grid:toolbar>

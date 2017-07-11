@@ -1,5 +1,5 @@
 import PluginComponent from '../plugin.component';
-import {Command} from '@grid/core/infrastructure';
+import {Command} from '@grid/core/command';
 import {RowEditor} from '@grid/core/edit/edit.row.editor';
 import {noop, isUndefined} from '@grid/core/utility';
 
@@ -8,11 +8,6 @@ class EditFormPanel extends Plugin {
 	constructor() {
 		super(...arguments);
 
-		this.submit = this.commands.submit;
-
-		this.cancel = this.commands.cancel;
-
-		this.reset = this.commands.reset;
 
 		this.shortcutOff = noop;
 	}
@@ -20,8 +15,12 @@ class EditFormPanel extends Plugin {
 	onInit() {
 		this.editor = new RowEditor(this.row, this.model.data().columns);
 
+		this.submit = this.commands.submit;
+		this.cancel = this.commands.cancel;
+		this.reset = this.commands.reset;
+
 		if (!isUndefined(this.shortcut)) {
-			this.shortcutOff = this.shortcut.register('editFormManagement', new Map(
+			this.shortcutOff = this.shortcut.register(new Map(
 				Object.entries(this.commands)
 			));
 		}
@@ -30,14 +29,14 @@ class EditFormPanel extends Plugin {
 	get commands() {
 		const commands = {
 			submit: new Command({
-				shortcut: 'ctrl+s',
+				shortcut: this.shortcutFactory('commit'),
 				execute: () => {
 					this.editor.commit();
 					this.onSubmit();
 				}
 			}),
 			cancel: new Command({
-				shortcut: 'Escape',
+				shortcut: this.shortcutFactory('cancel'),
 				execute: () => this.onCancel()
 			}),
 			reset: new Command({
@@ -49,6 +48,14 @@ class EditFormPanel extends Plugin {
 		};
 
 		return commands;
+	}
+
+	shortcutFactory(type) {
+		const edit = this.model.edit;
+		return () => {
+			const shortcuts = edit()[type + 'Shortcuts'];
+			return shortcuts['form'] || shortcuts['$default'];
+		};
 	}
 
 	onDestroy() {

@@ -1,0 +1,12 @@
+<q-grid rows="$ctrl.rows">
+	<q-grid:columns generation="deep">
+	</q-grid:columns>
+
+	<q-grid:action-bar>
+		<q-grid:action id="add" icon="add" title="Add new row" command="$ctrl.addCommand">
+			<q-grid:template>
+				<md-button ng-click="$action.execute()" ng-disabled="!$action.canExecute()">add</md-button>
+			</q-grid:template>
+		</q-grid:action>
+	</q-grid:action-bar>
+</q-grid>

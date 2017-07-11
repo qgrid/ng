@@ -1,3 +1,3 @@
 export declare class Resource {
-	constructor(data: Object = {}, scope: Object = {});
+	constructor(public data: object, public scope: object);
 }

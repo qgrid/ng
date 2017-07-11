@@ -295,7 +295,7 @@
 			},
 			{
 				"title": "Form Editing",
-				"path": "form-editing"
+				"path": "edit-form"
 			},
 			{
 				"title": "Validation",
@@ -308,6 +308,10 @@
 			{
 				"title": "Row Details",
 				"path": "row-details"
+			},
+			{
+				"title": "JSON Editor",
+				"path": "json-editor"
 			}
 		]
 	},
@@ -319,6 +323,10 @@
 				"path": "selection-model"
 			},
 			{
+                "title": "Master Details",
+                "path": "master-details"
+            },
+            {
 				"title": "Row Number",
 				"path": "row-number"
 			},
@@ -410,10 +418,6 @@
 			{
 				"title": "Column Filter",
 				"path": "column-filter"
-			},
-			{
-				"title": "Edit Form",
-				"path": "edit-form"
 			},
 			{
 				"title": "Group Bar",

@@ -1,4 +1,5 @@
-import {Command, EventListener, EventManager} from '@grid/core/infrastructure';
+import {EventListener, EventManager} from '@grid/core/infrastructure';
+import {Command} from '@grid/core/command';
 import {TemplatePath} from '@grid/core/template';
 import {upload} from '@grid/core/services/upload';
 import PluginComponent from '../plugin.component';

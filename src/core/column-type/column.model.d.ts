@@ -1,6 +1,6 @@
 import {Model} from "../infrastructure/model";
 
-export declare interface IEditorOptions {
+export interface IEditorOptions {
 	trigger: string;
 	modelFactory: () => Model;
 	label: any;
@@ -8,11 +8,11 @@ export declare interface IEditorOptions {
 	value: any;
 }
 
-export declare interface IValue{
+export interface IValue{
 	(row: any, value?: any): any;
 }
 
-export declare interface ILabel{
+export interface ILabel{
 	(row: any, value?: any): any;
 }
 

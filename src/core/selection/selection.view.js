@@ -1,5 +1,6 @@
 import {View} from '../view';
-import {Command, Shortcut, AppError} from '../infrastructure';
+import {AppError} from '../infrastructure';
+import {Command} from '../command';
 import {selectionStateFactory as stateFactory} from './state';
 import {SelectionRange} from './selection.range';
 import {SelectionService} from './selection.service';
@@ -18,9 +19,9 @@ export class SelectionView extends View {
 		this.selectionRange = new SelectionRange(model);
 
 		const selectionCommandManager = new SelectionCommandManager(model, commandManager);
-		const shortcut = new Shortcut(selectionCommandManager);
+		const shortcut = model.action().shortcut;
 		const commands = this.commands;
-		this.shortcutOff = shortcut.register('selectionNavigation', commands);
+		this.shortcutOff = shortcut.register(selectionCommandManager, commands);
 		this.toggleRow = commands.get('toggleRow');
 		this.toggleColumn = commands.get('toggleColumn');
 		this.toggleCell = commands.get('toggleCell');
@@ -73,6 +74,7 @@ export class SelectionView extends View {
 
 	get commands() {
 		const model = this.model;
+		const shortcut = model.selection().shortcut;
 		const commands = {
 			toggleCell: new Command({
 				canExecute: item => {
@@ -130,7 +132,7 @@ export class SelectionView extends View {
 					const commit = this.toggle(row);
 					commit();
 				},
-				shortcut: 'shift+space'
+				shortcut: shortcut.toggleRow
 			}),
 			togglePrevRow: new Command({
 				canExecute: () => model.selection().unit === 'row' && model.navigation().rowIndex > 0,
@@ -143,7 +145,7 @@ export class SelectionView extends View {
 
 					this.navigateTo(rowIndex - 1, navState.columnIndex);
 				},
-				shortcut: 'shift+up'
+				shortcut: shortcut.togglePreviousRow
 			}),
 			toggleNextRow: new Command({
 				canExecute: () => model.selection().unit === 'row' && model.navigation().rowIndex < this.rows.length - 1,
@@ -156,7 +158,7 @@ export class SelectionView extends View {
 
 					this.navigateTo(rowIndex + 1, navState.columnIndex);
 				},
-				shortcut: 'shift+down'
+				shortcut: shortcut.toggleNextRow
 			}),
 			toggleActiveColumn: new Command({
 				canExecute: () => model.selection().unit === 'column' && model.navigation().columnIndex >= 0,
@@ -166,7 +168,7 @@ export class SelectionView extends View {
 					const commit = this.toggle(column);
 					commit();
 				},
-				shortcut: 'ctrl+space'
+				shortcut: shortcut.toggleColumn
 			}),
 			toggleNextColumn: new Command({
 				canExecute: () => model.selection().unit === 'column' && model.navigation().columnIndex < this.columns.length - 1,
@@ -179,7 +181,7 @@ export class SelectionView extends View {
 
 					this.navigateTo(navState.rowIndex, columnIndex + 1);
 				},
-				shortcut: 'shift+right'
+				shortcut: shortcut.toggleNextColumn
 			}),
 			togglePrevColumn: new Command({
 				canExecute: () => model.selection().unit === 'column' && model.navigation().columnIndex > 0,
@@ -192,7 +194,7 @@ export class SelectionView extends View {
 
 					this.navigateTo(navState.rowIndex, columnIndex - 1);
 				},
-				shortcut: 'shift+left'
+				shortcut: shortcut.togglePreviousColumn
 			}),
 			selectAll: new Command({
 				canExecute: () => model.selection().mode === 'multiple',
@@ -223,7 +225,7 @@ export class SelectionView extends View {
 					const commit = this.select(entries, true);
 					commit();
 				},
-				shortcut: 'ctrl+a'
+				shortcut: shortcut.selectAll
 			})
 		};
 
