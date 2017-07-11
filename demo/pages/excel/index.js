@@ -1,3 +1,8 @@
+import fileSaver from 'file-saver';
+import XLSX from 'xlsx';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
+
 Controller.$inject = ['$http', 'qgrid'];
 export default function Controller($http, qgrid) {
 	const model = qgrid.model();
@@ -6,6 +11,13 @@ export default function Controller($http, qgrid) {
 	// model.scroll({
 	// 	mode: 'virtual'
 	// });
+	model.plugin({
+		imports: {
+			'fileSaver': fileSaver,
+			'xlsx': XLSX,
+			'pdf': jsPDF
+		}
+	});
 
 	model.data({
 		pipe: [(data, context, next) => {
