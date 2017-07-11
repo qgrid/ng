@@ -27,9 +27,9 @@ export class GroupView extends View {
 					}
 				}
 
-				return node && node.type === 'group'
+				return node && node.type === 'group';
 			},
-			shortcut: 'space'
+			shortcut: model.group().shortcut.toggle
 		});
 
 		const shortcut = model.action().shortcut;
