@@ -11,5 +11,14 @@ export class SelectionModel {
 			row: identity,
 			column: identity
 		};
+		this.shortcut = {
+			toggleRow: 'shift+space',
+			togglePreviousRow: 'shift+up',
+			toggleNextRow: 'shift+down',
+			toggleColumn: 'ctrl+space',
+			toggleNextColumn: 'shift+right',
+			togglePreviousColumn: 'shift+left',
+			selectAll: 'ctrl+a'
+		};
 	}
 }

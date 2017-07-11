@@ -49,16 +49,24 @@ export default function ReferenceEdit($scope, qgrid, popupService) {
 		}
 	});
 
+	const shortcutFactory = (type) => {
+		const edit = this.gridModel.edit;
+		return () => {
+			const shortcuts = edit()[type + 'Shortcuts'];
+			return shortcuts['form'] || shortcuts['$default'];
+		};
+	};
+
 	const commands = {
 		commit: new Command({
-			shortcut: 'ctrl+s',
+			shortcut: shortcutFactory('commit'),
 			execute: ($cell, $event) => {
 				this.cell().commit.execute($cell, $event);
 				close();
 			}
 		}),
 		cancel: new Command({
-			shortcut: 'Escape',
+			shortcut: shortcutFactory('cancel'),
 			execute: ($cell, $event) => {
 				this.cell().cancel.execute($cell, $event);
 				close();

@@ -30,14 +30,14 @@ class EditFormPanel extends Plugin {
 	get commands() {
 		const commands = {
 			submit: new Command({
-				shortcut: 'ctrl+s',
+				shortcut: this.shortcutFactory('commit'),
 				execute: () => {
 					this.editor.commit();
 					this.onSubmit();
 				}
 			}),
 			cancel: new Command({
-				shortcut: 'Escape',
+				shortcut: this.shortcutFactory('cancel'),
 				execute: () => this.onCancel()
 			}),
 			reset: new Command({
@@ -49,6 +49,14 @@ class EditFormPanel extends Plugin {
 		};
 
 		return commands;
+	}
+
+	shortcutFactory(type) {
+		const edit = this.model.edit;
+		return () => {
+			const shortcuts = edit()[type + 'Shortcuts'];
+			return shortcuts['form'] || shortcuts['$default'];
+		};
 	}
 
 	onDestroy() {
