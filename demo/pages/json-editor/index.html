@@ -1,0 +1,6 @@
+<q-grid model="$ctrl.model">
+	<q-grid:columns>
+		<q-grid:column key="key" type="group" title="Key"></q-grid:column>
+		<q-grid:column key="value" title="Value" value="$ctrl.value($row)"></q-grid:column>
+	</q-grid:columns>
+</q-grid>
