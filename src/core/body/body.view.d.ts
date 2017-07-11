@@ -4,7 +4,7 @@ import {Model} from '../infrastructure/model';
 import {Table} from '../dom/table';
 import {IGetResult} from '../services/value';
 
-export interface IGetValueFactory{
+export interface IGetValueFactory {
 	(column: ColumnModel): IGetResult;
 }
 
