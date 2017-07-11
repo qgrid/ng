@@ -780,6 +780,11 @@
 .q-grid.q-grid-theme-material.q-grid-box:not(.q-grid-drag) tbody td.q-grid-focus, .q-grid.q-grid-theme-material.q-grid-box:not(.q-grid-drag) tbody tr.q-grid-focus {
   background-color: #ddd !important; }
 
+.q-grid.q-grid-theme-material.q-grid-box:not(.q-grid-active) tbody td {
+  border-top-color: rgba(0, 0, 0, 0.06); }
+  .q-grid.q-grid-theme-material.q-grid-box:not(.q-grid-active) tbody td.q-grid-focus {
+    background-color: #f9f9f9 !important; }
+
 .q-grid.q-grid-theme-material .q-grid-highlight-part {
   background-color: yellow;
   color: #000; }
