@@ -1,6 +1,6 @@
-import {ColumnModel} from "../column-type/column.model";
+import {ColumnModel} from '../column-type/column.model';
 
-export declare interface ICell{
+export interface ICell{
 	rowIndex: number;
 	columnIndex: number;
 	column: ColumnModel;
@@ -10,16 +10,8 @@ export declare interface ICell{
 }
 
 export declare class Cell {
-
-	constructor(public cell: ICell);
-
-	get value(): any;
-
-	set value(value: any);
-
-	get label(): any;
-
-	set label(label: any);
-
+	constructor(cell: ICell);
+	value: any;
+	label: any;
 	mode(value: string): void;
 }

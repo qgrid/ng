@@ -1,6 +1,6 @@
-import {Model} from "../infrastructure/model";
-import {ColumnModel} from "../column-type/column.model";
-import {ColumnType} from "../column/column.factory";
+import {Model} from '../infrastructure/model';
+import {ColumnModel} from '../column-type/column.model';
+import {ColumnType} from '../column/column.factory';
 
 export interface IColumnFactory{
 	(model: Model): ColumnType;
