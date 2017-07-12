@@ -5,7 +5,7 @@ import {selectionStateFactory as stateFactory} from './state';
 import {SelectionRange} from './selection.range';
 import {SelectionService} from './selection.service';
 import {GRID_PREFIX} from '../definition';
-import {isUndefined} from '../utility';
+import {noop, isUndefined} from '../utility';
 import {SelectionCommandManager} from './selection.command.manager';
 
 export class SelectionView extends View {
@@ -80,22 +80,22 @@ export class SelectionView extends View {
 					const selectionState = model.selection();
 					return item && selectionState.mode !== 'range' && (selectionState.unit === 'cell' || selectionState.unit === 'mix');
 				},
-				execute: item => {
+				execute: (item, source) => {
 					const selectionState = model.selection();
 					switch (selectionState.unit) {
 						case 'cell': {
-							const commit = this.toggle(item);
+							const commit = this.toggle(item, source);
 							commit();
 							break;
 						}
 						case 'mix': {
 							if (item.column.type === 'row-indicator') {
-								const commit = this.toggle({item: item.row, unit: 'row'});
+								const commit = this.toggle({item: item.row, unit: 'row'}, source);
 								commit();
 								break;
 							}
 							else {
-								const commit = this.toggle({item: item, unit: 'cell'});
+								const commit = this.toggle({item: item, unit: 'cell'}, source);
 								commit();
 								break;
 							}
@@ -104,14 +104,14 @@ export class SelectionView extends View {
 				}
 			}),
 			toggleRow: new Command({
-				execute: item => {
-					const commit = this.toggle(item);
+				execute: (item, source) => {
+					const commit = this.toggle(item, source);
 					commit();
 				}
 			}),
 			toggleColumn: new Command({
-				execute: item => {
-					const commit = this.toggle(item);
+				execute: (item, source) => {
+					const commit = this.toggle(item, source);
 					commit();
 				}
 			}),
@@ -233,43 +233,67 @@ export class SelectionView extends View {
 		);
 	}
 
-	selectRange(startCell, endCell) {
+	selectRange(startCell, endCell, source) {
 		const buildRange = this.selectionRange.build();
 		const range = buildRange(startCell, endCell);
-		const commit = this.select(range, true);
+		const commit = this.select(range, true, source);
 		commit();
 	}
 
-	toggle(items) {
-		const selectionState = this.selectionState;
-		if (!arguments.length || isUndefined(items)) {
-			items = this.model.view().rows;
-		}
-
-		selectionState.toggle(items);
-
-		return () => {
-			const items = this.selectionService.map(selectionState.entries());
-			this.model.selection({
-				items: items
-			}, {
-				source: 'selection.view'
-			});
+	toggle(items, source = 'custom') {
+		const toggle = this.model.selection().toggle;
+		const e = {
+			items,
+			source
 		};
+
+		if (toggle.canExecute(e)) {
+			toggle.execute(e);
+
+			const selectionState = this.selectionState;
+			if (!arguments.length || isUndefined(items)) {
+				items = this.model.view().rows;
+			}
+
+			selectionState.toggle(items);
+
+			return () => {
+				const items = this.selectionService.map(selectionState.entries());
+				this.model.selection({
+					items: items
+				}, {
+					source: 'selection.view'
+				});
+			};
+		} else {
+			return noop;
+		}
 	}
 
-	select(items, state) {
-		const selectionState = this.selectionState;
-		selectionState.select(items, state);
-
-		return () => {
-			const items = this.selectionService.map(selectionState.entries());
-			this.model.selection({
-				items: items
-			}, {
-				source: 'selection.view'
-			});
+	select(items, state, source = 'custom') {
+		const select = this.model.selection().select;
+		const e = {
+			items,
+			state,
+			source
 		};
+
+		if (select.canExecute(e)) {
+			select.execute(e);
+			const selectionState = this.selectionState;
+			selectionState.select(items, state);
+
+			return () => {
+				const items = this.selectionService.map(selectionState.entries());
+				this.model.selection({
+					items: items
+				}, {
+					source: 'selection.view'
+				});
+			};
+		} else {
+			return noop;
+		}
 	}
 
 	state(item) {
