@@ -10,7 +10,7 @@ import {Cell} from "../cell/cell";
 import {SelectionState} from "./state/selection.state";
 import {SelectionModel} from "./selection.model";
 import {ColumnModel} from "../column-type/column.model";
-import {Shortcut} from "../infrastructure/shortcut";
+import {Shortcut} from "../shortcut/shortcut";
 
 export interface IToggleResult {
 	(): void;
@@ -37,11 +37,11 @@ export declare class SelectionView extends View {
 
 	readonly commands: Map;
 
-	selectRange(startCell: Cell, endCell: Cell): void;
+	selectRange(startCell: Cell, endCell: Cell, source: String): void;
 
-	toggle(items: any[]): IToggleResult;
+	toggle(items: any[], source = 'custom'): IToggleResult;
 
-	select(items: any[], state: SelectionState): ISelectResult;
+	select(items: any[], state: SelectionState, source = 'custom'): ISelectResult;
 
 	state(item: any): boolean;
 
