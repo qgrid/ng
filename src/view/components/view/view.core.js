@@ -49,7 +49,7 @@ class ViewCore extends Component {
 		this.columns = new ColumnView(model, gridService);
 		this.layout = new LayoutView(model, table, gridService);
 		this.selection = new SelectionView(model, table, commandManager);
-		this.group = new GroupView(model);
+		this.group = new GroupView(model, commandManager);
 		this.pivot = new PivotView(model);
 		this.highlight = new HighlightView(model, table, this.$timeout);
 		this.sort = new SortView(model);
@@ -58,7 +58,7 @@ class ViewCore extends Component {
 		this.nav = new NavigationView(model, table, commandManager);
 		this.pagination = new PaginationView(model);
 		this.scroll = new ScrollView(model, table, vscroll, gridService);
-		this.rowDetails = new RowDetailsView(model, table);
+		this.rowDetails = new RowDetailsView(model, table, commandManager);
 
 		// TODO: how we can avoid that?
 		this.$scope.$watch(this.style.invalidate.bind(this.style));

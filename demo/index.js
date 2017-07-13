@@ -22,11 +22,6 @@ import ThemeSelector from './components/theme-selector/theme.selector';
 import JsFilter from './filters/js';
 import HtmlFilter from './filters/html';
 
-import fileSaver from 'file-saver';
-import XLSX from 'xlsx';
-import jsPDF from 'jspdf';
-import 'jspdf-autotable';
-
 require('./index.scss');
 require('./markdown.scss');
 require('../src/assets/index.scss');
@@ -40,10 +35,6 @@ const theme = themeMaterial;
 // 	.indexOf('?theme=default') >= 0
 // 	? themeDefault
 // 	: themeMaterial;
-
-window.XLSX = XLSX;
-window.jsPDF = jsPDF;
-window.fileSaver = fileSaver;
 
 const dependencies = [
 	ngRoute,

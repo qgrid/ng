@@ -1,4 +1,5 @@
 import {AppError} from '@grid/core/infrastructure';
+import {PluginService} from '@grid/core/plugin';
 import {columnFactory} from '@grid/core/column/column.factory';
 import {generate} from '@grid/core/column-list';
 import {firstRowTitle, numericTitle, alphaTitle} from '@grid/core/services/title';
@@ -18,10 +19,12 @@ function getType(name) {
 function readFile(e, file, model, options = {}) {
 	const data = e.target.result;
 	const type = file.type === '' ? getType(file.name) : file.type;
+	const pluginService = new PluginService(model);
 	switch (type) {
 		case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
 		case 'xlsx': {
-			const xlsx = new Xlsx();
+			const lib = pluginService.resolve('xlsx');
+			const xlsx = new Xlsx(lib);
 			const rows = xlsx.read(data, options);
 			const createColumn = columnFactory(model);
 			const columns = generate({

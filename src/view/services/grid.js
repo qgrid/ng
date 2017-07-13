@@ -2,6 +2,7 @@ import {Model, Log} from '@grid/core/infrastructure';
 import {Command} from '@grid/core/command';
 import {Action} from '@grid/core/action';
 import {GridService} from '@grid/core/services';
+import {Node} from '@grid/core/node';
 import {Pipe} from '@grid/core/pipe';
 import {PipeUnit} from '@grid/core/pipe/units';
 import {noop, identity} from '@grid/core/utility';
@@ -49,6 +50,10 @@ export default class Grid {
 
 	get Action() {
 		return Action;
+	}
+
+	get Node(){
+		return Node;
 	}
 
 	get valueFactory() {

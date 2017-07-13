@@ -1,5 +1,4 @@
 import {Command} from '@grid/core/command';
-import {Shortcut, ShortcutManager} from '@grid/core/shortcut';
 
 DateEdit.$inject = ['$scope'];
 export default function DateEdit($scope) {
@@ -7,19 +6,20 @@ export default function DateEdit($scope) {
 
 	this.cell = () => $scope.$editor || $scope.$view.edit.cell;
 
-	const commands = {
-		openPicker: new Command({
+	this.openPicker =
+		new Command({
 			shortcut: 'Enter',
 			execute: () => {
 				this.pickerOpened = true;
 			}
-		})
-	};
+		});
 
-	const shortcut = new Shortcut(new ShortcutManager());
+	const model = this.cell().model;
+	const shortcut = model.action().shortcut;
+
 	const shortcutOff = shortcut.register(
 		this.cell().commandManager,
-		new Map(Object.entries(commands))
+		[this.openPicker]
 	);
 
 	$scope.$on('$destroy', () => {
