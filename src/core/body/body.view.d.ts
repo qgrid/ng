@@ -1,7 +1,5 @@
 import {View} from '../view/view';
 import {ColumnModel} from '../column-type/column.model';
-import {Model} from '../infrastructure/model';
-import {Table} from '../dom/table';
 import {IGetResult} from '../services/value';
 import {IPin} from '../visibility/visibility.model';
 
@@ -10,7 +8,7 @@ export interface IGetValueFactory {
 }
 
 export declare class BodyView extends View {
-	constructor(model: Model, table: Table);	
+	constructor();	
 	rows: any[];
 	columns(row: any, pin: IPin): ColumnModel[];
 	rowspan(row: any, column: ColumnModel): number;
