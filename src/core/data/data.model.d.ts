@@ -14,6 +14,6 @@ export declare class DataModel {
 	constructor();
 	rows: any[];
 	columns: ColumnModel[];
-	pipe: PipeUnit;
+	pipe: Pipe;
 	triggers: ITriggers;
 }
