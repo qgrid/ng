@@ -1,4 +1,3 @@
-import {PipeUnit} from '../pipe/units/pipe.unit';
 import {ColumnModel} from '../column-type/column.model';
 
 export interface ITriggers{
@@ -14,6 +13,6 @@ export declare class DataModel {
 	constructor();
 	rows: any[];
 	columns: ColumnModel[];
-	pipe: Pipe;
+	pipe: object[];
 	triggers: ITriggers;
 }
