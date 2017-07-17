@@ -1,8 +1,7 @@
 import {View} from '../view/view';
-import {Model} from "../infrastructure/model";
+import {GenerationMode} from '../column-list/column.list.model';
 
 export declare class ColumnView extends View {
-	constructor(model: Model, public service: object);
-
-	updateOn(generation: string): boolean;
+	constructor();
+	updateOn(generation: GenerationMode): boolean;
 }
