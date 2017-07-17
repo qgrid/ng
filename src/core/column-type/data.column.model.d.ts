@@ -7,9 +7,7 @@ export interface IAggregationOptions{
 
 export class DataColumnModel extends ColumnModel {
 	constructor();
-
 	isDefault: boolean;
 	aggregation: string;
 	aggregationOptions: IAggregationOptions;
-
 }
