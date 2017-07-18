@@ -8217,8 +8217,10 @@ var SelectionCommandManager = function (_CompositeCommandMana) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__resource__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utility__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__command__ = __webpack_require__(5);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SelectionModel; });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 
 
 
@@ -8230,6 +8232,8 @@ var SelectionModel = function SelectionModel() {
 	this.unit = 'cell'; //row|cell|column|mix
 	this.mode = 'single'; //single|multiple|range
 	this.items = [];
+	this.area = 'body'; //body, custom
+	this.toggle = new __WEBPACK_IMPORTED_MODULE_2__command__["a" /* Command */]();
 	this.key = {
 		row: __WEBPACK_IMPORTED_MODULE_1__utility__["d" /* identity */],
 		column: __WEBPACK_IMPORTED_MODULE_1__utility__["d" /* identity */]
@@ -8349,10 +8353,10 @@ var SelectionView = function (_View) {
 
 	_createClass(SelectionView, [{
 		key: 'selectRange',
-		value: function selectRange(startCell, endCell) {
+		value: function selectRange(startCell, endCell, source) {
 			var buildRange = this.selectionRange.build();
 			var range = buildRange(startCell, endCell);
-			var commit = this.select(range, true);
+			var commit = this.select(range, true, source);
 			commit();
 		}
 	}, {
@@ -8360,38 +8364,68 @@ var SelectionView = function (_View) {
 		value: function toggle(items) {
 			var _this2 = this;
 
-			var selectionState = this.selectionState;
-			if (!arguments.length || __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__utility__["e" /* isUndefined */])(items)) {
-				items = this.model.view().rows;
-			}
+			var source = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'custom';
 
-			selectionState.toggle(items);
-
-			return function () {
-				var items = _this2.selectionService.map(selectionState.entries());
-				_this2.model.selection({
-					items: items
-				}, {
-					source: 'selection.view'
-				});
+			var toggle = this.model.selection().toggle;
+			var e = {
+				items: items,
+				source: source,
+				kind: 'toggle'
 			};
+
+			if (toggle.canExecute(e)) {
+				toggle.execute(e);
+
+				var selectionState = this.selectionState;
+				if (!arguments.length || __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__utility__["e" /* isUndefined */])(items)) {
+					items = this.model.view().rows;
+				}
+
+				selectionState.toggle(items);
+
+				return function () {
+					var items = _this2.selectionService.map(selectionState.entries());
+					_this2.model.selection({
+						items: items
+					}, {
+						source: 'selection.view'
+					});
+				};
+			} else {
+				return __WEBPACK_IMPORTED_MODULE_7__utility__["c" /* noop */];
+			}
 		}
 	}, {
 		key: 'select',
 		value: function select(items, state) {
 			var _this3 = this;
 
-			var selectionState = this.selectionState;
-			selectionState.select(items, state);
+			var source = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'custom';
 
-			return function () {
-				var items = _this3.selectionService.map(selectionState.entries());
-				_this3.model.selection({
-					items: items
-				}, {
-					source: 'selection.view'
-				});
+			var toggle = this.model.selection().toggle;
+			var e = {
+				items: items,
+				state: state,
+				source: source,
+				kind: 'select'
 			};
+
+			if (toggle.canExecute(e)) {
+				toggle.execute(e);
+				var selectionState = this.selectionState;
+				selectionState.select(items, state);
+
+				return function () {
+					var items = _this3.selectionService.map(selectionState.entries());
+					_this3.model.selection({
+						items: items
+					}, {
+						source: 'selection.view'
+					});
+				};
+			} else {
+				return __WEBPACK_IMPORTED_MODULE_7__utility__["c" /* noop */];
+			}
 		}
 	}, {
 		key: 'state',
@@ -8435,23 +8469,23 @@ var SelectionView = function (_View) {
 						var selectionState = model.selection();
 						return item && selectionState.mode !== 'range' && (selectionState.unit === 'cell' || selectionState.unit === 'mix');
 					},
-					execute: function execute(item) {
+					execute: function execute(item, source) {
 						var selectionState = model.selection();
 						switch (selectionState.unit) {
 							case 'cell':
 								{
-									var commit = _this4.toggle(item);
+									var commit = _this4.toggle(item, source);
 									commit();
 									break;
 								}
 							case 'mix':
 								{
 									if (item.column.type === 'row-indicator') {
-										var _commit = _this4.toggle({ item: item.row, unit: 'row' });
+										var _commit = _this4.toggle({ item: item.row, unit: 'row' }, source);
 										_commit();
 										break;
 									} else {
-										var _commit2 = _this4.toggle({ item: item, unit: 'cell' });
+										var _commit2 = _this4.toggle({ item: item, unit: 'cell' }, source);
 										_commit2();
 										break;
 									}
@@ -8460,14 +8494,14 @@ var SelectionView = function (_View) {
 					}
 				}),
 				toggleRow: new __WEBPACK_IMPORTED_MODULE_2__command__["a" /* Command */]({
-					execute: function execute(item) {
-						var commit = _this4.toggle(item);
+					execute: function execute(item, source) {
+						var commit = _this4.toggle(item, source);
 						commit();
 					}
 				}),
 				toggleColumn: new __WEBPACK_IMPORTED_MODULE_2__command__["a" /* Command */]({
-					execute: function execute(item) {
-						var commit = _this4.toggle(item);
+					execute: function execute(item, source) {
+						var commit = _this4.toggle(item, source);
 						commit();
 					}
 				}),
