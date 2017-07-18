@@ -21,5 +21,4 @@ export declare class SelectionModel {
 	key: IKeyObj;
 	area: AreaType;
 	toggle: Command;
-	select: Command;
 }

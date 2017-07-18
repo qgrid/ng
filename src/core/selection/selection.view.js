@@ -245,7 +245,8 @@ export class SelectionView extends View {
 		const toggle = this.model.selection().toggle;
 		const e = {
 			items,
-			source
+			source,
+			kind: 'toggle'
 		};
 
 		if (toggle.canExecute(e)) {
@@ -272,15 +273,16 @@ export class SelectionView extends View {
 	}
 
 	select(items, state, source = 'custom') {
-		const select = this.model.selection().select;
+		const toggle = this.model.selection().toggle;
 		const e = {
 			items,
 			state,
-			source
+			source,
+			kind: 'select'
 		};
 
-		if (select.canExecute(e)) {
-			select.execute(e);
+		if (toggle.canExecute(e)) {
+			toggle.execute(e);
 			const selectionState = this.selectionState;
 			selectionState.select(items, state);
 
