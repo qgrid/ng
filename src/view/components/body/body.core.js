@@ -69,12 +69,16 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, r
 
 	onMouseDown(e) {
 		const selectionState = this.selection;
+		if (selectionState.area !== 'body') {
+			return;
+		}
+
 		if (selectionState.mode === 'range') {
 			const pathFinder = new PathService(this.root.bag);
 			this.rangeStartCell = pathFinder.cell(e.path);
 
 			if (this.rangeStartCell) {
-				this.view.selection.selectRange(this.rangeStartCell);
+				this.view.selection.selectRange(this.rangeStartCell, null, 'body');
 			}
 
 			return;
@@ -85,7 +89,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, r
 				const pathFinder = new PathService(this.root.bag);
 				const cell = pathFinder.cell(e.path);
 				if (cell && cell.column.type !== 'select') {
-					this.view.selection.toggleRow.execute(cell.row);
+					this.view.selection.toggleRow.execute(cell.row, 'body');
 				}
 				break;
 			}
@@ -94,7 +98,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, r
 				const pathFinder = new PathService(this.root.bag);
 				const cell = pathFinder.cell(e.path);
 				if (cell) {
-					this.view.selection.toggleColumn.execute(cell.column);
+					this.view.selection.toggleColumn.execute(cell.column, 'body');
 				}
 				break;
 			}
@@ -103,7 +107,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, r
 				const pathFinder = new PathService(this.root.bag);
 				const cell = pathFinder.cell(e.path);
 				if (cell && cell.column.type === 'row-indicator') {
-					this.view.selection.toggleCell.execute(cell);
+					this.view.selection.toggleCell.execute(cell, 'body');
 				}
 			}
 		}
@@ -132,7 +136,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, r
 			const endCell = pathFinder.cell(e.path);
 
 			if (startCell && endCell) {
-				this.view.selection.selectRange(startCell, endCell);
+				this.view.selection.selectRange(startCell, endCell, 'body');
 				this.navigate(endCell);
 			}
 		}

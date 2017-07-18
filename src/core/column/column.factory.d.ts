@@ -1,4 +1,4 @@
-import {Model} from "../infrastructure/model";
+import {Model} from '../infrastructure/model';
 import {TextColumn} from '../column-type/text.column';
 import {NumberColumn} from '../column-type/number.column';
 import {BoolColumn} from '../column-type/bool.column';
