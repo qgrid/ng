@@ -1,4 +1,4 @@
-import {Model} from "../infrastructure/model";
+import {Model} from '../infrastructure/model';
 
 export interface IEditorOptions {
 	trigger: string;
@@ -17,9 +17,7 @@ export interface ILabel{
 }
 
 export declare class ColumnModel {
-
 	constructor(public type: string);
-
 	key: string;
 	title: string;
 	value: IValue;
@@ -43,6 +41,5 @@ export declare class ColumnModel {
    isVisible: boolean;
 	index: number;
    label: ILabel;
-
 	toString(): string;
 }
