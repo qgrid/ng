@@ -11,12 +11,8 @@ export interface IRect{
 
 export declare class FakeElement {
 	constructor();
-
 	classList: FakeClassList;
-
 	getBoundingClientRect(): IRect;
-
 	readonly clientWidth: number;
-
 	readonly clientHeight: number;
 }
