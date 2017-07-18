@@ -308,6 +308,10 @@
 			{
 				"title": "Row Details",
 				"path": "row-details"
+			},
+			{
+				"title": "JSON Editor",
+				"path": "json-editor"
 			}
 		]
 	},
