@@ -1,6 +1,6 @@
 {
   "name": "ng-qgrid",
-  "version": "1.0.39",
+  "version": "1.0.40",
   "description": "Angular data grid",
   "main": "dist/qgrid.js",
   "repository": {
