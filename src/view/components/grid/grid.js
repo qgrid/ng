@@ -151,6 +151,7 @@ export default {
 		selectionMode: '@',
 		selectionUnit: '@',
 		selectionKey: '<',
+		selectionArea: '@',
 		onSelectionChanged: '&',
 		groupBy: '<',
 		pivotBy: '<',
