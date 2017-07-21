@@ -1,8 +1,6 @@
 import * as markup from './markup';
 import cssEscape from 'css.escape';
 
-export const escape = cssEscape;
-
 export function sheet(id) {
 	let sheet = document.getElementById(id);
 	const getSheet = () => {
@@ -29,6 +27,10 @@ export function sheet(id) {
 	};
 }
 
-export function escapeClass(name) {
-	return cssEscape(name.replace(/ /g, '_'));
+export function escapeAttr(name) {
+	return name.replace(/\s|\t|\n|"|'/g, '_');
+}
+
+export function escape(name) {
+	return cssEscape(escapeAttr(name));
 }
