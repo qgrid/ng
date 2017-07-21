@@ -29323,7 +29323,7 @@ var ColumnList = function (_ModelComponent) {
 		key: 'register',
 		value: function register(column) {
 			var columnList = this.root.model.columnList;
-			var reference = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__grid_core_utility__["j" /* clone */])(columnList().columns);
+			var reference = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__grid_core_utility__["j" /* clone */])(columnList().reference);
 			reference[column.type] = column;
 			columnList({
 				reference: reference
