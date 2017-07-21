@@ -10,7 +10,7 @@ module.exports = function (browser) {
 			break;
 		}
 		case 'ie': {
-			capabilities = webdriver.Capabilities.chrome();
+			capabilities = webdriver.Capabilities.ie();
 			break;
 		}
 	}

@@ -6,8 +6,7 @@ const browserFactory = require('./driver.factory');
 const browser = browserFactory('chrome');
 
 new Screen(browser, webdriver, {
-	beforeEach: function (browser) {
-		console.log('SLEEP');
+	beforeEach: browser => {
 		browser.sleep(5000);
 		console.log('WAKE');
 	}
@@ -19,6 +18,4 @@ new Screen(browser, webdriver, {
 	url: 'https://qgrid.github.io/ng/#!/custom-filter',
 	element: 'page-details',
 	output: 'custom-filter.png'
-}])
-	.catch(e => console.log(e))
-	.finally(() => browser.quit());
+}]).finally(e => {console.log(e); browser.quit(); });

@@ -16,33 +16,22 @@ class Screen {
 	capture(tasks) {
 		this.before(this.browser, this.webdriver);
 
-		return FinallyPromise.all(tasks.map(task => {
-			this.beforeEach(this.browser, this.webdriver);
-
-			return this.screenshot(this.transform(task))
-				.finally(() => this.afterEach(this.browser, this.webdriver));
-		})).finally(() => this.after(this.browser, this.webdriver));
+		return FinallyPromise
+			.all(tasks.map(task => this.screenshot(this.transform(task))))
+			.finally(() => this.after(this.browser, this.webdriver));
 	}
 
 	screenshot(task) {
-		return new FinallyPromise((resolve, reject) => {
-			const self = this;
-			this.browser.get(task.url);
+		this.browser.get(task.url);
 
+		return new FinallyPromise((resolve, reject) =>
 			this.browser.manage()
 				.window()
 				.maximize()
-				.then(function () {
-					self.browser.findElement(task.element(self.browser)).then(function (element) {
-						captureElement(self.browser, element, task.output(self.browser))
-							.then(function () {
-								resolve();
-							})
-							.catch(e => reject(e));
-					});
-				})
-				.catch(e => reject(e));
-		});
+				.then(() => { console.log('maximized'); return this.browser.findElement(task.element(this.browser)); })
+				.then(element => captureElement(this.browser, element, task.output(this.browser)))
+				.then(() => resolve())
+				.catch(e => reject(e)));
 	}
 }
 
