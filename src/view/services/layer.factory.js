@@ -2,7 +2,7 @@ import {AppError} from '@grid/core/infrastructure';
 import {VIEW_CORE_NAME} from '../definition';
 import {Layer} from './layer';
 import {GRID_PREFIX} from '@grid/core/definition';
-import {escapeClass} from '@grid/core/services/css';
+import * as css from '@grid/core/services/css';
 
 export class LayerFactory {
 	constructor(markup, template) {
@@ -13,7 +13,7 @@ export class LayerFactory {
 	create(name) {
 		const markup = this.markup;
 		const node = markup.document.createElement(`div`);
-		node.classList.add(escapeClass(name));
+		node.classList.add(css.escapeAttr(name));
 		node.classList.add(`${GRID_PREFIX}-layer`);
 		markup.view.appendChild(node);
 

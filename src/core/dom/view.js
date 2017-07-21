@@ -1,6 +1,6 @@
 import {Unit} from './unit';
 import {EventListener, EventManager} from '../infrastructure';
-import {escapeClass} from '../services/css';
+import * as css from '../services/css';
 
 function isParentOf(parent, element) {
 	while (element) {
@@ -72,13 +72,13 @@ export class View extends Unit {
 
 	addClass(name) {
 		if (this.markup.view) {
-			this.markup.view.classList.add(escapeClass(name));
+			this.markup.view.classList.add(css.escapeAttr(name));
 		}
 	}
 
 	removeClass(name) {
 		if (this.markup.view) {
-			this.markup.view.classList.remove(escapeClass(name));
+			this.markup.view.classList.remove(css.escapeAttr(name));
 		}
 	}
 

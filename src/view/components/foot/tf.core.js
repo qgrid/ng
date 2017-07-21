@@ -2,7 +2,7 @@ import Directive from '@grid/view/directives/directive';
 import cellBuilder from '../cell/cell.build';
 import {VIEW_CORE_NAME, TF_CORE_NAME, TABLE_CORE_NAME, GRID_NAME} from '@grid/view/definition';
 import {GRID_PREFIX} from '@grid/core/definition';
-import {escapeClass} from '@grid/core/services/css';
+import * as css from '@grid/core/services/css';
 
 class TfCore extends Directive(TF_CORE_NAME, {
 	view: `^^${VIEW_CORE_NAME}`,
@@ -22,10 +22,10 @@ class TfCore extends Directive(TF_CORE_NAME, {
 
 		this.root.bag.set(element, this);
 
-		element.classList.add(escapeClass(`${GRID_PREFIX}-${column.key}`));
-		element.classList.add(escapeClass(`${GRID_PREFIX}-${column.type}`));
+		element.classList.add(css.escapeAttr(`${GRID_PREFIX}-${column.key}`));
+		element.classList.add(css.escapeAttr(`${GRID_PREFIX}-${column.type}`));
 		if (column.editor) {
-			element.classList.add(escapeClass(`${GRID_PREFIX}-${column.editor}`));
+			element.classList.add(css.escapeAttr(`${GRID_PREFIX}-${column.editor}`));
 		}
 
 		const model = this.view.model;
