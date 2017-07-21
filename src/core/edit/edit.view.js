@@ -1,14 +1,17 @@
-import View from 'core/view/view';
-import EditCellView from './edit.cell.view';
+import {View} from '../view';
+import {EditCellView} from './edit.cell.view';
+import {EditRowView} from './edit.row.view';
 
-export default class EditView extends View {
-	constructor(model, setValue, valueFactory, table, apply) {
+export class EditView extends View {
+	constructor(model, table, commandManager) {
 		super(model);
 
-		this.cell = new EditCellView(model, setValue, valueFactory, table, apply);
+		this.cell = new EditCellView(model, table, commandManager);
+		this.row = new EditRowView(model, table, commandManager);
 	}
 
 	onDestroy() {
 		this.cell.destroy();
+		this.row.destroy();
 	}
 }

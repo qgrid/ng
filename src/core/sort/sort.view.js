@@ -1,13 +1,13 @@
-import View from 'core/view/view';
-import AppError from 'core/infrastructure/error';
-import Command from 'core/infrastructure/command';
-import * as columnService from 'core/column/column.service';
-import * as sortService from 'core/sort/sort.service';
+import {View} from '../view';
+import {AppError} from '../infrastructure';
+import {Command} from '../command';
+import * as columnService from '../column/column.service';
+import * as sortService from '../sort/sort.service';
 
-export default class SortView extends View {
+export class SortView extends View {
 	constructor(model) {
 		super(model);
-
+		this.hover = false;
 		this.toggle = new Command({
 			canExecute: column => {
 				const key = column.key;
@@ -25,12 +25,14 @@ export default class SortView extends View {
 					switch (dir) {
 						case 'desc': {
 							by.splice(index, 1);
+							this.hover = false;
 							break;
 						}
 						case 'asc': {
 							const entry = {[key]: 'desc'};
 							by.splice(index, 1);
 							by.splice(index, 0, entry);
+							this.hover = false;
 							break;
 						}
 						default:
@@ -48,7 +50,7 @@ export default class SortView extends View {
 					by.push(entry);
 				}
 
-				sort({by: by});
+				sort({by: by}, {source: 'sort.view'});
 			}
 		});
 
@@ -74,7 +76,7 @@ export default class SortView extends View {
 					sortBy.sort((x, y) => indexMap[sortService.key(x)] - indexMap[sortService.key(y)]);
 
 					if (!this.equals(sortBy, sortState.by)) {
-						sort({by: sortBy});
+						sort({by: sortBy}, {source: 'sort.view'});
 					}
 				}
 			}
@@ -86,7 +88,7 @@ export default class SortView extends View {
 				const columnMap = columnService.map(e.state.columns);
 				const sortBy = sortState.by.filter(entry => columnMap.hasOwnProperty(sortService.key(entry)));
 				if (!this.equals(sortBy, sortState.by)) {
-					sort({by: sortBy});
+					sort({by: sortBy}, {source: 'sort.view'});
 				}
 			}
 		});

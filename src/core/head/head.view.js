@@ -1,12 +1,15 @@
-import View from 'core/view/view';
-import Log from 'core/infrastructure/log';
-import Command from 'core/infrastructure/command';
-import * as columnService from 'core/column/column.service';
+import {View} from '../view';
+import {Log} from '../infrastructure';
+import {Command} from '../command';
+import * as columnService from '../column/column.service';
+import {FilterRowColumn} from '../column-type';
+import {clone} from '../utility';
 
-export default class HeadView extends View {
+export class HeadView extends View {
 	constructor(model, table, tagName) {
 		super(model);
 
+		this.table = table;
 		this.tagName = tagName;
 		this.rows = [];
 
@@ -61,21 +64,62 @@ export default class HeadView extends View {
 				return false;
 			}
 		});
+		
+		this.filter = new Command({
+			canExecute: () => true,
+			execute: e => {
+				const key = e.source.sourceKey;
+				const filter = this.model.filter;
+				const by = clone(filter().by);
+				const search = e.search;
+				if (search.length) {
+					by[key] = {
+						expression: {
+							kind: 'group',
+							op: 'and',
+							left: {
+								kind: 'condition',
+								left: key,
+								op: 'like',
+								right: search
+							},
+							right: null
+						}
+					};
+				}
+				else {
+					delete by[key];
+				}
+
+				filter({by: by});
+			}
+		});
 
 		model.viewChanged.watch(() => this.invalidate(model));
+
+		model.filterChanged.watch(e => {
+			if (e.hasChanges('unit')) {
+				this.invalidate(model);
+			}
+		});
 	}
 
-	transfer(cell) {
+	transfer(column) {
 		return {
 			key: this.tagName,
-			value: cell.column.key
+			value: column.key
 		};
 	}
 
 	invalidate(model) {
 		Log.info('view.head', 'invalidate');
 
-		const columns = model.view().columns;
-		this.rows = columns;
+		this.rows = Array.from(model.view().columns);
+
+		if (model.filter().unit === 'row') {
+			const filterRow = this.table.data.columns()
+				.map(c => new FilterRowColumn(c));
+			this.rows.push(filterRow);
+		}
 	}
 }

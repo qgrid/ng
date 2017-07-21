@@ -1,6 +1,6 @@
-import ColumnView from 'core/column-type/column.model.view';
-import TemplatePath from 'core/template/template.path';
-import ColumnModel from './column.model';
+import {ColumnView} from './column.model.view';
+import {ColumnModel} from './column.model';
+import {TemplatePath} from '../template';
 
 TemplatePath.register('row-number-cell', (template, column) => {
 	return {
@@ -9,7 +9,7 @@ TemplatePath.register('row-number-cell', (template, column) => {
 	};
 });
 
-class RowNumberColumnModel extends ColumnModel {
+export class RowNumberColumnModel extends ColumnModel {
 	constructor() {
 		super('row-number');
 
@@ -19,10 +19,11 @@ class RowNumberColumnModel extends ColumnModel {
 		this.canResize = false;
 		this.canMove = false;
 		this.canHighlight = false;
+		this.class = 'control';
 	}
 }
 
-export default class RowNumberColumn extends ColumnView {
+export class RowNumberColumn extends ColumnView {
 	constructor(model) {
 		super(model);
 	}

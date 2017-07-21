@@ -1,16 +1,15 @@
-import View from 'core/view/view';
-import * as css from 'core/services/css';
-import * as columnService from 'core/column/column.service';
-import {clone} from 'core/services/utility';
-import PipeUnit from 'core/pipe/units/pipe.unit';
-import log from 'core/infrastructure/log';
+import {View} from '../view';
+import * as css from '../services/css';
+import * as columnService from '../column/column.service';
+import {clone} from '../utility';
+import {PipeUnit} from '../pipe/units';
+import {Log} from '../infrastructure';
 
-export default class LayoutView extends View {
+export class LayoutView extends View {
 	constructor(model, table, service) {
 		super(model);
 		this.model = model;
 		this.table = table;
-		this.markup = table.markup;
 		this.service = service;
 
 		this.onInit();
@@ -83,7 +82,8 @@ export default class LayoutView extends View {
 				const column = columns[length];
 				if (!state.hasOwnProperty(column.key)) {
 					if (column.canResize) {
-						state[column.key] = {width: headRow.cell(column.index).width};
+						const index = columns.findIndex(c => c === column);
+						state[column.key] = {width: headRow.cell(index).width};
 					}
 				}
 			}
@@ -94,7 +94,7 @@ export default class LayoutView extends View {
 	}
 
 	invalidateColumns(form) {
-		log.info('layout', 'invalidate columns');
+		Log.info('layout', 'invalidate columns');
 
 		const model = this.model;
 		const getWidth = columnService.widthFactory(model, form);
@@ -114,12 +114,16 @@ export default class LayoutView extends View {
 			}
 		}
 
-		const sheet = css.sheet(`${model.grid().id}-layout`);
+		const sheet = css.sheet(this.styleId);
 		sheet.set(style);
 	}
 
 	destroy() {
-		const sheet = css.sheet(`${this.model.grid().id}-layout`);
+		const sheet = css.sheet(this.styleId);
 		sheet.remove();
+	}
+
+	get styleId() {
+		return `${this.model.grid().id}-layout`;
 	}
 }

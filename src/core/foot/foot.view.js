@@ -1,17 +1,19 @@
-import View from 'core/view/view';
-import * as columnService from 'core/column/column.service';
-import Aggregation from 'core/services/aggregation';
-import AppError from 'core/infrastructure/error';
-import Log from 'core/infrastructure/log';
+import {View} from '../view';
+import * as columnService from '../column/column.service';
+import {Aggregation} from '../services';
+import {Log, AppError} from '../infrastructure';
+import {getFactory as valueFactory} from '../services/value';
 
-export default class FootView extends View {
-	constructor(model, valueFactory) {
+export class FootView extends View {
+	constructor(model, table) {
 		super(model);
 
+		this.table = table;
 		this.rows = [];
 		this.columns = [];
 
 		this.valueFactory = valueFactory;
+
 		model.viewChanged.watch(() => this.invalidate(model));
 	}
 
@@ -48,8 +50,8 @@ export default class FootView extends View {
 					`Aggregation ${aggregation} is not registered`);
 			}
 
-			const rows = this.model.data().rows,
-				getValue = this.valueFactory(column);
+			const rows = this.model.data().rows;
+			const getValue = this.valueFactory(column);
 
 			return Aggregation[aggregation](rows, getValue, aggregationOptions);
 		}

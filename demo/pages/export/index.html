@@ -1,0 +1,33 @@
+<q-grid rows="$ctrl.rows" model="$ctrl.model" id="export-example">
+	<q-grid:columns generation="deep"></q-grid:columns>
+	<q-grid:export>
+		<q-grid:template for="pdf">
+			<button ng-if="$export.pdf.canExecute()" ng-click="$export.pdf.execute()"
+					  style="border:1px solid #267ed5; background-color: #267ed5; color: #ffffff">pdf
+			</button>
+		</q-grid:template>
+		<q-grid:template for="xml">
+			<md-button ng-if="$export.xml.canExecute()" ng-click="$export.xml.execute()">
+				<md-icon>mood</md-icon>
+				XML
+			</md-button>
+		</q-grid:template>
+	</q-grid:export>
+
+	<q-grid:toolbar>
+		<q-grid:template for="top">
+			<div layout="row" layout-align="end center">
+				<q-grid:export type="pdf">
+				</q-grid:export>
+				<q-grid:export type="json">
+				</q-grid:export>
+				<q-grid:export type="xml">
+				</q-grid:export>
+				<q-grid:export type="xlsx">
+				</q-grid:export>
+				<q-grid:export type="csv">
+				</q-grid:export>
+			</div>
+		</q-grid:template>
+	</q-grid:toolbar>
+</q-grid>

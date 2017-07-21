@@ -1,0 +1,21 @@
+<q-grid columns="$ctrl.columns"
+		  rows="$ctrl.rows">
+	<q-grid:columns>
+		<q-grid:column type="item-settings"
+							key="itemSettings"
+							index="0"
+							width="60"
+							can-edit="false"
+							can-resize="false"
+							can-highlight="false">
+			<q-grid:template for="head">
+			</q-grid:template>
+			<q-grid:template for="body">
+				<q-grid:edit-form title="Edit Form"
+										key="$cell.rowIndex"
+										data="$cell.row">
+				</q-grid:edit-form>
+			</q-grid:template>
+		</q-grid:column>
+	</q-grid:columns>
+</q-grid>

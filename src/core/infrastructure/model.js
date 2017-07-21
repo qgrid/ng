@@ -1,13 +1,13 @@
-import Event from './event';
-import {isObject, isFunction} from '../services/utility';
-import AppError from './error';
-import * as guard from './guard';
-import Log from 'core/infrastructure/log';
+import {Event} from './event';
+import {AppError} from './error';
+import {Guard} from './guard';
+import {Log} from './log';
+import {isObject, isFunction} from '../utility';
 
 const models = {};
 let close = false;
 
-export default class Model {
+export class Model {
 	constructor() {
 		close = true;
 		for (let name of Object.keys(models)) {
@@ -53,7 +53,7 @@ export default class Model {
 						const oldValue = model[key];
 						if (newValue !== oldValue) {
 							Log.info('model', `value changed - "${name}.${key}"`);
-							guard.notUndefined(newValue, `model.${name}.${key}`);
+							Guard.notUndefined(newValue, `model.${name}.${key}`);
 
 							model[key] = newValue;
 							hasChanges = true;
@@ -78,6 +78,7 @@ export default class Model {
 							source: 'emit'
 						});
 					}
+					return this;
 				}
 
 				return model;

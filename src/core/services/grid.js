@@ -1,12 +1,12 @@
-import buildPipe from 'core/pipe/pipe.build';
-import Log from 'core/infrastructure/log';
-import {noop} from 'core/services/utility';
-import guid from 'core/services/guid';
+import {build as buildPipe} from '../pipe';
+import {Log} from '../infrastructure';
+import {noop} from '../utility';
+import {guid} from '../services';
+import {getFactory as valueFactory} from '../services/value';
 
-export default class GridService {
-	constructor(model, valueFactory, apply = noop) {
+export class GridService {
+	constructor(model, apply = noop) {
 		this.model = model;
-		this.valueFactory = valueFactory;
 		this.apply = apply;
 	}
 
@@ -19,7 +19,7 @@ export default class GridService {
 		model.foot().cache.clear();
 
 		const cancelBusy = this.busy();
-		const run = buildPipe(model, this.valueFactory);
+		const run = buildPipe(model, valueFactory);
 		return run(source, changes, pipe)
 			.then(this.apply)
 			.then(cancelBusy)

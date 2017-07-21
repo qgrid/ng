@@ -1,30 +1,37 @@
-import Command from 'core/infrastructure/command';
+import {Command} from '../command';
 
-export default class Navigation {
+export class Navigation {
 	constructor(model, table) {
 		this.model = model;
-		this.document = table.markup.document;
-		this.markup = table.markup;
 		this.table = table;
 	}
 
-	moveTo(y, direction) {
+	positon(y, direction) {
 		const body = this.table.body;
 		let index = 0;
 		let offset = 0;
-		while (offset <= y && body.row(index)) {
-			offset += body.row(index).height;
+		const lastRow = this.lastRow;
+
+		// TODO: improve performance
+		while (index <= lastRow && offset <= y) {
+			offset += body.row(index).height();
 			index++;
 		}
 
 		if (direction === 'down' && body.row(index)) {
-			offset -= body.row(index).height;
+			offset -= body.row(index).height();
 			index--;
 		}
+
 		return {
-			row: Math.max(this.firstRow, Math.min(this.lastRow, index)),
+			row: Math.max(this.firstRow, Math.min(lastRow, index)),
 			offset: offset
 		};
+	}
+
+	goTo(row, column, source = 'navigation') {
+		const cell = this.cell(row, column);
+		this.model.navigation({cell: cell}, {source: source});
 	}
 
 	get columns() {
@@ -39,17 +46,13 @@ export default class Navigation {
 		return indicies;
 	}
 
-	get rows() {
-		return this.table.data.rows().map((r, i) => i);
-	}
-
 	get currentColumn() {
 		const columns = this.columns;
 		if (!columns.length) {
 			return -1;
 		}
 
-		const column = this.model.navigation().column;
+		const column = this.model.navigation().columnIndex;
 		const index = columns.indexOf(column);
 		return columns[Math.max(0, index)];
 	}
@@ -60,7 +63,7 @@ export default class Navigation {
 			return -1;
 		}
 
-		const column = this.model.navigation().column;
+		const column = this.model.navigation().columnIndex;
 		const index = columns.indexOf(column);
 		return index < columns.length - 1 ? columns[index + 1] : -1;
 	}
@@ -71,7 +74,7 @@ export default class Navigation {
 			return -1;
 		}
 
-		const column = this.model.navigation().column;
+		const column = this.model.navigation().columnIndex;
 		const index = columns.indexOf(column);
 		return index > 0 ? columns[index - 1] : -1;
 	}
@@ -95,144 +98,122 @@ export default class Navigation {
 	}
 
 	get currentRow() {
-		const rows = this.rows;
-		if (!rows.length) {
-			return -1;
-		}
-
-		const row = this.model.navigation().row;
-		return rows[Math.max(0, row)];
+		return this.model.navigation().rowIndex;
 	}
 
 	get nextRow() {
-		const rows = this.rows;
-		if (!rows.length) {
-			return -1;
-		}
-
-		const row = this.model.navigation().row;
-		return row < rows.length - 1 ? rows[row + 1] : -1;
+		const row = this.model.navigation().rowIndex + 1;
+		return row <= this.lastRow ? row : -1;
 	}
 
 	get prevRow() {
-		const rows = this.rows;
-		if (!rows.length) {
-			return -1;
-		}
-
-		const row = this.model.navigation().row;
-		return row > 0 ? rows[row - 1] : -1;
+		const row = this.model.navigation().rowIndex - 1;
+		return row >= 0 ? row : -1;
 	}
 
 	get firstRow() {
-		const rows = this.rows;
-		if (!rows.length) {
-			return -1;
-		}
-
-		return rows[0];
+		return 0;
 	}
 
 	get lastRow() {
-		const rows = this.rows;
-		if (!rows.length) {
-			return -1;
-		}
+		return this.table.body.rowCount() - 1;
+	}
 
-		return rows[rows.length - 1];
+	cell(row, column) {
+		return this.table.body.cell(row, column).model;
 	}
 
 	get commands() {
 		const model = this.model;
-		const markup = this.markup;
-		const nav = model.navigation;
-		const canExecute = () => model.edit().editMode === 'view';
+		const table = this.table;
+		const shortcut = model.navigation().shortcut;
+		const canExecute = () => model.edit().state === 'view';
 
 		const commands = {
 			goDown: new Command({
-				shortcut: 'down',
+				shortcut: shortcut.down,
 				canExecute: () => canExecute() && this.nextRow >= 0,
-				execute: () => nav({row: this.nextRow, column: this.currentColumn})
+				execute: () => this.goTo(this.nextRow, this.currentColumn)
 			}),
 			goUp: new Command({
-				shortcut: 'up',
+				shortcut: shortcut.up,
 				canExecute: () => canExecute() && this.prevRow >= 0,
-				execute: () => nav({row: this.prevRow, column: this.currentColumn})
+				execute: () => this.goTo(this.prevRow, this.currentColumn)
 			}),
 			goRight: new Command({
-				shortcut: 'right',
+				shortcut: shortcut.right,
 				canExecute: () => canExecute() && this.nextColumn >= 0,
-				execute: () => nav({row: this.currentRow, column: this.nextColumn})
+				execute: () => this.goTo(this.currentRow, this.nextColumn)
 			}),
-			tab: new Command({
-				shortcut: 'tab',
+			goLeft: new Command({
+				shortcut: shortcut.left,
+				canExecute: () => canExecute() && this.prevColumn >= 0,
+				execute: () => this.goTo(this.currentRow, this.prevColumn)
+			}),
+			goNext: new Command({
+				shortcut: shortcut.next,
 				execute: () => {
 					const hasNextColumn = this.nextColumn >= 0;
 					const hasNextRow = this.nextRow >= 0;
 					if (!hasNextColumn && !hasNextRow) {
-						markup.table.blur();
+						table.view.blur();
 						return;
 					}
 
 					if (!hasNextColumn) {
-						nav({row: this.nextRow, column: this.firstColumn});
+						this.goTo(this.nextRow, this.firstColumn);
 						return;
 					}
 
-					nav({row: this.currentRow, column: this.nextColumn});
+					this.goTo(this.currentRow, this.nextColumn);
 				}
 			}),
-			shiftTab: new Command({
-				shortcut: 'Shift+tab',
+			goPrevious: new Command({
+				shortcut: shortcut.previous,
 				execute: () => {
 					const hasPrevColumn = this.prevColumn >= 0;
 					const hasPrevRow = this.prevRow >= 0;
 					if (!hasPrevColumn && !hasPrevRow) {
-						markup.table.blur();
+						table.view.blur();
 						return;
 					}
 
 					if (!hasPrevColumn) {
-						nav({row: this.prevRow, column: this.lastColumn});
+						this.goTo(this.prevRow, this.lastColumn);
 						return;
 					}
 
-					nav({row: this.currentRow, column: this.prevColumn});
+					this.goTo(this.currentRow, this.prevColumn);
 				}
 			}),
-			goLeft: new Command({
-				shortcut: 'left',
-				canExecute: () => canExecute() && this.prevColumn >= 0,
-				execute: () => nav({row: this.currentRow, column: this.prevColumn})
-			}),
 			home: new Command({
-				shortcut: 'home',
+				shortcut: shortcut.home,
 				canExecute: () => canExecute() && this.prevRow >= 0,
-				execute: () => nav({row: this.firstRow, column: this.currentColumn})
+				execute: () => this.goTo(this.firstRow, this.currentColumn)
 			}),
 			end: new Command({
-				shortcut: 'end',
+				shortcut: shortcut.end,
 				canExecute: () => canExecute() && this.nextRow >= 0,
-				execute: () => nav({row: this.lastRow, column: this.currentColumn})
+				execute: () => this.goTo(this.lastRow, this.currentColumn)
 			}),
 			pageUp: new Command({
-				shortcut: 'pageUp',
+				shortcut: shortcut.pageUp,
 				canExecute: () => canExecute() && this.prevRow >= 0,
 				execute: () => {
-					const body = markup.body;
-					const {row: row, offset: offset} = this.moveTo(body.scrollTop - body.getBoundingClientRect().height, 'up');
-					body.scrollTop = offset;
-					nav({row: row, column: this.currentColumn}, {source: 'navigation'});
+					const view = table.view;
+					const position = this.positon(view.scrollTop() - view.height(), 'up');
+					view.scrollTop(position.offset);
+					this.goTo(position.row, this.currentColumn, 'navigation.scroll');
 				}
 			}),
 			pageDown: new Command({
-				shortcut: 'pageDown',
+				shortcut: shortcut.pageDown,
 				canExecute: () => canExecute() && this.nextRow >= 0,
 				execute: () => {
-					const body = markup.body;
-					let {row: row, offset: offset} = this.moveTo(body.scrollTop + body.getBoundingClientRect().height, 'down');
-					body.scrollTop = offset;
-					nav({row: row, column: this.currentColumn}, {source: 'navigation'});
+					const view = table.view;
+					let position = this.positon(view.scrollTop() + view.height(), 'down');
+					view.scrollTop(position.offset);
+					this.goTo(position.row, this.currentColumn, 'navigation.scroll');
 				}
 			})
 		};

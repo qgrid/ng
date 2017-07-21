@@ -1,6 +1,6 @@
-import ColumnView from 'core/column-type/column.model.view';
-import TemplatePath from 'core/template/template.path';
-import ColumnModel from './column.model';
+import {ColumnView} from './column.model.view';
+import {ColumnModel} from './column.model';
+import {TemplatePath} from '../template';
 
 TemplatePath.register('group-cell', (template, column) => {
 	return {
@@ -9,7 +9,14 @@ TemplatePath.register('group-cell', (template, column) => {
 	};
 });
 
-class GroupColumnModel extends ColumnModel {
+TemplatePath.register('group-cell-edit', (template, column) => {
+	return {
+		model: 'edit',
+		resource: column.key
+	};
+});
+
+export class GroupColumnModel extends ColumnModel {
 	constructor() {
 		super('group');
 
@@ -18,10 +25,11 @@ class GroupColumnModel extends ColumnModel {
 		this.offset = 20;
 		this.canEdit = false;
 		this.canSort = false;
+		this.class = 'control';
 	}
 }
 
-export default class GroupColumn extends ColumnView {
+export class GroupColumn extends ColumnView {
 	constructor(model) {
 		super(model);
 	}

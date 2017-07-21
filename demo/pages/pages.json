@@ -22,6 +22,10 @@
 			{
 				"title": "Architecture",
 				"path": "architecture"
+			},
+			{
+				"title": "Model",
+				"path": "grid-model"
 			}
 		]
 	},
@@ -80,8 +84,8 @@
 				"path": "infinite-scrolling"
 			},
 			{
-				"title": "Frozen Columns",
-				"path": "frozen-columns"
+				"title": "Pinned Columns",
+				"path": "column-pin"
 			}
 		]
 	},
@@ -208,8 +212,11 @@
 			{
 				"title": "No Data Template",
 				"path": "no-data"
+			},
+			{
+				"title": "Excel",
+				"path": "excel"
 			}
-
 		]
 	},
 	{
@@ -253,7 +260,6 @@
 				"title": "Column Size",
 				"path": "column-size"
 			},
-
 			{
 				"title": "Column Groups",
 				"path": "column-groups"
@@ -276,12 +282,20 @@
 				"path": "edit-templates"
 			},
 			{
+				"title": "Editors",
+				"path": "editors"
+			},
+			{
+				"title": "Data Manipulation",
+				"path": "data-manipulation"
+			},
+			{
 				"title": "Batch Editing",
 				"path": "batch-editing"
 			},
 			{
 				"title": "Form Editing",
-				"path": "form-editing"
+				"path": "edit-form"
 			},
 			{
 				"title": "Validation",
@@ -294,6 +308,10 @@
 			{
 				"title": "Row Details",
 				"path": "row-details"
+			},
+			{
+				"title": "JSON Editor",
+				"path": "json-editor"
 			}
 		]
 	},
@@ -305,6 +323,10 @@
 				"path": "selection-model"
 			},
 			{
+                "title": "Master Details",
+                "path": "master-details"
+            },
+            {
 				"title": "Row Number",
 				"path": "row-number"
 			},
@@ -342,14 +364,22 @@
 				"path": "keyboard-navigation"
 			},
 			{
-				"title": "Focus",
-				"path": "focus"
+				"title": "Dialog",
+				"path": "dialog"
 			}
 		]
 	},
 	{
 		"title": "Exporting and Printing",
 		"items": [
+			{
+				"title": "Export",
+				"path": "export"
+			},
+			{
+				"title": "Import",
+				"path": "import"
+			}
 		]
 	},
 	{
@@ -438,7 +468,7 @@
 		]
 	},
 	{
-		"title": "ContextMenu",
+		"title": "Context Menu",
 		"items": [
 		]
 	}

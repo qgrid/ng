@@ -1,12 +1,22 @@
-export default class ColumnModel {
+import {identity} from '../utility';
+
+export class ColumnModel {
 	constructor(type = 'text') {
 		this.type = type;
 		this.key = null;
 		this.title = null;
 		this.value = null;
+		this.path = null;
 		this.pin = null;
 		this.origin = 'specific';
 		this.source = 'user';
+		this.class = 'data';
+		this.editor = null;
+		this.editorOptions = {
+			trigger: 'click',
+			label: null,
+			value: identity
+		};
 
 		this.width = null;
 		this.minWidth = 20;
@@ -22,6 +32,8 @@ export default class ColumnModel {
 
 		this.isVisible = true;
 		this.index = -1;
+
+		this.label = null;
 	}
 
 	toString() {

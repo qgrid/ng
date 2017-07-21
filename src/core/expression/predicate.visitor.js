@@ -1,8 +1,8 @@
-import AppError from 'core/infrastructure/error';
-import castAsFactory from './cast.factory';
-import Visitor from './expression.visitor';
+import {AppError} from '../infrastructure';
+import {castFactory as castAsFactory} from './cast.factory';
+import {Visitor} from './expression.visitor';
 
-export default class PredicateVisitor extends Visitor {
+export class PredicateVisitor extends Visitor {
 	constructor(valueFactory) {
 		super();
 
@@ -110,13 +110,13 @@ export default class PredicateVisitor extends Visitor {
 				return l => {
 					const v = getValue(l),
 						r = castAs(v);
-					return v && ('' + v).toLowerCase().contains(('' + r).toLowerCase());
+					return v && ('' + v).toLowerCase().includes(('' + r).toLowerCase());
 				};
 			case 'notLike':
 				return l => {
 					const v = getValue(l),
 						r = castAs(v);
-					return v && !('' + v).toLowerCase().contains(('' + r).toLowerCase());
+					return v && !('' + v).toLowerCase().includes(('' + r).toLowerCase());
 				};
 			case 'startsWith':
 				return l => {

@@ -1,6 +1,6 @@
-import ColumnView from 'core/column-type/column.model.view';
-import DataColumnModel from './data.column.model';
-import TemplatePath from 'core/template/template.path';
+import {ColumnView} from './column.model.view';
+import {DataColumnModel} from './data.column.model';
+import {TemplatePath} from '../template';
 
 TemplatePath.register('bool-cell', (template, column) => {
 	return {
@@ -16,13 +16,25 @@ TemplatePath.register('bool-cell-edit', (template, column) => {
 	};
 });
 
-class BoolColumnModel extends DataColumnModel {
+export class BoolColumnModel extends DataColumnModel {
 	constructor() {
 		super('bool');
+
+		this.trueValue = true;
+		this.falseValue = false;
+
+		// as we use 'this' pointer inside, we can't use lambda in 2 here
+		this.isIndeterminate = function (value) {
+			return !(value === this.trueValue || value === this.falseValue);
+		};
+
+		this.isChecked = function (value) {
+			return value === this.trueValue;
+		};
 	}
 }
 
-export default class BoolColumn extends ColumnView {
+export class BoolColumn extends ColumnView {
 	constructor(model) {
 		super(model);
 	}

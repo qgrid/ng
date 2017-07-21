@@ -1,6 +1,6 @@
-import Middleware from 'core/services/middleware';
+import {Middleware} from '../services';
 
-export default function build(model, valueFactory) {
+export function build(model, valueFactory) {
 	return function run(source, changes, pipe) {
 		const pipes = pipe || model.data().pipe;
 		const middleware = new Middleware(pipes);
@@ -11,6 +11,6 @@ export default function build(model, valueFactory) {
 			changes: changes
 		};
 
-		return middleware.run(context);
+		return middleware.run(context, model.data().rows);
 	};
 }

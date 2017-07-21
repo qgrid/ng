@@ -1,6 +1,6 @@
-import {noop} from '../services/utility';
+import {noop} from '../utility';
 
-export default class StyleModel {
+export class StyleModel {
 	constructor() {
 		this.row = noop;
 		this.cell = noop;

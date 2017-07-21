@@ -1,9 +1,10 @@
-import View from 'core/view/view';
-import groupBuilder from 'core/group/group.build';
-import Log from 'core/infrastructure/log';
+import {View} from '../view';
+import {groupBuilder} from '../group';
+import {Log} from '../infrastructure';
+import {getFactory as valueFactory} from '../services/value';
 
-export default class PivotView extends View {
-	constructor(model, valueFactory) {
+export class PivotView extends View {
+	constructor(model) {
 		super(model);
 
 		this.rows = [];

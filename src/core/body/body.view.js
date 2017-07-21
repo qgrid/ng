@@ -1,20 +1,19 @@
-import View from 'core/view/view';
-import * as columnService from 'core/column/column.service';
-import Aggregation from 'core/services/aggregation';
-import AppError from 'core/infrastructure/error';
-import Log from 'core/infrastructure/log';
-import Node from 'core/node/node';
+import {View} from '../view';
+import * as columnService from '../column/column.service';
+import {Aggregation} from '../services';
+import {AppError, Log} from '../infrastructure';
+import {Node} from '../node';
+import {RowDetails} from '../row-details';
+import {getFactory as valueFactory, set as setValue} from '../services/value';
+import {getFactory as labelFactory, set as setLabel} from '../services/label';
 
-export default class BodyView extends View {
-	constructor(model, table, valueFactory) {
+export class BodyView extends View {
+	constructor(model, table) {
 		super(model);
 
 		this.table = table;
-		this.markup = table.markup;
 		this.rows = [];
-		this.columns = [];
-		this._valueFactory = valueFactory;
-
+		this.columnList = [];
 		model.viewChanged.watch(() => this.invalidate(model));
 	}
 
@@ -26,25 +25,45 @@ export default class BodyView extends View {
 	}
 
 	invalidateRows(model) {
-		this.table.body.removeLayer('blank');
+		this.table.view.removeLayer('blank');
 		this.rows = model.view().rows;
 		if (!this.rows.length) {
-			const laterState = model.layer();
-			if (laterState.resource.data.hasOwnProperty('blank')) {
-				const layer = this.table.body.addLayer('blank');
-				layer.resource('blank', laterState.resource);
+			const layerState = model.layer();
+			if (layerState.resource.data.hasOwnProperty('blank')) {
+				const layer = this.table.view.addLayer('blank');
+				layer.resource('blank', layerState.resource);
 			}
 		}
 	}
 
 	invalidateColumns(model) {
 		const columns = model.view().columns;
-		this.columns = columnService.lineView(columns);
+		this.columnList = columnService.lineView(columns);
 	}
 
-	valueFactory(column) {
+	colspan(column, row) {
+		if (row instanceof RowDetails && column.type === 'row-details') {
+			return this.table.data.columns().length;
+		}
+
+		return 1;
+	}
+
+	rowspan() {
+		return 1;
+	}
+
+	columns(row, pin) {
+		if (row instanceof RowDetails) {
+			return [row.column];
+		}
+
+		return this.columnList.filter(c => c.model.pin === pin);
+	}
+
+	valueFactory(column, getValueFactory = null) {
 		const model = this.model;
-		const getValue = this._valueFactory(column);
+		const getValue = (getValueFactory || valueFactory)(column);
 
 		return row => {
 			if (row instanceof Node) {
@@ -70,6 +89,9 @@ export default class BodyView extends View {
 						const rowIndex = node.rows[0];
 						return getValue(rows[rowIndex], column);
 					}
+					case 'value': {
+						return getValue(node, column);
+					}
 					default:
 						throw new AppError(
 							'view.body',
@@ -78,12 +100,35 @@ export default class BodyView extends View {
 				}
 			}
 
+			if (row instanceof RowDetails) {
+				return null;
+			}
+
 			return getValue(row);
 		};
 	}
 
-	value(row, column) {
+	labelFactory(column) {
+		return this.valueFactory(column, labelFactory);
+	}
+
+	value(row, column, value) {
+		if (arguments.length == 3) {
+			setValue(row, column, value);
+			return;
+		}
+
 		const getValue = this.valueFactory(column);
 		return getValue(row);
+	}
+
+	label(row, column, value) {
+		if (arguments.length === 3) {
+			setLabel(row, column, value);
+			return;
+		}
+
+		const getLabel = this.labelFactory(column);
+		return getLabel(row);
 	}
 }

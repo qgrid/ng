@@ -1,26 +1,29 @@
-import View from 'core/view/view';
-import Command from 'core/infrastructure/command';
-import * as columnService from 'core/column/column.service';
-import * as sortService from 'core/sort/sort.service';
-import HighlightBehavior from './behaviors/highlight.behavior';
-import cellSelector from './cell.selector';
-import {noop} from 'core/services/utility';
-import {GRID_PREFIX} from 'core/definition';
+import {View} from '../view';
+import {Command} from '../command';
+import * as columnService from '../column/column.service';
+import * as sortService from '../sort/sort.service';
+import {CellSelector} from '../cell';
+import {SelectionService} from '../selection';
+import {noop} from '../utility';
+import {GRID_PREFIX} from '../definition';
 
-export default class HighlightView extends View {
-	constructor(model, table, apply) {
+export class HighlightView extends View {
+	constructor(model, table, timeout) {
 		super(model);
 
-		this.markup = table.markup;
-		this.apply = apply;
-		this.behavior = new HighlightBehavior(model, cellSelector(model, table.markup));
+		this.timeout = timeout;
 		this.table = table;
+
+		this.cellSelector = new CellSelector(model, table);
+		this.selectionService = new SelectionService(model);
 
 		// TODO: get rid of this variable, maybe using table class?
 		let waitForLayout = false;
 
 		let sortBlurs = [];
-		let hoverBlurs = [];
+		let columnHoverBlurs = [];
+		let rowHoverBlurs = [];
+		let selectionBlurs = [];
 
 		this.column = new Command({
 			canExecute: () => !model.drag().isActive,
@@ -43,21 +46,60 @@ export default class HighlightView extends View {
 					}
 
 					if (hasChanges) {
-						model.highlight({columns: columns});
+						model.highlight({
+							columns: columns
+						}, {
+							source: 'highlight.view',
+						});
+					}
+				}
+			}
+		});
+
+		this.row = new Command({
+			canExecute: () => !model.drag().isActive,
+			execute: (row, state) => {
+				if (!waitForLayout) {
+					const rows = Array.from(model.highlight().rows);
+					const index = rows.indexOf(row);
+					let hasChanges = false;
+					if (state) {
+						if (index < 0) {
+							rows.push(row);
+							hasChanges = true;
+						}
+					}
+					else {
+						if (index >= 0) {
+							rows.splice(index, 1);
+							hasChanges = true;
+						}
+					}
+
+					if (hasChanges) {
+						model.highlight({
+							rows: rows
+						}, {
+							source: 'highlight.view',
+						});
 					}
 				}
 			}
 		});
 
 		model.selectionChanged.watch(e => {
-			this.apply(() => this.behavior.update(e.state.entries), 0);
+			if (e.hasChanges('items')) {
+				selectionBlurs = this.invalidateSelection(selectionBlurs);
+			}
 		});
 
 		model.viewChanged.watch(() => {
 			waitForLayout = true;
-			apply(() => {
-				hoverBlurs = this.invalidateHover(hoverBlurs);
+			this.timeout(() => {
+				columnHoverBlurs = this.invalidateColumnHover(columnHoverBlurs);
+				rowHoverBlurs = this.invalidateRowHover(rowHoverBlurs);
 				sortBlurs = this.invalidateSortBy(sortBlurs);
+				selectionBlurs = this.invalidateSelection(selectionBlurs);
 				waitForLayout = false;
 			}, 100);
 		});
@@ -70,17 +112,45 @@ export default class HighlightView extends View {
 
 		model.highlightChanged.watch(e => {
 			if (!waitForLayout && e.tag.source !== 'highlight') {
-				hoverBlurs = this.invalidateHover(hoverBlurs);
+				if (e.hasChanges('columns')) {
+					columnHoverBlurs = this.invalidateColumnHover(columnHoverBlurs);
+				}
+
+				if (e.hasChanges('rows')) {
+					rowHoverBlurs = this.invalidateRowHover(rowHoverBlurs);
+				}
+			}
+		});
+
+		model.scrollChanged.watch(() => {
+			const highlight = model.highlight;
+			if (highlight().rows.length) {
+				highlight({
+					rows: []
+				}, {
+					source: 'highlight.view',
+				});
 			}
 		});
 	}
 
-	invalidateHover(dispose) {
+	invalidateColumnHover(dispose) {
 		dispose.forEach(f => f());
 		dispose = [];
 		const highlightColumns = this.model.highlight().columns;
 		for (let columnKey of highlightColumns) {
-			dispose.push(this.highlight(columnKey, 'highlighted'));
+			dispose.push(this.highlightColumn(columnKey, 'highlighted'));
+		}
+
+		return dispose;
+	}
+
+	invalidateRowHover(dispose) {
+		dispose.forEach(f => f());
+		dispose = [];
+		const highlightRows = this.model.highlight().rows;
+		for (let rowIndex of highlightRows) {
+			dispose.push(this.highlightRow(rowIndex, 'highlighted'));
 		}
 
 		return dispose;
@@ -90,13 +160,22 @@ export default class HighlightView extends View {
 		dispose.forEach(f => f());
 		dispose = [];
 
-
 		const sortBy = this.model.sort().by;
 		for (let entry of sortBy) {
 			const key = sortService.key(entry);
-			dispose.push(this.highlight(key, 'sorted'));
+			dispose.push(this.highlightColumn(key, 'sorted'));
 		}
 
+		return dispose;
+	}
+
+	invalidateSelection(dispose) {
+		dispose.forEach(f => f());
+
+		const selectionItems = this.model.selection().items;
+		const entries = this.selectionService.lookup(selectionItems);
+		const cells = this.cellSelector.map(entries);
+		dispose = cells.map(cell => this.highlightCell(cell, 'selected'));
 		return dispose;
 	}
 
@@ -114,43 +193,25 @@ export default class HighlightView extends View {
 		return index;
 	}
 
-	highlight(key, cls) {
+	highlightColumn(key, cls) {
 		const table = this.table;
-		const markup = this.markup;
 		const index = this.columnIndex(key);
 		if (index < 0) {
 			return noop;
 		}
 
 		const head = table.head;
-		if (markup.head.rows.length) {
-			const cells = head.column(index).cells();
-			cells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}`));
-			if (index > 0) {
-				const cells = head.column(index - 1).cells();
-				cells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}-prev`));
-			}
+		head.column(index).addClass(`${GRID_PREFIX}-${cls}`);
+		head.column(index - 1).addClass(`${GRID_PREFIX}-${cls}-prev`);
+		head.column(index + 1).addClass(`${GRID_PREFIX}-${cls}-next`);
+		table.body.column(index).addClass(`${GRID_PREFIX}-${cls}`);
+		table.foot.column(index).addClass(`${GRID_PREFIX}-${cls}`);
 
-			if (index < markup.head.rows.length - 1) {
-				const cells = head.column(index + 1).cells();
-				cells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}-next`));
-			}
-		}
-		if (markup.body.rows.length) {
-			const cells = table.body.column(index).cells();
-			cells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}`));
-		}
-		if (markup.foot.rows.length) {
-			const cells = table.foot.column(index).cells();
-			cells.forEach((cell) => cell.addClass(`${GRID_PREFIX}-${cls}`));
-		}
-
-		return this.blur(key, cls);
+		return this.blurColumn(key, cls);
 	}
 
-	blur(key, cls) {
+	blurColumn(key, cls) {
 		const table = this.table;
-		const markup = this.markup;
 		const index = this.columnIndex(key);
 		if (index < 0) {
 			return noop;
@@ -158,27 +219,39 @@ export default class HighlightView extends View {
 
 		return () => {
 			const head = table.head;
-			if (markup.head.rows.length) {
-				const cells = head.column(index).cells();
-				cells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}`));
-				if (index > 0) {
-					const cells = head.column(index - 1).cells();
-					cells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}-prev`));
-				}
-				if (index < markup.head.rows.length - 1) {
-					const cells = head.column(index + 1).cells();
-					cells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}-next`));
-				}
-			}
-
-			if (markup.body.rows.length) {
-				const cells = table.body.column(index).cells();
-				cells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}`));
-			}
-			if (markup.foot.rows.length) {
-				const cells = table.foot.column(index).cells();
-				cells.forEach((cell) => cell.removeClass(`${GRID_PREFIX}-${cls}`));
-			}
+			head.column(index).removeClass(`${GRID_PREFIX}-${cls}`);
+			head.column(index - 1).removeClass(`${GRID_PREFIX}-${cls}-prev`);
+			head.column(index + 1).removeClass(`${GRID_PREFIX}-${cls}-next`);
+			table.body.column(index).removeClass(`${GRID_PREFIX}-${cls}`);
+			table.foot.column(index).removeClass(`${GRID_PREFIX}-${cls}`);
 		};
+	}
+
+	highlightRow(index, cls) {
+		const table = this.table;
+		if (index < 0) {
+			return noop;
+		}
+
+		table.body.row(index).addClass(`${GRID_PREFIX}-${cls}`);
+		return this.blurRow(index, cls);
+	}
+
+	blurRow(index, cls) {
+		const table = this.table;
+		if (index < 0) {
+			return noop;
+		}
+
+		return () => table.body.row(index).removeClass(`${GRID_PREFIX}-${cls}`);
+	}
+
+	highlightCell(cell, cls) {
+		cell.addClass(`${GRID_PREFIX}-${cls}`);
+		return this.blurCell(cell, cls);
+	}
+
+	blurCell(cell, cls) {
+		return () => cell.removeClass(`${GRID_PREFIX}-${cls}`);
 	}
 }

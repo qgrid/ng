@@ -1,8 +1,11 @@
-import Resource from '../resource/resource';
+import {Resource} from '../resource';
 
-export default class GroupModel {
+export class GroupModel {
 	constructor() {
 		this.resource = new Resource();
 		this.by = [];
+		this.shortcut = {
+			toggle: 'space'
+		};
 	}
 }

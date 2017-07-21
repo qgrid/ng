@@ -23,7 +23,8 @@ export default function Controller($http) {
 			key: 'gender',
 			title: 'Is Female',
 			type: 'bool',
-			value: (item, value) => isUndef(value) ? item.gender === 'female' : item.gender = value ? 'female' : 'male'
+			trueValue: 'female',
+			falseValue: 'male'
 		},
 		{
 			key: 'birthday',
@@ -49,7 +50,7 @@ export default function Controller($http) {
 		{
 			key: 'contact.address.zip',
 			title: 'Zip',
-			type: 'number',
+			type: 'id',
 			path: 'contact.address.zip',
 			width: 70,
 			isDefault: false
@@ -93,7 +94,13 @@ export default function Controller($http) {
 			title: 'Member Since',
 			type: 'date',
 			isDefault: false
-		}
+		},
+		{
+			key: 'isOnline',
+			title: 'Online',
+			type: 'bool',
+			value: (item, value) => isUndef(value) ? item.isOnline : item.isOnline = value
+		},
 	];
 
 	$http.get('data/people/100.json')

@@ -12,11 +12,14 @@
 		</md-list>
 	</div>
 	<div flex class="page-list-items">
-		<md-list ng-repeat="node in $ctrl.items | filter: $ctrl.filter track by node.title">
+		<md-list ng-repeat="node in $ctrl.items | filter: {title: $ctrl.filter} track by node.title">
 			<md-subheader ng-if="node.items">
 				<span ng-bind-html="node.title | qgridHighlight : $ctrl.filterText"></span>
 			</md-subheader>
-			<md-list-item ng-if="node.path" ng-class="{selected: node === $ctrl.selection}">
+
+			<md-list-item id="{{::node.path}}"
+							  ng-if="node.path"
+							  ng-class="{selected: node === $ctrl.selection}">
 				<md-tooltip md-delay="500">
 					{{::node.title}}
 				</md-tooltip>
@@ -26,7 +29,9 @@
 							  ng-bind-html="node.title | qgridHighlight : $ctrl.filterText">
 				</md-button>
 			</md-list-item>
-			<md-list-item ng-if="node.items"
+
+			<md-list-item id="{{::item.path}}"
+							  ng-if="node.items"
 							  ng-repeat="item in node.items | filter: $ctrl.filterText"
 							  ng-class="{selected: item === $ctrl.selection}">
 				<md-tooltip md-delay="500">
@@ -38,6 +43,7 @@
 							  ng-bind-html="item.title | qgridHighlight : $ctrl.filterText">
 				</md-button>
 			</md-list-item>
+
 		</md-list>
 	</div>
 </div>

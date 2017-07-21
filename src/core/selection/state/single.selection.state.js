@@ -1,8 +1,8 @@
-import SelectionState from './selection.state';
+import {SelectionState} from './selection.state';
 
-export default class SingleSelectionState extends SelectionState {
-	constructor(model) {
-		super(model);
+export class SingleSelectionState extends SelectionState {
+	constructor(model, service) {
+		super(model, service);
 
 		this.item = null;
 	}
@@ -20,8 +20,8 @@ export default class SingleSelectionState extends SelectionState {
 		}
 	}
 
-	stateCore(item) {
-		return this.item && this.key(item) === this.key(this.item);
+	stateCore(item, key) {
+		return this.item !== null && key(item) === key(this.item);
 	}
 
 	clearCore() {

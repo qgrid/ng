@@ -1,0 +1,35 @@
+import {ColumnView} from './column.model.view';
+import {DataColumnModel} from './data.column.model';
+import {TemplatePath} from '../template';
+
+TemplatePath.register('url-cell', (template, column) => {
+	return {
+		model: template.for,
+		resource: column.key
+	};
+});
+
+TemplatePath.register('url-cell-edit', (template, column) => {
+	return {
+		model: 'edit',
+		resource: column.key
+	};
+});
+
+export class UrlColumnModel extends DataColumnModel {
+	constructor() {
+		super('url');
+
+		this.editorOptions.trigger = 'button';
+	}
+}
+
+export class UrlColumn extends ColumnView {
+	constructor(model) {
+		super(model);
+	}
+
+	static model(model) {
+		return model ? UrlColumn.assign(model) : new UrlColumnModel();
+	}
+}

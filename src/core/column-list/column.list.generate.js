@@ -1,16 +1,21 @@
-import {startCase} from 'core/services/utility';
-import {compile} from 'core/services/path';
-import {getType} from 'core/services/convert';
+import {startCase, assignWith} from '../utility';
+import {compile, getType} from '../services';
+import {TextColumnModel} from '../column-type';
 
-export function generate(rows, columnFactory, deep = true) {
-	if (!rows || rows.length === 0) {
-		return [];
+export function generate(settings) {
+	const context = assignWith({
+		deep: true,
+		rows: [],
+		columnFactory: () => new TextColumnModel(),
+		title: startCase
+	}, settings);
+	if (context.rows.length) {
+		return build(context.rows[0], null, context.columnFactory, context.deep, context.title);
 	}
-
-	return build(rows[0], null, columnFactory, deep);
+	return [];
 }
 
-function build(graph, path, columnFactory, deep) {
+function build(graph, path, columnFactory, deep, title) {
 	const props = Object.getOwnPropertyNames(graph);
 	return props.reduce((columns, prop) => {
 		const value = graph[prop];
@@ -20,7 +25,7 @@ function build(graph, path, columnFactory, deep) {
 			case 'array': {
 				const column = columnFactory(type).model;
 				column.key = propPath;
-				column.title = startCase(propPath);
+				column.title = title(propPath, graph, column.length);
 				column.path = propPath;
 				column.value = compile(propPath);
 				column.source = 'generation';
@@ -32,14 +37,14 @@ function build(graph, path, columnFactory, deep) {
 			}
 			case 'object': {
 				if (deep) {
-					columns.push(...build(value, propPath, columnFactory, true));
+					columns.push(...build(value, propPath, columnFactory, true, title));
 				}
 				break;
 			}
 			default: {
 				const column = columnFactory(type).model;
 				column.key = propPath;
-				column.title = startCase(propPath);
+				column.title = title(propPath, graph, column.length);
 				column.path = propPath;
 				column.value = compile(propPath);
 				column.source = 'generation';

@@ -1,7 +1,8 @@
-import Resource from '../resource/resource';
+import {Resource} from '../resource';
 
-export default class PluginModel {
+export class PluginModel {
 	constructor() {
 		this.resource = new Resource();
+		this.imports = {};
 	}
 }

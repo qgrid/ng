@@ -8,6 +8,31 @@
 				&.q-grid-select {
 					md-checkbox {
 						margin: 0;
+						margin-left: 2px; //TODO: investigate why we have offset in 2px
+					}
+				}
+
+				&.q-grid-filter-row {
+					md-input-container {
+						margin: 0;
+						padding: 0;
+
+						.md-errors-spacer {
+							min-height: 0 !important;
+						}
+					}
+
+					input[placeholder] {
+						text-overflow: ellipsis;
+					}
+					input::-moz-placeholder {
+						text-overflow: ellipsis;
+					}
+					input:-moz-placeholder {
+						text-overflow: ellipsis;
+					}
+					input:-ms-input-placeholder {
+						text-overflow: ellipsis;
 					}
 				}
 

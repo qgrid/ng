@@ -29,6 +29,11 @@ export default function Controller(qgrid) {
 		ctrl.rows = Array.from(ctrl.rows);
 	};
 
-	this.clear = () => ctrl.columns = [];
+	this.clear = () => {
+		ctrl.columns = [];
+		ctrl.rows = [];
+		this.addRows();
+	};
+
 	this.addRows();
 }

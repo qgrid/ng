@@ -1,10 +1,5 @@
 <q-grid rows="$ctrl.rows" model="$ctrl.model">
 	<q-grid:columns generation="deep">
-		<q-grid:column type="row-number" key="rowNumber"></q-grid:column>
+		<q-grid:column type="row-number" key="rowNumber" pin="left" width="70"></q-grid:column>
 	</q-grid:columns>
-
-	<q-grid:toolbar>
-		<q-grid:template for="bottom">
-		</q-grid:template>
-	</q-grid:toolbar>
 </q-grid>

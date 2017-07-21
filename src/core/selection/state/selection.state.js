@@ -1,121 +1,55 @@
-import AppError from 'core/infrastructure/error';
-import {isArray, isUndefined} from 'core/services/utility';
-import Node from 'core/node/node';
+import {isArray} from '../../utility';
+import {Node} from '../../node';
 
-const keySelector = (unit, selector) => {
-	switch (unit) {
-		case 'row':
-			return selector.row;
-		case 'column':
-			return selector.column;
-		case 'cell':
-			return entry => ({
-				row: selector.row(entry.row),
-				column: selector.column(entry.column)
-			});
-		default:
-			throw new AppError('selection.state', `Invalid unit ${unit}`);
-	}
-};
-
-export default class SelectionState {
-	constructor(model) {
+export class SelectionState {
+	constructor(model, service) {
 		this.model = model;
+		this.service = service;
 	}
 
-	select(item, state = true) {
+	select(item, state = true, key) {
+		key = key || this.keyFactory();
 		if (isArray(item)) {
-			item.forEach(item => this.select(item, state));
+			item.forEach(item => this.select(item, state, key));
 			return;
 		}
 
 		if (item instanceof Node) {
 			const rows = this.model.data().rows;
-			item.rows.forEach(index => this.select(rows[index], state));
+			item.rows.forEach(index => this.select(rows[index], state, key));
 			return;
 		}
 
-		this.selectCore(item, state);
+		this.selectCore(item, state, key);
 	}
 
-	toggle(item, state) {
-		if (isUndefined(state)) {
-			state = this.state(item);
-			return this.select(item, state === null || !state);
-		}
-
-		return this.select(item, state);
+	toggle(item) {
+		const state = this.state(item);
+		return this.select(item, state === null || !state);
 	}
 
-	state(item) {
+	state(item, key) {
+		key = key || this.keyFactory();
 		if (isArray(item)) {
-			const all = item.every(item => this.state(item));
-			return all ? true : item.some(item => this.state(item)) ? null : false;
+			const all = item.every(item => this.state(item, key));
+			return all ? true : item.some(item => this.state(item, key)) ? null : false;
 		}
 
 		if (item instanceof Node) {
 			const rows = this.model.data().rows;
-			const all = item.rows.every(index => this.state(rows[index]));
-			return all ? true : item.rows.some(index => this.state(rows[index])) ? null : false;
+			const all = item.rows.every(index => this.state(rows[index], key));
+			return all ? true : item.rows.some(index => this.state(rows[index], key)) ? null : false;
 		}
 
-		return this.stateCore(item);
+		return this.stateCore(item, key);
+	}
+
+	keyFactory() {
+		return this.service.hashFactory();
 	}
 
 	clear() {
-		return this.clearCore();
-	}
-
-	view(entries) {
-		const selectionState = this.model.selection();
-		switch (selectionState.unit) {
-			case 'row':
-			case 'column':
-			case 'cell':
-				return entries.map(keySelector(selectionState.unit, selectionState.key));
-			case 'mix':
-				return entries.map(entry => ({
-					unit: entry.unit,
-					item: keySelector(entry.unit, selectionState.key)(entry.item)
-				}));
-			default:
-				throw new AppError('selection.state', `Invalid unit ${selectionState.unit}`);
-		}
-	}
-
-	entries() {
-		return [];
-	}
-
-	key(item) {
-		const unit = this.model.selection().unit;
-		const rows = this.model.view().rows;
-		const getCellKey = item => {
-			if (item.column && item.row) {
-				const columnKey = item.column.key;
-				const rowIndex = rows.indexOf(item.row);
-
-				if (columnKey && rowIndex >= 0) {
-					return `${columnKey}[${rowIndex}]`;
-				}
-			}
-
-			return item;
-		};
-
-		if (unit === 'cell') {
-			return getCellKey(item);
-		}
-
-		if (unit === 'mix' && item.item) {
-			if (item.unit === 'cell') {
-				return getCellKey(item.item);
-			}
-
-			return item.item;
-		}
-
-		return item;
+		this.clearCore();
 	}
 
 	selectCore() {
