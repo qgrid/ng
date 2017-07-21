@@ -44,7 +44,7 @@ class ColumnList extends ModelComponent {
 
 	register(column) {
 		const columnList = this.root.model.columnList;
-		const reference = clone(columnList().columns);
+		const reference = clone(columnList().reference);
 		reference[column.type] = column;
 		columnList({
 			reference: reference
