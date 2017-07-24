@@ -323,10 +323,14 @@
 				"path": "selection-model"
 			},
 			{
-                "title": "Master Details",
-                "path": "master-details"
-            },
-            {
+				"title": "Master Details",
+				"path": "master-details"
+			},
+			{
+				"title": "Nested Grid",
+				"path": "embed-grid"
+			},
+			{
 				"title": "Row Number",
 				"path": "row-number"
 			},

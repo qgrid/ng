@@ -1,0 +1,19 @@
+<q-grid id="master-grid"
+		  model="$ctrl.model"
+		  rows="$ctrl.rows"
+		  q-grid:autofocus>
+	<q-grid:columns generation="deep"></q-grid:columns>
+	<q-grid:row unit="details" mode="multiple">
+		<q-grid:template for="details" let="$ctrl">
+			<md-card class="q-grid-embed" ng-cloak>
+				<q-grid rows="[$cell.row.item]" edit-mode="cell" q-grid:autofocus>
+					<q-grid:columns generation="deep"></q-grid:columns>
+					<q-grid:toolbar>
+						<q-grid:template for="top"></q-grid:template>
+						<q-grid:template for="bottom"></q-grid:template>
+					</q-grid:toolbar>
+				</q-grid>
+			</md-card>
+		</q-grid:template>
+	</q-grid:row>
+</q-grid>
