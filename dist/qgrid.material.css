@@ -9,8 +9,7 @@
     font-weight: bold;
     padding: 0 16px; }
     .q-grid.q-grid-theme-material .q-grid-view thead tr th.q-grid-select md-checkbox, .q-grid.q-grid-theme-material .q-grid-view thead tr td.q-grid-select md-checkbox, .q-grid.q-grid-theme-material .q-grid-view tfoot tr th.q-grid-select md-checkbox, .q-grid.q-grid-theme-material .q-grid-view tfoot tr td.q-grid-select md-checkbox {
-      margin: 0;
-      margin-left: 2px; }
+      margin: 0 0 0 2px; }
     .q-grid.q-grid-theme-material .q-grid-view thead tr th.q-grid-filter-row md-input-container, .q-grid.q-grid-theme-material .q-grid-view thead tr td.q-grid-filter-row md-input-container, .q-grid.q-grid-theme-material .q-grid-view tfoot tr th.q-grid-filter-row md-input-container, .q-grid.q-grid-theme-material .q-grid-view tfoot tr td.q-grid-filter-row md-input-container {
       margin: 0;
       padding: 0; }
@@ -213,6 +212,8 @@
         .q-grid.q-grid-theme-material tbody > tr td.q-grid-image img {
           max-height: 24px;
           max-width: 24px; }
+      .q-grid.q-grid-theme-material tbody > tr td.q-grid-row-details {
+        background: #fff; }
 
 .q-grid.q-grid-theme-material tbody {
   border-collapse: separate; }
@@ -398,6 +399,8 @@
         .q-grid.q-grid-theme-material tbody > tr td.q-grid-image img {
           max-height: 24px;
           max-width: 24px; }
+      .q-grid.q-grid-theme-material tbody > tr td.q-grid-row-details {
+        background: #fff; }
 
 .q-grid.q-grid-theme-material tfoot > tr {
   height: 48px; }
@@ -1004,3 +1007,11 @@
     .q-grid-excel .q-grid.q-grid-theme-material .q-grid-table tbody tr td.focused-row-header {
       background-color: #d2d2d2;
       border-right: 2px solid #227447; }
+
+.q-grid-embed {
+  margin: 16px 0; }
+  .q-grid-embed .q-grid.q-grid-theme-material .q-grid-view thead tr th {
+    color: rgba(0, 127, 163, 0.77);
+    background-color: rgba(0, 0, 0, 0.04); }
+    .q-grid-embed .q-grid.q-grid-theme-material .q-grid-view thead tr th .q-grid-sort.q-grid-active + label {
+      color: #007fa3; }
