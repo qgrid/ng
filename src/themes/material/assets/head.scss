@@ -7,8 +7,7 @@
 			th, td {
 				&.q-grid-select {
 					md-checkbox {
-						margin: 0;
-						margin-left: 2px; //TODO: investigate why we have offset in 2px
+						margin: 0 0 0 2px; //TODO: investigate why we have offset in 2px
 					}
 				}
 
