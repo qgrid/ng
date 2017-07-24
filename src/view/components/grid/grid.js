@@ -42,6 +42,10 @@ export class Grid extends RootComponent {
 			}
 		});
 
+		if (!this.gridId) {
+			this.$element[0].id = model.grid().id;
+		}
+
 		this.compile();
 		this.model.viewChanged.watch(e => {
 			if (e.hasChanges('columns')) {
