@@ -8,6 +8,7 @@ import {PipeUnit} from '@grid/core/pipe/units';
 import {noop, identity} from '@grid/core/utility';
 import {getFactory as valueFactory} from '@grid/core/services/value';
 import {getFactory as labelFactory} from '@grid/core/services/label';
+import {RowDetailsStatus} from '@grid/core/row-details';
 
 export default class Grid {
 	constructor($rootScope) {
@@ -52,8 +53,12 @@ export default class Grid {
 		return Action;
 	}
 
-	get Node(){
+	get Node() {
 		return Node;
+	}
+
+	get RowDetailsStatus() {
+		return RowDetailsStatus;
 	}
 
 	get valueFactory() {
