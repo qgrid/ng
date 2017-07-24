@@ -35,6 +35,7 @@ class Drag extends Directive(DRAG_NAME, {view: `^^?${VIEW_CORE_NAME}`}) {
 		this.element.classList.add(`${GRID_PREFIX}-drag`);
 		transfer.setData(DragService.mimeType, DragService.encode(source));
 		transfer.effectAllowed = this.effect || 'move';
+		transfer.setDragImage(this.element, 0, 0);
 		DragService.transfer = source;
 
 		if (this.view) {
