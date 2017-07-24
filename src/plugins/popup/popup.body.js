@@ -16,7 +16,12 @@ class PopupBody extends Component {
 		this.template = new TemplateLink($compile, $templateCache);
 		this.listener = new EventListener($element[0], new EventManager(this));
 		this.shortcutService = new Shortcut(new ShortcutManager());
-		this.listener.on('keydown', e => this.shortcutService.keyDown(e));
+		this.listener.on('keydown', e => {
+			if (this.shortcutService.keyDown(e)) {
+				e.preventDefault();
+				e.stopPropagation();
+			}
+		});
 	}
 
 	onInit() {
