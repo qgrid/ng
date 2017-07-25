@@ -72,7 +72,7 @@ tbody {
 				}
 			}
 
-			&.q-grid-selected,
+			&.q-grid-selected:not(.q-grid-focus),
 			&.q-grid-sorted {
 				background-color: $selected;
 			}
