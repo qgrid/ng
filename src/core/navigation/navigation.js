@@ -152,14 +152,13 @@ export class Navigation {
 			}),
 			goNext: new Command({
 				shortcut: shortcut.next,
-				execute: () => {
+				canExecute: () => {
 					const hasNextColumn = this.nextColumn >= 0;
 					const hasNextRow = this.nextRow >= 0;
-					if (!hasNextColumn && !hasNextRow) {
-						table.view.blur();
-						return;
-					}
-
+					return hasNextColumn || hasNextRow;
+				},
+				execute: () => {
+					const hasNextColumn = this.nextColumn >= 0;
 					if (!hasNextColumn) {
 						this.goTo(this.nextRow, this.firstColumn);
 						return;
@@ -170,14 +169,13 @@ export class Navigation {
 			}),
 			goPrevious: new Command({
 				shortcut: shortcut.previous,
-				execute: () => {
+				canExecute: () => {
 					const hasPrevColumn = this.prevColumn >= 0;
 					const hasPrevRow = this.prevRow >= 0;
-					if (!hasPrevColumn && !hasPrevRow) {
-						table.view.blur();
-						return;
-					}
-
+					return hasPrevColumn || hasPrevRow;
+				},
+				execute: () => {
+					const hasPrevColumn = this.prevColumn >= 0;
 					if (!hasPrevColumn) {
 						this.goTo(this.prevRow, this.lastColumn);
 						return;

@@ -6,6 +6,7 @@
 	<md-input-container>
 		<label>Pivot By</label>
 		<md-select ng-disabled="!$pivotBar.replace.canExecute()"
+					  tabindex="-1"
 					  ng-model="$pivotBar.selectedItems"
 					  ng-change="$pivotBar.replace.execute($pivotBar.selectedItems)"
 					  multiple>
