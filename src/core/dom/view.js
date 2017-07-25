@@ -24,7 +24,7 @@ export class View extends Unit {
 	}
 
 	focus() {
-		const elements = this.getElementsCore('table');
+		const elements = this.getElementsCore('body');
 		if (elements.length) {
 			elements[0].focus();
 			return true;
@@ -34,12 +34,12 @@ export class View extends Unit {
 	}
 
 	blur() {
-		this.getElementsCore('table')
+		this.getElementsCore('body')
 			.forEach(element => element.blur());
 	}
 
 	isFocused() {
-		return this.getElementsCore('table')
+		return this.getElementsCore('body')
 			.some(element => this.isFocusedCore(element));
 	}
 

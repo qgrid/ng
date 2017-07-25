@@ -1,6 +1,7 @@
 <div class="q-grid-export" layout="row" layout-align="end center">
 	<md-button ng-if="$export[$export.type].canExecute()"
-				  ng-click="$export[$export.type].execute()">
+				  ng-click="$export[$export.type].execute()"
+				  tabindex="-1">
 		<md-icon>file_download</md-icon>
 		Export to {{$export.type}}
 	</md-button>

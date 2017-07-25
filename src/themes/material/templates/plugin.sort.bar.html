@@ -8,7 +8,8 @@
 		<md-select ng-disabled="!$sortBar.replace.canExecute()"
 					  ng-model="$sortBar.selectedItems"
 					  ng-change="$sortBar.replace.execute($sortBar.selectedItems)"
-					  multiple>
+					  multiple
+					  tabindex="-1">
 			<md-option ng-value="column.key"
 						  ng-repeat="column in $sortBar.columns track by column.key"
 						  ng-bind="column.title"></md-option>

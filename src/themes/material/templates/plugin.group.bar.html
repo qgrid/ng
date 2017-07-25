@@ -6,6 +6,7 @@
 	<md-input-container>
 		<label>Group By</label>
 		<md-select ng-disabled="!$groupBar.replace.canExecute()"
+					  tabindex="-1"
 					  ng-model="$groupBar.selectedItems"
 					  ng-change="$groupBar.replace.execute($groupBar.selectedItems)"
 					  multiple>

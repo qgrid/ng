@@ -1,4 +1,4 @@
-<table q-grid:markup="table" tabindex="0">
+<table q-grid:markup="table">
 	<thead ng-if="$view.visibility.head"
 			 ng-include="$view.templateUrl('head')"
 			 q-grid-core:head
@@ -11,7 +11,8 @@
 			 q-grid:markup="body"
 			 q-grid:animate="false"
 			 vscroll
-			 vscroll-port-y="$view.scroll.y">
+			 vscroll-port-y="$view.scroll.y"
+			 tabindex="0">
 	</tbody>
 	<tfoot ng-if="$view.visibility.foot"
 			 ng-include="$view.templateUrl('foot')"

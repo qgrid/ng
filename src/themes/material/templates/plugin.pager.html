@@ -8,6 +8,7 @@
 	<div ng-switch-default>
 		<label class="q-grid-page-size">Rows per page:</label>
 		<md-select aria-label="Page Size List"
+					  tabindex="-1"
 					  class="q-grid-page-size"
 					  ng-model="$pager.size">
 			<md-option ng-repeat="size in $pager.sizeList" ng-value="size">{{size}}</md-option>
@@ -18,12 +19,14 @@
 		</label>
 		<md-button class="md-icon-button q-grid-prev-page"
 					  ng-disabled="!$pager.prev.canExecute()"
-					  ng-click="$pager.prev.execute();">
+					  ng-click="$pager.prev.execute();"
+					  tabindex="-1">
 			<md-icon>keyboard_arrow_left</md-icon>
 		</md-button>
 		<md-button class="md-icon-button q-grid-next-page"
 					  ng-disabled="!$pager.next.canExecute()"
-					  ng-click="$pager.next.execute();">
+					  ng-click="$pager.next.execute();"
+					  tabindex="-1">
 			<md-icon>keyboard_arrow_right</md-icon>
 		</md-button>
 	</div>
