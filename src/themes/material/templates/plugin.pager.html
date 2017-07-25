@@ -18,12 +18,14 @@
 		</label>
 		<md-button class="md-icon-button q-grid-prev-page"
 					  ng-disabled="!$pager.prev.canExecute()"
-					  ng-click="$pager.prev.execute();">
+					  ng-click="$pager.prev.execute();"
+					  tabindex="-1">
 			<md-icon>keyboard_arrow_left</md-icon>
 		</md-button>
 		<md-button class="md-icon-button q-grid-next-page"
 					  ng-disabled="!$pager.next.canExecute()"
-					  ng-click="$pager.next.execute();">
+					  ng-click="$pager.next.execute();"
+					  tabindex="-1">
 			<md-icon>keyboard_arrow_right</md-icon>
 		</md-button>
 	</div>

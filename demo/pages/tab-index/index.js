@@ -4,7 +4,7 @@ export default function Controller($http) {
 
 	this.rows = [];
 
-	$http.get('data/people/100.json')
+	$http.get('data/people/10.json')
 		.then(function (response) {
 			ctrl.rows = response.data;
 		});
