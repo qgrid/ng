@@ -9,6 +9,22 @@ class FinallyPromise extends Promise {
 		});
 	}
 
+	static sequence(tasks) {
+		return new FinallyPromise((resolve, reject) => {
+			if (tasks.length) {
+				console.log(`Tasks length is ${tasks.length}`);
+				const task = tasks[0];
+				task()
+					.then(() => FinallyPromise.sequence(tasks.slice(1)))
+					.then(() => resolve())
+					.catch(e => reject(e));
+			} else {
+				console.log(`Tasks queue is finished ${tasks.length}`);
+				resolve();
+			}
+		});
+	}
+
 	finally(fn) {
 		return this
 			.then(fn)

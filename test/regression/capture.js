@@ -1,3 +1,4 @@
+const fs = require('fs');
 const captureElement = require('../utils/capture').captureElement;
 const FinallyPromise = require('../utils/promise');
 
@@ -17,7 +18,9 @@ class Screen {
 		this.before(this.browser, this.webdriver);
 
 		return FinallyPromise
-			.all(tasks.map(task => this.screenshot(this.transform(task))))
+			.sequence(tasks
+				.filter(task => fs.existsSync(`demo/pages/${task.path}`))
+				.map(task => () => this.screenshot(this.transform(task))))
 			.finally(() => this.after(this.browser, this.webdriver));
 	}
 
@@ -28,10 +31,11 @@ class Screen {
 			this.browser.manage()
 				.window()
 				.maximize()
-				.then(() => { console.log('maximized'); return this.browser.findElement(task.element(this.browser)); })
+				.then(() => this.browser.sleep(2000))
+				.then(() => this.browser.findElement(task.element(this.browser)))
 				.then(element => captureElement(this.browser, element, task.output(this.browser)))
-				.then(() => resolve())
-				.catch(e => reject(e)));
+				.then(() => { console.log('resolved'); resolve();})
+				.catch(e => { console.log('rejected', task.url); reject(e) }));
 	}
 }
 
@@ -42,11 +46,12 @@ function transformTask(webDriver) {
 		return {
 			url: task.url,
 			element: isFunction(task.element) ? task.element : () => {
-				return webDriver.By.css(task.element);
-			},
+					console.log(`element selector ${task.element}`);
+					return webDriver.By.css(task.element);
+				},
 			output: isFunction(task.output) ? task.output : () => {
-				return task.output;
-			},
+					return task.output;
+				},
 			before: task.before || (() => null),
 			after: task.after || (() => null),
 		}
