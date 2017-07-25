@@ -48,6 +48,7 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.body.cell.dropdown.edit.tpl.html', require('@grid/themes/material/templates/body.cell.dropdown.edit.html'));
 		theme.put('qgrid.body.cell.autocomplete.edit.tpl.html', require('@grid/themes/material/templates/body.cell.autocomplete.edit.html'));
 		theme.put('qgrid.body.cell.id.edit.tpl.html', require('@grid/themes/material/templates/body.cell.text.edit.html'));
+		theme.put('qgrid.body.cell.row-expand.tpl.html', require('@grid/themes/material/templates/body.cell.row.expand.html'));
 
 		theme.put('qgrid.head.cell.text.tpl.html', require('@grid/themes/material/templates/head.cell.text.html'));
 		theme.put('qgrid.head.cell.bool.tpl.html', require('@grid/themes/material/templates/head.cell.text.html'));

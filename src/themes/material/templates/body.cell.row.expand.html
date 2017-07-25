@@ -1,8 +1,7 @@
-<div>
-	<button ng-mouseup="$view.rowDetails.toggleStatus.execute($cell.row)"
-			  ng-if="$view.rowDetails.toggleStatus.canExecute($cell.row)"
-			  tabindex="-1">
-		<span ng-bind="$view.rowDetails.status($cell.row) === 'expand' ? '-' : '+'"></span>
-	</button>
-	<div ng-if="!$view.rowDetails.toggleStatus.canExecute($cell.row)" q-grid-core:details></div>
-</div>
+<button ng-mouseup="$view.rowDetails.toggleStatus.execute($cell.row)"
+		  ng-if="$view.rowDetails.toggleStatus.canExecute($cell.row)"
+		  tabindex="-1"
+		  ng-switch="$view.rowDetails.status($cell.row)">
+	<md-icon ng-switch-when="expand">arrow_drop_up</md-icon>
+	<md-icon ng-switch-when="collapse">arrow_drop_down</md-icon>
+</button>
