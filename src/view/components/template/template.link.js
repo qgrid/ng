@@ -1,4 +1,5 @@
 import {AppError} from '@grid/core/infrastructure';
+import {isArray} from '@grid/core/utility';
 
 export default class TemplateLink {
 	constructor($compile, $templateCache) {
@@ -12,7 +13,11 @@ export default class TemplateLink {
 		const resourceKey = this.findResourceKey(resourceData, keys);
 		const template = resourceKey !== null
 			? resourceData[resourceKey]
-			: this.$templateCache.get(templateUrl);
+			: isArray(templateUrl)
+				? templateUrl
+					.map(url => this.$templateCache.get(url))
+					.filter(tpl => !!tpl)[0]
+				: this.$templateCache.get(templateUrl);
 
 		return (element, scope, container = element) => {
 			if (resourceScope.hasOwnProperty(resourceKey)) {

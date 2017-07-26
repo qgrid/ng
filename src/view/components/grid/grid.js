@@ -5,6 +5,7 @@ import {AppError} from '@grid/core/infrastructure';
 import {TableCommandManager} from '@grid/core/command';
 import {isUndefined} from '@grid/core/utility';
 import TemplateLink from '../template/template.link';
+import {EventListener, EventManager} from '@grid/core/infrastructure';
 
 export class Grid extends RootComponent {
 	constructor($rootScope, $scope, $element, $transclude, $document, $timeout, $templateCache, $compile) {
@@ -22,6 +23,7 @@ export class Grid extends RootComponent {
 		};
 
 		this.bag = new Map();
+		this.listener = new EventListener($element[0], new EventManager(this, this.applyFactory(null, 'sync')));
 	}
 
 	onInit() {
@@ -35,7 +37,7 @@ export class Grid extends RootComponent {
 
 		this.table = new Table(model, this.markup, tableContext);
 		this.commandManager = new TableCommandManager(this.applyFactory(), this.table);
-		this.keyDownOff = this.table.view.keyDown(e => {
+		this.listener.on('keydown', e => {
 			if (model.action().shortcut.keyDown(e)) {
 				e.preventDefault();
 				e.stopPropagation();
@@ -125,9 +127,7 @@ export class Grid extends RootComponent {
 	}
 
 	onDestroy() {
-		if (this.keyDownOff) {
-			this.keyDownOff();
-		}
+		this.listener.off();
 	}
 }
 
