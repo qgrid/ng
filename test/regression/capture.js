@@ -1,65 +1,28 @@
 const fs = require('fs');
-const captureElement = require('../utils/capture').captureElement;
-const FinallyPromise = require('../utils/promise');
+const webdriver = require('selenium-webdriver');
+const Screen = require('./screen');
+const pages = require('../../demo/pages/pages.json');
 
-class Screen {
-	constructor(browser, driver, hooks = {}) {
-		this.before = isFunction(hooks.before) ? hooks.before : () => null;
-		this.after = isFunction(hooks.after) ? hooks.after : () => null;
+const browserFactory = require('./driver.factory');
+const browser = browserFactory('chrome');
 
-		this.beforeEach = isFunction(hooks.beforeEach) ? hooks.beforeEach : () => null;
-		this.afterEach = isFunction(hooks.afterEach) ? hooks.afterEach : () => null;
-
-		this.browser = browser;
-		this.webDriver = driver;
-		this.transform = transformTask(driver);
-	}
-
-	capture(tasks) {
-		this.before(this.browser, this.webDriver);
-
-		return FinallyPromise
-			.sequence(tasks
+const tasks = pages
+	.map(page => page.items)
+	.reduce((memo, items) =>
+			memo.concat(items
 				.filter(task => fs.existsSync(`demo/pages/${task.path}`))
-				.map(task => () => this.screenshot(this.transform(task))))
-			.finally(() => this.after(this.browser, this.webDriver));
-	}
+				.map(item => ({
+					path: item.path,
+					url: `https://qgrid.github.io/ng/#!/${item.path}`,
+					element: 'page-details',
+					output: `${item.path}.png`
+				}))),
+		[]);
 
-	screenshot(task) {
-		this.browser.get(task.url);
-
-		return new FinallyPromise((resolve, reject) =>
-			this.browser.manage()
-				.window()
-				.maximize()
-				.then(() => this.beforeEach(this.browser, this.webDriver))
-				.then(() => this.browser.findElement(task.element(this.browser)))
-				.then(element => captureElement(this.browser, element, task.output(this.browser)))
-				.then(() => this.afterEach(this.browser, this.webDriver))
-				.then(() => { console.log('resolved'); resolve();})
-				.catch(e => { console.log('rejected', task.url); reject(e) }));
-	}
-}
-
-module.exports = Screen;
-
-function transformTask(webDriver) {
-	return function (task) {
-		return {
-			url: task.url,
-			element: isFunction(task.element) ? task.element : () => {
-					console.log(`element selector ${task.element}`);
-					return webDriver.By.css(task.element);
-				},
-			output: isFunction(task.output) ? task.output : () => {
-					return task.output;
-				},
-			before: task.before || (() => null),
-			after: task.after || (() => null),
-		}
-	};
-}
-
-function isFunction(obj) {
-	return typeof obj == 'function';
-}
+new Screen(
+	browser,
+	webdriver, {
+		beforeEach: browser => browser.sleep(5000)
+	})
+	.capture(tasks)
+	.finally(e => browser.quit());
