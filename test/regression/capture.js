@@ -11,17 +11,18 @@ class Screen {
 		this.afterEach = isFunction(hooks.afterEach) ? hooks.afterEach : () => null;
 
 		this.browser = browser;
+		this.webDriver = driver;
 		this.transform = transformTask(driver);
 	}
 
 	capture(tasks) {
-		this.before(this.browser, this.webdriver);
+		this.before(this.browser, this.webDriver);
 
 		return FinallyPromise
 			.sequence(tasks
 				.filter(task => fs.existsSync(`demo/pages/${task.path}`))
 				.map(task => () => this.screenshot(this.transform(task))))
-			.finally(() => this.after(this.browser, this.webdriver));
+			.finally(() => this.after(this.browser, this.webDriver));
 	}
 
 	screenshot(task) {
@@ -31,9 +32,10 @@ class Screen {
 			this.browser.manage()
 				.window()
 				.maximize()
-				.then(() => this.browser.sleep(2000))
+				.then(() => this.beforeEach(this.browser, this.webDriver))
 				.then(() => this.browser.findElement(task.element(this.browser)))
 				.then(element => captureElement(this.browser, element, task.output(this.browser)))
+				.then(() => this.afterEach(this.browser, this.webDriver))
 				.then(() => { console.log('resolved'); resolve();})
 				.catch(e => { console.log('rejected', task.url); reject(e) }));
 	}
