@@ -30,7 +30,13 @@ export class Navigation {
 	}
 
 	goTo(row, column, source = 'navigation') {
-		const cell = this.cell(row, column);
+		let cell = this.cell(row, column);
+		if (!cell) {
+			// TODO: make it better, right it just a huck for row-details,
+			// need to support rowspan and colspan
+			cell = this.cell(row, this.firstColumn);
+		}
+
 		this.model.navigation({cell: cell}, {source: source});
 	}
 

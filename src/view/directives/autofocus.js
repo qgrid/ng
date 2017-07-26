@@ -13,11 +13,16 @@ class Autofocus extends Directive(AUTOFOCUS_NAME, {root: `${GRID_NAME}`}) {
 
 	onInit() {
 		const markupOff = this.$scope.$watch(
-			() => Object.keys(this.markup).find(p => p.startsWith('table')),
+			() => Object.keys(this.markup).find(p => p.startsWith('body')),
 			key => {
 				if (key) {
-					this.$timeout(() => this.markup[key].focus(), this.delay);
-					markupOff();
+					const element = this.markup[key];
+					if (element) {
+						this.$timeout(() => {
+							element.focus();
+						}, this.delay);
+						markupOff();
+					}
 				}
 			});
 
@@ -36,7 +41,7 @@ class Autofocus extends Directive(AUTOFOCUS_NAME, {root: `${GRID_NAME}`}) {
 			});
 	}
 
-	get markup(){
+	get markup() {
 		return this.root.markup;
 	}
 

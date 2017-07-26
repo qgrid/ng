@@ -45,6 +45,12 @@ export class NavigationView extends View {
 
 		model.navigationChanged.watch(e => {
 			if (e.hasChanges('cell')) {
+				// We need this one to toggle focus from details to main grid
+				// or when user change navigation cell through the model
+				if (this.table.view.isFocused()) {
+					this.table.view.focus();
+				}
+
 				const navState = e.state;
 				const newTarget = e.changes.cell.newValue;
 				const oldTarget = e.changes.cell.oldValue;
@@ -91,36 +97,36 @@ export class NavigationView extends View {
 
 	scroll(view, target) {
 		const tr = target.rect();
-		const cr = view.rect();
+		const vr = view.rect();
 		const scrollState = this.model.scroll();
 
 		if (view.canScrollTo(target, 'left')) {
-			if (cr.left > tr.left
-				|| cr.left > tr.right
-				|| cr.right < tr.left
-				|| cr.right < tr.right) {
+			if (vr.left > tr.left
+				|| vr.left > tr.right
+				|| vr.right < tr.left
+				|| vr.right < tr.right) {
 
-				if (cr.left < tr.left || cr.right < tr.right) {
-					view.scrollLeft(tr.right - cr.right + scrollState.left);
+				if (vr.width < tr.width || vr.left > tr.left || vr.left > tr.right) {
+					view.scrollLeft(tr.left - vr.left + scrollState.left);
 				}
-				else if (cr.left > tr.left || cr.left > tr.right) {
-					view.scrollLeft(tr.left - cr.left + scrollState.left);
+				else if (vr.left < tr.left || vr.right < tr.right) {
+					view.scrollLeft(tr.right - vr.right + scrollState.left);
 				}
 
 			}
 		}
 
 		if (view.canScrollTo(target, 'top')) {
-			if (cr.top > tr.top
-				|| cr.top > tr.bottom
-				|| cr.bottom < tr.top
-				|| cr.bottom < tr.bottom) {
+			if (vr.top > tr.top
+				|| vr.top > tr.bottom
+				|| vr.bottom < tr.top
+				|| vr.bottom < tr.bottom) {
 
-				if (cr.top < tr.top || cr.bottom < tr.bottom) {
-					view.scrollTop(tr.bottom - cr.bottom + scrollState.top);
+				if (vr.height < tr.height || vr.top > tr.top || vr.top > tr.bottom) {
+					view.scrollTop(tr.top - vr.top + scrollState.top);
 				}
-				else if (cr.top > tr.top || cr.top > tr.bottom) {
-					view.scrollTop(tr.top - cr.top + scrollState.top);
+				else if (vr.top < tr.top || vr.bottom < tr.bottom) {
+					view.scrollTop(tr.bottom - vr.bottom + scrollState.top);
 				}
 
 			}
