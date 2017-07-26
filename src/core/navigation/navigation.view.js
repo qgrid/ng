@@ -17,8 +17,7 @@ export class NavigationView extends View {
 		this.blur = new Command({
 			execute: (row, column) => table.body.cell(row, column).removeClass(`${GRID_PREFIX}-focus`),
 			canExecute: (row, column, cell) => {
-				return (cell && table.data.columns().indexOf(cell.column) >= 0)
-					|| (!cell && table.body.cell(row, column).model !== null);
+				return cell || table.body.cell(row, column).model !== null;
 			}
 		});
 
@@ -26,9 +25,7 @@ export class NavigationView extends View {
 			execute: (row, column) => table.body.cell(row, column).addClass(`${GRID_PREFIX}-focus`),
 			canExecute: (row, column, cell) => {
 				cell = cell || table.body.cell(row, column).model;
-				return cell
-					&& cell.column.canFocus
-					&& table.data.columns().indexOf(cell.column) >= 0;
+				return cell && cell.column.canFocus;
 			}
 		});
 
@@ -37,7 +34,6 @@ export class NavigationView extends View {
 			canExecute: cell => {
 				return cell
 					&& cell.column.canFocus
-					&& table.data.columns().indexOf(cell.column) >= 0
 					&& !Cell.equals(cell, model.navigation().cell);
 			}
 		});

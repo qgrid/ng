@@ -5,6 +5,18 @@
 	</md-input-container>
 	<q-grid rows="$ctrl.rows">
 		<q-grid:columns generation="deep"></q-grid:columns>
+		<q-grid:row unit="details" mode="multiple">
+			<q-grid:template for="details" let="$ctrl">
+				<md-input-container>
+					<label>Embed input 1</label>
+					<input q-grid:focus/>
+				</md-input-container>
+				<md-input-container>
+					<label>Embed input 2</label>
+					<input/>
+				</md-input-container>
+			</q-grid:template>
+		</q-grid:row>
 	</q-grid>
 	<md-input-container style="position: absolute; top: 0; left: 320px;">
 		<label>Any From Field END</label>
