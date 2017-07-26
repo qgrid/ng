@@ -1,5 +1,4 @@
 import {Unit} from './unit';
-import {EventListener, EventManager} from '../infrastructure';
 import * as css from '../services/css';
 
 function isParentOf(parent, element) {
@@ -41,10 +40,6 @@ export class View extends Unit {
 	isFocused() {
 		return this.getElementsCore('body')
 			.some(element => this.isFocusedCore(element));
-	}
-
-	keyDown(f) {
-		return new EventListener(this.markup.document, new EventManager(this)).on('keydown', f);
 	}
 
 	addLayer(name) {
