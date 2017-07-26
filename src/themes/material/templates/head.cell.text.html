@@ -1,6 +1,7 @@
 <div ng-click="$view.sort.toggle.execute($cell.column)"
 	  ng-mouseover="$view.sort.hover = true"
-	  ng-mouseleave="$view.sort.hover = false">
+	  ng-mouseleave="$view.sort.hover = false"
+	  tabindex="-1">
 	<div class="q-grid-sort"
 		  ng-class="{'q-grid-active': $view.sort.order($cell.column) >= 0}"
 		  ng-if="$cell.column.canSort"

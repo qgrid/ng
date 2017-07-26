@@ -1,5 +1,4 @@
 import {Unit} from './unit';
-import {EventListener, EventManager} from '../infrastructure';
 import * as css from '../services/css';
 
 function isParentOf(parent, element) {
@@ -24,7 +23,7 @@ export class View extends Unit {
 	}
 
 	focus() {
-		const elements = this.getElementsCore('table');
+		const elements = this.getElementsCore('body');
 		if (elements.length) {
 			elements[0].focus();
 			return true;
@@ -34,17 +33,13 @@ export class View extends Unit {
 	}
 
 	blur() {
-		this.getElementsCore('table')
+		this.getElementsCore('body')
 			.forEach(element => element.blur());
 	}
 
 	isFocused() {
-		return this.getElementsCore('table')
+		return this.getElementsCore('body')
 			.some(element => this.isFocusedCore(element));
-	}
-
-	keyDown(f) {
-		return new EventListener(this.markup.document, new EventManager(this)).on('keydown', f);
 	}
 
 	addLayer(name) {

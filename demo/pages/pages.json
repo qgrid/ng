@@ -368,6 +368,10 @@
 				"path": "keyboard-navigation"
 			},
 			{
+				"title": "Tab Index",
+				"path": "tab-index"
+			},
+			{
 				"title": "Dialog",
 				"path": "dialog"
 			}
