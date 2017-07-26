@@ -16,7 +16,7 @@ function buildView(source, mode, column) {
 			const type = column.type;
 			return {
 				key: getKey(column),
-				url: `qgrid.${source}.cell.${type}.tpl.html`,
+				url: [`qgrid.${source}.cell.${type}.tpl.html`, `qgrid.${source}.cell.text.tpl.html`],
 				defaults: [column.key, `$default.${type}`, '$default']
 			};
 		}
