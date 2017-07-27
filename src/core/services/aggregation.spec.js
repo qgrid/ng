@@ -72,7 +72,7 @@ describe('Aggregation', () => {
 			expect(Aggregation.avg(testArray, getValue, optionsWithDistinctProperty)).to.be.equal(3);
 		});
 		it('should return average number of rows, if options has not distinct prop', () => {
-			expect(Math.round(Aggregation.avg(testArray, getValue, optionsWithoutDistinctProperty))).to.be.equal(3);
+			expect(Number(Aggregation.avg(testArray, getValue, optionsWithoutDistinctProperty).toFixed(3))).to.be.equal(2.857);
 		});
 	});
 
