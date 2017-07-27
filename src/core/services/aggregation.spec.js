@@ -3,9 +3,9 @@ import {Aggregation} from './aggregation';
 describe('Aggregation', () => {
 	const getValue = value => value;
 	const testArray = [2, 1, 2, 3, 3, 5, 4]; // sum - 20, uniqsum - 15
-	const optionsWithoutDistinct = {separator: '|'};
-	const optionsWithDistinct = {distinct: true, separator: '|'};
-	const container = new Set;
+	const optionsWithoutDistinctProperty = {separator: '|'};
+	const optionsWithDistinctProperty = {distinct: true, separator: '|'};
+	const ContainerOfSet = new Set();
 
 	describe('first', () => {
 		it('should return null, if rows are empty', () => {
@@ -57,10 +57,10 @@ describe('Aggregation', () => {
 			expect(Aggregation.sum([], getValue)).to.be.equal(null);
 		});
 		it('should return sum of uniq rows, if options has distinct prop', () => {
-			expect(Aggregation.sum(testArray, getValue, optionsWithDistinct, container)).to.be.equal(15);
+			expect(Aggregation.sum(testArray, getValue, optionsWithDistinctProperty, ContainerOfSet)).to.be.equal(15);
 		});
 		it('should return sum of rows, if options has not distinct prop', () => {
-			expect(Aggregation.sum(testArray, getValue, optionsWithoutDistinct, container)).to.be.equal(20);
+			expect(Aggregation.sum(testArray, getValue, optionsWithoutDistinctProperty, ContainerOfSet)).to.be.equal(20);
 		});
 	});
 
@@ -68,11 +68,11 @@ describe('Aggregation', () => {
 		it('should return null, if rows are empty', () => {
 			expect(Aggregation.avg([], getValue)).to.be.equal(null);
 		});
-		it('should return average uniq row, if options has distinct prop', () => {
-			expect(Aggregation.avg(testArray, getValue, optionsWithDistinct)).to.be.equal(3);
+		it('should return average number of uniq rows, if options has distinct prop', () => {
+			expect(Aggregation.avg(testArray, getValue, optionsWithDistinctProperty)).to.be.equal(3);
 		});
-		it('should return average row, if options has not distinct prop', () => {
-			expect(Math.round(Aggregation.avg(testArray, getValue, optionsWithoutDistinct))).to.be.equal(3);
+		it('should return average number of rows, if options has not distinct prop', () => {
+			expect(Aggregation.avg(testArray, getValue, optionsWithoutDistinctProperty)).to.be.equal(2.857142857142857);
 		});
 	});
 
@@ -81,10 +81,10 @@ describe('Aggregation', () => {
 			expect(Aggregation.join([], getValue)).to.be.equal(null);
 		});
 		it('should return concat of uniq rows, if options has distinct prop', () => {
-			expect(Aggregation.join(testArray, getValue, optionsWithDistinct)).to.be.equal('2|1|3|5|4');
+			expect(Aggregation.join(testArray, getValue, optionsWithDistinctProperty)).to.be.equal('2|1|3|5|4');
 		});
 		it('should return concat of rows, if options has not distinct prop', () => {
-			expect(Aggregation.join(testArray, getValue, optionsWithoutDistinct)).to.be.equal('2|1|2|3|3|5|4');
+			expect(Aggregation.join(testArray, getValue, optionsWithoutDistinctProperty)).to.be.equal('2|1|2|3|3|5|4');
 		});
 	});
 
@@ -93,10 +93,10 @@ describe('Aggregation', () => {
 			expect(Aggregation.count([], getValue)).to.be.equal(null);
 		});
 		it('should return count of uniq rows, if options has distinct prop', () => {
-			expect(Aggregation.count(testArray, getValue, optionsWithDistinct)).to.be.equal(5);
+			expect(Aggregation.count(testArray, getValue, optionsWithDistinctProperty)).to.be.equal(5);
 		});
 		it('should return count of rows, if options has not distinct prop', () => {
-			expect(Aggregation.count(testArray, getValue, optionsWithoutDistinct)).to.be.equal(7);
+			expect(Aggregation.count(testArray, getValue, optionsWithoutDistinctProperty)).to.be.equal(7);
 		});
 	});
 });
