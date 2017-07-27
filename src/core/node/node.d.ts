@@ -3,8 +3,10 @@ export interface IState {
 }
 
 export declare class Node {
-	constructor(public key: string, public level: number, public type: string);
-
+	constructor(key: string, level: number, type: string);
+	key: string;
+	level: number;
+	type: string;
 	rows: any[];
 	children: any[];
 	state: IState;

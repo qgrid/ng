@@ -1,1 +1,3 @@
-export declare const defaultPipeUnit: object[];
+import {IDefaultPipe} from '@grid/core/data/data.model';
+
+export declare const defaultPipeUnit: IDefaultPipe;

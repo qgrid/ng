@@ -1,5 +1,4 @@
-export class GridModel {
+export declare class GridModel {
 	constructor();
-
 	id: string;
 }

@@ -1,10 +1,7 @@
 import {View} from '../view/view';
-import {Model} from "../infrastructure/model";
 
 export declare class PaginationView extends View {
-	constructor(model: Model);
-
+	constructor();
 	readonly current: number;
-
 	readonly size: number;
 }

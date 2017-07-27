@@ -1,11 +1,10 @@
 import {Resource} from '../resource/resource';
-import {SingleOrMulipleMode} from "../row/row.model";
+import {ModeType} from '../selection/selection.model';
 
 export declare class SortModel {
 	constructor();
-
 	resource: Resource;
 	by: any[];
-	mode: SingleOrMulipleMode;
+	mode: ModeType;
 	trigger: string[];
 }
