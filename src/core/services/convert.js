@@ -81,11 +81,11 @@ function parseText(value) {
 }
 
 function parseDate(value) {
-	if (value === null || value === false || value === true) { // fix1
+	if (value === null || value === false || value === true) {
 		return null;
 	}
 
-	if(typeof value === 'number'){ //fix2
+	if(typeof value === 'number') {
 		value = value.toString();
 	}
 
