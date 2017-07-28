@@ -14,10 +14,10 @@ describe('Convert', () => {
 		it('should parse Number to String', () => {
 			expect(parseCurrency(123)).to.equal('123');
 		});
-		it('should return parseNumber func if argument is "number"', () => {
+		it('should parse String of number to Number', () => {
 			expect(parseNumber('123')).to.equal(123);
 		});
-		it('should return parseDate func if argument is "date"', () => {
+		it('should parse String of date to Date', () => {
 			expect(+(parseDate('2017.05.05'))).to.be.equal(+(new Date('2017.05.05')));
 		});
 		it('should return true if argument is "true"', () => {
