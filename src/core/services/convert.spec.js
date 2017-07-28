@@ -53,6 +53,9 @@ describe('Convert', () => {
 		it('should parse String of date to Date', () => {
 			expect(+(parseDate('2017.05.05'))).to.be.equal(+(new Date('2017.05.05')));
 		});
+		it('should parse String of date to Date', () => {
+			expect(parseDate('2017.05.05.09.90.80')).to.be.equal(null);
+		});
 		it('should return null if argument is null', () => {
 			expect(parseDate(null)).to.equal(null);
 		});
