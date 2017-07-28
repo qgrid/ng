@@ -124,7 +124,7 @@ describe('Convert', () => {
 		it('should return null if argument is null', () => {
 			expect(parseBool(null)).to.equal(null);
 		});
-		it('should return null if argument is null', () => {
+		it('should return null if argument is undefined', () => {
 			expect(parseBool(undefined)).to.equal(null);
 		});
 		it('should return null if argument is Number', () => {
