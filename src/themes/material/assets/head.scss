@@ -9,6 +9,8 @@
 					md-checkbox {
 						margin: 0 0 0 2px; //TODO: investigate why we have offset in 2px
 					}
+
+					text-overflow: clip;
 				}
 
 				&.q-grid-filter-row {
