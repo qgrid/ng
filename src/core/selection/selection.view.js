@@ -327,6 +327,14 @@ export class SelectionView extends View {
 		return this.model.selection();
 	}
 
+	get mode() {
+		return this.selection.mode;
+	}
+
+	get items() {
+		return this.selection.items;
+	}
+
 	get rows() {
 		return this.table.data.rows();
 	}
