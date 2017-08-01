@@ -5955,6 +5955,7 @@ module.exports = g;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__column_model_view__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data_column_model__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__template__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utility__ = __webpack_require__(0);
 /* unused harmony export ArrayColumnModel */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ArrayColumn; });
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -5964,6 +5965,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -5989,7 +5991,10 @@ var ArrayColumnModel = function (_DataColumnModel) {
 	function ArrayColumnModel() {
 		_classCallCheck(this, ArrayColumnModel);
 
-		return _possibleConstructorReturn(this, (ArrayColumnModel.__proto__ || Object.getPrototypeOf(ArrayColumnModel)).call(this, 'array'));
+		var _this = _possibleConstructorReturn(this, (ArrayColumnModel.__proto__ || Object.getPrototypeOf(ArrayColumnModel)).call(this, 'array'));
+
+		_this.label = __WEBPACK_IMPORTED_MODULE_3__utility__["d" /* identity */];
+		return _this;
 	}
 
 	return ArrayColumnModel;
@@ -8582,14 +8587,16 @@ var Model = function () {
 				var model = new models[name]();
 				var changeSet = new Set();
 				var watchArg = function watchArg() {
+					var changes = Array.from(changeSet.values()).reduce(function (memo, key) {
+						var value = model[key];
+						memo[key] = { newValue: value, oldValue: value };
+						return memo;
+					}, {});
+
 					return {
 						state: model,
-						hasChanges: changeSet.has.bind(changeSet),
-						changes: Array.from(changeSet.values()).reduce(function (memo, key) {
-							var value = model[key];
-							memo[key] = { newValue: value, oldValue: value };
-							return memo;
-						}, {}),
+						hasChanges: changes.hasOwnProperty.bind(changes),
+						changes: changes,
 						tag: {},
 						source: 'watch'
 					};
@@ -9723,9 +9730,13 @@ var SelectionView = function (_View) {
 			}
 
 			if (e.hasChanges('items') && e.tag.source !== 'selection.view') {
-				var entries = _this.selectionService.lookup(e.state.items);
 				// Don't use commit it came outside already
-				_this.select(entries, true);
+
+				var oldEntries = _this.selectionService.lookup(e.changes.items.oldValue);
+				_this.select(oldEntries, false);
+
+				var newEntries = _this.selectionService.lookup(e.state.items);
+				_this.select(newEntries, true);
 			}
 		});
 		return _this;
@@ -10241,7 +10252,7 @@ var Aggregation = function () {
 				return Aggregation.sum(rows, getValue, options, uniqueSet) / uniqueSet.size;
 			}
 
-			return Aggregation.sum(rows, getValue) / rows.length;
+			return Aggregation.sum(rows, getValue, options) / rows.length;
 		}
 	}, {
 		key: 'sum',
@@ -10430,8 +10441,12 @@ function parseText(value) {
 }
 
 function parseDate(value) {
-	if (value === null) {
+	if (value === null || value === false || value === true) {
 		return null;
+	}
+
+	if (typeof value === 'number') {
+		value = value.toString();
 	}
 
 	var date = new Date(value);
