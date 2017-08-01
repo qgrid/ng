@@ -1655,7 +1655,7 @@ var TemplateLink = function () {
 			var template = resourceKey !== null ? resourceData[resourceKey] : __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__grid_core_utility__["b" /* isArray */])(templateUrl) ? templateUrl.map(function (url) {
 				return _this.$templateCache.get(url);
 			}).filter(function (tpl) {
-				return !!tpl;
+				return !__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__grid_core_utility__["e" /* isUndefined */])(tpl);
 			})[0] : this.$templateCache.get(templateUrl);
 
 			return function (element, scope) {
@@ -10032,6 +10032,16 @@ var SelectionView = function (_View) {
 		key: 'selection',
 		get: function get() {
 			return this.model.selection();
+		}
+	}, {
+		key: 'mode',
+		get: function get() {
+			return this.selection.mode;
+		}
+	}, {
+		key: 'items',
+		get: function get() {
+			return this.selection.items;
 		}
 	}, {
 		key: 'rows',

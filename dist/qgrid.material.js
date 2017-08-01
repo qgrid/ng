@@ -8669,6 +8669,16 @@ var SelectionView = function (_View) {
 			return this.model.selection();
 		}
 	}, {
+		key: 'mode',
+		get: function get() {
+			return this.selection.mode;
+		}
+	}, {
+		key: 'items',
+		get: function get() {
+			return this.selection.items;
+		}
+	}, {
 		key: 'rows',
 		get: function get() {
 			return this.table.data.rows();
@@ -15239,7 +15249,7 @@ module.exports = "<div>\n\t<md-tooltip md-delay=\"1000\">\n\t{{$cell.column.titl
 /* 437 */
 /***/ (function(module, exports) {
 
-module.exports = "<md-checkbox md-indeterminate=\"$view.selection.isIndeterminate()\"\n\t\t\t\t ng-checked=\"$view.selection.state()\"\n\t\t\t\t ng-click=\"$view.selection.toggleRow.execute()\"\n\t\t\t\t ng-disabled=\"!$view.selection.toggleRow.canExecute()\"\n\t\t\t\t tabindex=\"-1\"\n\t\t\t\t aria-label=\"Selection\">\n</md-checkbox>"
+module.exports = "<div ng-switch=\"$view.selection.mode\">\n\t<div ng-switch-when=\"single\" ng-switch=\"!!$view.selection.items.length\">\n\t\t<md-icon ng-switch-when=\"true\">check</md-icon>\n\t\t<md-icon ng-switch-default>remove</md-icon>\n\t</div>\n\t<div ng-switch-default>\n\t\t<md-checkbox md-indeterminate=\"$view.selection.isIndeterminate()\"\n\t\t\t\t\t\t ng-checked=\"$view.selection.state()\"\n\t\t\t\t\t\t ng-click=\"$view.selection.toggleRow.execute()\"\n\t\t\t\t\t\t ng-disabled=\"!$view.selection.toggleRow.canExecute()\"\n\t\t\t\t\t\t tabindex=\"-1\"\n\t\t\t\t\t\t aria-label=\"Selection\">\n\t\t</md-checkbox>\n\t</div>\n</div>\n"
 
 /***/ }),
 /* 438 */

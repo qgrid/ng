@@ -8,8 +8,10 @@
     font-size: 12px;
     font-weight: bold;
     padding: 0 16px; }
-    .q-grid.q-grid-theme-material .q-grid-view thead tr th.q-grid-select md-checkbox, .q-grid.q-grid-theme-material .q-grid-view thead tr td.q-grid-select md-checkbox, .q-grid.q-grid-theme-material .q-grid-view tfoot tr th.q-grid-select md-checkbox, .q-grid.q-grid-theme-material .q-grid-view tfoot tr td.q-grid-select md-checkbox {
-      margin: 0 0 0 2px; }
+    .q-grid.q-grid-theme-material .q-grid-view thead tr th.q-grid-select, .q-grid.q-grid-theme-material .q-grid-view thead tr td.q-grid-select, .q-grid.q-grid-theme-material .q-grid-view tfoot tr th.q-grid-select, .q-grid.q-grid-theme-material .q-grid-view tfoot tr td.q-grid-select {
+      text-overflow: clip; }
+      .q-grid.q-grid-theme-material .q-grid-view thead tr th.q-grid-select md-checkbox, .q-grid.q-grid-theme-material .q-grid-view thead tr td.q-grid-select md-checkbox, .q-grid.q-grid-theme-material .q-grid-view tfoot tr th.q-grid-select md-checkbox, .q-grid.q-grid-theme-material .q-grid-view tfoot tr td.q-grid-select md-checkbox {
+        margin: 0 0 0 2px; }
     .q-grid.q-grid-theme-material .q-grid-view thead tr th.q-grid-filter-row md-input-container, .q-grid.q-grid-theme-material .q-grid-view thead tr td.q-grid-filter-row md-input-container, .q-grid.q-grid-theme-material .q-grid-view tfoot tr th.q-grid-filter-row md-input-container, .q-grid.q-grid-theme-material .q-grid-view tfoot tr td.q-grid-filter-row md-input-container {
       margin: 0;
       padding: 0; }
