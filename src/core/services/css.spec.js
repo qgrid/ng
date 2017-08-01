@@ -9,14 +9,14 @@ describe('Css', () => {
 		it('should check whether Style tag was append to Head tag', () => {
 			testObject.set(testStyleObject);
 
-			let isStyleTagExist = document.getElementsByTagName('head')[0].lastChild instanceof HTMLStyleElement;
+			let isStyleTagExist = document.querySelector('head > style#q-style') === null ? false : true;
 
 			expect(isStyleTagExist).to.be.equal(true);
 		});
 		it('should check whether Style tag was removed from Head tag', () => {
 			testObject.remove();
 
-			let isStyleTagExist = document.getElementsByTagName('head')[0].lastChild instanceof HTMLStyleElement;
+			let isStyleTagExist = document.querySelector('head > style#q-style') === null ? false : true;
 
 			expect(isStyleTagExist).to.be.equal(false);
 		});
