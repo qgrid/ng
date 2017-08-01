@@ -2,6 +2,8 @@ Controller.$inject = ['$http'];
 export default function Controller($http) {
 	const ctrl = this;
 
+	const friends = [{name: 'Foo'}, {name: 'Bar'}];
+
 	this.rows = [];
 	this.rows = [];
 	this.columns = [
@@ -85,6 +87,13 @@ export default function Controller($http) {
 			key: 'attachments',
 			title: 'Attachments',
 			type: 'file'
+		},
+		{
+			key: 'friends',
+			title: 'Friends',
+			type: 'array',
+			value: () => friends,
+			label: item => item.name
 		}
 	];
 
