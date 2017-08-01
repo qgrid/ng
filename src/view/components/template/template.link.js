@@ -1,5 +1,5 @@
 import {AppError} from '@grid/core/infrastructure';
-import {isArray} from '@grid/core/utility';
+import {isArray, isUndefined} from '@grid/core/utility';
 
 export default class TemplateLink {
 	constructor($compile, $templateCache) {
@@ -16,7 +16,7 @@ export default class TemplateLink {
 			: isArray(templateUrl)
 				? templateUrl
 					.map(url => this.$templateCache.get(url))
-					.filter(tpl => !!tpl)[0]
+					.filter(tpl => !isUndefined(tpl))[0]
 				: this.$templateCache.get(templateUrl);
 
 		return (element, scope, container = element) => {
