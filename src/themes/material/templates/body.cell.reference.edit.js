@@ -34,6 +34,19 @@ export default function ReferenceEdit($scope, qgrid, popupService) {
 		}
 	};
 
+	const contextFactory = (cell, value, label, tag) => ({
+		column: cell.column,
+		row: cell.row,
+		columnIndex: cell.columnIndex,
+		rowIndex: cell.rowIndex,
+		oldValue: cell.value,
+		newValue: arguments.length >= 2 ? value : cell.value,
+		oldLabel: cell.label,
+		newLabel: arguments.length >= 3 ? label : cell.label,
+		unit: 'cell',
+		tag: tag
+	});
+
 	this.gridModel.dataChanged.watch((e, off) => {
 		if (e.hasChanges('rows') && e.state.rows.length > 0) {
 			off();
@@ -61,14 +74,17 @@ export default function ReferenceEdit($scope, qgrid, popupService) {
 		commit: new Command({
 			shortcut: shortcutFactory('commit'),
 			execute: ($cell, $event) => {
-				if (this.cell().commit.execute($cell, $event) === false) {
+				const cellView = this.cell();
+				const context = contextFactory($cell, cellView.value, cellView.label, cellView.tag);
+
+				if (cellView.commit.execute($cell, $event) === false) {
 					return;
 				}
 
 				if (options &&
 					options.commit &&
-					(!options.commit.canExecute($cell) ||
-					options.commit.execute($cell) === false)) {
+					(!options.commit.canExecute(context) ||
+					options.commit.execute(context) === false)) {
 					return;
 				}
 
@@ -78,13 +94,16 @@ export default function ReferenceEdit($scope, qgrid, popupService) {
 		cancel: new Command({
 			shortcut: shortcutFactory('cancel'),
 			execute: ($cell, $event) => {
-				if (this.cell().cancel.execute($cell, $event) === false) {
+				const cellView = this.cell();
+				const context = contextFactory($cell, cellView.value, cellView.label, cellView.tag);
+
+				if (cellView.cell().cancel.execute($cell, $event) === false) {
 					return;
 				}
 
 				if (options && options.cancel &&
-					(!options.cancel.canExecute() ||
-					options.cancel.execute($cell) === false)) {
+					(!options.cancel.canExecute(context) ||
+					options.cancel.execute(context) === false)) {
 					return;
 				}
 
