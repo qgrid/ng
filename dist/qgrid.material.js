@@ -1780,10 +1780,12 @@ var SelectionState = function () {
 
 			if (item instanceof __WEBPACK_IMPORTED_MODULE_1__node__["c" /* Node */]) {
 				var rows = this.model.data().rows;
-				item.rows.forEach(function (index) {
-					return _this.select(rows[index], state, key);
-				});
-				return;
+				if (rows.length) {
+					item.rows.forEach(function (index) {
+						return _this.select(rows[index], state, key);
+					});
+					return;
+				}
 			}
 
 			this.selectCore(item, state, key);
@@ -1811,12 +1813,14 @@ var SelectionState = function () {
 
 			if (item instanceof __WEBPACK_IMPORTED_MODULE_1__node__["c" /* Node */]) {
 				var rows = this.model.data().rows;
-				var _all = item.rows.every(function (index) {
-					return _this2.state(rows[index], key);
-				});
-				return _all ? true : item.rows.some(function (index) {
-					return _this2.state(rows[index], key);
-				}) ? null : false;
+				if (rows.length) {
+					var _all = item.rows.length && item.rows.every(function (index) {
+						return _this2.state(rows[index], key);
+					});
+					return _all ? true : item.rows.some(function (index) {
+						return _this2.state(rows[index], key);
+					}) ? null : false;
+				}
 			}
 
 			return this.stateCore(item, key);
