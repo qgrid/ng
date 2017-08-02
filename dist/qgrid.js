@@ -7991,8 +7991,10 @@ function groupBuilder(model) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__resource__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__command__ = __webpack_require__(5);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GroupModel; });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 
 
 
@@ -8004,6 +8006,7 @@ var GroupModel = function GroupModel() {
 	this.shortcut = {
 		toggle: 'space'
 	};
+	this.toggle = new __WEBPACK_IMPORTED_MODULE_1__command__["a" /* Command */]();
 };
 
 /***/ }),
