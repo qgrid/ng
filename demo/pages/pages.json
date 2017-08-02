@@ -118,6 +118,10 @@
 				"path": "hierarchy-template"
 			},
 			{
+				"title": "Hierarchy Browser",
+				"path": "hierarchy-browser"
+			},
+			{
 				"title": "Totals",
 				"path": "totals"
 			},
