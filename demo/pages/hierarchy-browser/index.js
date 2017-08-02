@@ -39,7 +39,8 @@ export default function Controller(qgrid, $timeout) {
 					const level = node.level + 1;
 					$timeout(() => {
 						node.children = Array.from(new Array(length), (x, i) => {
-							const child = new qgrid.Node(`node[${level},${i}]`, level);
+							const type = Math.floor(Math.random() * 5) < 3 ? 'group' : 'value';
+							const child = new qgrid.Node(`${type} node[${level},${i}]`, level, type);
 							child.isVisited = false;
 							return child;
 						});
@@ -50,7 +51,7 @@ export default function Controller(qgrid, $timeout) {
 			})
 		})
 		.selection({
-			mode: 'single',
+			mode: 'multiple',
 			unit: 'row',
 			area: 'custom',
 			key: {
