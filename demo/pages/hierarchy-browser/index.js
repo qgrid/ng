@@ -6,6 +6,7 @@ export default function Controller(qgrid, $timeout) {
 
 	const root = new qgrid.Node('root', 0);
 	root.isVisited = false;
+
 	const tree = [root];
 	const treePipe = (memo, context, next) => {
 		memo.nodes = tree;
@@ -51,6 +52,9 @@ export default function Controller(qgrid, $timeout) {
 		.selection({
 			mode: 'single',
 			unit: 'row',
-			area: 'custom'
+			area: 'custom',
+			key: {
+				row: node => node.key
+			}
 		});
 }
