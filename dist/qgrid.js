@@ -652,10 +652,12 @@ module.exports = isObject;
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utility__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__command__ = __webpack_require__(5);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ColumnModel; });
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 
 
 
@@ -678,7 +680,9 @@ var ColumnModel = function () {
 		this.editorOptions = {
 			trigger: 'click',
 			label: null,
-			value: __WEBPACK_IMPORTED_MODULE_0__utility__["d" /* identity */]
+			value: __WEBPACK_IMPORTED_MODULE_0__utility__["d" /* identity */],
+			commit: new __WEBPACK_IMPORTED_MODULE_1__command__["a" /* Command */](),
+			cancel: new __WEBPACK_IMPORTED_MODULE_1__command__["a" /* Command */]()
 		};
 
 		this.width = null;
