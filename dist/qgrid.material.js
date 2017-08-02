@@ -14945,7 +14945,8 @@ function DateEdit($scope) {
 
 ReferenceEdit.$inject = ['$scope', 'qgrid', 'qGridPopupService'];
 function ReferenceEdit($scope, qgrid, popupService) {
-	var _this = this;
+	var _this = this,
+	    _arguments = arguments;
 
 	this.cell = function () {
 		return $scope.$editor || $scope.$view.edit.cell;
@@ -14976,6 +14977,21 @@ function ReferenceEdit($scope, qgrid, popupService) {
 		}
 	};
 
+	var contextFactory = function contextFactory(cell, value, label, tag) {
+		return {
+			column: cell.column,
+			row: cell.row,
+			columnIndex: cell.columnIndex,
+			rowIndex: cell.rowIndex,
+			oldValue: cell.value,
+			newValue: _arguments.length >= 2 ? value : cell.value,
+			oldLabel: cell.label,
+			newLabel: _arguments.length >= 3 ? label : cell.label,
+			unit: 'cell',
+			tag: tag
+		};
+	};
+
 	this.gridModel.dataChanged.watch(function (e, off) {
 		if (e.hasChanges('rows') && e.state.rows.length > 0) {
 			off();
@@ -15003,11 +15019,14 @@ function ReferenceEdit($scope, qgrid, popupService) {
 		commit: new __WEBPACK_IMPORTED_MODULE_1__grid_core_command__["a" /* Command */]({
 			shortcut: shortcutFactory('commit'),
 			execute: function execute($cell, $event) {
-				if (_this.cell().commit.execute($cell, $event) === false) {
+				var cellView = _this.cell();
+				var context = contextFactory($cell, cellView.value, cellView.label, cellView.tag);
+
+				if (cellView.commit.execute($cell, $event) === false) {
 					return;
 				}
 
-				if (options && options.commit && (!options.commit.canExecute($cell) || options.commit.execute($cell) === false)) {
+				if (options && options.commit && (!options.commit.canExecute(context) || options.commit.execute(context) === false)) {
 					return;
 				}
 
@@ -15017,11 +15036,14 @@ function ReferenceEdit($scope, qgrid, popupService) {
 		cancel: new __WEBPACK_IMPORTED_MODULE_1__grid_core_command__["a" /* Command */]({
 			shortcut: shortcutFactory('cancel'),
 			execute: function execute($cell, $event) {
-				if (_this.cell().cancel.execute($cell, $event) === false) {
+				var cellView = _this.cell();
+				var context = contextFactory($cell, cellView.value, cellView.label, cellView.tag);
+
+				if (cellView.cell().cancel.execute($cell, $event) === false) {
 					return;
 				}
 
-				if (options && options.cancel && (!options.cancel.canExecute() || options.cancel.execute($cell) === false)) {
+				if (options && options.cancel && (!options.cancel.canExecute(context) || options.cancel.execute(context) === false)) {
 					return;
 				}
 
