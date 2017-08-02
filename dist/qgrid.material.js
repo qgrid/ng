@@ -14945,10 +14945,10 @@ function DateEdit($scope) {
 
 ReferenceEdit.$inject = ['$scope', 'qgrid', 'qGridPopupService'];
 function ReferenceEdit($scope, qgrid, popupService) {
-	var _this = this,
-	    _arguments = arguments;
+	var _arguments = arguments,
+	    _this = this;
 
-	this.cell = function () {
+	this.editor = function () {
 		return $scope.$editor || $scope.$view.edit.cell;
 	};
 
@@ -14956,24 +14956,6 @@ function ReferenceEdit($scope, qgrid, popupService) {
 	var close = function close() {
 		if ($scope.$popup && popupService.isOpened(id)) {
 			$scope.$popup.close();
-		}
-	};
-
-	var options = this.cell().options;
-	this.gridModel = options && options.modelFactory && options.modelFactory($scope.$view ? $scope.$view.model.navigation() : {}) || qgrid.model();
-
-	var watchSelection = function watchSelection(e) {
-		if (e.hasChanges('items')) {
-			var model = _this.gridModel;
-			var selectionItems = model.selection().items;
-			var entries = new __WEBPACK_IMPORTED_MODULE_2__grid_core_selection__["a" /* SelectionService */](model).lookup(selectionItems);
-
-			var cell = _this.cell();
-			cell.value = selectionItems;
-			cell.tag = {
-				entries: entries,
-				columns: model.data().columns
-			};
 		}
 	};
 
@@ -14992,14 +14974,32 @@ function ReferenceEdit($scope, qgrid, popupService) {
 		};
 	};
 
+	var options = this.editor().options;
+	this.gridModel = options && options.modelFactory && options.modelFactory(this.editor()) || qgrid.model();
+
+	var watchSelection = function watchSelection(e) {
+		if (e.hasChanges('items')) {
+			var model = _this.gridModel;
+			var selectionItems = model.selection().items;
+			var entries = new __WEBPACK_IMPORTED_MODULE_2__grid_core_selection__["a" /* SelectionService */](model).lookup(selectionItems);
+
+			var editor = _this.editor();
+			editor.value = selectionItems;
+			editor.tag = {
+				entries: entries,
+				columns: model.data().columns
+			};
+		}
+	};
+
 	this.gridModel.dataChanged.watch(function (e, off) {
 		if (e.hasChanges('rows') && e.state.rows.length > 0) {
 			off();
-			var cell = _this.cell();
+			var editor = _this.editor();
 			var model = _this.gridModel;
 			if (!model.selection().items.length) {
 				model.selection({
-					items: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__grid_core_utility__["b" /* isArray */])(cell.value) ? cell.value : [cell.value]
+					items: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__grid_core_utility__["b" /* isArray */])(editor.value) ? editor.value : [editor.value]
 				});
 			}
 
@@ -15019,10 +15019,10 @@ function ReferenceEdit($scope, qgrid, popupService) {
 		commit: new __WEBPACK_IMPORTED_MODULE_1__grid_core_command__["a" /* Command */]({
 			shortcut: shortcutFactory('commit'),
 			execute: function execute($cell, $event) {
-				var cellView = _this.cell();
-				var context = contextFactory($cell, cellView.value, cellView.label, cellView.tag);
+				var editor = _this.editor();
+				var context = contextFactory($cell, editor.value, editor.label, editor.tag);
 
-				if (cellView.commit.execute($cell, $event) === false) {
+				if (editor.commit.execute($cell, $event) === false) {
 					return;
 				}
 
@@ -15036,10 +15036,10 @@ function ReferenceEdit($scope, qgrid, popupService) {
 		cancel: new __WEBPACK_IMPORTED_MODULE_1__grid_core_command__["a" /* Command */]({
 			shortcut: shortcutFactory('cancel'),
 			execute: function execute($cell, $event) {
-				var cellView = _this.cell();
-				var context = contextFactory($cell, cellView.value, cellView.label, cellView.tag);
+				var editor = _this.editor();
+				var context = contextFactory($cell, editor.value, editor.label, editor.tag);
 
-				if (cellView.cancel.execute($cell, $event) === false) {
+				if (editor.cancel.execute($cell, $event) === false) {
 					return;
 				}
 
