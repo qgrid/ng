@@ -8044,10 +8044,13 @@ var GroupView = function (_View) {
 					node = model.navigation().cell.row;
 				}
 
-				node.state.expand = !node.state.expand;
-				var view = model.view;
-				var nodes = view().nodes;
-				view({ rows: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__node__["a" /* flatView */])(nodes) }, { behavior: 'core', source: 'group.view' });
+				var toggle = model.group().toggle;
+				if (toggle.execute(node) !== false) {
+					node.state.expand = !node.state.expand;
+					var view = model.view;
+					var nodes = view().nodes;
+					view({ rows: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__node__["a" /* flatView */])(nodes) }, { behavior: 'core', source: 'group.view' });
+				}
 			},
 			canExecute: function canExecute(node) {
 				if (!node) {
@@ -8057,7 +8060,8 @@ var GroupView = function (_View) {
 					}
 				}
 
-				return node && node.type === 'group';
+				var toggle = model.group().toggle;
+				return node && node.type === 'group' && toggle.canExecute(node);
 			},
 			shortcut: model.group().shortcut.toggle
 		});
