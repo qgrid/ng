@@ -15039,7 +15039,7 @@ function ReferenceEdit($scope, qgrid, popupService) {
 				var cellView = _this.cell();
 				var context = contextFactory($cell, cellView.value, cellView.label, cellView.tag);
 
-				if (cellView.cell().cancel.execute($cell, $event) === false) {
+				if (cellView.cancel.execute($cell, $event) === false) {
 					return;
 				}
 
