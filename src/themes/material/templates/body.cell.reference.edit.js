@@ -97,7 +97,7 @@ export default function ReferenceEdit($scope, qgrid, popupService) {
 				const cellView = this.cell();
 				const context = contextFactory($cell, cellView.value, cellView.label, cellView.tag);
 
-				if (cellView.cell().cancel.execute($cell, $event) === false) {
+				if (cellView.cancel.execute($cell, $event) === false) {
 					return;
 				}
 
