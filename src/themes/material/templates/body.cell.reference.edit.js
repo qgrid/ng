@@ -61,14 +61,33 @@ export default function ReferenceEdit($scope, qgrid, popupService) {
 		commit: new Command({
 			shortcut: shortcutFactory('commit'),
 			execute: ($cell, $event) => {
-				this.cell().commit.execute($cell, $event);
+				if (this.cell().commit.execute($cell, $event) === false) {
+					return;
+				}
+
+				if (options &&
+					options.commit &&
+					(!options.commit.canExecute($cell) ||
+					options.commit.execute($cell) === false)) {
+					return;
+				}
+
 				close();
 			}
 		}),
 		cancel: new Command({
 			shortcut: shortcutFactory('cancel'),
 			execute: ($cell, $event) => {
-				this.cell().cancel.execute($cell, $event);
+				if (this.cell().cancel.execute($cell, $event) === false) {
+					return;
+				}
+
+				if (options && options.cancel &&
+					(!options.cancel.canExecute() ||
+					options.cancel.execute($cell) === false)) {
+					return;
+				}
+
 				close();
 			}
 		})
