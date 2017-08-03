@@ -3,6 +3,8 @@ import {DATA_MANIPULATION_NAME} from '../definition';
 import {Command} from '@grid/core/command';
 import {TemplatePath} from '@grid/core/template';
 import {Action} from '@grid/core/action';
+import {AppError} from '@grid/core/infrastructure';
+import {isUndefined} from '@grid/core/utility';
 
 TemplatePath
 	.register(DATA_MANIPULATION_NAME, () => {
@@ -20,14 +22,43 @@ class DataManipulation extends Plugin {
 		this.changes = {
 			deleted: new Set(),
 			added: new Set(),
-			edited: new Set()
+			edited: new Map()
 		};
 
 		this.commitCommand = new Command({
 			execute: e => {
 				const rowId = this.id(e.row);
-				this.changes.edited.add(rowId);
-				this.changes.edited.add(`${rowId}x${e.column.key}`);
+				const edited = this.changes.edited;
+
+				let entries = edited.get(rowId);
+				if (!entries) {
+					entries = [];
+					edited.set(rowId, entries);
+				}
+
+				let entryIndex = entries.findIndex(entry => entry.column === e.column.key);
+				let entry = entries[entryIndex];
+				if (!entry) {
+					entry = {
+						column: e.column.key,
+						oldValue: e.oldValue,
+						oldLabel: e.oldLabel
+					};
+
+					entryIndex = entries.length;
+					entries.push(entry);
+				}
+
+				entry.newValue = e.newValue;
+				entry.newLabel = e.newLabel;
+
+				// TODO: understand if we need to track label changes?
+				if (!this.hasChanges(entry.newValue, entry.oldValue)) {
+					entries.splice(entryIndex, 1);
+					if (!entries.length) {
+						edited.delete(rowId);
+					}
+				}
 			}
 		});
 
@@ -35,11 +66,18 @@ class DataManipulation extends Plugin {
 			new Action(
 				new Command({
 					execute: () => {
-						const newRow = {};
+						const newRow = this.rowFactory();
+						if (isUndefined(newRow)) {
+							throw new AppError('data.manipulation', 'Setup rowFactory property to add new rows');
+						}
+
 						const rowId = this.id(newRow);
 
 						this.changes.added.add(rowId);
-						this.rows = [newRow].concat(this.rows);
+						const data = this.model.data;
+						data({
+							rows: [newRow].concat(data().rows)
+						});
 					},
 					shortcut: 'F7'
 				}),
@@ -60,7 +98,11 @@ class DataManipulation extends Plugin {
 							const rowId = this.id(e.row);
 							if (this.changes.added.has(rowId)) {
 								this.changes.added.delete(rowId);
-								this.rows = this.rows.filter(row => this.id(row) !== rowId);
+								const rows = this.rows.filter(row => this.id(row) !== rowId);
+								const data = this.model.data;
+								data({
+									rows: rows
+								});
 							}
 							else {
 								this.changes.deleted.add(rowId);
@@ -117,6 +159,11 @@ class DataManipulation extends Plugin {
 		return row;
 	}
 
+	hasChanges(newValue, oldValue) {
+		// TODO: understand if we need to parse values (e.g. '12' vs 12)
+		return newValue !== oldValue;
+	}
+
 	styleRow(row, context) {
 		const rowId = this.id(row);
 		if (this.changes.deleted.has(rowId)) {
@@ -126,22 +173,26 @@ class DataManipulation extends Plugin {
 
 	styleCell(row, column, context) {
 		const rowId = this.id(row);
+		const changes = this.changes;
 		if (column.type === 'row-indicator') {
-			if (this.changes.deleted.has(rowId)) {
+			if (changes.deleted.has(rowId)) {
 				context.class('delete-indicator', {background: '#EF5350'});
 			}
-			else if (this.changes.added.has(rowId)) {
+			else if (changes.added.has(rowId)) {
 				context.class('add-indicator', {background: '#C8E6C9'});
 			}
-			else if (this.changes.edited.has(rowId)) {
+			else if (changes.edited.has(rowId)) {
 				context.class('edit-indicator', {background: '#E3F2FD'});
 			}
 
 			return;
 		}
 
-		if (this.changes.edited.has(`${rowId}x${column.key}`)) {
-			context.class('edited', {background: '#E3F2FD'});
+		if (changes.edited.has(rowId)) {
+			const entries = changes.edited.get(rowId);
+			if (entries.findIndex(entry => entry.column === column.key) >= 0) {
+				context.class('edited', {background: '#E3F2FD'});
+			}
 		}
 	}
 
@@ -153,5 +204,7 @@ class DataManipulation extends Plugin {
 export default DataManipulation.component({
 	controller: DataManipulation,
 	controllerAs: '$data',
-	bindings: {}
+	bindings: {
+		rowFactory: '&'
+	}
 });
