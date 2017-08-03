@@ -3,6 +3,7 @@ import {GRID, MODULE_NAME as GRID_MODULE_NAME, MODULE_CORE_NAME as GRID_MODULE_C
 export const MODULE_CORE_NAME = GRID_MODULE_CORE_NAME;
 export const MODULE_NAME = `${GRID_MODULE_NAME}.plugin`;
 export const PAGER_NAME = `${GRID}Pager`;
+export const DATA_MANIPULATION_NAME = `${GRID}DataManipulation`;
 export const PROGRESS_NAME = `${GRID}Progress`;
 export const SORT_BAR_NAME = `${GRID}SortBar`;
 export const GROUP_BAR_NAME = `${GRID}GroupBar`;

@@ -18,7 +18,8 @@ export class ColumnModel {
 			label: null,
 			value: identity,
 			commit: new Command(),
-			cancel: new Command()
+			cancel: new Command(),
+			actions: []
 		};
 
 		this.width = null;
