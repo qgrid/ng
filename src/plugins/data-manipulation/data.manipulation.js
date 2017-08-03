@@ -9,25 +9,19 @@ import {isUndefined} from '@grid/core/utility';
 TemplatePath
 	.register(DATA_MANIPULATION_NAME, () => {
 		return {
-			model: 'data',
-			resource: 'data-manipulation'
+			model: 'dataManipulation',
+			resource: 'content'
 		};
 	});
 
-const Plugin = PluginComponent('data-manipulation');
+const Plugin = PluginComponent('data-manipulation', {models: ['dataManipulation']});
 class DataManipulation extends Plugin {
 	constructor() {
 		super(...arguments);
 
-		this.changes = {
-			deleted: new Set(),
-			added: new Set(),
-			edited: new Map()
-		};
-
 		this.commitCommand = new Command({
 			execute: e => {
-				const rowId = this.id(e.row);
+				const rowId = this.rowId(e.row);
 				const edited = this.changes.edited;
 
 				let entries = edited.get(rowId);
@@ -71,7 +65,7 @@ class DataManipulation extends Plugin {
 							throw new AppError('data.manipulation', 'Setup rowFactory property to add new rows');
 						}
 
-						const rowId = this.id(newRow);
+						const rowId = this.rowId(newRow);
 
 						this.changes.added.add(rowId);
 						const data = this.model.data;
@@ -91,21 +85,22 @@ class DataManipulation extends Plugin {
 				new Action(
 					new Command({
 						canExecute: e => {
-							const rowId = this.id(e.row);
+							const rowId = this.rowId(e.row);
 							return !this.changes.deleted.has(rowId);
 						},
 						execute: e => {
-							const rowId = this.id(e.row);
-							if (this.changes.added.has(rowId)) {
-								this.changes.added.delete(rowId);
-								const rows = this.rows.filter(row => this.id(row) !== rowId);
+							const rowId = this.rowId(e.row);
+							const changes = this.changes;
+							if (changes.added.has(rowId)) {
+								changes.added.delete(rowId);
+								const rows = this.rows.filter(row => this.rowId(row) !== rowId);
 								const data = this.model.data;
 								data({
 									rows: rows
 								});
 							}
 							else {
-								this.changes.deleted.add(rowId);
+								changes.deleted.add(rowId);
 							}
 						}
 					}),
@@ -115,11 +110,11 @@ class DataManipulation extends Plugin {
 				new Action(
 					new Command({
 						execute: e => {
-							const rowId = this.id(e.row);
+							const rowId = this.rowId(e.row);
 							this.changes.deleted.delete(rowId);
 						},
 						canExecute: e => {
-							const rowId = this.id(e.row);
+							const rowId = this.rowId(e.row);
 							this.changes.deleted.has(rowId);
 						}
 					}),
@@ -141,6 +136,15 @@ class DataManipulation extends Plugin {
 
 	onInit() {
 		const model = this.model;
+
+		if (!this.rowId) {
+			this.rowId = model.dataManipulation().rowId;
+		}
+
+		if (!this.rowFactory) {
+			this.rowFactory = model.dataManipulation().rowFactory;
+		}
+
 		model
 			.edit({
 				mode: 'cell',
@@ -155,24 +159,20 @@ class DataManipulation extends Plugin {
 			});
 	}
 
-	id(row) {
-		return row;
-	}
-
 	hasChanges(newValue, oldValue) {
 		// TODO: understand if we need to parse values (e.g. '12' vs 12)
 		return newValue !== oldValue;
 	}
 
 	styleRow(row, context) {
-		const rowId = this.id(row);
+		const rowId = this.rowId(row);
 		if (this.changes.deleted.has(rowId)) {
 			context.class('deleted', {opacity: 0.3});
 		}
 	}
 
 	styleCell(row, column, context) {
-		const rowId = this.id(row);
+		const rowId = this.rowId(row);
 		const changes = this.changes;
 		if (column.type === 'row-indicator') {
 			if (changes.deleted.has(rowId)) {
@@ -196,8 +196,13 @@ class DataManipulation extends Plugin {
 		}
 	}
 
+	get changes() {
+		const model = this.model;
+		return model.dataManipulation();
+	}
+
 	get resource() {
-		return this.model.data().resource;
+		return this.model.dataManipulation().resource;
 	}
 }
 
@@ -205,6 +210,7 @@ export default DataManipulation.component({
 	controller: DataManipulation,
 	controllerAs: '$data',
 	bindings: {
-		rowFactory: '&'
+		dataManipulationRowFactory: '<rowFactory',
+		dataManipulationRowId: '<rowId'
 	}
 });
