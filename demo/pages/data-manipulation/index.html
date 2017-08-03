@@ -3,17 +3,10 @@
 		  edit-commit="$ctrl.commitCommand"
 		  style-row="$ctrl.styleRow"
 		  style-cell="$ctrl.styleCell"
-		  actions="$ctrl.actions">
+		  actions="$ctrl.actions"
+		  q-grid:autofocus>
 
-	<q-grid:columns generation="deep">
-		<q-grid:column type="row-indicator" key="rowIndicator" width="10" min-width="10">
-			<q-grid:template for="body"></q-grid:template>
-		</q-grid:column>
-		<q-grid:column type="row-options"
-							key="rowOptions"
-							editor-options="$ctrl.rowOptions">
-		</q-grid:column>
-	</q-grid:columns>
+	<q-grid:data-manipulation>
 
-
+	</q-grid:data-manipulation>
 </q-grid>

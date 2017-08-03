@@ -290,8 +290,8 @@
 				"path": "editors"
 			},
 			{
-				"title": "Data Manipulation",
-				"path": "data-manipulation"
+				"title": "Data Control",
+				"path": "data-control"
 			},
 			{
 				"title": "Batch Editing",
@@ -418,6 +418,10 @@
 			{
 				"title": "Plugin Model",
 				"path": "plugin-model"
+			},
+			{
+				"title": "Data Manipulation",
+				"path": "data-manipulation"
 			},
 			{
 				"title": "Action Bar",
