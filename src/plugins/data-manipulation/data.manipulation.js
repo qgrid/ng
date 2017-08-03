@@ -79,59 +79,56 @@ class DataManipulation extends Plugin {
 				'add'
 			)];
 
-		this.rowOptions = {
-			trigger: 'click',
-			actions: [
-				new Action(
-					new Command({
-						canExecute: e => {
-							const rowId = this.rowId(e.row);
-							return !this.changes.deleted.has(rowId);
-						},
-						execute: e => {
-							const rowId = this.rowId(e.row);
-							const changes = this.changes;
-							if (changes.added.has(rowId)) {
-								changes.added.delete(rowId);
-								const rows = this.rows.filter(row => this.rowId(row) !== rowId);
-								const data = this.model.data;
-								data({
-									rows: rows
-								});
-							}
-							else {
-								changes.deleted.add(rowId);
-							}
+		this.rowActions = [
+			new Action(
+				new Command({
+					canExecute: e => {
+						const rowId = this.rowId(e.row);
+						return !this.changes.deleted.has(rowId);
+					},
+					execute: e => {
+						const rowId = this.rowId(e.row);
+						const changes = this.changes;
+						if (changes.added.has(rowId)) {
+							changes.added.delete(rowId);
+							const data = this.model.data;
+							const rows = data().rows.filter(row => this.rowId(row) !== rowId);
+							data({
+								rows: rows
+							});
 						}
-					}),
-					'Delete Row',
-					'delete'
-				),
-				new Action(
-					new Command({
-						execute: e => {
-							const rowId = this.rowId(e.row);
-							this.changes.deleted.delete(rowId);
-						},
-						canExecute: e => {
-							const rowId = this.rowId(e.row);
-							this.changes.deleted.has(rowId);
+						else {
+							changes.deleted.add(rowId);
 						}
-					}),
-					'Restore',
-					'restore'
-				),
-				new Action(
-					new Command({
-						execute: () => {
-							// TODO make edit form service
-						}
-					}),
-					'Edit Form',
-					'edit'
-				)
-			]
-		};
+					}
+				}),
+				'Delete Row',
+				'delete'
+			),
+			new Action(
+				new Command({
+					execute: e => {
+						const rowId = this.rowId(e.row);
+						this.changes.deleted.delete(rowId);
+					},
+					canExecute: e => {
+						const rowId = this.rowId(e.row);
+						return this.changes.deleted.has(rowId);
+					}
+				}),
+				'Restore',
+				'restore'
+			),
+			// new Action(
+			// 	new Command({
+			// 		execute: () => {
+			// 			// TODO make edit form service
+			// 		}
+			// 	}),
+			// 	'Edit Form',
+			// 	'edit'
+			// )
+		];
 	}
 
 	onInit() {
@@ -151,6 +148,16 @@ class DataManipulation extends Plugin {
 			.action({
 				items: this.actions
 			});
+
+		model.dataChanged.watch((e, off) => {
+			if (e.hasChanges('columns')) {
+				const rowOptionsColumn = model.data().columns.find(column => column.type === 'row-options');
+				if (rowOptionsColumn) {
+					rowOptionsColumn.editorOptions.actions.push(...this.rowActions);
+					off();
+				}
+			}
+		});
 	}
 
 	hasChanges(newValue, oldValue) {
