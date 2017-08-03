@@ -60,15 +60,15 @@ class DataManipulation extends Plugin {
 			new Action(
 				new Command({
 					execute: () => {
-						const newRow = this.rowFactory();
+						const newRow = this.rowFactory(this.model.data().rows[0]);
 						if (isUndefined(newRow)) {
 							throw new AppError('data.manipulation', 'Setup rowFactory property to add new rows');
 						}
 
 						const rowId = this.rowId(newRow);
+						const data = this.model.data;
 
 						this.changes.added.add(rowId);
-						const data = this.model.data;
 						data({
 							rows: [newRow].concat(data().rows)
 						});
@@ -136,14 +136,8 @@ class DataManipulation extends Plugin {
 
 	onInit() {
 		const model = this.model;
-
-		if (!this.rowId) {
-			this.rowId = model.dataManipulation().rowId;
-		}
-
-		if (!this.rowFactory) {
-			this.rowFactory = model.dataManipulation().rowFactory;
-		}
+		this.rowId = model.dataManipulation().rowId;
+		this.rowFactory = model.dataManipulation().rowFactory;
 
 		model
 			.edit({
