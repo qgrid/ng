@@ -1,29 +1,37 @@
-﻿import * as Merge from './merge';
+import * as Merge from './merge';
 
 describe('merge.service', () => {
 
-	const testSettingsObject = {};
+	const settings = {};
+	const foo = Merge.merge(settings);
 
-	const foo = Merge.merge(testSettingsObject);
+	it('should return number of items of property updated and set values to result array', () => {
+		let left = [1,2,3];
+		let right = [1,2,3,40,50,60,70,80];
+		let result = [];
+		const resultObject = foo(left,right,result);
 
-	it('should return true if resultObject.updated === 3', () => {
-		const resultObject = foo([1,2,3], [1,2,3,40,50,60,70,80], []);
-		const res = resultObject.updated === 3;
-
-		expect(res).to.be.equal(true);
+		expect(resultObject.updated).to.be.equal(3);
+		expect(JSON.stringify(result)).to.equal('[40,50,60,70,80]');
 	});
 
-	it('should return true if resultObject.inserted === 5', () => {
-		const resultObject = foo([1], [1,2,3,4,5,6], []);
-		const res = resultObject.inserted === 5;
+	it('should return number of items of property inserted and set values to result array', () => {
+		let left = [1];
+		let right = [1,2,3,4,5,6];
+		let result = [];
+		const resultObject = foo(left,right,result);
 
-		expect(res).to.be.equal(true);
+		expect(resultObject.inserted).to.be.equal(5);
+		expect(JSON.stringify(result)).to.equal('[2,3,4,5,6]');
 	});
 
-	it('should return true if resultObject.removed === 5', () => {
-		const resultObject = foo([1,2,3,4,5,6], [1], []);
-		const res = resultObject.removed === 5;
+	it('should return number of items of property removed', () => {
+		let left = [1,2,3,4,5,6];
+		let right = [1];
+		let result = [];
+		const resultObject = foo(left,right,result);
 
-		expect(res).to.be.equal(true);
+		expect(resultObject.removed).to.be.equal(5);
+		expect(JSON.stringify(result)).to.equal('[]');
 	});
 });
