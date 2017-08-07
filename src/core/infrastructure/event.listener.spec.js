@@ -12,7 +12,7 @@ describe('Event', () => {
 
 	describe('on', () => {
 
-		it('should return true if element has someClass', () => {
+		it('should return true if eventListener was attached to element', () => {
 			eventListener.on('click', () => input.classList.add('someClass'));
 			input.click();
 
