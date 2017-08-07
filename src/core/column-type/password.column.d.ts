@@ -7,6 +7,6 @@ export declare class PasswordColumnModel extends DataColumnModel {
 }
 
 export declare class PasswordColumn extends ColumnView {
-	constructor();
+	constructor(model: Model);
 	static model(model: Model): Model;
 }

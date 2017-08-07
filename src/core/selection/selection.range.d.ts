@@ -1,8 +1,8 @@
-import {Cell} from "../cell/cell";
-import {ColumnModel} from "../column-type/column.model";
-import {Model} from "../infrastructure/model";
+import {Cell} from '../cell/cell';
+import {ColumnModel} from '../column-type/column.model';
+import {Model} from '../infrastructure/model';
 
-export interface ICellObj{
+export interface ICell{
 	column: ColumnModel;
 	row: any;
 }
@@ -16,7 +16,7 @@ export interface IBuildColumns{
 }
 
 export interface IBuildCells{
-	(startCell: Cell, endCell: Cell): ICellObj;
+	(startCell: Cell, endCell: Cell): ICell;
 }
 
 export interface IBuildMix{
@@ -28,15 +28,11 @@ export interface IBuildResult{
 }
 
 export declare class SelectionRange {
-	constructor(public model: Model);
-
+	constructor(model: Model);
+  model: Model;
 	build(): IBuildResult;
-
 	buildRows(startCell: Cell, endCell: Cell): any[];
-
 	buildColumns(startCell: Cell, endCell: Cell): ColumnModel[];
-
-	buildCells(startCell: Cell, endCell: Cell): ICellObj;
-
+	buildCells(startCell: Cell, endCell: Cell): ICell[];
 	buildMix(startCell: Cell, endCell: Cell): any[];
 }

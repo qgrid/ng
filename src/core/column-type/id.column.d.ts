@@ -7,6 +7,6 @@ export declare class IdColumnModel extends DataColumnModel {
 }
 
 export declare class IdColumn extends ColumnView {
-	constructor();
+	constructor(model: Model);
 	static model(model: Model): Model;
 }

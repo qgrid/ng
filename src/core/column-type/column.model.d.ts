@@ -1,4 +1,5 @@
 import {Model} from '../infrastructure/model';
+import {IPin} from '../visibility/visibility.model';
 
 export interface IEditorOptions {
 	trigger: string;
@@ -17,29 +18,30 @@ export interface ILabel{
 }
 
 export declare class ColumnModel {
-	constructor(public type: string);
+	constructor(type: string);
+	type: string;
 	key: string;
 	title: string;
 	value: IValue;
 	path: string;
-	pin: string;
+	pin: IPin;
 	origin: string;
 	source: string;
 	class: string;
 	editor: string;
 	editorOptions: IEditorOptions;
-   width: number;
+	width: number;
 	minWidth: number;
 	maxWidth: number;
-   canEdit: boolean;
+	canEdit: boolean;
 	canResize: boolean;
 	canSort: boolean;
 	canMove: boolean;
 	canFilter: boolean;
 	canHighlight: boolean;
 	canFocus: boolean;
-   isVisible: boolean;
+	isVisible: boolean;
 	index: number;
-   label: ILabel;
+	label: ILabel;
 	toString(): string;
 }

@@ -1,13 +1,13 @@
 import {Resource} from '../resource/resource';
 
-export interface IToolbarObj {
+export interface IToolbar {
 	top: boolean;
 	bottom: boolean;
 	right: boolean;
 	left: boolean;
 }
 
-export interface IPinObj {
+export interface IPin {
 	left: boolean;
 	right: boolean;
 }
@@ -19,7 +19,7 @@ export declare class VisibilityModel {
 	head: boolean;
 	foot: boolean;
 	body: boolean;
-	toolbar: IToolbarObj
-	pin: IPinObj;
+	toolbar: IToolbar;
+	pin: IPin;
 	plugin: object;
 }
