@@ -1,6 +1,7 @@
 import {columnFactory} from '../column/column.factory';
 import * as columnService from '../column/column.service';
 import {noop} from '../utility';
+import {generateFactory} from '../column-list';
 
 export function columnPipe(memo, context, next) {
 	const model = context.model;
@@ -164,9 +165,10 @@ function expandColumnFactory(model) {
 
 
 function dataColumnsFactory(model) {
+	const getColumns = generateFactory(model);
 	const createColumn = columnFactory(model);
 	return (columns, context) => {
-		const dataColumns = model.data().columns;
+		const dataColumns = getColumns();
 		columns.push(...
 			columnService.dataView(
 				dataColumns
