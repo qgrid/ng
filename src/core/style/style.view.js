@@ -23,7 +23,7 @@ export class StyleView extends View {
 
 		model.viewChanged.watch(() => {
 			this.invalidate();
-		});
+		}, 'core');
 
 		model.styleChanged.watch(e => {
 			if (e.hasChanges('row')) {
@@ -35,7 +35,7 @@ export class StyleView extends View {
 			}
 
 			this.invalidate();
-		});
+		}, 'core');
 	}
 
 	invalidate() {

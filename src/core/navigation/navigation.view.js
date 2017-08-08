@@ -78,7 +78,7 @@ export class NavigationView extends View {
 					source: 'navigation.view'
 				});
 			}
-		});
+		}, 'core');
 
 		model.focusChanged.watch(e => {
 			if (e.tag.source !== 'navigation.view') {
@@ -86,13 +86,13 @@ export class NavigationView extends View {
 					cell: table.body.cell(e.state.rowIndex, e.state.columnIndex).model
 				});
 			}
-		});
+		}, 'core');
 
 		model.viewChanged.watch(e => {
 			if (e.tag.behavior !== 'core') {
 				model.navigation({cell: null});
 			}
-		});
+		}, 'core');
 	}
 
 	scroll(view, target) {

@@ -10,7 +10,7 @@ export class PaginationView extends View {
 					current: 0
 				});
 			}
-		});
+		}, 'core');
 
 		model.filterChanged.watch(e => {
 			if (e.hasChanges('by')) {
@@ -18,7 +18,7 @@ export class PaginationView extends View {
 					current: 0
 				});
 			}
-		});
+		}, 'core');
 
 		model.pivotChanged.watch(e => {
 			if (e.hasChanges('by')) {
@@ -26,7 +26,7 @@ export class PaginationView extends View {
 					current: 0
 				});
 			}
-		});
+		}, 'core');
 
 		model.groupChanged.watch(e => {
 			if (e.hasChanges('by')) {
@@ -34,7 +34,7 @@ export class PaginationView extends View {
 					current: 0
 				});
 			}
-		});
+		}, 'core');
 	}
 
 	get current() {

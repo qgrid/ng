@@ -22,14 +22,14 @@ export class LayoutView extends View {
 			if (e.hasChanges('columns')) {
 				this.invalidateColumns();
 			}
-		});
+		}, 'core');
 
 		model.layoutChanged.watch(e => {
 			if (e.hasChanges('columns')) {
 				const form = this.getForm();
 				this.invalidateColumns(form);
 			}
-		});
+		}, 'core');
 
 		model.dataChanged.watch(e => {
 			if (e.hasChanges('columns')) {
@@ -62,13 +62,13 @@ export class LayoutView extends View {
 				index.push(...orderIndex.map(c => c.key));
 				model.columnList({index: index}, {behavior: 'core'});
 			}
-		});
+		}, 'core');
 
 		model.columnListChanged.watch(e => {
 			if (e.hasChanges('index') && e.tag.behavior !== 'core') {
 				this.service.invalidate('column.list', e.tag, PipeUnit.column);
 			}
-		});
+		}, 'core');
 	}
 
 	getForm() {

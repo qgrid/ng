@@ -80,7 +80,7 @@ export class SortView extends View {
 					}
 				}
 			}
-		});
+		}, 'core');
 
 		model.dataChanged.watch(e => {
 			if (e.hasChanges('columns')) {
@@ -91,7 +91,7 @@ export class SortView extends View {
 					sort({by: sortBy}, {source: 'sort.view'});
 				}
 			}
-		});
+		}, 'core');
 	}
 
 	equals(x, y) {

@@ -5,7 +5,7 @@ export class Event {
 		this.e = e;
 	}
 
-	on(f) {
+	on(f, source = 'user') {
 		const handlers = this.handlers;
 		const handler = {f: f};
 		const off = () => {
@@ -16,12 +16,13 @@ export class Event {
 		};
 
 		handler.off = off;
+		handler.source = source
 		handlers.push(handler);
 		return off;
 	}
 
-	watch(f) {
-		const off = this.on(f);
+	watch(f, source = 'user') {
+		const off = this.on(f, source);
 		if (this.isDirty) {
 			f(this.e(), off);
 		}
@@ -35,6 +36,16 @@ export class Event {
 		for (let i = 0, length = temp.length; i < length; i++) {
 			const handler = temp[i];
 			handler.f(e, handler.off);
+		}
+	}
+
+	free(source = null) {
+		const temp = Array.from(this.handlers);
+		for (let i = 0, length = temp.length; i < length; i++) {
+			const handler = temp[i];
+			if (!source || handler.source === source) {
+				handler.off();
+			}
 		}
 	}
 }

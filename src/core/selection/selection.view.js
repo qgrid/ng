@@ -37,7 +37,7 @@ export class SelectionView extends View {
 					this.toggleCell.execute(e.state.cell);
 				}
 			}
-		});
+		}, 'core');
 
 		model.selectionChanged.watch(e => {
 			if (e.hasChanges('mode')) {
@@ -73,7 +73,7 @@ export class SelectionView extends View {
 				const newEntries = this.selectionService.lookup(e.state.items);
 				this.select(newEntries, true);
 			}
-		});
+		}, 'core');
 	}
 
 	get commands() {

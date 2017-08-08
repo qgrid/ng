@@ -60,14 +60,14 @@ export class ScrollView extends View {
 			default:
 				model.paginationChanged.watch(() => {
 					this.y.container.reset();
-				});
+				}, 'core');
 		}
 
 		model.scrollChanged.watch(e => {
 			if (e.hasChanges('left') || e.hasChanges('top')) {
 				this.invalidate();
 			}
-		});
+		}, 'core');
 	}
 
 	invalidate() {

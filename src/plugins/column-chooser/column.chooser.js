@@ -154,7 +154,7 @@ class ColumnChooser extends Plugin {
 				this.columns = Array.from(model.data().columns);
 				this.columns.sort((x, y) => x.index - y.index);
 			}
-		});
+		}, 'core');
 	}
 
 	state(column) {

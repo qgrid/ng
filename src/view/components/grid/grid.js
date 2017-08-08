@@ -5,7 +5,7 @@ import {AppError} from '@grid/core/infrastructure';
 import {TableCommandManager} from '@grid/core/command';
 import {isUndefined} from '@grid/core/utility';
 import TemplateLink from '../template/template.link';
-import {EventListener, EventManager} from '@grid/core/infrastructure';
+import {EventListener, EventManager, Model} from '@grid/core/infrastructure';
 
 export class Grid extends RootComponent {
 	constructor($rootScope, $scope, $element, $transclude, $document, $timeout, $templateCache, $compile) {
@@ -53,7 +53,7 @@ export class Grid extends RootComponent {
 			if (e.hasChanges('columns')) {
 				this.invalidateVisibility();
 			}
-		});
+		}, 'core');
 	}
 
 	compile() {
@@ -128,6 +128,7 @@ export class Grid extends RootComponent {
 
 	onDestroy() {
 		this.listener.off();
+		Model.free(this.model, 'core');
 	}
 }
 

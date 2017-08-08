@@ -76,7 +76,7 @@ class ViewCore extends Component {
 			if (e.hasChanges('unit') || e.hasChanges('mode')) {
 				gridService.invalidate('selection', e.changes, PipeUnit.column);
 			}
-		});
+		}, 'core');
 
 		const triggers = model.data().triggers;
 		const job = jobLine(10);
@@ -89,7 +89,7 @@ class ViewCore extends Component {
 						if (e.tag.behavior !== 'core' && triggers[name].find(key => changes.indexOf(key) >= 0)) {
 							job(() => gridService.invalidate(name, e.changes));
 						}
-					}));
+					}, 'core'));
 	}
 
 	onDestroy() {

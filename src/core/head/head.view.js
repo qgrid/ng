@@ -95,13 +95,13 @@ export class HeadView extends View {
 			}
 		});
 
-		model.viewChanged.watch(() => this.invalidate(model));
+		model.viewChanged.watch(() => this.invalidate(model), 'core');
 
 		model.filterChanged.watch(e => {
 			if (e.hasChanges('unit')) {
 				this.invalidate(model);
 			}
-		});
+		}, 'core');
 	}
 
 	transfer(column) {
