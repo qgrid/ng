@@ -30,7 +30,7 @@ describe('Event', () => {
 
 	describe('off', () => {
 
-		it('should return false if all eventListeners was detached from element', () => {
+		it('should return false if all eventListeners were detached from element', () => {
 			eventListener.on('click', () => input.classList.add('someClass'));
 			eventListener.on('click', () => input.classList.add('someAnotherClass'));
 			eventListener.off();
@@ -42,4 +42,3 @@ describe('Event', () => {
 
 	});
 });
-
