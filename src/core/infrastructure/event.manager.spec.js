@@ -18,7 +18,7 @@ describe('EventManager', () => {
 
 	describe('bind', () => {
 
-		it('should return 5 if checkLength function was bound to test2 object', () => {
+		it('should return 5 if checkLength method was bound to test2 object', () => {
 			expect(result()).to.equal(5);
 		});
 
