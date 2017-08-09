@@ -8,13 +8,21 @@ export function columnPipe(memo, context, next) {
 	const pivot = memo.pivot;
 	const nodes = memo.nodes;
 	const heads = pivot.heads;
-	const columns = [];
+	const dataColumns = [];
+	const addDataColumns = dataColumnsFactory(model);
+
+	/*
+	 * We need to invoke addDataColumns earlier that others because it setups data.columns model property
+	 *
+	 */
+	addDataColumns(dataColumns, {rowspan: heads.length, row: 0});
+
 	const addSelectColumn = selectColumnFactory(model);
 	const addGroupColumn = groupColumnFactory(model, nodes);
 	const addExpandColumn = expandColumnFactory(model);
-	const addDataColumns = dataColumnsFactory(model);
 	const addPivotColumns = pivotColumnsFactory(model);
 	const addPadColumn = padColumnFactory(model);
+	const columns = [];
 
 	/*
 	 * Add column with select boxes
@@ -37,12 +45,11 @@ export function columnPipe(memo, context, next) {
 	columns.forEach((c, i) => c.index = i);
 
 	/*
-	 * Add columns defined by user
+	 *Add columns defined by user
 	 * that are visible
 	 *
 	 */
-	addDataColumns(columns, {rowspan: heads.length, row: 0});
-
+	columns.push(...dataColumns);
 
 	/*
 	 * Persist order of draggable columns
@@ -168,18 +175,27 @@ function dataColumnsFactory(model) {
 	const getColumns = generateFactory(model);
 	const createColumn = columnFactory(model);
 	return (columns, context) => {
-		const dataColumns = getColumns();
+		const result = getColumns();
+		if (result.hasChanges) {
+			model.data({
+				columns: result.columns
+			}, {
+				source: 'column.pipe',
+				behavior: 'core'
+			});
+		}
+
 		columns.push(...
 			columnService.dataView(
-				dataColumns
-					.map(c => {
-						const dataColumn = createColumn(c.type || 'text', c);
+				result.columns
+					.map(columnBody => {
+						const dataColumn = createColumn(columnBody.type || 'text', columnBody);
 						dataColumn.rowspan = context.rowspan;
 						return dataColumn;
 					}),
 				model));
 
-		return dataColumns;
+		return result.columns;
 	};
 }
 

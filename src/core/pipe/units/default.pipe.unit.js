@@ -6,8 +6,8 @@ export const defaultPipeUnit = [
 	Pipe.sort,
 	Pipe.pagination,
 	Pipe.memo,
-	Pipe.column,
 	Pipe.group,
 	Pipe.pivot,
+	Pipe.column,
 	Pipe.view
 ];

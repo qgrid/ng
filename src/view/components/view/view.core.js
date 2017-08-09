@@ -17,7 +17,6 @@ import {ColumnView} from '@grid/core/column';
 import {ScrollView} from '@grid/core/scroll';
 import {RowDetailsView} from '@grid/core/row-details';
 import {GRID_NAME, TH_CORE_NAME} from '@grid/view/definition';
-import {PipeUnit} from '@grid/core/pipe/units';
 import {Vscroll} from '@grid/view/services';
 import {jobLine} from '@grid/core/services';
 
@@ -48,7 +47,7 @@ class ViewCore extends Component {
 		this.foot = new FootView(model, table);
 		this.columns = new ColumnView(model, gridService);
 		this.layout = new LayoutView(model, table, gridService);
-		this.selection = new SelectionView(model, table, commandManager);
+		this.selection = new SelectionView(model, table, commandManager, gridService);
 		this.group = new GroupView(model, commandManager);
 		this.pivot = new PivotView(model);
 		this.highlight = new HighlightView(model, table, this.$timeout);
@@ -63,6 +62,14 @@ class ViewCore extends Component {
 		// TODO: how we can avoid that?
 		this.$scope.$watch(this.style.invalidate.bind(this.style));
 
+		this.watch(gridService);
+	}
+
+	watch(service) {
+		const job = jobLine(10);
+		const model = this.model;
+		const triggers = model.data().triggers;
+
 		this.using(model.selectionChanged.watch(e => {
 			if (e.hasChanges('items')) {
 				this.root.onSelectionChanged({
@@ -72,28 +79,22 @@ class ViewCore extends Component {
 					}
 				});
 			}
-
-			if (e.hasChanges('unit') || e.hasChanges('mode')) {
-				gridService.invalidate('selection', e.changes, PipeUnit.column);
-			}
 		}));
 
-		const triggers = model.data().triggers;
-		const job = jobLine(10);
-		job(() => gridService.invalidate('grid'));
+		job(() => service.invalidate('grid'));
 		Object.keys(triggers)
 			.forEach(name =>
 				this.using(model[name + 'Changed']
 					.watch(e => {
 						const changes = Object.keys(e.changes);
 						if (e.tag.behavior !== 'core' && triggers[name].find(key => changes.indexOf(key) >= 0)) {
-							job(() => gridService.invalidate(name, e.changes));
+							job(() => service.invalidate(name, e.changes));
 						}
 					})));
 	}
 
 	onDestroy() {
-		this.selection.destroy();
+		super.onDestroy();
 
 		this.style.dispose();
 		this.head.dispose();

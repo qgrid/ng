@@ -23,6 +23,10 @@ function merge(left, right, force = false) {
 	return doMerge(left, right);
 }
 
+function hasChanges(statistics) {
+	return statistics.some(st => st.inserted || st.update);
+}
+
 export function generateFactory(model) {
 	const data = model.data;
 	const createColumn = columnFactory(model);
@@ -58,7 +62,11 @@ export function generateFactory(model) {
 			statistics.push(merge(dataColumns, templateColumns, true));
 		}
 
-		return dataColumns;
+		return {
+			columns: dataColumns,
+			statistics: statistics,
+			hasChanges: hasChanges(statistics)
+		};
 	};
 }
 

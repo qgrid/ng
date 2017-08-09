@@ -7,9 +7,10 @@ import {SelectionService} from './selection.service';
 import {GRID_PREFIX} from '../definition';
 import {noop, isUndefined} from '../utility';
 import {SelectionCommandManager} from './selection.command.manager';
+import {PipeUnit} from '@grid/core/pipe/units';
 
 export class SelectionView extends View {
-	constructor(model, table, commandManager) {
+	constructor(model, table, commandManager, gridService) {
 		super(model);
 
 		this.table = table;
@@ -21,7 +22,7 @@ export class SelectionView extends View {
 		const selectionCommandManager = new SelectionCommandManager(model, commandManager);
 		const shortcut = model.action().shortcut;
 		const commands = this.commands;
-		
+
 		this.using(shortcut.register(selectionCommandManager, commands));
 		this.toggleRow = commands.get('toggleRow');
 		this.toggleColumn = commands.get('toggleColumn');
@@ -53,6 +54,8 @@ export class SelectionView extends View {
 			}
 
 			if (e.hasChanges('unit') || e.hasChanges('mode')) {
+				gridService.invalidate('selection', e.changes, PipeUnit.column);
+
 				if (!e.hasChanges('items')) {
 					this.selectionState.clear();
 					model.selection({
