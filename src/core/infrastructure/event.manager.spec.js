@@ -16,8 +16,14 @@ describe('EventManager', () => {
 	let eventManager = new EventManager(test2);
 	let result = eventManager.bind(test.checkLength);
 
-	it('should return 5 if checkLength function was bind to test2 object', () => {
-		expect(result()).to.equal(5);
-	});
+	describe('bind', () => {
 
+		it('should return 5 if checkLength function was bind to test2 object', () => {
+			expect(result()).to.equal(5);
+		});
+
+	});
+	
 });
+
+
