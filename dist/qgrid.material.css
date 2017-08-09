@@ -557,6 +557,9 @@
   margin: 0;
   padding: 0; }
 
+.q-grid.q-grid-theme-material .q-grid-arrow-right {
+  transform: rotate(90deg); }
+
 .q-grid.q-grid-theme-material .q-grid-view thead tr:last-child th.q-grid-pivot {
   border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
 
@@ -1019,6 +1022,8 @@
 
 .q-grid-embed {
   margin: 16px 0; }
+  .q-grid-embed .q-grid.q-grid-theme-material .q-grid-view tr {
+    height: 32px; }
   .q-grid-embed .q-grid.q-grid-theme-material .q-grid-view thead tr th {
     color: rgba(0, 127, 163, 0.77);
     background-color: rgba(0, 0, 0, 0.04); }
