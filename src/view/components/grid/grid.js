@@ -28,6 +28,14 @@ export class Grid extends RootComponent {
 
 	onInit() {
 		const model = this.model;
+		if (model.grid().status === 'bound') {
+			throw new AppError('grid', `Model is already used by grid "${model().grid().id}"`);
+		}
+
+		model.grid({
+			status: 'bound'
+		});
+
 		const bag = this.bag;
 		const layerFactory = new LayerFactory(this.markup, this.template);
 		const tableContext = {
@@ -128,7 +136,12 @@ export class Grid extends RootComponent {
 
 	onDestroy() {
 		this.listener.off();
+		this.model.grid({
+			status: 'unbound'
+		});
+
 		Model.free(this.model, 'component');
+
 	}
 }
 
