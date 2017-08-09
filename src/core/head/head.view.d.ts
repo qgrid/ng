@@ -1,8 +1,7 @@
 import {View} from '../view/view';
 import {Command} from '../infrastructure/command';
-import {Model} from "../infrastructure/model";
-import {Table} from "../dom/table";
-import {ColumnModel} from "../column-type/column.model";
+import {Model} from '../infrastructure/model';
+import {ColumnModel} from '../column-type/column.model';
 
 export interface ITransferReturnObj{
 	key: string;
@@ -10,14 +9,12 @@ export interface ITransferReturnObj{
 }
 
 export declare class HeadView extends View {
-	constructor(model: Model, public table: Table, public tagName: string);
-
+	constructor(tagName: string);
+	tagName: string;
 	rows: any[];
 	drop: Command;
 	drag: Command;
 	resize: Command;
-
 	transfer(column: ColumnModel): ITransferReturnObj;
-
 	invalidate(model: Model): void;
 }

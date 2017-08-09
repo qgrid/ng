@@ -8,6 +8,6 @@ export declare class DateColumnModel extends DataColumnModel {
 }
 
 export declare class DateColumn extends ColumnView {
-	constructor(model: Model);
+	constructor();
 	static model(model: Model): Model;
 }

@@ -1,4 +1,4 @@
-export interface ICastFactoryResult<K>{
+export interface ICastFactoryResult<K = any>{
 	(param: any): (any) => K;
 }
 

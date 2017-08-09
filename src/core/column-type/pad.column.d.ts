@@ -7,6 +7,6 @@ export declare class PadColumnModel extends ColumnModel {
 }
 
 export declare class PadColumn extends ColumnView {
-	constructor();
+	constructor(model: Model);
 	static model(model: Model): Model;
 }

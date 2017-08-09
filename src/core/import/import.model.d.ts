@@ -1,8 +1,6 @@
 import {Resource} from '../resource/resource';
 
-export class ImportModel {
+export declare class ImportModel {
 	constructor();
-
 	resource: Resource;
-
 }

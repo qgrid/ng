@@ -17,7 +17,5 @@ export interface IValueFactory {
 }
 
 export declare function get(row: any, column: ColumnModel): IGetResult;
-
 export declare function getFactory(column: ColumnModel): IGetFactoryResult;
-
 export declare function set(row: object, column: ColumnModel, value: string): void;
