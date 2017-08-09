@@ -5,12 +5,10 @@ export class ColumnView extends View {
 	constructor(model, service) {
 		super(model);
 
-		model
-			.columnListChanged
-			.watch(e => {
-				if (e.hasChanges('columns') || e.hasChanges('generation')) {
-					service.invalidate('column.view', e.changes, PipeUnit.column);
-				}
-			});
+		this.using(model.columnListChanged.watch(e => {
+			if (e.hasChanges('columns') || e.hasChanges('generation')) {
+				service.invalidate('column.view', e.changes, PipeUnit.column);
+			}
+		}));
 	}
 }

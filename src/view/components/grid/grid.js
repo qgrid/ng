@@ -45,23 +45,23 @@ export class Grid extends RootComponent {
 
 		this.table = new Table(model, this.markup, tableContext);
 		this.commandManager = new TableCommandManager(this.applyFactory(), this.table);
-		this.listener.on('keydown', e => {
+		this.using(this.listener.on('keydown', e => {
 			if (model.action().shortcut.keyDown(e)) {
 				e.preventDefault();
 				e.stopPropagation();
 			}
-		});
+		}));
 
 		if (!this.gridId) {
 			this.$element[0].id = model.grid().id;
 		}
 
 		this.compile();
-		this.model.viewChanged.watch(e => {
+		this.using(this.model.viewChanged.watch(e => {
 			if (e.hasChanges('columns')) {
 				this.invalidateVisibility();
 			}
-		});
+		}));
 	}
 
 	compile() {
@@ -135,13 +135,13 @@ export class Grid extends RootComponent {
 	}
 
 	onDestroy() {
-		this.listener.off();
+		super.onDestroy();
+
 		this.model.grid({
 			status: 'unbound'
 		});
 
-		Model.free(this.model, 'component');
-
+		Model.dispose(this.model, 'component');
 	}
 }
 

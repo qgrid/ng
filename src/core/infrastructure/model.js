@@ -90,11 +90,11 @@ export class Model {
 		}
 	}
 
-	static free(model, source = null) {
+	static dispose(model, lifecycle = null) {
 		for (let name of Object.keys(model)) {
 			const entry = model[name];
 			if (entry instanceof Event) {
-				entry.free(source);
+				entry.dispose(lifecycle);
 			}
 		}
 	}

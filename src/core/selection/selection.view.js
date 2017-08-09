@@ -21,13 +21,14 @@ export class SelectionView extends View {
 		const selectionCommandManager = new SelectionCommandManager(model, commandManager);
 		const shortcut = model.action().shortcut;
 		const commands = this.commands;
-		this.shortcutOff = shortcut.register(selectionCommandManager, commands);
+		
+		this.using(shortcut.register(selectionCommandManager, commands));
 		this.toggleRow = commands.get('toggleRow');
 		this.toggleColumn = commands.get('toggleColumn');
 		this.toggleCell = commands.get('toggleCell');
 		this.reset = commands.get('reset');
 
-		model.navigationChanged.watch(e => {
+		this.using(model.navigationChanged.watch(e => {
 			if (e.tag.source === 'selection.view') {
 				return;
 			}
@@ -37,9 +38,9 @@ export class SelectionView extends View {
 					this.toggleCell.execute(e.state.cell);
 				}
 			}
-		});
+		}));
 
-		model.selectionChanged.watch(e => {
+		this.using(model.selectionChanged.watch(e => {
 			if (e.hasChanges('mode')) {
 				const newClassName = `${GRID_PREFIX}-select-${e.state.mode}`;
 				const view = table.view;
@@ -73,7 +74,7 @@ export class SelectionView extends View {
 				const newEntries = this.selectionService.lookup(e.state.items);
 				this.select(newEntries, true);
 			}
-		});
+		}));
 	}
 
 	get commands() {
@@ -317,10 +318,6 @@ export class SelectionView extends View {
 		}
 
 		return this.selectionState.state(item) === null;
-	}
-
-	destroy() {
-		this.shortcutOff();
 	}
 
 	get selection() {

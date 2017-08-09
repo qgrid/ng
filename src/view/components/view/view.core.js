@@ -63,7 +63,7 @@ class ViewCore extends Component {
 		// TODO: how we can avoid that?
 		this.$scope.$watch(this.style.invalidate.bind(this.style));
 
-		model.selectionChanged.watch(e => {
+		this.using(model.selectionChanged.watch(e => {
 			if (e.hasChanges('items')) {
 				this.root.onSelectionChanged({
 					$event: {
@@ -76,26 +76,42 @@ class ViewCore extends Component {
 			if (e.hasChanges('unit') || e.hasChanges('mode')) {
 				gridService.invalidate('selection', e.changes, PipeUnit.column);
 			}
-		});
+		}));
 
 		const triggers = model.data().triggers;
 		const job = jobLine(10);
 		job(() => gridService.invalidate('grid'));
 		Object.keys(triggers)
 			.forEach(name =>
-				model[name + 'Changed']
+				this.using(model[name + 'Changed']
 					.watch(e => {
 						const changes = Object.keys(e.changes);
 						if (e.tag.behavior !== 'core' && triggers[name].find(key => changes.indexOf(key) >= 0)) {
 							job(() => gridService.invalidate(name, e.changes));
 						}
-					}));
+					})));
 	}
 
 	onDestroy() {
-		this.layout.destroy();
-		this.nav.destroy();
 		this.selection.destroy();
+
+		this.style.dispose();
+		this.head.dispose();
+		this.body.dispose();
+		this.foot.dispose();
+		this.columns.dispose();
+		this.layout.dispose();
+		this.selection.dispose();
+		this.group.dispose();
+		this.pivot.dispose();
+		this.highlight.dispose();
+		this.sort.dispose();
+		this.filter.dispose();
+		this.edit.dispose();
+		this.nav.dispose();
+		this.pagination.dispose();
+		this.scroll.dispose();
+		this.rowDetails.dispose();
 	}
 
 	templateUrl(key) {

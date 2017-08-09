@@ -20,6 +20,7 @@ class PopupHead extends Component {
 		this.$templateScope = null;
 		this.template = new TemplateLink($compile, $templateCache);
 		this.eventListener = new EventListener(this.$element[0], new EventManager(this));
+		this.bodyListener = new EventListener(this.$document.find('body')[0], new EventManager(this));
 
 		this.$element.attr('draggable', true);
 	}
@@ -39,15 +40,15 @@ class PopupHead extends Component {
 		link(this.$element, templateScope);
 		this.$templateScope = templateScope;
 
-		this.eventListener.on('dragstart', e => {
+		this.using(this.eventListener.on('dragstart', e => {
 			this.position.x = e.offsetX;
 			this.position.y = e.offsetY;
 
 			popupElement.addClass('drag');
 			e.dataTransfer.setDragImage(angular.element('<div></div>')[0], 0, 0); // eslint-disable-line no-undef
-		});
+		}));
 
-		this.eventListener.on('drag', event => {
+		this.using(this.eventListener.on('drag', event => {
 			const cx = event.clientX;
 			const cy = event.clientY;
 			const x = this.position.x;
@@ -69,13 +70,13 @@ class PopupHead extends Component {
 				popupElement.css('left', l + 'px');
 				popupElement.css('top', t + 'px');
 			}
-		});
+		}));
 
-		this.eventListener.on('dragend', () => {
+		this.using(this.eventListener.on('dragend', () => {
 			this.$element.removeClass('drag');
-		});
+		}));
 
-		this.$document.find('body').bind('dragover', this.onDragOver);
+		this.using(this.bodyListener.on('dragover', this.onDragOver));
 	}
 
 	onDragOver(e) {
@@ -83,6 +84,8 @@ class PopupHead extends Component {
 	}
 
 	onDestroy() {
+		super.onDestroy();
+
 		if (this.$templateScope) {
 			this.$templateScope.$destroy();
 		}

@@ -15,7 +15,7 @@ class BoxCore extends Component {
 		this.initTheme();
 
 		const model = this.model;
-		model.dragChanged.watch(e => {
+		this.using(model.dragChanged.watch(e => {
 			if (e.hasChanges('isActive')) {
 				if (model.drag().isActive) {
 					this.element.classList.add(`${GRID_PREFIX}-drag`);
@@ -24,20 +24,20 @@ class BoxCore extends Component {
 					this.element.classList.remove(`${GRID_PREFIX}-drag`);
 				}
 			}
-		});
+		}));
 	}
 
 	initTheme() {
 		const element = this.element;
 
 		element.classList.add(GRID_PREFIX);
-		this.theme.changed.watch(e => {
-			if(e) {
+		this.using(this.theme.changed.watch(e => {
+			if (e) {
 				element.classList.remove(css.escapeAttr(`${GRID_PREFIX}-theme-${e.oldValue}`));
 			}
 
 			element.classList.add(css.escapeAttr(`${GRID_PREFIX}-theme-${this.theme.name}`));
-		});
+		}));
 	}
 
 	get model() {

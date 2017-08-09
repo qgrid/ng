@@ -5,7 +5,7 @@ export class Event {
 		this.e = e;
 	}
 
-	on(f, lifecycle = 'component') {
+	on(f, lifecycle = 'app') {
 		const handlers = this.handlers;
 		const handler = {f: f};
 		const off = () => {
@@ -21,7 +21,7 @@ export class Event {
 		return off;
 	}
 
-	watch(f, lifecycle = 'component') {
+	watch(f, lifecycle = 'app') {
 		const off = this.on(f, lifecycle);
 		if (this.isDirty) {
 			f(this.e(), off);
@@ -39,7 +39,7 @@ export class Event {
 		}
 	}
 
-	free(lifecycle = null) {
+	dispose(lifecycle = null) {
 		const temp = Array.from(this.handlers);
 		for (let i = 0, length = temp.length; i < length; i++) {
 			const handler = temp[i];

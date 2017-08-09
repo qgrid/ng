@@ -122,7 +122,9 @@ export class LayoutView extends View {
 		sheet.set(style);
 	}
 
-	destroy() {
+	dispose() {
+		super.dispose();
+
 		const sheet = css.sheet(this.gridId, 'layout');
 		sheet.remove();
 	}

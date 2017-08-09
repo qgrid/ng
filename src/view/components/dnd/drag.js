@@ -14,13 +14,14 @@ class Drag extends Directive(DRAG_NAME, {view: `^^?${VIEW_CORE_NAME}`}) {
 
 	onInit() {
 		this.element.classList.add(`${GRID_PREFIX}-can-drag`);
-		this.listener.on('dragstart', this.start);
-		this.listener.on('dragend', this.end.bind(this));
+		this.using(this.listener.on('dragstart', this.start));
+		this.using(this.listener.on('dragend', this.end));
 	}
 
 	onDestroy() {
+		super.onDestroy();
+
 		this.element.classList.remove(`${GRID_PREFIX}-can-drag`);
-		this.listener.off()
 	}
 
 	start(e) {
