@@ -1,6 +1,6 @@
-import {Action} from '../infrastructure/action';
+import {Action} from '../action/action';
 
 export declare class ActionModel {
-	constructor();
-	items: Action[];
+  constructor();
+  items: Action[];
 }

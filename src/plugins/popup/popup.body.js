@@ -16,12 +16,12 @@ class PopupBody extends Component {
 		this.template = new TemplateLink($compile, $templateCache);
 		this.listener = new EventListener($element[0], new EventManager(this));
 		this.shortcutService = new Shortcut(new ShortcutManager());
-		this.listener.on('keydown', e => {
+		this.using(this.listener.on('keydown', e => {
 			if (this.shortcutService.keyDown(e)) {
 				e.preventDefault();
 				e.stopPropagation();
 			}
-		});
+		}));
 	}
 
 	onInit() {
@@ -43,7 +43,7 @@ class PopupBody extends Component {
 	}
 
 	onDestroy() {
-		this.listener.off();
+		super.onDestroy();
 		if (this.$templateScope) {
 			this.$templateScope.$destroy();
 		}

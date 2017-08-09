@@ -5,7 +5,7 @@ import {AppError} from '@grid/core/infrastructure';
 import {TableCommandManager} from '@grid/core/command';
 import {isUndefined} from '@grid/core/utility';
 import TemplateLink from '../template/template.link';
-import {EventListener, EventManager} from '@grid/core/infrastructure';
+import {EventListener, EventManager, Model} from '@grid/core/infrastructure';
 
 export class Grid extends RootComponent {
 	constructor($rootScope, $scope, $element, $transclude, $document, $timeout, $templateCache, $compile) {
@@ -28,6 +28,14 @@ export class Grid extends RootComponent {
 
 	onInit() {
 		const model = this.model;
+		if (model.grid().status === 'bound') {
+			throw new AppError('grid', `Model is already used by grid "${model().grid().id}"`);
+		}
+
+		model.grid({
+			status: 'bound'
+		});
+
 		const bag = this.bag;
 		const layerFactory = new LayerFactory(this.markup, this.template);
 		const tableContext = {
@@ -37,23 +45,23 @@ export class Grid extends RootComponent {
 
 		this.table = new Table(model, this.markup, tableContext);
 		this.commandManager = new TableCommandManager(this.applyFactory(), this.table);
-		this.listener.on('keydown', e => {
+		this.using(this.listener.on('keydown', e => {
 			if (model.action().shortcut.keyDown(e)) {
 				e.preventDefault();
 				e.stopPropagation();
 			}
-		});
+		}));
 
 		if (!this.gridId) {
 			this.$element[0].id = model.grid().id;
 		}
 
 		this.compile();
-		this.model.viewChanged.watch(e => {
+		this.using(this.model.viewChanged.watch(e => {
 			if (e.hasChanges('columns')) {
 				this.invalidateVisibility();
 			}
-		});
+		}));
 	}
 
 	compile() {
@@ -127,7 +135,13 @@ export class Grid extends RootComponent {
 	}
 
 	onDestroy() {
-		this.listener.off();
+		super.onDestroy();
+
+		this.model.grid({
+			status: 'unbound'
+		});
+
+		Model.dispose(this.model, 'component');
 	}
 }
 

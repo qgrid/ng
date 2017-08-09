@@ -1,19 +1,11 @@
 import {View} from '../view/view';
-import {Model} from "../infrastructure/model";
-import {Table} from "../dom/table";
-import {GridService} from "../services/grid";
 import {ColumnModel} from "../column-type/column.model";
 
 export declare class LayoutView extends View {
-	constructor(model: Model, public table: Table, public service: GridService);
-
+	constructor();
 	onInit(): void;
-
-	get form(): ColumnModel;
-
+	readonly form: ColumnModel;
 	invalidateColumns(form: object): void;
-
 	destroy(): void;
-
-	get styleId(): string;
+	readonly styleId: string;
 }

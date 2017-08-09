@@ -8,6 +8,6 @@ export declare class PivotColumnModel extends ColumnModel {
 }
 
 export declare class PivotColumn extends ColumnView {
-	constructor();
+	constructor(model: Model);
 	static model(model: Model): Model;
 }

@@ -145,7 +145,7 @@ class ColumnChooser extends Plugin {
 				}, {})
 		};
 
-		model.viewChanged.watch(e => {
+		this.using(model.viewChanged.watch(e => {
 			if (e.tag.source === 'column.chooser') {
 				return;
 			}
@@ -154,7 +154,7 @@ class ColumnChooser extends Plugin {
 				this.columns = Array.from(model.data().columns);
 				this.columns.sort((x, y) => x.index - y.index);
 			}
-		});
+		}));
 	}
 
 	state(column) {

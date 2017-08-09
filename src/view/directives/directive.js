@@ -1,3 +1,5 @@
+import {DisposableView} from '@grid/core/view';
+
 export default function (name, require = {}) {
 	const dependencies =
 		Object.keys(require)
@@ -10,15 +12,26 @@ export default function (name, require = {}) {
 				return memo;
 			}, []);
 
-	class Directive {
+	class Directive extends DisposableView {
 		constructor() {
+			super();
+
 			this.$postLink = this.onLink;
+			this.$onDestroy = this.onDestroyCore;
 		}
 
 		onInit() {
 		}
 
 		onLink() {
+		}
+
+		onDestroy() {
+		}
+
+		onDestroyCore() {
+			this.dispose();
+			this.onDestroy();
 		}
 
 		static link($scope, $element, $attrs, $ctrls) {

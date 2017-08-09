@@ -1,3 +1,4 @@
 export declare class RowDetailsStatus {
-	constructor(public expand: object);
+	constructor(expand: object);
+	expand: object;
 }

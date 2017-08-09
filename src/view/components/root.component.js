@@ -1,8 +1,11 @@
 import {Model, ModelBinder, Event} from '@grid/core/infrastructure';
 import {noop} from '@grid/core/utility';
+import {DisposableView} from '@grid/core/view';
 
-export default class RootComponent {
+export default class RootComponent extends DisposableView {
 	constructor(...names) {
+		super();
+
 		const self = this;
 		const binder = new ModelBinder(self);
 		let commit = noop;
@@ -42,5 +45,6 @@ export default class RootComponent {
 	}
 
 	onDestroy() {
+		this.dispose();
 	}
 }

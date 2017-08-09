@@ -23,6 +23,7 @@ function Setup(qgridThemeProvider) {
 
 		theme.put('qgrid.body.cell.text.edit.tpl.html', require('@grid/themes/material/templates/body.cell.text.edit.html'));
 		theme.put('qgrid.body.cell.text-area.edit.tpl.html', require('@grid/themes/material/templates/body.cell.text.area.edit.html'));
+		theme.put('qgrid.body.cell.group.tpl.html', require('@grid/themes/material/templates/body.cell.group.html'));
 		theme.put('qgrid.body.cell.group.edit.tpl.html', require('@grid/themes/material/templates/body.cell.text.edit.html'));
 		theme.put('qgrid.body.cell.bool.edit.tpl.html', require('@grid/themes/material/templates/body.cell.bool.edit.html'));
 		theme.put('qgrid.body.cell.date.edit.tpl.html', require('@grid/themes/material/templates/body.cell.date.edit.html'));

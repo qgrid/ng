@@ -1,7 +1,6 @@
-import {CompositeCommandManager} from '../infrastructure/composite.command.manager';
-import {Model} from "../infrastructure/model";
-import {CommandManager} from "../infrastructure/command.manager";
+import {CompositeCommandManager} from '../command/composite.command.manager';
+import {CommandManager} from '../command/command.manager';
 
 export class SelectionCommandManager extends CompositeCommandManager {
-	constructor(public model: Model, manager: CommandManager);
+	constructor(manager: CommandManager);
 }

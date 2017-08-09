@@ -16,13 +16,9 @@ class FileUpload extends Directive(FILE_UPLOAD_NAME) {
 	}
 
 	onInit() {
-		this.listener.on('change', this.upload);
-		this.listener.on('click', this.onClick);
-		this.listener.on('drop', this.upload);
-	}
-
-	onDestroy() {
-		this.listener.off();
+		this.using(this.listener.on('change', this.upload));
+		this.using(this.listener.on('click', this.onClick));
+		this.using(this.listener.on('drop', this.upload));
 	}
 
 	onClick() {
