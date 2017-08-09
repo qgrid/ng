@@ -36,7 +36,7 @@ export class ModelBinder {
 					});
 				}
 
-				this.off = model[name + 'Changed'].on(doBind, 'core');
+				this.off = model[name + 'Changed'].on(doBind);
 
 				commits.push(() => {
 					Log.info('model.bind', `to model "${name}"`);

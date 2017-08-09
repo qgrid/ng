@@ -53,7 +53,7 @@ class SelectionBar extends Plugin {
 			const selection = this.model.selection();
 			this.mode = selection.mode;
 			this.unit = selection.unit;
-		}, 'core');
+		});
 	}
 
 	get count() {

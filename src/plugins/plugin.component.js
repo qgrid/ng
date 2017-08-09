@@ -67,7 +67,7 @@ export default function (pluginName, context) {
 							}
 						}
 					}
-				}, 'core');
+				});
 
 				const plugins = clone(visibility().plugin);
 				if (!plugins.hasOwnProperty(pluginName)) {

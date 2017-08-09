@@ -44,7 +44,7 @@ export class RowDetailsView extends View {
 					behavior: 'core'
 				});
 			}
-		}, 'core');
+		});
 
 		model.viewChanged.watch(e => {
 			if (e.tag.source !== 'row.details.view') {
@@ -52,7 +52,7 @@ export class RowDetailsView extends View {
 					status: invalidateStatus(e.state.rows, model.row().status)
 				});
 			}
-		}, 'core');
+		});
 
 		const shortcut = model.action().shortcut;
 		shortcut.register(commandManager, [this.toggleStatus]);

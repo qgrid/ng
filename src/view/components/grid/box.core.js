@@ -24,7 +24,7 @@ class BoxCore extends Component {
 					this.element.classList.remove(`${GRID_PREFIX}-drag`);
 				}
 			}
-		}, 'core');
+		});
 	}
 
 	initTheme() {
@@ -37,7 +37,7 @@ class BoxCore extends Component {
 			}
 
 			element.classList.add(css.escapeAttr(`${GRID_PREFIX}-theme-${this.theme.name}`));
-		}, 'core');
+		});
 	}
 
 	get model() {

@@ -53,7 +53,7 @@ export class Grid extends RootComponent {
 			if (e.hasChanges('columns')) {
 				this.invalidateVisibility();
 			}
-		}, 'core');
+		});
 	}
 
 	compile() {
@@ -128,7 +128,7 @@ export class Grid extends RootComponent {
 
 	onDestroy() {
 		this.listener.off();
-		Model.free(this.model, 'core');
+		Model.free(this.model, 'component');
 	}
 }
 

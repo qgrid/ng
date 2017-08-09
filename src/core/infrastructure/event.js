@@ -5,7 +5,7 @@ export class Event {
 		this.e = e;
 	}
 
-	on(f, source = 'user') {
+	on(f, lifecycle = 'component') {
 		const handlers = this.handlers;
 		const handler = {f: f};
 		const off = () => {
@@ -16,13 +16,13 @@ export class Event {
 		};
 
 		handler.off = off;
-		handler.source = source
+		handler.lifecycle = lifecycle;
 		handlers.push(handler);
 		return off;
 	}
 
-	watch(f, source = 'user') {
-		const off = this.on(f, source);
+	watch(f, lifecycle = 'component') {
+		const off = this.on(f, lifecycle);
 		if (this.isDirty) {
 			f(this.e(), off);
 		}
@@ -39,11 +39,11 @@ export class Event {
 		}
 	}
 
-	free(source = null) {
+	free(lifecycle = null) {
 		const temp = Array.from(this.handlers);
 		for (let i = 0, length = temp.length; i < length; i++) {
 			const handler = temp[i];
-			if (!source || handler.source === source) {
+			if (!lifecycle || handler.lifecycle === lifecycle) {
 				handler.off();
 			}
 		}

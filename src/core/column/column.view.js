@@ -8,9 +8,9 @@ export class ColumnView extends View {
 		model
 			.columnListChanged
 			.watch(e => {
-					if (e.hasChanges('columns') || e.hasChanges('generation')) {
-						service.invalidate('column.view', e.changes, PipeUnit.column);
-					}
-				}, 'core');
+				if (e.hasChanges('columns') || e.hasChanges('generation')) {
+					service.invalidate('column.view', e.changes, PipeUnit.column);
+				}
+			});
 	}
 }

@@ -22,7 +22,7 @@ class ActionBarCore extends Plugin {
 					this.shortcutOff = shortcut
 						.register(root.commandManager, e.state.items.map(act => act.command));
 				}
-			}, 'core');
+			});
 		}
 	}
 

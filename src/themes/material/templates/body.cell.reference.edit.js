@@ -58,9 +58,9 @@ export default function ReferenceEdit($scope, qgrid, popupService) {
 				});
 			}
 
-			model.selectionChanged.watch(watchSelection, 'core');
+			model.selectionChanged.watch(watchSelection);
 		}
-	}, 'core');
+	});
 
 	const shortcutFactory = (type) => {
 		const edit = this.gridModel.edit;

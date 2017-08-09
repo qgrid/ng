@@ -91,7 +91,7 @@ export class HighlightView extends View {
 			if (e.hasChanges('items')) {
 				selectionBlurs = this.invalidateSelection(selectionBlurs);
 			}
-		}, 'core');
+		});
 
 		model.viewChanged.watch(() => {
 			waitForLayout = true;
@@ -102,13 +102,13 @@ export class HighlightView extends View {
 				selectionBlurs = this.invalidateSelection(selectionBlurs);
 				waitForLayout = false;
 			}, 100);
-		}, 'core');
+		});
 
 		model.sortChanged.watch(e => {
 			if (!waitForLayout && e.hasChanges('by')) {
 				sortBlurs = this.invalidateSortBy(sortBlurs);
 			}
-		}, 'core');
+		});
 
 		model.highlightChanged.watch(e => {
 			if (!waitForLayout && e.tag.source !== 'highlight') {
@@ -120,7 +120,7 @@ export class HighlightView extends View {
 					rowHoverBlurs = this.invalidateRowHover(rowHoverBlurs);
 				}
 			}
-		}, 'core');
+		});
 
 		model.scrollChanged.watch(() => {
 			const highlight = model.highlight;
@@ -131,7 +131,7 @@ export class HighlightView extends View {
 					source: 'highlight.view',
 				});
 			}
-		}, 'core');
+		});
 	}
 
 	invalidateColumnHover(dispose) {

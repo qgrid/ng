@@ -14,7 +14,7 @@ export class FootView extends View {
 
 		this.valueFactory = valueFactory;
 
-		model.viewChanged.watch(() => this.invalidate(model), 'core');
+		model.viewChanged.watch(() => this.invalidate(model));
 	}
 
 	invalidate(model) {
