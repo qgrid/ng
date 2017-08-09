@@ -42,11 +42,7 @@ class Import extends Plugin {
 	}
 
 	onInit() {
-		this.eventListener.on('change', this.load);
-	}
-
-	onDestroy() {
-		this.eventListener.off();
+		this.using(this.eventListener.on('change', this.load));
 	}
 }
 

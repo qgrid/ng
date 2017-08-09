@@ -49,11 +49,11 @@ class SelectionBar extends Plugin {
 	}
 
 	onInit() {
-		this.model.selectionChanged.watch(() => {
+		this.using(this.model.selectionChanged.watch(() => {
 			const selection = this.model.selection();
 			this.mode = selection.mode;
 			this.unit = selection.unit;
-		});
+		}));
 	}
 
 	get count() {

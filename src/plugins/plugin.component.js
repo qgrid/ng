@@ -46,7 +46,7 @@ export default function (pluginName, context) {
 			if (this.isLinked()) {
 				const visibility = this.model.visibility;
 				let tryToShow = false;
-				this.model.visibilityChanged.watch(e => {
+				this.using(this.model.visibilityChanged.watch(e => {
 					if (e.hasChanges('plugin')) {
 						const plugins = e.state.plugin;
 						const pluginState = plugins[pluginName];
@@ -67,7 +67,7 @@ export default function (pluginName, context) {
 							}
 						}
 					}
-				});
+				}));
 
 				const plugins = clone(visibility().plugin);
 				if (!plugins.hasOwnProperty(pluginName)) {

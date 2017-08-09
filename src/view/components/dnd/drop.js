@@ -15,15 +15,16 @@ class Drop extends Directive(DROP_NAME) {
 
 	onInit() {
 		this.element.classList.add(`${GRID_PREFIX}-can-drop`);
-		this.listener.on('dragenter', this.enter);
-		this.listener.on('dragover', this.over);
-		this.listener.on('dragleave', this.leave);
-		this.listener.on('drop', this.drop);
+		this.using(this.listener.on('dragenter', this.enter));
+		this.using(this.listener.on('dragover', this.over));
+		this.using(this.listener.on('dragleave', this.leave));
+		this.using(this.listener.on('drop', this.drop));
 	}
 
 	onDestroy() {
+		super.onDestroy();
+
 		this.element.classList.remove(`${GRID_PREFIX}-can-drop`);
-		this.listener.off();
 	}
 
 	drop(e) {

@@ -33,6 +33,8 @@ class Resize extends Directive(RESIZE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	}
 
 	onDestroy() {
+		super.onDestroy();
+
 		this.listener.divider.off();
 		this.listener.document.off();
 	}

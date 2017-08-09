@@ -40,19 +40,15 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, r
 	}
 
 	onInit() {
-		this.listener = new EventListener(this.element, new EventManager(this, this.root.applyFactory(null, 'sync')));
+		const listener = new EventListener(this.element, new EventManager(this, this.root.applyFactory(null, 'sync')));
 
-		this.listener.on('scroll', this.onScroll);
-		this.listener.on('click', this.onClick);
-		this.listener.on('mousedown', this.onMouseDown);
-		this.listener.on('mouseup', this.onMouseUp);
+		this.using(listener.on('scroll', this.onScroll));
+		this.using(listener.on('click', this.onClick));
+		this.using(listener.on('mousedown', this.onMouseDown));
+		this.using(listener.on('mouseup', this.onMouseUp));
 
-		this.listener.on('mousemove', this.onMouseMove);
-		this.listener.on('mouseleave', this.onMouseLeave)
-	}
-
-	onDestroy() {
-		this.listener.off();
+		this.using(listener.on('mousemove', this.onMouseMove));
+		this.using(listener.on('mouseleave', this.onMouseLeave))
 	}
 
 	onClick(e) {
