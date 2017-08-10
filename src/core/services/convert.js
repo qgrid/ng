@@ -81,16 +81,32 @@ function parseText(value) {
 }
 
 function parseDate(value) {
-	if (value === null || value === false || value === true) {
+	if (value === null) {
 		return null;
 	}
 
-	if(typeof value === 'number') {
-		value = value.toString();
-	}
+	value = '' + value;
 
-	const date = new Date(value);
-	if (date !== 'Invalid Date' && !isNaN(date)) {
+	const m = value.match(/^(\d{4})(-(\d{2})(-(\d{2})([T ](\d{2}):(\d{2})(:(\d{2})(\.(\d+))?)?(Z|(([-+])(\d{2})(:?(\d{2}))?))?)?)?)?$/);
+	if (m) {
+		const utc = Date.UTC(
+			m[1],
+			m[3] ? m[3] - 1 : 0,
+			m[5] || 1,
+			m[7] || 0,
+			m[8] || 0,
+			m[10] || 0,
+			m[12] ? Number('0.' + m[12]) * 1000 : 0
+		);
+		const date = new Date(utc);
+		if (m[13]) { // has gmt offset or Z
+			if (m[14]) { // has gmt offset
+				date.setUTCMinutes(
+					date.getUTCMinutes() +
+					(m[15] == '-' ? 1 : -1) * (Number(m[16]) * 60 + (m[18] ? Number(m[18]) : 0))
+				);
+			}
+		}
 		return date;
 	}
 
