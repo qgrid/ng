@@ -71,6 +71,10 @@ class Pager extends Plugin {
 	get scroll() {
 		return this.model.scroll();
 	}
+
+	get kind() {
+		return 'layout';
+	}
 }
 
 export default Pager.component({

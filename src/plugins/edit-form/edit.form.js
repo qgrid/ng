@@ -9,10 +9,6 @@ class EditForm extends Plugin {
 
 	onInit() {
 	}
-
-	get kind() {
-		return 'control';
-	}
 }
 
 export default EditForm.component({

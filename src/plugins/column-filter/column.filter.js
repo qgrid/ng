@@ -5,10 +5,6 @@ class ColumnFilter extends Plugin {
 	constructor() {
 		super(...arguments);
 	}
-
-	get kind() {
-		return 'control';
-	}
 }
 
 export default ColumnFilter.component({

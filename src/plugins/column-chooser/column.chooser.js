@@ -187,6 +187,10 @@ class ColumnChooser extends Plugin {
 			value: column.key
 		};
 	}
+
+	get kind() {
+		return 'layout';
+	}
 }
 
 export default ColumnChooser.component({

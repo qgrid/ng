@@ -145,10 +145,6 @@ class ColumnFilterPanel extends Plugin {
 
 	onReset() {
 	}
-
-	get kind() {
-		return 'control';
-	}
 }
 
 export default ColumnFilterPanel.component({

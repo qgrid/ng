@@ -197,10 +197,6 @@ class DataManipulation extends Plugin {
 		}
 	}
 
-	get kind() {
-		return 'control';
-	}
-
 	get changes() {
 		const model = this.model;
 		return model.dataManipulation();

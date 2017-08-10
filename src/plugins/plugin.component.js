@@ -168,7 +168,7 @@ export default function (pluginName, context) {
 		}
 
 		get kind() {
-			return 'layout';
+			return 'control';
 		}
 	}
 
