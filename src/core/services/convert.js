@@ -1,4 +1,4 @@
-import {identity, isObject, isArray, isBoolean, isEmail} from '../utility';
+import {identity, isObject, isArray, isBoolean, isEmail, isString} from '../utility';
 
 export function parseFactory(type) {
 	switch (type) {
@@ -40,12 +40,16 @@ export function getType(value) {
 		return 'date';
 	}
 
-	if (isObject(value)) {
-		return 'object';
-	}
-
 	if (isEmail(value)) {
 		return 'email';
+	}
+
+	if (isString(value)) {
+		return 'text';
+	}
+
+	if (isObject(value)) {
+		return 'object';
 	}
 
 	return 'text';
@@ -85,8 +89,11 @@ function parseDate(value) {
 		return null;
 	}
 
-	value = '' + value;
+	if (value instanceof Date) {
+		return value;
+	}
 
+	value = '' + value;
 	const m = value.match(/^(\d{4})(-(\d{2})(-(\d{2})([T ](\d{2}):(\d{2})(:(\d{2})(\.(\d+))?)?(Z|(([-+])(\d{2})(:?(\d{2}))?))?)?)?)?$/);
 	if (m) {
 		const utc = Date.UTC(
@@ -121,12 +128,3 @@ function parseNumber(value) {
 
 	return null;
 }
-
-// function parseInteger(value) {
-// 	const number = parseInt(value);
-// 	if (!isNaN(number) && isFinite(number)) {
-// 		return number;
-// 	}
-//
-// 	return null;
-// }
