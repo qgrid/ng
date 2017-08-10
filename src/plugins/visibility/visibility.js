@@ -71,6 +71,10 @@ class Visibility extends Plugin {
 	get resource() {
 		return this.model.visibility().resource;
 	}
+
+	get kind() {
+		return 'control';
+	}
 }
 
 export default Visibility.component({

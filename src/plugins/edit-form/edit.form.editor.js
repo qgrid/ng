@@ -21,6 +21,10 @@ class EditFormBody extends Plugin {
 			this.templateScope = null;
 		}
 	}
+
+	get kind() {
+		return 'control';
+	}
 }
 
 export default EditFormBody.component({

@@ -44,39 +44,49 @@ export default function (pluginName, context) {
 
 		onInitCore() {
 			if (this.isLinked()) {
-				const visibility = this.model.visibility;
-				let tryToShow = false;
-				this.using(this.model.visibilityChanged.watch(e => {
-					if (e.hasChanges('plugin')) {
-						const plugins = e.state.plugin;
-						const pluginState = plugins[pluginName];
-						if (pluginState !== this.isShown) {
-							if (pluginState) {
-								if (!tryToShow) {
-									tryToShow = true;
-									try {
-										this.templateScope = this.show();
-									}
-									finally {
-										tryToShow = false;
-									}
-								}
-							}
-							else {
-								this.templateScope = this.hide();
-							}
-						}
-					}
-				}));
-
-				const plugins = clone(visibility().plugin);
-				if (!plugins.hasOwnProperty(pluginName)) {
-					plugins[pluginName] = true;
-					this.model.visibility({plugin: plugins});
+				if (this.kind === 'layout') {
+					this.bindToVisibility();
+				}
+				else {
+					this.show();
 				}
 			}
 
 			super.onInitCore();
+		}
+
+		bindToVisibility() {
+			const model = this.model;
+			const visibility = model.visibility;
+			let tryToShow = false;
+			this.using(model.visibilityChanged.watch(e => {
+				if (e.hasChanges('plugin')) {
+					const plugins = e.state.plugin;
+					const pluginState = plugins[pluginName];
+					if (pluginState !== this.isShown) {
+						if (pluginState) {
+							if (!tryToShow) {
+								tryToShow = true;
+								try {
+									this.show();
+								}
+								finally {
+									tryToShow = false;
+								}
+							}
+						}
+						else {
+							this.hide();
+						}
+					}
+				}
+			}));
+
+			const plugins = clone(visibility().plugin);
+			if (!plugins.hasOwnProperty(pluginName)) {
+				plugins[pluginName] = true;
+				model.visibility({plugin: plugins});
+			}
 		}
 
 		isLinked() {
@@ -121,6 +131,10 @@ export default function (pluginName, context) {
 		}
 
 		show() {
+			if (this.isShown) {
+				throw new AppError('plugin.component', `Plugin ${pluginName} is already shown`);
+			}
+
 			const templateUrl = `qgrid.plugin.${pluginName}.tpl.html`;
 			const templateScope = this.$scope.$new();
 			const link = this.template.link(
@@ -130,12 +144,15 @@ export default function (pluginName, context) {
 			);
 
 			link(this.$element, templateScope);
+			this.templateScope = templateScope;
+
 			return templateScope;
 		}
 
 		hide() {
 			if (this.templateScope) {
 				this.templateScope.$destroy();
+				this.templateScope = null;
 				this.$element[0].innerHTML = '';
 			}
 
@@ -148,6 +165,10 @@ export default function (pluginName, context) {
 
 		get resourceKey() {
 			return ['content', '$default'];
+		}
+
+		get kind() {
+			return 'layout';
 		}
 	}
 

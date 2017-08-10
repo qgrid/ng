@@ -52,6 +52,10 @@ class Popup extends Plugin {
 		return this.model.popup().resource;
 	}
 
+	get kind() {
+		return 'control';
+	}
+
 	onDestroy() {
 		if (this.qGridPopupService.isOpened(this.id)) {
 			this.qGridPopupService.close(this.id);

@@ -6,9 +6,12 @@ class EditForm extends Plugin {
 	constructor() {
 		super(...arguments);
 	}
-	
+
 	onInit() {
-		
+	}
+
+	get kind() {
+		return 'control';
 	}
 }
 

@@ -61,6 +61,10 @@ class EditFormPanel extends Plugin {
 	onDestroy() {
 		this.shortcutOff();
 	}
+
+	get kind() {
+		return 'control';
+	}
 }
 
 export default EditFormPanel.component({
