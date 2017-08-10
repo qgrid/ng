@@ -36,10 +36,6 @@ class ActionBarCore extends Plugin {
 			this.shortcutOff = null;
 		}
 	}
-
-	get kind() {
-		return 'layout';
-	}
 }
 
 export default ActionBarCore.component({

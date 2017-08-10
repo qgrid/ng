@@ -20,10 +20,6 @@ class Progress extends Plugin {
 		const progressState = this.model.progress();
 		return progressState.isBusy || progressState.queue.length;
 	}
-
-	get kind() {
-		return 'layout';
-	}
 }
 
 export default Progress.component({

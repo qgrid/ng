@@ -1,6 +1,6 @@
 import ModelComponent from '@grid/view/components/model.component';
 import {AppError, Guard} from '@grid/core/infrastructure';
-import {merge, clone, assignWith} from '@grid/core/utility';
+import {merge, assignWith} from '@grid/core/utility';
 import TemplateLink from '@grid/view/components/template/template.link';
 import {BOX_CORE_NAME, GRID_NAME} from '@grid/view/definition';
 
@@ -44,10 +44,14 @@ export default function (pluginName, context) {
 
 		onInitCore() {
 			if (this.isLinked()) {
-				if (this.kind === 'layout') {
+				const visibility = this.model.visibility().plugin;
+				let isVisible = true;
+				if (visibility.hasOwnProperty(pluginName)) {
+					isVisible = visibility[pluginName] !== false;
 					this.bindToVisibility();
 				}
-				else {
+
+				if (isVisible) {
 					this.show();
 				}
 			}
@@ -57,7 +61,6 @@ export default function (pluginName, context) {
 
 		bindToVisibility() {
 			const model = this.model;
-			const visibility = model.visibility;
 			let tryToShow = false;
 			this.using(model.visibilityChanged.watch(e => {
 				if (e.hasChanges('plugin')) {
@@ -81,12 +84,6 @@ export default function (pluginName, context) {
 					}
 				}
 			}));
-
-			const plugins = clone(visibility().plugin);
-			if (!plugins.hasOwnProperty(pluginName)) {
-				plugins[pluginName] = true;
-				model.visibility({plugin: plugins});
-			}
 		}
 
 		isLinked() {
@@ -165,10 +162,6 @@ export default function (pluginName, context) {
 
 		get resourceKey() {
 			return ['content', '$default'];
-		}
-
-		get kind() {
-			return 'control';
 		}
 	}
 
