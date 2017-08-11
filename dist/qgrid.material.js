@@ -1629,7 +1629,7 @@ function merge(target, source) {
 		});
 	}
 
-	return target || __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__utility__["m" /* clone */])(source);
+	return target || __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__utility__["n" /* clone */])(source);
 }
 
 function columnFactory(model) {
@@ -2831,7 +2831,7 @@ function expandData(schema, source) {
 		return source && source.hasOwnProperty(key) ? expandData(node, source[key]) : expandData(node);
 	});
 
-	return baseline.length ? __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__utility__["n" /* flatten */])(baseline, true) : [source];
+	return baseline.length ? __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__utility__["o" /* flatten */])(baseline, true) : [source];
 }
 
 function liftSchema(schema) {
@@ -8499,7 +8499,7 @@ function sortPipe(data, context, next) {
 			directions.push(sortDir);
 		}
 
-		result = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__utility__["o" /* orderBy */])(data, mappings, directions);
+		result = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__utility__["p" /* orderBy */])(data, mappings, directions);
 	}
 
 	next(result);
@@ -9588,12 +9588,16 @@ function getType(value) {
 		return 'date';
 	}
 
-	if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__utility__["f" /* isObject */])(value)) {
-		return 'object';
-	}
-
 	if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__utility__["k" /* isEmail */])(value)) {
 		return 'email';
+	}
+
+	if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__utility__["l" /* isString */])(value)) {
+		return 'text';
+	}
+
+	if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__utility__["f" /* isObject */])(value)) {
+		return 'object';
 	}
 
 	return 'text';
@@ -9613,7 +9617,7 @@ function isPrimitive(type) {
 }
 
 function parseBool(value) {
-	return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__utility__["l" /* isBoolean */])(value) ? value : value === 'true' ? true : value === 'false' ? false : null;
+	return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__utility__["m" /* isBoolean */])(value) ? value : value === 'true' ? true : value === 'false' ? false : null;
 }
 
 function parseText(value) {
@@ -9621,16 +9625,26 @@ function parseText(value) {
 }
 
 function parseDate(value) {
-	if (value === null || value === false || value === true) {
+	if (value === null) {
 		return null;
 	}
 
-	if (typeof value === 'number') {
-		value = value.toString();
+	if (value instanceof Date) {
+		return value;
 	}
 
-	var date = new Date(value);
-	if (date !== 'Invalid Date' && !isNaN(date)) {
+	value = '' + value;
+	var m = value.match(/^(\d{4})(-(\d{2})(-(\d{2})([T ](\d{2}):(\d{2})(:(\d{2})(\.(\d+))?)?(Z|(([-+])(\d{2})(:?(\d{2}))?))?)?)?)?$/);
+	if (m) {
+		var utc = Date.UTC(m[1], m[3] ? m[3] - 1 : 0, m[5] || 1, m[7] || 0, m[8] || 0, m[10] || 0, m[12] ? Number('0.' + m[12]) * 1000 : 0);
+		var date = new Date(utc);
+		if (m[13]) {
+			// has gmt offset or Z
+			if (m[14]) {
+				// has gmt offset
+				date.setUTCMinutes(date.getUTCMinutes() + (m[15] == '-' ? 1 : -1) * (Number(m[16]) * 60 + (m[18] ? Number(m[18]) : 0)));
+			}
+		}
 		return date;
 	}
 
@@ -9645,15 +9659,6 @@ function parseNumber(value) {
 
 	return null;
 }
-
-// function parseInteger(value) {
-// 	const number = parseInt(value);
-// 	if (!isNaN(number) && isFinite(number)) {
-// 		return number;
-// 	}
-//
-// 	return null;
-// }
 
 /***/ }),
 /* 217 */
@@ -10109,20 +10114,20 @@ var TemplatePath = function () {
 /* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "f", function() { return __WEBPACK_IMPORTED_MODULE_0_lodash_isObject___default.a; });
 /* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_1_lodash_isFunction___default.a; });
 /* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_2_lodash_isArray___default.a; });
-/* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "q", function() { return __WEBPACK_IMPORTED_MODULE_3_lodash_isString___default.a; });
+/* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "l", function() { return __WEBPACK_IMPORTED_MODULE_3_lodash_isString___default.a; });
 /* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_9_lodash_isUndefined___default.a; });
-/* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "l", function() { return __WEBPACK_IMPORTED_MODULE_4_lodash_isBoolean___default.a; });
+/* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "m", function() { return __WEBPACK_IMPORTED_MODULE_4_lodash_isBoolean___default.a; });
 /* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "y", function() { return __WEBPACK_IMPORTED_MODULE_6_lodash_isDate___default.a; });
 /* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "x", function() { return __WEBPACK_IMPORTED_MODULE_5_lodash_isNumber___default.a; });
-/* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "m", function() { return __WEBPACK_IMPORTED_MODULE_7_lodash_clone___default.a; });
+/* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "n", function() { return __WEBPACK_IMPORTED_MODULE_7_lodash_clone___default.a; });
 /* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "r", function() { return __WEBPACK_IMPORTED_MODULE_8_lodash_cloneDeepWith___default.a; });
 /* unused harmony reexport debounce */
-/* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "p", function() { return __WEBPACK_IMPORTED_MODULE_11_lodash_merge___default.a; });
-/* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "n", function() { return __WEBPACK_IMPORTED_MODULE_12_lodash_flatten___default.a; });
+/* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "q", function() { return __WEBPACK_IMPORTED_MODULE_11_lodash_merge___default.a; });
+/* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "o", function() { return __WEBPACK_IMPORTED_MODULE_12_lodash_flatten___default.a; });
 /* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "j", function() { return __WEBPACK_IMPORTED_MODULE_14_lodash_startCase___default.a; });
 /* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "i", function() { return __WEBPACK_IMPORTED_MODULE_15_lodash_assignWith___default.a; });
 /* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "s", function() { return __WEBPACK_IMPORTED_MODULE_16_lodash_uniq___default.a; });
-/* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "o", function() { return __WEBPACK_IMPORTED_MODULE_13_lodash_orderBy___default.a; });
+/* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "p", function() { return __WEBPACK_IMPORTED_MODULE_13_lodash_orderBy___default.a; });
 /* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "u", function() { return __WEBPACK_IMPORTED_MODULE_18_lodash_maxBy___default.a; });
 /* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "w", function() { return __WEBPACK_IMPORTED_MODULE_19_lodash_minBy___default.a; });
 /* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "v", function() { return __WEBPACK_IMPORTED_MODULE_17_lodash_sumBy___default.a; });
