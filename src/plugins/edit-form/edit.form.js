@@ -6,9 +6,8 @@ class EditForm extends Plugin {
 	constructor() {
 		super(...arguments);
 	}
-	
+
 	onInit() {
-		
 	}
 }
 

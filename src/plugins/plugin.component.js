@@ -1,6 +1,6 @@
 import ModelComponent from '@grid/view/components/model.component';
 import {AppError, Guard} from '@grid/core/infrastructure';
-import {merge, clone, assignWith} from '@grid/core/utility';
+import {merge, assignWith} from '@grid/core/utility';
 import TemplateLink from '@grid/view/components/template/template.link';
 import {BOX_CORE_NAME, GRID_NAME} from '@grid/view/definition';
 
@@ -44,39 +44,46 @@ export default function (pluginName, context) {
 
 		onInitCore() {
 			if (this.isLinked()) {
-				const visibility = this.model.visibility;
-				let tryToShow = false;
-				this.using(this.model.visibilityChanged.watch(e => {
-					if (e.hasChanges('plugin')) {
-						const plugins = e.state.plugin;
-						const pluginState = plugins[pluginName];
-						if (pluginState !== this.isShown) {
-							if (pluginState) {
-								if (!tryToShow) {
-									tryToShow = true;
-									try {
-										this.templateScope = this.show();
-									}
-									finally {
-										tryToShow = false;
-									}
-								}
-							}
-							else {
-								this.templateScope = this.hide();
-							}
-						}
-					}
-				}));
+				const visibility = this.model.visibility().plugin;
+				let isVisible = true;
+				if (visibility.hasOwnProperty(pluginName)) {
+					isVisible = visibility[pluginName] !== false;
+					this.bindToVisibility();
+				}
 
-				const plugins = clone(visibility().plugin);
-				if (!plugins.hasOwnProperty(pluginName)) {
-					plugins[pluginName] = true;
-					this.model.visibility({plugin: plugins});
+				if (isVisible) {
+					this.show();
 				}
 			}
 
 			super.onInitCore();
+		}
+
+		bindToVisibility() {
+			const model = this.model;
+			let tryToShow = false;
+			this.using(model.visibilityChanged.watch(e => {
+				if (e.hasChanges('plugin')) {
+					const plugins = e.state.plugin;
+					const pluginState = plugins[pluginName];
+					if (pluginState !== this.isShown) {
+						if (pluginState) {
+							if (!tryToShow) {
+								tryToShow = true;
+								try {
+									this.show();
+								}
+								finally {
+									tryToShow = false;
+								}
+							}
+						}
+						else {
+							this.hide();
+						}
+					}
+				}
+			}));
 		}
 
 		isLinked() {
@@ -121,6 +128,10 @@ export default function (pluginName, context) {
 		}
 
 		show() {
+			if (this.isShown) {
+				throw new AppError('plugin.component', `Plugin ${pluginName} is already shown`);
+			}
+
 			const templateUrl = `qgrid.plugin.${pluginName}.tpl.html`;
 			const templateScope = this.$scope.$new();
 			const link = this.template.link(
@@ -130,12 +141,15 @@ export default function (pluginName, context) {
 			);
 
 			link(this.$element, templateScope);
+			this.templateScope = templateScope;
+
 			return templateScope;
 		}
 
 		hide() {
 			if (this.templateScope) {
 				this.templateScope.$destroy();
+				this.templateScope = null;
 				this.$element[0].innerHTML = '';
 			}
 

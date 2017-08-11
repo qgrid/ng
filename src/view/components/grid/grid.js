@@ -29,7 +29,7 @@ export class Grid extends RootComponent {
 	onInit() {
 		const model = this.model;
 		if (model.grid().status === 'bound') {
-			throw new AppError('grid', `Model is already used by grid "${model().grid().id}"`);
+			throw new AppError('grid', `Model is already used by grid "${model.grid().id}"`);
 		}
 
 		model.grid({

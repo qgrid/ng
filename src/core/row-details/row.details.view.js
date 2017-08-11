@@ -38,7 +38,7 @@ export class RowDetailsView extends View {
 		this.using(model.rowChanged.watch(e => {
 			if (e.hasChanges('status')) {
 				model.view({
-					rows: flatView(table),
+					rows: flatView(table, e.state.mode),
 				}, {
 					source: 'row.details.view',
 					behavior: 'core'
