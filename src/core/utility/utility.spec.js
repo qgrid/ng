@@ -1,31 +1,30 @@
-import {isObject, startCase} from './utility';
 import * as Utility from './utility';
 
 describe('utility', () => {
 	describe('isObject', () => {
 		it('should return false when passing number', () => {
-			expect(isObject(12)).to.be.false;
+			expect(Utility.isObject(12)).to.be.false;
 		});
 
 		it('should return true when passing empty object', () => {
-			expect(isObject({})).to.be.true;
+			expect(Utility.isObject({})).to.be.true;
 		});
 	});
 
 	describe('startCase', () => {
 		it('should return prettified string from camel case', () => {
 			const camel = 'lastName';
-			expect(startCase(camel)).to.equal('Last Name');
+			expect(Utility.startCase(camel)).to.equal('Last Name');
 		});
 
 		it('should return prettified string from dot case', () => {
 			const dotted = 'last.name';
-			expect(startCase(dotted)).to.equal('Last Name');
+			expect(Utility.startCase(dotted)).to.equal('Last Name');
 		});
 
 		it('should return capitalized abbreviation', () => {
 			const withAbbr = 'userTIN';
-			expect(startCase(withAbbr)).to.equal('User TIN');
+			expect(Utility.startCase(withAbbr)).to.equal('User TIN');
 		});
 	});
 
@@ -74,7 +73,22 @@ describe('utility', () => {
 			let foo = Utility.toCamelCase();
 			expect(foo).to.equal('');
 		});
-
+		it('should return "123"', () => {
+			let foo = Utility.toCamelCase(123);
+			expect(foo).to.equal('123');
+		});
+		it('should return "true"', () => {
+			let foo = Utility.toCamelCase(true);
+			expect(foo).to.equal('true');
+		});
+		it('should return "false"', () => {
+			let foo = Utility.toCamelCase(false);
+			expect(foo).to.equal('false');
+		});
+		it('should return "undefined"', () => {
+			let foo = Utility.toCamelCase(undefined);
+			expect(foo).to.equal('undefined');
+		});
 	});
 
 	describe('isEmail', () => {
@@ -84,6 +98,26 @@ describe('utility', () => {
 		});
 		it('should return false if passed incorrect email', () => {
 			let foo = Utility.isEmail('@email.com');
+			expect(foo).to.equal(false);
+		});
+		it('should return false if passed incorrect email', () => {
+			let foo = Utility.isEmail(123);
+			expect(foo).to.equal(false);
+		});
+		it('should return false if passed incorrect email', () => {
+			let foo = Utility.isEmail();
+			expect(foo).to.equal(false);
+		});
+		it('should return false if passed incorrect email', () => {
+			let foo = Utility.isEmail(false);
+			expect(foo).to.equal(false);
+		});
+		it('should return false if passed incorrect email', () => {
+			let foo = Utility.isEmail(true);
+			expect(foo).to.equal(false);
+		});
+		it('should return false if passed incorrect email', () => {
+			let foo = Utility.isEmail(undefined);
 			expect(foo).to.equal(false);
 		});
 	});
