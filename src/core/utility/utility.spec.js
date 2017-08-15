@@ -58,10 +58,23 @@ describe('utility', () => {
 	});
 
 	describe('toCamelCase', () => {
-		let foo = Utility.toCamelCase('camel', 'case');
+		it('should return empty sring if passed one argument ', () => {
+			let foo = Utility.toCamelCase('camel');
+			expect(foo).to.equal('camel');
+		});
 		it('should return string transformed into camelCase', () => {
+			let foo = Utility.toCamelCase('camel', 'case');
 			expect(foo).to.equal('camelCase');
 		});
+		it('should return string transformed into camelCase if passed many arguments', () => {
+			let foo = Utility.toCamelCase('camel', 'case', 'is', 'not', 'a', 'pascal', 'case');
+			expect(foo).to.equal('camelCaseIsNotAPascalCase');
+		});
+		it('should return empty string', () => {
+			let foo = Utility.toCamelCase();
+			expect(foo).to.equal('');
+		});
+
 	});
 
 	describe('isEmail', () => {
