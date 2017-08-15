@@ -65,6 +65,26 @@ describe('utility', () => {
 			let foo = Utility.toCamelCase('camel', 'case');
 			expect(foo).to.equal('camelCase');
 		});
+		it('should return string transformed into camelCase', () => {
+			let foo = Utility.toCamelCase('Camel', 'case');
+			expect(foo).to.equal('camelCase');
+		});
+		it('should return string transformed into camelCase', () => {
+			let foo = Utility.toCamelCase('Camel', 'Case');
+			expect(foo).to.equal('camelCase');
+		});
+		it('should return string transformed into camelCase', () => {
+			let foo = Utility.toCamelCase('CAMEL', 'Case');
+			expect(foo).to.equal('camelCase');
+		});
+		it('should return string transformed into camelCase', () => {
+			let foo = Utility.toCamelCase('CAMEL', 'CASE');
+			expect(foo).to.equal('camelCase');
+		});
+		it('should return string transformed into camelCase', () => {
+			let foo = Utility.toCamelCase('camel', 'CASE');
+			expect(foo).to.equal('camelCase');
+		});
 		it('should return string transformed into camelCase if passed many arguments', () => {
 			let foo = Utility.toCamelCase('camel', 'case', 'is', 'not', 'a', 'pascal', 'case');
 			expect(foo).to.equal('camelCaseIsNotAPascalCase');
@@ -72,22 +92,6 @@ describe('utility', () => {
 		it('should return empty string', () => {
 			let foo = Utility.toCamelCase();
 			expect(foo).to.equal('');
-		});
-		it('should return "123"', () => {
-			let foo = Utility.toCamelCase(123);
-			expect(foo).to.equal('123');
-		});
-		it('should return "true"', () => {
-			let foo = Utility.toCamelCase(true);
-			expect(foo).to.equal('true');
-		});
-		it('should return "false"', () => {
-			let foo = Utility.toCamelCase(false);
-			expect(foo).to.equal('false');
-		});
-		it('should return "undefined"', () => {
-			let foo = Utility.toCamelCase(undefined);
-			expect(foo).to.equal('undefined');
 		});
 	});
 
