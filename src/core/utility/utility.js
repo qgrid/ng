@@ -27,13 +27,18 @@ const no = () => false;
 const identity = arg => arg;
 
 const toCamelCase = (...names) => {
-	const length = names.length;
+	let i = 0,
+		length = names.length;
+
+	for (; i < length; i++) {
+		names[i] = names[i].toLowerCase();
+	}
+
 	if (length > 0) {
-		return names[0] +
-			names.slice(1)
-				.map(name =>
-				name[0].toUpperCase() +
-				name.substring(1, name.length));
+		return (names[0] +
+		names.slice(1)
+			.map(name => name[0].toUpperCase() + name.substring(1, name.length))
+			.join(''));
 	}
 
 	return '';
