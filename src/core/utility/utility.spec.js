@@ -57,7 +57,7 @@ describe('utility', () => {
 	});
 
 	describe('toCamelCase', () => {
-		it('should return empty sring if passed one argument ', () => {
+		it('should return empty string if passed one argument ', () => {
 			let foo = Utility.toCamelCase('camel');
 			expect(foo).to.equal('camel');
 		});
