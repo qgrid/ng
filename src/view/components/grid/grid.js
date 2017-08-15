@@ -24,10 +24,13 @@ export class Grid extends RootComponent {
 
 		this.bag = new Map();
 		this.listener = new EventListener($element[0], new EventManager(this, this.applyFactory(null, 'sync')));
+		this.modelChanged.watch(e => this.build(e.newValue, e.oldValue));
 	}
 
-	onInit() {
-		const model = this.model;
+	build(newModel, oldModel) {
+		this.free(oldModel);
+
+		const model = newModel;
 		if (model.grid().status === 'bound') {
 			throw new AppError('grid', `Model is already used by grid "${model.grid().id}"`);
 		}
@@ -57,7 +60,7 @@ export class Grid extends RootComponent {
 		}
 
 		this.compile();
-		this.using(this.model.viewChanged.watch(e => {
+		this.using(model.viewChanged.watch(e => {
 			if (e.hasChanges('columns')) {
 				this.invalidateVisibility();
 			}
@@ -134,14 +137,20 @@ export class Grid extends RootComponent {
 		return this.table.view.isFocused();
 	}
 
-	onDestroy() {
+	free(model) {
 		super.onDestroy();
 
-		this.model.grid({
-			status: 'unbound'
-		});
+		if (model) {
+			model.grid({
+				status: 'unbound'
+			});
 
-		Model.dispose(this.model, 'component');
+			Model.dispose(model, 'component');
+		}
+	}
+
+	onDestroy() {
+		this.free(this.model);
 	}
 }
 

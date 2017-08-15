@@ -1,2 +1,10 @@
 <q-grid model="$ctrl.gridModel">
+	<q-grid:toolbar>
+		<q-grid:template for="top" let="$ctrl">
+			<md-button ng-click="$ctrl.setModel(-1)">Empty Model</md-button>
+			<md-button ng-click="$ctrl.setModel(0)">Model 1</md-button>
+			<md-button ng-click="$ctrl.setModel(1)">Model 2</md-button>
+			<span>current model: {{$ctrl.gridModel.grid().id}}</span>
+		</q-grid:template>
+	</q-grid:toolbar>
 </q-grid>

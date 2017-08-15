@@ -20,14 +20,20 @@ export default class RootComponent extends DisposableView {
 			return binder.bind(self.model, names, run);
 		}
 
-		self.modelChanged = new Event();
+		self.modelChanged = new Event(() => ({
+			oldValue: null,
+			newValue: this.model
+		}));
 
-		self.$onChanges = (e) => {
+		self.$onChanges = e => {
 			if (e.hasOwnProperty('model')) {
 				commit = setup();
 				commit();
 
-				self.modelChanged.emit(self.model);
+				self.modelChanged.emit({
+					oldValue: e.model.isFirstChange() ? null : e.model.previousValue,
+					newValue: this.model
+				});
 				self.onInit();
 				return;
 			}

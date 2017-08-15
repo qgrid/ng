@@ -28,13 +28,18 @@ class ViewCore extends Component {
 		this.$scope = $scope;
 		this.element = $element[0];
 		this.$timeout = $timeout;
-		this.$postLink = this.build;
 		this.serviceFactory = grid.service.bind(grid);
 		this.vscroll = vscroll;
 	}
 
-	build() {
-		const model = this.model;
+	onInit() {
+		this.root.modelChanged.watch(e => {
+			this.dispose(e.oldValue);
+			this.build(e.newValue);
+		});
+	}
+
+	build(model) {
 		const root = this.root;
 		const table = root.table;
 		const commandManager = root.commandManager;

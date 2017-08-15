@@ -20,6 +20,18 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, r
 		Object.defineProperty($scope, '$view', {get: () => this.view});
 	}
 
+	onInit() {
+		const listener = new EventListener(this.element, new EventManager(this, this.root.applyFactory(null, 'sync')));
+
+		this.using(listener.on('scroll', this.onScroll));
+		this.using(listener.on('click', this.onClick));
+		this.using(listener.on('mousedown', this.onMouseDown));
+		this.using(listener.on('mouseup', this.onMouseUp));
+
+		this.using(listener.on('mousemove', this.onMouseMove));
+		this.using(listener.on('mouseleave', this.onMouseLeave))
+	}
+
 	onScroll() {
 		const element = this.element;
 		const scroll = this.view.model.scroll;
@@ -37,18 +49,6 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, r
 		if (Object.keys(newValue)) {
 			scroll(newValue, {source: 'body.core'});
 		}
-	}
-
-	onInit() {
-		const listener = new EventListener(this.element, new EventManager(this, this.root.applyFactory(null, 'sync')));
-
-		this.using(listener.on('scroll', this.onScroll));
-		this.using(listener.on('click', this.onClick));
-		this.using(listener.on('mousedown', this.onMouseDown));
-		this.using(listener.on('mouseup', this.onMouseUp));
-
-		this.using(listener.on('mousemove', this.onMouseMove));
-		this.using(listener.on('mouseleave', this.onMouseLeave))
 	}
 
 	onClick(e) {
