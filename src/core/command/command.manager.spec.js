@@ -1,7 +1,7 @@
 import {CommandManager} from './command.manager';
 
 describe('CommandManager', () => {
-	let arrayOfCommand = [],
+	let arrayOfCommands = [],
 		i = 5,
 		arr = [];
 
