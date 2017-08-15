@@ -29,7 +29,6 @@ const identity = arg => arg;
 const toCamelCase = (...names) => {
 	const length = names.length;
 	if (length > 0) {
-
 		return (names[0] +
 			names.slice(1)
 				.map(name =>
