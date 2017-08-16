@@ -4,8 +4,8 @@ describe('CompositeCommandManager', () => {
 	let arrayOfCommands = [],
 		i = 5,
 		arr = [],
-		testTable1 = {view: {isFocused: () => true}},
-		testTable2 = {view: {isFocused: () => false}},
+		tableWithFocus = {view: {isFocused: () => true}},
+		tableWithoutFocus = {view: {isFocused: () => false}},
 		apply = f => f();
 
 	while (i > 0) {
@@ -25,16 +25,17 @@ describe('CompositeCommandManager', () => {
 
 	describe('filter', () => {
 		it('should return filtered commands if ViewActive = true', () => {
-			let tableCommandManager = new TableCommandManager(apply, testTable1);
+			let tableCommandManager = new TableCommandManager(apply, tableWithFocus);
 			let filtered = tableCommandManager.filter(arrayOfCommands);
 			expect(filtered.length).to.equal(2);
 		});
 
 		it('should return empty array if ViewActive = false', () => {
-			let tableCommandManager = new TableCommandManager(apply, testTable2);
+			let tableCommandManager = new TableCommandManager(apply, tableWithoutFocus);
 			let filtered = tableCommandManager.filter(arrayOfCommands);
 			expect(filtered.length).to.equal(0);
 		});
 	});
 
 });
+
