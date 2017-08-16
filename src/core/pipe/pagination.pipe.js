@@ -24,5 +24,5 @@ function paginate(model, rows) {
 	const current = paginationState.current;
 	const start = current * size;
 	model.pagination({count: rows.length}, {source: 'pagination.pipe', behavior: 'core'});
-	return rows.slice(start, start + size)
+	return rows.slice(start, start + size);
 }
