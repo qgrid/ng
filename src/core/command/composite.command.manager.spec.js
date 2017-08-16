@@ -2,18 +2,18 @@ import {CompositeCommandManager} from './composite.command.manager';
 import {CommandManager} from './command.manager'
 
 describe('CompositeCommandManager', () => {
-	let arrayOfCommands = [],
+	let commands = [],
 		i = 5,
 		arr = [];
 
 	while (i > 0) {
 		if (i % 2 === 0) {
-			arrayOfCommands.push({
+			commands.push({
 				execute: () => arr.push(1),
 				canExecute: () => true
 			});
 		} else {
-			arrayOfCommands.push({
+			commands.push({
 				execute: () => arr.push(2),
 				canExecute: () => false
 			});
@@ -25,7 +25,7 @@ describe('CompositeCommandManager', () => {
 		it('should invoke each command', () => {
 			let commandManager = new CommandManager();
 			let compositeCommandManager = new CompositeCommandManager(commandManager);
-			compositeCommandManager.invoke(arrayOfCommands);
+			compositeCommandManager.invoke(commands);
 			expect(arr.join(',')).to.equal('2,1,2,1,2');
 		});
 	});
@@ -34,7 +34,7 @@ describe('CompositeCommandManager', () => {
 		it('should return filtered commands', () => {
 			let commandManager = new CommandManager();
 			let compositeCommandManager = new CompositeCommandManager(commandManager);
-			let filtered = compositeCommandManager.filter(arrayOfCommands);
+			let filtered = compositeCommandManager.filter(commands);
 			expect(filtered.length).to.equal(2);
 		});
 	});
