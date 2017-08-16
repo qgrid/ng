@@ -27,11 +27,9 @@ const no = () => false;
 const identity = arg => arg;
 
 const toCamelCase = (...names) => {
-	let i = 0,
-		length = names.length;
-
-	for (; i < length; i++) {
-		names[i] = names[i].toLowerCase();
+	const length = names.length;
+	for (let i = 0; i < length; i++) {
+		names[i] = ('' + names[i]).toLowerCase();
 	}
 
 	if (length > 0) {

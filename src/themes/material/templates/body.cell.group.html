@@ -3,7 +3,7 @@
 			  ng-if="$view.group.toggleStatus.canExecute($cell.row)"
 			  ng-switch="$view.group.status($cell.row)"
 			  tabindex="-1">
-		<span >
+		<span>
 			<md-icon ng-switch-when="expand">arrow_drop_down</md-icon>
 			<md-icon class="q-grid-arrow-right" ng-switch-when="collapse">arrow_drop_up</md-icon>
 		</span>
