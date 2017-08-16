@@ -4,6 +4,9 @@ td.q-grid-group, td.q-grid-row-expand {
 		border: none;
 		margin: 0;
 		padding: 0;
+		+ span {
+			vertical-align: middle;
+		}
 	}
 }
 
