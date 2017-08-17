@@ -223,5 +223,10 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.head.cell.filter-row.tpl.html', require('./components/cell/filter-row/head.cell.filter.row.html'));
 		theme.put('qgrid.body.cell.filter-row.tpl.html', EMPTY);
 		theme.put('qgrid.foot.cell.filter-row.tpl.html', EMPTY);
+
+		theme.put('qgrid.head.cell.currency.tpl.html', require('./components/cell/text/head.cell.text.html'));
+		theme.put('qgrid.body.cell.currency.tpl.html', require('./components/cell/number/body.cell.number.html'));
+		theme.put('qgrid.foot.cell.currency.tpl.html', require('./components/cell/text/foot.cell.text.html'));
+
 	});
 }

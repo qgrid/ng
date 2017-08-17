@@ -85,6 +85,7 @@ export default {
 	controller: Column,
 	bindings: {
 		value: '&',
+		label: '&',
 		key: '@'
 	}
 };

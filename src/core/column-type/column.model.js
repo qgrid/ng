@@ -7,6 +7,7 @@ export class ColumnModel {
 		this.key = null;
 		this.title = null;
 		this.value = null;
+		this.label = null;
 		this.path = null;
 		this.pin = null;
 		this.origin = 'specific';
@@ -37,7 +38,8 @@ export class ColumnModel {
 		this.isVisible = true;
 		this.index = -1;
 
-		this.label = null;
+		this.$label = null;
+		this.$value = null;
 	}
 
 	toString() {

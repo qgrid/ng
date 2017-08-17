@@ -2,6 +2,7 @@ import {View} from '../view';
 import {Command} from '../command';
 import {flatView as nodeFlatView} from '../node';
 import {getFactory as valueFactory} from '../services/value';
+import {getFactory as labelFactory} from '../services/label';
 
 export class GroupView extends View {
 	constructor(model, commandManager) {
@@ -49,15 +50,26 @@ export class GroupView extends View {
 	}
 
 	offset(node) {
-		const groupColumn = (this.model.view().columns[0] || []).find(c => c.model.type === 'group');
+		const groupColumn = this.column;
 		if (groupColumn) {
-			return groupColumn.model.offset * node.level;
+			return groupColumn.offset * node.level;
 		}
 
 		return 0;
 	}
 
 	value(node) {
+		const groupColumn = this.column;
+		if (groupColumn) {
+			if (groupColumn.label) {
+				return labelFactory(groupColumn)(node);
+			}
+		}
+
 		return node.key;
+	}
+
+	get column() {
+		return (this.model.view().columns[0] || []).map(c => c.model).find(c => c.type === 'group');
 	}
 }

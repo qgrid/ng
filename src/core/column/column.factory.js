@@ -23,6 +23,7 @@ import {
 	FileColumn,
 	ImageColumn,
 	ReferenceColumn,
+	CurrencyColumn,
 	IdColumn
 } from '../column-type';
 
@@ -59,6 +60,7 @@ export function columnFactory(model) {
 		'image': ImageColumn,
 		'reference': ReferenceColumn,
 		'id': IdColumn,
+		'currency': CurrencyColumn,
 		'custom': CustomColumn
 	};
 
