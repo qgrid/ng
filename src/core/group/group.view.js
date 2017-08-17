@@ -5,7 +5,7 @@ import {getFactory as valueFactory} from '../services/value';
 import {getFactory as labelFactory} from '../services/label';
 
 export class GroupView extends View {
-	constructor(model, commandManager) {
+	constructor(model, table, commandManager) {
 		super(model);
 
 		this.valueFactory = valueFactory;
@@ -61,9 +61,7 @@ export class GroupView extends View {
 	value(node) {
 		const groupColumn = this.column;
 		if (groupColumn) {
-			if (groupColumn.label) {
-				return labelFactory(groupColumn)(node);
-			}
+			return labelFactory(groupColumn)(node);
 		}
 
 		return node.key;

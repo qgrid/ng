@@ -21,6 +21,7 @@ export class GroupColumnModel extends ColumnModel {
 		super('group');
 
 		this.key = '$group';
+		this.path = 'key';
 		this.title = 'Group';
 		this.offset = 20;
 		this.canEdit = false;
