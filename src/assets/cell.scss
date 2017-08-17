@@ -119,7 +119,7 @@ thead, tfoot, tbody {
 	}
 }
 
-tbody {
+tbody, tfoot {
 	td {
 		&.q-grid-number,
 		&.q-grid-currency {

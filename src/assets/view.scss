@@ -14,10 +14,9 @@
 	.q-grid-table-right {
 		tbody {
 			overflow-x: hidden;
+			// Scroll bottom offset
+			margin-bottom: 8px;
 		}
-
-		// Scroll bottom offset
-		margin-bottom: 8px;
 	}
 
 	> .q-grid-table-left {

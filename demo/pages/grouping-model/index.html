@@ -20,7 +20,7 @@
 		<q-grid:column key="product.productDescription" title="Name" width="300"></q-grid:column>
 		<q-grid:column key="quantity" type="number"></q-grid:column>
 		<q-grid:column key="price" type="currency"></q-grid:column>
-		<q-grid:column key="total" type="currency" title="Total" value="$ctrl.getTotal($row)" aggregation="sum"></q-grid:column>
+		<q-grid:column key="total" type="currency" title="Total" value="$ctrl.getTotal($row)" aggregation="sum" width="120"></q-grid:column>
 		<q-grid:column type="row-options"
 							key="rowOptions"
 							editor-options="$ctrl.rowOptions">
