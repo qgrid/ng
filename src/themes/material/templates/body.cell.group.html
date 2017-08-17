@@ -9,6 +9,6 @@
 			<md-icon class="q-grid-arrow-right" ng-switch-when="collapse">arrow_drop_up</md-icon>
 		</span>
 	</md-button>
-	<span>{{$view.group.value($cell.row)}}</span>
-	<span ng-if="$view.group.toggleStatus.canExecute($cell.row)">({{$view.group.count($cell.row)}})</span>
+	<span class="q-grid-group-label">{{$view.group.value($cell.row)}}</span>
+	<span class="q-grid-group-count" ng-if="$view.group.toggleStatus.canExecute($cell.row)">({{$view.group.count($cell.row)}})</span>
 </div>

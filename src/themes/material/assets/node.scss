@@ -10,10 +10,15 @@ td.q-grid-group, td.q-grid-row-expand {
 		md-icon {
 			opacity: 0.54;
 		}
+	}
 
-		+ span {
-			vertical-align: middle;;
-		}
+	.q-grid-group-label{
+		vertical-align: middle;
+	}
+
+	.q-grid-group-count{
+		vertical-align: middle;
+		color: rgba(0, 0, 0, 0.54);
 	}
 }
 
