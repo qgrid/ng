@@ -19,6 +19,7 @@ export const VIEW_CORE_NAME = `${GRID_CORE}View`;
 export const TABLE_CORE_NAME = `${GRID_CORE}Table`;
 export const TR_CORE_NAME = `${GRID_CORE}Tr`;
 export const TD_CORE_NAME = `${GRID_CORE}Td`;
+export const TD_ALIGN_CORE_NAME = `${GRID_CORE}TdAlign`;
 export const TF_CORE_NAME = `${GRID_CORE}Tf`;
 export const TH_CORE_NAME = `${GRID_CORE}Th`;
 export const HEAD_CORE_NAME = `${GRID_CORE}Head`;

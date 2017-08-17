@@ -1,3 +1,6 @@
+<tr class="vscroll-mark">
+	<td ng-repeat="$column in $view.body.columnList($table.pin) track by $column.model.key" q-grid-core:td-align></td>
+</tr>
 <tr ng-repeat="$row in $view.body.rows track by $index" q-grid-core:tr="body">
 	<td ng-repeat="$column in $view.body.columns($row, $table.pin) track by $column.model.key"
 		 rowspan="{{$view.body.rowspan($row, $column, $table.pin)}}"
