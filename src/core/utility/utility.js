@@ -19,6 +19,8 @@ import sumBy from 'lodash/sumBy';
 import max from 'lodash/maxBy';
 import min from 'lodash/minBy';
 import zip from 'lodash/zip';
+import takeWhile from 'lodash/takeWhile';
+import dropWhile from 'lodash/dropWhile';
 
 const noop = () => {
 };
@@ -75,5 +77,7 @@ export {
 	max,
 	min,
 	sumBy,
-	zip
+	zip,
+	takeWhile,
+	dropWhile
 };

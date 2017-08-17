@@ -8,6 +8,7 @@ import {getFactory as valueFactory, set as setValue} from '../services/value';
 import {getFactory as labelFactory, set as setLabel} from '../services/label';
 import * as NodeService from '../node/node.service';
 import {columnFactory} from '../column/column.factory';
+import {takeWhile, dropWhile, sumBy} from '../utility';
 
 export class BodyView extends View {
 	constructor(model, table) {
@@ -66,13 +67,16 @@ export class BodyView extends View {
 		const columnModel = column.model;
 		if (row instanceof RowDetails) {
 			if (columnModel.type === 'row-details') {
-				return this.columnList(pin).length;
+				return sumBy(this.columnList(pin), c => c.colspan);
 			}
 		}
 
 		if (row instanceof Node) {
 			if (row.type === 'group') {
-				return this.columnList(pin).length;
+				const groupSpan = takeWhile(this.columnList(pin), c => !c.model.aggregation);
+				if (column.model.type === 'group') {
+					return sumBy(groupSpan, c => c.colspan);
+				}
 			}
 		}
 
@@ -91,7 +95,8 @@ export class BodyView extends View {
 		if (row instanceof Node && row.type === 'group') {
 			const groupColumn = this.columnList().find(c => c.model.type === 'group') || this.reference.group;
 			if (groupColumn.model.pin === pin) {
-				return [groupColumn];
+				const nextColumns = dropWhile(this.columnList(pin), c => !c.model.aggregation);
+				return [groupColumn].concat(nextColumns);
 			}
 		}
 

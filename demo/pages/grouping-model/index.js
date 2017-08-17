@@ -6,6 +6,12 @@ export default function Controller($http, qgrid) {
 	this.getGroupLabel = node => `Invoice Number: ${node.key}`;
 	this.getTotal = row => row.quantity * row.price;
 
+	this.rowStyle = (node, context) => {
+		if (node.type === 'group') {
+			context.class('group', {background: '#E3F2FD'});
+		}
+	};
+
 	this.rowOptions = {
 		trigger: 'click',
 		actions: [

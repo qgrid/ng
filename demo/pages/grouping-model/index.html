@@ -1,6 +1,5 @@
 <style>
 	.q-grid-group {
-		background: #E3F2FD;
 		font-weight: bold;
 		color: #666 !important;
 	}
@@ -19,7 +18,8 @@
 
 <q-grid rows="$ctrl.rows"
 		  group-by="['invoiceNumber']"
-		  edit-mode="cell">
+		  edit-mode="cell"
+		  style-row="$ctrl.rowStyle">
 
 	<q-grid:columns generation="deep">
 		<q-grid:column type="group"
@@ -29,7 +29,7 @@
 		</q-grid:column>
 		<q-grid:column key="product.productCode" title="Code"></q-grid:column>
 		<q-grid:column key="product.productDescription" title="Name" width="300"></q-grid:column>
-		<q-grid:column key="quantity" type="number"></q-grid:column>
+		<q-grid:column key="quantity" type="number" aggregation="sum"></q-grid:column>
 		<q-grid:column key="price" type="currency"></q-grid:column>
 		<q-grid:column key="total" type="currency" title="Total" value="$ctrl.getTotal($row)" aggregation="sum"
 							width="120"></q-grid:column>
