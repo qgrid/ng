@@ -23,7 +23,7 @@ export class GroupColumnModel extends ColumnModel {
 		this.key = '$group';
 		this.path = 'key';
 		this.title = 'Group';
-		this.offset = 20;
+		this.offset = 40;
 		this.canEdit = false;
 		this.canSort = false;
 		this.class = 'control';

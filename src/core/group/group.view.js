@@ -8,6 +8,7 @@ export class GroupView extends View {
 	constructor(model, table, commandManager) {
 		super(model);
 
+		this.table = table;
 		this.valueFactory = valueFactory;
 		this.toggleStatus = new Command({
 			execute: node => {
@@ -68,6 +69,6 @@ export class GroupView extends View {
 	}
 
 	get column() {
-		return (this.model.view().columns[0] || []).map(c => c.model).find(c => c.type === 'group');
+		return this.table.data.columns().find(c => c.type === 'group');
 	}
 }

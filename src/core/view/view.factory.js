@@ -25,9 +25,9 @@ export function viewFactory(model, table, commandManager, gridService, vscroll, 
 		target.columns = new ColumnView(model, gridService);
 		target.layout = new LayoutView(model, table, gridService);
 		target.selection = new SelectionView(model, table, commandManager, gridService);
-		target.group = new GroupView(model, commandManager);
+		target.group = new GroupView(model, table, commandManager);
 		target.pivot = new PivotView(model);
-		target.highlight = new HighlightView(model, table, setTimeout);
+		target.highlight = new HighlightView(model, table, (f, timeout) => setTimeout(f, timeout));
 		target.sort = new SortView(model);
 		target.filter = new FilterView(model);
 		target.edit = new EditView(model, table, commandManager);

@@ -3,7 +3,7 @@ export default function Controller($http, qgrid) {
 	const ctrl = this;
 	this.rows = [];
 
-	this.getGroupLabel = row => `Invoice Number: ${row.invoiceNumber}`;
+	this.getGroupLabel = node => `Invoice Number: ${node.key}`;
 
 	this.rowOptions = {
 		trigger: 'click',
