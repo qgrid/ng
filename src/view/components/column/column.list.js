@@ -13,11 +13,12 @@ class ColumnList extends ModelComponent {
 		this.$parse = $parse;
 	}
 
-	canCopy(source, key){
+	canCopy(source, key) {
 		return !(ng.isSystem(key) ||
 			isUndefined(source[key]) ||
 			key === 'value' ||
-			key === 'label');
+			key === 'label'
+		);
 	}
 
 	copy(target, source) {
@@ -35,7 +36,7 @@ class ColumnList extends ModelComponent {
 					parse !== identity
 						? parse(value)
 						: isObject(targetValue)
-							? $parse(value)($scope.$parent)
+						? $parse(value)($scope.$parent)
 						: value;
 
 				accessor(target, sourceValue);
@@ -46,6 +47,9 @@ class ColumnList extends ModelComponent {
 		const columnList = this.root.model.columnList;
 		columnList({
 			columns: columnList().columns.concat([column])
+		}, {
+			source: 'column.list',
+			behavior: 'core'
 		});
 	}
 
@@ -55,6 +59,9 @@ class ColumnList extends ModelComponent {
 		reference[column.type] = column;
 		columnList({
 			reference: reference
+		}, {
+			source: 'column.list',
+			behavior: 'core'
 		});
 	}
 }

@@ -21,15 +21,14 @@ export class CurrencyColumnModel extends DataColumnModel {
 	constructor() {
 		super('text');
 
-		this.maxLength = 140;
+		this.maxLength = 20;
+		this.symbol = '$';
 	}
 }
 
 export class CurrencyColumn extends ColumnView {
 	constructor(model) {
 		super(model);
-
-		this.symbol = '$';
 	}
 
 	static model(model) {

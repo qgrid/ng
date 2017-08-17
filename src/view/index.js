@@ -225,7 +225,7 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.foot.cell.filter-row.tpl.html', EMPTY);
 
 		theme.put('qgrid.head.cell.currency.tpl.html', require('./components/cell/text/head.cell.text.html'));
-		theme.put('qgrid.body.cell.currency.tpl.html', require('./components/cell/number/body.cell.number.html'));
+		theme.put('qgrid.body.cell.currency.tpl.html', require('./components/cell/currency/body.cell.currency.html'));
 		theme.put('qgrid.foot.cell.currency.tpl.html', require('./components/cell/text/foot.cell.text.html'));
 
 	});
