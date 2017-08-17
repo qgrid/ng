@@ -160,6 +160,15 @@ export class BodyView extends View {
 
 	value(row, column, value) {
 		if (arguments.length == 3) {
+			if (row instanceof Node) {
+				const node = row;
+				if (node.type === 'row') {
+					const rows = this.model.data().rows;
+					const rowIndex = node.rows[0];
+					return setValue(rows[rowIndex], column, value);
+				}
+			}
+
 			setValue(row, column, value);
 			return;
 		}
