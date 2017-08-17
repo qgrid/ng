@@ -7,7 +7,7 @@ describe('RowBox', () => {
 
 	describe('key', () => {
 		let rowBox = new RowBox();
-		it('should return index of row', () => {
+		it('should return index of the row', () => {
 			expect(rowBox.key(row)).to.equal(10);
 		});
 	});
