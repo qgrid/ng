@@ -13,12 +13,19 @@ class ColumnList extends ModelComponent {
 		this.$parse = $parse;
 	}
 
+	canCopy(source, key){
+		return !(ng.isSystem(key) ||
+			isUndefined(source[key]) ||
+			key === 'value' ||
+			key === 'label');
+	}
+
 	copy(target, source) {
 		const $parse = this.$parse;
 		const $scope = this.$scope;
 
 		Object.keys(source)
-			.filter(key => !ng.isSystem(key) && !isUndefined(source[key]) && key !== 'value')
+			.filter(key => this.canCopy(source, key))
 			.forEach(key => {
 				const value = source[key];
 				const accessor = compile(key);
