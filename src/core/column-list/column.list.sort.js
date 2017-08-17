@@ -1,36 +1,43 @@
-import * as columnService from '../column/column.service';
-
 export function sortIndexFactory(model) {
 	return columns => {
-		const columnMap = columnService.map(columns);
-		const index =
-			model.columnList()
-				.index
-				.filter(key => columnMap.hasOwnProperty(key));
+		const columnListState = model.columnList();
+		const oldIndex = columnListState.index;
+		const templateIndex = columnListState.columns.map(c => c.key);
+		const index = Array.from(columns);
+		index.sort((x, y) => {
+			let xi = x.index;
+			let yi = y.index;
+			if (xi === yi) {
+				xi = oldIndex.indexOf(x.key);
+				yi = oldIndex.indexOf(y.key);
 
-		const indexSet = new Set(index);
-		const appendIndex = columns.filter(c => !indexSet.has(c.key));
-		const orderIndex = Array.from(appendIndex);
-		orderIndex.sort((x, y) => {
-			if (x.index === y.index) {
-				return appendIndex.indexOf(x) - appendIndex.indexOf(y);
+				if (xi === yi) {
+					xi = templateIndex.indexOf(x.key);
+					yi = templateIndex.indexOf(y.key);
+				}
 			}
 
-			if (x.index < 0) {
-				return 1;
-			}
-
-			if (y.index < 0) {
-				return -1;
-			}
-
-			return x.index - y.index;
+			return xi < yi ? -1 : 1;
 		});
 
-		index.push(...orderIndex.map(c => c.key));
+		const newIndex = index.map(c => c.key);
 		return {
-			index: index,
-			hasChanges: orderIndex.length > 0
+			index: newIndex,
+			hasChanges: !equals(oldIndex, newIndex)
 		};
 	};
+}
+
+function equals(xs, ys) {
+	const length = xs.length;
+	if (length !== ys.length) {
+		return false;
+	}
+
+	for (let i = 0; i < length; i++) {
+		if (xs[i] !== ys[i]) {
+			return false;
+		}
+	}
+	return true;
 }

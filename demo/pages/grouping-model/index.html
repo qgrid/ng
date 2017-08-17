@@ -1,3 +1,11 @@
+<style>
+	.q-grid-group {
+		background: #E3F2FD;
+		font-weight: bold;
+		color: #666 !important;
+	}
+</style>
+
 <q-grid rows="$ctrl.rows"
 		  group-by="['invoiceNumber']"
 		  edit-mode="cell">
@@ -8,10 +16,18 @@
 							label="$ctrl.getGroupLabel($row)"
 							is-visible="false">
 		</q-grid:column>
-		<q-grid:column key="price" type="currency" index="4"></q-grid:column>
+		<q-grid:column key="product.productCode" title="Code"></q-grid:column>
+		<q-grid:column key="product.productDescription" title="Name" width="300"></q-grid:column>
+		<q-grid:column key="quantity" type="number"></q-grid:column>
+		<q-grid:column key="price" type="currency"></q-grid:column>
+		<q-grid:column key="total" type="currency" title="Total" value="$ctrl.getTotal($row)"></q-grid:column>
 		<q-grid:column type="row-options"
 							key="rowOptions"
 							editor-options="$ctrl.rowOptions">
 		</q-grid:column>
 	</q-grid:columns>
+
+	<q-grid:toolbar>
+		<q-grid:template for="bottom"></q-grid:template>
+	</q-grid:toolbar>
 </q-grid>

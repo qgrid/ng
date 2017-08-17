@@ -4,6 +4,7 @@ export default function Controller($http, qgrid) {
 	this.rows = [];
 
 	this.getGroupLabel = node => `Invoice Number: ${node.key}`;
+	this.getTotal = row => row.quantity * row.price;
 
 	this.rowOptions = {
 		trigger: 'click',
