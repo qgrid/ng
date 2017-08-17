@@ -6,25 +6,25 @@ import {Table} from '../dom/table';
 import {ColumnView} from '../column-type/column.model.view';
 
 export interface IGetValueFactory {
-  (column: ColumnModel): IGetResult;
+	(column: ColumnModel): IGetResult;
 }
 
 export declare class BodyView extends View {
-  constructor(model: Model, table: Table);
+	constructor(model: Model, table: Table);
 
-  rows: any[];
+	rows: any[];
 
-  columns(row: any, pin: string): ColumnView[];
+	columns(row: any, pin: string): ColumnView[];
 
-  rowspan(): number;
+	rowspan(row: any, column: ColumnView, pin: string): number;
 
-  colspan(row: any, column: ColumnModel): number;
+	colspan(row: any, column: ColumnView, pin: string): number;
 
-  value(row: any, column: ColumnModel, value?: any): string;
+	value(row: any, column: ColumnModel, value?: any): string;
 
-  label(row: any, column: ColumnModel, value?: any): string;
+	label(row: any, column: ColumnModel, value?: any): string;
 
-  valueFactory(column: ColumnModel, getValueFactory: IGetValueFactory): IGetResult;
+	valueFactory(column: ColumnModel, getValueFactory: IGetValueFactory): IGetResult;
 
-  labelFactory(column: ColumnModel): IGetResult;
+	labelFactory(column: ColumnModel): IGetResult;
 }

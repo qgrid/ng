@@ -6,6 +6,8 @@ import {Node} from '../node';
 import {RowDetails} from '../row-details';
 import {getFactory as valueFactory, set as setValue} from '../services/value';
 import {getFactory as labelFactory, set as setLabel} from '../services/label';
+import * as NodeService from '../node/node.service';
+import {columnFactory} from '../column/column.factory';
 
 export class BodyView extends View {
 	constructor(model, table) {
@@ -13,7 +15,16 @@ export class BodyView extends View {
 
 		this.table = table;
 		this.rows = [];
-		this.columnList = [];
+		this.state = {
+			columns: [],
+			hasDataRow: false
+		};
+
+		const createColumn = columnFactory(model);
+		this.reference = {
+			group: createColumn('group')
+		};
+
 		this.using(model.viewChanged.watch(() => this.invalidate(model)));
 	}
 
@@ -25,8 +36,10 @@ export class BodyView extends View {
 	}
 
 	invalidateRows(model) {
+		this.state.hasDataRow = false;
+		const viewState = model.view();
 		this.table.view.removeLayer('blank');
-		this.rows = model.view().rows;
+		this.rows = viewState.rows;
 		if (!this.rows.length) {
 			const layerState = model.layer();
 			if (layerState.resource.data.hasOwnProperty('blank')) {
@@ -34,20 +47,33 @@ export class BodyView extends View {
 				layer.resource('blank', layerState.resource);
 			}
 		}
+		else {
+			if (viewState.nodes.length) {
+				this.state.hasDataRow = NodeService.some(viewState.nodes, node => node.type !== 'group');
+			}
+			else {
+				this.state.hasDataRow = true;
+			}
+		}
 	}
 
 	invalidateColumns(model) {
 		const columns = model.view().columns;
-		this.columnList = columnService.lineView(columns);
+		this.state.columns = columnService.lineView(columns);
 	}
 
-	colspan(row, column) {
-		if (row instanceof RowDetails && column.type === 'row-details') {
-			return this.columnList.length;
+	colspan(row, column, pin) {
+		const columnModel = column.model;
+		if (row instanceof RowDetails) {
+			if (columnModel.type === 'row-details') {
+				return this.columnList(pin).length;
+			}
 		}
 
-		if (row instanceof Node && row.type === 'group') {
-			return this.columnList.length;
+		if (row instanceof Node) {
+			if (row.type === 'group') {
+				return this.columnList(pin).length;
+			}
 		}
 
 		return column.colspan;
@@ -63,13 +89,22 @@ export class BodyView extends View {
 		}
 
 		if (row instanceof Node && row.type === 'group') {
-			const groupColumn = this.columnList.find(c => c.model.type === 'group');
-			if(groupColumn && groupColumn.model.pin === pin) {
+			const groupColumn = this.columnList().find(c => c.model.type === 'group') || this.reference.group;
+			if (groupColumn.model.pin === pin) {
 				return [groupColumn];
 			}
 		}
 
-		return this.columnList.filter(c => c.model.pin === pin);
+		return this.columnList(pin);
+	}
+
+	columnList(pin) {
+		const columns = this.state.columns;
+		if (arguments.length) {
+			return columns.filter(c => c.model.pin === pin);
+		}
+
+		return columns;
 	}
 
 	valueFactory(column, getValueFactory = null) {

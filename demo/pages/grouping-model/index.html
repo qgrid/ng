@@ -3,7 +3,10 @@
 		  edit-mode="cell">
 
 	<q-grid:columns generation="deep">
-		<q-grid:column type="group" title="Invoice Number" label="$ctrl.getGroupLabel($row)">
+		<q-grid:column type="group"
+							title="Invoice Number"
+							label="$ctrl.getGroupLabel($row)"
+							is-visible="false">
 		</q-grid:column>
 		<q-grid:column key="price" type="currency"></q-grid:column>
 		<q-grid:column type="row-options"

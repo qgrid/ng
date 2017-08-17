@@ -3,6 +3,7 @@ import {Command} from '../command';
 import {flatView as nodeFlatView} from '../node';
 import {getFactory as valueFactory} from '../services/value';
 import {getFactory as labelFactory} from '../services/label';
+import {columnFactory} from '../column/column.factory';
 
 export class GroupView extends View {
 	constructor(model, table, commandManager) {
@@ -40,6 +41,11 @@ export class GroupView extends View {
 
 		const shortcut = model.action().shortcut;
 		shortcut.register(commandManager, [this.toggleStatus]);
+
+		const createColumn = columnFactory(model);
+		this.reference = {
+			group: createColumn('group')
+		};
 	}
 
 	count(node) {
@@ -52,23 +58,15 @@ export class GroupView extends View {
 
 	offset(node) {
 		const groupColumn = this.column;
-		if (groupColumn) {
-			return groupColumn.offset * node.level;
-		}
-
-		return 0;
+		return groupColumn.offset * node.level;
 	}
 
 	value(node) {
 		const groupColumn = this.column;
-		if (groupColumn) {
-			return labelFactory(groupColumn)(node);
-		}
-
-		return node.key;
+		return labelFactory(groupColumn)(node);
 	}
 
 	get column() {
-		return this.table.data.columns().find(c => c.type === 'group');
+		return this.table.data.columns().find(c => c.type === 'group') || this.reference.group.model;
 	}
 }

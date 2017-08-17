@@ -10,10 +10,10 @@ export default function Controller($http, qgrid) {
 		actions: [
 			new qgrid.Action(
 				new qgrid.Command({
-					canExecute: e => {
+					canExecute: () => {
 						return true;
 					},
-					execute: e => {
+					execute: () => {
 
 					}
 				}),
