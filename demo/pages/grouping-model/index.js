@@ -11,16 +11,10 @@ export default function Controller($http, qgrid) {
 			new qgrid.Action(
 				new qgrid.Command({
 					canExecute: e => {
-						return !this.changes.deleted.has(e.row.id);
+						return true;
 					},
 					execute: e => {
-						if (this.changes.added.has(e.row.id)) {
-							this.changes.added.delete(e.row.id);
-							this.rows = this.rows.filter(row => row.id !== e.row.id);
-						}
-						else {
-							this.changes.deleted.add(e.row.id);
-						}
+
 					}
 				}),
 				'Delete Row',

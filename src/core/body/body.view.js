@@ -43,10 +43,14 @@ export class BodyView extends View {
 
 	colspan(row, column) {
 		if (row instanceof RowDetails && column.type === 'row-details') {
-			return this.table.data.columns().length;
+			return this.columnList.length;
 		}
 
-		return 1;
+		if (row instanceof Node && row.type === 'group') {
+			return this.columnList.length;
+		}
+
+		return column.colspan;
 	}
 
 	rowspan() {
@@ -56,6 +60,13 @@ export class BodyView extends View {
 	columns(row, pin) {
 		if (row instanceof RowDetails) {
 			return [row.column];
+		}
+
+		if (row instanceof Node && row.type === 'group') {
+			const groupColumn = this.columnList.find(c => c.model.type === 'group');
+			if(groupColumn && groupColumn.model.pin === pin) {
+				return [groupColumn];
+			}
 		}
 
 		return this.columnList.filter(c => c.model.pin === pin);
