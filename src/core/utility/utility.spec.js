@@ -67,27 +67,31 @@ describe('utility', () => {
 		});
 		it('should return string transformed into camelCase', () => {
 			let foo = Utility.toCamelCase('Camel', 'case');
-			expect(foo).to.equal('camelCase');
+			expect(foo).to.equal('CamelCase');
 		});
 		it('should return string transformed into camelCase', () => {
 			let foo = Utility.toCamelCase('Camel', 'Case');
-			expect(foo).to.equal('camelCase');
+			expect(foo).to.equal('CamelCase');
 		});
 		it('should return string transformed into camelCase', () => {
 			let foo = Utility.toCamelCase('CAMEL', 'Case');
-			expect(foo).to.equal('camelCase');
+			expect(foo).to.equal('CAMELCase');
 		});
 		it('should return string transformed into camelCase', () => {
 			let foo = Utility.toCamelCase('CAMEL', 'CASE');
-			expect(foo).to.equal('camelCase');
+			expect(foo).to.equal('CAMELCASE');
 		});
 		it('should return string transformed into camelCase', () => {
 			let foo = Utility.toCamelCase('camel', 'CASE');
-			expect(foo).to.equal('camelCase');
+			expect(foo).to.equal('camelCASE');
 		});
 		it('should return string transformed into camelCase if passed many arguments', () => {
 			let foo = Utility.toCamelCase('camel', 'case', 'is', 'not', 'a', 'pascal', 'case');
 			expect(foo).to.equal('camelCaseIsNotAPascalCase');
+		});
+		it('should return string transformed into camelCase if passed many arguments with Upper case chars', () => {
+			let foo = Utility.toCamelCase('columnList', 'generation');
+			expect(foo).to.equal('columnListGeneration');
 		});
 		it('should return empty string', () => {
 			let foo = Utility.toCamelCase();

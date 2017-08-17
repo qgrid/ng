@@ -25,7 +25,7 @@ export default function (pluginName, context) {
 	class Plugin extends ModelComponent {
 		constructor($scope, $element, $attrs, $compile, $templateCache) {
 			if (context.models.length) {
-				super(context.models);
+				super(...context.models);
 			}
 			else {
 				super();

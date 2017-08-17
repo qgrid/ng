@@ -65,6 +65,7 @@ Code licensed under MIT license.
 * [babel polyfill](http://babeljs.io/docs/usage/polyfill/)
 
 ### grid
+* [primeng](https://www.primefaces.org/primeng/#/datatable)
 * [ngx-datatable](https://github.com/swimlane/ngx-datatable)
 * [kendo-ng grid](http://www.telerik.com/kendo-angular-ui/components/grid/)
 * [ui-grid](http://ui-grid.info/docs/#/tutorial)
