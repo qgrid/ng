@@ -3,6 +3,7 @@ import {takeWhile, dropWhile, sumBy} from '../utility';
 import {columnFactory} from '../column/column.factory';
 import {Aggregation} from '../services';
 import {AppError} from '../infrastructure';
+import {set as setValue} from '../services/value';
 
 export class NodeRow extends DataRow {
 	constructor(model, context) {
