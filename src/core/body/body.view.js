@@ -1,14 +1,10 @@
 import {View} from '../view';
 import * as columnService from '../column/column.service';
-import {Aggregation} from '../services';
-import {AppError, Log} from '../infrastructure';
-import {Node} from '../node';
-import {RowDetails} from '../row-details';
-import {getFactory as valueFactory, set as setValue} from '../services/value';
+import {getFactory as valueFactory} from '../services/value';
 import {getFactory as labelFactory, set as setLabel} from '../services/label';
 import * as NodeService from '../node/node.service';
-import {columnFactory} from '../column/column.factory';
-import {takeWhile, dropWhile, sumBy} from '../utility';
+import {Log} from '../infrastructure';
+import {ResolutionRow} from './resolution.row';
 
 export class BodyView extends View {
 	constructor(model, table) {
@@ -21,11 +17,7 @@ export class BodyView extends View {
 			hasDataRow: false
 		};
 
-		const createColumn = columnFactory(model);
-		this.reference = {
-			group: createColumn('group')
-		};
-
+		this.layout = new ResolutionRow(model, this.state);
 		this.using(model.viewChanged.watch(() => this.invalidate(model)));
 	}
 
@@ -64,99 +56,20 @@ export class BodyView extends View {
 	}
 
 	colspan(row, column, pin) {
-		const columnModel = column.model;
-		if (row instanceof RowDetails) {
-			if (columnModel.type === 'row-details') {
-				return sumBy(this.columnList(pin), c => c.colspan);
-			}
-		}
-
-		if (row instanceof Node) {
-			if (row.type === 'group') {
-				const groupSpan = takeWhile(this.columnList(pin), c => !c.model.aggregation);
-				if (column.model.type === 'group') {
-					return sumBy(groupSpan, c => c.colspan);
-				}
-			}
-		}
-
-		return column.colspan;
+		return this.layout.colspan(row, column, pin);
 	}
 
-	rowspan() {
-		return 1;
+	rowspan(row, pin) {
+		return this.layout.rowspan(row, pin);
 	}
 
 	columns(row, pin) {
-		if (row instanceof RowDetails) {
-			return [row.column];
-		}
-
-		if (row instanceof Node && row.type === 'group') {
-			const groupColumn = this.columnList().find(c => c.model.type === 'group') || this.reference.group;
-			if (groupColumn.model.pin === pin) {
-				const nextColumns = dropWhile(this.columnList(pin), c => !c.model.aggregation);
-				return [groupColumn].concat(nextColumns);
-			}
-		}
-
-		return this.columnList(pin);
-	}
-
-	columnList(pin) {
-		const columns = this.state.columns;
-		if (arguments.length) {
-			return columns.filter(c => c.model.pin === pin);
-		}
-
-		return columns;
+		return this.layout.columns(row, pin);
 	}
 
 	valueFactory(column, getValueFactory = null) {
-		const model = this.model;
 		const getValue = (getValueFactory || valueFactory)(column);
-
-		return row => {
-			if (row instanceof Node) {
-				const node = row;
-				const rows = model.data().rows;
-				switch (node.type) {
-					case 'group': {
-						const aggregation = column.aggregation;
-						if (aggregation) {
-							if (!Aggregation.hasOwnProperty(aggregation)) {
-								throw new AppError(
-									'view.body',
-									`Aggregation ${aggregation} is not registered`);
-							}
-
-							const groupRows = node.rows.map(i => rows[i]);
-							return Aggregation[aggregation](groupRows, getValue, column.aggregationOptions);
-						}
-
-						return null;
-					}
-					case 'row': {
-						const rowIndex = node.rows[0];
-						return getValue(rows[rowIndex], column);
-					}
-					case 'value': {
-						return getValue(node, column);
-					}
-					default:
-						throw new AppError(
-							'view.body',
-							`Invalid node type ${node.type}`
-						);
-				}
-			}
-
-			if (row instanceof RowDetails) {
-				return null;
-			}
-
-			return getValue(row);
-		};
+		return row => this.layout.getValue(row, column, getValue);
 	}
 
 	labelFactory(column) {
@@ -165,16 +78,7 @@ export class BodyView extends View {
 
 	value(row, column, value) {
 		if (arguments.length == 3) {
-			if (row instanceof Node) {
-				const node = row;
-				if (node.type === 'row') {
-					const rows = this.model.data().rows;
-					const rowIndex = node.rows[0];
-					return setValue(rows[rowIndex], column, value);
-				}
-			}
-
-			setValue(row, column, value);
+			this.layout.setValue(row, column, value);
 			return;
 		}
 
