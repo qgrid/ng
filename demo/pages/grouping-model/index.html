@@ -22,6 +22,7 @@
 		  style-row="$ctrl.rowStyle">
 
 	<q-grid:columns generation="deep">
+		<q-grid:column can-sort="false" can-filter="false"></q-grid:column>
 		<q-grid:column type="group"
 							title="Invoice Number"
 							label="$ctrl.getGroupLabel($row)"

@@ -1,14 +1,14 @@
 import {Row} from './row';
 import {Column} from './column';
 import {Cell} from './cell';
-import {FakeTable, FakeElement} from './fake';
-import {Container} from './container';
-import {flatten, zip, sumBy, max} from '../utility';
+import {FakeTable} from './fake';
+import {Selector} from './selector';
 
 export class Box {
 	constructor(context, model) {
 		this.context = context;
 		this.model = model;
+		this.selector = new Selector(context, model, this.getElements.bind(this));
 	}
 
 	cell(rowIndex, columnIndex) {
@@ -26,32 +26,15 @@ export class Box {
 
 	rows() {
 		const rowFactory = this.createRowCore.bind(this);
-		const elements = this.getElements();
-		if (elements.length > 0) {
-			if (elements.length > 1) {
-				const rows = zip(...elements.map(element => this.rowsCore(element)));
-				return rows.map((entry, index) => rowFactory(index, new Container(entry)));
-			}
-
-			return this.rowsCore(elements[0]).map((row, index) => rowFactory(index, row));
-		}
-
-		return [];
+		return this.selector.rows().map((row, i) => rowFactory(i, row));
 	}
 
 	rowCount() {
-		// TODO: improve performance
-		const elements = this.getElements();
-		return max(elements.map(element => this.rowsCore(element).length));
+		return this.selector.rowCount();
 	}
 
 	columnCount() {
-		// TODO: improve performance
-		const elements = this.getElements();
-		return sumBy(elements, element => {
-			const rows = this.rowsCore(element);
-			return rows.length ? rows[0].cells.length : 0;
-		});
+		return this.selector.columnCount();
 	}
 
 	getElements() {
@@ -64,92 +47,27 @@ export class Box {
 
 	rowCore(index) {
 		const rowFactory = this.createRowCore.bind(this);
-		if (index >= 0 && index < this.rowCount()) {
-			const elements = this.getElements();
-			if (elements.length > 0) {
-				if (elements.length > 1) {
-					const box = elements.map(element => this.rowsCore(element)[index]);
-					return rowFactory(index, new Container(box));
-				}
-
-				return rowFactory(index, this.rowsCore(elements[0])[index]);
-			}
-		}
-
-		return rowFactory(index, new FakeElement());
+		return rowFactory(index, this.selector.row(index));
 	}
 
 	cellCore(rowIndex, columnIndex) {
 		const cellFactory = this.createCellCore.bind(this);
-		if (rowIndex >= 0 && rowIndex < this.rowCount()) {
-			if (columnIndex >= 0 && columnIndex < this.columnCount()) {
-				const elements = this.getElements();
-				const cells = flatten(elements.map(element => Array.from(this.rowsCore(element)[rowIndex].cells)));
-				return cellFactory(rowIndex, columnIndex, cells[columnIndex]);
-			}
-		}
-
-		return cellFactory(rowIndex, columnIndex, new FakeElement());
-	}
-
-	rowsCore(element) {
-		const rows = element.rows;
-		const isDataRow = this.context.isDataRow;
-		const result = [];
-		for (let i = 0, length = rows.length; i < length; i++) {
-			const row = rows[i];
-			if (!isDataRow(row)) {
-				continue;
-			}
-
-			result.push(row);
-		}
-
-		return result;
+		const cell = this.selector.cell(rowIndex, columnIndex);
+		return cellFactory(rowIndex, columnIndex, cell);
 	}
 
 	rowCellsCore(index) {
 		const cellFactory = this.createCellCore.bind(this);
-		if (index >= 0 && index < this.rowCount()) {
-			const elements = this.getElements();
-			const cells = flatten(elements.map(element => Array.from(this.rowsCore(element)[index].cells)));
-			return cells.map((cell, i) => cellFactory(index, i, cell));
-		}
-
-		return [];
+		return this.selector
+			.rowCells(index)
+			.map((cell, i) => cellFactory(index, i, cell));
 	}
 
 	columnCellsCore(index) {
 		const cellFactory = this.createCellCore.bind(this);
-		const column = this.findColumnCore(index);
-		if (column) {
-			return column.rows.map((row, i) => cellFactory(i, index, row.cells[column.index]));
-		}
-
-		return [];
-	}
-
-	findColumnCore(index) {
-		if (index >= 0 && this.rowCount() > 0) {
-			const elements = this.getElements();
-			let startIndex = 0;
-			for (let i = 0, length = elements.length; i < length; i++) {
-				const element = elements[i];
-				const rows = this.rowsCore(element);
-				const cells = rows[0].cells;
-				const endIndex = startIndex + cells.length;
-				if (index < endIndex) {
-					return {
-						rows: rows,
-						index: index - startIndex
-					};
-				}
-
-				startIndex = endIndex;
-			}
-		}
-
-		return null;
+		return this.selector
+			.columnCells(index)
+			.map((cell, i) => cellFactory(i, index, cell));
 	}
 
 	createRowCore(index, element) {
