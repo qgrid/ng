@@ -8,9 +8,9 @@ export class Navigation {
 
 	positon(y, direction) {
 		const body = this.table.body;
+		const lastRow = this.lastRow;
 		let index = 0;
 		let offset = 0;
-		const lastRow = this.lastRow;
 
 		// TODO: improve performance
 		while (index <= lastRow && offset <= y) {
@@ -42,71 +42,48 @@ export class Navigation {
 
 	columns(rowIndex) {
 		const columns = this.table.body.columns(rowIndex);
-		const indicies = [];
+		const index = [];
 		for (let i = 0, length = columns.length; i < length; i++) {
 			const column = columns[i];
-			if (column.model.canFocus) {
-				indicies.push(column.index);
+			if (column.model().canFocus) {
+				index.push(column.index);
 			}
 		}
-		return indicies;
+		return index;
 	}
 
 	get currentColumn() {
-		const current = this.current;
-		const columns = this.columns(current.rowIndex);
-		if (!columns.length) {
-			return -1;
-		}
-
-		const index = columns.indexOf(current.columnIndex);
-		return columns[Math.max(0, index)];
+		const columns = this.columns(this.currentRow);
+		const columnIndex = this.model.navigation().columnIndex;
+		const index = columns.indexOf(columnIndex);
+		return index >= 0 && index < columns.length ? columns[index] : -1;
 	}
 
 	get nextColumn() {
-		const current = this.current;
-		const columns = this.columns(current.rowIndex);
-		if (!columns.length) {
-			return -1;
-		}
-
-		const index = columns.indexOf(current.columnIndex);
-		return index < columns.length - 1 ? columns[index + 1] : -1;
+		const columns = this.columns(this.currentRow);
+		const index = this.currentColumn;
+		return index >= 0 && index < columns.length - 1 ? columns[index + 1] : -1;
 	}
 
 	get prevColumn() {
-		const current = this.current;
-		const columns = this.columns(current.rowIndex);
-		if (!columns.length) {
-			return -1;
-		}
-
-		const index = columns.indexOf(current.columnIndex);
-		return index > 0 ? columns[index - 1] : -1;
+		const columns = this.columns(this.currentRow);
+		const index = this.currentColumn;
+		return index > 0 && index < columns.length ? columns[index - 1] : -1;
 	}
 
 	get lastColumn() {
-		const current = this.current;
-		const columns = this.columns(current.rowIndex);
-		if (!columns.length) {
-			return -1;
-		}
-
-		return columns[columns.length - 1];
+		const columns = this.columns(this.currentRow);
+		const index = columns.length - 1;
+		return index >= 0 ? columns[index] : -1;
 	}
 
 	get firstColumn() {
-		const current = this.current;
-		const columns = this.columns(current.rowIndex);
-		if (!columns.length) {
-			return -1;
-		}
-
-		return columns[0];
+		const columns = this.columns(this.currentRow);
+		return columns.length ? columns[0] : -1;
 	}
 
 	get currentRow() {
-		return this.current.rowIndex;
+		return this.model.navigation().rowIndex;
 	}
 
 	get nextRow() {
@@ -120,19 +97,15 @@ export class Navigation {
 	}
 
 	get firstRow() {
-		return 0;
+		return Math.min(0, this.lastRow);
 	}
 
-	lastRow(column) {
-		return this.table.body.rowCount(column) - 1;
+	get lastRow() {
+		return this.table.body.rowCount(this.currentColumn) - 1;
 	}
 
 	cell(row, column) {
 		return this.table.body.cell(row, column).model;
-	}
-
-	get current() {
-		return this.model.navigation();
 	}
 
 	get commands() {

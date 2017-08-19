@@ -7,9 +7,9 @@ export class Column {
 	}
 
 	model() {
-		const columns = this.model.view().columns;
-		return columnService.lineView(columns)[this.index] || null;
-
+		const columns = this.box.model.view().columns;
+		const column = columnService.lineView(columns)[this.index];
+		return column ? column.model : null;
 	}
 
 	cells() {

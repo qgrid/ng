@@ -92,7 +92,7 @@ export class BagSelector {
 			element = rows[0];
 		}
 		else if (rows.length === 0) {
-			element = FakeElement();
+			element = new FakeElement();
 		}
 		else {
 			element = Container(rows);
