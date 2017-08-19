@@ -21,6 +21,7 @@ import min from 'lodash/minBy';
 import zip from 'lodash/zip';
 import takeWhile from 'lodash/takeWhile';
 import dropWhile from 'lodash/dropWhile';
+import groupBy from 'lodash/groupBy';
 
 const noop = () => {
 };
@@ -79,5 +80,6 @@ export {
 	sumBy,
 	zip,
 	takeWhile,
-	dropWhile
+	dropWhile,
+	groupBy
 };

@@ -22,7 +22,7 @@ class TdCore extends Directive(TD_CORE_NAME, {
 		const column = this.column;
 		const element = this.element;
 
-		this.root.bag.set(element, this);
+		this.root.bag.body.addCell(this);
 
 		element.classList.add(css.escapeAttr(`${GRID_PREFIX}-${column.key}`));
 		element.classList.add(css.escapeAttr(`${GRID_PREFIX}-${column.type}`));
@@ -132,7 +132,7 @@ class TdCore extends Directive(TD_CORE_NAME, {
 			this.$templateScope.$destroy();
 		}
 
-		this.root.bag.delete(this.element);
+		this.root.bag.body.deleteCell(this);
 	}
 }
 

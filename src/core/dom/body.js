@@ -26,20 +26,6 @@ export class Body extends Box {
 		this.markup = markup;
 	}
 
-	columnCount() {
-		const columns = this.model.view().columns;
-		return columnService.lineView(columns).length;
-	}
-
-	rowCount() {
-		const elements = this.getElements();
-		if (elements.length) {
-			return elements[0].rows.length;
-		}
-
-		return 0;
-	}
-
 	getElementsCore() {
 		return getElements(this.markup);
 	}

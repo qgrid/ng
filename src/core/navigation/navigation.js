@@ -40,53 +40,54 @@ export class Navigation {
 		this.model.navigation({cell: cell}, {source: source});
 	}
 
-	get columns() {
-		const columns = this.table.data.columns();
+	columns(rowIndex) {
+		const columns = this.table.body.columns(rowIndex);
 		const indicies = [];
 		for (let i = 0, length = columns.length; i < length; i++) {
 			const column = columns[i];
-			if (column.canFocus) {
-				indicies.push(i);
+			if (column.model.canFocus) {
+				indicies.push(column.index);
 			}
 		}
 		return indicies;
 	}
 
 	get currentColumn() {
-		const columns = this.columns;
+		const current = this.current;
+		const columns = this.columns(current.rowIndex);
 		if (!columns.length) {
 			return -1;
 		}
 
-		const column = this.model.navigation().columnIndex;
-		const index = columns.indexOf(column);
+		const index = columns.indexOf(current.columnIndex);
 		return columns[Math.max(0, index)];
 	}
 
 	get nextColumn() {
-		const columns = this.columns;
+		const current = this.current;
+		const columns = this.columns(current.rowIndex);
 		if (!columns.length) {
 			return -1;
 		}
 
-		const column = this.model.navigation().columnIndex;
-		const index = columns.indexOf(column);
+		const index = columns.indexOf(current.columnIndex);
 		return index < columns.length - 1 ? columns[index + 1] : -1;
 	}
 
 	get prevColumn() {
-		const columns = this.columns;
+		const current = this.current;
+		const columns = this.columns(current.rowIndex);
 		if (!columns.length) {
 			return -1;
 		}
 
-		const column = this.model.navigation().columnIndex;
-		const index = columns.indexOf(column);
+		const index = columns.indexOf(current.columnIndex);
 		return index > 0 ? columns[index - 1] : -1;
 	}
 
 	get lastColumn() {
-		const columns = this.columns;
+		const current = this.current;
+		const columns = this.columns(current.rowIndex);
 		if (!columns.length) {
 			return -1;
 		}
@@ -95,7 +96,8 @@ export class Navigation {
 	}
 
 	get firstColumn() {
-		const columns = this.columns;
+		const current = this.current;
+		const columns = this.columns(current.rowIndex);
 		if (!columns.length) {
 			return -1;
 		}
@@ -104,16 +106,16 @@ export class Navigation {
 	}
 
 	get currentRow() {
-		return this.model.navigation().rowIndex;
+		return this.current.rowIndex;
 	}
 
 	get nextRow() {
-		const row = this.model.navigation().rowIndex + 1;
+		const row = this.currentRow + 1;
 		return row <= this.lastRow ? row : -1;
 	}
 
 	get prevRow() {
-		const row = this.model.navigation().rowIndex - 1;
+		const row = this.currentRow - 1;
 		return row >= 0 ? row : -1;
 	}
 
@@ -121,12 +123,16 @@ export class Navigation {
 		return 0;
 	}
 
-	get lastRow() {
-		return this.table.body.rowCount() - 1;
+	lastRow(column) {
+		return this.table.body.rowCount(column) - 1;
 	}
 
 	cell(row, column) {
 		return this.table.body.cell(row, column).model;
+	}
+
+	get current() {
+		return this.model.navigation();
 	}
 
 	get commands() {

@@ -6,7 +6,7 @@ export class DataRow {
 		this.context = context;
 	}
 
-	colspan(row, column, pin) {
+	colspan(row, column) {
 		return column.colspan;
 	}
 

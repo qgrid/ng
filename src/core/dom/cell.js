@@ -11,7 +11,7 @@ export class Cell extends Element {
 	}
 
 	get model() {
-		const model = this.context.model(this.getElement());
+		const model = this.context.bag.model(this.getElement());
 		return model ? new CellModel(model) : null;
 	}
 }

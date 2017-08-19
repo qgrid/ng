@@ -14,7 +14,7 @@ export class DetailsRow extends DataRow {
 		return super.colspan(rowDetails, column, pin);
 	}
 
-	columns(rowDetails, pin) {
+	columns(rowDetails) {
 		return [rowDetails.row];
 	}
 
