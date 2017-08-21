@@ -14,7 +14,6 @@ describe('Shortcut', () => {
 	let command3 = new Command();
 	command3.shortcut = () => 'enter|tab';
 	let cmds = [command1, command2, command3];
-
 	let someKeyCode = {
 		code: 'alt+a+b+c+ctrl'
 	};
