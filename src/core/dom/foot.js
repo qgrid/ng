@@ -8,7 +8,7 @@ export class Foot extends Box {
 		this.elementSelector = new ElementSelector(markup, 'foot');
 	}
 
-	getElementsCore(pin) {
+	getElements(pin) {
 		return this.elementSelector.select(pin);
 	}
 }

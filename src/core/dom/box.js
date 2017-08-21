@@ -1,7 +1,6 @@
 import {Row} from './row';
 import {Column} from './column';
 import {Cell} from './cell';
-import {FakeTable} from './fake';
 import {SelectorFactory} from './selector';
 
 export class Box {
@@ -46,11 +45,7 @@ export class Box {
 	}
 
 	getElements() {
-		return this.getElementsCore() || [new FakeTable()];
-	}
-
-	getElementsCore() {
-		return null;
+		return [];
 	}
 
 	rowCore(index) {

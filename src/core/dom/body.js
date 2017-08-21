@@ -10,7 +10,7 @@ export class Body extends Box {
 		this.elementSelector = new ElementSelector(markup, 'body');
 	}
 
-	getElementsCore(pin) {
+	getElements(pin) {
 		return this.elementSelector.select(pin);
 	}
 }
@@ -28,7 +28,7 @@ export class VirtualBody extends VirtualBox {
 		return columnService.lineView(columns).length;
 	}
 
-	getElementsCore(pin) {
+	getElements(pin) {
 		return this.elementSelector.select(pin);
 	}
 }

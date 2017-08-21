@@ -8,7 +8,7 @@ export class Head extends Box {
 		this.elementSelector = new ElementSelector(markup, 'body');
 	}
 
-	getElementsCore(pin) {
+	getElements(pin) {
 		return this.elementSelector.select(pin);
 	}
 }

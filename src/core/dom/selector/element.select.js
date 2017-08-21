@@ -9,25 +9,31 @@ export class ElementSelector {
 	select(pin) {
 		const markup = this.markup;
 		const name = this.name;
-		if (!isUndefined(pin)) {
-			const name = pin ? `${name}-${pin}` : name;
-			return markup.hasOwnProperty(name) ? [markup[name]] : [];
-		}
-
 		const result = [];
-		if (markup.hasOwnProperty(`${name}-left`)) {
-			result.push(markup[`${name}-left`]);
+		if (!isUndefined(pin)) {
+			const id = pin ? `${name}-${pin}` : name;
+			if (markup.hasOwnProperty(id)) {
+				const element = markup[id];
+				result.push(element);
+			}
 		}
+		else {
+			if (markup.hasOwnProperty(`${name}-left`)) {
+				const element = markup[`${name}-left`];
+				result.push(element);
+			}
 
-		if (markup.hasOwnProperty(name)) {
-			result.push(markup[name]);
-		}
+			if (markup.hasOwnProperty(name)) {
+				const element = markup[name];
+				result.push(element);
+			}
 
-		if (markup.hasOwnProperty(`${name}-right`)) {
-			result.push(markup[`${name}-right`]);
+			if (markup.hasOwnProperty(`${name}-right`)) {
+				const element = markup[`${name}-right`];
+				result.push(element);
+			}
 		}
 
 		return result;
-
 	}
 }
