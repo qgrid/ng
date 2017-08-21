@@ -1,7 +1,7 @@
 import {AppError} from '../infrastructure';
 
-function getType(type) {
-	return {}.toString.call(type).slice(8, -1);
+export function getType(type) {
+	return {}.toString.call(type).slice('[object]'.length, -1); // returns type of built-in objects
 }
 
 export function castFactory(r) {
