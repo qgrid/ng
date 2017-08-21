@@ -1,7 +1,7 @@
 import {Box} from '../box';
-import {Cell} from "../cell";
-import {Row} from "../row";
-import {Column} from "../column";
+import {Cell} from '../cell';
+import {Row} from '../row';
+import {Column} from '../column';
 
 export declare class VirtualBox extends Box {
   constructor();

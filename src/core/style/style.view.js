@@ -50,12 +50,12 @@ export class StyleView extends View {
 		const table = this.table;
 		const valueFactory = this.valueFactory;
 		const styleState = model.style();
-		const bodyRows = table.body.rows();
+		const bodyRows = table.body.rows(0);
 		const rowMonitor = this.monitor.row;
 		const cellMonitor = this.monitor.cell;
 		const columns = table.data.columns();
 		const columnMap = columnService.map(columns);
-		// TODO: improve perfomance
+		// TODO: improve performance
 		const valueCache = new Map();
 		const value = (row, column) => {
 			let getValue = valueCache.get(column);

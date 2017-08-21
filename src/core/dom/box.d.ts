@@ -1,6 +1,7 @@
 import {ColumnModel} from '../column-type/column.model';
 import {Cell} from './cell';
 import {Column} from './column';
+import {Row} from './row';
 
 export interface IColumn {
 	(columnIndex: number): ColumnModel;
@@ -28,9 +29,9 @@ export declare class Box {
 
 	column(columnIndex: number): Column;
 
-	row(rowIndex: number): any;
+	row(rowIndex: number): Row;
 
-	rows(columnIndex: number): any[];
+	rows(columnIndex: number): Row[];
 
 	rowCount(columnIndex: number): number;
 
