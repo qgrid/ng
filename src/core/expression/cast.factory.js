@@ -1,4 +1,5 @@
 import {AppError} from '../infrastructure';
+import * as Convert from '../services/convert';
 
 export function castFactory(r) {
 	const rt = typeof r,
@@ -7,7 +8,7 @@ export function castFactory(r) {
 		asDate = new Date(r);
 
 	return l => {
-		const lt = typeof l;
+		const lt = Convert.getType(l);
 		if (rt === lt) {
 			return r;
 		}
@@ -15,7 +16,7 @@ export function castFactory(r) {
 		switch (lt) {
 			case 'number':
 				return asNumber;
-			case 'string':
+			case 'text':
 				return asString;
 			case 'date':
 				return asDate;
