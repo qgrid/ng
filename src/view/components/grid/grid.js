@@ -1,5 +1,5 @@
 import RootComponent from '../root.component';
-import {Table} from '@grid/core/dom';
+import {Table, Bag} from '@grid/core/dom';
 import {LayerFactory} from '@grid/view/services';
 import {AppError} from '@grid/core/infrastructure';
 import {TableCommandManager} from '@grid/core/command';
@@ -22,7 +22,11 @@ export class Grid extends RootComponent {
 			document: $document[0]
 		};
 
-		this.bag = new Map();
+		this.bag = {
+			head: new Bag(),
+			body: new Bag(),
+			foot: new Bag()
+		};
 		this.listener = new EventListener($element[0], new EventManager(this, this.applyFactory(null, 'sync')));
 	}
 
@@ -40,7 +44,7 @@ export class Grid extends RootComponent {
 		const layerFactory = new LayerFactory(this.markup, this.template);
 		const tableContext = {
 			layer: name => layerFactory.create(name),
-			model: element => bag.get(element) || null
+			bag: bag
 		};
 
 		this.table = new Table(model, this.markup, tableContext);

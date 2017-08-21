@@ -2,39 +2,44 @@ import {Row} from './row';
 import {Column} from './column';
 import {Cell} from './cell';
 import {FakeTable} from './fake';
-import {Selector} from './selector';
+import {BagSelector} from './bag.selector';
 
 export class Box {
 	constructor(context, model) {
 		this.context = context;
 		this.model = model;
-		this.selector = new Selector(context, model, this.getElements.bind(this));
+		this.selector = new BagSelector(context.bag);
 	}
 
 	cell(rowIndex, columnIndex) {
 		return this.cellCore(rowIndex, columnIndex);
 	}
 
-	column(index) {
+	column(columnIndex) {
 		const columnFactory = this.createColumnCore.bind(this);
-		return columnFactory(index);
+		return columnFactory(columnIndex);
 	}
 
-	row(index) {
-		return this.rowCore(index);
+	columns(rowIndex){
+		const columnFactory = this.createColumnCore.bind(this);
+		return this.selector.columns(rowIndex).map(column => columnFactory(column.index));
+	}
+
+	row(rowIndex) {
+		return this.rowCore(rowIndex);
 	}
 
 	rows() {
 		const rowFactory = this.createRowCore.bind(this);
-		return this.selector.rows().map((row, i) => rowFactory(i, row));
+		return this.selector.rows().map(row => rowFactory(row.index));
 	}
 
-	rowCount() {
-		return this.selector.rowCount();
+	rowCount(columnIndex) {
+		return this.selector.rowCount(columnIndex);
 	}
 
-	columnCount() {
-		return this.selector.columnCount();
+	columnCount(rowIndex) {
+		return this.selector.columnCount(rowIndex);
 	}
 
 	getElements() {
@@ -47,27 +52,27 @@ export class Box {
 
 	rowCore(index) {
 		const rowFactory = this.createRowCore.bind(this);
-		return rowFactory(index, this.selector.row(index));
+		return rowFactory(index, this.selector.row(index).element);
 	}
 
 	cellCore(rowIndex, columnIndex) {
 		const cellFactory = this.createCellCore.bind(this);
 		const cell = this.selector.cell(rowIndex, columnIndex);
-		return cellFactory(rowIndex, columnIndex, cell);
+		return cellFactory(cell.rowIndex, cell.columnIndex, cell.element);
 	}
 
-	rowCellsCore(index) {
+	rowCellsCore(columnIndex) {
 		const cellFactory = this.createCellCore.bind(this);
 		return this.selector
-			.rowCells(index)
-			.map((cell, i) => cellFactory(index, i, cell));
+			.rowCells(columnIndex)
+			.map(cell => cellFactory(cell.columnIndex, cell.rowIndex, cell.element));
 	}
 
-	columnCellsCore(index) {
+	columnCellsCore(rowIndex) {
 		const cellFactory = this.createCellCore.bind(this);
 		return this.selector
-			.columnCells(index)
-			.map((cell, i) => cellFactory(i, index, cell));
+			.columnCells(rowIndex)
+			.map(cell => cellFactory(cell.columnIndex, cell.rowIndex, cell.element));
 	}
 
 	createRowCore(index, element) {
