@@ -29,6 +29,8 @@ export declare class Box {
 
 	column(columnIndex: number): Column;
 
+	columns(rowIndex: number): Column[],
+
 	row(rowIndex: number): Row;
 
 	rows(columnIndex: number): Row[];

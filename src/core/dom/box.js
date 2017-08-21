@@ -27,7 +27,9 @@ export class Box {
 
 	columns(rowIndex) {
 		const columnFactory = this.createColumnCore.bind(this);
-		return this.selector.columns(rowIndex).map(column => columnFactory(column.index));
+		return this.selector
+			.rowCells(rowIndex)
+			.map(cell => columnFactory(cell.columnIndex));
 	}
 
 	row(rowIndex) {
@@ -66,17 +68,17 @@ export class Box {
 		return cellFactory(cell.rowIndex, cell.columnIndex, cell.element);
 	}
 
-	rowCellsCore(columnIndex) {
+	rowCellsCore(rowIndex) {
 		const cellFactory = this.createCellCore.bind(this);
 		return this.selector
-			.rowCells(columnIndex)
+			.rowCells(rowIndex)
 			.map(cell => cellFactory(cell.columnIndex, cell.rowIndex, cell.element));
 	}
 
-	columnCellsCore(rowIndex) {
+	columnCellsCore(columnIndex) {
 		const cellFactory = this.createCellCore.bind(this);
 		return this.selector
-			.columnCells(rowIndex)
+			.columnCells(columnIndex)
 			.map(cell => cellFactory(cell.columnIndex, cell.rowIndex, cell.element));
 	}
 

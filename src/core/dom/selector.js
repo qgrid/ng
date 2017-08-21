@@ -6,43 +6,11 @@ export class Selector {
 		this.bag = bag;
 	}
 
-	rowCount(columnIndex) {
-		const rows = this.rowsCore();
-		const findCell = this.findCellFactory(columnIndex);
-		let count = 0;
-		for (let i = 0, length = rows.length; i < length; i++) {
-			const row = rows[i];
-			const cell = findCell(row);
-			if (cell) {
-				count += cell.rowSpan;
-			}
-		}
-
-		return count;
-	}
 
 	columnCount(rowIndex) {
 		const rows = this.rowsCore();
 		const row = rows[rowIndex];
 		return row ? row.cells.length : 0;
-	}
-
-	rows(columnIndex) {
-		const rows = this.rowsCore();
-		const findCell = this.findCellFactory(columnIndex);
-		const result = [];
-		for (let i = 0, length = rows.length; i < length; i++) {
-			const row = rows[i];
-			const cell = findCell(row);
-			if (cell) {
-				result.push({
-					index: i,
-					element: row
-				});
-			}
-		}
-
-		return result;
 	}
 
 	columnCells(columnIndex) {
@@ -64,11 +32,44 @@ export class Selector {
 		return result;
 	}
 
+	rowCount(columnIndex) {
+		const rows = this.rowsCore();
+		const findCell = this.findCellFactory(columnIndex);
+		let count = 0;
+		for (let i = 0, length = rows.length; i < length; i++) {
+			const row = rows[i];
+			const cell = findCell(row);
+			if (cell) {
+				count += cell.rowSpan;
+			}
+		}
+
+		return count;
+	}
+
+	rows(columnIndex) {
+		const rows = this.rowsCore();
+		const findCell = this.findCellFactory(columnIndex);
+		const result = [];
+		for (let i = 0, length = rows.length; i < length; i++) {
+			const row = rows[i];
+			const cell = findCell(row);
+			if (cell) {
+				result.push({
+					index: i,
+					element: row
+				});
+			}
+		}
+
+		return result;
+	}
+
 	rowCells(rowIndex) {
 		const rows = this.rowsCore();
 		const row = rows[rowIndex];
+		const result = [];
 		if (row) {
-			const result = 0;
 			const cells = row.cells;
 			let index = 0;
 			for (let i = 0, length = cells.length; i < length; i++) {
@@ -83,7 +84,7 @@ export class Selector {
 			}
 		}
 
-		return [];
+		return result;
 	}
 
 	row(rowIndex) {
@@ -98,7 +99,7 @@ export class Selector {
 
 		return {
 			index: rowIndex,
-			element: FakeElement()
+			element: new FakeElement()
 		};
 	}
 

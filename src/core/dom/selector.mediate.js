@@ -7,16 +7,20 @@ export class SelectorMediator {
 		this.selectorsFactory = selectorsFactory;
 	}
 
-	get selectors() {
-		return this.selectorsFactory();
+	columnCount(rowIndex) {
+		return sumBy(this.selectors, s => s.columnCount(rowIndex));
+	}
+
+	columnCells(columnIndex) {
+		if (this.selectors.length === 1) {
+			return this.selectors[0].columnCells(columnIndex);
+		}
+
+		return flatten(this.selectors.map(s => s.columnCells(columnIndex)));
 	}
 
 	rowCount(columnIndex) {
 		return max(this.selectors.map(s => s.rowCount(columnIndex)));
-	}
-
-	columnCount(rowIndex) {
-		return sumBy(this.selectors, s => s.columnCount(rowIndex));
 	}
 
 	rows(columnIndex) {
@@ -25,14 +29,6 @@ export class SelectorMediator {
 		}
 
 		return zip(...this.selectors.map(s => s.rows(columnIndex))).map(entry => new Container(entry));
-	}
-
-	columnCells(rowIndex) {
-		if (this.selectors.length === 1) {
-			return this.selectors[0].columnCells(rowIndex);
-		}
-
-		return flatten(this.selectors.map(s => s.columnCells(rowIndex)));
 	}
 
 	rowCells(rowIndex) {
@@ -54,5 +50,9 @@ export class SelectorMediator {
 		}
 
 		return this.selectors.map(s => s.cell(rowIndex, columnIndex)).filter(cell => cell)[0] || new FakeElement();
+	}
+
+	get selectors() {
+		return this.selectorsFactory();
 	}
 }
