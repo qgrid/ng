@@ -1,6 +1,6 @@
 import {AppError} from '../infrastructure';
 
-export function getType(type) {
+function getType(type) {
 	return {}.toString.call(type).slice(8, -1);
 }
 
