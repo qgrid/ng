@@ -1,25 +1,31 @@
 import {AppError} from '../infrastructure';
-import * as Convert from '../services/convert';
+
+export function getType(type) {
+	return {}.toString.call(type).slice(8, -1);
+}
 
 export function castFactory(r) {
-	const rt = typeof r,
-		asString = '' + r,
-		asNumber = +r,
-		asDate = new Date(r);
+	const rt = getType(r);
+	const asString = '' + r;
+	const asNumber = +r;
+	const asBool = !!r;
+	const asDate = new Date(r);
 
 	return l => {
-		const lt = Convert.getType(l);
+		const lt = getType(l);
 		if (rt === lt) {
 			return r;
 		}
 
 		switch (lt) {
-			case 'number':
+			case 'Number':
 				return asNumber;
-			case 'text':
+			case 'String':
 				return asString;
-			case 'date':
+			case 'Date':
 				return asDate;
+			case 'Boolean':
+				return asBool;
 			default:
 				throw AppError(
 					'cast.factory',
