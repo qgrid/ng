@@ -2,18 +2,14 @@ import {Row} from './row';
 import {Column} from './column';
 import {Cell} from './cell';
 import {FakeTable} from './fake';
-import {Selector} from './selector';
-import {SelectorMediator} from './selector.mediate';
+import {SelectorFactory} from './selector';
 
 export class Box {
 	constructor(context, model) {
 		this.context = context;
 		this.model = model;
-		this.selector =
-			new SelectorMediator(() =>
-				this.getElements()
-					.map(element =>
-						new Selector(element, context.bag)));
+
+		this.selectFactory = new SelectorFactory(context.bag, this.getElements.bind(this));
 	}
 
 	columnCount(rowIndex) {
@@ -92,5 +88,9 @@ export class Box {
 
 	createCellCore(rowIndex, columnIndex, element) {
 		return new Cell(this.context, rowIndex, columnIndex, element);
+	}
+
+	get selector() {
+		return this.selectFactory.create();
 	}
 }

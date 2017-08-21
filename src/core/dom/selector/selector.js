@@ -1,11 +1,10 @@
-import {FakeElement} from './fake';
+import {FakeElement} from '../fake';
 
 export class Selector {
 	constructor(element, bag) {
 		this.element = element;
 		this.bag = bag;
 	}
-
 
 	columnCount(rowIndex) {
 		const rows = this.rowsCore();
