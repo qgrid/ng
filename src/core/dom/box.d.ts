@@ -2,10 +2,6 @@ import {ColumnModel} from '../column-type/column.model';
 import {Cell} from './cell';
 import {Column} from './column';
 
-export interface IsDataRow {
-	(row: any): boolean;
-}
-
 export interface IColumn {
 	(columnIndex: number): ColumnModel;
 }
@@ -21,7 +17,6 @@ export interface IContext {
 	mapper: IMapper;
 	layer: any;
 	model: (elem: Element) => any;
-	isDataRow: IsDataRow;
 }
 
 export declare class Box {

@@ -5,8 +5,12 @@ export class Bag {
 		this.models = new Map();
 	}
 
-	model(element) {
+	findModel(element) {
 		return this.models.get(element);
+	}
+
+	hasModel(element) {
+		return this.models.has(element);
 	}
 
 	addRow(row) {

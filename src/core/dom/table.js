@@ -20,7 +20,6 @@ export class Table {
 				viewToColumn: identity
 			},
 			layer: () => new FakeLayer(),
-			isDataRow: row => !row.classList.contains('vscroll-mark'),
 			bag: {
 				head: new Bag(),
 				body: new Bag(),
@@ -98,7 +97,6 @@ export class Table {
 		return {
 			mapper: ctx.mapper,
 			layer: ctx.layer,
-			isDataRow: ctx.isDataRow,
 			bag: ctx.bag[source]
 		};
 	}

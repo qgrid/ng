@@ -1,52 +1,157 @@
 import {FakeElement} from './fake';
-import {BagSelector} from './bag.selector';
 
 export class Selector {
-	constructor(context, element) {
-		this.context = context;
+	constructor(element, bag) {
 		this.element = element;
+		this.bag = bag;
 	}
 
 	rowCount(columnIndex) {
-		return this.rowsCore(columnIndex).length;
+		const rows = this.rowsCore();
+		const findCell = this.findCellFactory(columnIndex);
+		let count = 0;
+		for (let i = 0, length = rows.length; i < length; i++) {
+			const row = rows[i];
+			const cell = findCell(row);
+			if (cell) {
+				count += cell.rowSpan;
+			}
+		}
+
+		return count;
 	}
 
 	columnCount(rowIndex) {
-		const row = this.rowCore(rowIndex);
+		const rows = this.rowsCore();
+		const row = rows[rowIndex];
 		return row ? row.cells.length : 0;
 	}
 
 	rows(columnIndex) {
-		return this.rowsCore(columnIndex)
-			.map((element, i) => ({
-				element: element,
-				index: i
-			}));
+		const rows = this.rowsCore();
+		const findCell = this.findCellFactory(columnIndex);
+		const result = [];
+		for (let i = 0, length = rows.length; i < length; i++) {
+			const row = rows[i];
+			const cell = findCell(row);
+			if (cell) {
+				result.push({
+					index: i,
+					element: row
+				});
+			}
+		}
+
+		return result;
 	}
 
 	columnCells(columnIndex) {
+		const rows = this.rowsCore();
+		const findCell = this.findCellFactory(columnIndex);
+		const result = [];
+		for (let i = 0, length = rows.length; i < length; i++) {
+			const row = rows[i];
+			const cell = findCell(row);
+			if (cell) {
+				result.push({
+					element: cell,
+					rowIndex: i,
+					columnIndex: columnIndex
+				});
+			}
+		}
 
+		return result;
 	}
 
 	rowCells(rowIndex) {
-		const row = this.rowCore(rowIndex);
-		return row ? Array.from(row.cells) : [];
-	},.
+		const rows = this.rowsCore();
+		const row = rows[rowIndex];
+		if (row) {
+			const result = 0;
+			const cells = row.cells;
+			let index = 0;
+			for (let i = 0, length = cells.length; i < length; i++) {
+				const cell = cells[i];
+				result.push({
+					element: cell,
+					rowIndex: rowIndex,
+					columnIndex: index
+				});
+
+				index += cell.colSpan;
+			}
+		}
+
+		return [];
+	}
 
 	row(rowIndex) {
-		const row = this.rowCore(rowIndex);
+		const rows = this.rowsCore();
+		const row = rows[rowIndex];
+		if (row) {
+			return {
+				index: rowIndex,
+				element: row
+			};
+		}
 
+		return {
+			index: rowIndex,
+			element: FakeElement()
+		};
 	}
 
 	cell(rowIndex, columnIndex) {
+		const rows = this.rowsCore();
+		const row = rows[rowIndex];
+		if (row) {
+			const findCell = this.findCellFactory(columnIndex);
+			const cell = findCell(row);
+			if (cell) {
+				return {
+					rowIndex: rowIndex,
+					columnIndex: columnIndex,
+					element: cell
+				};
+			}
+		}
+
+		return {
+			rowIndex: rowIndex,
+			columnIndex: columnIndex,
+			element: new FakeElement()
+		};
 	}
 
-	rowsCore(columnIndex) {
-		const bag = this.context.bag;
+	findCellFactory(columnIndex) {
+		return row => {
+			const cells = row.cells;
+			const length = cells.length;
+			let index = 0;
+			while (index < length) {
+				const cell = cells[index];
+				if (index === columnIndex) {
+					return cell;
+				}
+				index += cell.colSpan;
+			}
 
+			return null;
+		};
 	}
 
-	rowCore(rowIndex) {
+	rowsCore() {
+		const isDataRow = this.bag.hasModel.bind(this.bag);
+		const rows = this.element.rows;
+		const result = [];
+		for (let i = 0, length = rows.length; i < length; i++) {
+			const row = rows[i];
+			if (isDataRow(row)) {
+				result.push(row);
+			}
+		}
 
+		return result;
 	}
 }

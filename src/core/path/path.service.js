@@ -8,7 +8,7 @@ export class PathService {
 	cell(path) {
 		for (let node of path) {
 			if (node.nodeName === 'TD' || node.nodeName === 'TH') {
-				const model = this.bag.model(node);
+				const model = this.bag.findModel(node);
 				if (!model) {
 					new AppError('path.find', `Can't find model for ${node.nodeName}`);
 				}
@@ -23,7 +23,7 @@ export class PathService {
 	row(path) {
 		for (let node of path) {
 			if (node.nodeName === 'TR') {
-				const model = this.bag.model(node);
+				const model = this.bag.findModel(node);
 				if (!model) {
 					new AppError('path.find', `Can't find model for ${node.nodeName}`);
 				}

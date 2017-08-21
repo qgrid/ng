@@ -2,17 +2,22 @@ import {Row} from './row';
 import {Column} from './column';
 import {Cell} from './cell';
 import {FakeTable} from './fake';
-import {BagSelector} from './bag.selector';
+import {Selector} from './selector';
+import {SelectorMediator} from './selector.mediate';
 
 export class Box {
 	constructor(context, model) {
 		this.context = context;
 		this.model = model;
-		this.selector = new BagSelector(context.bag);
+		this.selector =
+			new SelectorMediator(() =>
+				this.getElements()
+					.map(element =>
+						new Selector(element, context.bag)));
 	}
 
-	cell(rowIndex, columnIndex) {
-		return this.cellCore(rowIndex, columnIndex);
+	columnCount(rowIndex) {
+		return this.selector.columnCount(rowIndex);
 	}
 
 	column(columnIndex) {
@@ -20,7 +25,7 @@ export class Box {
 		return columnFactory(columnIndex);
 	}
 
-	columns(rowIndex){
+	columns(rowIndex) {
 		const columnFactory = this.createColumnCore.bind(this);
 		return this.selector.columns(rowIndex).map(column => columnFactory(column.index));
 	}
@@ -29,17 +34,17 @@ export class Box {
 		return this.rowCore(rowIndex);
 	}
 
-	rows() {
+	rows(columnIndex) {
 		const rowFactory = this.createRowCore.bind(this);
-		return this.selector.rows().map(row => rowFactory(row.index));
+		return this.selector.rows(columnIndex).map(row => rowFactory(row.index));
 	}
 
 	rowCount(columnIndex) {
 		return this.selector.rowCount(columnIndex);
 	}
 
-	columnCount(rowIndex) {
-		return this.selector.columnCount(rowIndex);
+	cell(rowIndex, columnIndex) {
+		return this.cellCore(rowIndex, columnIndex);
 	}
 
 	getElements() {
