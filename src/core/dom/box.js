@@ -9,7 +9,7 @@ export class Box {
 		this.context = context;
 		this.model = model;
 
-		this.selectFactory = new SelectorFactory(context.bag, this.getElements.bind(this));
+		this.selectFactory = new SelectorFactory(model, context.bag, this.getElements.bind(this));
 	}
 
 	columnCount(rowIndex) {

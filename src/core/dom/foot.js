@@ -1,27 +1,14 @@
 import {Box} from './box';
+import {ElementSelector} from './selector';
 
 export class Foot extends Box {
 	constructor(context, model, markup) {
 		super(context, model);
 
-		this.markup = markup;
+		this.elementSelector = new ElementSelector(markup, 'foot');
 	}
 
-	getElementsCore() {
-		const markup = this.markup;
-		const result = [];
-		if (markup.hasOwnProperty('foot-left')) {
-			result.push(markup['foot-left']);
-		}
-
-		if (markup.hasOwnProperty('foot')) {
-			result.push(markup['foot']);
-		}
-
-		if (markup.hasOwnProperty('foot-right')) {
-			result.push(markup['foot-right']);
-		}
-
-		return result;
+	getElementsCore(pin) {
+		return this.elementSelector.select(pin);
 	}
 }

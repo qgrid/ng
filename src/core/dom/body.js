@@ -1,33 +1,17 @@
 import {VirtualBox} from './virtual';
 import {Box} from './box';
 import * as columnService from '../column/column.service';
-
-function getElements(markup) {
-	const result = [];
-	if (markup.hasOwnProperty('body-left')) {
-		result.push(markup['body-left']);
-	}
-
-	if (markup.hasOwnProperty('body')) {
-		result.push(markup['body']);
-	}
-
-	if (markup.hasOwnProperty('body-right')) {
-		result.push(markup['body-right']);
-	}
-
-	return result;
-}
+import {ElementSelector} from './selector';
 
 export class Body extends Box {
 	constructor(context, model, markup) {
 		super(context, model);
 
-		this.markup = markup;
+		this.elementSelector = new ElementSelector(markup, 'body');
 	}
 
-	getElementsCore() {
-		return getElements(this.markup);
+	getElementsCore(pin) {
+		return this.elementSelector.select(pin);
 	}
 }
 
@@ -35,16 +19,16 @@ export class VirtualBody extends VirtualBox {
 	constructor(context, model, markup) {
 		super(context, model);
 
-		this.markup = markup;
+		this.elementSelector = new ElementSelector(markup, 'body');
 	}
 
 	columnCount() {
+		// TODO: add row index support
 		const columns = this.model.view().columns;
 		return columnService.lineView(columns).length;
 	}
 
-	getElementsCore() {
-		return getElements(this.markup);
-
+	getElementsCore(pin) {
+		return this.elementSelector.select(pin);
 	}
 }
