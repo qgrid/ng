@@ -56,18 +56,18 @@ export class Navigation {
 		const columns = this.columns(this.currentRow);
 		const columnIndex = this.model.navigation().columnIndex;
 		const index = columns.indexOf(columnIndex);
-		return index >= 0 && index < columns.length ? columns[index] : -1;
+		return columns.length ? columns[Math.max(index, 0)] : -1;
 	}
 
 	get nextColumn() {
 		const columns = this.columns(this.currentRow);
-		const index = this.currentColumn;
+		const index = columns.indexOf(this.currentColumn);
 		return index >= 0 && index < columns.length - 1 ? columns[index + 1] : -1;
 	}
 
 	get prevColumn() {
 		const columns = this.columns(this.currentRow);
-		const index = this.currentColumn;
+		const index = columns.indexOf(this.currentColumn);
 		return index > 0 && index < columns.length ? columns[index - 1] : -1;
 	}
 

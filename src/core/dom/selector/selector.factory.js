@@ -10,9 +10,10 @@ export class SelectorFactory {
 
 	create() {
 		const bag = this.bag;
-		return new SelectorMediator(context => {
+		const selectorMark = this.selectorMark;
+		const selectorFactory = context => {
 			const entries =
-				this.selectorMark
+				selectorMark
 					.select()
 					.filter(entry => {
 						if (context.hasOwnProperty('column')) {
@@ -40,6 +41,9 @@ export class SelectorFactory {
 					return f(...args);
 				}
 			}));
-		});
+		};
+
+		const unitFactory = new UnitFactory(new Range(0, 0), new Range(0, 0));
+		return new SelectorMediator(selectorFactory, unitFactory);
 	}
 }

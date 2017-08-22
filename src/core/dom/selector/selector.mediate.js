@@ -3,8 +3,9 @@ import {Container} from '../container';
 import {zip, sumBy, max} from '../../utility';
 
 export class SelectorMediator {
-	constructor(selectorFactory) {
+	constructor(selectorFactory, factory) {
 		this.buildSelectors = selectorFactory;
+		this.factory = factory;
 	}
 
 	columnCount(rowIndex) {
@@ -31,7 +32,9 @@ export class SelectorMediator {
 
 	rows(columnIndex) {
 		const selectors = this.buildSelectors({column: columnIndex});
-		return zip(...selectors.map(s => s.invoke((s, columnIndex) => s.rows(columnIndex)))).map(entry => new Container(entry));
+		const factory = this.factory;
+		return zip(...selectors.map(s => s.invoke((s, columnIndex) => s.rows(columnIndex))))
+			.map(entry => factory.row(new Container(entry.map(row => row.element)), entry[0].index));
 	}
 
 	rowCells(rowIndex) {
@@ -55,14 +58,19 @@ export class SelectorMediator {
 			result.push(row.element);
 		}
 
-		return {
-			index: rowIndex,
-			element: new Container(result)
-		};
+		return this.factory.row(new Container(result), rowIndex);
 	}
 
 	cell(rowIndex, columnIndex) {
 		const selectors = this.buildSelectors({row: rowIndex, column: columnIndex});
-		return selectors.map(s => s.invoke((s, rowIndex, columnIndex) => s.cell(rowIndex, columnIndex))).filter(cell => !!cell)[0] || new FakeElement();
+		for (let i = 0, length = selectors.length; i < length; i++) {
+			const selector = selectors[i];
+			const cell = selector.invoke((s, rowIndex, columnIndex) => s.cell(rowIndex, columnIndex));
+			if (!(cell.element instanceof FakeElement)) {
+				return cell;
+			}
+		}
+
+		return this.factory.cell(new FakeElement(), rowIndex, columnIndex);
 	}
 }
