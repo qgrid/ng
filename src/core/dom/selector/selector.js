@@ -1,4 +1,5 @@
 import {FakeElement} from '../fake';
+import {isUndefined} from '../../utility';
 
 export class Selector {
 	constructor(element, bag, factory) {
@@ -51,14 +52,22 @@ export class Selector {
 
 	rows(columnIndex) {
 		const rows = this.rowsCore();
-		const findCell = this.findCellFactory(columnIndex);
 		const factory = this.factory;
 		const result = [];
-		for (let i = 0, length = rows.length; i < length; i++) {
-			const row = rows[i];
-			const cell = findCell(row);
-			if (cell) {
+		if (isUndefined(columnIndex)) {
+			for (let i = 0, length = rows.length; i < length; i++) {
+				const row = rows[i];
 				result.push(factory.row(row, i));
+			}
+		}
+		else {
+			const findCell = this.findCellFactory(columnIndex);
+			for (let i = 0, length = rows.length; i < length; i++) {
+				const row = rows[i];
+				const cell = findCell(row);
+				if (cell) {
+					result.push(factory.row(row, i));
+				}
 			}
 		}
 

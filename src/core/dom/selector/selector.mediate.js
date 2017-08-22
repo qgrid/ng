@@ -1,6 +1,6 @@
 import {FakeElement} from '../fake';
 import {Container} from '../container';
-import {zip, sumBy, max} from '../../utility';
+import {zip, sumBy, max, isUndefined} from '../../utility';
 
 export class SelectorMediator {
 	constructor(selectorFactory, factory) {
@@ -31,10 +31,28 @@ export class SelectorMediator {
 	}
 
 	rows(columnIndex) {
-		const selectors = this.buildSelectors({column: columnIndex});
+		const context = isUndefined(columnIndex) ? {} : {column: columnIndex};
+		const selectors = this.buildSelectors(context);
 		const factory = this.factory;
-		return zip(...selectors.map(s => s.invoke((s, columnIndex) => s.rows(columnIndex))))
-			.map(entry => factory.row(new Container(entry.map(row => row.element)), entry[0].index));
+		const areas = [];
+		for (let i = 0, length = selectors.length; i < length; i++) {
+			const selector = selectors[i];
+			const rows = selector.invoke((s, columnIndex) => s.rows(columnIndex));
+			areas.push(rows);
+		}
+
+		const lines = zip(...areas);
+		const result = [];
+		for (let i = 0, length = lines.length; i < length; i++) {
+			const line = lines[i];
+			const elements = line.map(row => row.element);
+			const rowElement = elements.length > 1 ? new Container(elements) : elements[0];
+			const rowIndex = line[0].index;
+			const row = factory.row(rowElement, rowIndex);
+			result.push(row);
+		}
+
+		return result;
 	}
 
 	rowCells(rowIndex) {

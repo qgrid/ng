@@ -33,7 +33,7 @@ export class Box {
 
 	rows(columnIndex) {
 		const rowFactory = this.createRowCore.bind(this);
-		return this.selector.rows(columnIndex).map(row => rowFactory(row.index));
+		return this.selector.rows(columnIndex).map(row => rowFactory(row.index, row.element));
 	}
 
 	rowCount(columnIndex) {

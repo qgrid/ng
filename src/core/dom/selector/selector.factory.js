@@ -1,6 +1,7 @@
 import {Selector} from './selector';
 import {SelectorMediator} from './selector.mediate';
 import {UnitFactory} from './unit.factory';
+import {Range} from '../../infrastructure';
 
 export class SelectorFactory {
 	constructor(bag, selectorMark) {

@@ -6,11 +6,10 @@ import {CellBox} from './cell.box';
 import {RowBox} from './row.box';
 import {ColumnBox} from './column.box';
 import {FakeElement} from '../fake';
-import * as columnService from '../../column/column.service';
 
 export class VirtualBox extends Box {
-	constructor(context, model) {
-		super(context, model);
+	constructor(context, model, selectorMark) {
+		super(context, model, selectorMark);
 
 		this.cellBox = new CellBox(context);
 		this.rowBox = new RowBox(context);
@@ -69,17 +68,6 @@ export class VirtualBox extends Box {
 		else {
 			this.columnBox.removeClass(column, name);
 		}
-	}
-
-	rowCount() {
-		return this.model.data().rows.length;
-	}
-
-	columnCount() {
-		const columns = this.model.view().columns;
-		return columnService
-			.lineView(columns)
-			.length;
 	}
 
 	rowCore(index) {

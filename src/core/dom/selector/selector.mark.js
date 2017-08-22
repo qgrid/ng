@@ -1,4 +1,3 @@
-import {isUndefined} from '../../utility';
 import {Range} from '../../infrastructure';
 import * as columnService from '../../column/column.service';
 
@@ -11,7 +10,7 @@ export class SelectorMark {
 
 	select() {
 		const result = [];
-		const addNext = this.addFactory(result)
+		const addNext = this.addFactory(result);
 
 		addNext('left');
 		addNext(null);
