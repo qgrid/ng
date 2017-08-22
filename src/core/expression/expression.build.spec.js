@@ -4,28 +4,54 @@ describe('Expression Build', () => {
 	let test1 = {
 		key: {
 			expression: 'expression'
-		}
+		},
 	};
 
 	let test2 = {
 		key: {
 			expression: 'expression',
-			items: ['a','b','c']
+			items: ['a', 'b', 'c']
 		}
 	};
 
-	describe('should built expression into root object', () => {
-		it('', () => {
-			let root = ExpressionBuild.build(test1);
-			expect(root.left).to.equal('expression');
-		});
-	});
+	let test3 = {
+		kind: 'group',
+		op: 'and',
+		left: 'expression',
+		right: null
+	};
 
-	describe('', () => {
-		it('should built expression and items into root object', () => {
+	let test4 = {
+		kind: 'group',
+		op: 'and',
+		left: 'expression',
+		right: {
+			kind: 'group',
+			op: 'and',
+			left: {
+				kind: 'group',
+				op: 'and',
+				left: {
+					kind: 'condition',
+					left: 'key',
+					op: 'in',
+					right: ['a', 'b', 'c']
+				},
+				right: null
+			},
+			right: null
+		}
+	};
+
+	describe('build', () => {
+		it('should built expression into root object', () => {
+			let root = ExpressionBuild.build(test1);
+			expect(JSON.stringify(root)).to.equal(JSON.stringify(test3));
+		});
+
+		it('should check whether items were built into root object', () => {
 			let root = ExpressionBuild.build(test2);
-			expect(root.left).to.equal('expression');
-			expect(root.right.left.left.right.toString()).to.equal('a,b,c');
+			expect(JSON.stringify(root)).to.equal(JSON.stringify(test4));
 		});
 	});
 });
