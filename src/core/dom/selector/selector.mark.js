@@ -1,0 +1,50 @@
+import {isUndefined} from '../../utility';
+import {Range} from '../../infrastructure';
+import * as columnService from '../../column/column.service';
+
+export class SelectorMark {
+	constructor(model, markup, name) {
+		this.model = model;
+		this.name = name;
+		this.markup = markup;
+	}
+
+	select() {
+		const result = [];
+		const addNext = this.addFactory(result)
+
+		addNext('left');
+		addNext(null);
+		addNext('right');
+
+		return result;
+	}
+
+	addFactory(result) {
+		const model = this.model;
+		const rows = model.view().rows;
+		const columns = columnService
+			.lineView(model.view().columns)
+			.map(v => v.model);
+
+		return pin => {
+			const name = pin ? `${this.name}-${pin}` : this.name;
+			const element = this.markup[name];
+			if (element) {
+				const prev = result[result.length - 1];
+				const columnStart = prev ? prev.column.end + 1 : 0;
+				const columnSize = columns.filter(c => c.pin === pin).length;
+				const rowStart = 0;
+				const rowSize = rows.length;
+
+				result.push({
+					element: element,
+					columnRange: new Range(columnStart, columnStart + columnSize),
+					rowRange: new Range(rowStart, rowStart + rowSize)
+				});
+			}
+
+			return result;
+		};
+	}
+}

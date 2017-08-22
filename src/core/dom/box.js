@@ -4,11 +4,11 @@ import {Cell} from './cell';
 import {SelectorFactory} from './selector';
 
 export class Box {
-	constructor(context, model) {
+	constructor(context, model, selectorMark) {
 		this.context = context;
 		this.model = model;
 
-		this.selectFactory = new SelectorFactory(model, context.bag, this.getElements.bind(this));
+		this.selectFactory = new SelectorFactory(context.bag, selectorMark);
 	}
 
 	columnCount(rowIndex) {

@@ -5,48 +5,40 @@ import {identity, isUndefined} from '../../utility';
 import {AppError} from '../../infrastructure';
 
 export class SelectorFactory {
-	constructor(model, bag, elementsSelector) {
-		this.model = model;
+	constructor(bag, selectorMark) {
 		this.bag = bag;
-		this.elementsSelector = elementsSelector;
+		this.selectorMark = selectorMark;
 	}
 
 	create() {
 		const bag = this.bag;
-		const model = this.model;
-
 		return new SelectorMediator(context => {
-			const columns = model.view().columns;
-			const columnLine = columnService.lineView(columns);
-			let pin;
-			if (context.hasOwnProperty('column')) {
-				const column = columnLine[context.column];
-				if (column) {
-					pin = column.model.pin;
-				}
-			}
-
-			const elements = this.elementsSelector(pin);
-			return {
-				selectors: elements.map(element => new Selector(element, bag)),
-				mapper: {
-					row: identity,
-					column: isUndefined(pin)
-						? identity
-						: index => {
-							switch (pin) {
-								case 'left':
-									return index;
-								case 'right':
-									return index - columnLine.filter(c => c.model.pin !== 'right').length;
-								case null:
-									return index - columnLine.filter(c => c.model.pin === 'left').length;
-								default:
-									throw new AppError('selector.factory', `Invalid pin value "${pin}"`);
-							}
+			const entries =
+				this.selectorMark
+					.select()
+					.filter(entry => {
+						if (context.hasOwnProperty('column')) {
+							const columnIndex = context.column;
+							return entry.columnRange.start <= columnIndex && columnIndex <= entry.columnRange.end;
 						}
+
+						return true;
+					});
+
+			return entries.map(entry => ({
+				invoke: f => {
+					const args = [];
+					args.push(new Selector(entry.element, bag));
+					if (context.hasOwnProperty('row')) {
+						args.push(context.row - entry.rowRange.start);
+					}
+					if (context.hasOwnProperty('column')) {
+						args.push(context.column - entry.columnRange.start);
+					}
+
+					return f(...args);
 				}
-			};
+			}));
 		});
 	}
 }
