@@ -3,17 +3,21 @@ import {Container} from '../container';
 import {zip, sumBy, max} from '../../utility';
 
 export class SelectorMediator {
-	constructor(selectorsFactory) {
-		this.getSelectors = selectorsFactory;
+	constructor(selectorContextFactory) {
+		this.getContext = selectorContextFactory;
 	}
 
 	columnCount(rowIndex) {
-		const selectors = this.getSelectors({row: rowIndex});
+		const context = this.getContext({row: rowIndex});
+		const selectors = context.selectors;
 		return sumBy(selectors, s => s.columnCount(rowIndex));
 	}
 
 	columnCells(columnIndex) {
-		const selectors = this.getSelectors({column: columnIndex});
+		const context = this.getContext({column: columnIndex});
+		const selectors = context.selectors;
+		columnIndex = context.mapper.column(columnIndex);
+
 		if (selectors.length === 1) {
 			return selectors[0].columnCells(columnIndex);
 		}
@@ -29,12 +33,18 @@ export class SelectorMediator {
 	}
 
 	rowCount(columnIndex) {
-		const selectors = this.getSelectors({column: columnIndex});
+		const context = this.getContext({column: columnIndex});
+		const selectors = context.selectors;
+		columnIndex = context.mapper.column(columnIndex);
+
 		return max(selectors.map(s => s.rowCount(columnIndex)));
 	}
 
 	rows(columnIndex) {
-		const selectors = this.getSelectors({column: columnIndex});
+		const context = this.getContext({column: columnIndex});
+		const selectors = context.selectors;
+		columnIndex = context.mapper.column(columnIndex);
+
 		if (selectors.length === 1) {
 			return selectors[0].rows(columnIndex);
 		}
@@ -43,7 +53,10 @@ export class SelectorMediator {
 	}
 
 	rowCells(rowIndex) {
-		const selectors = this.getSelectors({row: rowIndex});
+		const context = this.getContext({rowIndex: rowIndex});
+		const selectors = context.selectors;
+		rowIndex = context.mapper.row(rowIndex);
+
 		if (selectors.length === 1) {
 			return selectors[0].rowCells(rowIndex);
 		}
@@ -52,6 +65,7 @@ export class SelectorMediator {
 		for (let i = 0, length = selectors.length; i < length; i++) {
 			const selector = selectors[i];
 			const cells = selector.rowCells(rowIndex);
+			for(let j = 0, cellLength =  )
 			result.push(...cells);
 		}
 
@@ -59,7 +73,10 @@ export class SelectorMediator {
 	}
 
 	row(rowIndex) {
-		const selectors = this.getSelectors({row: rowIndex});
+		const context = this.getContext({rowIndex: rowIndex});
+		const selectors = context.selectors;
+		rowIndex = context.mapper.row(rowIndex);
+
 		if (selectors.length === 1) {
 			return selectors[0].row(rowIndex);
 		}
@@ -78,7 +95,11 @@ export class SelectorMediator {
 	}
 
 	cell(rowIndex, columnIndex) {
-		const selectors = this.getSelectors({row: rowIndex, column: columnIndex});
+		const context = this.getContext({row: rowIndex, column: columnIndex});
+		const selectors = context.selectors;
+		rowIndex = context.mapper.row(rowIndex);
+		columnIndex = context.mapper.column(columnIndex);
+
 		if (selectors.length === 1) {
 			return selectors[0].cell(rowIndex, columnIndex);
 		}
