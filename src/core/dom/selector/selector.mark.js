@@ -32,7 +32,7 @@ export class SelectorMark {
 			const element = this.markup[name];
 			if (element) {
 				const prev = result[result.length - 1];
-				const columnStart = prev ? prev.column.end + 1 : 0;
+				const columnStart = prev ? prev.columnRange.end : 0;
 				const columnSize = columns.filter(c => c.pin === pin).length;
 				const rowStart = 0;
 				const rowSize = rows.length;

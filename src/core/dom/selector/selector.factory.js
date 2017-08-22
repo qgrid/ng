@@ -1,8 +1,6 @@
 import {Selector} from './selector';
 import {SelectorMediator} from './selector.mediate';
-import * as columnService from '../../column/column.service';
-import {identity, isUndefined} from '../../utility';
-import {AppError} from '../../infrastructure';
+import {UnitFactory} from './unit.factory';
 
 export class SelectorFactory {
 	constructor(bag, selectorMark) {
@@ -27,8 +25,11 @@ export class SelectorFactory {
 
 			return entries.map(entry => ({
 				invoke: f => {
+					const unitFactory = new UnitFactory(entry.rowRange, entry.columnRange);
+					const selector = new Selector(entry.element, bag, unitFactory);
+
 					const args = [];
-					args.push(new Selector(entry.element, bag));
+					args.push(selector);
 					if (context.hasOwnProperty('row')) {
 						args.push(context.row - entry.rowRange.start);
 					}
