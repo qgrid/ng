@@ -7,15 +7,11 @@ export class DetailsRow extends DataRow {
 	}
 
 	colspan(rowDetails, column, pin) {
-		if (column.model.type === 'row-details') {
-			return sumBy(this.columnList(pin), c => c.colspan);
-		}
-
-		return super.colspan(rowDetails, column, pin);
+		return sumBy(this.columnList(pin), c => c.colspan);
 	}
 
 	columns(rowDetails) {
-		return [rowDetails.row];
+		return [rowDetails.column];
 	}
 
 	getValue() {
