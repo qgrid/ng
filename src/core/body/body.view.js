@@ -2,7 +2,6 @@ import {View} from '../view';
 import * as columnService from '../column/column.service';
 import {getFactory as valueFactory} from '../services/value';
 import {getFactory as labelFactory, set as setLabel} from '../services/label';
-import * as NodeService from '../node/node.service';
 import {Log} from '../infrastructure';
 import {ResolutionRow} from './resolution.row';
 

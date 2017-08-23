@@ -24,25 +24,28 @@ function compareFactory(listIndex, templateIndex, dataIndex) {
 	const dataFind = findFactory(dataIndex);
 
 	return (x, y) => {
-		let xi = listFind(x.key);
-		let yi = listFind(y.key);
+		const xKey = x.key;
+		const yKey = y.key;
+
+		let xi = listFind(xKey);
+		let yi = listFind(yKey);
 
 		if (xi === yi) {
 			xi = x.index;
 			yi = y.index;
 
 			if (xi === yi) {
-				xi = templateFind(x.key);
-				yi = templateFind(y.key);
+				xi = dataFind(xKey);
+				yi = dataFind(yKey);
 
 				if (xi === yi) {
-					xi = dataFind(x.key);
-					yi = dataFind(y.key);
+					xi = templateFind(xKey);
+					yi = templateFind(yKey);
 				}
 			}
 		}
 
-		return xi < yi ? -1 : 1;
+		return yi === -1 ? -1 : xi === -1 ? 1: xi -yi;
 	};
 }
 

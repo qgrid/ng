@@ -3,7 +3,7 @@ $scrollSize: 8px;
 tbody {
 	> tr {
 		&.vscroll-mark {
-			height: 0;
+			height: 0 !important;
 		}
 	}
 }
