@@ -1,5 +1,3 @@
-import {isUndefined} from '../../utility';
-
 export class UnitFactory {
 	constructor(rowRange, columnRange) {
 		this.rowRange = rowRange;

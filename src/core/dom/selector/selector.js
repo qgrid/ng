@@ -88,7 +88,7 @@ export class Selector {
 					factory.cell(
 						cell,
 						rowIndex,
-						i
+						index
 					));
 
 				index += cell.colSpan;
@@ -142,6 +142,11 @@ export class Selector {
 				if (index === columnIndex) {
 					return cell;
 				}
+
+				if(index > columnIndex){
+					break;
+				}
+
 				index += cell.colSpan;
 			}
 

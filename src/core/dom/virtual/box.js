@@ -72,7 +72,7 @@ export class VirtualBox extends Box {
 
 	rowCore(index) {
 		const viewIndex = this.context.mapper.rowToView(index);
-		if (viewIndex >= 0 && viewIndex < super.rowCount()) {
+		if (viewIndex >= 0 && viewIndex < super.rowCount(0)) {
 			return super.rowCore(viewIndex);
 		}
 
@@ -84,7 +84,7 @@ export class VirtualBox extends Box {
 		const mapper = this.context.mapper;
 		const viewRowIndex = mapper.rowToView(rowIndex);
 		const viewColumnIndex = mapper.columnToView(columnIndex);
-		if (viewRowIndex >= 0 && viewRowIndex < super.rowCount()) {
+		if (viewRowIndex >= 0 && viewRowIndex < super.rowCount(viewColumnIndex)) {
 			return super.cellCore(viewRowIndex, viewColumnIndex);
 		}
 
@@ -94,7 +94,7 @@ export class VirtualBox extends Box {
 
 	rowCellsCore(index) {
 		const viewIndex = this.context.mapper.rowToView(index);
-		if (viewIndex >= 0 && viewIndex < super.rowCount()) {
+		if (viewIndex >= 0 && viewIndex < super.rowCount(0)) {
 			return super.rowCellsCore(viewIndex);
 		}
 
