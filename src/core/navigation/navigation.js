@@ -83,7 +83,12 @@ export class Navigation {
 	}
 
 	get currentRow() {
-		return this.model.navigation().rowIndex;
+		const index = this.model.navigation().rowIndex;
+		if(index < 0){
+			return this.model.view().rows.length ? 0 : -1
+		}
+
+		return index;
 	}
 
 	get nextRow() {

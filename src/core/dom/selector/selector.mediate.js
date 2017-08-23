@@ -10,6 +10,10 @@ export class SelectorMediator {
 
 	columnCount(rowIndex) {
 		const selectors = this.buildSelectors({row: rowIndex});
+		if(!selectors.length){
+			return 0;
+		}
+
 		return sumBy(selectors, s => s.invoke((s, rowIndex) => s.columnCount(rowIndex)));
 	}
 
@@ -27,6 +31,10 @@ export class SelectorMediator {
 
 	rowCount(columnIndex) {
 		const selectors = this.buildSelectors({column: columnIndex});
+		if(!selectors.length) {
+			return 0;
+		}
+		
 		return max(selectors.map(s => s.invoke((s, columnIndex) => s.rowCount(columnIndex))));
 	}
 
