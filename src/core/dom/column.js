@@ -26,7 +26,7 @@ export class Column {
 		let i = 0;
 		while (i < length) {
 			const cell = cells[i++];
-			cell.addClass(name)
+			cell.addClass(name);
 		}
 	}
 
@@ -36,7 +36,7 @@ export class Column {
 		let i = 0;
 		while (i < length) {
 			const cell = cells[i++];
-			cell.removeClass(name)
+			cell.removeClass(name);
 		}
 	}
 }
