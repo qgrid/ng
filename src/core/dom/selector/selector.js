@@ -136,18 +136,18 @@ export class Selector {
 		return row => {
 			const cells = row.cells;
 			const length = cells.length;
+			let cursor = 0;
 			let index = 0;
-			while (index < length) {
-				const cell = cells[index];
-				if (index === columnIndex) {
-					return cell;
+			while (cursor < length) {
+				if (cursor === columnIndex) {
+					return cells[index];
 				}
 
-				if(index > columnIndex){
+				if(cursor > columnIndex){
 					break;
 				}
 
-				index += cell.colSpan;
+				cursor += cells[index++].colSpan;
 			}
 
 			return null;
