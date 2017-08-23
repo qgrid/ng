@@ -13,8 +13,7 @@ export class BodyView extends View {
 		this.table = table;
 		this.rows = [];
 		this.state = {
-			columns: [],
-			hasDataRow: false
+			columns: []
 		};
 
 		this.layout = new ResolutionRow(model, this.state);
@@ -38,14 +37,6 @@ export class BodyView extends View {
 			if (layerState.resource.data.hasOwnProperty('blank')) {
 				const layer = this.table.view.addLayer('blank');
 				layer.resource('blank', layerState.resource);
-			}
-		}
-		else {
-			if (viewState.nodes.length) {
-				this.state.hasDataRow = NodeService.some(viewState.nodes, node => node.type !== 'group');
-			}
-			else {
-				this.state.hasDataRow = true;
 			}
 		}
 	}

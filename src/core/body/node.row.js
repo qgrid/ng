@@ -17,9 +17,12 @@ export class NodeRow extends DataRow {
 
 	colspan(node, column, pin) {
 		if (node.type === 'group') {
-			const groupSpan = takeWhile(this.columnList(pin), c => !c.model.aggregation);
-			if (column.model.type === 'group') {
-				return sumBy(groupSpan, c => c.colspan);
+			const groupColumn = this.findGroupColumn();
+			if (groupColumn.model.pin === pin && !groupColumn.model.isVisible) {
+				const groupSpan = takeWhile(this.columnList(pin), c => !c.model.aggregation);
+				if (column.model.type === 'group') {
+					return sumBy(groupSpan, c => c.colspan);
+				}
 			}
 		}
 
@@ -28,8 +31,8 @@ export class NodeRow extends DataRow {
 
 	columns(node, pin) {
 		if (node.type === 'group') {
-			const groupColumn = this.columnList().find(c => c.model.type === 'group') || this.reference.group;
-			if (groupColumn.model.pin === pin) {
+			const groupColumn = this.findGroupColumn();
+			if (groupColumn.model.pin === pin && !groupColumn.model.isVisible) {
 				const nextColumns = dropWhile(this.columnList(pin), c => !c.model.aggregation);
 				return [groupColumn].concat(nextColumns);
 			}
@@ -79,5 +82,9 @@ export class NodeRow extends DataRow {
 		}
 
 		return super.setValue(node, column, value);
+	}
+
+	findGroupColumn() {
+		return this.columnList().find(c => c.model.type === 'group') || this.reference.group;
 	}
 }

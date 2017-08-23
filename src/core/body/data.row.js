@@ -26,7 +26,7 @@ export class DataRow {
 		return setValue(row, column, value);
 	}
 
-	columnList(pin) {
+	columnList(pin = null) {
 		const columns = this.context.columns;
 		if (arguments.length) {
 			return columns.filter(c => c.model.pin === pin);
