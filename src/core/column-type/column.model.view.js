@@ -19,8 +19,10 @@ TemplatePath.register('custom-cell-edit', (template, column) => {
 export class ColumnView {
 	constructor(model) {
 		this.model = model;
+
 		this.colspan = 1;
 		this.rowspan = 1;
+		this.index = -1;
 	}
 
 	static model(model) {

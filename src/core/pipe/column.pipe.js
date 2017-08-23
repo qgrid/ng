@@ -82,7 +82,7 @@ export function columnPipe(memo, context, next) {
 		 *
 		 */
 
-		memo.columns = addPivotColumns(columns, heads);
+		memo.columns = throughIndex(addPivotColumns(columns, heads));
 	}
 	else {
 		/*
@@ -91,7 +91,7 @@ export function columnPipe(memo, context, next) {
 		 *
 		 */
 		addPadColumn(columns, {rowspan: heads.length, row: 0});
-		memo.columns = [columns];
+		memo.columns = throughIndex([columns]);
 	}
 
 	next(memo);
@@ -291,4 +291,19 @@ function pivotColumnsFactory(model) {
 
 		return rows;
 	};
+}
+
+
+function throughIndex(columnRows){
+	for(let i = 0, rowsLength = columnRows.length; i < rowsLength; i++) {
+		const columnRow = columnRows[i];
+		let index = 0;
+		for (let j = 0, rowLength = columnRow.length; j < rowLength; j++) {
+			const column = columnRow[j];
+			column.index = index;
+			index += column.colspan;
+		}
+	}
+
+	return columnRows;
 }

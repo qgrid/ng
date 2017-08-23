@@ -56,7 +56,7 @@ class TfCore extends Directive(TF_CORE_NAME, {
 	}
 
 	get columnIndex() {
-		return this.table.columnStartIndex + this.$scope.$index;
+		return this.$scope.column.index;
 	}
 
 	get element() {

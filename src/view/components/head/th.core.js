@@ -55,7 +55,7 @@ class ThCore extends Directive(TH_CORE_NAME, {
 	}
 
 	get columnIndex() {
-		return this.table.columnStartIndex + this.$scope.$index;
+		return this.$scope.$column.index;
 	}
 
 	get element() {

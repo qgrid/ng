@@ -110,31 +110,8 @@ class TdCore extends Directive(TD_CORE_NAME, {
 		return this.view.scroll.y.container.position + this.$scope.$parent.$index;
 	}
 
-	get rowStartIndex() {
-		return this.rowIndex;
-	}
-
-	get rowEndIndex() {
-		return this.rowStartIndex + this.$element[0].rowSpan;
-	}
-
 	get columnIndex() {
-		const scope = this.$scope;
-		//let startIndex = this.table.columnStartIndex;
-		//const prev = scope.$$prevSibling;
-		//if(prev && prev.hasOwnProperty('$cell')){
-		//	return
-		//	}
-		// use vscroll.column + vscroll.position in the future
-		return this.table.columnStartIndex + scope.$index;
-	}
-
-	get columnStartIndex() {
-		return this.columnIndex;
-	}
-
-	get columnEndIndex() {
-		return this.columnStartIndex + this.$element[0].colSpan;
+		return this.$scope.$column.index;
 	}
 
 	get column() {
