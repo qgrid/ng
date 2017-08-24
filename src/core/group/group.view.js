@@ -44,7 +44,7 @@ export class GroupView extends View {
 
 		const createColumn = columnFactory(model);
 		this.reference = {
-			group: createColumn('group', {index: 0})
+			group: createColumn('group')
 		};
 	}
 

@@ -14,7 +14,7 @@ export function sortIndexFactory(model) {
 		const index = left.concat(center).concat(right);
 		return {
 			index: index,
-			hasChanges: equals(columnListIndex, index)
+			hasChanges: !equals(columnListIndex, index)
 		};
 	};
 }
