@@ -16,7 +16,7 @@ export function flatView(table, mode) {
 			const state = status.get(row) || (showAll && new RowDetailsStatus(true));
 			if (state && state instanceof RowDetailsStatus) {
 				if (state.expand) {
-					const column = createColumn('row-details');
+					const column = createColumn('row-details', {index: 0});
 					result.push(new RowDetails(row, column));
 				}
 			}

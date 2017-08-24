@@ -66,6 +66,7 @@ export function columnPipe(memo, context, next) {
 			return memo;
 		}, {});
 
+	// TODO put it under sort
 	const notIndexedColumns = columns.filter(c => !indexMap.hasOwnProperty(c.model.key));
 	const indexedColumns = columns.filter(c => indexMap.hasOwnProperty(c.model.key));
 	const startIndex = notIndexedColumns.length;
@@ -82,7 +83,7 @@ export function columnPipe(memo, context, next) {
 		 *
 		 */
 
-		memo.columns = throughIndex(addPivotColumns(columns, heads));
+		memo.columns = sort(addPivotColumns(columns, heads));
 	}
 	else {
 		/*
@@ -91,7 +92,7 @@ export function columnPipe(memo, context, next) {
 		 *
 		 */
 		addPadColumn(columns, {rowspan: heads.length, row: 0});
-		memo.columns = throughIndex([columns]);
+		memo.columns = sort([columns]);
 	}
 
 	next(memo);
@@ -216,6 +217,7 @@ function padColumnFactory(model) {
 	return (columns, context) => {
 		const padColumn = createColumn('pad');
 		padColumn.rowspan = context.rowspan;
+		padColumn.model.index = columns.length;
 		columns.push(padColumn);
 		return padColumn;
 	};
@@ -294,9 +296,11 @@ function pivotColumnsFactory(model) {
 }
 
 
-function throughIndex(columnRows){
-	for(let i = 0, rowsLength = columnRows.length; i < rowsLength; i++) {
+function sort(columnRows) {
+	for (let i = 0, rowsLength = columnRows.length; i < rowsLength; i++) {
 		const columnRow = columnRows[i];
+		columnRow.sort(byPinComparer);
+
 		let index = 0;
 		for (let j = 0, rowLength = columnRow.length; j < rowLength; j++) {
 			const column = columnRow[j];
@@ -306,4 +310,18 @@ function throughIndex(columnRows){
 	}
 
 	return columnRows;
+}
+
+function byPinComparer(x, y) {
+	const xm = x.model;
+	const ym = y.model;
+	return xm.pin === ym.pin
+		? xm.index - ym.index
+		: xm.pin === 'left'
+			? -1
+			: xm.pin === 'right'
+				? 1
+				: ym.pin === 'left'
+					? 1
+					: -1;
 }

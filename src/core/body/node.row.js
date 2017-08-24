@@ -11,7 +11,7 @@ export class NodeRow extends DataRow {
 
 		const createColumn = columnFactory(model);
 		this.reference = {
-			group: createColumn('group')
+			group: createColumn('group', {index: 0})
 		};
 	}
 

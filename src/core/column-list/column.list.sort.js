@@ -6,15 +6,26 @@ export function sortIndexFactory(model) {
 		const columnTemplateIndex = columnListState.columns.map(c => c.key);
 		const columnDataIndex = columns.map(c => c.key);
 
-		const compare = compareFactory(columnListIndex, columnTemplateIndex, columnDataIndex);
+		const sort = sortFactory(columnListIndex, columnTemplateIndex, columnDataIndex);
+		const left = sort(columns.filter(c => c.pin === 'left'));
+		const center = sort(columns.filter(c => !c.pin));
+		const right = sort(columns.filter(c => c.pin === 'right'));
+
+		const index = left.concat(center).concat(right);
+		return {
+			index: index,
+			hasChanges: equals(columnListIndex, index)
+		};
+	};
+}
+
+function sortFactory(listIndex, templateIndex, dataIndex) {
+	const compare = compareFactory(listIndex, templateIndex, dataIndex);
+	return columns => {
 		const columnIndex = Array.from(columns);
 		columnIndex.sort(compare);
 
-		const index = columnIndex.map(c => c.key);
-		return {
-			index: index,
-			hasChanges: !equals(columnListIndex, index)
-		};
+		return columnIndex.map(c => c.key);
 	};
 }
 
@@ -45,7 +56,7 @@ function compareFactory(listIndex, templateIndex, dataIndex) {
 			}
 		}
 
-		return yi === -1 ? -1 : xi === -1 ? 1: xi -yi;
+		return yi === -1 ? -1 : xi === -1 ? 1 : xi - yi;
 	};
 }
 
