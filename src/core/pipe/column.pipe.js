@@ -111,7 +111,7 @@ function selectColumnFactory(model) {
 function groupColumnFactory(model, nodes) {
 	const dataColumns = model.data().columns;
 	const groupColumn = dataColumns.find(item => item.type === 'group');
-	if (nodes.length && !groupColumn) {
+	if (!groupColumn && (nodes.length || model.group().by.length)) {
 		const createColumn = columnFactory(model);
 		return (columns, context) => {
 			const groupColumn = createColumn('group');
@@ -197,7 +197,6 @@ function pivotColumnsFactory(model) {
 		const head = heads[0];
 		const headLength = head.length;
 		const row = new Array(headLength);
-		const startIndex = columns.length;
 		for (let j = 0; j < headLength; j++) {
 			const headColumn = head[j];
 			const pivotColumn = createColumn('pivot');
@@ -218,7 +217,7 @@ function pivotColumnsFactory(model) {
 		 * that fills remaining place (width = 100%)
 		 *
 		 */
-		addPadColumn(firstRow, {rowspan: 1, row: 0});
+		addPadColumn(firstRow, {rowspan: heads.length, row: 0});
 
 		/*
 		 * Next rows pivot columns
