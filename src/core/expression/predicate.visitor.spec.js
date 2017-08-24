@@ -94,7 +94,7 @@ describe('PredicateVisitor', () => {
 			expect(res).to.equal(true);
 		});
 
-		it('check for equality with op = "between"', () => {
+		it('check for equality with op = "between" inside range', () => {
 			let condition = {
 				kind: 'condition',
 				op: 'between',
@@ -105,10 +105,30 @@ describe('PredicateVisitor', () => {
 			let foo = predicateVisitor.visit(condition);
 			let res = foo(15);
 			expect(res).to.equal(true);
-			let res2 = foo(17);
-			expect(res2).to.equal(true);
+		});
+
+		it('check for equality with op = "between" outside range ', () => {
+			let condition = {
+				kind: 'condition',
+				op: 'between',
+				right: [10, 20],
+				left: 'value'
+			};
+			let predicateVisitor = new PredicateVisitor(valueFactory);
+			let foo = predicateVisitor.visit(condition);
 			let res3 = foo(5);
 			expect(res3).to.equal(false);
+		});
+
+		it('check for equality with op = "between" outside range', () => {
+			let condition = {
+				kind: 'condition',
+				op: 'between',
+				right: [10, 20],
+				left: 'value'
+			};
+			let predicateVisitor = new PredicateVisitor(valueFactory);
+			let foo = predicateVisitor.visit(condition);
 			let res4 = foo(21);
 			expect(res4).to.equal(false);
 		});
@@ -137,8 +157,6 @@ describe('PredicateVisitor', () => {
 			let foo = predicateVisitor.visit(condition);
 			let res = foo('findSomeString');
 			expect(res).to.equal(true);
-			let res2 = foo('findSomeString');
-			expect(res2).to.equal(true);
 		});
 
 		it('"findSomeString" should not contains "text"', () => {
