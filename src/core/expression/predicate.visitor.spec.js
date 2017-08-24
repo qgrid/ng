@@ -133,6 +133,32 @@ describe('PredicateVisitor', () => {
 			expect(res4).to.equal(false);
 		});
 
+		it('check for equality with op = "between" on bounds of range', () => {
+			let condition = {
+				kind: 'condition',
+				op: 'between',
+				right: [10, 20],
+				left: 'value'
+			};
+			let predicateVisitor = new PredicateVisitor(valueFactory);
+			let foo = predicateVisitor.visit(condition);
+			let res4 = foo(10);
+			expect(res4).to.equal(true);
+		});
+
+		it('check for equality with op = "between" on bounds of range', () => {
+			let condition = {
+				kind: 'condition',
+				op: 'between',
+				right: [10, 20],
+				left: 'value'
+			};
+			let predicateVisitor = new PredicateVisitor(valueFactory);
+			let foo = predicateVisitor.visit(condition);
+			let res4 = foo(20);
+			expect(res4).to.equal(true);
+		});
+
 		it('check for equality with op = "in"', () => {
 			let condition = {
 				kind: 'condition',
