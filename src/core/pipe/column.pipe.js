@@ -179,6 +179,7 @@ function padColumnFactory(model) {
 	return (columns, context) => {
 		const padColumn = createColumn('pad');
 		padColumn.rowspan = context.rowspan;
+		padColumn.model.key = `$pad-${columns.length}`;
 		columns.push(padColumn);
 		return padColumn;
 	};
