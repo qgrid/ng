@@ -1,7 +1,15 @@
+import * as columnService from '../column/column.service';
+
 export class Column {
 	constructor(box, index) {
 		this.box = box;
 		this.index = index;
+	}
+
+	model() {
+		const columns = this.box.model.view().columns;
+		const column = columnService.lineView(columns)[this.index];
+		return column ? column.model : null;
 	}
 
 	cells() {
@@ -13,10 +21,22 @@ export class Column {
 	}
 
 	addClass(name) {
-		this.cells().forEach(cell => cell.addClass(name));
+		const cells = this.cells();
+		const length = cells.length;
+		let i = 0;
+		while (i < length) {
+			const cell = cells[i++];
+			cell.addClass(name);
+		}
 	}
 
 	removeClass(name) {
-		this.cells().forEach(cell => cell.removeClass(name));
+		const cells = this.cells();
+		const length = cells.length;
+		let i = 0;
+		while (i < length) {
+			const cell = cells[i++];
+			cell.removeClass(name);
+		}
 	}
 }

@@ -20,7 +20,7 @@ class TfCore extends Directive(TF_CORE_NAME, {
 		const column = this.column;
 		const element = this.element;
 
-		this.root.bag.set(element, this);
+		this.root.bag.foot.addCell(this);
 
 		element.classList.add(css.escapeAttr(`${GRID_PREFIX}-${column.key}`));
 		element.classList.add(css.escapeAttr(`${GRID_PREFIX}-${column.type}`));
@@ -56,7 +56,7 @@ class TfCore extends Directive(TF_CORE_NAME, {
 	}
 
 	get columnIndex() {
-		return this.table.columnStartIndex + this.$scope.$index;
+		return this.$scope.column.index;
 	}
 
 	get element() {
@@ -64,7 +64,7 @@ class TfCore extends Directive(TF_CORE_NAME, {
 	}
 
 	onDestroy() {
-		this.root.bag.delete(this.element, this);
+		this.root.bag.foot.deleteCell(this);
 	}
 }
 

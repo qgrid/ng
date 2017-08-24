@@ -21,7 +21,7 @@ class ThCore extends Directive(TH_CORE_NAME, {
 		const column = this.column;
 		const element = this.element;
 
-		this.root.bag.set(element, this);
+		this.root.bag.head.addCell(this);
 		element.classList.add(css.escapeAttr(`${GRID_PREFIX}-${column.key}`));
 		element.classList.add(css.escapeAttr(`${GRID_PREFIX}-${column.type}`));
 		if (column.type === 'filter-row') {
@@ -55,7 +55,7 @@ class ThCore extends Directive(TH_CORE_NAME, {
 	}
 
 	get columnIndex() {
-		return this.table.columnStartIndex + this.$scope.$index;
+		return this.$scope.$column.index;
 	}
 
 	get element() {
@@ -63,8 +63,7 @@ class ThCore extends Directive(TH_CORE_NAME, {
 	}
 
 	onDestroy() {
-		this.root.bag.delete(this.element);
-
+		this.root.bag.head.deleteCell(this);
 	}
 }
 

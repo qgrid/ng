@@ -1,4 +1,7 @@
 <tr vscroll-mark="top" class="vscroll-mark">
+	<td ng-repeat="$column in $view.body.defaultStrategy.columnList($table.pin) track by $column.model.key"
+		 q-grid-core:td-align>
+	</td>
 </tr>
 <tr ng-repeat="$row in $view.body.rows | vscroll: $view.scroll.y track by $index"
 	 vscroll-row="{{::$index}}"

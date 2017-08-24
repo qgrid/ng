@@ -2,12 +2,7 @@ import {flatView as nodeFlatView, Node} from '../node';
 
 export function viewPipe(memo, context, next) {
 	const model = context.model;
-	let rows = memo.rows;
-	if (memo.nodes.length) {
-		if (rows.length && !(rows[0] instanceof Node)) {
-			rows = nodeFlatView(memo.nodes);
-		}
-	}
+	const rows = buildRows(memo);
 
 	model.view({
 		rows: rows,
@@ -20,4 +15,16 @@ export function viewPipe(memo, context, next) {
 	});
 
 	next(memo);
+}
+
+function buildRows(memo){
+	const nodes = memo.nodes;
+	const rows = memo.rows;
+	if(nodes.length){
+		if(!(rows.length && rows[0] instanceof Node)){
+			return nodeFlatView(nodes);
+		}
+	}
+
+	return rows;
 }

@@ -50,6 +50,7 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.body.cell.autocomplete.edit.tpl.html', require('@grid/themes/material/templates/body.cell.autocomplete.edit.html'));
 		theme.put('qgrid.body.cell.id.edit.tpl.html', require('@grid/themes/material/templates/body.cell.text.edit.html'));
 		theme.put('qgrid.body.cell.row-expand.tpl.html', require('@grid/themes/material/templates/body.cell.row.expand.html'));
+		theme.put('qgrid.body.cell.currency.edit.tpl.html', require('@grid/themes/material/templates/body.cell.currency.edit.html'));
 
 		theme.put('qgrid.head.cell.text.tpl.html', require('@grid/themes/material/templates/head.cell.text.html'));
 		theme.put('qgrid.head.cell.bool.tpl.html', require('@grid/themes/material/templates/head.cell.text.html'));
@@ -67,9 +68,11 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.head.cell.pivot.tpl.html', require('@grid/themes/material/templates/head.cell.pivot.html'));
 		theme.put('qgrid.head.cell.select.tpl.html', require('@grid/themes/material/templates/head.cell.select.html'));
 		theme.put('qgrid.head.cell.filter-row.tpl.html', require('@grid/themes/material/templates/head.cell.filter.row.html'));
+		theme.put('qgrid.head.cell.currency.tpl.html', require('@grid/themes/material/templates/head.cell.text.html'));
 
 		theme.put('qgrid.form.cell.text.edit.tpl.html', require('@grid/themes/material/templates/form.cell.text.edit.html'));
 		theme.put('qgrid.form.cell.number.edit.tpl.html', require('@grid/themes/material/templates/form.cell.number.edit.html'));
+		theme.put('qgrid.form.cell.currency.edit.tpl.html', require('@grid/themes/material/templates/form.cell.number.edit.html'));
 		theme.put('qgrid.form.cell.date.edit.tpl.html', require('@grid/themes/material/templates/form.cell.date.edit.html'));
 		theme.put('qgrid.form.cell.bool.edit.tpl.html', require('@grid/themes/material/templates/form.cell.bool.edit.html'));
 		theme.put('qgrid.form.cell.reference.edit.tpl.html', require('@grid/themes/material/templates/form.cell.reference.edit.html'));

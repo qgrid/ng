@@ -1,11 +1,9 @@
 import {View} from '../view';
 import * as columnService from '../column/column.service';
-import {Aggregation} from '../services';
-import {AppError, Log} from '../infrastructure';
-import {Node} from '../node';
-import {RowDetails} from '../row-details';
-import {getFactory as valueFactory, set as setValue} from '../services/value';
+import {getFactory as valueFactory} from '../services/value';
 import {getFactory as labelFactory, set as setLabel} from '../services/label';
+import {Log} from '../infrastructure';
+import {ResolutionRow} from './resolution.row';
 
 export class BodyView extends View {
 	constructor(model, table) {
@@ -13,7 +11,11 @@ export class BodyView extends View {
 
 		this.table = table;
 		this.rows = [];
-		this.columnList = [];
+		this.state = {
+			columns: []
+		};
+
+		this.layout = new ResolutionRow(model, this.state);
 		this.using(model.viewChanged.watch(() => this.invalidate(model)));
 	}
 
@@ -25,8 +27,10 @@ export class BodyView extends View {
 	}
 
 	invalidateRows(model) {
+		this.state.hasDataRow = false;
+		const viewState = model.view();
 		this.table.view.removeLayer('blank');
-		this.rows = model.view().rows;
+		this.rows = viewState.rows;
 		if (!this.rows.length) {
 			const layerState = model.layer();
 			if (layerState.resource.data.hasOwnProperty('blank')) {
@@ -38,74 +42,24 @@ export class BodyView extends View {
 
 	invalidateColumns(model) {
 		const columns = model.view().columns;
-		this.columnList = columnService.lineView(columns);
+		this.state.columns = columnService.lineView(columns);
 	}
 
-	colspan(row, column) {
-		if (row instanceof RowDetails && column.type === 'row-details') {
-			return this.table.data.columns().length;
-		}
-
-		return 1;
+	colspan(row, column, pin) {
+		return this.layout.colspan(row, column, pin);
 	}
 
-	rowspan() {
-		return 1;
+	rowspan(row, pin) {
+		return this.layout.rowspan(row, pin);
 	}
 
 	columns(row, pin) {
-		if (row instanceof RowDetails) {
-			return [row.column];
-		}
-
-		return this.columnList.filter(c => c.model.pin === pin);
+		return this.layout.columns(row, pin);
 	}
 
 	valueFactory(column, getValueFactory = null) {
-		const model = this.model;
 		const getValue = (getValueFactory || valueFactory)(column);
-
-		return row => {
-			if (row instanceof Node) {
-				const node = row;
-				const rows = model.data().rows;
-				switch (node.type) {
-					case 'group': {
-						const aggregation = column.aggregation;
-						if (aggregation) {
-							if (!Aggregation.hasOwnProperty(aggregation)) {
-								throw new AppError(
-									'view.body',
-									`Aggregation ${aggregation} is not registered`);
-							}
-
-							const groupRows = node.rows.map(i => rows[i]);
-							return Aggregation[aggregation](groupRows, getValue, column.aggregationOptions);
-						}
-
-						return null;
-					}
-					case 'row': {
-						const rowIndex = node.rows[0];
-						return getValue(rows[rowIndex], column);
-					}
-					case 'value': {
-						return getValue(node, column);
-					}
-					default:
-						throw new AppError(
-							'view.body',
-							`Invalid node type ${node.type}`
-						);
-				}
-			}
-
-			if (row instanceof RowDetails) {
-				return null;
-			}
-
-			return getValue(row);
-		};
+		return row => this.layout.getValue(row, column, getValue);
 	}
 
 	labelFactory(column) {
@@ -114,7 +68,7 @@ export class BodyView extends View {
 
 	value(row, column, value) {
 		if (arguments.length == 3) {
-			setValue(row, column, value);
+			this.layout.setValue(row, column, value);
 			return;
 		}
 

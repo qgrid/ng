@@ -13,6 +13,7 @@ export class RowNumberColumnModel extends ColumnModel {
 	constructor() {
 		super('row-number');
 
+		this.pin = 'left';
 		this.key = '$row.number';
 		this.title = '#';
 		this.canEdit = false;
