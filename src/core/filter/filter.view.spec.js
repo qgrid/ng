@@ -1,6 +1,6 @@
 import {FilterView} from './filter.view';
 
-describe('column generate', () => {
+describe('FilterView', () => {
 	let columnTest = {
 		key: 'Key'
 	};
@@ -8,7 +8,7 @@ describe('column generate', () => {
 		filter: () => {return {by: {'Key': null}}}
 	};
 
-	describe('column generate', () => {
+	describe('has', () => {
 		it('should return true if model contains given column`s key', () => {
 			let filterView = new FilterView(model);
 			let result = filterView.has(columnTest);
