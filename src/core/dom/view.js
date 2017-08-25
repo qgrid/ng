@@ -1,5 +1,6 @@
 import {Unit} from './unit';
 import * as css from '../services/css';
+import * as columnService from '../column/column.service';
 
 function isParentOf(parent, element) {
 	while (element) {
@@ -14,12 +15,18 @@ function isParentOf(parent, element) {
 }
 
 export class View extends Unit {
-	constructor(markup, context) {
+	constructor(context, model, markup) {
 		super();
 
-		this.markup = markup;
 		this.context = context;
+		this.model = model;
+		this.markup = markup;
 		this.layers = new Map();
+	}
+
+	columns() {
+		const columns = this.model.view().columns;
+		return columnService.lineView(columns);
 	}
 
 	focus() {
