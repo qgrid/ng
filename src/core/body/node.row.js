@@ -17,11 +17,14 @@ export class NodeRow extends DataRow {
 
 	colspan(node, column, pin) {
 		if (node.type === 'group') {
-			const groupColumn = this.findGroupColumn();
-			if (groupColumn.model.pin === pin && !groupColumn.model.isVisible) {
-				const groupSpan = takeWhile(this.columnList(pin), c => !c.model.aggregation);
-				if (column.model.type === 'group') {
-					return sumBy(groupSpan, c => c.colspan);
+			const groupColumn = this.findGroupColumn(pin);
+			if (groupColumn) {
+				const groupState = this.model.group();
+				if (groupState.mode === 'subhead') {
+					const groupSpan = takeWhile(this.columnList(pin), c => !c.model.aggregation);
+					if (column.model.type === 'group') {
+						return sumBy(groupSpan, c => c.colspan);
+					}
 				}
 			}
 		}
@@ -31,10 +34,13 @@ export class NodeRow extends DataRow {
 
 	columns(node, pin) {
 		if (node.type === 'group') {
-			const groupColumn = this.findGroupColumn();
-			if (groupColumn.model.pin === pin && !groupColumn.model.isVisible) {
-				const nextColumns = dropWhile(this.columnList(pin), c => !c.model.aggregation);
-				return [groupColumn].concat(nextColumns);
+			const groupColumn = this.findGroupColumn(pin);
+			if (groupColumn) {
+				const groupState = this.model.group();
+				if (groupState.mode === 'subhead') {
+					const nextColumns = dropWhile(this.columnList(pin), c => !c.model.aggregation);
+					return [groupColumn].concat(nextColumns);
+				}
 			}
 		}
 
@@ -84,7 +90,17 @@ export class NodeRow extends DataRow {
 		return super.setValue(node, column, value);
 	}
 
-	findGroupColumn() {
-		return this.columnList().find(c => c.model.type === 'group') || this.reference.group;
+	findGroupColumn(pin) {
+		const columnList = this.columnList();
+		let groupColumn = columnList.find(c => c.model.type === 'group');
+		if (!groupColumn) {
+			groupColumn = this.reference.group;
+			if (groupColumn.model.pin === pin) {
+				const firstColumn = this.columnList(pin)[0];
+				groupColumn.index = firstColumn ? firstColumn.index : 0;
+			}
+		}
+
+		return groupColumn.model.pin !== pin ? null : groupColumn;
 	}
 }

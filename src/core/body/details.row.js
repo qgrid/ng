@@ -10,8 +10,12 @@ export class DetailsRow extends DataRow {
 		return sumBy(this.columnList(pin), c => c.colspan);
 	}
 
-	columns(rowDetails) {
-		return [rowDetails.column];
+	columns(rowDetails, pin) {
+		if (rowDetails.column.model.pin === pin) {
+			return [rowDetails.column];
+		}
+
+		return this.columnList(pin);
 	}
 
 	getValue() {

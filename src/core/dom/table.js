@@ -89,7 +89,7 @@ export class Table {
 	}
 
 	viewCore() {
-		return new View(this.markup, this.context);
+		return new View(this.context, this.model, this.markup);
 	}
 
 	contextFactory(source) {

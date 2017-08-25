@@ -1,5 +1,8 @@
-<tr vscroll-mark="top" class="vscroll-mark">
-	<td ng-repeat="$column in $view.body.defaultStrategy.columnList($table.pin) track by $column.model.key"
+<tr vscroll-mark="top"
+	 class="q-grid-scroll-mark">
+</tr>
+<tr class="q-grid-align">
+	<td ng-repeat="$column in $view.body.layout.defaultStrategy.columnList($table.pin) track by $column.model.key"
 		 q-grid-core:td-align>
 	</td>
 </tr>
@@ -12,5 +15,6 @@
 		 q-grid-core:td>
 	</td>
 </tr>
-<tr vscroll-mark="bottom" class="vscroll-mark">
+<tr vscroll-mark="bottom"
+	 class="q-grid-scroll-mark">
 </tr>

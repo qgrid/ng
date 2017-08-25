@@ -15,11 +15,11 @@ export class PivotColumnModel extends ColumnModel {
 
 		this.key = '$pivot';
 		this.title = 'Pivot';
+
 		this.source = 'generation';
 		this.canEdit = false;
 		this.canSort = false;
 		this.canResize = false;
-		this.canHighlight = false;
 		this.width = 60;
 		this.rowIndex = 0;
 	}

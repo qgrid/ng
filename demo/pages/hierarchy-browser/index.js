@@ -18,7 +18,8 @@ export default function Controller(qgrid, $timeout) {
 			columns: [{
 				title: 'Name',
 				key: 'group',
-				type: 'group'
+				type: 'group',
+				width: '100%'
 			}],
 			pipe: [
 				qgrid.pipe.memo,

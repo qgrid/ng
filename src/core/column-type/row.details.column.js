@@ -15,11 +15,11 @@ class RowDetailsColumnModel extends ColumnModel {
 
 		this.key = '$row.details';
 		this.title = 'Row Details';
+		this.class = 'control';
 
 		this.canEdit = false;
 		this.canResize = false;
 		this.canHighlight = false;
-		this.class = 'control';
 	}
 }
 

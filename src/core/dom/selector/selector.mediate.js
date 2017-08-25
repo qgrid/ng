@@ -10,7 +10,7 @@ export class SelectorMediator {
 
 	columnCount(rowIndex) {
 		const selectors = this.buildSelectors({row: rowIndex});
-		if(!selectors.length){
+		if (!selectors.length) {
 			return 0;
 		}
 
@@ -31,10 +31,10 @@ export class SelectorMediator {
 
 	rowCount(columnIndex) {
 		const selectors = this.buildSelectors({column: columnIndex});
-		if(!selectors.length) {
+		if (!selectors.length) {
 			return 0;
 		}
-		
+
 		return max(selectors.map(s => s.invoke((s, columnIndex) => s.rowCount(columnIndex))));
 	}
 
@@ -46,7 +46,9 @@ export class SelectorMediator {
 		for (let i = 0, length = selectors.length; i < length; i++) {
 			const selector = selectors[i];
 			const rows = selector.invoke((s, columnIndex) => s.rows(columnIndex));
-			areas.push(rows);
+			if (rows.length) {
+				areas.push(rows);
+			}
 		}
 
 		const lines = zip(...areas);

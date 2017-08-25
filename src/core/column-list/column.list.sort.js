@@ -2,50 +2,64 @@ export function sortIndexFactory(model) {
 	return columns => {
 		const columnListState = model.columnList();
 
-		const columnListIndex = columnListState.index;
-		const columnTemplateIndex = columnListState.columns.map(c => c.key);
-		const columnDataIndex = columns.map(c => c.key);
+		const listIndex = columnListState.index;
+		const templateIndex = columnListState.columns.map(c => c.key);
+		const viewIndex = columns.map(c => c.key);
 
-		const compare = compareFactory(columnListIndex, columnTemplateIndex, columnDataIndex);
-		const columnIndex = Array.from(columns);
-		columnIndex.sort(compare);
+		const sort = sortFactory(listIndex, templateIndex, viewIndex);
+		const left = sort(columns.filter(c => c.pin === 'left'));
+		const center = sort(columns.filter(c => !c.pin));
+		const right = sort(columns.filter(c => c.pin === 'right'));
 
-		const index = columnIndex.map(c => c.key);
+		const index = left.concat(center).concat(right);
 		return {
 			index: index,
-			hasChanges: !equals(columnListIndex, index)
+			hasChanges: !equals(listIndex, index)
 		};
 	};
 }
 
-function compareFactory(listIndex, templateIndex, dataIndex) {
+function sortFactory(listIndex, templateIndex, viewIndex) {
+	const compare = compareFactory(listIndex, templateIndex, viewIndex);
+	return columns => {
+		const columnIndex = Array.from(columns);
+		columnIndex.sort(compare);
+
+		return columnIndex.map(c => c.key);
+	};
+}
+
+function compareFactory(listIndex, templateIndex, viewIndex) {
 	const listFind = findFactory(listIndex);
 	const templateFind = findFactory(templateIndex);
-	const dataFind = findFactory(dataIndex);
+	const viewFind = findFactory(viewIndex);
 
-	return (x, y) => {
-		const xKey = x.key;
-		const yKey = y.key;
-
-		let xi = listFind(xKey);
-		let yi = listFind(yKey);
-
-		if (xi === yi) {
-			xi = x.index;
-			yi = y.index;
-
-			if (xi === yi) {
-				xi = dataFind(xKey);
-				yi = dataFind(yKey);
-
-				if (xi === yi) {
-					xi = templateFind(xKey);
-					yi = templateFind(yKey);
-				}
-			}
+	const weightCache = {};
+	const getWeight = column => {
+		const key = column.key;
+		if (weightCache.hasOwnProperty(key)) {
+			return weightCache[key];
 		}
 
-		return yi === -1 ? -1 : xi === -1 ? 1: xi -yi;
+		const candidates = [
+			listFind(key) + (column.class === 'data' ? 0.9 : 0.7),
+			column.index + 0.8,
+			viewFind(key) + (column.class !== 'data' ? 0.9 : 0.7),
+			templateFind(key) + 0.6
+		];
+
+		const weights = candidates.filter(w => w >= 0);
+		const weight = weights.length ? weights[0] : -1;
+		weightCache[key] = weight;
+
+		return weight;
+	};
+
+	return (x, y) => {
+		const xi = getWeight(x);
+		const yi = getWeight(y);
+
+		return yi === -1 ? -1 : xi === -1 ? 1 : xi - yi;
 	};
 }
 

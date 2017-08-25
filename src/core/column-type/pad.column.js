@@ -14,13 +14,14 @@ export class PadColumnModel extends ColumnModel {
 		super('pad');
 
 		this.key = '$pad';
+		this.class = 'markup';
+
 		this.title = '';
 		this.canEdit = false;
 		this.canSort = false;
 		this.canResize = false;
 		this.canHighlight = false;
 		this.canFocus = false;
-		this.class = 'markup';
 		this.source = 'generation';
 	}
 }

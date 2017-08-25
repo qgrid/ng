@@ -151,8 +151,13 @@ class ColumnChooser extends Plugin {
 			}
 
 			if (e.hasChanges('columns')) {
-				this.columns = Array.from(model.data().columns);
-				this.columns.sort((x, y) => x.index - y.index);
+				this.columns =
+					model
+						.view()
+						.columns
+						.reduce((memo, xs) => memo.concat(xs))
+						.map(c => c.model)
+						.filter(c => c.class === 'data');
 			}
 		}));
 	}

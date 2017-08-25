@@ -19,14 +19,14 @@
 <q-grid rows="$ctrl.rows"
 		  group-by="['invoiceNumber']"
 		  edit-mode="cell"
+		  group-mode="subhead"
 		  style-row="$ctrl.rowStyle">
 
 	<q-grid:columns generation="deep">
 		<q-grid:column can-sort="false" can-filter="false"></q-grid:column>
 		<q-grid:column type="group"
 							title="Invoice Number"
-							label="$ctrl.getGroupLabel($row)"
-							is-visible="false">
+							label="$ctrl.getGroupLabel($row)">
 		</q-grid:column>
 		<q-grid:column key="product.productCode" title="Code"></q-grid:column>
 		<q-grid:column key="product.productDescription" title="Name" width="300"></q-grid:column>
