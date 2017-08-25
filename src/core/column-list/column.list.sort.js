@@ -34,27 +34,30 @@ function compareFactory(listIndex, templateIndex, viewIndex) {
 	const templateFind = findFactory(templateIndex);
 	const viewFind = findFactory(viewIndex);
 
-	return (x, y) => {
-		const xKey = x.key;
-		const yKey = y.key;
-
-		let xi = x.class === 'data' ? listFind(xKey) : viewFind(xKey);
-		let yi = x.class === 'data' ? listFind(yKey) : viewFind(yKey);
-
-		if (xi === yi) {
-			xi = x.index;
-			yi = y.index;
-
-			if (xi === yi) {
-				xi = viewFind(xKey);
-				yi = viewFind(yKey);
-
-				if (xi === yi) {
-					xi = templateFind(xKey);
-					yi = templateFind(yKey);
-				}
-			}
+	const weightCache = {};
+	const getWeight = column => {
+		const key = column.key;
+		if (weightCache.hasOwnProperty(key)) {
+			return weightCache[key];
 		}
+
+		const candidates = [
+			listFind(key) + (column.class === 'data' ? 0.9 : 0.7),
+			column.index + 0.8,
+			viewFind(key) + (column.class !== 'data' ? 0.9 : 0.7),
+			templateFind(key) + 0.6
+		];
+
+		const weights = candidates.filter(w => w >= 0);
+		const weight = weights.length ? weights[0] : -1;
+		weightCache[key] = weight;
+
+		return weight;
+	};
+
+	return (x, y) => {
+		const xi = getWeight(x);
+		const yi = getWeight(y);
 
 		return yi === -1 ? -1 : xi === -1 ? 1 : xi - yi;
 	};
