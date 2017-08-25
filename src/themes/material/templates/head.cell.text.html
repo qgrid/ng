@@ -1,4 +1,4 @@
-<div ng-click="$view.sort.toggle.execute($cell.column)"
+<div ng-click="$cell.column.canSort && $view.sort.toggle.execute($cell.column)"
 	  ng-mouseover="$view.sort.hover = true"
 	  ng-mouseleave="$view.sort.hover = false"
 	  tabindex="-1">
