@@ -38,19 +38,19 @@ describe('column service', () => {
 	});
 
 	const col = (key, rowspan, colspan) => ({
-		model: {key: key},
+		key: key,
 		rowspan: rowspan,
 		colspan: colspan
 	});
 
-	const lineKeyFactory = line => i => line[i].model.key;
-	const viewKeyFactory = view => (i, j) => view[i][j].model.key;
+	const lineKeyFactory = line => i => line[i].key;
+	const viewKeyFactory = view => (i, j) => view[i][j].key;
 
 	const columnRows = [
-		[col('A', 1, 1), col('B', 1, 2), col('C', 1, 1)],
-		[col('D', 3, 1), col('E', 1, 2), col('F', 1, 1)],
-		[col('G', 1, 1), col('H', 1, 1), col('I', 1, 1)],
-		[col('J', 1, 3)],
+		[col('A', 1, 1), col('B', 1, 2), col('C', 3, 1)],
+		[col('D', 3, 1), col('E', 1, 2)],
+		[col('F', 2, 1), col('G', 1, 1)],
+		[col('H', 1, 2)],
 	];
 
 	describe('expand', () => {
@@ -59,9 +59,9 @@ describe('column service', () => {
 
 		const etalonView = [
 			['A', 'B', 'B', 'C'],
-			['D', 'E', 'E', 'F'],
-			['D', 'G', 'H', 'I'],
-			['D', 'J', 'J', 'J'],
+			['D', 'E', 'E', 'C'],
+			['D', 'F', 'G', 'C'],
+			['D', 'F', 'H', 'H'],
 		];
 
 		for (let i = 0; i < etalonView.length; i++) {
@@ -76,8 +76,9 @@ describe('column service', () => {
 		const view = expand(columnRows);
 		const line = collapse(view);
 		const key = lineKeyFactory(line);
-		expect(line.length).to.equals(2)
+		expect(line.length).to.equals(3)
 		expect(key(0)).to.equals('D');
-		expect(key(1)).to.equals('J');
+		expect(key(1)).to.equals('F');
+		expect(key(2)).to.equals('H');
 	});
 });

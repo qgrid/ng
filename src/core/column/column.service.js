@@ -66,25 +66,30 @@ export function lineView(columnRows) {
 export function expand(columnRows) {
 	const height = columnRows.length;
 	const view = [];
-	for (let i = 0; i < height; i++) {
-		const viewRow = view[i] || (view[i] = []);
-		const columnRow = columnRows[i];
+	const cursors = [];
+	for (let ri = 0; ri < height; ri++) {
+		const columnRow = columnRows[ri];
 		const columnLength = columnRow.length;
-		for (let j = 0; j < columnLength; j++) {
-			const column = columnRow[j];
-
-			const colspan = column.colspan;
-			for (let k = 0; k < colspan; k++) {
-				// fill row
-				viewRow.push(column);
-			}
-
+		let cursor = cursors.length > ri ? cursors[ri] : cursors[ri] = 0;
+		for (let ci = 0; ci < columnLength; ci++) {
+			const column = columnRow[ci];
 			const rowspan = column.rowspan;
-			for (let k = 1; k < rowspan; k++) {
-				// fill column
-				const viewColumn = view[i + k] || (view[i + k] = []);
-				viewColumn.push(column);
+			const colspan = column.colspan;
+			for (let rj = 0; rj < rowspan; rj++) {
+				for (let cj = 0; cj < colspan; cj++) {
+					const rij = ri + rj;
+					const cij = cursor + cj;
+					const viewRow = view.length > rij ? view[rij] : view[rij] = [];
+					viewRow[cij] = column;
+					const rijCursor = cursors.length > rij ? cursors[rij] : cursors[rij] = 0;
+					if (rijCursor === cij) {
+						cursors[rij] = rijCursor + 1;
+					}
+				}
 			}
+
+			cursor += colspan;
+			cursors[ri] = cursor;
 		}
 	}
 
