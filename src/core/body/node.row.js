@@ -18,7 +18,8 @@ export class NodeRow extends DataRow {
 	colspan(node, column, pin) {
 		if (node.type === 'group') {
 			const groupColumn = this.findGroupColumn();
-			if (groupColumn.model.pin === pin && !groupColumn.model.isVisible) {
+			const groupState = this.model.group();
+			if (groupColumn.model.pin === pin && groupState.mode === 'subhead') {
 				const groupSpan = takeWhile(this.columnList(pin), c => !c.model.aggregation);
 				if (column.model.type === 'group') {
 					return sumBy(groupSpan, c => c.colspan);
@@ -32,7 +33,8 @@ export class NodeRow extends DataRow {
 	columns(node, pin) {
 		if (node.type === 'group') {
 			const groupColumn = this.findGroupColumn();
-			if (groupColumn.model.pin === pin && !groupColumn.model.isVisible) {
+			const groupState = this.model.group();
+			if (groupColumn.model.pin === pin && groupState.mode === 'subhead') {
 				const nextColumns = dropWhile(this.columnList(pin), c => !c.model.aggregation);
 				return [groupColumn].concat(nextColumns);
 			}

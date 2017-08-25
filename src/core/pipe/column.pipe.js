@@ -112,7 +112,8 @@ function selectColumnFactory(model) {
 function groupColumnFactory(model, nodes) {
 	const dataColumns = model.data().columns;
 	const groupColumn = dataColumns.find(item => item.type === 'group');
-	if (!groupColumn && (nodes.length || model.group().by.length)) {
+	const groupState = model.group();
+	if (!groupColumn && groupState.mode != 'subhead' && (nodes.length || groupState.by.length)) {
 		const createColumn = columnFactory(model);
 		return (columns, context) => {
 			const groupColumn = createColumn('group');

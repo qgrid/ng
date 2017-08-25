@@ -62,6 +62,11 @@ export default function Controller($http, qgrid, $log) {
 		columns: columns
 	});
 
+	ctrl.gridModel.selection({
+		mode: 'single',
+		unit: 'row'
+	});
+
 	ctrl.gridModel
 		.selectionChanged
 		.on(function (e) {
@@ -74,8 +79,6 @@ export default function Controller($http, qgrid, $log) {
 		.then(function (response) {
 			ctrl.gridModel.data({rows: response.data});
 			ctrl.gridModel.selection({
-				mode: 'single',
-				unit: 'row',
 				items: response.data.slice(0, 4)
 			});
 		});

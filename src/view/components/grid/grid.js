@@ -181,6 +181,7 @@ export default {
 		selectionArea: '@',
 		onSelectionChanged: '&',
 		groupBy: '<',
+		groupMode: '@',
 		pivotBy: '<',
 		sortBy: '<',
 		sortMode: '@',
