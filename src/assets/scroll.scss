@@ -1,9 +1,9 @@
 $scrollSize: 8px;
 
 tbody {
-	> tr {
-		&.vscroll-mark {
-			height: 0 !important;
+	tr {
+		&.q-grid-scroll-mark {
+			height: 0;
 		}
 	}
 }
