@@ -15,6 +15,7 @@ export class PivotColumnModel extends ColumnModel {
 
 		this.key = '$pivot';
 		this.title = 'Pivot';
+
 		this.source = 'generation';
 		this.canEdit = false;
 		this.canSort = false;

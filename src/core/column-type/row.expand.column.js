@@ -15,10 +15,10 @@ class RowExpandColumnModel extends ColumnModel {
 
 		this.key = '$row.expand';
 		this.title = 'Expand';
+		this.class = 'control';
 
 		this.canEdit = false;
 		this.canResize = false;
-		this.class = 'control';
 	}
 }
 

@@ -2,11 +2,11 @@ export function sortIndexFactory(model) {
 	return columns => {
 		const columnListState = model.columnList();
 
-		const columnListIndex = columnListState.index;
-		const columnTemplateIndex = columnListState.columns.map(c => c.key);
-		const columnDataIndex = columns.map(c => c.key);
+		const listIndex = columnListState.index;
+		const templateIndex = columnListState.columns.map(c => c.key);
+		const viewIndex = columns.map(c => c.key);
 
-		const sort = sortFactory(columnListIndex, columnTemplateIndex, columnDataIndex);
+		const sort = sortFactory(listIndex, templateIndex, viewIndex);
 		const left = sort(columns.filter(c => c.pin === 'left'));
 		const center = sort(columns.filter(c => !c.pin));
 		const right = sort(columns.filter(c => c.pin === 'right'));
@@ -14,13 +14,13 @@ export function sortIndexFactory(model) {
 		const index = left.concat(center).concat(right);
 		return {
 			index: index,
-			hasChanges: !equals(columnListIndex, index)
+			hasChanges: !equals(listIndex, index)
 		};
 	};
 }
 
-function sortFactory(listIndex, templateIndex, dataIndex) {
-	const compare = compareFactory(listIndex, templateIndex, dataIndex);
+function sortFactory(listIndex, templateIndex, viewIndex) {
+	const compare = compareFactory(listIndex, templateIndex, viewIndex);
 	return columns => {
 		const columnIndex = Array.from(columns);
 		columnIndex.sort(compare);
@@ -29,25 +29,25 @@ function sortFactory(listIndex, templateIndex, dataIndex) {
 	};
 }
 
-function compareFactory(listIndex, templateIndex, dataIndex) {
+function compareFactory(listIndex, templateIndex, viewIndex) {
 	const listFind = findFactory(listIndex);
 	const templateFind = findFactory(templateIndex);
-	const dataFind = findFactory(dataIndex);
+	const viewFind = findFactory(viewIndex);
 
 	return (x, y) => {
 		const xKey = x.key;
 		const yKey = y.key;
 
-		let xi = listFind(xKey);
-		let yi = listFind(yKey);
+		let xi = x.class === 'data' ? listFind(xKey) : viewFind(xKey);
+		let yi = x.class === 'data' ? listFind(yKey) : viewFind(yKey);
 
 		if (xi === yi) {
 			xi = x.index;
 			yi = y.index;
 
 			if (xi === yi) {
-				xi = dataFind(xKey);
-				yi = dataFind(yKey);
+				xi = viewFind(xKey);
+				yi = viewFind(yKey);
 
 				if (xi === yi) {
 					xi = templateFind(xKey);

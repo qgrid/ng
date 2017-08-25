@@ -15,6 +15,8 @@ export class SelectColumnModel extends ColumnModel {
 
 		this.key = '$select';
 		this.title = 'Select';
+		this.class = 'control';
+
 		this.canEdit = false;
 		this.canResize = false;
 	}
