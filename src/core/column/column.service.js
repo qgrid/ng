@@ -81,6 +81,7 @@ export function expand(columnRows) {
 					const cij = cursor + cj;
 					const viewRow = view.length > rij ? view[rij] : view[rij] = [];
 					viewRow[cij] = column;
+
 					const rijCursor = cursors.length > rij ? cursors[rij] : cursors[rij] = 0;
 					if (rijCursor === cij) {
 						cursors[rij] = rijCursor + 1;
@@ -98,7 +99,6 @@ export function expand(columnRows) {
 
 export function collapse(view) {
 	const line = [];
-
 	const height = view.length;
 	if (height) {
 		const set = new Set();

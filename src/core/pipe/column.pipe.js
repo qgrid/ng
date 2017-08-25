@@ -218,7 +218,7 @@ function pivotColumnsFactory(model) {
 		 * that fills remaining place (width = 100%)
 		 *
 		 */
-		addPadColumn(firstRow, {rowspan: heads.length, row: 0});
+		addPadColumn(firstRow, {rowspan: 1, row: 0});
 
 		/*
 		 * Next rows pivot columns
@@ -245,8 +245,7 @@ function pivotColumnsFactory(model) {
 			 * that fills remaining place (width = 100%)
 			 *
 			 */
-			addPadColumn(row, {rowspan: 1, row: i});
-
+			addPadColumn(row, {rowspan: 1, row: 0});
 			rows.push(row);
 		}
 
@@ -255,13 +254,16 @@ function pivotColumnsFactory(model) {
 }
 
 function index(columnRows) {
-	for (let i = 0, rowsLength = columnRows.length; i < rowsLength; i++) {
-		const columnRow = columnRows[i];
-		let index = 0;
-		for (let j = 0, rowLength = columnRow.length; j < rowLength; j++) {
-			const column = columnRow[j];
-			column.index = index;
-			index += column.colspan;
+	const view = columnService.expand(columnRows);
+	const height = view.length;
+	for (let i = 0; i < height; i++) {
+		const row = view[i];
+		const width = row.length;
+		for (let j = 0; j < width; j++) {
+			const column = row[j];
+			if (column.index < 0) {
+				column.index = j;
+			}
 		}
 	}
 
