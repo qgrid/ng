@@ -62,7 +62,7 @@ export class Grid extends RootComponent {
 
 		this.compile();
 		this.using(this.model.sceneChanged.watch(e => {
-			if (e.hasChanges('columns')) {
+			if (e.hasChanges('column')) {
 				this.invalidateVisibility();
 			}
 		}));
@@ -84,7 +84,7 @@ export class Grid extends RootComponent {
 	}
 
 	invalidateVisibility() {
-		const area = this.model.scene().area;
+		const area = this.model.scene().column.area;
 		const visibility = this.model.visibility;
 		visibility({
 			pin: {

@@ -151,7 +151,8 @@ class ColumnChooser extends Plugin {
 
 			if (e.hasChanges('column')) {
 				this.columns = e.state
-					.columns
+					.column
+					.rows
 					.reduce((memo, xs) => memo.concat(xs))
 					.map(c => c.model)
 					.filter(c => c.class === 'data');

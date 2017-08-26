@@ -42,10 +42,10 @@ function compareFactory(listIndex, templateIndex, viewIndex) {
 		}
 
 		const candidates = [
-			listFind(key) + (column.class === 'data' ? 0.9 : 0.7),
-			column.index + 0.8,
-			viewFind(key) + (column.class !== 'data' ? 0.9 : 0.7),
-			templateFind(key) + 0.6
+			listFind(key) + (column.class === 'data' ? 0.1 : 0.3),
+			column.index + 0.2,
+			viewFind(key) + (column.class !== 'data' ? 0.1 : 0.3),
+			templateFind(key) + 0.4
 		];
 
 		const weights = candidates.filter(w => w >= 0);

@@ -34,6 +34,10 @@ export class BodyView extends View {
 		}
 	}
 
+	columns(row, pin) {
+		return this.render.columns(row, pin);
+	}
+
 	valueFactory(column, getValueFactory = null) {
 		const getValue = (getValueFactory || valueFactory)(column);
 		return row => this.render.getValue(row, column, getValue);
