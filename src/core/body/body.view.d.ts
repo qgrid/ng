@@ -3,7 +3,7 @@ import {ColumnModel} from '../column-type/column.model';
 import {IGetResult} from '../services/value';
 import {Model} from '../infrastructure/model';
 import {Table} from '../dom/table';
-import {ColumnView} from '../scene';
+import {ColumnView} from '../scene/view/column.view';
 
 export interface IGetValueFactory {
 	(column: ColumnModel): IGetResult;

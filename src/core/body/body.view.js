@@ -20,9 +20,9 @@ export class BodyView extends View {
 
 		const model = this.model;
 		const table = this.table;
-		const viewState = model.view();
+		const sceneState = model.scene();
 
-		this.rows = viewState.rows;
+		this.rows = sceneState.rows;
 
 		table.view.removeLayer('blank');
 		if (!this.rows.length) {

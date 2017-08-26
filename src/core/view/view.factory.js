@@ -25,7 +25,7 @@ export function viewFactory(model, table, commandManager, gridService, vscroll, 
 		target.columns = new ColumnView(model, gridService);
 		target.layout = new LayoutView(model, table, gridService);
 		target.selection = new SelectionView(model, table, commandManager, gridService);
-		target.group = new GroupView(model, table, commandManager);
+		target.group = new GroupView(model, table, commandManager, gridService);
 		target.pivot = new PivotView(model);
 		target.highlight = new HighlightView(model, table, (f, timeout) => setTimeout(f, timeout));
 		target.sort = new SortView(model);
@@ -34,7 +34,7 @@ export function viewFactory(model, table, commandManager, gridService, vscroll, 
 		target.nav = new NavigationView(model, table, commandManager);
 		target.pagination = new PaginationView(model);
 		target.scroll = new ScrollView(model, table, vscroll, gridService);
-		target.rowDetails = new RowDetailsView(model, table, commandManager);
+		target.rowDetails = new RowDetailsView(model, table, commandManager, gridService);
 
 		return () => {
 			target.style.dispose();

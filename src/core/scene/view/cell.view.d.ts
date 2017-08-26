@@ -9,7 +9,7 @@ export interface ICellModel {
 	label: any;
 }
 
-export declare class CellModel {
+export declare class CellView {
 	constructor(model: ICellModel);
 
 	value: any;

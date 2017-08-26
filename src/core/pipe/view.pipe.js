@@ -6,16 +6,17 @@ export function viewPipe(memo, context, next) {
 
 	const rows = scene.rows(memo);
 	const columnLine = scene.columnLine(memo.columns);
+	const tag = {
+		source: context.source || 'view.pipe',
+		behavior: 'core'
+	};
 
 	model.view({
 		rows: rows,
 		columns: columnLine.map(c => c.model),
 		nodes: memo.nodes,
 		pivot: memo.pivot
-	}, {
-		source: context.source || 'view.pipe',
-		behavior: 'core'
-	});
+	}, tag);
 
 	model.scene({
 		rows: rows,
@@ -24,10 +25,7 @@ export function viewPipe(memo, context, next) {
 			area: scene.columnArea(memo.columns),
 			line: columnLine
 		}
-	}, {
-		source: context.source || 'view.pipe',
-		behavior: 'core'
-	});
+	}, tag);
 
 	next(memo);
 }

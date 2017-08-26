@@ -1,6 +1,5 @@
 import {Unit} from './unit';
 import * as css from '../services/css';
-import * as columnService from '../column/column.service';
 
 function isParentOf(parent, element) {
 	while (element) {
