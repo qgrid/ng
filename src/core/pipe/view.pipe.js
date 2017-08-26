@@ -1,4 +1,4 @@
-import {Scene} from '../scene';
+import {Scene} from '../scene/scene';
 
 export function viewPipe(memo, context, next) {
 	const model = context.model;

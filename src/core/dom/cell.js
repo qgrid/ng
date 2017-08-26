@@ -1,5 +1,5 @@
 import {Element} from './element';
-import {CellView} from '../scene';
+import {CellView} from '../scene/view';
 
 export class Cell extends Element {
 	constructor(context, rowIndex, columnIndex, element = null) {

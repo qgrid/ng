@@ -1,4 +1,4 @@
-import {ColumnView} from '../scene';
+import {ColumnView} from '../scene/view';
 import {ColumnModel} from './column.model';
 import {TemplatePath} from '../template';
 

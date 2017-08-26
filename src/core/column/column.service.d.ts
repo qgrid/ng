@@ -1,5 +1,5 @@
 import {ColumnModel} from '../column-type/column.model';
-import {ColumnView} from '../scene';
+import {ColumnView} from '../scene/view';
 import {Model} from '../infrastructure/model';
 
 export declare class IMapResult {

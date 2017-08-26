@@ -1,5 +1,5 @@
 import {Cell} from '../cell';
-import {CellView} from '../../scene';
+import {CellView} from '../../scene/view';
 
 export class VirtualCell extends Cell {
 	constructor(box, rowIndex, columnIndex, element = null) {

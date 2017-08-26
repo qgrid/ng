@@ -2,7 +2,7 @@ import {View} from '../view';
 import {getFactory as valueFactory} from '../services/value';
 import {getFactory as labelFactory, set as setLabel} from '../services/label';
 import {Log} from '../infrastructure';
-import {Renderer} from '../scene';
+import {Renderer} from '../scene/render';
 
 export class BodyView extends View {
 	constructor(model, table) {

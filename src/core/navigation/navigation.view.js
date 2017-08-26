@@ -2,7 +2,7 @@ import {View} from '../view';
 import {Command} from '../command';
 import {Navigation} from './navigation';
 import {GRID_PREFIX} from '../definition';
-import {CellView} from '../scene';
+import {CellView} from '../scene/view';
 
 export class NavigationView extends View {
 	constructor(model, table, commandManager) {
