@@ -26,10 +26,11 @@ export class DataRow {
 	}
 
 	columnList(pin = null) {
+		const sceneState = this.model.scene();
 		if (arguments.length) {
-			return this.model.scene().area[pin] || [];
+			return sceneState.column.area[pin] || [];
 		}
 
-		return this.model.view().columns;
+		return sceneState.column.line;
 	}
 }

@@ -65,7 +65,7 @@ class ColumnChooser extends Plugin {
 			},
 			execute: e => {
 				const model = this.model;
-				const columnRows = model.scene().columns;
+				const columnRows = model.scene().column.rows;
 				for (let columns of columnRows) {
 					const targetIndex = columns.findIndex(c => c.model.key === e.target.value);
 					const sourceIndex = columns.findIndex(c => c.model.key === e.source.value);
@@ -149,7 +149,7 @@ class ColumnChooser extends Plugin {
 				return;
 			}
 
-			if (e.hasChanges('columns')) {
+			if (e.hasChanges('column')) {
 				this.columns = e.state
 					.columns
 					.reduce((memo, xs) => memo.concat(xs))

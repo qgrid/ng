@@ -14,19 +14,22 @@ export const columnPipeUnit = [
 	Pipe.column,
 	(memo, context, next) => {
 		const model = context.model;
-		const columns = buildColumns(memo);
+		const scene = new Scene(model);
+		const columnLine = scene.columnLine(memo.columns);
 
 		model.view({
-			columns: columns
+			columns: columnLine.map(c => c.model)
 		}, {
 			source: context.source || 'column.pipe.unit',
 			behavior: 'core'
 		});
 
-		const scene = new Scene(model);
 		context.model.scene({
-			columns: scene.columns(memo.columns),
-			area: scene.area(memo.columns)
+			column: {
+				rows: scene.columnRows(memo.columns),
+				area: scene.columnArea(memo.columns),
+				line: columnLine
+			}
 		}, {
 			source: context.source || 'column.pipe.unit',
 			behavior: 'core'

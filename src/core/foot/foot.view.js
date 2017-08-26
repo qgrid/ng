@@ -23,7 +23,7 @@ export class FootView extends View {
 
 	columns(row, pin) {
 		const model = this.model;
-		return model.scene().area[pin] || [];
+		return model.scene().column.area[pin] || [];
 	}
 
 	get count() {

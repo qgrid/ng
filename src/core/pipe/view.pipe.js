@@ -1,15 +1,15 @@
-import {flatView as nodeFlatView, Node} from '../node';
 import {Scene} from '../scene';
-import {lineView} from '../column/column.service';
 
 export function viewPipe(memo, context, next) {
 	const model = context.model;
-	const rows = buildRows(memo);
-	const columns = buildColumns(memo);
+	const scene = new Scene(model);
+
+	const rows = scene.rows(memo);
+	const columnLine = scene.columnLine(memo.columns);
 
 	model.view({
 		rows: rows,
-		columns: columns,
+		columns: columnLine.map(c => c.model),
 		nodes: memo.nodes,
 		pivot: memo.pivot
 	}, {
@@ -17,32 +17,17 @@ export function viewPipe(memo, context, next) {
 		behavior: 'core'
 	});
 
-	const scene = new Scene(model);
 	model.scene({
-		rows: scene.rows(rows),
-		columns: scene.columns(memo.columns),
-		area: scene.area(memo.columns)
+		rows: rows,
+		column: {
+			rows: scene.columnRows(memo.columns),
+			area: scene.columnArea(memo.columns),
+			line: columnLine
+		}
 	}, {
 		source: context.source || 'view.pipe',
 		behavior: 'core'
 	});
 
 	next(memo);
-}
-
-export function buildRows(memo) {
-	const nodes = memo.nodes;
-	const rows = memo.rows;
-	if (nodes.length) {
-		if (!(rows.length && rows[0] instanceof Node)) {
-			return nodeFlatView(nodes);
-		}
-	}
-
-	return rows;
-}
-
-export function buildColumns(memo) {
-	return lineView(memo.columns)
-		.map(column => column.model);
 }

@@ -1,20 +1,33 @@
 import {AppError} from '../infrastructure/index';
 import {lineView} from '../column/column.service';
+import {flatView as nodeFlatView, Node} from '../node';
 
 export class Scene {
 	constructor(model) {
 		this.model = model;
 	}
 
-	rows(items) {
+	rows(memo) {
+		const nodes = memo.nodes;
+		const rows = memo.rows;
+		if (nodes.length) {
+			if (!(rows.length && rows[0] instanceof Node)) {
+				return nodeFlatView(nodes);
+			}
+		}
+
+		return rows;
+	}
+
+	columnRows(items) {
 		return items;
 	}
 
-	columns(items) {
-		return items;
+	columnLine(items){
+		return lineView(items);
 	}
 
-	area(items) {
+	columnArea(items) {
 		const line = lineView(items);
 		const result = {
 			left: [],

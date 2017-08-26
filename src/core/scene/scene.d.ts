@@ -3,9 +3,11 @@ import {ColumnView} from '../column/column.view';
 export declare class Scene {
 	constructor(context: any);
 
-	rows(items: any[]): any[];
+	rows(memo: any): any[];
 
-	columns(items: ColumnView[][]): ColumnView[][];
+	columnRows(items: ColumnView[][]): ColumnView[][];
 
-	area(items: ColumnView[][]): any;
+	columnLine(items: ColumnView[][]): ColumnView[];
+
+	columnArea(items: ColumnView[][]): any;
 }

@@ -5,6 +5,9 @@ export declare class SceneModel {
 	constructor();
 
 	rows: RowView[];
-	columns: ColumnView[][];
-	area: any;
+	column: {
+		rows: ColumnView[][],
+		line: ColumnView[],
+		area: {}
+	};
 }

@@ -24,7 +24,7 @@ export class HeadView extends View {
 				return false;
 			},
 			execute: e => {
-				const columnRows = model.scene().columns;
+				const columnRows = model.scene().column.rows;
 				for (let columns of columnRows) {
 					const targetIndex = columns.findIndex(c => c.model.key === e.target.value);
 					const sourceIndex = columns.findIndex(c => c.model.key === e.source.value);
@@ -118,7 +118,7 @@ export class HeadView extends View {
 		Log.info('view.head', 'invalidate');
 
 		const model = this.model;
-		this.rows = Array.from(model.scene().columns);
+		this.rows = Array.from(model.scene().column.rows);
 
 		if (model.filter().unit === 'row') {
 			const filterRow = this.table.data.columns().map(c => new FilterRowColumn(c));
