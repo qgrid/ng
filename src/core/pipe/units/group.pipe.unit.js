@@ -1,4 +1,4 @@
-import {flatView} from '../../node';
+import {flatView} from '../../node/node.service';
 
 export const groupPipeUnit = [
 	(memo, context, next) => {

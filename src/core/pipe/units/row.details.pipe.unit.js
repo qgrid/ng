@@ -1,4 +1,4 @@
-import {flatView} from '../../row-details';
+import {flatView} from '../../row-details/row.details.service';
 
 export const rowDetailsPipeUnit = [
 	(memo, context, next) => {

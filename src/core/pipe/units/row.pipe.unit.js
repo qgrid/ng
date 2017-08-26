@@ -1,4 +1,4 @@
-import {Scene} from '../../scene';
+import {Scene} from '../../scene/scene';
 
 export const rowPipeUnit = [
 	(memo, context, next) => {

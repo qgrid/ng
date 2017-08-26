@@ -2,7 +2,7 @@ import {View} from '../view';
 import {Command} from '../command';
 import {toggleStatus, invalidateStatus} from './row.details.service';
 import {RowDetails} from './row.details';
-import {PipeUnit} from '../pipe/units';
+import {PipeUnit} from '../pipe/pipe.unit';
 
 export class RowDetailsView extends View {
 	constructor(model, table, commandManager, service) {

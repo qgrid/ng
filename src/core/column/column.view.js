@@ -1,5 +1,5 @@
 import {View} from '../view';
-import {PipeUnit} from '../pipe/units';
+import {PipeUnit} from '../pipe/pipe.unit';
 
 export class ColumnView extends View {
 	constructor(model, service) {
