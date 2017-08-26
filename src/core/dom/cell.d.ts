@@ -1,5 +1,5 @@
 import {Element} from './element';
-import {Cell as CellModel} from '../cell/cell';
+import {Cell as CellModel} from '../scene/cell';
 import {IContext} from './box';
 
 export declare class Cell extends Element {

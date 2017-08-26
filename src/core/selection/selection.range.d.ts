@@ -1,4 +1,4 @@
-import {Cell} from '../cell/cell';
+import {Cell} from '../scene/cell';
 import {ColumnModel} from '../column-type/column.model';
 import {Model} from '../infrastructure/model';
 

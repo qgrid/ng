@@ -1,7 +1,7 @@
 import {IRect} from './fake/element';
 import {Unit} from './unit';
 import {IContext} from './box';
-import {ColumnView} from '../column-type/column.model.view'
+import {ColumnView} from '../scene'
 import {Model} from '../infrastructure/model';
 
 export declare interface IFunc {

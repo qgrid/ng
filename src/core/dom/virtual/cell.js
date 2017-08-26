@@ -1,6 +1,6 @@
 import {Cell} from '../cell';
 import * as columnService from '../../column/column.service';
-import {Cell as CellModel} from '../../cell';
+import {CellView} from '../../scene';
 
 export class VirtualCell extends Cell {
 	constructor(box, rowIndex, columnIndex, element = null) {
@@ -31,7 +31,7 @@ export class VirtualCell extends Cell {
 					column: columns[columnIndex]
 				};
 
-				return new CellModel(model);
+				return new CellView(model);
 			}
 		}
 

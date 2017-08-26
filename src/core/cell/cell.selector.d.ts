@@ -1,4 +1,4 @@
-import {Cell} from './cell';
+import {Cell} from '../scene/cell';
 
 export declare class CellSelector {
   constructor();

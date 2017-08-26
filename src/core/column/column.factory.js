@@ -1,6 +1,6 @@
 import {Guard} from '../infrastructure';
 import {assignWith, clone, isUndefined} from '../utility';
-import {ColumnView as CustomColumn} from '../column-type/column.model.view';
+import {ColumnView as CustomColumn} from '../scene';
 import {
 	TextColumn,
 	NumberColumn,

@@ -1,5 +1,5 @@
 import {View} from '../view/view';
-import {Cell} from '../cell/cell';
+import {Cell} from '../scene/cell';
 import {SelectionState} from './state/selection.state';
 import {SelectionModel} from './selection.model';
 import {ColumnModel} from '../column-type/column.model';
