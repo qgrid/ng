@@ -1,5 +1,5 @@
 import {View} from '../view/view';
-import {Cell} from '../scene/cell';
+import {CellView} from '../scene';
 import {SelectionState} from './state/selection.state';
 import {SelectionModel} from './selection.model';
 import {ColumnModel} from '../column-type/column.model';
@@ -28,7 +28,7 @@ export declare class SelectionView extends View {
   toggleCell: Command;
   toggleColumn: Command
 
-  selectRange(startCell: Cell, endCell: Cell, source?: string): void;
+  selectRange(startCell: CellView, endCell: CellView, source?: string): void;
 
   state(item: any): boolean;
 

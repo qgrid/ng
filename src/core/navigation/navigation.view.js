@@ -88,7 +88,7 @@ export class NavigationView extends View {
 			}
 		}));
 
-		this.using(model.viewChanged.watch(e => {
+		this.using(model.sceneChanged.watch(e => {
 			if (e.tag.behavior !== 'core') {
 				model.navigation({cell: null});
 			}

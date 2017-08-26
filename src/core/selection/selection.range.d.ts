@@ -1,4 +1,4 @@
-import {Cell} from '../scene/cell';
+import {CellView} from '../scene';
 import {ColumnModel} from '../column-type/column.model';
 import {Model} from '../infrastructure/model';
 
@@ -8,11 +8,11 @@ export interface ICell{
 }
 
 export interface IBuildRows{
-	(startCell: Cell, endCell: Cell): any[];
+	(startCell: CellView, endCell: CellView): any[];
 }
 
 export interface IBuildColumns{
-	(startCell: Cell, endCell: Cell): ColumnModel[];
+	(startCell: CellView, endCell: CellView): ColumnModel[];
 }
 
 export interface IBuildCells{

@@ -1,5 +1,4 @@
 import {Cell} from '../cell';
-import * as columnService from '../../column/column.service';
 import {CellView} from '../../scene';
 
 export class VirtualCell extends Cell {
@@ -19,9 +18,7 @@ export class VirtualCell extends Cell {
 		if (rowIndex >= 0 && columnIndex >= 0) {
 			const gridModel = this.box.model;
 			const rows = gridModel.data().rows;
-			const columns = columnService
-				.lineView(gridModel.view().columns)
-				.map(v => v.model);
+			const columns = gridModel.view().columns;
 
 			if (rows.length > rowIndex && columns.length > columnIndex) {
 				const model = {

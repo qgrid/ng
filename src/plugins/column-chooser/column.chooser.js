@@ -65,8 +65,7 @@ class ColumnChooser extends Plugin {
 			},
 			execute: e => {
 				const model = this.model;
-				const view = model.view;
-				const columnRows = view().columns;
+				const columnRows = model.scene().columns;
 				for (let columns of columnRows) {
 					const targetIndex = columns.findIndex(c => c.model.key === e.target.value);
 					const sourceIndex = columns.findIndex(c => c.model.key === e.source.value);
@@ -145,19 +144,17 @@ class ColumnChooser extends Plugin {
 				}, {})
 		};
 
-		this.using(model.viewChanged.watch(e => {
+		this.using(model.sceneChanged.watch(e => {
 			if (e.tag.source === 'column.chooser') {
 				return;
 			}
 
 			if (e.hasChanges('columns')) {
-				this.columns =
-					model
-						.view()
-						.columns
-						.reduce((memo, xs) => memo.concat(xs))
-						.map(c => c.model)
-						.filter(c => c.class === 'data');
+				this.columns = e.state
+					.columns
+					.reduce((memo, xs) => memo.concat(xs))
+					.map(c => c.model)
+					.filter(c => c.class === 'data');
 			}
 		}));
 	}

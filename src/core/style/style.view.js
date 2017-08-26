@@ -21,9 +21,7 @@ export class StyleView extends View {
 			cell: new Monitor(model)
 		};
 
-		this.using(model.viewChanged.watch(() => {
-			this.invalidate();
-		}));
+		this.using(model.sceneChanged.watch(this.invalidate.bind(this)));
 
 		this.using(model.styleChanged.watch(e => {
 			if (e.hasChanges('row')) {

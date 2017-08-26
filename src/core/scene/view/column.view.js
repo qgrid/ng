@@ -1,5 +1,5 @@
-import {ColumnModel} from '../column-type/column.model';
-import {isObject, isFunction} from '../utility';
+import {ColumnModel} from '../../column-type/column.model';
+import {isObject, isFunction} from '../../utility/index';
 
 export class ColumnView {
 	constructor(model) {

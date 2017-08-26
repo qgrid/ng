@@ -61,7 +61,7 @@ export class Grid extends RootComponent {
 		}
 
 		this.compile();
-		this.using(this.model.viewChanged.watch(e => {
+		this.using(this.model.sceneChanged.watch(e => {
 			if (e.hasChanges('columns')) {
 				this.invalidateVisibility();
 			}

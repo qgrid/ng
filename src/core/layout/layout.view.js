@@ -17,7 +17,7 @@ export class LayoutView extends View {
 	onInit() {
 		const model = this.model;
 
-		model.viewChanged.watch(e => {
+		model.sceneChanged.watch(e => {
 			if (e.hasChanges('columns')) {
 				this.invalidateColumns();
 			}

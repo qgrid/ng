@@ -1,5 +1,5 @@
-import {ColumnView} from './column.view';
-import {RowView} from './row.view';
+import {ColumnView} from './view/column.view';
+import {RowView} from './view/row.view';
 
 export declare class ViewModel {
 	constructor();

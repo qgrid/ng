@@ -1,5 +1,3 @@
-import * as columnService from '../column/column.service';
-
 export class Column {
 	constructor(box, index) {
 		this.box = box;
@@ -8,8 +6,8 @@ export class Column {
 
 	model() {
 		const columns = this.box.model.view().columns;
-		const column = columnService.lineView(columns)[this.index];
-		return column ? column.model : null;
+		const column = columns[this.index];
+		return column || null;
 	}
 
 	cells() {

@@ -1,5 +1,4 @@
 import {View} from '../view';
-import * as columnService from '../column/column.service';
 import {Aggregation} from '../services';
 import {Log, AppError} from '../infrastructure';
 import {getFactory as valueFactory} from '../services/value';
@@ -10,19 +9,25 @@ export class FootView extends View {
 
 		this.table = table;
 		this.rows = [];
-		this.columns = [];
+
+		this.state = {
+			columns: []
+		};
 
 		this.valueFactory = valueFactory;
 
-		this.using(model.viewChanged.watch(() => this.invalidate(model)));
+		this.using(model.sceneChanged.watch(this.invalidate.bind(this)));
 	}
 
-	invalidate(model) {
+	invalidate() {
 		Log.info('view.foot', 'invalidate');
 
-		const columns = model.view().columns;
-		this.columns = columnService.lineView(columns);
+		this.state.columns = this.table.view.columns();
 		this.rows = new Array(this.count);
+	}
+
+	columns(row, pin) {
+		return this.state.columns.filter(c => c.model.pin === pin);
 	}
 
 	get count() {
@@ -42,8 +47,8 @@ export class FootView extends View {
 	value(column) {
 		if (column.aggregation) {
 			const aggregation = column.aggregation;
-			const	aggregationOptions = column.aggregationOptions;
-			
+			const aggregationOptions = column.aggregationOptions;
+
 			if (!Aggregation.hasOwnProperty(aggregation)) {
 				throw new AppError(
 					'foot',

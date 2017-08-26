@@ -1,5 +1,4 @@
 import {View} from '../view';
-import * as columnService from '../column/column.service';
 import {getFactory as valueFactory} from '../services/value';
 import {getFactory as labelFactory, set as setLabel} from '../services/label';
 import {Log} from '../infrastructure';
@@ -16,19 +15,20 @@ export class BodyView extends View {
 		};
 
 		this.layout = new ResolutionRow(model, this.state);
-		this.using(model.viewChanged.watch(() => this.invalidate(model)));
+		this.using(model.sceneChanged.watch(this.invalidate.bind(this)));
 	}
 
-	invalidate(model) {
+	invalidate() {
 		Log.info('view.body', 'invalidate');
 
-		this.invalidateRows(model);
-		this.invalidateColumns(model);
+		this.invalidateRows();
+		this.invalidateColumns();
 	}
 
-	invalidateRows(model) {
-		this.state.hasDataRow = false;
+	invalidateRows() {
+		const model = this.model;
 		const viewState = model.view();
+
 		this.table.view.removeLayer('blank');
 		this.rows = viewState.rows;
 		if (!this.rows.length) {
@@ -40,9 +40,8 @@ export class BodyView extends View {
 		}
 	}
 
-	invalidateColumns(model) {
-		const columns = model.view().columns;
-		this.state.columns = columnService.lineView(columns);
+	invalidateColumns() {
+		this.state.columns = this.table.view.columns();
 	}
 
 	colspan(row, column, pin) {
