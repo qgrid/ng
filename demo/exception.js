@@ -1,3 +1,5 @@
+/*eslint-disable  no-debugger, no-unused-vars, no-undef*/
+
 Handler.$inject = ['$log', '$injector'];
 
 export default function Handler($log, $injector) {
@@ -12,8 +14,11 @@ export default function Handler($log, $injector) {
 		return toast;
 	}
 
-	return (exception, cause='qgrid') => {
+	return (exception, cause = 'qgrid') => {
 		$log.error(exception, cause);
+		if (!ENV.PRODUCTION) {
+			debugger;
+		}
 
 		const toast = getToast();
 		toast.show(
@@ -25,3 +30,4 @@ export default function Handler($log, $injector) {
 		);
 	};
 }
+/*eslint-disable  no-debugger, no-unused-vars, no-undef*/

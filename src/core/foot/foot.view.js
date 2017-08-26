@@ -10,10 +10,6 @@ export class FootView extends View {
 		this.table = table;
 		this.rows = [];
 
-		this.state = {
-			columns: []
-		};
-
 		this.valueFactory = valueFactory;
 
 		this.using(model.sceneChanged.watch(this.invalidate.bind(this)));
@@ -22,12 +18,12 @@ export class FootView extends View {
 	invalidate() {
 		Log.info('view.foot', 'invalidate');
 
-		this.state.columns = this.table.view.columns();
 		this.rows = new Array(this.count);
 	}
 
 	columns(row, pin) {
-		return this.state.columns.filter(c => c.model.pin === pin);
+		const model = this.model;
+		return model.scene().area[pin] || [];
 	}
 
 	get count() {

@@ -1,5 +1,5 @@
 import {Pipe} from '../pipe';
-import {Renderer} from '../../scene';
+import {Scene} from '../../scene';
 import {buildColumns} from '../view.pipe';
 
 export const columnPipeUnit = [
@@ -14,16 +14,19 @@ export const columnPipeUnit = [
 	Pipe.column,
 	(memo, context, next) => {
 		const model = context.model;
+		const columns = buildColumns(memo);
+
 		model.view({
-			columns: buildColumns(memo)
+			columns: columns
 		}, {
 			source: context.source || 'column.pipe.unit',
 			behavior: 'core'
 		});
 
-		const render = new Renderer(model);
+		const scene = new Scene(model);
 		context.model.scene({
-			columns: render.columns(memo.columns)
+			columns: scene.columns(memo.columns),
+			area: scene.area(memo.columns)
 		}, {
 			source: context.source || 'column.pipe.unit',
 			behavior: 'core'

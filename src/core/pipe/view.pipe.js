@@ -1,5 +1,5 @@
 import {flatView as nodeFlatView, Node} from '../node';
-import {Renderer} from '../scene';
+import {Scene} from '../scene';
 import {lineView} from '../column/column.service';
 
 export function viewPipe(memo, context, next) {
@@ -17,10 +17,11 @@ export function viewPipe(memo, context, next) {
 		behavior: 'core'
 	});
 
-	const render = new Renderer(model);
+	const scene = new Scene(model);
 	model.scene({
-		rows: render.rows(rows),
-		columns: render.columns(memo.columns)
+		rows: scene.rows(rows),
+		columns: scene.columns(memo.columns),
+		area: scene.area(memo.columns)
 	}, {
 		source: context.source || 'view.pipe',
 		behavior: 'core'

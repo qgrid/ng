@@ -16,9 +16,9 @@ export declare class BodyView extends View {
 
 	columns(row: any, pin: string): ColumnView[];
 
-	rowspan(row: any, column: ColumnView, pin: string): number;
+	rowspan(row: any, column: ColumnView): number;
 
-	colspan(row: any, column: ColumnView, pin: string): number;
+	colspan(row: any, column: ColumnView): number;
 
 	value(row: any, column: ColumnModel, value?: any): string;
 

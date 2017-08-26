@@ -84,12 +84,12 @@ export class Grid extends RootComponent {
 	}
 
 	invalidateVisibility() {
-		const columns = this.table.data.columns();
+		const area = this.model.scene().area;
 		const visibility = this.model.visibility;
 		visibility({
 			pin: {
-				left: columns.some(c => c.pin === 'left'),
-				right: columns.some(c => c.pin === 'right')
+				left: area.left.length,
+				right: area.right.length
 			}
 		});
 	}

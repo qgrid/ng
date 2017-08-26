@@ -2,7 +2,7 @@ import {View} from '../view';
 import {getFactory as valueFactory} from '../services/value';
 import {getFactory as labelFactory, set as setLabel} from '../services/label';
 import {Log} from '../infrastructure';
-import {ResolutionRow} from './resolution.row';
+import {Renderer} from '../scene';
 
 export class BodyView extends View {
 	constructor(model, table) {
@@ -10,55 +10,33 @@ export class BodyView extends View {
 
 		this.table = table;
 		this.rows = [];
-		this.state = {
-			columns: []
-		};
+		this.render = new Renderer(model);
 
-		this.layout = new ResolutionRow(model, this.state);
 		this.using(model.sceneChanged.watch(this.invalidate.bind(this)));
 	}
 
 	invalidate() {
 		Log.info('view.body', 'invalidate');
 
-		this.invalidateRows();
-		this.invalidateColumns();
-	}
-
-	invalidateRows() {
 		const model = this.model;
+		const table = this.table;
 		const viewState = model.view();
 
-		this.table.view.removeLayer('blank');
 		this.rows = viewState.rows;
+
+		table.view.removeLayer('blank');
 		if (!this.rows.length) {
 			const layerState = model.layer();
 			if (layerState.resource.data.hasOwnProperty('blank')) {
-				const layer = this.table.view.addLayer('blank');
+				const layer = table.view.addLayer('blank');
 				layer.resource('blank', layerState.resource);
 			}
 		}
 	}
 
-	invalidateColumns() {
-		this.state.columns = this.table.view.columns();
-	}
-
-	colspan(row, column, pin) {
-		return this.layout.colspan(row, column, pin);
-	}
-
-	rowspan(row, pin) {
-		return this.layout.rowspan(row, pin);
-	}
-
-	columns(row, pin) {
-		return this.layout.columns(row, pin);
-	}
-
 	valueFactory(column, getValueFactory = null) {
 		const getValue = (getValueFactory || valueFactory)(column);
-		return row => this.layout.getValue(row, column, getValue);
+		return row => this.render.getValue(row, column, getValue);
 	}
 
 	labelFactory(column) {
@@ -67,7 +45,7 @@ export class BodyView extends View {
 
 	value(row, column, value) {
 		if (arguments.length == 3) {
-			this.layout.setValue(row, column, value);
+			this.render.setValue(row, column, value);
 			return;
 		}
 

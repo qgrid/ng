@@ -1,9 +1,8 @@
-import {set as setValue} from '../services/value';
+import {set as setValue} from '../../services/value';
 
 export class DataRow {
-	constructor(model, context) {
+	constructor(model) {
 		this.model = model;
-		this.context = context;
 	}
 
 	colspan(row, column) {
@@ -27,11 +26,10 @@ export class DataRow {
 	}
 
 	columnList(pin = null) {
-		const columns = this.context.columns;
 		if (arguments.length) {
-			return columns.filter(c => c.model.pin === pin);
+			return this.model.scene().area[pin] || [];
 		}
 
-		return columns;
+		return this.model.view().columns;
 	}
 }
