@@ -10,7 +10,8 @@
 			  layout="column"
 			  ng-controller="Body.Cell.Reference.Edit.Controller as $referenceEdit">
 			<div flex="90">
-				<q-grid model="$referenceEdit.gridModel"
+				<q-grid class="q-grid-embed"
+						  model="$referenceEdit.gridModel"
 						  q-grid:autofocus>
 					<q-grid:columns>
 					</q-grid:columns>

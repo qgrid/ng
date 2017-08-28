@@ -18,6 +18,7 @@ import ViewCore from './components/view/view.core';
 import TableCore from './components/table/table.core';
 import TrCore from './components/row/tr.core';
 import TdCore from './components/body/td.core';
+import TdAlignCore from './components/body/td.align.core';
 import ThCore from './components/head/th.core';
 import TfCore from './components/foot/tf.core';
 import HeadCore from './components/head/head.core';
@@ -38,7 +39,6 @@ import Autofocus from './directives/autofocus';
 import ThemeProvider from './services/theme';
 import Range from './filters/range';
 import Highlight from './filters/highlight';
-import Pin from './filters/pin';
 
 import * as def from './definition';
 require('vscroll'); // TODO: make vscroll export
@@ -59,7 +59,6 @@ export const coreModule = angular.module(def.MODULE_CORE_NAME, [])
 	.service(def.TEMPLATE_PATH_NAME, () => () => TemplatePath)
 	.filter(def.RANGE_NAME, () => Range)
 	.filter(def.HIGHLIGHT_NAME, () => Highlight)
-	.filter(def.PIN_NAME, () => Pin)
 	.config(['$compileProvider',
 		$compileProvider => $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|tel|file|data):/)
 	])
@@ -87,6 +86,7 @@ export const layoutModule = angular.module(def.MODULE_LAYOUT_NAME, [coreModule])
 	.directive(def.MARKUP_NAME, () => Markup)
 	.directive(def.TR_CORE_NAME, () => TrCore)
 	.directive(def.TD_CORE_NAME, () => TdCore)
+	.directive(def.TD_ALIGN_CORE_NAME, () => TdAlignCore)
 	.directive(def.TH_CORE_NAME, () => ThCore)
 	.directive(def.TF_CORE_NAME, () => TfCore)
 	.directive(def.HEAD_CORE_NAME, () => HeadCore)
@@ -223,5 +223,10 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.head.cell.filter-row.tpl.html', require('./components/cell/filter-row/head.cell.filter.row.html'));
 		theme.put('qgrid.body.cell.filter-row.tpl.html', EMPTY);
 		theme.put('qgrid.foot.cell.filter-row.tpl.html', EMPTY);
+
+		theme.put('qgrid.head.cell.currency.tpl.html', require('./components/cell/text/head.cell.text.html'));
+		theme.put('qgrid.body.cell.currency.tpl.html', require('./components/cell/currency/body.cell.currency.html'));
+		theme.put('qgrid.foot.cell.currency.tpl.html', require('./components/cell/currency/foot.cell.currency.html'));
+
 	});
 }

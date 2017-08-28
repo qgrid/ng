@@ -1,5 +1,4 @@
 import {Model} from '../infrastructure/model';
-import {IPin} from '../visibility/visibility.model';
 
 export interface IEditorOptions {
 	trigger: string;
@@ -9,23 +8,24 @@ export interface IEditorOptions {
 	value: any;
 }
 
-export interface IValue{
+export interface IValue {
 	(row: any, value?: any): any;
 }
 
-export interface ILabel{
+export interface ILabel {
 	(row: any, value?: any): any;
 }
 
 export declare class ColumnModel {
-	constructor(type: string);
+	constructor(type?: string);
+
 	type: string;
 	key: string;
 	title: string;
 	value: IValue;
 	$value: IValue;
 	path: string;
-	pin: IPin;
+	pin: string;
 	origin: string;
 	source: string;
 	class: string;
@@ -45,5 +45,4 @@ export declare class ColumnModel {
 	index: number;
 	label: ILabel;
 	$label: ILabel;
-	toString(): string;
 }

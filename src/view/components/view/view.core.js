@@ -1,24 +1,8 @@
 import Component from '../component';
-import {BodyView} from '@grid/core/body';
-import {HeadView} from '@grid/core/head';
-import {FootView} from '@grid/core/foot';
-import {LayoutView} from '@grid/core/layout';
-import {GroupView} from '@grid/core/group';
-import {PivotView} from '@grid/core/pivot';
-import {NavigationView} from '@grid/core/navigation';
-import {HighlightView} from '@grid/core/highlight';
-import {SortView} from '@grid/core/sort';
-import {FilterView} from '@grid/core/filter';
-import {EditView} from '@grid/core/edit';
-import {SelectionView} from '@grid/core/selection';
-import {PaginationView} from '@grid/core/pagination';
-import {StyleView} from '@grid/core/style';
-import {ColumnView} from '@grid/core/column';
-import {ScrollView} from '@grid/core/scroll';
-import {RowDetailsView} from '@grid/core/row-details';
 import {GRID_NAME, TH_CORE_NAME} from '@grid/view/definition';
 import {Vscroll} from '@grid/view/services';
 import {jobLine} from '@grid/core/services';
+import {viewFactory} from '@grid/core/view/view.factory';
 
 class ViewCore extends Component {
 	constructor($rootScope, $scope, $element, $timeout, grid, vscroll) {
@@ -40,24 +24,18 @@ class ViewCore extends Component {
 		const commandManager = root.commandManager;
 		const gridService = this.serviceFactory(model);
 		const vscroll = new Vscroll(this.vscroll, root.applyFactory());
+		const selectors = {
+			th: TH_CORE_NAME
+		};
+		const injectViewServicesTo = viewFactory(
+			model,
+			table,
+			commandManager,
+			gridService,
+			vscroll,
+			selectors);
 
-		this.style = new StyleView(model, table);
-		this.head = new HeadView(model, table, TH_CORE_NAME);
-		this.body = new BodyView(model, table);
-		this.foot = new FootView(model, table);
-		this.columns = new ColumnView(model, gridService);
-		this.layout = new LayoutView(model, table, gridService);
-		this.selection = new SelectionView(model, table, commandManager, gridService);
-		this.group = new GroupView(model, commandManager);
-		this.pivot = new PivotView(model);
-		this.highlight = new HighlightView(model, table, this.$timeout);
-		this.sort = new SortView(model);
-		this.filter = new FilterView(model);
-		this.edit = new EditView(model, table, commandManager);
-		this.nav = new NavigationView(model, table, commandManager);
-		this.pagination = new PaginationView(model);
-		this.scroll = new ScrollView(model, table, vscroll, gridService);
-		this.rowDetails = new RowDetailsView(model, table, commandManager);
+		this.destroyView = injectViewServicesTo(this);
 
 		// TODO: how we can avoid that?
 		this.$scope.$watch(this.style.invalidate.bind(this.style));
@@ -95,24 +73,7 @@ class ViewCore extends Component {
 
 	onDestroy() {
 		super.onDestroy();
-
-		this.style.dispose();
-		this.head.dispose();
-		this.body.dispose();
-		this.foot.dispose();
-		this.columns.dispose();
-		this.layout.dispose();
-		this.selection.dispose();
-		this.group.dispose();
-		this.pivot.dispose();
-		this.highlight.dispose();
-		this.sort.dispose();
-		this.filter.dispose();
-		this.edit.dispose();
-		this.nav.dispose();
-		this.pagination.dispose();
-		this.scroll.dispose();
-		this.rowDetails.dispose();
+		this.destroyView();
 	}
 
 	templateUrl(key) {

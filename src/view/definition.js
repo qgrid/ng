@@ -7,7 +7,6 @@ export const TEMPLATE_PATH_NAME = `${MODULE_NAME}TemplatePath`;
 export const THEME_NAME = `${MODULE_NAME}Theme`;
 export const RANGE_NAME = `${MODULE_NAME}Range`;
 export const HIGHLIGHT_NAME = `${MODULE_NAME}Highlight`;
-export const PIN_NAME = `${MODULE_NAME}Pin`;
 
 export const GRID = 'qGrid';
 export const GRID_CORE = `${GRID}Core`;
@@ -19,6 +18,7 @@ export const VIEW_CORE_NAME = `${GRID_CORE}View`;
 export const TABLE_CORE_NAME = `${GRID_CORE}Table`;
 export const TR_CORE_NAME = `${GRID_CORE}Tr`;
 export const TD_CORE_NAME = `${GRID_CORE}Td`;
+export const TD_ALIGN_CORE_NAME = `${GRID_CORE}TdAlign`;
 export const TF_CORE_NAME = `${GRID_CORE}Tf`;
 export const TH_CORE_NAME = `${GRID_CORE}Th`;
 export const HEAD_CORE_NAME = `${GRID_CORE}Head`;

@@ -70,6 +70,14 @@ class Column extends Component {
 					return memo;
 				}, {});
 
+			if (column.$value) {
+				settings.$value = column.$value;
+			}
+
+			if (column.$label) {
+				settings.$label = column.$label;
+			}
+
 			this.columnList.register(settings);
 		}
 	}
@@ -85,6 +93,7 @@ export default {
 	controller: Column,
 	bindings: {
 		value: '&',
+		label: '&',
 		key: '@'
 	}
 };

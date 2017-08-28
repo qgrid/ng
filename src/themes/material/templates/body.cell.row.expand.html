@@ -1,7 +1,10 @@
-<button ng-mouseup="$view.rowDetails.toggleStatus.execute($cell.row)"
-		  ng-if="$view.rowDetails.toggleStatus.canExecute($cell.row)"
-		  tabindex="-1"
-		  ng-switch="$view.rowDetails.status($cell.row)">
-	<md-icon ng-switch-when="expand">arrow_drop_down</md-icon>
-	<md-icon class="q-grid-arrow-right" ng-switch-when="collapse">arrow_drop_up</md-icon>
-</button>
+<md-button ng-mouseup="$view.rowDetails.toggleStatus.execute($cell.row)"
+			  ng-if="$view.rowDetails.toggleStatus.canExecute($cell.row)"
+			  tabindex="-1"
+			  class="md-icon-button"
+			  ng-switch="$view.rowDetails.status($cell.row)">
+		<span>
+			<md-icon ng-switch-when="expand">arrow_drop_down</md-icon>
+			<md-icon class="q-grid-arrow-right" ng-switch-when="collapse">arrow_drop_up</md-icon>
+		</span>
+</md-button>

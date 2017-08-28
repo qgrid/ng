@@ -2,7 +2,7 @@ import {View} from '../view';
 import {Command} from '../command';
 import {Navigation} from './navigation';
 import {GRID_PREFIX} from '../definition';
-import {Cell} from '../cell';
+import {CellView} from '../scene/view';
 
 export class NavigationView extends View {
 	constructor(model, table, commandManager) {
@@ -30,11 +30,11 @@ export class NavigationView extends View {
 		});
 
 		this.focusCell = new Command({
-			execute: cell => model.navigation({cell: new Cell(cell)}),
+			execute: cell => model.navigation({cell: new CellView(cell)}),
 			canExecute: cell => {
 				return cell
 					&& cell.column.canFocus
-					&& !Cell.equals(cell, model.navigation().cell);
+					&& !CellView.equals(cell, model.navigation().cell);
 			}
 		});
 
@@ -47,7 +47,7 @@ export class NavigationView extends View {
 			if (e.hasChanges('cell')) {
 				// We need this one to toggle focus from details to main grid
 				// or when user change navigation cell through the model
-				if (this.table.view.isFocused()) {
+				if (!this.table.view.isFocused()) {
 					this.table.view.focus();
 				}
 
@@ -88,7 +88,7 @@ export class NavigationView extends View {
 			}
 		}));
 
-		this.using(model.viewChanged.watch(e => {
+		this.using(model.sceneChanged.watch(e => {
 			if (e.tag.behavior !== 'core') {
 				model.navigation({cell: null});
 			}

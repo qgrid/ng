@@ -1,4 +1,5 @@
 import {GridModel} from '../grid/grid.model';
+import {SceneModel} from '../scene/scene.model';
 import {ViewModel} from '../view/view.model';
 import {DataModel} from '../data/data.model';
 import {HeadModel} from '../head/head.model';
@@ -28,38 +29,134 @@ import {ScrollModel} from '../scroll/scroll.model';
 import {ExportModel} from '../export/export.model';
 import {ActionModel} from '../action/action.model';
 import {FetchModel} from '../fetch/fetch.model';
+import {Event} from '../infrastructure/event';
 
 export declare class Model {
 	constructor();
+
 	static register(name: string, model: Model): Model;
-	grid() : GridModel;
-	edit(): EditModel;
-	view(): ViewModel;
-	data(): DataModel;
-	head(): HeadModel;
-	body(): BodyModel;
-	layout(): LayoutModel;
-	navigation(): NavigationModel;
-	focus(): FocusModel;
-	columnList(): ColumnListModel;
-	row(): RowModel;
-	selection(): SelectionModel;
-	foot(): FootModel;
-	sort(): SortModel;
-	group(): GroupModel;
-	pivot(): PivotModel;
-	plugin(): PluginModel;
-	toolbar(): ToolbarModel;
-	layer(): LayerModel;
-	pagination(): PaginationModel;
-	progress(): ProgressModel;
-	highlight(): HighlightModel;
-	visibility(): VisibilityModel;
-	filter(): FilterModel;
-	drag(): DragModel;
-	style(): StyleModel;
-	scroll(): ScrollModel;
-	export(): ExportModel;
-	action(): ActionModel;
-	fetch(): FetchModel;
+
+	grid(value?: object, tag?: object): GridModel;
+
+	gridChanged: Event;
+
+	scene(value?: object, tag?: object): SceneModel;
+
+	sceneChanged: Event;
+
+	edit(value?: object, tag?: object): EditModel;
+
+	editChanged: Event;
+
+	view(value?: object, tag?: object): ViewModel;
+
+	viewChanged: Event;
+
+	data(value?: object, tag?: object): DataModel;
+
+	dataChanged: Event;
+
+	head(value?: object, tag?: object): HeadModel;
+
+	headChanged: Event;
+
+	body(value?: object, tag?: object): BodyModel;
+
+	bodyChanged: Event;
+
+	layout(value?: object, tag?: object): LayoutModel;
+
+	layoutChanged: Event;
+
+	navigation(value?: object, tag?: object): NavigationModel;
+
+	navigationChanged: Event;
+
+	focus(value?: object, tag?: object): FocusModel;
+
+	focusChanged: Event;
+
+	columnList(value?: object, tag?: object): ColumnListModel;
+
+	columnChanged: Event;
+
+	row(value?: object, tag?: object): RowModel;
+
+	rowChanged: Event;
+
+	selection(value?: object, tag?: object): SelectionModel;
+
+	selectionChanged: Event;
+
+	foot(value?: object, tag?: object): FootModel;
+
+	footChanged: Event;
+
+	sort(value?: object, tag?: object): SortModel;
+
+	sortChanged: Event;
+
+	group(value?: object, tag?: object): GroupModel;
+
+	groupChanged: Event;
+
+	pivot(value?: object, tag?: object): PivotModel;
+
+	pivotChanged: Event;
+
+	plugin(value?: object, tag?: object): PluginModel;
+
+	pluginChanged: Event;
+
+	toolbar(value?: object, tag?: object): ToolbarModel;
+
+	toolbarChanged: Event;
+
+	layer(value?: object, tag?: object): LayerModel;
+
+	layerChanged: Event;
+
+	pagination(value?: object, tag?: object): PaginationModel;
+
+	paginationChanged: Event;
+
+	progress(value?: object, tag?: object): ProgressModel;
+
+	progressChanged: Event;
+
+	highlight(value?: object, tag?: object): HighlightModel;
+
+	highlightChanged: Event;
+
+	visibility(value?: object, tag?: object): VisibilityModel;
+
+	visibilityChanged: Event;
+
+	filter(value?: object, tag?: object): FilterModel;
+
+	filterChanged: Event;
+
+	drag(value?: object, tag?: object): DragModel;
+
+	dragChanged: Event;
+
+	style(value?: object, tag?: object): StyleModel;
+
+	styleChanged: Event;
+
+	scroll(value?: object, tag?: object): ScrollModel;
+
+	scrollChanged: Event;
+
+	export(value?: object, tag?: object): ExportModel;
+
+	exportChanged: Event;
+
+	action(value?: object, tag?: object): ActionModel;
+
+	actionChanged: Event;
+
+	fetch(value?: object, tag?: object): FetchModel;
+
+	fetchChanged: Event;
 }

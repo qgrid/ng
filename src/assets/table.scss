@@ -30,6 +30,9 @@
 			width: 100%;
 			display: table-row;
 			table-layout: fixed;
+			&.q-grid-align {
+				height: 0 !important;
+			}
 		}
 	}
 

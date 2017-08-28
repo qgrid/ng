@@ -2,9 +2,9 @@ Controller.$inject = ['$http', 'qgrid'];
 export default function Controller($http, qgrid) {
 	const ctrl = this;
 	ctrl.model = qgrid.model();
-	const viewChangedOff = ctrl.model.viewChanged.on(e => {
+	ctrl.model.viewChanged.on((e, off) => {
 		if (e.hasChanges('rows') && e.state.rows.length > 0) {
-			viewChangedOff();
+			off();
 
 			const status = new Map();
 			status.set(e.state.rows[0], new qgrid.RowDetailsStatus(true));
@@ -19,6 +19,4 @@ export default function Controller($http, qgrid) {
 		.then(function (response) {
 			ctrl.rows = response.data;
 		});
-
-
 }

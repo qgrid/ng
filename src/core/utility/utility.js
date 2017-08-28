@@ -19,6 +19,9 @@ import sumBy from 'lodash/sumBy';
 import max from 'lodash/maxBy';
 import min from 'lodash/minBy';
 import zip from 'lodash/zip';
+import takeWhile from 'lodash/takeWhile';
+import dropWhile from 'lodash/dropWhile';
+import groupBy from 'lodash/groupBy';
 
 const noop = () => {
 };
@@ -28,12 +31,12 @@ const identity = arg => arg;
 
 const toCamelCase = (...names) => {
 	const length = names.length;
+	const nameList = names.map(name => '' + name);
 	if (length > 0) {
-		return names[0] +
-			names.slice(1)
-				.map(name =>
-				name[0].toUpperCase() +
-				name.substring(1, name.length));
+		return (nameList[0] +
+		nameList.slice(1)
+			.map(name => name[0].toUpperCase() + name.substring(1, name.length))
+			.join(''));
 	}
 
 	return '';
@@ -75,5 +78,8 @@ export {
 	max,
 	min,
 	sumBy,
-	zip
+	zip,
+	takeWhile,
+	dropWhile,
+	groupBy
 };

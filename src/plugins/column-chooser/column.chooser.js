@@ -5,7 +5,7 @@ import {Aggregation} from '@grid/core/services';
 import * as columnService from '@grid/core/column/column.service';
 import {isFunction, noop} from '@grid/core/utility';
 import {COLUMN_CHOOSER_NAME} from '../definition';
-import {PipeUnit} from '@grid/core/pipe/units';
+import {PipeUnit} from '@grid/core/pipe/pipe.unit';
 
 TemplatePath
 	.register(COLUMN_CHOOSER_NAME, () => {
@@ -65,8 +65,7 @@ class ColumnChooser extends Plugin {
 			},
 			execute: e => {
 				const model = this.model;
-				const view = model.view;
-				const columnRows = view().columns;
+				const columnRows = model.scene().column.rows;
 				for (let columns of columnRows) {
 					const targetIndex = columns.findIndex(c => c.model.key === e.target.value);
 					const sourceIndex = columns.findIndex(c => c.model.key === e.source.value);
@@ -145,14 +144,18 @@ class ColumnChooser extends Plugin {
 				}, {})
 		};
 
-		this.using(model.viewChanged.watch(e => {
+		this.using(model.sceneChanged.watch(e => {
 			if (e.tag.source === 'column.chooser') {
 				return;
 			}
 
-			if (e.hasChanges('columns')) {
-				this.columns = Array.from(model.data().columns);
-				this.columns.sort((x, y) => x.index - y.index);
+			if (e.hasChanges('column')) {
+				this.columns = e.state
+					.column
+					.rows
+					.reduce((memo, xs) => memo.concat(xs))
+					.map(c => c.model)
+					.filter(c => c.class === 'data');
 			}
 		}));
 	}

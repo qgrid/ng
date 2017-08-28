@@ -27,7 +27,7 @@ class Autofocus extends Directive(AUTOFOCUS_NAME, {root: `${GRID_NAME}`}) {
 			});
 
 		const rowsOff = this.$scope.$watch(
-			() => this.table.body.rowCount(),
+			() => this.table.body.rowCount(0),
 			count => {
 				if (count) {
 					const focusableIndex = this.table.data.columns().findIndex(c => c.canFocus);

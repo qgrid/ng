@@ -1,5 +1,5 @@
 import RootComponent from '../root.component';
-import {Table} from '@grid/core/dom';
+import {Table, Bag} from '@grid/core/dom';
 import {LayerFactory} from '@grid/view/services';
 import {AppError} from '@grid/core/infrastructure';
 import {TableCommandManager} from '@grid/core/command';
@@ -22,7 +22,11 @@ export class Grid extends RootComponent {
 			document: $document[0]
 		};
 
-		this.bag = new Map();
+		this.bag = {
+			head: new Bag(),
+			body: new Bag(),
+			foot: new Bag()
+		};
 		this.listener = new EventListener($element[0], new EventManager(this, this.applyFactory(null, 'sync')));
 	}
 
@@ -40,7 +44,7 @@ export class Grid extends RootComponent {
 		const layerFactory = new LayerFactory(this.markup, this.template);
 		const tableContext = {
 			layer: name => layerFactory.create(name),
-			model: element => bag.get(element) || null
+			bag: bag
 		};
 
 		this.table = new Table(model, this.markup, tableContext);
@@ -57,8 +61,8 @@ export class Grid extends RootComponent {
 		}
 
 		this.compile();
-		this.using(this.model.viewChanged.watch(e => {
-			if (e.hasChanges('columns')) {
+		this.using(this.model.sceneChanged.watch(e => {
+			if (e.hasChanges('column')) {
 				this.invalidateVisibility();
 			}
 		}));
@@ -80,12 +84,12 @@ export class Grid extends RootComponent {
 	}
 
 	invalidateVisibility() {
-		const columns = this.table.data.columns();
+		const area = this.model.scene().column.area;
 		const visibility = this.model.visibility;
 		visibility({
 			pin: {
-				left: columns.some(c => c.pin === 'left'),
-				right: columns.some(c => c.pin === 'right')
+				left: area.left.length,
+				right: area.right.length
 			}
 		});
 	}
@@ -177,6 +181,7 @@ export default {
 		selectionArea: '@',
 		onSelectionChanged: '&',
 		groupBy: '<',
+		groupMode: '@',
 		pivotBy: '<',
 		sortBy: '<',
 		sortMode: '@',
