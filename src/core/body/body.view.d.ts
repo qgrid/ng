@@ -3,7 +3,7 @@ import {ColumnModel} from '../column-type/column.model';
 import {IGetResult} from '../services/value';
 import {Model} from '../infrastructure/model';
 import {Table} from '../dom/table';
-import {ColumnView} from '../column-type/column.model.view';
+import {ColumnView} from '../scene/view/column.view';
 
 export interface IGetValueFactory {
 	(column: ColumnModel): IGetResult;
@@ -16,9 +16,9 @@ export declare class BodyView extends View {
 
 	columns(row: any, pin: string): ColumnView[];
 
-	rowspan(row: any, column: ColumnView, pin: string): number;
+	rowspan(row: any, column: ColumnView): number;
 
-	colspan(row: any, column: ColumnView, pin: string): number;
+	colspan(row: any, column: ColumnView): number;
 
 	value(row: any, column: ColumnModel, value?: any): string;
 

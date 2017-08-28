@@ -1,13 +1,13 @@
 import {DataRow} from './data.row';
-import {sumBy} from '../utility';
+import {sumBy} from '../../utility';
 
 export class DetailsRow extends DataRow {
-	constructor(model, context) {
-		super(model, context);
+	constructor(model) {
+		super(model);
 	}
 
-	colspan(rowDetails, column, pin) {
-		return sumBy(this.columnList(pin), c => c.colspan);
+	colspan(rowDetails, column) {
+		return sumBy(this.columnList(column.model.pin), c => c.colspan);
 	}
 
 	columns(rowDetails, pin) {

@@ -1,12 +1,12 @@
 import {View} from '../view';
 import {Command} from '../command';
-import {flatView as nodeFlatView} from '../node';
 import {getFactory as valueFactory} from '../services/value';
 import {getFactory as labelFactory} from '../services/label';
 import {columnFactory} from '../column/column.factory';
+import {PipeUnit} from '../pipe/pipe.unit';
 
 export class GroupView extends View {
-	constructor(model, table, commandManager) {
+	constructor(model, table, commandManager, service) {
 		super(model);
 
 		this.table = table;
@@ -20,9 +20,7 @@ export class GroupView extends View {
 				const toggle = model.group().toggle;
 				if (toggle.execute(node) !== false) {
 					node.state.expand = !node.state.expand;
-					const view = model.view;
-					const nodes = view().nodes;
-					view({rows: nodeFlatView(nodes)}, {behavior: 'core', source: 'group.view'});
+					service.invalidate('group.view', {}, PipeUnit.group);
 				}
 			},
 			canExecute: node => {

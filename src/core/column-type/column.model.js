@@ -1,5 +1,20 @@
 import {identity} from '../utility';
 import {Command} from '../command';
+import {TemplatePath} from '../template';
+
+TemplatePath.register('custom-cell', (template, column) => {
+	return {
+		model: template.for,
+		resource: column.key
+	};
+});
+
+TemplatePath.register('custom-cell-edit', (template, column) => {
+	return {
+		model: 'edit',
+		resource: column.key
+	};
+});
 
 export class ColumnModel {
 	constructor(type = 'text') {

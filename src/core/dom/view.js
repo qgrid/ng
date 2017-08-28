@@ -1,6 +1,5 @@
 import {Unit} from './unit';
 import * as css from '../services/css';
-import * as columnService from '../column/column.service';
 
 function isParentOf(parent, element) {
 	while (element) {
@@ -25,8 +24,8 @@ export class View extends Unit {
 	}
 
 	columns() {
-		const columns = this.model.view().columns;
-		return columnService.lineView(columns);
+		const column = this.model.scene().column;
+		return column.line;
 	}
 
 	focus() {

@@ -2,16 +2,16 @@
 	 class="q-grid-scroll-mark">
 </tr>
 <tr class="q-grid-align">
-	<td ng-repeat="$column in $view.body.layout.defaultStrategy.columnList($table.pin) track by $column.model.key"
+	<td ng-repeat="$column in $view.body.render.defaultStrategy.columnList($table.pin) track by $column.model.key"
 		 q-grid-core:td-align>
 	</td>
 </tr>
 <tr ng-repeat="$row in $view.body.rows | vscroll: $view.scroll.y track by $index"
 	 vscroll-row="{{::$index}}"
 	 q-grid-core:tr="body">
-	<td ng-repeat="$column in $view.body.columns($row, $table.pin) track by $column.model.key"
-		 rowspan="{{$view.body.rowspan($row, $column.model)}}"
-		 rowspan="{{$view.body.colspan($row, $column.model)}}"
+	<td ng-repeat="$column in $view.body.render.columns($row, $table.pin) track by $column.model.key"
+		 rowspan="{{$view.body.render.rowspan($row, $column)}}"
+		 rowspan="{{$view.body.render.colspan($row, $column)}}"
 		 q-grid-core:td>
 	</td>
 </tr>

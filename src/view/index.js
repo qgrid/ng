@@ -39,7 +39,6 @@ import Autofocus from './directives/autofocus';
 import ThemeProvider from './services/theme';
 import Range from './filters/range';
 import Highlight from './filters/highlight';
-import Pin from './filters/pin';
 
 import * as def from './definition';
 require('vscroll'); // TODO: make vscroll export
@@ -60,7 +59,6 @@ export const coreModule = angular.module(def.MODULE_CORE_NAME, [])
 	.service(def.TEMPLATE_PATH_NAME, () => () => TemplatePath)
 	.filter(def.RANGE_NAME, () => Range)
 	.filter(def.HIGHLIGHT_NAME, () => Highlight)
-	.filter(def.PIN_NAME, () => Pin)
 	.config(['$compileProvider',
 		$compileProvider => $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|tel|file|data):/)
 	])

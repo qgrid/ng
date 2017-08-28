@@ -1,13 +1,13 @@
 import {DataRow} from './data.row';
-import {takeWhile, dropWhile, sumBy} from '../utility';
-import {columnFactory} from '../column/column.factory';
-import {Aggregation} from '../services';
-import {AppError} from '../infrastructure';
-import {set as setValue} from '../services/value';
+import {takeWhile, dropWhile, sumBy} from '../../utility';
+import {columnFactory} from '../../column/column.factory';
+import {Aggregation} from '../../services';
+import {AppError} from '../../infrastructure';
+import {set as setValue} from '../../services/value';
 
 export class NodeRow extends DataRow {
-	constructor(model, context) {
-		super(model, context);
+	constructor(model) {
+		super(model);
 
 		const createColumn = columnFactory(model);
 		this.reference = {
@@ -15,13 +15,13 @@ export class NodeRow extends DataRow {
 		};
 	}
 
-	colspan(node, column, pin) {
+	colspan(node, column) {
 		if (node.type === 'group') {
-			const groupColumn = this.findGroupColumn(pin);
+			const groupColumn = this.findGroupColumn(column.model.pin);
 			if (groupColumn) {
 				const groupState = this.model.group();
 				if (groupState.mode === 'subhead') {
-					const groupSpan = takeWhile(this.columnList(pin), c => !c.model.aggregation);
+					const groupSpan = takeWhile(this.columnList(column.model.pin), c => !c.model.aggregation);
 					if (column.model.type === 'group') {
 						return sumBy(groupSpan, c => c.colspan);
 					}
@@ -29,7 +29,7 @@ export class NodeRow extends DataRow {
 			}
 		}
 
-		return super.colspan(node, column, pin);
+		return super.colspan(node, column);
 	}
 
 	columns(node, pin) {

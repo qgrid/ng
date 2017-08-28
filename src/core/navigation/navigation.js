@@ -85,7 +85,7 @@ export class Navigation {
 	get currentRow() {
 		const index = this.model.navigation().rowIndex;
 		if(index < 0){
-			return this.model.view().rows.length ? 0 : -1;
+			return this.model.scene().rows.length ? 0 : -1;
 		}
 
 		return index;

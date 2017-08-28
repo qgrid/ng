@@ -1,5 +1,5 @@
 import {ColumnModel} from '../column-type/column.model';
-import {Cell} from '../cell/cell';
+import {Cell} from '../scene/cell';
 
 export interface IPositionResult {
 	row: number;

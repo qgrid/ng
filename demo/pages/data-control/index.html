@@ -6,6 +6,7 @@
 		  actions="$ctrl.actions">
 
 	<q-grid:columns generation="deep">
+		<q-grid:column key="id" is-visible="false"></q-grid:column>
 		<q-grid:column type="row-indicator" key="rowIndicator" width="10" min-width="10">
 			<q-grid:template for="body"></q-grid:template>
 		</q-grid:column>

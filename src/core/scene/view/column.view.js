@@ -1,20 +1,5 @@
-import {ColumnModel} from './column.model';
-import {TemplatePath} from '../template';
-import {isObject, isFunction} from '../utility';
-
-TemplatePath.register('custom-cell', (template, column) => {
-	return {
-		model: template.for,
-		resource: column.key
-	};
-});
-
-TemplatePath.register('custom-cell-edit', (template, column) => {
-	return {
-		model: 'edit',
-		resource: column.key
-	};
-});
+import {ColumnModel} from '../../column-type/column.model';
+import {isObject, isFunction} from '../../utility/index';
 
 export class ColumnView {
 	constructor(model) {

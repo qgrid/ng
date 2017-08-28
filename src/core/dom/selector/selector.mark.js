@@ -1,5 +1,4 @@
 import {Range} from '../../infrastructure';
-import * as columnService from '../../column/column.service';
 
 export class SelectorMark {
 	constructor(model, markup, name) {
@@ -22,9 +21,7 @@ export class SelectorMark {
 	addFactory(result) {
 		const model = this.model;
 		const rows = model.view().rows;
-		const columns = columnService
-			.lineView(model.view().columns)
-			.map(v => v.model);
+		const columns = model.view().columns;
 
 		return pin => {
 			const name = pin ? `${this.name}-${pin}` : this.name;

@@ -1,28 +1,27 @@
-import {Node} from '../node';
-import {RowDetails} from '../row-details';
+import {Node} from '../../node';
+import {RowDetails} from '../../row-details';
 import {DataRow} from './data.row';
 import {DetailsRow} from './details.row';
 import {NodeRow} from './node.row';
 
-export class ResolutionRow {
-	constructor(model, context) {
+export class Renderer {
+	constructor(model) {
 		this.model = model;
-		this.context = context;
 
 		this.strategies = new Map();
-		this.strategies.set(RowDetails, new DetailsRow(model, context));
-		this.strategies.set(Node, new NodeRow(model, context));
-		this.defaultStrategy = new DataRow(model, context);
+		this.strategies.set(RowDetails, new DetailsRow(model));
+		this.strategies.set(Node, new NodeRow(model));
+		this.defaultStrategy = new DataRow(model);
 	}
 
-	colspan(row, column, pin) {
+	colspan(row, column) {
 		const strategy = this.resolve(row);
-		return strategy.colspan(row, column, pin);
+		return strategy.colspan(row, column);
 	}
 
-	rowspan(row, pin) {
+	rowspan(row, column) {
 		const strategy = this.resolve(row);
-		return strategy.rowspan(row, pin);
+		return strategy.rowspan(row, column);
 	}
 
 	columns(row, pin) {
