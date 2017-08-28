@@ -27,7 +27,7 @@ class ViewCore extends Component {
 		const selectors = {
 			th: TH_CORE_NAME
 		};
-		const injectViewSevicesTo = viewFactory(
+		const injectViewServicesTo = viewFactory(
 			model,
 			table,
 			commandManager,
@@ -35,7 +35,7 @@ class ViewCore extends Component {
 			vscroll,
 			selectors);
 
-		this.destroyView = injectViewSevicesTo(this);
+		this.destroyView = injectViewServicesTo(this);
 
 		// TODO: how we can avoid that?
 		this.$scope.$watch(this.style.invalidate.bind(this.style));
