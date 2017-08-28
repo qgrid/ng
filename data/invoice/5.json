@@ -1,0 +1,47 @@
+[
+	{
+		"invoiceNumber": "34",
+		"product": {
+			"productCode": "EAS060",
+			"productDescription": "6TH ANNUAL PROJECT FINANCE"
+		},
+		"quantity": 4,
+		"price": 123
+	},
+	{
+		"invoiceNumber": "123",
+		"product": {
+			"productCode": "ETS006",
+			"productDescription": "\"LIFE\" SOFTWARE TRAINING PROG"
+		},
+		"quantity": 3,
+		"price": 12
+	},
+	{
+		"invoiceNumber": "123",
+		"product": {
+			"productCode": "EOT1943",
+			"productDescription": "\"OIL GAS&POWER PROJ:JUN07\""
+		},
+		"quantity": 2,
+		"price": 23
+	},
+	{
+		"invoiceNumber": "234",
+		"product": {
+			"productCode": "MEW234",
+			"productDescription": "EUROWEEK EDITION 234 10/1/92"
+		},
+		"quantity": 2,
+		"price": 12
+	},
+	{
+		"invoiceNumber": "111",
+		"product": {
+			"productCode": "MEW2343",
+			"productDescription": "MY MONEY 10/1/93"
+		},
+		"quantity": 4,
+		"price": 10
+	}
+]

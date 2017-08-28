@@ -6,6 +6,7 @@
 		<q-grid:column key="age" title="Age" value="$ctrl.getAge($row)"></q-grid:column>
 		<q-grid:column key="age.interval" title="Age Interval" value="$ctrl.getAgeInterval($row)"></q-grid:column>
 		<q-grid:column key="gender" title="Gender" aggregation="count"></q-grid:column>
+		<q-grid:column key="settings" type="row-options"></q-grid:column>
 	</q-grid:columns>
 
 	<q-grid:toolbar>
