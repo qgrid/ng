@@ -39,5 +39,11 @@ describe('Match', () => {
 			let result = test(123);
 			expect(result).to.equal(true);
 		});
+
+		it('should return false if there are no matching entities', () => {
+			let test = Match.match(context);
+			let result = test(321);
+			expect(result).to.equal(false);
+		});
 	});
 });
