@@ -41,8 +41,6 @@ describe('Group View', () => {
 		}]
 	];
 
-
-
 	Model.register('group', GroupModel)
 		.register('view', ViewModel)
 		.register('action', ActionModel)
