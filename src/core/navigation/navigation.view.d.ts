@@ -5,7 +5,7 @@ import {Model} from '../infrastructure/model';
 import {Table} from '../dom/table';
 
 export declare class NavigationView extends View {
-	constructor(model: Model, table: Table, commandManager: CommandManager);
+	constructor(model: Model, table: Table, commandManager: CommandManager, setTimeout: any);
 
 	blur: Command;
 	focus: Command;

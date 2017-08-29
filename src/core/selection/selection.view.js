@@ -344,7 +344,7 @@ export class SelectionView extends View {
 	}
 
 	navigateTo(rowIndex, columnIndex) {
-		const cellModel = this.table.body.cell(rowIndex, columnIndex).model;
-		this.model.navigation({cell: cellModel}, {source: 'selection.view'});
+		const cell = this.table.body.cell(rowIndex, columnIndex);
+		this.model.navigation({cell: cell.model()}, {source: 'selection.view'});
 	}
 }

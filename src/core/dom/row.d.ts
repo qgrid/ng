@@ -1,5 +1,5 @@
 import {Element} from './element';
-import {Row as RowModel} from '../row/row';
+import {RowView} from '../scene/view/row.view';
 import {Box} from './box';
 import {Cell} from './cell';
 
@@ -9,4 +9,6 @@ export declare class Row extends Element {
 	cells(): Cell[]
 
 	cell(columnIndex: number): Cell;
+
+	model(): RowView;
 }

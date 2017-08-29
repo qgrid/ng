@@ -9,7 +9,7 @@ export class Row extends Element {
 		this.index = index;
 	}
 
-	get model() {
+	model() {
 		const model = this.box.context.bag.findModel(this.getKeyElementCore());
 		return model ? new RowModel(model) : null;
 	}
