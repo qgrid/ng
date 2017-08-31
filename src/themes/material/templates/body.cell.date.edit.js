@@ -14,7 +14,7 @@ export default function DateEdit($scope) {
 			}
 		});
 
-	const model = this.cell().model();
+	const model = this.cell().model;
 	const shortcut = model.action().shortcut;
 
 	const shortcutOff = shortcut.register(

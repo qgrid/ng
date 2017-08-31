@@ -48,7 +48,7 @@ export class BodyView extends View {
 	}
 
 	value(row, column, value) {
-		if (arguments.length == 3) {
+		if (arguments.length === 3) {
 			this.render.setValue(row, column, value);
 			return;
 		}

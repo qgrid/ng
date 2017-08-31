@@ -69,9 +69,15 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, r
 			return;
 		}
 
+		if (this.view.model.edit().mode !== null) {
+			return;
+		}
+
 		const pathFinder = new PathService(this.root.bag.body);
+		const cell = pathFinder.cell(e.path);
+
 		if (selectionState.mode === 'range') {
-			this.rangeStartCell = pathFinder.cell(e.path);
+			this.rangeStartCell = cell;
 			if (this.rangeStartCell) {
 				this.view.selection.selectRange(this.rangeStartCell, null, 'body');
 			}
@@ -81,7 +87,6 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, r
 
 		switch (selectionState.unit) {
 			case 'row': {
-				const cell = pathFinder.cell(e.path);
 				if (cell && cell.column.type !== 'select') {
 					this.view.selection.toggleRow.execute(cell.row, 'body');
 				}
@@ -89,7 +94,6 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, r
 			}
 
 			case 'column': {
-				const cell = pathFinder.cell(e.path);
 				if (cell) {
 					this.view.selection.toggleColumn.execute(cell.column, 'body');
 				}
@@ -97,7 +101,6 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, r
 			}
 
 			case 'mix': {
-				const cell = pathFinder.cell(e.path);
 				if (cell && cell.column.type === 'row-indicator') {
 					this.view.selection.toggleCell.execute(cell, 'body');
 				}
