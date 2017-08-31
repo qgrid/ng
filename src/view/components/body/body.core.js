@@ -69,40 +69,47 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, r
 			return;
 		}
 
-		if (this.view.model.edit().mode !== null) {
-			return;
-		}
-
 		const pathFinder = new PathService(this.root.bag.body);
 		const cell = pathFinder.cell(e.path);
 
+		const editMode = this.view.model.edit().mode;
 		if (selectionState.mode === 'range') {
-			this.rangeStartCell = cell;
-			if (this.rangeStartCell) {
-				this.view.selection.selectRange(this.rangeStartCell, null, 'body');
+			if (!editMode) {
+				this.rangeStartCell = cell;
+				if (this.rangeStartCell) {
+					this.view.selection.selectRange(this.rangeStartCell, null, 'body');
+				}
 			}
 
 			return;
 		}
 
-		switch (selectionState.unit) {
-			case 'row': {
-				if (cell && cell.column.type !== 'select') {
-					this.view.selection.toggleRow.execute(cell.row, 'body');
+		if (cell) {
+			switch (selectionState.unit) {
+				case 'row': {
+					if (cell.column.type === 'select') {
+						const focusState = this.view.model.focus();
+						if (focusState.rowIndex !== cell.rowIndex || focusState.columnIndex !== cell.columnIndex) {
+							this.view.selection.toggleRow.execute(cell.row, 'body');
+						}
+					}
+					else if (!editMode) {
+						this.view.selection.toggleRow.execute(cell.row, 'body');
+					}
+					break;
 				}
-				break;
-			}
 
-			case 'column': {
-				if (cell) {
-					this.view.selection.toggleColumn.execute(cell.column, 'body');
+				case 'column': {
+					if (!editMode) {
+						this.view.selection.toggleColumn.execute(cell.column, 'body');
+					}
+					break;
 				}
-				break;
-			}
 
-			case 'mix': {
-				if (cell && cell.column.type === 'row-indicator') {
-					this.view.selection.toggleCell.execute(cell, 'body');
+				case 'mix': {
+					if (cell.column.type === 'row-indicator') {
+						this.view.selection.toggleCell.execute(cell, 'body');
+					}
 				}
 			}
 		}

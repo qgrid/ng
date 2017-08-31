@@ -24,6 +24,7 @@ export class SelectionView extends View {
 		const commands = this.commands;
 
 		this.using(shortcut.register(selectionCommandManager, commands));
+
 		this.toggleRow = commands.get('toggleRow');
 		this.toggleColumn = commands.get('toggleColumn');
 		this.toggleCell = commands.get('toggleCell');
