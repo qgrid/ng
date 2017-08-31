@@ -84,7 +84,7 @@ export class Navigation {
 
 	get currentRow() {
 		const index = this.model.navigation().rowIndex;
-		if(index < 0){
+		if (index < 0) {
 			return this.model.scene().rows.length ? 0 : -1;
 		}
 
@@ -110,7 +110,8 @@ export class Navigation {
 	}
 
 	cell(row, column) {
-		return this.table.body.cell(row, column).model;
+		const cell = this.table.body.cell(row, column);
+		return cell.model();
 	}
 
 	get commands() {
