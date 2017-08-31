@@ -17,6 +17,8 @@ export class SelectColumnModel extends ColumnModel {
 		this.title = 'Select';
 		this.class = 'control';
 
+		this.editorOptions.trigger = 'focus';
+
 		this.canEdit = false;
 		this.canResize = false;
 	}

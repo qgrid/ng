@@ -5,9 +5,12 @@ import {CellEditor} from './edit.cell.editor';
 import {getFactory as valueFactory} from '../services/value';
 import {getFactory as labelFactory} from '../services/label';
 import {parseFactory} from '../services';
+import {View} from '../view';
 
-export class EditCellView {
+export class EditCellView extends View {
 	constructor(model, table, commandManager) {
+		super();
+
 		this.model = model;
 		this.table = table;
 
@@ -22,6 +25,24 @@ export class EditCellView {
 		this.commit = commands.get('commit');
 		this.cancel = commands.get('cancel');
 		this.reset = commands.get('reset');
+
+		this.using(model.navigationChanged.watch(e => {
+			if (e.hasChanges('cell')) {
+				const oldCell = e.changes.cell.oldValue;
+				if (oldCell && oldCell.column.editorOptions.trigger === 'focus') {
+					if (this.commit.canExecute(oldCell)) {
+						this.commit.execute(oldCell);
+					}
+				}
+
+				const newCell = e.changes.cell.newValue;
+				if (newCell && newCell.column.editorOptions.trigger === 'focus') {
+					if (this.enter.canExecute(newCell)) {
+						this.enter.execute(newCell);
+					}
+				}
+			}
+		}));
 	}
 
 	get commands() {
@@ -236,7 +257,9 @@ export class EditCellView {
 		};
 	}
 
-	destroy() {
+	dispose() {
+		super.dispose();
+
 		this.editor.reset();
 		this.shortcutOff();
 	}
