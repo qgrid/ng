@@ -3,8 +3,8 @@ import {modelFactory} from '../test/model.factory';
 import {ColumnModel} from '../column-type/column.model';
 
 describe('sortIndexFactory', function () {
-	it('sorting Test array based on ColumnList.index values', () => { //[(right-10,1),(left-5,2),(center-6,3)]  =>
-		let leftPinColumn1 = new ColumnModel();								//[(left-2,5),(center-3,6),(right-1,10)]
+	it('sorting Test array based on the ColumnList.index values', () => { //[(right-10,1),(left-5,2),(center-6,3)]  =>
+		let leftPinColumn1 = new ColumnModel();									 //[(left-2,5),(center-3,6),(right-1,10)]
 		leftPinColumn1.pin = 'right';
 		leftPinColumn1.key = 10;
 		let leftPinColumn2 = new ColumnModel();
