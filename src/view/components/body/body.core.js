@@ -129,20 +129,20 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, r
 
 	select(cell) {
 		const selectionState = this.selection;
-		if (selectionState.area !== 'body') {
+		if (selectionState.area !== 'body' || selectionState.mode === 'range') {
 			return;
 		}
 
 		const editMode = this.view.model.edit().mode;
 		switch (selectionState.unit) {
 			case 'row': {
-				if (cell.column.type === 'select') {
+				if (cell.column.type === 'select' && cell.column.editorOptions.trigger === 'focus') {
 					const focusState = this.view.model.focus();
 					if (focusState.rowIndex !== cell.rowIndex || focusState.columnIndex !== cell.columnIndex) {
 						this.view.selection.toggleRow.execute(cell.row, 'body');
 					}
 				}
-				else if (!editMode) {
+				else if (!editMode && cell.column.canEdit) {
 					this.view.selection.toggleRow.execute(cell.row, 'body');
 				}
 				break;
