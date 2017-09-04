@@ -55,8 +55,8 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, r
 		const pathFinder = new PathService(this.root.bag.body);
 		const cell = pathFinder.cell(e.path);
 		if (cell) {
+			this.select(cell);
 			this.navigate(cell);
-
 			if (cell.column.editorOptions.trigger === 'click' && this.view.edit.cell.enter.canExecute(cell)) {
 				this.view.edit.cell.enter.execute(cell);
 			}
@@ -78,38 +78,6 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, r
 				this.rangeStartCell = cell;
 				if (this.rangeStartCell) {
 					this.view.selection.selectRange(this.rangeStartCell, null, 'body');
-				}
-			}
-
-			return;
-		}
-
-		if (cell) {
-			switch (selectionState.unit) {
-				case 'row': {
-					if (cell.column.type === 'select') {
-						const focusState = this.view.model.focus();
-						if (focusState.rowIndex !== cell.rowIndex || focusState.columnIndex !== cell.columnIndex) {
-							this.view.selection.toggleRow.execute(cell.row, 'body');
-						}
-					}
-					else if (!editMode) {
-						this.view.selection.toggleRow.execute(cell.row, 'body');
-					}
-					break;
-				}
-
-				case 'column': {
-					if (!editMode) {
-						this.view.selection.toggleColumn.execute(cell.column, 'body');
-					}
-					break;
-				}
-
-				case 'mix': {
-					if (cell.column.type === 'row-indicator') {
-						this.view.selection.toggleCell.execute(cell, 'body');
-					}
 				}
 			}
 		}
@@ -156,6 +124,42 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, r
 	onMouseUp() {
 		if (this.selection.mode === 'range') {
 			this.rangeStartCell = null;
+		}
+	}
+
+	select(cell) {
+		const selectionState = this.selection;
+		if (selectionState.area !== 'body') {
+			return;
+		}
+
+		const editMode = this.view.model.edit().mode;
+		switch (selectionState.unit) {
+			case 'row': {
+				if (cell.column.type === 'select') {
+					const focusState = this.view.model.focus();
+					if (focusState.rowIndex !== cell.rowIndex || focusState.columnIndex !== cell.columnIndex) {
+						this.view.selection.toggleRow.execute(cell.row, 'body');
+					}
+				}
+				else if (!editMode) {
+					this.view.selection.toggleRow.execute(cell.row, 'body');
+				}
+				break;
+			}
+
+			case 'column': {
+				if (!editMode) {
+					this.view.selection.toggleColumn.execute(cell.column, 'body');
+				}
+				break;
+			}
+
+			case 'mix': {
+				if (cell.column.type === 'row-indicator') {
+					this.view.selection.toggleCell.execute(cell, 'body');
+				}
+			}
 		}
 	}
 

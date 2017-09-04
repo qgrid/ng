@@ -123,8 +123,8 @@ export class Navigation {
 				return true;
 			}
 
-			const col = table.body.column(this.currentColumn).model();
-			return col && col.editorOptions.trigger === 'focus';
+			const column = table.body.column(this.currentColumn).model();
+			return column && column.editorOptions.trigger === 'focus';
 		};
 
 		const commands = {
