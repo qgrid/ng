@@ -5,31 +5,18 @@ import {GRID_PREFIX} from '../definition';
 import {CellView} from '../scene/view';
 
 export class NavigationView extends View {
-	constructor(model, table, commandManager, timeout) {
+	constructor(model, table, commandManager) {
 		super(model);
 
 		this.table = table;
+
 		const shortcut = model.action().shortcut;
 		const navigation = new Navigation(model, table);
+		let focusBlurs = [];
 
 		this.using(shortcut.register(commandManager, navigation.commands));
 
-		this.blur = new Command({
-			execute: (row, column) => table.body.cell(row, column).removeClass(`${GRID_PREFIX}-focus`),
-			canExecute: (row, column, cell) => {
-				return cell || table.body.cell(row, column).model() !== null;
-			}
-		});
-
 		this.focus = new Command({
-			execute: (row, column) => table.body.cell(row, column).addClass(`${GRID_PREFIX}-focus`),
-			canExecute: (row, column, cell) => {
-				cell = cell || table.body.cell(row, column).model();
-				return cell && cell.column.canFocus;
-			}
-		});
-
-		this.focusCell = new Command({
 			execute: cell => model.navigation({cell: new CellView(cell)}),
 			canExecute: cell => {
 				return cell
@@ -52,20 +39,10 @@ export class NavigationView extends View {
 				}
 
 				const navState = e.state;
-				const newTarget = e.changes.cell.newValue;
-				const oldTarget = e.changes.cell.oldValue;
 				const newRow = navState.rowIndex;
 				const newColumn = navState.columnIndex;
-				const oldRow = oldTarget ? oldTarget.rowIndex : -1;
-				const oldColumn = oldTarget ? oldTarget.columnIndex : -1;
 
-				if (this.blur.canExecute(oldRow, oldColumn, oldTarget)) {
-					this.blur.execute(oldRow, oldColumn);
-				}
-
-				if (this.focus.canExecute(newRow, newColumn, newTarget)) {
-					this.focus.execute(newRow, newColumn);
-				}
+				focusBlurs = this.invalidateFocus(focusBlurs);
 
 				if (e.tag.source !== 'navigation.scroll' && this.scrollTo.canExecute(newRow, newColumn)) {
 					this.scrollTo.execute(newRow, newColumn);
@@ -88,16 +65,34 @@ export class NavigationView extends View {
 			}
 		}));
 
-		this.using(model.sceneChanged.watch(() => {
-			const nav = model.navigation;
-			const navState = nav();
-			const rowIndex = navState.rowIndex;
-			const columnIndex = navState.columnIndex;
-
-			nav({cell: null});
-			timeout(() => nav({cell: table.body.cell(rowIndex, columnIndex).model()}, 1000));
+		this.using(model.sceneChanged.watch(e => {
+			if (e.hasChanges('status')) {
+				const status = e.state.status;
+				switch (status) {
+					case 'stop':
+						focusBlurs = this.invalidateFocus(focusBlurs);
+						break;
+				}
+			}
 		}));
 	}
+
+	invalidateFocus(dispose) {
+		dispose.forEach(f => f());
+		dispose = [];
+
+		const focusState = this.model.focus();
+		const row = focusState.rowIndex;
+		const column = focusState.columnIndex;
+		const cell = this.table.body.cell(row, column);
+		if (cell.model()) {
+			cell.addClass(`${GRID_PREFIX}-focus`);
+			dispose.push(() => cell.removeClass(`${GRID_PREFIX}-focus`));
+		}
+
+		return dispose;
+	}
+
 
 	scroll(view, target) {
 		const tr = target.rect();

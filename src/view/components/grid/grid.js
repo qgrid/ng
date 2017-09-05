@@ -65,6 +65,32 @@ export class Grid extends RootComponent {
 			if (e.hasChanges('column')) {
 				this.invalidateVisibility();
 			}
+
+			if (!e.hasChanges('status') && e.state.status !== 'start') {
+				if (e.state.rows.length) {
+					model.scene({
+						status: 'start'
+					}, {
+						source: 'grid',
+						behavior: 'core'
+					});
+
+					const off = this.$scope.$watch(
+						() => this.table.body.rowCount(0),
+						count => {
+							if (count > 0) {
+								model.scene({
+									status: 'stop'
+								}, {
+									source: 'grid',
+									behavior: 'core'
+								});
+
+								off();
+							}
+						});
+				}
+			}
 		}));
 	}
 

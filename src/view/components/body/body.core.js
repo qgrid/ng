@@ -164,7 +164,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, r
 	}
 
 	navigate(cell) {
-		const focus = this.view.nav.focusCell;
+		const focus = this.view.nav.focus;
 		if (focus.canExecute(cell)) {
 			focus.execute(cell);
 		}
