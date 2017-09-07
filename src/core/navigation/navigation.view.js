@@ -43,7 +43,6 @@ export class NavigationView extends View {
 				const newColumn = navState.columnIndex;
 
 				focusBlurs = this.invalidateFocus(focusBlurs);
-
 				if (e.tag.source !== 'navigation.scroll' && this.scrollTo.canExecute(newRow, newColumn)) {
 					this.scrollTo.execute(newRow, newColumn);
 				}
@@ -81,9 +80,9 @@ export class NavigationView extends View {
 		dispose.forEach(f => f());
 		dispose = [];
 
-		const focusState = this.model.focus();
-		const row = focusState.rowIndex;
-		const column = focusState.columnIndex;
+		const navState = this.model.navigation();
+		const row = navState.rowIndex;
+		const column = navState.columnIndex;
 		const cell = this.table.body.cell(row, column);
 		if (cell.model()) {
 			cell.addClass(`${GRID_PREFIX}-focus`);
