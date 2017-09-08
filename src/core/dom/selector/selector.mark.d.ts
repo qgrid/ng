@@ -8,7 +8,7 @@ export interface ICell {
 }
 
 export interface AddFactoryResult {
-	(pin: string): ICell[];
+	(pin: string | null): ICell[];
 }
 
 export declare class SelectorMark {
