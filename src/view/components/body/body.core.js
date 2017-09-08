@@ -129,7 +129,8 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, r
 
 	select(cell) {
 		const selectionState = this.selection;
-		if (selectionState.area !== 'body' || selectionState.mode === 'range') {
+		if (cell.column.type !== 'select' &&
+			(selectionState.area !== 'body' || selectionState.mode === 'range')) {
 			return;
 		}
 

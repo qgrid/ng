@@ -28,7 +28,6 @@ export class SelectColumnModel extends ColumnModel {
 		this.editorOptions.trigger = 'focus';
 		this.value = noop;
 
-		this.canEdit = true;
 		this.canResize = false;
 	}
 }

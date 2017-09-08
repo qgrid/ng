@@ -21,5 +21,5 @@ export function orderFactory(model) {
 		}
 
 		return by;
-	}
+	};
 }

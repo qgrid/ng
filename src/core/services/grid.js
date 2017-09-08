@@ -21,37 +21,44 @@ export class GridService {
 			}
 		};
 
-		const task = () => {
-			Log.info('grid', `run job ${source}`);
-			const model = this.model;
-			model.head().cache.clear();
-			model.body().cache.clear();
-			model.foot().cache.clear();
+		return new Promise((resolve, reject) => {
+			const task = () => {
+				Log.info('grid', `run job ${source}`);
+				const model = this.model;
+				model.head().cache.clear();
+				model.body().cache.clear();
+				model.foot().cache.clear();
 
-			const stop = this.start();
-			const cancelBusy = this.busy();
-			const run = buildPipe(model, valueFactory);
-			const finish = () => {
-				stop()
+				const stop = this.start();
+				const cancelBusy = this.busy();
+				const run = buildPipe(model, valueFactory);
+				const runNext = () => {
+					stop()
+						.then(() => {
+							cancelBusy();
+							nextTask();
+						});
+				};
+
+				return run(source, changes, pipe)
 					.then(() => {
-						cancelBusy();
-						nextTask();
+						resolve();
+						runNext();
+					})
+					.catch(ex => {
+						Log.error('grid', ex);
+
+						reject();
+						runNext();
 					});
 			};
 
-			return run(source, changes, pipe)
-				.then(finish)
-				.catch(ex => {
-					Log.error('grid', ex);
-					finish();
-				});
-		};
-
-		Log.info('grid', `add job ${source}`);
-		queue.push(task);
-		if (queue.length === 1) {
-			task();
-		}
+			Log.info('grid', `add job ${source}`);
+			queue.push(task);
+			if (queue.length === 1) {
+				task();
+			}
+		});
 	}
 
 	busy() {
