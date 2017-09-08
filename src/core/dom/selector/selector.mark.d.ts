@@ -7,15 +7,7 @@ export interface ICell {
 	rowRange: Range;
 }
 
-export interface AddFactoryResult {
-	(pin: string | null): ICell[];
-}
-
 export declare class SelectorMark {
 	constructor(model: Model, markup: object, name: string);
-	model: Model;
-	markup: object;
-	name: string;
 	select(): ICell[];
-	addFactory(cells: ICell[]): AddFactoryResult;
 }
