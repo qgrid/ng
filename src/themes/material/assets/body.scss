@@ -204,6 +204,12 @@ tbody {
 			&.q-grid-row-details {
 				background: #fff;
 			}
+
+			&.q-grid-time {
+				md-input-container {
+					width: 100%;
+				}
+			}
 		}
 	}
 }
