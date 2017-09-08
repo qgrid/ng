@@ -4,7 +4,7 @@ import {SelectionService} from '@grid/core/selection';
 
 ReferenceEdit.$inject = ['$scope', 'qgrid', 'qGridPopupService'];
 export default function ReferenceEdit($scope, qgrid, popupService) {
-	this.editor = () => $scope.$editor || $scope.$view.edit.cell;
+	const editView = () => $scope.$editor || $scope.$view.edit.cell;
 
 	const id = 'q-grid-reference-edit';
 	const close = () => {
@@ -26,10 +26,10 @@ export default function ReferenceEdit($scope, qgrid, popupService) {
 		tag: tag
 	});
 
-	const options = this.editor().options;
+	const options = editView().options;
 	this.gridModel = (options
 		&& options.modelFactory
-		&& options.modelFactory(this.editor()))
+		&& options.modelFactory(editView()))
 		|| qgrid.model();
 
 	const watchSelection = e => {
@@ -38,9 +38,9 @@ export default function ReferenceEdit($scope, qgrid, popupService) {
 			const selectionItems = model.selection().items;
 			const entries = new SelectionService(model).lookup(selectionItems);
 
-			const editor = this.editor();
-			editor.value = selectionItems;
-			editor.tag = {
+			const view = editView();
+			view.value = selectionItems;
+			view.tag = {
 				entries: entries,
 				columns: model.data().columns
 			};
@@ -50,11 +50,11 @@ export default function ReferenceEdit($scope, qgrid, popupService) {
 	this.gridModel.dataChanged.watch((e, off) => {
 		if (e.hasChanges('rows') && e.state.rows.length > 0) {
 			off();
-			const editor = this.editor();
+			const view = editView();
 			const model = this.gridModel;
 			if (!model.selection().items.length) {
 				model.selection({
-					items: isArray(editor.value) ? editor.value : [editor.value]
+					items: isArray(view.value) ? view.value : [view.value]
 				});
 			}
 
@@ -74,10 +74,10 @@ export default function ReferenceEdit($scope, qgrid, popupService) {
 		commit: new Command({
 			shortcut: shortcutFactory('commit'),
 			execute: ($cell, $event) => {
-				const editor = this.editor();
-				const context = contextFactory($cell, editor.value, editor.label, editor.tag);
-
-				if (editor.commit.execute($cell, $event) === false) {
+				const view = editView();
+				const cell = $cell || view.editor.cell;
+				const context = contextFactory(cell || view.cell, view.value, view.label, view.tag);
+				if (view.commit.execute(cell, $event) === false) {
 					return;
 				}
 
@@ -94,10 +94,10 @@ export default function ReferenceEdit($scope, qgrid, popupService) {
 		cancel: new Command({
 			shortcut: shortcutFactory('cancel'),
 			execute: ($cell, $event) => {
-				const editor = this.editor();
-				const context = contextFactory($cell, editor.value, editor.label, editor.tag);
-
-				if (editor.cancel.execute($cell, $event) === false) {
+				const view = editView();
+				const cell = $cell || view.editor.cell;
+				const context = contextFactory(cell, view.value, view.label, view.tag);
+				if (view.cancel.execute(cell, $event) === false) {
 					return;
 				}
 
