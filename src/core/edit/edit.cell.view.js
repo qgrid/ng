@@ -97,8 +97,9 @@ export class EditCellView extends View {
 				shortcut: this.shortcutFactory('commit'),
 				// TODO: add validation support
 				canExecute: cell => {
-					cell = cell || this.editor.cell || model.navigation().cell;
+					cell = cell || this.editor.cell;
 					return cell
+						&& cell === this.editor.cell
 						&& cell.column.canEdit
 						&& (cell.column.class === 'control' || model.edit().mode === 'cell')
 						&& model.edit().state === 'edit'
@@ -110,7 +111,7 @@ export class EditCellView extends View {
 						e.stopImmediatePropagation();
 					}
 
-					cell = cell || this.editor.cell || model.navigation().cell;
+					cell = cell || this.editor.cell;
 					if (cell && model.edit().commit.execute(this.contextFactory(cell, this.value, this.label, this.tag)) !== false) {
 						this.editor.commit();
 						this.editor = CellEditor.empty;
@@ -126,7 +127,7 @@ export class EditCellView extends View {
 			cancel: new Command({
 				shortcut: this.shortcutFactory('cancel'),
 				canExecute: cell => {
-					cell = cell || this.editor.cell || model.navigation().cell;
+					cell = cell || this.editor.cell;
 					return cell
 						&& cell.column.canEdit
 						&& (cell.column.class === 'control' || model.edit().mode === 'cell')
@@ -139,7 +140,7 @@ export class EditCellView extends View {
 						e.stopImmediatePropagation();
 					}
 
-					cell = cell || this.editor.cell || model.navigation().cell;
+					cell = cell || this.editor.cell;
 					let label = this.label;
 					let value = cell.value;
 
@@ -158,7 +159,7 @@ export class EditCellView extends View {
 			}),
 			reset: new Command({
 				canExecute: cell => {
-					cell = cell || this.editor.cell || model.navigation().cell;
+					cell = cell || this.editor.cell;
 					return cell
 						&& cell.column.canEdit
 						&& (cell.column.class === 'control' || model.edit().mode === 'cell')
@@ -171,7 +172,7 @@ export class EditCellView extends View {
 						e.stopImmediatePropagation();
 					}
 
-					cell = cell || this.editor.cell || model.navigation().cell;
+					cell = cell || this.editor.cell;
 					if (cell && model.edit().reset.execute(this.contextFactory(cell, this.value, this.label)) !== false) {
 						this.editor.reset();
 						return true;
@@ -245,7 +246,7 @@ export class EditCellView extends View {
 		const edit = model.edit;
 		return () => {
 			const shortcuts = edit()[type + 'Shortcuts'];
-			const cell = this.editor.cell || model.navigation().cell;
+			const cell = this.editor.cell;
 			if (cell) {
 				const type = cell.column && cell.column.editor ? cell.column.editor : cell.column.type;
 				if (shortcuts.hasOwnProperty(type)) {
