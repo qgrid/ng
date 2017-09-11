@@ -1,21 +1,34 @@
 <q-grid rows="$ctrl.rows">
 	<q-grid:columns generation="deep"></q-grid:columns>
-	<q-grid:pager size="11" size-list="[11,22,33]" mode="row">
+	<q-grid:pager size="11" size-list="[11,22,33]">
 		<q-grid:template>
-			<div style="padding-top: 20px;">
-				<label>Rows per page:</label>
-				<select ng-model="$pager.size"
-						  ng-options="size for size in $pager.sizeList">
-				</select>
-				<label>{{$pager.from}}-{{$pager.to}} of {{$pager.total}}</label>
-				<button ng-disabled="!$pager.prev.canExecute()"
-						  ng-click="$pager.prev.execute();">
-					&lt;
-				</button>
-				<button ng-disabled="!$pager.next.canExecute()"
-						  ng-click="$pager.next.execute();">
-					&gt;
-				</button>
+			<div class="q-grid-pager">
+				<div>
+					<label style="margin-right: 12px;">Total rows: {{$pager.model.data().rows.length}}</label>
+					<label class="q-grid-page-size">Rows per page:</label>
+					<md-select aria-label="Page Size List"
+								  tabindex="-1"
+								  class="q-grid-page-size"
+								  ng-model="$pager.size">
+						<md-option ng-repeat="size in $pager.sizeList" ng-value="size">{{size}}</md-option>
+					</md-select>
+					<label class="q-grid-page" ng-switch="::$pager.mode">
+						<span ng-switch-when="row">{{$pager.from}}-{{$pager.to}} of {{$pager.total}}</span>
+						<span ng-switch-default>{{$pager.current + 1}} of {{$pager.totalPages}}</span>
+					</label>
+					<md-button class="md-icon-button q-grid-prev-page"
+								  ng-disabled="!$pager.prev.canExecute()"
+								  ng-click="$pager.prev.execute();"
+								  tabindex="-1">
+						<md-icon>keyboard_arrow_left</md-icon>
+					</md-button>
+					<md-button class="md-icon-button q-grid-next-page"
+								  ng-disabled="!$pager.next.canExecute()"
+								  ng-click="$pager.next.execute();"
+								  tabindex="-1">
+						<md-icon>keyboard_arrow_right</md-icon>
+					</md-button>
+				</div>
 			</div>
 		</q-grid:template>
 	</q-grid:pager>

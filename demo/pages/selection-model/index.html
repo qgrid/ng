@@ -5,7 +5,7 @@
 		  selection-key="$ctrl.selectionKey"
 		  on:selection-changed="$ctrl.selectionChanged($event)">
 	<q-grid:columns generation="deep">
-		<q-grid:column type="select">
+		<q-grid:column type="select" editor-options="{trigger: 'click'}" can-edit="false">
 			<q-grid:template for="head">
 				<md-checkbox md-indeterminate="$view.selection.isIndeterminate()"
 								 ng-checked="$view.selection.state()"

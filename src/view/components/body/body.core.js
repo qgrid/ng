@@ -55,8 +55,8 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, r
 		const pathFinder = new PathService(this.root.bag.body);
 		const cell = pathFinder.cell(e.path);
 		if (cell) {
+			this.select(cell);
 			this.navigate(cell);
-
 			if (cell.column.editorOptions.trigger === 'click' && this.view.edit.cell.enter.canExecute(cell)) {
 				this.view.edit.cell.enter.execute(cell);
 			}
@@ -70,36 +70,14 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, r
 		}
 
 		const pathFinder = new PathService(this.root.bag.body);
+		const cell = pathFinder.cell(e.path);
+
+		const editMode = this.view.model.edit().mode;
 		if (selectionState.mode === 'range') {
-			this.rangeStartCell = pathFinder.cell(e.path);
-			if (this.rangeStartCell) {
-				this.view.selection.selectRange(this.rangeStartCell, null, 'body');
-			}
-
-			return;
-		}
-
-		switch (selectionState.unit) {
-			case 'row': {
-				const cell = pathFinder.cell(e.path);
-				if (cell && cell.column.type !== 'select') {
-					this.view.selection.toggleRow.execute(cell.row, 'body');
-				}
-				break;
-			}
-
-			case 'column': {
-				const cell = pathFinder.cell(e.path);
-				if (cell) {
-					this.view.selection.toggleColumn.execute(cell.column, 'body');
-				}
-				break;
-			}
-
-			case 'mix': {
-				const cell = pathFinder.cell(e.path);
-				if (cell && cell.column.type === 'row-indicator') {
-					this.view.selection.toggleCell.execute(cell, 'body');
+			if (!editMode) {
+				this.rangeStartCell = cell;
+				if (this.rangeStartCell) {
+					this.view.selection.selectRange(this.rangeStartCell, null, 'body');
 				}
 			}
 		}
@@ -149,8 +127,45 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, r
 		}
 	}
 
+	select(cell) {
+		const selectionState = this.selection;
+		if (cell.column.type !== 'select' &&
+			(selectionState.area !== 'body' || selectionState.mode === 'range')) {
+			return;
+		}
+
+		const editMode = this.view.model.edit().mode;
+		switch (selectionState.unit) {
+			case 'row': {
+				if (cell.column.type === 'select' && cell.column.editorOptions.trigger === 'focus') {
+					const focusState = this.view.model.focus();
+					if (focusState.rowIndex !== cell.rowIndex || focusState.columnIndex !== cell.columnIndex) {
+						this.view.selection.toggleRow.execute(cell.row, 'body');
+					}
+				}
+				else if (!editMode && cell.column.canEdit) {
+					this.view.selection.toggleRow.execute(cell.row, 'body');
+				}
+				break;
+			}
+
+			case 'column': {
+				if (!editMode) {
+					this.view.selection.toggleColumn.execute(cell.column, 'body');
+				}
+				break;
+			}
+
+			case 'mix': {
+				if (cell.column.type === 'row-indicator') {
+					this.view.selection.toggleCell.execute(cell, 'body');
+				}
+			}
+		}
+	}
+
 	navigate(cell) {
-		const focus = this.view.nav.focusCell;
+		const focus = this.view.nav.focus;
 		if (focus.canExecute(cell)) {
 			focus.execute(cell);
 		}

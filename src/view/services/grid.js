@@ -11,8 +11,9 @@ import {getFactory as labelFactory} from '@grid/core/services/label';
 import {RowDetailsStatus} from '@grid/core/row-details';
 
 export default class Grid {
-	constructor($rootScope) {
-		this.$rootScope = $rootScope;
+	constructor($timeout, $q) {
+		this.$timeout = $timeout;
+		this.$q = $q;
 	}
 
 	model() {
@@ -20,13 +21,33 @@ export default class Grid {
 	}
 
 	service(model) {
-		const $rootScope = this.$rootScope;
-		const apply = () => {
-			Log.info('service', '$digest apply');
-			$rootScope.$evalAsync(noop);
+		const start = () => {
+			Log.info('service', 'invalidate start');
+			model.scene({
+				status: 'start'
+			}, {
+				source: 'grid',
+				behavior: 'core'
+			});
+
+			return () => {
+				const defer = this.$q.defer();
+				this.$timeout(() => {
+					model.scene({
+						status: 'stop'
+					}, {
+						source: 'grid',
+						behavior: 'core'
+					});
+
+					defer.resolve();
+				}, 10);
+
+				return defer.promise;
+			}
 		};
 
-		return new GridService(model, apply);
+		return new GridService(model, start);
 	}
 
 	get noop() {
@@ -70,4 +91,4 @@ export default class Grid {
 	}
 }
 
-Grid.$inject = ['$rootScope'];
+Grid.$inject = ['$timeout', '$q'];

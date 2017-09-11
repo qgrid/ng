@@ -33,6 +33,7 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.body.cell.password.edit.tpl.html', require('@grid/themes/material/templates/body.cell.password.edit.html'));
 		theme.put('qgrid.body.cell.bool.tpl.html', require('@grid/themes/material/templates/body.cell.bool.html'));
 		theme.put('qgrid.body.cell.select.tpl.html', require('@grid/themes/material/templates/body.cell.select.html'));
+		theme.put('qgrid.body.cell.select.edit.tpl.html', require('@grid/themes/material/templates/body.cell.select.edit.html'));
 		theme.put('qgrid.body.cell.row-indicator.tpl.html', require('@grid/themes/material/templates/body.cell.row.indicator.html'));
 		theme.put('qgrid.body.cell.row-options.tpl.html', require('@grid/themes/material/templates/body.cell.row.options.html'));
 		theme.put('qgrid.body.cell.row-options.edit.tpl.html', require('@grid/themes/material/templates/body.cell.row.options.edit.html'));
