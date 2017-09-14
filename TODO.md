@@ -4,7 +4,7 @@
 	* Title
 	* State persistence
 * Columns 
-   * New type - enum
+	* New type - enum
 	* Resize mode(fill | expand)
 	* Colgroup 
 	* Filter row templates for each column type
