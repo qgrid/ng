@@ -12,11 +12,11 @@
 * Grouping 
 	* Sub-totals
 	* Summary
-	* Footer summary
 * Footer/header
 	* Multi-row header
 	* Footer summary
 	* Floating rows
+	* Summary
 * Edit form
 	* Service(possibility to open form from code)
 	* Edit form trigger rendering performance
