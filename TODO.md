@@ -6,10 +6,10 @@
 * Columns 
 	* New type - enum
 	* Resize mode(fill | expand)
-	* Colgroup 
+	* Col-group 
 	* Filter row templates for each column type
 	* CanEdit, canSort, can* as expressions?
-* Groping 
+* Grouping 
 	* Sub-totals
 	* Summary
 	* Footer summary
