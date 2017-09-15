@@ -138,7 +138,7 @@ function parseNumber(value) {
 
 function parseArray(value) {
 	if (isArray(value)) {
-		return value
+		return value;
 	}
 
 	return null;
