@@ -16,89 +16,162 @@ export default angular
 
 Setup.$inject = ['qgridThemeProvider'];
 function Setup(qgridThemeProvider) {
+
+	const cell = (pos, type) => `{qgrid.${pos}.cell.${type}.tpl.html`;
+	const plugin = (type) => `{qgrid.plugin.${type}.tpl.html`;
+	const component = (type) => `{qgrid.${type}.tpl.html`;
+	const form = (type) => `{qgrid.form.cell.${type}.tpl.html`;
+
 	qgridThemeProvider.register('material', theme => {
-		theme.put('qgrid.plugin.progress.tpl.html', require('@grid/themes/material/templates/plugin.progress.html'));
-		theme.put('qgrid.plugin.export.tpl.html', require('@grid/themes/material/templates/plugin.export.html'));
-		theme.put('qgrid.plugin.import.tpl.html', require('@grid/themes/material/templates/plugin.import.html'));
+		theme.put(component('toolbar'), require('./templates/toolbar.top.html'));
 
-		theme.put('qgrid.body.cell.text.edit.tpl.html', require('@grid/themes/material/templates/body.cell.text.edit.html'));
-		theme.put('qgrid.body.cell.text-area.edit.tpl.html', require('@grid/themes/material/templates/body.cell.text.area.edit.html'));
-		theme.put('qgrid.body.cell.group.tpl.html', require('@grid/themes/material/templates/body.cell.group.html'));
-		theme.put('qgrid.body.cell.group.edit.tpl.html', require('@grid/themes/material/templates/body.cell.text.edit.html'));
-		theme.put('qgrid.body.cell.bool.edit.tpl.html', require('@grid/themes/material/templates/body.cell.bool.edit.html'));
-		theme.put('qgrid.body.cell.date.edit.tpl.html', require('@grid/themes/material/templates/body.cell.date.edit.html'));
-		theme.put('qgrid.body.cell.number.edit.tpl.html', require('@grid/themes/material/templates/body.cell.number.edit.html'));
-		theme.put('qgrid.body.cell.array.tpl.html', require('@grid/themes/material/templates/body.cell.array.html'));
-		theme.put('qgrid.body.cell.array.edit.tpl.html', require('@grid/themes/material/templates/body.cell.array.edit.html'));
-		theme.put('qgrid.body.cell.password.edit.tpl.html', require('@grid/themes/material/templates/body.cell.password.edit.html'));
-		theme.put('qgrid.body.cell.bool.tpl.html', require('@grid/themes/material/templates/body.cell.bool.html'));
-		theme.put('qgrid.body.cell.select.tpl.html', require('@grid/themes/material/templates/body.cell.select.html'));
-		theme.put('qgrid.body.cell.select.edit.tpl.html', require('@grid/themes/material/templates/body.cell.select.edit.html'));
-		theme.put('qgrid.body.cell.row-indicator.tpl.html', require('@grid/themes/material/templates/body.cell.row.indicator.html'));
-		theme.put('qgrid.body.cell.row-options.tpl.html', require('@grid/themes/material/templates/body.cell.row.options.html'));
-		theme.put('qgrid.body.cell.row-options.edit.tpl.html', require('@grid/themes/material/templates/body.cell.row.options.edit.html'));
-		theme.put('qgrid.body.cell.url.tpl.html', require('@grid/themes/material/templates/body.cell.url.html'));
-		theme.put('qgrid.body.cell.url.edit.tpl.html', require('@grid/themes/material/templates/body.cell.url.edit.html'));
-		theme.put('qgrid.body.cell.email.tpl.html', require('@grid/themes/material/templates/body.cell.email.html'));
-		theme.put('qgrid.body.cell.email.edit.tpl.html', require('@grid/themes/material/templates/body.cell.email.edit.html'));
-		theme.put('qgrid.body.cell.file.tpl.html', require('@grid/themes/material/templates/body.cell.file.html'));
-		theme.put('qgrid.body.cell.file.edit.tpl.html', require('@grid/themes/material/templates/body.cell.file.edit.html'));
-		theme.put('qgrid.body.cell.image.tpl.html', require('@grid/themes/material/templates/body.cell.image.html'));
-		theme.put('qgrid.body.cell.image.edit.tpl.html', require('@grid/themes/material/templates/body.cell.file.edit.html'));
-		theme.put('qgrid.body.cell.reference.tpl.html', require('@grid/themes/material/templates/body.cell.reference.html'));
-		theme.put('qgrid.body.cell.reference.edit.tpl.html', require('@grid/themes/material/templates/body.cell.reference.edit.html'));
-		theme.put('qgrid.body.cell.dropdown.edit.tpl.html', require('@grid/themes/material/templates/body.cell.dropdown.edit.html'));
-		theme.put('qgrid.body.cell.autocomplete.edit.tpl.html', require('@grid/themes/material/templates/body.cell.autocomplete.edit.html'));
-		theme.put('qgrid.body.cell.id.edit.tpl.html', require('@grid/themes/material/templates/body.cell.text.edit.html'));
-		theme.put('qgrid.body.cell.row-expand.tpl.html', require('@grid/themes/material/templates/body.cell.row.expand.html'));
-		theme.put('qgrid.body.cell.currency.edit.tpl.html', require('@grid/themes/material/templates/body.cell.currency.edit.html'));
+		theme.put(plugin('progress'), require('./templates/'));
+		theme.put(plugin('export'), require('./templates/'));
+		theme.put(plugin('import'), require('./templates/'));
+		theme.put(plugin('column-chooser'), require('./templates/plugin.column.chooser.html'));
+		theme.put(plugin('column-filter-panel'), require('./templates/plugin.column.filter.panel.html'));
+		theme.put(plugin('edit-form'), require('./templates/plugin.edit.form.html'));
+		theme.put(plugin('edit-form-panel'), require('./templates/plugin.edit.form.panel.html'));
+		theme.put(plugin('popup-panel'), require('./templates/plugin.popup.panel.html'));
+		theme.put(plugin('group-bar'), require('./templates/plugin.group.bar.html'));
+		theme.put(plugin('action-bar-core'), require('./templates/plugin.action.bar.core.html'));
+		theme.put(plugin('action'), require('./templates/plugin.action.html'));
+		theme.put(plugin('sort-bar'), require('./templates/plugin.sort.bar.html'));
+		theme.put(plugin('pivot-bar'), require('./templates/plugin.pivot.bar.html'));
+		theme.put(plugin('selection-bar'), require('./templates/plugin.selection.bar.html'));
+		theme.put(plugin('pager'), require('./templates/plugin.pager.html'));
 
-		theme.put('qgrid.head.cell.text.tpl.html', require('@grid/themes/material/templates/head.cell.text.html'));
-		theme.put('qgrid.head.cell.bool.tpl.html', require('@grid/themes/material/templates/head.cell.text.html'));
-		theme.put('qgrid.head.cell.date.tpl.html', require('@grid/themes/material/templates/head.cell.text.html'));
-		theme.put('qgrid.head.cell.number.tpl.html', require('@grid/themes/material/templates/head.cell.text.html'));
-		theme.put('qgrid.head.cell.array.tpl.html', require('@grid/themes/material/templates/head.cell.text.html'));
-		theme.put('qgrid.head.cell.email.tpl.html', require('@grid/themes/material/templates/head.cell.text.html'));
-		theme.put('qgrid.head.cell.password.tpl.html', require('@grid/themes/material/templates/head.cell.text.html'));
-		theme.put('qgrid.head.cell.time.tpl.html', require('@grid/themes/material/templates/head.cell.text.html'));
-		theme.put('qgrid.head.cell.url.tpl.html', require('@grid/themes/material/templates/head.cell.text.html'));
-		theme.put('qgrid.head.cell.file.tpl.html', require('@grid/themes/material/templates/head.cell.text.html'));
-		theme.put('qgrid.head.cell.image.tpl.html', require('@grid/themes/material/templates/head.cell.text.html'));
-		theme.put('qgrid.head.cell.reference.tpl.html', require('@grid/themes/material/templates/head.cell.text.html'));
-		theme.put('qgrid.head.cell.id.tpl.html', require('@grid/themes/material/templates/head.cell.text.html'));
-		theme.put('qgrid.head.cell.pivot.tpl.html', require('@grid/themes/material/templates/head.cell.pivot.html'));
-		theme.put('qgrid.head.cell.select.tpl.html', require('@grid/themes/material/templates/head.cell.select.html'));
-		theme.put('qgrid.head.cell.filter-row.tpl.html', require('@grid/themes/material/templates/head.cell.filter.row.html'));
-		theme.put('qgrid.head.cell.currency.tpl.html', require('@grid/themes/material/templates/head.cell.text.html'));
+		theme.put(cell('head', 'text'), require('./templates/head.cell.text.html'));
+		theme.put(cell('body', 'text'), require('./templates/body.cell.text.html'));
+		theme.put(cell('foot', 'text'), require('./templates/foot.cell.text.html'));
+		theme.put(cell('body', 'text.edit'), require('./templates/body.cell.text.edit.html'));
+		theme.put(cell('body', 'text-area.edit'), require('./templates/body.cell.text.area.edit.html'));
 
-		theme.put('qgrid.form.cell.text.edit.tpl.html', require('@grid/themes/material/templates/form.cell.text.edit.html'));
-		theme.put('qgrid.form.cell.number.edit.tpl.html', require('@grid/themes/material/templates/form.cell.number.edit.html'));
-		theme.put('qgrid.form.cell.currency.edit.tpl.html', require('@grid/themes/material/templates/form.cell.number.edit.html'));
-		theme.put('qgrid.form.cell.date.edit.tpl.html', require('@grid/themes/material/templates/form.cell.date.edit.html'));
-		theme.put('qgrid.form.cell.bool.edit.tpl.html', require('@grid/themes/material/templates/form.cell.bool.edit.html'));
-		theme.put('qgrid.form.cell.reference.edit.tpl.html', require('@grid/themes/material/templates/form.cell.reference.edit.html'));
-		theme.put('qgrid.form.cell.id.edit.tpl.html', require('@grid/themes/material/templates/form.cell.text.edit.html'));
-		theme.put('qgrid.form.cell.url.edit.tpl.html', require('@grid/themes/material/templates/form.cell.url.edit.html'));
-		theme.put('qgrid.form.cell.image.edit.tpl.html', require('@grid/themes/material/templates/form.cell.file.edit.html'));
-		theme.put('qgrid.form.cell.file.edit.tpl.html', require('@grid/themes/material/templates/form.cell.file.edit.html'));
-		theme.put('qgrid.form.cell.text-area.edit.tpl.html', require('@grid/themes/material/templates/form.cell.text.area.edit.html'));
-		theme.put('qgrid.form.cell.password.edit.tpl.html', require('@grid/themes/material/templates/form.cell.password.edit.html'));
-		theme.put('qgrid.form.cell.array.edit.tpl.html', require('@grid/themes/material/templates/form.cell.array.edit.html'));
-		theme.put('qgrid.form.cell.email.edit.tpl.html', require('@grid/themes/material/templates/form.cell.email.edit.html'));
-		theme.put('qgrid.form.cell.time.edit.tpl.html', require('@grid/themes/material/templates/form.cell.time.edit.html'));
+		theme.put(cell('head', 'number'), require('./templates/head.cell.text.html'));
+		theme.put(cell('body', 'number'), require('./templates/body.cell.text.html'));
+		theme.put(cell('foot', 'number'), require('./templates/foot.cell.text.html'));
+		theme.put(cell('body', 'number.edit'), require('./templates/body.cell.text.edit.html'));
 
-		theme.put('qgrid.toolbar.top.tpl.html', require('@grid/themes/material/templates/toolbar.top.html'));
-		theme.put('qgrid.plugin.column-chooser.tpl.html', require('@grid/themes/material/templates/plugin.column.chooser.html'));
-		theme.put('qgrid.plugin.column-filter-panel.tpl.html', require('@grid/themes/material/templates/plugin.column.filter.panel.html'));
-		theme.put('qgrid.plugin.edit-form.tpl.html', require('@grid/themes/material/templates/plugin.edit.form.html'));
-		theme.put('qgrid.plugin.edit-form-panel.tpl.html', require('@grid/themes/material/templates/plugin.edit.form.panel.html'));
-		theme.put('qgrid.plugin.popup-panel.tpl.html', require('@grid/themes/material/templates/plugin.popup.panel.html'));
-		theme.put('qgrid.plugin.group-bar.tpl.html', require('@grid/themes/material/templates/plugin.group.bar.html'));
-		theme.put('qgrid.plugin.action-bar-core.tpl.html', require('@grid/themes/material/templates/plugin.action.bar.core.html'));
-		theme.put('qgrid.plugin.action.tpl.html', require('@grid/themes/material/templates/plugin.action.html'));
-		theme.put('qgrid.plugin.sort-bar.tpl.html', require('@grid/themes/material/templates/plugin.sort.bar.html'));
-		theme.put('qgrid.plugin.pivot-bar.tpl.html', require('@grid/themes/material/templates/plugin.pivot.bar.html'));
-		theme.put('qgrid.plugin.selection-bar.tpl.html', require('@grid/themes/material/templates/plugin.selection.bar.html'));
-		theme.put('qgrid.plugin.pager.tpl.html', require('@grid/themes/material/templates/plugin.pager.html'));
+		theme.put(cell('head', 'bool'), require('./templates/head.cell.text.html'));
+		theme.put(cell('body', 'bool'), require('./templates/body.cell.text.html'));
+		theme.put(cell('foot', 'bool'), require('./templates/foot.cell.text.html'));
+		theme.put(cell('body', 'bool.edit'), require('./templates/body.cell.text.edit.html'));
+
+		theme.put(cell('head', 'date'), require('./templates/head.cell.text.html'));
+		theme.put(cell('body', 'date'), require('./templates/body.cell.text.html'));
+		theme.put(cell('foot', 'date'), require('./templates/foot.cell.text.html'));
+		theme.put(cell('body', 'date.edit'), require('./templates/body.cell.text.edit.html'));
+
+		theme.put(cell('head', 'password'), require('./templates/head.cell.text.html'));
+		theme.put(cell('body', 'password'), require('./templates/body.cell.text.html'));
+		theme.put(cell('foot', 'password'), require('./templates/foot.cell.text.html'));
+		theme.put(cell('body', 'password.edit'), require('./templates/body.cell.text.edit.html'));
+
+		theme.put(cell('head', 'array'), require('./templates/head.cell.text.html'));
+		theme.put(cell('body', 'array'), require('./templates/body.cell.text.html'));
+		theme.put(cell('foot', 'array'), require('./templates/foot.cell.text.html'));
+		theme.put(cell('body', 'array.edit'), require('./templates/body.cell.text.edit.html'));
+
+		theme.put(cell('head', 'email'), require('./templates/head.cell.text.html'));
+		theme.put(cell('body', 'email'), require('./templates/body.cell.text.html'));
+		theme.put(cell('foot', 'email'), require('./templates/foot.cell.text.html'));
+		theme.put(cell('body', 'email.edit'), require('./templates/body.cell.text.edit.html'));
+
+		theme.put(cell('head', 'select'), require('./templates/head.cell.text.html'));
+		theme.put(cell('body', 'select'), require('./templates/body.cell.text.html'));
+		theme.put(cell('foot', 'select'), require('./templates/foot.cell.text.html'));
+		theme.put(cell('body', 'select.edit'), require('./templates/body.cell.text.edit.html'));
+
+		theme.put(cell('head', 'group'), require('./templates/head.cell.text.html'));
+		theme.put(cell('body', 'group'), require('./templates/body.cell.text.html'));
+		theme.put(cell('foot', 'group'), require('./templates/foot.cell.text.html'));
+		theme.put(cell('body', 'group.edit'), require('./templates/body.cell.text.edit.html'));
+
+		theme.put(cell('head', 'pivot'), require('./templates/head.cell.text.html'));
+		theme.put(cell('body', 'pivot'), require('./templates/body.cell.text.html'));
+		theme.put(cell('foot', 'pivot'), require('./templates/foot.cell.text.html'));
+		theme.put(cell('body', 'pivot.edit'), require('./templates/body.cell.text.edit.html'));
+
+		theme.put(cell('head', 'row-number'), require('./templates/head.cell.text.html'));
+		theme.put(cell('body', 'row-number'), require('./templates/body.cell.text.html'));
+		theme.put(cell('foot', 'row-number'), require('./templates/foot.cell.text.html'));
+		theme.put(cell('body', 'row-number.edit'), require('./templates/body.cell.text.edit.html'));
+
+		theme.put(cell('head', 'row-indicator'), require('./templates/head.cell.text.html'));
+		theme.put(cell('body', 'row-indicator'), require('./templates/body.cell.text.html'));
+		theme.put(cell('foot', 'row-indicator'), require('./templates/foot.cell.text.html'));
+		theme.put(cell('body', 'row-indicator.edit'), require('./templates/body.cell.text.edit.html'));
+
+		theme.put(cell('head', 'row-options'), require('./templates/head.cell.text.html'));
+		theme.put(cell('body', 'row-options'), require('./templates/body.cell.text.html'));
+		theme.put(cell('foot', 'row-options'), require('./templates/foot.cell.text.html'));
+		theme.put(cell('body', 'row-options.edit'), require('./templates/body.cell.text.edit.html'));
+
+		theme.put(cell('head', 'row-expand'), require('./templates/head.cell.text.html'));
+		theme.put(cell('body', 'row-expand'), require('./templates/body.cell.text.html'));
+		theme.put(cell('foot', 'row-expand'), require('./templates/foot.cell.text.html'));
+		theme.put(cell('body', 'row-expand.edit'), require('./templates/body.cell.text.edit.html'));
+
+		theme.put(cell('head', 'row-details'), require('./templates/head.cell.text.html'));
+		theme.put(cell('body', 'row-details'), require('./templates/body.cell.text.html'));
+		theme.put(cell('foot', 'row-details'), require('./templates/foot.cell.text.html'));
+		theme.put(cell('body', 'row-details.edit'), require('./templates/body.cell.text.edit.html'));
+
+		theme.put(cell('head', 'pad'), require('./templates/head.cell.text.html'));
+		theme.put(cell('body', 'pad'), require('./templates/body.cell.text.html'));
+		theme.put(cell('foot', 'pad'), require('./templates/foot.cell.text.html'));
+		theme.put(cell('body', 'pad.edit'), require('./templates/body.cell.text.edit.html'));
+
+		theme.put(cell('head', 'time'), require('./templates/head.cell.text.html'));
+		theme.put(cell('body', 'time'), require('./templates/body.cell.text.html'));
+		theme.put(cell('foot', 'time'), require('./templates/foot.cell.text.html'));
+		theme.put(cell('body', 'time.edit'), require('./templates/body.cell.text.edit.html'));
+
+		theme.put(cell('head', 'url'), require('./templates/head.cell.text.html'));
+		theme.put(cell('body', 'url'), require('./templates/body.cell.text.html'));
+		theme.put(cell('foot', 'url'), require('./templates/foot.cell.text.html'));
+		theme.put(cell('body', 'url.edit'), require('./templates/body.cell.text.edit.html'));
+
+		theme.put(cell('head', 'file'), require('./templates/head.cell.text.html'));
+		theme.put(cell('body', 'file'), require('./templates/body.cell.text.html'));
+		theme.put(cell('foot', 'file'), require('./templates/foot.cell.text.html'));
+		theme.put(cell('body', 'file.edit'), require('./templates/body.cell.text.edit.html'));
+
+		theme.put(cell('head', 'image'), require('./templates/head.cell.text.html'));
+		theme.put(cell('body', 'image'), require('./templates/body.cell.text.html'));
+		theme.put(cell('foot', 'image'), require('./templates/foot.cell.text.html'));
+		theme.put(cell('body', 'image.edit'), require('./templates/body.cell.text.edit.html'));
+
+		theme.put(cell('head', 'reference'), require('./templates/head.cell.text.html'));
+		theme.put(cell('body', 'reference'), require('./templates/body.cell.text.html'));
+		theme.put(cell('foot', 'reference'), require('./templates/foot.cell.text.html'));
+		theme.put(cell('body', 'reference.edit'), require('./templates/body.cell.text.edit.html'));
+
+		theme.put(cell('head', 'currency'), require('./templates/head.cell.text.html'));
+		theme.put(cell('body', 'currency'), require('./templates/body.cell.text.html'));
+		theme.put(cell('foot', 'currency'), require('./templates/foot.cell.text.html'));
+		theme.put(cell('body', 'currency.edit'), require('./templates/body.cell.text.edit.html'));
+
+		theme.put(cell('head', 'id'), require('./templates/head.cell.text.html'));
+		theme.put(cell('body', 'id'), require('./templates/body.cell.text.html'));
+		theme.put(cell('foot', 'id'), require('./templates/foot.cell.text.html'));
+		theme.put(cell('body', 'id.edit'), require('./templates/body.cell.text.edit.html'));
+
+		theme.put(form('text.edit'), require('./templates/form.cell.text.edit.html'));
+		theme.put(form('number.edit'), require('./templates/form.cell.number.edit.html'));
+		theme.put(form('currency.edit'), require('./templates/form.cell.number.edit.html'));
+		theme.put(form('date.edit'), require('./templates/form.cell.date.edit.html'));
+		theme.put(form('bool.edit'), require('./templates/form.cell.bool.edit.html'));
+		theme.put(form('reference.edit'), require('./templates/form.cell.reference.edit.html'));
+		theme.put(form('id.edit'), require('./templates/form.cell.text.edit.html'));
+		theme.put(form('url.edit'), require('./templates/form.cell.url.edit.html'));
+		theme.put(form('image.edit'), require('./templates/form.cell.file.edit.html'));
+		theme.put(form('file.edit'), require('./templates/form.cell.file.edit.html'));
+		theme.put(form('text-area.edit'), require('./templates/form.cell.text.area.edit.html'));
+		theme.put(form('password.edit'), require('./templates/form.cell.password.edit.html'));
+		theme.put(form('array.edit'), require('./templates/form.cell.array.edit.html'));
+		theme.put(form('email.edit'), require('./templates/form.cell.email.edit.html'));
+		theme.put(form('time.edit'), require('./templates/form.cell.time.edit.html'));
+
 	});
 }
