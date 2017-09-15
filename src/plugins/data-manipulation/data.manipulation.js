@@ -21,6 +21,10 @@ class DataManipulation extends Plugin {
 
 		this.commitCommand = new Command({
 			execute: e => {
+				if (e.column.class !== 'data') {
+					return;
+				}
+
 				const rowId = this.rowId(e.row);
 				const edited = this.changes.edited;
 

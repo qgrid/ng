@@ -6,6 +6,7 @@ import * as columnService from '@grid/core/column/column.service';
 import {isFunction, noop} from '@grid/core/utility';
 import {COLUMN_CHOOSER_NAME} from '../definition';
 import {PipeUnit} from '@grid/core/pipe/pipe.unit';
+import {sortIndexFactory} from '@grid/core/column-list';
 
 TemplatePath
 	.register(COLUMN_CHOOSER_NAME, () => {
@@ -85,9 +86,11 @@ class ColumnChooser extends Plugin {
 
 		this.drag = new Command({
 			canExecute: e => {
-				if (e.source.key === COLUMN_CHOOSER_NAME) {
-					const map = columnService.map(this.model.data().columns);
-					return map.hasOwnProperty(e.source.value) && map[e.source.value].canMove !== false;
+				if (this.model.columnChooser().canSort) {
+					if (e.source.key === COLUMN_CHOOSER_NAME) {
+						const map = columnService.map(this.model.data().columns);
+						return map.hasOwnProperty(e.source.value) && map[e.source.value].canMove !== false;
+					}
 				}
 
 				return false;
@@ -144,18 +147,23 @@ class ColumnChooser extends Plugin {
 				}, {})
 		};
 
-		this.using(model.sceneChanged.watch(e => {
+		this.using(model.dataChanged.watch(e => {
 			if (e.tag.source === 'column.chooser') {
 				return;
 			}
 
-			if (e.hasChanges('column')) {
-				this.columns = e.state
-					.column
-					.rows
-					.reduce((memo, xs) => memo.concat(xs))
-					.map(c => c.model)
-					.filter(c => c.class === 'data');
+			if (e.hasChanges('columns')) {
+				this.columns = e.state.columns.filter(c => c.class === 'data');
+
+				const buildIndex = sortIndexFactory(model);
+				const result = buildIndex(this.columns);
+				const indexMap = result.index
+					.reduce((memo, key, i) => {
+						memo[key] = i;
+						return memo;
+					}, {});
+
+				this.columns.sort((x, y) => indexMap[x.key] - indexMap[y.key]);
 			}
 		}));
 	}
