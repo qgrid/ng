@@ -105,7 +105,7 @@ export class StyleView extends View {
 					for (let j = 0, cellsLength = cells.length; j < cellsLength; j++) {
 						const cell = cells[j];
 						const dataCell = cell.model();
-						if(!dataCell){
+						if (!dataCell) {
 							continue;
 						}
 
