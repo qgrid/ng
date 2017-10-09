@@ -693,8 +693,39 @@ function set(row, column, value) {
 /***/ }),
 /* 19 */,
 /* 20 */,
-/* 21 */,
-/* 22 */
+/* 21 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__aggregation__ = __webpack_require__(226);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_0__aggregation__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__convert__ = __webpack_require__(227);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__convert__["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_1__convert__["b"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__grid__ = __webpack_require__(228);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "f", function() { return __WEBPACK_IMPORTED_MODULE_2__grid__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__guid__ = __webpack_require__(96);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "h", function() { return __WEBPACK_IMPORTED_MODULE_3__guid__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__merge__ = __webpack_require__(230);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_4__merge__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__middleware__ = __webpack_require__(97);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__path__ = __webpack_require__(62);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_6__path__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__job_line__ = __webpack_require__(229);
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_7__job_line__["a"]; });
+
+
+
+
+
+
+
+
+
+/***/ }),
+/* 22 */,
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseMatches = __webpack_require__(273),
@@ -731,7 +762,7 @@ module.exports = baseIteratee;
 
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseIsNative = __webpack_require__(267),
@@ -754,43 +785,12 @@ module.exports = getNative;
 
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GRID_PREFIX; });
 var GRID_PREFIX = 'q-grid';
-
-/***/ }),
-/* 25 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__aggregation__ = __webpack_require__(226);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_0__aggregation__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__convert__ = __webpack_require__(227);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__convert__["a"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_1__convert__["b"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__grid__ = __webpack_require__(228);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "f", function() { return __WEBPACK_IMPORTED_MODULE_2__grid__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__guid__ = __webpack_require__(96);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "h", function() { return __WEBPACK_IMPORTED_MODULE_3__guid__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__merge__ = __webpack_require__(230);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_4__merge__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__middleware__ = __webpack_require__(97);
-/* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__path__ = __webpack_require__(62);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_6__path__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__job_line__ = __webpack_require__(229);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_7__job_line__["a"]; });
-
-
-
-
-
-
-
-
 
 /***/ }),
 /* 26 */,
@@ -1364,7 +1364,7 @@ module.exports = getMapData;
 /* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getNative = __webpack_require__(23);
+var getNative = __webpack_require__(24);
 
 /* Built-in method references that are verified to be native. */
 var nativeCreate = getNative(Object, 'create');
@@ -2123,7 +2123,7 @@ function compile(path) {
 /* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getNative = __webpack_require__(23),
+var getNative = __webpack_require__(24),
     root = __webpack_require__(13);
 
 /* Built-in method references that are verified to be native. */
@@ -3856,7 +3856,7 @@ var DisposableView = function () {
 /* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getNative = __webpack_require__(23),
+var getNative = __webpack_require__(24),
     root = __webpack_require__(13);
 
 /* Built-in method references that are verified to be native. */
@@ -4706,7 +4706,7 @@ module.exports = createAssigner;
 /* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getNative = __webpack_require__(23);
+var getNative = __webpack_require__(24);
 
 var defineProperty = (function() {
   try {
@@ -5532,7 +5532,7 @@ module.exports = "<div class=\"q-grid-editor q-grid-text\" q-grid-position=\"td\
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__column_type__ = __webpack_require__(78);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utility__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__column_column_factory__ = __webpack_require__(27);
@@ -6102,7 +6102,7 @@ var DateColumnModel = function (_DataColumnModel) {
 
 		var _this = _possibleConstructorReturn(this, (DateColumnModel.__proto__ || Object.getPrototypeOf(DateColumnModel)).call(this, 'date'));
 
-		_this.format = 'yyyy/MM/dd';
+		_this.format = 'MM/dd/yyyy';
 		return _this;
 	}
 
@@ -7120,7 +7120,6 @@ var RowIndicatorColumnModel = function (_ColumnModel) {
 		var _this = _possibleConstructorReturn(this, (RowIndicatorColumnModel.__proto__ || Object.getPrototypeOf(RowIndicatorColumnModel)).call(this, 'row-indicator'));
 
 		_this.key = '$row.indicator';
-		_this.title = 'Row Indicator';
 		_this.class = 'control';
 
 		_this.canEdit = false;
@@ -7275,14 +7274,12 @@ var RowOptionsColumnModel = function (_DataColumnModel) {
 		var _this = _possibleConstructorReturn(this, (RowOptionsColumnModel.__proto__ || Object.getPrototypeOf(RowOptionsColumnModel)).call(this, 'row-options'));
 
 		_this.key = '$row.options';
-		_this.title = '';
 		_this.class = 'control';
 
 		_this.canEdit = true;
 		_this.canResize = false;
 		_this.canMove = false;
 		_this.canHighlight = false;
-		_this.width = 60;
 		_this.pin = 'right';
 		return _this;
 	}
@@ -7358,7 +7355,7 @@ var SelectColumnModel = function (_ColumnModel) {
 		var _this = _possibleConstructorReturn(this, (SelectColumnModel.__proto__ || Object.getPrototypeOf(SelectColumnModel)).call(this, 'select'));
 
 		_this.key = '$select';
-		_this.title = 'Select';
+		_this.title = '';
 		_this.class = 'control';
 
 		_this.editorOptions.trigger = 'focus';
@@ -8872,15 +8869,17 @@ function addDataColumns(model) {
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = filterPipe;
 function filterPipe(data, context, next) {
-	var model = context.model;
-	var filterState = model.filter();
-	var match = filterState.match(context);
 	var result = [];
+	if (data.length) {
+		var model = context.model;
+		var filterState = model.filter();
+		var match = filterState.match(context);
 
-	for (var i = 0, length = data.length; i < length; i++) {
-		var item = data[i];
-		if (match(item)) {
-			result.push(item);
+		for (var i = 0, length = data.length; i < length; i++) {
+			var item = data[i];
+			if (match(item)) {
+				result.push(item);
+			}
 		}
 	}
 
@@ -8900,12 +8899,15 @@ function filterPipe(data, context, next) {
 
 function groupPipe(memo, context, next) {
 	var model = context.model;
-	var dataState = model.data();
-	var groupState = model.group();
 
-	var build = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__node__["c" /* nodeBuilder */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__column_column_service__["c" /* map */])(dataState.columns), groupState.by, context.valueFactory);
+	if (memo.rows.length) {
+		var dataState = model.data();
+		var groupState = model.group();
 
-	memo.nodes = build(memo.rows);
+		var build = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__node__["c" /* nodeBuilder */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__column_column_service__["c" /* map */])(dataState.columns), groupState.by, context.valueFactory);
+
+		memo.nodes = build(memo.rows);
+	}
 	next(memo);
 }
 
@@ -8971,12 +8973,15 @@ function paginate(model, rows) {
 
 
 function pivotPipe(memo, context, next) {
-	var model = context.model;
-	var dataState = model.data();
-	var pivotState = model.pivot();
-	var build = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__pivot_pivot_build__["a" /* build */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__column_column_service__["c" /* map */])(dataState.columns), pivotState.by, context.valueFactory);
+	if (memo.rows.length) {
+		var model = context.model;
+		var dataState = model.data();
+		var pivotState = model.pivot();
+		var build = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__pivot_pivot_build__["a" /* build */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__column_column_service__["c" /* map */])(dataState.columns), pivotState.by, context.valueFactory);
 
-	memo.pivot = build(memo.rows);
+		memo.pivot = build(memo.rows);
+	}
+
 	next(memo);
 }
 
@@ -8989,7 +8994,9 @@ function pivotPipe(memo, context, next) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utility__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__sort_sort_service__ = __webpack_require__(80);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__column_column_service__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services__ = __webpack_require__(21);
 /* harmony export (immutable) */ __webpack_exports__["a"] = sortPipe;
+
 
 
 
@@ -9000,12 +9007,12 @@ function sortPipe(data, context, next) {
 	var by = model.sort().by;
 	var result = data;
 
-	if (by.length) {
+	if (data.length && by.length) {
 		var columns = model.data().columns;
 		var mappings = [];
 		var directions = [];
 
-		for (var i = 0, length = by.length; i < length; i++) {
+		var _loop = function _loop(i, length) {
 			var sortEntry = by[i];
 			var sortKey = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__sort_sort_service__["a" /* key */])(sortEntry);
 			var sortDir = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__sort_sort_service__["b" /* direction */])(sortEntry);
@@ -9014,8 +9021,17 @@ function sortPipe(data, context, next) {
 				throw new __WEBPACK_IMPORTED_MODULE_0__infrastructure__["a" /* AppError */]('sort.pipe', 'Column "' + sortKey + '" is not found');
 			}
 
-			mappings.push(context.valueFactory(sortColumn));
+			var getValue = context.valueFactory(sortColumn);
+			var parseValue = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__services__["d" /* parseFactory */])(sortColumn.type);
+
+			mappings.push(function (row) {
+				return parseValue(getValue(row));
+			});
 			directions.push(sortDir);
+		};
+
+		for (var i = 0, length = by.length; i < length; i++) {
+			_loop(i, length);
 		}
 
 		result = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__utility__["p" /* orderBy */])(data, mappings, directions);
@@ -9473,7 +9489,7 @@ var SelectionModel = function SelectionModel() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__state__ = __webpack_require__(223);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__selection_range__ = __webpack_require__(92);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__selection_service__ = __webpack_require__(93);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__definition__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__definition__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__utility__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__selection_command_manager__ = __webpack_require__(220);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pipe_pipe_unit__ = __webpack_require__(38);
@@ -10903,7 +10919,7 @@ var ViewModel = function ViewModel() {
 /* 238 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getNative = __webpack_require__(23),
+var getNative = __webpack_require__(24),
     root = __webpack_require__(13);
 
 /* Built-in method references that are verified to be native. */
@@ -10954,7 +10970,7 @@ module.exports = Hash;
 /* 240 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getNative = __webpack_require__(23),
+var getNative = __webpack_require__(24),
     root = __webpack_require__(13);
 
 /* Built-in method references that are verified to be native. */
@@ -10967,7 +10983,7 @@ module.exports = Promise;
 /* 241 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getNative = __webpack_require__(23),
+var getNative = __webpack_require__(24),
     root = __webpack_require__(13);
 
 /* Built-in method references that are verified to be native. */
@@ -12173,7 +12189,7 @@ module.exports = baseMergeDeep;
 /***/ (function(module, exports, __webpack_require__) {
 
 var arrayMap = __webpack_require__(65),
-    baseIteratee = __webpack_require__(22),
+    baseIteratee = __webpack_require__(23),
     baseMap = __webpack_require__(272),
     baseSortBy = __webpack_require__(281),
     baseUnary = __webpack_require__(68),
@@ -12764,7 +12780,7 @@ module.exports = coreJsData;
 
 var arrayAggregator = __webpack_require__(245),
     baseAggregator = __webpack_require__(252),
-    baseIteratee = __webpack_require__(22),
+    baseIteratee = __webpack_require__(23),
     isArray = __webpack_require__(7);
 
 /**
@@ -15050,7 +15066,7 @@ module.exports = deburr;
 /* 357 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseIteratee = __webpack_require__(22),
+var baseIteratee = __webpack_require__(23),
     baseWhile = __webpack_require__(118);
 
 /**
@@ -15501,7 +15517,7 @@ module.exports = isUndefined;
 
 var baseExtremum = __webpack_require__(109),
     baseGt = __webpack_require__(259),
-    baseIteratee = __webpack_require__(22);
+    baseIteratee = __webpack_require__(23);
 
 /**
  * This method is like `_.max` except that it accepts `iteratee` which is
@@ -15664,7 +15680,7 @@ module.exports = merge;
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseExtremum = __webpack_require__(109),
-    baseIteratee = __webpack_require__(22),
+    baseIteratee = __webpack_require__(23),
     baseLt = __webpack_require__(271);
 
 /**
@@ -15905,7 +15921,7 @@ module.exports = stubFalse;
 /* 378 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseIteratee = __webpack_require__(22),
+var baseIteratee = __webpack_require__(23),
     baseSum = __webpack_require__(282);
 
 /**
@@ -15944,7 +15960,7 @@ module.exports = sumBy;
 /* 379 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseIteratee = __webpack_require__(22),
+var baseIteratee = __webpack_require__(23),
     baseWhile = __webpack_require__(118);
 
 /**
@@ -16639,7 +16655,7 @@ module.exports = "<div class=\"q-grid-editor q-grid-password\" q-grid-position=\
 /* 438 */
 /***/ (function(module, exports) {
 
-module.exports = "<q-grid:popup id=\"q-grid-reference-edit\"\n\t\t\t\t  ng-init=\"$popup.show()\"\n\t\t\t\t  q-grid:popup-close=\"$view.edit.cell.cancel.execute($cell, $event)\">\n\t<q-grid:template for=\"trigger\">\n\t\t<span ng-init=\"$popup.open({width: 350, height: 500})\"></span>\n\t</q-grid:template>\n\t<q-grid:template for=\"body\" let=\"[$view, $cell]\">\n\t\t<div ng-cloak\n\t\t\t  class=\"q-grid-editor q-grid-reference\"\n\t\t\t  layout=\"column\"\n\t\t\t  ng-controller=\"Body.Cell.Reference.Edit.Controller as $referenceEdit\">\n\t\t\t<div flex=\"90\">\n\t\t\t\t<q-grid class=\"q-grid-embed\"\n\t\t\t\t\t\t  model=\"$referenceEdit.gridModel\"\n\t\t\t\t\t\t  q-grid:autofocus>\n\t\t\t\t\t<q-grid:columns>\n\t\t\t\t\t</q-grid:columns>\n\t\t\t\t\t<q-grid:toolbar>\n\t\t\t\t\t\t<q-grid:template for=\"top\">\n\t\t\t\t\t\t\t<div class=\"q-grid-progress\">\n\t\t\t\t\t\t\t\t<q-grid:progress></q-grid:progress>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</q-grid:template>\n\t\t\t\t\t</q-grid:toolbar>\n\t\t\t\t</q-grid>\n\t\t\t</div>\n\t\t\t<div flex=\"10\" class=\"q-grid-actions\">\n\t\t\t\t<md-button class=\"md-primary md-confirm-button\" ng-click=\"$referenceEdit.commit.execute($cell, $event)\">Save\n\t\t\t\t</md-button>\n\t\t\t\t<md-button class=\"md-primary md-cancel-button\"\n\t\t\t\t\t\t\t  ng-click=\"$referenceEdit.cancel.execute($cell, $event)\">Cancel\n\t\t\t\t</md-button>\n\t\t\t</div>\n\t\t</div>\n\t</q-grid:template>\n\t<q-grid:template for=\"head\" let=\"$cell\">\n\t\t<h2 class=\"md-title\">Edit {{::$cell.column.title}}</h2>\n\t</q-grid:template>\n</q-grid:popup>\n"
+module.exports = "<q-grid:popup id=\"q-grid-reference-edit\"\n\t\t\t\t  ng-init=\"$popup.show()\"\n\t\t\t\t  q-grid:popup-close=\"$view.edit.cell.cancel.execute($cell, $event)\">\n\t<q-grid:template for=\"trigger\">\n\t\t<span ng-init=\"$popup.open({width: 350, height: 500})\"></span>\n\t</q-grid:template>\n\t<q-grid:template for=\"body\" let=\"[$view, $cell]\">\n\t\t<div ng-cloak\n\t\t\t  class=\"q-grid-editor q-grid-reference\"\n\t\t\t  layout=\"column\"\n\t\t\t  ng-controller=\"Body.Cell.Reference.Edit.Controller as $referenceEdit\">\n\t\t\t<div class=\"flex\">\n\t\t\t\t<q-grid class=\"q-grid-embed\"\n\t\t\t\t\t\t  model=\"$referenceEdit.gridModel\"\n\t\t\t\t\t\t  q-grid:autofocus>\n\t\t\t\t\t<q-grid:toolbar>\n\t\t\t\t\t\t<q-grid:template for=\"top\">\n\t\t\t\t\t\t\t<div class=\"q-grid-progress\">\n\t\t\t\t\t\t\t\t<q-grid:progress></q-grid:progress>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</q-grid:template>\n\t\t\t\t\t</q-grid:toolbar>\n\t\t\t\t</q-grid>\n\t\t\t</div>\n\t\t\t<div class=\"flex-none q-grid-popup-actions\">\n\t\t\t\t<md-button ng-click=\"$referenceEdit.cancel.execute($cell, $event)\">Cancel\n\t\t\t\t</md-button>\n\t\t\t\t<md-button class=\"md-primary\" ng-click=\"$referenceEdit.commit.execute($cell, $event)\">Save\n\t\t\t\t</md-button>\n\t\t\t</div>\n\t\t</div>\n\t</q-grid:template>\n\t<q-grid:template for=\"head\" let=\"$cell\">\n\t\t<h2 class=\"md-title\">Edit {{::$cell.column.title}}</h2>\n\t</q-grid:template>\n</q-grid:popup>\n"
 
 /***/ }),
 /* 439 */
@@ -16657,7 +16673,7 @@ module.exports = "<md-button ng-mouseup=\"$view.rowDetails.toggleStatus.execute(
 /* 441 */
 /***/ (function(module, exports) {
 
-module.exports = "<md-icon>keyboard_arrow_right</md-icon>"
+module.exports = ""
 
 /***/ }),
 /* 442 */
@@ -16789,13 +16805,13 @@ module.exports = "<div class=\"q-grid-action\">\n\t<md-button class=\"md-icon-bu
 /* 463 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"q-grid-column-chooser\" layout=\"column\" flex=\"100\">\n\t<div flex=\"none\" layout=\"row\">\n\t\t<md-input-container class=\"q-grid-column-chooser-filter\" flex>\n\t\t\t<label>Search</label>\n\t\t\t<input type=\"text\"\n\t\t\t\t\t ng-model=\"$columnChooser.filter\"\n\t\t\t\t\t q-grid:focus/>\n\t\t</md-input-container>\n\t</div>\n\t<div flex layout=\"column\">\n\t\t<ul>\n\t\t\t<li>\n\t\t\t\t<md-checkbox ng-click=\"$columnChooser.toggleAll.execute()\"\n\t\t\t\t\t\t\t\t ng-checked=\"$columnChooser.stateAll()\"\n\t\t\t\t\t\t\t\t md-indeterminate=\"$columnChooser.isIndeterminate()\">\n\t\t\t\t\tSelect All\n\t\t\t\t</md-checkbox>\n\t\t\t</li>\n\t\t\t<li>\n\t\t\t\t<md-checkbox ng-click=\"$columnChooser.defaults.execute()\"\n\t\t\t\t\t\t\t\t ng-checked=\"$columnChooser.stateDefault()\">\n\t\t\t\t\tSelect Defaults\n\t\t\t\t</md-checkbox>\n\t\t\t</li>\n\t\t</ul>\n\t\t<ul class=\"q-grid-column-chooser-list\">\n\t\t\t<li ng-repeat=\"column in $columnChooser.columns | filter: $columnChooser.filter\"\n\t\t\t\tq-grid:drag=\"$columnChooser.transfer(column)\"\n\t\t\t\tq-grid:drop=\"$columnChooser.transfer(column)\"\n\t\t\t\tq-grid:on-drop=\"$columnChooser.drop.execute($event)\"\n\t\t\t\tq-grid:can-drop=\"$columnChooser.drop.canExecute($event)\"\n\t\t\t\tq-grid:can-drag=\"$columnChooser.drag.canExecute($event)\">\n\n\t\t\t\t<md-checkbox ng-checked=\"$columnChooser.state(column)\"\n\t\t\t\t\t\t\t\tng-if=\"$columnChooser.toggle.canExecute(column)\"\n\t\t\t\t\t\t\t\tng-click=\"$columnChooser.toggle.execute(column)\"\n\t\t\t\t\t\t\t\taria-label=\"Selection\">\n\t\t\t\t\t<span ng-bind-html=\"column.title | qgridHighlight : $columnChooser.filter\"> </span>\n\t\t\t\t</md-checkbox>\n\n\n\t\t\t\t<md-input-container ng-if=\"$columnChooser.canAggregate\">\n\t\t\t\t\t<md-select aria-label=\"Aggregation\" ng-model=\"column.aggregation\"\n\t\t\t\t\t\t\t\tng-change=\"$columnChooser.toggleAggregation.execute(column)\">\n\t\t\t\t\t\t<md-option value=\"\"><em>Aggregation</em></md-option>\n\t\t\t\t\t\t<md-option ng-repeat=\"aggregation in $columnChooser.aggregations\"\n\t\t\t\t\t\t\t\t\tng-value=\"aggregation\">\n\t\t\t\t\t\t\t{{::aggregation}}\n\t\t\t\t\t\t</md-option>\n\t\t\t\t\t</md-select>\n\t\t\t\t</md-input-container>\n\n\t\t\t</li>\n\t\t</ul>\n\t</div>\n\t<div class=\"q-grid-column-chooser-actions\" flex=\"none\">\n\t\t<md-button ng-click=\"$columnChooser.cancel.execute()\">\n\t\t\tCancel\n\t\t</md-button>\n\t\t<md-button ng-click=\"$columnChooser.reset.execute()\">\n\t\t\tReset\n\t\t</md-button>\n\t\t<md-button class=\"md-primary\"\n\t\t\t\t\t  ng-click=\"$columnChooser.submit.execute()\"\n\t\t\t\t\t  ng-disabled=\"!$columnChooser.submit.canExecute()\">\n\t\t\tApply\n\t\t</md-button>\n\t</div>\n</div>"
+module.exports = "<div class=\"q-grid-column-chooser\" layout=\"column\" flex=\"100\">\n\t<div flex=\"none\" layout=\"row\">\n\t\t<md-input-container class=\"q-grid-column-chooser-filter\" flex>\n\t\t\t<label>Search</label>\n\t\t\t<input type=\"text\"\n\t\t\t\t\t ng-model=\"$columnChooser.filter\"\n\t\t\t\t\t q-grid:focus/>\n\t\t</md-input-container>\n\t</div>\n\t<div flex layout=\"column\">\n\t\t<ul>\n\t\t\t<li>\n\t\t\t\t<md-checkbox ng-click=\"$columnChooser.toggleAll.execute()\"\n\t\t\t\t\t\t\t\t ng-checked=\"$columnChooser.stateAll()\"\n\t\t\t\t\t\t\t\t md-indeterminate=\"$columnChooser.isIndeterminate()\">\n\t\t\t\t\tSelect All\n\t\t\t\t</md-checkbox>\n\t\t\t</li>\n\t\t\t<li>\n\t\t\t\t<md-checkbox ng-click=\"$columnChooser.defaults.execute()\"\n\t\t\t\t\t\t\t\t ng-checked=\"$columnChooser.stateDefault()\">\n\t\t\t\t\tSelect Defaults\n\t\t\t\t</md-checkbox>\n\t\t\t</li>\n\t\t</ul>\n\t\t<ul class=\"q-grid-column-chooser-list\">\n\t\t\t<li ng-repeat=\"column in $columnChooser.columns | filter: $columnChooser.filter\"\n\t\t\t\tq-grid:drag=\"$columnChooser.transfer(column)\"\n\t\t\t\tq-grid:drop=\"$columnChooser.transfer(column)\"\n\t\t\t\tq-grid:on-drop=\"$columnChooser.drop.execute($event)\"\n\t\t\t\tq-grid:can-drop=\"$columnChooser.drop.canExecute($event)\"\n\t\t\t\tq-grid:can-drag=\"$columnChooser.drag.canExecute($event)\">\n\n\t\t\t\t<md-checkbox ng-checked=\"$columnChooser.state(column)\"\n\t\t\t\t\t\t\t\tng-if=\"$columnChooser.toggle.canExecute(column)\"\n\t\t\t\t\t\t\t\tng-click=\"$columnChooser.toggle.execute(column)\"\n\t\t\t\t\t\t\t\taria-label=\"Selection\">\n\t\t\t\t\t<span ng-bind-html=\"column.title | qgridHighlight : $columnChooser.filter\"> </span>\n\t\t\t\t</md-checkbox>\n\n\n\t\t\t\t<md-input-container ng-if=\"$columnChooser.canAggregate\">\n\t\t\t\t\t<md-select aria-label=\"Aggregation\" ng-model=\"column.aggregation\"\n\t\t\t\t\t\t\t\tng-change=\"$columnChooser.toggleAggregation.execute(column)\">\n\t\t\t\t\t\t<md-option value=\"\"><em>Aggregation</em></md-option>\n\t\t\t\t\t\t<md-option ng-repeat=\"aggregation in $columnChooser.aggregations\"\n\t\t\t\t\t\t\t\t\tng-value=\"aggregation\">\n\t\t\t\t\t\t\t{{::aggregation}}\n\t\t\t\t\t\t</md-option>\n\t\t\t\t\t</md-select>\n\t\t\t\t</md-input-container>\n\n\t\t\t</li>\n\t\t</ul>\n\t</div>\n\t<div class=\"q-grid-popup-actions flex-none\">\n\t\t<md-button ng-click=\"$columnChooser.cancel.execute()\">\n\t\t\tCancel\n\t\t</md-button>\n\t\t<md-button ng-click=\"$columnChooser.reset.execute()\">\n\t\t\tReset\n\t\t</md-button>\n\t\t<md-button class=\"md-primary\"\n\t\t\t\t\t  ng-click=\"$columnChooser.submit.execute()\"\n\t\t\t\t\t  ng-disabled=\"!$columnChooser.submit.canExecute()\">\n\t\t\tApply\n\t\t</md-button>\n\t</div>\n</div>"
 
 /***/ }),
 /* 464 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"q-grid-column-filter-panel\" layout=\"column\" flex=\"100\">\n\t<div flex=\"none\" layout=\"row\">\n\t\t<md-input-container class=\"q-grid-column-filter-filter\">\n\t\t\t<label>Search</label>\n\t\t\t<input type=\"text\"\n\t\t\t\t\t ng-change=\"$columnFilterPanel.resetItems.execute()\"\n\t\t\t\t\t ng-model=\"$columnFilterPanel.filter\"\n\t\t\t\t\t ng-model-options=\"{debounce: 500}\"\n\t\t\t\t\t q-grid:focus/>\n\t\t</md-input-container>\n\t</div>\n\t<div flex>\n\t\t<ul>\n\t\t\t<li>\n\t\t\t\t<md-checkbox ng-click=\"$columnFilterPanel.toggleAll.execute()\"\n\t\t\t\t\t\t\t\t ng-checked=\"$columnFilterPanel.stateAll()\"\n\t\t\t\t\t\t\t\t aria-label=\"Select all filter values\"\n\t\t\t\t\t\t\t\t md-indeterminate=\"$columnFilterPanel.isIndeterminate()\">\n\t\t\t\t\tSelect All\n\t\t\t\t</md-checkbox>\n\t\t\t</li>\n\t\t\t</li>\n\t\t</ul>\n\t\t<div class=\"q-grid-column-filter-list\" vscroll>\n\t\t\t<ul vscroll-port-y=\"$columnFilterPanel.vscrollContext\">\n\t\t\t\t<li\n\t\t\t\t\tng-repeat=\"item in $columnFilterPanel.items | vscroll: $columnFilterPanel.vscrollContext track by $index\"\n\t\t\t\t\tvscroll-row=\"{{::$index}}\">\n\t\t\t\t\t<md-checkbox ng-checked=\"$columnFilterPanel.state(item)\"\n\t\t\t\t\t\t\t\t\t ng-if=\"$columnFilterPanel.toggle.canExecute(item)\"\n\t\t\t\t\t\t\t\t\t aria-label=\"Select filter value\"\n\t\t\t\t\t\t\t\t\t ng-click=\"$columnFilterPanel.toggle.execute(item)\">\n\t\t\t\t\t\t<span ng-bind-html=\"item | qgridHighlight : $columnFilterPanel.filter\"> </span>\n\t\t\t\t\t</md-checkbox>\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t</div>\n\t</div>\n\t<div class=\"q-grid-column-filter-panel-actions\" flex=\"none\">\n\t\t<md-button ng-click=\"$columnFilterPanel.cancel.execute()\">\n\t\t\tCancel\n\t\t</md-button>\n\t\t<md-button ng-click=\"$columnFilterPanel.reset.execute()\">\n\t\t\tReset\n\t\t</md-button>\n\t\t<md-button class=\"md-primary\"\n\t\t\t\t\t  ng-click=\"$columnFilterPanel.submit.execute()\"\n\t\t\t\t\t  ng-disabled=\"!$columnFilterPanel.submit.canExecute()\">\n\t\t\tApply\n\t\t</md-button>\n\t</div>\n</div>"
+module.exports = "<div class=\"q-grid-column-filter-panel\" layout=\"column\" flex=\"100\">\n\t<div flex=\"none\" layout=\"row\">\n\t\t<md-input-container class=\"q-grid-column-filter-filter\">\n\t\t\t<label>Search</label>\n\t\t\t<input type=\"text\"\n\t\t\t\t\t ng-change=\"$columnFilterPanel.resetItems.execute()\"\n\t\t\t\t\t ng-model=\"$columnFilterPanel.filter\"\n\t\t\t\t\t ng-model-options=\"{debounce: 500}\"\n\t\t\t\t\t q-grid:focus/>\n\t\t</md-input-container>\n\t</div>\n\t<div class=\"flex\">\n\t\t<ul>\n\t\t\t<li>\n\t\t\t\t<md-checkbox ng-click=\"$columnFilterPanel.toggleAll.execute()\"\n\t\t\t\t\t\t\t\t ng-checked=\"$columnFilterPanel.stateAll()\"\n\t\t\t\t\t\t\t\t aria-label=\"Select all filter values\"\n\t\t\t\t\t\t\t\t md-indeterminate=\"$columnFilterPanel.isIndeterminate()\">\n\t\t\t\t\tSelect All\n\t\t\t\t</md-checkbox>\n\t\t\t</li>\n\t\t\t</li>\n\t\t</ul>\n\t\t<div class=\"q-grid-column-filter-list\" vscroll>\n\t\t\t<ul vscroll-port-y=\"$columnFilterPanel.vscrollContext\">\n\t\t\t\t<li\n\t\t\t\t\tng-repeat=\"item in $columnFilterPanel.items | vscroll: $columnFilterPanel.vscrollContext track by $index\"\n\t\t\t\t\tvscroll-row=\"{{::$index}}\">\n\t\t\t\t\t<md-checkbox ng-checked=\"$columnFilterPanel.state(item)\"\n\t\t\t\t\t\t\t\t\t ng-if=\"$columnFilterPanel.toggle.canExecute(item)\"\n\t\t\t\t\t\t\t\t\t aria-label=\"Select filter value\"\n\t\t\t\t\t\t\t\t\t ng-click=\"$columnFilterPanel.toggle.execute(item)\">\n\t\t\t\t\t\t<span ng-bind-html=\"item | qgridHighlight : $columnFilterPanel.filter\"> </span>\n\t\t\t\t\t</md-checkbox>\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t</div>\n\t</div>\n\t<div class=\"q-grid-popup-actions flex-none\">\n\t\t<md-button ng-click=\"$columnFilterPanel.cancel.execute()\">\n\t\t\tCancel\n\t\t</md-button>\n\t\t<md-button ng-click=\"$columnFilterPanel.reset.execute()\">\n\t\t\tReset\n\t\t</md-button>\n\t\t<md-button class=\"md-primary\"\n\t\t\t\t\t  ng-click=\"$columnFilterPanel.submit.execute()\"\n\t\t\t\t\t  ng-disabled=\"!$columnFilterPanel.submit.canExecute()\">\n\t\t\tApply\n\t\t</md-button>\n\t</div>\n</div>"
 
 /***/ }),
 /* 465 */
@@ -16807,7 +16823,7 @@ module.exports = "<q-grid:popup id=\"q-grid-edit-form-popup-{{::$editForm.key}}\
 /* 466 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"q-grid-edit-form-panel\" layout=\"column\">\n\t<div flex layout=\"column\" class=\"q-grid-edit-form-panel-body\">\n\t\t<div ng-repeat=\"editor in $editFormPanel.editor.editors\">\n\t\t\t<q-grid:edit-form-editor editor=\"editor\"></q-grid:edit-form-editor>\n\t\t</div>\n\t</div>\n\t<div flex=\"none\" class=\"q-grid-edit-form-panel-actions\">\n\t\t<md-button class=\"md-primary\"\n\t\t\t\t\t  ng-click=\"$editFormPanel.submit.execute()\">\n\t\t\tSave\n\t\t</md-button>\n\t\t<md-button ng-click=\"$editFormPanel.cancel.execute()\">\n\t\t\tCancel\n\t\t</md-button>\n\t</div>\n</div>"
+module.exports = "<div class=\"q-grid-edit-form-panel\" layout=\"column\">\n\t<div class=\"layout-column flex q-grid-edit-form-panel-body\">\n\t\t<div ng-repeat=\"editor in $editFormPanel.editor.editors\">\n\t\t\t<q-grid:edit-form-editor editor=\"editor\"></q-grid:edit-form-editor>\n\t\t</div>\n\t</div>\n\t<div class=\"flex-none q-grid-popup-actions\">\n\t\t<md-button ng-click=\"$editFormPanel.cancel.execute()\">\n\t\t\tCancel\n\t\t</md-button>\n\t\t<md-button class=\"md-primary\"\n\t\t\t\t\t  ng-click=\"$editFormPanel.submit.execute()\">\n\t\t\tSave\n\t\t</md-button>\n\t</div>\n</div>"
 
 /***/ }),
 /* 467 */
@@ -16867,7 +16883,7 @@ module.exports = "<div layout=\"column\"\n\t  class=\"q-grid-sort-bar\"\n\t  q-g
 /* 476 */
 /***/ (function(module, exports) {
 
-module.exports = "<div layout=\"row\">\n\t<div flex=\"100\"\n\t\t  layout=\"row\"\n\t\t  layout-align=\"start center\"\n\t\t  layout-align-xs=\"start start\"\n\t\t  layout-align-sm=\"start start\"\n\t\t  layout-xs=\"column\"\n\t\t  layout-sm=\"column\">\n\t</div>\n\t<div class=\"q-grid-actions\" flex=\"none\" layout=\"row\" layout-align=\"end center\">\n\t\t<!--<div>-->\n\t\t<!--<q-grid:popup id=\"q-grid-filter-popup\">-->\n\t\t<!--<q-grid:template for=\"trigger\">-->\n\t\t<!--<md-button ng-click=\"$popup.open({width: 352, height: 652})\" class=\"md-icon-button\">-->\n\t\t<!--<md-icon>filter_list</md-icon>-->\n\t\t<!--</md-button>-->\n\t\t<!--</q-grid:template>-->\n\t\t<!--<q-grid:template for=\"body\">-->\n\t\t<!--<q-grid:expression-builder on:submit=\"$popup.close()\"-->\n\t\t<!--on:cancel=\"$popup.close()\">-->\n\t\t<!--</q-grid:expression-builder>-->\n\t\t<!--</q-grid:template>-->\n\t\t<!--<q-grid:template for=\"head\">-->\n\t\t<!--Filter-->\n\t\t<!--</q-grid:template>-->\n\t\t<!--</q-grid:popup>-->\n\t\t<!--</div>-->\n\t\t<div>\n\t\t\t<q-grid:action-bar-core></q-grid:action-bar-core>\n\t\t</div>\n\t\t<div>\n\t\t\t<q-grid:popup id=\"q-grid-column-chooser-popup\">\n\t\t\t\t<q-grid:template for=\"trigger\">\n\t\t\t\t\t<md-button ng-click=\"$popup.open({width: 352, height: 652})\" class=\"md-icon-button\"\n\t\t\t\t\t\t\t\t  tabindex=\"-1\">\n\t\t\t\t\t\t<md-icon>more_vert</md-icon>\n\t\t\t\t\t</md-button>\n\t\t\t\t</q-grid:template>\n\t\t\t\t<q-grid:template for=\"body\">\n\t\t\t\t\t<q-grid:column-chooser on:submit=\"$popupBody.close()\"\n\t\t\t\t\t\t\t\t\t\t\t\t  on:cancel=\"$popupBody.close()\">\n\t\t\t\t\t</q-grid:column-chooser>\n\t\t\t\t</q-grid:template>\n\t\t\t\t<q-grid:template for=\"head\">\n\t\t\t\t\t<span class=\"md-subhead\">Column Chooser</span>\n\t\t\t\t</q-grid:template>\n\t\t\t</q-grid:popup>\n\t\t</div>\n\t</div>\n</div>\n<div class=\"q-grid-progress\">\n\t<q-grid:progress>\n\t</q-grid:progress>\n</div>"
+module.exports = "<div layout=\"row\">\n\t<div flex=\"100\"\n\t\t  layout=\"row\"\n\t\t  layout-align=\"start center\"\n\t\t  layout-align-xs=\"start start\"\n\t\t  layout-align-sm=\"start start\"\n\t\t  layout-xs=\"column\"\n\t\t  layout-sm=\"column\">\n\t</div>\n\t<div class=\"q-grid-actions\" flex=\"none\" layout=\"row\" layout-align=\"end center\">\n\t\t<div>\n\t\t\t<q-grid:action-bar-core></q-grid:action-bar-core>\n\t\t</div>\n\t\t<div>\n\t\t\t<q-grid:popup id=\"q-grid-column-chooser-popup\">\n\t\t\t\t<q-grid:template for=\"trigger\">\n\t\t\t\t\t<md-button ng-click=\"$popup.open({width: 352, height: 652})\" class=\"md-icon-button\"\n\t\t\t\t\t\t\t\t  tabindex=\"-1\">\n\t\t\t\t\t\t<md-icon>more_vert</md-icon>\n\t\t\t\t\t</md-button>\n\t\t\t\t</q-grid:template>\n\t\t\t\t<q-grid:template for=\"body\">\n\t\t\t\t\t<q-grid:column-chooser on:submit=\"$popupBody.close()\"\n\t\t\t\t\t\t\t\t\t\t\t\t  on:cancel=\"$popupBody.close()\">\n\t\t\t\t\t</q-grid:column-chooser>\n\t\t\t\t</q-grid:template>\n\t\t\t\t<q-grid:template for=\"head\">\n\t\t\t\t\t<span class=\"md-subhead\">Column Filter</span>\n\t\t\t\t</q-grid:template>\n\t\t\t</q-grid:popup>\n\t\t</div>\n\t</div>\n</div>\n<div class=\"q-grid-progress\">\n\t<q-grid:progress>\n\t</q-grid:progress>\n</div>"
 
 /***/ }),
 /* 477 */,
