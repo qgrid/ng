@@ -4,7 +4,7 @@ import {nodeBuilder} from '../node';
 export function groupPipe(memo, context, next) {
 	const model = context.model;
 
-	if(memo.rows.length) {
+	if (memo.rows.length) {
 		const dataState = model.data();
 		const groupState = model.group();
 
