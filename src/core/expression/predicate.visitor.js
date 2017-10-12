@@ -1,6 +1,7 @@
 import {AppError} from '../infrastructure';
 import {castFactory as castAsFactory} from './cast.factory';
 import {Visitor} from './expression.visitor';
+import {isArray, identity} from '../utility';
 
 export class PredicateVisitor extends Visitor {
 	constructor(valueFactory) {
@@ -11,18 +12,15 @@ export class PredicateVisitor extends Visitor {
 
 	visitGroup(group) {
 		if (group.right) {
-			const lp = this.visit(group.left),
-				rp = this.visit(group.right);
+			const lp = this.visit(group.left);
+			const rp = this.visit(group.right);
 
 			switch (group.op) {
 				case 'and':
-					return value => {
-						return lp(value) && rp(value);
-					};
+					return value => lp(value) && rp(value);
 				case 'or':
-					return value => {
-						return lp(value) || rp(value);
-					};
+					return value => lp(value) || rp(value);
+
 				default:
 					throw  AppError(
 						'predicate.visitor',
@@ -36,107 +34,107 @@ export class PredicateVisitor extends Visitor {
 	}
 
 	visitCondition(condition) {
-		const r = condition.right,
-			name = condition.left,
-			getValue = this.valueFactory(name),
-			castAs = castAsFactory(r);
+		const r = condition.right;
+		const name = condition.left;
+		const getValue = this.valueFactory(name);
+		const map = new Set();
 
+		let castAs;
+		if (isArray(r)) {
+			if (r.length) {
+				castAs = castAsFactory(r[0]);
+				r.forEach(x => map.add(x));
+			}
+			else {
+				castAs = identity;
+			}
+		}
+		else {
+			castAs = castAsFactory(r);
+		}
+
+		let predicate;
 		switch (condition.op) {
 			case 'isNotNull':
-				return l => {
-					const v = getValue(l);
-					return v || v === 0;
-				};
+				predicate = v => v || v === 0;
+				break;
 			case 'isNull':
-				return l => {
-					const v = getValue(l);
-					return !v && v !== 0;
-				};
+				predicate = v => !v && v !== 0;
+				break;
 			case 'equals':
-				return l => {
-					const v = getValue(l),
-						r = castAs(v);
-					return v === r;
-				};
+				predicate = v => castAs(v) === r;
+				break;
 			case 'notEquals':
-				return l => {
-					const v = getValue(l),
-						r = castAs(v);
-					return v !== r;
-				};
+				predicate = v => castAs(v) !== r;
+				break;
 			case 'greaterThanOrEquals':
-				return l => {
-					const v = getValue(l),
-						r = castAs(v);
-					return v >= r;
-				};
+				predicate = v => castAs(v) >= r;
+				break;
 			case 'greaterThan':
-				return l => {
-					const v = getValue(l),
-						r = castAs(v);
-					return v > r;
-				};
+				predicate = v => castAs(v) > r;
+				break;
 			case 'lessThanOrEquals':
-				return l => {
-					const v = getValue(l),
-						r = castAs(v);
-					return v <= r;
-				};
+				predicate = v => castAs(v) <= r;
+				break;
 			case 'lessThan':
-				return l => {
-					const v = getValue(l),
-						r = castAs(v);
-					return v < r;
-				};
+				predicate = v => castAs(v) < r;
+				break;
 			case 'between':
-				return l => {
-					const v = getValue(l);
-
-					return castAsFactory(r[0])(v) <= v && v <= castAsFactory(r[1])(v);
-				};
+				predicate = v => castAsFactory(r[0])(v) <= v && v <= castAsFactory(r[1])(v);
+				break;
 			case 'in':
-				return l => {
-					const value = getValue(l);
-					const v = !value && value !== 0 ? 'null' : value;
-
-					const map = r.reduce((memo, item) => {
-						memo[castAsFactory(item)(v)] = true;
-						return memo;
-					}, {});
-
-					return map.hasOwnProperty(v);
+				predicate = v => {
+					const value = !v && v !== 0 ? 'null' : v;
+					return map.has(value);
 				};
+				break;
 			case 'like':
-				return l => {
-					const v = getValue(l),
-						r = castAs(v);
+				predicate = v => {
+					const r = castAs(v);
 					return v && ('' + v).toLowerCase().includes(('' + r).toLowerCase());
 				};
+				break;
 			case 'notLike':
-				return l => {
-					const v = getValue(l),
-						r = castAs(v);
+				predicate = v => {
+					const r = castAs(v);
 					return v && !('' + v).toLowerCase().includes(('' + r).toLowerCase());
 				};
+				break;
 			case 'startsWith':
-				return l => {
-					const v = getValue(l),
-						r = castAs(v),
-						substr = v.substr(0, r.length);
-					return r === substr;
+				predicate = v => {
+					const r = castAs(v);
+					const substr = v.substr(0, r.length).toLowerCase();
+					return ('' + r).toLowerCase() === substr;
 				};
+				break;
 			case 'endsWith':
-				return l => {
-					const v = getValue(l),
-						r = castAs(v),
-						substr = v.slice(-r.length);
-					return r === substr;
+				predicate = v => {
+					const r = castAs(v);
+					const substr = v.slice(-r.length).toLowerCase();
+					return ('' + r).toLowerCase() === substr;
 				};
+				break;
 			default:
 				throw new AppError(
 					'predicate.visitor',
 					`Invalid operation ${condition.op}`
 				);
 		}
+
+		return l => {
+			const v = getValue(l);
+			if (isArray(v)) {
+				let length = v.length;
+				while (length--) {
+					if (predicate(v[length])) {
+						return true;
+					}
+				}
+
+				return false;
+			}
+
+			return predicate(v);
+		};
 	}
 }

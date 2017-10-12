@@ -1,6 +1,6 @@
 import PluginComponent from '../plugin.component';
 import {Command} from '@grid/core/command';
-import {uniq, clone, noop} from '@grid/core/utility';
+import {uniq, clone, noop, flatten} from '@grid/core/utility';
 import {getFactory as valueFactory} from '@grid/core/services/value';
 import * as columnService from '@grid/core/column/column.service';
 
@@ -82,7 +82,7 @@ class ColumnFilterPanel extends Plugin {
 
 				const model = this.model;
 				const filterState = model.filter();
-				const service = this.qgrid.service(this.model);
+				const service = this.qgrid.service(model);
 				if (filterState.fetch !== noop) {
 					const cancelBusy = service.busy();
 					filterState
@@ -103,8 +103,13 @@ class ColumnFilterPanel extends Plugin {
 					const cancelBusy = service.busy();
 					try {
 						if (!this.items.length) {
-							const source = this.model[this.model.columnFilter().source];
-							const uniqItems = uniq(source().rows.map(this.getValue));
+							const source = model[model.columnFilter().source];
+							let items = source().rows.map(this.getValue.bind(this));
+							if(this.column.type === 'array') {
+								items = flatten(items);
+							}
+
+							const uniqItems = uniq(items);
 							const filteredItems = this.$filter('filter')(uniqItems, this.filter);
 							filteredItems.sort();
 							this.items = filteredItems;
@@ -121,8 +126,8 @@ class ColumnFilterPanel extends Plugin {
 	}
 
 	onInit() {
-		const column = columnService.find(this.model.data().columns, this.key);
-		this.getValue = valueFactory(column);
+		this.column = columnService.find(this.model.data().columns, this.key);
+		this.getValue = valueFactory(this.column);
 
 		const filterBy = this.model.filter().by[this.key];
 		this.by = new Set((filterBy && filterBy.items) || []);
