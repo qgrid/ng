@@ -1,7 +1,8 @@
 import PluginComponent from '../plugin.component';
 import {Command} from '@grid/core/command';
-import {uniq, clone, noop, flatten} from '@grid/core/utility';
+import {clone, noop, flatten} from '@grid/core/utility';
 import {getFactory as valueFactory} from '@grid/core/services/value';
+import {getFactory as labelFactory} from '@grid/core/services/label';
 import * as columnService from '@grid/core/column/column.service';
 
 const Plugin = PluginComponent('column-filter-panel', {inject: ['vscroll', '$filter', 'qgrid']});
@@ -11,6 +12,7 @@ class ColumnFilterPanel extends Plugin {
 
 		this.by = new Set();
 		this.items = [];
+		this.entries = new Map();
 
 		this.toggle = new Command({
 			execute: (item) => {
@@ -41,7 +43,8 @@ class ColumnFilterPanel extends Plugin {
 			execute: () => {
 				const filter = this.model.filter;
 				const by = clone(filter().by);
-				const items = Array.from(this.by);
+				const entries = this.entries;
+				const items = flatten(Array.from(this.by).map(x => entries.get(x)));
 				if (items.length) {
 					by[this.key] = {items: items};
 				}
@@ -93,7 +96,11 @@ class ColumnFilterPanel extends Plugin {
 							filter: this.filter
 						})
 						.then(items => {
-							this.items.push(...items);
+							items.forEach(x => {
+								this.items.push(x);
+								this.entries.set(x, [x]);
+							});
+
 							d.resolve(this.items.length + take);
 							cancelBusy();
 						})
@@ -104,14 +111,32 @@ class ColumnFilterPanel extends Plugin {
 					try {
 						if (!this.items.length) {
 							const source = model[model.columnFilter().source];
-							let items = source().rows.map(this.getValue.bind(this));
-							if(this.column.type === 'array') {
-								items = flatten(items);
-							}
+							const getValue = this.getValue;
+							const getLabel = this.getLabel;
+							const entries = this.entries;
+							entries.clear();
 
-							const uniqItems = uniq(items);
-							const filteredItems = this.$filter('filter')(uniqItems, this.filter);
+							let uniqItems = [];
+							source().rows.map(row => {
+								const label = getLabel(row);
+								let values;
+								if (entries.has(label)) {
+									values = entries.get(label);
+								}
+								else {
+									values = [];
+									entries.set(label, values);
+									uniqItems.push(label);
+								}
+
+								const value = getValue(row);
+								values.push(value);
+							});
+
+							const filter = this.$filter('filter');
+							const filteredItems = filter(uniqItems, this.filter);
 							filteredItems.sort();
+
 							this.items = filteredItems;
 						}
 
@@ -128,6 +153,7 @@ class ColumnFilterPanel extends Plugin {
 	onInit() {
 		this.column = columnService.find(this.model.data().columns, this.key);
 		this.getValue = valueFactory(this.column);
+		this.getLabel = labelFactory(this.column);
 
 		const filterBy = this.model.filter().by[this.key];
 		this.by = new Set((filterBy && filterBy.items) || []);

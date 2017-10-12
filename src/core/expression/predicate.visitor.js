@@ -123,17 +123,6 @@ export class PredicateVisitor extends Visitor {
 
 		return l => {
 			const v = getValue(l);
-			if (isArray(v)) {
-				let length = v.length;
-				while (length--) {
-					if (predicate(v[length])) {
-						return true;
-					}
-				}
-
-				return false;
-			}
-
 			return predicate(v);
 		};
 	}
