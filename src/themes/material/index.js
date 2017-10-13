@@ -89,6 +89,7 @@ function Setup(qgridThemeProvider) {
 
 		theme.put('qgrid.toolbar.top.tpl.html', require('@grid/themes/material/templates/toolbar.top.html'));
 		theme.put('qgrid.plugin.column-chooser.tpl.html', require('@grid/themes/material/templates/plugin.column.chooser.html'));
+		theme.put('qgrid.plugin.column-filter.tpl.html', require('@grid/themes/material/templates/plugin.column.filter.html'));
 		theme.put('qgrid.plugin.column-filter-panel.tpl.html', require('@grid/themes/material/templates/plugin.column.filter.panel.html'));
 		theme.put('qgrid.plugin.edit-form.tpl.html', require('@grid/themes/material/templates/plugin.edit.form.html'));
 		theme.put('qgrid.plugin.edit-form-panel.tpl.html', require('@grid/themes/material/templates/plugin.edit.form.panel.html'));

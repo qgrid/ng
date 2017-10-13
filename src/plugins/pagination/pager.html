@@ -1,9 +1,0 @@
-<div class="q-grid-pager">
-	<label class="q-grid-page-size">Rows per page:</label>
-	<select class="q-grid-page-size" ng-model="$pager.size"
-			  ng-options="size for size in $pager.sizeList">
-	</select>
-	<label class="q-grid-page">{{$pager.from}}-{{$pager.to}} of {{$pager.total}}</label>
-	<button class="q-grid-prev-page" ng-disabled="!$pager.prev.canExecute()" ng-click="$pager.prev.execute();">&lt;</button>
-	<button class="q-grid-next-page" ng-disabled="!$pager.next.canExecute()" ng-click="$pager.next.execute();">&gt;</button>
-</div>

@@ -13,6 +13,7 @@
 		<ul>
 			<li>
 				<md-checkbox ng-click="$columnFilterPanel.toggleAll.execute()"
+								 md-prevent-menu-close
 								 ng-checked="$columnFilterPanel.stateAll()"
 								 aria-label="Select all filter values"
 								 md-indeterminate="$columnFilterPanel.isIndeterminate()">
@@ -27,6 +28,7 @@
 					ng-repeat="item in $columnFilterPanel.items | vscroll: $columnFilterPanel.vscrollContext track by $index"
 					vscroll-row="{{::$index}}">
 					<md-checkbox ng-checked="$columnFilterPanel.state(item)"
+									 md-prevent-menu-close
 									 ng-if="$columnFilterPanel.toggle.canExecute(item)"
 									 aria-label="Select filter value"
 									 ng-click="$columnFilterPanel.toggle.execute(item)">
@@ -40,7 +42,7 @@
 		<md-button ng-click="$columnFilterPanel.cancel.execute()">
 			Cancel
 		</md-button>
-		<md-button ng-click="$columnFilterPanel.reset.execute()">
+		<md-button ng-click="$columnFilterPanel.reset.execute()" md-prevent-menu-close>
 			Reset
 		</md-button>
 		<md-button class="md-primary"

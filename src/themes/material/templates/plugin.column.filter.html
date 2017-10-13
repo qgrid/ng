@@ -1,0 +1,33 @@
+<md-menu>
+	<md-button aria-label="Open column filter"
+				  class="md-icon-button"
+				  ng-click="$mdMenu.open()"
+				  tabindex="-1">
+		<md-icon md-menu-origin>filter_list</md-icon>
+	</md-button>
+	<md-menu-content width="6">
+		<md-card q-grid:menu>
+			<md-card-header>
+				<md-card-title>
+					<md-card-title-text>
+						<span class="md-subhead">{{$columnFilter.title}} Filter</span>
+					</md-card-title-text>
+					<md-card-title-actions layout="row" layout-align="end center">
+						<md-button class="md-icon-button md-action-close"
+									  aria-label="Close"
+									  ng-click="$mdMenu.close()">
+							<md-icon aria-hidden="true">&#xE5CD;</md-icon>
+							<md-tooltip md-direction="bottom">
+								Close
+							</md-tooltip>
+						</md-button>
+					</md-card-title-actions>
+				</md-card-title>
+			</md-card-header>
+			<md-card-content>
+				<q-grid:column-filter-panel key="$columnFilter.key">
+				</q-grid:column-filter-panel>
+			</md-card-content>
+		</md-card>
+	</md-menu-content>
+</md-menu>
