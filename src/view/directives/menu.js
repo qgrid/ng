@@ -6,12 +6,6 @@ class Menu extends Directive(MENU_NAME) {
 		super();
 
 		this.element = $element[0];
-		this.element.addEventListener('click', e => {
-			e.stopPropagation();
-			e.stopImmediatePropagation();
-			e.preventDefault();
-			return false;
-		});
 	}
 }
 

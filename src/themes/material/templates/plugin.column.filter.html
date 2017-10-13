@@ -5,23 +5,13 @@
 				  tabindex="-1">
 		<md-icon md-menu-origin>filter_list</md-icon>
 	</md-button>
-	<md-menu-content width="6">
-		<md-card q-grid:menu>
+	<md-menu-content q-grid:menu class="q-grid-menu" width="6">
+		<md-card>
 			<md-card-header>
 				<md-card-title>
 					<md-card-title-text>
 						<span class="md-subhead">{{$columnFilter.title}} Filter</span>
 					</md-card-title-text>
-					<md-card-title-actions layout="row" layout-align="end center">
-						<md-button class="md-icon-button md-action-close"
-									  aria-label="Close"
-									  ng-click="$mdMenu.close()">
-							<md-icon aria-hidden="true">&#xE5CD;</md-icon>
-							<md-tooltip md-direction="bottom">
-								Close
-							</md-tooltip>
-						</md-button>
-					</md-card-title-actions>
 				</md-card-title>
 			</md-card-header>
 			<md-card-content>
