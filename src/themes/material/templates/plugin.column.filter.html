@@ -1,23 +1,27 @@
-<md-menu>
+<q-grid:outlet-template id="column-filter" let="$columnFilter">
+	<md-card>
+		<md-card-header>
+			<md-card-title>
+				<md-card-title-text>
+					<span class="md-subhead">{{$columnFilter.title}} Filter</span>
+				</md-card-title-text>
+			</md-card-title>
+		</md-card-header>
+		<md-card-content>
+			<q-grid:column-filter-panel key="$columnFilter.key">
+			</q-grid:column-filter-panel>
+		</md-card-content>
+	</md-card>
+</q-grid:outlet-template>
+
+
+<md-menu q-grid:outlet="column-filter" md-offset="-24 -8">
 	<md-button aria-label="Open column filter"
 				  class="md-icon-button"
-				  ng-click="$mdMenu.open()"
+				  ng-click="$mdMenu.open();$outlet.link();"
 				  tabindex="-1">
 		<md-icon md-menu-origin>filter_list</md-icon>
 	</md-button>
-	<md-menu-content q-grid:menu class="q-grid-menu" width="6">
-		<md-card>
-			<md-card-header>
-				<md-card-title>
-					<md-card-title-text>
-						<span class="md-subhead">{{$columnFilter.title}} Filter</span>
-					</md-card-title-text>
-				</md-card-title>
-			</md-card-header>
-			<md-card-content>
-				<q-grid:column-filter-panel key="$columnFilter.key">
-				</q-grid:column-filter-panel>
-			</md-card-content>
-		</md-card>
+	<md-menu-content class="q-grid-menu" width="6" q-grid:outlet-host="$columnFilter">
 	</md-menu-content>
 </md-menu>

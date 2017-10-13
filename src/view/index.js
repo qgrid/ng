@@ -25,6 +25,8 @@ import HeadCore from './components/head/head.core';
 import BodyCore from './components/body/body.core';
 import FootCore from './components/foot/foot.core';
 import ToolbarCore from './components/toolbar/toolbar.core';
+import OutletHost from './components/outlet/outlet.host';
+import Outlet from './components/outlet/outlet';
 
 import Indeterminate from './directives/indeterminate';
 import Focus from './directives/focus';
@@ -35,7 +37,6 @@ import Raise from './directives/raise';
 import Animate from './directives/animate';
 import Position from './directives/position';
 import Autofocus from './directives/autofocus';
-import Menu from './directives/menu';
 
 import ThemeProvider from './services/theme';
 import Range from './filters/range';
@@ -56,7 +57,8 @@ export const coreModule = angular.module(def.MODULE_CORE_NAME, [])
 	.directive(def.ANIMATE_NAME, () => Animate)
 	.directive(def.POSITION_NAME, () => Position)
 	.directive(def.AUTOFOCUS_NAME, () => Autofocus)
-	.directive(def.MENU_NAME, () => Menu)
+	.directive(def.OUTLET_HOST_NAME, () => OutletHost)
+	.component(def.OUTLET_NAME, () => Outlet)
 	.provider(def.THEME_NAME, () => new ThemeProvider())
 	.service(def.TEMPLATE_PATH_NAME, () => () => TemplatePath)
 	.filter(def.RANGE_NAME, () => Range)
