@@ -3,6 +3,8 @@
 
 .q-grid.q-grid-theme-material .q-grid-view thead tr, .q-grid.q-grid-theme-material .q-grid-view tfoot tr {
   height: 56px; }
+  .q-grid.q-grid-theme-material .q-grid-view thead tr th.q-grid-can-sort label, .q-grid.q-grid-theme-material .q-grid-view tfoot tr th.q-grid-can-sort label {
+    cursor: pointer; }
   .q-grid.q-grid-theme-material .q-grid-view thead tr th, .q-grid.q-grid-theme-material .q-grid-view thead tr td, .q-grid.q-grid-theme-material .q-grid-view tfoot tr th, .q-grid.q-grid-theme-material .q-grid-view tfoot tr td {
     color: rgba(0, 0, 0, 0.54);
     font-size: 12px;
