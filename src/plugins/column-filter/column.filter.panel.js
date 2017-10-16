@@ -122,7 +122,7 @@ class ColumnFilterPanel extends Plugin {
 							entries.clear();
 
 							const byItems = new Set();
-							let uniqItems = [];
+							const uniqItems = [];
 							source().rows.map(row => {
 								const label = getLabel(row);
 								let values;
