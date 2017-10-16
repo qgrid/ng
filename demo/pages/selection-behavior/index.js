@@ -19,8 +19,8 @@ export default function Controller($http, qgrid) {
 		shortcut: 'enter'
 	});
 
-	this.gridModel.navigationChanged.on((e) =>{
-		if(e.hasChanges('cell')){
+	this.gridModel.navigationChanged.on((e) => {
+		if (e.hasChanges('cell')) {
 			model.selection({items: [e.state.cell.row]});
 		}
 	});
@@ -34,6 +34,10 @@ export default function Controller($http, qgrid) {
 				})
 				.selection({
 					items: [rows[2]]
+				})
+				.focus({
+					columnIndex: 0,
+					rowIndex: 3
 				});
 		});
 }

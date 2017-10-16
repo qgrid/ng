@@ -37,7 +37,7 @@ class Autofocus extends Directive(AUTOFOCUS_NAME, {root: `${GRID_NAME}`}) {
 					const cellModel = cell.model();
 					if (!cellModel || !cellModel.column.canFocus) {
 						let rowIndex = 0;
-						while (true) {
+						while (true) { // eslint-disable-line no-constant-condition
 							const row = body.row(rowIndex);
 							if(!row.model()){
 								break;
