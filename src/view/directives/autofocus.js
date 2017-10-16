@@ -30,11 +30,48 @@ class Autofocus extends Directive(AUTOFOCUS_NAME, {root: `${GRID_NAME}`}) {
 			() => this.table.body.rowCount(0),
 			count => {
 				if (count) {
-					const focusableIndex = this.table.data.columns().findIndex(c => c.canFocus);
-					this.model.focus({
-						rowIndex: 0,
-						columnIndex: focusableIndex
-					});
+					const body = this.table.body;
+					const focus = this.model.focus;
+					const focusState = focus();
+					const cell = body.cell(focusState.rowIndex, focusState.columnIndex);
+					const cellModel = cell.model();
+					if (!cellModel || !cellModel.column.canFocus) {
+						let rowIndex = 0;
+						while (true) { // eslint-disable-line no-constant-condition
+							const row = body.row(rowIndex);
+							if (!row.model()) {
+								break;
+							}
+
+							const cells = row.cells();
+							const columnIndex = cells.findIndex(c => {
+								const m = c.model();
+								return m && m.column.canFocus
+							});
+
+							if (columnIndex >= 0) {
+								focus({
+									rowIndex: rowIndex,
+									columnIndex: columnIndex
+								});
+								break;
+							}
+
+							rowIndex++;
+						}
+					}
+					else {
+						// invalidate navigation
+						focus({
+							rowIndex: -1,
+							columnIndex: -1
+						});
+
+						focus({
+							rowIndex: cell.rowIndex,
+							columnIndex: cell.columnIndex
+						});
+					}
 
 					rowsOff();
 				}

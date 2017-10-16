@@ -38,7 +38,11 @@ class ViewCore extends Component {
 		this.destroyView = injectViewServicesTo(this);
 
 		// TODO: how we can avoid that?
-		this.$scope.$watch(this.style.invalidate.bind(this.style));
+		this.$scope.$watch(() => {
+			if(model.scene().status === 'stop') {
+				this.style.invalidate();
+			}
+		});
 
 		this.watch(gridService);
 	}

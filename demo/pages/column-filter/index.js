@@ -1,4 +1,5 @@
-import uniq from 'lodash/uniq';
+import uniqBy from 'lodash/uniqBy';
+
 
 Controller.$inject = ['$http', 'qgrid', '$q', '$timeout', '$filter'];
 export default function Controller($http, qgrid, $q, $timeout, $filter) {
@@ -12,7 +13,7 @@ export default function Controller($http, qgrid, $q, $timeout, $filter) {
 				.then(response => {
 					$timeout(() => {
 						const data = response.data.map(context.value);
-						const uniqData = uniq(data);
+						const uniqData = uniqBy(data, JSON.stringify);
 						const filteredData = $filter('filter')(uniqData, context.filter);
 						filteredData.sort();
 
