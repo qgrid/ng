@@ -39,7 +39,7 @@ class Autofocus extends Directive(AUTOFOCUS_NAME, {root: `${GRID_NAME}`}) {
 						let rowIndex = 0;
 						while (true) { // eslint-disable-line no-constant-condition
 							const row = body.row(rowIndex);
-							if(!row.model()){
+							if (!row.model()) {
 								break;
 							}
 
@@ -59,6 +59,18 @@ class Autofocus extends Directive(AUTOFOCUS_NAME, {root: `${GRID_NAME}`}) {
 
 							rowIndex++;
 						}
+					}
+					else {
+						// invalidate navigation
+						focus({
+							rowIndex: -1,
+							columnIndex: -1
+						});
+
+						focus({
+							rowIndex: cell.rowIndex,
+							columnIndex: cell.columnIndex
+						});
 					}
 
 					rowsOff();

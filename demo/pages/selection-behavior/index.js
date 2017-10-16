@@ -32,9 +32,6 @@ export default function Controller($http, qgrid) {
 				.data({
 					rows: rows
 				})
-				.selection({
-					items: [rows[2]]
-				})
 				.focus({
 					columnIndex: 0,
 					rowIndex: 3
