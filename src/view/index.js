@@ -106,10 +106,5 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.body.tpl.html', require('./components/body/body.html'));
 		theme.put('qgrid.body.virtual.tpl.html', require('./components/body/body.virtual.html'));
 		theme.put('qgrid.foot.tpl.html', require('./components/foot/foot.html'));
-
-		theme.put('qgrid.toolbar.top.tpl.html', require('./components/toolbar/toolbar.top.html'));
-		theme.put('qgrid.toolbar.bottom.tpl.html', require('./components/toolbar/toolbar.bottom.html'));
-		theme.put('qgrid.toolbar.right.tpl.html', require('./components/toolbar/toolbar.right.html'));
-		theme.put('qgrid.toolbar.left.tpl.html', require('./components/toolbar/toolbar.left.html'));
 	});
 }

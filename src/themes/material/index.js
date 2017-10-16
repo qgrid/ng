@@ -24,7 +24,10 @@ function Setup(qgridThemeProvider) {
 	const form = (type) => `qgrid.form.cell.${type}.tpl.html`;
 
 	qgridThemeProvider.register('material', theme => {
-		theme.put(component('toolbar'), require('./templates/toolbar.top.html'));
+		theme.put(component('toolbar.top'), require('./templates/toolbar.top.html'));
+		theme.put(component('toolbar.bottom'), require('./templates/toolbar.bottom.html'));
+		theme.put(component('toolbar.right'), EMPTY);
+		theme.put(component('toolbar.left'), EMPTY);
 
 		theme.put(plugin('progress'), require('./templates/plugin.progress.html'));
 		theme.put(plugin('export'), require('./templates/plugin.export.html'));
@@ -157,6 +160,9 @@ function Setup(qgridThemeProvider) {
 		theme.put(cell('body', 'id'), require('./templates/body.cell.text.html'));
 		theme.put(cell('foot', 'id'), require('./templates/foot.cell.text.html'));
 		theme.put(cell('body', 'id.edit'), require('./templates/body.cell.text.edit.html'));
+
+		theme.put(cell('body', 'autocomplete.edit'), require('./templates/body.cell.autocomplete.edit.html'));
+		theme.put(cell('body', 'dropdown.edit'), require('./templates/body.cell.dropdown.edit.html'));
 
 		theme.put(form('text.edit'), require('./templates/form.cell.text.edit.html'));
 		theme.put(form('number.edit'), require('./templates/form.cell.number.edit.html'));
