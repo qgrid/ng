@@ -1,6 +1,0 @@
-<input type="text"
-		 ng-if="$cell.column.canFilter"
-		 ng-init="search=''"
-		 ng-model="search"
-		 ng-change="$view.head.filter.execute({source: $cell.column, search: search })"
-		 placeholder="Filter {{::$cell.column.title}}"/>
