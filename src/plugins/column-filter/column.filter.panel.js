@@ -86,7 +86,12 @@ class ColumnFilterPanel extends Plugin {
 				const model = this.model;
 				const filterState = model.filter();
 				const service = this.qgrid.service(model);
+				const filterBy = this.model.filter().by[this.key];
+				const filterItems = (filterBy && filterBy.items) || [];
+				const by = new Set(filterItems);
 				if (filterState.fetch !== noop) {
+					this.by = by;
+
 					const cancelBusy = service.busy();
 					filterState
 						.fetch(this.key, {
@@ -116,6 +121,7 @@ class ColumnFilterPanel extends Plugin {
 							const entries = this.entries;
 							entries.clear();
 
+							const byItems = new Set();
 							let uniqItems = [];
 							source().rows.map(row => {
 								const label = getLabel(row);
@@ -130,6 +136,10 @@ class ColumnFilterPanel extends Plugin {
 								}
 
 								const value = getValue(row);
+								if (by.has(value)) {
+									byItems.add(label);
+								}
+
 								values.push(value);
 							});
 
@@ -138,6 +148,7 @@ class ColumnFilterPanel extends Plugin {
 							filteredItems.sort();
 
 							this.items = filteredItems;
+							this.by = byItems;
 						}
 
 						d.resolve(this.items.length);
@@ -154,9 +165,6 @@ class ColumnFilterPanel extends Plugin {
 		this.column = columnService.find(this.model.data().columns, this.key);
 		this.getValue = valueFactory(this.column);
 		this.getLabel = labelFactory(this.column);
-
-		const filterBy = this.model.filter().by[this.key];
-		this.by = new Set((filterBy && filterBy.items) || []);
 
 		this.vscrollContext.settings.threshold = this.model.columnFilter().threshold;
 		this.resetItems.execute();
