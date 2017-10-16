@@ -1,0 +1,18 @@
+<q-grid q-grid:autofocus
+		  model="$ctrl.gridModel"
+		  selection-mode="single"
+		  selection-unit="row"
+		  selection-area="body"
+		  on:selection-changed="$ctrl.selectionChanged($event)">
+
+	<q-grid:columns generation="deep">
+		<q-grid:column type="select" is-visible="false"></q-grid:column>
+		<q-grid:column key="name.first" width="80%"></q-grid:column>
+	</q-grid:columns>
+
+	<q-grid:action-bar>
+		<q-grid:action id="edit-row" command="$ctrl.editRow">
+		</q-grid:action>
+	</q-grid:action-bar>
+
+</q-grid>
