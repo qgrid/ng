@@ -22203,96 +22203,96 @@ var PredicateVisitor = function (_Visitor) {
 			var getValue = this.valueFactory(name);
 			var map = new Set();
 
-			var castAs = void 0;
+			var rCastAs = void 0;
 			if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__utility__["b" /* isArray */])(r)) {
 				if (r.length) {
-					castAs = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__cast_factory__["a" /* castFactory */])(r[0]);
+					rCastAs = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__cast_factory__["a" /* castFactory */])(r[0]);
 					r.forEach(function (x) {
 						return map.add(x);
 					});
 				} else {
-					castAs = __WEBPACK_IMPORTED_MODULE_3__utility__["d" /* identity */];
+					rCastAs = __WEBPACK_IMPORTED_MODULE_3__utility__["d" /* identity */];
 				}
 			} else {
-				castAs = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__cast_factory__["a" /* castFactory */])(r);
+				rCastAs = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__cast_factory__["a" /* castFactory */])(r);
 			}
 
 			var predicate = void 0;
 			switch (condition.op) {
 				case 'isNotNull':
-					predicate = function predicate(v) {
-						return v || v === 0;
+					predicate = function predicate(l) {
+						return l || l === 0;
 					};
 					break;
 				case 'isNull':
-					predicate = function predicate(v) {
-						return !v && v !== 0;
+					predicate = function predicate(l) {
+						return !l && l !== 0;
 					};
 					break;
 				case 'equals':
-					predicate = function predicate(v) {
-						return castAs(v) === r;
+					predicate = function predicate(l) {
+						return rCastAs(l) === l;
 					};
 					break;
 				case 'notEquals':
-					predicate = function predicate(v) {
-						return castAs(v) !== r;
+					predicate = function predicate(l) {
+						return rCastAs(l) !== l;
 					};
 					break;
 				case 'greaterThanOrEquals':
-					predicate = function predicate(v) {
-						return castAs(v) >= r;
+					predicate = function predicate(l) {
+						return l >= rCastAs(l);
 					};
 					break;
 				case 'greaterThan':
-					predicate = function predicate(v) {
-						return castAs(v) > r;
+					predicate = function predicate(l) {
+						return l > rCastAs(l);
 					};
 					break;
 				case 'lessThanOrEquals':
-					predicate = function predicate(v) {
-						return castAs(v) <= r;
+					predicate = function predicate(l) {
+						return l <= rCastAs(l);
 					};
 					break;
 				case 'lessThan':
-					predicate = function predicate(v) {
-						return castAs(v) < r;
+					predicate = function predicate(l) {
+						return l < rCastAs(l);
 					};
 					break;
 				case 'between':
-					predicate = function predicate(v) {
-						return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__cast_factory__["a" /* castFactory */])(r[0])(v) <= v && v <= __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__cast_factory__["a" /* castFactory */])(r[1])(v);
+					predicate = function predicate(l) {
+						return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__cast_factory__["a" /* castFactory */])(r[0])(l) <= l && l <= __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__cast_factory__["a" /* castFactory */])(r[1])(l);
 					};
 					break;
 				case 'in':
-					predicate = function predicate(v) {
-						var value = !v && v !== 0 ? 'null' : v;
-						return map.has(value);
+					predicate = function predicate(l) {
+						var v = !l && l !== 0 ? 'null' : l;
+						return map.has(v);
 					};
 					break;
 				case 'like':
-					predicate = function predicate(v) {
-						var r = castAs(v);
-						return v && ('' + v).toLowerCase().includes(('' + r).toLowerCase());
+					predicate = function predicate(l) {
+						var r = rCastAs(l);
+						return l && ('' + l).toLowerCase().includes(('' + r).toLowerCase());
 					};
 					break;
 				case 'notLike':
-					predicate = function predicate(v) {
-						var r = castAs(v);
-						return v && !('' + v).toLowerCase().includes(('' + r).toLowerCase());
+					predicate = function predicate(l) {
+						var r = rCastAs(l);
+						return l && !('' + l).toLowerCase().includes(('' + r).toLowerCase());
 					};
 					break;
 				case 'startsWith':
-					predicate = function predicate(v) {
-						var r = castAs(v);
-						var substr = v.substr(0, r.length).toLowerCase();
+					predicate = function predicate(l) {
+						var r = rCastAs(l);
+						var substr = l.substr(0, r.length).toLowerCase();
 						return ('' + r).toLowerCase() === substr;
 					};
 					break;
 				case 'endsWith':
-					predicate = function predicate(v) {
-						var r = castAs(v);
-						var substr = v.slice(-r.length).toLowerCase();
+					predicate = function predicate(l) {
+						var r = rCastAs(l);
+						var substr = l.slice(-r.length).toLowerCase();
 						return ('' + r).toLowerCase() === substr;
 					};
 					break;
