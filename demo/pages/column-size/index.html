@@ -1,23 +1,8 @@
 <q-grid rows="$ctrl.rows">
 	<q-grid:columns>
-		<q-grid:column key="name.first" path="name.first" title="First Name" width="20%"></q-grid:column>
-		<q-grid:column key="name.last" path="name.last" title="Last Name" width="20%"></q-grid:column>
-		<q-grid:column key="gender" title="Gender" width="100"></q-grid:column>
-		<q-grid:column key="birthday" title="Birthday" type="date" width="40%"></q-grid:column>
-		<q-grid:column key="emptySpace" type="pad"></q-grid:column>
-		<q-grid:column key="settings"
-							type="settings"
-							width="80"
-							can-sort="false"
-							can-filter="false"
-							can-move="false"
-							can-resize="false">
-			<q-grid:template for="head"></q-grid:template>
-			<q-grid:template for="body">
-				<md-button class="md-icon-button">
-					<md-icon>more_vert</md-icon>
-				</md-button>
-			</q-grid:template>
-		</q-grid:column>
+		<q-grid:column key="name.first" path="name.first" title="First Name" width="50%"></q-grid:column>
+		<q-grid:column key="name.last" path="name.last" title="Last Name" width="30%"></q-grid:column>
+		<q-grid:column key="gender" title="Gender" width="20%"></q-grid:column>
+		<q-grid:column key="birthday" title="Birthday" type="date" width="50"></q-grid:column>
 	</q-grid:columns>
 </q-grid>

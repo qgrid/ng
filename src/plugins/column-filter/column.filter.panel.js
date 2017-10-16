@@ -1,7 +1,8 @@
 import PluginComponent from '../plugin.component';
 import {Command} from '@grid/core/command';
-import {uniq, clone, noop} from '@grid/core/utility';
+import {clone, noop, flatten} from '@grid/core/utility';
 import {getFactory as valueFactory} from '@grid/core/services/value';
+import {getFactory as labelFactory} from '@grid/core/services/label';
 import * as columnService from '@grid/core/column/column.service';
 
 const Plugin = PluginComponent('column-filter-panel', {inject: ['vscroll', '$filter', 'qgrid']});
@@ -11,6 +12,7 @@ class ColumnFilterPanel extends Plugin {
 
 		this.by = new Set();
 		this.items = [];
+		this.entries = new Map();
 
 		this.toggle = new Command({
 			execute: (item) => {
@@ -41,7 +43,8 @@ class ColumnFilterPanel extends Plugin {
 			execute: () => {
 				const filter = this.model.filter;
 				const by = clone(filter().by);
-				const items = Array.from(this.by);
+				const entries = this.entries;
+				const items = flatten(Array.from(this.by).map(x => entries.get(x)));
 				if (items.length) {
 					by[this.key] = {items: items};
 				}
@@ -82,8 +85,13 @@ class ColumnFilterPanel extends Plugin {
 
 				const model = this.model;
 				const filterState = model.filter();
-				const service = this.qgrid.service(this.model);
+				const service = this.qgrid.service(model);
+				const filterBy = this.model.filter().by[this.key];
+				const filterItems = (filterBy && filterBy.items) || [];
+				const by = new Set(filterItems);
 				if (filterState.fetch !== noop) {
+					this.by = by;
+
 					const cancelBusy = service.busy();
 					filterState
 						.fetch(this.key, {
@@ -93,7 +101,11 @@ class ColumnFilterPanel extends Plugin {
 							filter: this.filter
 						})
 						.then(items => {
-							this.items.push(...items);
+							items.forEach(x => {
+								this.items.push(x);
+								this.entries.set(x, [x]);
+							});
+
 							d.resolve(this.items.length + take);
 							cancelBusy();
 						})
@@ -103,11 +115,40 @@ class ColumnFilterPanel extends Plugin {
 					const cancelBusy = service.busy();
 					try {
 						if (!this.items.length) {
-							const source = this.model[this.model.columnFilter().source];
-							const uniqItems = uniq(source().rows.map(this.getValue));
-							const filteredItems = this.$filter('filter')(uniqItems, this.filter);
+							const source = model[model.columnFilter().source];
+							const getValue = this.getValue;
+							const getLabel = this.getLabel;
+							const entries = this.entries;
+							entries.clear();
+
+							const byItems = new Set();
+							const uniqItems = [];
+							source().rows.map(row => {
+								const label = getLabel(row);
+								let values;
+								if (entries.has(label)) {
+									values = entries.get(label);
+								}
+								else {
+									values = [];
+									entries.set(label, values);
+									uniqItems.push(label);
+								}
+
+								const value = getValue(row);
+								if (by.has(value)) {
+									byItems.add(label);
+								}
+
+								values.push(value);
+							});
+
+							const filter = this.$filter('filter');
+							const filteredItems = filter(uniqItems, this.filter);
 							filteredItems.sort();
+
 							this.items = filteredItems;
+							this.by = byItems;
 						}
 
 						d.resolve(this.items.length);
@@ -121,11 +162,9 @@ class ColumnFilterPanel extends Plugin {
 	}
 
 	onInit() {
-		const column = columnService.find(this.model.data().columns, this.key);
-		this.getValue = valueFactory(column);
-
-		const filterBy = this.model.filter().by[this.key];
-		this.by = new Set((filterBy && filterBy.items) || []);
+		this.column = columnService.find(this.model.data().columns, this.key);
+		this.getValue = valueFactory(this.column);
+		this.getLabel = labelFactory(this.column);
 
 		this.vscrollContext.settings.threshold = this.model.columnFilter().threshold;
 		this.resetItems.execute();

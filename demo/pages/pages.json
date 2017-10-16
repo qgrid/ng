@@ -327,6 +327,10 @@
 				"path": "selection-model"
 			},
 			{
+				"title": "Selection Behavior",
+				"path": "selection-behavior"
+			},
+			{
 				"title": "Master Details",
 				"path": "master-details"
 			},
