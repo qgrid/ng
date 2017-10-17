@@ -33,6 +33,7 @@ function Setup(qgridThemeProvider) {
 		theme.put(plugin('export'), require('./templates/plugin.export.html'));
 		theme.put(plugin('import'), require('./templates/plugin.import.html'));
 		theme.put(plugin('column-chooser'), require('./templates/plugin.column.chooser.html'));
+		theme.put(plugin('column-filter'), require('./templates/plugin.column.filter.html'));
 		theme.put(plugin('column-filter-panel'), require('./templates/plugin.column.filter.panel.html'));
 		theme.put(plugin('edit-form'), require('./templates/plugin.edit.form.html'));
 		theme.put(plugin('edit-form-panel'), require('./templates/plugin.edit.form.panel.html'));
