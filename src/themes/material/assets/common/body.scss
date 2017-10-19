@@ -9,10 +9,6 @@ tbody {
 	> tr {
 		height: $row-height;
 
-		&.q-grid-highlighted {
-			background-color: #eee;
-		}
-
 		&:hover {
 			td {
 				&.q-grid-text-area {
@@ -86,35 +82,6 @@ tbody {
 					text-overflow: ellipsis;
 					outline: none;
 				}
-
-				//.q-grid-file-download,
-				//.q-grid-file-edit,
-				//.q-grid-url-edit,
-				//.q-grid-email-edit,
-				//.q-grid-reference-edit {
-				//	position: absolute;
-				//	top: calc(50% - 8px);
-                //
-				//	font-size: 12px;
-				//	min-width: 16px;
-				//	width: 16px;
-				//	min-height: 16px;
-				//	height: 16px;
-				//	outline: none;
-				//	border: none;
-				//	background: transparent;
-				//	padding: 0;
-				//	margin: 0 2px;
-                //
-				//	md-icon {
-				//		color: $dark-secondary;
-				//		font-size: 16px;
-				//		height: 16px;
-				//		width: 16px;
-				//		min-height: 16px;
-				//		min-width: 16px;
-				//	}
-				//}
 
 				.q-grid-file-edit,
 				.q-grid-url-edit,

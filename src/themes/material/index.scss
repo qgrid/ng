@@ -29,9 +29,10 @@
 	@import "assets/plugin/edit.form";
 	@import "assets/plugin/export";
 
-	&.q-grid-excel {
-		@import "assets/plugin/excel";
-	}
+}
+
+.q-grid-excel .q-grid.q-grid-theme-material {
+	@import "assets/plugin/excel";
 }
 
 @import "assets/common/embed";
