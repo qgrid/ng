@@ -1,17 +1,8 @@
-@import "variables";
+@import "../variables";
 
 .q-grid-view {
 	thead, tfoot {
 		tr {
-			height: 56px;
-			th {
-				&.q-grid-can-sort {
-					label {
-						cursor: pointer;
-					}
-				}
-			}
-
 			th, td {
 				&.q-grid-select {
 					md-checkbox {
@@ -42,21 +33,6 @@
 					}
 					input:-ms-input-placeholder {
 						text-overflow: ellipsis;
-					}
-				}
-
-				label {
-					display: inline;
-				}
-
-				color: $dark-secondary;
-				font-size: 12px;
-				font-weight: bold;
-				padding: 0 16px;
-
-				&:hover {
-					label {
-						font-weight: bold;
 					}
 				}
 			}

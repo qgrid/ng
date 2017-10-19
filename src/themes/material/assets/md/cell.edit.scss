@@ -89,6 +89,12 @@ td.q-grid-edit {
 				text-align: left;
 			}
 		}
+
+		&.q-grid-time {
+			md-input-container {
+				width: 100%;
+			}
+		}
 	}
 
 	&.q-grid-row-options{
