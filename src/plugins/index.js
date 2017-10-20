@@ -24,11 +24,13 @@ import ActionBar from './action-bar/action.bar';
 import Action from './action/action';
 import ActionCore from './action/action.core';
 import DataManipulation from './data-manipulation/data.manipulation';
+import Menu from './menu/menu';
 
 import * as def from './definition';
 
 export default angular  // eslint-disable-line no-undef
 	.module(def.MODULE_NAME, [def.MODULE_CORE_NAME])
+	.directive(def.MENU_NAME, () => Menu)
 	.component(def.PAGER_NAME, Pager)
 	.component(def.SORT_BAR_NAME, SortBar)
 	.component(def.GROUP_BAR_NAME, GroupBar)

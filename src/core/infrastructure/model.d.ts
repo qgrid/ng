@@ -29,7 +29,6 @@ import {ScrollModel} from '../scroll/scroll.model';
 import {ExportModel} from '../export/export.model';
 import {ActionModel} from '../action/action.model';
 import {FetchModel} from '../fetch/fetch.model';
-import {OutletModel} from '../outlet/outlet.model';
 import {Event} from './event';
 
 export declare class Model {
@@ -160,9 +159,4 @@ export declare class Model {
 	fetch(value?: object, tag?: object): FetchModel;
 
 	fetchChanged: Event;
-
-	outlet(value?: object, tag?: object): OutletModel;
-
-	outletChanged: Event;
-
 }

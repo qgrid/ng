@@ -54,8 +54,6 @@ export const RAISE_NAME = `${GRID}Raise`;
 export const ANIMATE_NAME = `${GRID}Animate`;
 export const POSITION_NAME = `${GRID}Position`;
 export const AUTOFOCUS_NAME = `${GRID}Autofocus`;
-export const OUTLET_NAME = `${GRID}Outlet`;
-export const OUTLET_HOST_NAME = `${GRID}OutletHost`;
 
 export const FILE_UPLOAD_NAME = `${GRID}FileUpload`;
 export const FILE_UPLOAD_LABEL_NAME = `${GRID}FileUploadLabel`;

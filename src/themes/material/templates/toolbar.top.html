@@ -12,33 +12,36 @@
 			<q-grid:action-bar-core></q-grid:action-bar-core>
 		</div>
 		<div>
-
-			<q-grid:outlet-template for="column-chooser" let="$columnChooser">
-				<md-card>
-					<md-card-header>
-						<md-card-title>
-							<md-card-title-text>
-								<span class="md-subhead">Column Filter</span>
-							</md-card-title-text>
-						</md-card-title>
-					</md-card-header>
-					<md-card-content>
-						<q-grid:column-chooser>
-						</q-grid:column-chooser>
-					</md-card-content>
-				</md-card>
-			</q-grid:outlet-template>
-
-			<md-menu q-grid:outlet="column-chooser" md-offset="-24 -8">
-				<md-button aria-label="Open column chooser"
+			<md-menu q-grid:menu="$mdMenu">
+				<md-button ng-click="$mdMenu.open($event)"
 							  class="md-icon-button"
-							  ng-click="$mdMenu.open($event);$outlet.link();"
 							  tabindex="-1">
-					<md-icon md-menu-origin>more_vert</md-icon>
+					<md-icon>more_vert</md-icon>
 				</md-button>
-				<md-menu-content class="q-grid-menu" width="6" q-grid:outlet-host="$columnChooser">
+				<md-menu-content width="4">
+					<q-grid-core:box>
+						<q-grid:column-chooser ng-if="$menu.isOpened">
+					</q-grid-core:box>
 				</md-menu-content>
 			</md-menu>
+
+			<!--<q-grid:menu id="q-grid-column-chooser-menu">-->
+			<!--<q-grid:template for="trigger">-->
+			<!--<md-button ng-click="$menu.open({width: 352, height: 652})"-->
+			<!--class="md-icon-button"-->
+			<!--tabindex="-1">-->
+			<!--<md-icon>more_vert</md-icon>-->
+			<!--</md-button>-->
+			<!--</q-grid:template>-->
+			<!--<q-grid:template for="body">-->
+			<!--<q-grid:column-chooser on:submit="$popupBody.close()"-->
+			<!--on:cancel="$popupBody.close()">-->
+			<!--</q-grid:column-chooser>-->
+			<!--</q-grid:template>-->
+			<!--<q-grid:template for="head">-->
+			<!--<span class="md-subhead">Column Filter</span>-->
+			<!--</q-grid:template>-->
+			<!--</q-grid:menu>-->
 		</div>
 	</div>
 </div>
