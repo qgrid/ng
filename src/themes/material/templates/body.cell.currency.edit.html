@@ -1,8 +1,9 @@
-<div class="q-grid-editor q-grid-currency" q-grid-position="td">
-	<md-input-container>
-		<input type="number"
-				 q-grid:focus
-				 ng-blur="$view.edit.cell.commit.execute($cell)"
-				 ng-model="$view.edit.cell.value"/>
-	</md-input-container>
-</div>
+<q-grid:cell-editor on:close="$view.edit.cell.commit.execute($cell)">
+	<div class="q-grid-currency">
+		<md-input-container>
+			<input type="number"
+					 q-grid:focus
+					 ng-model="$view.edit.cell.value"/>
+		</md-input-container>
+	</div>
+</q-grid:cell-editor>
