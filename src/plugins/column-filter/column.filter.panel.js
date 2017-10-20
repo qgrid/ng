@@ -163,6 +163,8 @@ class ColumnFilterPanel extends Plugin {
 
 	onInit() {
 		this.column = columnService.find(this.model.data().columns, this.key);
+		this.title = this.column.title;
+
 		this.getValue = valueFactory(this.column);
 		this.getLabel = labelFactory(this.column);
 
