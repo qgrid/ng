@@ -11,9 +11,8 @@ import {getFactory as labelFactory} from '@grid/core/services/label';
 import {RowDetailsStatus} from '@grid/core/row-details';
 
 export default class Grid {
-	constructor($timeout, $q) {
+	constructor($timeout) {
 		this.$timeout = $timeout;
-		this.$q = $q;
 	}
 
 	model() {
@@ -31,19 +30,14 @@ export default class Grid {
 			});
 
 			return () => {
-				const defer = this.$q.defer();
-				this.$timeout(() => {
+				return this.$timeout(() => {
 					model.scene({
 						status: 'stop'
 					}, {
 						source: 'grid',
 						behavior: 'core'
 					});
-
-					defer.resolve();
 				}, 10);
-
-				return defer.promise;
 			}
 		};
 
@@ -91,4 +85,4 @@ export default class Grid {
 	}
 }
 
-Grid.$inject = ['$timeout', '$q'];
+Grid.$inject = ['$timeout'];

@@ -42,6 +42,8 @@ export class ColumnModel {
 		this.minWidth = 20;
 		this.maxWidth = null;
 
+		this.widthMode = 'relative'; // relative | absolute
+
 		this.canEdit = true;
 		this.canResize = true;
 		this.canSort = true;

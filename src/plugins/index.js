@@ -60,13 +60,7 @@ export default angular  // eslint-disable-line no-undef
 
 Setup.$inject = ['qgridThemeProvider'];
 function Setup(qgridThemeProvider) {
-	const EMPTY = '';
-
 	qgridThemeProvider.register('default', theme => {
 		theme.put('qgrid.plugin.popup.tpl.html', require('./popup/popup.html'));
-		theme.put('qgrid.plugin.popup-panel.tpl.html', require('./popup/popup.panel.html'));
-		theme.put('qgrid.plugin.popup-trigger.tpl.html', EMPTY);
-		theme.put('qgrid.plugin.popup-head.tpl.html', EMPTY);
-		theme.put('qgrid.plugin.popup-body.tpl.html', EMPTY);
 	});
 }

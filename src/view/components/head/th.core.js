@@ -28,9 +28,45 @@ class ThCore extends Directive(TH_CORE_NAME, {
 			element.classList.add(css.escapeAttr(`${GRID_PREFIX}-${column.sourceKey}`));
 			element.classList.add(css.escapeAttr(`${GRID_PREFIX}-${column.sourceType}`));
 		}
+
 		if (column.editor) {
 			element.classList.add(css.escapeAttr(`${GRID_PREFIX}-${column.editor}`));
 		}
+
+		this.canEdit = true;
+		this.canResize = true;
+		this.canSort = true;
+		this.canMove = true;
+		this.canFilter = true;
+		this.canHighlight = true;
+		this.canFocus = true;
+
+		if(column.canEdit){
+			element.classList.add(css.escapeAttr(`${GRID_PREFIX}-can-edit`));
+		}
+
+		if(column.canResize){
+			element.classList.add(css.escapeAttr(`${GRID_PREFIX}-can-resize`));
+		}
+
+		if(column.canSort){
+			element.classList.add(css.escapeAttr(`${GRID_PREFIX}-can-sort`));
+		}
+
+		if(column.canMove){
+			element.classList.add(css.escapeAttr(`${GRID_PREFIX}-can-move`));
+		}
+
+		if(column.canFilter){
+			element.classList.add(css.escapeAttr(`${GRID_PREFIX}-can-filter`));
+		}
+
+		if(column.canHighlight){
+			element.classList.add(css.escapeAttr(`${GRID_PREFIX}-can-highlight`));
+		}
+
+
+
 
 		if (this.$attrs[TH_CORE_NAME] !== 'body') {
 			const model = this.view.model;
