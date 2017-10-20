@@ -163,13 +163,16 @@ class ColumnFilterPanel extends Plugin {
 
 	onInit() {
 		this.column = columnService.find(this.model.data().columns, this.key);
-		this.title = this.column.title;
 
 		this.getValue = valueFactory(this.column);
 		this.getLabel = labelFactory(this.column);
 
 		this.vscrollContext.settings.threshold = this.model.columnFilter().threshold;
 		this.resetItems.execute();
+	}
+
+	get title(){
+		return this.column ? this.column.title : '';
 	}
 
 	state(item) {
