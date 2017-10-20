@@ -66,7 +66,7 @@ export class ShortcutManager {
 		};
 	}
 
-	execute(code) {
+	execute(code, source) {
 		const notWildcard = cmd => cmd.shortcut !== '*';
 		const find = this.findFactory(code);
 		const entries = Array.from(this.managerMap.entries())
@@ -74,7 +74,7 @@ export class ShortcutManager {
 				const manager = entry[0];
 				const commands = entry[1];
 				return {
-					commands: manager.filter(find(commands)),
+					commands: manager.filter(find(commands), source),
 					manager: entry[0]
 				};
 			})

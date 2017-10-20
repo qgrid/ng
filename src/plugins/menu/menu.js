@@ -10,8 +10,15 @@ class Menu extends Directive(MENU_NAME) {
 	}
 
 	onInit() {
-		this.$scope.$on(`${this.menu}Close`, () => this.isOpened = false);
-		this.$scope.$on(`${this.menu}Open`, () => this.isOpened = true);
+		this.$scope.$on(`${this.menu}Close`, () => {
+			this.onClose();
+			this.isOpened = false;
+		});
+
+		this.$scope.$on(`${this.menu}Open`, () => {
+			this.onOpen();
+			this.isOpened = true;
+		});
 	}
 }
 
@@ -26,5 +33,7 @@ export default {
 	scope: false,
 	bindToController: {
 		'menu': `@${MENU_NAME}`,
+		'onOpen': '&',
+		'onClose': '&'
 	}
 };

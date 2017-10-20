@@ -22,7 +22,9 @@ export const ACTION_BAR_CORE_NAME = `${GRID}ActionBarCore`;
 export const ACTION_BAR_NAME = `${GRID}ActionBar`;
 export const ACTION_NAME = `${GRID}Action`;
 export const ACTION_CORE_NAME = `${GRID}ActionCore`;
+export const CELL_EDITOR_NAME = `${GRID}CellEditor`;
 
+export const MENU_NAME = `${GRID}Menu`;
 export const POPUP_NAME = `${GRID}Popup`;
 export const POPUP_TRIGGER_NAME = `${GRID}PopupTrigger`;
 export const POPUP_HEAD_NAME = `${GRID}PopupHead`;
@@ -30,5 +32,3 @@ export const POPUP_BODY_NAME = `${GRID}PopupBody`;
 export const POPUP_PANEL_NAME = `${GRID}PopupPanel`;
 export const POPUP_SERVICE = `${GRID}PopupService`;
 export const POPUP_CLOSE_NAME = `${GRID}PopupClose`;
-
-export const MENU_NAME = `${GRID}Menu`;

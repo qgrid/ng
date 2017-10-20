@@ -1,6 +1,6 @@
 <md-menu q-grid:menu="$mdMenu" on:close="$editor.close()">
 	<div style="width: 100%; height: 100%;" ng-click="$mdMenu.open($event)" q-grid:raise="click"></div>
-	<md-menu-content width="$editor.width" class="q-grid-menu q-grid-editor">
+	<md-menu-content width="$editor.width" class="q-grid-menu q-grid-editor" ng-keydown="$editor.keyDown($event)">
 		<ng-transclude></ng-transclude>
 	</md-menu-content>
 </md-menu>

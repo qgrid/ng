@@ -7,8 +7,8 @@ export class TableCommandManager extends CommandManager {
 		this.table = table;
 	}
 
-	filter(commands) {
-		if (this.isViewActive()) {
+	filter(commands, source) {
+		if (source === 'editor' || this.isViewActive()) {
 			return super.filter(commands);
 		}
 
