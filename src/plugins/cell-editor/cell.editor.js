@@ -14,30 +14,6 @@ class CellEditor extends Component {
 	}
 
 	onInit() {
-		const target = this.$element[0];
-		const content = this.compile();
-		const $mdPanel = this.$mdPanel;
-		const position = $mdPanel.newPanelPosition()
-			.relativeTo(target)
-			.addPanelPosition($mdPanel.xPosition.ALIGN_START, $mdPanel.yPosition.BELOW);
-
-		const config = {
-			attachTo: angular.element(document.body),   // eslint-disable-line no-undef
-			controller: function () {
-
-			},
-			controllerAs: '$editor',
-			contentElement: content,
-			panelClass: 'q-grid-editor',
-			position: position,
-			locals: {},
-			clickOutsideToClose: true,
-			escapeToClose: true,
-			focusOnOpen: true,
-			zIndex: 2
-		};
-
-		$mdPanel.open(config).then(this.close.bind(this));
 	}
 
 	compile() {
@@ -63,9 +39,9 @@ class CellEditor extends Component {
 		this.onClose();
 	}
 
-	keyDown(e) {
-		this.root.keyDown(e, 'editor');
-	}
+	// keyDown(e) {
+	// 	this.root.keyDown(e, 'editor');
+	// }
 }
 
 CellEditor.$inject = ['$scope', '$element', '$transclude', '$mdPanel'];
@@ -75,7 +51,7 @@ export default {
 	require: {
 		'root': `^^${GRID_NAME}`
 	},
-	template: '',
+	templateUrl: 'qgrid.plugin.cell-editor.tpl.html',
 	controller: CellEditor,
 	controllerAs: '$editor',
 	//transclude: true,
