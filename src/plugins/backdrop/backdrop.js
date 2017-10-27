@@ -11,12 +11,14 @@ class Backdrop extends Component {
 
 		this.using(listener.on('click', e => {
 			e.stopPropagation();
-
-			this.onClose(e);
 			element.remove();
 
-			const target = document.elementFromPoint(e.clientX, e.clientY);
-			target.click();
+			if (this.propagate !== false) {
+				const target = document.elementFromPoint(e.clientX, e.clientY);
+				target.click();
+			}
+
+			this.onClose({$event: e});
 		}));
 	}
 }
@@ -29,6 +31,7 @@ export default {
 	controller: Backdrop,
 	controllerAs: '$backdrop',
 	bindings: {
-		'onClose': '&'
+		'onClose': '&',
+		'propagate': '@'
 	}
 };
