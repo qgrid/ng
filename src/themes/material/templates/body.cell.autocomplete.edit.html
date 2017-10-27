@@ -1,21 +1,19 @@
-<q-grid:cell-editor on:close="$view.edit.cell.commit.execute($cell)" q-grid:position="td">
-	<div class="q-grid-autocomplete">
-		<md-input-container>
-			<md-autocomplete
-				md-autofocus
-				q-grid:raise="focus"
-				md-selected-item="$view.edit.cell.value"
-				ng-model="$view.edit.cell.value"
-				md-search-text="searchText"
-				md-search-text-change="$view.edit.cell.fetch.run($cell.row, searchText)"
-				md-items="item in $view.edit.cell.fetch.busy"
-				md-item-text="item"
-				md-menu-class="q-grid-autocomplete-menu"
-				md-clear-button="false">
-				<md-item-template>
-					<span md-highlight-text="searchText">{{item}}</span>
-				</md-item-template>
-			</md-autocomplete>
-		</md-input-container>
-	</div>
+<q-grid:cell-editor class="q-grid-autocomplete q-grid-editor" on:close="$view.edit.cell.commit.execute($cell)" q-grid:position="td">
+	<md-input-container>
+		<md-autocomplete
+			md-autofocus
+			q-grid:raise="focus"
+			md-selected-item="$view.edit.cell.value"
+			ng-model="$view.edit.cell.value"
+			md-search-text="searchText"
+			md-search-text-change="$view.edit.cell.fetch.run($cell.row, searchText)"
+			md-items="item in $view.edit.cell.fetch.busy"
+			md-item-text="item"
+			md-menu-class="q-grid-autocomplete-menu"
+			md-clear-button="false">
+			<md-item-template>
+				<span md-highlight-text="searchText">{{item}}</span>
+			</md-item-template>
+		</md-autocomplete>
+	</md-input-container>
 </q-grid:cell-editor>

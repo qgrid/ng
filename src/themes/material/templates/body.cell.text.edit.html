@@ -1,10 +1,9 @@
-<q-grid:cell-editor on:close="$view.edit.cell.commit.execute($cell)" q-grid:position="td">
-	<div class="q-grid-text">
-		<md-input-container>
-			<input type="text"
-					 q-grid:focus
-					 ng-model="$view.edit.cell.value"
-					 md-maxlength="{{::$cell.column.maxLength}}"/>
-		</md-input-container>
-	</div>
+<q-grid:cell-editor class="q-grid-text q-grid-editor" on:close="$view.edit.cell.commit.execute($cell)"
+						  q-grid:position="td">
+	<md-input-container>
+		<input type="text"
+				 q-grid:focus
+				 ng-model="$view.edit.cell.value"
+				 md-maxlength="{{::$cell.column.maxLength}}"/>
+	</md-input-container>
 </q-grid:cell-editor>

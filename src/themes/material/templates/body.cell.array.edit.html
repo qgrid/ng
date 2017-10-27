@@ -1,18 +1,10 @@
-<q-grid:cell-editor on:close="$view.edit.cell.cancel.execute($cell)" q-grid:position="td">
-	<div ng-cloak class="q-grid-array">
-		<div class="q-grid-array-view">
-			<md-chips ng-model="$view.edit.cell.value"
-						 md-removable="'true'"
-						 md-enable-chip-edit="'true'"
-						 q-grid:focus="input"
-						 placeholder="Enter a {{::$cell.column.title}}...">
-			</md-chips>
-		</div>
-		<div class="q-grid-actions">
-			<md-button class="md-primary md-confirm-button" ng-click="$view.edit.cell.commit.execute($cell, $event)">Save
-			</md-button>
-			<md-button class="md-cancel-button" ng-click="$view.edit.cell.cancel.execute($cell, $event)">Cancel
-			</md-button>
-		</div>
+<q-grid:cell-editor class="q-grid-array q-grid-editor" on:close="$view.edit.cell.commit.execute($cell)" q-grid:position="td">
+	<div class="q-grid-array-view">
+		<md-chips ng-model="$view.edit.cell.value"
+					 md-removable="'true'"
+					 md-enable-chip-edit="'true'"
+					 q-grid:focus="input"
+					 placeholder="Enter a {{::$cell.column.title}}...">
+		</md-chips>
 	</div>
 </q-grid:cell-editor>
