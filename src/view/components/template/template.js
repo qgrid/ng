@@ -6,7 +6,9 @@ import {factory as resourceFactory} from '@grid/core/resource';
 import {merge} from '@grid/core/utility';
 import {GRID_NAME, TEMPLATE_NAME} from '@grid/view/definition';
 
-class Template extends Directive(TEMPLATE_NAME, merge({root: `^^${GRID_NAME}`}, TemplatePath.require)) {
+class Template extends Directive(TEMPLATE_NAME, merge({
+	root: `^^${GRID_NAME}`
+}, TemplatePath.require)) {
 	constructor($scope, $element, $attrs) {
 		super();
 

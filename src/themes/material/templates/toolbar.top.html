@@ -12,22 +12,18 @@
 			<q-grid:action-bar-core></q-grid:action-bar-core>
 		</div>
 		<div>
-			<q-grid:popup id="q-grid-column-chooser-popup">
-				<q-grid:template for="trigger">
-					<md-button ng-click="$popup.open({width: 352, height: 652})" class="md-icon-button"
-								  tabindex="-1">
-						<md-icon>more_vert</md-icon>
-					</md-button>
-				</q-grid:template>
-				<q-grid:template for="body">
-					<q-grid:column-chooser on:submit="$popupBody.close()"
-												  on:cancel="$popupBody.close()">
-					</q-grid:column-chooser>
-				</q-grid:template>
-				<q-grid:template for="head">
-					<span class="md-subhead">Column Filter</span>
-				</q-grid:template>
-			</q-grid:popup>
+			<md-menu q-grid:menu="$mdMenu">
+				<md-button ng-click="$mdMenu.open($event)"
+							  class="md-icon-button"
+							  tabindex="-1">
+					<md-icon>more_vert</md-icon>
+				</md-button>
+				<md-menu-content width="6" class="q-grid-menu">
+					<q-grid-core:box>
+						<q-grid:column-chooser ng-if="$menu.isOpened" on:cancel="$mdMenu.close()" on:submit="$mdMenu.close()">
+					</q-grid-core:box>
+				</md-menu-content>
+			</md-menu>
 		</div>
 	</div>
 </div>

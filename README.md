@@ -7,6 +7,7 @@ https://qgrid.github.io/ng/
 ## installation
 * `$ npm install ng-qgrid`
 * `$ bower install ng-qgrid`
+* https://plnkr.co/edit/cz0CL7?p=preview
 
 ## core concepts
 * **easy** to start: 

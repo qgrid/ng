@@ -12,17 +12,15 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 	}
 
 	onLink() {
-		if(this.root) {
+		if (this.root) {
 			const opacity = this.element.style.opacity;
 			this.element.style.opacity = 0;
 			const targetName = (this.$attrs[POSITION_NAME] || '').toLowerCase();
 			let node = this.element.parentNode;
 			while (node) {
 				if (node.nodeName.toLowerCase() === targetName) {
-					this.$timeout(() => {
-						this.layout(node, this.element);
-						this.element.style.opacity = opacity;
-					}, 50);
+					this.layout(node, this.element);
+					this.element.style.opacity = opacity;
 					return;
 				}
 				node = node.parentNode;

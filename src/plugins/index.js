@@ -24,11 +24,15 @@ import ActionBar from './action-bar/action.bar';
 import Action from './action/action';
 import ActionCore from './action/action.core';
 import DataManipulation from './data-manipulation/data.manipulation';
+import Menu from './menu/menu';
+import CellEditor from './cell-editor/cell.editor';
+import Backdrop from './backdrop/backdrop';
 
 import * as def from './definition';
 
 export default angular  // eslint-disable-line no-undef
 	.module(def.MODULE_NAME, [def.MODULE_CORE_NAME])
+	.directive(def.MENU_NAME, () => Menu)
 	.component(def.PAGER_NAME, Pager)
 	.component(def.SORT_BAR_NAME, SortBar)
 	.component(def.GROUP_BAR_NAME, GroupBar)
@@ -54,6 +58,8 @@ export default angular  // eslint-disable-line no-undef
 	.component(def.ACTION_NAME, Action)
 	.component(def.ACTION_CORE_NAME, ActionCore)
 	.component(def.DATA_MANIPULATION_NAME, DataManipulation)
+	.component(def.CELL_EDITOR_NAME, CellEditor)
+	.component(def.BACKDROP_NAME, Backdrop)
 	.service(def.POPUP_SERVICE, PopupService)
 	.config(Setup)
 	.name;

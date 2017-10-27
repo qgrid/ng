@@ -6,8 +6,8 @@
 	}
 }
 
-.q-grid-column-chooser {
-	width: 320px;
+@at-root .q-grid-column-chooser {
+	width: 100%;
 
 	ul {
 		list-style-type: none;
