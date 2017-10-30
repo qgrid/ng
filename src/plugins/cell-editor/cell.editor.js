@@ -1,5 +1,6 @@
 import {EventListener, EventManager} from '@grid/core/infrastructure';
 import {VIEW_CORE_NAME} from '@grid/view/definition';
+import {Shortcut, ShortcutManager} from '@grid/core/shortcut';
 import Component from '../../view/components/component';
 
 class CellEditor extends Component {
@@ -11,11 +12,16 @@ class CellEditor extends Component {
 	}
 
 	onInit() {
+		// Create a local shortcut service to work directly with edit commands
+		const shortcut = new Shortcut(new ShortcutManager());
 		const edit = this.$view.edit.cell;
 
+		this.using(shortcut.register(edit.commandManager, edit.commands));
+
 		this.using(this.listener.on('keydown', e => {
-			if (!edit.shortcut.keyDown(e)) {
+			if (!shortcut.keyDown(e)) {
 				e.stopPropagation();
+				e.stopImmediatePropagation();
 			}
 		}));
 	}
