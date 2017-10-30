@@ -47,6 +47,7 @@ function Setup(qgridThemeProvider) {
 		theme.put(plugin('pager'), require('./templates/plugin.pager.html'));
 		theme.put(plugin('cell-editor'), require('./templates/plugin.cell.editor.html'));
 		theme.put(plugin('backdrop'), require('./templates/plugin.backdrop.html'));
+		theme.put(plugin('tab-trap'), require('./templates/plugin.tab.trap.html'));
 
 		theme.put(cell('head', 'text'), require('./templates/head.cell.text.html'));
 		theme.put(cell('body', 'text'), require('./templates/body.cell.text.html'));

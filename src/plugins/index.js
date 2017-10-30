@@ -27,12 +27,15 @@ import DataManipulation from './data-manipulation/data.manipulation';
 import Menu from './menu/menu';
 import CellEditor from './cell-editor/cell.editor';
 import Backdrop from './backdrop/backdrop';
+import TabTrap from './tab-trap/tab.trap';
+import TabTrapIn from './tab-trap/tab.trap.in';
 
 import * as def from './definition';
 
 export default angular  // eslint-disable-line no-undef
 	.module(def.MODULE_NAME, [def.MODULE_CORE_NAME])
 	.directive(def.MENU_NAME, () => Menu)
+	.directive(def.TAB_TRAP_IN_NAME, () => TabTrapIn)
 	.component(def.PAGER_NAME, Pager)
 	.component(def.SORT_BAR_NAME, SortBar)
 	.component(def.GROUP_BAR_NAME, GroupBar)
@@ -60,6 +63,7 @@ export default angular  // eslint-disable-line no-undef
 	.component(def.DATA_MANIPULATION_NAME, DataManipulation)
 	.component(def.CELL_EDITOR_NAME, CellEditor)
 	.component(def.BACKDROP_NAME, Backdrop)
+	.component(def.TAB_TRAP_NAME, TabTrap)
 	.service(def.POPUP_SERVICE, PopupService)
 	.config(Setup)
 	.name;
