@@ -1,4 +1,4 @@
-<q-grid:cell-editor class="q-grid-date q-grid-editor" on:close="$view.edit.cell.commit.execute($cell)" q-grid:position="td">
+<q-grid:cell-editor class="q-grid-date q-grid-editor" on:close="$view.edit.cell.exit.execute($cell)" q-grid:position="td">
 	<div ng-controller="Body.Cell.Date.Edit.Controller as $dateEdit">
 		<md-datepicker ng-model="$view.edit.cell.value"
 							md-placeholder="Enter date"

@@ -1,4 +1,4 @@
-<q-grid:cell-editor class="q-grid-url q-grid-editor" on:close="$view.edit.cell.commit.execute($cell)" q-grid:position="td">
+<q-grid:cell-editor class="q-grid-url q-grid-editor" on:close="$view.edit.cell.exit.execute($cell)" q-grid:position="td">
 	<div layout="column" class="q-grid-url-fields" flex>
 		<md-input-container ng-if="$cell.column.label !== null">
 			<label>Label</label>

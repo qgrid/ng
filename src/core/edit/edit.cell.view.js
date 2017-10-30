@@ -25,6 +25,7 @@ export class EditCellView extends View {
 		this.commit = commands.get('commit');
 		this.cancel = commands.get('cancel');
 		this.reset = commands.get('reset');
+		this.exit = commands.get('exit');
 
 		this.using(model.navigationChanged.watch(e => {
 			if (e.hasChanges('cell')) {
@@ -85,7 +86,7 @@ export class EditCellView extends View {
 							}
 						}
 
-						model.edit({ state: 'edit' });
+						model.edit({state: 'edit'});
 						cell.mode('edit');
 						return true;
 					}
@@ -115,7 +116,7 @@ export class EditCellView extends View {
 					if (cell && model.edit().commit.execute(this.contextFactory(cell, this.value, this.label, this.tag)) !== false) {
 						this.editor.commit();
 						this.editor = CellEditor.empty;
-						model.edit({ state: 'view' });
+						model.edit({state: 'view'});
 
 						const toggleMode = () => {
 							cell.mode('view');
@@ -155,7 +156,7 @@ export class EditCellView extends View {
 						this.editor.reset();
 						this.editor = CellEditor.empty;
 
-						model.edit({ state: 'view' });
+						model.edit({state: 'view'});
 						const toggleMode = () => {
 							cell.mode('view');
 							table.view.focus();
@@ -193,6 +194,32 @@ export class EditCellView extends View {
 					if (cell && model.edit().reset.execute(this.contextFactory(cell, this.value, this.label)) !== false) {
 						this.editor.reset();
 						return true;
+					}
+
+					return false;
+				}
+			}),
+			exit: new Command({
+				execute: (cell, e) => {
+					Log.info('cell.edit', 'reset');
+					if (e) {
+						e.stopImmediatePropagation();
+					}
+
+					cell = cell || this.editor.cell;
+					if (cell) {
+						if (this.commit.canExecute(cell)) {
+							const originValue = cell.value;
+							const editValue = this.value;
+							if (originValue !== editValue) {
+								this.commit.execute(cell);
+							}
+						}
+
+						if (this.cancel.canExecute(cell)) {
+							this.cancel.execute(cell);
+							return true;
+						}
 					}
 
 					return false;
