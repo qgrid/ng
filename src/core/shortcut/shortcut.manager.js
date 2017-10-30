@@ -67,34 +67,54 @@ export class ShortcutManager {
 	}
 
 	execute(code, source) {
+		const activities = this.fetchActivities(code, source);
+
+		return activities.reduce((result, activity) => {
+			const commands = activity.commands;
+			const manager = activity.manager;
+			result |= manager.invoke(commands);
+			return result;
+		}, false);
+	}
+
+	canExecute(code, source) {
+		const activities = this.fetchActivities(code, source);
+		return activities.length > 0;
+	}
+
+	fetchActivities(code, source) {
 		const notWildcard = cmd => cmd.shortcut !== '*';
-		const find = this.findFactory(code);
-		const entries = Array.from(this.managerMap.entries())
+		const search = this.searchFactory(code);
+		const entries = Array
+			.from(this.managerMap.entries())
 			.map(entry => {
 				const manager = entry[0];
 				const commands = entry[1];
 				return {
-					commands: manager.filter(find(commands), source),
+					commands: manager.filter(search(commands), source),
 					manager: entry[0]
 				};
 			})
 			.filter(entry => entry.commands.length > 0);
 
 		const allCommands = flatten(entries.map(x => x.commands));
-		const wildCardPredicate = allCommands.filter(notWildcard).length > 0 ? notWildcard : yes;
-		return entries.reduce((memo, entry) => {
-			const commands = entry.commands;
-			const manager = entry.manager;
-			const invokableCommands = commands.filter(wildCardPredicate);
-			if (invokableCommands.length) {
-				memo |= manager.invoke(invokableCommands);
-			}
 
-			return memo;
-		}, false);
+		// Skip wildcard commands if there are some explicit shortcuts
+		const isActive = allCommands.filter(notWildcard).length > 0 ? notWildcard : yes;
+		return entries
+			.map(entry => {
+				const commands = entry.commands;
+				const manager = entry.manager;
+				const activeCommands = commands.filter(isActive);
+				return {
+					commands: activeCommands,
+					manager: manager
+				};
+			})
+			.filter(entry => entry.commands.length > 0);
 	}
 
-	findFactory(code) {
+	searchFactory(code) {
 		return context => {
 			let result = [];
 			if (context.shortcuts.has(code)) {

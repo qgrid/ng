@@ -19,6 +19,7 @@ export class EditCellView extends View {
 
 		this.shortcut = model.action().shortcut;
 		const commands = this.commands;
+
 		this.shortcutOff = this.shortcut.register(commandManager, commands);
 
 		this.enter = commands.get('enter');
