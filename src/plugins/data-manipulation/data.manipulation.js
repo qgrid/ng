@@ -5,6 +5,7 @@ import {TemplatePath} from '@grid/core/template';
 import {Action} from '@grid/core/action';
 import {AppError} from '@grid/core/infrastructure';
 import {isUndefined} from '@grid/core/utility';
+import {Composite} from '@grid/core/command';
 
 TemplatePath
 	.register(DATA_MANIPULATION_NAME, () => {
@@ -140,17 +141,21 @@ class DataManipulation extends Plugin {
 		this.rowId = model.dataManipulation().rowId;
 		this.rowFactory = model.dataManipulation().rowFactory;
 
+		const styleState = model.style();
+		const styleRow = styleState.row;
+		const styleCell = styleState.cell;
+
 		model
 			.edit({
 				mode: 'cell',
-				commit: this.commitCommand
+				commit: Composite.command(this.commitCommand, model.edit().commit)
 			})
 			.style({
-				row: this.styleRow.bind(this),
-				cell: this.styleCell.bind(this)
+				row: Composite.function([styleRow,  this.styleRow.bind(this)]),
+				cell: Composite.function([styleCell, this.styleCell.bind(this)])
 			})
 			.action({
-				items: this.actions
+				items: this.actions.concat(model.action().items)
 			});
 
 		model.dataChanged.watch((e, off) => {
