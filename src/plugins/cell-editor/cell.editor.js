@@ -7,18 +7,20 @@ class CellEditor extends Component {
 	constructor($element) {
 		super();
 
-		const element = $element[0];
-		this.listener = new EventListener(element, new EventManager(this));
+		this.element = $element[0];
 	}
 
 	onInit() {
 		// Create a local shortcut service to work directly with edit commands
 		const shortcut = new Shortcut(new ShortcutManager());
-		const edit = this.$view.edit.cell;
+		const $view = this.$view;
+		const edit = $view.edit.cell;
+		const element = this.element;
 
 		this.using(shortcut.register(edit.commandManager, edit.commands));
 
-		this.using(this.listener.on('keydown', e => {
+		const listener = new EventListener(element, new EventManager(this, $view.root.applyFactory(null, 'sync')));
+		this.using(listener.on('keydown', e => {
 			if (!shortcut.keyDown(e)) {
 				e.stopPropagation();
 				e.stopImmediatePropagation();

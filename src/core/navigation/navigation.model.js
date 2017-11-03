@@ -6,7 +6,7 @@ export class NavigationModel {
 			down: 'down',
 			left: 'left',
 			right: 'right',
-			next: 'tab',
+			next: 'tab|space',
 			previous: 'shift+tab',
 			home: 'home',
 			end: 'end',

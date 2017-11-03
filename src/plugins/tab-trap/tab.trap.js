@@ -17,16 +17,19 @@ class TabTrap extends Component {
 		this.isActivating = true;
 		try {
 			switch (target) {
-				case 'start':
+				case 'start': {
 					const end = this.traps.get('end');
 					end.focus();
+
 					break;
-				case 'end':
+				}
+				case 'end': {
 					const start = this.traps.get('start');
 					start.focus();
 					break;
+				}
 				default:
-					throw new AppError('tab.trap', `Invalid target ${target}`)
+					throw new AppError('tab.trap', `Invalid target ${target}`);
 			}
 		}
 		finally {
