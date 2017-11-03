@@ -1,15 +1,19 @@
-<q-grid:cell-editor class="q-grid-email q-grid-editor" on:close="$view.edit.cell.exit.execute($cell)" q-grid:position="td">
-	<div layout="column" class="q-grid-email-fields" flex>
-		<md-input-container ng-if="$cell.column.label !== null">
-			<label>Label</label>
-			<input type="text"
-					 ng-model="$view.edit.cell.label"/>
-		</md-input-container>
-		<md-input-container>
-			<label>Email</label>
-			<input type="email"
-					 q-grid:focus
-					 ng-model="$view.edit.cell.value"/>
-		</md-input-container>
-	</div>
+<q-grid:cell-editor class="q-grid-email q-grid-editor"
+						  on:close="$view.edit.cell.exit.execute($cell)"
+						  q-grid:position="td">
+	<q-grid:trap>
+		<div layout="column" class="q-grid-email-fields" flex>
+			<md-input-container ng-if="$cell.column.label !== null">
+				<label>Label</label>
+				<input type="text"
+						 ng-model="$view.edit.cell.label"/>
+			</md-input-container>
+			<md-input-container>
+				<label>Email</label>
+				<input type="email"
+						 q-grid:focus
+						 ng-model="$view.edit.cell.value"/>
+			</md-input-container>
+		</div>
+	</q-grid:trap>
 </q-grid:cell-editor>
