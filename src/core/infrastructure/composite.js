@@ -1,4 +1,4 @@
-import {Command} from './command';
+import {Command} from '@grid/core/command';
 import {noop} from '../utility';
 
 export class Composite {

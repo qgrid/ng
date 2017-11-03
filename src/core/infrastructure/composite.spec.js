@@ -1,5 +1,5 @@
+import {Command} from '@grid/core/command';
 import {Composite} from './composite';
-import {Command} from './command';
 import {identity, yes, no} from '../utility';
 
 describe('Composite', () => {

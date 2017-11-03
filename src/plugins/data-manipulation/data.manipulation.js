@@ -3,9 +3,8 @@ import {DATA_MANIPULATION_NAME} from '../definition';
 import {Command} from '@grid/core/command';
 import {TemplatePath} from '@grid/core/template';
 import {Action} from '@grid/core/action';
-import {AppError} from '@grid/core/infrastructure';
+import {AppError, Composite} from '@grid/core/infrastructure';
 import {isUndefined} from '@grid/core/utility';
-import {Composite} from '@grid/core/command';
 
 TemplatePath
 	.register(DATA_MANIPULATION_NAME, () => {
@@ -151,8 +150,8 @@ class DataManipulation extends Plugin {
 				commit: Composite.command(this.commitCommand, model.edit().commit)
 			})
 			.style({
-				row: Composite.function([styleRow,  this.styleRow.bind(this)]),
-				cell: Composite.function([styleCell, this.styleCell.bind(this)])
+				row: Composite.func([styleRow,  this.styleRow.bind(this)]),
+				cell: Composite.func([styleCell, this.styleCell.bind(this)])
 			})
 			.action({
 				items: this.actions.concat(model.action().items)
