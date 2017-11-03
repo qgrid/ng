@@ -2,9 +2,8 @@ import {Command} from './command';
 import {noop} from '../utility';
 
 export class Composite {
-	static function (functions, reducer = noop, memo = null) {
-		return function () {
-			const args = [].slice.apply(arguments);
+	static func (functions, reducer = noop, memo = null) {
+		return function (...args) {
 			for (let i = 0, length = functions.length; i < length; i++) {
 				const func = functions[i];
 				memo = reducer(memo, func.apply(null, args));
@@ -13,9 +12,7 @@ export class Composite {
 		};
 	}
 
-	static command() {
-		const args = [].slice.apply(arguments);
-
+	static command(...args) {
 		if (!args.length) {
 			throw new Error('Can\'t compose empty list of commands.');
 		}

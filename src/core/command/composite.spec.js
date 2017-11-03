@@ -5,27 +5,25 @@ import {identity, yes, no} from '../utility';
 describe('Composite', () => {
 	describe('composite function', () => {
 		it('should return function', () => {
-			const func = Composite.function(() => {
+			const func = Composite.func(() => {
 			});
 			expect(func).to.be.a('function');
 		});
 
 		it('should invoke functions', () => {
-			const foo = chai.spy(() => {
-			});
-			Composite.function([foo])();
+			const foo = chai.spy();
+			Composite.func([foo])();
 			expect(foo).to.have.been.called();
 		});
 
 		it('should pass arguments to functions', () => {
-			const foo = chai.spy(() => {
-			});
-			Composite.function([foo])(1, 'two', {});
+			const foo = chai.spy();
+			Composite.func([foo])(1, 'two', {});
 			expect(foo).to.have.been.called.with(1, 'two', {});
 		});
 
 		it('should reduce values', () => {
-			const func = Composite.function([
+			const func = Composite.func([
 				() => 1,
 				() => 2,
 				() => 3
@@ -34,7 +32,7 @@ describe('Composite', () => {
 		});
 
 		it('should use initial memo', () => {
-			const func = Composite.function([identity], identity, 'Memo');
+			const func = Composite.func([identity], identity, 'Memo');
 			expect(func()).to.be.equal('Memo');
 		});
 	});
