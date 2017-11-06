@@ -1,6 +1,6 @@
 import PluginComponent from '../plugin.component';
 import {Command} from '@grid/core/command';
-import {clone, noop, flatten} from '@grid/core/utility';
+import {clone, noop} from '@grid/core/utility';
 import {getFactory as valueFactory} from '@grid/core/services/value';
 import {getFactory as labelFactory} from '@grid/core/services/label';
 import * as columnService from '@grid/core/column/column.service';
@@ -44,7 +44,11 @@ class ColumnFilterPanel extends Plugin {
 				const filter = this.model.filter;
 				const by = clone(filter().by);
 				const entries = this.entries;
-				const items = flatten(Array.from(this.by).map(x => entries.get(x)));
+				const items = Array
+					.from(this.by)
+					.filter(x => entries.has(x))
+					.map(x => clone(entries.get(x)));
+
 				if (items.length) {
 					by[this.key] = {items: items};
 				}
@@ -125,22 +129,15 @@ class ColumnFilterPanel extends Plugin {
 							const uniqItems = [];
 							source().rows.map(row => {
 								const label = getLabel(row);
-								let values;
-								if (entries.has(label)) {
-									values = entries.get(label);
-								}
-								else {
-									values = [];
-									entries.set(label, values);
-									uniqItems.push(label);
-								}
-
 								const value = getValue(row);
 								if (by.has(value)) {
 									byItems.add(label);
 								}
 
-								values.push(value);
+								if (!entries.has(label)) {
+									entries.set(label, value);
+									uniqItems.push(label);
+								}
 							});
 
 							const filter = this.$filter('filter');
