@@ -7,8 +7,12 @@ export function match(context) {
 	const expression = buildExpression(model.filter().by);
 	if (expression !== null) {
 		const valueFactory = context.valueFactory;
+		const assertFactory = model.filter().assertFactory;
 		const columnMap = columnService.map(model.data().columns);
-		const visitor = new PredicateVisitor(key => valueFactory(columnMap[key]));
+
+		const valueColumnFactory = key => valueFactory(columnMap[key]);
+		const assertColumnFactory = key => assertFactory(columnMap[key]);
+		const visitor = new PredicateVisitor(valueColumnFactory, assertColumnFactory);
 		return visitor.visit(expression);
 	}
 

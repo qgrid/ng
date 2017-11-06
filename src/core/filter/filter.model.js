@@ -10,5 +10,10 @@ export class FilterModel {
 		this.match = match;
 		this.fetch = noop;
 		this.unit = 'default';	// default|row
+		this.assertFactory = () => ({
+			equals: (x, y) => x === y,
+			lessThan: (x, y) => x < y,
+			isNull: x => x === '' || x === null || x === undefined || isNaN(x) ||  isFinite(x)				
+		});
 	}
 }
