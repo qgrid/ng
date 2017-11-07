@@ -32,3 +32,4 @@ export const POPUP_SERVICE = `${GRID}PopupService`;
 export const POPUP_CLOSE_NAME = `${GRID}PopupClose`;
 
 export const MENU_NAME = `${GRID}Menu`;
+export const PERSISTENCE_NAME = '${GRID}Persistence';
