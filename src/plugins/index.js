@@ -25,6 +25,7 @@ import Action from './action/action';
 import ActionCore from './action/action.core';
 import DataManipulation from './data-manipulation/data.manipulation';
 import Menu from './menu/menu';
+import Persistence from './persistence/persistence';
 
 import * as def from './definition';
 
@@ -56,6 +57,7 @@ export default angular  // eslint-disable-line no-undef
 	.component(def.ACTION_NAME, Action)
 	.component(def.ACTION_CORE_NAME, ActionCore)
 	.component(def.DATA_MANIPULATION_NAME, DataManipulation)
+	.component(def.PERSISTENCE_NAME, Persistence)
 	.service(def.POPUP_SERVICE, PopupService)
 	.config(Setup)
 	.name;

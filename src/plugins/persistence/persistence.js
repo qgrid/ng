@@ -1,7 +1,5 @@
 import PluginComponent from '../plugin.component';
 import {Command} from '@grid/core/command';
-import {PERSISTENCE_NAME} from '../definition';
-import {PipeUnit} from '@grid/core/pipe/pipe.unit';
 
 const Plugin = PluginComponent('persistence', {inject: ['qgrid']});
 class Peresistence extends Plugin {
