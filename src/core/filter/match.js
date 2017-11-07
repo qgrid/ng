@@ -6,7 +6,7 @@ export function match(context) {
 	const model = context.model;
 	const expression = buildExpression(model.filter().by);
 	if (expression !== null) {
-		const valueFactory = context.valueFactory;
+		const valueFactory = context.labelFactory;
 		const assertFactory = model.filter().assertFactory;
 		const columnMap = columnService.map(model.data().columns);
 

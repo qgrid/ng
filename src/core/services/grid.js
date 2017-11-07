@@ -2,7 +2,6 @@ import {build as buildPipe} from '../pipe/pipe.build';
 import {Log} from '../infrastructure';
 import {noop} from '../utility';
 import {guid} from './guid';
-import {getFactory as valueFactory} from '../services/value';
 
 export class GridService {
 	constructor(model, start = () => noop) {
@@ -31,7 +30,7 @@ export class GridService {
 
 				const stop = this.start();
 				const cancelBusy = this.busy();
-				const run = buildPipe(model, valueFactory);
+				const run = buildPipe(model);
 				const runNext = () => {
 					stop()
 						.then(() => {
