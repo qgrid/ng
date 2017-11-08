@@ -1,7 +1,36 @@
+@import "../../../../assets/scroll.scss";
+
 @at-root .q-grid-persistence-panel {
+	@include scroll();
+	
 	width: 280px;
-	.q-grid-persistence-filter {
+	md-radio-button {
+		margin: 0;
+	}
+	.q-grid-persistence-title {
 		margin: 0;
 		width: 100%;
+	}
+	md-list {
+		height: 280px;
+		overflow-y: auto;
+
+		md-list-item {
+			padding: 0;
+			height: 40px;
+			min-height: 40px !important;
+			.md-secondary-container {
+				margin: 0;
+			}
+			.md-list-item-text {
+				margin: 0;
+				.md-button {
+					width: 100%;
+					text-align: left;
+					margin: 0;
+					height: 40px;
+				}
+			}
+		}
 	}
 }

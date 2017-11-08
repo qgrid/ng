@@ -11,41 +11,34 @@
 		</md-card-header>
 		<md-card-content>
 			<div flex="none" layout="row">
-				<md-input-container class="q-grid-persistence-filter">
+				<md-input-container class="q-grid-persistence-title">
 					<label>Save As...</label>
-					<input type="text" 
-							ng-model="$persistence.title" 
-							q-grid:focus 
-							q-grid:focus-delay="400" />
+					<input type="text" ng-model="$persistence.title" q-grid:focus q-grid:focus-delay="400" />
 				</md-input-container>
 			</div>
 			<div class="flex">
-				<md-radio-group>
-					<md-list ng-cloak>
-						<md-list-item class="md-2-line" ng-repeat="item in $persistence.items">
-							<div class="md-secondary-container">
-								<md-radio-button ng-model="item"></md-radio-button>									
-							</div>
-							<div class="md-list-item-text">
+				<md-list class="md-dense" ng-cloak>
+					<md-list-item class="md-2-line" ng-repeat="item in $persistence.items">
+						<div class="md-list-item-text">
+							<md-button class="md-primary" ng-click="$persistence.load.execute(item)">
 								<h3>{{item.title}}</h3>
 								<p>{{item.modified | date: 'yyyy/MM/dd'}}</p>
-							</div>
-							<md-button class="md-secondary md-icon-button" aria-label="state item">
-								<md-icon>close</md-icon>
 							</md-button>
-						</md-list-item>
-					</md-list>
-				</md-radio-group>
-
+						</div>
+						<md-button class="md-secondary md-icon-button"
+									ng-disabled="!$persistence.remove.canExecute(item)"
+									ng-click="$persistence.remove.execute(item)" 
+									aria-label="State item">
+							<md-icon>close</md-icon>
+						</md-button>
+					</md-list-item>
+				</md-list>
 			</div>
 			<div class="q-grid-popup-actions flex-none">
 				<md-button ng-click="$persistence.cancel.execute()" md-prevent-menu-close>
 					Cancel
 				</md-button>
-				<md-button class="md-primary" 
-							md-prevent-menu-close 
-							ng-click="$persistence.submit.execute()" 
-							ng-disabled="!$persistence.submit.canExecute()">
+				<md-button class="md-primary" md-prevent-menu-close ng-click="$persistence.submit.execute()" ng-disabled="!$persistence.submit.canExecute()">
 					Save
 				</md-button>
 			</div>
