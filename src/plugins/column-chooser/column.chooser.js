@@ -5,7 +5,6 @@ import {TemplatePath} from '@grid/core/template';
 import {Aggregation} from '@grid/core/services';
 import {isFunction, noop} from '@grid/core/utility';
 import {COLUMN_CHOOSER_NAME} from '../definition';
-import {PipeUnit} from '@grid/core/pipe/pipe.unit';
 
 TemplatePath
 	.register(COLUMN_CHOOSER_NAME, () => {
@@ -15,9 +14,8 @@ TemplatePath
 		};
 	});
 
-const Plugin = PluginComponent('column-chooser', {
-	inject: ['qgrid']
-});
+const Plugin = PluginComponent('column-chooser');
+
 class ColumnChooser extends Plugin {
 	constructor() {
 		super(...arguments);
@@ -102,10 +100,6 @@ class ColumnChooser extends Plugin {
 				const model = this.model;
 				const temp = this.temp;
 
-				model.columnList({
-					index: Array.from(temp.index)
-				});
-
 				const columnMap = columnService.map(this.model.data().columns);
 				temp.columns.forEach(column => {
 					const originColumn = columnMap[column.key];
@@ -115,8 +109,12 @@ class ColumnChooser extends Plugin {
 					}
 				});
 
-
-				this.service.invalidate('column.chooser', {}, PipeUnit.column);
+				model.columnList({
+					index: Array.from(temp.index)
+				}, {
+					source: 'column.chooser'
+				});
+				
 				this.onSubmit();
 			}
 		});
@@ -138,7 +136,6 @@ class ColumnChooser extends Plugin {
 
 	onInit() {
 		const model = this.model;
-		this.service = this.qgrid.service(model);
 		this.aggregations = Object
 			.getOwnPropertyNames(Aggregation)
 			.filter(key => isFunction(Aggregation[key]));
@@ -149,10 +146,21 @@ class ColumnChooser extends Plugin {
 			}
 
 			if (e.hasChanges('columns')) {
+				this.temp.columns = this.originColumns(this.temp.index);
+			}
+		}));
+
+		this.using(model.columnListChanged.watch(e => {
+			if (e.tag.source === 'column.chooser') {
+				return;
+			}
+
+			if (e.hasChanges('index')) {
 				this.temp.index = this.originIndex();
 				this.temp.columns = this.originColumns(this.temp.index);
 			}
 		}));
+
 	}
 
 	get columns() {
