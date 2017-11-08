@@ -42,8 +42,11 @@
 				<md-button ng-click="$persistence.cancel.execute()" md-prevent-menu-close>
 					Cancel
 				</md-button>
-				<md-button class="md-primary" md-prevent-menu-close ng-click="$persistence.submit.execute()" ng-disabled="!$columnFilterPanel.submit.canExecute()">
-					Apply
+				<md-button class="md-primary" 
+							md-prevent-menu-close 
+							ng-click="$persistence.submit.execute()" 
+							ng-disabled="!$persistence.submit.canExecute()">
+					Save
 				</md-button>
 			</div>
 		</md-card-content>
