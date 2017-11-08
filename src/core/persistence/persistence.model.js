@@ -5,5 +5,7 @@ export class PersistenceModel {
 			sort: ['by'],
 			pivot: ['by']
 		};
+
+		this.items = [];
 	}
 }

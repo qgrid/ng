@@ -12,10 +12,9 @@
 		<md-card-content>
 			<div flex="none" layout="row">
 				<md-input-container class="q-grid-persistence-filter">
-					<label>Search</label>
+					<label>Save As...</label>
 					<input type="text" 
-							ng-model="$persistence.filter" 
-							ng-model-options="{debounce: 500}"
+							ng-model="$persistence.title" 
 							q-grid:focus 
 							q-grid:focus-delay="400" />
 				</md-input-container>
@@ -23,11 +22,13 @@
 			<div class="flex">
 				<md-radio-group>
 					<md-list ng-cloak>
-						<md-list-item class="md-2-line">
-							<md-radio-button value="foo"></md-radio-button>
+						<md-list-item class="md-2-line" ng-repeat="item in $persistence.items">
+							<div class="md-secondary-container">
+								<md-radio-button ng-model="item"></md-radio-button>									
+							</div>
 							<div class="md-list-item-text">
-								<h3> hello </h3>
-								<p>world</p>
+								<h3>{{item.title}}</h3>
+								<p>{{item.modified | date: 'yyyy/MM/dd'}}</p>
 							</div>
 							<md-button class="md-secondary md-icon-button" aria-label="state item">
 								<md-icon>close</md-icon>

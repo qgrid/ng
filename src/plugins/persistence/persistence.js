@@ -37,7 +37,9 @@ class Peresistence extends Plugin {
 							templateUrl: 'qgrid.plugin.persistence-panel.tpl.html',
 							panelClass: 'q-grid-persistence-panel',
 							position: position,
-							locals: {},
+							locals: {
+								model: model
+							},
 							openFrom: e,
 							clickOutsideToClose: true,
 							escapeToClose: true,
