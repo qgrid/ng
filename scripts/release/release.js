@@ -27,18 +27,24 @@ const getNextVersion = require('./version');
 const cwd = path.resolve('.');
 const pkgPath = path.join(cwd, 'package.json');
 const bowerPath = path.join(cwd, 'bower.json');
-const pkg = require(pkgPath);
-const bower = require(bowerPath);
 
-main(options['base-branch'], options['release-branch'], getNextVersion(pkg.version, options['version']));
+main(options['base-branch'], options['release-branch']);
 
-function main(baseBranch, releaseBranch, version) {
+function main(baseBranch, releaseBranch) {
 	shell.exec(`git stash`);
 	shell.exec(`git checkout ${releaseBranch}`);
 	shell.exec(`git pull origin ${baseBranch}`);
 
+	const pkg = require(pkgPath);
+	const bower = require(bowerPath);
+	const version = getNextVersion(pkg.version, options['version']);
+
+	pkg.version = version;
+	bower.version = version;
+	fs.writeFileSync(bowerPath, JSON.stringify(bower, null, '2'));
+	fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2));
+
 	const tag = `v${version}`;
-	updateVersion(version);
 
 	shell.exec(`npm run build:prod`);
 	shell.exec(`npm run build:prod:min`);
@@ -55,12 +61,4 @@ function main(baseBranch, releaseBranch, version) {
 	shell.exec(`npm publish`);
 
 	shell.exec('git checkout master');
-}
-
-function updateVersion(version) {
-	pkg.version = version;
-	bower.version = version;
-
-	fs.writeFileSync(bowerPath, JSON.stringify(bower, null, '\t'));
-	fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, '\t'));
 }
