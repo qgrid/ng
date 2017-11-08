@@ -1,10 +1,15 @@
 import PluginComponent from '../plugin.component';
-import {Action} from '@grid/core/action';
-import {Command} from '@grid/core/command';
+import {
+	Action
+} from '@grid/core/action';
+import {
+	Command
+} from '@grid/core/command';
 
 const Plugin = PluginComponent('persistence', {
-	inject: ['qgrid']
+	inject: ['qgrid', '$mdPanel', '$document']
 });
+
 class Peresistence extends Plugin {
 	constructor() {
 		super(...arguments);
@@ -16,8 +21,32 @@ class Peresistence extends Plugin {
 		const actions = [
 			new Action(
 				new Command({
-					execute: () => {},
-					shortcut: 'F3'
+					execute: (e) => {
+						const mdPanel = this.$mdPanel;
+						const position = mdPanel.newPanelPosition()
+							.relativeTo(e.target)
+							.addPanelPosition(mdPanel.xPosition.ALIGN_START, mdPanel.yPosition.BELOW);
+
+						const config = {
+							attachTo: angular.element(this.$document[0].body), // eslint-disable-line no-undef
+							controller: function () {
+
+							},
+							controllerAs: '$persistence',
+							template: 'hello',
+							panelClass: 'q-grid-persistence-panel',
+							position: position,
+							locals: {},
+							openFrom: e,
+							clickOutsideToClose: true,
+							escapeToClose: true,
+							focusOnOpen: false,
+							zIndex: 2
+						};
+
+						mdPanel.open(config);
+					},
+					shortcut: 'F4'
 				}),
 				'Load/Save',
 				'history'
