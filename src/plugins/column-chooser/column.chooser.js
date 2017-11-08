@@ -75,6 +75,7 @@ class ColumnChooser extends Plugin {
 						const targetColumnIndex = indexMap.indexOf(targetColumn.key);
 						indexMap.splice(sourceColumnIndex, 1);
 						indexMap.splice(targetColumnIndex, 0, sourceColumn.key);
+						this.temp.columns = this.originColumns(indexMap);
 					}
 				}
 			}
@@ -130,7 +131,7 @@ class ColumnChooser extends Plugin {
 		this.reset = new Command({
 			execute: () => {
 				this.temp.index = this.originIndex();
-				this.temp.columns = this.originColumns();
+				this.temp.columns = this.originColumns(this.temp.index);
 			}
 		});
 	}
@@ -149,7 +150,7 @@ class ColumnChooser extends Plugin {
 
 			if (e.hasChanges('columns')) {
 				this.temp.index = this.originIndex();
-				this.temp.columns = this.originColumns();
+				this.temp.columns = this.originColumns(this.temp.index);
 			}
 		}));
 	}
@@ -178,8 +179,8 @@ class ColumnChooser extends Plugin {
 		return Array.from(this.model.columnList().index);
 	}
 
-	originColumns() {
-		return this.model
+	originColumns(index) {
+		const columns = this.model
 			.data()
 			.columns
 			.filter(c => c.class === 'data')
@@ -190,6 +191,16 @@ class ColumnChooser extends Plugin {
 				aggregation: c.aggregation,
 				isDefault: c.isDefault
 			}));
+
+		let i = 0;
+		const indexMap = index
+			.reduce((memo, key) => {
+				memo[key] = i++;
+				return memo;
+			}, {});
+	
+		columns.sort((x, y) => indexMap[x.key] - indexMap[y.key]);
+		return columns;
 	}
 
 	get canAggregate() {
