@@ -33,6 +33,7 @@ main(options['base-branch'], options['release-branch']);
 function main(baseBranch, releaseBranch) {
 	shell.exec(`git stash`);
 	shell.exec(`git checkout ${releaseBranch}`);
+	shell.exec(`git pull origin ${releaseBranch}`);
 	shell.exec(`git pull origin ${baseBranch}`);
 
 	const pkg = require(pkgPath);
