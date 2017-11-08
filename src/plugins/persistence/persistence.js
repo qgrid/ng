@@ -5,6 +5,9 @@ import {
 import {
 	Command
 } from '@grid/core/command';
+import {
+	PersistencePanelController
+} from './persistence.panel';
 
 const Plugin = PluginComponent('persistence', {
 	inject: ['qgrid', '$mdPanel', '$document']
@@ -29,11 +32,9 @@ class Peresistence extends Plugin {
 
 						const config = {
 							attachTo: angular.element(this.$document[0].body), // eslint-disable-line no-undef
-							controller: function () {
-
-							},
+							controller: PersistencePanelController,
 							controllerAs: '$persistence',
-							template: 'hello',
+							templateUrl: 'qgrid.plugin.persistence-panel.tpl.html',
 							panelClass: 'q-grid-persistence-panel',
 							position: position,
 							locals: {},
