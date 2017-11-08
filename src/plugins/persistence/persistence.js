@@ -1,35 +1,33 @@
 import PluginComponent from '../plugin.component';
+import {Action} from '@grid/core/action';
 import {Command} from '@grid/core/command';
 
-const Plugin = PluginComponent('persistence', {inject: ['qgrid']});
+const Plugin = PluginComponent('persistence', {
+	inject: ['qgrid']
+});
 class Peresistence extends Plugin {
 	constructor() {
 		super(...arguments);
-
-		this.submit = new Command({
-			execute: () => {
-				this.onSubmit();
-			}
-		});
-
-		this.cancel = new Command({
-			execute: () => {
-				this.reset.execute();
-				this.onCancel();
-			}
-		});
-
-		this.reset = new Command({
-			execute: () => {
-
-				this.service.invalidate('persistence');
-			}
-		});
 	}
 
 	onInit() {
 		const model = this.model;
-		this.service = this.qgrid.service(model);
+
+		const actions = [
+			new Action(
+				new Command({
+					execute: () => {},
+					shortcut: 'F3'
+				}),
+				'Load/Save',
+				'history'
+			)
+		];
+
+		model
+			.action({
+				items: actions.concat(model.action().items)
+			});
 	}
 }
 

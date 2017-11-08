@@ -150,7 +150,7 @@ class DataManipulation extends Plugin {
 				cell: this.styleCell.bind(this)
 			})
 			.action({
-				items: this.actions
+				items: this.actions.concat(model.action().items)
 			});
 
 		model.dataChanged.watch((e, off) => {
