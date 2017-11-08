@@ -47,6 +47,7 @@ function Setup(qgridThemeProvider) {
 		theme.put(plugin('pager'), require('./templates/plugin.pager.html'));
 		theme.put(plugin('persistence-panel'), require('./templates/plugin.persistence.panel.html'));
 		theme.put(plugin('visibility'), require('./templates/plugin.visibility.html'));
+		theme.put(plugin('title'), require('./templates/plugin.title.html'));
 		
 		theme.put(cell('head', 'filter-row'), require('./templates/head.cell.filter.row.html'));
 
