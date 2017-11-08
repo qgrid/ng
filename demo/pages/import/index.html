@@ -14,7 +14,14 @@
 	</q-grid:columns>
 	<q-grid:toolbar>
 		<q-grid:template for="top">
-			<q-grid:import import-options="{head:'numeric'}"></q-grid:import>
+			<div layout="row">
+				<div flex="100">
+					<q-grid:title></q-grid:title>
+				</div>
+				<div flex="none">
+					<q-grid:import import-options="{head:'numeric'}"></q-grid:import>
+				</div>
+			</div>
 		</q-grid:template>
 	</q-grid:toolbar>
 </q-grid>
