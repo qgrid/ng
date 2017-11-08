@@ -23,6 +23,8 @@ export default {
 	template: require('./page.details.html'),
 	controller: PageDetails,
 	bindings: {
-		'selection': '<'
-	}
+		'selection': '<',
+		'title': '<header'
+	},
+	controllerAs: '$details'
 };

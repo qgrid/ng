@@ -72,9 +72,6 @@ md-toolbar {
 	}
 	#content {
 		padding: 5px 10px !important;
-		> .md-title {
-			margin-left: 10px;
-		}
 	}
 }
 
@@ -87,15 +84,6 @@ md-toolbar {
 #content {
 	overflow-y: auto;
 	padding: 10px 20px;
-
-	> .md-title {
-		position: absolute;
-		margin: 21px 0 0 16px;
-		max-width: 230px;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		z-index: 1;
-	}
 
 	@include scroll();
 }
