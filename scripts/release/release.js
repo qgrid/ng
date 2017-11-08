@@ -42,7 +42,7 @@ function main(baseBranch, releaseBranch) {
 
 	pkg.version = version;
 	bower.version = version;
-	fs.writeFileSync(bowerPath, JSON.stringify(bower, null, '2'));
+	fs.writeFileSync(bowerPath, JSON.stringify(bower, null, 2));
 	fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2));
 
 	const tag = `v${version}`;
