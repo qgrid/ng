@@ -1,10 +1,11 @@
-<q-grid model="$ctrl.gridModel">
+<q-grid header="{{::$details.title}}" model="$ctrl.gridModel">
 	<q-grid:columns>
 		<!--<q-grid:column key="rowNumber" type="row-number"></q-grid:column>-->
 	</q-grid:columns>
 	<q-grid:toolbar>
 		<q-grid:template for="top" let="$ctrl">
-			<div style="height: 50px">
+			<q-grid:title></q-grid:title>
+			<div style="height: 50px;">
 				<span ng-style="{background: $ctrl.state.progress ? '#f00' : 'transparent'}">Progress: </span>
 				<span>{{$ctrl.state.progressCount}}</span>
 			</div>

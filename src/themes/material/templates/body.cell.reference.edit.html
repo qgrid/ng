@@ -2,7 +2,7 @@
 				  ng-init="$popup.show()"
 				  q-grid:popup-close="$view.edit.cell.cancel.execute($cell, $event)">
 	<q-grid:template for="trigger">
-		<span ng-init="$popup.open({width: 350, height: 500})"></span>
+		<span ng-init="$popup.open({width: 540, height: 420})"></span>
 	</q-grid:template>
 	<q-grid:template for="body" let="[$view, $cell]">
 		<div ng-cloak
@@ -11,8 +11,8 @@
 			  ng-controller="Body.Cell.Reference.Edit.Controller as $referenceEdit">
 			<div class="flex">
 				<q-grid class="q-grid-embed"
-						  model="$referenceEdit.gridModel"
-						  q-grid:autofocus>
+						model="$referenceEdit.gridModel"
+						q-grid:autofocus>
 					<q-grid:toolbar>
 						<q-grid:template for="top">
 							<div class="q-grid-progress">
@@ -31,6 +31,6 @@
 		</div>
 	</q-grid:template>
 	<q-grid:template for="head" let="$cell">
-		<h2 class="md-title">Edit {{::$cell.column.title}}</h2>
+		<h2 class="md-title" style="margin-bottom: 0;">Edit {{::$cell.column.title}}</h2>
 	</q-grid:template>
 </q-grid:popup>

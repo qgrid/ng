@@ -1,9 +1,10 @@
-<q-grid columns="$ctrl.columns"
-		  rows="$ctrl.rows"
-		  edit-mode="cell"
-		  selection-unit="row"
-		  selection-mode="multiple"
-		  q-grid:autofocus>
+<q-grid header="{{::$details.title}}" 
+		columns="$ctrl.columns"
+		rows="$ctrl.rows"
+		edit-mode="cell"
+		selection-unit="row"
+		selection-mode="multiple"
+		q-grid:autofocus>
 
 	<q-grid:columns>
 		<q-grid:column key="rowIndicator" type="row-indicator" index="0"></q-grid:column>
@@ -19,6 +20,9 @@
 					  layout-align="start center"
 					  layout-align-xs="start start"
 					  layout-align-sm="start start">
+					<div>
+						<q-grid:title></q-grid:title>
+					</div>
 					<div>
 						<q-grid:sort-bar>
 						</q-grid:sort-bar>

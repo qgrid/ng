@@ -1,9 +1,10 @@
-<q-grid q-grid:autofocus
-		  model="$ctrl.gridModel"
-		  selection-mode="single"
-		  selection-unit="row"
-		  selection-area="body"
-		  on:selection-changed="$ctrl.selectionChanged($event)">
+<q-grid header="{{::$details.title}}" 
+		q-grid:autofocus
+		model="$ctrl.gridModel"
+		selection-mode="single"
+		selection-unit="row"
+		selection-area="body"
+		on:selection-changed="$ctrl.selectionChanged($event)">
 
 	<q-grid:columns generation="deep">
 		<q-grid:column type="select" is-visible="false"></q-grid:column>
