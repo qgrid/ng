@@ -183,11 +183,12 @@ class ColumnChooser extends Plugin {
 			.data()
 			.columns
 			.filter(c => c.class === 'data')
-			.map(column => ({
-				key: column.key,
-				title: column.title,
-				isVisible: column.isVisible,
-				aggregation: column.aggregation
+			.map(c => ({
+				key: c.key,
+				title: c.title,
+				isVisible: c.isVisible,
+				aggregation: c.aggregation,
+				isDefault: c.isDefault
 			}));
 	}
 
