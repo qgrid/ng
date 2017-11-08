@@ -10,7 +10,8 @@ export class PersistenceModel {
 		this.settings = {
 			group: ['by'],
 			sort: ['by'],
-			pivot: ['by']
+			pivot: ['by'],
+			filter: ['by']
 		};
 	}
 }

@@ -17,7 +17,7 @@ export function PersistencePanelController(mdPanelRef) {
 			this.items = items || [];
 		});
 
-	this.close = () => ({}); // mdPanelRef.close();
+	this.close = () => mdPanelRef.close();
 
 	this.cancel = new Command({
 		execute: this.close
@@ -34,7 +34,7 @@ export function PersistencePanelController(mdPanelRef) {
 			model.persistence()
 				.storage
 				.setItem('q-grid:persistence-list', this.items)
-				.then(close);
+				.then(this.close);
 		},
 		canExecute: () => !!this.title
 	});
@@ -42,6 +42,7 @@ export function PersistencePanelController(mdPanelRef) {
 	this.load = new Command({
 		execute: item => {
 			persistenceService.load(item.model);
+			this.close();
 		}
 	});
 
@@ -53,7 +54,7 @@ export function PersistencePanelController(mdPanelRef) {
 
 				model.persistence()
 					.storage
-					.setItem('q-grid:persistence-list', this.items)
+					.setItem('q-grid:persistence-list', this.items);
 			}
 		}
 	});

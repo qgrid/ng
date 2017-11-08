@@ -11,10 +11,12 @@ export class PersistenceService {
 
 		const model = {};
 		for (const key in settings) {
-			const source = gridModel[key];
-			for (const p in source) {
-				const value = source[p]();
-				model[source] = clone(value);
+			const source = gridModel[key]();
+			const target = {};
+			model[key] = target;
+			for (const p of settings[key]) {
+				const value = source[p];
+				target[p] = clone(value);
 			}
 		}
 
@@ -28,12 +30,7 @@ export class PersistenceService {
 		for (let key in settings) {
 			const source = model[key];
 			const target = gridModel[key];
-			for (let p in source) {
-				const value = target[p];
-				source({
-					p: clone(value)
-				});
-			}
+			target(source);
 		}
 
 		return model;
