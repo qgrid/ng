@@ -1,12 +1,11 @@
 import PluginComponent from '../plugin.component';
+import * as columnService from '@grid/core/column/column.service';
 import {Command} from '@grid/core/command';
 import {TemplatePath} from '@grid/core/template';
 import {Aggregation} from '@grid/core/services';
-import * as columnService from '@grid/core/column/column.service';
 import {isFunction, noop} from '@grid/core/utility';
 import {COLUMN_CHOOSER_NAME} from '../definition';
 import {PipeUnit} from '@grid/core/pipe/pipe.unit';
-import {sortIndexFactory} from '@grid/core/column-list';
 
 TemplatePath
 	.register(COLUMN_CHOOSER_NAME, () => {
@@ -16,15 +15,21 @@ TemplatePath
 		};
 	});
 
-const Plugin = PluginComponent('column-chooser', {inject: ['qgrid']});
+const Plugin = PluginComponent('column-chooser', {
+	inject: ['qgrid']
+});
 class ColumnChooser extends Plugin {
 	constructor() {
 		super(...arguments);
 
+		this.temp = {
+			index: [],
+			columns: []
+		};
+
 		this.toggle = new Command({
 			execute: column => {
 				column.isVisible = !this.state(column);
-				this.service.invalidate('column.chooser', {}, PipeUnit.column);
 			}
 		});
 
@@ -34,8 +39,6 @@ class ColumnChooser extends Plugin {
 				for (let column of this.columns) {
 					column.isVisible = state;
 				}
-
-				this.service.invalidate('column.chooser', {}, PipeUnit.column);
 			}
 		});
 
@@ -44,16 +47,10 @@ class ColumnChooser extends Plugin {
 				for (let column of this.columns) {
 					column.isVisible = column.isDefault !== false;
 				}
-
-				this.service.invalidate('column.chooser', {}, PipeUnit.column);
 			}
 		});
 
-		this.toggleAggregation = new Command({
-			execute: () => {
-				this.service.invalidate('column.chooser', {}, PipeUnit.column);
-			},
-		});
+		this.toggleAggregation = new Command();
 
 		this.drop = new Command({
 			canExecute: e => {
@@ -73,12 +70,11 @@ class ColumnChooser extends Plugin {
 					if (targetIndex >= 0 && sourceIndex >= 0) {
 						const sourceColumn = columns[sourceIndex].model;
 						const targetColumn = columns[targetIndex].model;
-						const indexMap = Array.from(model.columnList().index);
+						const indexMap = this.temp.index;
 						const sourceColumnIndex = indexMap.indexOf(sourceColumn.key);
 						const targetColumnIndex = indexMap.indexOf(targetColumn.key);
 						indexMap.splice(sourceColumnIndex, 1);
 						indexMap.splice(targetColumnIndex, 0, sourceColumn.key);
-						model.columnList({index: indexMap}, {source: 'column.chooser'});
 					}
 				}
 			}
@@ -86,10 +82,12 @@ class ColumnChooser extends Plugin {
 
 		this.drag = new Command({
 			canExecute: e => {
-				if (this.model.columnChooser().canSort) {
+				const model = this.model;
+				if (model.columnChooser().canSort) {
 					if (e.source.key === COLUMN_CHOOSER_NAME) {
-						const map = columnService.map(this.model.data().columns);
-						return map.hasOwnProperty(e.source.value) && map[e.source.value].canMove !== false;
+						const map = columnService.map(model.data().columns);
+						return map.hasOwnProperty(e.source.value) &&
+							map[e.source.value].canMove !== false;
 					}
 				}
 
@@ -99,7 +97,27 @@ class ColumnChooser extends Plugin {
 		});
 
 		this.submit = new Command({
-			execute: () => this.onSubmit()
+			execute: () => {
+				const model = this.model;
+				const temp = this.temp;
+
+				model.columnList({
+					index: Array.from(temp.index)
+				});
+
+				const columnMap = columnService.map(this.model.data().columns);
+				temp.columns.forEach(column => {
+					const originColumn = columnMap[column.key];
+					if (originColumn) {
+						originColumn.isVisible = column.isVisible;
+						originColumn.aggregation = column.aggregation;
+					}
+				});
+
+
+				this.service.invalidate('column.chooser', {}, PipeUnit.column);
+				this.onSubmit();
+			}
 		});
 
 		this.cancel = new Command({
@@ -111,18 +129,8 @@ class ColumnChooser extends Plugin {
 
 		this.reset = new Command({
 			execute: () => {
-				const origin = this.origin;
-				this.model.columnList({
-					index: Array.from(origin.index)
-				});
-
-				this.columns.forEach(column => {
-					const originColumn = origin.columns[column.key];
-					column.isVisible = originColumn.isVisible;
-					column.aggregation = originColumn.aggregation;
-				});
-
-				this.service.invalidate('column.chooser', {}, PipeUnit.column);
+				this.temp.index = this.originIndex();
+				this.temp.columns = this.originColumns();
 			}
 		});
 	}
@@ -134,38 +142,20 @@ class ColumnChooser extends Plugin {
 			.getOwnPropertyNames(Aggregation)
 			.filter(key => isFunction(Aggregation[key]));
 
-		this.columns = [];
-		this.origin = {
-			index: Array.from(model.columnList().index),
-			columns: model.data().columns
-				.reduce((memo, column) => {
-					memo[column.key] = {
-						isVisible: column.isVisible,
-						aggregation: column.aggregation
-					};
-					return memo;
-				}, {})
-		};
-
 		this.using(model.dataChanged.watch(e => {
 			if (e.tag.source === 'column.chooser') {
 				return;
 			}
 
 			if (e.hasChanges('columns')) {
-				this.columns = e.state.columns.filter(c => c.class === 'data');
-
-				const buildIndex = sortIndexFactory(model);
-				const result = buildIndex(this.columns);
-				const indexMap = result.index
-					.reduce((memo, key, i) => {
-						memo[key] = i;
-						return memo;
-					}, {});
-
-				this.columns.sort((x, y) => indexMap[x.key] - indexMap[y.key]);
+				this.temp.index = this.originIndex();
+				this.temp.columns = this.originColumns();
 			}
 		}));
+	}
+
+	get columns() {
+		return this.temp.columns;
 	}
 
 	state(column) {
@@ -184,12 +174,29 @@ class ColumnChooser extends Plugin {
 		return !this.stateAll() && this.columns.some(this.state.bind(this));
 	}
 
+	originIndex() {
+		return Array.from(this.model.columnList().index);
+	}
+
+	originColumns() {
+		return this.model
+			.data()
+			.columns
+			.filter(c => c.class === 'data')
+			.map(column => ({
+				key: column.key,
+				title: column.title,
+				isVisible: column.isVisible,
+				aggregation: column.aggregation
+			}));
+	}
+
 	get canAggregate() {
 		return this.columnChooserCanAggregate;
 	}
 
 	get resource() {
-		return this.model.visibility().resource;
+		return this.model.columnChooser().resource;
 	}
 
 	transfer(column) {
