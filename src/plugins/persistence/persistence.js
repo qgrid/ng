@@ -28,7 +28,7 @@ class Peresistence extends Plugin {
 						const mdPanel = this.$mdPanel;
 						const position = mdPanel.newPanelPosition()
 							.relativeTo(e.target)
-							.addPanelPosition(mdPanel.xPosition.ALIGN_START, mdPanel.yPosition.BELOW);
+							.addPanelPosition(mdPanel.xPosition.ALIGN_START, mdPanel.yPosition.ALIGN_TOPS);
 
 						const config = {
 							attachTo: angular.element(this.$document[0].body), // eslint-disable-line no-undef
