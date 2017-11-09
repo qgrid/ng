@@ -11,7 +11,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Edit keyboard navigation improvements.
 - Handle space key down.
 
-## [1.0.64] - 2017-09-11
+## [1.0.64] - 2017-11-09
+### Fixed
+- ENV variable in min version is not defined.
+- Added injector to PersistencePanelController.
+
+## [1.0.64] - 2017-11-09
 ### Added
 - Start using changelog.
 - To display grid title just write `<q-grid header="My Grid">`.

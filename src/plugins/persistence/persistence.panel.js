@@ -53,3 +53,5 @@ export function PersistencePanelController(mdPanelRef) {
 		}
 	});
 }
+
+PersistencePanelController.$inject = ['mdPanelRef'];
