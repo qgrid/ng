@@ -102,6 +102,6 @@
     "test:debug": "karma start karma.conf.js --log-level=debug --single-run=False",
     "test:watch": "karma start karma.conf.js --auto-watch=true --single-run=False",
     "publish": "npm run test && node ./scripts/remove.js ./demo/dist && npm run build:demo && node ./scripts/publish.js && node ./scripts/remove.js ./demo/dist",
-    "release": "node ./scripts/release/release.js"
+    "release": "npm run test && node ./scripts/release/release.js"
   }
 }
