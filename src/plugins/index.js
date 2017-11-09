@@ -24,11 +24,15 @@ import ActionBar from './action-bar/action.bar';
 import Action from './action/action';
 import ActionCore from './action/action.core';
 import DataManipulation from './data-manipulation/data.manipulation';
+import Menu from './menu/menu';
+import Persistence from './persistence/persistence';
+import Title from './title/title';
 
 import * as def from './definition';
 
 export default angular  // eslint-disable-line no-undef
 	.module(def.MODULE_NAME, [def.MODULE_CORE_NAME])
+	.directive(def.MENU_NAME, () => Menu)
 	.component(def.PAGER_NAME, Pager)
 	.component(def.SORT_BAR_NAME, SortBar)
 	.component(def.GROUP_BAR_NAME, GroupBar)
@@ -54,33 +58,15 @@ export default angular  // eslint-disable-line no-undef
 	.component(def.ACTION_NAME, Action)
 	.component(def.ACTION_CORE_NAME, ActionCore)
 	.component(def.DATA_MANIPULATION_NAME, DataManipulation)
+	.component(def.PERSISTENCE_NAME, Persistence)
+	.component(def.TITLE_NAME, Title)
 	.service(def.POPUP_SERVICE, PopupService)
 	.config(Setup)
 	.name;
 
 Setup.$inject = ['qgridThemeProvider'];
 function Setup(qgridThemeProvider) {
-	const EMPTY = '';
-
 	qgridThemeProvider.register('default', theme => {
-		theme.put('qgrid.plugin.pager.tpl.html', require('./pagination/pager.html'));
-		theme.put('qgrid.plugin.progress.tpl.html', require('./progress/progress.html'));
-		theme.put('qgrid.plugin.sort-bar.tpl.html', require('./sort-bar/sort.bar.html'));
-		theme.put('qgrid.plugin.group-bar.tpl.html', require('./group-bar/group.bar.html'));
-		theme.put('qgrid.plugin.pivot-bar.tpl.html', require('./pivot-bar/pivot.bar.html'));
-		theme.put('qgrid.plugin.selection-bar.tpl.html', require('./selection-bar/selection.bar.html'));
-		theme.put('qgrid.plugin.visibility.tpl.html', require('./visibility/visibility.html'));
-		theme.put('qgrid.plugin.column-chooser.tpl.html', require('./column-chooser/column.chooser.html'));
-		theme.put('qgrid.plugin.column-filter.tpl.html', require('./column-filter/column.filter.html'));
-		theme.put('qgrid.plugin.edit-form.tpl.html', require('./edit-form/edit.form.html'));
-		theme.put('qgrid.plugin.edit-form-panel.tpl.html', EMPTY);
-		theme.put('qgrid.plugin.export.tpl.html', require('./export/export.html'));
-		theme.put('qgrid.plugin.import.tpl.html', require('./import/import.html'));
-
 		theme.put('qgrid.plugin.popup.tpl.html', require('./popup/popup.html'));
-		theme.put('qgrid.plugin.popup-panel.tpl.html', require('./popup/popup.panel.html'));
-		theme.put('qgrid.plugin.popup-trigger.tpl.html', EMPTY);
-		theme.put('qgrid.plugin.popup-head.tpl.html', EMPTY);
-		theme.put('qgrid.plugin.popup-body.tpl.html', EMPTY);
 	});
 }

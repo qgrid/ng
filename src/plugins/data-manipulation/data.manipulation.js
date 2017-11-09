@@ -5,6 +5,10 @@ import {TemplatePath} from '@grid/core/template';
 import {Action} from '@grid/core/action';
 import {AppError} from '@grid/core/infrastructure';
 import {isUndefined} from '@grid/core/utility';
+import * as columnService from '@grid/core/column/column.service';
+import {set as setValue} from '@grid/core/services/value';
+import {set as setLabel} from '@grid/core/services/label';
+
 
 TemplatePath
 	.register(DATA_MANIPULATION_NAME, () => {
@@ -97,9 +101,7 @@ class DataManipulation extends Plugin {
 							changes.added.delete(rowId);
 							const data = this.model.data;
 							const rows = data().rows.filter(row => this.rowId(row) !== rowId);
-							data({
-								rows: rows
-							});
+							data({rows});
 						}
 						else {
 							changes.deleted.add(rowId);
@@ -113,14 +115,35 @@ class DataManipulation extends Plugin {
 				new Command({
 					execute: e => {
 						const rowId = this.rowId(e.row);
-						this.changes.deleted.delete(rowId);
+						if (this.changes.deleted.has(rowId)) {
+							this.changes.deleted.delete(rowId);
+						}
+
+						if (this.changes.edited.has(rowId)) {
+							try {
+								const edits = this.changes.edited.get(rowId);
+								const columnMap = columnService.map(this.model.data().columns);								
+								for(const edit of edits) {
+									const column = columnMap[edit.column];
+									if (!column){
+										throw new AppError('data.manipulation', `Column ${edit.column} is not found`);
+									}
+	
+									setValue(e.row, column, edit.oldValue);
+									setLabel(e.row, column, edit.oldLabel);
+								}
+							}
+							finally {
+								this.changes.edited.delete(rowId);	
+							}
+						}
 					},
 					canExecute: e => {
 						const rowId = this.rowId(e.row);
-						return this.changes.deleted.has(rowId);
+						return this.changes.deleted.has(rowId) || this.changes.edited.has(rowId);
 					}
 				}),
-				'Restore',
+				'Revert Row',
 				'restore'
 			),
 			// new Action(
@@ -150,12 +173,16 @@ class DataManipulation extends Plugin {
 				cell: this.styleCell.bind(this)
 			})
 			.action({
-				items: this.actions
+				items: this.actions.concat(model.action().items)
 			});
 
 		model.dataChanged.watch((e, off) => {
 			if (e.hasChanges('columns')) {
-				const rowOptionsColumn = model.data().columns.find(column => column.type === 'row-options');
+				const rowOptionsColumn = model
+					.data()
+					.columns
+					.find(column => column.type === 'row-options');
+				
 				if (rowOptionsColumn) {
 					rowOptionsColumn.editorOptions.actions.push(...this.rowActions);
 					off();

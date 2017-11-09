@@ -1,5 +1,6 @@
-<q-grid rows="$ctrl.rows"
-		  group-by="['contact.address.state', 'gender']">
+<q-grid header="{{::$details.title}}" 
+		rows="$ctrl.rows"
+		group-by="['contact.address.state', 'gender']">
 	<q-grid:columns generation="deep">
 		<q-grid:column type="group" offset="20">
 			<q-grid:template for="head">

@@ -1,6 +1,7 @@
-<q-grid rows="$ctrl.rows"
-		  columns="$ctrl.columns"
-		  model="$ctrl.gridModel">
+<q-grid header="{{::$details.title}}" 
+		rows="$ctrl.rows"
+		columns="$ctrl.columns"
+		model="$ctrl.gridModel">
 
 	<q-grid:columns>
 		<q-grid:column>
@@ -17,6 +18,7 @@
 
 	<q-grid:toolbar>
 		<q-grid:template for="top" let="$ctrl">
+			<q-grid:title></q-grid:title>
 			<md-button ng-click="$ctrl.addColumn()">Add Column</md-button>
 			<md-button ng-click="$ctrl.clear()">Remove Columns</md-button>
 		</q-grid:template>

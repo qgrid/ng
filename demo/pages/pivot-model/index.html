@@ -1,6 +1,7 @@
-<q-grid rows="$ctrl.rows"
-		  pivot-by="['age.interval', 'age']"
-		  group-by="['state', 'gender']">
+<q-grid header="{{::$details.title}}" 
+		rows="$ctrl.rows"
+		pivot-by="['age.interval', 'age']"
+		group-by="['state', 'gender']">
 	<q-grid:columns>
 		<q-grid:column key="state" title="State" path="contact.address.state" aggregation="count"></q-grid:column>
 		<q-grid:column key="age" title="Age" value="$ctrl.getAge($row)"></q-grid:column>
@@ -18,6 +19,9 @@
 					  layout-align="start center"
 					  layout-align-xs="start start"
 					  layout-align-sm="start start">
+					<div>
+						<q-grid:title></q-grid:title>
+					</div>
 					<div>
 						<q-grid:group-bar>
 						</q-grid:group-bar>

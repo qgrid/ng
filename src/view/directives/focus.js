@@ -18,6 +18,7 @@ class Focus extends Directive(FOCUS_NAME) {
 			element.setAttribute('tabindex', -1);
 		}
 
+		const delay = parseInt(this.$attrs[FOCUS_NAME+'Delay']) || 50;
 		this.$timeout(() => {
 			const targetSelector = this.$attrs[FOCUS_NAME];
 			let targetElement = element;
@@ -32,7 +33,7 @@ class Focus extends Directive(FOCUS_NAME) {
 			}
 
 			targetElement.focus()
-		}, 100);
+		}, delay);
 	}
 }
 

@@ -1,0 +1,11 @@
+tr {
+	>td,
+	>th,
+	>tf {
+		md-checkbox {
+			.md-label {
+				display: none;
+			}
+		}
+	}
+}

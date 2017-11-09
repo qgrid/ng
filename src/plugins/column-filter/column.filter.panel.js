@@ -1,7 +1,6 @@
 import PluginComponent from '../plugin.component';
 import {Command} from '@grid/core/command';
-import {clone, noop, flatten} from '@grid/core/utility';
-import {getFactory as valueFactory} from '@grid/core/services/value';
+import {uniq, clone, noop, flatten} from '@grid/core/utility';
 import {getFactory as labelFactory} from '@grid/core/services/label';
 import * as columnService from '@grid/core/column/column.service';
 
@@ -12,7 +11,6 @@ class ColumnFilterPanel extends Plugin {
 
 		this.by = new Set();
 		this.items = [];
-		this.entries = new Map();
 
 		this.toggle = new Command({
 			execute: (item) => {
@@ -43,8 +41,7 @@ class ColumnFilterPanel extends Plugin {
 			execute: () => {
 				const filter = this.model.filter;
 				const by = clone(filter().by);
-				const entries = this.entries;
-				const items = flatten(Array.from(this.by).map(x => entries.get(x)));
+				const items = Array.from(this.by);
 				if (items.length) {
 					by[this.key] = {items: items};
 				}
@@ -86,12 +83,7 @@ class ColumnFilterPanel extends Plugin {
 				const model = this.model;
 				const filterState = model.filter();
 				const service = this.qgrid.service(model);
-				const filterBy = this.model.filter().by[this.key];
-				const filterItems = (filterBy && filterBy.items) || [];
-				const by = new Set(filterItems);
 				if (filterState.fetch !== noop) {
-					this.by = by;
-
 					const cancelBusy = service.busy();
 					filterState
 						.fetch(this.key, {
@@ -101,11 +93,7 @@ class ColumnFilterPanel extends Plugin {
 							filter: this.filter
 						})
 						.then(items => {
-							items.forEach(x => {
-								this.items.push(x);
-								this.entries.set(x, [x]);
-							});
-
+							this.items.push(...items);
 							d.resolve(this.items.length + take);
 							cancelBusy();
 						})
@@ -116,39 +104,15 @@ class ColumnFilterPanel extends Plugin {
 					try {
 						if (!this.items.length) {
 							const source = model[model.columnFilter().source];
-							const getValue = this.getValue;
-							const getLabel = this.getLabel;
-							const entries = this.entries;
-							entries.clear();
+							let items = source().rows.map(this.getValue.bind(this));
+							if(this.column.type === 'array') {
+								items = flatten(items);
+							}
 
-							const byItems = new Set();
-							const uniqItems = [];
-							source().rows.map(row => {
-								const label = getLabel(row);
-								let values;
-								if (entries.has(label)) {
-									values = entries.get(label);
-								}
-								else {
-									values = [];
-									entries.set(label, values);
-									uniqItems.push(label);
-								}
-
-								const value = getValue(row);
-								if (by.has(value)) {
-									byItems.add(label);
-								}
-
-								values.push(value);
-							});
-
-							const filter = this.$filter('filter');
-							const filteredItems = filter(uniqItems, this.filter);
+							const uniqItems = uniq(items);
+							const filteredItems = this.$filter('filter')(uniqItems, this.filter);
 							filteredItems.sort();
-
 							this.items = filteredItems;
-							this.by = byItems;
 						}
 
 						d.resolve(this.items.length);
@@ -163,8 +127,11 @@ class ColumnFilterPanel extends Plugin {
 
 	onInit() {
 		this.column = columnService.find(this.model.data().columns, this.key);
-		this.getValue = valueFactory(this.column);
-		this.getLabel = labelFactory(this.column);
+		this.title = this.column.title;
+		this.getValue = labelFactory(this.column);
+
+		const filterBy = this.model.filter().by[this.key];
+		this.by = new Set((filterBy && filterBy.items) || []);
 
 		this.vscrollContext.settings.threshold = this.model.columnFilter().threshold;
 		this.resetItems.execute();

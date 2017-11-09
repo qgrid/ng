@@ -1,32 +1,38 @@
 .q-grid.q-grid-theme-material {
-	@import "assets/grid";
-	@import "assets/head";
-	@import "assets/body";
-	@import "assets/foot";
-	@import "assets/pagination";
-	@import "assets/toolbar";
-	@import "assets/sort.bar";
-	@import "assets/group.bar";
-	@import "assets/pivot.bar";
-	@import "assets/selection.bar";
-	@import "assets/node";
-	@import "assets/pivot";
-	@import "assets/sort";
-	@import "assets/cell";
-	@import "assets/cell.edit";
-	@import "assets/visibility";
-	@import "assets/column.chooser";
-	@import "assets/progress";
-	@import "assets/highlight";
-	@import "assets/popup";
-	@import "assets/column.filter";
-	@import "assets/edit.form";
-	@import "assets/export";
-	@import "assets/menu";
+	@import "assets/common/grid";
+	@import "assets/common/head";
+	@import "assets/common/body";
+	@import "assets/common/foot";
+	@import "assets/common/pivot";
+	@import "assets/common/toolbar";
+	@import "assets/common/cell";
+	@import "assets/common/highlight";
+
+	@import "assets/md/menu";
+	@import "assets/md/node";
+	@import "assets/md/sort";
+	@import "assets/md/cell.edit";
+	@import "assets/md/body";
+	@import "assets/md/cell";
+	@import "assets/md/head";
+
+	@import "assets/plugin/pagination";
+	@import "assets/plugin/sort.bar";
+	@import "assets/plugin/group.bar";
+	@import "assets/plugin/pivot.bar";
+	@import "assets/plugin/selection.bar";
+	@import "assets/plugin/visibility";
+	@import "assets/plugin/column.chooser";
+	@import "assets/plugin/progress";
+	@import "assets/plugin/popup";
+	@import "assets/plugin/column.filter";
+	@import "assets/plugin/edit.form";
+	@import "assets/plugin/export";
+	@import "assets/plugin/persistence";
 }
 
 .q-grid-excel .q-grid.q-grid-theme-material {
-	@import "assets/excel";
+	@import "assets/plugin/excel";
 }
 
-@import "assets/embed";
+@import "assets/common/embed";

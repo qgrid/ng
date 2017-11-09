@@ -1,4 +1,8 @@
-import {GRID, MODULE_NAME as GRID_MODULE_NAME, MODULE_CORE_NAME as GRID_MODULE_CORE_NAME} from '@grid/view/definition';
+import {
+	GRID,
+	MODULE_NAME as GRID_MODULE_NAME,
+	MODULE_CORE_NAME as GRID_MODULE_CORE_NAME
+} from '@grid/view/definition';
 
 export const MODULE_CORE_NAME = GRID_MODULE_CORE_NAME;
 export const MODULE_NAME = `${GRID_MODULE_NAME}.plugin`;
@@ -30,3 +34,7 @@ export const POPUP_BODY_NAME = `${GRID}PopupBody`;
 export const POPUP_PANEL_NAME = `${GRID}PopupPanel`;
 export const POPUP_SERVICE = `${GRID}PopupService`;
 export const POPUP_CLOSE_NAME = `${GRID}PopupClose`;
+
+export const MENU_NAME = `${GRID}Menu`;
+export const PERSISTENCE_NAME = `${GRID}Persistence`;
+export const TITLE_NAME = `${GRID}Title`;

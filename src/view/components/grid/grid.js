@@ -170,6 +170,7 @@ export default {
 	controllerAs: '$grid',
 	bindings: {
 		gridId: '@id',
+		gridTitle: '@header',
 		model: '<',
 		dataRows: '<rows',
 		dataColumns: '<columns',

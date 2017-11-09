@@ -1,6 +1,6 @@
 <div layout="column" style="height:100%">
 	<div flex="50">
-		<q-grid rows="$ctrl.masterRows"
+		<q-grid header="{{::$details.title}}" rows="$ctrl.masterRows"
 		        selection-mode="single"
 		        selection-unit="row"
 		        on:selection-changed="$ctrl.selectionChanged($event)">
