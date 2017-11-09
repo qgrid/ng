@@ -1,13 +1,7 @@
 import PluginComponent from '../plugin.component';
-import {
-	Action
-} from '@grid/core/action';
-import {
-	Command
-} from '@grid/core/command';
-import {
-	PersistencePanelController
-} from './persistence.panel';
+import {Action} from '@grid/core/action';
+import {Command} from '@grid/core/command';
+import {PersistencePanelController} from './persistence.panel';
 
 const Plugin = PluginComponent('persistence', {
 	inject: ['qgrid', '$mdPanel', '$document']

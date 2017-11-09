@@ -1,9 +1,5 @@
-import {
-	Command
-} from '@grid/core/command';
-import {
-	PersistenceService
-} from '@grid/core/persistence/persistence.service';
+import {Command} from '@grid/core/command';
+import {PersistenceService} from '@grid/core/persistence/persistence.service';
 
 export function PersistencePanelController(mdPanelRef) {
 	const model = this.model;
