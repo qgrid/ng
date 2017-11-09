@@ -1,7 +1,8 @@
-<q-grid model="$ctrl.gridModel">
+<q-grid header="{{::$details.title}}" model="$ctrl.gridModel">
 	<q-grid:columns generation="deep"></q-grid:columns>
 	<q-grid:toolbar>
 		<q-grid:template for="top" let="$ctrl">
+			<q-grid:title></q-grid:title>
 			<label>Filter</label>
 			<input ng-model="$ctrl.state.filter" ng-change="$ctrl.change()" type="text">
 		</q-grid:template>

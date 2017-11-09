@@ -1,8 +1,3 @@
-<q-grid model="$ctrl.gridModel">
-	<q-grid:toolbar>
-		<q-grid:template for="right">
-			<q-grid:column-chooser can-aggregate="true">
-			</q-grid:column-chooser>
-		</q-grid:template>
-	</q-grid:toolbar>
+<q-grid header="{{::$details.title}}" model="$ctrl.gridModel">
+	<!-- TODO: open column chooser menu on start -->
 </q-grid>

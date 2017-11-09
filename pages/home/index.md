@@ -1,6 +1,7 @@
 ## installation
 * `$ npm install ng-qgrid`
 * `$ bower install ng-qgrid`
+* https://plnkr.co/edit/cz0CL7?p=preview
 
 ## include to your project
 In your `index.html` file, include `qgrid` script and styles

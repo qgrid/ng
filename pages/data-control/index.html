@@ -1,9 +1,10 @@
-<q-grid rows="$ctrl.rows"
-		  edit-mode="cell"
-		  edit-commit="$ctrl.commitCommand"
-		  style-row="$ctrl.styleRow"
-		  style-cell="$ctrl.styleCell"
-		  actions="$ctrl.actions">
+<q-grid header="{{::$details.title}}" 
+		rows="$ctrl.rows"
+		edit-mode="cell"
+		edit-commit="$ctrl.commitCommand"
+		style-row="$ctrl.styleRow"
+		style-cell="$ctrl.styleCell"
+		actions="$ctrl.actions">
 
 	<q-grid:columns generation="deep">
 		<q-grid:column key="id" is-visible="false"></q-grid:column>

@@ -1,10 +1,11 @@
-<q-grid rows="$ctrl.rows"
-		  columns="$ctrl.columns">
+<q-grid header="{{::$details.title}}" 
+		rows="$ctrl.rows"
+		columns="$ctrl.columns">
 	<q-grid:columns generation="deep"></q-grid:columns>
 
 	<q-grid:layer>
 		<q-grid:template for="blank" let="$ctrl">
-			<div style="margin: 50% auto; top: 50%; width: 80px;">
+			<div style="margin: 0 auto; top: 50%; width: 80px; position: relative;">
 				<button ng-click="$ctrl.load()">Load Rows</button>
 			</div>
 		</q-grid:template>
@@ -12,6 +13,7 @@
 
 	<q-grid:toolbar>
 		<q-grid:template for="top" let="$ctrl">
+			<q-grid:title></q-grid:title>
 			<div style="height: 64px;">
 				<button ng-click="$ctrl.load()">Load Rows</button>
 				<button ng-click="$ctrl.clear()">Clear Rows</button>

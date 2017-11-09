@@ -58,15 +58,6 @@ export default function Controller($http, qgrid) {
 		}
 	];
 
-	ctrl.gridModel.visibility({
-		toolbar: {
-			left: false,
-			right: true,
-			top: true,
-			bottom: true
-		}
-	});
-
 	$http.get('data/people/100.json')
 		.then(function (response) {
 			ctrl.gridModel.data({

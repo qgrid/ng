@@ -1,7 +1,8 @@
-<q-grid id="master-grid"
-		  model="$ctrl.model"
-		  rows="$ctrl.rows"
-		  q-grid:autofocus>
+<q-grid header="{{::$details.title}}" 
+		id="master-grid"
+		model="$ctrl.model"
+		rows="$ctrl.rows"
+		q-grid:autofocus>
 	<q-grid:columns generation="deep"></q-grid:columns>
 	<q-grid:row unit="details" mode="multiple">
 		<q-grid:template for="details" let="$ctrl">
