@@ -403,7 +403,7 @@
 		"items": [
 			{
 				"title": "Persistence API",
-				"path": "persistence-api"
+				"path": "persistence"
 			}
 		]
 	},

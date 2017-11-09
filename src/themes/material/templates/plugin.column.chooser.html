@@ -15,7 +15,8 @@
 					<label>Search</label>
 					<input type="text"
 							 ng-model="$columnChooser.filter"
-							 q-grid:focus/>
+							 q-grid:focus
+							 q-grid:focus-delay="400"/>
 				</md-input-container>
 			</div>
 			<div flex layout="column">
@@ -30,7 +31,8 @@
 					</li>
 					<li>
 						<md-checkbox ng-click="$columnChooser.defaults.execute()"
-										 ng-checked="$columnChooser.stateDefault()">
+										md-prevent-menu-close
+										ng-checked="$columnChooser.stateDefault()">
 							Select Defaults
 						</md-checkbox>
 					</li>
@@ -69,9 +71,6 @@
 			<div class="q-grid-popup-actions flex-none">
 				<md-button ng-click="$columnChooser.cancel.execute()" md-prevent-menu-close>
 					Cancel
-				</md-button>
-				<md-button ng-click="$columnChooser.reset.execute()" md-prevent-menu-close>
-					Reset
 				</md-button>
 				<md-button class="md-primary"
 							  ng-click="$columnChooser.submit.execute()"

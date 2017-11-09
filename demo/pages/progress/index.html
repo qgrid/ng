@@ -1,4 +1,5 @@
-<q-grid model="$ctrl.gridModel">
+<q-grid header="{{::$details.title}}" 
+		model="$ctrl.gridModel">
 	<q-grid:columns>
 		<q-grid:column key="name.last" title="Last Name" path="name.last"></q-grid:column>
 		<q-grid:column key="name.first" title="First Name" path="name.first"></q-grid:column>

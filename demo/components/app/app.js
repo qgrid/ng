@@ -10,6 +10,8 @@ Controller.$inject = [
 ];
 
 export default function Controller($scope, pages, themes, defaults, themeProvider, $mdSidenav, $location, $window) {
+	$scope.$app = this;
+
 	this.pages = pages;
 	this.page = null;
 	this.themes = themes;

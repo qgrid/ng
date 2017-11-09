@@ -11,14 +11,14 @@ class ActionCore extends Component {
 		this.$element = $element;
 	}
 
-	execute() {
+	execute(e) {
 		const model = this.model;
-		return model && model.command && model.command.execute();
+		return model && model.command && model.command.execute(e);
 	}
 
-	canExecute() {
+	canExecute(e) {
 		const model = this.model;
-		return model && model.command && model.command.canExecute();
+		return model && model.command && model.command.canExecute(e);
 	}
 
 	get shortcut() {

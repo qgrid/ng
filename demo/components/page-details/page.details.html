@@ -1,23 +1,23 @@
-<md-card class="page-details-example {{$ctrl.selection.path}}"
-			ng-class="{'without-code': !$ctrl.isCodeVisible}"
+<md-card class="page-details-example {{$details.selection.path}}"
+			ng-class="{'without-code': !$details.isCodeVisible}"
 			flex="100"
-			ng-if="$ctrl.selection.code['html']">
+			ng-if="$details.selection.code['html']">
 	<div class="page-details-example-nav">
-		<md-button class="md-icon-button" ng-click="$ctrl.isCodeVisible = !$ctrl.isCodeVisible">
+		<md-button class="md-icon-button" ng-click="$details.isCodeVisible = !$details.isCodeVisible">
 			<md-icon>code</md-icon>
 		</md-button>
 	</div>
 
 	<md-card-content flex="100" style="display: flex;padding: 5px 15px;" layout="column">
-		<md-tabs md-selected="$ctrl.selectedTab" flex ng-if="$ctrl.isCodeVisible">
+		<md-tabs md-selected="$details.selectedTab" flex ng-if="$details.isCodeVisible">
 			<md-tab label="HTML">
 				<div class="page-details-example-code">
-					<pre ng-bind-html="$ctrl.selection.code['html'] | html"></pre>
+					<pre ng-bind-html="$details.selection.code['html'] | html"></pre>
 				</div>
 			</md-tab>
 			<md-tab label="JAVASCRIPT">
 				<div class="page-details-example-code">
-					<pre ng-bind-html="$ctrl.selection.code['js'] | js"></pre>
+					<pre ng-bind-html="$details.selection.code['js'] | js"></pre>
 				</div>
 			</md-tab>
 		</md-tabs>
@@ -25,6 +25,6 @@
 	</md-card-content>
 </md-card>
 <div class="page-details-doc markdown-body"
-	  ng-if="$ctrl.selection.code['md']">
-	<pre ng-bind-html="$ctrl.selection.code['md']"></pre>
+	  ng-if="$details.selection.code['md']">
+	<pre ng-bind-html="$details.selection.code['md']"></pre>
 </div>

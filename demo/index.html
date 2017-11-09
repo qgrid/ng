@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="demo">
+<html lang="en" ng-app="demo" ng-strict-di>
 <head>
 	<title>qgrid examples</title>
 
@@ -23,13 +23,13 @@
 	</style>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.23.0/polyfill.min.js"></script>
 </head>
-<body ng-cloak layout="column" ng-controller="Demo.App.Controller as $ctrl">
+<body ng-cloak layout="column" ng-controller="Demo.App.Controller as $app">
 
 <md-toolbar layout="row" class="md-toolbar-tools">
 	<md-button class="menu md-icon-button"
 				  ng-cloak
 				  hide-gt-sm
-				  ng-click="$ctrl.toggleMenu()"
+				  ng-click="$app.toggleMenu()"
 				  aria-label="Show example list">
 		<md-icon>menu</md-icon>
 	</md-button>
@@ -42,7 +42,7 @@
 	<md-sidenav class="md-whiteframe-4dp"
 					md-is-locked-open="$mdMedia('gt-sm')"
 					md-component-id="left"
-					ng-click="$ctrl.toggleMenu()">
+					ng-click="$app.toggleMenu()">
 		<h1 class="logo">
 			<a href="./#!/home">qgrid</a>
 			<a id="github" href="https://github.com/qgrid/ng"
@@ -52,20 +52,19 @@
 				<img src="./assets/github.png"/>
 			</a>
 			<theme-selector id="theme-selector"
-								 items="$ctrl.themes"
-								 selection="$ctrl.theme"
-								 selection-changed="$ctrl.onThemeChanged($selection)">
+								 items="$app.themes"
+								 selection="$app.theme"
+								 selection-changed="$app.onThemeChanged($selection)">
 			</theme-selector>
 		</h1>
-		<page-list items="$ctrl.pages"
-					  selection="$ctrl.page"
-					  selection-changed="$ctrl.onPageChanged($selection)">
+		<page-list items="$app.pages"
+					  selection="$app.page"
+					  selection-changed="$app.onPageChanged($selection)">
 		</page-list>
 	</md-sidenav>
 
 	<md-content flex id="content">
-		<h2 class="md-title" ng-bind="$ctrl.page.title" ng-if="$ctrl.page.code['html']"></h2>
-		<page-details selection="$ctrl.page"></page-details>
+		<page-details selection="$app.page" header="$app.page.title"></page-details>
 	</md-content>
 </div>
 
