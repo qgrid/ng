@@ -1,16 +1,7 @@
-import {
-	AppError
-} from '../infrastructure';
-import {
-	castFactory as castAsFactory
-} from './cast.factory';
-import {
-	Visitor
-} from './expression.visitor';
-import {
-	isArray,
-	identity
-} from '../utility';
+import {AppError} from '../infrastructure';
+import {castFactory as castAsFactory} from './cast.factory';
+import {Visitor} from './expression.visitor';
+import {isArray, identity} from '../utility';
 
 export class PredicateVisitor extends Visitor {
 	constructor(valueFactory, assertFactory) {
@@ -71,10 +62,10 @@ export class PredicateVisitor extends Visitor {
 		let predicate;
 		switch (condition.op) {
 			case 'isNotNull':
-				predicate = l => isNull(l);
+				predicate = l => !isNull(l);
 				break;
 			case 'isNull':
-				predicate = l => !isNull(l);
+				predicate = l => isNull(l);
 				break;
 			case 'equals':
 				predicate = l => equals(rCastAs(l), l);
@@ -95,7 +86,7 @@ export class PredicateVisitor extends Visitor {
 				predicate = l => lessThan(l, rCastAs(l));
 				break;
 			case 'between':
-				predicate = l => lessThanOrEquals(castAsFactory(r[0])(l), l) && greaterThan(castAsFactory(r[1])(l), l);
+				predicate = l => lessThanOrEquals(castAsFactory(r[0])(l), l) && greaterThanOrEquals(castAsFactory(r[1])(l), l);
 				break;
 			case 'in':
 				predicate = l => {
