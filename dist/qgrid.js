@@ -2608,6 +2608,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 /*eslint-disable  no-console, no-unused-vars, no-undef*/
 
+var ENV = window.ENV || {};
+
 var Log = function () {
 	function Log() {
 		_classCallCheck(this, Log);
@@ -2616,7 +2618,7 @@ var Log = function () {
 	_createClass(Log, null, [{
 		key: "info",
 		value: function info(source, message) {
-			if (false) {
+			if (!ENV.PRODUCTION) {
 				console.info("qgrid." + source + ": " + message);
 			}
 		}
@@ -22362,12 +22364,12 @@ var PredicateVisitor = function (_Visitor) {
 			switch (condition.op) {
 				case 'isNotNull':
 					predicate = function predicate(l) {
-						return isNull(l);
+						return !isNull(l);
 					};
 					break;
 				case 'isNull':
 					predicate = function predicate(l) {
-						return !isNull(l);
+						return isNull(l);
 					};
 					break;
 				case 'equals':
@@ -22402,7 +22404,7 @@ var PredicateVisitor = function (_Visitor) {
 					break;
 				case 'between':
 					predicate = function predicate(l) {
-						return lessThanOrEquals(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__cast_factory__["a" /* castFactory */])(r[0])(l), l) && greaterThan(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__cast_factory__["a" /* castFactory */])(r[1])(l), l);
+						return lessThanOrEquals(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__cast_factory__["a" /* castFactory */])(r[0])(l), l) && greaterThanOrEquals(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__cast_factory__["a" /* castFactory */])(r[1])(l), l);
 					};
 					break;
 				case 'in':
@@ -30120,6 +30122,8 @@ function PersistencePanelController(mdPanelRef) {
 		}
 	});
 }
+
+PersistencePanelController.$inject = ['mdPanelRef'];
 
 /***/ }),
 /* 647 */

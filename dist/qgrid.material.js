@@ -1895,6 +1895,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 /*eslint-disable  no-console, no-unused-vars, no-undef*/
 
+var ENV = window.ENV || {};
+
 var Log = function () {
 	function Log() {
 		_classCallCheck(this, Log);
@@ -1903,7 +1905,7 @@ var Log = function () {
 	_createClass(Log, null, [{
 		key: "info",
 		value: function info(source, message) {
-			if (false) {
+			if (!ENV.PRODUCTION) {
 				console.info("qgrid." + source + ": " + message);
 			}
 		}
