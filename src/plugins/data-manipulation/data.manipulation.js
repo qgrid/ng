@@ -143,7 +143,7 @@ class DataManipulation extends Plugin {
 						return this.changes.deleted.has(rowId) || this.changes.edited.has(rowId);
 					}
 				}),
-				'Restore Row',
+				'Revert Row',
 				'restore'
 			),
 			// new Action(
