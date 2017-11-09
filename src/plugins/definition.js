@@ -1,8 +1,4 @@
-import {
-	GRID,
-	MODULE_NAME as GRID_MODULE_NAME,
-	MODULE_CORE_NAME as GRID_MODULE_CORE_NAME
-} from '@grid/view/definition';
+import {GRID, MODULE_NAME as GRID_MODULE_NAME, MODULE_CORE_NAME as GRID_MODULE_CORE_NAME} from '@grid/view/definition';
 
 export const MODULE_CORE_NAME = GRID_MODULE_CORE_NAME;
 export const MODULE_NAME = `${GRID_MODULE_NAME}.plugin`;
@@ -26,6 +22,8 @@ export const ACTION_BAR_CORE_NAME = `${GRID}ActionBarCore`;
 export const ACTION_BAR_NAME = `${GRID}ActionBar`;
 export const ACTION_NAME = `${GRID}Action`;
 export const ACTION_CORE_NAME = `${GRID}ActionCore`;
+export const CELL_EDITOR_NAME = `${GRID}CellEditor`;
+export const BACKDROP_NAME = `${GRID}Backdrop`;
 
 export const POPUP_NAME = `${GRID}Popup`;
 export const POPUP_TRIGGER_NAME = `${GRID}PopupTrigger`;

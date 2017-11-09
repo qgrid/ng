@@ -17,6 +17,7 @@ md-menu-item .md-button {
 @at-root .q-grid-menu {
 	@include scroll();
 
+	z-index: 99;
 	max-height: none;
 	overflow: hidden;
 	padding: 0;

@@ -49,12 +49,7 @@ export class Grid extends RootComponent {
 
 		this.table = new Table(model, this.markup, tableContext);
 		this.commandManager = new TableCommandManager(this.applyFactory(), this.table);
-		this.using(this.listener.on('keydown', e => {
-			if (model.action().shortcut.keyDown(e)) {
-				e.preventDefault();
-				e.stopPropagation();
-			}
-		}));
+		this.using(this.listener.on('keydown', e => this.keyDown(e)));
 
 		if (!this.gridId) {
 			this.$element[0].id = model.grid().id;
@@ -66,6 +61,13 @@ export class Grid extends RootComponent {
 				this.invalidateVisibility();
 			}
 		}));
+	}
+
+	keyDown(e, source = 'grid') {
+		if (this.model.action().shortcut.keyDown(e, source)) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
 	}
 
 	compile() {

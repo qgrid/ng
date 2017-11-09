@@ -3,7 +3,7 @@ import {DATA_MANIPULATION_NAME} from '../definition';
 import {Command} from '@grid/core/command';
 import {TemplatePath} from '@grid/core/template';
 import {Action} from '@grid/core/action';
-import {AppError} from '@grid/core/infrastructure';
+import {AppError, Composite} from '@grid/core/infrastructure';
 import {isUndefined} from '@grid/core/utility';
 import * as columnService from '@grid/core/column/column.service';
 import {set as setValue} from '@grid/core/services/value';
@@ -163,14 +163,18 @@ class DataManipulation extends Plugin {
 		this.rowId = model.dataManipulation().rowId;
 		this.rowFactory = model.dataManipulation().rowFactory;
 
+		const styleState = model.style();
+		const styleRow = styleState.row;
+		const styleCell = styleState.cell;
+
 		model
 			.edit({
 				mode: 'cell',
-				commit: this.commitCommand
+				commit: Composite.command(this.commitCommand, model.edit().commit)
 			})
 			.style({
-				row: this.styleRow.bind(this),
-				cell: this.styleCell.bind(this)
+				row: Composite.func([styleRow,  this.styleRow.bind(this)]),
+				cell: Composite.func([styleCell, this.styleCell.bind(this)])
 			})
 			.action({
 				items: this.actions.concat(model.action().items)

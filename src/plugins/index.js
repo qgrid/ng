@@ -27,6 +27,8 @@ import DataManipulation from './data-manipulation/data.manipulation';
 import Menu from './menu/menu';
 import Persistence from './persistence/persistence';
 import Title from './title/title';
+import CellEditor from './cell-editor/cell.editor';
+import Backdrop from './backdrop/backdrop';
 
 import * as def from './definition';
 
@@ -60,6 +62,8 @@ export default angular  // eslint-disable-line no-undef
 	.component(def.DATA_MANIPULATION_NAME, DataManipulation)
 	.component(def.PERSISTENCE_NAME, Persistence)
 	.component(def.TITLE_NAME, Title)
+	.component(def.CELL_EDITOR_NAME, CellEditor)
+	.component(def.BACKDROP_NAME, Backdrop)
 	.service(def.POPUP_SERVICE, PopupService)
 	.config(Setup)
 	.name;
