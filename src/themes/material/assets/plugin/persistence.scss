@@ -1,7 +1,7 @@
 @import "../../../../assets/scroll.scss";
 @at-root .q-grid-persistence-panel {
 	@include scroll();
-	width: 280px;
+	width: 300px;
 	md-radio-button {
 		margin: 0;
 	}
@@ -12,8 +12,11 @@
 			display: none;
 		}
 	}
+	.q-grid-persistence-save {
+		margin: 0 0 0 8px;
+	}
 	md-list {
-		height: 350px;
+		height: 390px;
 		overflow-y: auto;
 		md-list-item {
 			padding: 0;

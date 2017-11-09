@@ -33,8 +33,7 @@ export function PersistencePanelController(mdPanelRef) {
 
 			model.persistence()
 				.storage
-				.setItem('q-grid:persistence-list', this.items)
-				.then(this.close);
+				.setItem('q-grid:persistence-list', this.items);
 		},
 		canExecute: () => !!this.title
 	});
@@ -42,7 +41,6 @@ export function PersistencePanelController(mdPanelRef) {
 	this.load = new Command({
 		execute: item => {
 			persistenceService.load(item.model);
-			this.close();
 		}
 	});
 
