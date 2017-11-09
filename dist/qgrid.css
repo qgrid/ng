@@ -1388,8 +1388,6 @@
     height: 100%;
     min-height: 100%;
     max-height: 100%; }
-  .q-grid tbody tr.q-grid-scroll-mark {
-    height: 0; }
   .q-grid .q-grid-table table {
     border-spacing: 0;
     overflow: hidden;
