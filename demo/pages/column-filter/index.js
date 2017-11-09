@@ -1,6 +1,5 @@
 import uniqBy from 'lodash/uniqBy';
 
-
 Controller.$inject = ['$http', 'qgrid', '$q', '$timeout', '$filter'];
 export default function Controller($http, qgrid, $q, $timeout, $filter) {
 	const ctrl = this;

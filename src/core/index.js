@@ -30,6 +30,7 @@ import {ExportModel} from './export';
 import {ImportModel} from './import';
 import {ActionModel} from './action';
 import {FetchModel} from './fetch';
+import {PersistenceModel} from './persistence';
 
 export function setup(model) {
 	model.register('grid', GridModel)
@@ -63,5 +64,6 @@ export function setup(model) {
 		.register('export', ExportModel)
 		.register('import', ImportModel)
 		.register('action', ActionModel)
-		.register('fetch', FetchModel);
+		.register('fetch', FetchModel)
+		.register('persistence', PersistenceModel);
 }

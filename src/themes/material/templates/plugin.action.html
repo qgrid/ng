@@ -1,7 +1,7 @@
 <div class="q-grid-action">
 	<md-button class="md-icon-button"
-				  ng-click="$action.execute()"
-				  ng-disabled="!$action.canExecute()"
+				  ng-click="$action.execute($event)"
+				  ng-disabled="!$action.canExecute($event)"
 				  tabindex="-1">
 		<md-icon>{{$action.icon}}</md-icon>
 		<md-tooltip>

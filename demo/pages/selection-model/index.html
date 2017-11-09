@@ -1,9 +1,10 @@
-<q-grid model="$ctrl.model"
-		  rows="$ctrl.rows"
-		  selection-mode="multiple"
-		  selection-unit="cell"
-		  selection-key="$ctrl.selectionKey"
-		  on:selection-changed="$ctrl.selectionChanged($event)">
+<q-grid header="{{::$details.title}}" 
+		model="$ctrl.model"
+		rows="$ctrl.rows"
+		selection-mode="multiple"
+		selection-unit="cell"
+		selection-key="$ctrl.selectionKey"
+		on:selection-changed="$ctrl.selectionChanged($event)">
 	<q-grid:columns generation="deep">
 		<q-grid:column type="select" editor-options="{trigger: 'click'}" can-edit="false">
 			<q-grid:template for="head">

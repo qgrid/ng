@@ -1,8 +1,4 @@
-<q-grid model="$ctrl.model"
-        class="q-grid-excel"
-        edit-mode="cell"
-        selection-mode="range"
-        id="excel-example">
+<q-grid header="{{::$details.title}}" model="$ctrl.model" class="q-grid-excel" edit-mode="cell" selection-mode="range" id="excel-example">
 	<q-grid:export>
 		<q-grid:template for="xlsx">
 			<button class="md-button" ng-click="$export.xlsx.execute()">
@@ -42,40 +38,42 @@
 		<q-grid:column type="row-number" key="rowNumber" can-focus="false" pin="left"></q-grid:column>
 		<q-grid:column>
 			<q-grid:template for="edit">
-				<input type="text"
-				       q-grid:focus
-				       ng-blur="$view.edit.cell.commit.execute($cell)"
-				       ng-model="$view.edit.cell.value"/>
+				<input type="text" q-grid:focus ng-blur="$view.edit.cell.commit.execute($cell)" ng-model="$view.edit.cell.value" />
 			</q-grid:template>
 		</q-grid:column>
 	</q-grid:columns>
 	<q-grid:toolbar>
 		<q-grid:template for="top">
-			<div layout="row" layout-align="end center">
-				<q-grid:import import-options="{head:'alpha'}"></q-grid:import>
-				<md-menu>
-					<md-button ng-click="$mdMenu.open($event)">
-						<md-icon>file_download</md-icon>
-						Save as ...
-					</md-button>
-					<md-menu-content width="4">
-						<md-menu-item>
-							<q-grid:export type="xlsx"></q-grid:export>
-						</md-menu-item>
-						<md-menu-item>
-							<q-grid:export type="csv"></q-grid:export>
-						</md-menu-item>
-						<md-menu-item>
-							<q-grid:export type="json"></q-grid:export>
-						</md-menu-item>
-						<md-menu-item>
-							<q-grid:export type="xml"></q-grid:export>
-						</md-menu-item>
-						<md-menu-item>
-							<q-grid:export type="pdf"></q-grid:export>
-						</md-menu-item>
-					</md-menu-content>
-				</md-menu>
+			<div layout="row">
+				<div flex="100">
+					<q-grid:title></q-grid:title>
+				</div>
+				<div layout="row" layout-align="end center">
+					<q-grid:import import-options="{head:'alpha'}"></q-grid:import>
+					<md-menu>
+						<md-button ng-click="$mdMenu.open($event)">
+							<md-icon>file_download</md-icon>
+							Save as ...
+						</md-button>
+						<md-menu-content width="4">
+							<md-menu-item>
+								<q-grid:export type="xlsx"></q-grid:export>
+							</md-menu-item>
+							<md-menu-item>
+								<q-grid:export type="csv"></q-grid:export>
+							</md-menu-item>
+							<md-menu-item>
+								<q-grid:export type="json"></q-grid:export>
+							</md-menu-item>
+							<md-menu-item>
+								<q-grid:export type="xml"></q-grid:export>
+							</md-menu-item>
+							<md-menu-item>
+								<q-grid:export type="pdf"></q-grid:export>
+							</md-menu-item>
+						</md-menu-content>
+					</md-menu>
+				</div>
 			</div>
 		</q-grid:template>
 	</q-grid:toolbar>

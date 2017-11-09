@@ -159,4 +159,8 @@ export declare class Model {
 	fetch(value?: object, tag?: object): FetchModel;
 
 	fetchChanged: Event;
+
+	persistence(value?: object, tag?: object): FetchModel;
+
+	persistenceChanged: Event;
 }

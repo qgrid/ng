@@ -1,6 +1,6 @@
 {
   "name": "ng-qgrid",
-  "version": "1.0.59",
+  "version": "1.0.65",
   "description": "Angular data grid",
   "main": "dist/qgrid.js",
   "repository": {
@@ -42,6 +42,7 @@
     "chai": "^3.5.0",
     "chai-spies": "^0.7.1",
     "circular-dependency-plugin": "^4.1.0",
+    "command-line-args": "^4.0.7",
     "css-loader": "^0.26.0",
     "css.escape": "^1.5.1",
     "eslint": "^3.14.0",
@@ -76,11 +77,12 @@
     "rimraf": "~2.5.2",
     "sass-loader": "^4.1.1",
     "script-loader": "^0.7.0",
+    "semver": "^5.4.1",
     "shelljs": "^0.7.7",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "vscroll": "https://github.com/klumba12/vscroll",
-    "webpack": "^2.2.0",
+    "webpack": "^2.7.0",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-dev-server": "^1.16.2",
     "webpack-md5-hash": "^0.0.5",
@@ -100,6 +102,6 @@
     "test:debug": "karma start karma.conf.js --log-level=debug --single-run=False",
     "test:watch": "karma start karma.conf.js --auto-watch=true --single-run=False",
     "publish": "npm run test && node ./scripts/remove.js ./demo/dist && npm run build:demo && node ./scripts/publish.js && node ./scripts/remove.js ./demo/dist",
-    "release": "node ./scripts/release.js"
+    "release": "npm run test && node ./scripts/release/release.js"
   }
 }

@@ -25,8 +25,6 @@ export const ACTION_CORE_NAME = `${GRID}ActionCore`;
 export const CELL_EDITOR_NAME = `${GRID}CellEditor`;
 export const BACKDROP_NAME = `${GRID}Backdrop`;
 
-export const MENU_NAME = `${GRID}Menu`;
-
 export const POPUP_NAME = `${GRID}Popup`;
 export const POPUP_TRIGGER_NAME = `${GRID}PopupTrigger`;
 export const POPUP_HEAD_NAME = `${GRID}PopupHead`;
@@ -37,3 +35,7 @@ export const POPUP_CLOSE_NAME = `${GRID}PopupClose`;
 
 export const TAB_TRAP_NAME = `${GRID}TabTrap`;
 export const TAB_TRAP_IN_NAME = `${GRID}TabTrapIn`;
+
+export const MENU_NAME = `${GRID}Menu`;
+export const PERSISTENCE_NAME = `${GRID}Persistence`;
+export const TITLE_NAME = `${GRID}Title`;

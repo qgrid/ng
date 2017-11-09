@@ -1,4 +1,7 @@
-<q-grid model="$ctrl.model" edit-mode="cell" edit-enter="$ctrl.enterCommand">
+<q-grid header="{{::$details.title}}"
+		model="$ctrl.model" 
+		edit-mode="cell" 
+		edit-enter="$ctrl.enterCommand">
 	<q-grid:columns>
 		<q-grid:column key="key"
 							type="group"

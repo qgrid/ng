@@ -17,7 +17,8 @@
 							 ng-change="$columnFilterPanel.resetItems.execute()"
 							 ng-model="$columnFilterPanel.filter"
 							 ng-model-options="{debounce: 500}"
-							 q-grid:focus/>
+							 q-grid:focus
+							 q-grid:focus-delay="400"/>
 				</md-input-container>
 			</div>
 			<div class="flex">
@@ -52,9 +53,6 @@
 			<div class="q-grid-popup-actions flex-none">
 				<md-button ng-click="$columnFilterPanel.cancel.execute()" md-prevent-menu-close>
 					Cancel
-				</md-button>
-				<md-button ng-click="$columnFilterPanel.reset.execute()" md-prevent-menu-close>
-					Reset
 				</md-button>
 				<md-button class="md-primary"
 							  md-prevent-menu-close
