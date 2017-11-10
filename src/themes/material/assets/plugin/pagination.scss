@@ -12,6 +12,12 @@
 		height: 100%;
 		line-height: 34px;
 
+		@media (max-width: 599px) {
+			.hide-xs:not(.show-xs):not(.show), .hide:not(.show-xs):not(.show) {
+				display: none;
+			}
+		}
+
 		md-select {
 			width: 50px;
 			max-width: 50px;

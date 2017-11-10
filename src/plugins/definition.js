@@ -36,3 +36,5 @@ export const POPUP_CLOSE_NAME = `${GRID}PopupClose`;
 export const MENU_NAME = `${GRID}Menu`;
 export const PERSISTENCE_NAME = `${GRID}Persistence`;
 export const TITLE_NAME = `${GRID}Title`;
+export const LEGEND_NAME = `${GRID}Legend`;
+export const LEGEND_CORE_NAME = `${GRID}LegendCore`;

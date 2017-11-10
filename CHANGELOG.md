@@ -10,6 +10,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Cell editors not limited by grid area.
 - Edit keyboard navigation improvements.
 - Handle space key down.
+- Legend plugin.
+- Persistence plugin enhancements.
 
 ## [1.0.65] - 2017-11-09
 ### Fixed
