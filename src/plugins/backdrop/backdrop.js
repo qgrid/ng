@@ -20,6 +20,10 @@ class Backdrop extends Component {
 
 			this.onClose({$event: e});
 		}));
+
+		this.using(listener.on('keydown', e => {
+			this.onKeyDown({$event: e});
+		}));
 	}
 }
 
@@ -32,6 +36,7 @@ export default {
 	controllerAs: '$backdrop',
 	bindings: {
 		'onClose': '&',
+		'onKeyDown': '&',
 		'propagate': '@'
 	}
 };

@@ -108,7 +108,7 @@ td.q-grid-edit {
 	}
 
 	.q-grid-reference {
-		height: 505px;
+		height: 545px;
 		width: 500px;
 	}
 
@@ -149,6 +149,18 @@ td.q-grid-edit {
 
 			h2 {
 				margin-top: 0;
+			}
+
+			.q-grid-editor-actions {
+				text-align: right;
+				margin-top: 10px;
+				button {
+					margin-bottom: 0;
+					display: inline-block;
+					&:last-child {
+						margin-right: 0;
+					}
+				}
 			}
 		}
 	}

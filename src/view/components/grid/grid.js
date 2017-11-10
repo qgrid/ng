@@ -64,7 +64,8 @@ export class Grid extends RootComponent {
 	}
 
 	keyDown(e, source = 'grid') {
-		if (this.model.action().shortcut.keyDown(e, source)) {
+		const shortcut = this.model.action().shortcut;
+		if (shortcut.keyDown(e, source)) {
 			e.preventDefault();
 			e.stopPropagation();
 		}
@@ -163,7 +164,7 @@ Grid.$inject = [
 ];
 
 /**
- * By convention all binding should be named in camelCase like: modelname + [P]ropertyname
+ * By convention all bindings should be named in camelCase like: modelname + [P]ropertyname
  */
 export default {
 	transclude: true,

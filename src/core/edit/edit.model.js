@@ -23,12 +23,10 @@ export class EditModel {
 
 		this.commitShortcuts = {
 			'$default': 'tab|shift+tab|enter',
-			'date': 'ctrl+s',
-			'array': 'ctrl+s',
+			'array': 'tab|shift+tab|ctrl+s',
 			'reference': 'ctrl+s',
-			'email': 'ctrl+s',
-			'file': 'ctrl+s',
-			'image': 'ctrl+s',
+			'email': 'ctrl+s|enter',
+			'url': 'ctrl+s|enter',
 			'row': 'ctrl+s',
 			'form': 'ctrl+s'
 		};

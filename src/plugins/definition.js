@@ -33,6 +33,9 @@ export const POPUP_PANEL_NAME = `${GRID}PopupPanel`;
 export const POPUP_SERVICE = `${GRID}PopupService`;
 export const POPUP_CLOSE_NAME = `${GRID}PopupClose`;
 
+export const TAB_TRAP_NAME = `${GRID}TabTrap`;
+export const TAB_TRAP_IN_NAME = `${GRID}TabTrapIn`;
+
 export const MENU_NAME = `${GRID}Menu`;
 export const PERSISTENCE_NAME = `${GRID}Persistence`;
 export const TITLE_NAME = `${GRID}Title`;
