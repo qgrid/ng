@@ -1,0 +1,36 @@
+<style>
+	div.gender {
+		width: 10px;
+		height: 10px;
+		border-radius: 10px;
+		margin: auto;
+	}
+
+	div.male {
+		background: #22DB7E;
+	}
+
+	div.female {
+		background: #267ED5;
+	}
+</style>
+
+<q-grid header="{{::$details.title}}" rows="$ctrl.rows">
+	<q-grid:columns generation="deep">
+		<q-grid:column key="gender-legend" type="row-indicator" width="50">
+			<q-grid:template for="body">
+				<div class="gender" ng-class="$cell.row.gender"></div>
+			</q-grid:template>
+		</q-grid:column>
+		<q-grid:column key="gender" is-visible="false"></q-grid:column>
+	</q-grid:columns>
+
+	<q-grid:legend>
+		<q-grid:template for="content">
+			<ul>
+				<li class="male">Male</li>
+				<li class="female">Female</li>
+			</ul>
+		</q-grid:template>
+	</q-grid:legend>
+</q-grid>

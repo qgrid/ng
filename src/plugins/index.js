@@ -29,6 +29,8 @@ import Persistence from './persistence/persistence';
 import Title from './title/title';
 import CellEditor from './cell-editor/cell.editor';
 import Backdrop from './backdrop/backdrop';
+import Legend from './legend/legend';
+import LegendCore from './legend/legend.core';
 
 import * as def from './definition';
 
@@ -64,6 +66,8 @@ export default angular  // eslint-disable-line no-undef
 	.component(def.TITLE_NAME, Title)
 	.component(def.CELL_EDITOR_NAME, CellEditor)
 	.component(def.BACKDROP_NAME, Backdrop)
+	.component(def.LEGEND_NAME, Legend)
+	.component(def.LEGEND_CORE_NAME, LegendCore)
 	.service(def.POPUP_SERVICE, PopupService)
 	.config(Setup)
 	.name;
