@@ -1,17 +1,15 @@
 import Component from '@grid/view/components/component';
 import {GRID_NAME} from '@grid/view/definition';
-import {Aggregation} from '@grid/core/services';
 import {TemplatePath} from '@grid/core/template';
 import {LEGEND_NAME} from '../definition';
 
 TemplatePath
-	.register(LEGEND_NAME, () => {
+	.register(LEGEND_NAME, template => {
 		return {
 			model: 'legend',
-			resource: 'content'
+			resource: template.for
 		};
 	});
-
 
 class Legend extends Component {
 	constructor() {
