@@ -6,10 +6,10 @@
 		</label>
 	</div>
 	<div ng-switch-default>
-		<label class="q-grid-page-size">Rows per page:</label>
+		<label class="q-grid-page-size hide-xs">Rows per page:</label>
 		<md-select aria-label="Page Size List"
 					  tabindex="-1"
-					  class="q-grid-page-size"
+					  class="hide-xs q-grid-page-size"
 					  ng-model="$pager.size">
 			<md-option ng-repeat="size in $pager.sizeList" ng-value="size">{{size}}</md-option>
 		</md-select>

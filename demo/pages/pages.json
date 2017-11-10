@@ -468,8 +468,8 @@
 				"path": "status-bar"
 			},
 			{
-				"title": "Legend Bar",
-				"path": "legend-bar"
+				"title": "Legend",
+				"path": "legend"
 			},
 			{
 				"title": "Import Panel",

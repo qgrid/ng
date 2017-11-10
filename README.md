@@ -10,13 +10,13 @@ https://qgrid.github.io/ng/
 * https://plnkr.co/edit/cz0CL7?p=preview
 
 ## core concepts
-* **easy** to start: 
+* **easy** to start:
 ```javascript
 	<q-grid rows="data">
 		<q-grid:columns generation="deep">
 		</q-grid:columns>
 	</grid>
-``` 
+```
 * **virtualization** everywhere: rows and columns should be virtualizable
 * **considered styles**: user should be able to make any css customization in easy format
 * fully **customizable**: header, cells, rows, footer etc. should be templatable
@@ -86,5 +86,38 @@ Code licensed under MIT license.
 * [telerik silverlight grid](http://demos.telerik.com/silverlight/#GridView/FirstLook)
 * [infragistics silverlight grid](http://www.infragistics.com/samples/silverlight/grid/overview)
 * [ng2-supertable](https://andyperlitch.github.io/ng2-super-table/demo/)
-* [valor grid](http://valor-software.com/ng2-table/)
+* [valor grid / ng2-table](http://valor-software.com/ng2-table/)
 * [iron data table](https://saulis.github.io/iron-data-table/demo/)
+* [Handsontable](https://github.com/handsontable/handsontable)
+* [SlickGrid](https://github.com/mleibman/SlickGrid)
+* [DataTables](https://github.com/DataTables/DataTables)
+* [jqGrid / trirand / guriddo](https://github.com/tonytomov/jqGrid/tree/master)
+* [jsGrid](https://github.com/tabalinas/jsgrid)
+* [DevExtreme](https://github.com/DevExpress/DevExtreme)
+* [DHtmlXGrid](https://dhtmlx.com/docs/products/dhtmlxGrid/)
+* [Webix spreadsheet](https://webix.com/spreadsheet/)
+* [FancyGrid](https://www.fancygrid.com/)
+* [Data Grid](https://documentation.devexpress.com/WindowsForms/3455/Controls-and-Libraries/Data-Grid)
+* [Clusterize](https://github.com/NeXTs/Clusterize.js)
+* [Ng table](https://github.com/esvit/ng-table)
+* [Smart-Table](https://github.com/lorenzofox3/Smart-Table)
+* [ngx-datatable](https://github.com/swimlane/ngx-datatable)
+* [recline](https://github.com/okfn/recline)
+* [w2ui grid](http://w2ui.com/web/demos/#!grid/grid-1)
+* [Ember table](https://github.com/addepar/ember-table/)
+* [jtable](https://github.com/hikalkan/jtable)
+* [dgrid](https://github.com/sitepen/dgrid)
+* [React-Spreadsheet-Component](https://github.com/felixrieseberg/React-Spreadsheet-Component)
+* [react-pivot](https://github.com/davidguttman/react-pivot)
+* [jQuery.sheet](https://github.com/Spreadsheets/WickedGrid/releases/tag/3.1)
+* [paramquery](https://github.com/paramquery/grid)
+* [bs_grid](https://github.com/pontikis/bs_grid)
+* [jexcel](https://github.com/paulhodel/jexcel)
+* [sou-react-table](https://github.com/miadwang/sou-react-table)
+* [jui_datagrid](https://github.com/pontikis/jui_datagrid)
+* [cell-cursor](https://github.com/team-lab/cell-cursor)
+* [react-virtualized-pivot](https://github.com/turnerniles/react-virtualized-pivot)
+* [ipgrid](https://jspreadsheets.com/ipgrid.html)
+* [ingrid](https://github.com/reconstrukt/ingrid)
+* [tgrid](https://github.com/TesserisPro/tgrid)
+* [dynamic-table](https://github.com/key-lime-box/dynamic-table)
