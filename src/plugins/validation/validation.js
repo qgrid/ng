@@ -1,6 +1,7 @@
 import PluginComponent from '../plugin.component';
 import {VALIDATION_NAME} from '../definition';
 import {TemplatePath} from '@grid/core/template';
+import {Log} from '@grid/core/infrastructure';
 
 TemplatePath
 	.register(VALIDATION_NAME, (template) => {
@@ -15,7 +16,7 @@ const Plugin = PluginComponent('validation');
 class Validation extends Plugin {
 	constructor() {
 		super(...arguments);
-
+		Log.warn('validation');
 	}
 
 	get id() {
