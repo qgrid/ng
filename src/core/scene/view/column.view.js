@@ -1,5 +1,6 @@
 import {ColumnModel} from '../../column-type/column.model';
 import {isObject, isFunction} from '../../utility/index';
+import {Composite} from '../../infrastructure/composite';
 
 export class ColumnView {
 	constructor(model) {
@@ -33,7 +34,7 @@ export class ColumnView {
 				body[key] = etalonValue;
 			}
 			else if (isObject(body[key]) && !isFunction(body[key])) {
-				body[key] = Object.assign({}, etalon[key], body[key]);
+				body[key] = Composite.object(etalon[key], body[key]);
 			}
 		}
 		return body;

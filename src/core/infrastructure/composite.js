@@ -2,29 +2,34 @@ import {Command} from '@grid/core/command';
 import {noop} from '../utility';
 
 export class Composite {
-	static func (functions, reducer = noop, memo = null) {
-		return function (...args) {
-			for (let i = 0, length = functions.length; i < length; i++) {
-				const func = functions[i];
-				memo = reducer(memo, func.apply(null, args));
+	static func(list, reduce = noop, memo = null) {
+		return (...args) => {
+			for (const f of list) {
+				memo = reduce(memo, f(...args));
 			}
+
 			return memo;
 		};
 	}
 
-	static command(...args) {
-		if (!args.length) {
-			throw new Error('Can\'t compose empty list of commands.');
-		}
-
+	static command(...list) {
 		return new Command({
-			canExecute: function () {
-				return args.reduce((memo, command) => memo || command.canExecute.apply(null, [].slice.apply(arguments)), false);
+			canExecute: (...args) => {
+				return list.reduce((memo, cmd) => memo || cmd.canExecute(...args), false);
 			},
-			execute: function () {
-				const a = [].slice.apply(arguments);
-				args.filter(c => c.canExecute.apply(null, a)).forEach(c => c.execute.apply(null, a));
+			execute: (...args) => {
+				return list
+					.filter(cmd => cmd.canExecute(...args))
+					.reduce((cmd, memo) => memo || cmd.execute(...args), false);
 			}
 		});
+	}
+
+	static list(...list) {
+		return list.reduce((xs, memo) => memo.concat(xs), []);
+	}
+
+	static object(...list) {
+		return Object.assign({}, ...list);
 	}
 }

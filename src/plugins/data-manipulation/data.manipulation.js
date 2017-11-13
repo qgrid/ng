@@ -177,7 +177,7 @@ class DataManipulation extends Plugin {
 				cell: Composite.func([styleCell, this.styleCell.bind(this)])
 			})
 			.action({
-				items: this.actions.concat(model.action().items)
+				items: Composite.list(this.actions, model.action().items)
 			});
 
 		model.dataChanged.watch((e, off) => {
