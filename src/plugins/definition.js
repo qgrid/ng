@@ -41,3 +41,5 @@ export const PERSISTENCE_NAME = `${GRID}Persistence`;
 export const TITLE_NAME = `${GRID}Title`;
 export const LEGEND_NAME = `${GRID}Legend`;
 export const LEGEND_CORE_NAME = `${GRID}LegendCore`;
+
+export const VALIDATION_NAME = `${GRID}Validation`;
