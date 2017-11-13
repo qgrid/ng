@@ -12,7 +12,7 @@ export class Composite {
 		};
 	}
 
-	static command(...list) {
+	static command(list) {
 		return new Command({
 			canExecute: (...args) => {
 				return list.reduce((memo, cmd) => memo || cmd.canExecute(...args), false);
@@ -25,11 +25,11 @@ export class Composite {
 		});
 	}
 
-	static list(...list) {
+	static list(list) {
 		return list.reduce((xs, memo) => memo.concat(xs), []);
 	}
 
-	static object(...list) {
-		return Object.assign({}, ...list);
+	static object(list, memo = {}) {
+		return Object.assign(memo, ...list);
 	}
 }

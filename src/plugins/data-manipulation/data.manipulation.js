@@ -170,14 +170,14 @@ class DataManipulation extends Plugin {
 		model
 			.edit({
 				mode: 'cell',
-				commit: Composite.command(this.commitCommand, model.edit().commit)
+				commit: Composite.command([this.commitCommand, model.edit().commit])
 			})
 			.style({
 				row: Composite.func([styleRow,  this.styleRow.bind(this)]),
 				cell: Composite.func([styleCell, this.styleCell.bind(this)])
 			})
 			.action({
-				items: Composite.list(this.actions, model.action().items)
+				items: Composite.list([this.actions, model.action().items])
 			});
 
 		model.dataChanged.watch((e, off) => {
