@@ -1,13 +1,13 @@
 import PluginComponent from '../plugin.component';
 import {VALIDATION_NAME} from '../definition';
-import {TemplatePath} from '@grid/core/template';
+import {RulePath} from '@grid/core/rule';
 import {Log} from '@grid/core/infrastructure';
 
-TemplatePath
-	.register(VALIDATION_NAME, (template) => {
+RulePath
+	.register(VALIDATION_NAME, (rule) => {
 		return {
 			model: 'validation',
-			resource: template.for
+			resource: rule.for
 		};
 	});
 

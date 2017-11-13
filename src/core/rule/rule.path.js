@@ -10,7 +10,7 @@ export class RulePath {
 	static register(name, resolve) {
 		if (resolvers.hasOwnProperty(name)) {
 			throw new AppError(
-				'template.path',
+				'rule.path',
 				`"${name}" is already registered`);
 		}
 
