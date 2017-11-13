@@ -1,4 +1,4 @@
-import {AppError} from '../infrastructure';
+import {AppError, Log} from '../infrastructure';
 import {isUndefined} from '../utility';
 
 const resolvers = {};
@@ -8,7 +8,9 @@ export class RulePath {
 	}
 
 	static register(name, resolve) {
+		Log.warn(`rule path REGISTER ${name}`);
 		if (resolvers.hasOwnProperty(name)) {
+
 			throw new AppError(
 				'rule.path',
 				`"${name}" is already registered`);
