@@ -1,6 +1,7 @@
 import PluginComponent from '../plugin.component';
 import {Action} from '@grid/core/action';
 import {Command} from '@grid/core/command';
+import {Composite} from '@grid/core/infrastructure/composite';
 import {PersistencePanelController} from './persistence.panel';
 
 const Plugin = PluginComponent('persistence', {
@@ -52,7 +53,7 @@ class Peresistence extends Plugin {
 
 		model
 			.action({
-				items: actions.concat(model.action().items)
+				items: Composite.list([actions, model.action().items])
 			});
 	}
 }

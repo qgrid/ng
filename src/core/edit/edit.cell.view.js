@@ -52,6 +52,7 @@ export class EditCellView extends View {
 		const table = this.table;
 		const commands = {
 			enter: new Command({
+				priority: 1,
 				shortcut: this.shortcutFactory('enter'),
 				canExecute: cell => {
 					// TODO: source should be set up from outside
@@ -76,7 +77,7 @@ export class EditCellView extends View {
 					// TODO: source should be set up from outside
 					const source = cell ? 'mouse' : 'keyboard';
 					cell = cell || model.navigation().cell;
-					if (cell && model.edit().enter.execute(this.contextFactory(cell, cell.value, cell.label)) !== false) {
+					if (cell && model.edit().enter.execute(this.contextFactory(cell, cell.value, cell.label)) !== true) {
 						this.editor = new CellEditor(cell);
 						if (source === 'keyboard' && Shortcut.isPrintable(this.shortcut.keyCode)) {
 							const parse = parseFactory(cell.column.type);
@@ -96,6 +97,7 @@ export class EditCellView extends View {
 				}
 			}),
 			commit: new Command({
+				priority: 1,
 				shortcut: this.shortcutFactory('commit'),
 				// TODO: add validation support
 				canExecute: cell => {
@@ -114,7 +116,7 @@ export class EditCellView extends View {
 					}
 
 					cell = cell || this.editor.cell;
-					if (cell && model.edit().commit.execute(this.contextFactory(cell, this.value, this.label, this.tag)) !== false) {
+					if (cell && model.edit().commit.execute(this.contextFactory(cell, this.value, this.label, this.tag)) !== true) {
 						this.editor.commit();
 						this.editor = CellEditor.empty;
 						model.edit({state: 'view'});
@@ -137,6 +139,7 @@ export class EditCellView extends View {
 				}
 			}),
 			cancel: new Command({
+				priority: 1,
 				shortcut: this.shortcutFactory('cancel'),
 				canExecute: cell => {
 					cell = cell || this.editor.cell;
@@ -153,7 +156,7 @@ export class EditCellView extends View {
 					}
 
 					cell = cell || this.editor.cell;
-					if (cell && model.edit().cancel.execute(this.contextFactory(cell, cell.value, cell.label)) !== false) {
+					if (cell && model.edit().cancel.execute(this.contextFactory(cell, cell.value, cell.label)) !== true) {
 						this.editor.reset();
 						this.editor = CellEditor.empty;
 
@@ -177,6 +180,7 @@ export class EditCellView extends View {
 				}
 			}),
 			reset: new Command({
+				priority: 1,
 				canExecute: cell => {
 					cell = cell || this.editor.cell;
 					return cell
@@ -192,7 +196,7 @@ export class EditCellView extends View {
 					}
 
 					cell = cell || this.editor.cell;
-					if (cell && model.edit().reset.execute(this.contextFactory(cell, this.value, this.label)) !== false) {
+					if (cell && model.edit().reset.execute(this.contextFactory(cell, this.value, this.label)) !== true) {
 						this.editor.reset();
 						return true;
 					}
@@ -201,6 +205,7 @@ export class EditCellView extends View {
 				}
 			}),
 			exit: new Command({
+				priority: 1,
 				execute: (cell, e) => {
 					Log.info('cell.edit', 'reset');
 					if (e) {

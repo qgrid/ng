@@ -1,9 +1,18 @@
-import {yes} from '../utility';
+import {yes, no} from '../utility/index';
 
 export class Command {
 	constructor(context = {}) {
-		this.execute = context.execute || yes;
-		this.canExecute = context.canExecute || yes;
-		this.shortcut = context.shortcut;
+		this.execute = no;
+		this.canExecute = yes;
+		this.shortcut = '';
+		this.priority = 0;
+
+		Object.assign(this, context);
+	}
+
+	clone(context = {}) {
+		const cmd = new Command(this);
+		Object.assign(cmd, context);
+		return cmd;
 	}
 }

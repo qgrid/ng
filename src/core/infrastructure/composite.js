@@ -20,13 +20,13 @@ export class Composite {
 			execute: (...args) => {
 				return list
 					.filter(cmd => cmd.canExecute(...args))
-					.reduce((cmd, memo) => memo || cmd.execute(...args), false);
+					.reduce((memo, cmd) => cmd.execute(...args) || memo, false);
 			}
 		});
 	}
 
 	static list(list) {
-		return list.reduce((xs, memo) => memo.concat(xs), []);
+		return list.reduce((memo, xs) => memo.concat(xs), []);
 	}
 
 	static object(list, memo = {}) {
