@@ -1,8 +1,8 @@
-import {yes, no} from '../utility/index';
+import {yes} from '../utility/index';
 
 export class Command {
 	constructor(context = {}) {
-		this.execute = no;
+		this.execute = yes;
 		this.canExecute = yes;
 		this.shortcut = '';
 		this.priority = 0;

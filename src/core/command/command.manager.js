@@ -11,7 +11,7 @@ export class CommandManager {
 			priorityCommands.sort((x,y) => y.priority - x.priority);
 
 			for (const cmd of priorityCommands) {
-				if (cmd.execute() === true) {
+				if (cmd.execute() === false) {
 					break;
 				}
 			}

@@ -77,7 +77,7 @@ export class EditCellView extends View {
 					// TODO: source should be set up from outside
 					const source = cell ? 'mouse' : 'keyboard';
 					cell = cell || model.navigation().cell;
-					if (cell && model.edit().enter.execute(this.contextFactory(cell, cell.value, cell.label)) !== true) {
+					if (cell && model.edit().enter.execute(this.contextFactory(cell, cell.value, cell.label)) !== false) {
 						this.editor = new CellEditor(cell);
 						if (source === 'keyboard' && Shortcut.isPrintable(this.shortcut.keyCode)) {
 							const parse = parseFactory(cell.column.type);
@@ -116,7 +116,7 @@ export class EditCellView extends View {
 					}
 
 					cell = cell || this.editor.cell;
-					if (cell && model.edit().commit.execute(this.contextFactory(cell, this.value, this.label, this.tag)) !== true) {
+					if (cell && model.edit().commit.execute(this.contextFactory(cell, this.value, this.label, this.tag)) !== false) {
 						this.editor.commit();
 						this.editor = CellEditor.empty;
 						model.edit({state: 'view'});
@@ -156,7 +156,7 @@ export class EditCellView extends View {
 					}
 
 					cell = cell || this.editor.cell;
-					if (cell && model.edit().cancel.execute(this.contextFactory(cell, cell.value, cell.label)) !== true) {
+					if (cell && model.edit().cancel.execute(this.contextFactory(cell, cell.value, cell.label)) !== false) {
 						this.editor.reset();
 						this.editor = CellEditor.empty;
 
@@ -196,7 +196,7 @@ export class EditCellView extends View {
 					}
 
 					cell = cell || this.editor.cell;
-					if (cell && model.edit().reset.execute(this.contextFactory(cell, this.value, this.label)) !== true) {
+					if (cell && model.edit().reset.execute(this.contextFactory(cell, this.value, this.label)) !== false) {
 						this.editor.reset();
 						return true;
 					}
