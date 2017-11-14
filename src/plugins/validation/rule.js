@@ -13,7 +13,9 @@ class Rule extends Component {
 
 		rules.push({
 			for: this.for,
-			key: this.key
+			key: this.key,
+			required: this.required,
+			one_of: this.one_of
 		});
 
 		validation({rules});
@@ -30,6 +32,8 @@ export default {
 	controllerAs: '$rule',
 	bindings: {
 		'for': '@',
-		'key': '@'
+		'key': '@',
+		'required': '<?',
+		'one_of': '<? oneOf'
 	}
 };

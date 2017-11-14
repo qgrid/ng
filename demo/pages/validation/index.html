@@ -6,8 +6,8 @@
 	<q-grid:validation>
 		<q-grid:rule for="column"
 		             key="gender"
-		             required
-		             one-of="['male', 'female']">
+		             required="$ctrl.isRequired"
+		             oneOf="$ctrl.gendersArray">
 		</q-grid:rule>
 	</q-grid:validation>
 </q-grid>

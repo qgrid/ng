@@ -3,7 +3,8 @@ export default function Controller($http, qgrid) {
 	this.rows = [];
 
 	this.model = qgrid.model();
-	this.model.plugin({});
+	this.isRequired = true;
+	this.gendersArray = ['male', 'female'];
 
 	$http.get('data/people/100.json')
 		.then(response => {
