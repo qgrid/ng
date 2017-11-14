@@ -1,12 +1,17 @@
 import angular from 'angular';
 
-Controller.$inject = ['$http'];
-export default function Controller($http) {
+Controller.$inject = ['$http', 'qgrid'];
+export default function Controller($http, qgrid) {
 	const ctrl = this;
 	const isUndef = angular.isUndefined;
 
 	this.rows = [];
 	this.columns = [
+		{
+			key: 'id',
+			title: 'ID',
+			type: 'id',
+		},
 		{
 			key: 'name.last',
 			title: 'Last Name',
@@ -48,9 +53,34 @@ export default function Controller($http) {
 			isDefault: false
 		},
 		{
+			key: 'teammates',
+			title: 'Teammates',
+			type: 'reference',
+			value: (item, value) => isUndef(value) ? item.teammates || [] : item.teammates = value,
+			label: (item) => (item.teammates || []).map(mate => `${mate.name.last} ${mate.name.first}`).join(', '),
+			editorOptions: {
+				modelFactory: () => {
+					const model = qgrid.model();
+					model
+						.selection({
+							mode: 'multiple',
+							unit: 'row'
+						})
+						.columnList({
+							generation: 'deep'
+						})
+						.data({
+							rows: ctrl.rows
+						});
+
+					return model;
+				}
+			}
+		},
+		{
 			key: 'contact.address.zip',
 			title: 'Zip',
-			type: 'id',
+			type: 'number',
 			path: 'contact.address.zip',
 			width: 70,
 			isDefault: false
@@ -99,13 +129,15 @@ export default function Controller($http) {
 			key: 'isOnline',
 			title: 'Online',
 			type: 'bool',
-			value: (item, value) => isUndef(value) ? item.isOnline === undefined ? null : item.isOnline : item.isOnline = value
+			value: (item, value) => isUndef(value) ? isUndef(item.isOnline) ? null : item.isOnline : item.isOnline = value
 		},
 	];
 
 	$http.get('data/people/100.json')
 		.then(function (response) {
 			ctrl.rows = response.data;
+
+			ctrl.rows.forEach((row, i) => row.id = i);
 
 			ctrl.rows[0].password = 'foo';
 			ctrl.rows[3].password = 'bar';
