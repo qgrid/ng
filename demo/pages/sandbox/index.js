@@ -99,7 +99,7 @@ export default function Controller($http) {
 			key: 'isOnline',
 			title: 'Online',
 			type: 'bool',
-			value: (item, value) => isUndef(value) ? item.isOnline : item.isOnline = value
+			value: (item, value) => isUndef(value) ? item.isOnline === undefined ? null : item.isOnline : item.isOnline = value
 		},
 	];
 
