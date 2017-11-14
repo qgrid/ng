@@ -163,4 +163,8 @@ export declare class Model {
 	persistence(value?: object, tag?: object): FetchModel;
 
 	persistenceChanged: Event;
+
+	validation(value?: object, tag?: object): FetchModel;
+
+	validationChanged: Event;
 }
