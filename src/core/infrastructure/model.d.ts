@@ -29,6 +29,7 @@ import {ScrollModel} from '../scroll/scroll.model';
 import {ExportModel} from '../export/export.model';
 import {ActionModel} from '../action/action.model';
 import {FetchModel} from '../fetch/fetch.model';
+import {ValidationModel} from '../validation/validation.model';
 import {Event} from './event';
 
 export declare class Model {
@@ -163,4 +164,8 @@ export declare class Model {
 	persistence(value?: object, tag?: object): FetchModel;
 
 	persistenceChanged: Event;
+
+	validation(value?: object, tag?: object): ValidationModel;
+
+	validationChanged: Event;
 }
