@@ -33,7 +33,32 @@
 					margin: 0;
 					height: 40px;
 				}
+				md-checkbox {
+					margin-bottom: 0;
+				}
+			}
+			&.q-grid-persistence-selected {
+				background-color: #BDBDBD;
+			}
+			&.md-2-line {
+				.md-list-item-inner.md-no-style {
+					min-height: 40px;
+					height: 40px;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+				}
 			}
 		}
+		md-input-container {
+			height: 40px;
+			min-height: 40px;
+			margin: 0;
+			padding: 0;
+		}
 	}
+}
+
+@at-root .q-grid-persistence-tooltip {
+	text-transform: uppercase;
 }

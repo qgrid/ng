@@ -25,17 +25,51 @@
 			</div>
 			<div class="flex">
 				<md-list class="md-dense" ng-cloak>
-					<md-list-item class="md-2-line" ng-repeat="item in $persistence.items | orderBy: '-modified' track by $index">
+					<md-list-item class="md-2-line"
+									  ng-repeat="item in $persistence.items | orderBy: '-modified' track by $index"
+									  ng-init="state={edit: false}"
+									  ng-class="{'q-grid-persistence-selected': $persistence.active(item)}">
 						<div class="md-list-item-text">
-							<md-button class="md-primary" ng-click="$persistence.load.execute(item)">
+							<md-button class="md-primary"
+										  ng-click="$persistence.load.execute(item)"
+										  ng-if="!state.edit">
 								<h3>{{item.title}}</h3>
 								<p>{{item.modified | date: 'yyyy/MM/dd h:mm a'}}</p>
 							</md-button>
+							<md-input-container ng-if="state.edit">
+								<input ng-blur="state.edit=false;$persistence.edit.execute(item)" ng-model="item.title" q-grid:focus/>
+							</md-input-container>
 						</div>
-						<md-button class="md-secondary md-icon-button" ng-disabled="!$persistence.remove.canExecute(item)" ng-click="$persistence.remove.execute(item)"
-						   aria-label="State item">
-							<md-icon>close</md-icon>
-						</md-button>
+						<md-tooltip class="q-grid-persistence-tooltip">{{$persistence.stringify(item)}}</md-tooltip>
+						<md-menu>
+							<md-button class="md-icon-button more"
+										  aria-label="More"
+										  ng-click="$mdOpenMenu($event)">&#x22ee
+							</md-button>
+							<md-menu-content width="4">
+								<md-menu-item>
+									<md-button ng-click="state.edit=true"
+												  ng-disabled="state.edit || !$persistence.edit.canExecute(item)">
+										<md-icon md-menu-align-target>mode_edit</md-icon>
+										Edit
+									</md-button>
+								</md-menu-item>
+								<md-menu-item>
+									<md-button ng-click="$persistence.setAsDefault.execute(item)"
+												  ng-disabled="!$persistence.setAsDefault.canExecute(item)">
+										<md-icon md-menu-align-target>{{item.default ? 'bookmark' : 'bookmark_border'}}</md-icon>
+										Set As Default
+									</md-button>
+								</md-menu-item>
+								<md-menu-item>
+									<md-button ng-click="$persistence.remove.execute(item)"
+												  ng-disabled="!$persistence.remove.canExecute(item)">
+										<md-icon md-menu-align-target>close</md-icon>
+										Remove
+									</md-button>
+								</md-menu-item>
+							</md-menu-content>
+						</md-menu>
 					</md-list-item>
 				</md-list>
 			</div>

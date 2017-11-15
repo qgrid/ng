@@ -3,7 +3,7 @@ import {Command} from '../command';
 
 export class PersistenceModel {
 	constructor() {
-		this.items = [];
+		this.id = 'default';
 		this.storage = new PersistenceStorage(localStorage);
 		this.load = new Command();
 		this.remove = new Command();

@@ -30,6 +30,7 @@ import {ExportModel} from '../export/export.model';
 import {ActionModel} from '../action/action.model';
 import {FetchModel} from '../fetch/fetch.model';
 import {Event} from './event';
+import {PersistenceModel} from '../persistence/persistence.model';
 
 export declare class Model {
 	constructor();
@@ -160,7 +161,7 @@ export declare class Model {
 
 	fetchChanged: Event;
 
-	persistence(value?: object, tag?: object): FetchModel;
+	persistence(value?: object, tag?: object): PersistenceModel;
 
 	persistenceChanged: Event;
 }
