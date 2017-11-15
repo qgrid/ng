@@ -13,6 +13,14 @@ export default function Controller($http, qgrid) {
 			type: 'id',
 		},
 		{
+			key: 'avatar',
+			title: 'Avatar',
+			type: 'image',
+			width: 80,
+			value: (item, value) => isUndef(value) ? item.avatar : item.avatar = value,
+			labelPath: 'avatarFileName'
+		},
+		{
 			key: 'name.last',
 			title: 'Last Name',
 			type: 'text',
@@ -26,10 +34,13 @@ export default function Controller($http, qgrid) {
 		},
 		{
 			key: 'gender',
-			title: 'Is Female',
-			type: 'bool',
-			trueValue: 'female',
-			falseValue: 'male'
+			title: 'Gender',
+			type: 'text',
+			value: (item, value) => isUndef(value) ? item.gender: item.gender = value,
+			editor: 'dropdown',
+			editorOptions: {
+				fetch: ['female', 'male']
+			}
 		},
 		{
 			key: 'birthday',
@@ -75,6 +86,27 @@ export default function Controller($http, qgrid) {
 
 					return model;
 				}
+			}
+		},
+		{
+			key: 'chief',
+			title: 'Chief',
+			type: 'text',
+			value: (item, value) => isUndef(value) ? item.chief || null : item.chief = value !== null ? value.id : null,
+			label: item => {
+				if (isUndef(item.chief) || item.chief === null) {
+					return '';
+				}
+
+				const selectedOption = ctrl.dropdownOptions.find(option => option.id === item.chief);
+				return `${selectedOption.name.last} ${selectedOption.name.first}`;
+			},
+			editor: 'dropdown',
+			editorOptions: {
+				fetch: (item, d) => {
+					d.resolve(ctrl.dropdownOptions);
+				},
+				label: option => `${option.name.last} ${option.name.first}`
 			}
 		},
 		{
@@ -146,6 +178,31 @@ export default function Controller($http, qgrid) {
 			title: 'Member Since',
 			type: 'date',
 			isDefault: false
+		},
+		{
+			key: 'modifiedTime',
+			title: 'Modified Time',
+			type: 'time',
+			value: (item, value) => isUndef(value) ? item.modified || '' : item.modified = value
+		},
+		{
+			key: 'webPage',
+			title: 'Web Page',
+			type: 'url',
+			value: (item, value) => isUndef(value)
+				? item.webPage || `https://corp.portal.com/${item.name.last}.${item.name.first}`
+				: item.webPage = value,
+			label: (item, label) => isUndef(label)
+				? item.webPageLabel || `${item.name.last} ${item.name.first}`
+				: item.webPageLabel = label
+		},
+		{
+			key: 'attachment',
+			title: 'Attachment',
+			type: 'file',
+			value: (item, value) => isUndef(value) ? item.attachment : item.attachment = value,
+			label: (item, label) => isUndef(label) ? item.attachmentLabel || null : item.attachmentLabel = label,
+			fetch: (item, d) => $http().then(result => d.resolve(result))
 		},
 		{
 			key: 'isOnline',
