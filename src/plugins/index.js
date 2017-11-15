@@ -33,6 +33,9 @@ import TabTrap from './tab-trap/tab.trap';
 import TabTrapIn from './tab-trap/tab.trap.in';
 import Legend from './legend/legend';
 import LegendCore from './legend/legend.core';
+import Validation from './validation/validation';
+import Rule from './validation/rule';
+import Validator from './validation/validator';
 
 import * as def from './definition';
 
@@ -72,6 +75,9 @@ export default angular  // eslint-disable-line no-undef
 	.component(def.TAB_TRAP_NAME, TabTrap)
 	.component(def.LEGEND_NAME, Legend)
 	.component(def.LEGEND_CORE_NAME, LegendCore)
+	.component(def.VALIDATION_NAME, Validation)
+	.component(def.RULE_NAME, Rule)
+	.component(def.VALIDATOR_NAME, Validator)
 	.service(def.POPUP_SERVICE, PopupService)
 	.config(Setup)
 	.name;

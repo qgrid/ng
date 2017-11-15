@@ -52,6 +52,7 @@ function Setup(qgridThemeProvider) {
 		theme.put(plugin('backdrop'), require('./templates/plugin.backdrop.html'));
 		theme.put(plugin('tab-trap'), require('./templates/plugin.tab.trap.html'));
 		theme.put(plugin('legend-core'), require('./templates/plugin.legend.core.html'));
+		theme.put(plugin('validator'), require('./templates/plugin.validator.html'));
 
 		theme.put(cell('head', 'filter-row'), require('./templates/head.cell.filter.row.html'));
 
