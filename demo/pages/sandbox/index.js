@@ -136,6 +136,12 @@ export default function Controller($http, qgrid) {
 			type: 'array'
 		},
 		{
+			key: 'salary',
+			title: 'Salary',
+			type: 'currency',
+			value: (item, v) => isUndef(v) ? item.salary || 0 : item.salary = v 
+		},
+		{
 			key: 'memberSince',
 			title: 'Member Since',
 			type: 'date',
