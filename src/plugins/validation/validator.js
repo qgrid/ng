@@ -12,18 +12,18 @@ class Validator extends Plugin {
 	}
 
 	onInit() {
-		const validationSettings = this.validationSettings;
-		if (validationSettings.canValidate) {
+		const validationSettings = validationService.toLIVR(this.rules, this.key);
+		if (validationSettings.hasRules) {
 			this.validator = new LIVR.Validator(validationSettings.rules);
 		}
 	}
 
 	get error() {
 		if (this.validator) {
-			const validated = {
+			const target = {
 				[this.key]: this.value
 			};
-			const validData = this.validator.validate(validated);
+			const validData = this.validator.validate(target);
 			if (!validData) {
 				return this.validator.getErrors()[this.key];
 			}
@@ -36,10 +36,6 @@ class Validator extends Plugin {
 
 	get rules() {
 		return this.model.validation().rules;
-	}
-
-	get validationSettings() {
-		return validationService.toLIVR(this.rules, this.key);
 	}
 
 }

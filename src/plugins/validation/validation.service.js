@@ -12,7 +12,7 @@ export function toLIVR(rules, key) {
 		}
 	});
 	return {
-		canValidate: validationRules.length > 0,
+		hasRules: validationRules.length > 0,
 		rules: {[key]: validationRules}
 	};
 }
