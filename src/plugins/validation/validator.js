@@ -1,6 +1,7 @@
 import PluginComponent from '../plugin.component';
+import LIVR from 'livr';
+import * as validationService from './validation.service';
 
-const LIVR = require('livr');
 LIVR.Validator.defaultAutoTrim(true);
 
 const Plugin = PluginComponent('validator');
@@ -11,10 +12,9 @@ class Validator extends Plugin {
 	}
 
 	onInit() {
-		if (this.validationArray.length > 0) {
-			this.validator = new LIVR.Validator({
-				[this.key]: this.validationArray
-			});
+		const validationSettings = this.validationSettings;
+		if (validationSettings.canValidate) {
+			this.validator = new LIVR.Validator(validationSettings.rules);
 		}
 	}
 
@@ -38,20 +38,8 @@ class Validator extends Plugin {
 		return this.model.validation().rules;
 	}
 
-	get validationArray() {
-		const result = [];
-		this.rules.forEach(rule => {
-			if (rule.key === this.key) {
-				for (let key of Object.keys(rule)) {
-					if (key !== 'key' && key !== 'for') {
-						result.push({
-							[key]: rule[key]
-						});
-					}
-				}
-			}
-		});
-		return result;
+	get validationSettings() {
+		return validationService.toLIVR(this.rules, this.key);
 	}
 
 }
