@@ -11,7 +11,7 @@ class CellEditor extends Component {
 	}
 
 	onInit() {
-		if(this.shortcut) {
+		if (this.shortcut) {
 			// Create a local shortcut service to work directly with edit commands
 			const shortcut = new Shortcut(new ShortcutManager());
 			const $view = this.$view;

@@ -57,7 +57,7 @@ export class CellEditor extends CellEditorCore {
 		this.resetFetch = noop;
 	}
 
-	clear(){
+	clear() {
 		this.label = null;
 		this.value = null;
 		this.resetFetch();

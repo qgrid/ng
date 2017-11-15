@@ -207,7 +207,7 @@ export class EditCellView extends View {
 			}),
 			exit: new Command({
 				priority: 1,
-				execute: (cell, e) => {
+				execute: (cell, e, timeout) => {
 					Log.info('cell.edit', 'reset');
 					if (e) {
 						e.stopImmediatePropagation();
@@ -215,16 +215,16 @@ export class EditCellView extends View {
 
 					cell = cell || this.editor.cell;
 					if (cell) {
-						if (this.commit.canExecute(cell)) {
+						if (this.commit.canExecute(cell, e, timeout)) {
 							const originValue = cell.value;
 							const editValue = this.value;
 							if (originValue !== editValue) {
-								this.commit.execute(cell);
+								this.commit.execute(cell, e, timeout);
 							}
 						}
 
-						if (this.cancel.canExecute(cell)) {
-							this.cancel.execute(cell);
+						if (this.cancel.canExecute(cell, e, timeout)) {
+							this.cancel.execute(cell, e, timeout);
 							return true;
 						}
 					}
