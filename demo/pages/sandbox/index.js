@@ -109,10 +109,7 @@ export default function Controller($http, qgrid) {
 			key: 'contact.email.primary',
 			title: 'Primary Email',
 			type: 'email',
-			value: item => item.contact.email[0],
-			canEdit: false,
-			canSort: false,
-			canFilter: false
+			value: item => item.contact.email[0]
 		},
 		{
 			key: 'contact.email.secondary',
