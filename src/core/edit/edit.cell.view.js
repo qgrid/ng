@@ -27,6 +27,7 @@ export class EditCellView extends View {
 		this.cancel = commands.get('cancel');
 		this.reset = commands.get('reset');
 		this.exit = commands.get('exit');
+		this.clear = commands.get('clear');
 
 		this.using(model.navigationChanged.watch(e => {
 			if (e.hasChanges('cell')) {
@@ -230,7 +231,32 @@ export class EditCellView extends View {
 
 					return false;
 				}
-			})
+			}),
+			clear: new Command({
+				priority: 1,
+				canExecute: cell => {
+					cell = cell || this.editor.cell;
+					return cell
+						&& cell.column.canEdit
+						&& (cell.column.class === 'control' || model.edit().mode === 'cell')
+						&& model.edit().state === 'edit'
+						&& model.edit().clear.canExecute(this.contextFactory(cell, this.value, this.label));
+				},
+				execute: (cell, e) => {
+					Log.info('cell.edit', 'clear');
+					if (e) {
+						e.stopImmediatePropagation();
+					}
+
+					cell = cell || this.editor.cell;
+					if (cell && model.edit().clear.execute(this.contextFactory(cell, this.value, this.label)) !== false) {
+						this.editor.clear();
+						return true;
+					}
+
+					return false;
+				}
+			}),
 		};
 
 		return new Map(

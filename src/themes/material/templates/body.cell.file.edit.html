@@ -23,7 +23,7 @@
 		</div>
 		<div class="flex-none q-grid-actions">
 			<md-button class="md-primary md-confirm-button" ng-click="$view.edit.cell.commit.execute($cell, $event)">Save</md-button>
-			<md-button ng-click="$view.edit.cell.value = null">Reset</md-button>
+			<md-button ng-click="$view.edit.cell.clear.execute($cell)">Clear</md-button>
 			<md-button class="md-cancel-button" ng-click="$view.edit.cell.cancel.execute($cell, $event)">Cancel</md-button>
 		</div>
 	</div>

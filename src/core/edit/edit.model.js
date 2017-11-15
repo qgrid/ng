@@ -10,6 +10,7 @@ export class EditModel {
 		this.commit = new Command();
 		this.cancel = new Command();
 		this.reset = new Command();
+		this.clear = new Command();
 
 		this.cancelShortcuts = {
 			'$default': 'escape'
