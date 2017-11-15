@@ -30,6 +30,10 @@ class Validator extends Plugin {
 		}
 	}
 
+	get resource() {
+		return this.model.validation().resource;
+	}
+
 	get rules() {
 		return this.model.validation().rules;
 	}
@@ -48,10 +52,6 @@ class Validator extends Plugin {
 			}
 		});
 		return result;
-	}
-
-	get resource() {
-		return this.model.validation().resource;
 	}
 
 }
