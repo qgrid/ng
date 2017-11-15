@@ -11,26 +11,43 @@ class Validator extends Plugin {
 	}
 
 	onInit() {
-		console.log('rules:', this.rules, 'key:', this.key);
-		// const keys = this.rules.map(rule => rule.key);
-		this.validator = new LIVR.Validator({
-			gender: ['required', {one_of: ['male', 'female']}],
-		});
-		// console.log('VALIDATOR', this.validator);
+		if (this.validationArray.length > 0) {
+			this.validator = new LIVR.Validator({
+				[this.key]: this.validationArray
+			});
+		}
 	}
 
 	get error() {
-		const validated = {
-			[this.key]: this.value
-		};
-		const validData = this.validator.validate(validated);
-		if (!validData) {
-			return this.validator.getErrors()[this.key];
+		if (this.validator) {
+			const validated = {
+				[this.key]: this.value
+			};
+			const validData = this.validator.validate(validated);
+			if (!validData) {
+				return this.validator.getErrors()[this.key];
+			}
 		}
 	}
 
 	get rules() {
 		return this.model.validation().rules;
+	}
+
+	get validationArray() {
+		const result = [];
+		this.rules.forEach(rule => {
+			if (rule.key === this.key) {
+				for (let key of Object.keys(rule)) {
+					if (key !== 'key' && key !== 'for') {
+						result.push({
+							[key]: rule[key]
+						});
+					}
+				}
+			}
+		});
+		return result;
 	}
 
 	get resource() {
