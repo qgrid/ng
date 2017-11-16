@@ -1,4 +1,4 @@
-import {clone} from '../utility';
+import {clone, isArray, isObject} from '../utility';
 
 export class PersistenceService {
 	constructor(model) {
