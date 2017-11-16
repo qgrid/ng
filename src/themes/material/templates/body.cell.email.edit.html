@@ -2,7 +2,7 @@
 						  on:close="$view.edit.cell.exit.execute($cell)"
 						  q-grid:position="td">
 	<q-grid:trap>
-		<div layout="column" class="q-grid-email-fields" flex>
+		<div layout="column" class="layout-column q-grid-email-fields" flex>
 			<md-input-container ng-if="$cell.column.label !== null">
 				<label>Label</label>
 				<input type="text"

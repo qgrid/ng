@@ -49,7 +49,6 @@ export class EditCellView extends View {
 	}
 
 	mode(cell, value) {
-
 		this.model.edit({state: value});
 		cell.mode(value);
 	}
@@ -115,7 +114,7 @@ export class EditCellView extends View {
 						&& model.edit().state === 'edit'
 						&& model.edit().commit.canExecute(this.contextFactory(cell));
 				},
-				execute: (cell, e,) => {
+				execute: (cell, e) => {
 					Log.info('cell.edit', 'commit');
 					if (e) {
 						e.stopImmediatePropagation();
