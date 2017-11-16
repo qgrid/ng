@@ -39,7 +39,7 @@ export default class Grid {
 						behavior: 'core'
 					});
 				}, 10);
-			}
+			};
 		};
 
 		return new GridService(model, start);

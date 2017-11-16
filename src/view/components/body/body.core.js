@@ -48,7 +48,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, r
 		this.using(listener.on('mouseup', this.onMouseUp));
 
 		this.using(listener.on('mousemove', this.onMouseMove));
-		this.using(listener.on('mouseleave', this.onMouseLeave))
+		this.using(listener.on('mouseleave', this.onMouseLeave));
 	}
 
 	onClick(e) {

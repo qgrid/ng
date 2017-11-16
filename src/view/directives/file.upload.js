@@ -30,9 +30,10 @@ class FileUpload extends Directive(FILE_UPLOAD_NAME) {
 		if (!this.canUpload) {
 			return;
 		}
+
 		const files = e.target.files;
 		if (files.length > 1) {
-			throw new AppError('file.upload', `Multiple upload isn't able`);
+			throw new AppError('file.upload', 'Can\'t upload several files');
 		}
 		
 		const file = files[0] || null;

@@ -89,7 +89,7 @@ export function PersistencePanelController(mdPanelRef) {
 		}
 	});
 
-	this.isActive = item => JSON.stringify(item.model) === JSON.stringify(persistenceService.save())
+	this.isActive = item => JSON.stringify(item.model) === JSON.stringify(persistenceService.save()); // eslint-disable-line angular/json-functions
 
 	this.stringify = item => {
 		const model = item.model;
@@ -105,7 +105,7 @@ export function PersistencePanelController(mdPanelRef) {
 		}
 
 		return targets.join('; ') || 'No settings';
-	}
+	};
 }
 
 PersistencePanelController.$inject = ['mdPanelRef'];
