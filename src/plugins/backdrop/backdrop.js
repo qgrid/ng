@@ -14,7 +14,7 @@ class Backdrop extends Component {
 			element.remove();
 
 			if (this.propagate !== false) {
-				const target = document.elementFromPoint(e.clientX, e.clientY);
+				const target = document.elementFromPoint(e.clientX, e.clientY); // eslint-disable-line angular/document-service
 				target.click();
 			}
 
