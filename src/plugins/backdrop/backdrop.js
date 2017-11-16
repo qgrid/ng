@@ -12,9 +12,7 @@ class Backdrop extends Component {
 
 	onInit() {
 		const element = this.element;
-
-		const apply = this.$view.root.applyFactory(null, 'sync');
-		const listener = new EventListener(element, new EventManager(this, apply));
+		const listener = new EventListener(element, new EventManager(this));
 
 		this.using(listener.on('click', e => {
 			e.stopPropagation();

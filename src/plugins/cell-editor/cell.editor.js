@@ -1,9 +1,11 @@
-import {EventListener, EventManager} from '@grid/core/infrastructure';
 import Component from '../../view/components/component';
 
 class CellEditor extends Component {
 	constructor() {
 		super();
+	}
+
+	onInit() {
 	}
 
 	close() {
