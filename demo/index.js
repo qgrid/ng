@@ -7,6 +7,7 @@ import ngRoute from 'angular-route';
 import ngAnimate from 'angular-animate';
 import ngArea from 'angular-aria';
 import ngSanitize from 'angular-sanitize';
+import ngMessages from 'angular-messages';
 import {} from 'angular-material';
 
 import qgrid from '../src/index';
@@ -41,6 +42,7 @@ const dependencies = [
 	ngAnimate,
 	ngArea,
 	ngSanitize,
+	ngMessages,
 	'ngMaterial', // WTF?
 	qgrid,
 	theme

@@ -54,6 +54,6 @@ export default {
 		'root': `^^?${GRID_NAME}`
 	},
 	bindings: {
-		'_model': `<model`
+		'_model': '<model'
 	}
-}
+};

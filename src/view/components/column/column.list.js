@@ -1,6 +1,6 @@
 import ModelComponent from '../model.component';
 import * as ng from '@grid/view/services/ng';
-import {compile} from '@grid/core/services'
+import {compile} from '@grid/core/services';
 import {isUndefined, clone, isObject, identity} from '@grid/core/utility';
 import {parseFactory, getType} from '@grid/core/services';
 import {GRID_NAME} from '@grid/view/definition';
@@ -32,10 +32,9 @@ class ColumnList extends ModelComponent {
 				const accessor = compile(key);
 				const targetValue = accessor(target);
 				const parse = parseFactory(getType(targetValue));
-				const sourceValue =
-					parse !== identity
-						? parse(value)
-						: isObject(targetValue)
+				const sourceValue = parse !== identity
+					? parse(value)
+					: isObject(targetValue)
 						? $parse(value)($scope.$parent)
 						: value;
 

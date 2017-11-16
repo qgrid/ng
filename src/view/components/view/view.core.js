@@ -113,4 +113,4 @@ export default {
 	require: {
 		'root': `^^${GRID_NAME}`
 	}
-}
+};

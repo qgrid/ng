@@ -20,7 +20,7 @@ export default function create(key, value) {
 
 function parse(key) {
 	const result = [];
-	const regex = /[^\[\],]+/gi;
+	const regex = /[^\[\],]+/gi; // eslint-disable-line no-useless-escape
 	let match;
 	while (match = regex.exec(key)) { // eslint-disable-line no-cond-assign
 		result.push(match[0].trim());
