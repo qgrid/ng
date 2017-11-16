@@ -53,17 +53,17 @@ export class PersistenceService {
 	}
 
 	stringify(model, settings) {
-		let result = '';
+		const targets = [];
 		settings = settings || this.model.persistence().settings;
 
 		for (let key in settings) {
 			const stringify = stringifyFactory(key);
 			const target = stringify(model[key]);
 			if (target !== '') {
-				result += `${target}; `;
+				targets.push(target);
 			}
 		}
 
-		return result.trim();
+		return targets.join('; ');
 	}
 }
