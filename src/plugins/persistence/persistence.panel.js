@@ -66,7 +66,7 @@ export function PersistencePanelController(mdPanelRef) {
 		}
 	});
 
-	this.setAsDefault = new Command({
+	this.setDefault = new Command({
 		canExecute: item => !item.default,
 		execute: item => {
 			const index = this.items.indexOf(item);

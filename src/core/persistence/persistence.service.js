@@ -1,4 +1,5 @@
 import {clone, isArray, isObject} from '../utility';
+import {stringifyFactory} from '../services';
 
 export class PersistenceService {
 	constructor(model) {
@@ -56,30 +57,13 @@ export class PersistenceService {
 		settings = settings || this.model.persistence().settings;
 
 		for (let key in settings) {
-			let stringifiedProp = '';
-			for (const p of settings[key]) {
-				const value = model[key][p];
-				stringifiedProp += this.stringifyProperty(p, value);
-			}
-			if (stringifiedProp !== '') {
-				result += `${key} ${stringifiedProp}; `;
+			const stringify = stringifyFactory(key);
+			const target = stringify(model[key]);
+			if (target !== '') {
+				result += `${target}; `;
 			}
 		}
 
-		return result || 'No settings';
-	}
-
-	stringifyProperty(prop, value) {
-		if (isArray(value)) {
-			if (value.length > 0) {
-				return `${prop ? prop + ': ' : ''}${value.map(item => this.stringifyProperty('', item)).join(', ')}`;
-			}
-			return '';
-		} else if (isObject(value)) {
-			return Object.keys(value)
-				.map(k => prop + ' ' + this.stringifyProperty(k, value[k]))
-				.join(', ');
-		}
-		return `${prop ? prop + ': ' : ''}${value}`;
+		return result.trim();
 	}
 }
