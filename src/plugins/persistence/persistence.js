@@ -22,10 +22,10 @@ class Persistence extends Plugin {
 			.getItem(storageKey)
 			.then(items => {
 				items = items || [];
-				const isDefault = items.find(item => item.default);
-				if (isDefault) {
+				const defaultItem = items.find(item => item.isDefault);
+				if (defaultItem) {
 					const persistenceService = new PersistenceService(model);
-					persistenceService.load(isDefault.model);
+					persistenceService.load(defaultItem.model);
 				}
 			});
 

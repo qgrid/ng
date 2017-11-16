@@ -29,7 +29,7 @@ export function PersistencePanelController(mdPanelRef) {
 				title: this.title,
 				modified: Date.now(),
 				model: persistenceService.save(),
-				default: false
+				isDefault: false
 			});
 
 			model.persistence()
@@ -68,18 +68,18 @@ export function PersistencePanelController(mdPanelRef) {
 	});
 
 	this.setDefault = new Command({
-		canExecute: item => !item.default,
+		canExecute: item => !item.isDefault,
 		execute: item => {
 			const index = this.items.indexOf(item);
 			if (index === -1) {
 				return;
 			}
 
-			if (item.default) {
-				item.default = false;
+			if (item.isDefault) {
+				item.isDefault = false;
 			} else {
-				this.items.forEach(i => i.default = false);
-				item.default = true;
+				this.items.forEach(i => i.isDefault = false);
+				item.isDefault = true;
 			}
 			this.items.splice(index, 1, item);
 

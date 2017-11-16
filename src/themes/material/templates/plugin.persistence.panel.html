@@ -31,7 +31,7 @@
 									  ng-init="state={edit: false}"
 									  ng-class="{'q-grid-persistence-selected': $persistence.isActive(item)}">
 						<div class="default-icon">
-							<md-icon ng-if="item.default">star</md-icon>
+							<md-icon ng-if="item.isDefault">star</md-icon>
 						</div>
 						<div class="md-list-item-text">
 							<md-button class="md-primary"
