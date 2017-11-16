@@ -9,6 +9,7 @@ import {noop, identity} from '@grid/core/utility';
 import {getFactory as valueFactory} from '@grid/core/services/value';
 import {getFactory as labelFactory} from '@grid/core/services/label';
 import {RowDetailsStatus} from '@grid/core/row-details';
+import {Composite} from '@grid/core/infrastructure/composite';
 
 export default class Grid {
 	constructor($timeout) {
@@ -82,6 +83,10 @@ export default class Grid {
 
 	get labelFactory() {
 		return labelFactory;
+	}
+
+	get compose() {
+		return Composite;
 	}
 }
 

@@ -27,6 +27,7 @@ export class EditCellView extends View {
 		this.cancel = commands.get('cancel');
 		this.reset = commands.get('reset');
 		this.exit = commands.get('exit');
+		this.clear = commands.get('clear');
 
 		this.using(model.navigationChanged.watch(e => {
 			if (e.hasChanges('cell')) {
@@ -52,6 +53,7 @@ export class EditCellView extends View {
 		const table = this.table;
 		const commands = {
 			enter: new Command({
+				priority: 1,
 				shortcut: this.shortcutFactory('enter'),
 				canExecute: cell => {
 					// TODO: source should be set up from outside
@@ -96,6 +98,7 @@ export class EditCellView extends View {
 				}
 			}),
 			commit: new Command({
+				priority: 1,
 				shortcut: this.shortcutFactory('commit'),
 				// TODO: add validation support
 				canExecute: cell => {
@@ -137,6 +140,7 @@ export class EditCellView extends View {
 				}
 			}),
 			cancel: new Command({
+				priority: 1,
 				shortcut: this.shortcutFactory('cancel'),
 				canExecute: cell => {
 					cell = cell || this.editor.cell;
@@ -177,6 +181,7 @@ export class EditCellView extends View {
 				}
 			}),
 			reset: new Command({
+				priority: 1,
 				canExecute: cell => {
 					cell = cell || this.editor.cell;
 					return cell
@@ -201,7 +206,8 @@ export class EditCellView extends View {
 				}
 			}),
 			exit: new Command({
-				execute: (cell, e) => {
+				priority: 1,
+				execute: (cell, e, timeout) => {
 					Log.info('cell.edit', 'reset');
 					if (e) {
 						e.stopImmediatePropagation();
@@ -209,23 +215,49 @@ export class EditCellView extends View {
 
 					cell = cell || this.editor.cell;
 					if (cell) {
-						if (this.commit.canExecute(cell)) {
+						if (this.commit.canExecute(cell, e, timeout)) {
 							const originValue = cell.value;
 							const editValue = this.value;
 							if (originValue !== editValue) {
-								this.commit.execute(cell);
+								this.commit.execute(cell, e, timeout);
+								return true;
 							}
 						}
 
-						if (this.cancel.canExecute(cell)) {
-							this.cancel.execute(cell);
+						if (this.cancel.canExecute(cell, e, timeout)) {
+							this.cancel.execute(cell, e, timeout);
 							return true;
 						}
 					}
 
 					return false;
 				}
-			})
+			}),
+			clear: new Command({
+				priority: 1,
+				canExecute: cell => {
+					cell = cell || this.editor.cell;
+					return cell
+						&& cell.column.canEdit
+						&& (cell.column.class === 'control' || model.edit().mode === 'cell')
+						&& model.edit().state === 'edit'
+						&& model.edit().clear.canExecute(this.contextFactory(cell, this.value, this.label));
+				},
+				execute: (cell, e) => {
+					Log.info('cell.edit', 'clear');
+					if (e) {
+						e.stopImmediatePropagation();
+					}
+
+					cell = cell || this.editor.cell;
+					if (cell && model.edit().clear.execute(this.contextFactory(cell, this.value, this.label)) !== false) {
+						this.editor.clear();
+						return true;
+					}
+
+					return false;
+				}
+			}),
 		};
 
 		return new Map(

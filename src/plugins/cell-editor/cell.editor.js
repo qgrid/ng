@@ -11,21 +11,23 @@ class CellEditor extends Component {
 	}
 
 	onInit() {
-		// Create a local shortcut service to work directly with edit commands
-		const shortcut = new Shortcut(new ShortcutManager());
-		const $view = this.$view;
-		const edit = $view.edit.cell;
-		const element = this.element;
+		if (this.shortcut) {
+			// Create a local shortcut service to work directly with edit commands
+			const shortcut = new Shortcut(new ShortcutManager());
+			const $view = this.$view;
+			const edit = $view.edit.cell;
+			const element = this.element;
 
-		this.using(shortcut.register(edit.commandManager, edit.commands));
+			this.using(shortcut.register(edit.commandManager, edit.commands));
 
-		const listener = new EventListener(element, new EventManager(this, $view.root.applyFactory(null, 'sync')));
-		this.using(listener.on('keydown', e => {
-			if (!shortcut.keyDown(e)) {
-				e.stopPropagation();
-				e.stopImmediatePropagation();
-			}
-		}));
+			const listener = new EventListener(element, new EventManager(this, $view.root.applyFactory(null, 'sync')));
+			this.using(listener.on('keydown', e => {
+				if (shortcut.keyDown(e)) {
+					e.stopPropagation();
+					e.stopImmediatePropagation();
+				}
+			}));
+		}
 	}
 
 	close() {

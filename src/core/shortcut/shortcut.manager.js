@@ -1,5 +1,4 @@
 import {flatten, isFunction, yes} from '../utility';
-import {Command} from '../command';
 
 export class ShortcutManager {
 	constructor() {
@@ -72,7 +71,7 @@ export class ShortcutManager {
 		return activities.reduce((result, activity) => {
 			const commands = activity.commands;
 			const manager = activity.manager;
-			result |= manager.invoke(commands);
+			result = manager.invoke(commands) || result;
 			return result;
 		}, false);
 	}
@@ -122,7 +121,7 @@ export class ShortcutManager {
 			}
 
 			result = result.concat(context.commands
-				.map(cmd => new Command({execute: cmd.execute, canExecute: cmd.canExecute, shortcut: cmd.shortcut()}))
+				.map(cmd => cmd.clone({shortcut: cmd.shortcut()}))
 				.filter(cmd => this.test(cmd.shortcut, code)));
 
 			return result;

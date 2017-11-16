@@ -14,10 +14,10 @@ describe('ShortcutManager', () => {
 	let shortcutManager = new ShortcutManager();
 
 	describe('execute', () => {
-		it('should return 1 if shortcut was registered and executed', () => {
+		it('should return true if shortcut was registered and executed', () => {
 			shortcutManager.register(manager, cmds);
 			let result = shortcutManager.execute('ctrl');
-			expect(result).to.equal(1);
+			expect(result).to.equal(true);
 		});
 
 		it('should return false if shortcut was not found', () => {
