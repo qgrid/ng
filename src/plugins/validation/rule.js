@@ -7,17 +7,20 @@ class Rule extends Component {
 	}
 
 	onInit() {
+		const optionalRules = ['required', 'one_of', 'min_length', 'max_length', 'length_between', 'positive_integer'];
 		const gridModel = this.validation.model;
 		const validation = gridModel.validation;
 		const rules = Array.from(validation().rules);
-
-		rules.push({
+		let rule = {
 			for: this.for,
-			key: this.key,
-			required: this.required,
-			one_of: this.one_of
-		});
-
+			key: this.key
+		};
+		for (let name of optionalRules) {
+			if (this.hasOwnProperty(name)) {
+				rule[name] = this[name];
+			}
+		}
+		rules.push(rule);
 		validation({rules});
 	}
 }
@@ -33,7 +36,11 @@ export default {
 	bindings: {
 		'for': '@',
 		'key': '@',
-		'required': '<?',
-		'one_of': '<? oneOf'
+		'required': '@?',
+		'one_of': '<? oneOf',
+		'min_length': '@? minLength',
+		'max_length': '@? maxLength',
+		'length_between': '<? lengthBetween',
+		'positive_integer': '@? positiveInteger'
 	}
 };

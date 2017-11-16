@@ -9,5 +9,21 @@
 		             required
 		             one-of="['male', 'female']">
 		</q-grid:rule>
+		<q-grid:rule for="column"
+		             key="name.first"
+		             required
+		             min-length="3"
+		             max-length="40">
+		</q-grid:rule>
+		<q-grid:rule for="column"
+		             key="name.last"
+		             required
+		             length-between="[3, 40]">
+		</q-grid:rule>
+		<q-grid:rule for="column"
+		             key="contact.address.zip"
+		             required
+		             positive-integer>
+		</q-grid:rule>
 	</q-grid:validation>
 </q-grid>
