@@ -1,5 +1,4 @@
 import {clone, isArray, isObject} from '../utility';
-import {stringifyFactory} from '../services';
 
 export class PersistenceService {
 	constructor(model) {
@@ -35,35 +34,5 @@ export class PersistenceService {
 		}
 
 		return model;
-	}
-
-	active(model, settings) {
-		settings = settings || this.model.persistence().settings;
-
-		for (let key in settings) {
-			const gridModel = this.model[key]();
-			const itemModel = model[key];
-			const isEqual = settings[key].every(s => JSON.stringify(gridModel[s]) === JSON.stringify(itemModel[s]));
-			if (isEqual) {
-				continue;
-			}
-			return false;
-		}
-		return true;
-	}
-
-	stringify(model, settings) {
-		const targets = [];
-		settings = settings || this.model.persistence().settings;
-
-		for (let key in settings) {
-			const stringify = stringifyFactory(key);
-			const target = stringify(model[key]);
-			if (target !== '') {
-				targets.push(target);
-			}
-		}
-
-		return targets.join('; ');
 	}
 }

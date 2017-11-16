@@ -8,23 +8,20 @@ export function stringifyFactory(property) {
 			return sort;
 		case 'group':
 		case 'pivot':
-			return transformByKeys(property);
+			return transformBy(property);
 		default:
-			throw new AppError(
-				'model.stringify',
-				`Stringifier for ${property} model is not defined`);
+			return () => '';
 	}
 }
 
 function filter(model) {
 	const values = Object.values(model.by)
 		.map(column => column.items);
-	if (values.length === 0) {
-		return '';
-	}
-	const target = flatten(values).join(', ');
 
-	return `filter ${target}`;
+	if (values.length === 0) return '';
+
+	const by = flatten(values).join(', ');
+	return `filter ${by}`;
 }
 
 function sort(model) {
@@ -37,14 +34,16 @@ function sort(model) {
 
 	if (keys.length === 0) return '';
 
-	return `sort ${keys.join(', ')}`;
+	const by = keys.join(', ');
+	return `sort ${by}`;
 }
 
-function transformByKeys(property) {
+function transformBy(property) {
 	return model => {
-		if (model.by.length === 0) {
-			return '';
-		}
-		return `${property} ${model.by.join(', ')}`;
+		const keys = model.by;
+		if (keys.length === 0) return '';
+
+		const by = keys.join(', ');
+		return `${property} ${by}`;
 	};
 }

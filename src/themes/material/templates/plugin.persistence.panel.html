@@ -29,7 +29,7 @@
 					<md-list-item class="md-2-line"
 									  ng-repeat="item in $persistence.items | orderBy: '-modified' track by $index"
 									  ng-init="state={edit: false}"
-									  ng-class="{'q-grid-persistence-selected': $persistence.active(item)}">
+									  ng-class="{'q-grid-persistence-selected': $persistence.isActive(item)}">
 						<div class="default-icon">
 							<md-icon ng-if="item.default">star</md-icon>
 						</div>

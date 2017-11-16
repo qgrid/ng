@@ -1,5 +1,6 @@
 import {Command} from '@grid/core/command';
 import {PersistenceService} from '@grid/core/persistence/persistence.service';
+import {stringifyFactory} from '@grid/core/services/';
 
 export function PersistencePanelController(mdPanelRef) {
 	const model = this.model;
@@ -88,9 +89,23 @@ export function PersistencePanelController(mdPanelRef) {
 		}
 	});
 
-	this.active = item => persistenceService.active(item.model);
+	this.isActive = item => JSON.stringify(item.model) === JSON.stringify(persistenceService.save())
 
-	this.stringify = item => persistenceService.stringify(item.model);
+	this.stringify = item => {
+		const model = item.model;
+		const targets = [];
+		const settings = this.model.persistence().settings;
+
+		for (let key in settings) {
+			const stringify = stringifyFactory(key);
+			const target = stringify(model[key]);
+			if (target !== '') {
+				targets.push(target);
+			}
+		}
+
+		return targets.join('; ') || 'No settings';
+	}
 }
 
 PersistencePanelController.$inject = ['mdPanelRef'];
