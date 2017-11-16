@@ -1,7 +1,6 @@
 <q-grid:cell-editor class="q-grid-date q-grid-editor" 
-					on:close="$view.edit.cell.exit.execute($cell, 50)" 
-					q-grid:position="td">
-	<md-datepicker ng-model="$view.edit.cell.value"
-					q-grid:focus="input">
+					     on:close="$view.edit.cell.exit.execute($cell)"
+						  q-grid:position="td">
+	<md-datepicker ng-model="$view.edit.cell.value" q-grid:focus="input">
 	</md-datepicker>
 </q-grid:cell-editor>
