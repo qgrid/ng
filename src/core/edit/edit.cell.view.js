@@ -220,6 +220,7 @@ export class EditCellView extends View {
 							const editValue = this.value;
 							if (originValue !== editValue) {
 								this.commit.execute(cell, e, timeout);
+								return true;
 							}
 						}
 

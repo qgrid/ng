@@ -38,10 +38,6 @@ describe('Composite', () => {
 	});
 
 	describe('composite command', () => {
-		it('should throw an exception when no commands provided', () => {
-			expect(() => Composite.command()).to.throw('Can\'t compose empty list of commands.');
-		});
-
 		it('should reduce provided commands canExecute to false if all commands are falsy', () => {
 			const command1 = new Command({
 				canExecute: no
@@ -51,7 +47,7 @@ describe('Composite', () => {
 				canExecute: no
 			});
 
-			const command = Composite.command(command1, command2);
+			const command = Composite.command([command1, command2]);
 			expect(command.canExecute()).to.be.equal(false);
 		});
 
@@ -64,7 +60,7 @@ describe('Composite', () => {
 				canExecute: no
 			});
 
-			const command = Composite.command(command1, command2);
+			const command = Composite.command([command1, command2]);
 			expect(command.canExecute()).to.be.equal(true);
 		});
 
@@ -80,7 +76,7 @@ describe('Composite', () => {
 				canExecute: spy2
 			});
 
-			const command = Composite.command(command1, command2);
+			const command = Composite.command([command1, command2]);
 			command.canExecute(1, 'two', {}, []);
 
 			expect(spy1).to.have.been.called.with(1, 'two', {}, []);
@@ -105,7 +101,7 @@ describe('Composite', () => {
 				execute: spy3
 			});
 
-			const command = Composite.command(command1, command2, command3);
+			const command = Composite.command([command1, command2, command3]);
 			command.execute();
 
 			expect(spy1).to.have.been.called();
@@ -128,7 +124,7 @@ describe('Composite', () => {
 				canExecute: spy3
 			});
 
-			const command = Composite.command(command1, command2, command3);
+			const command = Composite.command([command1, command2, command3]);
 			command.execute(1, 'two', {}, []);
 
 			expect(spy1).to.have.been.called.with(1, 'two', {}, []);
@@ -151,7 +147,7 @@ describe('Composite', () => {
 				execute: spy3
 			});
 
-			const command = Composite.command(command1, command2, command3);
+			const command = Composite.command([command1, command2, command3]);
 			command.execute(1, 'two', {}, []);
 
 			expect(spy1).to.have.been.called.with(1, 'two', {}, []);
