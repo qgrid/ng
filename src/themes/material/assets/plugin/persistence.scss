@@ -79,7 +79,7 @@
 				}
 			}
 			&.q-grid-persistence-selected {
-				background-color: #BDBDBD;
+				background-color: #f5f5f5;
 			}
 			&.md-2-line {
 				.md-list-item-inner.md-no-style {
@@ -95,6 +95,7 @@
 		md-input-container {
 			height: 40px;
 			min-height: 40px;
+			width: 100%;
 			margin: 0;
 			padding: 0;
 		}
