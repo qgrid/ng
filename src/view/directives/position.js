@@ -9,18 +9,19 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 		this.element = $element[0];
 		this.$attrs = $attrs;
 		this.$timeout = $timeout;
+
+		// this.opacity = this.element.style.opacity;
+		// this.element.style.opacity = 0;
 	}
 
-	onLink() {
+	onInit() {
 		if (this.root) {
-			const opacity = this.element.style.opacity;
-			this.element.style.opacity = 0;
 			const targetName = (this.$attrs[POSITION_NAME] || '').toLowerCase();
 			let node = this.element.parentNode;
 			while (node) {
 				if (node.nodeName.toLowerCase() === targetName) {
 					this.layout(node, this.element);
-					this.element.style.opacity = opacity;
+					this.element.style.opacity = 1; //this.opacity;
 					return;
 				}
 				node = node.parentNode;
