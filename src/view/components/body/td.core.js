@@ -71,6 +71,11 @@ class TdCore extends Directive(TD_CORE_NAME, {
 			case 'view': {
 				this.enterViewMode();
 				this.element.classList.remove(`${GRID_PREFIX}-edit`);
+<<<<<<< HEAD
+=======
+				apply(() => {
+				});
+>>>>>>> 758c8be0341a7a29c95c3e596bee22f66b12435f
 				break;
 			}
 			case 'edit': {

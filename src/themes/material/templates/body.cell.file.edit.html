@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 <q-grid:cell-editor class="q-grid-editor q-grid-file q-grid-position" on:close="$view.edit.cell.cancel.execute($cell)" q-grid:position="td">
+=======
+<q-grid:cell-editor class="q-grid-editor q-grid-file" on:close="$view.edit.cell.cancel.execute($cell)"
+                    q-grid:position="td">
+>>>>>>> 758c8be0341a7a29c95c3e596bee22f66b12435f
 	<div layout="column" flex>
 		<div class="q-grid-file-upload-area"
 			  ng-class="{'q-grid-file-has-preview': $cell.column.hasPreview($view.edit.cell.label)}">
@@ -22,7 +27,8 @@
 			</div>
 		</div>
 		<div class="flex-none q-grid-actions">
-			<md-button class="md-primary md-confirm-button" ng-click="$view.edit.cell.commit.execute($cell, $event)">Save</md-button>
+			<md-button class="md-primary md-confirm-button" ng-click="$view.edit.cell.commit.execute($cell, $event)">Save
+			</md-button>
 			<md-button ng-click="$view.edit.cell.clear.execute($cell)">Clear</md-button>
 			<md-button class="md-cancel-button" ng-click="$view.edit.cell.cancel.execute($cell, $event)">Cancel</md-button>
 		</div>

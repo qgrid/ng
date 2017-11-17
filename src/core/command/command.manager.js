@@ -8,7 +8,7 @@ export class CommandManager {
 		// impact on canExecute of next command
 		this.apply(() => {
 			const priorityCommands = Array.from(commands);
-			priorityCommands.sort((x,y) => y.priority - x.priority);
+			priorityCommands.sort((x, y) => y.priority - x.priority);
 
 			for (const cmd of priorityCommands) {
 				if (cmd.execute() === false) {

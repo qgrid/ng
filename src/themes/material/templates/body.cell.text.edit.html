@@ -1,11 +1,17 @@
+<<<<<<< HEAD
 <q-grid:cell-editor class="q-grid-text q-grid-editor q-grid-position" on:close="$view.edit.cell.exit.execute($cell)" q-grid:position="td">
+=======
+<q-grid:cell-editor class="q-grid-text q-grid-editor" on:close="$view.edit.cell.exit.execute($cell)"
+                    q-grid:position="td">
+>>>>>>> 758c8be0341a7a29c95c3e596bee22f66b12435f
 	<md-input-container>
 		<input type="text"
-				 q-grid:focus
-				 ng-model="$view.edit.cell.value"
-				 md-maxlength="{{::$cell.column.maxLength}}"/>
+		       q-grid:focus
+		       ng-model="$view.edit.cell.value"
+		       md-maxlength="{{::$cell.column.maxLength}}"/>
 	</md-input-container>
-	<q-grid:validator key="{{::$cell.column.key}}"
+	<q-grid:validator class="q-grid-validator"
+	                  key="{{::$cell.column.key}}"
 	                  value="$view.edit.cell.value">
 	</q-grid:validator>
 </q-grid:cell-editor>

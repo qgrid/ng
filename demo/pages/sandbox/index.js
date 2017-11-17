@@ -36,7 +36,7 @@ export default function Controller($http, qgrid) {
 			key: 'gender',
 			title: 'Gender',
 			type: 'text',
-			value: (item, value) => isUndef(value) ? item.gender: item.gender = value,
+			value: (item, value) => isUndef(value) ? item.gender : item.gender = value,
 			editor: 'dropdown',
 			editorOptions: {
 				fetch: ['female', 'male']
@@ -152,7 +152,7 @@ export default function Controller($http, qgrid) {
 				: item.contact.email.secondary = value,
 			editor: 'autocomplete',
 			editorOptions: {
-				fetch: (item, d, search='') => {
+				fetch: (item, d, search = '') => {
 					$http.get('data/people/100.json').then(function (response) {
 						const emails = response.data.reduce((result, item) => {
 							return result.concat(item.contact.email.filter(email => email.indexOf(search) > -1));
@@ -171,7 +171,7 @@ export default function Controller($http, qgrid) {
 			key: 'salary',
 			title: 'Salary',
 			type: 'currency',
-			value: (item, v) => isUndef(v) ? item.salary || 0 : item.salary = v 
+			value: (item, v) => isUndef(v) ? item.salary || 0 : item.salary = v
 		},
 		{
 			key: 'memberSince',
