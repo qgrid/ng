@@ -1,6 +1,5 @@
 td.q-grid-edit {
 	overflow: visible !important;
-
 	&.q-grid-row-options {
 		button {
 			width: 24px;
@@ -8,21 +7,18 @@ td.q-grid-edit {
 			padding: 0;
 		}
 	}
-
 	&.q-grid-dropdown {
 		md-select {
 			margin: 5px 0;
 			max-height: 30px;
 		}
 	}
-
 	md-checkbox {
 		margin: 0;
 		width: 20px;
 		height: 20px;
 		display: inline-block;
 	}
-
 	.q-grid-text-area {
 		height: 222px;
 		width: 348px;
@@ -30,7 +26,6 @@ td.q-grid-edit {
 			height: 150px !important;
 		}
 	}
-
 	.q-grid-date {
 		.md-datepicker-button {
 			margin-left: 0;
@@ -45,57 +40,47 @@ td.q-grid-edit {
 			height: 24px;
 		}
 	}
-
 	.q-grid-array {
 		min-height: 168px;
 		width: 448px;
 		height: inherit;
 		padding-bottom: 0;
-
 		.q-grid-array-view {
 			max-height: 448px;
 			overflow-y: auto;
 		}
 	}
-
 	.q-grid-url,
 	.q-grid-email {
 		height: auto;
 		width: 340px;
 		padding-bottom: 0;
-
 		.q-grid-url-fields,
 		.q-grid-email-fields {
 			padding-top: 8px;
 		}
 	}
-
 	.q-grid-file {
 		height: auto;
 		width: 340px;
 		padding-bottom: 0;
-
 		h2 {
 			text-align: left;
 		}
 	}
-
 	.q-grid-time {
 		md-input-container {
 			width: 100%;
 		}
 	}
-
 	.q-grid-autocomplete {
 		md-autocomplete {
 			min-width: 30px;
 			background-color: transparent;
 		}
-
 		md-autocomplete-wrap {
 			box-shadow: none;
 		}
-
 		input {
 			border-color: rgb(63, 81, 181);
 			border-width: 0 0 2px 0;
@@ -106,19 +91,21 @@ td.q-grid-edit {
 			height: 30px;
 		}
 	}
-
 	.q-grid-reference {
-		height: 545px;
+		height: 300px;
 		width: 500px;
+		.q-grid-title {
+			h2 {
+				margin-bottom: 0;
+			}
+		}
 	}
-
 	.q-grid-actions {
 		.md-button {
 			margin: 8px 0 0 8px;
 			float: right;
 		}
 	}
-
 	.q-grid-editor {
 		display: block;
 		position: absolute;
@@ -129,28 +116,24 @@ td.q-grid-edit {
 		min-height: 102px;
 		left: 4px;
 		top: 0;
-		box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.2),
-		0 13px 19px 2px rgba(0, 0, 0, 0.14),
-		0 5px 24px 4px rgba(0, 0, 0, 0.12);
+		box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.2), 0 13px 19px 2px rgba(0, 0, 0, 0.14), 0 5px 24px 4px rgba(0, 0, 0, 0.12);
 		-webkit-box-orient: vertical;
 		-webkit-box-direction: normal;
 		-webkit-flex-direction: column;
 		flex-direction: column;
 		box-sizing: content-box;
 		z-index: 1;
-
 		.q-grid-editor-content {
 			padding: 24px;
-
+			width: 100%;
+			height: 100%;
 			md-input-container {
 				padding: 0;
 				margin: 0;
 			}
-
 			h2 {
 				margin-top: 0;
 			}
-
 			.q-grid-editor-actions {
 				text-align: right;
 				margin-top: 10px;
@@ -171,33 +154,27 @@ td.q-grid-edit {
 	border: 1px dashed $dark-divider;
 	text-align: center;
 	height: 120px;
-
 	.q-grid-file-upload-message {
 		position: relative;
 		top: 40%;
-
 		span {
 			overflow: hidden;
 			text-overflow: ellipsis;
 		}
-
 		md-icon {
 			margin: 0 5px;
 		}
 	}
-
 	&.q-grid-file-has-preview {
 		.q-grid-file-upload-message {
 			visibility: hidden;
 		}
 	}
-
 	.q-grid-file-upload-filename {
 		padding: 10px;
 		font-weight: bold;
 		color: $dark-secondary;
 	}
-
 	input {
 		opacity: 0;
 		position: absolute;
@@ -207,7 +184,6 @@ td.q-grid-edit {
 		top: 0;
 		z-index: 2;
 	}
-
 	.q-grid-file-preview {
 		opacity: 1;
 		position: absolute;
@@ -217,7 +193,6 @@ td.q-grid-edit {
 		width: 100%;
 		vertical-align: middle;
 		text-align: center;
-
 		img {
 			position: relative;
 			max-height: 100% !important;
@@ -229,21 +204,18 @@ td.q-grid-edit {
 
 @at-root .q-grid-file-upload-area:hover {
 	background-color: $selected;
-
 	.q-grid-file-preview {
 		opacity: 0;
 		transition: opacity 0.2s ease-in-out;
-
 		img {
 			z-index: 1;
 		}
 	}
-
 	.q-grid-file-upload-message {
 		visibility: visible;
 	}
 }
 
-@at-root  .q-grid-autocomplete-menu {
+@at-root .q-grid-autocomplete-menu {
 	z-index: 101;
 }
