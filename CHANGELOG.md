@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Handle space key down.
 - Legend plugin.
 - Persistence plugin enhancements.
+- Validation framework.
 
 ## [1.0.65] - 2017-11-09
 ### Fixed
