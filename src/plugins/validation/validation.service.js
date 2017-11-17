@@ -1,15 +1,4 @@
 import LIVR from 'livr';
-// import {isUndefined} from '@grid/core/utility';
-
-// LIVR.Validator.registerDefaultRules({
-// 'string_positive_integer': () => {
-// 	return (str) => {
-// 		if (isUndefined(str) || str === null || str === '') return; //We have "required" rule for this
-// 		const int = parseInt(str, 10);
-// 		return 'NOT_POSITIVE_INTEGER';
-// 	};
-// }
-// });
 
 function toLIVR(rules, key) {
 	const validationRules = [];
