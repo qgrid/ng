@@ -76,10 +76,6 @@ export class CellEditor extends CellEditorCore {
 		return this.cell.column.editorOptions;
 	}
 
-	get commandManager() {
-		return this.cell.commandManager;
-	}
-
 	getLabel(item) {
 		return getLabel(item, this.options);
 	}
