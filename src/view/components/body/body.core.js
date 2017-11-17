@@ -40,7 +40,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, r
 	}
 
 	onInit() {
-		const listener = new EventListener(this.element, new EventManager(this, this.root.applyFactory(null, 'sync')));
+		const listener = new EventListener(this.element, new EventManager(this));
 
 		this.using(listener.on('scroll', this.onScroll));
 		this.using(listener.on('click', this.onClick));

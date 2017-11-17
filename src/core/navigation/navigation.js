@@ -124,7 +124,7 @@ export class Navigation {
 			}
 
 			const column = table.body.column(this.currentColumn).model();
-			return column && column.editorOptions.trigger === 'focus';
+			return column && (column.editorOptions.trigger === 'focus' || column.editorOptions.cruise === 'transparent');
 		};
 
 		const commands = {

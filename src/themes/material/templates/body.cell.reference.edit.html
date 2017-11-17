@@ -1,16 +1,21 @@
 <q-grid:cell-editor class="q-grid-reference q-grid-editor"
 						  on:close="$view.edit.cell.cancel.execute($cell, $event)"
 						  q-grid:position="td">
-	<h2 class="md-title">Select {{::$cell.column.title}}</h2>
 	<div ng-cloak
-		  layout="column"
+		  class="layout-column q-grid-reference-content"
 		  ng-controller="Body.Cell.Reference.Edit.Controller as $referenceEdit">
 		<div class="flex">
 			<q-grid class="q-grid-embed"
+					  header="{{::$cell.column.title}}"
 					  model="$referenceEdit.gridModel"
 					  q-grid:autofocus>
+				<q-grid:columns>
+					<q-grid:column type="select" pin="left">
+					</q-grid:column>
+				</q-grid:columns>
 				<q-grid:toolbar>
 					<q-grid:template for="top">
+						<q-grid:title></q-grid:title>
 						<div class="q-grid-progress">
 							<q-grid:progress></q-grid:progress>
 						</div>
