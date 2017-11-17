@@ -84,6 +84,26 @@ export class SelectionView extends View {
 	get commands() {
 		const model = this.model;
 		const shortcut = model.selection().shortcut;
+
+		const toggleActiveRow = new Command({
+			canExecute: () => model.selection().unit === 'row' && this.rows.length > 0,
+			execute: () => {
+				const navState = model.navigation();
+				const rowIndex = navState.rowIndex;
+
+				let row;
+				if (rowIndex >= 0) {
+					row = this.rows[rowIndex];
+				} else {
+					row = this.rows[rowIndex + 1];
+				}
+
+				const commit = this.toggle(row);
+				commit();
+			},
+			shortcut: shortcut.toggleRow
+		});
+
 		const commands = {
 			toggleCell: new Command({
 				canExecute: item => {
@@ -125,24 +145,19 @@ export class SelectionView extends View {
 					commit();
 				}
 			}),
-			toggleActiveRow: new Command({
-				canExecute: () => model.selection().unit === 'row' && this.rows.length > 0,
-				execute: () => {
-					const navState = model.navigation();
-					const rowIndex = navState.rowIndex;
-
-					let row;
-					if (rowIndex >= 0) {
-						row = this.rows[rowIndex];
-					} else {
-						row = this.rows[rowIndex + 1];
-					}
-
-					const commit = this.toggle(row);
-					commit();
+			commitRow: new Command({
+				canExecute: () => {
+					const column = model.navigation().column;
+					return column && column.type === 'select';
 				},
-				shortcut: shortcut.toggleRow
+				execute: () => {
+					if (toggleActiveRow.canExecute()) {
+						toggleActiveRow.execute();
+					}
+				},
+				shortcut: model.edit().commitShortcuts['select'] || ''
 			}),
+			toggleActiveRow: toggleActiveRow,
 			togglePrevRow: new Command({
 				canExecute: () => model.selection().unit === 'row' && model.navigation().rowIndex > 0,
 				execute: () => {

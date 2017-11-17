@@ -1,8 +1,7 @@
 <md-checkbox md-indeterminate="$view.selection.isIndeterminate($row)"
 				 ng-checked="$view.selection.state($row)"
 				 q-grid:prevent-default="mousedown"
-				 ng-click="$view.selection.toggleRow.execute($row, $event)"
-				 ng-disabled="!$view.selection.toggleRow.canExecute($row)"
+				 ng-click="$view.selection.toggleRow.execute($row)"
 				 tab-index="-1"
 				 aria-label="Selection">
 </md-checkbox>

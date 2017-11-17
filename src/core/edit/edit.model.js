@@ -30,7 +30,8 @@ export class EditModel {
 			'url': 'ctrl+s|enter',
 			'row': 'ctrl+s',
 			'form': 'ctrl+s',
-			'bool': 'tab|shift+tab|left|right|up|down|home|end|pageUp|pageDown',
+			'select': 'space|enter',
+			'bool': 'tab|shift+tab|left|right|up|down|home|end|pageUp|pageDown'
 		};
 	}
 }
