@@ -2,13 +2,13 @@
 						  on:close="$view.edit.cell.cancel.execute($cell, $event)"
 						  q-grid:position="td">
 	<div ng-cloak
-		  class="layout-column q-grid-reference-content"
-		  ng-controller="Body.Cell.Reference.Edit.Controller as $referenceEdit">
+	     class="layout-column q-grid-reference-content"
+	     ng-controller="Body.Cell.Reference.Edit.Controller as $referenceEdit">
 		<div class="flex">
 			<q-grid class="q-grid-embed"
-					  header="{{::$cell.column.title}}"
-					  model="$referenceEdit.gridModel"
-					  q-grid:autofocus>
+			        header="{{::$cell.column.title}}"
+			        model="$referenceEdit.gridModel"
+			        q-grid:autofocus>
 				<q-grid:columns>
 					<q-grid:column type="select" pin="left">
 					</q-grid:column>
