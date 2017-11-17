@@ -139,6 +139,11 @@ td.q-grid-edit {
 				margin: 0;
 				width: 100%;
 			}
+			md-input-container + .q-grid-validator {
+				position: relative;
+				top: -25px;
+			}
+
 			h2 {
 				margin-top: 0;
 			}
@@ -151,6 +156,13 @@ td.q-grid-edit {
 						margin-right: 0;
 					}
 				}
+			}
+		}
+		&.q-grid-number {
+			md-input-container + .q-grid-validator {
+				position: absolute;
+				top: 53px;
+				left: 41px;
 			}
 		}
 	}

@@ -1,4 +1,6 @@
-export function toLIVR(rules, key) {
+import LIVR from 'livr';
+
+function toLIVR(rules, key) {
 	const validationRules = [];
 	rules.forEach(rule => {
 		if (rule.key === key) {
@@ -15,4 +17,13 @@ export function toLIVR(rules, key) {
 		hasRules: validationRules.length > 0,
 		rules: {[key]: validationRules}
 	};
+}
+
+export function hasRules(rules, key) {
+	return toLIVR(rules, key).hasRules;
+}
+
+export function createValidator(rules, key) {
+	const settings = toLIVR(rules, key);
+	return new LIVR.Validator(settings.rules);
 }

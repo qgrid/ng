@@ -1,1 +1,3 @@
-<div>{{$validator.error}}</div>
+<div ng-if="$validator.error" class="validation-error">
+	{{$validator.error}}
+</div>

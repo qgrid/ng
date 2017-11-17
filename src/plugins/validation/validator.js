@@ -1,8 +1,5 @@
 import PluginComponent from '../plugin.component';
-import LIVR from 'livr';
 import * as validationService from './validation.service';
-
-LIVR.Validator.defaultAutoTrim(true);
 
 const Plugin = PluginComponent('validator');
 
@@ -12,9 +9,8 @@ class Validator extends Plugin {
 	}
 
 	onInit() {
-		const validationSettings = validationService.toLIVR(this.rules, this.key);
-		if (validationSettings.hasRules) {
-			this.validator = new LIVR.Validator(validationSettings.rules);
+		if (validationService.hasRules(this.rules, this.key)) {
+			this.validator = validationService.createValidator(this.rules, this.key);
 		}
 	}
 

@@ -1,4 +1,4 @@
-export interface IModelStringify{
+export interface IModelStringify {
 	(model: object): string;
 }
 
