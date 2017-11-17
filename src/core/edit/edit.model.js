@@ -13,8 +13,7 @@ export class EditModel {
 		this.clear = new Command();
 
 		this.cancelShortcuts = {
-			'$default': 'escape',
-			'select': 'tab|shift+tab|left|right|up|down|home|end|pageUp|pageDown'
+			'$default': 'escape'
 		};
 
 		this.enterShortcuts = {
