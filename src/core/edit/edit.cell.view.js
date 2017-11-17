@@ -96,11 +96,6 @@ export class EditCellView extends View {
 
 						this.mode(cell, 'edit');
 
-						// let i = 10;
-						// while (i-- > 0) {
-						// 	this.mode(cell, 'edit');
-						// 	this.mode(cell, 'view');
-						// }
 						return true;
 					}
 
