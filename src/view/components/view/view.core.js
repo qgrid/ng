@@ -24,22 +24,21 @@ class ViewCore extends Component {
 		const commandManager = root.commandManager;
 		const gridService = this.serviceFactory(model);
 		const vscroll = new Vscroll(this.vscroll, root.applyFactory());
-		const selectors = {
-			th: TH_CORE_NAME
-		};
+		const selectors = {th: TH_CORE_NAME};
 		const injectViewServicesTo = viewFactory(
 			model,
 			table,
 			commandManager,
 			gridService,
 			vscroll,
-			selectors);
+			selectors
+		);
 
 		this.destroyView = injectViewServicesTo(this);
 
 		// TODO: how we can avoid that?
 		this.$scope.$watch(() => {
-			if(model.scene().status === 'stop') {
+			if (model.scene().status === 'stop') {
 				this.style.invalidate();
 			}
 		});
@@ -113,4 +112,4 @@ export default {
 	require: {
 		'root': `^^${GRID_NAME}`
 	}
-}
+};

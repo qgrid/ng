@@ -27,7 +27,7 @@ export class Grid extends RootComponent {
 			body: new Bag(),
 			foot: new Bag()
 		};
-		this.listener = new EventListener($element[0], new EventManager(this, this.applyFactory(null, 'sync')));
+		this.listener = new EventListener($element[0], new EventManager(this));
 	}
 
 	onInit() {
@@ -42,14 +42,15 @@ export class Grid extends RootComponent {
 
 		const bag = this.bag;
 		const layerFactory = new LayerFactory(this.markup, this.template);
+		const apply = f => f();
 		const tableContext = {
 			layer: name => layerFactory.create(name),
 			bag: bag
 		};
 
 		this.table = new Table(model, this.markup, tableContext);
-		this.commandManager = new TableCommandManager(this.applyFactory(), this.table);
-		this.using(this.listener.on('keydown', e => this.keyDown(e)));
+		this.commandManager = new TableCommandManager(apply, this.table);
+		this.using(this.listener.on('keydown', this.keyDown.bind(this)));
 
 		if (!this.gridId) {
 			this.$element[0].id = model.grid().id;

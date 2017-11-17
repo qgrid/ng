@@ -31,7 +31,7 @@ class Drop extends Directive(DROP_NAME) {
 		e.stopPropagation();
 
 		this.element.classList.remove(`${GRID_PREFIX}-dragover`);
-		const event = this.event(e.dataTransfer)
+		const event = this.event(e.dataTransfer);
 		if (this.canDrop(event)) {
 			this.$scope.$evalAsync(() => this.onDrop(event));
 		}

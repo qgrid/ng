@@ -6,7 +6,7 @@ export class NavigationModel {
 			down: 'down',
 			left: 'left',
 			right: 'right',
-			next: 'tab|space',
+			next: 'tab',
 			previous: 'shift+tab',
 			home: 'home',
 			end: 'end',
@@ -28,6 +28,6 @@ export class NavigationModel {
 	}
 
 	get column() {
-		return this.column ? this.cell.column : null;
+		return this.cell ? this.cell.column : null;
 	}
 }
