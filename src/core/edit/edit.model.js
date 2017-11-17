@@ -13,7 +13,8 @@ export class EditModel {
 		this.clear = new Command();
 
 		this.cancelShortcuts = {
-			'$default': 'escape'
+			'$default': 'escape',
+			'select': 'tab|shift+tab|left|right|up|down|home|end|pageUp|pageDown'
 		};
 
 		this.enterShortcuts = {
@@ -31,7 +32,6 @@ export class EditModel {
 			'row': 'ctrl+s',
 			'form': 'ctrl+s',
 			'bool': 'tab|shift+tab|left|right|up|down|home|end|pageUp|pageDown',
-			'select': 'tab|shift+tab|left|right|up|down|home|end|pageUp|pageDown'
 		};
 	}
 }
