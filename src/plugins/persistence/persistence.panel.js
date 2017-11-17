@@ -68,7 +68,6 @@ export function PersistencePanelController(mdPanelRef) {
 	});
 
 	this.setDefault = new Command({
-		canExecute: item => !item.isDefault,
 		execute: item => {
 			const index = this.items.indexOf(item);
 			if (index === -1) {
