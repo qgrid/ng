@@ -4,13 +4,9 @@
 		       q-grid:focus
 		       ng-model="$view.edit.cell.value"
 		       md-maxlength="{{::$cell.column.maxLength}}"/>
-		<div ng-messages="projectForm.description.$error">
-			<div ng-message="required">This is required.</div>
-			<div ng-message="md-maxlength">The description must be less than 30 characters long.</div>
-		</div>
-		<q-grid:validator class="q-grid-validator"
-		                  key="{{::$cell.column.key}}"
-		                  value="$view.edit.cell.value">
-		</q-grid:validator>
 	</md-input-container>
+	<q-grid:validator class="q-grid-validator"
+	                  key="{{::$cell.column.key}}"
+	                  value="$view.edit.cell.value">
+	</q-grid:validator>
 </q-grid:cell-editor>

@@ -1,11 +1,12 @@
 <q-grid:cell-editor class="q-grid-number q-grid-editor" on:close="$view.edit.cell.exit.execute($cell)"
-						  q-grid:position="td">
+                    q-grid:position="td">
 	<md-input-container>
 		<input type="number"
-				 q-grid:focus
-				 ng-model="$view.edit.cell.value"/>
+		       q-grid:focus
+		       ng-model="$view.edit.cell.value"/>
 	</md-input-container>
-	<q-grid:validator key="{{::$cell.column.key}}"
+	<q-grid:validator class="q-grid-validator"
+	                  key="{{::$cell.column.key}}"
 	                  value="$view.edit.cell.value">
 	</q-grid:validator>
 </q-grid:cell-editor>
