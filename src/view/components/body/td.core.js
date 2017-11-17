@@ -67,9 +67,7 @@ class TdCore extends Directive(TD_CORE_NAME, {
 	}
 
 	mode(value) {
-		const apply = f => f(); // this.root.applyFactory(null, 'sync');
-		// job(() => apply(() => {
-		// }));
+		const apply = this.root.applyFactory(null, 'sync');
 
 		apply(() => {
 			switch (value) {

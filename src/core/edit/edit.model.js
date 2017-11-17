@@ -29,7 +29,9 @@ export class EditModel {
 			'email': 'ctrl+s|enter',
 			'url': 'ctrl+s|enter',
 			'row': 'ctrl+s',
-			'form': 'ctrl+s'
+			'form': 'ctrl+s',
+			'bool': 'tab|shift+tab|left|right|up|down|home|end|pageUp|pageDown',
+			'select': 'tab|shift+tab|left|right|up|down|home|end|pageUp|pageDown'
 		};
 	}
 }
