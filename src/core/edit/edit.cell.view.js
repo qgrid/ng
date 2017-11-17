@@ -95,7 +95,6 @@ export class EditCellView extends View {
 						}
 
 						this.mode(cell, 'edit');
-
 						return true;
 					}
 
