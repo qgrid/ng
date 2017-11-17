@@ -1,7 +1,6 @@
 import Directive from '@grid/view/directives/directive';
 import cellBuilder from '../cell/cell.build';
 import {AppError} from '@grid/core/infrastructure';
-import {noop} from '@grid/core/utility';
 import {VIEW_CORE_NAME, TD_CORE_NAME, GRID_NAME} from '@grid/view/definition';
 import {GRID_PREFIX} from '@grid/core/definition';
 import * as css from '@grid/core/services/css';
@@ -68,13 +67,10 @@ class TdCore extends Directive(TD_CORE_NAME, {
 	}
 
 	mode(value) {
-		const apply = this.root.applyFactory(null, 'sync');
-
 		switch (value) {
 			case 'view': {
 				this.enterViewMode();
 				this.element.classList.remove(`${GRID_PREFIX}-edit`);
-				apply(noop);
 				break;
 			}
 			case 'edit': {

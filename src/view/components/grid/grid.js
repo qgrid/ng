@@ -42,7 +42,7 @@ export class Grid extends RootComponent {
 
 		const bag = this.bag;
 		const layerFactory = new LayerFactory(this.markup, this.template);
-		const apply = f => f();
+		const apply = this.applyFactory(null, 'sync');
 		const tableContext = {
 			layer: name => layerFactory.create(name),
 			bag: bag
