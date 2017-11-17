@@ -93,7 +93,6 @@ function Setup(qgridThemeProvider) {
 		theme.put(cell('head', 'select'), require('./templates/head.cell.select.html'));
 		theme.put(cell('body', 'select'), require('./templates/body.cell.select.html'));
 		theme.put(cell('foot', 'select'), require('./templates/foot.cell.text.html'));
-		theme.put(cell('body', 'select.edit'), require('./templates/body.cell.select.edit.html'));
 
 		theme.put(cell('head', 'group'), require('./templates/head.cell.text.html'));
 		theme.put(cell('body', 'group'), require('./templates/body.cell.group.html'));

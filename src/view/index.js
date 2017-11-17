@@ -36,6 +36,7 @@ import Animate from './directives/animate';
 import Position from './directives/position';
 import Autofocus from './directives/autofocus';
 import StopPropagate from './directives/stop.propagate';
+import PreventDefault from './directives/prevent.default';
 
 import ThemeProvider from './services/theme';
 import Range from './filters/range';
@@ -57,6 +58,7 @@ export const coreModule = angular.module(def.MODULE_CORE_NAME, []) // eslint-dis
 	.directive(def.POSITION_NAME, () => Position)
 	.directive(def.AUTOFOCUS_NAME, () => Autofocus)
 	.directive(def.STOP_PROPAGATE_NAME, () => StopPropagate)
+	.directive(def.PREVENT_DEFAULT_NAME, () => PreventDefault)
 	.provider(def.THEME_NAME, () => new ThemeProvider())
 	.service(def.TEMPLATE_PATH_NAME, () => () => TemplatePath)
 	.filter(def.RANGE_NAME, () => Range)

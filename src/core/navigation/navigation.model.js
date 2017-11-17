@@ -28,6 +28,6 @@ export class NavigationModel {
 	}
 
 	get column() {
-		return this.column ? this.cell.column : null;
+		return this.cell ? this.cell.column : null;
 	}
 }

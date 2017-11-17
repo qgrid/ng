@@ -67,24 +67,23 @@ class TdCore extends Directive(TD_CORE_NAME, {
 	}
 
 	mode(value) {
-		const apply = this.root.applyFactory(null, 'sync');
+		const apply = this.root.applyFactory(null, 'async');
 
-		apply(() => {
-			switch (value) {
-				case 'view': {
-					this.enterViewMode();
-					this.element.classList.remove(`${GRID_PREFIX}-edit`);
-					break;
-				}
-				case 'edit': {
-					this.enterEditMode();
-					this.element.classList.add(`${GRID_PREFIX}-edit`);
-					break;
-				}
-				default:
-					throw new AppError('td.core', `Invalid mode ${value}`);
+		switch (value) {
+			case 'view': {
+				this.enterViewMode();
+				this.element.classList.remove(`${GRID_PREFIX}-edit`);
+				apply(() => {});
+				break;
 			}
-		});
+			case 'edit': {
+				this.element.classList.add(`${GRID_PREFIX}-edit`);
+				this.enterEditMode();
+				break;
+			}
+			default:
+				throw new AppError('td.core', `Invalid mode ${value}`);
+		}
 	}
 
 	setup() {

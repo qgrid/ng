@@ -25,6 +25,7 @@ export class SelectColumnModel extends ColumnModel {
 		this.title = '';
 		this.class = 'control';
 
+		this.canEdit = false;
 		this.editorOptions.cruise = 'transparent';
 		this.value = noop;
 
