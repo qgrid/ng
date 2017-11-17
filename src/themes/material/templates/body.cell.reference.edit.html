@@ -1,15 +1,28 @@
-<q-grid:cell-editor class="q-grid-reference q-grid-editor" on:close="$view.edit.cell.cancel.execute($cell, $event)" q-grid:position="td">
-	<div ng-cloak class="layout-column flex-100" ng-controller="Body.Cell.Reference.Edit.Controller as $referenceEdit">
-		<q-grid class="q-grid-embed" header="{{::$cell.column.title}}" model="$referenceEdit.gridModel" q-grid:autofocus>
-			<q-grid:toolbar>
-				<q-grid:template for="top">
-					<div class="q-grid-progress">
+<q-grid:cell-editor class="q-grid-reference q-grid-editor"
+						  on:close="$view.edit.cell.cancel.execute($cell, $event)"
+						  q-grid:position="td">
+	<div ng-cloak
+		  class="layout-column q-grid-reference-content"
+		  ng-controller="Body.Cell.Reference.Edit.Controller as $referenceEdit">
+		<div class="flex">
+			<q-grid class="q-grid-embed"
+					  header="{{::$cell.column.title}}"
+					  model="$referenceEdit.gridModel"
+					  q-grid:autofocus>
+				<q-grid:columns>
+					<q-grid:column type="select" pin="left">
+					</q-grid:column>
+				</q-grid:columns>
+				<q-grid:toolbar>
+					<q-grid:template for="top">
 						<q-grid:title></q-grid:title>
-						<q-grid:progress></q-grid:progress>
-					</div>
-				</q-grid:template>
-			</q-grid:toolbar>
-		</q-grid>
+						<div class="q-grid-progress">
+							<q-grid:progress></q-grid:progress>
+						</div>
+					</q-grid:template>
+				</q-grid:toolbar>
+			</q-grid>
+		</div>
 		<div class="flex-none q-grid-editor-actions">
 			<md-button ng-click="$referenceEdit.cancel.execute($cell, $event)">Cancel</md-button>
 			<md-button class="md-primary" ng-click="$referenceEdit.commit.execute($cell, $event)">Save</md-button>

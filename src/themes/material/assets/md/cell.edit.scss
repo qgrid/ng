@@ -20,8 +20,8 @@ td.q-grid-edit {
 		display: inline-block;
 	}
 	.q-grid-text-area {
-		height: 222px;
-		width: 348px;
+		height: 170px;
+		width: 300px;
 		textarea {
 			height: 150px !important;
 		}
@@ -41,19 +41,19 @@ td.q-grid-edit {
 		}
 	}
 	.q-grid-array {
-		min-height: 168px;
-		width: 448px;
+		min-height: 120px;
+		width: 400px;
 		height: inherit;
 		padding-bottom: 0;
 		.q-grid-array-view {
-			max-height: 448px;
+			max-height: 400px;
 			overflow-y: auto;
 		}
 	}
 	.q-grid-url,
 	.q-grid-email {
 		height: auto;
-		width: 340px;
+		width: 250px;
 		padding-bottom: 0;
 		.q-grid-url-fields,
 		.q-grid-email-fields {
@@ -62,7 +62,7 @@ td.q-grid-edit {
 	}
 	.q-grid-file {
 		height: auto;
-		width: 340px;
+		width: 300px;
 		padding-bottom: 0;
 		h2 {
 			text-align: left;
@@ -74,6 +74,7 @@ td.q-grid-edit {
 		}
 	}
 	.q-grid-autocomplete {
+		width: 200px;
 		md-autocomplete {
 			min-width: 30px;
 			background-color: transparent;
@@ -92,11 +93,16 @@ td.q-grid-edit {
 		}
 	}
 	.q-grid-reference {
-		height: 300px;
+		height: 400px;
 		width: 500px;
-		.q-grid-title {
-			h2 {
-				margin-bottom: 0;
+		padding-bottom: 12px !important;
+		.q-grid-reference-content {
+			width: 100%;
+			height: 100%;
+			.q-grid-title {
+				h2 {
+					margin-bottom: 8px;
+				}
 			}
 		}
 	}
@@ -112,8 +118,8 @@ td.q-grid-edit {
 		border-radius: 4px;
 		background-color: #fcfcfc;
 		color: rgba(0, 0, 0, 0.87);
-		min-width: 210px;
-		min-height: 102px;
+		min-width: 160px;
+		min-height: 50px;
 		left: 4px;
 		top: 0;
 		box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.2), 0 13px 19px 2px rgba(0, 0, 0, 0.14), 0 5px 24px 4px rgba(0, 0, 0, 0.12);
@@ -123,20 +129,21 @@ td.q-grid-edit {
 		flex-direction: column;
 		box-sizing: content-box;
 		z-index: 1;
+		padding: 24px;
 		.q-grid-editor-content {
-			padding: 24px;
 			width: 100%;
 			height: 100%;
+			overflow: hidden;
 			md-input-container {
 				padding: 0;
 				margin: 0;
+				width: 100%;
 			}
 			h2 {
 				margin-top: 0;
 			}
 			.q-grid-editor-actions {
 				text-align: right;
-				margin-top: 10px;
 				button {
 					margin-bottom: 0;
 					display: inline-block;
@@ -165,16 +172,19 @@ td.q-grid-edit {
 			margin: 0 5px;
 		}
 	}
+
 	&.q-grid-file-has-preview {
 		.q-grid-file-upload-message {
 			visibility: hidden;
 		}
 	}
+
 	.q-grid-file-upload-filename {
 		padding: 10px;
 		font-weight: bold;
 		color: $dark-secondary;
 	}
+
 	input {
 		opacity: 0;
 		position: absolute;
@@ -184,6 +194,7 @@ td.q-grid-edit {
 		top: 0;
 		z-index: 2;
 	}
+
 	.q-grid-file-preview {
 		opacity: 1;
 		position: absolute;
@@ -211,6 +222,7 @@ td.q-grid-edit {
 			z-index: 1;
 		}
 	}
+
 	.q-grid-file-upload-message {
 		visibility: visible;
 	}

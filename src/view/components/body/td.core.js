@@ -1,22 +1,9 @@
 import Directive from '@grid/view/directives/directive';
 import cellBuilder from '../cell/cell.build';
-import {
-	AppError
-} from '@grid/core/infrastructure';
-import {
-	VIEW_CORE_NAME,
-	TD_CORE_NAME,
-	GRID_NAME
-} from '@grid/view/definition';
-import {
-	GRID_PREFIX
-} from '@grid/core/definition';
+import {AppError} from '@grid/core/infrastructure';
+import {VIEW_CORE_NAME, TD_CORE_NAME, GRID_NAME} from '@grid/view/definition';
+import {GRID_PREFIX} from '@grid/core/definition';
 import * as css from '@grid/core/services/css';
-import {
-	jobLine
-} from '@grid/core/services/job.line';
-
-const job = jobLine(100);
 
 class TdCore extends Directive(TD_CORE_NAME, {
 	view: `^^${VIEW_CORE_NAME}`,
@@ -80,25 +67,26 @@ class TdCore extends Directive(TD_CORE_NAME, {
 	}
 
 	mode(value) {
-		const apply = this.root.applyFactory(null, 'async');
-		job(() => apply(() => {}));
+		const apply = f => f(); // this.root.applyFactory(null, 'sync');
+		// job(() => apply(() => {
+		// }));
 
-		switch (value) {
-			case 'view':
-				{
+		apply(() => {
+			switch (value) {
+				case 'view': {
 					this.enterViewMode();
 					this.element.classList.remove(`${GRID_PREFIX}-edit`);
 					break;
 				}
-			case 'edit':
-				{
+				case 'edit': {
 					this.enterEditMode();
 					this.element.classList.add(`${GRID_PREFIX}-edit`);
 					break;
 				}
-			default:
-				throw new AppError('td.core', `Invalid mode ${value}`);
-		}
+				default:
+					throw new AppError('td.core', `Invalid mode ${value}`);
+			}
+		});
 	}
 
 	setup() {
