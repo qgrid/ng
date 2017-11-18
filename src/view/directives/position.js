@@ -9,9 +9,6 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 		this.element = $element[0];
 		this.$attrs = $attrs;
 		this.$timeout = $timeout;
-
-		// this.opacity = this.element.style.opacity;
-		// this.element.style.opacity = 0;
 	}
 
 	onInit() {
@@ -21,7 +18,7 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 			while (node) {
 				if (node.nodeName.toLowerCase() === targetName) {
 					this.layout(node, this.element);
-					this.element.style.opacity = 1; //this.opacity;
+					this.element.style.opacity = 1;
 					return;
 				}
 				node = node.parentNode;
@@ -74,8 +71,8 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 		const intersection = max(intersections, i => i.area);
 		const rect = intersection.b;
 
-		source.style.left = (rect.left - tr.left) + 'px';
-		source.style.top = (rect.top - tr.top) + 'px';
+		source.style.left = tr.left + (rect.left - tr.left) + 'px';
+		source.style.top = tr.top + (rect.top - tr.top) + 'px';
 	}
 
 	intersection(a, b) {
