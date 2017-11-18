@@ -72,10 +72,9 @@ td.q-grid-edit {
 		}
 
 		&.q-grid-array {
-			min-height: 120px;
+			min-height: 48px;
 			width: 400px;
-			height: inherit;
-			padding-bottom: 0;
+			height: auto;
 			.q-grid-array-view {
 				max-height: 400px;
 				overflow-y: auto;
@@ -86,7 +85,6 @@ td.q-grid-edit {
 		&.q-grid-email {
 			height: auto;
 			width: 250px;
-			padding-bottom: 0;
 			.q-grid-url-fields,
 			.q-grid-email-fields {
 				padding-top: 8px;
@@ -94,9 +92,9 @@ td.q-grid-edit {
 		}
 
 		&.q-grid-file {
-			height: auto;
+			height: 166px;
 			width: 300px;
-			padding-bottom: 0;
+			padding-bottom: 12px;
 			h2 {
 				text-align: left;
 			}
