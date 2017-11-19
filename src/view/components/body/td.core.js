@@ -67,14 +67,10 @@ class TdCore extends Directive(TD_CORE_NAME, {
 	}
 
 	mode(value) {
-		const apply = this.root.applyFactory(null, 'async');
-
 		switch (value) {
 			case 'view': {
 				this.enterViewMode();
 				this.element.classList.remove(`${GRID_PREFIX}-edit`);
-				apply(() => {
-				});
 				break;
 			}
 			case 'edit': {

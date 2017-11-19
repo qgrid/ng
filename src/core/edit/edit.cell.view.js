@@ -15,7 +15,6 @@ export class EditCellView extends View {
 		this.table = table;
 
 		this.editor = CellEditor.empty;
-		this.commandManager = commandManager;
 
 		this.shortcut = model.action().shortcut;
 		const commands = this.commands;

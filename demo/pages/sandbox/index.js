@@ -89,27 +89,6 @@ export default function Controller($http, qgrid) {
 			}
 		},
 		{
-			key: 'chief',
-			title: 'Chief',
-			type: 'text',
-			value: (item, value) => isUndef(value) ? item.chief || null : item.chief = value !== null ? value.id : null,
-			label: item => {
-				if (isUndef(item.chief) || item.chief === null) {
-					return '';
-				}
-
-				const selectedOption = ctrl.dropdownOptions.find(option => option.id === item.chief);
-				return `${selectedOption.name.last} ${selectedOption.name.first}`;
-			},
-			editor: 'dropdown',
-			editorOptions: {
-				fetch: (item, d) => {
-					d.resolve(ctrl.dropdownOptions);
-				},
-				label: option => `${option.name.last} ${option.name.first}`
-			}
-		},
-		{
 			key: 'contact.address.zip',
 			title: 'Zip',
 			type: 'number',

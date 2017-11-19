@@ -19,8 +19,8 @@ class ActionBarCore extends Plugin {
 						this.shortcutOff = null;
 					}
 
-					this.shortcutOff = shortcut
-						.register(root.commandManager, e.state.items.map(act => act.command));
+					const commands = e.state.items.map(act => act.command);
+					this.shortcutOff = shortcut.register(root.commandManager, commands);
 				}
 			}));
 		}
