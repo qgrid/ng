@@ -32,7 +32,7 @@ export class Grid extends RootComponent {
 		this.listener = new EventListener($element[0], new EventManager(this));
 
 		const windowListener = new EventListener($window, new EventManager(this));
-		this.using(windowListener.on('focusin', this.invalidateIsActive));
+		this.using(windowListener.on('focusin', this.invalidateActive));
 	}
 
 	onInit() {
@@ -143,7 +143,7 @@ export class Grid extends RootComponent {
 		return this.model.visibility();
 	}
 
-	invalidateIsActive() {
+	invalidateActive() {
 		const activeClassName = `${GRID_PREFIX}-active`;
 		const view = this.table.view;
 		if (view.isFocused()) {
