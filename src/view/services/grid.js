@@ -30,12 +30,14 @@ export default class Grid {
 				behavior: 'core'
 			});
 
-			return () => new Promise(resolve =>
+			return job => new Promise(resolve =>
 				// trigger rerendering of html
 				this.$timeout(() => {
 					// apply core views on rendered html and invoke new digest
 					this.$timeout(() => {
-						resolve();
+						if (job) {
+							job();
+						}
 
 						model.scene({
 							status: 'stop'
@@ -43,7 +45,9 @@ export default class Grid {
 							source: 'grid',
 							behavior: 'core'
 						});
-					}, 0)
+
+						resolve();
+					}, 0);
 				}, 0)
 			);
 		};
