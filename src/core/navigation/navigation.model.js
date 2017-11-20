@@ -1,3 +1,5 @@
+import {Command} from '../command';
+
 export class NavigationModel {
 	constructor() {
 		this.cell = null;
@@ -13,6 +15,8 @@ export class NavigationModel {
 			pageUp: 'pageUp',
 			pageDown: 'pageDown',
 		};
+
+		this.go = new Command();
 	}
 
 	get rowIndex() {
