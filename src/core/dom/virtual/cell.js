@@ -13,22 +13,29 @@ export class VirtualCell extends Cell {
 	}
 
 	model() {
+		const model = super.model();
+		if(model) {
+			return model;
+		}
+
 		const rowIndex = this.dataRowIndex;
 		const columnIndex = this.dataColumnIndex;
+
+
 		if (rowIndex >= 0 && columnIndex >= 0) {
 			const gridModel = this.box.model;
 			const rows = gridModel.data().rows;
 			const columns = gridModel.view().columns;
 
 			if (rows.length > rowIndex && columns.length > columnIndex) {
-				const model = {
+				const viewModel = {
 					rowIndex: rowIndex,
 					columnIndex: columnIndex,
 					row: rows[rowIndex],
 					column: columns[columnIndex]
 				};
 
-				return new CellView(model);
+				return new CellView(viewModel);
 			}
 		}
 
