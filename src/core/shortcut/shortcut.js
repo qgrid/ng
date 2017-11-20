@@ -3,6 +3,10 @@ import {Keyboard} from '../io';
 export class Shortcut {
 	constructor(manager) {
 		this.manager = manager;
+		this.keyCode = {
+			key: null,
+			code: null
+		};
 	}
 
 	static isControl(keyCode) {

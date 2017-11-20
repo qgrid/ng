@@ -8,7 +8,7 @@ export class NavigationModel {
 			down: 'down',
 			left: 'left',
 			right: 'right',
-			next: 'tab',
+			next: 'tab|space',
 			previous: 'shift+tab',
 			home: 'home',
 			end: 'end',
@@ -16,7 +16,22 @@ export class NavigationModel {
 			pageDown: 'pageDown',
 		};
 
-		this.go = new Command();
+		this.go = new Command({
+			canExecute: e => {
+				switch (e.type) {
+					case 'next': {
+						if (e.keyCode.code === 'space') {
+							return !e.model.edit().mode;
+						}
+
+						return true;
+					}
+					default: {
+						return true;
+					}
+				}
+			}
+		});
 	}
 
 	get rowIndex() {

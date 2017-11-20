@@ -116,15 +116,17 @@ export class Navigation {
 	}
 
 	context(type, settings) {
+		const model = this.model;
 		const oldRow = this.currentRow;
 		const oldColumn = this.currentColumn;
-		const shortcut = null;
-		
+		const keyCode = model.action().shortcut.keyCode;
+
 		return Object.assign({
+			model,
 			type,
 			oldRow,
 			oldColumn,
-			shortcut
+			keyCode
 		}, settings);
 	}
 
@@ -217,7 +219,7 @@ export class Navigation {
 					const newColumn = this.nextColumn;
 					const hasNextColumn = newColumn >= 0;
 					const hasNextRow = newRow >= 0;
-					return (hasNextColumn || hasNextRow) && go.canExecute(this.context('left', {newRow, newColumn}));
+					return (hasNextColumn || hasNextRow) && go.canExecute(this.context('next', {newRow, newColumn}));
 				},
 				execute: () => {
 					const nextColumn = this.nextColumn;
