@@ -18,11 +18,7 @@ export class NavigationView extends View {
 
 		this.focus = new Command({
 			execute: cell => model.navigation({cell: new CellView(cell)}),
-			canExecute: cell => {
-				return cell
-					&& cell.column.canFocus
-					&& !CellView.equals(cell, model.navigation().cell);
-			}
+			canExecute: cell => cell && cell.column.canFocus && !CellView.equals(cell, model.navigation().cell)
 		});
 
 		this.scrollTo = new Command({
@@ -58,10 +54,8 @@ export class NavigationView extends View {
 
 		this.using(model.focusChanged.watch(e => {
 			if (e.tag.source !== 'navigation.view') {
-				const cell = table.body.cell(e.state.rowIndex, e.state.columnIndex);
-				model.navigation({
-					cell: cell.model()
-				});
+				const cell = table.body.cell(e.state.rowIndex, e.state.columnIndex).model();
+				model.navigation({cell});
 			}
 		}));
 
@@ -92,7 +86,6 @@ export class NavigationView extends View {
 
 		return dispose;
 	}
-
 
 	scroll(view, target) {
 		const tr = target.rect();

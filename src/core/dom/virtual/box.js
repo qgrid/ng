@@ -70,6 +70,16 @@ export class VirtualBox extends Box {
 		}
 	}
 
+	columns() {
+		const columns = this.model.scene().column.line;
+		const columnFactory = this.createColumnCore.bind(this);
+		return columns.map(column => columnFactory(column.index));
+	}
+
+	rowCount() {
+		return this.model.pagination().count;
+	}
+
 	rowCore(index) {
 		const viewIndex = this.context.mapper.rowToView(index);
 		if (viewIndex >= 0 && viewIndex < super.rowCount(0)) {
