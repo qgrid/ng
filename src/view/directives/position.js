@@ -88,32 +88,24 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 	}
 
 	fix(rect) {
-		const w = this.$window.innerWidth;
-		const h = this.$window.innerHeight;
-		const x = rect.left;
-		const y = rect.top;
-		const eh = rect.height;
-		const ew = rect.width;
-		const eh2 = eh / 2;
-		const ew2 = ew / 2;
-		const gtx1 = x + ew2 > w;
-		const ltx0 = x - ew2 < 0;
-		const gty1 = y + eh > h;
-		const lty0 = y - eh < 0;
-		const l = ltx0 && gtx1
-			? w / 2 - ew2
-			: gtx1
-				? x - ew
-				: ltx0
-					? x
-					: x - ew2;
-		const t = lty0 && gty1
-			? h / 2 - eh2
-			: gty1
-				? y - eh
-				: lty0
-					? y
-					: y - eh2;
+		const ww = this.$window.innerWidth;
+		const wh = this.$window.innerHeight;
+		const rx = rect.left;
+		const ry = rect.top;
+		const rh = rect.height;
+		const rw = rect.width;
+		const rh2 = rh / 2;
+		const rw2 = rw / 2;
+		const gtx1 = rx + rw > ww;
+		const ltx0 = rx < 0;
+		const gty1 = ry + rh > wh;
+		const lty0 = ry  < 0;
+		const l = ltx0 || gtx1
+			? ww / 2 - rw2
+			: rx;
+		const t = lty0 || gty1
+			? wh / 2 - rh2
+			: ry;
 
 		return {
 			left: l,
