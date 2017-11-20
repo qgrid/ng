@@ -31,15 +31,9 @@ export class GridService {
 				model.foot().cache.clear();
 
 				const stop = this.start();
-				const cancelBusy = this.busy();
+				const busy = this.busy();
 				const run = buildPipe(model);
-				const runNext = () => {
-					stop()
-						.then(() => {
-							cancelBusy();
-							nextTask();
-						});
-				};
+				const runNext = () => stop(busy).then(nextTask);
 
 				return run(source, changes, pipe)
 					.then(() => {
