@@ -5,7 +5,7 @@ import {Box} from '../box';
 import {CellBox} from './cell.box';
 import {RowBox} from './row.box';
 import {ColumnBox} from './column.box';
-import {FakeElement} from '../fake';
+import {VirtualElement} from './element';
 
 export class VirtualBox extends Box {
 	constructor(context, model, selectorMark) {
@@ -87,7 +87,8 @@ export class VirtualBox extends Box {
 		}
 
 		const rowFactory = this.createRowCore.bind(this);
-		return rowFactory(viewIndex, new FakeElement());
+		const createRect = this.createRectFactory();
+		return rowFactory(viewIndex, new VirtualElement(createRect(index)));
 	}
 
 	cellCore(rowIndex, columnIndex) {
@@ -99,7 +100,8 @@ export class VirtualBox extends Box {
 		}
 
 		const cellFactory = this.createCellCore.bind(this);
-		return cellFactory(viewRowIndex, viewColumnIndex, new FakeElement());
+		const createRect = this.createRectFactory();		
+		return cellFactory(viewRowIndex, viewColumnIndex, new VirtualElement(createRect(rowIndex)));
 	}
 
 	rowCellsCore(index) {
@@ -109,7 +111,8 @@ export class VirtualBox extends Box {
 		}
 
 		const cellFactory = this.createCellCore.bind(this);
-		return super.rowCellsCore(0).map((cell, i) => cellFactory(viewIndex, i, new FakeElement()));
+		const createRect = this.createRectFactory();
+		return super.rowCellsCore(0).map((cell, i) => cellFactory(viewIndex, i, new VirtualElement(createRect(index))));
 	}
 
 	createRowCore(index, element) {
@@ -122,5 +125,17 @@ export class VirtualBox extends Box {
 
 	createColumnCore(index) {
 		return new VirtualColumn(this, index);
+	}
+
+	createRectFactory() {
+		const height = this.model.row().height;
+		return index => ({
+			left: 0,
+			right: 0,
+			top: height * index,
+			bottom: height * (index + 1),
+			width: 0,
+			height
+		});
 	}
 }
