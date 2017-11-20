@@ -30,16 +30,22 @@ export default class Grid {
 				behavior: 'core'
 			});
 
-			return () => {
-				return this.$timeout(() => {
-					model.scene({
-						status: 'stop'
-					}, {
-						source: 'grid',
-						behavior: 'core'
-					});
-				}, 10);
-			};
+			return () => new Promise(resolve =>
+				// trigger rerendering of html
+				this.$timeout(() => {
+					// apply core views on rendered html and invoke new digest
+					this.$timeout(() => {
+						resolve();
+
+						model.scene({
+							status: 'stop'
+						}, {
+							source: 'grid',
+							behavior: 'core'
+						});
+					}, 0)
+				}, 0)
+			);
 		};
 
 		return new GridService(model, start);
