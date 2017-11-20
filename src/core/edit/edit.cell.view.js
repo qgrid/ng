@@ -103,15 +103,17 @@ export class EditCellView extends View {
 			commit: new Command({
 				priority: 1,
 				shortcut: this.shortcutFactory('commit'),
-				// TODO: add validation support
 				canExecute: cell => {
 					cell = cell || this.editor.cell;
+					const context = this.contextFactory(cell);
+					// console.log(model.validation(), context);
 					return cell
 						&& cell === this.editor.cell
 						&& cell.column.canEdit
 						&& (cell.column.class === 'control' || model.edit().mode === 'cell')
 						&& model.edit().state === 'edit'
-						&& model.edit().commit.canExecute(this.contextFactory(cell));
+						&& model.edit().commit.canExecute(context)
+						&& model.validation().canExecute(context);
 				},
 				execute: (cell, e) => {
 					Log.info('cell.edit', 'commit');
