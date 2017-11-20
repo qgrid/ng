@@ -6,6 +6,7 @@ import {TableCommandManager} from '@grid/core/command';
 import {isUndefined} from '@grid/core/utility';
 import TemplateLink from '../template/template.link';
 import {EventListener, EventManager, Model} from '@grid/core/infrastructure';
+import {Shortcut} from '@grid/core/shortcut/shortcut';
 import {GRID_PREFIX} from '@grid/core/definition';
 
 export class Grid extends RootComponent {
@@ -74,6 +75,15 @@ export class Grid extends RootComponent {
 		if (shortcut.keyDown(e, source)) {
 			e.preventDefault();
 			e.stopPropagation();
+			return;
+		}
+
+		if (e.target.tagName === 'TBODY') {
+			const code = Shortcut.translate(e);
+			if (code === 'space' || code === 'shift+space') {
+				e.preventDefault();
+			}
+			return;
 		}
 	}
 
