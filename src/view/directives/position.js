@@ -3,12 +3,13 @@ import {POSITION_NAME, GRID_NAME} from '@grid/view/definition';
 import {max} from '@grid/core/utility';
 
 class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
-	constructor($element, $attrs, $timeout) {
+	constructor($element, $attrs, $timeout, $window) {
 		super();
 
 		this.element = $element[0];
 		this.$attrs = $attrs;
 		this.$timeout = $timeout;
+		this.$window = $window;
 	}
 
 	onInit() {
@@ -71,8 +72,12 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 		const intersection = max(intersections, i => i.area);
 		const rect = intersection.b;
 
-		source.style.left = tr.left + (rect.left - tr.left) + 'px';
-		source.style.top = tr.top + (rect.top - tr.top) + 'px';
+		const left = tr.left + (rect.left - tr.left);
+		const top = tr.top + (rect.top - tr.top);
+
+		const pos = this.fix({left, top, width: sr.width, height: sr.height});
+		source.style.left = pos.left + 'px';
+		source.style.top = pos.top + 'px';
 	}
 
 	intersection(a, b) {
@@ -81,9 +86,43 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 		const area = xo * yo;
 		return {area: area, a: a, b: b};
 	}
+
+	fix(rect) {
+		const w = this.$window.innerWidth;
+		const h = this.$window.innerHeight;
+		const x = rect.left;
+		const y = rect.top;
+		const eh = rect.height;
+		const ew = rect.width;
+		const eh2 = eh / 2;
+		const ew2 = ew / 2;
+		const gtx1 = x + ew2 > w;
+		const ltx0 = x - ew2 < 0;
+		const gty1 = y + eh > h;
+		const lty0 = y - eh < 0;
+		const l = ltx0 && gtx1
+			? w / 2 - ew2
+			: gtx1
+				? x - ew
+				: ltx0
+					? x
+					: x - ew2;
+		const t = lty0 && gty1
+			? h / 2 - eh2
+			: gty1
+				? y - eh
+				: lty0
+					? y
+					: y - eh2;
+
+		return {
+			left: l,
+			top: t
+		};
+	}
 }
 
-Position.$inject = ['$element', '$attrs', '$timeout'];
+Position.$inject = ['$element', '$attrs', '$timeout', '$window'];
 
 export default {
 	restrict: 'A',

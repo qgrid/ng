@@ -14,8 +14,8 @@ export default class PopupService {
 		if (!this.isOpened(id)) {
 			throw new AppError('popup.service', `Can't close popup '${id}', it's not opened`);
 		}
-		const item = this.popups[id];
 
+		const item = this.popups[id];
 		delete this.popups[id];
 		item.close();
 	}
@@ -100,12 +100,8 @@ export default class PopupService {
 						top: (this.$window.innerHeight - (parseInt(settings.height) || 0)) / 2
 					};
 				},
-				height: () => {
-					return 500;
-				},
-				width: () => {
-					return 400;
-				}
+				height: () => 500,
+				width: () => 400
 			};
 		}
 
@@ -161,7 +157,6 @@ export default class PopupService {
 		return this.popups[id];
 	}
 }
-
 
 PopupService.$inject = [
 	'$rootScope',
