@@ -10,13 +10,18 @@ export class VirtualRow extends Row {
 	}
 
 	model() {
+		const model = super.model();
+		if (model) {
+			return model;
+		}
+
 		const index = this.dataIndex;
 		if (index >= 0) {
 			const gridModel = this.box.model;
 			const rows = gridModel.data().rows;
 			if (rows.length > index) {
-				const model = {index: index, model: rows[index]};
-				return new RowModel(model);
+				const viewModel = {index: index, model: rows[index]};
+				return new RowModel(viewModel);
 			}
 		}
 
