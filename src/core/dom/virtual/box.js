@@ -88,7 +88,7 @@ export class VirtualBox extends Box {
 
 		const rowFactory = this.createRowCore.bind(this);
 		const createRect = this.createRectFactory();
-		return rowFactory(viewIndex, new VirtualElement(createRect(index)));
+		return rowFactory(viewIndex, new VirtualElement(createRect(viewIndex)));
 	}
 
 	cellCore(rowIndex, columnIndex) {
@@ -101,7 +101,7 @@ export class VirtualBox extends Box {
 
 		const cellFactory = this.createCellCore.bind(this);
 		const createRect = this.createRectFactory();		
-		return cellFactory(viewRowIndex, viewColumnIndex, new VirtualElement(createRect(rowIndex)));
+		return cellFactory(viewRowIndex, viewColumnIndex, new VirtualElement(createRect(viewRowIndex)));
 	}
 
 	rowCellsCore(index) {
@@ -112,7 +112,9 @@ export class VirtualBox extends Box {
 
 		const cellFactory = this.createCellCore.bind(this);
 		const createRect = this.createRectFactory();
-		return super.rowCellsCore(0).map((cell, i) => cellFactory(viewIndex, i, new VirtualElement(createRect(index))));
+		return super
+			.rowCellsCore(0)
+			.map((cell, i) => cellFactory(viewIndex, i, new VirtualElement(createRect(index))));
 	}
 
 	createRowCore(index, element) {
@@ -129,11 +131,12 @@ export class VirtualBox extends Box {
 
 	createRectFactory() {
 		const height = this.model.row().height;
+		const rect = this.context.view.rect();
 		return index => ({
 			left: 0,
 			right: 0,
-			top: height * index,
-			bottom: height * (index + 1),
+			top: rect.top + height * index,
+			bottom: rect.top + height * (index + 1),
 			width: 0,
 			height
 		});
