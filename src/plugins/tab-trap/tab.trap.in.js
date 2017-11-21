@@ -13,7 +13,7 @@ class TabTrapIn extends Directive(TAB_TRAP_IN_NAME, {tabTrap: `^^${TAB_TRAP_NAME
 		element.tabIndex = 0;
 
 		const listener = new EventListener(element, new EventManager(this));
-		listener.on('focus', () => this.tabTrap.activate(this.target));
+		this.using(listener.on('focus', () => this.tabTrap.activate(this.target)));
 	}
 
 	onInit() {
@@ -30,6 +30,7 @@ TabTrapIn.$inject = ['$element', '$attrs'];
 export default {
 	restrict: 'A',
 	controller: TabTrapIn,
+	controllAs: '$tabTrap',
 	require: TabTrapIn.require,
 	link: TabTrapIn.link
 };

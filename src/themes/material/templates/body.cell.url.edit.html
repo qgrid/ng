@@ -1,7 +1,7 @@
 <q-grid:cell-editor class="q-grid-url q-grid-editor q-grid-position"
 						  on:close="$view.edit.cell.exit.execute($cell)"
 						  q-grid:position="td">
-	<q-grid:trap>
+	<q-grid:tab-trap>
 		<div layout="column" class="q-grid-url-fields" flex>
 			<md-input-container ng-if="$cell.column.label !== null">
 				<label>Label</label>
@@ -15,5 +15,5 @@
 						 ng-model="$view.edit.cell.value"/>
 			</md-input-container>
 		</div>
-	</q-grid:trap>
+	</q-grid:tab-trap>
 </q-grid:cell-editor>

@@ -4,10 +4,7 @@ class CellEditor extends Component {
 	constructor() {
 		super();
 	}
-
-	onInit() {
-	}
-
+	
 	close() {
 		this.onClose();
 	}

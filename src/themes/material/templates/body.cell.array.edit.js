@@ -5,7 +5,7 @@ ArrayEdit.$inject = [];
 export default function ArrayEdit() {
 	this.text = '';
 
-	this.keydown = e => {
+	this.keyDown = e => {
 		const code = Shortcut.translate(e);
 		if (code === 'enter') {
 			if (this.text && this.text.length) {
