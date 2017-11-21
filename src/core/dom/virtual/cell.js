@@ -1,5 +1,38 @@
 import {Cell} from '../cell';
 import {CellView} from '../../scene/view';
+import {AppError} from '../../infrastructure';
+
+class VirtualCellView {
+	constructor(selector) {
+		this.selector = selector;
+
+		this.rowIndex = 0;
+		this.columnIndex = 0;
+		this.row = null;
+		this.column = null;
+	}
+
+	get model() {
+		const model = this.selector();
+		if (!model) {
+			throw new AppError('cell', 'Can\'t invoke mode, model is not found');
+		}
+
+		return model;
+	}
+
+	mode(...args) {
+		return this.model.mode(...args);
+	}
+
+	get value() {
+		return this.model.value;
+	}
+
+	set value(value) {
+		this.model.value = value;
+	}
+}
 
 export class VirtualCell extends Cell {
 	constructor(box, rowIndex, columnIndex, element = null) {
@@ -13,14 +46,8 @@ export class VirtualCell extends Cell {
 	}
 
 	model() {
-		const model = super.model();
-		if(model) {
-			return model;
-		}
-
 		const rowIndex = this.dataRowIndex;
 		const columnIndex = this.dataColumnIndex;
-
 
 		if (rowIndex >= 0 && columnIndex >= 0) {
 			const gridModel = this.box.model;
@@ -28,17 +55,16 @@ export class VirtualCell extends Cell {
 			const columns = gridModel.view().columns;
 
 			if (rows.length > rowIndex && columns.length > columnIndex) {
-				const viewModel = {
-					rowIndex: rowIndex,
-					columnIndex: columnIndex,
-					row: rows[rowIndex],
-					column: columns[columnIndex]
-				};
-
+				const selector = () => this.box.cell(rowIndex, columnIndex).modelCore();
+				const viewModel = new VirtualCellView(selector);
+				viewModel.rowIndex = rowIndex;
+				viewModel.columnIndex = columnIndex;
+				viewModel.row = rows[rowIndex];
+				viewModel.column = columns[columnIndex];
 				return new CellView(viewModel);
 			}
 		}
-
+	
 		return null;
 	}
 

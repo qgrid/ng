@@ -71,7 +71,7 @@ export class VirtualBox extends Box {
 	}
 
 	columns() {
-		const columns = this.model.scene().column.line;
+		const columns = this.context.view.columns();
 		const columnFactory = this.createColumnCore.bind(this);
 		return columns.map(column => columnFactory(column.index));
 	}
@@ -130,6 +130,7 @@ export class VirtualBox extends Box {
 	}
 
 	createRectFactory() {
+		// TODO: use vscroll container for custom height support
 		const height = this.model.row().height;
 		const rect = this.context.view.rect();
 		return index => ({
