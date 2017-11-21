@@ -1,6 +1,8 @@
-import {Command} from '@grid/core/command';
+import {Command, CommandManager} from '@grid/core/command';
 import {PersistenceService} from '@grid/core/persistence/persistence.service';
 import {stringifyFactory} from '@grid/core/services/';
+import {Shortcut, ShortcutManager}  from '@grid/core/shortcut';
+import {clone} from '@grid/core/utility';
 
 export function PersistencePanelController(mdPanelRef) {
 	const model = this.model;
@@ -8,13 +10,18 @@ export function PersistencePanelController(mdPanelRef) {
 	const persistenceService = new PersistenceService(model);
 
 	this.items = [];
+	this.state = {
+		editItem: null,
+		oldValue: null
+	};
+
 	model.persistence()
 		.storage
 		.getItem(storageKey)
 		.then(items => {
 			this.items = items || [];
 
-			this.title = persistenceService.stringify(persistenceService.save());
+			this.title = this.stringify({model: persistenceService.save()});
 		});
 
 	this.close = () => mdPanelRef.close();
@@ -37,18 +44,54 @@ export function PersistencePanelController(mdPanelRef) {
 				.setItem(storageKey, this.items);
 
 			this.title = '';
+
+			return true;
 		},
 		canExecute: () => !!this.title && !this.items.some(item => item.title === this.title)
 	});
 
-	this.edit = new Command({
-		execute: item => {
-			item.modified = Date.now();
-			model.persistence()
-				.storage
-				.setItem(storageKey, this.items);
-		}
-	});
+	this.edit = {
+		enter: new Command({
+			shortcut: 'enter',
+			execute: item => {
+				item = item || this.items.find(this.isActive);
+				if (!item) {
+					return false;
+				}
+				this.state.editItem = item;
+				this.state.oldValue = clone(item);
+				return true;
+			},
+			canExecute: () => this.state.editItem === null
+		}),
+		commit: new Command({
+			shortcut: 'enter',
+			execute: item => {
+				item = item || this.state.editItem;
+				item.modified = Date.now();
+				model.persistence()
+					.storage
+					.setItem(storageKey, this.items);
+				this.state.editItem = null;
+				return true;
+			},
+			canExecute: () => this.state.editItem !== null
+		}),
+		cancel: new Command({
+			shortcut: 'escape',
+			execute: () => {
+				if (this.state.editItem !== null) {
+					const index = this.items.indexOf(this.state.editItem);
+					this.items.splice(index, 1, this.state.oldValue);
+					this.state.oldValue = null;
+					this.state.editItem = null;
+				} else {
+					this.close();
+				}
+				return true;
+			}
+		})
+	};
 
 	this.load = new Command({
 		execute: item => persistenceService.load(item.model)
@@ -63,7 +106,9 @@ export function PersistencePanelController(mdPanelRef) {
 				model.persistence()
 					.storage
 					.setItem(storageKey, this.items);
+				return true;
 			}
+			return false;
 		}
 	});
 
@@ -71,7 +116,7 @@ export function PersistencePanelController(mdPanelRef) {
 		execute: item => {
 			const index = this.items.indexOf(item);
 			if (index === -1) {
-				return;
+				return false;
 			}
 
 			if (item.isDefault) {
@@ -85,6 +130,7 @@ export function PersistencePanelController(mdPanelRef) {
 			model.persistence()
 				.storage
 				.setItem(storageKey, this.items);
+			return true;
 		}
 	});
 
@@ -105,6 +151,16 @@ export function PersistencePanelController(mdPanelRef) {
 
 		return targets.join('; ') || 'No settings';
 	};
+
+	const commandManager = new CommandManager();
+	const shortcut = new Shortcut(new ShortcutManager());
+
+	this.keyDown = e => shortcut.keyDown(e);
+
+	shortcut.register(commandManager, [
+		this.edit.enter,
+		this.edit.commit,
+		this.edit.cancel]);
 }
 
 PersistencePanelController.$inject = ['mdPanelRef'];
