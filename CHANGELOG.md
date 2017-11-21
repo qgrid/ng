@@ -166,6 +166,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Data manipulation plugin.
 
 [Unreleased]: https://github.com/qgrid/ng/compare/v1.1.0...HEAD
-[1.0.65]: https://github.com/qgrid/ng/compare/v1.0.65...v1.1.0
+[1.1.0]: https://github.com/qgrid/ng/compare/v1.0.65...v1.1.0
 [1.0.65]: https://github.com/qgrid/ng/compare/v1.0.64...v1.0.65
 [1.0.64]: https://github.com/qgrid/ng/compare/v1.0.63...v1.0.64
