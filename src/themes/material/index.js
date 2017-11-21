@@ -2,12 +2,14 @@ require('./index.scss');
 
 import ReferenceEdit from './templates/body.cell.reference.edit';
 import BoolEdit from './templates/body.cell.bool.edit';
+import ArrayEdit from './templates/body.cell.array.edit';
 import RowOptions from './templates/body.cell.row.options.edit';
 
 export default angular
 	.module('qgrid.theme.material', ['qgrid'])
 	.controller('Body.Cell.Reference.Edit.Controller', ReferenceEdit)
 	.controller('Body.Cell.Bool.Edit.Controller', BoolEdit)
+	.controller('Body.Cell.Array.Edit.Controller', ArrayEdit)
 	.controller('Body.Cell.Row.Options.Controller', RowOptions)
 	.config(Setup)
 	.name;
