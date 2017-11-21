@@ -4,5 +4,4 @@ export declare class ValidationModel {
 	constructor();
 	resource: Resource;
 	rules: object[];
-	canExecute?: () => boolean;
 }

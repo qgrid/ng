@@ -6,6 +6,7 @@ import {getFactory as valueFactory} from '../services/value';
 import {getFactory as labelFactory} from '../services/label';
 import {parseFactory} from '../services';
 import {View} from '../view';
+import * as validationService from '../../plugins/validation/validation.service';
 
 export class EditCellView extends View {
 	constructor(model, table, commandManager) {
@@ -106,14 +107,16 @@ export class EditCellView extends View {
 				canExecute: cell => {
 					cell = cell || this.editor.cell;
 					const context = this.contextFactory(cell);
-					// console.log(model.validation(), context);
+					const key = context.column.key;
+					const validator = validationService.createValidator(model.validation().rules, key);
+					const valid = validator.validate({[key]: this.value});
 					return cell
 						&& cell === this.editor.cell
 						&& cell.column.canEdit
 						&& (cell.column.class === 'control' || model.edit().mode === 'cell')
 						&& model.edit().state === 'edit'
 						&& model.edit().commit.canExecute(context)
-						&& model.validation().canExecute(context);
+						&& valid;
 				},
 				execute: (cell, e) => {
 					Log.info('cell.edit', 'commit');
@@ -252,19 +255,20 @@ export class EditCellView extends View {
 	}
 
 	contextFactory(cell, value, label, tag) {
+		const {column, row, columnIndex, rowIndex, value: oldValue, label: oldLabel} = cell;
 		return {
-			column: cell.column,
-			row: cell.row,
-			columnIndex: cell.columnIndex,
-			rowIndex: cell.rowIndex,
-			oldValue: cell.value,
-			newValue: arguments.length >= 2 ? value : cell.value,
-			oldLabel: cell.label,
-			newLabel: arguments.length >= 3 ? label : cell.label,
+			column,
+			row,
+			columnIndex,
+			rowIndex,
+			oldValue,
+			newValue: arguments.length >= 2 ? value : oldValue,
+			oldLabel,
+			newLabel: arguments.length >= 3 ? label : oldLabel,
 			unit: 'cell',
-			tag: tag,
-			valueFactory: valueFactory,
-			labelFactory: labelFactory
+			tag,
+			valueFactory,
+			labelFactory
 		};
 	}
 
