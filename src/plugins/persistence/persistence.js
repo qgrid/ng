@@ -52,7 +52,7 @@ class Persistence extends Plugin {
 							},
 							openFrom: e,
 							clickOutsideToClose: true,
-							escapeToClose: true,
+							escapeToClose: false,
 							focusOnOpen: false,
 							zIndex: 2
 						};
