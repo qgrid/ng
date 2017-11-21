@@ -10,6 +10,7 @@ export class EditModel {
 		this.commit = new Command();
 		this.cancel = new Command();
 		this.reset = new Command();
+		this.clear = new Command();
 
 		this.cancelShortcuts = {
 			'$default': 'escape'
@@ -22,15 +23,12 @@ export class EditModel {
 		};
 
 		this.commitShortcuts = {
-			'$default': 'tab|shift+tab|enter',
-			'date': 'ctrl+s',
-			'array': 'ctrl+s',
+			'$default': 'tab|shift+tab|enter|ctrl+s',
 			'reference': 'ctrl+s',
-			'email': 'ctrl+s',
-			'file': 'ctrl+s',
-			'image': 'ctrl+s',
 			'row': 'ctrl+s',
-			'form': 'ctrl+s'
+			'form': 'ctrl+s',
+			'select': 'space|enter',
+			'bool': 'tab|shift+tab|left|right|up|down|home|end|pageUp|pageDown'
 		};
 	}
 }

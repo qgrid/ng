@@ -6,9 +6,11 @@ import {TableCommandManager} from '@grid/core/command';
 import {isUndefined} from '@grid/core/utility';
 import TemplateLink from '../template/template.link';
 import {EventListener, EventManager, Model} from '@grid/core/infrastructure';
+import {Shortcut} from '@grid/core/shortcut/shortcut';
+import {GRID_PREFIX} from '@grid/core/definition';
 
 export class Grid extends RootComponent {
-	constructor($rootScope, $scope, $element, $transclude, $document, $timeout, $templateCache, $compile) {
+	constructor($rootScope, $scope, $element, $transclude, $document, $timeout, $templateCache, $compile, $window) {
 		super('grid', 'data', 'selection', 'sort', 'group', 'pivot', 'edit', 'style', 'action', 'filter');
 
 		this.$rootScope = $rootScope;
@@ -27,7 +29,11 @@ export class Grid extends RootComponent {
 			body: new Bag(),
 			foot: new Bag()
 		};
-		this.listener = new EventListener($element[0], new EventManager(this, this.applyFactory(null, 'sync')));
+
+		this.listener = new EventListener($element[0], new EventManager(this));
+
+		const windowListener = new EventListener($window, new EventManager(this));
+		this.using(windowListener.on('focusin', this.invalidateActive));
 	}
 
 	onInit() {
@@ -42,19 +48,15 @@ export class Grid extends RootComponent {
 
 		const bag = this.bag;
 		const layerFactory = new LayerFactory(this.markup, this.template);
+		const apply = this.applyFactory(null, 'sync');
 		const tableContext = {
 			layer: name => layerFactory.create(name),
 			bag: bag
 		};
 
 		this.table = new Table(model, this.markup, tableContext);
-		this.commandManager = new TableCommandManager(this.applyFactory(), this.table);
-		this.using(this.listener.on('keydown', e => {
-			if (model.action().shortcut.keyDown(e)) {
-				e.preventDefault();
-				e.stopPropagation();
-			}
-		}));
+		this.commandManager = new TableCommandManager(apply, this.table);
+		this.using(this.listener.on('keydown', this.keyDown.bind(this)));
 
 		if (!this.gridId) {
 			this.$element[0].id = model.grid().id;
@@ -66,6 +68,23 @@ export class Grid extends RootComponent {
 				this.invalidateVisibility();
 			}
 		}));
+	}
+
+	keyDown(e, source = 'grid') {
+		const shortcut = this.model.action().shortcut;
+		if (shortcut.keyDown(e, source)) {
+			e.preventDefault();
+			e.stopPropagation();
+			return;
+		}
+
+		if (e.target.tagName === 'TBODY') {
+			const code = Shortcut.translate(e);
+			if (code === 'space' || code === 'shift+space') {
+				e.preventDefault();
+			}
+			return;
+		}
 	}
 
 	compile() {
@@ -134,8 +153,15 @@ export class Grid extends RootComponent {
 		return this.model.visibility();
 	}
 
-	get isActive() {
-		return this.table.view.isFocused();
+	invalidateActive() {
+		const activeClassName = `${GRID_PREFIX}-active`;
+		const view = this.table.view;
+		if (view.isFocused()) {
+			view.addClass(activeClassName);
+		}
+		else {
+			view.removeClass(activeClassName);
+		}
 	}
 
 	onDestroy() {
@@ -157,11 +183,12 @@ Grid.$inject = [
 	'$document',
 	'$timeout',
 	'$templateCache',
-	'$compile'
+	'$compile',
+	'$window'
 ];
 
 /**
- * By convention all binding should be named in camelCase like: modelname + [P]ropertyname
+ * By convention all bindings should be named in camelCase like: modelname + [P]ropertyname
  */
 export default {
 	transclude: true,

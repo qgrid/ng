@@ -1,7 +1,7 @@
 export class Layer {
 	constructor($scope, element, template) {
 		this.$scope = $scope;
-		this.element = element
+		this.element = element;
 		this.template = template;
 	}
 

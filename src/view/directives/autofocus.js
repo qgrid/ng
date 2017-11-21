@@ -46,7 +46,7 @@ class Autofocus extends Directive(AUTOFOCUS_NAME, {root: `${GRID_NAME}`}) {
 							const cells = row.cells();
 							const columnIndex = cells.findIndex(c => {
 								const m = c.model();
-								return m && m.column.canFocus
+								return m && m.column.canFocus;
 							});
 
 							if (columnIndex >= 0) {

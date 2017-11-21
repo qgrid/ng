@@ -1,10 +1,7 @@
-<div ng-switch="$view.selection.state($row)">
-	<div class="q-grid-checked" ng-switch-when="true">
-		<md-icon>check</md-icon>
-	</div>
-	<div class="q-grid-unchecked" ng-switch-when="false">
-	</div>
-	<div class="q-grid-indeterminate" ng-if="$view.selection.isIndeterminate($row)">
-		<md-icon>remove</md-icon>
-	</div>
-</div>
+<md-checkbox md-indeterminate="$view.selection.isIndeterminate($row)"
+             ng-checked="$view.selection.state($row)"
+             q-grid:prevent-default="mousedown"
+             ng-click="$view.selection.toggleRow.execute($row)"
+             tab-index="-1"
+             aria-label="Selection">
+</md-checkbox>

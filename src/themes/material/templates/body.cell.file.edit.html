@@ -1,5 +1,6 @@
-<div ng-cloak class="q-grid-editor q-grid-file" q-grid-position="td">
-	<h2 class="md-title">Edit {{::$cell.column.title}}</h2>
+<q-grid:cell-editor class="q-grid-editor q-grid-file q-grid-position"
+						  on:close="$view.edit.cell.cancel.execute($cell)"
+						  q-grid:position="td">
 	<div layout="column" flex>
 		<div class="q-grid-file-upload-area"
 			  ng-class="{'q-grid-file-has-preview': $cell.column.hasPreview($view.edit.cell.label)}">
@@ -22,11 +23,11 @@
 				<img ng-src="{{$view.edit.cell.value}}"/>
 			</div>
 		</div>
+		<div class="flex-none q-grid-actions">
+			<md-button class="md-primary md-confirm-button" ng-click="$view.edit.cell.commit.execute($cell, $event)">Save
+			</md-button>
+			<md-button ng-click="$view.edit.cell.clear.execute($cell)">Clear</md-button>
+			<md-button class="md-cancel-button" ng-click="$view.edit.cell.cancel.execute($cell, $event)">Cancel</md-button>
+		</div>
 	</div>
-	<div class="q-grid-actions">
-		<md-button class="md-primary md-confirm-button" ng-click="$view.edit.cell.commit.execute($cell, $event)">Save
-		</md-button>
-		<md-button class="md-primary md-cancel-button" ng-click="$view.edit.cell.cancel.execute($cell, $event)">Cancel
-		</md-button>
-	</div>
-</div>
+</q-grid:cell-editor>

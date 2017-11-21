@@ -1,11 +1,12 @@
 <div ng-controller="Body.Cell.Bool.Edit.Controller as $boolEdit">
 	<md-checkbox aria-label="Bool cell edit"
-					 class="md-primary"
-					 q-grid:focus
-					 md-indeterminate="$boolEdit.isIndeterminate()"
-					 ng-checked="$boolEdit.isChecked()"
-					 ng-true-value="{{::$boolEdit.trueValue()}}"
-					 ng-false-value="{{::$boolEdit.falseValue()}}"
-					 ng-model="$view.edit.cell.value">
+	             class="md-primary"
+	             q-grid:focus
+	             ng-blur="$view.edit.cell.commit.execute($cell)"
+	             md-indeterminate="$boolEdit.isIndeterminate()"
+	             ng-checked="$boolEdit.isChecked()"
+	             ng-true-value="{{::$boolEdit.trueValue()}}"
+	             ng-false-value="{{::$boolEdit.falseValue()}}"
+	             ng-model="$view.edit.cell.value">
 	</md-checkbox>
 </div>

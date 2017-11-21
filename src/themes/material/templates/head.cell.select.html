@@ -5,11 +5,11 @@
 	</div>
 	<div ng-switch-default>
 		<md-checkbox md-indeterminate="$view.selection.isIndeterminate()"
-						 ng-checked="$view.selection.state()"
-						 ng-click="$view.selection.toggleRow.execute()"
-						 ng-disabled="!$view.selection.toggleRow.canExecute()"
-						 tabindex="-1"
-						 aria-label="Selection">
+		             ng-checked="$view.selection.state()"
+		             ng-click="$view.selection.toggleRow.execute(null)"
+		             tabindex="-1"
+		             q-grid:prevent-default="mousedown"
+		             aria-label="Selection">
 		</md-checkbox>
 	</div>
 </div>

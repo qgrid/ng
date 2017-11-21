@@ -3,6 +3,10 @@ import {Keyboard} from '../io';
 export class Shortcut {
 	constructor(manager) {
 		this.manager = manager;
+		this.keyCode = {
+			key: null,
+			code: null
+		};
 	}
 
 	static isControl(keyCode) {
@@ -65,14 +69,14 @@ export class Shortcut {
 		};
 	}
 
-	keyDown(e) {
+	keyDown(e, source) {
 		const code = Shortcut.translate(e);
 		this.keyCode = {
 			key: e.key,
 			code: code
 		};
 
-		return this.manager.execute(code);
+		return this.manager.execute(code, source);
 	}
 
 	register(commandManager, commands) {

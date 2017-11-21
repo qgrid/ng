@@ -7,4 +7,6 @@ export declare class ShortcutManager {
   register(manager: CommandManager, commands: Command[]);
 
   execute(code: string);
+
+  canExecute(code: string);
 }

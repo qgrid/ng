@@ -30,7 +30,8 @@ export class ColumnModel {
 		this.class = 'data';
 		this.editor = null;
 		this.editorOptions = {
-			trigger: 'click',
+			trigger: 'click', // click | custom | focus
+			cruise: 'control', // control | transparent
 			label: null,
 			value: identity,
 			commit: new Command(),

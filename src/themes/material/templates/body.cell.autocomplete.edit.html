@@ -1,18 +1,21 @@
-<div class="q-grid-editor q-grid-autocomplete" q-grid-position="td">
+<q-grid:cell-editor class="q-grid-autocomplete q-grid-editor q-grid-position "
+						  on:close="$view.edit.cell.exit.execute($cell)"
+						  q-grid:position="td">
 	<md-autocomplete
 		md-autofocus
+		placeholder="Pick a {{::$cell.column.title}}"
 		q-grid:raise="focus"
 		md-selected-item="$view.edit.cell.value"
-		ng-blur="$view.edit.cell.commit.execute($cell)"
 		ng-model="$view.edit.cell.value"
 		md-search-text="searchText"
 		md-search-text-change="$view.edit.cell.fetch.run($cell.row, searchText)"
 		md-items="item in $view.edit.cell.fetch.busy"
 		md-item-text="item"
-		md-clear-button="false"
-		placeholder="Select a value">
+		md-menu-class="q-grid-autocomplete-menu"
+		md-escape-options="none"
+		md-clear-button="false">
 		<md-item-template>
 			<span md-highlight-text="searchText">{{item}}</span>
 		</md-item-template>
 	</md-autocomplete>
-</div>
+</q-grid:cell-editor>

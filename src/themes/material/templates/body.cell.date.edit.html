@@ -1,13 +1,8 @@
-<div class="q-grid-editor q-grid-date" q-grid-position="td"
-	  ng-controller="Body.Cell.Date.Edit.Controller as $dateEdit">
-	<h2 class="md-title">Edit {{::$cell.column.title}}</h2>
+<q-grid:cell-editor class="q-grid-date q-grid-editor q-grid-position"
+					on:close="$view.edit.cell.exit.execute($cell)"
+					q-grid:position="td">
 	<md-datepicker ng-model="$view.edit.cell.value"
-						md-placeholder="Enter date"
-						md-is-open="$dateEdit.pickerOpened"
-						q-grid:focus="input">
+					md-debounce-interval="0" 
+					q-grid:focus="input">
 	</md-datepicker>
-	<div class="q-grid-actions">
-		<md-button class="md-primary md-confirm-button" ng-click="$view.edit.cell.commit.execute($cell, $event)">Save</md-button>
-		<md-button class="md-primary md-cancel-button" ng-click="$view.edit.cell.cancel.execute($cell, $event)">Cancel</md-button>
-	</div>
-</div>
+</q-grid:cell-editor>

@@ -1,19 +1,34 @@
 import PluginComponent from '../plugin.component';
 import {Action} from '@grid/core/action';
 import {Command} from '@grid/core/command';
+import {Composite} from '@grid/core/infrastructure/composite';
 import {PersistencePanelController} from './persistence.panel';
+import {PersistenceService} from '@grid/core/persistence/persistence.service';
 
 const Plugin = PluginComponent('persistence', {
 	inject: ['qgrid', '$mdPanel', '$document']
 });
 
-class Peresistence extends Plugin {
+class Persistence extends Plugin {
 	constructor() {
 		super(...arguments);
 	}
 
 	onInit() {
 		const model = this.model;
+		const storageKey = `q-grid:${model.grid().id}:${model.persistence().id}:persistence-list`;
+
+		model.persistence()
+			.storage
+			.getItem(storageKey)
+			.then(items => {
+				items = items || [];
+				const defaultItem = items.find(item => item.isDefault);
+				if (defaultItem) {
+					const persistenceService = new PersistenceService(model);
+					persistenceService.load(defaultItem.model);
+				}
+			});
 
 		const actions = [
 			new Action(
@@ -32,11 +47,12 @@ class Peresistence extends Plugin {
 							panelClass: 'q-grid-persistence-panel',
 							position: position,
 							locals: {
-								model: model
+								model: model,
+								storageKey: storageKey
 							},
 							openFrom: e,
 							clickOutsideToClose: true,
-							escapeToClose: true,
+							escapeToClose: false,
 							focusOnOpen: false,
 							zIndex: 2
 						};
@@ -52,13 +68,13 @@ class Peresistence extends Plugin {
 
 		model
 			.action({
-				items: actions.concat(model.action().items)
+				items: Composite.list([actions, model.action().items])
 			});
 	}
 }
 
-export default Peresistence.component({
-	controller: Peresistence,
+export default Persistence.component({
+	controller: Persistence,
 	controllerAs: '$persistence',
 	bindings: {
 		'onSubmit': '&',

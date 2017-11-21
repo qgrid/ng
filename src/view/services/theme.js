@@ -5,7 +5,7 @@ const DefaultTheme = 'default';
 export default class ThemeProvider {
 	constructor() {
 		this.themes = new Map();
-		this.$get.$inject = ['$templateCache']
+		this.$get.$inject = ['$templateCache'];
 	}
 
 	register(theme, apply) {

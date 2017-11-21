@@ -1,0 +1,34 @@
+<style>
+	div.male {
+		background: #22DB7E;
+	}
+
+	div.female {
+		background: #267ED5;
+	}
+
+	div.undef {
+		background: #999;
+	}
+</style>
+
+<q-grid header="{{::$details.title}}" rows="$ctrl.rows">
+	<q-grid:columns generation="deep">
+		<q-grid:column key="gender-legend" type="row-indicator" width="50">
+			<q-grid:template for="body">
+				<div class="q-grid-legend-item" ng-class="$cell.row.gender"></div>
+			</q-grid:template>
+		</q-grid:column>
+		<q-grid:column key="gender" is-visible="false"></q-grid:column>
+	</q-grid:columns>
+
+	<q-grid:legend>
+		<q-grid:template for="content">
+			<ul class="q-grid-legend-list">
+				<li><div class="q-grid-legend-item male"></div> Male</li>
+				<li><div class="q-grid-legend-item female"></div> Female</li>
+				<li><div class="q-grid-legend-item undef"></div> Undefined</li>
+			</ul>
+		</q-grid:template>
+	</q-grid:legend>
+</q-grid>

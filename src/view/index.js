@@ -35,6 +35,8 @@ import Raise from './directives/raise';
 import Animate from './directives/animate';
 import Position from './directives/position';
 import Autofocus from './directives/autofocus';
+import StopPropagate from './directives/stop.propagate';
+import PreventDefault from './directives/prevent.default';
 
 import ThemeProvider from './services/theme';
 import Range from './filters/range';
@@ -43,7 +45,7 @@ import Highlight from './filters/highlight';
 import * as def from './definition';
 require('vscroll'); // TODO: make vscroll export
 
-export const coreModule = angular.module(def.MODULE_CORE_NAME, [])
+export const coreModule = angular.module(def.MODULE_CORE_NAME, []) // eslint-disable-line no-undef
 	.directive(def.DRAG_NAME, () => Drag)
 	.directive(def.DROP_NAME, () => Drop)
 	.directive(def.INDETERMINATE_NAME, () => Indeterminate)
@@ -55,6 +57,8 @@ export const coreModule = angular.module(def.MODULE_CORE_NAME, [])
 	.directive(def.ANIMATE_NAME, () => Animate)
 	.directive(def.POSITION_NAME, () => Position)
 	.directive(def.AUTOFOCUS_NAME, () => Autofocus)
+	.directive(def.STOP_PROPAGATE_NAME, () => StopPropagate)
+	.directive(def.PREVENT_DEFAULT_NAME, () => PreventDefault)
 	.provider(def.THEME_NAME, () => new ThemeProvider())
 	.service(def.TEMPLATE_PATH_NAME, () => () => TemplatePath)
 	.filter(def.RANGE_NAME, () => Range)
@@ -69,7 +73,7 @@ export const coreModule = angular.module(def.MODULE_CORE_NAME, [])
 // TODO: get rid of static require
 import Template from './components/template/template';
 
-export const layoutModule = angular.module(def.MODULE_LAYOUT_NAME, [coreModule])
+export const layoutModule = angular.module(def.MODULE_LAYOUT_NAME, [coreModule])  // eslint-disable-line no-undef
 	.component(def.GRID_NAME, Grid)
 	.component(def.BOX_CORE_NAME, BoxCore)
 	.component(def.VIEW_CORE_NAME, ViewCore)

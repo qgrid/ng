@@ -32,7 +32,7 @@ class Focus extends Directive(FOCUS_NAME) {
 				}
 			}
 
-			targetElement.focus()
+			targetElement.focus();
 		}, delay);
 	}
 }

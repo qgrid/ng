@@ -1,8 +1,4 @@
-import {
-	GRID,
-	MODULE_NAME as GRID_MODULE_NAME,
-	MODULE_CORE_NAME as GRID_MODULE_CORE_NAME
-} from '@grid/view/definition';
+import {GRID, MODULE_NAME as GRID_MODULE_NAME, MODULE_CORE_NAME as GRID_MODULE_CORE_NAME} from '@grid/view/definition';
 
 export const MODULE_CORE_NAME = GRID_MODULE_CORE_NAME;
 export const MODULE_NAME = `${GRID_MODULE_NAME}.plugin`;
@@ -26,6 +22,8 @@ export const ACTION_BAR_CORE_NAME = `${GRID}ActionBarCore`;
 export const ACTION_BAR_NAME = `${GRID}ActionBar`;
 export const ACTION_NAME = `${GRID}Action`;
 export const ACTION_CORE_NAME = `${GRID}ActionCore`;
+export const CELL_EDITOR_NAME = `${GRID}CellEditor`;
+export const BACKDROP_NAME = `${GRID}Backdrop`;
 
 export const POPUP_NAME = `${GRID}Popup`;
 export const POPUP_TRIGGER_NAME = `${GRID}PopupTrigger`;
@@ -35,6 +33,15 @@ export const POPUP_PANEL_NAME = `${GRID}PopupPanel`;
 export const POPUP_SERVICE = `${GRID}PopupService`;
 export const POPUP_CLOSE_NAME = `${GRID}PopupClose`;
 
+export const TAB_TRAP_NAME = `${GRID}TabTrap`;
+export const TAB_TRAP_IN_NAME = `${GRID}TabTrapIn`;
+
 export const MENU_NAME = `${GRID}Menu`;
 export const PERSISTENCE_NAME = `${GRID}Persistence`;
 export const TITLE_NAME = `${GRID}Title`;
+export const LEGEND_NAME = `${GRID}Legend`;
+export const LEGEND_CORE_NAME = `${GRID}LegendCore`;
+
+export const VALIDATION_NAME = `${GRID}Validation`;
+export const VALIDATOR_NAME = `${GRID}Validator`;
+export const RULE_NAME = `${GRID}Rule`;

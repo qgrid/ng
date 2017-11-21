@@ -1,15 +1,15 @@
 require('./index.scss');
 
 import ReferenceEdit from './templates/body.cell.reference.edit';
-import DateEdit from './templates/body.cell.date.edit';
 import BoolEdit from './templates/body.cell.bool.edit';
+import ArrayEdit from './templates/body.cell.array.edit';
 import RowOptions from './templates/body.cell.row.options.edit';
 
 export default angular
 	.module('qgrid.theme.material', ['qgrid'])
 	.controller('Body.Cell.Reference.Edit.Controller', ReferenceEdit)
-	.controller('Body.Cell.Date.Edit.Controller', DateEdit)
 	.controller('Body.Cell.Bool.Edit.Controller', BoolEdit)
+	.controller('Body.Cell.Array.Edit.Controller', ArrayEdit)
 	.controller('Body.Cell.Row.Options.Controller', RowOptions)
 	.config(Setup)
 	.name;
@@ -48,7 +48,12 @@ function Setup(qgridThemeProvider) {
 		theme.put(plugin('persistence-panel'), require('./templates/plugin.persistence.panel.html'));
 		theme.put(plugin('visibility'), require('./templates/plugin.visibility.html'));
 		theme.put(plugin('title'), require('./templates/plugin.title.html'));
-		
+		theme.put(plugin('cell-editor'), require('./templates/plugin.cell.editor.html'));
+		theme.put(plugin('backdrop'), require('./templates/plugin.backdrop.html'));
+		theme.put(plugin('tab-trap'), require('./templates/plugin.tab.trap.html'));
+		theme.put(plugin('legend-core'), require('./templates/plugin.legend.core.html'));
+		theme.put(plugin('validator'), require('./templates/plugin.validator.html'));
+
 		theme.put(cell('head', 'filter-row'), require('./templates/head.cell.filter.row.html'));
 
 		theme.put(cell('head', 'text'), require('./templates/head.cell.text.html'));
@@ -90,7 +95,6 @@ function Setup(qgridThemeProvider) {
 		theme.put(cell('head', 'select'), require('./templates/head.cell.select.html'));
 		theme.put(cell('body', 'select'), require('./templates/body.cell.select.html'));
 		theme.put(cell('foot', 'select'), require('./templates/foot.cell.text.html'));
-		theme.put(cell('body', 'select.edit'), require('./templates/body.cell.select.edit.html'));
 
 		theme.put(cell('head', 'group'), require('./templates/head.cell.text.html'));
 		theme.put(cell('body', 'group'), require('./templates/body.cell.group.html'));

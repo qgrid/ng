@@ -12,18 +12,18 @@ export class LayerFactory {
 
 	create(name) {
 		const markup = this.markup;
-		const node = markup.document.createElement(`div`);
+		const node = markup.document.createElement('div');
 		node.classList.add(css.escapeAttr(name));
 		node.classList.add(`${GRID_PREFIX}-layer`);
 		markup.view.appendChild(node);
 
 		const ctrl = angular.element(markup.view).controller(VIEW_CORE_NAME);
 		if (!ctrl) {
-			throw new AppError('box', 'Controller for box is not found')
+			throw new AppError('layer.factory', 'Controller for box is not found');
 		}
 
 		if (!ctrl.$scope) {
-			throw new AppError('box', 'Controller scope for box is not found')
+			throw new AppError('layer.factory', 'Controller scope for box is not found');
 		}
 
 		return new Layer(ctrl.$scope, node, this.template);
