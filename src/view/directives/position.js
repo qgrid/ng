@@ -3,12 +3,13 @@ import {POSITION_NAME, GRID_NAME} from '@grid/view/definition';
 import {max} from '@grid/core/utility';
 
 class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
-	constructor($element, $attrs, $timeout) {
+	constructor($element, $attrs, $timeout, $window) {
 		super();
 
 		this.element = $element[0];
 		this.$attrs = $attrs;
 		this.$timeout = $timeout;
+		this.$window = $window;
 	}
 
 	onInit() {
@@ -29,11 +30,11 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 	layout(target, source) {
 		const tr = target.getBoundingClientRect();
 		const sr = source.getBoundingClientRect();
-		const vr = this.root.table.view.rect();
+		const cr = this.clientRect();
 
 		const intersections = [];
 		intersections.push(
-			this.intersection(vr, {
+			this.intersection(cr, {
 				index: 0,
 				top: tr.top,
 				right: tr.left + sr.width,
@@ -42,7 +43,7 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 			}));
 
 		intersections.push(
-			this.intersection(vr, {
+			this.intersection(cr, {
 				index: 1,
 				top: tr.top,
 				right: tr.right,
@@ -51,7 +52,7 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 			}));
 
 		intersections.push(
-			this.intersection(vr, {
+			this.intersection(cr, {
 				index: 2,
 				top: tr.bottom - sr.height,
 				right: tr.left + sr.width,
@@ -60,7 +61,7 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 			}));
 
 		intersections.push(
-			this.intersection(vr, {
+			this.intersection(cr, {
 				index: 3,
 				top: tr.bottom - sr.height,
 				right: tr.right,
@@ -71,8 +72,15 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 		const intersection = max(intersections, i => i.area);
 		const rect = intersection.b;
 
-		source.style.left = tr.left + (rect.left - tr.left) + 'px';
-		source.style.top = tr.top + (rect.top - tr.top) + 'px';
+		const pos = this.fix({
+			left: rect.left,
+			top: rect.top,
+			width: sr.width,
+			height: sr.height
+		});
+
+		source.style.left = pos.left + 'px';
+		source.style.top = pos.top + 'px';
 	}
 
 	intersection(a, b) {
@@ -81,9 +89,44 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 		const area = xo * yo;
 		return {area: area, a: a, b: b};
 	}
+
+	fix(rect) {
+		const cr = this.clientRect();
+		const w = cr.width;
+		const h = cr.height;
+		const rx = rect.left;
+		const ry = rect.top;
+		const rh = rect.height;
+		const rw = rect.width;
+		const gtx1 = rx + rw > w;
+		const ltx0 = rx < 0;
+		const gty1 = ry + rh > h;
+		const lty0 = ry < 0;
+		const left = ltx0 || gtx1
+			? (w - rw) / 2
+			: rx;
+		const top = lty0 || gty1
+			? (h - rh) / 2
+			: ry;
+
+		return {left, top};
+	}
+
+	clientRect() {
+		const wnd = this.$window;
+
+		return {
+			top: 0,
+			left: 0,
+			bottom: wnd.innerHeight,
+			right: wnd.innerWidth,
+			height: wnd.innerHeight,
+			width: wnd.innerWidth
+		};
+	}
 }
 
-Position.$inject = ['$element', '$attrs', '$timeout'];
+Position.$inject = ['$element', '$attrs', '$timeout', '$window'];
 
 export default {
 	restrict: 'A',
