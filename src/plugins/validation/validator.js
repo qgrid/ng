@@ -1,5 +1,5 @@
 import PluginComponent from '../plugin.component';
-import * as validationService from '@grid//core/validation/validation.service';
+import * as validationService from '@grid/core/validation/validation.service';
 
 const Plugin = PluginComponent('validator');
 
