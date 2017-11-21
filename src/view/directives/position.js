@@ -28,12 +28,9 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 	}
 
 	layout(target, source) {
-		const tr = target.getBoundingClientRect();
-		const sr = source.getBoundingClientRect();
+		const {top, right, left, bottom} = target.getBoundingClientRect();
+		const {width, height} = source.getBoundingClientRect();
 		const cr = this.clientRect();
-
-		const {top, right, left, bottom} = tr;
-		const {width, height} = sr;
 
 		const intersections = [];
 		intersections.push(
