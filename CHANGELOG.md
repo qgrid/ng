@@ -4,15 +4,46 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
-- Revisit all cell editors.
-- Get rid of cancel and save buttons in all cell editors, exceptions are: reference, file and image editors.
+- Embed validation framework to cell edit workflow.
+- Shortcut keycode can be a sequence.
+- Fix navigation behavior for row groups.
+- Mouse wheel should work withing frozen columns.
+- Improve navigation performance.
+- Put plugin framework independent code under core.
+- Brand new documentation.
+- Edit form performance improvements.
+- Revisit drop-down editor.
+- Column filter for date types. 
+- Editors vs window resizing.
+- +104 JIRA tasks :-)
+ 
+## [1.1.0] - 2017-11-21
+### Added
+- [Legend plugin](https://qgrid.github.io/ng/#!/legend). 
+- Added `composite` utility to the grid service.
+- [Validation model](https://qgrid.github.io/ng/#!/validation).
+- Use [LIVR](https://github.com/koorchik/js-validator-livr) as internal validation engine.
 - Add clear button to file and image cell editors.
+- Command priorities.
+- `Tab trap` component that is used in the url editor.
+- Prevent default directive.
+- `Go command` in navigation model that can be use for user control.
+
+### Fixed
+- Handle space key down in view mode.
 - Cell editors not limited by grid area.
+- Redraw highlighting on page size changed.
+- Fix escape press behavior in auto-complete editor. 
+- Fix enter press behavior in email editor.
+- Use `focusin` event for the grid active indicator. 
+- Correct way to handle editor property for different column types.  
+
+### Changed
+- (Persistence plugin)[(https://qgrid.github.io/ng/#!/persistence)] enhancements. Default settings, editing, tooltips. 
+- Get rid of cancel and save buttons in all cell editors, exceptions are: reference, file and image editors.
 - Edit keyboard navigation improvements.
-- Handle space key down.
-- Legend plugin.
-- Persistence plugin enhancements.
-- Validation framework.
+- Edit works in `virtual` mode.
+- Keyboard navigation improvements in `virtual` mode.
 
 ## [1.0.65] - 2017-11-09
 ### Fixed
@@ -134,6 +165,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Action bar plugin.
 - Data manipulation plugin.
 
-[Unreleased]: https://github.com/qgrid/ng/compare/v1.0.65...HEAD
+[Unreleased]: https://github.com/qgrid/ng/compare/v1.1.0...HEAD
+[1.0.65]: https://github.com/qgrid/ng/compare/v1.0.65...v1.1.0
 [1.0.65]: https://github.com/qgrid/ng/compare/v1.0.64...v1.0.65
 [1.0.64]: https://github.com/qgrid/ng/compare/v1.0.63...v1.0.64
