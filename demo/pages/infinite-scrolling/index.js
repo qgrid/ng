@@ -7,13 +7,13 @@ export default function Controller($http, qgrid) {
 	ctrl.model = model;
 	ctrl.selection = () => model.selection().items;
 
-	model.pagination({
-		size: 20
-	});
-
-	model.scroll({
-		mode: 'virtual'
-	});
+	model
+		.pagination({
+			size: 20
+		})
+		.scroll({
+			mode: 'virtual'
+		});
 
 	ctrl.model.data({
 		pipe: [(data, context, next) => {
