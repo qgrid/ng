@@ -30,11 +30,11 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 	layout(target, source) {
 		const tr = target.getBoundingClientRect();
 		const sr = source.getBoundingClientRect();
-		const vr = this.root.table.view.rect();
+		const cr = this.clientRect();
 
 		const intersections = [];
 		intersections.push(
-			this.intersection(vr, {
+			this.intersection(cr, {
 				index: 0,
 				top: tr.top,
 				right: tr.left + sr.width,
@@ -43,7 +43,7 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 			}));
 
 		intersections.push(
-			this.intersection(vr, {
+			this.intersection(cr, {
 				index: 1,
 				top: tr.top,
 				right: tr.right,
@@ -52,7 +52,7 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 			}));
 
 		intersections.push(
-			this.intersection(vr, {
+			this.intersection(cr, {
 				index: 2,
 				top: tr.bottom - sr.height,
 				right: tr.left + sr.width,
@@ -61,7 +61,7 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 			}));
 
 		intersections.push(
-			this.intersection(vr, {
+			this.intersection(cr, {
 				index: 3,
 				top: tr.bottom - sr.height,
 				right: tr.right,
@@ -72,10 +72,13 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 		const intersection = max(intersections, i => i.area);
 		const rect = intersection.b;
 
-		const left = tr.left + (rect.left - tr.left);
-		const top = tr.top + (rect.top - tr.top);
+		const pos = this.fix({
+			left: rect.left,
+			top: rect.top,
+			width: sr.width,
+			height: sr.height
+		});
 
-		const pos = this.fix({left, top, width: sr.width, height: sr.height});
 		source.style.left = pos.left + 'px';
 		source.style.top = pos.top + 'px';
 	}
@@ -88,28 +91,37 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 	}
 
 	fix(rect) {
-		const ww = this.$window.innerWidth;
-		const wh = this.$window.innerHeight;
+		const cr = this.clientRect();
+		const w = cr.width;
+		const h = cr.height;
 		const rx = rect.left;
 		const ry = rect.top;
 		const rh = rect.height;
 		const rw = rect.width;
-		const rh2 = rh / 2;
-		const rw2 = rw / 2;
-		const gtx1 = rx + rw > ww;
+		const gtx1 = rx + rw > w;
 		const ltx0 = rx < 0;
-		const gty1 = ry + rh > wh;
-		const lty0 = ry  < 0;
-		const l = ltx0 || gtx1
-			? ww / 2 - rw2
+		const gty1 = ry + rh > h;
+		const lty0 = ry < 0;
+		const left = ltx0 || gtx1
+			? (w - rw) / 2
 			: rx;
-		const t = lty0 || gty1
-			? wh / 2 - rh2
+		const top = lty0 || gty1
+			? (h - rh) / 2
 			: ry;
 
+		return {left, top};
+	}
+
+	clientRect() {
+		const wnd = this.$window;
+
 		return {
-			left: l,
-			top: t
+			top: 0,
+			left: 0,
+			bottom: wnd.innerHeight,
+			right: wnd.innerWidth,
+			height: wnd.innerHeight,
+			width: wnd.innerWidth
 		};
 	}
 }
