@@ -47,22 +47,25 @@ class BodyCore extends Directive(BODY_CORE_NAME, {
 	}
 
 	onInit() {
-		const apply = this.view.model.scroll().mode !== 'virtual'
+		const invoke = this.view.model.scroll().mode !== 'virtual'
 			? f => f()
 			: f => {
 				f();
 				this.view.style.invalidate();
 			};
 
-		const listener = new EventListener(this.element, new EventManager(this, apply));
+		const apply = this.root.applyFactory(null, 'sync');
 
-		this.using(listener.on('scroll', this.onScroll));
-		this.using(listener.on('click', this.onClick));
-		this.using(listener.on('mousedown', this.onMouseDown));
-		this.using(listener.on('mouseup', this.onMouseUp));
+		const invokeListener = new EventListener(this.element, new EventManager(this, invoke));
+		const applyListener = new EventListener(this.element, new EventManager(this, apply));
 
-		this.using(listener.on('mousemove', this.onMouseMove));
-		this.using(listener.on('mouseleave', this.onMouseLeave));
+		this.using(invokeListener.on('scroll', this.onScroll));
+		this.using(applyListener.on('click', this.onClick));
+		this.using(invokeListener.on('mousedown', this.onMouseDown));
+		this.using(invokeListener.on('mouseup', this.onMouseUp));
+
+		this.using(invokeListener.on('mousemove', this.onMouseMove));
+		this.using(invokeListener.on('mouseleave', this.onMouseLeave));
 	}
 
 	onClick(e) {
