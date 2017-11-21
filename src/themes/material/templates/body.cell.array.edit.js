@@ -1,9 +1,8 @@
 import {Shortcut} from '@grid/core/shortcut/shortcut';
 
-ArrayEdit.$inject = ['$scope', '$element'];
+ArrayEdit.$inject = [];
 
-export default function ArrayEdit($scope, $element) {
-	this.cell = () => $scope.$editor || $scope.$view.edit.cell;
+export default function ArrayEdit() {
 	this.text = '';
 
 	this.keydown = e => {
