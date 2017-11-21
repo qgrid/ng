@@ -32,52 +32,47 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 		const sr = source.getBoundingClientRect();
 		const cr = this.clientRect();
 
+		const {top, right, left, bottom} = tr;
+		const {width, height} = sr;
+
 		const intersections = [];
 		intersections.push(
 			this.intersection(cr, {
-				index: 0,
-				top: tr.top,
-				right: tr.left + sr.width,
-				bottom: tr.top + sr.height,
-				left: tr.left
+				top: top,
+				right: left + width,
+				bottom: top + height,
+				left: left
 			}));
 
 		intersections.push(
 			this.intersection(cr, {
-				index: 1,
-				top: tr.top,
-				right: tr.right,
-				bottom: tr.top + sr.height,
-				left: tr.right - sr.width
+				top: top,
+				right: right,
+				bottom: top + height,
+				left: right - width
 			}));
 
 		intersections.push(
 			this.intersection(cr, {
-				index: 2,
-				top: tr.bottom - sr.height,
-				right: tr.left + sr.width,
-				bottom: tr.bottom,
-				left: tr.left
+				top: bottom - height,
+				right: left + width,
+				bottom: bottom,
+				left: left
 			}));
 
 		intersections.push(
 			this.intersection(cr, {
-				index: 3,
-				top: tr.bottom - sr.height,
-				right: tr.right,
-				bottom: tr.bottom,
-				left: tr.right - sr.width
+				top: bottom - height,
+				right: right,
+				bottom: bottom,
+				left: right - width
 			}));
 
 		const intersection = max(intersections, i => i.area);
-		const rect = intersection.b;
 
-		const pos = this.fix({
-			left: rect.left,
-			top: rect.top,
-			width: sr.width,
-			height: sr.height
-		});
+		const {left: l, top: t} = intersection.b;
+
+		const pos = this.fix({left: l, top: t, width, height});
 
 		source.style.left = pos.left + 'px';
 		source.style.top = pos.top + 'px';
@@ -87,17 +82,13 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 		const xo = Math.max(0, Math.min(a.right, b.right) - Math.max(a.left, b.left));
 		const yo = Math.max(0, Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top));
 		const area = xo * yo;
-		return {area: area, a: a, b: b};
+		return {area, a, b};
 	}
 
 	fix(rect) {
 		const cr = this.clientRect();
-		const w = cr.width;
-		const h = cr.height;
-		const rx = rect.left;
-		const ry = rect.top;
-		const rh = rect.height;
-		const rw = rect.width;
+		const {width: w, height: h} = cr;
+		const {left: rx, top: ry, height: rh, width: rw} = rect;
 		const gtx1 = rx + rw > w;
 		const ltx0 = rx < 0;
 		const gty1 = ry + rh > h;
@@ -114,14 +105,14 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 
 	clientRect() {
 		const wnd = this.$window;
-
+		const {innerHeight: h, innerWidth: w} = wnd;
 		return {
 			top: 0,
 			left: 0,
-			bottom: wnd.innerHeight,
-			right: wnd.innerWidth,
-			height: wnd.innerHeight,
-			width: wnd.innerWidth
+			bottom: h,
+			right: w,
+			height: h,
+			width: w
 		};
 	}
 }
