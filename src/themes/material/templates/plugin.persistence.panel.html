@@ -1,4 +1,4 @@
-<div class="q-grid-persistence-panel q-grid-popup-panel" layout="column" flex="100">
+<div class="q-grid-persistence-panel q-grid-popup-panel" layout="column" flex="100" ng-keydown="$persistence.keyDown($event)">
 	<md-card>
 		<md-card-header>
 			<md-card-title>
@@ -28,7 +28,6 @@
 				<md-list class="md-dense" ng-cloak>
 					<md-list-item class="md-2-line"
 					              ng-repeat="item in $persistence.items | orderBy: '-modified' track by $index"
-					              ng-init="state={edit: false}"
 					              ng-class="{'q-grid-persistence-selected': $persistence.isActive(item)}">
 						<div class="default-icon">
 							<md-icon ng-if="item.isDefault">star</md-icon>
@@ -36,14 +35,15 @@
 						<div class="md-list-item-text">
 							<md-button class="md-primary"
 							           ng-click="$persistence.load.execute(item)"
-							           ng-if="!state.edit">
+							           ng-if="$persistence.state.editItem !== item">
 								<h3>{{item.title}}</h3>
 								<ul>
 									<li>{{item.modified | date: 'yyyy/MM/dd h:mm a'}}</li>
 								</ul>
 							</md-button>
-							<md-input-container ng-if="state.edit">
-								<input ng-blur="state.edit=false;$persistence.edit.execute(item)" ng-model="item.title"
+							<md-input-container ng-if="$persistence.state.editItem === item">
+								<input ng-blur="$persistence.edit.commit.canExecute(item) && $persistence.edit.commit.execute(item)"
+										 ng-model="item.title"
 								       q-grid:focus/>
 							</md-input-container>
 						</div>
@@ -63,8 +63,8 @@
 									</md-button>
 								</md-menu-item>
 								<md-menu-item>
-									<md-button ng-click="state.edit=true"
-									           ng-disabled="state.edit || !$persistence.edit.canExecute(item)">
+									<md-button ng-click="$persistence.edit.enter.execute(item)"
+									           ng-disabled="!$persistence.edit.enter.canExecute(item)">
 										<md-icon md-menu-align-target>mode_edit</md-icon>
 										Edit
 									</md-button>
