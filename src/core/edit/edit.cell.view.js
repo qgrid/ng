@@ -6,7 +6,7 @@ import {getFactory as valueFactory} from '../services/value';
 import {getFactory as labelFactory} from '../services/label';
 import {parseFactory} from '../services';
 import {View} from '../view';
-import * as validationService from '../../plugins/validation/validation.service';
+import * as validationService from '../validation/validation.service';
 
 export class EditCellView extends View {
 	constructor(model, table, commandManager) {
