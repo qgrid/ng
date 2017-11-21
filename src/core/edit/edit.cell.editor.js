@@ -35,7 +35,7 @@ export class CellEditor extends CellEditorCore {
 			this.value = null;
 		}
 		else {
-			const parse = parseFactory(cell.column.type);
+			const parse = parseFactory(cell.column.type, cell.column.editor);
 			const typedValue = parse(clone(cell.value));
 			this.value = typedValue === null ? cell.value : typedValue;
 		}

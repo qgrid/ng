@@ -8,6 +8,6 @@ export declare class Command {
 	constructor(context?: IContext);
 
 	canExecute: (...args: any[]) => boolean;
-	execute: (...args: any[]) => void;
+	execute: (...args: any[]) => any;
 	shortcut?: string;
 }

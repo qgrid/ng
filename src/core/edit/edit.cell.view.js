@@ -85,7 +85,7 @@ export class EditCellView extends View {
 					if (cell && model.edit().enter.execute(this.contextFactory(cell, cell.value, cell.label)) !== false) {
 						this.editor = new CellEditor(cell);
 						if (source === 'keyboard' && Shortcut.isPrintable(this.shortcut.keyCode)) {
-							const parse = parseFactory(cell.column.type);
+							const parse = parseFactory(cell.column.type, cell.column.editor);
 							const value = Shortcut.stringify(this.shortcut.keyCode);
 							const typedValue = parse(value);
 							if (typedValue !== null) {

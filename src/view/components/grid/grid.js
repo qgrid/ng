@@ -6,9 +6,11 @@ import {TableCommandManager} from '@grid/core/command';
 import {isUndefined} from '@grid/core/utility';
 import TemplateLink from '../template/template.link';
 import {EventListener, EventManager, Model} from '@grid/core/infrastructure';
+import {Shortcut} from '@grid/core/shortcut/shortcut';
+import {GRID_PREFIX} from '@grid/core/definition';
 
 export class Grid extends RootComponent {
-	constructor($rootScope, $scope, $element, $transclude, $document, $timeout, $templateCache, $compile) {
+	constructor($rootScope, $scope, $element, $transclude, $document, $timeout, $templateCache, $compile, $window) {
 		super('grid', 'data', 'selection', 'sort', 'group', 'pivot', 'edit', 'style', 'action', 'filter');
 
 		this.$rootScope = $rootScope;
@@ -27,7 +29,11 @@ export class Grid extends RootComponent {
 			body: new Bag(),
 			foot: new Bag()
 		};
+
 		this.listener = new EventListener($element[0], new EventManager(this));
+
+		const windowListener = new EventListener($window, new EventManager(this));
+		this.using(windowListener.on('focusin', this.invalidateActive));
 	}
 
 	onInit() {
@@ -69,6 +75,15 @@ export class Grid extends RootComponent {
 		if (shortcut.keyDown(e, source)) {
 			e.preventDefault();
 			e.stopPropagation();
+			return;
+		}
+
+		if (e.target.tagName === 'TBODY') {
+			const code = Shortcut.translate(e);
+			if (code === 'space' || code === 'shift+space') {
+				e.preventDefault();
+			}
+			return;
 		}
 	}
 
@@ -138,8 +153,15 @@ export class Grid extends RootComponent {
 		return this.model.visibility();
 	}
 
-	get isActive() {
-		return this.table.view.isFocused();
+	invalidateActive() {
+		const activeClassName = `${GRID_PREFIX}-active`;
+		const view = this.table.view;
+		if (view.isFocused()) {
+			view.addClass(activeClassName);
+		}
+		else {
+			view.removeClass(activeClassName);
+		}
 	}
 
 	onDestroy() {
@@ -161,7 +183,8 @@ Grid.$inject = [
 	'$document',
 	'$timeout',
 	'$templateCache',
-	'$compile'
+	'$compile',
+	'$window'
 ];
 
 /**

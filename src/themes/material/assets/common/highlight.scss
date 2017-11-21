@@ -20,7 +20,7 @@
 	}
 }
 
-&.q-grid-box:not(.q-grid-active) {
+.q-grid-view:not(.q-grid-active) {
 	tbody {
 		td {
 			border-top-color: rgba(0, 0, 0, 0.06);
