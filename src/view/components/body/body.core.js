@@ -2,8 +2,12 @@ import Directive from '@grid/view/directives/directive';
 import {VIEW_CORE_NAME, BODY_CORE_NAME, GRID_NAME} from '@grid/view/definition';
 import {EventListener, EventManager} from '@grid/core/infrastructure';
 import {PathService} from '@grid/core/path';
+import {noop} from '@grid/core/utility';
 
-class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, root: `^^${GRID_NAME}`}) {
+class BodyCore extends Directive(BODY_CORE_NAME, {
+	view: `^^${VIEW_CORE_NAME}`,
+	root: `^^${GRID_NAME}`
+}) {
 	constructor($scope, $element) {
 		super();
 
@@ -17,7 +21,9 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, r
 			left: this.element.scrollLeft,
 		};
 
-		Object.defineProperty($scope, '$view', {get: () => this.view});
+		Object.defineProperty($scope, '$view', {
+			get: () => this.view
+		});
 	}
 
 	onScroll() {
@@ -35,12 +41,21 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, r
 		}
 
 		if (Object.keys(newValue)) {
-			scroll(newValue, {source: 'body.core'});
+			scroll(newValue, {
+				source: 'body.core'
+			});
 		}
 	}
 
 	onInit() {
-		const listener = new EventListener(this.element, new EventManager(this));
+		const apply = this.view.model.scroll().mode !== 'virtual'
+			? noop
+			: f => {
+				f();
+				this.view.style.invalidate();
+			};
+
+		const listener = new EventListener(this.element, new EventManager(this, apply));
 
 		this.using(listener.on('scroll', this.onScroll));
 		this.using(listener.on('click', this.onClick));
@@ -142,8 +157,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, r
 					if (focusState.rowIndex !== cell.rowIndex || focusState.columnIndex !== cell.columnIndex) {
 						this.view.selection.toggleRow.execute(cell.row, 'body');
 					}
-				}
-				else if (!editMode && cell.column.canEdit) {
+				} else if (!editMode && cell.column.canEdit) {
 					this.view.selection.toggleRow.execute(cell.row, 'body');
 				}
 				break;

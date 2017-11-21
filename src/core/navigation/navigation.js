@@ -37,7 +37,7 @@ export class Navigation {
 			cell = this.cell(row, this.firstColumn);
 		}
 
-		this.model.navigation({cell: cell}, {source: source});
+		this.model.navigation({cell}, {source});
 		return true;
 	}
 

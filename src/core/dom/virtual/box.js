@@ -5,7 +5,7 @@ import {Box} from '../box';
 import {CellBox} from './cell.box';
 import {RowBox} from './row.box';
 import {ColumnBox} from './column.box';
-import {FakeElement} from '../fake';
+import {VirtualElement} from './element';
 
 export class VirtualBox extends Box {
 	constructor(context, model, selectorMark) {
@@ -70,6 +70,16 @@ export class VirtualBox extends Box {
 		}
 	}
 
+	columns() {
+		const columns = this.context.view.columns();
+		const columnFactory = this.createColumnCore.bind(this);
+		return columns.map(column => columnFactory(column.index));
+	}
+
+	rowCount() {
+		return this.model.pagination().count;
+	}
+
 	rowCore(index) {
 		const viewIndex = this.context.mapper.rowToView(index);
 		if (viewIndex >= 0 && viewIndex < super.rowCount(0)) {
@@ -77,7 +87,8 @@ export class VirtualBox extends Box {
 		}
 
 		const rowFactory = this.createRowCore.bind(this);
-		return rowFactory(viewIndex, new FakeElement());
+		const createRect = this.createRectFactory();
+		return rowFactory(viewIndex, new VirtualElement(createRect(viewIndex)));
 	}
 
 	cellCore(rowIndex, columnIndex) {
@@ -89,7 +100,8 @@ export class VirtualBox extends Box {
 		}
 
 		const cellFactory = this.createCellCore.bind(this);
-		return cellFactory(viewRowIndex, viewColumnIndex, new FakeElement());
+		const createRect = this.createRectFactory();		
+		return cellFactory(viewRowIndex, viewColumnIndex, new VirtualElement(createRect(viewRowIndex)));
 	}
 
 	rowCellsCore(index) {
@@ -99,7 +111,10 @@ export class VirtualBox extends Box {
 		}
 
 		const cellFactory = this.createCellCore.bind(this);
-		return super.rowCellsCore(0).map((cell, i) => cellFactory(viewIndex, i, new FakeElement()));
+		const createRect = this.createRectFactory();
+		return super
+			.rowCellsCore(0)
+			.map((cell, i) => cellFactory(viewIndex, i, new VirtualElement(createRect(index))));
 	}
 
 	createRowCore(index, element) {
@@ -112,5 +127,19 @@ export class VirtualBox extends Box {
 
 	createColumnCore(index) {
 		return new VirtualColumn(this, index);
+	}
+
+	createRectFactory() {
+		// TODO: use vscroll container for custom height support
+		const height = this.model.row().height;
+		const rect = this.context.view.rect();
+		return index => ({
+			left: 0,
+			right: 0,
+			top: rect.top + height * index,
+			bottom: rect.top + height * (index + 1),
+			width: 0,
+			height
+		});
 	}
 }
