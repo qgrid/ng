@@ -11,6 +11,7 @@ export default function Controller($http, qgrid) {
 			key: 'id',
 			title: 'ID',
 			type: 'id',
+			editor: 'number'
 		},
 		{
 			key: 'avatar',

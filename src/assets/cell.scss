@@ -140,6 +140,10 @@ tfoot {
 			text-align: right;
 		}
 
+		&.q-grid-id {
+			text-align: left;
+		}
+
 		&.q-grid-bool,
 		&.q-grid-password,
 		&.q-grid-select {
