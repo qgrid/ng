@@ -135,8 +135,8 @@
       .q-grid.q-grid-theme-material tbody > tr td.q-grid-image {
         text-align: center; }
         .q-grid.q-grid-theme-material tbody > tr td.q-grid-image img {
-          max-height: 24px;
-          max-width: 24px; }
+          max-height: 100%;
+          max-width: 100%; }
       .q-grid.q-grid-theme-material tbody > tr td.q-grid-row-details {
         background: #fff; }
 
@@ -260,8 +260,8 @@
       .q-grid.q-grid-theme-material tbody > tr td.q-grid-image {
         text-align: center; }
         .q-grid.q-grid-theme-material tbody > tr td.q-grid-image img {
-          max-height: 24px;
-          max-width: 24px; }
+          max-height: 100%;
+          max-width: 100%; }
       .q-grid.q-grid-theme-material tbody > tr td.q-grid-row-details {
         background: #fff; }
 
@@ -301,9 +301,9 @@
   outline: 2px solid rgba(63, 81, 181, 0.5) !important;
   outline-offset: -2px; }
 
-.q-grid.q-grid-theme-material.q-grid-box:not(.q-grid-active) tbody td {
+.q-grid.q-grid-theme-material .q-grid-view:not(.q-grid-active) tbody td {
   border-top-color: rgba(0, 0, 0, 0.06); }
-  .q-grid.q-grid-theme-material.q-grid-box:not(.q-grid-active) tbody td.q-grid-focus {
+  .q-grid.q-grid-theme-material .q-grid-view:not(.q-grid-active) tbody td.q-grid-focus {
     outline-color: rgba(63, 81, 181, 0.05); }
 
 .q-grid.q-grid-theme-material .q-grid-highlight-part {
@@ -327,6 +327,7 @@
   width: 100%; }
 
 .q-grid-menu {
+  z-index: 99;
   max-height: none;
   overflow: hidden;
   padding: 0; }
@@ -413,70 +414,6 @@
 
 .q-grid.q-grid-theme-material td.q-grid-edit {
   overflow: visible !important; }
-  .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor {
-    position: absolute;
-    width: 160px;
-    height: 40px;
-    border-radius: 4px;
-    background-color: #fcfcfc;
-    color: rgba(0, 0, 0, 0.87);
-    padding: 24px;
-    left: 4px;
-    top: 0;
-    box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.2), 0 13px 19px 2px rgba(0, 0, 0, 0.14), 0 5px 24px 4px rgba(0, 0, 0, 0.12);
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-    flex-direction: column;
-    z-index: 1;
-    box-sizing: content-box; }
-    .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor md-input-container {
-      padding: 0;
-      margin: 0; }
-    .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor.q-grid-text-area {
-      height: 160px;
-      width: 300px; }
-      .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor.q-grid-text-area textarea {
-        height: 150px !important; }
-    .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor.q-grid-date {
-      width: 200px !important;
-      height: 110px !important; }
-      .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor.q-grid-date .md-datepicker-button {
-        margin-left: 0;
-        padding: 0;
-        width: 24px;
-        height: 24px; }
-      .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor.q-grid-date .md-datepicker-triangle-button {
-        margin-right: 0;
-        padding: 0;
-        width: 24px;
-        height: 24px; }
-    .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor h2 {
-      margin-top: 0; }
-    .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor.q-grid-array {
-      min-height: 120px;
-      width: 400px;
-      height: inherit;
-      padding-bottom: 0; }
-      .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor.q-grid-array .q-grid-array-view {
-        max-height: 400px;
-        overflow-y: auto; }
-    .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor.q-grid-url, .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor.q-grid-email {
-      height: auto;
-      width: 270px;
-      padding-bottom: 0; }
-      .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor.q-grid-url .q-grid-url-fields,
-      .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor.q-grid-url .q-grid-email-fields, .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor.q-grid-email .q-grid-url-fields,
-      .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor.q-grid-email .q-grid-email-fields {
-        padding-top: 8px; }
-    .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor.q-grid-file {
-      height: auto;
-      width: 270px;
-      padding-bottom: 0; }
-      .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor.q-grid-file h2 {
-        text-align: left; }
-    .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor.q-grid-time md-input-container {
-      width: 100%; }
   .q-grid.q-grid-theme-material td.q-grid-edit.q-grid-row-options button {
     width: 24px;
     margin: 0;
@@ -484,49 +421,140 @@
   .q-grid.q-grid-theme-material td.q-grid-edit.q-grid-dropdown md-select {
     margin: 5px 0;
     max-height: 30px; }
-  .q-grid.q-grid-theme-material td.q-grid-edit.q-grid-autocomplete md-autocomplete {
-    min-width: 30px;
-    background-color: transparent; }
-  .q-grid.q-grid-theme-material td.q-grid-edit.q-grid-autocomplete md-autocomplete-wrap {
-    box-shadow: none; }
-  .q-grid.q-grid-theme-material td.q-grid-edit.q-grid-autocomplete input {
-    border-color: #3f51b5;
-    border-width: 0 0 2px 0;
-    border-radius: 0;
-    border-style: solid;
-    line-height: 26px;
-    padding: 2px 2px 1px 2px;
-    height: 30px; }
   .q-grid.q-grid-theme-material td.q-grid-edit md-checkbox {
     margin: 0;
     width: 20px;
     height: 20px;
     display: inline-block; }
+  .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-actions .md-button {
+    margin: 8px 0 0 8px;
+    float: right; }
+  .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-position {
+    opacity: 0; }
+  .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor {
+    display: block;
+    position: fixed;
+    border-radius: 4px;
+    background-color: #fcfcfc;
+    color: rgba(0, 0, 0, 0.87);
+    width: 160px;
+    height: 50px;
+    left: 0;
+    top: 0;
+    box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.2), 0 13px 19px 2px rgba(0, 0, 0, 0.14), 0 5px 24px 4px rgba(0, 0, 0, 0.12);
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    box-sizing: content-box;
+    z-index: 1;
+    padding: 24px; }
+    .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor.q-grid-text-area {
+      height: 170px;
+      width: 300px; }
+      .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor.q-grid-text-area textarea {
+        height: 150px !important; }
+    .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor.q-grid-date .md-datepicker-button {
+      margin-left: 0;
+      padding: 0;
+      width: 24px;
+      height: 24px; }
+    .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor.q-grid-date .md-datepicker-triangle-button {
+      margin-right: 0;
+      padding: 0;
+      width: 24px;
+      height: 24px; }
+    .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor.q-grid-array {
+      min-height: 48px;
+      width: 340px;
+      height: auto; }
+      .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor.q-grid-array .q-grid-array-view {
+        max-height: 400px;
+        overflow-y: auto; }
+    .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor.q-grid-url, .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor.q-grid-email {
+      height: auto;
+      width: 250px; }
+      .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor.q-grid-url .q-grid-url-fields,
+      .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor.q-grid-url .q-grid-email-fields, .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor.q-grid-email .q-grid-url-fields,
+      .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor.q-grid-email .q-grid-email-fields {
+        padding-top: 8px; }
+    .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor.q-grid-file {
+      height: 166px;
+      width: 300px;
+      padding-bottom: 12px; }
+      .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor.q-grid-file h2 {
+        text-align: left; }
+    .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor.q-grid-time md-input-container {
+      width: 100%; }
+    .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor.q-grid-autocomplete {
+      width: 200px; }
+      .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor.q-grid-autocomplete md-autocomplete {
+        min-width: 30px;
+        background-color: transparent; }
+      .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor.q-grid-autocomplete md-autocomplete-wrap {
+        box-shadow: none; }
+      .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor.q-grid-autocomplete input {
+        border-color: #3f51b5;
+        border-width: 0 0 2px 0;
+        border-radius: 0;
+        border-style: solid;
+        line-height: 26px;
+        padding: 2px 2px 1px 2px;
+        height: 30px; }
+    .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor.q-grid-reference {
+      height: 400px;
+      width: 340px;
+      padding-bottom: 12px !important; }
+      .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor.q-grid-reference .q-grid-reference-content {
+        width: 100%;
+        height: 100%; }
+        .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor.q-grid-reference .q-grid-reference-content .q-grid-title h2 {
+          margin-bottom: 8px; }
+    .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor .q-grid-editor-content {
+      width: 100%;
+      height: 100%;
+      overflow: hidden; }
+      .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor .q-grid-editor-content md-input-container {
+        padding: 0;
+        margin: 0;
+        width: 100%; }
+      .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor .q-grid-editor-content md-input-container + .q-grid-validator {
+        position: relative;
+        top: -25px; }
+      .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor .q-grid-editor-content h2 {
+        margin-top: 0; }
+      .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor .q-grid-editor-content .q-grid-editor-actions {
+        text-align: right; }
+        .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor .q-grid-editor-content .q-grid-editor-actions button {
+          margin-bottom: 0;
+          display: inline-block; }
+          .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor .q-grid-editor-content .q-grid-editor-actions button:last-child {
+            margin-right: 0; }
+    .q-grid.q-grid-theme-material td.q-grid-edit .q-grid-editor.q-grid-number md-input-container + .q-grid-validator {
+      position: absolute;
+      top: 53px;
+      left: 41px; }
 
-.q-grid.q-grid-theme-material .q-grid-editor.q-grid-reference {
-  height: 350px;
-  width: 500px; }
-
-.q-grid.q-grid-theme-material .q-grid-file-upload-area {
+.q-grid-file-upload-area {
   position: relative;
   border: 1px dashed rgba(0, 0, 0, 0.12);
   text-align: center;
   height: 120px; }
-  .q-grid.q-grid-theme-material .q-grid-file-upload-area .q-grid-file-upload-message {
+  .q-grid-file-upload-area .q-grid-file-upload-message {
     position: relative;
     top: 40%; }
-    .q-grid.q-grid-theme-material .q-grid-file-upload-area .q-grid-file-upload-message span {
+    .q-grid-file-upload-area .q-grid-file-upload-message span {
       overflow: hidden;
       text-overflow: ellipsis; }
-    .q-grid.q-grid-theme-material .q-grid-file-upload-area .q-grid-file-upload-message md-icon {
+    .q-grid-file-upload-area .q-grid-file-upload-message md-icon {
       margin: 0 5px; }
-  .q-grid.q-grid-theme-material .q-grid-file-upload-area.q-grid-file-has-preview .q-grid-file-upload-message {
+  .q-grid-file-upload-area.q-grid-file-has-preview .q-grid-file-upload-message {
     visibility: hidden; }
-  .q-grid.q-grid-theme-material .q-grid-file-upload-area .q-grid-file-upload-filename {
+  .q-grid-file-upload-area .q-grid-file-upload-filename {
     padding: 10px;
     font-weight: bold;
     color: rgba(0, 0, 0, 0.54); }
-  .q-grid.q-grid-theme-material .q-grid-file-upload-area input {
+  .q-grid-file-upload-area input {
     opacity: 0;
     position: absolute;
     height: 100%;
@@ -534,7 +562,7 @@
     left: 0;
     top: 0;
     z-index: 2; }
-  .q-grid.q-grid-theme-material .q-grid-file-upload-area .q-grid-file-preview {
+  .q-grid-file-upload-area .q-grid-file-preview {
     opacity: 1;
     position: absolute;
     left: 0;
@@ -543,25 +571,24 @@
     width: 100%;
     vertical-align: middle;
     text-align: center; }
-    .q-grid.q-grid-theme-material .q-grid-file-upload-area .q-grid-file-preview img {
+    .q-grid-file-upload-area .q-grid-file-preview img {
       position: relative;
-      max-height: 100%;
-      max-width: 100%;
+      max-height: 100% !important;
+      max-width: 100% !important;
       z-index: 3; }
 
-.q-grid.q-grid-theme-material .q-grid-file-upload-area:hover {
+.q-grid-file-upload-area:hover {
   background-color: #f5f5f5; }
-  .q-grid.q-grid-theme-material .q-grid-file-upload-area:hover .q-grid-file-preview {
+  .q-grid-file-upload-area:hover .q-grid-file-preview {
     opacity: 0;
     transition: opacity 0.2s ease-in-out; }
-    .q-grid.q-grid-theme-material .q-grid-file-upload-area:hover .q-grid-file-preview img {
+    .q-grid-file-upload-area:hover .q-grid-file-preview img {
       z-index: 1; }
-  .q-grid.q-grid-theme-material .q-grid-file-upload-area:hover .q-grid-file-upload-message {
+  .q-grid-file-upload-area:hover .q-grid-file-upload-message {
     visibility: visible; }
 
-.q-grid.q-grid-theme-material .q-grid-actions .md-button {
-  margin: 8px 0 8px 8px;
-  float: right; }
+.q-grid-autocomplete-menu {
+  z-index: 101; }
 
 .q-grid.q-grid-theme-material tbody > tr td.q-grid-select > div {
   width: 20px;
@@ -581,10 +608,12 @@
       min-height: 18px;
       margin-top: 1px; }
     .q-grid.q-grid-theme-material tbody > tr td.q-grid-select > div div.q-grid-checked {
+      cursor: pointer;
       background: rgba(255, 64, 129, 0.87); }
       .q-grid.q-grid-theme-material tbody > tr td.q-grid-select > div div.q-grid-checked md-icon {
         color: #fff; }
     .q-grid.q-grid-theme-material tbody > tr td.q-grid-select > div div.q-grid-unchecked, .q-grid.q-grid-theme-material tbody > tr td.q-grid-select > div div.q-grid-indeterminate {
+      cursor: pointer;
       border: 2px solid rgba(0, 0, 0, 0.54);
       border-radius: 2px;
       width: 20px;
@@ -712,6 +741,9 @@
   .q-grid.q-grid-theme-material .q-grid-pager > div {
     height: 100%;
     line-height: 34px; }
+    @media (max-width: 599px) {
+      .q-grid.q-grid-theme-material .q-grid-pager > div .hide-xs:not(.show-xs):not(.show), .q-grid.q-grid-theme-material .q-grid-pager > div .hide:not(.show-xs):not(.show) {
+        display: none; } }
     .q-grid.q-grid-theme-material .q-grid-pager > div md-select {
       width: 50px;
       max-width: 50px;
@@ -1013,7 +1045,7 @@
   height: 0; }
 
 .q-grid-persistence-panel {
-  width: 300px; }
+  width: 400px; }
   .q-grid-persistence-panel ::-webkit-scrollbar {
     width: 8px;
     height: 8px; }
@@ -1045,6 +1077,19 @@
       padding: 0;
       height: 40px;
       min-height: 40px !important; }
+      .q-grid-persistence-panel md-list md-list-item .default-icon {
+        width: 14px;
+        height: 14px;
+        min-width: 14px;
+        min-height: 14px; }
+        .q-grid-persistence-panel md-list md-list-item .default-icon md-icon {
+          margin: 5px 0 0 0 !important;
+          line-height: 14px;
+          font-size: 14px;
+          color: rgba(0, 0, 0, 0.54); }
+      .q-grid-persistence-panel md-list md-list-item .q-grid-more md-icon {
+        line-height: 20px;
+        font-size: 20px; }
       .q-grid-persistence-panel md-list md-list-item .md-secondary-container {
         margin: 0; }
       .q-grid-persistence-panel md-list md-list-item .md-list-item-text {
@@ -1054,6 +1099,85 @@
           text-align: left;
           margin: 0;
           height: 40px; }
+        .q-grid-persistence-panel md-list md-list-item .md-list-item-text md-checkbox {
+          margin-bottom: 0; }
+        .q-grid-persistence-panel md-list md-list-item .md-list-item-text ul {
+          margin: 0;
+          padding: 0;
+          line-height: 12px;
+          margin-top: 2px; }
+          .q-grid-persistence-panel md-list md-list-item .md-list-item-text ul li {
+            display: inline-block;
+            min-width: 16px;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            font-size: 12px;
+            line-height: 12px;
+            color: rgba(0, 0, 0, 0.54);
+            margin-right: 4px; }
+            .q-grid-persistence-panel md-list md-list-item .md-list-item-text ul li.q-grid-tag {
+              background-color: #e0e0e0;
+              border-radius: 12px;
+              padding: 2px 4px;
+              text-transform: lowercase; }
+      .q-grid-persistence-panel md-list md-list-item.q-grid-persistence-selected {
+        background-color: #f5f5f5; }
+      .q-grid-persistence-panel md-list md-list-item.md-2-line .md-list-item-inner.md-no-style {
+        padding: 0 6px;
+        min-height: 40px;
+        height: 40px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap; }
+    .q-grid-persistence-panel md-list md-input-container {
+      height: 40px;
+      min-height: 40px;
+      width: 100%;
+      margin: 0;
+      padding: 0; }
+
+.q-grid-persistence-tooltip {
+  text-transform: uppercase; }
+
+.q-grid-backdrop {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background: transparent;
+  z-index: -1; }
+
+.q-grid.q-grid-theme-material ul.q-grid-legend-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 24px 20px 0 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 13px; }
+  .q-grid.q-grid-theme-material ul.q-grid-legend-list li {
+    margin-right: 20px;
+    display: inline; }
+    .q-grid.q-grid-theme-material ul.q-grid-legend-list li:last-child {
+      margin-right: 0; }
+    .q-grid.q-grid-theme-material ul.q-grid-legend-list li .q-grid-legend-item {
+      display: inline-block; }
+
+.q-grid.q-grid-theme-material .q-grid-legend-item {
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  margin: auto; }
+
+.q-grid.q-grid-theme-material .q-grid-validator .validation-error {
+  width: 70%;
+  color: #dd2c00;
+  padding-top: 6px;
+  font-size: 11px;
+  line-height: 14px; }
 
 .q-grid-excel .q-grid.q-grid-theme-material .q-grid-view thead tr {
   height: 24px;

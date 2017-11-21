@@ -1419,7 +1419,7 @@
         height: 0 !important; }
   .q-grid .q-grid-table.q-grid-table-left thead, .q-grid .q-grid-table.q-grid-table-left tfoot {
     width: 100%; }
-  .q-grid .q-grid-with-right-pin .q-grid-table.q-grid-table-center thead, .q-grid .q-grid-with-right-pin .q-grid-table.q-grid-table-center tfoot {
+  .q-grid .q-grid-with-right-pin > .q-grid-view > .q-grid-table.q-grid-table-center > table > thead, .q-grid .q-grid-with-right-pin > .q-grid-view > .q-grid-table.q-grid-table-center > table > tfoot {
     width: 100%; }
   .q-grid td,
   .q-grid th {
@@ -1516,17 +1516,22 @@
       width: 110px;
       min-width: 110px;
       max-width: 110px; }
-    .q-grid thead td.q-grid-number, .q-grid thead td.q-grid-currency,
+    .q-grid thead td.q-grid-number, .q-grid thead td.q-grid-currency, .q-grid thead td.q-grid-id,
     .q-grid thead th.q-grid-number,
     .q-grid thead th.q-grid-currency,
+    .q-grid thead th.q-grid-id,
     .q-grid tfoot td.q-grid-number,
     .q-grid tfoot td.q-grid-currency,
+    .q-grid tfoot td.q-grid-id,
     .q-grid tfoot th.q-grid-number,
     .q-grid tfoot th.q-grid-currency,
+    .q-grid tfoot th.q-grid-id,
     .q-grid tbody td.q-grid-number,
     .q-grid tbody td.q-grid-currency,
+    .q-grid tbody td.q-grid-id,
     .q-grid tbody th.q-grid-number,
-    .q-grid tbody th.q-grid-currency {
+    .q-grid tbody th.q-grid-currency,
+    .q-grid tbody th.q-grid-id {
       width: 100px;
       min-width: 100px;
       max-width: 100px; }
@@ -1590,6 +1595,9 @@
   .q-grid tfoot td.q-grid-number,
   .q-grid tfoot td.q-grid-currency {
     text-align: right; }
+  .q-grid tbody td.q-grid-id,
+  .q-grid tfoot td.q-grid-id {
+    text-align: left; }
   .q-grid tbody td.q-grid-bool, .q-grid tbody td.q-grid-password, .q-grid tbody td.q-grid-select,
   .q-grid tfoot td.q-grid-bool,
   .q-grid tfoot td.q-grid-password,
@@ -1635,7 +1643,7 @@
       cursor: default; }
     .q-grid .q-grid-view > .q-grid-table-left tbody {
       overflow-y: hidden; }
-  .q-grid .q-grid-with-right-pin .q-grid-table-center tbody {
+  .q-grid .q-grid-with-right-pin > .q-grid-view > .q-grid-table-center > table > tbody {
     overflow-y: hidden; }
   .q-grid .q-grid-view .q-grid-layer {
     position: absolute;
