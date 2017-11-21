@@ -59,13 +59,13 @@ class BodyCore extends Directive(BODY_CORE_NAME, {
 	}
 
 	onInit() {
-		const apply = this.view.model.scroll().mode !== 'virtual' 
-			? noop 
+		const apply = this.view.model.scroll().mode !== 'virtual'
+			? noop
 			: f => {
 				f();
 				this.view.style.invalidate();
 			};
-		
+
 		const listener = new EventListener(this.element, new EventManager(this, apply));
 
 		this.using(listener.on('scroll', this.onScroll));
@@ -162,33 +162,30 @@ class BodyCore extends Directive(BODY_CORE_NAME, {
 
 		const editMode = this.view.model.edit().mode;
 		switch (selectionState.unit) {
-			case 'row':
-				{
-					if (cell.column.type === 'select' && cell.column.editorOptions.trigger === 'focus') {
-						const focusState = this.view.model.focus();
-						if (focusState.rowIndex !== cell.rowIndex || focusState.columnIndex !== cell.columnIndex) {
-							this.view.selection.toggleRow.execute(cell.row, 'body');
-						}
-					} else if (!editMode && cell.column.canEdit) {
+			case 'row': {
+				if (cell.column.type === 'select' && cell.column.editorOptions.trigger === 'focus') {
+					const focusState = this.view.model.focus();
+					if (focusState.rowIndex !== cell.rowIndex || focusState.columnIndex !== cell.columnIndex) {
 						this.view.selection.toggleRow.execute(cell.row, 'body');
 					}
-					break;
+				} else if (!editMode && cell.column.canEdit) {
+					this.view.selection.toggleRow.execute(cell.row, 'body');
 				}
+				break;
+			}
 
-			case 'column':
-				{
-					if (!editMode) {
-						this.view.selection.toggleColumn.execute(cell.column, 'body');
-					}
-					break;
+			case 'column': {
+				if (!editMode) {
+					this.view.selection.toggleColumn.execute(cell.column, 'body');
 				}
+				break;
+			}
 
-			case 'mix':
-				{
-					if (cell.column.type === 'row-indicator') {
-						this.view.selection.toggleCell.execute(cell, 'body');
-					}
+			case 'mix': {
+				if (cell.column.type === 'row-indicator') {
+					this.view.selection.toggleCell.execute(cell, 'body');
 				}
+			}
 		}
 	}
 
