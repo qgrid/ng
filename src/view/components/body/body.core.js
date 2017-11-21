@@ -1,19 +1,8 @@
 import Directive from '@grid/view/directives/directive';
-import {
-	VIEW_CORE_NAME,
-	BODY_CORE_NAME,
-	GRID_NAME
-} from '@grid/view/definition';
-import {
-	EventListener,
-	EventManager
-} from '@grid/core/infrastructure';
-import {
-	PathService
-} from '@grid/core/path';
-import {
-	noop
-} from '@grid/core/utility';
+import {VIEW_CORE_NAME, BODY_CORE_NAME, GRID_NAME} from '@grid/view/definition';
+import {EventListener, EventManager} from '@grid/core/infrastructure';
+import {PathService} from '@grid/core/path';
+import {noop} from '@grid/core/utility';
 
 class BodyCore extends Directive(BODY_CORE_NAME, {
 	view: `^^${VIEW_CORE_NAME}`,
