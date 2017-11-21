@@ -1,13 +1,13 @@
 import {FakeClassList} from './class.list';
 
-const emptyRect = {
+const emptyRect = Object.freeze({
 	left: 0,
 	right: 0,
 	top: 0,
 	bottom: 0,
 	width: 0,
 	height: 0
-};
+});
 
 export class FakeElement {
 	constructor() {
