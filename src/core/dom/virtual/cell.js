@@ -15,7 +15,7 @@ class VirtualCellView {
 	get model() {
 		const model = this.selector();
 		if (!model) {
-			throw new AppError('cell', 'Can\'t invoke mode, model is not found');
+			throw new AppError('cell', 'Model is not found');
 		}
 
 		return model;

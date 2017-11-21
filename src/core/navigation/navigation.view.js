@@ -17,7 +17,10 @@ export class NavigationView extends View {
 		this.using(shortcut.register(commandManager, navigation.commands));
 
 		this.focus = new Command({
-			execute: cell => model.navigation({cell: new CellView(cell)}),
+			execute: cell => {
+				const cellModel = table.body.cell(cell.rowIndex, cell.columnIndex).model();
+				model.navigation({cell: cellModel});
+			},
 			canExecute: cell => cell && cell.column.canFocus && !CellView.equals(cell, model.navigation().cell)
 		});
 
