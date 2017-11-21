@@ -49,7 +49,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {
 
 	onInit() {
 		const apply = this.view.model.scroll().mode !== 'virtual'
-			? noop
+			? f => f()
 			: f => {
 				f();
 				this.view.style.invalidate();
