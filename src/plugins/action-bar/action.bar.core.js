@@ -11,7 +11,9 @@ class ActionBarCore extends Plugin {
 	onInit() {
 		const root = this._root;
 		if (root) {
-			const shortcut = this.model.action().shortcut;
+			const actionState = this.model.action(); 
+			const shortcut = actionState.shortcut;
+			const commandManager = actionState.manager; 
 			this.using(this.model.actionChanged.watch(e => {
 				if (e.hasChanges('items')) {
 					if (this.shortcutOff) {
@@ -20,7 +22,7 @@ class ActionBarCore extends Plugin {
 					}
 
 					const commands = e.state.items.map(act => act.command);
-					this.shortcutOff = shortcut.register(root.commandManager, commands);
+					this.shortcutOff = shortcut.register(commandManager, commands);
 				}
 			}));
 		}
