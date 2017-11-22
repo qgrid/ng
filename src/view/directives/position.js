@@ -17,13 +17,17 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 		const job = jobLine(400);
 		
 		this.using(listener.on('resize', () => {
-			this.onInit();
+			this.invalidate();
 			// In case if after window resize there can different animated layout changes
-			job(() => this.onInit());
+			job(() => this.invalidate());
 		}));	
 	}
 
 	onInit() {
+		this.invalidate();
+	}
+
+	invalidate() {
 		if (this.root) {
 			const targetName = (this.$attrs[POSITION_NAME] || '').toLowerCase();
 			let node = this.element.parentNode;
