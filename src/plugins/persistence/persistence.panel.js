@@ -1,7 +1,7 @@
 import {Command, CommandManager} from '@grid/core/command';
 import {PersistenceService} from '@grid/core/persistence/persistence.service';
 import {stringifyFactory} from '@grid/core/services/';
-import {Shortcut, ShortcutManager}  from '@grid/core/shortcut';
+import {Shortcut, ShortcutDispatcher}  from '@grid/core/shortcut';
 import {clone} from '@grid/core/utility';
 
 export function PersistencePanelController(mdPanelRef) {
@@ -153,7 +153,7 @@ export function PersistencePanelController(mdPanelRef) {
 	};
 
 	const commandManager = new CommandManager();
-	const shortcut = new Shortcut(new ShortcutManager());
+	const shortcut = new Shortcut(new ShortcutDispatcher());
 
 	this.keyDown = e => shortcut.keyDown(e);
 

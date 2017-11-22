@@ -1,8 +1,8 @@
 import {Keyboard} from '../io';
 
 export class Shortcut {
-	constructor(manager) {
-		this.manager = manager;
+	constructor(dispatcher) {
+		this.dispatcher = dispatcher;
 		this.keyCode = {
 			key: null,
 			code: null
@@ -62,10 +62,10 @@ export class Shortcut {
 		return codes.join('+');
 	}
 
-	factory(commandManager) {
+	factory(manager) {
 		const self = this;
 		return {
-			register: commands => self.register(commandManager, commands)
+			register: commands => self.register(manager, commands)
 		};
 	}
 
@@ -76,10 +76,10 @@ export class Shortcut {
 			code: code
 		};
 
-		return this.manager.execute(code, source);
+		return this.dispatcher.execute(code, source);
 	}
 
-	register(commandManager, commands) {
-		return this.manager.register(commandManager, commands);
+	register(manager, commands) {
+		return this.dispatcher.register(manager, commands);
 	}
 }
