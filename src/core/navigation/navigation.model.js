@@ -16,7 +16,7 @@ export class NavigationModel {
 			pageDown: 'pageDown',
 		};
 
-		this.go = new Command();
+		this.go = new Command({source: 'navigation.model'});
 	}
 
 	get rowIndex() {

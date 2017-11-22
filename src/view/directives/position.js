@@ -1,6 +1,8 @@
 import Directive from './directive';
 import {POSITION_NAME, GRID_NAME} from '@grid/view/definition';
 import {max} from '@grid/core/utility';
+import {EventListener, EventManager} from '@grid/core/infrastructure';
+import {jobLine} from '@grid/core/services';
 
 class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 	constructor($element, $attrs, $timeout, $window) {
@@ -10,9 +12,22 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 		this.$attrs = $attrs;
 		this.$timeout = $timeout;
 		this.$window = $window;
+		
+		const listener = new EventListener(this.$window, new EventManager(this));
+		const job = jobLine(400);
+		
+		this.using(listener.on('resize', () => {
+			this.invalidate();
+			// In case if after window resize there can different animated layout changes
+			job(() => this.invalidate());
+		}));	
 	}
 
 	onInit() {
+		this.invalidate();
+	}
+
+	invalidate() {
 		if (this.root) {
 			const targetName = (this.$attrs[POSITION_NAME] || '').toLowerCase();
 			let node = this.element.parentNode;

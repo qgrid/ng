@@ -47,22 +47,17 @@ class BodyCore extends Directive(BODY_CORE_NAME, {
 	}
 
 	onInit() {
-		const apply = this.view.model.scroll().mode !== 'virtual'
-			? f => f()
-			: f => {
-				f();
-				this.view.style.invalidate();
-			};
+		const view = this.view;
+		const invokeListener = new EventListener(this.element, new EventManager(this, view.invoke));
+		const applyListener = new EventListener(this.element, new EventManager(this, view.apply));
 
-		const listener = new EventListener(this.element, new EventManager(this, apply));
+		this.using(invokeListener.on('scroll', this.onScroll));
+		this.using(applyListener.on('click', this.onClick));
+		this.using(invokeListener.on('mousedown', this.onMouseDown));
+		this.using(invokeListener.on('mouseup', this.onMouseUp));
 
-		this.using(listener.on('scroll', this.onScroll));
-		this.using(listener.on('click', this.onClick));
-		this.using(listener.on('mousedown', this.onMouseDown));
-		this.using(listener.on('mouseup', this.onMouseUp));
-
-		this.using(listener.on('mousemove', this.onMouseMove));
-		this.using(listener.on('mouseleave', this.onMouseLeave));
+		this.using(invokeListener.on('mousemove', this.onMouseMove));
+		this.using(invokeListener.on('mouseleave', this.onMouseLeave));
 	}
 
 	onClick(e) {
@@ -91,7 +86,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {
 			if (!editMode) {
 				this.rangeStartCell = cell;
 				if (this.rangeStartCell) {
-					this.view.selection.selectRange(this.rangeStartCell, null, 'body');
+					this.view.apply(() => this.view.selection.selectRange(this.rangeStartCell, null, 'body'));
 				}
 			}
 		}
@@ -120,8 +115,10 @@ class BodyCore extends Directive(BODY_CORE_NAME, {
 			const endCell = pathFinder.cell(e.path);
 
 			if (startCell && endCell) {
-				this.view.selection.selectRange(startCell, endCell, 'body');
-				this.navigate(endCell);
+				this.view.apply(() => {
+					this.view.selection.selectRange(startCell, endCell, 'body');
+					this.navigate(endCell);
+				});
 			}
 		}
 	}

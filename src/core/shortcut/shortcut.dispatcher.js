@@ -1,6 +1,6 @@
 import {flatten, isFunction, yes} from '../utility';
 
-export class ShortcutManager {
+export class ShortcutDispatcher {
 	constructor() {
 		this.managerMap = new Map();
 	}
@@ -71,7 +71,7 @@ export class ShortcutManager {
 		return activities.reduce((result, activity) => {
 			const commands = activity.commands;
 			const manager = activity.manager;
-			result = manager.invoke(commands) || result;
+			result = manager.invoke(commands, source) || result;
 			return result;
 		}, false);
 	}

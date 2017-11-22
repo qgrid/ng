@@ -1,5 +1,5 @@
 import {CommandManager} from '../command/command.manager';
-import {ShortcutManager} from './shortcut.manager';
+import {ShortcutDispatcher} from './shortcut.dispatcher';
 
 export interface IKeyCode {
 	code: string;
@@ -7,7 +7,7 @@ export interface IKeyCode {
 }
 
 export declare class Shortcut {
-	constructor(manager: ShortcutManager);
+	constructor(manager: ShortcutDispatcher);
 
 	static isControl(keyCode: IKeyCode): boolean;
 

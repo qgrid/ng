@@ -9,7 +9,7 @@ export class TableCommandManager extends CommandManager {
 
 	filter(commands, source) {
 		if (source === 'editor' || this.isViewActive()) {
-			return super.filter(commands);
+			return super.filter(commands, source);
 		}
 
 		return [];

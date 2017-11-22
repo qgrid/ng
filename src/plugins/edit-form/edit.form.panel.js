@@ -28,6 +28,7 @@ class EditFormPanel extends Plugin {
 
 	get commands() {
 		const commands = {
+			source: 'edit.form.panel',
 			submit: new Command({
 				shortcut: this.shortcutFactory('commit'),
 				execute: () => {
@@ -36,10 +37,12 @@ class EditFormPanel extends Plugin {
 				}
 			}),
 			cancel: new Command({
+				source: 'edit.form.panel',
 				shortcut: this.shortcutFactory('cancel'),
 				execute: () => this.onCancel()
 			}),
 			reset: new Command({
+				source: 'edit.form.panel',
 				execute: () => {
 					this.editor.editors.forEach(e => e.reset());
 					this.onReset();

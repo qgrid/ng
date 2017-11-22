@@ -6,11 +6,11 @@ export class EditModel {
 		this.resource = new Resource();
 		this.mode = null; // cell | row
 		this.state = 'view'; // view | edit
-		this.enter = new Command();
-		this.commit = new Command();
-		this.cancel = new Command();
-		this.reset = new Command();
-		this.clear = new Command();
+		this.enter = new Command({source: 'edit.model'});
+		this.commit = new Command({source: 'edit.model'});
+		this.cancel = new Command({source: 'edit.model'});
+		this.reset = new Command({source: 'edit.model'});
+		this.clear = new Command({source: 'edit.model'});
 
 		this.cancelShortcuts = {
 			'$default': 'escape'

@@ -1,11 +1,11 @@
 import {Shortcut} from './shortcut';
-import {ShortcutManager} from './shortcut.manager';
+import {ShortcutDispatcher} from './shortcut.dispatcher';
 import {CommandManager} from './../command/command.manager';
 import {Command} from '../command/command';
 
 describe('Shortcut', () => {
-	let shortcutManager = new ShortcutManager();
-	let shortcut = new Shortcut(shortcutManager);
+	let shortcutDispatcher = new ShortcutDispatcher();
+	let shortcut = new Shortcut(shortcutDispatcher);
 	let manager = new CommandManager();
 	let command1 = new Command();
 	command1.shortcut = 'ctrl|shift';

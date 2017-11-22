@@ -9,7 +9,7 @@ export class RowModel {
 		this.height = 0;
 		this.status = new Map();
 		this.shortcut = {
-			toggle: 'space'
+			toggle: 'space|enter'
 		};
 	}
 }

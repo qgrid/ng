@@ -24,41 +24,46 @@ class SortBar extends Plugin {
 		this.selectedItems = null;
 
 		this.replace = new Command({
-				execute: key => {
-					const sort = this.model.sort;
+			source: 'sort.bar',
+			execute: key => {
+				const sort = this.model.sort;
 
-					sort({
-						by: key.map(item => ({[item]: 'asc'}))
-					}, {
-						source: 'sort.bar'
-					});
-				},
-				canExecute: () => this.columns.length > 0
-			}
-		);
+				sort({
+					by: key.map(item => ({
+						[item]: 'asc'
+					}))
+				}, {
+					source: 'sort.bar'
+				});
+			},
+			canExecute: () => this.columns.length > 0
+		});
 
 		this.add = new Command({
-				execute: key => {
-					const sort = this.model.sort;
-					const state = sort();
-					const entry = {[key]: 'asc'};
-					const temp = state.by.concat(entry);
+			source: 'sort.bar',
+			execute: key => {
+				const sort = this.model.sort;
+				const state = sort();
+				const entry = {
+					[key]: 'asc'
+				};
+				const temp = state.by.concat(entry);
 
-					this.selectedItems = temp.slice();
+				this.selectedItems = temp.slice();
 
-					sort({
-						by: temp
-					}, {
-						source: 'sort.bar'
-					});
+				sort({
+					by: temp
+				}, {
+					source: 'sort.bar'
+				});
 
-					this.newSort = null;
-				},
-				canExecute: () => this.columns.length > 0
-			}
-		);
+				this.newSort = null;
+			},
+			canExecute: () => this.columns.length > 0
+		});
 
 		this.remove = new Command({
+			source: 'sort.bar',
 			execute: entry => {
 				const sort = this.model.sort;
 				const state = sort();
@@ -79,6 +84,7 @@ class SortBar extends Plugin {
 		});
 
 		this.drop = new Command({
+			source: 'sort.bar',
 			canExecute: e => e.source && e.source.key === TH_CORE_NAME && this.add.canExecute(e.source.value),
 			execute: e => this.add.execute(e.source.value)
 		});

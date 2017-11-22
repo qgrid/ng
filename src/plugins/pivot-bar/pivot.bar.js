@@ -23,36 +23,37 @@ class PivotBar extends Plugin {
 		this.selectedItems = null;
 
 		this.replace = new Command({
-				execute: key => {
-					const pivot = this.model.pivot;
+			source: 'pivot.bar',
+			execute: key => {
+				const pivot = this.model.pivot;
 
-					pivot({
-						by: [...key]
-					});
-				},
-				canExecute: () => this.columns.length > 0
-			}
-		);
+				pivot({
+					by: [...key]
+				});
+			},
+			canExecute: () => this.columns.length > 0
+		});
 
 		this.add = new Command({
-				execute: key => {
-					const pivot = this.model.pivot;
-					const state = pivot();
-					const temp = state.by.concat(key);
+			source: 'pivot.bar',
+			execute: key => {
+				const pivot = this.model.pivot;
+				const state = pivot();
+				const temp = state.by.concat(key);
 
-					this.selectedItems = temp.slice();
+				this.selectedItems = temp.slice();
 
-					pivot({
-						by: temp
-					});
+				pivot({
+					by: temp
+				});
 
-					this.newGroup = null;
-				},
-				canExecute: () => this.columns.length > 0
-			}
-		);
+				this.newGroup = null;
+			},
+			canExecute: () => this.columns.length > 0
+		});
 
 		this.remove = new Command({
+			source: 'pivot.bar',
 			execute: key => {
 				const pivot = this.model.pivot;
 				const state = pivot();
@@ -71,6 +72,7 @@ class PivotBar extends Plugin {
 		});
 
 		this.drop = new Command({
+			source: 'pivot.bar',
 			canExecute: e => e.source && e.source.key === TH_CORE_NAME && this.add.canExecute(e.source.value),
 			execute: e => this.add.execute(e.source.value)
 		});

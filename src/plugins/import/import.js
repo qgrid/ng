@@ -21,6 +21,7 @@ class Import extends Plugin {
 		const element = this.$element[0];
 		this.eventListener = new EventListener(element, new EventManager(this));
 		this.upload = new Command({
+			source: 'import',
 			execute: () => upload(element)
 		});
 	}

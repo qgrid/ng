@@ -18,11 +18,13 @@ class Pager extends Plugin {
 
 		const ctrl = this;
 		this.next = new Command({
+			source: 'pager',
 			execute: () => ctrl.current = ctrl.current + 1,
 			canExecute: () => (ctrl.current + 1) * ctrl.size < ctrl.total
 		});
 
 		this.prev = new Command({
+			source: 'pager',
 			execute: () => ctrl.current = ctrl.current - 1,
 			canExecute: () => ctrl.current > 0
 		});

@@ -59,6 +59,7 @@ export class EditCellView extends View {
 		const commands = {
 			enter: new Command({
 				priority: 1,
+				source: 'edit.cell.view',
 				shortcut: this.shortcutFactory('enter'),
 				canExecute: cell => {
 					// TODO: source should be set up from outside
@@ -103,6 +104,7 @@ export class EditCellView extends View {
 			}),
 			commit: new Command({
 				priority: 1,
+				source: 'edit.cell.view',
 				shortcut: this.shortcutFactory('commit'),
 				canExecute: cell => {
 					cell = cell || this.editor.cell;
@@ -140,6 +142,7 @@ export class EditCellView extends View {
 			}),
 			cancel: new Command({
 				priority: 1,
+				source: 'edit.cell.view',
 				shortcut: this.shortcutFactory('cancel'),
 				canExecute: cell => {
 					cell = cell || this.editor.cell;
@@ -171,6 +174,7 @@ export class EditCellView extends View {
 			}),
 			reset: new Command({
 				priority: 1,
+				source: 'edit.cell.view',
 				canExecute: cell => {
 					cell = cell || this.editor.cell;
 					return cell
@@ -196,6 +200,7 @@ export class EditCellView extends View {
 			}),
 			exit: new Command({
 				priority: 1,
+				source: 'edit.cell.view',
 				execute: (cell, e) => {
 					Log.info('cell.edit', 'reset');
 					if (e) {
@@ -224,6 +229,7 @@ export class EditCellView extends View {
 			}),
 			clear: new Command({
 				priority: 1,
+				source: 'edit.cell.view',
 				canExecute: cell => {
 					cell = cell || this.editor.cell;
 					return cell
