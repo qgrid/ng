@@ -7,7 +7,7 @@ export class StyleModel {
 		this.cell = noop;
 		this.invalidate = new Command({
 			source: 'style.model',
-			canExecute: context => context.model.edit().mode === 'view'
+			canExecute: context => context.model.edit().state === 'view'
 		});
 	}
 }
