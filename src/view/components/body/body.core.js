@@ -47,9 +47,9 @@ class BodyCore extends Directive(BODY_CORE_NAME, {
 	}
 
 	onInit() {
-		const root = this.root;
-		const invokeListener = new EventListener(this.element, new EventManager(this, root.invoke));
-		const applyListener = new EventListener(this.element, new EventManager(this, root.apply));
+		const view = this.view;
+		const invokeListener = new EventListener(this.element, new EventManager(this, view.invoke));
+		const applyListener = new EventListener(this.element, new EventManager(this, view.apply));
 
 		this.using(invokeListener.on('scroll', this.onScroll));
 		this.using(applyListener.on('click', this.onClick));
@@ -86,7 +86,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {
 			if (!editMode) {
 				this.rangeStartCell = cell;
 				if (this.rangeStartCell) {
-					this.root.apply(() => this.view.selection.selectRange(this.rangeStartCell, null, 'body'));
+					this.view.apply(() => this.view.selection.selectRange(this.rangeStartCell, null, 'body'));
 				}
 			}
 		}
@@ -115,7 +115,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {
 			const endCell = pathFinder.cell(e.path);
 
 			if (startCell && endCell) {
-				this.root.apply(() => {
+				this.view.apply(() => {
 					this.view.selection.selectRange(startCell, endCell, 'body');
 					this.navigate(endCell);
 				});
