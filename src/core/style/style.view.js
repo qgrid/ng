@@ -43,9 +43,15 @@ export class StyleView extends View {
 			return;
 		}
 
+		const styleState = model.style();
+		const context = {model};
+		if (!styleState.invalidate.canExecute(context) || 
+				styleState.invalidate.execute(context) === false) {
+			return;
+		}
+
 		const table = this.table;
 		const valueFactory = this.valueFactory;
-		const styleState = model.style();
 		const rowMonitor = this.monitor.row;
 		const cellMonitor = this.monitor.cell;
 		// TODO: improve performance

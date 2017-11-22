@@ -47,17 +47,9 @@ class BodyCore extends Directive(BODY_CORE_NAME, {
 	}
 
 	onInit() {
-		const invoke = this.view.model.scroll().mode !== 'virtual'
-			? f => f()
-			: f => {
-				f();
-				this.view.style.invalidate();
-			};
-
-		const apply = this.root.applyFactory(null, 'sync');
-
-		const invokeListener = new EventListener(this.element, new EventManager(this, invoke));
-		const applyListener = new EventListener(this.element, new EventManager(this, apply));
+		const view = this.view;
+		const invokeListener = new EventListener(this.element, new EventManager(this, view.invoke));
+		const applyListener = new EventListener(this.element, new EventManager(this, view.apply));
 
 		this.using(invokeListener.on('scroll', this.onScroll));
 		this.using(applyListener.on('click', this.onClick));
@@ -94,7 +86,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {
 			if (!editMode) {
 				this.rangeStartCell = cell;
 				if (this.rangeStartCell) {
-					this.view.selection.selectRange(this.rangeStartCell, null, 'body');
+					this.view.apply(() => this.view.selection.selectRange(this.rangeStartCell, null, 'body'));
 				}
 			}
 		}
@@ -123,8 +115,10 @@ class BodyCore extends Directive(BODY_CORE_NAME, {
 			const endCell = pathFinder.cell(e.path);
 
 			if (startCell && endCell) {
-				this.view.selection.selectRange(startCell, endCell, 'body');
-				this.navigate(endCell);
+				this.view.apply(() => {
+					this.view.selection.selectRange(startCell, endCell, 'body');
+					this.navigate(endCell);
+				});
 			}
 		}
 	}

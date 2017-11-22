@@ -67,6 +67,7 @@ class DataManipulation extends Plugin {
 		this.actions = [
 			new Action(
 				new Command({
+					source: 'data.manipulation',
 					execute: () => {
 						const newRow = this.rowFactory(this.model.data().rows[0]);
 						if (isUndefined(newRow)) {
@@ -90,6 +91,7 @@ class DataManipulation extends Plugin {
 		this.rowActions = [
 			new Action(
 				new Command({
+					source: 'data.manipulation',
 					canExecute: e => {
 						const rowId = this.rowId(e.row);
 						return !this.changes.deleted.has(rowId);
@@ -113,6 +115,7 @@ class DataManipulation extends Plugin {
 			),
 			new Action(
 				new Command({
+					source: 'data.manipulation',
 					execute: e => {
 						const rowId = this.rowId(e.row);
 						if (this.changes.deleted.has(rowId)) {
@@ -147,6 +150,7 @@ class DataManipulation extends Plugin {
 				'restore'
 			),
 			// new Action(
+			//	source: 'data.manipulation',
 			// 	new Command({
 			// 		execute: () => {
 			// 			// TODO make edit form service

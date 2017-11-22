@@ -3,6 +3,7 @@ import {GRID_NAME, TH_CORE_NAME} from '@grid/view/definition';
 import {Vscroll} from '@grid/view/services';
 import {jobLine} from '@grid/core/services';
 import {viewFactory} from '@grid/core/view/view.factory';
+import {GridCommandManager} from '../grid/grid.command.manager';
 
 class ViewCore extends Component {
 	constructor($rootScope, $scope, $element, $timeout, grid, vscroll) {
@@ -18,17 +19,29 @@ class ViewCore extends Component {
 	}
 
 	build() {
-		const model = this.model;
 		const root = this.root;
 		const table = root.table;
-		const commandManager = root.commandManager;
+		const model = this.model;
 		const gridService = this.serviceFactory(model);
 		const vscroll = new Vscroll(this.vscroll, root.applyFactory());
 		const selectors = {th: TH_CORE_NAME};
+		
+		this.invoke = model.scroll().mode !== 'virtual'
+			? f => f()
+			: f => {
+				f();
+				this.style.invalidate();
+			};
+
+		this.apply = this.root.applyFactory(null, 'sync');
+
+		this.commandManager = new GridCommandManager(this.apply, this.invoke, table);	
+		model.action({manager: this.commandManager});
+
 		const injectViewServicesTo = viewFactory(
 			model,
 			table,
-			commandManager,
+			this.commandManager,
 			gridService,
 			vscroll,
 			selectors

@@ -2,7 +2,6 @@ import RootComponent from '../root.component';
 import {Table, Bag} from '@grid/core/dom';
 import {LayerFactory} from '@grid/view/services';
 import {AppError} from '@grid/core/infrastructure';
-import {TableCommandManager} from '@grid/core/command';
 import {isUndefined} from '@grid/core/utility';
 import TemplateLink from '../template/template.link';
 import {EventListener, EventManager, Model} from '@grid/core/infrastructure';
@@ -42,20 +41,16 @@ export class Grid extends RootComponent {
 			throw new AppError('grid', `Model is already used by grid "${model.grid().id}"`);
 		}
 
-		model.grid({
-			status: 'bound'
-		});
+		model.grid({status: 'bound'});
 
 		const bag = this.bag;
 		const layerFactory = new LayerFactory(this.markup, this.template);
-		const apply = this.applyFactory(null, 'sync');
 		const tableContext = {
 			layer: name => layerFactory.create(name),
 			bag: bag
 		};
 
 		this.table = new Table(model, this.markup, tableContext);
-		this.commandManager = new TableCommandManager(apply, this.table);
 		this.using(this.listener.on('keydown', this.keyDown.bind(this)));
 
 		if (!this.gridId) {

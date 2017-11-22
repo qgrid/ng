@@ -72,6 +72,7 @@ export default function ReferenceEdit($scope, qgrid, popupService) {
 
 	const commands = {
 		commit: new Command({
+			source: 'body.cell.reference.edit',
 			shortcut: shortcutFactory('commit'),
 			execute: ($cell, $event) => {
 				const view = editView();
@@ -92,6 +93,7 @@ export default function ReferenceEdit($scope, qgrid, popupService) {
 			}
 		}),
 		cancel: new Command({
+			source: 'body.cell.reference.edit',
 			shortcut: shortcutFactory('cancel'),
 			execute: ($cell, $event) => {
 				const view = editView();

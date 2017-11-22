@@ -5,8 +5,8 @@ export class PersistenceModel {
 	constructor() {
 		this.id = 'default';
 		this.storage = new PersistenceStorage(localStorage);
-		this.load = new Command();
-		this.remove = new Command();
+		this.load = new Command({source: 'persistence.model'});
+		this.remove = new Command({source: 'persistence.model'});
 		this.settings = {
 			group: ['by'],
 			sort: ['by'],
