@@ -8,15 +8,21 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Shortcut keycode can be a sequence.
 - Fix navigation behavior for row groups.
 - Mouse wheel should work withing frozen columns.
-- Improve navigation performance.
 - Put plugin framework independent code under core.
 - Brand new documentation.
 - Edit form performance improvements.
 - Revisit drop-down editor.
 - Column filter for date types. 
-- Editors vs window resizing.
-- +104 JIRA tasks :-)
- 
+- 106+ JIRA tasks :-)
+
+## [1.1.1] - 2017-11-22
+### Added
+- Github integration with travis. 
+
+### Fixed
+- Cell editor should follow the cell position on window resize.
+- Keyboard navigation performance.
+
 ## [1.1.0] - 2017-11-21
 ### Added
 - [Legend plugin](https://qgrid.github.io/ng/#!/legend). 
@@ -165,7 +171,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Action bar plugin.
 - Data manipulation plugin.
 
-[Unreleased]: https://github.com/qgrid/ng/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/qgrid/ng/compare/v1.1.1...HEAD
+[1.1.1]: https://github.com/qgrid/ng/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/qgrid/ng/compare/v1.0.65...v1.1.0
 [1.0.65]: https://github.com/qgrid/ng/compare/v1.0.64...v1.0.65
 [1.0.64]: https://github.com/qgrid/ng/compare/v1.0.63...v1.0.64
