@@ -16,6 +16,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - 106+ JIRA tasks :-)
 
 ## [1.1.1] - 2017-11-22
+### Added
+- Github integration with travis. 
+
 ### Fixed
 - Cell editor should follow the cell position on window resize.
 - Keyboard navigation performance.
