@@ -34,7 +34,13 @@ class Persistence extends Plugin {
 			new Action(
 				new Command({
 					source: 'persistence',
-					execute: (e) => {
+					execute: e => {
+						if (!e) {
+							e = {
+								target: this.$element[0]
+							};
+						}
+
 						const mdPanel = this.$mdPanel;
 						const position = mdPanel.newPanelPosition()
 							.relativeTo(e.target)
@@ -60,7 +66,7 @@ class Persistence extends Plugin {
 
 						mdPanel.open(config);
 					},
-					shortcut: 'F4'
+				//	shortcut: 'ctrl+shift+h'
 				}),
 				'Load/Save',
 				'history'
