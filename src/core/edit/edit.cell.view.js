@@ -111,14 +111,13 @@ export class EditCellView extends View {
 					const context = this.contextFactory(cell);
 					const key = context.column.key;
 					const validator = validationService.createValidator(model.validation().rules, key);
-					const valid = validator.validate({[key]: this.value});
 					return cell
 						&& cell === this.editor.cell
 						&& cell.column.canEdit
 						&& (cell.column.class === 'control' || model.edit().mode === 'cell')
 						&& model.edit().state === 'edit'
 						&& model.edit().commit.canExecute(context)
-						&& valid;
+						&& validator.validate({[key]: this.value});
 				},
 				execute: (cell, e) => {
 					Log.info('cell.edit', 'commit');
