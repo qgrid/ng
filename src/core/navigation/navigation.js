@@ -149,6 +149,7 @@ export class Navigation {
 
 		const commands = {
 			goDown: new Command({
+				source: 'navigation',							
 				shortcut: shortcut.down,
 				canExecute: () => {
 					if (canNavigate()) {
@@ -165,6 +166,7 @@ export class Navigation {
 				}
 			}),
 			goUp: new Command({
+				source: 'navigation',							
 				shortcut: shortcut.up,
 				canExecute: () => {
 					if (canNavigate()) {
@@ -181,6 +183,7 @@ export class Navigation {
 				}
 			}),
 			goRight: new Command({
+				source: 'navigation',							
 				shortcut: shortcut.right,
 				canExecute: () => {
 					if (canNavigate()) {
@@ -197,6 +200,7 @@ export class Navigation {
 				}
 			}),
 			goLeft: new Command({
+				source: 'navigation',											
 				shortcut: shortcut.left,
 				canExecute: () => {
 					if (canNavigate()) {
@@ -213,6 +217,7 @@ export class Navigation {
 				}
 			}),
 			goNext: new Command({
+				source: 'navigation',											
 				shortcut: shortcut.next,
 				canExecute: () => {
 					const newRow = this.nextRow;
@@ -231,6 +236,7 @@ export class Navigation {
 				}
 			}),
 			goPrevious: new Command({
+				source: 'navigation',											
 				shortcut: shortcut.previous,
 				canExecute: () => {
 					const newColumn = this.prevColumn;
@@ -248,6 +254,7 @@ export class Navigation {
 				}
 			}),
 			home: new Command({
+				source: 'navigation',											
 				shortcut: shortcut.home,
 				canExecute: () => {
 					if (canNavigate()) {
@@ -264,6 +271,7 @@ export class Navigation {
 				}
 			}),
 			end: new Command({
+				source: 'navigation',											
 				shortcut: shortcut.end,
 				canExecute: () => {
 					if (canNavigate()) {
@@ -280,6 +288,7 @@ export class Navigation {
 				}
 			}),
 			pageUp: new Command({
+				source: 'navigation',											
 				shortcut: shortcut.pageUp,
 				canExecute: () => {
 					if (canNavigate()) {
@@ -303,6 +312,7 @@ export class Navigation {
 				}
 			}),
 			pageDown: new Command({
+				source: 'navigation',											
 				shortcut: shortcut.pageDown,
 				canExecute: () => {
 					if (canNavigate()) {

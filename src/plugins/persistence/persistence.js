@@ -33,6 +33,7 @@ class Persistence extends Plugin {
 		const actions = [
 			new Action(
 				new Command({
+					source: 'persistence',
 					execute: (e) => {
 						const mdPanel = this.$mdPanel;
 						const position = mdPanel.newPanelPosition()

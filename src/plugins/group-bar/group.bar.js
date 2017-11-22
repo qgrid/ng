@@ -22,36 +22,37 @@ class GroupBar extends Plugin {
 		this.selectedItems = null;
 
 		this.replace = new Command({
-				execute: key => {
-					const group = this.model.group;
+			source: 'group.bar',
+			execute: key => {
+				const group = this.model.group;
 
-					group({
-						by: [...key]
-					});
-				},
-				canExecute: () => this.columns.length > 0
-			}
-		);
+				group({
+					by: [...key]
+				});
+			},
+			canExecute: () => this.columns.length > 0
+		});
 
 		this.add = new Command({
-				execute: key => {
-					const group = this.model.group;
-					const state = group();
-					const temp = state.by.concat(key);
+			source: 'group.bar',
+			execute: key => {
+				const group = this.model.group;
+				const state = group();
+				const temp = state.by.concat(key);
 
-					this.selectedItems = temp.slice();
+				this.selectedItems = temp.slice();
 
-					group({
-						by: temp
-					});
+				group({
+					by: temp
+				});
 
-					this.newGroup = null;
-				},
-				canExecute: () => this.columns.length > 0
-			}
-		);
+				this.newGroup = null;
+			},
+			canExecute: () => this.columns.length > 0
+		});
 
 		this.remove = new Command({
+			source: 'group.bar',
 			execute: key => {
 				const group = this.model.group;
 				const state = group();
@@ -70,6 +71,7 @@ class GroupBar extends Plugin {
 		});
 
 		this.drop = new Command({
+			source: 'group.bar',
 			canExecute: e => e.source && e.source.key === TH_CORE_NAME && this.add.canExecute(e.source.value),
 			execute: e => this.add.execute(e.source.value)
 		});

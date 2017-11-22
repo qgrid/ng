@@ -34,14 +34,16 @@ class SelectionBar extends Plugin {
 		this.mode = this.modes[0].key;
 
 		this.toggleMode = new Command({
-			execute: (mode) => {
+			source: 'selection.bar',
+			execute: mode => {
 				const selection = this.model.selection;
 				selection({mode: mode});
 			}
 		});
 
 		this.toggleUnit = new Command({
-			execute: (unit) => {
+			source: 'selection.bar',
+			execute: unit => {
 				const selection = this.model.selection;
 				selection({unit: unit});
 			}

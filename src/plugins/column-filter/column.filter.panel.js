@@ -13,6 +13,7 @@ class ColumnFilterPanel extends Plugin {
 		this.items = [];
 
 		this.toggle = new Command({
+			source: 'column.filter.panel',
 			execute: (item) => {
 				if (this.by.has(item)) {
 					this.by.delete(item);
@@ -24,6 +25,7 @@ class ColumnFilterPanel extends Plugin {
 		});
 
 		this.toggleAll = new Command({
+			source: 'column.filter.panel',
 			execute: () => {
 				const state = !this.stateAll();
 				if (state) {
@@ -38,6 +40,7 @@ class ColumnFilterPanel extends Plugin {
 		});
 
 		this.submit = new Command({
+			source: 'column.filter.panel',
 			execute: () => {
 				const filter = this.model.filter;
 				const by = clone(filter().by);
@@ -56,10 +59,12 @@ class ColumnFilterPanel extends Plugin {
 		});
 
 		this.cancel = new Command({
+			source: 'column.filter.panel',
 			execute: () => this.onCancel()
 		});
 
 		this.reset = new Command({
+			source: 'column.filter.panel',
 			execute: () => {
 				this.by = new Set([]);
 				this.onReset();
@@ -67,6 +72,7 @@ class ColumnFilterPanel extends Plugin {
 		});
 
 		this.resetItems = new Command({
+			source: 'column.filter.panel',
 			execute: () => {
 				this.items = [];
 				this.vscrollContext.container.reset();

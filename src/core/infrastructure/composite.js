@@ -14,6 +14,7 @@ export class Composite {
 
 	static command(list) {
 		return new Command({
+			source: 'composite',			
 			canExecute: (...args) => {
 				return list.reduce((memo, cmd) => memo || cmd.canExecute(...args), false);
 			},

@@ -27,10 +27,12 @@ export function PersistencePanelController(mdPanelRef) {
 	this.close = () => mdPanelRef.close();
 
 	this.cancel = new Command({
+		source: 'persistence.panel',
 		execute: this.close
 	});
 
 	this.submit = new Command({
+		source: 'persistence.panel',
 		execute: () => {
 			this.items.push({
 				title: this.title,
@@ -52,6 +54,7 @@ export function PersistencePanelController(mdPanelRef) {
 
 	this.edit = {
 		enter: new Command({
+			source: 'persistence.panel',
 			shortcut: 'enter',
 			execute: item => {
 				item = item || this.items.find(this.isActive);
@@ -65,6 +68,7 @@ export function PersistencePanelController(mdPanelRef) {
 			canExecute: () => this.state.editItem === null
 		}),
 		commit: new Command({
+			source: 'persistence.panel',
 			shortcut: 'enter',
 			execute: item => {
 				item = item || this.state.editItem;
@@ -78,6 +82,7 @@ export function PersistencePanelController(mdPanelRef) {
 			canExecute: () => this.state.editItem !== null
 		}),
 		cancel: new Command({
+			source: 'persistence.panel',
 			shortcut: 'escape',
 			execute: () => {
 				if (this.state.editItem !== null) {
@@ -94,10 +99,12 @@ export function PersistencePanelController(mdPanelRef) {
 	};
 
 	this.load = new Command({
+		source: 'persistence.panel',
 		execute: item => persistenceService.load(item.model)
 	});
 
 	this.remove = new Command({
+		source: 'persistence.panel',
 		execute: item => {
 			const index = this.items.indexOf(item);
 			if (index >= 0) {
@@ -113,6 +120,7 @@ export function PersistencePanelController(mdPanelRef) {
 	});
 
 	this.setDefault = new Command({
+		source: 'persistence.panel',
 		execute: item => {
 			const index = this.items.indexOf(item);
 			if (index === -1) {

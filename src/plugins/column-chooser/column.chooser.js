@@ -26,12 +26,14 @@ class ColumnChooser extends Plugin {
 		};
 
 		this.toggle = new Command({
+			source: 'column.chooser',
 			execute: column => {
 				column.isVisible = !this.state(column);
 			}
 		});
 
 		this.toggleAll = new Command({
+			source: 'column.chooser',
 			execute: () => {
 				const state = !this.stateAll();
 				for (let column of this.columns) {
@@ -41,6 +43,7 @@ class ColumnChooser extends Plugin {
 		});
 
 		this.defaults = new Command({
+			source: 'column.chooser',
 			execute: () => {
 				for (let column of this.columns) {
 					column.isVisible = column.isDefault !== false;
@@ -48,9 +51,10 @@ class ColumnChooser extends Plugin {
 			}
 		});
 
-		this.toggleAggregation = new Command();
+		this.toggleAggregation = new Command({source: 'column.chooser'});
 
 		this.drop = new Command({
+			source: 'column.chooser',
 			canExecute: e => {
 				if (e.source && e.source.key === COLUMN_CHOOSER_NAME) {
 					const map = columnService.map(this.model.data().columns);
@@ -80,6 +84,7 @@ class ColumnChooser extends Plugin {
 		});
 
 		this.drag = new Command({
+			source: 'column.chooser',
 			canExecute: e => {
 				const model = this.model;
 				if (model.columnChooser().canSort) {
@@ -96,6 +101,7 @@ class ColumnChooser extends Plugin {
 		});
 
 		this.submit = new Command({
+			source: 'column.chooser',
 			execute: () => {
 				const model = this.model;
 				const temp = this.temp;
@@ -120,6 +126,7 @@ class ColumnChooser extends Plugin {
 		});
 
 		this.cancel = new Command({
+			source: 'column.chooser',
 			execute: () => {
 				this.reset.execute();
 				this.onCancel();
@@ -127,6 +134,7 @@ class ColumnChooser extends Plugin {
 		});
 
 		this.reset = new Command({
+			source: 'column.chooser',
 			execute: () => {
 				this.temp.index = this.originIndex();
 				this.temp.columns = this.originColumns(this.temp.index);

@@ -23,6 +23,7 @@ class Export extends Plugin {
 	constructor() {
 		super(...arguments);
 		this.csv = new Command({
+			source: 'export',
 			canExecute: () => this.type === 'csv',
 			execute: () => {
 				const pluginService = new PluginService(this.model);
@@ -34,6 +35,7 @@ class Export extends Plugin {
 			}
 		});
 		this.json = new Command({
+			source: 'export',
 			canExecute: () => this.type === 'json',
 			execute: () => {
 				const pluginService = new PluginService(this.model);
@@ -45,6 +47,7 @@ class Export extends Plugin {
 			}
 		});
 		this.xml = new Command({
+			source: 'export',
 			canExecute: () => this.type === 'xml',
 			execute: () => {
 				const pluginService = new PluginService(this.model);
@@ -56,6 +59,7 @@ class Export extends Plugin {
 			}
 		});
 		this.xlsx = new Command({
+			source: 'export',
 			canExecute: () => this.type === 'xlsx',
 			execute: () => {
 				const pluginService = new PluginService(this.model);
@@ -68,6 +72,7 @@ class Export extends Plugin {
 			}
 		});
 		this.pdf = new Command({
+			source: 'export',
 			canExecute: () => this.type === 'pdf',
 			execute: () => {
 				const pluginService = new PluginService(this.model);

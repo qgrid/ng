@@ -6,7 +6,8 @@ export class Command {
 		this.canExecute = yes;
 		this.shortcut = '';
 		this.priority = 0;
-
+		this.source = '';
+		
 		Object.assign(this, context);
 	}
 

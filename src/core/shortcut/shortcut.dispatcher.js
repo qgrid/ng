@@ -71,7 +71,7 @@ export class ShortcutDispatcher {
 		return activities.reduce((result, activity) => {
 			const commands = activity.commands;
 			const manager = activity.manager;
-			result = manager.invoke(commands) || result;
+			result = manager.invoke(commands, source) || result;
 			return result;
 		}, false);
 	}

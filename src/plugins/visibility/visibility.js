@@ -20,6 +20,7 @@ class Visibility extends Plugin {
 	constructor() {
 		super(...arguments);
 		this.toggle = new Command({
+			source: 'visibility',
 			execute: (node) => {
 				node.value = !node.value;
 				node.setValue(node.value);
