@@ -1,6 +1,12 @@
+root = true
+
 [*]
-charset=utf-8
-end_of_line=lf
-insert_final_newline=false
-indent_style=tab
-indent_size=3
+charset = utf-8
+end_of_line = lf
+insert_final_newline = false
+indent_style = tab
+indent_size = 3
+
+[{package.json,.travis.yml,.bower.json}]
+indent_style = space
+indent_size = 2
