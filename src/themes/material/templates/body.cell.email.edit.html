@@ -16,4 +16,8 @@
 			</md-input-container>
 		</div>
 	</q-grid:tab-trap>
+	<q-grid:validator class="q-grid-validator"
+	                  key="{{::$cell.column.key}}"
+	                  value="$view.edit.cell.value">
+	</q-grid:validator>
 </q-grid:cell-editor>

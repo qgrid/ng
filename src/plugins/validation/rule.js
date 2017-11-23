@@ -31,7 +31,8 @@ const ruleBindings = {
 	email: '@?',
 	url: '@?',
 	iso_date: '@? isoDate',
-	equal_to_field: '<? equalToField'
+	equal_to_field: '<? equalToField',
+	list_of: '<? listOf'
 };
 const bindings = {
 	for: '@',
