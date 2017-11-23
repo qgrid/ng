@@ -20,10 +20,12 @@ class ColumnChooser extends Plugin {
 
 	onInit() {
 		const context = {
-			name: COLUMN_CHOOSER_NAME,
-			onSubmit: this.onSubmit,
-			onCancel: this.onCancel
-		}
+			name: COLUMN_CHOOSER_NAME
+		};
+
+		const columnChooser = new ColumnChooserView(this.model, context);
+		this.using(columnChooser.submitEvent.on(this.onSubmit));
+		this.using(columnChooser.cancelEvent.on(this.onCancel));
 
 		this.$scope.$columnChooser = new ColumnChooserView(this.model, context);
 	}

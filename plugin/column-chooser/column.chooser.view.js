@@ -3,6 +3,7 @@ import {Command} from '@grid/core/command';
 import {Aggregation} from '@grid/core/services';
 import {isFunction, noop} from '@grid/core/utility';
 import {PluginView} from '../plugin.view';
+import {Event} from '@grid/core/infrastructure';
 
 export class ColumnChooserView extends PluginView {
 	constructor(model, context) {
@@ -10,6 +11,9 @@ export class ColumnChooserView extends PluginView {
 
 		this.model = model;
 		this.context = context;
+
+		this.cancelEvent = new Event();
+		this.submitEvent = new Event();
 
 		this.temp = {
 			index: [],
@@ -111,8 +115,8 @@ export class ColumnChooserView extends PluginView {
 				}, {
 					source: 'column.chooser'
 				});
-				
-				this.onSubmit();
+
+				this.submitEvent.emit();
 			}
 		});
 
@@ -120,7 +124,7 @@ export class ColumnChooserView extends PluginView {
 			source: 'column.chooser',
 			execute: () => {
 				this.reset.execute();
-				this.onCancel();
+				this.cancelEvent.emit();
 			}
 		});
 
@@ -202,7 +206,7 @@ export class ColumnChooserView extends PluginView {
 				memo[key] = i++;
 				return memo;
 			}, {});
-	
+
 		columns.sort((x, y) => indexMap[x.key] - indexMap[y.key]);
 		return columns;
 	}
