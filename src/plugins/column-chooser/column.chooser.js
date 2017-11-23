@@ -27,7 +27,7 @@ class ColumnChooser extends Plugin {
 		this.using(columnChooser.submitEvent.on(this.onSubmit));
 		this.using(columnChooser.cancelEvent.on(this.onCancel));
 
-		this.$scope.$columnChooser = new ColumnChooserView(this.model, context);
+		this.$scope.$columnChooser = columnChooser;
 	}
 
 	get resource() {
