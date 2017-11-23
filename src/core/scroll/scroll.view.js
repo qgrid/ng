@@ -30,21 +30,21 @@ export class ScrollView extends View {
 			});
 		});
 
-		const triggers = model.data().triggers;
-
-		Object.keys(triggers).forEach(name =>
-			this.using(model[name + 'Changed']
-				.watch(e => {
-					if (e.tag.behavior !== 'core' && e.tag.source !== 'scroll.view') {
-						const changes = Object.keys(e.changes);
-						if (triggers[name].find(key => changes.indexOf(key) >= 0)) {
-							this.y.container.reset();
-						}
-					}
-				})));
-
 		switch (scroll().mode) {
 			case 'virtual': {
+
+				const triggers = model.data().triggers;
+				Object.keys(triggers).forEach(name =>
+					this.using(model[name + 'Changed']
+						.watch(e => {
+							if (e.tag.behavior !== 'core' && e.tag.source !== 'scroll.view') {
+								const changes = Object.keys(e.changes);
+								if (triggers[name].find(key => changes.indexOf(key) >= 0)) {
+									this.y.container.reset();
+								}
+							}
+						})));
+
 				this.y.settings.fetch = (skip, take, d) => {
 					model.fetch({
 						skip: skip

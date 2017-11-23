@@ -29,7 +29,7 @@ class DataManipulation extends Plugin {
 
 export default DataManipulation.component({
 	controller: DataManipulation,
-	controllerAs: '$data',
+	controllerAs: '$dataManipulationPlugin',
 	bindings: {
 		dataManipulationRowFactory: '<rowFactory',
 		dataManipulationRowId: '<rowId'
