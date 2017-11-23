@@ -108,12 +108,12 @@ export class EditCellView extends View {
 				shortcut: this.shortcutFactory('commit'),
 				canExecute: cell => {
 					cell = cell || this.editor.cell;
-					const isEditableCell = cell
+					const canEdit = cell
 						&& cell === this.editor.cell
 						&& cell.column.canEdit
 						&& (cell.column.class === 'control' || model.edit().mode === 'cell')
 						&& model.edit().state === 'edit';
-					if (isEditableCell) {
+					if (canEdit) {
 						const context = this.contextFactory(cell);
 						const key = context.column.key;
 						const validator = validationService.createValidator(model.validation().rules, key);
