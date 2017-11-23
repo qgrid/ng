@@ -108,20 +108,18 @@ export class EditCellView extends View {
 				shortcut: this.shortcutFactory('commit'),
 				canExecute: cell => {
 					cell = cell || this.editor.cell;
-					const context = this.contextFactory(cell);
-					let isValid = true;
-					if (context){
-						const key = context.column.key;
-						const validator = validationService.createValidator(model.validation().rules, key);
-						isValid = validator.validate({[key]: this.value});
-					}
-					return cell
+					const isEditableCell = cell
 						&& cell === this.editor.cell
 						&& cell.column.canEdit
 						&& (cell.column.class === 'control' || model.edit().mode === 'cell')
-						&& model.edit().state === 'edit'
-						&& model.edit().commit.canExecute(context)
-						&& isValid;
+						&& model.edit().state === 'edit';
+					if (isEditableCell) {
+						const context = this.contextFactory(cell);
+						const key = context.column.key;
+						const validator = validationService.createValidator(model.validation().rules, key);
+						return model.edit().commit.canExecute(context) && validator.validate({[key]: this.value})
+					}
+					return false;
 				},
 				execute: (cell, e) => {
 					Log.info('cell.edit', 'commit');
@@ -264,9 +262,6 @@ export class EditCellView extends View {
 	}
 
 	contextFactory(cell, value, label, tag) {
-		if (!cell) {
-			return false;
-		}
 		const {column, row, columnIndex, rowIndex, value: oldValue, label: oldLabel} = cell;
 		return {
 			column,
