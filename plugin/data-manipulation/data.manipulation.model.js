@@ -1,7 +1,7 @@
 import {Resource} from '@grid/core/resource';
 import {identity, cloneDeep, isArray, isObject, isDate, isBoolean, isNumber, isFunction} from '@grid/core/utility';
 
-export default class DataManipulationModel {
+export class DataManipulationModel {
 	constructor() {
 		this.resource = new Resource();
 
