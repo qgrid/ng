@@ -18,23 +18,18 @@ class DataManipulation extends Plugin {
 	}
 
 	onInit() {
-		this.$scope.$data = new DataManipulationView(this.model);
+		// As data manipulation view works only with model we dont need to assign it to the $scope
+		new DataManipulationView(this.model);
 	}
 
 	get resource() {
 		return this.model.dataManipulation().resource;
 	}
-
-	onDestroy() {
-		if (this.$scope.$data) {
-			this.$scope.$data.dispose();
-		}
-	}
 }
 
 export default DataManipulation.component({
 	controller: DataManipulation,
-	controllerAs: '$dataManipulationPlugin',
+	controllerAs: '$data',
 	bindings: {
 		dataManipulationRowFactory: '<rowFactory',
 		dataManipulationRowId: '<rowId'
