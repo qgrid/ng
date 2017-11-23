@@ -19,7 +19,13 @@ class ColumnChooser extends Plugin {
 	}
 
 	onInit() {
-		this.$scope.$columnChooser = new ColumnChooserView(this.model);
+		const context = {
+			name: COLUMN_CHOOSER_NAME,
+			onSubmit: this.onSubmit,
+			onCancel: this.onCancel
+		}
+
+		this.$scope.$columnChooser = new ColumnChooserView(this.model, context);
 	}
 
 	get resource() {
@@ -32,3 +38,13 @@ class ColumnChooser extends Plugin {
 		}
 	}
 }
+
+export default ColumnChooser.component({
+	controller: ColumnChooser,
+	controllerAs: '$columnChooserPlugin',
+	bindings: {
+		'columnChooserCanAggregate': '<canAggregate',
+		'onSubmit': '&',
+		'onCancel': '&'
+	}
+});
