@@ -21,7 +21,7 @@ export class Composite {
 			execute: (...args) => {
 				return list
 					.filter(cmd => cmd.canExecute(...args))
-					.reduce((memo, cmd) => cmd.execute(...args) || memo, false);
+					.reduce((memo, cmd) => cmd.execute(...args) || memo);
 			}
 		});
 	}
