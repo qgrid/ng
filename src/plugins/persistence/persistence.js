@@ -16,8 +16,6 @@ class Persistence extends Plugin {
 	onInit() {
 		const model = this.model;
 		const persistenceView = new PersistenceView(model);
-		this.using(persistenceView.submitEvent.on(this.onSubmit));
-		this.using(persistenceView.cancelEvent.on(this.onCancel));
 
 		const actions = [
 			new Action(
@@ -37,8 +35,9 @@ class Persistence extends Plugin {
 
 						const config = {
 							attachTo: angular.element(this.$document[0].body), // eslint-disable-line no-undef
-							controller: () => {},
-							controllerAs: '$persistence',
+							controller: ['$scope', function($scope) {
+								$scope.$persistence = persistenceView;
+							}],
 							templateUrl: 'qgrid.plugin.persistence-panel.tpl.html',
 							panelClass: 'q-grid-persistence-panel',
 							position: position,
@@ -75,9 +74,5 @@ class Persistence extends Plugin {
 
 export default Persistence.component({
 	controller: Persistence,
-	controllerAs: '$persistencePlugin',
-	bindings: {
-		'onSubmit': '&',
-		'onCancel': '&'
-	}
+	controllerAs: '$persistencePlugin'
 });

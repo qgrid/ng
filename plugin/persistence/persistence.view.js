@@ -19,8 +19,6 @@ export class PersistenceView extends PluginView {
 		this.model = model;
 		this.storageKey = `q-grid:${model.grid().id}:${model.persistence().id}:persistence-list`;
 		this.persistenceService = new PersistenceService(model);
-		this.submitEvent = new Event();
-		this.cancelEvent = new Event();
 		this.closeEvent = new Event();
 
 		this.model.persistence()
@@ -34,7 +32,7 @@ export class PersistenceView extends PluginView {
 				}
 			});
 
-		this.submit = new Command({
+		this.save = new Command({
 			source: 'persistence.view',
 			execute: () => {
 				this.items.push({
@@ -49,7 +47,6 @@ export class PersistenceView extends PluginView {
 					.setItem(this.storageKey, this.items);
 
 				this.title = '';
-				this.submitEvent.emit();
 
 				return true;
 			},
@@ -100,7 +97,6 @@ export class PersistenceView extends PluginView {
 					} else {
 						this.closeEvent.emit();
 					}
-					this.cancelEvent.emit();
 					return true;
 				}
 			})
