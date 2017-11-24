@@ -53,6 +53,7 @@ export default Validator.component({
 	controllerAs: '$validator',
 	bindings: {
 		'key': '@',
+		'type': '@',
 		'value': '<',
 	}
 });

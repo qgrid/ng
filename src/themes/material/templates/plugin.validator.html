@@ -1,3 +1,8 @@
 <div ng-if="$validator.errors" class="validation-errors">
-	<div ng-repeat="error in $validator.errors track by $index">{{error}}</div>
+	<div ng-repeat="error in $validator.errors track by $index">
+		<div ng-if="error">
+			<span ng-if="$validator.type==='array'">{{$validator.value[$index]}} : {{error}}</span>
+			<span ng-if="$validator.type!=='array'">{{error}}</span>
+		</div>
+	</div>
 </div>
