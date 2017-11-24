@@ -5,7 +5,7 @@
 				 ng-model="$view.edit.cell.value"/>
 	</md-input-container>
 	<q-grid:validator class="q-grid-validator"
-	                  column="{{::$cell.column}}"
+	                  key="{{::$cell.column.key}}"
 	                  type="{{::$cell.column.type}}"
 	                  value="$view.edit.cell.value">
 	</q-grid:validator>
