@@ -20,6 +20,7 @@ PreventDefault.$inject = ['$element'];
 export default {
 	restrict: 'A',
 	controller: PreventDefault,
+	controllerAs: '$preventDefault',
 	require: PreventDefault.require,
 	link: PreventDefault.link,
 	scope: false,
