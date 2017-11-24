@@ -19,7 +19,7 @@
 				</div>
 				<div class="flex-none">
 					<md-button class="md-primary q-grid-persistence-save" md-prevent-menu-close
-					           ng-click="$persistence.submit.execute()" ng-disabled="!$persistence.submit.canExecute()">
+					           ng-click="$persistence.save.execute()" ng-disabled="!$persistence.save.canExecute()">
 						Save
 					</md-button>
 				</div>
@@ -81,14 +81,6 @@
 					</md-list-item>
 				</md-list>
 			</div>
-			<!-- <div class="q-grid-popup-actions flex-none">
-				<md-button ng-click="$persistence.cancel.execute()" md-prevent-menu-close>
-					Cancel
-				</md-button>
-				<md-button class="md-primary" md-prevent-menu-close ng-click="$persistence.submit.execute()" ng-disabled="!$persistence.submit.canExecute()">
-					Save
-				</md-button>
-			</div> -->
 		</md-card-content>
 	</md-card>
 </div>
