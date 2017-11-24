@@ -6,6 +6,19 @@ const Plugin = PluginComponent('column-filter-panel', {inject: ['vscroll', '$fil
 class ColumnFilterPanel extends Plugin {
 	constructor() {
 		super(...arguments);
+	}
+
+	onInit() {
+		const context = {
+			key: this.key
+		};
+
+		const columnFilter = new ColumnFilterView(this.model, context);
+		this.using(columnFilter.submitEvent.on(this.onSubmit));
+		this.using(columnFilter.cancelEvent.on(this.onCancel));
+		this.using(columnFilter.resetItemsEvent.on(this.onResetItems));
+
+		this.$scope.$columnFilterPanel = columnFilter;
 
 		this.vscrollContext = this.vscroll({
 			fetch: (skip, take, d) => {
@@ -21,7 +34,7 @@ class ColumnFilterPanel extends Plugin {
 					const cancelBusy = service.busy();
 					filterState
 						.fetch(this.key, {
-							value: this.getValue.bind(this),
+							value: columnFilter.getValue,
 							skip: skip,
 							take: take,
 							filter: this.filter
@@ -38,7 +51,7 @@ class ColumnFilterPanel extends Plugin {
 					try {
 						if (!this.items.length) {
 							const source = model[model.columnFilter().source];
-							let items = source().rows.map(this.getValue.bind(this));
+							let items = source().rows.map(columnFilter.getValue);
 							if (this.column.type === 'array') {
 								items = flatten(items);
 							}
@@ -57,19 +70,6 @@ class ColumnFilterPanel extends Plugin {
 				}
 			}
 		});
-	}
-
-	onInit() {
-		const context = {
-			key: this.key
-		};
-
-		const columnFilter = new ColumnFilterView(this.model, context);
-		this.using(columnFilter.submitEvent.on(this.onSubmit));
-		this.using(columnFilter.cancelEvent.on(this.onCancel));
-		this.using(columnFilter.resetItemsEvent.on(this.onResetItems));
-
-		this.$scope.$columnFilterPanel = columnFilter;
 
 		this.vscrollContext.settings.threshold = this.model.columnFilter().threshold;
 		this.onResetItems();
