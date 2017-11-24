@@ -20,6 +20,7 @@ StopPropagate.$inject = ['$element'];
 export default {
 	restrict: 'A',
 	controller: StopPropagate,
+	controllerAs: '$stopPropagate',
 	require: StopPropagate.require,
 	link: StopPropagate.link,
 	scope: false,
