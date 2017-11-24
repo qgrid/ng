@@ -34,8 +34,10 @@ export default function (pages) {
 
 		// Comment this if you want to have support of tools such as batarang
 		$compileProvider.debugInfoEnabled(false);
-		$compileProvider.commentDirectivesEnabled(false);
-		$compileProvider.cssClassDirectivesEnabled(false);
+		if ($compileProvider.commentDirectivesEnabled) { // 1.5.8 doesn't support this
+			$compileProvider.cssClassDirectivesEnabled(false);
+			$compileProvider.commentDirectivesEnabled(false);
+		}
 	}
 
 	return Setup;
