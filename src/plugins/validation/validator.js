@@ -1,8 +1,7 @@
 import PluginComponent from '../plugin.component';
 import * as validationService from '@grid/core/validation/validation.service';
-import {isString} from '@grid/core/utility';
+import {isString, isEqual} from '@grid/core/utility';
 
-const isArray = angular.isArray;
 const Plugin = PluginComponent('validator');
 
 class Validator extends Plugin {
@@ -14,28 +13,28 @@ class Validator extends Plugin {
 		if (validationService.hasRules(this.rules, this.key)) {
 			this.validator = validationService.createValidator(this.rules, this.key);
 		}
+
+		this.oldErrors = [];
 	}
 
-	get error() {
+	get errors() {
 		if (this.validator) {
 			const target = {
 				[this.key]: this.value
 			};
-			const validData = this.validator.validate(target);
-			if (!validData) {
-				const errors = this.validator.getErrors()[this.key];
-				if (isString(errors)) {
-					return errors;
-				} else if (isArray(errors) && isArray(this.value)) {
-					const result = errors.reduce((prev, curr, i) => {
-						if (curr !== null) {
-							prev.push(`${this.value[i]}: ${curr}`);
-						}
-						return prev;
-					}, []);
-					return result.join('\n');
+
+			const isValid = this.validator.validate(target);
+			if (!isValid) {
+				const newError = this.validator.getErrors()[this.key];
+				const newErrors = isString(newError) ? [newError] : newError;
+				if (!isEqual(newErrors, this.oldErrors)) {
+					this.oldErrors = newErrors;
 				}
+			} else {
+				this.oldErrors.length = 0;
 			}
+
+			return this.oldErrors;
 		}
 	}
 

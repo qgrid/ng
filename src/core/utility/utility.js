@@ -1,6 +1,7 @@
 import isObject from 'lodash/isObject';
 import isFunction from 'lodash/isFunction';
 import isArray from 'lodash/isArray';
+import isEqual from 'lodash/isEqual';
 import isString from 'lodash/isString';
 import isBoolean from 'lodash/isBoolean';
 import isNumber from 'lodash/isNumber';
@@ -55,6 +56,7 @@ export {
 	isObject,
 	isFunction,
 	isArray,
+	isEqual,
 	isString,
 	isUndefined,
 	isBoolean,
