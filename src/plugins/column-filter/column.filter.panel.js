@@ -1,83 +1,11 @@
 import PluginComponent from '../plugin.component';
-import {Command} from '@grid/core/command';
-import {uniq, clone, noop, flatten} from '@grid/core/utility';
-import {getFactory as labelFactory} from '@grid/core/services/label';
-import * as columnService from '@grid/core/column/column.service';
+import {uniq, noop, flatten} from '@grid/core/utility';
+import {ColumnFilterView} from '@grid/plugin/column-filter/column.filter.view';
 
 const Plugin = PluginComponent('column-filter-panel', {inject: ['vscroll', '$filter', 'qgrid']});
 class ColumnFilterPanel extends Plugin {
 	constructor() {
 		super(...arguments);
-
-		this.by = new Set();
-		this.items = [];
-
-		this.toggle = new Command({
-			source: 'column.filter.panel',
-			execute: (item) => {
-				if (this.by.has(item)) {
-					this.by.delete(item);
-				}
-				else {
-					this.by.add(item);
-				}
-			}
-		});
-
-		this.toggleAll = new Command({
-			source: 'column.filter.panel',
-			execute: () => {
-				const state = !this.stateAll();
-				if (state) {
-					for (let item of this.items) {
-						this.by.add(item);
-					}
-				}
-				else {
-					this.by.clear();
-				}
-			}
-		});
-
-		this.submit = new Command({
-			source: 'column.filter.panel',
-			execute: () => {
-				const filter = this.model.filter;
-				const by = clone(filter().by);
-				const items = Array.from(this.by);
-				if (items.length) {
-					by[this.key] = {items: items};
-				}
-				else {
-					delete by[this.key];
-				}
-
-				filter({by: by});
-
-				this.onSubmit();
-			}
-		});
-
-		this.cancel = new Command({
-			source: 'column.filter.panel',
-			execute: () => this.onCancel()
-		});
-
-		this.reset = new Command({
-			source: 'column.filter.panel',
-			execute: () => {
-				this.by = new Set([]);
-				this.onReset();
-			}
-		});
-
-		this.resetItems = new Command({
-			source: 'column.filter.panel',
-			execute: () => {
-				this.items = [];
-				this.vscrollContext.container.reset();
-			}
-		});
 
 		this.vscrollContext = this.vscroll({
 			fetch: (skip, take, d) => {
@@ -111,7 +39,7 @@ class ColumnFilterPanel extends Plugin {
 						if (!this.items.length) {
 							const source = model[model.columnFilter().source];
 							let items = source().rows.map(this.getValue.bind(this));
-							if(this.column.type === 'array') {
+							if (this.column.type === 'array') {
 								items = flatten(items);
 							}
 
@@ -132,36 +60,29 @@ class ColumnFilterPanel extends Plugin {
 	}
 
 	onInit() {
-		this.column = columnService.find(this.model.data().columns, this.key);
-		this.title = this.column.title;
-		this.getValue = labelFactory(this.column);
+		const context = {
+			key: this.key
+		};
 
-		const filterBy = this.model.filter().by[this.key];
-		this.by = new Set((filterBy && filterBy.items) || []);
+		const columnFilter = new ColumnFilterView(this.model, context);
+		this.using(columnFilter.submitEvent.on(this.onSubmit));
+		this.using(columnFilter.cancelEvent.on(this.onCancel));
+		this.using(columnFilter.resetItemsEvent.on(this.onResetItems));
+
+		this.$scope.$columnFilterPanel = columnFilter;
 
 		this.vscrollContext.settings.threshold = this.model.columnFilter().threshold;
-		this.resetItems.execute();
+		this.onResetItems();
 	}
 
-	state(item) {
-		return this.by.has(item);
-	}
-
-	stateAll() {
-		return this.items.every(this.state.bind(this));
-	}
-
-	isIndeterminate() {
-		return !this.stateAll() && this.items.some(this.state.bind(this));
-	}
-
-	onReset() {
+	onResetItems() {
+		this.vscrollContext.container.reset();
 	}
 }
 
 export default ColumnFilterPanel.component({
 	controller: ColumnFilterPanel,
-	controllerAs: '$columnFilterPanel',
+	controllerAs: '$columnFilterPanelPlugin',
 	bindings: {
 		'onSubmit': '&',
 		'onCancel': '&',
