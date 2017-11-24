@@ -1,9 +1,8 @@
 import PluginComponent from '../plugin.component';
-import {Action} from '@grid/core/action';
-import {Command} from '@grid/core/command';
-import {Composite} from '@grid/core/infrastructure/composite';
-import {PersistencePanelController} from './persistence.panel';
-import {PersistenceService} from '@grid/core/persistence/persistence.service';
+import { Action } from '@grid/core/action';
+import { Command } from '@grid/core/command';
+import { Composite } from '@grid/core/infrastructure/composite';
+import { PersistenceView } from '../../../plugin/persistence/persistence.view';
 
 const Plugin = PluginComponent('persistence', {
 	inject: ['qgrid', '$mdPanel', '$document']
@@ -16,19 +15,9 @@ class Persistence extends Plugin {
 
 	onInit() {
 		const model = this.model;
-		const storageKey = `q-grid:${model.grid().id}:${model.persistence().id}:persistence-list`;
-
-		model.persistence()
-			.storage
-			.getItem(storageKey)
-			.then(items => {
-				items = items || [];
-				const defaultItem = items.find(item => item.isDefault);
-				if (defaultItem) {
-					const persistenceService = new PersistenceService(model);
-					persistenceService.load(defaultItem.model);
-				}
-			});
+		const persistenceView = new PersistenceView(model);
+		this.using(persistenceView.submitEvent.on(this.onSubmit));
+		this.using(persistenceView.cancelEvent.on(this.onCancel));
 
 		const actions = [
 			new Action(
@@ -48,14 +37,13 @@ class Persistence extends Plugin {
 
 						const config = {
 							attachTo: angular.element(this.$document[0].body), // eslint-disable-line no-undef
-							controller: PersistencePanelController,
+							controller: () => {},
 							controllerAs: '$persistence',
 							templateUrl: 'qgrid.plugin.persistence-panel.tpl.html',
 							panelClass: 'q-grid-persistence-panel',
 							position: position,
 							locals: {
-								model: model,
-								storageKey: storageKey
+								view: persistenceView
 							},
 							openFrom: e,
 							clickOutsideToClose: true,
@@ -64,16 +52,21 @@ class Persistence extends Plugin {
 							zIndex: 2
 						};
 
-						mdPanel.open(config);
+						mdPanel.open(config)
+							.then(mdPanelRef => {
+								persistenceView.title = persistenceView.stringify({model: persistenceView.persistenceService.save()});
+								const close = () => mdPanelRef.close();
+								this.using(persistenceView.closeEvent.on(close));
+							});
 					},
-				//	shortcut: 'ctrl+shift+h'
+					//	shortcut: 'ctrl+shift+h'
 				}),
 				'Load/Save',
 				'history'
 			)
 		];
 
-		model
+		persistenceView.model
 			.action({
 				items: Composite.list([actions, model.action().items])
 			});
@@ -82,7 +75,7 @@ class Persistence extends Plugin {
 
 export default Persistence.component({
 	controller: Persistence,
-	controllerAs: '$persistence',
+	controllerAs: '$persistencePlugin',
 	bindings: {
 		'onSubmit': '&',
 		'onCancel': '&'
