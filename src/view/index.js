@@ -41,6 +41,7 @@ import PreventDefault from './directives/prevent.default';
 import ThemeProvider from './services/theme';
 import Range from './filters/range';
 import Highlight from './filters/highlight';
+import Prettify from './filters/prettify';
 
 import * as def from './definition';
 require('vscroll'); // TODO: make vscroll export
@@ -63,6 +64,7 @@ export const coreModule = angular.module(def.MODULE_CORE_NAME, []) // eslint-dis
 	.service(def.TEMPLATE_PATH_NAME, () => () => TemplatePath)
 	.filter(def.RANGE_NAME, () => Range)
 	.filter(def.HIGHLIGHT_NAME, () => Highlight)
+	.filter(def.PRETTIFY_NAME, () => Prettify)
 	.config(['$compileProvider',
 		$compileProvider => $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|tel|file|data):/)
 	])
