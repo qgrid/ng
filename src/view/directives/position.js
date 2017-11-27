@@ -121,7 +121,7 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 		const marker = `${GRID_PREFIX}-view`;
 		while (view) {
 			if (view.classList && view.classList.contains(marker)) {
-				return view.getBoundingClientRect()
+				return view.getBoundingClientRect();
 			}
 
 			view = view.parentNode;
