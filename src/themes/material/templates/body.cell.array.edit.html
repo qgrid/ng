@@ -9,4 +9,9 @@
 				<input type="text" ng-model="$arrayEdit.text" ng-keydown="$arrayEdit.keyDown($event)" placeholder="Enter {{::$cell.column.title}}...">
 		</md-chips>
 	</div>
+	<q-grid:validator class="q-grid-validator"
+	                  key="{{::$cell.column.key}}"
+	                  type="{{::$cell.column.type}}"
+	                  value="$view.edit.cell.value">
+	</q-grid:validator>
 </q-grid:cell-editor>
