@@ -15,6 +15,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Column filter for date types. 
 - 106+ JIRA tasks :-)
 
+## [1.1.3] - 2017-11-24
+### Fixed
+- Editor position does not work when parent element applies transformations. 
+
 ## [1.1.2] - 2017-11-24
 ### Fixed
 - Scroll jumping when column sorting is applied.
@@ -176,7 +180,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Action bar plugin.
 - Data manipulation plugin.
 
-[Unreleased]: https://github.com/qgrid/ng/compare/v1.1.2...HEAD
+[Unreleased]: https://github.com/qgrid/ng/compare/v1.1.3...HEAD
+[1.1.3]: https://github.com/qgrid/ng/compare/v1.1.2...v1.1.3
 [1.1.2]: https://github.com/qgrid/ng/compare/v1.1.1...v1.1.2
 [1.1.1]: https://github.com/qgrid/ng/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/qgrid/ng/compare/v1.0.65...v1.1.0
