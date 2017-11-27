@@ -1634,7 +1634,8 @@
     max-width: 250px;
     overflow: auto; }
   .q-grid .q-grid-view {
-    position: relative; }
+    position: relative;
+    transform: translate3d(0, 0, 0); }
     .q-grid .q-grid-view.q-grid-select-range thead td, .q-grid .q-grid-view.q-grid-select-range thead th, .q-grid .q-grid-view.q-grid-select-range tfoot td, .q-grid .q-grid-view.q-grid-select-range tfoot th, .q-grid .q-grid-view.q-grid-select-range tbody td, .q-grid .q-grid-view.q-grid-select-range tbody th {
       -webkit-user-select: none;
       -moz-user-select: none;

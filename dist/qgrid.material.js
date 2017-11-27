@@ -777,6 +777,14 @@ module.exports = "<div ng-click=\"$cell.column.canSort && $view.sort.toggle.exec
 
 /***/ }),
 /* 24 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GRID_PREFIX; });
+var GRID_PREFIX = 'q-grid';
+
+/***/ }),
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseIsNative = __webpack_require__(178),
@@ -799,7 +807,7 @@ module.exports = getNative;
 
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseMatches = __webpack_require__(243),
@@ -834,14 +842,6 @@ function baseIteratee(value) {
 
 module.exports = baseIteratee;
 
-
-/***/ }),
-/* 26 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GRID_PREFIX; });
-var GRID_PREFIX = 'q-grid';
 
 /***/ }),
 /* 27 */
@@ -1385,7 +1385,7 @@ module.exports = assocIndexOf;
 /* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getNative = __webpack_require__(24);
+var getNative = __webpack_require__(25);
 
 /* Built-in method references that are verified to be native. */
 var nativeCreate = getNative(Object, 'create');
@@ -1924,7 +1924,7 @@ module.exports = function(module) {
 /* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getNative = __webpack_require__(24),
+var getNative = __webpack_require__(25),
     root = __webpack_require__(12);
 
 /* Built-in method references that are verified to be native. */
@@ -3091,7 +3091,7 @@ module.exports = assignValue;
 /* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getNative = __webpack_require__(24);
+var getNative = __webpack_require__(25);
 
 var defineProperty = (function() {
   try {
@@ -3481,7 +3481,7 @@ module.exports = getTag;
 /* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getNative = __webpack_require__(24),
+var getNative = __webpack_require__(25),
     root = __webpack_require__(12);
 
 /* Built-in method references that are verified to be native. */
@@ -7608,7 +7608,7 @@ module.exports = getAllKeysIn;
 /* 207 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getNative = __webpack_require__(24),
+var getNative = __webpack_require__(25),
     root = __webpack_require__(12);
 
 /* Built-in method references that are verified to be native. */
@@ -7621,7 +7621,7 @@ module.exports = DataView;
 /* 208 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getNative = __webpack_require__(24),
+var getNative = __webpack_require__(25),
     root = __webpack_require__(12);
 
 /* Built-in method references that are verified to be native. */
@@ -7634,7 +7634,7 @@ module.exports = Promise;
 /* 209 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getNative = __webpack_require__(24),
+var getNative = __webpack_require__(25),
     root = __webpack_require__(12);
 
 /* Built-in method references that are verified to be native. */
@@ -9045,7 +9045,7 @@ module.exports = orderBy;
 /***/ (function(module, exports, __webpack_require__) {
 
 var arrayMap = __webpack_require__(70),
-    baseIteratee = __webpack_require__(25),
+    baseIteratee = __webpack_require__(26),
     baseMap = __webpack_require__(263),
     baseSortBy = __webpack_require__(266),
     baseUnary = __webpack_require__(57),
@@ -11132,7 +11132,7 @@ module.exports = noop;
 /* 295 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseIteratee = __webpack_require__(25),
+var baseIteratee = __webpack_require__(26),
     baseSum = __webpack_require__(296);
 
 /**
@@ -11203,7 +11203,7 @@ module.exports = baseSum;
 
 var baseExtremum = __webpack_require__(121),
     baseGt = __webpack_require__(298),
-    baseIteratee = __webpack_require__(25);
+    baseIteratee = __webpack_require__(26);
 
 /**
  * This method is like `_.max` except that it accepts `iteratee` which is
@@ -11262,7 +11262,7 @@ module.exports = baseGt;
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseExtremum = __webpack_require__(121),
-    baseIteratee = __webpack_require__(25),
+    baseIteratee = __webpack_require__(26),
     baseLt = __webpack_require__(300);
 
 /**
@@ -11400,7 +11400,7 @@ module.exports = unzip;
 /* 303 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseIteratee = __webpack_require__(25),
+var baseIteratee = __webpack_require__(26),
     baseWhile = __webpack_require__(122);
 
 /**
@@ -11451,7 +11451,7 @@ module.exports = takeWhile;
 /* 304 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseIteratee = __webpack_require__(25),
+var baseIteratee = __webpack_require__(26),
     baseWhile = __webpack_require__(122);
 
 /**
@@ -11551,7 +11551,7 @@ module.exports = groupBy;
 
 var arrayAggregator = __webpack_require__(307),
     baseAggregator = __webpack_require__(308),
-    baseIteratee = __webpack_require__(25),
+    baseIteratee = __webpack_require__(26),
     isArray = __webpack_require__(6);
 
 /**
@@ -16305,7 +16305,7 @@ var SelectionModel = function SelectionModel() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__state__ = __webpack_require__(378);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__selection_range__ = __webpack_require__(137);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__selection_service__ = __webpack_require__(139);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__definition__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__definition__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__utility__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__selection_command_manager__ = __webpack_require__(381);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pipe_pipe_unit__ = __webpack_require__(54);
