@@ -46,11 +46,11 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 	layout(target, source) {
 		const {top, right, left, bottom} = target.getBoundingClientRect();
 		const {width, height} = source.getBoundingClientRect();
-		const cr = this.clientRect();
+		const vr = this.viewRect();
 
 		const intersections = [];
 		intersections.push(
-			this.intersection(cr, {
+			this.intersection(vr, {
 				top: top,
 				right: left + width,
 				bottom: top + height,
@@ -58,7 +58,7 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 			}));
 
 		intersections.push(
-			this.intersection(cr, {
+			this.intersection(vr, {
 				top: top,
 				right: right,
 				bottom: top + height,
@@ -66,7 +66,7 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 			}));
 
 		intersections.push(
-			this.intersection(cr, {
+			this.intersection(vr, {
 				top: bottom - height,
 				right: left + width,
 				bottom: bottom,
@@ -74,7 +74,7 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 			}));
 
 		intersections.push(
-			this.intersection(cr, {
+			this.intersection(vr, {
 				top: bottom - height,
 				right: right,
 				bottom: bottom,
@@ -82,10 +82,8 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 			}));
 
 		const intersection = max(intersections, i => i.area);
-
 		const {left: l, top: t} = intersection.b;
-
-		const pos = this.fix({left: l - cr.left, top: t - cr.top, width, height});
+		const pos = this.fix(vr, {left: l - vr.left, top: t - vr.top, width, height});
 
 		source.style.left = pos.left + 'px';
 		source.style.top = pos.top + 'px';
@@ -98,25 +96,24 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 		return {area, a, b};
 	}
 
-	fix(rect) {
-		const cr = this.clientRect();
-		const {width: w, height: h} = cr;
-		const {left: rx, top: ry, height: rh, width: rw} = rect;
-		const gtx1 = rx + rw > w;
-		const ltx0 = rx < 0;
-		const gty1 = ry + rh > h;
-		const lty0 = ry < 0;
+	fix(viewRect, sourceRect) {
+		const {width: vw, height: vh} = viewRect;
+		const {left: sx, top: sy, height: sh, width: sw} = sourceRect;
+		const gtx1 = sx + sw > vw;
+		const ltx0 = sx < 0;
+		const gty1 = sy + sh > vh;
+		const lty0 = sy < 0;
 		const left = ltx0 || gtx1
-			? (w - rw) / 2
-			: rx;
+			? (vw - sw) / 2
+			: sx;
 		const top = lty0 || gty1
-			? (h - rh) / 2
-			: ry;
+			? (vh - sh) / 2
+			: sy;
 
 		return {left, top};
 	}
 
-	clientRect() {
+	viewRect() {
 		let view = this.element;
 		const marker = `${GRID_PREFIX}-view`;
 		while (view) {
@@ -127,6 +124,10 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 			view = view.parentNode;
 		}
 
+		return this.windowRect();
+	}
+
+	windowRect() {
 		const {innerHeight: h, innerWidth: w} = this.$window;
 		return {
 			top: 0,
