@@ -382,6 +382,10 @@
 			{
 				"title": "Dialog",
 				"path": "dialog"
+			},
+			{
+				"title": "Tab Control",
+				"path": "tab-control"
 			}
 		]
 	},
