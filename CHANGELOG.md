@@ -15,6 +15,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Column filter for date types. 
 - 106+ JIRA tasks :-)
 
+## [1.1.3] - 2017-11-24
+### Fixed
+- Editor position does not work when parent element applies transformations. 
+
 ## [1.1.2] - 2017-11-24
 ### Fixed
 - Scroll jumping when column sorting is applied.
