@@ -75,7 +75,6 @@ md-toolbar {
 	}
 }
 
-
 .q-grid-highlight-part {
 	background-color: yellow;
 	color: #000;
@@ -99,5 +98,11 @@ md-toolbar {
 
 	md-dialog-content {
 		overflow: hidden;
+	}
+}
+
+.tab-control {
+	md-tabs {
+		height: calc(100% - 60px);
 	}
 }
