@@ -2,10 +2,12 @@ import PluginComponent from '../plugin.component';
 import {uniq, noop, flatten} from '@grid/core/utility';
 import {ColumnFilterView} from '@grid/plugin/column-filter/column.filter.view';
 
-const Plugin = PluginComponent('column-filter-panel', {inject: ['vscroll', '$filter', 'qgrid']});
+const Plugin = PluginComponent('column-filter-panel', {inject: ['$scope', 'vscroll', '$filter', 'qgrid']});
 class ColumnFilterPanel extends Plugin {
 	constructor() {
 		super(...arguments);
+
+		this.vscrollContext = null;
 	}
 
 	onInit() {
@@ -14,12 +16,6 @@ class ColumnFilterPanel extends Plugin {
 		};
 
 		const columnFilter = new ColumnFilterView(this.model, context);
-		this.using(columnFilter.submitEvent.on(this.onSubmit));
-		this.using(columnFilter.cancelEvent.on(this.onCancel));
-		this.using(columnFilter.resetItemsEvent.on(this.onResetItems));
-
-		this.$scope.$columnFilterPanel = columnFilter;
-
 		this.vscrollContext = this.vscroll({
 			fetch: (skip, take, d) => {
 				if (!this.isReady()) {
@@ -33,15 +29,15 @@ class ColumnFilterPanel extends Plugin {
 				if (filterState.fetch !== noop) {
 					const cancelBusy = service.busy();
 					filterState
-						.fetch(this.key, {
+						.fetch(columnFilter.key, {
 							value: columnFilter.getValue,
 							skip: skip,
 							take: take,
-							filter: this.filter
+							filter: columnFilter.filter
 						})
 						.then(items => {
-							this.items.push(...items);
-							d.resolve(this.items.length + take);
+							columnFilter.items.push(...items);
+							d.resolve(columnFilter.items.length + take);
 							cancelBusy();
 						})
 						.catch(cancelBusy);
@@ -49,30 +45,35 @@ class ColumnFilterPanel extends Plugin {
 				else {
 					const cancelBusy = service.busy();
 					try {
-						if (!this.items.length) {
+						if (!columnFilter.items.length) {
 							const source = model[model.columnFilter().source];
 							let items = source().rows.map(columnFilter.getValue);
-							if (this.column.type === 'array') {
+							if (columnFilter.column.type === 'array') {
 								items = flatten(items);
 							}
 
 							const uniqItems = uniq(items);
-							const filteredItems = this.$filter('filter')(uniqItems, this.filter);
+							const filteredItems = this.$filter('filter')(uniqItems, columnFilter.filter);
 							filteredItems.sort();
-							this.items = filteredItems;
+							columnFilter.items = filteredItems;
 						}
 
-						d.resolve(this.items.length);
+						d.resolve(columnFilter.items.length);
 					}
 					finally {
 						cancelBusy();
 					}
 				}
-			}
+			},
+			threshold: this.model.columnFilter().threshold
 		});
 
-		this.vscrollContext.settings.threshold = this.model.columnFilter().threshold;
-		this.onResetItems();
+		this.using(columnFilter.submitEvent.on(this.onSubmit));
+		this.using(columnFilter.cancelEvent.on(this.onCancel));
+		this.using(columnFilter.resetItemsEvent.on(this.onResetItems.bind(this)));
+
+		this.$scope.$columnFilterPanel = columnFilter;
+		this.$scope.$columnFilterPanel.vscrollContext = this.vscrollContext;
 	}
 
 	onResetItems() {
