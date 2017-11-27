@@ -3,6 +3,7 @@ import {POSITION_NAME, GRID_NAME} from '@grid/view/definition';
 import {max} from '@grid/core/utility';
 import {EventListener, EventManager} from '@grid/core/infrastructure';
 import {jobLine} from '@grid/core/services';
+import {GRID_PREFIX} from '@grid/core/definition';
 
 class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 	constructor($element, $attrs, $timeout, $window) {
@@ -12,15 +13,15 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 		this.$attrs = $attrs;
 		this.$timeout = $timeout;
 		this.$window = $window;
-		
+
 		const listener = new EventListener(this.$window, new EventManager(this));
 		const job = jobLine(400);
-		
+
 		this.using(listener.on('resize', () => {
 			this.invalidate();
 			// In case if after window resize there can different animated layout changes
 			job(() => this.invalidate());
-		}));	
+		}));
 	}
 
 	onInit() {
@@ -84,7 +85,7 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 
 		const {left: l, top: t} = intersection.b;
 
-		const pos = this.fix({left: l, top: t, width, height});
+		const pos = this.fix({left: l - cr.left, top: t - cr.top, width, height});
 
 		source.style.left = pos.left + 'px';
 		source.style.top = pos.top + 'px';
@@ -116,8 +117,17 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 	}
 
 	clientRect() {
-		const wnd = this.$window;
-		const {innerHeight: h, innerWidth: w} = wnd;
+		let view = this.element;
+		const marker = `${GRID_PREFIX}-view`;
+		while (view) {
+			if (view.classList && view.classList.contains(marker)) {
+				return view.getBoundingClientRect();
+			}
+
+			view = view.parentNode;
+		}
+
+		const {innerHeight: h, innerWidth: w} = this.$window;
 		return {
 			top: 0,
 			left: 0,
