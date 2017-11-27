@@ -1,8 +1,8 @@
 import PluginComponent from '../plugin.component';
-import { Action } from '@grid/core/action';
-import { Command } from '@grid/core/command';
-import { Composite } from '@grid/core/infrastructure/composite';
-import { PersistenceView } from '../../../plugin/persistence/persistence.view';
+import {Action} from '@grid/core/action';
+import {Command} from '@grid/core/command';
+import {Composite} from '@grid/core/infrastructure/composite';
+import {PersistenceView} from '../../../plugin/persistence/persistence.view';
 
 const Plugin = PluginComponent('persistence', {
 	inject: ['qgrid', '$mdPanel', '$document']
@@ -35,7 +35,7 @@ class Persistence extends Plugin {
 
 						const config = {
 							attachTo: angular.element(this.$document[0].body), // eslint-disable-line no-undef
-							controller: ['$scope', function($scope) {
+							controller: ['$scope', function ($scope) {
 								$scope.$persistence = persistenceView;
 							}],
 							templateUrl: 'qgrid.plugin.persistence-panel.tpl.html',
