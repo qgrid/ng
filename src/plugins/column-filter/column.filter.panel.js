@@ -70,7 +70,7 @@ class ColumnFilterPanel extends Plugin {
 
 		this.using(columnFilter.submitEvent.on(this.onSubmit));
 		this.using(columnFilter.cancelEvent.on(this.onCancel));
-		this.using(columnFilter.resetItemsEvent.on(this.onResetItems.bind(this)));
+		this.using(columnFilter.resetEvent.on(this.onResetItems.bind(this)));
 
 		this.$scope.$columnFilterPanel = columnFilter;
 		this.$scope.$columnFilterPanel.vscrollContext = this.vscrollContext;

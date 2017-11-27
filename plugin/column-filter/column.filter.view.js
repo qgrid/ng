@@ -14,7 +14,7 @@ export class ColumnFilterView extends PluginView {
 
 		this.cancelEvent = new Event();
 		this.submitEvent = new Event();
-		this.resetItemsEvent = new Event();
+		this.resetEvent = new Event();
 
 		const filterBy = this.model.filter().by[this.key];
 		this.by = new Set((filterBy && filterBy.items) || []);
@@ -26,8 +26,6 @@ export class ColumnFilterView extends PluginView {
 		this.column = columnService.find(this.model.data().columns, this.key);
 		this.title = this.column.title;
 		this.getValue = labelFactory(this.column);
-
-		this.resetItems.execute();
 	}
 
 	state(item) {
@@ -99,6 +97,7 @@ export class ColumnFilterView extends PluginView {
 				source: 'column.filter.view',
 				execute: () => {
 					this.by = new Set([]);
+					this.resetEvent.emit();
 				}
 			}),
 
@@ -106,7 +105,6 @@ export class ColumnFilterView extends PluginView {
 				source: 'column.filter.view',
 				execute: () => {
 					this.items = [];
-					this.resetItemsEvent.emit();
 				}
 			})
 		};
