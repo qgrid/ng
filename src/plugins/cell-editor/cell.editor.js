@@ -1,10 +1,16 @@
 import Component from '../../view/components/component';
+import {VIEW_CORE_NAME} from '@grid/view/definition';
 
 class CellEditor extends Component {
 	constructor() {
 		super();
 	}
-	
+
+	onInit() {
+		const model = this.$view.model;
+		this.using(model.sceneChanged.on(() => this.close()));
+	}
+
 	close() {
 		this.onClose();
 	}
@@ -19,5 +25,8 @@ export default {
 	controllerAs: '$editor',
 	bindings: {
 		'onClose': '&'
+	},
+	require: {
+		$view: `^^${VIEW_CORE_NAME}`
 	}
 };
