@@ -62,7 +62,7 @@ export class NavigationView extends View {
 				return;
 			}
 
-			if (e.changes.has('rowIndex') || e.changes.has('columnIndex')) {
+			if (e.hasChanges('rowIndex') || e.hasChanges('columnIndex')) {
 				const cell = table.body.cell(e.state.rowIndex, e.state.columnIndex).model();
 				model.navigation({cell});
 			}
