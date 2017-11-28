@@ -17,7 +17,7 @@ export class NavigationView extends View {
 		this.using(shortcut.register(commandManager, navigation.commands));
 
 		this.focus = new Command({
-			source: 'navigation.view',			
+			source: 'navigation.view',
 			execute: cell => {
 				const cellModel = table.body.cell(cell.rowIndex, cell.columnIndex).model();
 				model.navigation({cell: cellModel});
@@ -26,7 +26,7 @@ export class NavigationView extends View {
 		});
 
 		this.scrollTo = new Command({
-			source: 'navigation.view',			
+			source: 'navigation.view',
 			execute: (row, column) => this.scroll(table.view, table.body.cell(row, column)),
 			canExecute: (row, column) => table.body.cell(row, column).model() !== null
 		});
@@ -58,7 +58,11 @@ export class NavigationView extends View {
 		}));
 
 		this.using(model.focusChanged.watch(e => {
-			if (e.tag.source !== 'navigation.view') {
+			if (e.tag.source === 'navigation.view') {
+				return;
+			}
+
+			if (e.changes.has('rowIndex') || e.changes.has('columnIndex')) {
 				const cell = table.body.cell(e.state.rowIndex, e.state.columnIndex).model();
 				model.navigation({cell});
 			}
