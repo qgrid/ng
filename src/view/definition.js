@@ -7,7 +7,7 @@ export const TEMPLATE_PATH_NAME = `${MODULE_NAME}TemplatePath`;
 export const THEME_NAME = `${MODULE_NAME}Theme`;
 export const RANGE_NAME = `${MODULE_NAME}Range`;
 export const HIGHLIGHT_NAME = `${MODULE_NAME}Highlight`;
-export const PRETTIFY_NAME = `${MODULE_NAME}Prettify`;
+export const PRETTIFY_NAME = `${MODULE_NAME}Pretty`;
 
 export const GRID = 'qGrid';
 export const GRID_CORE = `${GRID}Core`;

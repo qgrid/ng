@@ -2,7 +2,7 @@
 	<div ng-repeat="error in $validator.errors track by $index">
 		<div ng-if="error">
 			<span ng-if="$validator.type==='array'">{{$validator.value[$index]}} : </span>
-			<span>{{error | qgridPrettify}}</span>
+			<span>{{error | qgridPretty}}</span>
 		</div>
 	</div>
 </div>
