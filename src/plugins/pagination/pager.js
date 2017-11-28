@@ -19,7 +19,7 @@ class Pager extends Plugin {
 	}
 
 	onInit() {
-		this.$scope.$pagerPlugin = new PagerView(this.model);
+		this.$scope.$pager = new PagerView(this.model);
 	}
 }
 
