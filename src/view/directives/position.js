@@ -102,18 +102,18 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 		const {width: vw, height: vh} = wr;
 		const vx = br.left - wr.left;
 		const vy = br.top - wr.top;
-		const {height: sh, width: sw} = rect;
-		const sx = rect.left + vx;
-		const sy = rect.top + vy;
-		const gtx1 = sx + sw > vw;
-		const ltx0 = sx < 0;
-		const gty1 = sy + sh > vh;
-		const lty0 = sy < 0;
+		const {height: rh, width: rw} = rect;
+		const rx = rect.left + vx;
+		const ry = rect.top + vy;
+		const gtx1 = rx + rw > vw;
+		const ltx0 = rx < 0;
+		const gty1 = ry + rh > vh;
+		const lty0 = ry < 0;
 		const left = ltx0 || gtx1
-			? (vw - sw) / 2 - vx
+			? (vw - rw) / 2 - vx
 			: rect.left;
 		const top = lty0 || gty1
-			? (vh - sh) / 2 - vy
+			? (vh - rh) / 2 - vy
 			: rect.top;
 
 		return {left, top};
