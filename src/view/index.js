@@ -64,7 +64,7 @@ export const coreModule = angular.module(def.MODULE_CORE_NAME, []) // eslint-dis
 	.service(def.TEMPLATE_PATH_NAME, () => () => TemplatePath)
 	.filter(def.RANGE_NAME, () => Range)
 	.filter(def.HIGHLIGHT_NAME, () => Highlight)
-	.filter(def.PRETTIFY_NAME, () => Pretty)
+	.filter(def.PRETTY_NAME, () => Pretty)
 	.config(['$compileProvider',
 		$compileProvider => $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|tel|file|data):/)
 	])
