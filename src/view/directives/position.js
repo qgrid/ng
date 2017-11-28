@@ -46,11 +46,11 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 	layout(target, source) {
 		const {top, right, left, bottom} = target.getBoundingClientRect();
 		const {width, height} = source.getBoundingClientRect();
-		const vr = this.viewRect();
-
+		const br = this.boxRect();
 		const intersections = [];
+
 		intersections.push(
-			this.intersection(vr, {
+			this.intersection(br, {
 				top: top,
 				right: left + width,
 				bottom: top + height,
@@ -58,7 +58,7 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 			}));
 
 		intersections.push(
-			this.intersection(vr, {
+			this.intersection(br, {
 				top: top,
 				right: right,
 				bottom: top + height,
@@ -66,7 +66,7 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 			}));
 
 		intersections.push(
-			this.intersection(vr, {
+			this.intersection(br, {
 				top: bottom - height,
 				right: left + width,
 				bottom: bottom,
@@ -74,7 +74,7 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 			}));
 
 		intersections.push(
-			this.intersection(vr, {
+			this.intersection(br, {
 				top: bottom - height,
 				right: right,
 				bottom: bottom,
@@ -83,7 +83,7 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 
 		const intersection = max(intersections, i => i.area);
 		const {left: l, top: t} = intersection.b;
-		const pos = this.fix(vr, {left: l - vr.left, top: t - vr.top, width, height});
+		const pos = this.fix({left: l - br.left, top: t - br.top, width, height});
 
 		source.style.left = pos.left + 'px';
 		source.style.top = pos.top + 'px';
@@ -96,26 +96,32 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 		return {area, a, b};
 	}
 
-	fix(viewRect, sourceRect) {
-		const {width: vw, height: vh} = viewRect;
-		const {left: sx, top: sy, height: sh, width: sw} = sourceRect;
+	fix(rect) {
+		const wr = this.windowRect();
+		const br = this.boxRect();
+		const {width: vw, height: vh} = wr;
+		const vx = br.left - wr.left;
+		const vy = br.top - wr.top;
+		const {height: sh, width: sw} = rect;
+		const sx = rect.left + vx;
+		const sy = rect.top + vy;
 		const gtx1 = sx + sw > vw;
 		const ltx0 = sx < 0;
 		const gty1 = sy + sh > vh;
 		const lty0 = sy < 0;
 		const left = ltx0 || gtx1
-			? (vw - sw) / 2
-			: sx;
+			? (vw - sw) / 2 - vx
+			: rect.left;
 		const top = lty0 || gty1
-			? (vh - sh) / 2
-			: sy;
+			? (vh - sh) / 2 - vy
+			: rect.top;
 
 		return {left, top};
 	}
 
-	viewRect() {
+	boxRect() {
 		let view = this.element;
-		const marker = `${GRID_PREFIX}-view`;
+		const marker = `${GRID_PREFIX}-box`;
 		while (view) {
 			if (view.classList && view.classList.contains(marker)) {
 				return view.getBoundingClientRect();
