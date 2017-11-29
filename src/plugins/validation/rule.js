@@ -32,7 +32,10 @@ const ruleBindings = {
 	url: '@?',
 	iso_date: '@? isoDate',
 	equal_to_field: '<? equalToField',
-	list_of: '<? listOf'
+	list_of: '<? listOf',
+
+	// Custom
+	custom: '&'
 };
 const bindings = {
 	for: '@',
@@ -55,7 +58,7 @@ class Rule extends Component {
 			key: this.key
 		};
 		for (let name of predefinedRules) {
-			if (this.hasOwnProperty(name)) {
+			if (this.hasOwnProperty(name) && name !== 'custom') {
 				rule[name] = this[name];
 			}
 		}
