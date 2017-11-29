@@ -21,7 +21,7 @@ class Backdrop extends Component {
 	}
 }
 
-Backdrop.$inject = ['$element', '$document', '$scope'];
+Backdrop.$inject = ['$element', '$document'];
 
 export default {
 	transclude: true,
