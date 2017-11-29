@@ -51,7 +51,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {
 		const invokeListener = new EventListener(this.element, new EventManager(this, view.invoke));
 		const applyListener = new EventListener(this.element, new EventManager(this, view.apply));
 
-		this.using(invokeListener.on('scroll', this.onScroll));
+		this.using(invokeListener.on('scroll', this.onScroll, {passive: true}));
 		this.using(applyListener.on('click', this.onClick));
 		this.using(invokeListener.on('mousedown', this.onMouseDown));
 		this.using(invokeListener.on('mouseup', this.onMouseUp));
