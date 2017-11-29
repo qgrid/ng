@@ -1,11 +1,12 @@
 import Directive from '@grid/view/directives/directive';
-import {VIEW_CORE_NAME, BODY_CORE_NAME, GRID_NAME} from '@grid/view/definition';
+import {VIEW_CORE_NAME, BODY_CORE_NAME, GRID_NAME, TABLE_CORE_NAME} from '@grid/view/definition';
 import {EventListener, EventManager} from '@grid/core/infrastructure';
 import {PathService} from '@grid/core/path';
 
 class BodyCore extends Directive(BODY_CORE_NAME, {
 	view: `^^${VIEW_CORE_NAME}`,
-	root: `^^${GRID_NAME}`
+	root: `^^${GRID_NAME}`,
+	table: `^^${TABLE_CORE_NAME}`
 }) {
 	constructor($scope, $element) {
 		super();
@@ -23,6 +24,21 @@ class BodyCore extends Directive(BODY_CORE_NAME, {
 		Object.defineProperty($scope, '$view', {
 			get: () => this.view
 		});
+	}
+
+	onInit() {
+		const view = this.view;
+		const invokeListener = new EventListener(this.element, new EventManager(this, view.invoke));
+		const applyListener = new EventListener(this.element, new EventManager(this, view.apply));
+
+		this.using(invokeListener.on('scroll', this.onScroll, {passive: true}));
+		this.using(invokeListener.on('wheel', this.onWheel));
+		this.using(applyListener.on('click', this.onClick));
+		this.using(invokeListener.on('mousedown', this.onMouseDown));
+		this.using(invokeListener.on('mouseup', this.onMouseUp));
+
+		this.using(invokeListener.on('mousemove', this.onMouseMove));
+		this.using(invokeListener.on('mouseleave', this.onMouseLeave));
 	}
 
 	onScroll() {
@@ -46,18 +62,19 @@ class BodyCore extends Directive(BODY_CORE_NAME, {
 		}
 	}
 
-	onInit() {
-		const view = this.view;
-		const invokeListener = new EventListener(this.element, new EventManager(this, view.invoke));
-		const applyListener = new EventListener(this.element, new EventManager(this, view.apply));
+	onWheel(e) {
+		e.preventDefault();
 
-		this.using(invokeListener.on('scroll', this.onScroll, {passive: true}));
-		this.using(applyListener.on('click', this.onClick));
-		this.using(invokeListener.on('mousedown', this.onMouseDown));
-		this.using(invokeListener.on('mouseup', this.onMouseUp));
+		const model = this.view.model;
+		if (model.edit().state === 'view') {
+			const scroll = model.scroll;
+			const element = this.element;
+			const upper = 0;
+			const lower = element.scrollHeight - element.offsetHeight;
+			const top = Math.min(lower, Math.max(upper, scroll().top + e.deltaY));
 
-		this.using(invokeListener.on('mousemove', this.onMouseMove));
-		this.using(invokeListener.on('mouseleave', this.onMouseLeave));
+			scroll({top}, {source: 'body.core'});
+		}
 	}
 
 	onClick(e) {
