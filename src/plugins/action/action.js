@@ -1,6 +1,6 @@
 import Component from '../../view/components/component';
 import {ACTION_NAME, ACTION_BAR_NAME} from '../definition';
-import {Action as ActionItem} from '@grid/core/action';
+import {ActionView} from '@grid/plugin/action/action.view';
 import {TemplatePath} from '@grid/core/template';
 
 TemplatePath
@@ -12,29 +12,22 @@ TemplatePath
 	});
 
 class Action extends Component {
-	constructor() {
+	constructor($scope) {
 		super(...arguments);
-	}
 
-	execute() {
-		return this.command && this.command.execute();
-	}
-
-	canExecute() {
-		return this.command && this.command.canExecute();
+		this.$scope = $scope;
 	}
 
 	onInit() {
-		const model = this.model;
-		const action = new ActionItem(this.command, this.title, this.icon);
-		action.id = this.id;
+		const context = {
+			id: this.id,
+			icon: this.icon,
+			title: this.title,
+			command: this.command
+		};
 
-		const actions = Array.from(model.action().items);
-		actions.push(action);
-
-		model.action({
-			items: actions
-		});
+		const action = new ActionView(this.model, context);
+		this.$scope.$action = action;
 	}
 
 	get model() {
@@ -42,12 +35,14 @@ class Action extends Component {
 	}
 }
 
+Action.$inject = ['$scope'];
+
 export default {
 	controller: Action,
 	require: {
 		bar: `^^${ACTION_BAR_NAME}`
 	},
-	controllerAs: '$action',
+	controllerAs: '$actionPlugin',
 	bindings: {
 		'id': '@',
 		'icon': '@',
