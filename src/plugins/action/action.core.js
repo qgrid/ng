@@ -1,6 +1,7 @@
 import Component from '../../view/components/component';
 import {ACTION_BAR_CORE_NAME} from '../definition';
 import TemplateLink from '@grid/view/components/template/template.link';
+import {ActionCoreView} from '@grid/plugin/action/action.core.view';
 
 class ActionCore extends Component {
 	constructor($scope, $element, $compile, $templateCache) {
@@ -11,41 +12,11 @@ class ActionCore extends Component {
 		this.$element = $element;
 	}
 
-	execute(e) {
-		const model = this.model;
-		return model && model.command && model.command.execute(e);
-	}
-
-	canExecute(e) {
-		const model = this.model;
-		return model && model.command && model.command.canExecute(e);
-	}
-
-	get shortcut() {
-		const model = this.model;
-		if (model && model.command) {
-			return model.command.shortcut;
-		}
-	}
-
-	get title() {
-		const model = this.model;
-		if (model) {
-			return model.title;
-
-		}
-	}
-
-	get icon() {
-		const model = this.model;
-		if (model) {
-			return model.icon;
-
-		}
-	}
-
 	onInit() {
 		const action = this.model;
+		const actionCore = new ActionCoreView(action);
+		this.$scope.$action = actionCore;
+
 		const gridModel = this.bar.model;
 		const templateUrl = 'qgrid.plugin.action.tpl.html';
 		const templateScope = this.$scope.$new();
@@ -78,7 +49,7 @@ export default {
 	require: {
 		bar: `^^${ACTION_BAR_CORE_NAME}`
 	},
-	controllerAs: '$action',
+	controllerAs: '$actionPlugin',
 	bindings: {
 		'model': '<',
 	}
