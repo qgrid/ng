@@ -45,8 +45,8 @@ export class StyleView extends View {
 
 		const styleState = model.style();
 		const context = {model};
-		if (!styleState.invalidate.canExecute(context) || 
-				styleState.invalidate.execute(context) === false) {
+		if (!styleState.invalidate.canExecute(context) ||
+			styleState.invalidate.execute(context) === false) {
 			return;
 		}
 
@@ -83,6 +83,25 @@ export class StyleView extends View {
 		const domCell = cellMonitor.enter();
 		const domRow = rowMonitor.enter();
 
+		// for performance reason we make rowContext and cellContext the same reference for the all style calls
+		const rowContext = {
+			class: noop,
+			row: -1,
+			value: null,
+			columns: {
+				map: columnMap,
+				list: columns
+			}
+		};
+
+		const cellContext = {
+			class: noop,
+			row: -1,
+			column: -1,
+			value: null,
+			columns: rowContext.columns
+		};
+
 		try {
 			for (let i = 0, rowsLength = bodyRows.length; i < rowsLength; i++) {
 				const bodyRow = bodyRows[i];
@@ -93,15 +112,9 @@ export class StyleView extends View {
 				}
 
 				if (isRowActive) {
-					const rowContext = {
-						class: domRow(bodyRow),
-						row: rowIndex,
-						value: value,
-						columns: {
-							map: columnMap,
-							list: columns
-						}
-					};
+					rowContext.class = domRow(bodyRow);
+					rowContext.row = rowIndex;
+					rowContext.value = value;
 
 					styleRow(dataRow, rowContext);
 				}
@@ -115,19 +128,12 @@ export class StyleView extends View {
 							continue;
 						}
 
-						const column = cell.model().column;
-						const cellContext = {
-							class: domCell(cell),
-							row: rowIndex,
-							column: j,
-							value: value,
-							columns: {
-								map: columnMap,
-								list: columns
-							}
-						};
+						cellContext.class = domCell(cell);
+						cellContext.row = rowIndex;
+						cellContext.column = j;
+						cellContext.value = value;
 
-						styleCell(dataRow, column, cellContext);
+						styleCell(dataRow, dataCell.column, cellContext);
 					}
 				}
 			}
