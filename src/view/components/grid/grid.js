@@ -151,11 +151,14 @@ export class Grid extends RootComponent {
 	invalidateActive() {
 		const activeClassName = `${GRID_PREFIX}-active`;
 		const view = this.table.view;
+		const model = this.model;
 		if (view.isFocused()) {
 			view.addClass(activeClassName);
+			model.focus({isActive: true});
 		}
 		else {
 			view.removeClass(activeClassName);
+			model.focus({isActive: false});
 		}
 	}
 

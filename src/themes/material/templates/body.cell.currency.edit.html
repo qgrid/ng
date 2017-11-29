@@ -4,4 +4,9 @@
 				 q-grid:focus
 				 ng-model="$view.edit.cell.value"/>
 	</md-input-container>
+	<q-grid:validator class="q-grid-validator"
+	                  key="{{::$cell.column.key}}"
+	                  type="{{::$cell.column.type}}"
+	                  value="$view.edit.cell.value">
+	</q-grid:validator>
 </q-grid:cell-editor>
