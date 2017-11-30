@@ -7,21 +7,14 @@ class ColumnFilterPanel extends Plugin {
 	constructor() {
 		super(...arguments);
 
-		this.vscrollContext = null;
-	}
-
-	onInit() {
-		const context = {
-			key: this.key
-		};
-
-		const columnFilter = new ColumnFilterView(this.model, context);
 		this.vscrollContext = this.vscroll({
 			fetch: (skip, take, d) => {
 				if (!this.isReady()) {
 					d.resolve(0);
 					return;
 				}
+
+				const columnFilter = this.columnFilter;
 
 				const model = this.model;
 				const filterState = model.filter();
@@ -65,18 +58,30 @@ class ColumnFilterPanel extends Plugin {
 					}
 				}
 			},
-			threshold: this.model.columnFilter().threshold
+
 		});
+	}
+
+	onInit() {
+		const context = {
+			key: this.key
+		};
+
+		this.vscrollContext.threshold = this.model.columnFilter().threshold;
+
+		const columnFilter = new ColumnFilterView(this.model, context);
+		this.columnFilter = columnFilter;
 
 		this.using(columnFilter.submitEvent.on(this.onSubmit));
 		this.using(columnFilter.cancelEvent.on(this.onCancel));
-		this.using(columnFilter.resetEvent.on(this.onResetItems.bind(this)));
+		this.using(columnFilter.resetEvent.on(this.reset.bind(this)));
 
 		this.$scope.$columnFilterPanel = columnFilter;
-		this.$scope.$columnFilterPanel.vscrollContext = this.vscrollContext;
+
+		this.reset();
 	}
 
-	onResetItems() {
+	reset() {
 		this.vscrollContext.container.reset();
 	}
 }
