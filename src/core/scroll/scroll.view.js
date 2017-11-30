@@ -52,18 +52,6 @@ export class ScrollView extends View {
 							}
 						})));
 
-				// model.dataChanged.watch(e => {
-				// 	if (e.hasChanges('rows')) {
-				// 		const total = e.state.rows.length;
-				// 		model.pagination({
-				// 			count: total
-				// 		}, {
-				// 			source: 'scroll.view',
-				// 			behavior: 'core'
-				// 		});
-				// 	}
-				// });
-
 				this.y.settings.fetch = (skip, take, d) => {
 					model.fetch({
 						skip: skip
