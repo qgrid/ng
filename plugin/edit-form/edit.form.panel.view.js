@@ -8,7 +8,6 @@ export class EditFormPanelView extends PluginView {
 	constructor(model, context) {
 		super(model);
 		
-		this.model = model;
 		this.shortcutOff = null;
 		this.editor = new RowEditor(context.row, model.data().columns);
 		
