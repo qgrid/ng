@@ -21,6 +21,10 @@ class Export extends Plugin {
 		this.$scope.$export = new ExportView(this.model, {type: this.type});
 	}
 
+	get resource() {
+		return this.model.export().resource;
+	}
+
 	get resourceKey() {
 		return [this.type];
 	}

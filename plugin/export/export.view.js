@@ -84,8 +84,4 @@ export class ExportView extends PluginView {
 	get columns() {
 		return this.model.data().columns;
 	}
-
-	get resource() {
-		return this.model.export().resource;
-	}
 }
