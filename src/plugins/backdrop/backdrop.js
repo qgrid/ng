@@ -1,6 +1,6 @@
 import Component from '../../view/components/component';
-import {EventListener, EventManager} from '@grid/core/infrastructure';
 import {VIEW_CORE_NAME} from '@grid/view/definition';
+import {BackdropView} from '@grid/plugin/backdrop/backdrop.view';
 
 class Backdrop extends Component {
 	constructor($element, $document) {
@@ -11,25 +11,13 @@ class Backdrop extends Component {
 	}
 
 	onInit() {
-		const element = this.element;
+		const backdrop = new BackdropView(this);
+		this.using(backdrop.closeEvent.on(this.onCloseCore.bind(this)));
+	}
+
+	onCloseCore(e) {
 		const apply = this.$view.root.applyFactory(null, 'sync');
-		const listener = new EventListener(element, new EventManager(this));
-
-		this.using(listener.on('click', e => {
-			e.stopPropagation();
-			element.remove();
-
-			if (this.propagate !== false) {
-				const target = this.document.elementFromPoint(e.clientX, e.clientY); // eslint-disable-line angular/document-service
-				target.click();
-			}
-
-			apply(() => this.onClose({$event: e}));
-		}));
-
-		this.using(listener.on('keydown', e => {
-			this.onKeyDown({$event: e});
-		}));
+		apply(() => this.onClose({$event: e}));
 	}
 }
 
@@ -39,7 +27,7 @@ export default {
 	transclude: true,
 	templateUrl: 'qgrid.plugin.backdrop.tpl.html',
 	controller: Backdrop,
-	controllerAs: '$backdrop',
+	controllerAs: '$backdropPlugin',
 	require: {
 		$view: `^^${VIEW_CORE_NAME}`
 	},
