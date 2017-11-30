@@ -1,5 +1,6 @@
 import PluginComponent from '../plugin.component';
 import cellBuilder from '@grid/view/components/cell/cell.build';
+import {EditFormEditorView} from '@grid/plugin/edit-form/edit.form.editor.view';
 
 const Plugin = PluginComponent('edit-form-editor');
 class EditFormBody extends Plugin {
@@ -13,6 +14,9 @@ class EditFormBody extends Plugin {
 		this.templateScope = this.$scope.$new();
 		this.templateScope.$editor = this.editor;
 		link(this.$element, this.templateScope);
+
+		const editor = new EditFormEditorView(this.model, this);
+		this.$scope.$editor = editor;
 	}
 
 	onDestroy() {
@@ -25,7 +29,7 @@ class EditFormBody extends Plugin {
 
 export default EditFormBody.component({
 	controller: EditFormBody,
-	controllerAs: '$editor',
+	controllerAs: '$editorPlugin',
 	bindings: {
 		editor: '<'
 	}
