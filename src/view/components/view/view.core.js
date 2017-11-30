@@ -24,7 +24,7 @@ class ViewCore extends Component {
 		const table = root.table;
 		const model = this.model;
 		const gridService = this.serviceFactory(model);
-		const vscroll = new Vscroll(this.vscroll, root.applyFactory());
+		const vscroll = new Vscroll(this.vscroll);
 		const selectors = {th: TH_CORE_NAME};
 
 		this.invoke = model.scroll().mode !== 'virtual'
@@ -95,6 +95,7 @@ class ViewCore extends Component {
 				if (e.state.status === 'start') {
 					sceneJob(() => {
 						Log.info(e.tag.source, 'scene stop');
+
 						this.apply(() =>
 							model.scene({
 								round: 0,

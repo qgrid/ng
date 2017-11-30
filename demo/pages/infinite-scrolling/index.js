@@ -11,6 +11,9 @@ export default function Controller($http, qgrid) {
 		.pagination({
 			size: 20
 		})
+		// .row({
+		// 	height: 64
+		// })
 		.scroll({
 			mode: 'virtual'
 		});
