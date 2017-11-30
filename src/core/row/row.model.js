@@ -4,9 +4,9 @@ export class RowModel {
 	constructor() {
 		this.resource = new Resource();
 
-		this.mode = 'single'; //single|multiple|all
-		this.unit = 'data'; //data|details
-		this.height = 0;
+		this.mode = 'single'; // single | multiple |all
+		this.unit = 'data'; // data | details
+		this.height = 0; // number | function
 		this.status = new Map();
 		this.shortcut = {
 			toggle: 'space|enter'

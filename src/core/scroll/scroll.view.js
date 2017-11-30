@@ -1,5 +1,6 @@
 import {View} from '../view';
 import {Log} from '../infrastructure';
+import {isFunction} from '../utility';
 
 export class ScrollView extends View {
 	constructor(model, table, vscroll, gridService) {
@@ -8,10 +9,16 @@ export class ScrollView extends View {
 		this.table = table;
 
 		const scroll = model.scroll;
-		this.y = vscroll.factory({
+		const rowHeight = model.row().height;
+		const settings = {
 			threshold: model.pagination().size,
-			rowHeight: model.row().height
-		});
+		};
+
+		if (rowHeight > 0 || isFunction(rowHeight)) {
+			settings.rowHeight = rowHeight;
+		}
+
+		this.y = vscroll.factory(settings);
 
 		this.y.container.drawEvent.on(e => {
 			scroll({
