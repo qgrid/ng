@@ -88,5 +88,4 @@ export class ExportView extends PluginView {
 	get resource() {
 		return this.model.export().resource;
 	}
-
 }
