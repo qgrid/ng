@@ -62,7 +62,7 @@ class ViewCore extends Component {
 
 	watch(service) {
 		const invalidateJob = jobLine(10);
-		const sceneJob = jobLine(0);
+		const sceneJob = jobLine(10);
 		const model = this.model;
 		const triggers = model.data().triggers;
 
@@ -90,17 +90,19 @@ class ViewCore extends Component {
 
 		model.sceneChanged.watch(e => {
 			if (e.hasChanges('round')) {
+				Log.info(e.tag.source, `scene ${e.state.round}`);
+
 				if (e.state.status === 'start') {
-					Log.info(e.tag.source, `scene ${e.state.round}`);
 					sceneJob(() => {
 						Log.info(e.tag.source, 'scene stop');
-						model.scene({
-							round: 0,
-							status: 'stop'
-						}, {
-							source: 'view.core',
-							behavior: 'core'
-						});
+						this.apply(() =>
+							model.scene({
+								round: 0,
+								status: 'stop'
+							}, {
+								source: 'view.core',
+								behavior: 'core'
+							}));
 					});
 				}
 			}
@@ -114,10 +116,6 @@ class ViewCore extends Component {
 
 	templateUrl(key) {
 		return `qgrid.${key}.tpl.html`;
-	}
-
-	cut() {
-
 	}
 
 	get model() {

@@ -30,11 +30,7 @@ export default class Grid {
 				behavior: 'core'
 			});
 
-			return job => this.$timeout(() => {
-				if (job) {
-					job();
-				}
-
+			return job => {
 				const scene = model.scene;
 				scene({
 					round: scene().round + 1
@@ -43,7 +39,12 @@ export default class Grid {
 					behavior: 'core'
 				});
 
-			}, 0);
+				return this.$timeout(() => {
+					if (job) {
+						job();
+					}
+				}, 0);
+			};
 		};
 
 		return new GridService(model, start);
