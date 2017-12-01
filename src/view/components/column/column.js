@@ -50,6 +50,7 @@ class Column extends Component {
 		}
 
 		this.columnList.copy(column, $attrs);
+
 		// HACK: to understand if need to pass {$row: row} instead of just row in cell.core.js
 		if ($attrs.hasOwnProperty('value')) {
 			column.$value = isUndefined(this.value) ? null : this.value;
@@ -94,6 +95,7 @@ export default {
 	bindings: {
 		value: '&',
 		label: '&',
+		compare: '<',
 		key: '@'
 	}
 };
