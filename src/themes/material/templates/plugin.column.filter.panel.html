@@ -14,7 +14,7 @@
 				<md-input-container class="q-grid-column-filter-filter">
 					<label>Search</label>
 					<input type="text"
-							 ng-change="$columnFilterPanel.resetItems.execute()"
+							 ng-change="$columnFilterPanelPlugin.reset()"
 							 ng-model="$columnFilterPanel.filter"
 							 ng-model-options="{debounce: 500}"
 							 q-grid:focus
