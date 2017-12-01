@@ -60,10 +60,6 @@ class Column extends Component {
 			column.$label = isUndefined(this.label) ? null : this.label;
 		}
 
-		if ($attrs.hasOwnProperty('compare')) {
-			column.compare = isUndefined(this.compare) ? null : this.compare;
-		}
-
 		if (withKey) {
 			this.columnList.add(column);
 		}
@@ -99,7 +95,7 @@ export default {
 	bindings: {
 		value: '&',
 		label: '&',
-		compare: '&',
+		compare: '<',
 		key: '@'
 	}
 };
