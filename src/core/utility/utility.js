@@ -73,7 +73,7 @@ function orderBy(data, selectors, compares) {
 	const result = [];
 	const count = data.length;
 
-	// iterate through data to create similar array but with applied selectors
+	// iterate through data to create array with applied selectors
 	let index = count;
 	while (index--) {
 		const row = data[index];
