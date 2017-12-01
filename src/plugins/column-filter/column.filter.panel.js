@@ -47,7 +47,7 @@ class ColumnFilterPanel extends Plugin {
 
 							const uniqItems = uniq(items);
 							const filteredItems = this.$filter('filter')(uniqItems, columnFilter.filter);
-							filteredItems.sort();
+							filteredItems.sort(columnFilter.column.compare);
 							columnFilter.items = filteredItems;
 						}
 
