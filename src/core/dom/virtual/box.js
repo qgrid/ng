@@ -131,12 +131,17 @@ export class VirtualBox extends Box {
 	}
 
 	createRectFactory() {
-		// TODO: use vscroll container for custom height support
 		const height = this.model.row().height;
 		const getHeight = isFunction(height) ? height : () => height;
 
-		const rect = this.context.view.rect();
-		return index => {
+		let rect = null;
+		// as view.rect() can call getBoundingClientRect that impacts performance we make rect lazy
+		return index => () => {
+			if (!rect) {
+				rect = this.context.view.getRect();
+			}
+
+			// TODO: add correct left, right, width
 			const height = getHeight(null, index);
 			return {
 				left: 0,

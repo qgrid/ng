@@ -1,28 +1,28 @@
 import {FakeClassList} from '../fake/class.list';
 
 export class VirtualElement {
-	constructor(rect) {
+	constructor(getRect) {
 		this.classList = new FakeClassList();
-		this.rect = rect;
+		this.getRect = getRect;
 	}
 
 	getBoundingClientRect() {
-		return this.rect;
+		return this.getRect();
 	}
 
 	get clientWidth() {
-		return this.rect.width;
+		return this.getRect().width;
 	}
 
 	get clientHeight() {
-		return this.rect.height;
+		return this.getRect().height;
 	}
 
 	get offsetWidth() {
-		return this.rect.width;
+		return this.getRect().width;
 	}
 
 	get offsetHeight() {
-		return this.rect.height;
+		return this.getRect().height;
 	}
 }
