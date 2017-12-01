@@ -136,13 +136,16 @@ export class VirtualBox extends Box {
 		const getHeight = isFunction(height) ? height : () => height;
 
 		const rect = this.context.view.rect();
-		return index => ({
-			left: 0,
-			right: 0,
-			top: rect.top + height * index,
-			bottom: rect.top + height * (index + 1),
-			width: 0,
-			height: getHeight(null, index)
-		});
+		return index => {
+			const height = getHeight(null, index);
+			return {
+				left: 0,
+				right: 0,
+				top: rect.top + height * index,
+				bottom: rect.top + height * (index + 1),
+				width: 0,
+				height
+			};
+		};
 	}
 }
