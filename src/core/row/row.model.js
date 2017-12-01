@@ -6,7 +6,7 @@ export class RowModel {
 
 		this.mode = 'single'; // single | multiple |all
 		this.unit = 'data'; // data | details
-		this.height = 0; // number | function
+		this.height = element => element.offsetHeight; // number | function(element, index)
 		this.status = new Map();
 		this.shortcut = {
 			toggle: 'space|enter'

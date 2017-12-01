@@ -17,4 +17,12 @@ export class VirtualElement {
 	get clientHeight() {
 		return this.rect.height;
 	}
+
+	get offsetWidth() {
+		return this.rect.width;
+	}
+
+	get offsetHeight() {
+		return this.rect.height;
+	}
 }

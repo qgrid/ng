@@ -6,6 +6,7 @@ import {CellBox} from './cell.box';
 import {RowBox} from './row.box';
 import {ColumnBox} from './column.box';
 import {VirtualElement} from './element';
+import {isFunction} from '../../utility';
 
 export class VirtualBox extends Box {
 	constructor(context, model, selectorMark) {
@@ -100,7 +101,7 @@ export class VirtualBox extends Box {
 		}
 
 		const cellFactory = this.createCellCore.bind(this);
-		const createRect = this.createRectFactory();		
+		const createRect = this.createRectFactory();
 		return cellFactory(viewRowIndex, viewColumnIndex, new VirtualElement(createRect(viewRowIndex)));
 	}
 
@@ -132,6 +133,8 @@ export class VirtualBox extends Box {
 	createRectFactory() {
 		// TODO: use vscroll container for custom height support
 		const height = this.model.row().height;
+		const getHeight = isFunction(height) ? height : () => height;
+
 		const rect = this.context.view.rect();
 		return index => ({
 			left: 0,
@@ -139,7 +142,7 @@ export class VirtualBox extends Box {
 			top: rect.top + height * index,
 			bottom: rect.top + height * (index + 1),
 			width: 0,
-			height
+			height: getHeight(null, index)
 		});
 	}
 }
