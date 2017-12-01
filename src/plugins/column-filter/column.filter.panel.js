@@ -82,6 +82,7 @@ class ColumnFilterPanel extends Plugin {
 	}
 
 	reset() {
+		this.columnFilter.items = [];
 		this.vscrollContext.container.reset();
 	}
 }
