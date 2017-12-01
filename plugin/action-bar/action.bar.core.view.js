@@ -2,9 +2,8 @@ import {PluginView} from '../plugin.view';
 
 export class ActionBarCoreView extends PluginView {
 	constructor(model) {
-		super(...arguments);
+		super(model);
 
-		this.model = model;
 		this.shortcutOff = null;
 
 		const actionState = this.model.action();
