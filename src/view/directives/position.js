@@ -23,7 +23,7 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 
 	invalidate() {
 		if (this.root) {
-			const targetName = (this.$attrs[POSITION_NAME] || '').toLowerCase();
+			const targetName = this.$attrs[POSITION_NAME];
 			this.position.invalidate(targetName);
 		}
 	}

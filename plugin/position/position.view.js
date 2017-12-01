@@ -23,10 +23,10 @@ export class PositionView extends PluginView {
 		}));
 	}
 
-	invalidate(targetName) {
+	invalidate(targetName='') {
 		let node = this.element.parentNode;
 		while (node) {
-			if (node.nodeName.toLowerCase() === targetName) {
+			if (node.nodeName.toLowerCase() === targetName.toLowerCase()) {
 				this.layout(node, this.element);
 				this.element.style.opacity = 1;
 				return;
