@@ -3,6 +3,7 @@ import {GRID_PREFIX} from '@grid/core/definition';
 import {max} from '@grid/core/utility';
 import {EventListener, EventManager} from '@grid/core/infrastructure';
 import {jobLine} from '@grid/core/services';
+import {Event} from '@grid/core/infrastructure';
 
 export class PositionView extends PluginView {
 	constructor(context) {
