@@ -1,8 +1,8 @@
-<q-grid header="{{::$details.title}}" 
-		rows="$ctrl.rows"
-		sort-by="[{birthday: 'desc'}, {gender: 'asc'}]">
+<q-grid header="{{::$details.title}}"
+		  rows="$ctrl.rows"
+		  sort-by="[{gender: 'asc'}, {birthday: 'desc'}]">
 	<q-grid:columns generation="deep">
-		<q-grid:column key="birthday"></q-grid:column>
 		<q-grid:column key="gender"></q-grid:column>
+		<q-grid:column key="birthday"></q-grid:column>
 	</q-grid:columns>
 </q-grid>

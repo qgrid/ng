@@ -12,7 +12,6 @@ import isUndefined from 'lodash/isUndefined';
 import debounce from 'lodash/debounce';
 import merge from 'lodash/merge';
 import flatten from 'lodash/flatten';
-import orderBy from 'lodash/orderBy';
 import startCase from 'lodash/startCase';
 import assignWith from 'lodash/assignWith';
 import uniq from 'lodash/uniq';
@@ -23,6 +22,7 @@ import zip from 'lodash/zip';
 import takeWhile from 'lodash/takeWhile';
 import dropWhile from 'lodash/dropWhile';
 import groupBy from 'lodash/groupBy';
+import {AppError} from '../infrastructure';
 
 const noop = () => {
 };
@@ -52,6 +52,45 @@ const isEmail = value => {
 	return false;
 };
 
+function compare(x, y) {
+	if (x === y) {
+		return 0;
+	}
+
+	if (x > y) {
+		return 1;
+	}
+
+	return -1;
+}
+
+function orderBy(data, selectors, compares) {
+	const length = selectors.length;
+	if (selectors.length !== compares.length) {
+		throw new AppError('utility', `Number of compares should match number of selectors, expected ${length} got ${compares.length}`);
+	}
+
+	const compare = (x, y) => {
+		let result = 0;
+		for (let i = 0; i < length; i++) {
+			const select = selectors[i];
+			const compare = compares[i];
+
+			const xv = select(x);
+			const yv = select(y);
+
+			result = compare(xv, yv, x, y);
+			if (result !== 0) {
+				break;
+			}
+		}
+
+		return result;
+	};
+
+	return data.sort(compare);
+}
+
 export {
 	isObject,
 	isFunction,
@@ -76,6 +115,7 @@ export {
 	no,
 	toCamelCase,
 	noop,
+	compare,
 	orderBy,
 	max,
 	min,
