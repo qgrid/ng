@@ -9,6 +9,6 @@ export declare class RowModel {
 	resource: Resource;
 	mode: SingleOrMultipleMode;
 	unit: DataOrDetailsUnit;
-	height: (HTMLElement, index) => number | number;
+	height: (element: HTMLElement, index: number) => number | number;
 	status: Map<any, any>;
 }
