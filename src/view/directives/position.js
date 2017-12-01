@@ -6,13 +6,11 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 	constructor($element, $attrs, $window) {
 		super();
 
-		this.element = $element[0];
 		this.$attrs = $attrs;
-		this.$window = $window;
 
 		this.position = new PositionView({
-			element: this.element,
-			window: this.$window
+			element: $element[0],
+			window: $window
 		});
 		this.using(this.position.invalidateEvent.on(this.invalidate.bind(this)));
 	}
