@@ -132,7 +132,7 @@ export default function Controller($http, $mdToast, qgrid, $timeout) {
 			key: 'contact.email.primary',
 			title: 'Primary Email',
 			type: 'email',
-			value: item => item.contact.email[0]
+			value: (item, value) => isUndef(value) ? item.contact.email[0] : item.contact.email[0] = value
 		},
 		{
 			key: 'likes',
