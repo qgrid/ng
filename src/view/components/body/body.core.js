@@ -16,11 +16,6 @@ class BodyCore extends Directive(BODY_CORE_NAME, {
 		this.element = $element[0];
 
 		this.rangeStartCell = null;
-		this.scrollContext = {
-			top: this.element.scrollTop,
-			left: this.element.scrollLeft,
-		};
-
 		Object.defineProperty($scope, '$view', {
 			get: () => this.view
 		});
@@ -45,19 +40,23 @@ class BodyCore extends Directive(BODY_CORE_NAME, {
 		const element = this.element;
 		const scroll = this.view.model.scroll;
 
-		const oldValue = this.scrollContext;
+		const oldValue = scroll();
 		const newValue = {};
+		let hasChanges = false;
 		if (oldValue.top !== element.scrollTop) {
-			oldValue.top = newValue.top = element.scrollTop;
+			newValue.top = element.scrollTop;
+			hasChanges = true;
 		}
 
 		if (oldValue.left !== element.scrollLeft) {
-			oldValue.left = newValue.left = element.scrollLeft;
+			newValue.left = element.scrollLeft;
+			hasChanges = true;
 		}
 
-		if (Object.keys(newValue)) {
+		if (hasChanges) {
 			scroll(newValue, {
-				source: 'body.core'
+				source: 'body.core',
+				behavior: 'core'
 			});
 		}
 	}

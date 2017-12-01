@@ -135,7 +135,8 @@ export class VirtualBox extends Box {
 		const getHeight = isFunction(height) ? height : () => height;
 
 		let rect = null;
-		// as view.rect() can call getBoundingClientRect that impacts performance we make rect lazy
+		// as view.rect() can call getBoundingClientRect that impacts performance
+		// and as virtual element rect function is used mostly for end/home navigation we make rect lazy
 		return index => () => {
 			if (!rect) {
 				rect = this.context.view.getRect();

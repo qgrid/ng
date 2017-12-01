@@ -10,6 +10,7 @@ export class ScrollView extends View {
 
 		const scroll = model.scroll;
 		const rowHeight = model.row().height;
+		const pagination = model.pagination;
 		const settings = {
 			threshold: model.pagination().size,
 		};
@@ -28,13 +29,15 @@ export class ScrollView extends View {
 				behavior: 'core'
 			});
 
-			const currentPage = Math.floor(e.position / model.pagination().size);
-			model.pagination({
-				current: currentPage
-			}, {
-				source: 'scroll.view',
-				behavior: 'core'
-			});
+			const currentPage = Math.floor(e.position / pagination().size);
+			if (currentPage !== pagination().current) {
+				pagination({
+					current: currentPage
+				}, {
+					source: 'scroll.view',
+					behavior: 'core'
+				});
+			}
 		});
 
 		switch (scroll().mode) {
@@ -60,19 +63,23 @@ export class ScrollView extends View {
 						behavior: 'core'
 					});
 
-					gridService
-						.invalidate('scroll.view')
-						.then(() => {
-							const total = model.data().rows.length;
-							model.pagination({
-								count: total
-							}, {
-								source: 'scroll.view',
-								behavior: 'core'
-							});
+					if (skip + take >= model.data().rows.length) {
+						gridService
+							.invalidate('scroll.view')
+							.then(() => {
+								const total = model.data().rows.length;
+								if (pagination().count !== total) {
+									pagination({
+										count: total
+									}, {
+										source: 'scroll.view',
+										behavior: 'core'
+									});
+								}
 
-							d.resolve(total);
-						});
+								d.resolve(total);
+							});
+					}
 				};
 
 				break;
