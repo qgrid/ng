@@ -70,25 +70,49 @@ function orderBy(data, selectors, compares) {
 		throw new AppError('utility', `Number of compares should match number of selectors, expected ${length} got ${compares.length}`);
 	}
 
+	const result = [];
+	const count = data.length;
+
+	// iterate through data to create similar array but with applied selectors
+	let index = count;
+	while (index--) {
+		const row = data[index];
+		const criteria = [];
+		for (let i = 0; i < length; i++) {
+			const select = selectors[i];
+			criteria.push(select(row));
+		}
+
+		result.push({row, criteria, index});
+	}
+
+	// multi selector comparator
 	const compare = (x, y) => {
 		let result = 0;
 		for (let i = 0; i < length; i++) {
-			const select = selectors[i];
 			const compare = compares[i];
+			const xv = x.criteria[i];
+			const yv = y.criteria[i];
 
-			const xv = select(x);
-			const yv = select(y);
-
-			result = compare(xv, yv, x, y);
+			result = compare(xv, yv, x.row, y.row);
 			if (result !== 0) {
-				break;
+				return result;
 			}
 		}
 
-		return result;
+		// ensures a stable sort
+		return x.index - y.index;
 	};
 
-	return data.sort(compare);
+	result.sort(compare);
+
+	// copy origin values to result array
+	index = count;
+	while (index--) {
+		result[index] = result[index].row;
+	}
+
+	return result;
 }
 
 export {
