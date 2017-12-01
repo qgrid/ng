@@ -1172,7 +1172,7 @@
   border-radius: 10px;
   margin: auto; }
 
-.q-grid.q-grid-theme-material .q-grid-validator .validation-error {
+.q-grid.q-grid-theme-material .q-grid-validator .validation-errors {
   width: 70%;
   color: #dd2c00;
   padding-top: 6px;
