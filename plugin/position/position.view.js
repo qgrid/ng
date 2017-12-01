@@ -3,7 +3,6 @@ import {GRID_PREFIX} from '@grid/core/definition';
 import {max} from '@grid/core/utility';
 import {EventListener, EventManager} from '@grid/core/infrastructure';
 import {jobLine} from '@grid/core/services';
-import {Event} from '@grid/core/infrastructure';
 
 export class PositionView extends PluginView {
 	constructor(context) {
@@ -11,29 +10,29 @@ export class PositionView extends PluginView {
 
 		this.window = context.window;
 		this.element = context.element;
-		this.invalidateEvent = new Event();
+		this.targetName = context.targetName;
 
 		const listener = new EventListener(this.window, new EventManager(this));
 		const job = jobLine(400);
 
 		this.using(listener.on('resize', () => {
-			this.invalidateEvent.emit();
+			this.invalidate();
 			// In case if after window resize there can different animated layout changes
-			job(() => this.invalidateEvent.emit());
+			job(() => this.invalidate());
 		}));
 	}
 
-	invalidate(targetName='') {
+	invalidate() {
 		let node = this.element.parentNode;
 		while (node) {
-			if (node.nodeName.toLowerCase() === targetName.toLowerCase()) {
+			const targetName = (this.targetName || '').toLowerCase();
+			if (node.nodeName.toLowerCase() === targetName) {
 				this.layout(node, this.element);
 				this.element.style.opacity = 1;
 				return;
 			}
 			node = node.parentNode;
 		}
-		this.invalidateEvent.emit();
 	}
 
 	layout(target, source) {
