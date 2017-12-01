@@ -8,9 +8,11 @@ export class ValidatorView extends PluginView {
 
 		this.oldErrors = [];
 		this.context = context;
-
-		if (validationService.hasRules(this.rules, this.context.key)) {
-			this.validator = validationService.createValidator(this.rules, this.context.key);
+		if (validationService.hasRules(this.rules.regular, this.context.key)) {
+			this.validator = validationService.createValidator(this.rules.regular, this.context.key);
+		}
+		if (this.rules.custom.length > 0) {
+			this.customValidator = validationService.createCustomValidator(this.rules.custom, this.context.key);
 		}
 	}
 
@@ -30,12 +32,26 @@ export class ValidatorView extends PluginView {
 			} else {
 				this.oldErrors.length = 0;
 			}
-
-			return this.oldErrors;
 		}
+		// if (this.customValidator) {
+		//
+		// }
+		return this.oldErrors;
 	}
 
 	get rules() {
-		return this.model.validation().rules;
+		const rules = this.model.validation().rules;
+		const result = rules.reduce((memo, rule) => {
+			if (rule.hasOwnProperty('custom')) {
+				const custom = {for: rule.for, key: rule.key, custom: rule.custom};
+				memo.custom.push(custom);
+				delete rule.custom;
+			}
+			memo.regular.push(rule);
+			return memo;
+		}, {custom: [], regular: []});
+
+		return result;
 	}
+
 }

@@ -35,7 +35,7 @@ const ruleBindings = {
 	list_of: '<? listOf',
 
 	// Custom
-	custom: '&'
+	custom: '&?'
 };
 const bindings = {
 	for: '@',
@@ -58,7 +58,7 @@ class Rule extends Component {
 			key: this.key
 		};
 		for (let name of predefinedRules) {
-			if (this.hasOwnProperty(name) && name !== 'custom') {
+			if (this.hasOwnProperty(name)) {
 				rule[name] = this[name];
 			}
 		}

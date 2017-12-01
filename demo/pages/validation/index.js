@@ -3,12 +3,8 @@ export default function Controller($http, qgrid) {
 	this.rows = [];
 
 	this.model = qgrid.model();
-	this.validate = function () {
-		alert('custom validation');
-	};
+	this.validate = value => value.length === 5;
 
 	$http.get('data/people/100.json')
-		.then(response => {
-			this.rows = response.data;
-		});
+		.then(response => this.rows = response.data);
 }
