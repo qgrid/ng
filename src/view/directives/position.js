@@ -18,7 +18,7 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 	}
 
 	onDestroy() {
-		this.position = null;
+		this.position.dispose();
 	}
 }
 
