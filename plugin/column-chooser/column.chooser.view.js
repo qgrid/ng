@@ -9,7 +9,6 @@ export class ColumnChooserView extends PluginView {
 	constructor(model, context) {
 		super(...arguments);
 
-		this.model = model;
 		this.context = context;
 
 		this.cancelEvent = new Event();

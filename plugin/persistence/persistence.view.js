@@ -32,6 +32,12 @@ export class PersistenceView extends PluginView {
 				}
 			});
 
+		this.using(this.model.gridChanged.watch(e => {
+			if (e.hasChanges('status') && e.state.status === 'unbound') {
+				this.closeEvent.emit();
+			}
+		}));
+
 		this.save = new Command({
 			source: 'persistence.view',
 			execute: () => {
@@ -180,7 +186,7 @@ export class PersistenceView extends PluginView {
 
 	isUniqueTitle(title) {
 		return !this.items.some(item => {
-			return item !== this.state.editItem 
+			return item !== this.state.editItem
 				&& item.title.toLowerCase() === title.toLowerCase();
 		});
 	}

@@ -1,11 +1,12 @@
 import Directive from '@grid/view/directives/directive';
-import {VIEW_CORE_NAME, BODY_CORE_NAME, GRID_NAME} from '@grid/view/definition';
+import {VIEW_CORE_NAME, BODY_CORE_NAME, GRID_NAME, TABLE_CORE_NAME} from '@grid/view/definition';
 import {EventListener, EventManager} from '@grid/core/infrastructure';
 import {PathService} from '@grid/core/path';
 
 class BodyCore extends Directive(BODY_CORE_NAME, {
 	view: `^^${VIEW_CORE_NAME}`,
-	root: `^^${GRID_NAME}`
+	root: `^^${GRID_NAME}`,
+	table: `^^${TABLE_CORE_NAME}`
 }) {
 	constructor($scope, $element) {
 		super();
@@ -15,35 +16,9 @@ class BodyCore extends Directive(BODY_CORE_NAME, {
 		this.element = $element[0];
 
 		this.rangeStartCell = null;
-		this.scrollContext = {
-			top: this.element.scrollTop,
-			left: this.element.scrollLeft,
-		};
-
 		Object.defineProperty($scope, '$view', {
 			get: () => this.view
 		});
-	}
-
-	onScroll() {
-		const element = this.element;
-		const scroll = this.view.model.scroll;
-
-		const oldValue = this.scrollContext;
-		const newValue = {};
-		if (oldValue.top !== element.scrollTop) {
-			oldValue.top = newValue.top = element.scrollTop;
-		}
-
-		if (oldValue.left !== element.scrollLeft) {
-			oldValue.left = newValue.left = element.scrollLeft;
-		}
-
-		if (Object.keys(newValue)) {
-			scroll(newValue, {
-				source: 'body.core'
-			});
-		}
 	}
 
 	onInit() {
@@ -51,13 +26,54 @@ class BodyCore extends Directive(BODY_CORE_NAME, {
 		const invokeListener = new EventListener(this.element, new EventManager(this, view.invoke));
 		const applyListener = new EventListener(this.element, new EventManager(this, view.apply));
 
-		this.using(invokeListener.on('scroll', this.onScroll));
+		this.using(invokeListener.on('scroll', this.onScroll, {passive: true}));
+		this.using(invokeListener.on('wheel', this.onWheel));
 		this.using(applyListener.on('click', this.onClick));
 		this.using(invokeListener.on('mousedown', this.onMouseDown));
 		this.using(invokeListener.on('mouseup', this.onMouseUp));
 
 		this.using(invokeListener.on('mousemove', this.onMouseMove));
 		this.using(invokeListener.on('mouseleave', this.onMouseLeave));
+	}
+
+	onScroll() {
+		const element = this.element;
+		const scroll = this.view.model.scroll;
+
+		const oldValue = scroll();
+		const newValue = {};
+		let hasChanges = false;
+		if (oldValue.top !== element.scrollTop) {
+			newValue.top = element.scrollTop;
+			hasChanges = true;
+		}
+
+		if (oldValue.left !== element.scrollLeft) {
+			newValue.left = element.scrollLeft;
+			hasChanges = true;
+		}
+
+		if (hasChanges) {
+			scroll(newValue, {
+				source: 'body.core',
+				behavior: 'core'
+			});
+		}
+	}
+
+	onWheel(e) {
+		e.preventDefault();
+
+		const model = this.view.model;
+		if (model.edit().state === 'view') {
+			const scroll = model.scroll;
+			const element = this.element;
+			const upper = 0;
+			const lower = element.scrollHeight - element.offsetHeight;
+			const top = Math.min(lower, Math.max(upper, scroll().top + e.deltaY));
+
+			scroll({top}, {source: 'body.core'});
+		}
 	}
 
 	onClick(e) {

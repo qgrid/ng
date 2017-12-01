@@ -1,4 +1,4 @@
-import {identity} from '../utility';
+import {identity, compare} from '../utility';
 import {Command} from '../command';
 import {TemplatePath} from '../template';
 
@@ -21,8 +21,6 @@ export class ColumnModel {
 		this.type = type;
 		this.key = null;
 		this.title = null;
-		this.value = null;
-		this.label = null;
 		this.path = null;
 		this.pin = null;
 		this.origin = 'specific';
@@ -55,6 +53,10 @@ export class ColumnModel {
 
 		this.isVisible = true;
 		this.index = -1;
+
+		this.value = null;
+		this.label = null;
+		this.compare = compare;
 
 		this.$label = null;
 		this.$value = null;

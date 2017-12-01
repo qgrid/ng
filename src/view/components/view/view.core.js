@@ -4,6 +4,7 @@ import {Vscroll} from '@grid/view/services';
 import {jobLine} from '@grid/core/services';
 import {viewFactory} from '@grid/core/view/view.factory';
 import {GridCommandManager} from '../grid/grid.command.manager';
+import {Log} from '@grid/core/infrastructure';
 
 class ViewCore extends Component {
 	constructor($rootScope, $scope, $element, $timeout, grid, vscroll) {
@@ -23,19 +24,38 @@ class ViewCore extends Component {
 		const table = root.table;
 		const model = this.model;
 		const gridService = this.serviceFactory(model);
-		const vscroll = new Vscroll(this.vscroll, root.applyFactory());
+		const vscroll = new Vscroll(this.vscroll);
 		const selectors = {th: TH_CORE_NAME};
-		
+
+		// TODO: somehow try to aggregates view.style without jumpings
+		const invalidate = () => {
+			const style = this.style;
+			if (style.needInvalidate()) {
+				const rowMonitor = style.monitor.row;
+				const cellMonitor = style.monitor.cell;
+
+				const domCell = cellMonitor.enter();
+				const domRow = rowMonitor.enter();
+				try {
+					style.invalidate(domCell, domRow);
+				}
+				finally {
+					rowMonitor.exit();
+					cellMonitor.exit();
+				}
+			}
+		};
+
 		this.invoke = model.scroll().mode !== 'virtual'
 			? f => f()
 			: f => {
 				f();
-				this.style.invalidate();
+				invalidate();
 			};
 
 		this.apply = this.root.applyFactory(null, 'sync');
 
-		this.commandManager = new GridCommandManager(this.apply, this.invoke, table);	
+		this.commandManager = new GridCommandManager(this.apply, this.invoke, table);
 		model.action({manager: this.commandManager});
 
 		const injectViewServicesTo = viewFactory(
@@ -52,7 +72,7 @@ class ViewCore extends Component {
 		// TODO: how we can avoid that?
 		this.$scope.$watch(() => {
 			if (model.scene().status === 'stop') {
-				this.style.invalidate();
+				invalidate();
 			}
 		});
 
@@ -60,7 +80,8 @@ class ViewCore extends Component {
 	}
 
 	watch(service) {
-		const job = jobLine(10);
+		const invalidateJob = jobLine(10);
+		const sceneJob = jobLine(10);
 		const model = this.model;
 		const triggers = model.data().triggers;
 
@@ -75,16 +96,37 @@ class ViewCore extends Component {
 			}
 		}));
 
-		job(() => service.invalidate('grid'));
+		invalidateJob(() => service.invalidate('grid'));
 		Object.keys(triggers)
 			.forEach(name =>
 				this.using(model[name + 'Changed']
 					.watch(e => {
 						const changes = Object.keys(e.changes);
 						if (e.tag.behavior !== 'core' && triggers[name].find(key => changes.indexOf(key) >= 0)) {
-							job(() => service.invalidate(name, e.changes));
+							invalidateJob(() => service.invalidate(name, e.changes));
 						}
 					})));
+
+		model.sceneChanged.watch(e => {
+			if (e.hasChanges('round')) {
+				Log.info(e.tag.source, `scene ${e.state.round}`);
+
+				if (e.state.status === 'start') {
+					sceneJob(() => {
+						Log.info(e.tag.source, 'scene stop');
+
+						this.apply(() =>
+							model.scene({
+								round: 0,
+								status: 'stop'
+							}, {
+								source: 'view.core',
+								behavior: 'core'
+							}));
+					});
+				}
+			}
+		});
 	}
 
 	onDestroy() {

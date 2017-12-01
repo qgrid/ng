@@ -2,37 +2,47 @@
         rows="$ctrl.rows"
         model="$ctrl.model"
         edit-mode="cell">
-	<q-grid:columns generation="deep"></q-grid:columns>
+	<q-grid:columns generation="deep">
+		<q-grid:column key="contact.region" type="currency"></q-grid:column>
+	</q-grid:columns>
 	<q-grid:validation>
-		<q-grid:rule for="column"
+		<q-grid:rule for="cell"
 		             key="name.first"
 		             required
 		             min-length="3"
 		             max-length="40">
 		</q-grid:rule>
-		<q-grid:rule for="column"
+		<q-grid:rule for="cell"
 		             key="name.last"
 		             required
 		             length-between="[3, 40]">
 		</q-grid:rule>
-		<q-grid:rule for="column"
+		<q-grid:rule for="cell"
 		             key="gender"
 		             required
 		             one-of="['male', 'female']">
 		</q-grid:rule>
-		<q-grid:rule for="column"
+		<q-grid:rule for="cell"
 		             key="contact.address.street"
 		             required
 		             min-length="5">
 		</q-grid:rule>
-		<q-grid:rule for="column"
+		<q-grid:rule for="cell"
 		             key="contact.address.zip"
 		             required
 		             positive-integer>
 		</q-grid:rule>
-		<q-grid:rule for="column"
+		<q-grid:rule for="cell"
 		             key="contact.address.state"
 		             length-equal="2">
+		</q-grid:rule>
+		<q-grid:rule for="cell"
+		             key="contact.region"
+		             positive-decimal>
+		</q-grid:rule>
+		<q-grid:rule for="cell"
+		             key="contact.email"
+		             list-of="['email']">
 		</q-grid:rule>
 	</q-grid:validation>
 </q-grid>

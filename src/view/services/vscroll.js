@@ -1,12 +1,9 @@
 export class Vscroll {
-	constructor(vscroll, apply) {
+	constructor(vscroll) {
 		this.vscroll = vscroll;
-		this.apply = apply;
 	}
 
 	factory(settings) {
-		const ctx = this.vscroll(settings);
-		ctx.container.apply = this.apply;
-		return ctx;
+		return this.vscroll(settings);
 	}
 }

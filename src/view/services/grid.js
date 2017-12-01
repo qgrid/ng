@@ -30,26 +30,21 @@ export default class Grid {
 				behavior: 'core'
 			});
 
-			return job => new Promise(resolve =>
-				// trigger rerendering of html
-				this.$timeout(() => {
+			return job => {
+				const scene = model.scene;
+				scene({
+					round: scene().round + 1
+				}, {
+					source: 'grid',
+					behavior: 'core'
+				});
+
+				return this.$timeout(() => {
 					if (job) {
 						job();
 					}
-
-					// apply core views on rendered html and invoke new digest
-					this.$timeout(() => {
-						model.scene({
-							status: 'stop'
-						}, {
-							source: 'grid',
-							behavior: 'core'
-						});
-
-						resolve();
-					}, 0);
-				}, 0)
-			);
+				}, 0);
+			};
 		};
 
 		return new GridService(model, start);

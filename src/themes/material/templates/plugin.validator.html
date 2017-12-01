@@ -1,3 +1,8 @@
-<div ng-if="$validator.error" class="validation-error">
-	{{$validator.error}}
+<div ng-if="$validator.errors" class="validation-errors">
+	<div ng-repeat="error in $validator.errors track by $index">
+		<div ng-if="error">
+			<span ng-if="$validator.type==='array'">{{$validator.value[$index]}} : </span>
+			<span>{{error | qgridPretty}}</span>
+		</div>
+	</div>
 </div>

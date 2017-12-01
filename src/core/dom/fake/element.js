@@ -25,4 +25,12 @@ export class FakeElement {
 	get clientHeight() {
 		return 0;
 	}
+
+	get offsetWidth() {
+		return 0;
+	}
+
+	get offsetHeight() {
+		return 0;
+	}
 }

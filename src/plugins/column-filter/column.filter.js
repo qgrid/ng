@@ -9,7 +9,7 @@ class ColumnFilter extends Plugin {
 
 export default ColumnFilter.component({
 	controller: ColumnFilter,
-	controllerAs: '$columnFilter',
+	controllerAs: '$columnFilterPlugin',
 	bindings: {
 		'onSubmit': '&',
 		'onCancel': '&',
