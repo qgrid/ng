@@ -4,16 +4,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
-- Embed validation framework to cell edit workflow.
 - Shortcut keycode can be a sequence.
 - Fix navigation behavior for row groups.
-- Mouse wheel should work withing frozen columns.
-- Put plugin framework independent code under core.
 - Brand new documentation.
 - Edit form performance improvements.
 - Revisit drop-down editor.
 - Column filter for date types. 
-- 106+ JIRA tasks :-)
+- 107+ JIRA tasks :-)
+
+## [1.2.0] - 2017-12-01
+### Added
+- Added `compare` property to the column [Sorting](https://qgrid.github.io/ng/#!/sorting-model).
+- Validation humane labels.
+- Validation array support.
+
+### Fixed
+- Mouse `wheel` is working on whole grid.
+- Fix infinite scrolling request new data time.
+
+### Changed
+- +20% speed to `virtual` scrolling.
+- +15% `style API` performance.
+- 70% of core plugins are reusable from other frameworks.  
+- Better mechanism to handle dom loaded event, `scene rounds`. 
+- Row model `height property` now default value is function.
 
 ## [1.1.3] - 2017-11-24
 ### Fixed
@@ -180,7 +194,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Action bar plugin.
 - Data manipulation plugin.
 
-[Unreleased]: https://github.com/qgrid/ng/compare/v1.1.3...HEAD
+[Unreleased]: https://github.com/qgrid/ng/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/qgrid/ng/compare/v1.1.3...v1.2.0
 [1.1.3]: https://github.com/qgrid/ng/compare/v1.1.2...v1.1.3
 [1.1.2]: https://github.com/qgrid/ng/compare/v1.1.1...v1.1.2
 [1.1.1]: https://github.com/qgrid/ng/compare/v1.1.0...v1.1.1
