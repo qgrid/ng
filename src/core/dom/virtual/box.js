@@ -6,6 +6,7 @@ import {CellBox} from './cell.box';
 import {RowBox} from './row.box';
 import {ColumnBox} from './column.box';
 import {VirtualElement} from './element';
+import {isFunction} from '../../utility';
 
 export class VirtualBox extends Box {
 	constructor(context, model, selectorMark) {
@@ -100,7 +101,7 @@ export class VirtualBox extends Box {
 		}
 
 		const cellFactory = this.createCellCore.bind(this);
-		const createRect = this.createRectFactory();		
+		const createRect = this.createRectFactory();
 		return cellFactory(viewRowIndex, viewColumnIndex, new VirtualElement(createRect(viewRowIndex)));
 	}
 
@@ -130,16 +131,27 @@ export class VirtualBox extends Box {
 	}
 
 	createRectFactory() {
-		// TODO: use vscroll container for custom height support
 		const height = this.model.row().height;
-		const rect = this.context.view.rect();
-		return index => ({
-			left: 0,
-			right: 0,
-			top: rect.top + height * index,
-			bottom: rect.top + height * (index + 1),
-			width: 0,
-			height
-		});
+		const getHeight = isFunction(height) ? height : () => height;
+
+		let rect = null;
+		// as view.rect() can call getBoundingClientRect that impacts performance
+		// and as virtual element rect function is used mostly for end/home navigation we make rect lazy
+		return index => () => {
+			if (!rect) {
+				rect = this.context.view.getRect();
+			}
+
+			// TODO: add correct left, right, width
+			const height = getHeight(null, index);
+			return {
+				left: 0,
+				right: 0,
+				top: rect.top + height * index,
+				bottom: rect.top + height * (index + 1),
+				width: 0,
+				height
+			};
+		};
 	}
 }
