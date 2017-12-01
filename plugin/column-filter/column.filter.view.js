@@ -9,7 +9,6 @@ export class ColumnFilterView extends PluginView {
 	constructor(model, context) {
 		super(...arguments);
 
-		this.model = model;
 		this.key = context.key;
 
 		this.cancelEvent = new Event();
