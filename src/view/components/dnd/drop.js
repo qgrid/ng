@@ -1,6 +1,6 @@
 import Directive from '@grid/view/directives/directive';
 import {EventListener, EventManager} from '@grid/core/infrastructure';
-import DragService from './drag.service';
+import {DragService} from '@grid/core/drag/drag.service';
 import {DROP_NAME, CAN_DROP_NAME, DROP_EFFECT_NAME, ON_DROP_NAME} from '@grid/view/definition';
 import {GRID_PREFIX} from '@grid/core/definition';
 
