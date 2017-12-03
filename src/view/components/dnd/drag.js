@@ -1,9 +1,9 @@
 import Directive from '@grid/view/directives/directive';
-import {EventListener, EventManager} from '@grid/core/infrastructure';
-import {DragCtrl} from '@grid/core/drag/drag.ctrl';
-import {DRAG_NAME, DROP_EFFECT_NAME, CAN_DRAG_NAME, VIEW_CORE_NAME} from '@grid/view/definition';
+import { EventListener, EventManager } from '@grid/core/infrastructure';
+import { DragCtrl } from '@grid/core/drag/drag.ctrl';
+import { DRAG_NAME, DROP_EFFECT_NAME, CAN_DRAG_NAME, VIEW_CORE_NAME } from '@grid/view/definition';
 
-class Drag extends Directive(DRAG_NAME, {view: `^^?${VIEW_CORE_NAME}`}) {
+class Drag extends Directive(DRAG_NAME, { view: `^^?${VIEW_CORE_NAME}` }) {
 	constructor($element) {
 		super();
 
@@ -12,7 +12,7 @@ class Drag extends Directive(DRAG_NAME, {view: `^^?${VIEW_CORE_NAME}`}) {
 	}
 
 	onInit() {
-		const ctrl = this.ctrl = new DragCtrl(this.view.model, this);
+		const ctrl = this.ctrl = new DragCtrl(this.view ? this.view.model : null, this);
 		this.using(this.listener.on('dragstart', ctrl.start.bind(ctrl)));
 		this.using(this.listener.on('dragend', ctrl.end.bind(ctrl)));
 	}
