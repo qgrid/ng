@@ -4,6 +4,8 @@ import {AppError} from '@grid/core/infrastructure';
 import {VIEW_CORE_NAME, TD_CORE_NAME, GRID_NAME} from '@grid/view/definition';
 import {TdCtrl} from '@grid/core/cell/td.ctrl';
  
+const classify = TdCtrl.classify;
+
 class TdCore extends Directive(TD_CORE_NAME, {
 	view: `^^${VIEW_CORE_NAME}`,
 	root: `^^${GRID_NAME}`
@@ -18,7 +20,8 @@ class TdCore extends Directive(TD_CORE_NAME, {
 
 	onInit() {
 		this.root.bag.body.addCell(this);
-		TdCtrl.classify(this.element, this.column);
+		classify(this.element, this.column);
+	
 		this.enterViewMode();
 	}
 
