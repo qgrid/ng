@@ -1,34 +1,8 @@
 import Directive from '@grid/view/directives/directive';
 import {CELL_VALUE_NAME} from '@grid/view/definition';
+import {TdCtrl} from '@grid/core/cell/td.ctrl';
 
-const isDate = angular.isDate;
-const isArray = angular.isArray;
-const toJson = angular.toJson;
-const isFunction = angular.isFunction;
-const toString = Object.prototype.toString;
-const hasCustomToString = obj => isFunction(obj.toString) && obj.toString !== toString;
-
-const stringify = value => {
-	if (value == null) { // null || undefined
-		return '';
-	}
-
-	switch (typeof value) {
-		case 'string':
-			break;
-		case 'number':
-			value = '' + value;
-			break;
-		default:
-			if (hasCustomToString(value) && !isArray(value) && !isDate(value)) {
-				value = value.toString();
-			} else {
-				value = toJson(value);
-			}
-	}
-
-	return value;
-};
+const stringify = TdCtrl.stringify;
 
 class CellValue extends Directive(CELL_VALUE_NAME) {
 	constructor($scope, $element) {
