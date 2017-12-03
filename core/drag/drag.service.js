@@ -1,4 +1,4 @@
-import {GRID_NAME} from '../definition';
+import {GRID_PREFIX} from '../definition';
 
 let transfer = null;
 
@@ -7,7 +7,7 @@ export class DragService {
 	}
 
 	static get mimeType() {
-		return `application/x-${GRID_NAME}+json`;
+		return `application/x-${GRID_PREFIX}+json`;
 	}
 
 	static get transfer() {
