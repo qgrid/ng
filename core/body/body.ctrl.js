@@ -100,8 +100,8 @@ export class BodyCtrl extends View {
 			const endCell = pathFinder.cell(e.path);
 
 			if (startCell && endCell) {
-				this.view.selection.selectRange(startCell, endCell, 'body');
 				this.navigate(endCell);
+				this.view.selection.selectRange(startCell, endCell, 'body');
 			}
 		}
 	}
