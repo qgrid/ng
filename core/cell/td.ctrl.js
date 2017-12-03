@@ -1,5 +1,10 @@
 import { GRID_PREFIX } from '../definition';
 import * as css from '../services/css';
+import {isFunction, isDate, isArray} from '../utility';
+
+const toJson = JSON.stringify;
+const toString = Object.prototype.toString;
+const hasCustomToString = obj => isFunction(obj.toString) && obj.toString !== toString;
 
 export class TdCtrl {
 	static classify(element, column) {
@@ -15,6 +20,28 @@ export class TdCtrl {
 	}
 
 	static editMode(element) {
-		element.classList.add(`${GRID_PREFIX}-edit`);        
+		element.classList.add(`${GRID_PREFIX}-edit`);
+	}
+
+	static stringify(value) {
+		if (value == null) { // null || undefined
+			return '';
+		}
+
+		switch (typeof value) {
+			case 'string':
+				break;
+			case 'number':
+				value = '' + value;
+				break;
+			default:
+				if (hasCustomToString(value) && !isArray(value) && !isDate(value)) {
+					value = value.toString();
+				} else {
+					value = toJson(value);
+				}
+		}
+
+		return value;
 	}
 }
