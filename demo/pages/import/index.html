@@ -1,5 +1,5 @@
-<q-grid header="{{::$details.title}}" 
-		model="$ctrl.model"
+<q-grid header="{{::$details.title}}"
+        model="$ctrl.model"
         edit-mode="cell"
         selection-mode="range">
 	<q-grid:columns>
@@ -19,7 +19,7 @@
 					<q-grid:title></q-grid:title>
 				</div>
 				<div flex="none">
-					<q-grid:import import-options="{head:'numeric'}"></q-grid:import>
+					<q-grid:import options="{head:'numeric'}"></q-grid:import>
 				</div>
 			</div>
 		</q-grid:template>

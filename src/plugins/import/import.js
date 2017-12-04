@@ -23,7 +23,7 @@ class Import extends Plugin {
 		const element = this.$element[0];
 		const context = {
 			element,
-			options: this.importOptions,
+			options: this.options,
 			eventListener: new EventListener(element, new EventManager(this))
 		};
 		this.$scope.$import = new ImportView(this.model, context);
@@ -38,6 +38,6 @@ export default Import.component({
 	controller: Import,
 	controllerAs: '$importPlugin',
 	bindings: {
-		'importOptions': '='
+		'options': '='
 	}
 });
