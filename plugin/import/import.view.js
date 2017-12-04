@@ -7,9 +7,11 @@ export class ImportView extends PluginView {
 	constructor(model, context) {
 		super(...arguments);
 
-		this.options = context.options;
 		const element = context.element;
 		const eventListener = context.eventListener;
+
+		this.options = context.options;
+
 		this.using(eventListener.on('change', this.load));
 		this.upload = new Command({
 			source: 'import',
