@@ -32,5 +32,4 @@ export class ImportView extends PluginView {
 	get resource() {
 		return this.model.import().resource;
 	}
-
 }
