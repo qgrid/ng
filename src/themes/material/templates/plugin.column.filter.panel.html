@@ -14,7 +14,7 @@
 				<md-input-container class="q-grid-column-filter-filter">
 					<label>Search</label>
 					<input type="text"
-							 ng-change="$columnFilterPanel.resetItems.execute()"
+							 ng-change="$columnFilterPanelPlugin.reset()"
 							 ng-model="$columnFilterPanel.filter"
 							 ng-model-options="{debounce: 500}"
 							 q-grid:focus
@@ -35,9 +35,9 @@
 					</li>
 				</ul>
 				<div class="q-grid-column-filter-list" vscroll>
-					<ul vscroll-port-y="$columnFilterPanel.vscrollContext">
+					<ul vscroll-port-y="$columnFilterPanelPlugin.vscrollContext">
 						<li
-							ng-repeat="item in $columnFilterPanel.items | vscroll: $columnFilterPanel.vscrollContext track by $index"
+							ng-repeat="item in $columnFilterPanel.items | vscroll: $columnFilterPanelPlugin.vscrollContext track by $index"
 							vscroll-row="{{::$index}}">
 							<md-checkbox ng-checked="$columnFilterPanel.state(item)"
 											 md-prevent-menu-close

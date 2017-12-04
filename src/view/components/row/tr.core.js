@@ -12,7 +12,18 @@ class TrCore extends Directive(TR_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, root:
 
 	onInit() {
 		const source = this.source;
-		this.root.bag[source].addRow(this);
+		const root = this.root;
+		root.bag[source].addRow(this);
+
+		if (this.$scope.$last) {
+			const scene = root.model.scene;
+			scene({
+				round: scene().round + 1
+			}, {
+				source: 'tr.core',
+				behavior: 'core'
+			});
+		}
 	}
 
 	onDestroy() {

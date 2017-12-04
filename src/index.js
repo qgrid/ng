@@ -1,6 +1,6 @@
-import {Model} from './core/infrastructure';
+import {Model} from '@grid/core/infrastructure';
 import * as def from './definition';
-import {setup as setupCore} from './core';
+import {setup as setupCore} from '@grid/core';
 import {setup as setupPlugins} from './plugins/setup';
 import pluginModule from './plugins';
 import {coreModule, layoutModule} from './view';

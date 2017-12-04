@@ -1,8 +1,8 @@
 import Directive from '@grid/view/directives/directive';
-import {EventListener, EventManager} from '@grid/core/infrastructure';
-import DragService from './drag.service';
-import {DROP_NAME, CAN_DROP_NAME, DROP_EFFECT_NAME, ON_DROP_NAME} from '@grid/view/definition';
-import {GRID_PREFIX} from '@grid/core/definition';
+import { EventListener, EventManager } from '@grid/core/infrastructure';
+import { DROP_NAME, CAN_DROP_NAME, DROP_EFFECT_NAME, ON_DROP_NAME } from '@grid/view/definition';
+import { DropCtrl } from '@grid/core/drag/drop.ctrl';
+import { DragService } from '@grid/core/drag/drag.service';
 
 class Drop extends Directive(DROP_NAME) {
 	constructor($scope, $element) {
@@ -14,54 +14,21 @@ class Drop extends Directive(DROP_NAME) {
 	}
 
 	onInit() {
-		this.element.classList.add(`${GRID_PREFIX}-can-drop`);
-		this.using(this.listener.on('dragenter', this.enter));
-		this.using(this.listener.on('dragover', this.over));
-		this.using(this.listener.on('dragleave', this.leave));
-		this.using(this.listener.on('drop', this.drop));
+		const ctrl = this.ctrl = new DropCtrl(this.view ? this.view.model : null, this);
+		this.using(this.listener.on('dragenter', ctrl.enter.bind(ctrl)));
+		this.using(this.listener.on('dragover', ctrl.over.bind(ctrl)));
+		this.using(this.listener.on('dragleave', ctrl.leave.bind(ctrl)));
+		this.using(this.listener.on('drop', ctrl.drop.bind(ctrl)));
 	}
 
 	onDestroy() {
 		super.onDestroy();
 
-		this.element.classList.remove(`${GRID_PREFIX}-can-drop`);
+		this.ctrl.dispose();
 	}
 
 	drop(e) {
-		e.stopPropagation();
-
-		this.element.classList.remove(`${GRID_PREFIX}-dragover`);
-		const event = this.event(e.dataTransfer);
-		if (this.canDrop(event)) {
-			this.$scope.$evalAsync(() => this.onDrop(event));
-		}
-
-		return false;
-	}
-
-	enter(e) {
-		e.preventDefault();
-
-		this.element.classList.add(`${GRID_PREFIX}-dragover`);
-		e.dataTransfer.dropEffect = this.effect || 'move';
-		return false;
-	}
-
-	over(e) {
-		e.preventDefault();
-
-		let effect = this.effect || 'move';
-		if(this.element.classList.contains(`${GRID_PREFIX}-drag`) ||
-				this.canDrop(this.event()) === false){
-			effect = 'none';
-		}
-
-		e.dataTransfer.dropEffect = effect;
-		return false;
-	}
-
-	leave() {
-		this.element.classList.remove(`${GRID_PREFIX}-dragover`);
+		this.$scope.$evalAsync(() => this.onDrop(e));
 	}
 
 	event(e) {

@@ -1,9 +1,9 @@
 import Component from '../component';
-import {GRID_NAME, TH_CORE_NAME} from '@grid/view/definition';
-import {Vscroll} from '@grid/view/services';
-import {jobLine} from '@grid/core/services';
-import {viewFactory} from '@grid/core/view/view.factory';
-import {GridCommandManager} from '../grid/grid.command.manager';
+import { GRID_NAME, TH_CORE_NAME } from '@grid/view/definition';
+import { Vscroll } from '@grid/view/services';
+import { viewFactory } from '@grid/core/view/view.factory';
+import { GridCommandManager } from '../grid/grid.command.manager';
+import { ViewCtrl } from '@grid/core/view/view.ctrl';
 
 class ViewCore extends Component {
 	constructor($rootScope, $scope, $element, $timeout, grid, vscroll) {
@@ -23,25 +23,27 @@ class ViewCore extends Component {
 		const table = root.table;
 		const model = this.model;
 		const gridService = this.serviceFactory(model);
-		const vscroll = new Vscroll(this.vscroll, root.applyFactory());
-		const selectors = {th: TH_CORE_NAME};
-		
+		const vscroll = new Vscroll(this.vscroll);
+		const selectors = { th: TH_CORE_NAME };
+		const ctrl = this.ctrl = new ViewCtrl(this, gridService);
+
+		// TODO: somehow try to aggregates view.style without jumpings
 		this.invoke = model.scroll().mode !== 'virtual'
 			? f => f()
 			: f => {
 				f();
-				this.style.invalidate();
+				ctrl.invalidate();
 			};
 
 		this.apply = this.root.applyFactory(null, 'sync');
 
-		this.commandManager = new GridCommandManager(this.apply, this.invoke, table);	
-		model.action({manager: this.commandManager});
+		const manager = this.commandManager = new GridCommandManager(this.apply, this.invoke, table);
+		model.action({ manager });
 
 		const injectViewServicesTo = viewFactory(
 			model,
 			table,
-			this.commandManager,
+			manager,
 			gridService,
 			vscroll,
 			selectors
@@ -52,44 +54,16 @@ class ViewCore extends Component {
 		// TODO: how we can avoid that?
 		this.$scope.$watch(() => {
 			if (model.scene().status === 'stop') {
-				this.style.invalidate();
+				ctrl.invalidate();
 			}
 		});
-
-		this.watch(gridService);
-	}
-
-	watch(service) {
-		const job = jobLine(10);
-		const model = this.model;
-		const triggers = model.data().triggers;
-
-		this.using(model.selectionChanged.watch(e => {
-			if (e.hasChanges('items')) {
-				this.root.onSelectionChanged({
-					$event: {
-						state: model.selection(),
-						changes: e.changes
-					}
-				});
-			}
-		}));
-
-		job(() => service.invalidate('grid'));
-		Object.keys(triggers)
-			.forEach(name =>
-				this.using(model[name + 'Changed']
-					.watch(e => {
-						const changes = Object.keys(e.changes);
-						if (e.tag.behavior !== 'core' && triggers[name].find(key => changes.indexOf(key) >= 0)) {
-							job(() => service.invalidate(name, e.changes));
-						}
-					})));
 	}
 
 	onDestroy() {
 		super.onDestroy();
+
 		this.destroyView();
+		this.ctrl.dispose();
 	}
 
 	templateUrl(key) {

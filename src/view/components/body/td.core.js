@@ -2,8 +2,9 @@ import Directive from '@grid/view/directives/directive';
 import cellBuilder from '../cell/cell.build';
 import {AppError} from '@grid/core/infrastructure';
 import {VIEW_CORE_NAME, TD_CORE_NAME, GRID_NAME} from '@grid/view/definition';
-import {GRID_PREFIX} from '@grid/core/definition';
-import * as css from '@grid/core/services/css';
+import {TdCtrl} from '@grid/core/cell/td.ctrl';
+ 
+const classify = TdCtrl.classify;
 
 class TdCore extends Directive(TD_CORE_NAME, {
 	view: `^^${VIEW_CORE_NAME}`,
@@ -18,17 +19,9 @@ class TdCore extends Directive(TD_CORE_NAME, {
 	}
 
 	onInit() {
-		const column = this.column;
-		const element = this.element;
-
 		this.root.bag.body.addCell(this);
-
-		element.classList.add(css.escapeAttr(`${GRID_PREFIX}-${column.key}`));
-		element.classList.add(css.escapeAttr(`${GRID_PREFIX}-${column.type}`));
-		if (column.editor) {
-			element.classList.add(css.escapeAttr(`${GRID_PREFIX}-${column.editor}`));
-		}
-
+		classify(this.element, this.column);
+	
 		this.enterViewMode();
 	}
 
@@ -70,11 +63,11 @@ class TdCore extends Directive(TD_CORE_NAME, {
 		switch (value) {
 			case 'view': {
 				this.enterViewMode();
-				this.element.classList.remove(`${GRID_PREFIX}-edit`);
+				TdCtrl.viewMode(this.element);
 				break;
 			}
 			case 'edit': {
-				this.element.classList.add(`${GRID_PREFIX}-edit`);
+				TdCtrl.editMode(this.element);
 				this.enterEditMode();
 				break;
 			}

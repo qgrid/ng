@@ -9,7 +9,6 @@ export class ColumnFilterView extends PluginView {
 	constructor(model, context) {
 		super(...arguments);
 
-		this.model = model;
 		this.key = context.key;
 
 		this.cancelEvent = new Event();
@@ -100,13 +99,6 @@ export class ColumnFilterView extends PluginView {
 					this.resetEvent.emit();
 				}
 			}),
-
-			resetItems: new Command({
-				source: 'column.filter.view',
-				execute: () => {
-					this.items = [];
-				}
-			})
 		};
 	}
 }
