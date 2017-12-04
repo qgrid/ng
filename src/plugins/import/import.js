@@ -21,12 +21,15 @@ class Import extends Plugin {
 
 	onInit() {
 		const element = this.$element[0];
+		const eventListener = new EventListener(element, new EventManager(this));
 		const context = {
 			element,
-			options: this.options,
-			eventListener: new EventListener(element, new EventManager(this))
+			options: this.options
 		};
-		this.$scope.$import = new ImportView(this.model, context);
+		const view = new ImportView(this.model, context);
+
+		this.$scope.$import = view;
+		this.using(eventListener.on('change', view.load));
 	}
 
 	get resource() {
