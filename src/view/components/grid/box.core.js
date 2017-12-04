@@ -2,6 +2,7 @@ import Component from '../component';
 import {GRID_NAME} from '@grid/view/definition';
 import {GRID_PREFIX} from '@grid/core/definition';
 import * as css from '@grid/core/services/css';
+import {BoxCtrl} from '@grid/core/box/box.ctrl';
 
 class BoxCore extends Component {
 	constructor($element, theme) {
@@ -12,25 +13,12 @@ class BoxCore extends Component {
 	}
 
 	onInit() {
+		this.ctrl = new BoxCtrl(this.model, this.element);
 		this.initTheme();
-
-		const model = this.model;
-		this.using(model.dragChanged.watch(e => {
-			if (e.hasChanges('isActive')) {
-				if (model.drag().isActive) {
-					this.element.classList.add(`${GRID_PREFIX}-drag`);
-				}
-				else {
-					this.element.classList.remove(`${GRID_PREFIX}-drag`);
-				}
-			}
-		}));
 	}
 
 	initTheme() {
 		const element = this.element;
-
-		element.classList.add(GRID_PREFIX);
 		this.using(this.theme.changed.watch(e => {
 			if (e) {
 				element.classList.remove(css.escapeAttr(`${GRID_PREFIX}-theme-${e.oldValue}`));
