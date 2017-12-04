@@ -20,6 +20,6 @@ export declare class StyleView extends View {
 	valueFactory: IValueFactory;
 	active: IActive;
 	monitor: IMonitor;
-	invalidate(any, any): void;
+	invalidate(domRow: any, dowCell: any): void;
 	needInvalidate(): boolean;
 }
