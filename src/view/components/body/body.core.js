@@ -33,7 +33,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {
 			scrollLeft: element.scrollLeft
 		}), { passive: true }));
 
-		this.using(listener.on('wheel', e => this.onWheel({
+		this.using(listener.on('wheel', e => ctrl.onWheel({
 			deltaY: e.deltaY,
 			scrollHeight: element.scrollHeight,
 			offsetHeight: element.offsetHeight
