@@ -1,43 +1,24 @@
 import Directive from './directive';
 import {FOCUS_NAME} from '@grid/view/definition';
-import {AppError} from '@grid/core/infrastructure';
+import {FocusView} from '@grid/plugin/focus/focus.view';
 
 class Focus extends Directive(FOCUS_NAME) {
-	constructor($element, $attrs, $timeout) {
+	constructor($element, $attrs) {
 		super();
 
-		this.$element = $element;
-		this.$attrs = $attrs;
-		this.$timeout = $timeout;
+		this.focus = new FocusView({
+			element: $element[0],
+			targetSelector: $attrs[FOCUS_NAME],
+			delay: parseInt($attrs[FOCUS_NAME+'Delay'], 10) || 50
+		});
 	}
 
 	onInit() {
-		let element = this.$element[0];
-		if (element.getAttribute('tabindex') === null
-			|| element.getAttribute('tabindex') !== '') {
-			element.setAttribute('tabindex', -1);
-		}
-
-		const delay = parseInt(this.$attrs[FOCUS_NAME+'Delay']) || 50;
-		this.$timeout(() => {
-			const targetSelector = this.$attrs[FOCUS_NAME];
-			let targetElement = element;
-			if (targetSelector) {
-				const target = this.$element.find(targetSelector);
-				if (target.length > 0) {
-					targetElement = target[0];
-				}
-				else {
-					throw new AppError('focus', `Element "${targetSelector}" is not found`);
-				}
-			}
-
-			targetElement.focus();
-		}, delay);
+		this.focus.set();
 	}
 }
 
-Focus.$inject = ['$element', '$attrs', '$timeout'];
+Focus.$inject = ['$element', '$attrs'];
 
 export default {
 	restrict: 'A',
