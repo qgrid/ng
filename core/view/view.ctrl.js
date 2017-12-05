@@ -31,13 +31,15 @@ export class ViewCtrl extends View {
 
 	triggerLine(service, timeout) {
 		const job = jobLine(timeout);
-		const jobUnits = [PipeUnit.default];
-		const fold = this.model.pipe().reducer;
+		const sessionUnits = [PipeUnit.default];
+		const reduce = this.model.pipe().reduce;
 		return (name, changes, units) => {
-			jobUnits.push(...units);
+			sessionUnits.push(...units);
 			job(() => {
-				jobUnits.reduce(fold, []).forEach(unit => service.invalidate(name, changes, unit));
-				jobUnits.length = 0;
+				const jobUnits = reduce(sessionUnits); 
+				jobUnits.forEach(unit => service.invalidate(name, changes, unit));
+				
+				sessionUnits.length = 0;
 			});
 		};
 	}
@@ -83,9 +85,9 @@ export class ViewCtrl extends View {
 							round: 0,
 							status: 'stop'
 						}, {
-								source: 'view.ctrl',
-								behavior: 'core'
-							});
+							source: 'view.ctrl',
+							behavior: 'core'
+						});
 					});
 				}
 			}

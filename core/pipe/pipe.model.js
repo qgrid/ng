@@ -1,10 +1,36 @@
-import { PipeUnit as PU } from '../pipe/pipe.unit';
+import { PipeUnit as PU, PipeUnit } from '../pipe/pipe.unit';
+import { uniq } from '../utility';
+
+const schema = new Map([
+	[PipeUnit.view, PipeUnit.default],
+	[PipeUnit.column, PipeUnit.view]
+]);
+
+const isUseless = (set, unit) => {
+	while (unit = schema.get(unit)) {
+		if (set.has(unit)) {
+			return true;
+		}
+	}
+
+	return false;
+};
 
 export class PipeModel {
 	constructor() {
-		this.reducer = (memo, unit) => {
-			memo.push(unit);
-			return memo;
+		this.reduce = units => {
+			units = Array.from(units);
+			units.reverse();
+			units = uniq(units);
+			const set = new Set(units);
+
+			return units.reduce((memo, unit) => {
+				if (!isUseless(set, unit)) {
+					memo.push(unit);
+				}
+
+				return memo;
+			}, []);
 		};
 
 		this.triggers = {
