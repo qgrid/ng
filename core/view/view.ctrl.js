@@ -1,7 +1,6 @@
 import { jobLine } from '@grid/core/services';
 import { Log } from '@grid/core/infrastructure';
 import { View } from '@grid/core/view/view';
-import { PipeUnit } from '../pipe/pipe.unit';
 
 export class ViewCtrl extends View {
 	constructor(view, gridService) {
@@ -31,15 +30,17 @@ export class ViewCtrl extends View {
 
 	triggerLine(service, timeout) {
 		const job = jobLine(timeout);
-		const sessionUnits = [PipeUnit.default];
-		const reduce = this.model.pipe().reduce;
+		const model = this.model;
+		const reduce = model.pipe().reduce;
+		let sessionUnits = [];
+
 		return (name, changes, units) => {
 			sessionUnits.push(...units);
 			job(() => {
-				const jobUnits = reduce(sessionUnits); 
-				jobUnits.forEach(unit => service.invalidate(name, changes, unit));
-				
-				sessionUnits.length = 0;
+				const jobUnits = reduce(sessionUnits, model); 
+				sessionUnits = [];
+
+				jobUnits.forEach(unit => service.invalidate(name, changes, unit));				
 			});
 		};
 	}
@@ -51,7 +52,7 @@ export class ViewCtrl extends View {
 		const model = this.model;
 		const triggers = model.pipe().triggers;
 
-		triggerJob('grid', {}, [PipeUnit.default]);
+		triggerJob('grid', {}, [model.data().pipe]);
 
 		Object.keys(triggers)
 			.forEach(name =>
@@ -70,7 +71,7 @@ export class ViewCtrl extends View {
 							}
 						}
 
-						triggerJob(name, e.changes, units);
+						triggerJob(e.tag.source || name, e.changes, units);
 					})));
 
 		model.sceneChanged.watch(e => {

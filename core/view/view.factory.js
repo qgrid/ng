@@ -31,7 +31,7 @@ export function viewFactory(model, table, commandManager, gridService, vscroll, 
 		target.edit = new EditView(model, table, commandManager);
 		target.nav = new NavigationView(model, table, commandManager);
 		target.pagination = new PaginationView(model);
-		target.scroll = new ScrollView(model, table, vscroll, gridService);
+		target.scroll = new ScrollView(model, table, vscroll);
 		target.rowDetails = new RowDetailsView(model, table, commandManager);
 
 		return () => {

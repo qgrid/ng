@@ -21,12 +21,12 @@ export default class Grid {
 	}
 
 	service(model) {
-		const start = () => {
+		const start = source => {
 			Log.info('service', 'invalidate start');
 			model.scene({
 				status: 'start'
 			}, {
-				source: 'grid',
+				source,
 				behavior: 'core'
 			});
 
@@ -35,7 +35,7 @@ export default class Grid {
 				scene({
 					round: scene().round + 1
 				}, {
-					source: 'grid',
+					source,
 					behavior: 'core'
 				});
 
