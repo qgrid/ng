@@ -37,10 +37,10 @@ export class ViewCtrl extends View {
 		return (name, changes, units) => {
 			sessionUnits.push(...units);
 			job(() => {
-				const jobUnits = reduce(sessionUnits, model); 
+				const jobUnits = reduce(sessionUnits, model);
 				sessionUnits = [];
 
-				jobUnits.forEach(unit => service.invalidate(name, changes, unit));				
+				jobUnits.forEach(unit => service.invalidate(name, changes, unit));
 			});
 		};
 	}
@@ -48,7 +48,7 @@ export class ViewCtrl extends View {
 	watch(service) {
 		const sceneJob = jobLine(10);
 		const triggerJob = this.triggerLine(service, 10);
-	
+
 		const model = this.model;
 		const triggers = model.pipe().triggers;
 
@@ -71,7 +71,9 @@ export class ViewCtrl extends View {
 							}
 						}
 
-						triggerJob(e.tag.source || name, e.changes, units);
+						if (units.length > 0) {
+							triggerJob(e.tag.source || name, e.changes, units);
+						}
 					})));
 
 		model.sceneChanged.watch(e => {
@@ -86,9 +88,9 @@ export class ViewCtrl extends View {
 							round: 0,
 							status: 'stop'
 						}, {
-							source: 'view.ctrl',
-							behavior: 'core'
-						});
+								source: 'view.ctrl',
+								behavior: 'core'
+							});
 					});
 				}
 			}
