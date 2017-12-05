@@ -31,7 +31,7 @@ class BoxCore extends Component {
 
 	get model() {
 		const model = this._model || this.root.model;
-		Guard.notNul('model', model);
+		Guard.notNull('model', model);
 		return model;
 	}
 }

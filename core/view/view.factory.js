@@ -39,7 +39,6 @@ export function viewFactory(model, table, commandManager, gridService, vscroll, 
 			target.head.dispose();
 			target.body.dispose();
 			target.foot.dispose();
-			target.columns.dispose();
 			target.layout.dispose();
 			target.selection.dispose();
 			target.group.dispose();
