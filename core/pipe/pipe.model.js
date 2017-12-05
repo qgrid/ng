@@ -1,28 +1,33 @@
-import {PipeUnit as PU} from '../pipe/pipe.unit';
+import { PipeUnit as PU } from '../pipe/pipe.unit';
 
 export class PipeModel {
 	constructor() {
+		this.reducer = (memo, unit) => {
+			memo.push(unit);
+			return memo;
+		};
+
 		this.triggers = {
 			'data': {
-				'rows': PU.default, 
+				'rows': PU.default,
 				'columns': PU.column
 			},
 			'pagination': {
-				'current': PU.default, 
+				'current': PU.default,
 				'size': PU.Default
 			},
 			'sort': {
 				'by': PU.default
 			},
 			'filter': {
-				'by': PU.default, 
+				'by': PU.default,
 				'unit': PU.column
 			},
 			'group': {
 				'by': PU.default
 			},
 			'pivot': {
-				'by': PU.default				
+				'by': PU.default
 			},
 			'columnList': {
 				'index': PU.column
@@ -32,8 +37,8 @@ export class PipeModel {
 			},
 			'selection': {
 				'mode': PU.column,
-				'unit': PU.column   
+				'unit': PU.column
 			}
-		};  	
+		};
 	}
 }

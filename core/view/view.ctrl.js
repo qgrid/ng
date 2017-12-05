@@ -1,6 +1,7 @@
 import { jobLine } from '@grid/core/services';
 import { Log } from '@grid/core/infrastructure';
 import { View } from '@grid/core/view/view';
+import { PipeUnit } from '../pipe/pipe.unit';
 
 export class ViewCtrl extends View {
 	constructor(view, gridService) {
@@ -28,13 +29,28 @@ export class ViewCtrl extends View {
 		}
 	}
 
+	triggerLine(service, timeout) {
+		const job = jobLine(timeout);
+		const jobUnits = [PipeUnit.default];
+		const fold = this.model.pipe().reducer;
+		return (name, changes, units) => {
+			jobUnits.push(...units);
+			job(() => {
+				jobUnits.reduce(fold, []).forEach(unit => service.invalidate(name, changes, unit));
+				jobUnits.length = 0;
+			});
+		};
+	}
+
 	watch(service) {
-		const invalidateJob = jobLine(10);
 		const sceneJob = jobLine(10);
+		const triggerJob = this.triggerLine(service, 10);
+	
 		const model = this.model;
 		const triggers = model.pipe().triggers;
 
-		invalidateJob(() => service.invalidate('grid'));
+		triggerJob('grid', {}, [PipeUnit.default]);
+
 		Object.keys(triggers)
 			.forEach(name =>
 				this.using(model[name + 'Changed']
@@ -43,15 +59,16 @@ export class ViewCtrl extends View {
 							return;
 						}
 
+						const units = [];
 						const trigger = triggers[name];
-						for(const key in e.changes) {
+						for (const key in e.changes) {
 							const unit = trigger[key];
-							// TODO: how to resolve unit priorities? 
-							if(unit) {
-								invalidateJob(() => service.invalidate(name, e.changes, unit));
-								break;								
+							if (unit) {
+								units.push(unit);
 							}
 						}
+
+						triggerJob(name, e.changes, units);
 					})));
 
 		model.sceneChanged.watch(e => {
@@ -66,9 +83,9 @@ export class ViewCtrl extends View {
 							round: 0,
 							status: 'stop'
 						}, {
-							source: 'view.ctrl',
-							behavior: 'core'
-						});
+								source: 'view.ctrl',
+								behavior: 'core'
+							});
 					});
 				}
 			}
