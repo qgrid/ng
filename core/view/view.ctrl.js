@@ -32,16 +32,25 @@ export class ViewCtrl extends View {
 		const invalidateJob = jobLine(10);
 		const sceneJob = jobLine(10);
 		const model = this.model;
-		const triggers = model.data().triggers;
+		const triggers = model.pipe().triggers;
 
 		invalidateJob(() => service.invalidate('grid'));
 		Object.keys(triggers)
 			.forEach(name =>
 				this.using(model[name + 'Changed']
 					.watch(e => {
-						const changes = Object.keys(e.changes);
-						if (e.tag.behavior !== 'core' && triggers[name].find(key => changes.indexOf(key) >= 0)) {
-							invalidateJob(() => service.invalidate(name, e.changes));
+						if (e.tag.behavior === 'core') {
+							return;
+						}
+
+						const trigger = triggers[name];
+						for(const key in e.changes) {
+							const unit = trigger[key];
+							// TODO: how to resolve unit priorities? 
+							if(unit) {
+								invalidateJob(() => service.invalidate(name, e.changes, unit));
+								break;								
+							}
 						}
 					})));
 

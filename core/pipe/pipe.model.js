@@ -1,11 +1,7 @@
-import {guid} from '../services';
 import {PipeUnit as PU} from '../pipe/pipe.unit';
 
-export class GridModel {
+export class PipeModel {
 	constructor() {
-		this.id = `q-grid-${guid()}`;
-		this.status = 'unbound'; //unbound | bound
-		this.title = '';
 		this.triggers = {
 			'data': {
 				'rows': PU.default, 

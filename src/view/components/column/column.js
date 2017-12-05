@@ -1,6 +1,6 @@
 import Component from '../component';
 import {GRID_NAME, COLUMN_NAME, COLUMN_LIST_NAME} from '@grid/view/definition';
-import {clone, isUndefined} from '@grid/core/utility';
+import {isUndefined} from '@grid/core/utility';
 import {TemplatePath} from '@grid/core/template';
 import * as columnService from '@grid/core/column/column.service';
 import {columnFactory} from '@grid/core/column/column.factory';
@@ -35,18 +35,14 @@ class Column extends Component {
 
 		const model = this.root.model;
 		const createColumn = columnFactory(model);
-		const data = model.data;
-		const dataState = data();
-		const columns = clone(dataState.columns);
-		let column = columnService.find(columns, this.key);
+		let column = columnService.find(model.data().columns, this.key);
 		if (column) {
 			createColumn($attrs.type || 'text', column);
 		}
 		else {
 			column = createColumn($attrs.type || 'text').model;
 			column.key = this.key;
-			columns.source = 'template';
-			columns.push(column);
+			column.source = 'template';
 		}
 
 		this.columnList.copy(column, $attrs);

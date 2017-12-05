@@ -1,8 +1,8 @@
-import {build as buildPipe} from '../pipe/pipe.build';
-import {Log} from '../infrastructure';
-import {noop} from '../utility';
-import {guid} from './guid';
-import {PersistenceService} from '../persistence/persistence.service';
+import { build as buildPipe } from '../pipe/pipe.build';
+import { Log } from '../infrastructure';
+import { noop } from '../utility';
+import { guid } from './guid';
+import { PersistenceService } from '../persistence/persistence.service';
 
 export class GridService {
 	constructor(model, start = () => noop) {
@@ -59,13 +59,13 @@ export class GridService {
 	busy() {
 		const id = guid();
 		const progress = this.model.progress;
-		progress({queue: progress().queue.concat([id])});
+		progress({ queue: progress().queue.concat([id]) });
 		return () => {
 			const queue = Array.from(progress().queue);
 			const index = queue.indexOf(id);
 			if (index >= 0) {
 				queue.splice(index, 1);
-				progress({queue: queue});
+				progress({ queue: queue });
 			}
 		};
 	}
