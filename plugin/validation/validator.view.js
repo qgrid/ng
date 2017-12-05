@@ -8,20 +8,42 @@ export class ValidatorView extends PluginView {
 
 		this.oldErrors = [];
 		this.context = context;
-		if (validationService.hasRules(this.rules.regular, this.context.key)) {
-			this.validator = validationService.createValidator(this.rules.regular, this.context.key);
+		const rules = this.splitRules(this.rules);
+
+		if (validationService.hasRules(rules.regular, this.context.key)) {
+			this.validator = validationService.createValidator(rules.regular, this.context.key);
 		}
-		if (this.rules.custom.length > 0) {
-			this.customValidator = validationService.createCustomValidator(this.rules.custom, this.context.key);
+		if (rules.custom.length > 0) {
+			this.customValidator = validationService.createCustomValidator(rules.custom, this.context.key);
 		}
 	}
 
-	get errors() {
-		if (this.validator) {
-			const target = {
-				[this.context.key]: this.context.value
-			};
+	splitRules(rules) {
+		const result = {
+			custom: [],
+			regular: []
+		};
+		rules.forEach(rule => {
+			if (rule.hasOwnProperty('custom')) {
+				const custom = {for: rule.for, key: rule.key, custom: rule.custom};
+				result.custom.push(custom);
+				const regular = Object.assign({}, rule);
+				delete regular.custom;
+				result.regular.push(regular);
+			} else {
+				result.regular.push(rule);
+			}
+		});
 
+		return result;
+	}
+
+	get errors() {
+		const target = {
+			[this.context.key]: this.context.value
+		};
+
+		if (this.validator) {
 			const isValid = this.validator.validate(target);
 			if (!isValid) {
 				const newError = this.validator.getErrors()[this.context.key];
@@ -29,29 +51,19 @@ export class ValidatorView extends PluginView {
 				if (!isEqual(newErrors, this.oldErrors)) {
 					this.oldErrors = newErrors;
 				}
+				/*eslint-disable  no-console, no-unused-vars, no-undef*/
 			} else {
 				this.oldErrors.length = 0;
 			}
 		}
-		// if (this.customValidator) {
-		//
-		// }
+		if (this.customValidator) {
+			this.customValidator.validate(target);
+		}
 		return this.oldErrors;
 	}
 
 	get rules() {
-		const rules = this.model.validation().rules;
-		const result = rules.reduce((memo, rule) => {
-			if (rule.hasOwnProperty('custom')) {
-				const custom = {for: rule.for, key: rule.key, custom: rule.custom};
-				memo.custom.push(custom);
-				delete rule.custom;
-			}
-			memo.regular.push(rule);
-			return memo;
-		}, {custom: [], regular: []});
-
-		return result;
+		return this.model.validation().rules;
 	}
 
 }
