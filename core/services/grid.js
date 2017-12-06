@@ -59,13 +59,13 @@ export class GridService {
 	busy() {
 		const id = guid();
 		const progress = this.model.progress;
-		progress({ queue: progress().queue.concat([id]) });
+		progress({queue: progress().queue.concat([id])});
 		return () => {
 			const queue = Array.from(progress().queue);
 			const index = queue.indexOf(id);
 			if (index >= 0) {
 				queue.splice(index, 1);
-				progress({ queue: queue });
+				progress({queue});
 			}
 		};
 	}
