@@ -28,8 +28,18 @@ class ViewCore extends Component {
 		const selectors = { th: TH_CORE_NAME };
 		const ctrl = this.ctrl = new ViewCtrl(model, this, gridService);
 		const job = jobLine(0);
+		
+		this.using(model.selectionChanged.watch(e => {
+			if (e.hasChanges('items')) {
+				this.root.onSelectionChanged({
+					$event: {
+						state: model.selection(),
+						changes: e.changes
+					}
+				});
+			}
+		}));
 
-		// TODO: somehow try to aggregates view.style without jumpings
 		this.invoke = model.scroll().mode !== 'virtual'
 			? f => f()
 			: f => {
