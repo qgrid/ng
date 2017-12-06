@@ -74,5 +74,6 @@ export default {
 	controllerAs: '$cell',
 	controller: TfCore,
 	require: TfCore.require,
-	link: TfCore.link
+	link: TfCore.link,
+	scope: false
 };

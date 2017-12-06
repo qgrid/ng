@@ -3,6 +3,7 @@ import {GRID_NAME} from '@grid/view/definition';
 import {GRID_PREFIX} from '@grid/core/definition';
 import * as css from '@grid/core/services/css';
 import {BoxCtrl} from '@grid/core/box/box.ctrl';
+import {Guard} from '@grid/core/infrastructure';
 
 class BoxCore extends Component {
 	constructor($element, theme) {
@@ -29,7 +30,9 @@ class BoxCore extends Component {
 	}
 
 	get model() {
-		return this._model || this.root.model;
+		const model = this._model || this.root.model;
+		Guard.notNull('model', model);
+		return model;
 	}
 }
 

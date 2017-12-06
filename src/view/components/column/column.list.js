@@ -20,9 +20,7 @@ class ColumnList extends ModelComponent {
 
 		const canCopy = (key, source) =>
 			!(ng.isSystem(key) ||
-				isUndefined(source[key]) ||
-				key === 'value' ||
-				key === 'label');
+				isUndefined(source[key]));
 
 		const ngParseFactory = type => {
 			const parse = parseFactory(type);
@@ -37,6 +35,14 @@ class ColumnList extends ModelComponent {
 		};
 
 		this.ctrl = new ColumnListCtrl(model, canCopy, ngParseFactory);
+	}
+
+	extract(key, type) {
+		return this.ctrl.extract(key, type);
+	}
+
+	generateKey(type) {
+		return this.ctrl.generateKey(type);
 	}
 
 	copy(target, source) {
