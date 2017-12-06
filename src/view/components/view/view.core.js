@@ -26,7 +26,7 @@ class ViewCore extends Component {
 		const gridService = this.serviceFactory(model);
 		const vscroll = new Vscroll(this.vscroll);
 		const selectors = { th: TH_CORE_NAME };
-		const ctrl = this.ctrl = new ViewCtrl(this, gridService);
+		const ctrl = this.ctrl = new ViewCtrl(model, this, gridService);
 		const job = jobLine(0);
 
 		// TODO: somehow try to aggregates view.style without jumpings

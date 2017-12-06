@@ -15,22 +15,17 @@ export class Grid extends RootComponent {
 		this.$element = $element;
 		this.$transclude = $transclude;
 		this.$timeout = $timeout;
+		this.$window = $window;
 
 		this.template = new TemplateLink($compile, $templateCache);
-
-		this.listener = new EventListener($element[0], new EventManager(this));
-		this.windowListener = new EventListener($window, new EventManager(this));
 	}
 
 	onInit() {
 		const model = this.model;
-		if (!model) {
-			throw new AppError('grid', 'Model is not setup');
-		}
-
+		const element = this.$element[0];		
 		const ctrl = this.ctrl = new GridCtrl(model, {
 			layerFactory: markup => new LayerFactory(markup, this.template),
-			element: this.$element[0]
+			element
 		});
 
 		this.table = ctrl.table;
@@ -39,8 +34,10 @@ export class Grid extends RootComponent {
 
 		this.compile();
 
-		this.using(this.windowListener.on('focusin', ctrl.invalidateActive.bind(ctrl)));
-		this.using(this.listener.on('keydown', ctrl.keyDown.bind(ctrl)));
+		const listener = new EventListener(element, new EventManager(this));
+		const windowListener = new EventListener(this.$window, new EventManager(this));
+		this.using(windowListener.on('focusin', ctrl.invalidateActive.bind(ctrl)));
+		this.using(listener.on('keydown', ctrl.keyDown.bind(ctrl)));
 	}
 
 	compile() {

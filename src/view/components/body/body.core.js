@@ -25,7 +25,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {
 		const view = this.view;
 		const element = this.element;
 
-		const ctrl = new BodyCtrl(view, this.root.bag);
+		const ctrl = new BodyCtrl(view.model, view, this.root.bag);
 		const listener = new EventListener(this.element, new EventManager(this, view.invoke));
 
 		this.using(listener.on('scroll', () => ctrl.onScroll({
