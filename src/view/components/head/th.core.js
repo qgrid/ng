@@ -112,5 +112,6 @@ export default {
 	controllerAs: '$cell',
 	controller: ThCore,
 	require: ThCore.require,
-	link: ThCore.link
+	link: ThCore.link,
+	scope: false
 };
