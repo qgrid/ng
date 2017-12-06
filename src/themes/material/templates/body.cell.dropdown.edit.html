@@ -3,7 +3,8 @@
 			  placeholder="Select a value"
 			  md-on-open="$view.edit.cell.fetch.busy"
 			  md-on-close="$view.edit.cell.commit.execute($cell)">
-	<md-option ng-value="option"
+	<md-option ng-value="option" 
+				  q-grid:raise="focus"
 				  ng-repeat="option in $view.edit.cell.fetch.result">{{::$view.edit.cell.editor.getLabel(option)}}
 	</md-option>
 </md-select>
