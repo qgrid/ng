@@ -1,5 +1,4 @@
 import {guid} from '../services';
-import {PipeUnit as PU} from '../pipe/pipe.unit';
 
 export class GridModel {
 	constructor() {
