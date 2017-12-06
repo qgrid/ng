@@ -1,0 +1,25 @@
+<md-select class="condition-builder-select"
+			  ng-class="expression.classes"
+			  ng-model="expression.value"
+			  ng-model-options="{ trackBy: 'expression.trackBy($value)' }"
+			  md-on-close="expression.change($event);"
+			  ng-if="expression.isVisible()"
+			  placeholder="{{ expression.placeholderText }}"
+			  md-on-open="expression.onOpen()"
+			  aria-label="Select"
+			  ng-switch="!!expression.trackBy">
+	<md-option ng-switch-when="true"
+				  class="condition-builder-option"
+				  ng-value="option"
+				  ng-repeat="option in (expression.options || expression.getOptions()) track by expression.trackBy(option)">
+		<md-icon ng-if="expression.getIcon">{{::expression.getIcon(option)}}</md-icon>
+		{{::((expression.getLabel && expression.getLabel(option)) || option)}}
+	</md-option>
+	<md-option ng-switch-default
+				  class="condition-builder-option"
+				  ng-value="option"
+				  ng-repeat="option in (expression.options || expression.getOptions())">
+		<md-icon ng-if="expression.getIcon">{{::expression.getIcon(option)}}</md-icon>
+		{{::((expression.getLabel && expression.getLabel(option)) || option)}}
+	</md-option>
+</md-select>

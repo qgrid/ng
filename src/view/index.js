@@ -45,6 +45,7 @@ import Pretty from './filters/prettify';
 
 import * as def from './definition';
 require('vscroll'); // TODO: make vscroll export
+require('ng-expression-builder');
 
 export const coreModule = angular.module(def.MODULE_CORE_NAME, []) // eslint-disable-line no-undef
 	.directive(def.DRAG_NAME, () => Drag)

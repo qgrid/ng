@@ -9,5 +9,5 @@ setupCore(Model);
 setupPlugins(Model);
 
 export default angular // eslint-disable-line no-undef
-	.module(def.MODULE_NAME, [coreModule, layoutModule, pluginModule, 'vscroll'])
+	.module(def.MODULE_NAME, [coreModule, layoutModule, pluginModule, 'vscroll', 'expression-builder'])
 	.name;
