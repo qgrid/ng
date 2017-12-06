@@ -37,6 +37,8 @@ export class RowDetailsView extends View {
 			if (e.tag.source !== 'row.details.view' && e.hasChanges('rows')) {
 				model.row({
 					status: invalidateStatus(e.state.rows, model.row().status)
+				}, {
+					source: 'row.details.view'
 				});
 			}
 		}));
