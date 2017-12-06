@@ -88,9 +88,9 @@ export class ViewCtrl extends View {
 							round: 0,
 							status: 'stop'
 						}, {
-								source: 'view.ctrl',
-								behavior: 'core'
-							});
+							source: 'view.ctrl',
+							behavior: 'core'
+						});
 					});
 				}
 			}

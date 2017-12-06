@@ -37,6 +37,14 @@ class ColumnList extends ModelComponent {
 		this.ctrl = new ColumnListCtrl(model, canCopy, ngParseFactory);
 	}
 
+	extract(key, type) {
+		return this.ctrl.extract(key, type);
+	}
+
+	generateKey(type) {
+		return this.ctrl.generateKey(type);
+	}
+
 	copy(target, source) {
 		this.ctrl.copy(target, source);
 	}

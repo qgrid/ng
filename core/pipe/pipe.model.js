@@ -30,7 +30,7 @@ export class PipeModel {
 						break;
 					}
 
-					if (set.has(unit)) {
+					if (set.has(next)) {
 						return false;
 					}
 

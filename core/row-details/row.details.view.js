@@ -16,11 +16,8 @@ export class RowDetailsView extends View {
 				}
 
 				const status = toggleStatus([row], model.row().status, model.row().mode);
-				model.row({
-					status: status
-				}, {
-					source: 'row.details.view',
-					behavior: 'core'
+				model.row({status}, {
+					source: 'row.details.view'
 				});
 			},
 			canExecute: row => {
