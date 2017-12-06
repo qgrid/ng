@@ -6,15 +6,18 @@ export class ValidatorView extends PluginView {
 	constructor(model, context) {
 		super(model);
 
-		this.oldErrors = [];
 		this.context = context;
+		this.value = context.value;
+		this.type = context.type;
+		this.key = context.key;
+		this.oldErrors = [];
 		const rules = this.splitRules(this.rules);
 
-		if (validationService.hasRules(rules.regular, this.context.key)) {
-			this.validator = validationService.createValidator(rules.regular, this.context.key);
+		if (validationService.hasRules(rules.regular, this.key)) {
+			this.validator = validationService.createValidator(rules.regular, this.key);
 		}
 		if (rules.custom.length > 0) {
-			this.customValidator = validationService.createCustomValidator(rules.custom, this.context.key);
+			this.customValidator = validationService.createCustomValidator(rules.custom, this.key);
 		}
 	}
 
@@ -40,24 +43,32 @@ export class ValidatorView extends PluginView {
 
 	get errors() {
 		const target = {
-			[this.context.key]: this.context.value
+			[this.key]: this.context.value
 		};
+		const errors = [];
 
 		if (this.validator) {
 			const isValid = this.validator.validate(target);
 			if (!isValid) {
-				const newError = this.validator.getErrors()[this.context.key];
+				const newError = this.validator.getErrors()[this.key];
 				const newErrors = isString(newError) ? [newError] : newError;
-				if (!isEqual(newErrors, this.oldErrors)) {
-					this.oldErrors = newErrors;
-				}
-				/*eslint-disable  no-console, no-unused-vars, no-undef*/
-			} else {
-				this.oldErrors.length = 0;
+				errors.push(...newErrors);
+
 			}
 		}
 		if (this.customValidator) {
-			this.customValidator.validate(target);
+			this.customValidator.validate(target)
+				.then(res => {
+					const isValid = !res.some(item => !item);
+					if (!isValid) {
+						const newErrors = ['Kate'];
+						errors.push(...newErrors);
+					}
+
+				});
+		}
+		if (!isEqual(errors, this.oldErrors)) {
+			this.oldErrors = errors;
 		}
 		return this.oldErrors;
 	}

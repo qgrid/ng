@@ -36,6 +36,6 @@ export function createValidator(rules, key) {
 
 export function createCustomValidator(rules, key) {
 	const validationRules = formatRules(rules, key);
-	const validator = new CustomValidator(validationRules);
+	const validator = new CustomValidator(validationRules, key);
 	return validator;
 }

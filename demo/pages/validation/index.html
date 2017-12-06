@@ -8,7 +8,7 @@
 	<q-grid:validation>
 		<q-grid:rule for="cell"
 		             key="name.first"
-		             custom="$ctrl.validate"
+		             custom="$ctrl.validate(value)"
 		             required
 		             min-length="3"
 		             max-length="40">

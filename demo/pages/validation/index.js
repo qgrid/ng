@@ -4,7 +4,7 @@ export default function Controller($http, qgrid) {
 
 	this.model = qgrid.model();
 
-	this.validate = value => value.length > 3;
+	this.validate = value => value.length < 5;
 
 	$http.get('data/people/100.json')
 		.then(response => this.rows = response.data);
