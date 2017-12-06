@@ -1,5 +1,5 @@
-import { PipeUnit as PU, PipeUnit } from '../pipe/pipe.unit';
-import { uniq } from '../utility';
+import {PipeUnit as PU} from '../pipe/pipe.unit';
+import {uniq} from '../utility';
 
 
 export class PipeModel {
@@ -9,7 +9,7 @@ export class PipeModel {
 			
 			// Change one of default pipes to data pipes - cause default literaly means data
 			// we can change only one because all other will be moved out during reduce
-			const index = units.indexOf(PipeUnit.default);
+			const index = units.indexOf(PU.default);
 			if (index >= 0) {
 				units[index] = dataPipe;
 			}
@@ -18,9 +18,9 @@ export class PipeModel {
 			const set = new Set(units);
 
 			const schema = new Map([
-				[PipeUnit.default, dataPipe],
-				[PipeUnit.view, PipeUnit.default],
-				[PipeUnit.column, PipeUnit.view]
+				[PU.default, dataPipe],
+				[PU.view, PU.default],
+				[PU.column, PU.view]
 			]);
 
 			const shouldKeep = unit => {
