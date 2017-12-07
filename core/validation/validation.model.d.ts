@@ -4,5 +4,6 @@ export declare class ValidationModel {
 	constructor();
 
 	resource: Resource;
-	rules: object[];
+	regularRules: object[];
+	customRules: object[];
 }

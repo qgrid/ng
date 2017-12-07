@@ -14,34 +14,13 @@ export class ValidatorView extends PluginView {
 		this.errors = [];
 		this.valueChanged = new Event();
 		this.valueChanged.on(this.validate.bind(this));
-		const rules = this.splitRules(this.rules);
 
-		if (validationService.hasRules(rules.regular, this.key)) {
-			this.validator = validationService.createValidator(rules.regular, this.key);
+		if (validationService.hasRules(this.regularRules, this.key)) {
+			this.validator = validationService.createValidator(this.regularRules, this.key);
 		}
-		if (rules.custom.length > 0) {
-			this.customValidator = validationService.createCustomValidator(rules.custom, this.key);
+		if (this.customRules.length > 0) {
+			this.customValidator = validationService.createCustomValidator(this.customRules, this.key);
 		}
-	}
-
-	splitRules(rules) {
-		const result = {
-			custom: [],
-			regular: []
-		};
-		rules.forEach(rule => {
-			if (rule.hasOwnProperty('custom')) {
-				const custom = {for: rule.for, key: rule.key, custom: rule.custom};
-				result.custom.push(custom);
-				const regular = Object.assign({}, rule);
-				delete regular.custom;
-				result.regular.push(regular);
-			} else {
-				result.regular.push(rule);
-			}
-		});
-
-		return result;
 	}
 
 	validate() {
@@ -71,7 +50,11 @@ export class ValidatorView extends PluginView {
 		}
 	}
 
-	get rules() {
-		return this.model.validation().rules;
+	get customRules() {
+		return this.model.validation().customRules;
+	}
+
+	get regularRules() {
+		return this.model.validation().regularRules;
 	}
 }

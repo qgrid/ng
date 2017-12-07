@@ -52,19 +52,27 @@ class Rule extends Component {
 		const predefinedRules = Object.keys(ruleBindings);
 		const gridModel = this.validation.model;
 		const validation = gridModel.validation;
-		const rules = Array.from(validation().rules);
-		const rule = {
+		const regularRules = Array.from(validation().regularRules);
+		const customRules = Array.from(validation().customRules);
+		const regularRule = {
 			for: this.for,
 			key: this.key
 		};
+		const customRule = Object.assign({}, regularRule);
+
 		for (let name of predefinedRules) {
 			if (this.hasOwnProperty(name)) {
-				rule[name] = this[name];
+				if (name === 'custom') {
+					customRule[name] = this[name];
+				} else {
+					regularRule[name] = this[name];
+				}
 			}
 		}
 
-		rules.push(rule);
-		validation({rules});
+		regularRules.push(regularRule);
+		customRules.push(customRule);
+		validation({regularRules, customRules});
 	}
 }
 

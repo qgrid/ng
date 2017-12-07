@@ -3,17 +3,19 @@ import {CustomValidator} from './customValidator';
 
 function formatRules(rules, key) {
 	const result = [];
-	rules.forEach(rule => {
-		if (rule.key === key) {
-			for (let name of Object.keys(rule)) {
-				if (name !== 'key' && name !== 'for') {
-					result.push({
-						[name]: rule[name]
-					});
+	if (rules) {
+		rules.forEach(rule => {
+			if (rule.key === key) {
+				for (let name of Object.keys(rule)) {
+					if (name !== 'key' && name !== 'for') {
+						result.push({
+							[name]: rule[name]
+						});
+					}
 				}
 			}
-		}
-	});
+		});
+	}
 	return result;
 }
 

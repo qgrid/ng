@@ -9,13 +9,10 @@ export class CustomValidator {
 	validate(target) {
 		const value = target[this.key];
 		const promises = [];
-		if (!value) {
-			return false;
-		}
 		for (let rule of this.rules) {
 			const f = rule.custom;
 			const fetch = new Fetch(f);
-			fetch.run({value});
+			fetch.run({value: value});
 			promises.push(fetch.busy);
 		}
 
