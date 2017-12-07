@@ -1,5 +1,6 @@
 import {PluginView} from '../plugin.view';
-import {isString, isEqual} from '@grid/core/utility';
+import {isString} from '@grid/core/utility';
+import {Event} from '@grid/core/infrastructure';
 import * as validationService from '@grid/core/validation/validation.service';
 
 export class ValidatorView extends PluginView {
@@ -10,7 +11,9 @@ export class ValidatorView extends PluginView {
 		this.value = context.value;
 		this.type = context.type;
 		this.key = context.key;
-		this.oldErrors = [];
+		this.errors = [];
+		this.valueChanged = new Event();
+		this.valueChanged.on(this.validate.bind(this));
 		const rules = this.splitRules(this.rules);
 
 		if (validationService.hasRules(rules.regular, this.key)) {
@@ -41,40 +44,34 @@ export class ValidatorView extends PluginView {
 		return result;
 	}
 
-	get errors() {
+	validate() {
+		this.errors.length = 0;
 		const target = {
 			[this.key]: this.context.value
 		};
-		const errors = [];
 
 		if (this.validator) {
 			const isValid = this.validator.validate(target);
 			if (!isValid) {
 				const newError = this.validator.getErrors()[this.key];
 				const newErrors = isString(newError) ? [newError] : newError;
-				errors.push(...newErrors);
+				this.errors.push(...newErrors);
 
 			}
 		}
 		if (this.customValidator) {
 			this.customValidator.validate(target)
 				.then(res => {
-					const isValid = !res.some(item => !item);
-					if (!isValid) {
-						const newErrors = ['Kate'];
-						errors.push(...newErrors);
+					const errors = res.filter(item => !item.invalid);
+					if (errors.length) {
+						const error = errors[0].message;
+						this.errors.push(error);
 					}
-
 				});
 		}
-		if (!isEqual(errors, this.oldErrors)) {
-			this.oldErrors = errors;
-		}
-		return this.oldErrors;
 	}
 
 	get rules() {
 		return this.model.validation().rules;
 	}
-
 }
