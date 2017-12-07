@@ -13,9 +13,9 @@
 							md-no-asterisk="true"
 							md-select-on-focus
 							ng-attr-placeholder="{{expression.placeholderText}}"
-							autosize="input"
+							q-grid:autosize="input"
 							show-autocomplete-on-focus="expression.options"
-							ng-style="{'width' :  autosize.width(expression.value) + 'px'}">
+							ng-style="{'width' :  $autosize.width(expression.value) + 'px'}">
         <md-item-template>
             <span md-highlight-text="expression.value.toString()" md-highlight-flags="^i">{{ item }}</span>
         </md-item-template>

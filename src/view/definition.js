@@ -57,6 +57,7 @@ export const POSITION_NAME = `${GRID}Position`;
 export const AUTOFOCUS_NAME = `${GRID}Autofocus`;
 export const STOP_PROPAGATE_NAME = `${GRID}StopPropagate`;
 export const PREVENT_DEFAULT_NAME = `${GRID}PreventDefault`;
+export const AUTOSIZE_NAME = `${GRID}Autosize`;
 
 export const FILE_UPLOAD_NAME = `${GRID}FileUpload`;
 export const FILE_UPLOAD_LABEL_NAME = `${GRID}FileUploadLabel`;
