@@ -36,6 +36,8 @@ import LegendCore from './legend/legend.core';
 import Validation from './validation/validation';
 import Rule from './validation/rule';
 import Validator from './validation/validator';
+import ExpressionBuilder from './expression-builder/expression-builder';
+import ExpressionBuilderFactory from './expression-builder/expression-builder.factory';
 
 import * as def from './definition';
 
@@ -78,6 +80,8 @@ export default angular  // eslint-disable-line no-undef
 	.component(def.VALIDATION_NAME, Validation)
 	.component(def.RULE_NAME, Rule)
 	.component(def.VALIDATOR_NAME, Validator)
+	.component(def.EXPRESSION_BUILDER_NAME, ExpressionBuilder)
+	.factory(def.EXPRESSION_BUILDER_FACTORY, ExpressionBuilderFactory)
 	.service(def.POPUP_SERVICE, PopupService)
 	.config(Setup)
 	.name;

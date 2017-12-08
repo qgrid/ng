@@ -1,0 +1,31 @@
+<span>
+    <md-autocomplete class="condition-builder-autocomplete"
+							eb-class="expression.classes"
+							eb-class-context="expression"
+							md-items="item in expression.options()"
+							md-selected-item="expression.selectedItem"
+							md-search-text="expression.value"
+							md-search-text-change="expression.change()"
+							md-selected-item-change="expression.change()"
+							md-no-cache="true"
+							md-min-length="0"
+							md-menu-class="condition-builder-autocomplete-popup"
+							md-no-asterisk="true"
+							md-select-on-focus
+							ng-attr-placeholder="{{expression.placeholderText}}"
+							q-grid:autosize="input"
+							show-autocomplete-on-focus="expression.options"
+							ng-style="{'width' :  $autosize.width(expression.value) + 'px'}">
+        <md-item-template>
+            <span md-highlight-text="expression.value.toString()" md-highlight-flags="^i">{{ item }}</span>
+        </md-item-template>
+    </md-autocomplete>
+    <md-tooltip md-direction="bottom" ng-if="!expression.isValid()" class="autocomplete-tooltip" md-delay="2000">
+        <div ng-switch="expression.state[0]">
+            <span ng-switch-when="required">Value is required</span>
+            <span ng-switch-when="number">'{{ ::expression.value }}' is not a number</span>
+            <span ng-switch-when="integer">'{{ ::expression.value }}' is not a integer</span>
+            <span ng-switch-when="datetime">'{{ ::expression.value }}' is not a date</span>
+        </div>
+    </md-tooltip>
+</span>

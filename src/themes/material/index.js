@@ -54,6 +54,15 @@ function Setup(qgridThemeProvider) {
 		theme.put(plugin('legend-core'), require('./templates/plugin.legend.core.html'));
 		theme.put(plugin('validator'), require('./templates/plugin.validator.html'));
 
+		theme.put(plugin('expression-builder'), require('./templates/plugin.expression.builder.html'));
+		theme.put(plugin('expression-builder.autocomplete'), require('./templates/plugin.expression.builder.autocomplete.html'));
+		theme.put(plugin('expression-builder.button'), require('./templates/plugin.expression.builder.button.html'));
+		theme.put(plugin('expression-builder.label'), require('./templates/plugin.expression.builder.label.html'));
+		theme.put(plugin('expression-builder.multiselect'), require('./templates/plugin.expression.builder.multiselect.html'));
+		theme.put(plugin('expression-builder.icon.button'), require('./templates/plugin.expression.builder.icon.button.html'));
+		theme.put(plugin('expression-builder.input'), require('./templates/plugin.expression.builder.input.html'));
+		theme.put(plugin('expression-builder.select'), require('./templates/plugin.expression.builder.select.html'));
+
 		theme.put(cell('head', 'filter-row'), require('./templates/head.cell.filter.row.html'));
 
 		theme.put(cell('head', 'text'), require('./templates/head.cell.text.html'));

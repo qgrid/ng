@@ -1,0 +1,7 @@
+<input class="condition-builder-input"
+		 ng-class="expression.classes"
+		 ng-model="expression.value"
+		 type="text"
+		 placeholder="{{expression.placeholderText}}"
+		 ng-change="expression.change()"
+		 ng-if="expression.isVisible()">
