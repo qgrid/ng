@@ -13,9 +13,7 @@ export default function ($q, context) {
 		return function (node, line) {
 			const selection =
 					(this.values || [])
-						.map(function (item) {
-							return ('' + item).toLowerCase()
-						}),
+						.map(item => ('' + item).toLowerCase()),
 				deferred = $q.defer(),
 				field = line.get(name).expressions[0].value;
 
@@ -23,17 +21,14 @@ export default function ($q, context) {
 				.then(function (data) {
 					if (selection.length) {
 						deferred.resolve(
-							data.filter(function (item) {
-								return selection.indexOf(('' + item).toLowerCase()) < 0;
-							})
+							data.filter(item => selection.indexOf(('' + item).toLowerCase()) < 0)
 						);
 					}
 					else {
 						deferred.resolve(data);
 					}
 				})
-				['catch'](
-				function () {
+				.catch(() => {
 					deferred.reject();
 				});
 

@@ -17,7 +17,7 @@ export function whereSchema(builder, $q, context) {
 				})
 				.iconButton('#add-logical', {
 					icon: 'add',
-					click: (node, line) => {
+					click: (node) => {
 						node.addChildAfter(node.clone());
 					}
 				})
@@ -45,21 +45,15 @@ export function whereSchema(builder, $q, context) {
 						})
 						.select('#field', {
 							classes: ['cb-operation', 'field'],
-							options: context.fields.map(function (f) {
-								return f.name;
-							}),
+							options: context.fields.map(f => f.name),
 							value: context.fields.length ? context.fields[0].name : '',
 							getLabel: (node, line, name) => {
-								const field = context.fields.filter(function (f) {
-									return f.name === name;
-								})[0];
+								const field = context.fields.filter(f => f.name === name)[0];
 
 								return (field && field.label) || null
 							},
 							getType: (node, line, name) => {
-								const field = context.fields.filter(function (f) {
-									return f.name === name;
-								})[0];
+								const field = context.fields.filter(f => f.name === name)[0];
 
 								return (field && field.type) || 'text';
 							},
@@ -69,7 +63,7 @@ export function whereSchema(builder, $q, context) {
 									node.attr('placeholder', false);
 								}
 
-								var field = this.value,
+								const field = this.value,
 									type = this.getType(field),
 									ops = operations[type] || [],
 									op = line.get('#operator').expressions[0];
@@ -114,8 +108,8 @@ export function whereSchema(builder, $q, context) {
 									case 'like':
 									case 'not like':
 									case 'starts with':
-									case 'ends with':
-										var value = getValue(line, '#operand', ['value', 'values']);
+									case 'ends with': {
+										const value = getValue(line, '#operand', ['value', 'values']);
 
 										line.put('#operand', node, function (schema) {
 											schema.autocomplete('#value', {
@@ -141,6 +135,7 @@ export function whereSchema(builder, $q, context) {
 											});
 										});
 										break;
+									}
 									case 'between':
 										line.put('#operand', node, function (schema) {
 											schema
@@ -253,7 +248,7 @@ export function whereSchema(builder, $q, context) {
 								state: [],
 								placeholderText: 'Select value',
 								options: suggest,
-								change: function (node, line) {
+								change: function (node) {
 									if (this.value) {
 										if (node.attr('placeholder')) {
 											node.addAfter(node.clone());
@@ -265,7 +260,7 @@ export function whereSchema(builder, $q, context) {
 						})
 						.iconButton('#remove', {
 							icon: 'close',
-							isVisible: (node, line) => !node.attr('placeholder'),
+							isVisible: node => !node.attr('placeholder'),
 							click: node => {
 								node.remove();
 							}
@@ -279,9 +274,7 @@ function getValue(line, id, props) {
 	if (group) {
 		if (group.expressions.length === 1) {
 			const expr = group.expressions[0],
-				prop = props.filter(function (p) {
-					return expr.hasOwnProperty(p);
-				})[0];
+				prop = props.filter(p => expr.hasOwnProperty(p))[0];
 
 			if (prop) {
 				const value = expr[prop];
