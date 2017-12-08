@@ -4,6 +4,7 @@ import { Vscroll } from '@grid/view/services';
 import { viewFactory } from '@grid/core/view/view.factory';
 import { GridCommandManager } from '../grid/grid.command.manager';
 import { ViewCtrl } from '@grid/core/view/view.ctrl';
+import { jobLine } from '@grid/core/services/index';
 
 class ViewCore extends Component {
 	constructor($rootScope, $scope, $element, $timeout, grid, vscroll) {
@@ -26,13 +27,14 @@ class ViewCore extends Component {
 		const vscroll = new Vscroll(this.vscroll);
 		const selectors = { th: TH_CORE_NAME };
 		const ctrl = this.ctrl = new ViewCtrl(this, gridService);
+		const job = jobLine(0);
 
 		// TODO: somehow try to aggregates view.style without jumpings
 		this.invoke = model.scroll().mode !== 'virtual'
 			? f => f()
 			: f => {
 				f();
-				ctrl.invalidate();
+				job(() => ctrl.invalidate());
 			};
 
 		this.apply = this.root.applyFactory(null, 'sync');
@@ -54,7 +56,13 @@ class ViewCore extends Component {
 		// TODO: how we can avoid that?
 		this.$scope.$watch(() => {
 			if (model.scene().status === 'stop') {
-				ctrl.invalidate();
+				job(() => ctrl.invalidate());
+			}
+		});
+
+		model.sceneChanged.watch(e => {
+			if (e.hasChanges('status') && e.state.status === 'stop') {
+				job(() => ctrl.invalidate());
 			}
 		});
 	}
