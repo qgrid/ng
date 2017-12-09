@@ -1,0 +1,14 @@
+@import "../variables";
+.q-grid-sorted {
+    &td {
+        background-color: $selected;
+    }
+}
+
+.q-grid-can-sort {
+    &th {
+        label {
+            cursor: pointer;
+        }
+    }
+}

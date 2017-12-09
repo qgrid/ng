@@ -1,0 +1,11 @@
+.q-grid-selected {
+    &tr {
+        background-color: $selected;
+    }
+}
+
+.q-grid-selected:not(.q-grid-focus) {
+    &td {
+        background-color: $selected;
+    }
+}
