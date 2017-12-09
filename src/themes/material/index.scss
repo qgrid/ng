@@ -1,27 +1,27 @@
 .q-grid.q-grid-theme-material {
-	@import "assets/v2/active";
+    @import "assets/v2/active";
     @import "assets/v2/box";
     @import "assets/v2/cell.array";
     @import "assets/v2/cell.email";
     @import "assets/v2/cell.file";
     @import "assets/v2/cell.image";
-	@import "assets/v2/cell.pivot";
-	@import "assets/v2/cell.reference";
+    @import "assets/v2/cell.pivot";
+    @import "assets/v2/cell.reference";
     @import "assets/v2/cell.row.indicator";
     @import "assets/v2/cell";
-	@import "assets/v2/cell.text.area";
-	@import "assets/v2/cell.url";
-	@import "assets/v2/embed";
+    @import "assets/v2/cell.text.area";
+    @import "assets/v2/cell.url";
+    @import "assets/v2/embed";
     @import "assets/v2/highlight";
     @import "assets/v2/focus";
     @import "assets/v2/mixins";
+    @import "assets/v2/node";
+    @import "assets/v2/pager";
     @import "assets/v2/row";
     @import "assets/v2/selection";
     @import "assets/v2/sort";
     @import "assets/v2/table";
-	@import "assets/v2/title";
-	
-	// @import "assets/common/grid";
+    @import "assets/v2/title"; // @import "assets/common/grid";
     // @import "assets/common/head";
     // @import "assets/common/body";
     // @import "assets/common/foot";
