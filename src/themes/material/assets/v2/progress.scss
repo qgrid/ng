@@ -1,3 +1,6 @@
 .q-grid-progress {
-	position: relative;
+    position: relative;
+    .q-grid-progress-linear {
+        position: absolute;
+    }
 }
