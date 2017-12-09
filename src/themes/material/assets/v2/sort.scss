@@ -1,41 +1,37 @@
 @import "../variables";
-.q-grid-sorted {
-    &td {
-        background-color: $selected;
-    }
+td.q-grid-sorted {
+    background-color: $selected;
 }
 
-.q-grid-can-sort {
-    &th {
-        label {
-            cursor: pointer;
-        }
+th.q-grid-can-sort {
+    label {
+        cursor: pointer;
     }
 }
 
 &.q-grid-box:not(.q-grid-drag) {
-    th:hover {
-        .q-grid-sort {
-            visibility: visible;
-        }
+    th:hover.q-grid-sort {
+        visibility: visible;
     }
 }
 
-.q-grid-sort {
-    position: absolute;
-    display: inline;
-    cursor: pointer;
-    visibility: hidden;
-    font-size: 12px;
-    outline: none;
-    border: none;
-    background: transparent;
-    padding: 0;
-    left: 0;
-    &.q-grid-active {
-        visibility: visible;
-        &+label {
-            color: $dark;
+th {
+    .q-grid-sort {
+        position: absolute;
+        display: inline;
+        cursor: pointer;
+        visibility: hidden;
+        font-size: 12px;
+        outline: none;
+        border: none;
+        background: transparent;
+        padding: 0;
+        left: 0;
+        &.q-grid-active {
+            visibility: visible;
+            &+label {
+                color: $dark;
+            }
         }
     }
 }

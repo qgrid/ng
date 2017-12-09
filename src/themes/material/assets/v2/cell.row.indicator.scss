@@ -1,7 +1,6 @@
-.q-grid-row-indicator {
-    &td,
-    &th,
-    &tf {
+td,
+th {
+    &.q-grid-row-indicator {
         padding: 0 !important;
     }
 }

@@ -1,21 +1,19 @@
 @import "mixins";
-.q-grid-text-area {
-    &td {
+td.q-grid-text-area {
+    >span {
+        display: block;
+        white-space: normal;
+        @include multiLine($lineCount: 3);
+    }
+    &.q-grid-highlighted {
         >span {
-            display: block;
-            white-space: normal;
-            @include multiLine($lineCount: 3);
-        }
-        &.q-grid-highlighted {
-            >span {
-                @include multiLine($lineCount: 3, $bgColor: #eee);
-            }
+            @include multiLine($lineCount: 3, $bgColor: #eee);
         }
     }
 }
 
 tr:hover {
-    &.q-grid-text-area {
+    .q-grid-text-area {
         td {
             >span {
                 @include multiLine($lineCount: 3, $bgColor: #eee);

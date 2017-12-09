@@ -1,16 +1,3 @@
-.q-grid-file {
-    &td {
-        padding: 0 32px 0 16px;
-    }
-}
-
-&.q-grid-file,
-&.q-grid-url,
-&.q-grid-email,
-&.q-grid-reference {
-    >div {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        outline: none;
-    }
+td.q-grid-file {
+    padding: 0 32px 0 16px;
 }

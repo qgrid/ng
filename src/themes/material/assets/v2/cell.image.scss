@@ -1,9 +1,7 @@
-.q-grid-image {
-    &td {
-        text-align: center;
-        img {
-            max-height: 100%;
-            max-width: 100%;
-        }
+td.q-grid-image {
+    text-align: center;
+    img {
+        max-height: 100%;
+        max-width: 100%;
     }
 }

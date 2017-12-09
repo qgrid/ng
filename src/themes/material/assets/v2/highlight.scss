@@ -1,7 +1,7 @@
 &.q-grid-box:not(.q-grid-drag) {
-    .q-grid-highlighted {
-        &td,
-        &tr {
+    td,
+    tr {
+        .q-grid-highlighted {
             background-color: #eee;
         }
     }

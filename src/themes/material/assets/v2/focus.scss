@@ -1,16 +1,12 @@
 &.q-grid-box:not(.q-grid-drag) {
-    .q-grid-focus {
-        &td {
-            outline: 2px solid rgba(63, 81, 181, 0.25);
-            outline-offset: -2px;
-        }
+    td.q-grid-focus {
+        outline: 2px solid rgba(63, 81, 181, 0.25);
+        outline-offset: -2px;
     }
 }
 
 .q-grid-view:not(.q-grid-active) {
-    .q-grid-focus {
-        &td {
-            outline-color: rgba(63, 81, 181, 0.05);
-        }
+    td.q-grid-focus {
+        outline-color: rgba(63, 81, 181, 0.05);
     }
 }
