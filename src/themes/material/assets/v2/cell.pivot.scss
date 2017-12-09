@@ -2,20 +2,16 @@
 $border: 1px solid $dark-divider;
 thead {
     tr:last-child {
-        .q-grid-pivot {
-            &th {
-                border-bottom: $border;
-            }
+        th.q-grid-pivot {
+            border-bottom: $border;
         }
     }
-    .q-grid-pivot {
-        &th {
-            border-top: $border;
-            border-left: $border;
-            padding: 0;
-            &:nth-last-child(2) {
-                border-right: $border;
-            }
+    th.q-grid-pivot {
+        border-top: $border;
+        border-left: $border;
+        padding: 0;
+        &:nth-last-child(2) {
+            border-right: $border;
         }
     }
 }

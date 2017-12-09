@@ -1,9 +1,7 @@
 @import "../variables";
 &.q-grid-box:not(.q-grid-drag) {
-    .q-grid-column-filter {
-        &th:hover {
-            visibility: visible;
-        }
+    th.q-grid-column-filter {
+        visibility: visible;
     }
 }
 
@@ -38,7 +36,6 @@
         list-style-type: none;
         padding: 0;
     }
-
     .q-grid-column-filter-filter {
         margin-left: 4px;
         margin-right: 4px;
