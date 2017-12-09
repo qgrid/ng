@@ -1,7 +1,9 @@
 @import "../variables";
 &.q-grid-box:not(.q-grid-drag) {
-    th.q-grid-column-filter {
-        visibility: visible;
+    th.q-grid-highlighted {
+        .q-grid-column-filter {
+            visibility: visible;
+        }
     }
 }
 
