@@ -21,3 +21,11 @@ tr:hover {
         }
     }
 }
+
+.q-grid-editor.q-grid-text-area {
+    height: 170px;
+    width: 300px;
+    textarea {
+        height: 150px !important;
+    }
+}
