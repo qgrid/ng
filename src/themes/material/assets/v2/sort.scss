@@ -10,8 +10,10 @@ th.q-grid-can-sort {
 }
 
 &.q-grid-box:not(.q-grid-drag) {
-    th:hover.q-grid-sort {
-        visibility: visible;
+    th:hover {
+        .q-grid-sort {
+            visibility: visible;
+        }
     }
 }
 
@@ -20,18 +22,30 @@ th {
         position: absolute;
         display: inline;
         cursor: pointer;
-        visibility: hidden;
+       // visibility: hidden;
         font-size: 12px;
         outline: none;
         border: none;
         background: transparent;
         padding: 0;
-        left: 0;
+        left: 0; // width: 16px;
+        // margin-top: -1px;
         &.q-grid-active {
             visibility: visible;
             &+label {
                 color: $dark;
             }
+            .q-grid-icon {
+                color: $dark;
+            }
+        }
+        .q-grid-icon {
+            color: $dark-secondary;
+            font-size: 16px;
+            height: 16px;
+            width: 16px;
+            min-height: 16px;
+            min-width: 16px;
         }
     }
 }

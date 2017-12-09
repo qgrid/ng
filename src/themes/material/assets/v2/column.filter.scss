@@ -14,6 +14,9 @@
     top: calc(50% - 8px);
     &.q-grid-active {
         visibility: visible;
+        .q-grid-icon {
+            color: $dark;
+        }
         &+label {
             color: $dark;
         }
@@ -30,6 +33,14 @@
         padding: 0;
         left: 0;
         margin: 0 2px;
+        .q-grid-icon {
+            color: $dark-secondary;
+            font-size: 16px;
+            height: 16px;
+            width: 16px;
+            min-height: 16px;
+            min-width: 16px;
+        }
     }
 }
 
