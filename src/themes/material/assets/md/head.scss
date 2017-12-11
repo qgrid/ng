@@ -4,13 +4,6 @@
 	thead, tfoot {
 		tr {
 			th, td {
-				&.q-grid-select {
-					.q-grid-checkbox {
-						margin: 0 0 0 2px; //TODO: investigate why we have offset in 2px
-					}
-
-					text-overflow: clip;
-				}
 
 				&.q-grid-filter-row {
 					md-input-container {
@@ -22,18 +15,6 @@
 						}
 					}
 
-					input[placeholder] {
-						text-overflow: ellipsis;
-					}
-					input::-moz-placeholder {
-						text-overflow: ellipsis;
-					}
-					input:-moz-placeholder {
-						text-overflow: ellipsis;
-					}
-					input:-ms-input-placeholder {
-						text-overflow: ellipsis;
-					}
 				}
 			}
 		}

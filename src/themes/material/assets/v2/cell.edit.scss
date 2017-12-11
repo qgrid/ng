@@ -1,3 +1,28 @@
+.q-grid-edit-trigger {
+	position: absolute;
+	top: calc(50% - 8px);
+
+	font-size: 12px;
+	min-width: 16px;
+	width: 16px;
+	min-height: 16px;
+	height: 16px;
+	outline: none;
+	border: none;
+	background: transparent;
+	padding: 0;
+	margin: 0 2px;
+
+	.q-grid-icon {
+		color: $dark-secondary;
+		font-size: 16px;
+		height: 16px;
+		width: 16px;
+		min-height: 16px;
+		min-width: 16px;
+	}
+}
+
 td.q-grid-edit {
 	overflow: visible !important;
 	outline: 2px solid rgba(63, 81, 181, 0.5) !important;
