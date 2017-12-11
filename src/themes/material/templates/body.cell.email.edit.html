@@ -3,12 +3,12 @@
 						  q-grid:position="td">
 	<q-grid:tab-trap>
 		<div layout="column" class="layout-column q-grid-email-fields" flex>
-			<md-input-container ng-if="$cell.column.label !== null">
+			<md-input-container class="q-grid-input-container" ng-if="$cell.column.label !== null">
 				<label>Label</label>
 				<input type="text"
 						 ng-model="$view.edit.cell.label"/>
 			</md-input-container>
-			<md-input-container>
+			<md-input-container class="q-grid-input-container">
 				<label>Email</label>
 				<input type="email"
 						 q-grid:focus
@@ -17,8 +17,8 @@
 		</div>
 	</q-grid:tab-trap>
 	<q-grid:validator class="q-grid-validator"
-	                  key="{{::$cell.column.key}}"
-	                  type="{{::$cell.column.type}}"
-	                  value="$view.edit.cell.value">
+							key="{{::$cell.column.key}}"
+							type="{{::$cell.column.type}}"
+							value="$view.edit.cell.value">
 	</q-grid:validator>
 </q-grid:cell-editor>
