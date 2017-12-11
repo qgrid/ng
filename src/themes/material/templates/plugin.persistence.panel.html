@@ -30,7 +30,7 @@
 					              ng-repeat="item in $persistence.items | orderBy: '-modified' track by $index"
 					              ng-class="{'q-grid-persistence-selected': $persistence.isActive(item)}">
 						<div class="default-icon">
-							<md-icon ng-if="item.isDefault">star</md-icon>
+							<md-icon class="q-grid-icon" ng-if="item.isDefault">star</md-icon>
 						</div>
 						<div class="md-list-item-text">
 							<md-button class="md-primary"
@@ -52,27 +52,27 @@
 							<md-button class="md-icon-button q-grid-more"
 							           aria-label="More"
 							           ng-click="$mdOpenMenu($event)">
-								<md-icon>more_vert</md-icon>
+								<md-icon class="q-grid-icon">more_vert</md-icon>
 							</md-button>
 							<md-menu-content width="4">
 								<md-menu-item>
 									<md-button ng-click="$persistence.setDefault.execute(item)"
 									           ng-disabled="!$persistence.setDefault.canExecute(item)">
-										<md-icon md-menu-align-target>star</md-icon>
+										<md-icon class="q-grid-icon" md-menu-align-target>star</md-icon>
 										Default
 									</md-button>
 								</md-menu-item>
 								<md-menu-item>
 									<md-button ng-click="$persistence.edit.enter.execute(item)"
 									           ng-disabled="!$persistence.edit.enter.canExecute(item)">
-										<md-icon md-menu-align-target>mode_edit</md-icon>
+										<md-icon class="q-grid-icon" md-menu-align-target>mode_edit</md-icon>
 										Edit
 									</md-button>
 								</md-menu-item>
 								<md-menu-item>
 									<md-button ng-click="$persistence.remove.execute(item)"
 									           ng-disabled="!$persistence.remove.canExecute(item)">
-										<md-icon md-menu-align-target>close</md-icon>
+										<md-icon class="q-grid-icon" md-menu-align-target>close</md-icon>
 										Remove
 									</md-button>
 								</md-menu-item>
