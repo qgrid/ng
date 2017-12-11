@@ -28,6 +28,7 @@
 										 md-prevent-menu-close
 										 ng-checked="$columnFilterPanel.stateAll()"
 										 aria-label="Select all filter values"
+										 md-no-ink
 										 md-indeterminate="$columnFilterPanel.isIndeterminate()">
 							Select All
 						</md-checkbox>
@@ -43,6 +44,7 @@
 											 md-prevent-menu-close
 											 ng-if="$columnFilterPanel.toggle.canExecute(item)"
 											 aria-label="Select filter value"
+											 md-no-ink
 											 ng-click="$columnFilterPanel.toggle.execute(item)">
 								<span ng-bind-html="item | qgridHighlight : $columnFilterPanel.filter"> </span>
 							</md-checkbox>

@@ -55,17 +55,7 @@ td.q-grid-edit {
 			}
 		}
 
-		.q-grid-editor-content {
-			md-input-container {
-				padding: 0;
-				margin: 0;
-				width: 100%;
-			}
-			md-input-container + .q-grid-validator {
-				position: relative;
-				top: -25px;
-			}
-		}
+
 		&.q-grid-number {
 			md-input-container + .q-grid-validator {
 				position: absolute;
