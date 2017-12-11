@@ -1,5 +1,8 @@
 td.q-grid-edit {
 	overflow: visible !important;
+	outline: 2px solid rgba(63, 81, 181, 0.5) !important;
+	outline-offset: -2px;
+
 	.q-grid-editor {
 		display: block;
 		position: fixed;
