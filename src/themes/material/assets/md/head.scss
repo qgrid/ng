@@ -5,7 +5,7 @@
 		tr {
 			th, td {
 				&.q-grid-select {
-					md-checkbox {
+					.q-grid-checkbox {
 						margin: 0 0 0 2px; //TODO: investigate why we have offset in 2px
 					}
 
