@@ -1,49 +1,6 @@
 td.q-grid-edit {
-	&.q-grid-dropdown {
-		md-select {
-			margin: 5px 0;
-			max-height: 30px;
-		}
-	}
 
 	.q-grid-editor {
-		&.q-grid-date {
-			.md-datepicker-button {
-				margin-left: 0;
-				padding: 0;
-				width: 24px;
-				height: 24px;
-			}
-			.md-datepicker-triangle-button {
-				margin-right: 0;
-				padding: 0;
-				width: 24px;
-				height: 24px;
-			}
-		}
-
-
-		&.q-grid-autocomplete {
-			width: 200px;
-			md-autocomplete {
-				min-width: 30px;
-				background-color: transparent;
-			}
-			md-autocomplete-wrap {
-				box-shadow: none;
-			}
-			input {
-				border-color: rgb(63, 81, 181);
-				border-width: 0 0 2px 0;
-				border-radius: 0;
-				border-style: solid;
-				line-height: 26px;
-				padding: 2px 2px 1px 2px;
-				height: 30px;
-			}
-		}
-
-
 		&.q-grid-number {
 			md-input-container + .q-grid-validator {
 				position: absolute;
