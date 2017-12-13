@@ -73,4 +73,4 @@ export default {
 	require: BodyCore.require,
 	link: BodyCore.link,
 	scope: true
-}
+};
