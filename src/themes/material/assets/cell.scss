@@ -1,13 +1,11 @@
 @import "../variables";
 
-tbody {
-	td {
-		color: $dark;
-		font-size: 13px;
-		border-top: 1px solid $dark-divider;
-		padding: 0 16px;
-		font-size: 13px;
-	}
+td {
+	color: $dark;
+	font-size: 13px;
+	border-top: 1px solid $dark-divider;
+	padding: 0 16px;
+	font-size: 13px;
 }
 
 tfoot {
