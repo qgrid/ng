@@ -25,7 +25,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {
 		const view = this.view;
 		const element = this.element;
 		const table = this.table;
-		const model = this.model;
+		const model = this.view.model;
 
 		const ctrl = new BodyCtrl(view.model, view, this.root.bag);
 		const listener = new EventListener(this.element, new EventManager(this, view.invoke));

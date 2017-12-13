@@ -16,7 +16,6 @@ export class AutofocusView extends PluginView {
 							const element = markup[key];
 							if (element) {
 								element.focus();
-								off();
 							}
 						}
 
