@@ -37,6 +37,7 @@ import Position from './directives/position';
 import Autofocus from './directives/autofocus';
 import StopPropagate from './directives/stop.propagate';
 import PreventDefault from './directives/prevent.default';
+import Autosize from './directives/autosize';
 
 import ThemeProvider from './services/theme';
 import Range from './filters/range';
@@ -45,6 +46,7 @@ import Pretty from './filters/prettify';
 
 import * as def from './definition';
 require('vscroll'); // TODO: make vscroll export
+require('ng-expression-builder');
 
 export const coreModule = angular.module(def.MODULE_CORE_NAME, []) // eslint-disable-line no-undef
 	.directive(def.DRAG_NAME, () => Drag)
@@ -60,6 +62,7 @@ export const coreModule = angular.module(def.MODULE_CORE_NAME, []) // eslint-dis
 	.directive(def.AUTOFOCUS_NAME, () => Autofocus)
 	.directive(def.STOP_PROPAGATE_NAME, () => StopPropagate)
 	.directive(def.PREVENT_DEFAULT_NAME, () => PreventDefault)
+	.directive(def.AUTOSIZE_NAME, () => Autosize)
 	.provider(def.THEME_NAME, () => new ThemeProvider())
 	.service(def.TEMPLATE_PATH_NAME, () => () => TemplatePath)
 	.filter(def.RANGE_NAME, () => Range)

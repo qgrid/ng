@@ -45,3 +45,6 @@ export const LEGEND_CORE_NAME = `${GRID}LegendCore`;
 export const VALIDATION_NAME = `${GRID}Validation`;
 export const VALIDATOR_NAME = `${GRID}Validator`;
 export const RULE_NAME = `${GRID}Rule`;
+
+export const EXPRESSION_BUILDER_NAME = `${GRID}ExpressionBuilder`;
+export const EXPRESSION_BUILDER_FACTORY = `${GRID}ExpressionBuilderFactory`;

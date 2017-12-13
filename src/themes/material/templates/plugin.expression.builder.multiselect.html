@@ -1,0 +1,28 @@
+<span>
+    <md-chips class="condition-builder-multiselect"
+				  eb-class="expression.classes"
+				  eb-class-context="expression"
+				  ng-model="expression.values"
+				  md-require-match="false">
+        <md-autocomplete md-items="item in expression.options()"
+								 md-selected-item="expression.selectedItem"
+								 md-search-text="expression.filter"
+								 md-no-cache="true"
+								 md-min-length="0"
+								 md-item-text="item"
+								 md-menu-class="condition-builder-autocomplete-popup"
+								 placeholder="{{expression.placeholderText}}">
+            <md-item-template>
+                <span md-highlight-text="expression.filter" md-highlight-flags="^i">{{ item }}</span>
+            </md-item-template>
+        </md-autocomplete>
+    </md-chips>
+    <md-tooltip ng-if="!expression.isValid()" md-direction="bottom" class="multiselect-tooltip" md-delay="2000">
+        <div ng-switch="expression.state[0]">
+            <span ng-switch-when="required">At least 1 value is required</span>
+            <span ng-switch-when="number">All values must be numbers</span>
+            <span ng-switch-when="integer">All values must be integers</span>
+            <span ng-switch-when="datetime">All values must be dates</span>
+        </div>
+    </md-tooltip>
+</span>
