@@ -11,6 +11,9 @@ export class PositionView extends PluginView {
 		this.element = context.element;
 		this.targetName = context.targetName;
 
+		//this.display = this.element.style.display;
+		//this.element.style.display = 'none';
+
 		const listener = new EventListener(window, new EventManager(this));
 		const job = jobLine(400);
 
@@ -22,18 +25,37 @@ export class PositionView extends PluginView {
 	}
 
 	invalidate(width, height) {
-		let node = this.element.parentNode;
+		const element = this.element;
+		let node = element.parentNode;
 		while (node) {
 			const targetName = (this.targetName || '').toLowerCase();
 			if (node.nodeName.toLowerCase() === targetName) {
-				this.layout(node, this.element, width, height);
+				const pos = this.layout(node, width, height);
+				if (pos.hasOwnProperty('left')) {
+					element.style.left = pos.left + 'px';
+				}
+
+				if (pos.hasOwnProperty('right')) {
+					element.style.right = pos.right + 'px';
+				}
+
+				if (pos.hasOwnProperty('top')) {
+					element.style.top = pos.top + 'px';
+				}
+
+				if (pos.hasOwnProperty('bottom')) {
+					element.style.bottom = pos.bottom + 'px';
+				}
+
 				return;
 			}
 			node = node.parentNode;
 		}
+
+		//element.style.display = this.display;
 	}
 
-	layout(target, source, width, height) {
+	layout(target, width, height) {
 		const {top, right, left, bottom} = target.getBoundingClientRect();
 		const br = this.boxRect();
 		const intersections = [];
@@ -71,11 +93,15 @@ export class PositionView extends PluginView {
 			}));
 
 		const intersection = max(intersections, i => i.area);
-		const {left: l, top: t} = intersection.b;
-		const pos = this.fix({left: l - br.left, top: t - br.top, width, height});
-
-		source.style.left = pos.left + 'px';
-		source.style.top = pos.top + 'px';
+		const b = intersection.b;
+		return this.fix({
+			left: b.left - br.left,
+			top: b.top - br.top,
+			right: br.right - b.right,
+			bottom: br.bottom - b.bottom,
+			width,
+			height
+		});
 	}
 
 	intersection(a, b) {
@@ -86,26 +112,48 @@ export class PositionView extends PluginView {
 	}
 
 	fix(rect) {
-		const wr = this.windowRect();
-		const br = this.boxRect();
-		const {width: vw, height: vh} = wr;
-		const vx = br.left - wr.left;
-		const vy = br.top - wr.top;
-		const {height: rh, width: rw} = rect;
-		const rx = rect.left + vx;
-		const ry = rect.top + vy;
-		const gtx1 = rx + rw > vw;
-		const ltx0 = rx < 0;
-		const gty1 = ry + rh > vh;
-		const lty0 = ry < 0;
-		const left = ltx0 || gtx1
-			? (vw - rw) / 2 - vx
-			: rect.left;
-		const top = lty0 || gty1
-			? (vh - rh) / 2 - vy
-			: rect.top;
+		return {
+			// left: rect.left,
+			// top: rect.top
+			bottom: rect.bottom,
+			right: rect.right
+		};
 
-		return {left, top};
+		// const wr = this.windowRect();
+		// const br = this.boxRect();
+		// const {width: vw, height: vh} = wr;
+		// const vx = br.left - wr.left;
+		// const vy = br.top - wr.top;
+		// const {height: rh, width: rw} = rect;
+		// const rx = rect.left + vx;
+		// const ry = rect.top + vy;
+		// const gtx1 = rx + rw > vw;
+		// const ltx0 = rx < 0;
+		// const gty1 = ry + rh > vh;
+		// const lty0 = ry < 0;
+		// const result = {};
+		//
+		// if (ltx0) {
+		// 	result.left = (vw - rw) / 2 - vx;
+		// }
+		// else if (gtx1) {
+		// 	result.right = rect.right;
+		// }
+		// else {
+		// 	result.left = rect.left;
+		// }
+		//
+		// if (lty0) {
+		// 	result.top = (vw - rw) / 2 - vx;
+		// }
+		// else if (gty1) {
+		// 	result.bottom = rect.bottom;
+		// }
+		// else {
+		// 	result.top = rect.top;
+		// }
+		//
+		// return result;
 	}
 
 	boxRect() {
