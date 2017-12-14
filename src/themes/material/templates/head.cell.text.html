@@ -6,9 +6,9 @@
 		  ng-class="{'q-grid-active': $view.sort.order($cell.column) >= 0}"
 		  ng-if="$cell.column.canSort"
 		  ng-switch="$view.sort.direction($cell.column)">
-		<md-icon class="q-grid-asc" ng-switch-when="asc">arrow_upward</md-icon>
-		<md-icon class="q-grid-desc" ng-switch-when="desc">arrow_downward</md-icon>
-		<md-icon ng-switch-default ng-if="$view.sort.hover">arrow_downward</md-icon>
+		<md-icon class="q-grid-icon q-grid-asc" ng-switch-when="asc">arrow_upward</md-icon>
+		<md-icon class="q-grid-icon q-grid-desc" ng-switch-when="desc">arrow_downward</md-icon>
+		<md-icon class="q-grid-icon" ng-switch-default ng-if="$view.sort.hover">arrow_downward</md-icon>
 	</div>
 	<label>
 		<md-tooltip md-delay="1000">{{$cell.column.title}}</md-tooltip>

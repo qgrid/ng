@@ -1,15 +1,17 @@
 <div ng-switch="$view.selection.mode">
 	<div ng-switch-when="single" ng-switch="!!$view.selection.items.length">
-		<md-icon ng-switch-when="true">check</md-icon>
-		<md-icon ng-switch-default>remove</md-icon>
+		<md-icon class="q-grid-icon" ng-switch-when="true">check</md-icon>
+		<md-icon class="q-grid-icon" ng-switch-default>remove</md-icon>
 	</div>
 	<div ng-switch-default>
 		<md-checkbox md-indeterminate="$view.selection.isIndeterminate()"
 		             ng-checked="$view.selection.state()"
-		             ng-click="$view.selection.toggleRow.execute(null)"
+		             ng-click="$view.selection.toggleRow.execute()"
 		             tabindex="-1"
 		             q-grid:prevent-default="mousedown"
-		             aria-label="Selection">
+						 md-no-ink
+					 aria-label="Selection"
+					 class="q-grid-checkbox">
 		</md-checkbox>
 	</div>
 </div>

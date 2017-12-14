@@ -80,7 +80,7 @@ class PivotBar extends Plugin {
 
 	onInit() {
 		const pivotBy = this.model.pivot().by;
-		pivotBy.forEach(key => this.add.execute(key));
+		this.selectedItems = pivotBy.slice();
 	}
 
 	get resource() {

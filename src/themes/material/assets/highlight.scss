@@ -1,0 +1,13 @@
+&.q-grid-box:not(.q-grid-drag) {
+	td,
+	tr {
+		&.q-grid-highlighted {
+			background-color: #eee;
+		}
+	}
+}
+
+.q-grid-highlight-part {
+	background-color: yellow;
+	color: #000;
+}
