@@ -8,11 +8,10 @@ export class PositionView extends PluginView {
 	constructor(context) {
 		super();
 
-		this.window = context.window;
 		this.element = context.element;
 		this.targetName = context.targetName;
 
-		const listener = new EventListener(this.window, new EventManager(this));
+		const listener = new EventListener(window, new EventManager(this));
 		const job = jobLine(400);
 
 		this.using(listener.on('resize', () => {
@@ -22,22 +21,20 @@ export class PositionView extends PluginView {
 		}));
 	}
 
-	invalidate() {
+	invalidate(width, height) {
 		let node = this.element.parentNode;
 		while (node) {
 			const targetName = (this.targetName || '').toLowerCase();
 			if (node.nodeName.toLowerCase() === targetName) {
-				this.layout(node, this.element);
-				this.element.style.opacity = 1;
+				this.layout(node, this.element, width, height);
 				return;
 			}
 			node = node.parentNode;
 		}
 	}
 
-	layout(target, source) {
+	layout(target, source, width, height) {
 		const {top, right, left, bottom} = target.getBoundingClientRect();
-		const {width, height} = source.getBoundingClientRect();
 		const br = this.boxRect();
 		const intersections = [];
 
@@ -126,7 +123,7 @@ export class PositionView extends PluginView {
 	}
 
 	windowRect() {
-		const {innerHeight: h, innerWidth: w} = this.window;
+		const {innerHeight: h, innerWidth: w} = window;
 		return {
 			top: 0,
 			left: 0,

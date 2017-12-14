@@ -8,13 +8,12 @@ class Position extends Directive(POSITION_NAME, {root: `^?${GRID_NAME}`}) {
 
 		this.position = new PositionView({
 			element: $element[0],
-			window: $window,
 			targetName: $attrs[POSITION_NAME]
 		});
 	}
 
 	onInit() {
-		this.position.invalidate();
+		this.position.invalidate(this.width, this.height);
 	}
 
 	onDestroy() {
@@ -26,7 +25,10 @@ Position.$inject = ['$element', '$attrs', '$window'];
 
 export default {
 	restrict: 'A',
-	bindToController: true,
+	bindToController: {
+		width: '<maxWidth',
+		height: '<maxHeight'
+	},
 	controllerAs: '$position',
 	controller: Position,
 	require: Position.require,

@@ -1,6 +1,8 @@
 <q-grid:cell-editor class="q-grid-url q-grid-editor q-grid-position"
 						  on:close="$view.edit.cell.exit.execute($cell)"
-						  q-grid:position="td">
+						  q-grid:position="td"
+						  max-width="298"
+						  max-height="164">
 	<q-grid:tab-trap>
 		<div layout="column" class="q-grid-url-fields" flex>
 			<md-input-container class="q-grid-input-container" ng-if="$cell.column.label !== null">
@@ -11,8 +13,7 @@
 			</md-input-container>
 			<md-input-container class="q-grid-input-container">
 				<label>Url</label>
-				<input type="url"
-						 ng-model="$view.edit.cell.value"/>
+				<input type="url" ng-model="$view.edit.cell.value"/>
 			</md-input-container>
 		</div>
 	</q-grid:tab-trap>
