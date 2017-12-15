@@ -21,7 +21,10 @@ th.q-grid-can-sort {
 th {
 	.q-grid-sort {
 		&.q-grid-active {
-			visibility: visible;
+			.q-grid-sort-icon {
+				visibility: visible;
+			}
+
 			label {
 				color: $dark;
 			}
@@ -48,7 +51,6 @@ th {
 			overflow: hidden;
 			text-overflow: ellipsis;
 		}
-
 
 		.q-grid-icon {
 			color: $dark-secondary;

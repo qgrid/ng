@@ -1,6 +1,7 @@
 import Component from '../../view/components/component';
 import {VIEW_CORE_NAME} from '@grid/view/definition';
-import {GRID_PREFIX} from '@grid/core/definition';
+
+import {ColumnSortView} from '@grid/plugin/column-sort/column.sort.view';
 
 class ColumnSort extends Component {
 	constructor($element) {
@@ -10,18 +11,15 @@ class ColumnSort extends Component {
 	}
 
 	onInit() {
-		const view = this.view;
-		const model = view.model;
-		model.sortChanged.watch(e => {
-			if (e.hasChanges('by')) {
-				if (view.sort.order(this.column) >= 0) {
-					this.element.classList.add(`${GRID_PREFIX}-active`);
-				}
-				else {
-					this.element.classList.remove(`${GRID_PREFIX}-active`);
-				}
-			}
+		this.$columnSort = new ColumnSortView(this.view.model, {
+			element: this.element,
+			view: this.view,
+			column: this.column
 		});
+	}
+
+	onDestroy() {
+		this.ctrl.dispose()
 	}
 }
 
@@ -31,7 +29,7 @@ export default {
 	transclude: true,
 	templateUrl: 'qgrid.plugin.column-sort.tpl.html',
 	controller: ColumnSort,
-	controllerAs: '$columnSort',
+	controllerAs: '$columnSortPlugin',
 	bindings: {
 		'column': '<column'
 	},
