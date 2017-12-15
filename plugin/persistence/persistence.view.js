@@ -3,7 +3,7 @@ import {PersistenceService} from '@grid/core/persistence/persistence.service';
 import {Command, CommandManager} from '@grid/core/command';
 import {stringifyFactory} from '@grid/core/services/';
 import {Shortcut, ShortcutDispatcher} from '@grid/core/shortcut';
-import {clone, isEqual} from '@grid/core/utility';
+import {clone} from '@grid/core/utility';
 import {Event} from '@grid/core/infrastructure';
 
 export class PersistenceView extends PluginView {
@@ -26,16 +26,6 @@ export class PersistenceView extends PluginView {
 			.getItem(this.storageKey)
 			.then(items => {
 				this.items = items || [];
-				const blankModel = this.blank();
-				const blank = this.items.find(item => isEqual(item.model, blankModel));
-				if (!blank) {
-					this.items.unshift({
-						title: 'Blank',
-						modified: Date.now(),
-						model: blankModel,
-						isDefault: false
-					});
-				}
 				const defaultItem = this.items.find(item => item.isDefault);
 				if (defaultItem) {
 					this.persistenceService.load(defaultItem.model);
@@ -201,9 +191,9 @@ export class PersistenceView extends PluginView {
 		});
 	}
 
-	blank(settings) {
+	get blank() {
 		const gridModel = this.model;
-		settings = settings || gridModel.persistence().settings;
+		const settings = gridModel.persistence().settings;
 
 		const model = {};
 		for (const key in settings) {
@@ -214,6 +204,11 @@ export class PersistenceView extends PluginView {
 			}
 		}
 
-		return model;
+		return {
+			title: 'Blank',
+			modified: Date.now(),
+			model: model,
+			isDefault: false
+		};
 	}
 }
