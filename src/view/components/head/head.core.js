@@ -1,9 +1,9 @@
 import Directive from '@grid/view/directives/directive';
-import {VIEW_CORE_NAME, HEAD_CORE_NAME} from '@grid/view/definition';
+import {VIEW_CORE_NAME, HEAD_CORE_NAME, GRID_NAME} from '@grid/view/definition';
 import {HeadCtrl} from '@grid/core/head/head.ctrl';
 import {EventListener, EventManager} from '@grid/core/infrastructure';
 
-class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
+class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, root: `^^${GRID_NAME}`,}) {
 	constructor($scope, $element) {
 		super();
 
@@ -14,10 +14,10 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`}) 
 	}
 
 	onInit() {
-		// const ctrl = new HeadCtrl(this.view.model, this.view);
-		// const listener = new EventListener(this.element, new EventManager(this));
-      //
-		// this.using(listener.on('mousemove', e => ctrl.onMouseMove(e)));
+		const ctrl = new HeadCtrl(this.view, this.root.bag);
+		const listener = new EventListener(this.element, new EventManager(this));
+		this.using(listener.on('mousemove', e => ctrl.onMouseMove(e)));
+		this.using(listener.on('mouseleave', e => ctrl.onMouseLeave(e)));
 	}
 }
 

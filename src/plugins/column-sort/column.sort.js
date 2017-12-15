@@ -1,6 +1,6 @@
 import Component from '../../view/components/component';
 import {VIEW_CORE_NAME} from '@grid/view/definition';
-// import {ColumnSortView} from '@grid/plugin/cell-editor/cell.editor.view';
+import {Event, EventListener, EventManager} from '@grid/core/infrastructure';
 
 class ColumnSort extends Component {
 	constructor() {
