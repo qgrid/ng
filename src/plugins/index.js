@@ -1,3 +1,4 @@
+import ColumnSort from './column-sort/column.sort';
 import Pager from './pagination/pager';
 import SortBar from './sort-bar/sort.bar';
 import GroupBar from './group-bar/group.bar';
@@ -45,6 +46,7 @@ export default angular  // eslint-disable-line no-undef
 	.module(def.MODULE_NAME, [def.MODULE_CORE_NAME])
 	.directive(def.MENU_NAME, () => Menu)
 	.directive(def.TAB_TRAP_IN_NAME, () => TabTrapIn)
+	.component(def.COLUMN_SORT_NAME, ColumnSort)
 	.component(def.PAGER_NAME, Pager)
 	.component(def.SORT_BAR_NAME, SortBar)
 	.component(def.GROUP_BAR_NAME, GroupBar)
