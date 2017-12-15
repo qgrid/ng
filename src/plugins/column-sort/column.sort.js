@@ -8,13 +8,20 @@ class ColumnSort extends Component {
 		super();
 
 		this.element = $element[0];
+		this.descIcon = null;
+		this.ascIcon = null;
 	}
 
 	onInit() {
+		const iconAsc = this.element.querySelector('.q-grid-asc');
+		const iconDesc = this.element.querySelector('.q-grid-desc');
+
 		this.$columnSort = new ColumnSortView(this.view.model, {
 			element: this.element,
 			view: this.view,
-			column: this.column
+			column: this.column,
+			iconAsc,
+			iconDesc
 		});
 	}
 

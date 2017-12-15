@@ -1,13 +1,3 @@
-<div class="q-grid-sort-panel"
-	  ng-mouseover="$columnSort.view.sort.hover = true"
-	  ng-mouseleave="$columnSort.view.sort.hover = false"
-	  tabindex="-1">
-	<div class="q-grid-sort-icon"
-		  ng-if="$columnSort.column.canSort"
-		  ng-switch="$columnSort.view.sort.direction($columnSort.column)">
-		<md-icon class="q-grid-icon q-grid-asc" ng-switch-when="asc">arrow_upward</md-icon>
-		<md-icon class="q-grid-icon q-grid-desc" ng-switch-when="desc">arrow_downward</md-icon>
-		<md-icon class="q-grid-icon" ng-switch-default ng-if="$columnSort.view.sort.hover">arrow_downward</md-icon>
-	</div>
-	<ng-transclude></ng-transclude>
-</div>
+<md-icon class="q-grid-icon q-grid-asc">arrow_upward</md-icon>
+<md-icon class="q-grid-icon q-grid-desc">arrow_downward</md-icon>
+<ng-transclude></ng-transclude>
