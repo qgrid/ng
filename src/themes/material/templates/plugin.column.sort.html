@@ -1,9 +1,9 @@
 <div ng-click="$columnSort.column.canSort && $columnSort.view.sort.toggle.execute($columnSort.column)"
+	  class="q-grid-sort-panel"
 	  ng-mouseover="$columnSort.view.sort.hover = true"
 	  ng-mouseleave="$columnSort.view.sort.hover = false"
 	  tabindex="-1">
-	<div class="q-grid-sort"
-		  ng-class="{'q-grid-active': $columnSort.view.sort.order($columnSort.column) >= 0}"
+	<div class="q-grid-sort-icon"
 		  ng-if="$columnSort.column.canSort"
 		  ng-switch="$columnSort.view.sort.direction($columnSort.column)">
 		<md-icon class="q-grid-icon q-grid-asc" ng-switch-when="asc">arrow_upward</md-icon>
