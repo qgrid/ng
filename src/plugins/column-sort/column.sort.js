@@ -26,7 +26,7 @@ class ColumnSort extends Component {
 	}
 
 	onDestroy() {
-		this.ctrl.dispose()
+		this.$columnSort.dispose()
 	}
 }
 
