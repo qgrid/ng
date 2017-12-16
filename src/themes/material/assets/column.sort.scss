@@ -23,6 +23,7 @@ th {
 		overflow: hidden;
 		text-overflow: ellipsis;
 		cursor: pointer;
+		margin-left: -16px;
 		padding-left: 16px;
 
 		&.q-grid-active {
@@ -36,6 +37,7 @@ th {
 		}
 
 		.q-grid-icon {
+			position: absolute;
 			margin-left: -16px;
 			color: $dark-secondary;
 			font-size: 16px;

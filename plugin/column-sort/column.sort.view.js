@@ -1,5 +1,5 @@
 import {PluginView} from '../plugin.view';
-import {Event, EventListener, EventManager} from '@grid/core/infrastructure';
+import {EventListener, EventManager} from '@grid/core/infrastructure';
 import {GRID_PREFIX} from '@grid/core/definition';
 import {Command} from '@grid/core/command/command';
 
@@ -44,6 +44,10 @@ export class ColumnSortView extends PluginView {
 		}));
 
 		this.using(listener.on('mouseover', () => {
+			if (model.drag().isActive) {
+				return;
+			}
+
 			if (view.sort.order(this.column) < 0) {
 				this.desc.display = display;
 			}
