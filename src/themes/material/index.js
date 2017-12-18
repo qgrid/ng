@@ -49,6 +49,7 @@ function Setup(qgridThemeProvider) {
 		theme.put(plugin('visibility'), require('./templates/plugin.visibility.html'));
 		theme.put(plugin('title'), require('./templates/plugin.title.html'));
 		theme.put(plugin('cell-editor'), require('./templates/plugin.cell.editor.html'));
+		theme.put(plugin('column-sort'), require('./templates/plugin.column.sort.html'));
 		theme.put(plugin('backdrop'), require('./templates/plugin.backdrop.html'));
 		theme.put(plugin('tab-trap'), require('./templates/plugin.tab.trap.html'));
 		theme.put(plugin('legend-core'), require('./templates/plugin.legend.core.html'));

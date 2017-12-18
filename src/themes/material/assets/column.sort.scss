@@ -10,37 +10,27 @@ th.q-grid-can-sort {
 	}
 }
 
-&.q-grid-box:not(.q-grid-drag) {
-	th:hover {
-		.q-grid-sort {
-			visibility: visible;
-		}
-	}
-}
-
 th {
 	.q-grid-sort {
-		position: absolute;
-		display: inline;
+		overflow: hidden;
+		text-overflow: ellipsis;
 		cursor: pointer;
-		visibility: hidden;
-		font-size: 12px;
-		outline: none;
-		border: none;
-		background: transparent;
-		padding: 0;
-		left: 0; // width: 16px;
-		// margin-top: -1px;
+		margin-left: -16px;
+		padding-left: 16px;
+
 		&.q-grid-active {
-			visibility: visible;
-			& + label {
+			label {
 				color: $dark;
 			}
+
 			.q-grid-icon {
 				color: $dark;
 			}
 		}
+
 		.q-grid-icon {
+			position: absolute;
+			margin-left: -16px;
 			color: $dark-secondary;
 			font-size: 16px;
 			height: 16px;
