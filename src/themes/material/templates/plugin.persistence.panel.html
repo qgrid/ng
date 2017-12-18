@@ -26,6 +26,19 @@
 			</div>
 			<div class="flex">
 				<md-list class="md-dense" ng-cloak>
+					<md-list-item class="md-2-line q-grid-persistence-blank"
+									  ng-class="{'q-grid-persistence-selected': $persistence.isActive($persistence.blank)}">
+						<div class="md-list-item-text">
+							<md-button class="md-primary"
+											ng-click="$persistence.load.execute($persistence.blank)">
+								<h3>{{::$persistence.blank.title}}</h3>
+								<ul>
+									<li>{{$persistence.blank.modified | date: 'yyyy/MM/dd h:mm a'}}</li>
+								</ul>
+							</md-button>
+						</div>
+						<md-tooltip class="q-grid-persistence-tooltip">No settings</md-tooltip>
+					</md-list-item>
 					<md-list-item class="md-2-line"
 					              ng-repeat="item in $persistence.items | orderBy: '-modified' track by $index"
 					              ng-class="{'q-grid-persistence-selected': $persistence.isActive(item)}">
@@ -47,7 +60,7 @@
 								       q-grid:focus/>
 							</md-input-container>
 						</div>
-						<md-tooltip class="q-grid-persistence-tooltip">{{$persistence.stringify(item)}}</md-tooltip>
+						<md-tooltip class="q-grid-persistence-tooltip">{{::$persistence.stringify(item)}}</md-tooltip>
 						<md-menu>
 							<md-button class="md-icon-button q-grid-more"
 							           aria-label="More"

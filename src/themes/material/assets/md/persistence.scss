@@ -15,6 +15,12 @@
 	.q-grid-persistence-save {
 		margin: 0 0 0 8px;
 	}
+	.q-grid-persistence-blank {
+		padding-left: 20px;
+		.md-list-item-text {
+			margin-right: 60px;
+		}
+	}
 	md-list {
 		height: 390px;
 		overflow-y: auto;
