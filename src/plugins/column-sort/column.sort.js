@@ -36,7 +36,7 @@ export default {
 	controller: ColumnSort,
 	controllerAs: '$columnSortPlugin',
 	bindings: {
-		'column': '<column'
+		'column': '<'
 	},
 	require: {
 		view: `^^${VIEW_CORE_NAME}`
