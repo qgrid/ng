@@ -8,8 +8,6 @@ class ColumnSort extends Component {
 		super();
 
 		this.element = $element[0];
-		this.descIcon = null;
-		this.ascIcon = null;
 	}
 
 	onInit() {
