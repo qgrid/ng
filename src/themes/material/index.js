@@ -45,6 +45,7 @@ function Setup(qgridThemeProvider) {
 		theme.put(plugin('pivot-bar'), require('./templates/plugin.pivot.bar.html'));
 		theme.put(plugin('selection-bar'), require('./templates/plugin.selection.bar.html'));
 		theme.put(plugin('pager'), require('./templates/plugin.pager.html'));
+		theme.put(plugin('pager-target'), require('./templates/plugin.pager.target.html'));
 		theme.put(plugin('persistence-panel'), require('./templates/plugin.persistence.panel.html'));
 		theme.put(plugin('visibility'), require('./templates/plugin.visibility.html'));
 		theme.put(plugin('title'), require('./templates/plugin.title.html'));
