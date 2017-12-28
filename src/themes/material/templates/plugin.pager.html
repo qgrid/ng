@@ -23,6 +23,11 @@
 					  tabindex="-1">
 			<md-icon class="q-grid-icon">keyboard_arrow_left</md-icon>
 		</md-button>
+		<md-button class="md-icon-button q-grid-target-page"
+					  ng-click="$pagerPlugin.showTargetPanel($event)"
+					  tabindex="-1">
+			<md-icon class="q-grid-icon">location_searching</md-icon>
+		</md-button>
 		<md-button class="md-icon-button q-grid-next-page"
 					  ng-disabled="!$pager.next.canExecute()"
 					  ng-click="$pager.next.execute();"
