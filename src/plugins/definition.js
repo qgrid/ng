@@ -24,6 +24,7 @@ export const ACTION_NAME = `${GRID}Action`;
 export const ACTION_CORE_NAME = `${GRID}ActionCore`;
 export const CELL_EDITOR_NAME = `${GRID}CellEditor`;
 export const BACKDROP_NAME = `${GRID}Backdrop`;
+export const COLUMN_SORT_NAME = `${GRID}ColumnSort`;
 
 export const POPUP_NAME = `${GRID}Popup`;
 export const POPUP_TRIGGER_NAME = `${GRID}PopupTrigger`;

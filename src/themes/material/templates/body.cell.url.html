@@ -1,10 +1,10 @@
 <a tabindex="-1" ng-href="{{$cell.value}}" ng-bind="$cell.label || $cell.value"></a>
 <md-button ng-if="$view.edit.cell.canEdit($cell)"
-			  class="md-icon-button q-grid-url-edit"
+			  class="md-icon-button q-grid-url-edit q-grid-edit-trigger"
 			  aria-label="url"
 			  ng-disabled="!$view.edit.cell.enter.canExecute($cell)"
 			  ng-click="$view.edit.cell.enter.execute($cell)"
 			  tabindex="-1">
-	<md-icon>edit</md-icon>
+	<md-icon class="q-grid-icon">edit</md-icon>
 	<md-tooltip>Edit Url</md-tooltip>
 </md-button>

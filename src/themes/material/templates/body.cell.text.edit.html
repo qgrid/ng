@@ -1,7 +1,7 @@
 <q-grid:cell-editor class="q-grid-text q-grid-editor q-grid-position"
 						  on:close="$view.edit.cell.exit.execute($cell)"
 						  q-grid:position="td">
-	<md-input-container>
+	<md-input-container class="q-grid-input-container">
 		<input type="text"
 		       q-grid:focus
 		       ng-model="$view.edit.cell.value"

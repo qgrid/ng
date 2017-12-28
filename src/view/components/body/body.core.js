@@ -1,8 +1,8 @@
 import Directive from '@grid/view/directives/directive';
-import { VIEW_CORE_NAME, BODY_CORE_NAME, GRID_NAME, TABLE_CORE_NAME } from '@grid/view/definition';
-import { EventListener, EventManager } from '@grid/core/infrastructure';
-import { BodyCtrl } from '@grid/core/body/body.ctrl';
-import { noop } from '@grid/core/utility';
+import {VIEW_CORE_NAME, BODY_CORE_NAME, GRID_NAME, TABLE_CORE_NAME} from '@grid/view/definition';
+import {EventListener, EventManager} from '@grid/core/infrastructure';
+import {BodyCtrl} from '@grid/core/body/body.ctrl';
+import {noop} from '@grid/core/utility';
 
 class BodyCore extends Directive(BODY_CORE_NAME, {
 	view: `^^${VIEW_CORE_NAME}`,
@@ -24,14 +24,17 @@ class BodyCore extends Directive(BODY_CORE_NAME, {
 	onInit() {
 		const view = this.view;
 		const element = this.element;
+		const table = this.table;
+		const model = this.view.model;
 
-		const ctrl = new BodyCtrl(view, this.root.bag);
+		const ctrl = new BodyCtrl(view.model, view, this.root.bag);
 		const listener = new EventListener(this.element, new EventManager(this, view.invoke));
 
-		this.using(listener.on('scroll', () => ctrl.onScroll({
-			scrollTop: element.scrollTop,
-			scrollLeft: element.scrollLeft
-		}), { passive: true }));
+		this.using(listener.on('scroll', () =>
+			ctrl.onScroll({
+				scrollLeft: table.pin ? model.scroll().left : element.scrollLeft,
+				scrollTop: element.scrollTop
+			}), {passive: true}));
 
 		this.using(listener.on('wheel', e => ctrl.onWheel({
 			deltaY: e.deltaY,
