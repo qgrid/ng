@@ -1,4 +1,5 @@
 ﻿import {GRID_PREFIX} from '@grid/view/definition';
+import {htmlEncode, escapeRegexp} from '@grid/core/utility/utility';
 
 export default function (text, search) {
 	if ((text || text === 0) && (search || search === 0)) {
@@ -19,20 +20,4 @@ export default function (text, search) {
 	}
 
 	return htmlEncode(text);
-}
-
-function htmlEncode(s) {
-	return String(s)
-		.replace(/&/g, '&amp;')
-		.replace(/"/g, '&quot;')
-		.replace(/'/g, '&#39;')
-		.replace(/</g, '&lt;')
-		.replace(/>/g, '&gt;');
-}
-
-function escapeRegexp(text) {
-	if (!text)
-		return text;
-
-	return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
 }
