@@ -47,5 +47,7 @@ export const VALIDATION_NAME = `${GRID}Validation`;
 export const VALIDATOR_NAME = `${GRID}Validator`;
 export const RULE_NAME = `${GRID}Rule`;
 
+export const REST_NAME = `${GRID}Rest`;
+
 export const EXPRESSION_BUILDER_NAME = `${GRID}ExpressionBuilder`;
 export const EXPRESSION_BUILDER_FACTORY = `${GRID}ExpressionBuilderFactory`;
