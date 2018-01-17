@@ -79,7 +79,10 @@ export class PipeModel {
 				'index': PU.column
 			},
 			'row': {
-				'status': PU.rowDetails
+				'status': PU.rowDetails,
+                'unit': PU.rowDetails,
+                'canDrag': PU.column,
+                'canResize': PU.column
 			},
 			'selection': {
 				'mode': PU.column,

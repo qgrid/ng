@@ -7,7 +7,7 @@ export class Log {
 	}
 
 	static info(source, message) {
-		if (!ENV.PRODUCTION) {
+		if (ENV.indexOf('prod') < 0) {
 			console.info(`qgrid.${source}: ${message}`);
 		}
 	}

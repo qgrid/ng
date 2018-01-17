@@ -20,7 +20,8 @@
 		height: 16px;
 		width: 16px;
 		min-height: 16px;
-		min-width: 16px;
+        min-width: 16px;
+        display: block;
 	}
 }
 
@@ -48,9 +49,10 @@ td.q-grid-edit {
 	}
 
 	.q-grid-actions {
-		.md-button {
+		button {
 			margin: 8px 0 0 8px;
-			float: right;
+            float: right;
+            text-transform: uppercase;
 		}
 	}
 	.q-grid-position {

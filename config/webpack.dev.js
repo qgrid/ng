@@ -47,7 +47,7 @@ module.exports = webpackMerge(commonConfig, {
 			}
 		}),
 		new webpack.DefinePlugin({
-			'ENV.PRODUCTION': JSON.stringify(false),
+			'ENV': 'dev',
 		}),
 		new webpack.LoaderOptionsPlugin({
 			options: {
