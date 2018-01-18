@@ -1,15 +1,15 @@
 &.q-grid-box:not(.q-grid-drag) {
-    td,
-    tr {
-        &.q-grid-highlighted {
-            background-color: #eee;
-        }
-    }
+	td,
+	tr {
+		&.q-grid-highlighted {
+			background-color: #eee;
+		}
+	}
 }
 
 @at-root {
-    .q-grid-highlight-part {
-        background-color: yellow;
-        color: #000;
-    }
+	.q-grid-highlight-part {
+		background-color: yellow;
+		color: #000;
+	}
 }
