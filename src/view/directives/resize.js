@@ -5,9 +5,10 @@ import {EventListener, EventManager} from '@grid/core/infrastructure';
 import {clone} from '@grid/core/utility';
 
 class Resize extends Directive(RESIZE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
-	constructor($element, $document) {
+	constructor($scope, $element, $document) {
 		super();
 
+		this.$scope = $scope;
 		this.element = $element[0];
 		const document = $document[0];
 
@@ -74,9 +75,9 @@ class Resize extends Directive(RESIZE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 
 	dragEnd() {
 		this.listener.document.off();
-
 		const model = this.view.model;
-		model.drag({isActive: false});
+
+		this.$scope.$applyAsync(() => model.drag({isActive: false}));
 	}
 
 	event() {
@@ -90,7 +91,7 @@ class Resize extends Directive(RESIZE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	}
 }
 
-Resize.$inject = ['$element', '$document'];
+Resize.$inject = ['$scope', '$element', '$document'];
 
 export default {
 	restrict: 'A',
