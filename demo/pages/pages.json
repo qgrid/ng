@@ -314,6 +314,10 @@
 				"path": "row-details"
 			},
 			{
+				"title": "Row Details Mode",
+				"path": "row-details-mode"
+			},
+			{
 				"title": "JSON Editor",
 				"path": "json-editor"
 			}
