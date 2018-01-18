@@ -1,21 +1,34 @@
 <div layout="row">
-	<div flex="100" layout="row" layout-align="start center" layout-align-xs="start start" layout-align-sm="start start" layout-xs="column"
-	   layout-sm="column">
+	<div flex="100"
+	     layout="row"
+	     layout-align="start center"
+	     layout-align-xs="start start"
+	     layout-align-sm="start start"
+	     layout-xs="column"
+	     layout-sm="column">
 		<div flex="100">
 			<q-grid:title></q-grid:title>
 		</div>
-		<div class="q-grid-actions" flex="none" layout="row" layout-align="end center">
+		<div class="q-grid-actions"
+		     flex="none"
+		     layout="row"
+		     layout-align="end center">
 			<div>
 				<q-grid:action-bar-core></q-grid:action-bar-core>
 			</div>
 			<div>
 				<md-menu q-grid:menu="$mdMenu">
-					<md-button ng-click="$mdMenu.open($event)" class="md-icon-button" tabindex="-1">
+					<md-button ng-click="$mdMenu.open($event)"
+					           class="md-icon-button"
+					           tabindex="-1">
 						<md-icon class="q-grid-icon">more_vert</md-icon>
 					</md-button>
-					<md-menu-content width="5" class="q-grid-menu">
+					<md-menu-content width="5"
+					                 class="q-grid-menu">
 						<q-grid-core:box>
-							<q-grid:column-chooser ng-if="$menu.isOpened" on:cancel="$mdMenu.close()" on:submit="$mdMenu.close()">
+							<q-grid:column-chooser ng-if="$menu.isOpened"
+							                       on:cancel="$mdMenu.close()"
+							                       on:submit="$mdMenu.close()">
 						</q-grid-core:box>
 					</md-menu-content>
 				</md-menu>

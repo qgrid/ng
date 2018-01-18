@@ -1,9 +1,13 @@
-<h4 class="md-title" style="margin: 0" ng-bind="$editor.title"></h4>
+<h4 class="md-title"
+    style="margin: 0"
+    ng-bind="$editor.title">
+</h4>
 <div ng-cloak
-	  layout="column"
-	  class="q-grid-embed"
-	  ng-controller="Body.Cell.Reference.Edit.Controller as $ctrl">
-	<q-grid class="q-grid-edit-form-reference" model="$ctrl.gridModel">
+     layout="column"
+     class="q-grid-embed"
+     ng-controller="Body.Cell.Reference.Edit.Controller as $ctrl">
+	<q-grid class="q-grid-edit-form-reference"
+	        model="$ctrl.gridModel">
 		<q-grid:columns>
 		</q-grid:columns>
 		<q-grid:toolbar>
