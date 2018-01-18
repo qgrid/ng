@@ -5,30 +5,33 @@ import {EventListener, EventManager} from '@grid/core/infrastructure';
 import {clone} from '@grid/core/utility';
 
 class Resize extends Directive(RESIZE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
-	constructor($scope, $element, $document, $timeout) {
+	constructor($element, $document) {
 		super();
 
-		this.$scope = $scope;
-		this.$element = $element;
-		this.$document = $document;
-		this.$timeout = $timeout;
-		this.divider = angular.element(`<div class="${GRID_PREFIX}-divider"></div>`);
+		this.element = $element[0];
+		const document = $document[0];
+
+		this.divider = document.createElement('div');
 
 		this.listener = {
-			divider: new EventListener(this.divider[0], new EventManager(this)),
-			document: new EventListener(this.$document[0], new EventManager(this))
+			divider: new EventListener(this.divider, new EventManager(this)),
+			document: new EventListener(document, new EventManager(this))
 		};
 
 		this.context = {
 			x: 0,
-			width: 0
+			y: 0,
+			width: 0,
+			height: 0
 		};
 	}
 
-	onInit() {
+	onLink() {
 		if (this.canResize(this.event())) {
+			this.divider.classList.add(`${GRID_PREFIX}-divider`);
+
 			this.listener.divider.on('mousedown', this.dragStart);
-			this.$timeout(() => this.$element.append(this.divider)); // TODO: WTF?
+			this.element.appendChild(this.divider);
 		}
 	}
 
@@ -43,8 +46,10 @@ class Resize extends Directive(RESIZE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 		e.preventDefault();
 
 		const context = this.context;
-		context.width = this.$element[0].clientWidth;
+		context.width = this.element.clientWidth;
+		context.height = this.element.clientHeight;
 		context.x = e.screenX;
+		context.y = e.screenY;
 
 		this.listener.document.on('mousemove', this.drag);
 		this.listener.document.on('mouseup', this.dragEnd);
@@ -59,8 +64,12 @@ class Resize extends Directive(RESIZE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 		const layout = model.layout;
 		const state = clone(layout()[this.path]);
 
-		state[this.key] = {width: context.width + e.screenX - context.x};
-		layout({[this.path]: state});
+		state.set(this.key, {
+			width: context.width + e.screenX - context.x,
+			height: context.height + e.screenY - context.y
+		});
+		
+		layout({ [this.path]: state });
 	}
 
 	dragEnd() {
@@ -81,7 +90,7 @@ class Resize extends Directive(RESIZE_NAME, {view: `^^${VIEW_CORE_NAME}`}) {
 	}
 }
 
-Resize.$inject = ['$scope', '$element', '$document', '$timeout'];
+Resize.$inject = ['$element', '$document'];
 
 export default {
 	restrict: 'A',
@@ -89,7 +98,7 @@ export default {
 		'key': `<${RESIZE_NAME}`,
 		'path': `@${RESIZE_NAME}Path`,
 		'canResize': `&${GRID_NAME}CanResize`,
-		'transfer': `&${DRAG_NAME}`
+		'transfer': `&${DRAG_NAME}`,
 	},
 	controllerAs: '$resize',
 	controller: Resize,
@@ -97,3 +106,4 @@ export default {
 	link: Resize.link,
 	scope: false
 };
+

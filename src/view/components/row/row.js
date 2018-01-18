@@ -1,6 +1,6 @@
 import ModelComponent from '../model.component';
-import {GRID_NAME, ROW_NAME} from '@grid/view/definition';
-import{TemplatePath} from '@grid/core/template';
+import { GRID_NAME, ROW_NAME } from '@grid/view/definition';
+import { TemplatePath } from '@grid/core/template';
 
 TemplatePath
 	.register(ROW_NAME, () => {
@@ -25,6 +25,8 @@ export default {
 	controller: Row,
 	bindings: {
 		rowMode: '@mode',
-		rowUnit: '@unit'
+		rowUnit: '@unit',
+		rowCanDrag: '@canDrag',
+		rowCanResize: '@canResize'
 	}
 };
