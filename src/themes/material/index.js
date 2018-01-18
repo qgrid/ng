@@ -117,13 +117,13 @@ function Setup(qgridThemeProvider) {
 		theme.put(cell('foot', 'pivot'), require('./templates/foot.cell.text.html'));
 		theme.put(cell('body', 'pivot.edit'), EMPTY);
 
-		theme.put(cell('head', 'row-number'), require('./templates/head.cell.row.number.html'));
+		theme.put(cell('head', 'row-number'), require('./templates/head.cell.text.html'));
 		theme.put(cell('body', 'row-number'), require('./templates/body.cell.row.number.html'));
 		theme.put(cell('foot', 'row-number'), require('./templates/foot.cell.text.html'));
 		theme.put(cell('body', 'row-number.edit'), EMPTY);
 
 		theme.put(cell('head', 'row-indicator'), require('./templates/head.cell.text.html'));
-		theme.put(cell('body', 'row-indicator'), require('./templates/body.cell.text.html'));
+		theme.put(cell('body', 'row-indicator'), require('./templates/body.cell.row.indicator.html'));
 		theme.put(cell('foot', 'row-indicator'), require('./templates/foot.cell.text.html'));
 		theme.put(cell('body', 'row-indicator.edit'), EMPTY);
 

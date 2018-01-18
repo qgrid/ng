@@ -1,4 +1,5 @@
-<div class="q-grid-edit-form-panel" layout="column">
+<div class="q-grid-edit-form-panel"
+     layout="column">
 	<div class="layout-column flex q-grid-edit-form-panel-body">
 		<div ng-repeat="editor in $editFormPanel.editor.editors">
 			<q-grid:edit-form-editor editor="editor"></q-grid:edit-form-editor>
@@ -9,7 +10,7 @@
 			Cancel
 		</md-button>
 		<md-button class="md-primary"
-					  ng-click="$editFormPanel.submit.execute()">
+		           ng-click="$editFormPanel.submit.execute()">
 			Save
 		</md-button>
 	</div>

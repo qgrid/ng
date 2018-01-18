@@ -1,15 +1,16 @@
 <md-menu q-grid:menu="$mdMenu">
 	<md-button ng-click="$mdMenu.open($event)"
-				  class="md-icon-button"
-				  tabindex="-1">
+			   class="md-icon-button"
+			   tabindex="-1">
 		<md-icon class="q-grid-icon">filter_list</md-icon>
 	</md-button>
-	<md-menu-content width="5" class="q-grid-menu">
+	<md-menu-content width="5"
+					 class="q-grid-menu q-grid-column-filter">
 		<q-grid-core:box>
 			<q-grid:column-filter-panel key="$columnFilterPlugin.key"
-												 ng-if="$menu.isOpened"
-												 on:submit="$mdMenu.close()"
-												 on:cancel="$mdMenu.close()">
+										ng-if="$menu.isOpened"
+										on:submit="$mdMenu.close()"
+										on:cancel="$mdMenu.close()">
 			</q-grid:column-filter-panel>
 		</q-grid-core:box>
 	</md-menu-content>

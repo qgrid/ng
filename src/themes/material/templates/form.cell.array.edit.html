@@ -1,10 +1,12 @@
-<div ng-cloak class="q-grid-array">
-	<h2 class="md-title" style="margin: 0 0 5px 0;">Edit {{::$editor.title}}</h2>
+<div ng-cloak
+     class="q-grid-array">
+	<h2 class="md-title"
+	    style="margin: 0 0 5px 0;">Edit {{::$editor.title}}</h2>
 	<div class="q-grid-array-view q-grid-edit-form-array">
 		<md-chips ng-model="$editor.value"
-					 md-removable="'true'"
-					 md-enable-chip-edit="'true'"
-					 placeholder="Enter a {{::$editor.title}}...">
+		          md-removable="'true'"
+		          md-enable-chip-edit="'true'"
+		          placeholder="Enter a {{::$editor.title}}...">
 		</md-chips>
 	</div>
 </div>

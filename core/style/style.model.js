@@ -9,5 +9,8 @@ export class StyleModel {
 			source: 'style.model',
 			canExecute: context => context.model.edit().state === 'view'
 		});
+		
+		this.rows = [];
+		this.cells = [];
 	}
 }

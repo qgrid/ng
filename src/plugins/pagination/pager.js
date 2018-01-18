@@ -1,7 +1,8 @@
 import PluginComponent from '../plugin.component';
-import {PAGER_NAME} from '../definition';
-import {TemplatePath} from '@grid/core/template';
-import {PagerView} from '@grid/plugin/pager/pager.view';
+import { PAGER_NAME } from '../definition';
+import { TemplatePath } from '@grid/core/template';
+import { PagerView } from '@grid/plugin/pager/pager.view';
+import { Shortcut } from '@grid/core/shortcut/shortcut';
 
 TemplatePath
 	.register(PAGER_NAME, () => {
@@ -38,9 +39,17 @@ class Pager extends Plugin {
 		const pagerView = this.$scope.$pager;
 		const onClose = mdPanelRef => mdPanelRef.destroy();
 
+		let panelRef;
 		const config = {
 			attachTo: angular.element(this.$document[0].body), // eslint-disable-line no-undef
-			controller: ['$scope', function ($scope) {
+			controller: ['$scope', '$element', function ($scope, $element) {
+
+				$element[0].addEventListener('keydown', e => {
+					if (panelRef && Shortcut.translate(e) === 'enter') {
+						panelRef.close();
+					}
+				});
+
 				$scope.$pager = {
 					totalPages: pagerView.totalPages,
 					target: pagerView.current + 1
@@ -64,7 +73,10 @@ class Pager extends Plugin {
 			zIndex: 2
 		};
 
-		mdPanel.open(config);
+		mdPanel.open(config)
+			.then(function (result) {
+				panelRef = result;
+			});
 	}
 }
 

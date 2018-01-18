@@ -15,12 +15,14 @@ export class RowNumberColumnModel extends ColumnModel {
 
 		this.pin = 'left';
 		this.key = '$row.number';
-		this.title = '#';
+		this.title = 'No.';
 		this.canEdit = false;
 		this.canResize = false;
 		this.canFocus = false;
 		this.canMove = false;
 		this.canHighlight = false;
+		this.canSort = false;
+		this.canFitler = false;
 		this.class = 'control';
 	}
 }

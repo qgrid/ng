@@ -1,12 +1,14 @@
-<q-grid:column-sort ng-if="$cell.column.canSort" column="$cell.column" class="q-grid-sort">
+<q-grid:column-sort ng-if="$cell.column.canSort"
+                    column="$cell.column"
+                    class="q-grid-sort">
 	<label>
 		<md-tooltip md-delay="1000">{{$cell.column.title}}</md-tooltip>
 		{{$cell.column.title}}
 	</label>
 </q-grid:column-sort>
 <q-grid:column-filter ng-if="$cell.column.canFilter"
-							 class="q-grid-column-filter"
-							 key="$cell.column.key"
-							 title="{{$cell.column.title}}"
-							 ng-class="{'q-grid-active': $view.filter.has($cell.column)}">
+                      class="q-grid-column-filter-trigger"
+                      key="$cell.column.key"
+                      title="{{$cell.column.title}}"
+                      ng-class="{'q-grid-active': $view.filter.has($cell.column)}">
 </q-grid:column-filter>

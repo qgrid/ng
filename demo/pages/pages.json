@@ -314,6 +314,10 @@
 				"path": "row-details"
 			},
 			{
+				"title": "Row Details Mode",
+				"path": "row-details-mode"
+			},
+			{
 				"title": "JSON Editor",
 				"path": "json-editor"
 			}
@@ -347,7 +351,7 @@
 				"path": "row-indicator"
 			},
 			{
-				"title": "Drag and Drop",
+				"title": "Drag and Drop + Row Resize",
 				"path": "drag-and-drop"
 			},
 			{

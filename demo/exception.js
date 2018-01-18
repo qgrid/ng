@@ -2,6 +2,8 @@
 
 Handler.$inject = ['$log', '$injector'];
 
+const ENV = window.ENV || 'production';
+
 export default function Handler($log, $injector) {
 
 	let toast = null;
@@ -16,7 +18,7 @@ export default function Handler($log, $injector) {
 
 	return (exception, cause = 'qgrid') => {
 		$log.error(exception, cause);
-		if (!ENV.PRODUCTION) {
+		if (ENV.indexOf('prod') < 0) {
 			debugger;
 		}
 

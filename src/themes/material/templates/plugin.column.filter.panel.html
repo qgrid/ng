@@ -1,51 +1,55 @@
-    <div class="q-grid-column-filter-panel q-grid-popup-panel" layout="column" flex="100">
+<div class="q-grid-column-filter-panel q-grid-popup-panel"
+     layout="column"
+     flex="100">
 	<md-card>
 		<md-card-header>
 			<md-card-title>
 				<md-card-title-text>
 					<span class="md-subhead">{{$columnFilterPanel.title}} Filter</span>
 				</md-card-title-text>
-				<md-card-title-actions layout="row" layout-align="end center">
+				<md-card-title-actions layout="row"
+				                       layout-align="end center">
 				</md-card-title-actions>
 			</md-card-title>
 		</md-card-header>
 		<md-card-content>
-			<div flex="none" layout="row">
+			<div flex="none"
+			     layout="row">
 				<md-input-container class="q-grid-column-filter-filter">
 					<label>Search</label>
 					<input type="text"
-							 ng-change="$columnFilterPanelPlugin.reset()"
-							 ng-model="$columnFilterPanel.filter"
-							 ng-model-options="{debounce: 500}"
-							 q-grid:focus
-							 q-grid:focus-delay="400"/>
+					       ng-change="$columnFilterPanelPlugin.reset()"
+					       ng-model="$columnFilterPanel.filter"
+					       ng-model-options="{debounce: 500}"
+					       q-grid:focus
+					       q-grid:focus-delay="400" />
 				</md-input-container>
 			</div>
 			<div class="flex">
 				<ul>
 					<li>
 						<md-checkbox ng-click="$columnFilterPanel.toggleAll.execute()"
-										 md-prevent-menu-close
-										 ng-checked="$columnFilterPanel.stateAll()"
-										 aria-label="Select all filter values"
-										 md-no-ink
-										 md-indeterminate="$columnFilterPanel.isIndeterminate()">
+						             md-prevent-menu-close
+						             ng-checked="$columnFilterPanel.stateAll()"
+						             aria-label="Select all filter values"
+						             md-no-ink
+						             md-indeterminate="$columnFilterPanel.isIndeterminate()">
 							Select All
 						</md-checkbox>
 					</li>
 					</li>
 				</ul>
-				<div class="q-grid-column-filter-list" vscroll>
+				<div class="q-grid-column-filter-list"
+				     vscroll>
 					<ul vscroll-port-y="$columnFilterPanelPlugin.vscrollContext">
-						<li
-							ng-repeat="item in $columnFilterPanel.items | vscroll: $columnFilterPanelPlugin.vscrollContext track by $index"
-							vscroll-row="{{::$index}}">
+						<li ng-repeat="item in $columnFilterPanel.items | vscroll: $columnFilterPanelPlugin.vscrollContext track by $index"
+						    vscroll-row="{{::$index}}">
 							<md-checkbox ng-checked="$columnFilterPanel.state(item)"
-											 md-prevent-menu-close
-											 ng-if="$columnFilterPanel.toggle.canExecute(item)"
-											 aria-label="Select filter value"
-											 md-no-ink
-											 ng-click="$columnFilterPanel.toggle.execute(item)">
+							             md-prevent-menu-close
+							             ng-if="$columnFilterPanel.toggle.canExecute(item)"
+							             aria-label="Select filter value"
+							             md-no-ink
+							             ng-click="$columnFilterPanel.toggle.execute(item)">
 								<span ng-bind-html="item | qgridHighlight : $columnFilterPanel.filter"> </span>
 							</md-checkbox>
 						</li>
@@ -53,13 +57,14 @@
 				</div>
 			</div>
 			<div class="q-grid-popup-actions flex-none">
-				<md-button ng-click="$columnFilterPanel.cancel.execute()" md-prevent-menu-close>
+				<md-button ng-click="$columnFilterPanel.cancel.execute()"
+				           md-prevent-menu-close>
 					Cancel
 				</md-button>
 				<md-button class="md-primary"
-							  md-prevent-menu-close
-							  ng-click="$columnFilterPanel.submit.execute()"
-							  ng-disabled="!$columnFilterPanel.submit.canExecute()">
+				           md-prevent-menu-close
+				           ng-click="$columnFilterPanel.submit.execute()"
+				           ng-disabled="!$columnFilterPanel.submit.canExecute()">
 					Apply
 				</md-button>
 			</div>

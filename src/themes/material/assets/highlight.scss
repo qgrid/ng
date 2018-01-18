@@ -7,7 +7,9 @@
 	}
 }
 
-.q-grid-highlight-part {
-	background-color: yellow;
-	color: #000;
+@at-root {
+	.q-grid-highlight-part {
+		background-color: yellow;
+		color: #000;
+	}
 }

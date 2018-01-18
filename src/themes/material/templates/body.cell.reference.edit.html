@@ -1,6 +1,6 @@
 <q-grid:cell-editor class="q-grid-reference q-grid-editor q-grid-position"
-						  on:close="$view.edit.cell.cancel.execute($cell, $event)"
-						  q-grid:position="td">
+                    on:close="$view.edit.cell.cancel.execute($cell, $event)"
+                    q-grid:position="td">
 	<div ng-cloak
 	     class="layout-column q-grid-reference-content"
 	     ng-controller="Body.Cell.Reference.Edit.Controller as $referenceEdit">
@@ -10,7 +10,8 @@
 			        model="$referenceEdit.gridModel"
 			        q-grid:autofocus>
 				<q-grid:columns>
-					<q-grid:column type="select" pin="left">
+					<q-grid:column type="select"
+					               pin="left">
 					</q-grid:column>
 				</q-grid:columns>
 				<q-grid:toolbar>
@@ -25,7 +26,8 @@
 		</div>
 		<div class="flex-none q-grid-editor-actions">
 			<md-button ng-click="$referenceEdit.cancel.execute($cell, $event)">Cancel</md-button>
-			<md-button class="md-primary" ng-click="$referenceEdit.commit.execute($cell, $event)">Save</md-button>
+			<md-button class="md-primary"
+			           ng-click="$referenceEdit.commit.execute($cell, $event)">Save</md-button>
 		</div>
 	</div>
 </q-grid:cell-editor>
