@@ -2,14 +2,12 @@
 
 const ENV = window.ENV || {};
 
+function info(source, message) {
+	console.info(`qgrid.${source}: ${message}`);
+}
+
 export class Log {
 	constructor() {
-	}
-
-	static info(source, message) {
-		if (ENV.indexOf('prod') < 0) {
-			console.info(`qgrid.${source}: ${message}`);
-		}
 	}
 
 	static warn(source, message) {
@@ -22,3 +20,5 @@ export class Log {
 }
 
 /*eslint-enable*/
+
+Log.info = (window.ENV || 'production').indexOf('prod') < 0 ? () => { } : info;
