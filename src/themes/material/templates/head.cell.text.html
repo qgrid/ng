@@ -7,7 +7,7 @@
 	</label>
 </q-grid:column-sort>
 <q-grid:column-filter ng-if="$cell.column.canFilter"
-                      class="q-grid-column-filter"
+                      class="q-grid-column-filter-trigger"
                       key="$cell.column.key"
                       title="{{$cell.column.title}}"
                       ng-class="{'q-grid-active': $view.filter.has($cell.column)}">

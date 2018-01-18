@@ -1,11 +1,11 @@
 <md-menu q-grid:menu="$mdMenu">
 	<md-button ng-click="$mdMenu.open($event)"
-			   class="md-icon-button q-grid-column-filter-trigger"
+			   class="md-icon-button"
 			   tabindex="-1">
 		<md-icon class="q-grid-icon">filter_list</md-icon>
 	</md-button>
 	<md-menu-content width="5"
-					 class="q-grid-menu">
+					 class="q-grid-menu q-grid-column-filter">
 		<q-grid-core:box>
 			<q-grid:column-filter-panel key="$columnFilterPlugin.key"
 										ng-if="$menu.isOpened"
