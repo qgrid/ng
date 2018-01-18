@@ -1,7 +1,7 @@
 import Component from '../../view/components/component';
-import {VIEW_CORE_NAME} from '@grid/view/definition';
-
-import {ColumnSortView} from '@grid/plugin/column-sort/column.sort.view';
+import { VIEW_CORE_NAME } from '@grid/view/definition';
+import { EventListener, EventManager } from '@grid/core/infrastructure';
+import { ColumnSortView } from '@grid/plugin/column-sort/column.sort.view';
 
 class ColumnSort extends Component {
 	constructor($element) {
@@ -21,6 +21,10 @@ class ColumnSort extends Component {
 			iconAsc,
 			iconDesc
 		});
+
+		const listener = new EventListener(this.element, new EventManager(this));
+		this.using(listener.on('click', () => this.$columnSort.onClick()));
+		this.using(listener.on('mouseleave', () => this.$columnSort.onMouseLeave()))
 	}
 
 	onDestroy() {
