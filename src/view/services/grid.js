@@ -1,19 +1,30 @@
-import {Model, Log} from '@grid/core/infrastructure';
-import {Command} from '@grid/core/command';
-import {Action} from '@grid/core/action';
-import {GridService} from '@grid/core/services';
-import {Node} from '@grid/core/node';
-import {Pipe} from '@grid/core/pipe';
-import {PipeUnit} from '@grid/core/pipe/pipe.unit';
-import {noop, identity} from '@grid/core/utility';
-import {getFactory as valueFactory} from '@grid/core/services/value';
-import {getFactory as labelFactory} from '@grid/core/services/label';
-import {RowDetailsStatus} from '@grid/core/row-details';
-import {Composite} from '@grid/core/infrastructure/composite';
+import { Model, Log } from '@grid/core/infrastructure';
+import { Command } from '@grid/core/command';
+import { Action } from '@grid/core/action';
+import { GridService } from '@grid/core/services';
+import { Node } from '@grid/core/node';
+import { Pipe } from '@grid/core/pipe';
+import { PipeUnit } from '@grid/core/pipe/pipe.unit';
+import { noop, identity } from '@grid/core/utility';
+import { getFactory as valueFactory } from '@grid/core/services/value';
+import { getFactory as labelFactory } from '@grid/core/services/label';
+import { RowDetailsStatus } from '@grid/core/row-details';
+import { Composite } from '@grid/core/infrastructure/composite';
+
+
 
 export default class Grid {
-	constructor($timeout) {
+	constructor($timeout, $rootScope) {
 		this.$timeout = $timeout;
+		this.$rootScope = $rootScope;
+	}
+
+	apply(f) {
+		const phase = this.$rootScope.$$phase; // eslint-disable-line angular/no-private-call
+		if (phase == '$apply' || phase == '$digest') {
+			return f();
+		}
+		return this.$rootScope.$apply(f);
 	}
 
 	model() {
@@ -23,12 +34,14 @@ export default class Grid {
 	service(model) {
 		const start = source => {
 			Log.info('service', 'invalidate start');
-			model.scene({
-				status: 'start'
-			}, {
-				source,
-				behavior: 'core'
-			});
+
+			this.apply(() =>
+				model.scene({
+					status: 'start'
+				}, {
+					source,
+					behavior: 'core'
+				}));
 
 			return job => {
 				const scene = model.scene;
@@ -95,4 +108,4 @@ export default class Grid {
 	}
 }
 
-Grid.$inject = ['$timeout'];
+Grid.$inject = ['$timeout', '$rootScope'];
