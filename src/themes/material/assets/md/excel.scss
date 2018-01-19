@@ -40,7 +40,7 @@ $excel-greenscale-dark: #227447;
 .q-grid-table tbody {
   border-collapse: collapse;
   border-spacing: 0;
-  tr:first-child td.q-grid-focus:first-child {
+  tr:first-child td.q-grid-focused:first-child {
     border-left-width: 1px;
     border-top-width: 1px;
   }
@@ -79,11 +79,11 @@ $excel-greenscale-dark: #227447;
         content: '';
       }
     }
-    &.q-grid-focus {
+    &.q-grid-focused {
       background-color: white !important;
       border: 2px solid $excel-greenscale-dark;
     }
-    &.q-grid-focus.q-grid-edit input {
+    &.q-grid-focused.q-grid-edit input {
       border: none;
     }
     &.q-grid-selected {
