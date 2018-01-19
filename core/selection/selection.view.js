@@ -70,8 +70,8 @@ export class SelectionView extends View {
 					model.selection({
 						items: []
 					}, {
-							source: 'selection.view'
-						});
+						source: 'selection.view'
+					});
 
 					this.selectionState = stateFactory(model, this.selectionService);
 				}
@@ -307,8 +307,8 @@ export class SelectionView extends View {
 				this.model.selection({
 					items: items
 				}, {
-						source: 'selection.view'
-					});
+					source: 'selection.view'
+				});
 			};
 		} else {
 			return noop;
@@ -334,8 +334,8 @@ export class SelectionView extends View {
 				this.model.selection({
 					items: items
 				}, {
-						source: 'selection.view'
-					});
+					source: 'selection.view'
+				});
 			};
 		} else {
 			return noop;

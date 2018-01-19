@@ -2,7 +2,7 @@
 
 Handler.$inject = ['$log', '$injector'];
 
-const ENV = window.ENV || 'production';
+const ENV = '' + ENV;
 
 export default function Handler($log, $injector) {
 

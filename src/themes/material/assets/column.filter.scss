@@ -10,7 +10,7 @@
 .q-grid-column-filter-trigger {
 	visibility: hidden;
 	position: absolute;
-	right: 0;
+	right: 8px;
 	top: calc(50% - 8px);
 	&.q-grid-active {
 		visibility: visible;
