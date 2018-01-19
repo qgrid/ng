@@ -27,7 +27,8 @@ th {
             }
         }
         .q-grid-icon {
-            display: none;
+            transition: opacity 0.30s;
+            opacity: 0;
             position: absolute;
             margin-left: -16px;
             color: $dark-secondary;
@@ -38,17 +39,17 @@ th {
             min-width: 16px;
             vertical-align: middle;
             &.q-grid-active {
-                display: block;
+                opacity: 1;
             }
         }
         &:not(.q-grid-active):hover {
             .q-grid-desc {
-                display: block;
+                opacity: 1;
             }
         }
         &.q-grid-hide {
             .q-grid-icon {
-                display: none !important;
+                opacity: 0 !important;
             }
         }
     }

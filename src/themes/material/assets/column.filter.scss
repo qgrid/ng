@@ -2,19 +2,20 @@
 &.q-grid-box:not(.q-grid-drag) {
 	th.q-grid-highlighted {
 		.q-grid-column-filter-trigger {
-			visibility: visible;
+			opacity: 1;
 		}
 	}
 }
 
 .q-grid-column-filter-trigger {
-	visibility: hidden;
+	opacity: 0;
 	position: absolute;
 	right: 8px;
 	top: calc(50% - 8px);
+	transition: opacity 0.3s;
 	&.q-grid-active {
-		visibility: visible;
 		.q-grid-icon {
+			opacity: 1;
 			color: $dark;
 		}
 		&+label {
