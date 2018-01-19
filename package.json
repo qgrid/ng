@@ -85,7 +85,7 @@
     "shelljs": "^0.7.7",
     "style-loader": "^0.19.0",
     "url-loader": "^0.6.2",
-    "vscroll": "https://github.com/klumba12/vscroll",
+    "vscroll": "git+https://github.com/klumba12/vscroll.git",
     "webpack": "^3.8.1",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-dev-server": "^2.9.4",
