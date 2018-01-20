@@ -5,6 +5,7 @@ import { viewFactory } from '@grid/core/view/view.factory';
 import { GridCommandManager } from '../grid/grid.command.manager';
 import { ViewCtrl } from '@grid/core/view/view.ctrl';
 import { jobLine } from '@grid/core/services/index';
+import { Log } from '@grid/core/infrastructure/log';
 
 class ViewCore extends Component {
 	constructor($rootScope, $scope, $element, $timeout, grid, vscroll) {
@@ -28,7 +29,7 @@ class ViewCore extends Component {
 		const selectors = { th: TH_CORE_NAME };
 		const ctrl = this.ctrl = new ViewCtrl(model, this, gridService);
 		const job = jobLine(0);
-		
+
 		this.using(model.selectionChanged.watch(e => {
 			if (e.hasChanges('items')) {
 				this.root.onSelectionChanged({
@@ -61,8 +62,6 @@ class ViewCore extends Component {
 			selectors
 		);
 
-		this.destroyView = injectViewServicesTo(this);
-
 		// TODO: how we can avoid that?
 		this.$scope.$watch(() => {
 			if (model.scene().status === 'stop') {
@@ -71,10 +70,16 @@ class ViewCore extends Component {
 		});
 
 		model.sceneChanged.watch(e => {
-			if (e.hasChanges('status') && e.state.status === 'stop') {
-				job(() => ctrl.invalidate());
+			if (e.hasChanges('status')) {
+				// Run digest on the start of invalidate(e.g. for busy indicator)
+				// and on the ned of invalidate(e.g. to build the DOM)
+				this.apply(() => Log.info('view.core', `digest for ${e.state.status}`));
 			}
 		});
+
+		// Views should be created after `sceneChanged.watch` declaration
+		// to persiste the right order of event sourcing.
+		this.destroyView = injectViewServicesTo(this);
 	}
 
 	onDestroy() {
