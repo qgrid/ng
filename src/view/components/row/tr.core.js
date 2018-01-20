@@ -1,7 +1,7 @@
 import Directive from '@grid/view/directives/directive';
-import {VIEW_CORE_NAME, TR_CORE_NAME, GRID_NAME} from '@grid/view/definition';
+import { VIEW_CORE_NAME, TR_CORE_NAME, GRID_NAME } from '@grid/view/definition';
 
-class TrCore extends Directive(TR_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, root: `^^${GRID_NAME}`}) {
+class TrCore extends Directive(TR_CORE_NAME, { view: `^^${VIEW_CORE_NAME}`, root: `^^${GRID_NAME}` }) {
 	constructor($scope, $element, $attrs) {
 		super();
 
@@ -15,15 +15,18 @@ class TrCore extends Directive(TR_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, root:
 		const root = this.root;
 		root.bag[source].addRow(this);
 
-		if (this.$scope.$last) {
-			const scene = root.model.scene;
-			scene({
-				round: scene().round + 1
-			}, {
-				source: 'tr.core',
-				behavior: 'core'
-			});
-		}
+		// if (this.$scope.$last) {
+		// 	const scene = root.model.scene;
+		// 	const round = scene().round;
+		// 	if (round > 0) {
+		// 		scene({
+		// 			round: round + 1
+		// 		}, {
+		// 				source: 'tr.core',
+		// 				behavior: 'core'
+		// 			});
+		// 	}
+		// }
 	}
 
 	onDestroy() {
