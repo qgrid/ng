@@ -9,6 +9,18 @@ th.q-grid-can-sort {
     }
 }
 
+&.q-grid-box:not(.q-grid-drag) {
+    th {
+        .q-grid-sort {
+            &:not(.q-grid-active):hover {
+                .q-grid-desc {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}
+
 th {
     .q-grid-sort {
         overflow: hidden;
@@ -39,11 +51,6 @@ th {
             min-width: 16px;
             vertical-align: middle;
             &.q-grid-active {
-                opacity: 1;
-            }
-        }
-        &:not(.q-grid-active):hover {
-            .q-grid-desc {
                 opacity: 1;
             }
         }
