@@ -29,7 +29,7 @@ module.exports = webpackMerge(commonConfig, {
 	 */
 	plugins: [
 		new webpack.DefinePlugin({
-			'ENV': 'production',
+			'ENV': JSON.stringify('production'),
 		}),
 		new webpack.LoaderOptionsPlugin({
 			options: {

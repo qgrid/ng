@@ -1,6 +1,6 @@
 /*eslint-disable  no-console, no-unused-vars, no-undef*/
 
-const ENV = '' + ENV;
+const ENV = '' + window.ENV;
 
 function info(source, message) {
 	console.info(`qgrid.${source}: ${message}`);

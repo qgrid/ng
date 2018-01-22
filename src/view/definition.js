@@ -26,14 +26,12 @@ export const HEAD_CORE_NAME = `${GRID_CORE}Head`;
 export const BODY_CORE_NAME = `${GRID_CORE}Body`;
 export const FOOT_CORE_NAME = `${GRID_CORE}Foot`;
 export const TOOLBAR_CORE_NAME = `${GRID_CORE}Toolbar`;
-export const ROW_DETAILS_CORE_NAME = `${GRID_CORE}Details`;
 
 export const HEAD_NAME = `${GRID}Head`;
 export const TEMPLATE_NAME = `${GRID}Template`;
 export const COLUMN_LIST_NAME = `${GRID}Columns`;
 export const COLUMN_NAME = `${GRID}Column`;
 export const ROW_NAME = `${GRID}Row`;
-export const NODE_NAME = `${GRID}Node`;
 export const FOOT_NAME = `${GRID}Foot`;
 export const DRAG_NAME = `${GRID}Drag`;
 export const DROP_NAME = `${GRID}Drop`;
