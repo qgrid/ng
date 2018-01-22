@@ -30,7 +30,7 @@ export default function Controller($http, qgrid) {
 			const rows = response.data;
 			model
 				.data({
-					rows: rows
+					rows
 				})
 				.focus({
 					columnIndex: 0,

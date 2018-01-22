@@ -98,13 +98,7 @@ export class SelectionView extends View {
 				const navState = model.navigation();
 				const rowIndex = navState.rowIndex;
 
-				let row;
-				if (rowIndex >= 0) {
-					row = this.rows[rowIndex];
-				} else {
-					row = this.rows[rowIndex + 1];
-				}
-
+				const row = this.rows[rowIndex >= 0 ? rowIndex : rowIndex + 1];
 				const commit = this.toggle(row);
 				commit();
 			},
