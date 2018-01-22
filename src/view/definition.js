@@ -40,6 +40,7 @@ export const TOOLBAR_NAME = `${GRID}Toolbar`;
 export const ROW_DETAILS_NAME = `${GRID}Details`;
 export const LAYER_NAME = `${GRID}Layer`;
 export const CELL_VALUE_NAME = `${GRID}CellValue`;
+export const CELL_FOCUS_NAME = `${GRID}CellFocus`;
 
 export const CAN_DROP_NAME = `${GRID}CanDrop`;
 export const CAN_DRAG_NAME = `${GRID}CanDrag`;
