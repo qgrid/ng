@@ -1,7 +1,11 @@
+$duration: 0.2s;
 &.q-grid-box:not(.q-grid-drag) {
     td.q-grid-focused {
         outline: 2px solid rgba(63, 81, 181, 0.25);
         outline-offset: -2px;
+        &.q-grid-animate {
+            outline: none;
+        }
     }
 }
 
@@ -12,7 +16,13 @@
 }
 
 .q-grid-cell-focus {
-	transition: all 2s;
-	position: absolute;
-	background: red;
+    transition: all $duration;
+    position: absolute;
+    pointer-events: none;
+    outline: 2px solid rgba(63, 81, 181, 0.25);
+    outline-offset: -2px;
+    display: none;
+    &.q-grid-active {
+        display: block;
+    }
 }

@@ -9,18 +9,24 @@ class CellFocus extends Component {
     }
 
     onInit() {
-        this.root.model.focusChanged.on(e => {
+        const model = this.root.model;
+        const table = this.root.table;
+        const element = this.element;
+        model.focusChanged.on(e => {
+            element.classList.add('q-grid-active');
             if (e.hasChanges('rowIndex') || e.hasChanges('columnIndex')) {
-                const table = this.root.table;
                 const cell = table.body.cell(e.state.rowIndex, e.state.columnIndex);
-                const model = cell.model();
-                if (model) {
-                    const rect = cell.rect();
-                    this.element.style.top = rect.top + 'px';
-                    this.element.style.left = rect.left + 'px';
-                    this.element.style.width = rect.width + 'px';
-                    this.element.style.height = rect.height + 'px';
-                }
+                cell.addClass('q-grid-animate');
+                const target = cell.element;
+                const scrollState = model.scroll();
+                element.style.top = (target.offsetTop - scrollState.top) + 'px';
+                element.style.left = (target.offsetLeft - scrollState.left) + 'px';
+                element.style.width = target.clientWidth + 'px';
+                element.style.height = target.clientHeight + 'px';
+                setTimeout(() => {
+                    element.classList.remove('q-grid-active');
+                    cell.removeClass('q-grid-animate');
+                }, 200);
             }
         });
     }
