@@ -51,7 +51,7 @@ export class SelectionView extends View {
 			if (e.hasChanges('mode')) {
 				const newModeClass = `${GRID_PREFIX}-select-${e.state.mode}`;
 				const oldModeClass = `${GRID_PREFIX}-select-${e.changes.mode.oldValue}`;
-				
+
 				view.removeClass(oldModeClass);
 				view.addClass(newModeClass);
 			}
@@ -59,7 +59,7 @@ export class SelectionView extends View {
 			if (e.hasChanges('unit')) {
 				const newUnitClass = `${GRID_PREFIX}-select-${e.state.unit}`;
 				const oldUnitClass = `${GRID_PREFIX}-select-${e.changes.unit.oldValue}`;
-				
+
 				view.removeClass(oldUnitClass);
 				view.addClass(newUnitClass);
 			}
@@ -67,9 +67,7 @@ export class SelectionView extends View {
 			if (e.hasChanges('unit') || e.hasChanges('mode')) {
 				if (!e.hasChanges('items')) {
 					this.selectionState.clear();
-					model.selection({
-						items: []
-					}, {
+					model.selection({ items: [] }, {
 						source: 'selection.view'
 					});
 
@@ -304,9 +302,7 @@ export class SelectionView extends View {
 
 			return () => {
 				const items = this.selectionService.map(selectionState.entries());
-				this.model.selection({
-					items: items
-				}, {
+				this.model.selection({ items }, {
 					source: 'selection.view'
 				});
 			};
@@ -331,9 +327,7 @@ export class SelectionView extends View {
 
 			return () => {
 				const items = this.selectionService.map(selectionState.entries());
-				this.model.selection({
-					items: items
-				}, {
+				this.model.selection({ items }, {
 					source: 'selection.view'
 				});
 			};
@@ -344,7 +338,7 @@ export class SelectionView extends View {
 
 	state(item) {
 		if (!arguments.length) {
-			item = this.rows;
+			return !!this.selectionState.stateAll(this.rows);
 		}
 
 		return this.selectionState.state(item) === true;
@@ -352,7 +346,7 @@ export class SelectionView extends View {
 
 	isIndeterminate(item) {
 		if (!arguments.length) {
-			item = this.rows;
+			return this.selectionState.stateAll(this.rows) === null;
 		}
 
 		return this.selectionState.state(item) === null;
