@@ -1,6 +1,6 @@
 /*eslint-disable  no-console, no-unused-vars, no-undef*/
 
-const ENV = '' + ENV || 'production';
+const ENV = '' + ENV;
 
 function info(source, message) {
 	console.info(`qgrid.${source}: ${message}`);
@@ -21,4 +21,4 @@ export class Log {
 
 /*eslint-enable*/
 
-Log.info = ENV.indexOf('prod') >= 0 ? () => { } : info;
+Log.info = ENV.indexOf('dev') >= 0 ? info : () => { };

@@ -18,7 +18,7 @@ export default function Handler($log, $injector) {
 
 	return (exception, cause = 'qgrid') => {
 		$log.error(exception, cause);
-		if (ENV.indexOf('prod') < 0) {
+		if (ENV.indexOf('dev') >= 0) {
 			debugger;
 		}
 
