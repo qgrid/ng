@@ -19,10 +19,10 @@ $duration: 0.15s;
     transition: all $duration;
     position: absolute;
     pointer-events: none;
-    outline: 2px solid rgba(63, 81, 181, 0.25);
+    outline: 2px solid red;
     outline-offset: -2px;
-    display: none;
+   // display: none;
     &.q-grid-active {
-        display: block;
+     //   display: block;
     }
 }
