@@ -25,7 +25,7 @@
 		.q-grid-view {
 			thead tr th {
 				color: $dark-header;
-				&.q-grid-focus {
+				&.q-grid-focused {
 					outline: 2px solid $dark-focused;
 				}
 				&.q-grid-sorted {
@@ -54,7 +54,7 @@
 				&.q-grid-highlighted {
 					background-color: $dark-accent;
 				}
-				&.q-grid-focus {
+				&.q-grid-focused {
 					outline: 2px solid $dark-focused;
 				}
 				&.q-grid-sorted {

@@ -1,4 +1,4 @@
-<q-grid:column-sort ng-if="$cell.column.canSort"
+<q-grid:column-sort ng-if="::$cell.column.canSort"
                     column="$cell.column"
                     class="q-grid-sort">
 	<label>
@@ -6,7 +6,11 @@
 		{{$cell.column.title}}
 	</label>
 </q-grid:column-sort>
-<q-grid:column-filter ng-if="$cell.column.canFilter"
+<label ng-if="::!$cell.column.canSort">
+    <md-tooltip md-delay="1000">{{$cell.column.title}}</md-tooltip>
+    {{$cell.column.title}}
+</label>
+<q-grid:column-filter ng-if="::$cell.column.canFilter"
                       class="q-grid-column-filter-trigger"
                       key="$cell.column.key"
                       title="{{$cell.column.title}}"

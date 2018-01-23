@@ -1,8 +1,10 @@
+@import "variables";
+
 &.q-grid-box:not(.q-grid-drag) {
 	td,
 	tr {
 		&.q-grid-highlighted {
-			background-color: #eee;
+			background-color: $highlighted;
 		}
 	}
 }

@@ -14,7 +14,7 @@ class HeadCore extends Directive(HEAD_CORE_NAME, {view: `^^${VIEW_CORE_NAME}`, r
 	}
 
 	onInit() {
-		const ctrl = new HeadCtrl(this.view, this.root.bag);
+		const ctrl = new HeadCtrl(this.root.model, this.view, this.root.bag);
 		const listener = new EventListener(this.element, new EventManager(this));
 		this.using(listener.on('mousemove', e => ctrl.onMouseMove(e)));
 		this.using(listener.on('mouseleave', e => ctrl.onMouseLeave(e)));

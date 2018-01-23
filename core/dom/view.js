@@ -1,5 +1,5 @@
-import {Unit} from './unit';
-import {FakeElement} from './fake/element';
+import { Unit } from './unit';
+import { FakeElement } from './fake/element';
 import * as css from '../services/css';
 
 function isParentOf(parent, element) {
@@ -136,7 +136,21 @@ export class View extends Unit {
 	rect(area = 'body') {
 		const markup = this.markup;
 		const element = markup[area];
-		return element ? element.getBoundingClientRect() : super.rect();
+		if (element) {
+			// TODO: get rid of that
+			const rect = element.getBoundingClientRect();
+
+			// Get rect without scrolls
+			const width = element.clientWidth;
+			const height = element.clientHeight;
+			const left = rect.left;
+			const top = rect.top;
+			const right = left + width;
+			const bottom = top + height;
+			return { left, top, right, bottom, width, height };
+		}
+
+		return super.rect();
 	}
 
 	getElementCore() {

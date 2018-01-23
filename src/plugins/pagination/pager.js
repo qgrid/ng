@@ -78,6 +78,10 @@ class Pager extends Plugin {
 				panelRef = result;
 			});
 	}
+
+	get resource() {
+		return this.model.pagination().resource;
+	}
 }
 
 export default Pager.component({
