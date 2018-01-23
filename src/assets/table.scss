@@ -15,7 +15,6 @@
 			flex: 0 0 auto;
 			width: calc(100% - 8px);
 			overflow: hidden;
-			z-index: 1;
 		}
 
 		tbody {
@@ -26,7 +25,7 @@
 			overflow-x: scroll;
 			outline: none;
 			overflow-anchor: none;
-			z-index: 0;
+
 		}
 
 		tbody tr {
