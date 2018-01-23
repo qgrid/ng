@@ -46,9 +46,6 @@ export class BodyCtrl extends View {
 		}
 	}
 
-	onClick(e) {
-	}
-
 	onMouseDown(e) {
 		const selectionState = this.selection;
 		if (selectionState.area !== 'body') {
