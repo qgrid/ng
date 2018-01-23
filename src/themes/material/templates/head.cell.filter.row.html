@@ -4,6 +4,6 @@
 	<input type="text"
 	       ng-init="search=''"
 	       ng-model="search"
-	       ng-change="$view.head.filter.execute({source: $cell.column, search: search })"
+	       ng-change="$view.head.filter.execute($cell.column.model, search)"
 	       placeholder="Filter {{::$cell.column.title}}" />
 </md-input-container>
