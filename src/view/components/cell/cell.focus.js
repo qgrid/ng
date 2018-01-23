@@ -7,7 +7,7 @@ class CellFocus extends Component {
 		super();
 
 		this.element = $element[0];
-		this.job = jobLine(200);
+		this.job = jobLine(150);
 	}
 
 	onInit() {
