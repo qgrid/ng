@@ -7,8 +7,15 @@ tbody {
 
 tfoot,
 tbody {
-    tr:not(:first-child) {
-        border-top: 1px solid $dark-divider;
+    tr {
+        td {
+            border-top: 1px solid $dark-divider;
+        }
+    }
+    tr:nth-child(2) {
+        td {
+            border-top: 0;
+        }
     }
 }
 
