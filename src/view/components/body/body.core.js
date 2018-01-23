@@ -46,7 +46,6 @@ class BodyCore extends Directive(BODY_CORE_NAME, {
 		this.using(listener.on('mouseup', ctrl.onMouseUp.bind(ctrl)));
 		this.using(listener.on('mousemove', ctrl.onMouseMove.bind(ctrl)));
 		this.using(listener.on('mouseleave', ctrl.onMouseLeave.bind(ctrl)));
-		this.using(listener.on('click', ctrl.onClick.bind(ctrl)));
 
 		this.using(this.view.model.selectionChanged.on(e => {
 			if (e.hasChanges('items')) {

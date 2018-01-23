@@ -47,15 +47,6 @@ export class BodyCtrl extends View {
 	}
 
 	onClick(e) {
-		const pathFinder = new PathService(this.bag.body);
-		const cell = pathFinder.cell(e.path);
-		if (cell) {
-			this.select(cell);
-			this.navigate(cell);
-			if (cell.column.editorOptions.trigger === 'click' && this.view.edit.cell.enter.canExecute(cell)) {
-				this.view.edit.cell.enter.execute(cell);
-			}
-		}
 	}
 
 	onMouseDown(e) {
@@ -114,9 +105,19 @@ export class BodyCtrl extends View {
 			.forEach(i => highlightRow.execute(i, false));
 	}
 
-	onMouseUp() {
+	onMouseUp(e) {
 		if (this.selection.mode === 'range') {
 			this.rangeStartCell = null;
+		}
+
+		const pathFinder = new PathService(this.bag.body);
+		const cell = pathFinder.cell(e.path);
+		if (cell) {
+			this.select(cell);
+			this.navigate(cell);
+			if (cell.column.editorOptions.trigger === 'click' && this.view.edit.cell.enter.canExecute(cell)) {
+				this.view.edit.cell.enter.execute(cell);
+			}
 		}
 	}
 

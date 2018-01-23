@@ -6,7 +6,6 @@ export declare class BodyCtrl extends View {
 
 	onScroll(e: any);
 	onWheel(e: any);
-	onClick(e: MouseEvent);
 	onMouseDown(e: MouseEvent);
 	onMouseMove(e: MouseEvent);
 	onMouseLeave(e: MouseEvent);
