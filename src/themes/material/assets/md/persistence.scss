@@ -1,4 +1,5 @@
-@import "../../assets/scroll.scss";
+@import "../../assets/scroll";
+@import "../variables";
 @at-root .q-grid-persistence-panel {
 	@include scroll();
 	width: 400px;
@@ -37,7 +38,7 @@
 					margin: 5px 0 0 0 !important;
 					line-height: 14px;
 					font-size: 14px;
-					color: rgba(0, 0, 0, 0.54);
+					color: $dark-secondary;
 				}
 			}
 			.q-grid-more {
@@ -73,7 +74,7 @@
 						vertical-align: middle;
 						font-size: 12px;
 						line-height: 12px;
-						color: rgba(0, 0, 0, 0.54);
+						color: $dark-secondary;
 						margin-right: 4px;
 						&.q-grid-tag {
 							background-color: #e0e0e0;
