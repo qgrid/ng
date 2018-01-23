@@ -1,6 +1,6 @@
 @import "variables";
 td.q-grid-sorted {
-    background-color: $selected;
+    background-color: $selected !important;
 }
 
 th.q-grid-can-sort {
