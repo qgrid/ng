@@ -13,8 +13,8 @@ describe('rest plugin', () => {
 		model = new Model();
 		service = new GridService(model);
 		config = null;
-		get = chai.spy((url, params) => new Promise(resolve => resolve([])));
-		post = chai.spy((url, params) => new Promise(resolve => resolve([])));
+		get = chai.spy((url, params) => new Promise(resolve => resolve({data: []})));
+		post = chai.spy((url, params) => new Promise(resolve => resolve({data: []})));
 	});
 
 	describe('configuration', () => {

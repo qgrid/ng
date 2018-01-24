@@ -24,7 +24,7 @@ export class Rest extends PluginView {
 			pipe: [
 				(data, context, next) => {
 					fetch(settings.url, serialize(model))
-						.then(data => next(data));
+						.then(data => next(data.data));
 				},
 				...PipeUnit.view
 			]
