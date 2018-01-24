@@ -6,6 +6,7 @@ export class HeadCtrl extends View {
 	constructor(model, view, bag) {
 		super();
 
+		this.model = model;
 		this.view = view;
 		this.bag = bag;
 		this.column = null;
@@ -45,6 +46,10 @@ export class HeadCtrl extends View {
 		this.x = e.clientX;
 		this.y = e.clientY;
 
+		if(this.model.scene().status === 'start'){
+			return;
+		}
+		
 		const cell = this.pathFinder.cell(e.path);
 		if (cell) {
 			this.highlight(cell.column);

@@ -7,6 +7,10 @@ th.q-grid-can-sort {
     label {
         cursor: pointer;
     }
+    .q-grid-desc,
+    .q-grid-asc {
+        display: block;
+    }
 }
 
 &.q-grid-box:not(.q-grid-drag) {
@@ -22,6 +26,10 @@ th.q-grid-can-sort {
 }
 
 th {
+    .q-grid-desc,
+    .q-grid-asc {
+        display: none;
+    }
     .q-grid-sort {
         overflow: hidden;
         text-overflow: ellipsis;
