@@ -1,0 +1,494 @@
+$group-op-color: #3eb1c8;
+$condition-op-color: #666;
+$field-color: #444;
+$operand-color: #666;
+$label-color: #888;
+$value-color: #a11;
+$error-border: #ed2124;
+
+$cb-font-size: 13px;
+$cb-node-height: 14px;
+$line-height: 14px;
+$btn-size: 14px;
+$input-width: 72px;
+$expr-margin: 2px;
+
+& > ul.expression-builder-node,
+.expression > ul.expression-builder-node > li > ul.expression-builder-node {
+	padding-left: 0 !important;
+}
+
+.md-autocomplete-suggestions {
+	li {
+		height: 30px;
+		font-size: 12px;
+		line-height: 30px;
+	}
+}
+
+md-option.condition-builder-option {
+	height: 30px;
+	.md-text {
+		font-size: 12px;
+		transform: none;
+	}
+}
+
+ul.expression-builder-node.placeholder {
+	opacity: .5;
+	&:hover {
+		opacity: .8;
+	}
+}
+
+ul.expression-builder-node {
+	white-space: nowrap;
+	list-style-type: none;
+	margin: 5px 0 0 0;
+	padding-left: 10px;
+	font-size: 0;
+
+	ul.expression-builder-group {
+		list-style-type: none;
+		display: inline;
+		font-size: 0;
+	}
+
+	li {
+		display: inline;
+		line-height: $cb-node-height;
+		font-size: 0;
+
+		.cb-operation {
+			.md-text {
+				color: $group-op-color !important;
+				transform: none;
+			}
+		}
+
+		.cb-operation.field {
+			.md-text {
+				color: $field-color !important;
+				transform: none;
+			}
+		}
+
+		.md-select-value {
+			overflow: hidden;
+			padding: 0;
+			font-size: $cb-font-size;
+			min-width: initial;
+			height: $cb-node-height;
+			min-height: $cb-node-height;
+			border-bottom: 0;
+
+			md-icon {
+				display: none;
+			}
+
+			> span {
+				transform: none;
+				.md-text {
+					transform: none;
+				}
+			}
+
+			.md-select-icon {
+				display: none;
+			}
+		}
+
+		.cb-operand {
+			.md-select-value {
+				.md-text {
+					color: $operand-color !important;
+				}
+			}
+		}
+
+		ul.expression-builder-node {
+			height: auto;
+		}
+
+		md-select.condition-builder-select {
+			display: inline-flex;
+			margin: 0;
+			margin-left: $expr-margin;
+			margin-right: $expr-margin;
+			height: $cb-node-height;
+			cursor: pointer;
+
+			md-option {
+				height: 30px;
+				.md-text {
+					font-size: $cb-font-size;
+					transform: none;
+				}
+			}
+
+			.md-select-value {
+				.md-text {
+					color: $operand-color;
+				}
+			}
+		}
+
+		.condition-builder-multilist {
+			.multilist-container {
+
+				.multilist-item {
+					min-width: 40px;
+
+					md-autocomplete-wrap {
+						box-shadow: none;
+						min-width: inherit !important;
+
+						input {
+							min-width: inherit !important;
+						}
+					}
+
+					button {
+						display: none;
+					}
+				}
+
+				.delimiter {
+					font-size: medium;
+				}
+			}
+		}
+
+		md-chips {
+			margin: 0;
+			display: inline-flex;
+			height: $line-height;
+			line-height: $line-height;
+
+			&.invalid {
+				md-chips-wrap {
+					//border-bottom-color: $growl-error-border !important;
+				}
+			}
+
+			md-chips-wrap {
+
+				height: $line-height;
+				line-height: $line-height;
+				border-bottom-style: dashed;
+				border-bottom-color: rgba(0, 0, 0, 0.5);
+				border-bottom-width: thin;
+				padding: 0;
+				margin: 0;
+				font-size: $cb-font-size;
+				min-width: $input-width;
+				width: auto;
+				box-shadow: none;
+				display: flex;
+
+				&.md-focused {
+					box-shadow: none;
+					//border-bottom: 1px dashed rgba(67, 177, 200, 1) !important;
+				}
+
+				> div {
+					margin: 0 !important;
+					height: $line-height;
+					line-height: $line-height;
+
+					md-autocomplete {
+						md-autocomplete-wrap {
+							input {
+								border: 0;
+								& + button {
+									display: none;
+								}
+							}
+						}
+					}
+				}
+
+				md-chip {
+					border: 0;
+					background-color: transparent;
+					margin: 0 !important;
+					padding: 0 !important;
+					height: $cb-node-height;
+					display: inline-flex;
+
+					&.md-focused {
+						background-color: transparent;
+					}
+
+					.md-chip-remove-container {
+						height: $line-height;
+						line-height: $line-height !important;
+						.md-chip-remove {
+							md-icon {
+								position: relative;
+								transform: none;
+								top: 0;
+								left: 0;
+								font-size: 10px;
+								width: 10px;
+								height: 10px;
+								min-width: 10px;
+								min-height: 10px;
+								vertical-align: baseline;
+							}
+						}
+					}
+
+					.md-chip-content {
+						font-size: $cb-font-size;
+						height: $line-height;
+						line-height: $line-height;
+						padding-right: $cb-node-height !important;
+					}
+				}
+			}
+
+		}
+
+		md-autocomplete {
+			display: inline-flex;
+			height: $cb-node-height;
+			margin: 0;
+			margin-left: $expr-margin;
+			margin-right: $expr-margin;
+			padding: 0;
+			max-width: none;
+			min-width: $input-width;
+			width: $input-width;
+			background-color: transparent;
+			border: none;
+			border-radius: 0;
+			cursor: pointer;
+
+			&.has-value {
+				min-width: inherit !important;
+				md-autocomplete-wrap {
+					min-width: inherit !important;
+					input {
+						min-width: inherit !important;
+					}
+				}
+			}
+
+			&.invalid {
+				input:not(.md-input) {
+					//border-bottom-color: $growl-error-border;
+				}
+			}
+
+			md-autocomplete-wrap {
+
+				max-width: none;
+				width: 100%;
+				min-width: $input-width;
+				height: $line-height !important;
+				input {
+					width: 100%;
+					max-width: none !important;
+					min-width: $input-width;
+					height: $line-height !important;
+					line-height: $line-height;
+					font-size: $cb-font-size;
+				}
+
+			}
+		}
+
+		.between {
+			width: $input-width;
+			max-width: $input-width;
+			min-width: $input-width;
+			md-autocomplete-wrap {
+				width: $input-width;
+				max-width: $input-width;
+				min-width: $input-width;
+			}
+		}
+
+		.condition-builder-label {
+			font-size: $cb-font-size;
+			color: $label-color;
+			font-weight: initial;
+			margin: 0;
+			padding: 0 2px 0 2px;
+		}
+
+		input:not(.md-input) {
+			height: $line-height;
+			line-height: $line-height;
+			border-bottom-style: dashed;
+			border-bottom-color: rgba(0, 0, 0, 0.5);
+			border-bottom-width: thin;
+			padding: 1px 0 0 0;
+			font-size: $cb-font-size;
+		}
+
+		input[type="search"]::-webkit-search-decoration,
+		input[type="search"]::-webkit-search-cancel-button,
+		input[type="search"]::-webkit-search-results-button,
+		input[type="search"]::-webkit-search-results-decoration {
+			display: none;
+		}
+
+		.condition-builder-multilist, .condition-builder-autocomplete {
+
+			md-autocomplete-wrap {
+				box-shadow: none;
+			}
+
+			button {
+				display: none;
+			}
+		}
+
+		button, button.md-chip-remove {
+			font-size: $cb-font-size;
+			height: $cb-node-height;
+			line-height: $line-height;
+			width: $cb-node-height;
+			padding: 0;
+			margin: 0;
+			min-height: $cb-node-height;
+			display: inline-block;
+
+			md-icon {
+				font-size: $cb-font-size;
+				height: $cb-node-height;
+				line-height: $line-height;
+				width: $cb-node-height;
+				padding: 0;
+				margin: 0;
+				text-rendering: optimizeLegibility;
+				vertical-align: bottom;
+				min-width: $cb-node-height;
+				min-height: $cb-node-height;
+			}
+		}
+
+		.cb-operand-and-label {
+			margin-right: $expr-margin;
+			margin-left: $expr-margin;
+		}
+	}
+
+}
+
+.md-select-menu-container.md-active {
+	z-index: 1000;
+}
+
+
+
+.md-autocomplete-suggestions {
+	li {
+		height: 30px;
+		font-size: 12px;
+		line-height: 30px;
+	}
+}
+
+md-option.condition-builder-option {
+	height: 30px;
+
+	md-icon {
+		height: 14px;
+		width: 14px;
+		min-height: 14px;
+		min-width: 14px;
+		font-size: 14px;
+		vertical-align: text-bottom;
+	}
+
+	.md-text {
+		font-size: 12px;
+	}
+}
+
+.expression-markup-line {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	line-height: 22px;
+	height: 25px;
+	white-space: normal;
+	word-wrap: break-word;
+
+	.expression-builder-node {
+		white-space: normal !important;
+		word-wrap: break-word;
+		display: inline;
+		margin: 0 !important;
+		padding: 0 !important;
+
+		md-select {
+			height: 25px !important;
+			min-height: 25px !important;
+			md-select-value {
+				height: 25px !important;
+				min-height: 25px !important;
+			}
+		}
+	}
+
+	.expression-builder-expression {
+		//font-size: 12px !important;
+	}
+}
+
+.expression-markup {
+	padding-top: 4px;
+	font-size: 12px;
+	background-color: #eaf5f8;
+	padding: 10px;
+
+	span {
+		word-break: break-word;
+	}
+
+	.markup-node, .markup-node-left, .markup-node-right {
+		display: inline;
+	}
+
+	.markup-group-op {
+		color: $group-op-color;
+		text-transform: uppercase;
+	}
+
+	.markup-group-open,
+	.markup-group-close,
+	.markup-condition-open,
+	.markup-condition-close {
+		color: $label-color;
+	}
+
+	.markup-condition-left {
+		color: $label-color;
+	}
+
+	.markup-condition-quote {
+		color: #a11;
+	}
+
+	.markup-condition-op {
+		color: $condition-op-color;
+		text-transform: uppercase;
+	}
+
+	.markup-condition-value-text {
+		color: $value-color !important;
+	}
+
+	.markup-condition-value,
+	.markup-condition-value {
+		color: #000;
+	}
+
+	.markup-condition-error {
+		background-color: rgba(255, 0, 0, .6);
+		color: #fff !important;
+	}
+}

@@ -12,6 +12,7 @@ import Drop from './components/dnd/drop';
 import Layer from './components/layer/layer';
 import CellValue from './components/cell/cell.value';
 import Row from './components/row/row';
+import CellFocus from './components/cell/cell.focus';
 
 import BoxCore from './components/grid/box.core';
 import ViewCore from './components/view/view.core';
@@ -37,6 +38,7 @@ import Position from './directives/position';
 import Autofocus from './directives/autofocus';
 import StopPropagate from './directives/stop.propagate';
 import PreventDefault from './directives/prevent.default';
+import Autosize from './directives/autosize';
 
 import ThemeProvider from './services/theme';
 import Range from './filters/range';
@@ -45,6 +47,7 @@ import Pretty from './filters/prettify';
 
 import * as def from './definition';
 require('vscroll'); // TODO: make vscroll export
+require('ng-expression-builder');
 
 export const coreModule = angular.module(def.MODULE_CORE_NAME, []) // eslint-disable-line no-undef
 	.directive(def.DRAG_NAME, () => Drag)
@@ -60,6 +63,7 @@ export const coreModule = angular.module(def.MODULE_CORE_NAME, []) // eslint-dis
 	.directive(def.AUTOFOCUS_NAME, () => Autofocus)
 	.directive(def.STOP_PROPAGATE_NAME, () => StopPropagate)
 	.directive(def.PREVENT_DEFAULT_NAME, () => PreventDefault)
+	.directive(def.AUTOSIZE_NAME, () => Autosize)
 	.provider(def.THEME_NAME, () => new ThemeProvider())
 	.service(def.TEMPLATE_PATH_NAME, () => () => TemplatePath)
 	.filter(def.RANGE_NAME, () => Range)
@@ -88,6 +92,7 @@ export const layoutModule = angular.module(def.MODULE_LAYOUT_NAME, [coreModule])
 	.component(def.TOOLBAR_NAME, Toolbar)
 	.component(def.TOOLBAR_CORE_NAME, ToolbarCore)
 	.component(def.ROW_NAME, Row)
+	.component(def.CELL_FOCUS_NAME, CellFocus)
 	.directive(def.TEMPLATE_NAME, () => Template)
 	.directive(def.MARKUP_NAME, () => Markup)
 	.directive(def.TR_CORE_NAME, () => TrCore)

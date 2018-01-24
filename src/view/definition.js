@@ -26,14 +26,12 @@ export const HEAD_CORE_NAME = `${GRID_CORE}Head`;
 export const BODY_CORE_NAME = `${GRID_CORE}Body`;
 export const FOOT_CORE_NAME = `${GRID_CORE}Foot`;
 export const TOOLBAR_CORE_NAME = `${GRID_CORE}Toolbar`;
-export const ROW_DETAILS_CORE_NAME = `${GRID_CORE}Details`;
 
 export const HEAD_NAME = `${GRID}Head`;
 export const TEMPLATE_NAME = `${GRID}Template`;
 export const COLUMN_LIST_NAME = `${GRID}Columns`;
 export const COLUMN_NAME = `${GRID}Column`;
 export const ROW_NAME = `${GRID}Row`;
-export const NODE_NAME = `${GRID}Node`;
 export const FOOT_NAME = `${GRID}Foot`;
 export const DRAG_NAME = `${GRID}Drag`;
 export const DROP_NAME = `${GRID}Drop`;
@@ -42,6 +40,7 @@ export const TOOLBAR_NAME = `${GRID}Toolbar`;
 export const ROW_DETAILS_NAME = `${GRID}Details`;
 export const LAYER_NAME = `${GRID}Layer`;
 export const CELL_VALUE_NAME = `${GRID}CellValue`;
+export const CELL_FOCUS_NAME = `${GRID}CellFocus`;
 
 export const CAN_DROP_NAME = `${GRID}CanDrop`;
 export const CAN_DRAG_NAME = `${GRID}CanDrag`;
@@ -57,6 +56,7 @@ export const POSITION_NAME = `${GRID}Position`;
 export const AUTOFOCUS_NAME = `${GRID}Autofocus`;
 export const STOP_PROPAGATE_NAME = `${GRID}StopPropagate`;
 export const PREVENT_DEFAULT_NAME = `${GRID}PreventDefault`;
+export const AUTOSIZE_NAME = `${GRID}Autosize`;
 
 export const FILE_UPLOAD_NAME = `${GRID}FileUpload`;
 export const FILE_UPLOAD_LABEL_NAME = `${GRID}FileUploadLabel`;

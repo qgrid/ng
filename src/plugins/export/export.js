@@ -10,6 +10,7 @@ TemplatePath
 			resource: template.for
 		};
 	});
+
 const Plugin = PluginComponent('export');
 
 class Export extends Plugin {

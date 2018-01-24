@@ -16,9 +16,7 @@ export default function Handler($log, $injector) {
 
 	return (exception, cause = 'qgrid') => {
 		$log.error(exception, cause);
-		if (!ENV.PRODUCTION) {
-			debugger;
-		}
+		debugger;
 
 		const toast = getToast();
 		toast.show(

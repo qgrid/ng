@@ -24,6 +24,7 @@ export const ACTION_NAME = `${GRID}Action`;
 export const ACTION_CORE_NAME = `${GRID}ActionCore`;
 export const CELL_EDITOR_NAME = `${GRID}CellEditor`;
 export const BACKDROP_NAME = `${GRID}Backdrop`;
+export const COLUMN_SORT_NAME = `${GRID}ColumnSort`;
 
 export const POPUP_NAME = `${GRID}Popup`;
 export const POPUP_TRIGGER_NAME = `${GRID}PopupTrigger`;
@@ -45,3 +46,8 @@ export const LEGEND_CORE_NAME = `${GRID}LegendCore`;
 export const VALIDATION_NAME = `${GRID}Validation`;
 export const VALIDATOR_NAME = `${GRID}Validator`;
 export const RULE_NAME = `${GRID}Rule`;
+
+export const REST_NAME = `${GRID}Rest`;
+
+export const EXPRESSION_BUILDER_NAME = `${GRID}ExpressionBuilder`;
+export const EXPRESSION_BUILDER_FACTORY = `${GRID}ExpressionBuilderFactory`;

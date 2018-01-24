@@ -1,9 +1,9 @@
 import {PluginView} from '../plugin.view';
-import {Command} from '@grid/core/command';
-import * as columnService from '@grid/core/column/column.service';
-import {getFactory as labelFactory} from '@grid/core/services/label';
-import {clone} from '@grid/core/utility';
-import {Event} from '@grid/core/infrastructure';
+import {Command} from '../../core/command';
+import * as columnService from '../../core/column/column.service';
+import {getFactory as labelFactory} from '../../core/services/label';
+import {clone} from '../../core/utility';
+import {Event} from '../../core/infrastructure';
 
 export class ColumnFilterView extends PluginView {
 	constructor(model, context) {
@@ -75,13 +75,13 @@ export class ColumnFilterView extends PluginView {
 					const by = clone(filter().by);
 					const items = Array.from(this.by);
 					if (items.length) {
-						by[this.key] = {items: items};
+						by[this.key] = {items};
 					}
 					else {
 						delete by[this.key];
 					}
 
-					filter({by: by});
+					filter({by});
 
 					this.submitEvent.emit();
 				}
@@ -95,7 +95,7 @@ export class ColumnFilterView extends PluginView {
 			reset: new Command({
 				source: 'column.filter.view',
 				execute: () => {
-					this.by = new Set([]);
+					this.by = new Set();
 					this.resetEvent.emit();
 				}
 			}),

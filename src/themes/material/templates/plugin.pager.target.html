@@ -1,0 +1,17 @@
+<div class="q-grid-pager-target q-grid-popup-panel"
+     layout="column"
+     flex="100">
+	<md-card>
+		<md-card-content>
+			<md-input-container class="q-grid-input-container">
+				<input type="number"
+				       ng-model="$pager.target"
+					   q-grid:focus					   
+				       ng-min="1"
+				       ng-max="$pager.totalPages"
+					   ng-step="1"
+					   placeholder="Go to page:" />
+			</md-input-container>
+		</md-card-content>
+	</md-card>
+</div>

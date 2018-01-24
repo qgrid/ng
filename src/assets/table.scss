@@ -25,6 +25,7 @@
 			overflow-x: scroll;
 			outline: none;
 			overflow-anchor: none;
+
 		}
 
 		tbody tr {
@@ -33,6 +34,7 @@
 			table-layout: fixed;
 			&.q-grid-align {
 				height: 0 !important;
+				border: 0;
 			}
 		}
 	}
