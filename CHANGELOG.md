@@ -6,11 +6,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ## [Unreleased]
 - Shortcut keycode can be a sequence.
 - Fix navigation behavior for row groups.
-- Brand new documentation.
 - Edit form performance improvements.
 - Revisit drop-down editor.
-- Column filter for date types. 
+- Column filter for date types.
+- Data manipulation array marks as dirty when enter edit mode.
+- Menu panels should fit screen sizes.
+- Convert form editiing popup to menu.
+
 - 107+ JIRA tasks :-)
+
+## [1.3.0] - 2018-01-24
 
 ## [1.2.0] - 2017-12-01
 ### Added
@@ -194,7 +199,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Action bar plugin.
 - Data manipulation plugin.
 
-[Unreleased]: https://github.com/qgrid/ng/compare/v1.2.0...HEAD
+[Unreleased]: https://github.com/qgrid/ng/compare/v1.3.0...HEAD
+[1.2.0]: https://github.com/qgrid/ng/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/qgrid/ng/compare/v1.1.3...v1.2.0
 [1.1.3]: https://github.com/qgrid/ng/compare/v1.1.2...v1.1.3
 [1.1.2]: https://github.com/qgrid/ng/compare/v1.1.1...v1.1.2
