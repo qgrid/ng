@@ -112,6 +112,15 @@ export class View extends Unit {
 		return this.getElement().scrollTop;
 	}
 
+	scrollHeight(value) {
+		if (arguments.length) {
+			this.getElementsCore('body')
+				.forEach(element => element.scrollTop = value);
+		}
+
+		return this.getElement().scrollHeight;
+	}
+
 	canScrollTo(target, direction) {
 		if (target && !(target.element instanceof FakeElement)) {
 			switch (direction) {
@@ -151,6 +160,26 @@ export class View extends Unit {
 		}
 
 		return super.rect();
+	}
+
+	height(area = 'body') {
+		const markup = this.markup;
+		const element = markup[area];
+		if (element) {
+			return element.clientHeight;
+		}
+
+		return 0;
+	}
+
+	width(area = 'body') {
+		const markup = this.markup;
+		const element = markup[area];
+		if (element) {
+			return element.clientWidth;
+		}
+
+		return 0;
 	}
 
 	getElementCore() {
