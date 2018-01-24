@@ -61,6 +61,10 @@
 			{
 				"title": "Various Data Source",
 				"path": "data-sources"
+			},
+			{
+				"title": "Rest Plugin",
+				"path": "rest-plugin"
 			}
 		]
 	},
