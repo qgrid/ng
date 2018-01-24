@@ -15,7 +15,31 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 - 107+ JIRA tasks :-)
 
-## [1.3.0] - 2018-01-24
+## [1.3.1] - 2018-01-24
+### Added
+- Added comments to core d.ts files.
+- `Blank` button in persistence plugin to load empty configuration.
+- Possibility to choose page in the `pager`.
+- `Clear` button to the column filter plugin.
+- Micro animations for columns sort and cell navigation.
+- Added possibility to resize rows `<q-grid-row canResize="true">.
+- Added possibility to drag rows `<q-grid-row canDrag="true">.
+- Reducer property to `pipe.model`.
+- [Rest plugin](https://qgrid.github.io/ng/#!/rest).
+
+### Changed
+- Style name for the focused cell `q-grid-focus` -> `q-gird-focused`.
+- Refactor styles to the common format.
+- Move common functionality from framework specific components to core.
+- Put core under the root folder.
+- Remove global `ENV` variable.
+- Remove rgba from cell border styles, it works badly in `collapse` mode.
+
+### Fixed
+- Scroll top/left calculations on cell navigation.
+- View rect value.
+- Call digest on start invalidate.
+- `Select All` perfomance.
 
 ## [1.2.0] - 2017-12-01
 ### Added
@@ -199,8 +223,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Action bar plugin.
 - Data manipulation plugin.
 
-[Unreleased]: https://github.com/qgrid/ng/compare/v1.3.0...HEAD
-[1.2.0]: https://github.com/qgrid/ng/compare/v1.2.0...v1.3.0
+[Unreleased]: https://github.com/qgrid/ng/compare/v1.3.1...HEAD
+[1.2.0]: https://github.com/qgrid/ng/compare/v1.2.0...v1.3.1
 [1.2.0]: https://github.com/qgrid/ng/compare/v1.1.3...v1.2.0
 [1.1.3]: https://github.com/qgrid/ng/compare/v1.1.2...v1.1.3
 [1.1.2]: https://github.com/qgrid/ng/compare/v1.1.1...v1.1.2
