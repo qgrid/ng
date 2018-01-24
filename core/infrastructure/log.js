@@ -4,7 +4,7 @@ export class Log {
 	constructor() {
 	}
 
-	static info(source, message) {
+	static info() {
 		// console.info(`qgrid.${source}: ${message}`);
 	}
 
