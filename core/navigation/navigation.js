@@ -260,15 +260,15 @@ export class Navigation {
 				shortcut: shortcut.home,
 				canExecute: () => {
 					if (canNavigate()) {
-						const newRow = this.prevRow;
-						return newRow >= 0 && go.canExecute(this.context('home', { newRow }));
+						const newColumn = this.prevColumn;
+						return newColumn >= 0 && go.canExecute(this.context('end', { newColumn }));
 					}
 
 					return false;
 				},
 				execute: () => {
-					const newRow = this.firstRow;
-					const newColumn = this.currentColumn;
+					const newRow = this.currentRow;
+					const newColumn = this.firstColumn;
 					return go.execute(this.context('home', { newRow, newColumn })) && this.goTo(newRow, newColumn);
 				}
 			}),
@@ -277,8 +277,42 @@ export class Navigation {
 				shortcut: shortcut.end,
 				canExecute: () => {
 					if (canNavigate()) {
+						const newColumn = this.nextColumn;
+						return newColumn >= 0 && go.canExecute(this.context('home', { newColumn }));
+					}
+
+					return false;
+				},
+				execute: () => {
+					const newRow = this.currentRow;
+					const newColumn = this.lastColumn;
+					return go.execute(this.context('end', { newRow, newColumn })) && this.goTo(newRow, newColumn);
+				}
+			}),
+			upward: new Command({
+				source: 'navigation',
+				shortcut: shortcut.upward,
+				canExecute: () => {
+					if (canNavigate()) {
+						const newRow = this.prevRow;
+						return newRow >= 0 && go.canExecute(this.context('upward', { newRow }));
+					}
+
+					return false;
+				},
+				execute: () => {
+					const newRow = this.firstRow;
+					const newColumn = this.currentColumn;
+					return go.execute(this.context('upward', { newRow, newColumn })) && this.goTo(newRow, newColumn);
+				}
+			}),
+			downward: new Command({
+				source: 'navigation',
+				shortcut: shortcut.downward,
+				canExecute: () => {
+					if (canNavigate()) {
 						const newRow = this.nextRow;
-						return newRow >= 0 && go.canExecute(this.context('end', { newRow }));
+						return newRow >= 0 && go.canExecute(this.context('downward', { newRow }));
 					}
 
 					return false;
@@ -286,7 +320,7 @@ export class Navigation {
 				execute: () => {
 					const newRow = this.lastRow;
 					const newColumn = this.currentColumn;
-					return go.execute(this.context('end', { newRow, newColumn })) && this.goTo(newRow, newColumn);
+					return go.execute(this.context('downward', { newRow, newColumn })) && this.goTo(newRow, newColumn);
 				}
 			}),
 			pageUp: new Command({

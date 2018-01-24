@@ -3,6 +3,7 @@ import {Command} from '../command';
 export class NavigationModel {
 	constructor() {
 		this.cell = null;
+		
 		this.shortcut = {
 			up: 'up',
 			down: 'down',
@@ -14,6 +15,8 @@ export class NavigationModel {
 			end: 'end',
 			pageUp: 'pageUp',
 			pageDown: 'pageDown',
+			upward: 'shift+pageUp',
+			downward: 'shift+pageDown'
 		};
 
 		this.go = new Command({source: 'navigation.model'});
