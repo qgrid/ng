@@ -1,13 +1,11 @@
-/*eslint-disable  no-console, no-unused-vars, no-undef*/
-
-const ENV = '' + window.ENV;
-
-function info(source, message) {
-	console.info(`qgrid.${source}: ${message}`);
-}
+/*eslint-disable  no-console*/
 
 export class Log {
 	constructor() {
+	}
+
+	static info(source, message) {
+		console.info(`qgrid.${source}: ${message}`);
 	}
 
 	static warn(source, message) {
@@ -20,5 +18,3 @@ export class Log {
 }
 
 /*eslint-enable*/
-
-Log.info = ENV.indexOf('dev') >= 0 ? info : () => { };

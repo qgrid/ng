@@ -46,9 +46,6 @@ module.exports = webpackMerge(commonConfig, {
 				compilation.errors.push(new Error(paths.join(' -> ')))
 			}
 		}),
-		new webpack.DefinePlugin({
-			'ENV': 'dev',
-		}),
 		new webpack.LoaderOptionsPlugin({
 			options: {
 				eslint: {

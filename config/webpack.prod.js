@@ -28,9 +28,6 @@ module.exports = webpackMerge(commonConfig, {
 	 * See: http://webpack.github.io/docs/configuration.html#plugins
 	 */
 	plugins: [
-		new webpack.DefinePlugin({
-			'ENV': JSON.stringify('production'),
-		}),
 		new webpack.LoaderOptionsPlugin({
 			options: {
 				eslint: {
