@@ -36,8 +36,7 @@ export class ViewCtrl extends View {
 
 		return (name, changes, units) => {
 			model.scene({ status: 'start', round: 0 }, {
-				source: 'view.ctrl',
-				behavior: 'core'
+				source: name
 			});
 
 			sessionUnits.push(...units);
