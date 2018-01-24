@@ -19,7 +19,8 @@ export default function Controller(qgrid, $timeout) {
 				title: 'Name',
 				key: 'group',
 				type: 'group',
-				width: '100%'
+				width: '100%',
+				widthMode: 'relative'
 			}],
 			pipe: [
 				qgrid.pipe.memo,

@@ -62,7 +62,7 @@ export default function Controller($http, qgrid) {
 		.then(function (response) {
 			ctrl.gridModel.data({
 				rows: response.data,
-				columns: columns
+				columns
 			});
 		});
 }

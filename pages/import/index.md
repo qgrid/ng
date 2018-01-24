@@ -20,7 +20,7 @@ Make work import from xlsx by installing http://github.com/SheetJS/js-xlsx libra
 	    <td>Takes one of supported formats as a value</td>
 	</tr>
     <tr>
-        <td>importOptions</td>
+        <td>Options</td>
         <td>Takes options object</td>
     </tr>
 </tbody>

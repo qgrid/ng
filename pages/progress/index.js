@@ -12,5 +12,5 @@ export default function Controller($http, $timeout, qgrid) {
 					rows: response.data
 				});
 				cancelBusy();
-			}), 1000);
+			}), 2000);
 }

@@ -59,7 +59,7 @@ export default function Controller($http, qgrid, $log) {
 	];
 
 	ctrl.gridModel.data({
-		columns: columns
+		columns
 	});
 
 	ctrl.gridModel

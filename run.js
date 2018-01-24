@@ -1,6 +1,8 @@
-export default function Run($rootScope, $location) {
+export default function Run($rootScope, $location, $route) {
 	let search = {};
 
+	$route.reload();
+	
 	const locationChangedOff =
 		$rootScope.$on('$locationChangeSuccess', () => {
 			const state = $location.search();
@@ -18,4 +20,4 @@ export default function Run($rootScope, $location) {
 	});
 }
 
-Run.$inject = ['$rootScope', '$location'];
+Run.$inject = ['$rootScope', '$location', '$route'];
