@@ -69,7 +69,7 @@ export default function Controller($http, qgrid) {
 			title: 'Teammates',
 			type: 'reference',
 			value: (item, value) => isUndef(value) ? item.teammates || [] : item.teammates = value,
-			label: (item) => (item.teammates || []).map(mate => `${mate.name.last} ${mate.name.first}`).join(', '),
+			label: item => (item.teammates || []).map(mate => `${mate.name.last} ${mate.name.first}`).join(', '),
 			editorOptions: {
 				modelFactory: () => {
 					const model = qgrid.model();

@@ -8,7 +8,7 @@ import { Shortcut } from '../shortcut/shortcut';
 export class GridCtrl extends View {
 	constructor(model, context) {
 		super(model);
-		
+
 		if (model.grid().status === 'bound') {
 			throw new AppError('grid', `Model is already used by grid "${model.grid().id}"`);
 		}
@@ -52,10 +52,13 @@ export class GridCtrl extends View {
 			return;
 		}
 
-		if (!this.model.edit().mode) {
-			e.preventDefault();
-			e.stopPropagation();
-			return;
+		if (e.target.tagName === 'TBODY') {
+			const code = Shortcut.translate(e);
+			const prevent = this.model.navigation().prevent;
+			if (prevent.has(code)) {
+				e.preventDefault();
+				return;
+			}
 		}
 	}
 
