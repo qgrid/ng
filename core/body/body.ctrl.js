@@ -1,13 +1,15 @@
 import { PathService } from '../path';
 import { View } from '../view/view';
 
+const MOUSE_LEFT_BUTTON = 1;
+
 export class BodyCtrl extends View {
 	constructor(model, view, bag) {
 		super(model);
 
 		this.view = view;
 		this.bag = bag;
-		this.rangeStartCell = null;		
+		this.rangeStartCell = null;
 	}
 
 	onScroll(e) {
@@ -47,20 +49,22 @@ export class BodyCtrl extends View {
 	}
 
 	onMouseDown(e) {
-		const selectionState = this.selection;
-		if (selectionState.area !== 'body') {
-			return;
-		}
+		if (e.which === MOUSE_LEFT_BUTTON) {
+			const selectionState = this.selection;
+			if (selectionState.area !== 'body') {
+				return;
+			}
 
-		const pathFinder = new PathService(this.bag.body);
-		const cell = pathFinder.cell(e.path);
+			const pathFinder = new PathService(this.bag.body);
+			const cell = pathFinder.cell(e.path);
 
-		const editMode = this.model.edit().mode;
-		if (selectionState.mode === 'range') {
-			if (!editMode) {
-				this.rangeStartCell = cell;
-				if (this.rangeStartCell) {
-					this.view.selection.selectRange(this.rangeStartCell, null, 'body');
+			const editMode = this.model.edit().mode;
+			if (selectionState.mode === 'range') {
+				if (!editMode) {
+					this.rangeStartCell = cell;
+					if (this.rangeStartCell) {
+						this.view.selection.selectRange(this.rangeStartCell, null, 'body');
+					}
 				}
 			}
 		}
@@ -103,17 +107,19 @@ export class BodyCtrl extends View {
 	}
 
 	onMouseUp(e) {
-		if (this.selection.mode === 'range') {
-			this.rangeStartCell = null;
-		}
+		if (e.which === MOUSE_LEFT_BUTTON) {
+			if (this.selection.mode === 'range') {
+				this.rangeStartCell = null;
+			}
 
-		const pathFinder = new PathService(this.bag.body);
-		const cell = pathFinder.cell(e.path);
-		if (cell) {
-			this.select(cell);
-			this.navigate(cell);
-			if (cell.column.editorOptions.trigger === 'click' && this.view.edit.cell.enter.canExecute(cell)) {
-				this.view.edit.cell.enter.execute(cell);
+			const pathFinder = new PathService(this.bag.body);
+			const cell = pathFinder.cell(e.path);
+			if (cell) {
+				this.select(cell);
+				this.navigate(cell);
+				if (cell.column.editorOptions.trigger === 'click' && this.view.edit.cell.enter.canExecute(cell)) {
+					this.view.edit.cell.enter.execute(cell);
+				}
 			}
 		}
 	}

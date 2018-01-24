@@ -35,6 +35,10 @@ export class ViewCtrl extends View {
 		let sessionUnits = [];
 
 		return (name, changes, units) => {
+			model.scene({ status: 'start', round: 0 }, {
+				source: name
+			});
+
 			sessionUnits.push(...units);
 			job(() => {
 				const jobUnits = reduce(sessionUnits, model);

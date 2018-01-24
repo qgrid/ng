@@ -22,9 +22,11 @@ class ColumnSort extends Component {
 			iconDesc
 		});
 
-		const listener = new EventListener(this.element, new EventManager(this));
-		this.using(listener.on('click', () => this.$columnSort.onClick()));
-		this.using(listener.on('mouseleave', () => this.$columnSort.onMouseLeave()))
+		if (this.column.canSort) {
+			const listener = new EventListener(this.element, new EventManager(this));
+			this.using(listener.on('click', () => this.$columnSort.onClick()));
+			this.using(listener.on('mouseleave', () => this.$columnSort.onMouseLeave()));
+		}
 	}
 
 	onDestroy() {

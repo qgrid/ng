@@ -1,15 +1,10 @@
-<q-grid:column-sort ng-if="::$cell.column.canSort"
-                    column="$cell.column"
+<q-grid:column-sort column="$cell.column"
                     class="q-grid-sort">
-	<label>
-		<md-tooltip md-delay="1000">{{$cell.column.title}}</md-tooltip>
-		{{$cell.column.title}}
-	</label>
+    <label>
+        <md-tooltip md-delay="1000">{{$cell.column.title}}</md-tooltip>
+        {{$cell.column.title}}
+    </label>
 </q-grid:column-sort>
-<label ng-if="::!$cell.column.canSort">
-    <md-tooltip md-delay="1000">{{$cell.column.title}}</md-tooltip>
-    {{$cell.column.title}}
-</label>
 <q-grid:column-filter ng-if="::$cell.column.canFilter"
                       class="q-grid-column-filter-trigger"
                       key="$cell.column.key"

@@ -63,8 +63,8 @@
 				"path": "data-sources"
 			},
 			{
-				"title": "Rest Plugin",
-				"path": "rest-plugin"
+				"title": "Rest",
+				"path": "rest"
 			}
 		]
 	},

@@ -95,7 +95,7 @@ export class ColumnFilterView extends PluginView {
 			reset: new Command({
 				source: 'column.filter.view',
 				execute: () => {
-					this.by = new Set([]);
+					this.by = new Set();
 					this.resetEvent.emit();
 				}
 			}),

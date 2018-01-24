@@ -114,7 +114,6 @@ export class NavigationView extends View {
 				else if (vr.left < tr.left || vr.right < tr.right) {
 					newScrollState.left = tr.right - vr.right + oldScrollState.left;
 				}
-
 			}
 		}
 
@@ -130,7 +129,6 @@ export class NavigationView extends View {
 				else if (vr.top < tr.top || vr.bottom < tr.bottom) {
 					newScrollState.top = tr.bottom - vr.bottom + oldScrollState.top;
 				}
-
 			}
 		}
 

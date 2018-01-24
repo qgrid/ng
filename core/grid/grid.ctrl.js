@@ -54,10 +54,11 @@ export class GridCtrl extends View {
 
 		if (e.target.tagName === 'TBODY') {
 			const code = Shortcut.translate(e);
-			if (code === 'space' || code === 'shift+space') {
+			const prevent = this.model.navigation().prevent;
+			if (prevent.has(code)) {
 				e.preventDefault();
+				return;
 			}
-			return;
 		}
 	}
 

@@ -3,6 +3,7 @@ import { Log } from '../infrastructure';
 import { guid } from './guid';
 import { PersistenceService } from '../persistence/persistence.service';
 import { Scheduler } from './scheduler';
+import { Defer } from '../infrastructure/defer';
 
 export class GridService {
 	constructor(model) {
@@ -23,44 +24,45 @@ export class GridService {
 
 			if (!scheduler.next()) {
 				const round = scene().round;
-				scene({ round: round + 1}, {
+				scene({ round: round + 1 }, {
 					source,
 					behavior: 'core'
 				});
 			}
 		};
 
-		return new Promise((resolve, reject) => {
-			const task = () => {
-				Log.info('grid', `start task ${source}`);
+		const defer = new Defer();
+		const task = () => {
+			Log.info('grid', `start task ${source}`);
 
-				scene({ status: 'start', round: 0 }, {
-					source,
-					behavior: 'core'
+			scene({ status: 'start', round: 0 }, {
+				source,
+				behavior: 'core'
+			});
+
+			model.head().cache.clear();
+			model.body().cache.clear();
+			model.foot().cache.clear();
+
+			return runPipe(source, changes, pipe)
+				.then(() => {
+					Log.info('grid', `finish task ${source}`);
+
+					nextTask();
+					defer.resolve();
+				})
+				.catch(ex => {
+					Log.error('grid', ex);
+
+					nextTask();
+					defer.reject();
 				});
+		};
 
-				model.head().cache.clear();
-				model.body().cache.clear();
-				model.foot().cache.clear();
+		Log.info('grid', `add task ${source}`);
+		scheduler.add(task);
 
-				return runPipe(source, changes, pipe)
-					.then(() => {
-						Log.info('grid', `finish task ${source}`);
-
-						nextTask();
-						resolve();
-					})
-					.catch(ex => {
-						Log.error('grid', ex);
-
-						nextTask();
-						reject();
-					});
-			};
-
-			Log.info('grid', `add task ${source}`);
-			scheduler.add(task);
-		});
+		return defer.promise;
 	}
 
 	busy() {

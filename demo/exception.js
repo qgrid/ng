@@ -2,8 +2,6 @@
 
 Handler.$inject = ['$log', '$injector'];
 
-const ENV = '' + ENV;
-
 export default function Handler($log, $injector) {
 
 	let toast = null;
@@ -18,9 +16,7 @@ export default function Handler($log, $injector) {
 
 	return (exception, cause = 'qgrid') => {
 		$log.error(exception, cause);
-		if (ENV.indexOf('dev') >= 0) {
-			debugger;
-		}
+		debugger;
 
 		const toast = getToast();
 		toast.show(

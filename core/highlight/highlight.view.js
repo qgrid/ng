@@ -23,7 +23,7 @@ export class HighlightView extends View {
 
 		this.column = new Command({
 			source: 'highlight.view',
-			// canExecute: () => !model.drag().isActive,
+			canExecute: () => !this.isRendering,
 			execute: (column, state) => {
 				const columns = Array.from(model.highlight().columns);
 				const index = columns.indexOf(column.key);
@@ -51,7 +51,7 @@ export class HighlightView extends View {
 
 		this.row = new Command({
 			source: 'highlight.view',
-			// canExecute: () => !model.drag().isActive,
+			canExecute: () => !this.isRendering,
 			execute: (row, state) => {
 				const rows = Array.from(model.highlight().rows);
 				const index = rows.indexOf(row);
@@ -71,7 +71,7 @@ export class HighlightView extends View {
 
 				if (hasChanges) {
 					model.highlight({ rows }, {
-						source: 'highlight.view',
+						source: 'highlight.view'
 					});
 				}
 			}
