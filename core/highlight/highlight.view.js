@@ -51,7 +51,7 @@ export class HighlightView extends View {
 
 		this.row = new Command({
 			source: 'highlight.view',
-			// canExecute: () => !model.drag().isActive,
+			canExecute: () => !this.isRendering,
 			execute: (row, state) => {
 				const rows = Array.from(model.highlight().rows);
 				const index = rows.indexOf(row);

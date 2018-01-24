@@ -17,6 +17,10 @@ export class HeadCtrl extends View {
 			if (e.hasChanges('status')) {
 				const status = e.state.status;
 				switch (status) {
+					case 'start': {
+						this.highlight(null);
+						break;
+					}
 					case 'stop': {
 						const target = document.elementFromPoint(this.x, this.y);
 						if (target) {
