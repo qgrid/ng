@@ -12,7 +12,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Data manipulation array marks as dirty when enter edit mode.
 - Menu panels should fit screen sizes.
 - Convert form editiing popup to menu.
-
 - 107+ JIRA tasks :-)
 
 ## [1.3.2] - 2018-01-25
