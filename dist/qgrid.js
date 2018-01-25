@@ -189,7 +189,7 @@ var qgrid =
 /* unused harmony export ROW_DETAILS_NAME */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "B", function() { return LAYER_NAME; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return CELL_VALUE_NAME; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return CELL_FOCUS_NAME; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return CELL_HANDLER_NAME; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return CAN_DROP_NAME; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return CAN_DRAG_NAME; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return DROP_EFFECT_NAME; });
@@ -249,7 +249,7 @@ var TOOLBAR_NAME = GRID + 'Toolbar';
 var ROW_DETAILS_NAME = GRID + 'Details';
 var LAYER_NAME = GRID + 'Layer';
 var CELL_VALUE_NAME = GRID + 'CellValue';
-var CELL_FOCUS_NAME = GRID + 'CellFocus';
+var CELL_HANDLER_NAME = GRID + 'CellHandler';
 
 var CAN_DROP_NAME = GRID + 'CanDrop';
 var CAN_DRAG_NAME = GRID + 'CanDrag';
@@ -2413,13 +2413,13 @@ var Log = function () {
 
 	_createClass(Log, null, [{
 		key: "info",
-		value: function info() {
+		value: function info() /*source, message*/{
 			// console.info(`qgrid.${source}: ${message}`);
 		}
 	}, {
 		key: "warn",
-		value: function warn(source, message) {
-			console.warn("qgrid." + source + ": " + message);
+		value: function warn() /*source, message*/{
+			// console.warn(`qgrid.${source}: ${message}`);
 		}
 	}, {
 		key: "error",
@@ -13107,17 +13107,7 @@ function flatView(model, mode) {
 	return result;
 }
 
-function invalidateStatus(rows, status) {
-	return new Map(Array.from(status.entries()).filter(function (entry) {
-		var row = entry[0];
-		var status = entry[1];
-		return rows.indexOf(row) >= 0 || !(status instanceof __WEBPACK_IMPORTED_MODULE_1__row_details_status__["a" /* RowDetailsStatus */]);
-	}));
-}
-
-function toggleStatus(rows, status) {
-	var mode = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'single';
-
+function invalidateStatus(rows, status, mode) {
 	switch (mode) {
 		case 'all':
 			status = new Map(status.entries());
@@ -13128,7 +13118,11 @@ function toggleStatus(rows, status) {
 			});
 			break;
 		case 'single':
-			status = invalidateStatus(rows, status);
+			status = new Map(Array.from(status.entries()).filter(function (entry) {
+				var row = entry[0];
+				var status = entry[1];
+				return rows.indexOf(row) >= 0 || !(status instanceof __WEBPACK_IMPORTED_MODULE_1__row_details_status__["a" /* RowDetailsStatus */]);
+			}));
 			break;
 		case 'multiple':
 			status = new Map(status.entries());
@@ -13137,14 +13131,23 @@ function toggleStatus(rows, status) {
 			throw new __WEBPACK_IMPORTED_MODULE_2__infrastructure__["a" /* AppError */]('row.details.service', 'Invalid mode ' + mode);
 	}
 
-	rows.forEach(function (row) {
-		var state = status.get(row);
-		if (!state) {
-			status.set(row, new __WEBPACK_IMPORTED_MODULE_1__row_details_status__["a" /* RowDetailsStatus */](true));
-		} else {
-			state.expand = !state.expand;
-		}
-	});
+	return status;
+}
+
+function toggleStatus(rows, status) {
+	var mode = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'single';
+
+	status = invalidateStatus(rows, status, mode);
+	if (mode !== 'all') {
+		rows.forEach(function (row) {
+			var state = status.get(row);
+			if (!state) {
+				status.set(row, new __WEBPACK_IMPORTED_MODULE_1__row_details_status__["a" /* RowDetailsStatus */](true));
+			} else {
+				state.expand = !state.expand;
+			}
+		});
+	}
 
 	return status;
 }
@@ -16357,7 +16360,7 @@ var DragService = function () {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(373);
-__webpack_require__(707);
+__webpack_require__(708);
 
 /***/ }),
 /* 373 */
@@ -20992,12 +20995,14 @@ var RowDetailsView = function (_View) {
 		});
 
 		_this.using(model.sceneChanged.watch(function (e) {
-			if (e.tag.source !== 'row.details.view' && e.hasChanges('rows')) {
-				model.row({
-					status: Object(__WEBPACK_IMPORTED_MODULE_2__row_details_service__["b" /* invalidateStatus */])(e.state.rows, model.row().status)
-				}, {
-					source: 'row.details.view'
-				});
+			if (e.tag.source === 'row.details.view') {
+				return;
+			}
+
+			if (e.hasChanges('rows')) {
+				var rowState = model.row();
+				var status = Object(__WEBPACK_IMPORTED_MODULE_2__row_details_service__["b" /* invalidateStatus */])(model.data().rows, rowState.status, rowState.mode);
+				model.row({ status: status }, { source: 'row.details.view' });
 			}
 		}));
 
@@ -21686,7 +21691,7 @@ var NavigationModel = function () {
 
 		this.go = new __WEBPACK_IMPORTED_MODULE_0__command__["a" /* Command */]({ source: 'navigation.model' });
 
-		this.prevent = new Set('space', 'shift+space', 'up', 'down', 'left', 'right', 'tab', 'shift+tab', 'home', 'end', 'pageUp', 'pageDown', 'shift+pageDown', 'shift+pageUp');
+		this.prevent = new Set(['space', 'shift+space', 'up', 'down', 'left', 'right', 'tab', 'shift+tab', 'home', 'end', 'pageUp', 'pageDown', 'shift+pageDown', 'shift+pageUp']);
 	}
 
 	_createClass(NavigationModel, [{
@@ -21762,7 +21767,26 @@ var NavigationView = function (_View) {
 				model.navigation({ cell: cellModel });
 			},
 			canExecute: function canExecute(cell) {
-				return cell && cell.column.canFocus && !__WEBPACK_IMPORTED_MODULE_4__scene_view__["a" /* CellView */].equals(cell, model.navigation().cell);
+				var currentCell = model.navigation().cell;
+				if (cell && cell.column.canFocus && !__WEBPACK_IMPORTED_MODULE_4__scene_view__["a" /* CellView */].equals(cell, currentCell)) {
+					if (_this.model.edit().mode !== 'cell') {
+						switch (_this.model.selection().unit) {
+							case 'row':
+							case 'column':
+								{
+									// Focus cell only if it was focused previously by keyboard
+									if (!currentCell) {
+										return false;
+									}
+									break;
+								}
+						}
+					}
+
+					return true;
+				}
+
+				return false;
 			}
 		});
 
@@ -34526,7 +34550,7 @@ module.exports = "<q-grid:popup-trigger>\n</q-grid:popup-trigger>"
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_layer_layer__ = __webpack_require__(655);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_cell_cell_value__ = __webpack_require__(656);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_row_row__ = __webpack_require__(657);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_cell_cell_focus__ = __webpack_require__(658);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_cell_cell_handler__ = __webpack_require__(658);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_grid_box_core__ = __webpack_require__(659);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_view_view_core__ = __webpack_require__(661);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_table_table_core__ = __webpack_require__(665);
@@ -34659,7 +34683,7 @@ var coreModule = angular.module(__WEBPACK_IMPORTED_MODULE_42__definition__["D" /
 
 
 var layoutModule = angular.module(__WEBPACK_IMPORTED_MODULE_42__definition__["E" /* MODULE_LAYOUT_NAME */], [coreModule]) // eslint-disable-line no-undef
-.component(__WEBPACK_IMPORTED_MODULE_42__definition__["v" /* GRID_NAME */], __WEBPACK_IMPORTED_MODULE_0__components_grid_grid__["a" /* default */]).component(__WEBPACK_IMPORTED_MODULE_42__definition__["e" /* BOX_CORE_NAME */], __WEBPACK_IMPORTED_MODULE_14__components_grid_box_core__["a" /* default */]).component(__WEBPACK_IMPORTED_MODULE_42__definition__["_1" /* VIEW_CORE_NAME */], __WEBPACK_IMPORTED_MODULE_15__components_view_view_core__["a" /* default */]).component(__WEBPACK_IMPORTED_MODULE_42__definition__["Q" /* TABLE_CORE_NAME */], __WEBPACK_IMPORTED_MODULE_16__components_table_table_core__["a" /* default */]).component(__WEBPACK_IMPORTED_MODULE_42__definition__["y" /* HEAD_NAME */], __WEBPACK_IMPORTED_MODULE_3__components_head_head__["a" /* default */]).component(__WEBPACK_IMPORTED_MODULE_42__definition__["t" /* FOOT_NAME */], __WEBPACK_IMPORTED_MODULE_4__components_foot_foot__["a" /* default */]).component(__WEBPACK_IMPORTED_MODULE_42__definition__["k" /* COLUMN_LIST_NAME */], __WEBPACK_IMPORTED_MODULE_5__components_column_column_list__["a" /* default */]).component(__WEBPACK_IMPORTED_MODULE_42__definition__["l" /* COLUMN_NAME */], __WEBPACK_IMPORTED_MODULE_6__components_column_column__["a" /* default */]).component(__WEBPACK_IMPORTED_MODULE_42__definition__["B" /* LAYER_NAME */], __WEBPACK_IMPORTED_MODULE_10__components_layer_layer__["a" /* default */]).component(__WEBPACK_IMPORTED_MODULE_42__definition__["Z" /* TOOLBAR_NAME */], __WEBPACK_IMPORTED_MODULE_7__components_toolbar_toolbar__["a" /* default */]).component(__WEBPACK_IMPORTED_MODULE_42__definition__["Y" /* TOOLBAR_CORE_NAME */], __WEBPACK_IMPORTED_MODULE_25__components_toolbar_toolbar_core__["a" /* default */]).component(__WEBPACK_IMPORTED_MODULE_42__definition__["N" /* ROW_NAME */], __WEBPACK_IMPORTED_MODULE_12__components_row_row__["a" /* default */]).component(__WEBPACK_IMPORTED_MODULE_42__definition__["i" /* CELL_FOCUS_NAME */], __WEBPACK_IMPORTED_MODULE_13__components_cell_cell_focus__["a" /* default */]).directive(__WEBPACK_IMPORTED_MODULE_42__definition__["T" /* TEMPLATE_NAME */], function () {
+.component(__WEBPACK_IMPORTED_MODULE_42__definition__["v" /* GRID_NAME */], __WEBPACK_IMPORTED_MODULE_0__components_grid_grid__["a" /* default */]).component(__WEBPACK_IMPORTED_MODULE_42__definition__["e" /* BOX_CORE_NAME */], __WEBPACK_IMPORTED_MODULE_14__components_grid_box_core__["a" /* default */]).component(__WEBPACK_IMPORTED_MODULE_42__definition__["_1" /* VIEW_CORE_NAME */], __WEBPACK_IMPORTED_MODULE_15__components_view_view_core__["a" /* default */]).component(__WEBPACK_IMPORTED_MODULE_42__definition__["Q" /* TABLE_CORE_NAME */], __WEBPACK_IMPORTED_MODULE_16__components_table_table_core__["a" /* default */]).component(__WEBPACK_IMPORTED_MODULE_42__definition__["y" /* HEAD_NAME */], __WEBPACK_IMPORTED_MODULE_3__components_head_head__["a" /* default */]).component(__WEBPACK_IMPORTED_MODULE_42__definition__["t" /* FOOT_NAME */], __WEBPACK_IMPORTED_MODULE_4__components_foot_foot__["a" /* default */]).component(__WEBPACK_IMPORTED_MODULE_42__definition__["k" /* COLUMN_LIST_NAME */], __WEBPACK_IMPORTED_MODULE_5__components_column_column_list__["a" /* default */]).component(__WEBPACK_IMPORTED_MODULE_42__definition__["l" /* COLUMN_NAME */], __WEBPACK_IMPORTED_MODULE_6__components_column_column__["a" /* default */]).component(__WEBPACK_IMPORTED_MODULE_42__definition__["B" /* LAYER_NAME */], __WEBPACK_IMPORTED_MODULE_10__components_layer_layer__["a" /* default */]).component(__WEBPACK_IMPORTED_MODULE_42__definition__["Z" /* TOOLBAR_NAME */], __WEBPACK_IMPORTED_MODULE_7__components_toolbar_toolbar__["a" /* default */]).component(__WEBPACK_IMPORTED_MODULE_42__definition__["Y" /* TOOLBAR_CORE_NAME */], __WEBPACK_IMPORTED_MODULE_25__components_toolbar_toolbar_core__["a" /* default */]).component(__WEBPACK_IMPORTED_MODULE_42__definition__["N" /* ROW_NAME */], __WEBPACK_IMPORTED_MODULE_12__components_row_row__["a" /* default */]).component(__WEBPACK_IMPORTED_MODULE_42__definition__["i" /* CELL_HANDLER_NAME */], __WEBPACK_IMPORTED_MODULE_13__components_cell_cell_handler__["a" /* default */]).directive(__WEBPACK_IMPORTED_MODULE_42__definition__["T" /* TEMPLATE_NAME */], function () {
 	return __WEBPACK_IMPORTED_MODULE_43__components_template_template__["a" /* default */];
 }).directive(__WEBPACK_IMPORTED_MODULE_42__definition__["C" /* MARKUP_NAME */], function () {
 	return __WEBPACK_IMPORTED_MODULE_29__directives_markup__["a" /* default */];
@@ -34689,8 +34713,9 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.table.tpl.html', __webpack_require__(702));
 		theme.put('qgrid.head.tpl.html', __webpack_require__(703));
 		theme.put('qgrid.body.tpl.html', __webpack_require__(704));
-		theme.put('qgrid.body.virtual.tpl.html', __webpack_require__(705));
-		theme.put('qgrid.foot.tpl.html', __webpack_require__(706));
+		theme.put('qgrid.cell-handler.tpl.html', __webpack_require__(705));
+		theme.put('qgrid.body.virtual.tpl.html', __webpack_require__(706));
+		theme.put('qgrid.foot.tpl.html', __webpack_require__(707));
 	});
 }
 
@@ -35183,6 +35208,7 @@ var GridCtrl = function (_View) {
 				var prevent = this.model.navigation().prevent;
 				if (prevent.has(code)) {
 					e.preventDefault();
+					e.stopPropagation();
 					return;
 				}
 			}
@@ -38231,20 +38257,20 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-var CellFocus = function (_Component) {
-	_inherits(CellFocus, _Component);
+var CellHandler = function (_Component) {
+	_inherits(CellHandler, _Component);
 
-	function CellFocus($element) {
-		_classCallCheck(this, CellFocus);
+	function CellHandler($element) {
+		_classCallCheck(this, CellHandler);
 
-		var _this = _possibleConstructorReturn(this, (CellFocus.__proto__ || Object.getPrototypeOf(CellFocus)).call(this));
+		var _this = _possibleConstructorReturn(this, (CellHandler.__proto__ || Object.getPrototypeOf(CellHandler)).call(this));
 
 		_this.element = $element[0];
 		_this.job = Object(__WEBPACK_IMPORTED_MODULE_2__grid_core_services_job_line__["a" /* jobLine */])(150);
 		return _this;
 	}
 
-	_createClass(CellFocus, [{
+	_createClass(CellHandler, [{
 		key: 'onInit',
 		value: function onInit() {
 			var _this2 = this;
@@ -38278,16 +38304,17 @@ var CellFocus = function (_Component) {
 		}
 	}]);
 
-	return CellFocus;
+	return CellHandler;
 }(__WEBPACK_IMPORTED_MODULE_0__component__["a" /* default */]);
 
-CellFocus.$inject = ['$element'];
+CellHandler.$inject = ['$element'];
 
 /* harmony default export */ __webpack_exports__["a"] = ({
 	require: {
 		root: '^^' + __WEBPACK_IMPORTED_MODULE_1__grid_view_definition__["v" /* GRID_NAME */]
 	},
-	controller: CellFocus
+	controller: CellHandler,
+	templateUrl: 'qgrid.cell-handler.tpl.html'
 });
 
 /***/ }),
@@ -43207,7 +43234,7 @@ module.exports = "<q-grid-core:box ng-cloak class=\"q-grid-box layout-column\">\
 /* 701 */
 /***/ (function(module, exports) {
 
-module.exports = "<q-grid-core:table ng-if=\"$view.visibility.pin.left\"\n\t\t\t\t\t\t pin=\"left\"\n\t\t\t\t\t\t class=\"q-grid-table q-grid-table-left layout-column\">\n</q-grid-core:table>\n<q-grid-core:table class=\"q-grid-table q-grid-table-center layout-column flex\">\n</q-grid-core:table>\n<q-grid-core:table ng-if=\"$view.visibility.pin.right\"\n\t\t\t\t\t\t pin=\"right\"\n\t\t\t\t\t\t class=\"q-grid-table q-grid-table-right layout-column\">\n</q-grid-core:table>\n<q-grid:cell-focus class=\"q-grid-cell-focus\"></q-grid:cell-focus> \n"
+module.exports = "<q-grid-core:table ng-if=\"$view.visibility.pin.left\"\n\t\t\t\t\t\t pin=\"left\"\n\t\t\t\t\t\t class=\"q-grid-table q-grid-table-left layout-column\">\n</q-grid-core:table>\n<q-grid-core:table class=\"q-grid-table q-grid-table-center layout-column flex\">\n</q-grid-core:table>\n<q-grid-core:table ng-if=\"$view.visibility.pin.right\"\n\t\t\t\t\t\t pin=\"right\"\n\t\t\t\t\t\t class=\"q-grid-table q-grid-table-right layout-column\">\n</q-grid-core:table>\n<q-grid:cell-handler class=\"q-grid-cell-handler\"></q-grid:cell-handler> \n"
 
 /***/ }),
 /* 702 */
@@ -43231,16 +43258,22 @@ module.exports = "<tr class=\"q-grid-align\">\n\t<td ng-repeat=\"$column in $vie
 /* 705 */
 /***/ (function(module, exports) {
 
-module.exports = "<tr vscroll-mark=\"top\"\n\t class=\"q-grid-scroll-mark\">\n</tr>\n<tr class=\"q-grid-align\">\n\t<td ng-repeat=\"$column in $view.body.render.defaultStrategy.columnList($table.pin) track by $column.model.key\"\n\t\t q-grid-core:td-align>\n\t</td>\n</tr>\n<tr ng-repeat=\"$row in $view.body.rows | vscroll: $view.scroll.y track by $index\"\n\t vscroll-row=\"{{::$index}}\"\n\t q-grid-core:tr=\"body\">\n\t<td ng-repeat=\"$column in $view.body.render.columns($row, $table.pin) track by $column.model.key\"\n\t\t rowspan=\"{{$view.body.render.rowspan($row, $column)}}\"\n\t\t rowspan=\"{{$view.body.render.colspan($row, $column)}}\"\n\t\t q-grid-core:td>\n\t</td>\n</tr>\n<tr vscroll-mark=\"bottom\"\n\t class=\"q-grid-scroll-mark\">\n</tr>"
+module.exports = "<div class=\"q-grid-marker\"></div>"
 
 /***/ }),
 /* 706 */
 /***/ (function(module, exports) {
 
-module.exports = "<tr ng-repeat=\"$row in $view.foot.rows track by $index\" q-grid-core:tr=\"foot\">\n\t<td ng-repeat=\"$column in $view.foot.columns($row, $table.pin) track by $column.model.key\"\n\t\t colspan=\"{{$column.colspan}}\"\n\t\t q-grid-core:tf>\n\t</td>\n</tr>"
+module.exports = "<tr vscroll-mark=\"top\"\n\t class=\"q-grid-scroll-mark\">\n</tr>\n<tr class=\"q-grid-align\">\n\t<td ng-repeat=\"$column in $view.body.render.defaultStrategy.columnList($table.pin) track by $column.model.key\"\n\t\t q-grid-core:td-align>\n\t</td>\n</tr>\n<tr ng-repeat=\"$row in $view.body.rows | vscroll: $view.scroll.y track by $index\"\n\t vscroll-row=\"{{::$index}}\"\n\t q-grid-core:tr=\"body\">\n\t<td ng-repeat=\"$column in $view.body.render.columns($row, $table.pin) track by $column.model.key\"\n\t\t rowspan=\"{{$view.body.render.rowspan($row, $column)}}\"\n\t\t rowspan=\"{{$view.body.render.colspan($row, $column)}}\"\n\t\t q-grid-core:td>\n\t</td>\n</tr>\n<tr vscroll-mark=\"bottom\"\n\t class=\"q-grid-scroll-mark\">\n</tr>"
 
 /***/ }),
 /* 707 */
+/***/ (function(module, exports) {
+
+module.exports = "<tr ng-repeat=\"$row in $view.foot.rows track by $index\" q-grid-core:tr=\"foot\">\n\t<td ng-repeat=\"$column in $view.foot.columns($row, $table.pin) track by $column.model.key\"\n\t\t colspan=\"{{$column.colspan}}\"\n\t\t q-grid-core:tf>\n\t</td>\n</tr>"
+
+/***/ }),
+/* 708 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
