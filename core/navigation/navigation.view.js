@@ -34,14 +34,14 @@ export class NavigationView extends View {
 									return false;
 								}
 								break;
-							};
+							}
 						}
 					}
 
 					return true;
 				}
 
-				return fales;
+				return false;
 			}
 		});
 
@@ -72,8 +72,8 @@ export class NavigationView extends View {
 					rowIndex: newRow,
 					columnIndex: newColumn
 				}, {
-						source: 'navigation.view'
-					});
+					source: 'navigation.view'
+				});
 			}
 		}));
 
