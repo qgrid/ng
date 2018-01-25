@@ -57,6 +57,7 @@ export class GridCtrl extends View {
 			const prevent = this.model.navigation().prevent;
 			if (prevent.has(code)) {
 				e.preventDefault();
+				e.stopPropagation();
 				return;
 			}
 		}

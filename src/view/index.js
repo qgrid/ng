@@ -12,7 +12,7 @@ import Drop from './components/dnd/drop';
 import Layer from './components/layer/layer';
 import CellValue from './components/cell/cell.value';
 import Row from './components/row/row';
-import CellFocus from './components/cell/cell.focus';
+import CellHandler from './components/cell/cell.handler';
 
 import BoxCore from './components/grid/box.core';
 import ViewCore from './components/view/view.core';
@@ -92,7 +92,7 @@ export const layoutModule = angular.module(def.MODULE_LAYOUT_NAME, [coreModule])
 	.component(def.TOOLBAR_NAME, Toolbar)
 	.component(def.TOOLBAR_CORE_NAME, ToolbarCore)
 	.component(def.ROW_NAME, Row)
-	.component(def.CELL_FOCUS_NAME, CellFocus)
+	.component(def.CELL_HANDLER_NAME, CellHandler)
 	.directive(def.TEMPLATE_NAME, () => Template)
 	.directive(def.MARKUP_NAME, () => Markup)
 	.directive(def.TR_CORE_NAME, () => TrCore)
