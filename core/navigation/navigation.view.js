@@ -22,7 +22,27 @@ export class NavigationView extends View {
 				const cellModel = table.body.cell(cell.rowIndex, cell.columnIndex).model();
 				model.navigation({ cell: cellModel });
 			},
-			canExecute: cell => cell && cell.column.canFocus && !CellView.equals(cell, model.navigation().cell)
+			canExecute: cell => {
+				const currentCell = model.navigation().cell;
+				if (cell && cell.column.canFocus && !CellView.equals(cell, currentCell)) {
+					if (this.model.edit().mode !== 'cell') {
+						switch (this.model.selection().unit) {
+							case 'row':
+							case 'column': {
+								// Focus cell only if it was focused previously by keyboard
+								if (!currentCell) {
+									return false;
+								}
+								break;
+							};
+						}
+					}
+
+					return true;
+				}
+
+				return fales;
+			}
 		});
 
 		this.scrollTo = new Command({
@@ -52,8 +72,8 @@ export class NavigationView extends View {
 					rowIndex: newRow,
 					columnIndex: newColumn
 				}, {
-					source: 'navigation.view'
-				});
+						source: 'navigation.view'
+					});
 			}
 		}));
 
