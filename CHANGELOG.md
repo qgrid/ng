@@ -12,8 +12,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Data manipulation array marks as dirty when enter edit mode.
 - Menu panels should fit screen sizes.
 - Convert form editiing popup to menu.
-
 - 107+ JIRA tasks :-)
+
+## [1.3.2] - 2018-01-25
+### Fixed
+- Column filter and column chooser style enhancements.
+- Navigation fixes.
+- Persist row details state on grid invalidate.
+
+### Changed
+- Do focus cell only with keyboard when `selection unit` is `row` or `column`.
 
 ## [1.3.1] - 2018-01-24
 ### Added
@@ -223,8 +231,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Action bar plugin.
 - Data manipulation plugin.
 
-[Unreleased]: https://github.com/qgrid/ng/compare/v1.3.1...HEAD
-[1.2.0]: https://github.com/qgrid/ng/compare/v1.2.0...v1.3.1
+[Unreleased]: https://github.com/qgrid/ng/compare/v1.3.2...HEAD
+[1.3.2]: https://github.com/qgrid/ng/compare/v1.3.1...v1.3.2
+[1.3.1]: https://github.com/qgrid/ng/compare/v1.2.0...v1.3.1
 [1.2.0]: https://github.com/qgrid/ng/compare/v1.1.3...v1.2.0
 [1.1.3]: https://github.com/qgrid/ng/compare/v1.1.2...v1.1.3
 [1.1.2]: https://github.com/qgrid/ng/compare/v1.1.1...v1.1.2

@@ -2,7 +2,7 @@ import Component from '../component';
 import { GRID_NAME } from '@grid/view/definition';
 import { jobLine } from '@grid/core/services/job.line';
 
-class CellFocus extends Component {
+class CellHandler extends Component {
 	constructor($element) {
 		super();
 
@@ -40,11 +40,12 @@ class CellFocus extends Component {
 	}
 }
 
-CellFocus.$inject = ['$element'];
+CellHandler.$inject = ['$element'];
 
 export default {
 	require: {
 		root: `^^${GRID_NAME}`
 	},
-	controller: CellFocus
+	controller: CellHandler,
+	templateUrl: 'qgrid.cell-handler.tpl.html'
 };

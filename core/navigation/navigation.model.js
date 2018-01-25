@@ -21,7 +21,7 @@ export class NavigationModel {
 
 		this.go = new Command({ source: 'navigation.model' });
 
-		this.prevent = new Set(
+		this.prevent = new Set([
 			'space',
 			'shift+space',
 			'up', 
@@ -36,7 +36,7 @@ export class NavigationModel {
 			'pageDown', 
 			'shift+pageDown', 
 			'shift+pageUp'
-		);
+		]);
 	}
 
 	get rowIndex() {

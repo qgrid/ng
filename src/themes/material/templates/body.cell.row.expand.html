@@ -1,7 +1,8 @@
 <md-button ng-mouseup="$view.rowDetails.toggleStatus.execute($cell.row)"
            ng-if="$view.rowDetails.toggleStatus.canExecute($cell.row)"
            tabindex="-1"
-           class="md-icon-button"
+		   class="md-icon-button"
+		   aria-label="Expand"
            ng-switch="$view.rowDetails.status($cell.row)">
 	<span>
 		<md-icon class="q-grid-icon"
