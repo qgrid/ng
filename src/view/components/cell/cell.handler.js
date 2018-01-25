@@ -46,5 +46,6 @@ export default {
 	require: {
 		root: `^^${GRID_NAME}`
 	},
-	controller: CellHandler
+	controller: CellHandler,
+	templateUrl: 'qgrid.cell-handler.tpl.html'
 };

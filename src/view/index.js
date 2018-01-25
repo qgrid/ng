@@ -115,6 +115,7 @@ function Setup(qgridThemeProvider) {
 		theme.put('qgrid.table.tpl.html', require('./components/table/table.html'));
 		theme.put('qgrid.head.tpl.html', require('./components/head/head.html'));
 		theme.put('qgrid.body.tpl.html', require('./components/body/body.html'));
+		theme.put('qgrid.cell-handler.tpl.html', require('./components/cell/cell.handler.html'));
 		theme.put('qgrid.body.virtual.tpl.html', require('./components/body/body.virtual.html'));
 		theme.put('qgrid.foot.tpl.html', require('./components/foot/foot.html'));
 	});
