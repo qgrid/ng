@@ -15,6 +15,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 - 107+ JIRA tasks :-)
 
+## [1.3.2] - 2018-01-25
+### Fixed
+- Column filter and column chooser style enhancements.
+- Navigation fixes.
+- Persist row details state on grid invalidate.
+
+### Changed
+- Do focus cell only with keyboard when `selection unit` is `row` or `column`.
+
 ## [1.3.1] - 2018-01-24
 ### Added
 - Added comments to core d.ts files.
