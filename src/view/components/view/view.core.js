@@ -71,6 +71,17 @@ class ViewCore extends Component {
 
 		model.sceneChanged.watch(e => {
 			if (e.hasChanges('status')) {
+				switch (e.state.status) {
+					case 'start': {
+						model.progress({ isBusy: true });
+						break;
+					}
+					case 'stop': {
+						model.progress({ isBusy: false });
+						break;
+					}
+				}
+				
 				// Run digest on the start of invalidate(e.g. for busy indicator)
 				// and on the ned of invalidate(e.g. to build the DOM)
 				this.apply(() => Log.info('view.core', `digest for ${e.state.status}`));

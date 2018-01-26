@@ -1,11 +1,11 @@
-<div class="q-grid-column-chooser q-grid-popup-panel"
+<div class="q-grid-column-chooser-panel q-grid-popup-panel"
      layout="column"
      flex="100">
 	<md-card>
 		<md-card-header>
 			<md-card-title>
 				<md-card-title-text>
-					<span class="md-subhead">Column Filter</span>
+					<span class="md-subhead">Columns Filter</span>
 				</md-card-title-text>
 				<md-card-title-actions layout="row"
 				                       layout-align="end center">
@@ -32,6 +32,7 @@
 						             md-prevent-menu-close
 						             ng-checked="$columnChooser.stateAll()"
 						             md-indeterminate="$columnChooser.isIndeterminate()"
+						             class="q-grid-checkbox"
 						             md-no-ink>
 							Select All
 						</md-checkbox>
@@ -39,6 +40,7 @@
 					<li>
 						<md-checkbox ng-click="$columnChooser.defaults.execute()"
 						             md-prevent-menu-close
+						             class="q-grid-checkbox"
 						             ng-checked="$columnChooser.stateDefault()"
 						             md-no-ink>
 							Select Defaults
@@ -57,7 +59,8 @@
 						             md-prevent-menu-close
 						             ng-if="$columnChooser.toggle.canExecute(column)"
 						             ng-click="$columnChooser.toggle.execute(column)"
-						             md-no-ink
+									 md-no-ink
+									 class="q-grid-checkbox"
 						             aria-label="Selection">
 							<span ng-bind-html="column.title | qgridHighlight : $columnChooser.filter"> </span>
 						</md-checkbox>
