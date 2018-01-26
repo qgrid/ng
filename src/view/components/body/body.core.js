@@ -1,8 +1,8 @@
 import Directive from '@grid/view/directives/directive';
-import {VIEW_CORE_NAME, BODY_CORE_NAME, GRID_NAME, TABLE_CORE_NAME} from '@grid/view/definition';
-import {EventListener, EventManager} from '@grid/core/infrastructure';
-import {BodyCtrl} from '@grid/core/body/body.ctrl';
-import {noop} from '@grid/core/utility';
+import { VIEW_CORE_NAME, BODY_CORE_NAME, GRID_NAME, TABLE_CORE_NAME } from '@grid/view/definition';
+import { EventListener, EventManager } from '@grid/core/infrastructure';
+import { BodyCtrl } from '@grid/core/body/body.ctrl';
+import { noop } from '@grid/core/utility';
 
 class BodyCore extends Directive(BODY_CORE_NAME, {
 	view: `^^${VIEW_CORE_NAME}`,
@@ -27,20 +27,18 @@ class BodyCore extends Directive(BODY_CORE_NAME, {
 		const table = this.table;
 		const model = this.view.model;
 
-		const ctrl = new BodyCtrl(view.model, view, this.root.bag);
+		const ctrl = new BodyCtrl(view.model, view, this.root.table, this.root.bag);
 		const listener = new EventListener(this.element, new EventManager(this, view.invoke));
 
 		this.using(listener.on('scroll', () =>
 			ctrl.onScroll({
 				scrollLeft: table.pin ? model.scroll().left : element.scrollLeft,
 				scrollTop: element.scrollTop
-			}), {passive: true}));
+			}), { passive: true }));
 
-		this.using(listener.on('wheel', e => ctrl.onWheel({
-			deltaY: e.deltaY,
-			scrollHeight: element.scrollHeight,
-			offsetHeight: element.offsetHeight
-		})));
+		this.using(listener.on('wheel', e => {
+			ctrl.onWheel(e);			
+		}));
 
 		this.using(listener.on('mousedown', ctrl.onMouseDown.bind(ctrl)));
 		this.using(listener.on('mouseup', ctrl.onMouseUp.bind(ctrl)));
