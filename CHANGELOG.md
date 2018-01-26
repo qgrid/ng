@@ -14,6 +14,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Convert form editiing popup to menu.
 - 107+ JIRA tasks :-)
 
+## [1.3.3] - 2018-01-26
+### Fixed
+- `isBusy` setup before digest is invoked.
+- Don't scroll page scroll if can't scroll grid further.
+- Fixed width of column chooser and column filter dialogs.
+
 ## [1.3.2] - 2018-01-25
 ### Fixed
 - Column filter and column chooser style enhancements.
@@ -231,7 +237,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Action bar plugin.
 - Data manipulation plugin.
 
-[Unreleased]: https://github.com/qgrid/ng/compare/v1.3.2...HEAD
+[Unreleased]: https://github.com/qgrid/ng/compare/v1.3.3...HEAD
+[1.3.3]: https://github.com/qgrid/ng/compare/v1.3.2...v1.3.3
 [1.3.2]: https://github.com/qgrid/ng/compare/v1.3.1...v1.3.2
 [1.3.1]: https://github.com/qgrid/ng/compare/v1.2.0...v1.3.1
 [1.2.0]: https://github.com/qgrid/ng/compare/v1.1.3...v1.2.0
