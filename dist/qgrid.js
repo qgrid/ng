@@ -14843,13 +14843,14 @@ var MOUSE_LEFT_BUTTON = 1;
 var BodyCtrl = function (_View) {
 	_inherits(BodyCtrl, _View);
 
-	function BodyCtrl(model, view, bag) {
+	function BodyCtrl(model, view, table, bag) {
 		_classCallCheck(this, BodyCtrl);
 
 		var _this = _possibleConstructorReturn(this, (BodyCtrl.__proto__ || Object.getPrototypeOf(BodyCtrl)).call(this, model));
 
 		_this.view = view;
 		_this.bag = bag;
+		_this.table = table;
 		_this.rangeStartCell = null;
 		return _this;
 	}
@@ -14885,8 +14886,9 @@ var BodyCtrl = function (_View) {
 			var model = this.model;
 			if (model.edit().state === 'view') {
 				var scroll = model.scroll;
+				var table = this.table;
 				var upper = 0;
-				var lower = e.scrollHeight - e.offsetHeight;
+				var lower = table.view.scrollHeight() - table.view.height();
 				var top = Math.min(lower, Math.max(upper, scroll().top + e.deltaY));
 
 				scroll({ top: top }, { source: 'body.core' });
@@ -21937,7 +21939,7 @@ var Navigation = function () {
 			var table = this.table;
 			var body = table.body;
 			var lastRow = this.lastRow;
-			var maxOffset = table.view.scrollHeight() - table.view.height();
+			var lower = table.view.scrollHeight() - table.view.height();
 
 			var index = 0;
 			var offset = 0;
@@ -21954,7 +21956,7 @@ var Navigation = function () {
 			}
 
 			var row = Math.max(this.firstRow, Math.min(lastRow, index));
-			offset = Math.min(offset, maxOffset);
+			offset = Math.min(offset, lower);
 			return { row: row, offset: offset };
 		}
 	}, {
@@ -38546,6 +38548,19 @@ var ViewCore = function (_Component) {
 
 			model.sceneChanged.watch(function (e) {
 				if (e.hasChanges('status')) {
+					switch (e.state.status) {
+						case 'start':
+							{
+								model.progress({ isBusy: true });
+								break;
+							}
+						case 'stop':
+							{
+								model.progress({ isBusy: false });
+								break;
+							}
+					}
+
 					// Run digest on the start of invalidate(e.g. for busy indicator)
 					// and on the ned of invalidate(e.g. to build the DOM)
 					_this2.apply(function () {
@@ -39631,8 +39646,8 @@ var HeadCtrl = function (_View) {
 		_this.bag = bag;
 		_this.column = null;
 		_this.pathFinder = new __WEBPACK_IMPORTED_MODULE_1__path__["a" /* PathService */](_this.bag.head);
-		_this.x = 0;
-		_this.y = 0;
+		_this.x = -1;
+		_this.y = -1;
 
 		_this.using(model.sceneChanged.watch(function (e) {
 			if (e.hasChanges('status')) {
@@ -39645,17 +39660,19 @@ var HeadCtrl = function (_View) {
 						}
 					case 'stop':
 						{
-							var target = document.elementFromPoint(_this.x, _this.y);
-							if (target) {
-								var path = Object(__WEBPACK_IMPORTED_MODULE_2__services_dom__["a" /* parents */])(target);
-								var cell = _this.pathFinder.cell(path);
-								if (cell) {
-									_this.highlight(cell.column);
-									return;
+							if (_this.x >= 0 && _this.y >= 0) {
+								var target = document.elementFromPoint(_this.x, _this.y);
+								if (target) {
+									var path = Object(__WEBPACK_IMPORTED_MODULE_2__services_dom__["a" /* parents */])(target);
+									var cell = _this.pathFinder.cell(path);
+									if (cell) {
+										_this.highlight(cell.column);
+										return;
+									}
 								}
-							}
 
-							_this.highlight(null);
+								_this.highlight(null);
+							}
 
 							break;
 						}
@@ -39683,6 +39700,8 @@ var HeadCtrl = function (_View) {
 	}, {
 		key: 'onMouseLeave',
 		value: function onMouseLeave() {
+			this.x = -1;
+			this.y = -1;
 			this.highlight(null);
 		}
 	}, {
@@ -39801,7 +39820,7 @@ var BodyCore = function (_Directive) {
 			var table = this.table;
 			var model = this.view.model;
 
-			var ctrl = new __WEBPACK_IMPORTED_MODULE_3__grid_core_body_body_ctrl__["a" /* BodyCtrl */](view.model, view, this.root.bag);
+			var ctrl = new __WEBPACK_IMPORTED_MODULE_3__grid_core_body_body_ctrl__["a" /* BodyCtrl */](view.model, view, this.root.table, this.root.bag);
 			var listener = new __WEBPACK_IMPORTED_MODULE_2__grid_core_infrastructure__["f" /* EventListener */](this.element, new __WEBPACK_IMPORTED_MODULE_2__grid_core_infrastructure__["g" /* EventManager */](this, view.invoke));
 
 			this.using(listener.on('scroll', function () {
@@ -39812,11 +39831,7 @@ var BodyCore = function (_Directive) {
 			}, { passive: true }));
 
 			this.using(listener.on('wheel', function (e) {
-				return ctrl.onWheel({
-					deltaY: e.deltaY,
-					scrollHeight: element.scrollHeight,
-					offsetHeight: element.offsetHeight
-				});
+				return ctrl.onWheel(e);
 			}));
 
 			this.using(listener.on('mousedown', ctrl.onMouseDown.bind(ctrl)));
