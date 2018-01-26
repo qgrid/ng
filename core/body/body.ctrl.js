@@ -4,11 +4,12 @@ import { View } from '../view/view';
 const MOUSE_LEFT_BUTTON = 1;
 
 export class BodyCtrl extends View {
-	constructor(model, view, bag) {
+	constructor(model, view, table, bag) {
 		super(model);
 
 		this.view = view;
 		this.bag = bag;
+		this.table = table;
 		this.rangeStartCell = null;
 	}
 
@@ -40,10 +41,11 @@ export class BodyCtrl extends View {
 		const model = this.model;
 		if (model.edit().state === 'view') {
 			const scroll = model.scroll;
+			const table = this.table;
 			const upper = 0;
-			const lower = e.scrollHeight - e.offsetHeight;
+			const lower = table.view.scrollHeight() - table.view.height(); 
 			const top = Math.min(lower, Math.max(upper, scroll().top + e.deltaY));
-
+			
 			scroll({ top }, { source: 'body.core' });
 		}
 	}

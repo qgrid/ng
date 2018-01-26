@@ -11,8 +11,8 @@ export class HeadCtrl extends View {
 		this.bag = bag;
 		this.column = null;
 		this.pathFinder = new PathService(this.bag.head);
-		this.x = 0;
-		this.y = 0;
+		this.x = -1;
+		this.y = -1;
 
 		this.using(model.sceneChanged.watch(e => {
 			if (e.hasChanges('status')) {
@@ -23,17 +23,19 @@ export class HeadCtrl extends View {
 						break;
 					}
 					case 'stop': {
-						const target = document.elementFromPoint(this.x, this.y);
-						if (target) {
-							const path = parents(target);
-							const cell = this.pathFinder.cell(path);
-							if (cell) {
-								this.highlight(cell.column);
-								return;
+						if (this.x >= 0 && this.y >= 0) {
+							const target = document.elementFromPoint(this.x, this.y);
+							if (target) {
+								const path = parents(target);
+								const cell = this.pathFinder.cell(path);
+								if (cell) {
+									this.highlight(cell.column);
+									return;
+								}
 							}
-						}
 
-						this.highlight(null);
+							this.highlight(null);
+						}
 
 						break;
 					}
@@ -46,10 +48,10 @@ export class HeadCtrl extends View {
 		this.x = e.clientX;
 		this.y = e.clientY;
 
-		if(this.model.scene().status === 'start'){
+		if (this.model.scene().status === 'start') {
 			return;
 		}
-		
+
 		const cell = this.pathFinder.cell(e.path);
 		if (cell) {
 			this.highlight(cell.column);
@@ -57,6 +59,8 @@ export class HeadCtrl extends View {
 	}
 
 	onMouseLeave() {
+		this.x = -1;
+		this.y = -1;
 		this.highlight(null);
 	}
 

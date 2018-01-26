@@ -10,7 +10,7 @@ export class Navigation {
 		const table = this.table;
 		const body = table.body;
 		const lastRow = this.lastRow;
-		const maxOffset = table.view.scrollHeight() - table.view.height(); 
+		const lower = table.view.scrollHeight() - table.view.height(); 
 
 		let index = 0;
 		let offset = 0;
@@ -27,7 +27,7 @@ export class Navigation {
 		}
 
 		const row = Math.max(this.firstRow, Math.min(lastRow, index));
-		offset = Math.min(offset, maxOffset);
+		offset = Math.min(offset, lower);
 		return { row, offset };
 	}
 
