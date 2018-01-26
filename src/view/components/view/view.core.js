@@ -6,7 +6,6 @@ import { GridCommandManager } from '../grid/grid.command.manager';
 import { ViewCtrl } from '@grid/core/view/view.ctrl';
 import { jobLine } from '@grid/core/services/index';
 import { Log } from '@grid/core/infrastructure/log';
-import backdrop from '../../../plugins/backdrop/backdrop';
 
 class ViewCore extends Component {
 	constructor($rootScope, $scope, $element, $timeout, grid, vscroll) {
