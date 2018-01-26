@@ -36,9 +36,7 @@ class BodyCore extends Directive(BODY_CORE_NAME, {
 				scrollTop: element.scrollTop
 			}), { passive: true }));
 
-		this.using(listener.on('wheel', e => {
-			ctrl.onWheel(e);			
-		}));
+		this.using(listener.on('wheel', e => ctrl.onWheel(e)));
 
 		this.using(listener.on('mousedown', ctrl.onMouseDown.bind(ctrl)));
 		this.using(listener.on('mouseup', ctrl.onMouseUp.bind(ctrl)));
