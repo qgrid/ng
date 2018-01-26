@@ -50,6 +50,12 @@
 	}
 }
 
+@at-root .q-grid-column-filter {
+	width: 360px;
+	min-width: 360px;
+	max-width: 360px;
+}
+
 @at-root .q-grid-column-filter-panel {
 	ul {
 		list-style-type: none;
@@ -72,5 +78,10 @@
 	}
 	.q-grid-column-filter-actions {
 		padding: 7px 0;
+	}
+	.q-grid-checkbox {
+		width: 100%;
+		overflow: hidden;
+		margin: 0 0 5px 0;
 	}
 }
