@@ -28,7 +28,8 @@ class ViewCore extends Component {
 		const vscroll = new Vscroll(this.vscroll);
 		const selectors = { th: TH_CORE_NAME };
 		const ctrl = this.ctrl = new ViewCtrl(model, this, gridService);
-		const job = jobLine(0);
+		const invalidateJob = jobLine(0);
+		const sceneJob = jobLine(10);
 
 		this.using(model.selectionChanged.watch(e => {
 			if (e.hasChanges('items')) {
@@ -45,7 +46,7 @@ class ViewCore extends Component {
 			? f => f()
 			: f => {
 				f();
-				job(() => ctrl.invalidate());
+				invalidateJob(() => ctrl.invalidate());
 			};
 
 		this.apply = this.root.applyFactory(null, 'sync');
@@ -65,7 +66,7 @@ class ViewCore extends Component {
 		// TODO: how we can avoid that?
 		this.$scope.$watch(() => {
 			if (model.scene().status === 'stop') {
-				job(() => ctrl.invalidate());
+				invalidateJob(() => ctrl.invalidate());
 			}
 		});
 
@@ -85,6 +86,24 @@ class ViewCore extends Component {
 				// Run digest on the start of invalidate(e.g. for busy indicator)
 				// and on the ned of invalidate(e.g. to build the DOM)
 				this.apply(() => Log.info('view.core', `digest for ${e.state.status}`));
+			}
+
+			if (e.hasChanges('round')) {
+				Log.info('view.core', `scene ${e.state.round}`);
+
+				if (e.state.round > 0 && e.state.status === 'start') {
+					sceneJob(() => {
+						Log.info(e.tag.source, 'scene stop');
+
+						model.scene({
+							round: 0,
+							status: 'stop'
+						}, {
+							source: 'view.ctrl',
+							behavior: 'core'
+						});
+					});
+				}
 			}
 		});
 
