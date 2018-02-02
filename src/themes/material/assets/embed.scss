@@ -1,4 +1,5 @@
-.q-grid-embed, .lcc {
+.q-grid-embed,
+.lcc {
     font-family: Roboto;
     .q-grid {
         .q-grid {
@@ -28,15 +29,40 @@
                     font-size: 12px !important;
                     color: #006f8f !important;
                     font-weight: normal !important;
-                    line-height: 12px;
+                    line-height: 14px;
                     &:hover label {
                         font-weight: normal !important;
+                    }
+                    .q-grid-icon {
+                        line-height: 14px;
+                        font-size: 14px;
+                    }
+                    .q-grid-column-filter-trigger {
+                        line-height: 14px;
+                        height: 14px;
+                    }
+                    .q-grid-sort {
+                        &.q-grid-active {
+                            label {
+                                color: inherit;
+                            }
+                        }
                     }
                 }
                 td {
                     font-size: 16px;
                     line-height: 16px;
                     font-weight: normal;
+                    &.q-grid-text-area {
+                        >span {
+                            white-space: nowrap;
+                        }
+                    }
+                    &.q-grid-array {
+                        li {
+                            padding: 2px 8px;
+                        }
+                    }
                 }
             }
             &-legend {
