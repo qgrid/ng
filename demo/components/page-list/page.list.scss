@@ -1,6 +1,6 @@
 page-list {
 	> div {
-		height: 100%;
+		height: calc(100% - 30px);
 
 		.page-list-actions {
 			md-list {

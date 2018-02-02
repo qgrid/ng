@@ -3,13 +3,20 @@ td.q-grid-sorted {
     background-color: $selected;
 }
 
-th.q-grid-can-sort {
-    label {
-        cursor: pointer;
-    }
+th {
     .q-grid-desc,
     .q-grid-asc {
-        display: block;
+        display: none;
+    }
+
+    &.q-grid-can-sort {
+        label {
+            cursor: pointer;
+        }
+        .q-grid-desc,
+        .q-grid-asc {
+            display: block;
+        }
     }
 }
 
