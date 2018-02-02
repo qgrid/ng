@@ -503,5 +503,14 @@
 		"title": "Context Menu",
 		"items": [
 		]
+	},
+	{
+		"title": "Themes",
+		"items": [
+			{
+				"title": "Embed",
+				"path": "theme-embed"
+			}
+		]
 	}
 ]
