@@ -1,5 +1,5 @@
 .q-grid-embed,
-.lcc {
+.q-grid-lcc {
     font-family: Roboto;
     .q-grid {
         .q-grid {
@@ -12,9 +12,6 @@
                     color: #006f8f;
                 }
             }
-            &-toolbar {
-                height: 46px;
-            }
             &-sort {
                 margin-left: 0px;
             }
@@ -23,7 +20,7 @@
             }
             &-table {
                 tr {
-                    height: 30px !important;
+                    height: 30px;
                 }
                 th {
                     font-size: 12px !important;
@@ -61,6 +58,15 @@
                     &.q-grid-array {
                         li {
                             padding: 2px 8px;
+                        }
+                    }
+                    .q-grid-edit {
+                        &.q-grid-row-options {
+                            button {
+                                width: 24px;
+                                height: 24px;
+                                line-height: 24px;
+                            }
                         }
                     }
                 }

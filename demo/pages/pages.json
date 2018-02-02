@@ -510,7 +510,12 @@
 			{
 				"title": "Embed",
 				"path": "theme-embed"
+			},
+			{
+				"title": "Dark",
+				"path": "theme-dark"
 			}
+
 		]
 	}
 ]

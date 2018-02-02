@@ -1,5 +1,5 @@
 th {
-    .q-grid-divider {
+    >.q-grid-divider {
         top: 20%;
         bottom: 20%;
         right: 0;
@@ -21,23 +21,22 @@ th {
 }
 
 td {
-    .q-grid-resizable {
+    >.q-grid-resizable {
         height: 100%;
         width: 100%;
         position: absolute;
         top: 0;
         left: 0;
         pointer-events: none;
-    }
-    .q-grid-divider {
-        height: 2px;
-        width: 100%;
-        bottom: 0;
-        left: 0;
-        width: 100vh;
-        position: absolute;
-        cursor: row-resize;
-        z-index: 2;
-        pointer-events: all;
+        .q-grid-divider {
+            height: 2px;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+            width: 100vh;
+            position: absolute;
+            cursor: row-resize;
+            z-index: 2;
+        }
     }
 }
