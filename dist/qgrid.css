@@ -1632,7 +1632,7 @@
       margin-left: 4px; }
   .q-grid.q-grid-box tr.q-grid-highlighted .q-grid-row-indicator .q-grid-draggable {
     opacity: 1; }
-  .q-grid th .q-grid-divider {
+  .q-grid th > .q-grid-divider {
     top: 20%;
     bottom: 20%;
     right: 0;
@@ -1646,23 +1646,22 @@
     opacity: 0; }
   .q-grid th:hover .q-grid-divider, .q-grid th.q-grid-highlighted-prev .q-grid-divider {
     opacity: 1; }
-  .q-grid td .q-grid-resizable {
+  .q-grid td > .q-grid-resizable {
     height: 100%;
     width: 100%;
     position: absolute;
     top: 0;
     left: 0;
     pointer-events: none; }
-  .q-grid td .q-grid-divider {
-    height: 2px;
-    width: 100%;
-    bottom: 0;
-    left: 0;
-    width: 100vh;
-    position: absolute;
-    cursor: row-resize;
-    z-index: 2;
-    pointer-events: all; }
+    .q-grid td > .q-grid-resizable .q-grid-divider {
+      height: 2px;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+      width: 100vh;
+      position: absolute;
+      cursor: row-resize;
+      z-index: 2; }
   .q-grid .q-grid-toolbar-left, .q-grid .q-grid-toolbar-right {
     max-width: 250px;
     overflow: auto; }
