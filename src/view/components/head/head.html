@@ -1,4 +1,5 @@
-<tr ng-repeat="$row in $view.head.rows track by $index" q-grid-core:tr="head">
+<tr ng-repeat="$row in $view.head.rows track by $index"
+    q-grid-core:tr="head">
 	<th ng-repeat="$column in $view.head.columns($row, $table.pin) track by $column.model.key"
 	    rowspan="{{$column.rowspan}}"
 	    colspan="{{$column.colspan}}"
