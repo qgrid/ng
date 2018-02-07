@@ -1,8 +1,8 @@
 import PluginComponent from '../plugin.component';
-import {uniq, noop, flatten} from '@grid/core/utility';
-import {ColumnFilterView} from '@grid/plugin/column-filter/column.filter.view';
+import { uniq, noop, flatten } from '@grid/core/utility';
+import { ColumnFilterView } from '@grid/plugin/column-filter/column.filter.view';
 
-const Plugin = PluginComponent('column-filter-panel', {inject: ['$scope', 'vscroll', '$filter', 'qgrid']});
+const Plugin = PluginComponent('column-filter-panel', { inject: ['$scope', 'vscroll', '$filter', 'qgrid'] });
 class ColumnFilterPanel extends Plugin {
 	constructor() {
 		super(...arguments);
@@ -37,6 +37,7 @@ class ColumnFilterPanel extends Plugin {
 				}
 				else {
 					const cancelBusy = service.busy();
+					const isBlank = model.filter().assertFactory().isNull;
 					try {
 						if (!columnFilter.items.length) {
 							const source = model[model.columnFilter().source];
@@ -46,9 +47,14 @@ class ColumnFilterPanel extends Plugin {
 							}
 
 							const uniqItems = uniq(items);
-							const filteredItems = this.$filter('filter')(uniqItems, columnFilter.filter);
+							const notBlankItems = uniqItems.filter(x => !isBlank(x));
+							const filteredItems = this.$filter('filter')(notBlankItems, columnFilter.filter);
+
 							filteredItems.sort(columnFilter.column.compare);
 							columnFilter.items = filteredItems;
+							columnFilter.hasBlanks = 
+								notBlankItems.length !== uniqItems.length && 
+									(!columnFilter.filter || 'blanks'.indexOf(columnFilter.filter.toLowerCase()) >= 0);
 						}
 
 						d.resolve(columnFilter.items.length);

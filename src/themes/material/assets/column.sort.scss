@@ -8,9 +8,8 @@ th {
 	.q-grid-asc {
 		display: none;
 	}
-
 	&.q-grid-can-sort {
-		label {
+		.q-grid-sort {
 			cursor: pointer;
 		}
 		.q-grid-desc,
@@ -38,8 +37,8 @@ th {
 		text-overflow: ellipsis;
 		margin-left: -16px;
 		padding-left: 16px;
-		>* {
-			cursor: pointer;
+		label {
+			display: inline;
 		}
 		&.q-grid-active {
 			label {
@@ -50,7 +49,7 @@ th {
 			}
 		}
 		.q-grid-icon {
-			transition: opacity 0.30s;
+			transition: opacity 0.3s;
 			opacity: 0;
 			position: absolute;
 			margin-left: -16px;
