@@ -12,7 +12,25 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Data manipulation array marks as dirty when enter edit mode.
 - Menu panels should fit screen sizes.
 - Convert form editiing popup to menu.
+- Expression builder plugin.
 - 107+ JIRA tasks :-)
+
+## [1.4.0] - 2018-02-07
+### Added
+- Column [viewWidth](https://qgrid.github.io/ng/#!/column-view-size) property.
+- Filter `by` property `blanks` option support.
+
+### Changed
+- Show (Blanks) checkbox in column filter if there is empty string, null or undefined in the list.
+- Explicitly set `display: inline` for label in column sort plugin.
+
+## [1.3.4] - 2018-02-02
+### Fixed
+- Explicitly set height for column chooser and column filter plugins so angular material can apply correct layout.
+
+### Changed
+- Change q-grid-embed styles.
+- Better layout of column filter and column sort icons.
 
 ## [1.3.3] - 2018-01-26
 ### Fixed
@@ -237,7 +255,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Action bar plugin.
 - Data manipulation plugin.
 
-[Unreleased]: https://github.com/qgrid/ng/compare/v1.3.3...HEAD
+[Unreleased]: https://github.com/qgrid/ng/compare/v1.4.0...HEAD
+[1.4.0]: https://github.com/qgrid/ng/compare/v1.3.4...v1.4.0
+[1.3.4]: https://github.com/qgrid/ng/compare/v1.3.3...v1.3.4
 [1.3.3]: https://github.com/qgrid/ng/compare/v1.3.2...v1.3.3
 [1.3.2]: https://github.com/qgrid/ng/compare/v1.3.1...v1.3.2
 [1.3.1]: https://github.com/qgrid/ng/compare/v1.2.0...v1.3.1
