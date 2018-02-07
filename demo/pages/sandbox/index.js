@@ -55,7 +55,9 @@ export default function Controller($http, qgrid) {
 			value: (item, value) => isUndef(value) ? item.comment || '' : item.comment = value,
 			editor: 'text-area',
 			width: 200,
-			maxLength: 8000
+			maxLength: 8000,
+			maxWidth: 600,
+			viewWidth: 400
 		},
 		{
 			key: 'password',
