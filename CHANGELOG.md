@@ -257,7 +257,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 [Unreleased]: https://github.com/qgrid/ng/compare/v1.4.0...HEAD
 [1.4.0]: https://github.com/qgrid/ng/compare/v1.3.4...v1.4.0
-[1.3.3]: https://github.com/qgrid/ng/compare/v1.3.3...v1.3.4
+[1.3.4]: https://github.com/qgrid/ng/compare/v1.3.3...v1.3.4
 [1.3.3]: https://github.com/qgrid/ng/compare/v1.3.2...v1.3.3
 [1.3.2]: https://github.com/qgrid/ng/compare/v1.3.1...v1.3.2
 [1.3.1]: https://github.com/qgrid/ng/compare/v1.2.0...v1.3.1
