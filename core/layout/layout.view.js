@@ -13,8 +13,8 @@ export class LayoutView extends View {
 
 		model.navigationChanged.watch(e => {
 			if (e.hasChanges('cell')) {
-				const oldColumn = (e.changes.cell.oldValue || {}).column || {};
-				const newColumn = (e.changes.cell.newValue || {}).column || {};
+				const oldColumn = e.changes.cell.oldValue ? e.changes.cell.oldValue.column : {};
+				const newColumn = e.changes.cell.newValue ? e.changes.cell.newValue.column : {};
 
 				if (oldColumn.key !== newColumn.key && (oldColumn.viewWidth || newColumn.viewWidth)) {
 					const form = this.updateColumnForm();

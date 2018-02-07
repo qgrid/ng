@@ -23,8 +23,8 @@ class CellHandler extends Component {
 				const domCell = table.body.cell(e.state.rowIndex, e.state.columnIndex);
 				const cell = e.state.cell;
 				if (cell) {
-					const oldColumn = (e.changes.cell.oldValue || {}).column || {};
-					const newColumn = (e.changes.cell.newValue || {}).column || {};
+					const oldColumn = e.changes.cell.oldValue ? e.changes.cell.oldValue.column : {};
+					const newColumn = e.changes.cell.newValue ? e.changes.cell.newValue.column : {};
 
 					// Do not apply animation for columns that have viewWidth assigned
 					// because it can be animated too.
