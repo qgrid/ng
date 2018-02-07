@@ -33,11 +33,11 @@ export class ColumnFilterView extends PluginView {
 	}
 
 	stateAll() {
-		return this.items.every(this.state.bind(this));
+		return this.items.every(this.state.bind(this)) && (!this.hasBlanks || this.byBlanks);
 	}
 
 	isIndeterminate() {
-		return !this.stateAll() && this.items.some(this.state.bind(this));
+		return !this.stateAll() && (this.items.some(this.state.bind(this)) || this.byBlanks);
 	}
 
 	get commands() {
@@ -66,6 +66,8 @@ export class ColumnFilterView extends PluginView {
 					else {
 						this.by.clear();
 					}
+
+					this.byBlanks = this.hasBlanks && state;
 				}
 			}),
 
