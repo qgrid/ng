@@ -1440,6 +1440,8 @@
     .q-grid td.q-grid-pivot,
     .q-grid th.q-grid-pivot {
       text-align: center; }
+  .q-grid.q-grid-box:not(.q-grid-drag) td, .q-grid.q-grid-box:not(.q-grid-drag) th {
+    transition: min-width 0.3s, width 0.3s, max-width 0.3s; }
   .q-grid thead th > div {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1622,7 +1624,7 @@
   .q-grid.q-grid-box .q-grid-row-indicator .q-grid-draggable {
     cursor: move;
     opacity: 0;
-    transition: 0.30s; }
+    transition: 0.3s; }
     .q-grid.q-grid-box .q-grid-row-indicator .q-grid-draggable .q-grid-icon {
       width: 24px;
       min-width: 24px;

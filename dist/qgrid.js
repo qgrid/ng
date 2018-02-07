@@ -1683,6 +1683,7 @@ var ColumnModel = function () {
 		this.width = null;
 		this.minWidth = 20;
 		this.maxWidth = null;
+		this.viewWidth = null;
 
 		this.widthMode = 'relative'; // relative | absolute
 
@@ -21805,8 +21806,7 @@ var LayoutModel = function LayoutModel() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__view__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_css__ = __webpack_require__(52);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__column_column_service__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utility__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__infrastructure__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__infrastructure__ = __webpack_require__(1);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
@@ -21816,7 +21816,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 
 
 
@@ -21834,6 +21833,18 @@ var LayoutView = function (_View) {
 		_this.model = model;
 		_this.table = table;
 		_this.service = service;
+
+		model.navigationChanged.watch(function (e) {
+			if (e.hasChanges('cell')) {
+				var oldColumn = e.changes.cell.oldValue ? e.changes.cell.oldValue.column : {};
+				var newColumn = e.changes.cell.newValue ? e.changes.cell.newValue.column : {};
+
+				if (oldColumn.key !== newColumn.key && (oldColumn.viewWidth || newColumn.viewWidth)) {
+					var form = _this.updateColumnForm();
+					_this.invalidateColumns(form);
+				}
+			}
+		});
 
 		_this.onInit();
 		return _this;
@@ -21854,8 +21865,12 @@ var LayoutView = function (_View) {
 
 			var styleRow = this.styleRow.bind(this);
 			model.layoutChanged.watch(function (e) {
+				if (e.tag.source === 'layout.view') {
+					return;
+				}
+
 				if (e.hasChanges('columns')) {
-					var form = _this2.getColumnForm();
+					var form = _this2.updateColumnForm();
 					_this2.invalidateColumns(form);
 				}
 			});
@@ -21874,18 +21889,11 @@ var LayoutView = function (_View) {
 			});
 		}
 	}, {
-		key: 'getRowForm',
-		value: function getRowForm() {
+		key: 'updateColumnForm',
+		value: function updateColumnForm() {
 			var model = this.model;
-			var layout = model.layout;
-			return Object(__WEBPACK_IMPORTED_MODULE_3__utility__["b" /* clone */])(layout().rows);
-		}
-	}, {
-		key: 'getColumnForm',
-		value: function getColumnForm() {
-			var model = this.model;
-			var layout = model.layout;
-			var state = Object(__WEBPACK_IMPORTED_MODULE_3__utility__["b" /* clone */])(layout().columns);
+			var layout = model.layout().columns;
+			var form = new Map();
 			var headRow = this.table.head.row(0);
 			if (headRow) {
 				var columns = this.table.data.columns();
@@ -21893,13 +21901,15 @@ var LayoutView = function (_View) {
 
 				var _loop = function _loop() {
 					var column = columns[length];
-					if (!state.has(column.key)) {
+					if (!layout.has(column.key)) {
 						if (column.canResize) {
 							var index = columns.findIndex(function (c) {
 								return c === column;
 							});
-							state.set(column.key, { width: headRow.cell(index).width() });
+							form.set(column.key, { width: headRow.cell(index).width() });
 						}
+					} else {
+						form.set(column.key, { width: layout.get(column.key).width });
 					}
 				};
 
@@ -21908,12 +21918,21 @@ var LayoutView = function (_View) {
 				}
 			}
 
-			return state;
+			model.layout({ columns: form }, { source: 'layout.view', behavior: 'core' });
+
+			var column = this.model.navigation().column;
+			if (column && column.viewWidth) {
+				var viewForm = new Map(form);
+				viewForm.set(column.key, { width: column.viewWidth });
+				return viewForm;
+			}
+
+			return form;
 		}
 	}, {
 		key: 'invalidateColumns',
 		value: function invalidateColumns(form) {
-			__WEBPACK_IMPORTED_MODULE_4__infrastructure__["j" /* Log */].info('layout', 'invalidate columns');
+			__WEBPACK_IMPORTED_MODULE_3__infrastructure__["j" /* Log */].info('layout', 'invalidate columns');
 
 			var table = this.table;
 			var getWidth = __WEBPACK_IMPORTED_MODULE_2__column_column_service__["f" /* widthFactory */](table, form);
@@ -21922,10 +21941,10 @@ var LayoutView = function (_View) {
 
 			var length = columns.length;
 			while (length--) {
-				var _column = columns[length];
-				var width = getWidth(_column.key);
+				var column = columns[length];
+				var width = getWidth(column.key);
 				if (null !== width) {
-					var key = __WEBPACK_IMPORTED_MODULE_1__services_css__["a" /* escape */](_column.key);
+					var key = __WEBPACK_IMPORTED_MODULE_1__services_css__["a" /* escape */](column.key);
 					var size = width + 'px';
 					var sizeStyle = {
 						'width': size,
@@ -21944,7 +21963,9 @@ var LayoutView = function (_View) {
 	}, {
 		key: 'styleRow',
 		value: function styleRow(row, context) {
-			var form = this.getRowForm();
+			var model = this.model;
+			var layout = model.layout;
+			var form = layout().rows;
 			var style = form.get(row);
 			if (style) {
 				context.class('resized-' + style.height + 'px', { height: style.height + 'px' });
@@ -25959,7 +25980,7 @@ var FilterModel = function FilterModel() {
 				return x < y;
 			},
 			isNull: function isNull(x) {
-				return x === '' || x === null || x === undefined || isNaN(x) || isFinite(x);
+				return x === '' || x === null || x === undefined;
 			}
 		};
 	};
@@ -26025,7 +26046,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 function build(filterBy) {
 	var op = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'and';
 
-	var expressions = [];
+	var result = [];
 	var _iteratorNormalCompletion = true;
 	var _didIteratorError = false;
 	var _iteratorError = undefined;
@@ -26037,11 +26058,24 @@ function build(filterBy) {
 			    filter = _step$value[1];
 
 			if (filter.expression) {
-				expressions.push(filter.expression);
+				result.push(filter.expression);
 			}
 
+			var expressions = [];
 			if (filter.items && filter.items.length) {
-				expressions.push(toExpression(key, filter.items));
+				expressions.push(toInExpression(key, filter.items));
+			}
+
+			if (filter.blanks) {
+				expressions.push(toIsEmptyExpression(key));
+			}
+
+			if (expressions.length) {
+				if (expressions.length === 1) {
+					result.push(expressions[0]);
+				} else {
+					result.push(compile(expressions, 'or'));
+				}
 			}
 		}
 	} catch (err) {
@@ -26059,10 +26093,24 @@ function build(filterBy) {
 		}
 	}
 
-	return compile(expressions, op);
+	return compile(result, op);
 }
 
-function toExpression(key, items) {
+function toIsEmptyExpression(key) {
+	return {
+		kind: 'group',
+		op: 'and',
+		left: {
+			kind: 'condition',
+			left: key,
+			op: 'isEmpty',
+			right: null
+		},
+		right: null
+	};
+}
+
+function toInExpression(key, items) {
 	return {
 		kind: 'group',
 		op: 'and',
@@ -26205,11 +26253,13 @@ var PredicateVisitor = function (_Visitor) {
 			var predicate = void 0;
 			switch (condition.op) {
 				case 'isNotNull':
+				case 'isNotEmpty':
 					predicate = function predicate(l) {
 						return !isNull(l);
 					};
 					break;
 				case 'isNull':
+				case 'isEmpty':
 					predicate = function predicate(l) {
 						return isNull(l);
 					};
@@ -29299,6 +29349,7 @@ var ColumnFilterPanel = function (_Plugin) {
 					}).catch(cancelBusy);
 				} else {
 					var _cancelBusy = service.busy();
+					var isBlank = model.filter().assertFactory().isNull;
 					try {
 						if (!columnFilter.items.length) {
 							var source = model[model.columnFilter().source];
@@ -29308,9 +29359,14 @@ var ColumnFilterPanel = function (_Plugin) {
 							}
 
 							var uniqItems = Object(__WEBPACK_IMPORTED_MODULE_1__grid_core_utility__["A" /* uniq */])(items);
-							var filteredItems = _this.$filter('filter')(uniqItems, columnFilter.filter);
+							var notBlankItems = uniqItems.filter(function (x) {
+								return !isBlank(x);
+							});
+							var filteredItems = _this.$filter('filter')(notBlankItems, columnFilter.filter);
+
 							filteredItems.sort(columnFilter.column.compare);
 							columnFilter.items = filteredItems;
+							columnFilter.hasBlanks = notBlankItems.length !== uniqItems.length && (!columnFilter.filter || 'blanks'.indexOf(columnFilter.filter.toLowerCase()) >= 0);
 						}
 
 						d.resolve(columnFilter.items.length);
@@ -29408,6 +29464,7 @@ var ColumnFilterView = function (_PluginView) {
 
 		var filterBy = _this.model.filter().by[_this.key];
 		_this.by = new Set(filterBy && filterBy.items || []);
+		_this.byBlanks = !!(filterBy && filterBy.blanks);
 
 		_this.items = [];
 
@@ -29427,12 +29484,12 @@ var ColumnFilterView = function (_PluginView) {
 	}, {
 		key: 'stateAll',
 		value: function stateAll() {
-			return this.items.every(this.state.bind(this));
+			return this.items.every(this.state.bind(this)) && (!this.hasBlanks || this.byBlanks);
 		}
 	}, {
 		key: 'isIndeterminate',
 		value: function isIndeterminate() {
-			return !this.stateAll() && this.items.some(this.state.bind(this));
+			return !this.stateAll() && (this.items.some(this.state.bind(this)) || this.byBlanks);
 		}
 	}, {
 		key: 'commands',
@@ -29483,22 +29540,28 @@ var ColumnFilterView = function (_PluginView) {
 						} else {
 							_this2.by.clear();
 						}
+
+						_this2.byBlanks = _this2.hasBlanks && state;
 					}
 				}),
 
 				submit: new __WEBPACK_IMPORTED_MODULE_1__core_command__["a" /* Command */]({
 					source: 'column.filter.view',
 					execute: function execute() {
-						var filter = _this2.model.filter;
-						var by = Object(__WEBPACK_IMPORTED_MODULE_4__core_utility__["b" /* clone */])(filter().by);
-						var items = Array.from(_this2.by);
-						if (items.length) {
-							by[_this2.key] = { items: items };
+						var model = _this2.model;
+						var by = Object(__WEBPACK_IMPORTED_MODULE_4__core_utility__["b" /* clone */])(model.filter().by);
+
+						var filter = by[_this2.key] || {};
+						filter.items = Array.from(_this2.by);
+						filter.blanks = _this2.byBlanks;
+
+						if (filter.items.length || filter.blanks || filter.expression) {
+							by[_this2.key] = filter;
 						} else {
 							delete by[_this2.key];
 						}
 
-						filter({ by: by });
+						model.filter({ by: by });
 
 						_this2.submitEvent.emit();
 					}
@@ -38741,26 +38804,49 @@ var CellHandler = function (_Component) {
 			var model = this.root.model;
 			var table = this.root.table;
 			var element = this.element;
-			model.focusChanged.on(function (e) {
-				if (e.hasChanges('rowIndex') || e.hasChanges('columnIndex')) {
-					var cell = table.body.cell(e.state.rowIndex, e.state.columnIndex);
-					var cellModel = cell.model();
-					if (cellModel) {
-						element.classList.add('q-grid-active');
-						cell.addClass('q-grid-animate');
-						var target = cell.element;
+
+			// When navigate first or when animation wasn't applied we need to omit
+			// next navigation event to make handler to correct position.
+			var isValid = false;
+			model.navigationChanged.watch(function (e) {
+				if (e.hasChanges('cell')) {
+					var domCell = table.body.cell(e.state.rowIndex, e.state.columnIndex);
+					var cell = e.state.cell;
+					if (cell) {
+						var oldColumn = e.changes.cell.oldValue ? e.changes.cell.oldValue.column : {};
+						var newColumn = e.changes.cell.newValue ? e.changes.cell.newValue.column : {};
+
+						// Do not apply animation for columns that have viewWidth assigned
+						// because it can be animated too.
+						var shouldAnimate = oldColumn.key === newColumn.key || !(oldColumn.viewWidth || newColumn.viewWidth);
+						if (!shouldAnimate) {
+							isValid = false;
+							return;
+						}
+
+						if (isValid) {
+							element.classList.add('q-grid-active');
+							domCell.addClass('q-grid-animate');
+						}
+
+						var target = domCell.element;
 						var scrollState = model.scroll();
 
 						element.style.top = target.offsetTop - scrollState.top + 'px';
-						element.style.left = target.offsetLeft - (cellModel.column.pin ? 0 : scrollState.left) + 'px';
+						element.style.left = target.offsetLeft - (cell.column.pin ? 0 : scrollState.left) + 'px';
 						element.style.width = target.offsetWidth + 'px';
 						element.style.height = target.offsetHeight + 'px';
-						_this2.job(function () {
-							element.classList.remove('q-grid-active');
-							cell.removeClass('q-grid-animate');
-						}).catch(function () {
-							cell.removeClass('q-grid-animate');
-						});
+
+						if (isValid) {
+							_this2.job(function () {
+								element.classList.remove('q-grid-active');
+								domCell.removeClass('q-grid-animate');
+							}).catch(function () {
+								domCell.removeClass('q-grid-animate');
+							});
+						}
+
+						isValid = true;
 					}
 				}
 			});
@@ -43706,25 +43792,25 @@ module.exports = "<q-grid-core:box ng-cloak class=\"q-grid-box layout-column\">\
 /* 704 */
 /***/ (function(module, exports) {
 
-module.exports = "<q-grid-core:table ng-if=\"$view.visibility.pin.left\"\n\t\t\t\t\t\t pin=\"left\"\n\t\t\t\t\t\t class=\"q-grid-table q-grid-table-left layout-column\">\n</q-grid-core:table>\n<q-grid-core:table class=\"q-grid-table q-grid-table-center layout-column flex\">\n</q-grid-core:table>\n<q-grid-core:table ng-if=\"$view.visibility.pin.right\"\n\t\t\t\t\t\t pin=\"right\"\n\t\t\t\t\t\t class=\"q-grid-table q-grid-table-right layout-column\">\n</q-grid-core:table>\n<q-grid:cell-handler class=\"q-grid-cell-handler\"></q-grid:cell-handler> \n"
+module.exports = "<q-grid-core:table ng-if=\"$view.visibility.pin.left\"\n                   pin=\"left\"\n                   class=\"q-grid-table q-grid-table-left layout-column\">\n</q-grid-core:table>\n<q-grid-core:table class=\"q-grid-table q-grid-table-center layout-column flex\">\n</q-grid-core:table>\n<q-grid-core:table ng-if=\"$view.visibility.pin.right\"\n                   pin=\"right\"\n                   class=\"q-grid-table q-grid-table-right layout-column\">\n</q-grid-core:table>\n<q-grid:cell-handler class=\"q-grid-cell-handler\"></q-grid:cell-handler>"
 
 /***/ }),
 /* 705 */
 /***/ (function(module, exports) {
 
-module.exports = "<table q-grid:markup=\"table\">\n\t<thead ng-if=\"$view.visibility.head\"\n\t\t\t ng-include=\"$view.templateUrl('head')\"\n\t\t\t q-grid-core:head\n\t\t\t q-grid:markup=\"head\"\n\t\t\t q-grid:animate=\"false\">\n\t</thead>\n\t<tbody ng-include=\"$view.templateUrl($view.scroll.mode === 'virtual' ? 'body.virtual' : 'body')\"\n\t\t\t ng-if=\"$view.visibility.body\"\n\t\t\t q-grid-core:body\n\t\t\t q-grid:markup=\"body\"\n\t\t\t q-grid:animate=\"false\"\n\t\t\t vscroll\n\t\t\t vscroll-port-y=\"$view.scroll.y\"\n\t\t\t tabindex=\"0\">\n\t</tbody>\n\t<tfoot ng-if=\"$view.visibility.foot\"\n\t\t\t ng-include=\"$view.templateUrl('foot')\"\n\t\t\t q-grid-core:foot\n\t\t\t q-grid:markup=\"foot\"\n\t\t\t q-grid:animate=\"false\">\n\t</tfoot>\n</table>"
+module.exports = "<table q-grid:markup=\"table\">\n\t<thead ng-if=\"$view.visibility.head\"\n\t       ng-include=\"$view.templateUrl('head')\"\n\t       q-grid-core:head\n\t       q-grid:markup=\"head\"\n\t       q-grid:animate=\"false\">\n\t</thead>\n\t<tbody ng-include=\"$view.templateUrl($view.scroll.mode === 'virtual' ? 'body.virtual' : 'body')\"\n\t       ng-if=\"$view.visibility.body\"\n\t       q-grid-core:body\n\t       q-grid:markup=\"body\"\n\t       q-grid:animate=\"false\"\n\t       vscroll\n\t       vscroll-port-y=\"$view.scroll.y\"\n\t       tabindex=\"0\">\n\t</tbody>\n\t<tfoot ng-if=\"$view.visibility.foot\"\n\t       ng-include=\"$view.templateUrl('foot')\"\n\t       q-grid-core:foot\n\t       q-grid:markup=\"foot\"\n\t       q-grid:animate=\"false\">\n\t</tfoot>\n</table>"
 
 /***/ }),
 /* 706 */
 /***/ (function(module, exports) {
 
-module.exports = "<tr ng-repeat=\"$row in $view.head.rows track by $index\" q-grid-core:tr=\"head\">\n\t<th ng-repeat=\"$column in $view.head.columns($row, $table.pin) track by $column.model.key\"\n\t    rowspan=\"{{$column.rowspan}}\"\n\t    colspan=\"{{$column.colspan}}\"\n\t    q-grid:drag=\"$view.head.transfer($column.model)\"\n\t    q-grid:drop=\"$view.head.transfer($column.model)\"\n\t    q-grid:on-drop=\"$view.head.drop.execute($event)\"\n\t    q-grid:can-drop=\"$view.head.drop.canExecute($event)\"\n\t    q-grid:can-drag=\"$view.head.drag.canExecute($event)\"\n\t    q-grid:resizable=\"$view.head.resize.canExecute($event)\"\n\t    q-grid:resize=\"$column.model.key\"\n\t    q-grid:resize-path=\"columns\"\n\t    q-grid:can-resize=\"$view.head.resize.canExecute($event)\"\n\t    q-grid-core:th>\n\t</th>\n</tr>"
+module.exports = "<tr ng-repeat=\"$row in $view.head.rows track by $index\"\n    q-grid-core:tr=\"head\">\n\t<th ng-repeat=\"$column in $view.head.columns($row, $table.pin) track by $column.model.key\"\n\t    rowspan=\"{{$column.rowspan}}\"\n\t    colspan=\"{{$column.colspan}}\"\n\t    q-grid:drag=\"$view.head.transfer($column.model)\"\n\t    q-grid:drop=\"$view.head.transfer($column.model)\"\n\t    q-grid:on-drop=\"$view.head.drop.execute($event)\"\n\t    q-grid:can-drop=\"$view.head.drop.canExecute($event)\"\n\t    q-grid:can-drag=\"$view.head.drag.canExecute($event)\"\n\t    q-grid:resizable=\"$view.head.resize.canExecute($event)\"\n\t    q-grid:resize=\"$column.model.key\"\n\t    q-grid:resize-path=\"columns\"\n\t    q-grid:can-resize=\"$view.head.resize.canExecute($event)\"\n\t    q-grid-core:th>\n\t</th>\n</tr>"
 
 /***/ }),
 /* 707 */
 /***/ (function(module, exports) {
 
-module.exports = "<tr class=\"q-grid-align\">\n\t<td ng-repeat=\"$column in $view.body.render.defaultStrategy.columnList($table.pin) track by $column.model.key\"\n\t\t q-grid-core:td-align>\n\t</td>\n</tr>\n<tr ng-repeat=\"$row in $view.body.rows track by $index\" q-grid-core:tr=\"body\">\n\t<td ng-repeat=\"$column in $view.body.render.columns($row, $table.pin) track by $column.model.key\"\n\t\t rowspan=\"{{$view.body.render.rowspan($row, $column)}}\"\n\t\t colspan=\"{{$view.body.render.colspan($row, $column)}}\"\n\t\t q-grid-core:td>\n\t</td>\n</tr>"
+module.exports = "<tr class=\"q-grid-align\">\n\t<td ng-repeat=\"$column in $view.body.render.defaultStrategy.columnList($table.pin) track by $column.model.key\"\n\t    q-grid-core:td-align>\n\t</td>\n</tr>\n<tr ng-repeat=\"$row in $view.body.rows track by $index\"\n    q-grid-core:tr=\"body\">\n\t<td ng-repeat=\"$column in $view.body.render.columns($row, $table.pin) track by $column.model.key\"\n\t    rowspan=\"{{$view.body.render.rowspan($row, $column)}}\"\n\t    colspan=\"{{$view.body.render.colspan($row, $column)}}\"\n\t    q-grid-core:td>\n\t</td>\n</tr>"
 
 /***/ }),
 /* 708 */
@@ -43736,13 +43822,13 @@ module.exports = "<div class=\"q-grid-marker\"></div>"
 /* 709 */
 /***/ (function(module, exports) {
 
-module.exports = "<tr vscroll-mark=\"top\"\n\t class=\"q-grid-scroll-mark\">\n</tr>\n<tr class=\"q-grid-align\">\n\t<td ng-repeat=\"$column in $view.body.render.defaultStrategy.columnList($table.pin) track by $column.model.key\"\n\t\t q-grid-core:td-align>\n\t</td>\n</tr>\n<tr ng-repeat=\"$row in $view.body.rows | vscroll: $view.scroll.y track by $index\"\n\t vscroll-row=\"{{::$index}}\"\n\t q-grid-core:tr=\"body\">\n\t<td ng-repeat=\"$column in $view.body.render.columns($row, $table.pin) track by $column.model.key\"\n\t\t rowspan=\"{{$view.body.render.rowspan($row, $column)}}\"\n\t\t rowspan=\"{{$view.body.render.colspan($row, $column)}}\"\n\t\t q-grid-core:td>\n\t</td>\n</tr>\n<tr vscroll-mark=\"bottom\"\n\t class=\"q-grid-scroll-mark\">\n</tr>"
+module.exports = "<tr vscroll-mark=\"top\"\n    class=\"q-grid-scroll-mark\">\n</tr>\n<tr class=\"q-grid-align\">\n\t<td ng-repeat=\"$column in $view.body.render.defaultStrategy.columnList($table.pin) track by $column.model.key\"\n\t    q-grid-core:td-align>\n\t</td>\n</tr>\n<tr ng-repeat=\"$row in $view.body.rows | vscroll: $view.scroll.y track by $index\"\n    vscroll-row=\"{{::$index}}\"\n    q-grid-core:tr=\"body\">\n\t<td ng-repeat=\"$column in $view.body.render.columns($row, $table.pin) track by $column.model.key\"\n\t    rowspan=\"{{$view.body.render.rowspan($row, $column)}}\"\n\t    rowspan=\"{{$view.body.render.colspan($row, $column)}}\"\n\t    q-grid-core:td>\n\t</td>\n</tr>\n<tr vscroll-mark=\"bottom\"\n    class=\"q-grid-scroll-mark\">\n</tr>"
 
 /***/ }),
 /* 710 */
 /***/ (function(module, exports) {
 
-module.exports = "<tr ng-repeat=\"$row in $view.foot.rows track by $index\" q-grid-core:tr=\"foot\">\n\t<td ng-repeat=\"$column in $view.foot.columns($row, $table.pin) track by $column.model.key\"\n\t\t colspan=\"{{$column.colspan}}\"\n\t\t q-grid-core:tf>\n\t</td>\n</tr>"
+module.exports = "<tr ng-repeat=\"$row in $view.foot.rows track by $index\"\n    q-grid-core:tr=\"foot\">\n\t<td ng-repeat=\"$column in $view.foot.columns($row, $table.pin) track by $column.model.key\"\n\t    colspan=\"{{$column.colspan}}\"\n\t    q-grid-core:tf>\n\t</td>\n</tr>"
 
 /***/ }),
 /* 711 */
