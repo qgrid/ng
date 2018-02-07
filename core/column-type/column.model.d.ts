@@ -261,7 +261,7 @@ export declare class ColumnModel {
     maxWidth: number;
 
     /**
-     * If set, column width will be exanded to this value on focus.
+     * If set, column width will be expanded to this value on focus.
      */
     viewWidth: number;
 
