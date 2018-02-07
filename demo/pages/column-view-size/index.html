@@ -1,0 +1,8 @@
+<q-grid header="{{::$details.title}}" rows="$ctrl.rows">
+	<q-grid:columns>
+		<q-grid:column key="name.first" path="name.first" title="First Name" view-width="300"></q-grid:column>
+		<q-grid:column key="name.last" path="name.last" title="Last Name" view-width="300"></q-grid:column>
+		<q-grid:column key="gender" title="Gender" view-width="100" width="50"></q-grid:column>
+		<q-grid:column key="birthday" title="Birthday" type="date"></q-grid:column>
+	</q-grid:columns>
+</q-grid>

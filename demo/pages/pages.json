@@ -269,6 +269,10 @@
 				"path": "column-size"
 			},
 			{
+				"title": "Column View Size",
+				"path": "column-view-size"
+			},
+			{
 				"title": "Column Groups",
 				"path": "column-groups"
 			},

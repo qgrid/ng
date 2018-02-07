@@ -16,7 +16,7 @@ export class LayoutView extends View {
 				const oldColumn = (e.changes.cell.oldValue || {}).column || {};
 				const newColumn = (e.changes.cell.newValue || {}).column || {};
 
-				if (oldColumn.viewWidth || newColumn.viewWidth) {
+				if (oldColumn.key !== newColumn.key && (oldColumn.viewWidth || newColumn.viewWidth)) {
 					const form = this.updateColumnForm();
 					this.invalidateColumns(form);
 				}
@@ -86,7 +86,7 @@ export class LayoutView extends View {
 
 		model.layout({ columns: form }, { source: 'layout.view', behavior: 'core' });
 
-		const column = this.model.navigation.column;
+		const column = this.model.navigation().column;
 		if (column && column.viewWidth) {
 			const viewForm = new Map(form);
 			viewForm.set(column.key, { width: column.viewWidth });
