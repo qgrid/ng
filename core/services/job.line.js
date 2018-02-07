@@ -1,15 +1,10 @@
 ﻿import { AppError, Defer } from '../infrastructure';
 import { isFunction } from '../utility';
+import { setTimeout, clearTimeout } from 'timers';
 
 export function jobLine(delay) {
-	let timeout = null;
 	let defer = null;
-	const cancel = () => {
-		if (timeout) {
-			clearTimeout(timeout);
-			timeout = null;
-		}
-
+	const reset = () => {
 		if (defer) {
 			defer.reject();
 			defer = null;
@@ -17,7 +12,8 @@ export function jobLine(delay) {
 	};
 
 	return job => {
-		cancel();
+		reset();
+
 		if (!isFunction(job)) {
 			throw new AppError('job.line', 'job is not invokable');
 		}
@@ -26,14 +22,20 @@ export function jobLine(delay) {
 			job();
 
 			defer.resolve();
-			clearTimeout(timeout);
-			
+
 			defer = null;
-			timeout = null;
 		};
 
-		timeout = setTimeout(doJob, delay);
-		defer = new Defer();
+		defer = jobLine.run(doJob, delay);
 		return defer.promise;
 	};
 }
+
+jobLine.run = (job, delay) => {
+	const defer = new Defer();
+	const token = setTimeout(job, delay);
+
+	defer.promise.catch(() => clearTimeout(token));
+
+	return defer;
+};
