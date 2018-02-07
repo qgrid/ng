@@ -37,14 +37,6 @@
 						             md-indeterminate="$columnFilterPanel.isIndeterminate()">
 							Select All
 						</md-checkbox>
-						<md-checkbox ng-if="$columnFilterPanel.hasBlanks"
-						             md-prevent-menu-close
-						             ng-checked="$columnFilterPanel.stateAll()"
-						             aria-label="Select blanks"
-						             md-no-ink
-						             class="q-grid-checkbox">
-							(Blanks)
-						</md-checkbox>
 					</li>
 					</li>
 				</ul>
@@ -55,12 +47,20 @@
 						    vscroll-row="{{::$index}}">
 							<md-checkbox ng-checked="$columnFilterPanel.state(item)"
 							             md-prevent-menu-close
-							             ng-if="$columnFilterPanel.toggle.canExecute(item)"
 							             aria-label="Select filter value"
 							             md-no-ink
 							             class="q-grid-checkbox"
 							             ng-click="$columnFilterPanel.toggle.execute(item)">
 								<span ng-bind-html="item | qgridHighlight : $columnFilterPanel.filter"> </span>
+							</md-checkbox>
+						</li>
+						<li ng-if="$columnFilterPanel.hasBlanks">
+							<md-checkbox ng-model="$columnFilterPanel.byBlanks"
+							             md-prevent-menu-close
+							             aria-label="Select blanks"
+							             md-no-ink
+							             class="q-grid-checkbox">
+								<span ng-bind-html="'(Blanks)' | qgridHighlight : $columnFilterPanel.filter"> </span>
 							</md-checkbox>
 						</li>
 					</ul>

@@ -47,16 +47,14 @@ class ColumnFilterPanel extends Plugin {
 							}
 
 							const uniqItems = uniq(items);
-							const filteredItems = this.$filter('filter')(uniqItems, columnFilter.filter);							
-							const notBlankItems = filteredItems.filter(x => !isBlank(x));
+							const notBlankItems = uniqItems.filter(x => !isBlank(x));
+							const filteredItems = this.$filter('filter')(notBlankItems, columnFilter.filter);
 
-							notBlankItems.sort(columnFilter.column.compare);
-							if (notBlankItems.length !== filteredItems.length) {
-								columnFilter.items = ['(Blanks)'].concat(notBlankItems);
-							}
-							else {
-								columnFilter.items = notBlankItems;
-							}
+							filteredItems.sort(columnFilter.column.compare);
+							columnFilter.items = filteredItems;
+							columnFilter.hasBlanks = 
+								notBlankItems.length !== uniqItems.length && 
+									(!columnFilter.filter || 'blanks'.indexOf(columnFilter.filter.toLowerCase()) >= 0);
 						}
 
 						d.resolve(columnFilter.items.length);
