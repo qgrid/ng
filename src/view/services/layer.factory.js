@@ -5,9 +5,10 @@ import {GRID_PREFIX} from '@grid/core/definition';
 import * as css from '@grid/core/services/css';
 
 export class LayerFactory {
-	constructor(markup, template) {
+	constructor(markup, template, model) {
 		this.markup = markup;
 		this.template = template;
+		this.model = model;
 	}
 
 	create(name) {
@@ -26,6 +27,6 @@ export class LayerFactory {
 			throw new AppError('layer.factory', 'Controller scope for box is not found');
 		}
 
-		return new Layer(ctrl.$scope, node, this.template);
+		return new Layer(ctrl.$scope, node, this.template, name, model);
 	}
 }
