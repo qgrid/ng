@@ -3,6 +3,7 @@ import { Command } from '../command';
 import { Navigation } from './navigation';
 import { GRID_PREFIX } from '../definition';
 import { CellView } from '../scene/view';
+import { requestAnimationFrame } from '../utility';
 
 export class NavigationView extends View {
 	constructor(model, table, commandManager) {
@@ -47,7 +48,11 @@ export class NavigationView extends View {
 
 		this.scrollTo = new Command({
 			source: 'navigation.view',
-			execute: (row, column) => this.scroll(table.view, table.body.cell(row, column)),
+			execute: (row, column) => {
+				requestAnimationFrame(() => {
+					this.scroll(table.view, table.body.cell(row, column));
+				});
+			},
 			canExecute: (row, column) => table.body.cell(row, column).model() !== null
 		});
 
@@ -72,8 +77,8 @@ export class NavigationView extends View {
 					rowIndex: newRow,
 					columnIndex: newColumn
 				}, {
-					source: 'navigation.view'
-				});
+						source: 'navigation.view'
+					});
 			}
 		}));
 

@@ -23,6 +23,13 @@ import takeWhile from 'lodash/takeWhile';
 import dropWhile from 'lodash/dropWhile';
 import groupBy from 'lodash/groupBy';
 
+const requestAnimationFrame =
+	window.requestAnimationFrame ||
+	window.mozRequestAnimationFrame ||
+	window.webkitRequestAnimationFrame ||
+	window.msRequestAnimationFrame;
+
+
 const noop = () => {
 };
 const yes = () => true;
@@ -34,9 +41,9 @@ const toCamelCase = (...names) => {
 	const nameList = names.map(name => '' + name);
 	if (length > 0) {
 		return (nameList[0] +
-		nameList.slice(1)
-			.map(name => name[0].toUpperCase() + name.substring(1, name.length))
-			.join(''));
+			nameList.slice(1)
+				.map(name => name[0].toUpperCase() + name.substring(1, name.length))
+				.join(''));
 	}
 
 	return '';
@@ -78,7 +85,7 @@ function orderBy(data, selectors, compares) {
 			criteria.push(select(row));
 		}
 
-		result.push({row, criteria, index});
+		result.push({ row, criteria, index });
 	}
 
 	// multi selector comparator
@@ -160,5 +167,6 @@ export {
 	dropWhile,
 	groupBy,
 	htmlEncode,
-	escapeRegexp
+	escapeRegexp,
+	requestAnimationFrame
 };
