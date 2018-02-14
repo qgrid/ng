@@ -1,7 +1,7 @@
 import Component from '../component';
 import { GRID_NAME } from '@grid/view/definition';
 import { jobLine } from '@grid/core/services/job.line';
-import fastdom from 'fastdom';
+import { fastdom } from '@grid/core/services/fastdom';
 
 class CellHandler extends Component {
 	constructor($element) {

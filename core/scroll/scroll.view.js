@@ -1,7 +1,7 @@
 import { View } from '../view';
 import { Log } from '../infrastructure';
 import { isFunction } from '../utility';
-import fastdom from 'fastdom';
+import { fastdom } from '../services/fastdom';
 
 export class ScrollView extends View {
 	constructor(model, table, vscroll) {
