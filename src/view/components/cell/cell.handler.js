@@ -1,7 +1,7 @@
 import Component from '../component';
 import { GRID_NAME } from '@grid/view/definition';
 import { jobLine } from '@grid/core/services/job.line';
-import { requestAnimationFrame } from '@grid/core/utility';
+import fastdom from 'fastdom';
 
 class CellHandler extends Component {
 	constructor($element) {
@@ -19,17 +19,10 @@ class CellHandler extends Component {
 		// When navigate first or when animation wasn't applied we need to omit
 		// next navigation event to make handler to correct position.
 		let isValid = false;
-		let tick = false;
 		model.navigationChanged.watch(e => {
 			if (e.hasChanges('cell')) {
-				const domCell = table.body.cell(e.state.rowIndex, e.state.columnIndex);
 				const cell = e.state.cell;
 				if (cell) {
-					if (tick) {
-						return;
-					}
-
-					tick = true;
 					const oldColumn = e.changes.cell.oldValue ? e.changes.cell.oldValue.column : {};
 					const newColumn = e.changes.cell.newValue ? e.changes.cell.newValue.column : {};
 
@@ -41,32 +34,34 @@ class CellHandler extends Component {
 						return;
 					}
 
+					const domCell = table.body.cell(e.state.rowIndex, e.state.columnIndex);
 					if (isValid) {
-						element.classList.add('q-grid-active');
 						domCell.addClass('q-grid-animate');
+						element.classList.add('q-grid-active');
+
+						this.job(() => {
+							element.classList.remove('q-grid-active');
+							domCell.removeClass('q-grid-animate');
+						});
 					}
 
-					const target = domCell.element;
-					const scrollState = model.scroll();
+					fastdom.measure(() => {
+						const target = domCell.element;
+						const scrollState = model.scroll();
+						const top = (target.offsetTop - scrollState.top) + 'px';
+						const left = (target.offsetLeft - (cell.column.pin ? 0 : scrollState.left)) + 'px';
+						const width = target.offsetWidth + 'px';
+						const height = target.offsetHeight + 'px';
 
-					requestAnimationFrame(() => {
-						element.style.top = (target.offsetTop - scrollState.top) + 'px';
-						element.style.left = (target.offsetLeft - (cell.column.pin ? 0 : scrollState.left)) + 'px';
-						element.style.width = target.offsetWidth + 'px';
-						element.style.height = target.offsetHeight + 'px';
-
-						if (isValid) {
-							this.job(() => {
-								element.classList.remove('q-grid-active');
-								domCell.removeClass('q-grid-animate');
-							}).catch(() => {
-								domCell.removeClass('q-grid-animate');
-							});
-						}
-
-						isValid = true;
-						tick = false;
+						fastdom.mutate(() => {
+							element.style.top = top;
+							element.style.left = left;
+							element.style.width = width;
+							element.style.height = height;
+						});
 					});
+
+					isValid = true;
 				}
 			}
 		});

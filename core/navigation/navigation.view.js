@@ -3,7 +3,7 @@ import { Command } from '../command';
 import { Navigation } from './navigation';
 import { GRID_PREFIX } from '../definition';
 import { CellView } from '../scene/view';
-import { requestAnimationFrame } from '../utility';
+import fastdom from 'fastdom';
 
 export class NavigationView extends View {
 	constructor(model, table, commandManager) {
@@ -49,9 +49,8 @@ export class NavigationView extends View {
 		this.scrollTo = new Command({
 			source: 'navigation.view',
 			execute: (row, column) => {
-				requestAnimationFrame(() => {
-					this.scroll(table.view, table.body.cell(row, column));
-				});
+				const cell = table.body.cell(row, column);
+				this.scroll(table.view, cell);
 			},
 			canExecute: (row, column) => table.body.cell(row, column).model() !== null
 		});
@@ -122,43 +121,45 @@ export class NavigationView extends View {
 	}
 
 	scroll(view, target) {
-		const tr = target.rect();
-		const vr = view.rect();
-		const oldScrollState = this.model.scroll();
-		const newScrollState = {};
+		fastdom.measure(() => {
+			const tr = target.rect();
+			const vr = view.rect();
+			const oldScrollState = this.model.scroll();
+			const newScrollState = {};
 
-		if (view.canScrollTo(target, 'left')) {
-			if (vr.left > tr.left
-				|| vr.left > tr.right
-				|| vr.right < tr.left
-				|| vr.right < tr.right) {
+			if (view.canScrollTo(target, 'left')) {
+				if (vr.left > tr.left
+					|| vr.left > tr.right
+					|| vr.right < tr.left
+					|| vr.right < tr.right) {
 
-				if (vr.width < tr.width || vr.left > tr.left || vr.left > tr.right) {
-					newScrollState.left = tr.left - vr.left + oldScrollState.left;
-				}
-				else if (vr.left < tr.left || vr.right < tr.right) {
-					newScrollState.left = tr.right - vr.right + oldScrollState.left;
-				}
-			}
-		}
-
-		if (view.canScrollTo(target, 'top')) {
-			if (vr.top > tr.top
-				|| vr.top > tr.bottom
-				|| vr.bottom < tr.top
-				|| vr.bottom < tr.bottom) {
-
-				if (vr.height < tr.height || vr.top > tr.top || vr.top > tr.bottom) {
-					newScrollState.top = tr.top - vr.top + oldScrollState.top;
-				}
-				else if (vr.top < tr.top || vr.bottom < tr.bottom) {
-					newScrollState.top = tr.bottom - vr.bottom + oldScrollState.top;
+					if (vr.width < tr.width || vr.left > tr.left || vr.left > tr.right) {
+						newScrollState.left = tr.left - vr.left + oldScrollState.left;
+					}
+					else if (vr.left < tr.left || vr.right < tr.right) {
+						newScrollState.left = tr.right - vr.right + oldScrollState.left;
+					}
 				}
 			}
-		}
 
-		if (Object.keys(newScrollState).length) {
-			this.model.scroll(newScrollState, { bevavior: 'core', source: 'navigation.view' });
-		}
+			if (view.canScrollTo(target, 'top')) {
+				if (vr.top > tr.top
+					|| vr.top > tr.bottom
+					|| vr.bottom < tr.top
+					|| vr.bottom < tr.bottom) {
+
+					if (vr.height < tr.height || vr.top > tr.top || vr.top > tr.bottom) {
+						newScrollState.top = tr.top - vr.top + oldScrollState.top;
+					}
+					else if (vr.top < tr.top || vr.bottom < tr.bottom) {
+						newScrollState.top = tr.bottom - vr.bottom + oldScrollState.top;
+					}
+				}
+			}
+
+			if (Object.keys(newScrollState).length) {
+				this.model.scroll(newScrollState, { bevavior: 'core', source: 'navigation.view' });
+			}
+		});
 	}
 }
