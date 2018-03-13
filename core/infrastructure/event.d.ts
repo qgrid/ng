@@ -1,4 +1,4 @@
-import {IFunc} from '../dom/view';
+import { IFunc } from '../dom/view';
 
 export interface IReturn {
 	(): void;

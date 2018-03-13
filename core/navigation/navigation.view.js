@@ -76,8 +76,8 @@ export class NavigationView extends View {
 					rowIndex: newRow,
 					columnIndex: newColumn
 				}, {
-					source: 'navigation.view'
-				});
+						source: 'navigation.view'
+					});
 			}
 		}));
 
@@ -113,8 +113,14 @@ export class NavigationView extends View {
 		const column = navState.columnIndex;
 		const cell = this.table.body.cell(row, column);
 		if (cell.model()) {
-			cell.addClass(`${GRID_PREFIX}-focused`);
-			dispose.push(() => cell.removeClass(`${GRID_PREFIX}-focused`));
+			fastdom.mutate(() => {
+				cell.addClass(`${GRID_PREFIX}-focused`);
+			});
+
+			dispose.push(() =>
+				fastdom.mutate(() => {
+					cell.removeClass(`${GRID_PREFIX}-focused`);
+				}));
 		}
 
 		return dispose;
