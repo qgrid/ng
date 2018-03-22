@@ -19,11 +19,11 @@ export function jobLine(delay) {
 		}
 
 		const doJob = () => {
-			job();
-
-			defer.resolve();
-
-			defer = null;
+			if (defer) {
+				job();
+				defer.resolve();
+				defer = null;
+			}
 		};
 
 		defer = jobLine.run(doJob, delay);

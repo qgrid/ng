@@ -76,8 +76,8 @@ export class NavigationView extends View {
 					rowIndex: newRow,
 					columnIndex: newColumn
 				}, {
-						source: 'navigation.view'
-					});
+					source: 'navigation.view'
+				});
 			}
 		}));
 

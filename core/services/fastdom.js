@@ -1,3 +1,3 @@
-import fastdom from 'fastdom/fastdom-strict';
+import fastdom from 'fastdom';
 
 export { fastdom };
