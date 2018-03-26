@@ -5,12 +5,13 @@
 		<md-card-content>
 			<md-input-container class="q-grid-input-container">
 				<input type="number"
-				       ng-model="$pager.target"
-					   q-grid:focus					   
-				       ng-min="1"
-				       ng-max="$pager.totalPages"
-					   ng-step="1"
-					   placeholder="Go to page:" />
+				       ng-keydown="$pagerTarget.keydown($event)"
+				       ng-model="$pagerTarget.value"
+				       q-grid:focus
+				       min="1"
+				       max="{{$pager.totalPages}}"
+				       step="1"
+				       placeholder="Go to page:" />
 			</md-input-container>
 		</md-card-content>
 	</md-card>
