@@ -1,5 +1,4 @@
 import { Resource } from '../resource/resource';
-import { IMatch } from './match';
 import { IAssert } from './assert';
 
 /**
@@ -31,6 +30,9 @@ import { IAssert } from './assert';
  *
  * * [filter.pipe.js](https://github.com/qgrid/ng2/blob/master/core/pipe/filter.pipe.js)
  */
+
+export declare function match(context: any): (x: any, value: any) => boolean;
+
 export declare class FilterModel {
 	resource: Resource;
 
@@ -54,7 +56,7 @@ export declare class FilterModel {
 	/**
 	 * Factory for the match function.
 	 */
-	match: () => IMatch;
+	match: () => (x: any, value: any) => boolean;
 
 	/**
 	 * If setup `column filter` plugin can use this property to populate list of column items.
@@ -68,5 +70,5 @@ export declare class FilterModel {
 	 * * `lessThan` should return true if the first value is less than the second.
 	 * * `isNull` should return true if value means null.
 	 */
-	assertFactory: () => IAssert;;
+	assertFactory: () => IAssert;
 }
