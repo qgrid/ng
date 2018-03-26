@@ -1,14 +1,12 @@
 export class Layer {
-	constructor($scope, element, template) {
+	constructor($scope, element, template, id, resource) {
 		this.$scope = $scope;
 		this.element = element;
 		this.template = template;
-	}
 
-	resource(id, state) {
 		const link = this.template.link(
 			`qgrid.${id}.tpl.html`,
-			state,
+			resource,
 			[id]
 		);
 

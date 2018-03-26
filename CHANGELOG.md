@@ -19,6 +19,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ### Added
 - Column [viewWidth](https://qgrid.github.io/ng/#!/column-view-size) property.
 - Filter `by` property `blanks` option support.
+- Layer for blank state.
 
 ### Changed
 - Show (Blanks) checkbox in column filter if there is empty string, null or undefined in the list.
@@ -27,6 +28,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 ## [1.3.4] - 2018-02-02
 ### Fixed
 - Explicitly set height for column chooser and column filter plugins so angular material can apply correct layout.
+- Correct binding handling in the root component. 
 
 ### Changed
 - Change q-grid-embed styles.
