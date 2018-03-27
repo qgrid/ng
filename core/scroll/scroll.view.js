@@ -69,7 +69,7 @@ export class ScrollView extends View {
 					if (e.hasChanges('status')) {
 						const status = e.state.status;
 						switch (status) {
-							case 'start': {
+							case 'stop': {
 								this.y.container.reset();
 								break;
 							}

@@ -15,6 +15,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Expression builder plugin.
 - 107+ JIRA tasks :-)
 
+## [1.4.1] - 2018-03-27
+### Added
+- Start to use fastdom to increase rendering perfomance.
+
+### Fixed
+- Not allow to enter not valid page number in the `pager target` component.
+
 ## [1.4.0] - 2018-02-07
 ### Added
 - Column [viewWidth](https://qgrid.github.io/ng/#!/column-view-size) property.
@@ -257,7 +264,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Action bar plugin.
 - Data manipulation plugin.
 
-[Unreleased]: https://github.com/qgrid/ng/compare/v1.4.0...HEAD
+[Unreleased]: https://github.com/qgrid/ng/compare/v1.4.1...HEAD
+[1.4.1]: https://github.com/qgrid/ng/compare/v1.4.0...v1.4.1
 [1.4.0]: https://github.com/qgrid/ng/compare/v1.3.4...v1.4.0
 [1.3.4]: https://github.com/qgrid/ng/compare/v1.3.3...v1.3.4
 [1.3.3]: https://github.com/qgrid/ng/compare/v1.3.2...v1.3.3

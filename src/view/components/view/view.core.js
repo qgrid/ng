@@ -99,8 +99,8 @@ class ViewCore extends Component {
 							round: 0,
 							status: 'stop'
 						}, {
-							source: 'view.ctrl',
-							behavior: 'core'
+							source: e.tag.source || 'view.ctrl',
+							behavior: e.tag.behavior || 'core'
 						});
 					});
 				}
