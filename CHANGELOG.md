@@ -15,9 +15,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Expression builder plugin.
 - 107+ JIRA tasks :-)
 
-## [1.4.1] - 2018-03-27
+## [1.4.1] - 2018-03-29
 ### Added
 - Start to use fastdom to increase rendering perfomance.
+- The latest version of vscroll is used.
 
 ### Fixed
 - Not allow to enter not valid page number in the `pager target` component.
