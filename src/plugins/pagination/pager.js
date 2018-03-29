@@ -42,25 +42,64 @@ class Pager extends Plugin {
 		let panelRef;
 		const config = {
 			attachTo: angular.element(this.$document[0].body), // eslint-disable-line no-undef
-			controller: ['$scope', '$element', function ($scope, $element) {
+			controller: ['$scope', function ($scope) {
+				$scope.$pager = pagerView;
+				$scope.$pagerTarget = {
+					value: pagerView.current + 1,
+					keydown: e => {
+						if (!panelRef) {
+							return;
+						}
 
-				$element[0].addEventListener('keydown', e => {
-					if (panelRef && Shortcut.translate(e) === 'enter') {
-						panelRef.close();
+						let code = Shortcut.translate(e);
+						if (code.startsWith('numpad')) {
+							code = code.slice(6);
+						}
+
+						const target = $scope.$pagerTarget;
+						const value = target.value || 0;
+
+						switch (code) {
+							case 'enter': {
+								panelRef.close();
+								if (value) {
+									pagerView.current = value - 1;
+								}
+								break;
+							}
+							case 'up': {
+								if (value < pagerView.total) {
+									target.value = value + 1;
+								}
+								break;
+							}
+							case 'down': {
+								if (value > 1) {
+									target.value = value - 1;
+								}
+								break;
+							}
+							case 'left':
+							case 'right':
+							case 'backspace': {
+								break;
+							}
+							default: {
+								const digit = Number.parseInt(code);
+								const page = Number.parseInt('' + value + digit);
+								const min = 1;
+								const max = pagerView.totalPages;
+								const isValid = page >= min && page <= max && !isNaN(digit);
+
+								if (!isValid) {
+									page > max ? target.value = max : target.value = min;
+									e.preventDefault();
+								}
+							}
+						}
 					}
-				});
-
-				$scope.$pager = {
-					totalPages: pagerView.totalPages,
-					target: pagerView.current + 1
 				};
 
-				$scope.$on('$destroy', () => {
-					const target = $scope.$pager.target;
-					if (1 <= target && target <= pagerView.totalPages) {
-						pagerView.current = $scope.$pager.target - 1;
-					}
-				});
 			}],
 			templateUrl: 'qgrid.plugin.pager-target.tpl.html',
 			panelClass: 'q-grid-pager-target',

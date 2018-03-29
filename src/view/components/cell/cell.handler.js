@@ -1,6 +1,7 @@
 import Component from '../component';
 import { GRID_NAME } from '@grid/view/definition';
 import { jobLine } from '@grid/core/services/job.line';
+import { fastdom } from '@grid/core/services/fastdom';
 
 class CellHandler extends Component {
 	constructor($element) {
@@ -20,7 +21,6 @@ class CellHandler extends Component {
 		let isValid = false;
 		model.navigationChanged.watch(e => {
 			if (e.hasChanges('cell')) {
-				const domCell = table.body.cell(e.state.rowIndex, e.state.columnIndex);
 				const cell = e.state.cell;
 				if (cell) {
 					const oldColumn = e.changes.cell.oldValue ? e.changes.cell.oldValue.column : {};
@@ -34,27 +34,32 @@ class CellHandler extends Component {
 						return;
 					}
 
+					const domCell = table.body.cell(e.state.rowIndex, e.state.columnIndex);
 					if (isValid) {
-						element.classList.add('q-grid-active');
 						domCell.addClass('q-grid-animate');
-					}
+						element.classList.add('q-grid-active');
 
-					const target = domCell.element;
-					const scrollState = model.scroll();
-
-					element.style.top = (target.offsetTop - scrollState.top) + 'px';
-					element.style.left = (target.offsetLeft - (cell.column.pin ? 0 : scrollState.left)) + 'px';
-					element.style.width = target.offsetWidth + 'px';
-					element.style.height = target.offsetHeight + 'px';
-
-					if (isValid) {
 						this.job(() => {
 							element.classList.remove('q-grid-active');
 							domCell.removeClass('q-grid-animate');
-						}).catch(() => {
-							domCell.removeClass('q-grid-animate');
 						});
 					}
+
+					fastdom.measure(() => {
+						const target = domCell.element;
+						const scrollState = model.scroll();
+						const top = (target.offsetTop - scrollState.top) + 'px';
+						const left = (target.offsetLeft - (cell.column.pin ? 0 : scrollState.left)) + 'px';
+						const width = target.offsetWidth + 'px';
+						const height = target.offsetHeight + 'px';
+
+						fastdom.mutate(() => {
+							element.style.top = top;
+							element.style.left = left;
+							element.style.width = width;
+							element.style.height = height;
+						});
+					});
 
 					isValid = true;
 				}

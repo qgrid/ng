@@ -23,6 +23,7 @@ import ThemeSelector from './components/theme-selector/theme.selector';
 import JsFilter from './filters/js';
 import HtmlFilter from './filters/html';
 
+// require('fastdom/fastdom-strict');
 require('./index.scss');
 require('./markdown.scss');
 require('../src/assets/index.scss');

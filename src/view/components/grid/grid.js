@@ -24,7 +24,7 @@ export class Grid extends RootComponent {
 		const model = this.model;
 		const element = this.$element[0];		
 		const ctrl = this.ctrl = new GridCtrl(model, {
-			layerFactory: markup => new LayerFactory(markup, this.template),
+			layerFactory: markup => new LayerFactory(markup, this.template, model),
 			element
 		});
 
