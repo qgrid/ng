@@ -7,6 +7,7 @@ class ColumnFilterPanel extends Plugin {
 	constructor() {
 		super(...arguments);
 
+		this.search = '';
 		this.vscrollContext = this.vscroll({
 			fetch: (skip, take, d) => {
 				if (!this.isReady()) {
@@ -15,22 +16,25 @@ class ColumnFilterPanel extends Plugin {
 				}
 
 				const columnFilter = this.columnFilter;
+				// We need to close `items` to make reset work properly
+				const items = columnFilter.items;
 
 				const model = this.model;
 				const filterState = model.filter();
 				const service = this.qgrid.service(model);
 				if (filterState.fetch !== noop) {
 					const cancelBusy = service.busy();
+
 					filterState
 						.fetch(columnFilter.key, {
+							take,
+							skip,
 							value: columnFilter.getValue,
-							skip: skip,
-							take: take,
-							filter: columnFilter.filter
+							filter: this.search
 						})
-						.then(items => {
-							columnFilter.items.push(...items);
-							d.resolve(columnFilter.items.length + take);
+						.then(page => {
+							items.push(...page);
+							d.resolve(items.length + (page.length === take ? take : 0));
 							cancelBusy();
 						})
 						.catch(cancelBusy);
@@ -39,7 +43,7 @@ class ColumnFilterPanel extends Plugin {
 					const cancelBusy = service.busy();
 					const isBlank = model.filter().assertFactory().isNull;
 					try {
-						if (!columnFilter.items.length) {
+						if (!items.length) {
 							const source = model[model.columnFilter().source];
 							let items = source().rows.map(columnFilter.getValue);
 							if (columnFilter.column.type === 'array') {
@@ -48,13 +52,13 @@ class ColumnFilterPanel extends Plugin {
 
 							const uniqItems = uniq(items);
 							const notBlankItems = uniqItems.filter(x => !isBlank(x));
-							const filteredItems = this.$filter('filter')(notBlankItems, columnFilter.filter);
+							const filteredItems = this.$filter('filter')(notBlankItems, this.search);
 
 							filteredItems.sort(columnFilter.column.compare);
 							columnFilter.items = filteredItems;
-							columnFilter.hasBlanks = 
-								notBlankItems.length !== uniqItems.length && 
-									(!columnFilter.filter || 'blanks'.indexOf(columnFilter.filter.toLowerCase()) >= 0);
+							columnFilter.hasBlanks =
+								notBlankItems.length !== uniqItems.length &&
+								(!this.search || 'blanks'.indexOf(this.search.toLowerCase()) >= 0);
 						}
 
 						d.resolve(columnFilter.items.length);
