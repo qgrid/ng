@@ -42,12 +42,15 @@ class ViewCore extends Component {
 			}
 		}));
 
-		this.invoke = model.scroll().mode !== 'virtual'
-			? f => f()
-			: f => {
+		this.invoke = f => f();
+		if (model.scroll().mode === 'virtual') {
+			this.invoke = f => {
 				f();
 				invalidateJob(() => ctrl.invalidate());
 			};
+
+			table.body.changed.on(() => ctrl.invalidate());
+		}
 
 		this.apply = this.root.applyFactory(null, 'sync');
 
@@ -82,7 +85,7 @@ class ViewCore extends Component {
 						break;
 					}
 				}
-				
+
 				// Run digest on the start of invalidate(e.g. for busy indicator)
 				// and on the ned of invalidate(e.g. to build the DOM)
 				this.apply(() => Log.info('view.core', `digest for ${e.state.status}`));
@@ -99,8 +102,8 @@ class ViewCore extends Component {
 							round: 0,
 							status: 'stop'
 						}, {
-							source: 'view.ctrl',
-							behavior: 'core'
+							source: e.tag.source || 'view.ctrl',
+							behavior: e.tag.behavior || 'core'
 						});
 					});
 				}

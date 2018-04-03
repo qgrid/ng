@@ -19,7 +19,7 @@
 					<label>Search</label>
 					<input type="text"
 					       ng-change="$columnFilterPanelPlugin.reset()"
-					       ng-model="$columnFilterPanel.filter"
+					       ng-model="$columnFilterPanelPlugin.search"
 					       ng-model-options="{debounce: 500}"
 					       q-grid:focus
 					       q-grid:focus-delay="500" />
@@ -28,7 +28,7 @@
 			<div class="flex">
 				<ul>
 					<li>
-						<md-checkbox ng-click="$columnFilterPanel.toggleAll.execute()"
+						<md-checkbox ng-click="$columnFilterPanel.toggleAll.execute($columnFilterPanelPlugin.search)"
 						             md-prevent-menu-close
 						             ng-checked="$columnFilterPanel.stateAll()"
 						             aria-label="Select all filter values"
@@ -51,7 +51,7 @@
 							             md-no-ink
 							             class="q-grid-checkbox"
 							             ng-click="$columnFilterPanel.toggle.execute(item)">
-								<span ng-bind-html="item | qgridHighlight : $columnFilterPanel.filter"> </span>
+								<span ng-bind-html="item | qgridHighlight : $columnFilterPanelPlugin.search"> </span>
 							</md-checkbox>
 						</li>
 						<li ng-if="$columnFilterPanel.hasBlanks">
@@ -60,7 +60,7 @@
 							             aria-label="Select blanks"
 							             md-no-ink
 							             class="q-grid-checkbox">
-								<span ng-bind-html="'(Blanks)' | qgridHighlight : $columnFilterPanel.filter"> </span>
+								<span ng-bind-html="'(Blanks)' | qgridHighlight : $columnFilterPanelPlugin.search"> </span>
 							</md-checkbox>
 						</li>
 					</ul>
