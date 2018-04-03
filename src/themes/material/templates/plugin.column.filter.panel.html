@@ -28,7 +28,7 @@
 			<div class="flex">
 				<ul>
 					<li>
-						<md-checkbox ng-click="$columnFilterPanel.toggleAll.execute()"
+						<md-checkbox ng-click="$columnFilterPanel.toggleAll.execute($columnFilterPanelPlugin.search)"
 						             md-prevent-menu-close
 						             ng-checked="$columnFilterPanel.stateAll()"
 						             aria-label="Select all filter values"
