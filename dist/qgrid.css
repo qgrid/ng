@@ -1653,8 +1653,7 @@
     width: 100%;
     position: absolute;
     top: 0;
-    left: 0;
-    pointer-events: none; }
+    left: 0; }
     .q-grid td > .q-grid-resizable .q-grid-divider {
       height: 2px;
       width: 100%;
