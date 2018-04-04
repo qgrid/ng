@@ -42,6 +42,8 @@ class CellHandler extends Component {
 						this.job(() => {
 							element.classList.remove('q-grid-active');
 							domCell.removeClass('q-grid-animate');
+						}).catch(() => {
+							domCell.removeClass('q-grid-animate');
 						});
 					}
 
