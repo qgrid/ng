@@ -34,11 +34,13 @@ export class Navigation {
 	}
 
 	goTo(target, source = 'navigation') {
-		let cell = this.cell(target.newRow, target.newColumn);
+		const row = target.newRow;
+		const column = target.newColumn;
+		let cell = this.cell(row, column);
 		if (!cell) {
 			// TODO: make it better, right it just a huck for row-details,
 			// need to support rowspan and colspan
-			cell = this.cell(target.newRow, this.firstColumn);
+			cell = this.cell(row, this.firstColumn(row));
 		}
 
 		if (cell) {
@@ -62,38 +64,39 @@ export class Navigation {
 	}
 
 	upCell() {
-		const currentColumn = this.currentColumn();
-		const newRow = this.prevRow(currentColumn);
-		if (newRow >= 0) {
-			const nearby = this.nearby(newRow);
-			const newColumn = nearby(currentColumn);
-			return newColumn >= 0 && { newRow, newColumn } || null;
-		}
-
-		return null;
+		return this.findRow(column => this.prevRow(column));
 	}
 
 	downCell() {
+		return this.findRow(column => this.nextRow(column));
+	}
+
+	findRow(test) {
 		const currentColumn = this.currentColumn();
-		const newRow = this.nextRow(currentColumn);
-		if (newRow >= 0) {
-			const nearby = this.nearby(newRow);
-			const newColumn = nearby(currentColumn);
-			return newColumn >= 0 && { newRow, newColumn } || null;
+		if (currentColumn >= 0) {
+			const currentRow = this.currentRow();
+			const columns = this.columns(currentRow);
+			let i = columns.indexOf(currentColumn);
+			while (i >= 0) {
+				const newColumn = columns[i--];
+				const newRow = test(newColumn);
+				if (newRow >= 0) {
+					return { newRow, newColumn };
+				}
+			}
+
+			const length = columns.length;
+			i = columns.indexOf(currentColumn) + 1;
+			while (i < length) {
+				const newColumn = columns[i++];
+				const newRow = test(newColumn);
+				if (newRow >= 0) {
+					return { newRow, newColumn };
+				}
+			}
 		}
 
 		return null;
-	}
-
-	nearby(row) {
-		return column => {
-			let index = -1;
-			while (column >= 0 && (index = this.column(row, column)) < 0) {
-				column--;
-			}
-
-			return index;
-		};
 	}
 
 	column(row, column) {
