@@ -60,4 +60,6 @@ export declare class Command {
 	priority?: number;
 
 	source?: string;
+
+	issue?: any;
 }

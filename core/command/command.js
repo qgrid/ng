@@ -7,6 +7,7 @@ export class Command {
 		this.shortcut = '';
 		this.priority = 0;
 		this.source = '';
+		this.issue = null;
 		
 		Object.assign(this, context);
 	}
