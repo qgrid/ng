@@ -15,6 +15,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Expression builder plugin.
 - 107+ JIRA tasks :-)
 
+## [1.4.2] - 2018-04-04
+### Changed
+- Attach `fastdom` to `vscroll`.
+
 ## [1.4.1] - 2018-04-03
 ### Added
 - Start to use fastdom to increase rendering perfomance.
@@ -24,8 +28,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - `Row Number` column is resizable by default.
 
 ### Fixed
-- Not allow to enter not valid page number in the `pager target` component.
-- `Toggle all` command behavior in the `column filter` plugin.
+- Not allow to enter invalid page number in the `pager target` component.
+- Fixed `Toggle all` command behavior in the `column filter` plugin.
 
 ## [1.4.0] - 2018-02-07
 ### Added
