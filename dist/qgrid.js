@@ -3156,12 +3156,62 @@ var Resource = function Resource() {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Fastdom; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_fastdom__ = __webpack_require__(447);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_fastdom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_fastdom__);
-/* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0_fastdom___default.a; });
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 
 
+var Fastdom = function () {
+	function Fastdom() {
+		_classCallCheck(this, Fastdom);
+	}
+
+	_createClass(Fastdom, null, [{
+		key: 'mutate',
+		value: function mutate() {
+			for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+				args[_key] = arguments[_key];
+			}
+
+			return Fastdom.invoke(function () {
+				return __WEBPACK_IMPORTED_MODULE_0_fastdom___default.a.mutate.apply(__WEBPACK_IMPORTED_MODULE_0_fastdom___default.a, args);
+			});
+		}
+	}, {
+		key: 'measure',
+		value: function measure() {
+			for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+				args[_key2] = arguments[_key2];
+			}
+
+			return Fastdom.invoke(function () {
+				return __WEBPACK_IMPORTED_MODULE_0_fastdom___default.a.measure.apply(__WEBPACK_IMPORTED_MODULE_0_fastdom___default.a, args);
+			});
+		}
+	}, {
+		key: 'clear',
+		value: function clear() {
+			for (var _len3 = arguments.length, args = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+				args[_key3] = arguments[_key3];
+			}
+
+			return Fastdom.invoke(function () {
+				return __WEBPACK_IMPORTED_MODULE_0_fastdom___default.a.clear.apply(__WEBPACK_IMPORTED_MODULE_0_fastdom___default.a, args);
+			});
+		}
+	}, {
+		key: 'invoke',
+		value: function invoke(task) {
+			return task();
+		}
+	}]);
+
+	return Fastdom;
+}();
 
 /***/ }),
 /* 76 */
@@ -14920,7 +14970,7 @@ var BodyCtrl = function (_View) {
 				var table = this.table;
 				var upper = 0;
 
-				__WEBPACK_IMPORTED_MODULE_2__services_fastdom__["a" /* fastdom */].measure(function () {
+				__WEBPACK_IMPORTED_MODULE_2__services_fastdom__["a" /* Fastdom */].measure(function () {
 					var lower = table.view.scrollHeight() - table.view.height();
 					var top = Math.min(lower, Math.max(upper, scroll().top + e.deltaY));
 
@@ -22195,12 +22245,12 @@ var NavigationView = function (_View) {
 			var column = navState.columnIndex;
 			var cell = this.table.body.cell(row, column);
 			if (cell.model()) {
-				__WEBPACK_IMPORTED_MODULE_5__services_fastdom__["a" /* fastdom */].mutate(function () {
+				__WEBPACK_IMPORTED_MODULE_5__services_fastdom__["a" /* Fastdom */].mutate(function () {
 					cell.addClass(__WEBPACK_IMPORTED_MODULE_3__definition__["a" /* GRID_PREFIX */] + '-focused');
 				});
 
 				dispose.push(function () {
-					return __WEBPACK_IMPORTED_MODULE_5__services_fastdom__["a" /* fastdom */].mutate(function () {
+					return __WEBPACK_IMPORTED_MODULE_5__services_fastdom__["a" /* Fastdom */].mutate(function () {
 						cell.removeClass(__WEBPACK_IMPORTED_MODULE_3__definition__["a" /* GRID_PREFIX */] + '-focused');
 					});
 				});
@@ -22213,7 +22263,7 @@ var NavigationView = function (_View) {
 		value: function scroll(view, target) {
 			var _this2 = this;
 
-			__WEBPACK_IMPORTED_MODULE_5__services_fastdom__["a" /* fastdom */].measure(function () {
+			__WEBPACK_IMPORTED_MODULE_5__services_fastdom__["a" /* Fastdom */].measure(function () {
 				var tr = target.rect();
 				var vr = view.rect();
 				var oldScrollState = _this2.model.scroll();
@@ -25491,7 +25541,7 @@ var HighlightView = function (_View) {
 				return __WEBPACK_IMPORTED_MODULE_6__utility__["u" /* noop */];
 			}
 
-			__WEBPACK_IMPORTED_MODULE_8__services_fastdom__["a" /* fastdom */].mutate(function () {
+			__WEBPACK_IMPORTED_MODULE_8__services_fastdom__["a" /* Fastdom */].mutate(function () {
 				var head = table.head;
 				head.column(index).addClass(__WEBPACK_IMPORTED_MODULE_7__definition__["a" /* GRID_PREFIX */] + '-' + cls);
 				head.column(index - 1).addClass(__WEBPACK_IMPORTED_MODULE_7__definition__["a" /* GRID_PREFIX */] + '-' + cls + '-prev');
@@ -25512,7 +25562,7 @@ var HighlightView = function (_View) {
 			}
 
 			return function () {
-				__WEBPACK_IMPORTED_MODULE_8__services_fastdom__["a" /* fastdom */].mutate(function () {
+				__WEBPACK_IMPORTED_MODULE_8__services_fastdom__["a" /* Fastdom */].mutate(function () {
 					var head = table.head;
 					head.column(index).removeClass(__WEBPACK_IMPORTED_MODULE_7__definition__["a" /* GRID_PREFIX */] + '-' + cls);
 					head.column(index - 1).removeClass(__WEBPACK_IMPORTED_MODULE_7__definition__["a" /* GRID_PREFIX */] + '-' + cls + '-prev');
@@ -25530,7 +25580,7 @@ var HighlightView = function (_View) {
 				return __WEBPACK_IMPORTED_MODULE_6__utility__["u" /* noop */];
 			}
 
-			__WEBPACK_IMPORTED_MODULE_8__services_fastdom__["a" /* fastdom */].mutate(function () {
+			__WEBPACK_IMPORTED_MODULE_8__services_fastdom__["a" /* Fastdom */].mutate(function () {
 				table.body.row(index).addClass(__WEBPACK_IMPORTED_MODULE_7__definition__["a" /* GRID_PREFIX */] + '-' + cls);
 			});
 
@@ -25545,7 +25595,7 @@ var HighlightView = function (_View) {
 			}
 
 			return function () {
-				return __WEBPACK_IMPORTED_MODULE_8__services_fastdom__["a" /* fastdom */].mutate(function () {
+				return __WEBPACK_IMPORTED_MODULE_8__services_fastdom__["a" /* Fastdom */].mutate(function () {
 					table.body.row(index).removeClass(__WEBPACK_IMPORTED_MODULE_7__definition__["a" /* GRID_PREFIX */] + '-' + cls);
 				});
 			};
@@ -25553,7 +25603,7 @@ var HighlightView = function (_View) {
 	}, {
 		key: 'highlightCell',
 		value: function highlightCell(cell, cls) {
-			__WEBPACK_IMPORTED_MODULE_8__services_fastdom__["a" /* fastdom */].mutate(function () {
+			__WEBPACK_IMPORTED_MODULE_8__services_fastdom__["a" /* Fastdom */].mutate(function () {
 				cell.addClass(__WEBPACK_IMPORTED_MODULE_7__definition__["a" /* GRID_PREFIX */] + '-' + cls);
 			});
 
@@ -25563,7 +25613,7 @@ var HighlightView = function (_View) {
 		key: 'blurCell',
 		value: function blurCell(cell, cls) {
 			return function () {
-				return __WEBPACK_IMPORTED_MODULE_8__services_fastdom__["a" /* fastdom */].mutate(function () {
+				return __WEBPACK_IMPORTED_MODULE_8__services_fastdom__["a" /* Fastdom */].mutate(function () {
 					cell.removeClass(__WEBPACK_IMPORTED_MODULE_7__definition__["a" /* GRID_PREFIX */] + '-' + cls);
 				});
 			};
@@ -27024,6 +27074,9 @@ var ScrollView = function (_View) {
 
 		_this.y = vscroll.factory(settings);
 
+		_this.y.container.read = __WEBPACK_IMPORTED_MODULE_3__services_fastdom__["a" /* Fastdom */].measure;
+		_this.y.container.write = __WEBPACK_IMPORTED_MODULE_3__services_fastdom__["a" /* Fastdom */].mutate;
+
 		_this.y.container.drawEvent.on(function (e) {
 			scroll({ cursor: e.position }, {
 				source: 'scroll.view',
@@ -27104,7 +27157,7 @@ var ScrollView = function (_View) {
 			var table = this.table;
 			var scroll = this.model.scroll();
 
-			__WEBPACK_IMPORTED_MODULE_3__services_fastdom__["a" /* fastdom */].mutate(function () {
+			__WEBPACK_IMPORTED_MODULE_3__services_fastdom__["a" /* Fastdom */].mutate(function () {
 				table.view.scrollLeft(scroll.left);
 				table.view.scrollTop(scroll.top);
 			});
@@ -27710,7 +27763,7 @@ var ColumnSortView = function (_PluginView) {
 		_this.using(model.sortChanged.watch(function (e) {
 			if (e.hasChanges('by')) {
 				if (view.sort.order(column) < 0) {
-					__WEBPACK_IMPORTED_MODULE_3__core_services_fastdom__["a" /* fastdom */].mutate(function () {
+					__WEBPACK_IMPORTED_MODULE_3__core_services_fastdom__["a" /* Fastdom */].mutate(function () {
 						element.classList.add(GRID_HIDE_CLASS);
 						element.classList.remove(GRID_ACTIVE_CLASS);
 
@@ -27722,7 +27775,7 @@ var ColumnSortView = function (_PluginView) {
 					var oldIcon = direction === 'asc' ? iconDesc : iconAsc;
 					var newIcon = direction === 'asc' ? iconAsc : iconDesc;
 
-					__WEBPACK_IMPORTED_MODULE_3__core_services_fastdom__["a" /* fastdom */].mutate(function () {
+					__WEBPACK_IMPORTED_MODULE_3__core_services_fastdom__["a" /* Fastdom */].mutate(function () {
 						element.classList.add(GRID_ACTIVE_CLASS);
 						element.classList.remove(GRID_HIDE_CLASS);
 
@@ -27756,7 +27809,7 @@ var ColumnSortView = function (_PluginView) {
 		value: function onMouseLeave() {
 			var _this2 = this;
 
-			__WEBPACK_IMPORTED_MODULE_3__core_services_fastdom__["a" /* fastdom */].mutate(function () {
+			__WEBPACK_IMPORTED_MODULE_3__core_services_fastdom__["a" /* Fastdom */].mutate(function () {
 				_this2.element.classList.remove(GRID_HIDE_CLASS);
 			});
 		}
@@ -35740,12 +35793,12 @@ var GridCtrl = function (_View) {
 			var view = this.table.view;
 			var model = this.model;
 			if (view.isFocused()) {
-				__WEBPACK_IMPORTED_MODULE_5__services_fastdom__["a" /* fastdom */].mutate(function () {
+				__WEBPACK_IMPORTED_MODULE_5__services_fastdom__["a" /* Fastdom */].mutate(function () {
 					view.addClass(activeClassName);
 				});
 				model.focus({ isActive: true });
 			} else {
-				__WEBPACK_IMPORTED_MODULE_5__services_fastdom__["a" /* fastdom */].mutate(function () {
+				__WEBPACK_IMPORTED_MODULE_5__services_fastdom__["a" /* Fastdom */].mutate(function () {
 					view.removeClass(activeClassName);
 				});
 				model.focus({ isActive: false });
@@ -38807,10 +38860,12 @@ var CellHandler = function (_Component) {
 							_this2.job(function () {
 								element.classList.remove('q-grid-active');
 								domCell.removeClass('q-grid-animate');
+							}).catch(function () {
+								domCell.removeClass('q-grid-animate');
 							});
 						}
 
-						__WEBPACK_IMPORTED_MODULE_3__grid_core_services_fastdom__["a" /* fastdom */].measure(function () {
+						__WEBPACK_IMPORTED_MODULE_3__grid_core_services_fastdom__["a" /* Fastdom */].measure(function () {
 							var target = domCell.element;
 							var scrollState = model.scroll();
 							var top = target.offsetTop - scrollState.top + 'px';
@@ -38818,7 +38873,7 @@ var CellHandler = function (_Component) {
 							var width = target.offsetWidth + 'px';
 							var height = target.offsetHeight + 'px';
 
-							__WEBPACK_IMPORTED_MODULE_3__grid_core_services_fastdom__["a" /* fastdom */].mutate(function () {
+							__WEBPACK_IMPORTED_MODULE_3__grid_core_services_fastdom__["a" /* Fastdom */].mutate(function () {
 								element.style.top = top;
 								element.style.left = left;
 								element.style.width = width;
