@@ -1,7 +1,7 @@
 import Component from '../component';
 import { GRID_NAME } from '@grid/view/definition';
 import { jobLine } from '@grid/core/services/job.line';
-import { fastdom } from '@grid/core/services/fastdom';
+import { Fastdom } from '@grid/core/services/fastdom';
 
 class CellHandler extends Component {
 	constructor($element) {
@@ -42,10 +42,12 @@ class CellHandler extends Component {
 						this.job(() => {
 							element.classList.remove('q-grid-active');
 							domCell.removeClass('q-grid-animate');
+						}).catch(() => {
+							domCell.removeClass('q-grid-animate');
 						});
 					}
 
-					fastdom.measure(() => {
+					Fastdom.measure(() => {
 						const target = domCell.element;
 						const scrollState = model.scroll();
 						const top = (target.offsetTop - scrollState.top) + 'px';
@@ -53,7 +55,7 @@ class CellHandler extends Component {
 						const width = target.offsetWidth + 'px';
 						const height = target.offsetHeight + 'px';
 
-						fastdom.mutate(() => {
+						Fastdom.mutate(() => {
 							element.style.top = top;
 							element.style.left = left;
 							element.style.width = width;
