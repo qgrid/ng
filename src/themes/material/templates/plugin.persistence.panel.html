@@ -1,7 +1,7 @@
 <div class="q-grid-persistence-panel q-grid-popup-panel"
-     layout="column"
-     flex="100"
-     ng-keydown="$persistence.keyDown($event)">
+ layout="column"
+ flex="100"
+ ng-keydown="$persistence.keyDown($event)">
 	<md-card>
 		<md-card-header>
 			<md-card-title>
@@ -9,7 +9,7 @@
 					<span class="md-subhead">Save/Load</span>
 				</md-card-title-text>
 				<md-card-title-actions layout="row"
-				                       layout-align="end center">
+				 layout-align="end center">
 				</md-card-title-actions>
 			</md-card-title>
 		</md-card-header>
@@ -19,28 +19,28 @@
 					<md-input-container class="q-grid-persistence-title">
 						<label>Save As...</label>
 						<input type="text"
-						       ng-model="$persistence.title"
-						       q-grid:focus
-						       q-grid:focus-delay="400" />
+						 ng-model="$persistence.title"
+						 q-grid:focus
+						 q-grid:focus-delay="400" />
 					</md-input-container>
 				</div>
 				<div class="flex-none">
 					<md-button class="md-primary q-grid-persistence-save"
-					           md-prevent-menu-close
-					           ng-click="$persistence.save.execute()"
-					           ng-disabled="!$persistence.save.canExecute()">
+					 md-prevent-menu-close
+					 ng-click="$persistence.save.execute()"
+					 ng-disabled="!$persistence.save.canExecute()">
 						Save
 					</md-button>
 				</div>
 			</div>
 			<div class="flex">
 				<md-list class="md-dense"
-				         ng-cloak>
+				 ng-cloak>
 					<md-list-item class="md-2-line q-grid-persistence-blank"
-					              ng-class="{'q-grid-persistence-selected': $persistence.isActive($persistence.blank)}">
+					 ng-class="{'q-grid-persistence-selected': $persistence.isActive($persistence.blank)}">
 						<div class="md-list-item-text">
 							<md-button class="md-primary"
-							           ng-click="$persistence.load.execute($persistence.blank)">
+							 ng-click="$persistence.load.execute($persistence.blank)">
 								<h3>{{::$persistence.blank.title}}</h3>
 								<ul>
 									<li>{{$persistence.blank.modified | date: 'yyyy/MM/dd h:mm a'}}</li>
@@ -49,63 +49,66 @@
 						</div>
 						<md-tooltip class="q-grid-persistence-tooltip">No settings</md-tooltip>
 					</md-list-item>
-					<md-list-item class="md-2-line"
-					              ng-repeat="item in $persistence.items | orderBy: '-modified' track by $index"
-					              ng-class="{'q-grid-persistence-selected': $persistence.isActive(item)}">
-						<div class="default-icon">
-							<md-icon class="q-grid-icon"
-							         ng-if="item.isDefault">star</md-icon>
-						</div>
-						<div class="md-list-item-text">
-							<md-button class="md-primary"
-							           ng-click="$persistence.load.execute(item)"
-							           ng-if="$persistence.state.editItem !== item">
-								<h3>{{item.title}}</h3>
-								<ul>
-									<li>{{item.modified | date: 'yyyy/MM/dd h:mm a'}}</li>
-								</ul>
-							</md-button>
-							<md-input-container ng-if="$persistence.state.editItem === item">
-								<input ng-blur="$persistence.edit.commit.canExecute(item) && $persistence.edit.commit.execute(item)"
-								       ng-model="item.title"
-								       q-grid:focus/>
-							</md-input-container>
-						</div>
-						<md-tooltip class="q-grid-persistence-tooltip">{{::$persistence.stringify(item)}}</md-tooltip>
-						<md-menu>
-							<md-button class="md-icon-button q-grid-more"
-							           aria-label="More"
-							           ng-click="$mdOpenMenu($event)">
-								<md-icon class="q-grid-icon">more_vert</md-icon>
-							</md-button>
-							<md-menu-content width="4">
-								<md-menu-item>
-									<md-button ng-click="$persistence.setDefault.execute(item)"
-									           ng-disabled="!$persistence.setDefault.canExecute(item)">
-										<md-icon class="q-grid-icon"
-										         md-menu-align-target>star</md-icon>
-										Default
-									</md-button>
-								</md-menu-item>
-								<md-menu-item>
-									<md-button ng-click="$persistence.edit.enter.execute(item)"
-									           ng-disabled="!$persistence.edit.enter.canExecute(item)">
-										<md-icon class="q-grid-icon"
-										         md-menu-align-target>mode_edit</md-icon>
-										Edit
-									</md-button>
-								</md-menu-item>
-								<md-menu-item>
-									<md-button ng-click="$persistence.remove.execute(item)"
-									           ng-disabled="!$persistence.remove.canExecute(item)">
-										<md-icon class="q-grid-icon"
-										         md-menu-align-target>close</md-icon>
-										Remove
-									</md-button>
-								</md-menu-item>
-							</md-menu-content>
-						</md-menu>
-					</md-list-item>
+					<div ng-repeat="group in $persistence.groups track by $index">
+						<md-subheader class="q-grid-persistence-group-title">{{group.key}}</md-subheader>
+						<md-list-item class="md-2-line"
+						 ng-repeat="item in group.items | orderBy: '-modified' track by $index"
+						 ng-class="{'q-grid-persistence-selected': $persistence.isActive(item)}">
+							<div class="default-icon">
+								<md-icon class="q-grid-icon"
+								 ng-if="item.isDefault">star</md-icon>
+							</div>
+							<div class="md-list-item-text">
+								<md-button class="md-primary"
+								 ng-click="$persistence.load.execute(item)"
+								 ng-if="$persistence.state.editItem !== item">
+									<h3>{{item.title}}</h3>
+									<ul>
+										<li>{{item.modified | date: 'yyyy/MM/dd h:mm a'}}</li>
+									</ul>
+								</md-button>
+								<md-input-container ng-if="$persistence.state.editItem === item">
+									<input ng-blur="$persistence.edit.commit.canExecute(item) && $persistence.edit.commit.execute(item)"
+									 ng-model="item.title"
+									 q-grid:focus/>
+								</md-input-container>
+							</div>
+							<md-tooltip class="q-grid-persistence-tooltip">{{::$persistence.stringify(item)}}</md-tooltip>
+							<md-menu>
+								<md-button class="md-icon-button q-grid-more"
+								 aria-label="More"
+								 ng-click="$mdOpenMenu($event)">
+									<md-icon class="q-grid-icon">more_vert</md-icon>
+								</md-button>
+								<md-menu-content width="4">
+									<md-menu-item>
+										<md-button ng-click="$persistence.setDefault.execute(item)"
+										 ng-disabled="!$persistence.setDefault.canExecute(item)">
+											<md-icon class="q-grid-icon"
+											 md-menu-align-target>star</md-icon>
+											Default
+										</md-button>
+									</md-menu-item>
+									<md-menu-item>
+										<md-button ng-click="$persistence.edit.enter.execute(item)"
+										 ng-disabled="!$persistence.edit.enter.canExecute(item)">
+											<md-icon class="q-grid-icon"
+											 md-menu-align-target>mode_edit</md-icon>
+											Edit
+										</md-button>
+									</md-menu-item>
+									<md-menu-item>
+										<md-button ng-click="$persistence.remove.execute(item)"
+										 ng-disabled="!$persistence.remove.canExecute(item)">
+											<md-icon class="q-grid-icon"
+											 md-menu-align-target>close</md-icon>
+											Remove
+										</md-button>
+									</md-menu-item>
+								</md-menu-content>
+							</md-menu>
+						</md-list-item>
+					</div>
 				</md-list>
 			</div>
 		</md-card-content>
