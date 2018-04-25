@@ -40,6 +40,28 @@
 					</li>
 					</li>
 				</ul>
+				<div ng-switch="$columnFilterPanel.isEmpty()"
+				     class="q-grid-column-filter-by">
+					<div ng-switch-when="true"
+					     class="q-grid-column-filter-by-blank">
+						NO SELECTED FILTERS
+					</div>
+					<ul ng-switch-when="false">
+						<li ng-repeat="item in $columnFilterPanel.byList track by $index">
+							<div class="q-grid-filter-by">
+								<div class="q-grid-filter-by-item">
+									{{item}}
+								</div>
+								<div class="q-grid-filter-by-remove"
+									 md-prevent-menu-close
+									 tabindex="-1"
+								     ng-click="$columnFilterPanel.toggle.execute(item)">
+									<md-icon class="q-grid-icon">clear</md-icon>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
 				<div class="q-grid-column-filter-list"
 				     vscroll>
 					<ul vscroll-port-y="$columnFilterPanelPlugin.vscrollContext">
