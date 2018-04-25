@@ -25,14 +25,7 @@ export declare class EditModel {
 	/**
 	 * Indicates if q-grid is in `'edit'` or in a `'view'` mode.
 	 */
-	state: 'edit' | 'view' | 'startBatch' | 'endBatch';
-
-	/**
-	 * Property that controls grid edit behavior.
-	 *
-	 * * `'batch'` bath update.
-	 */
-	method: null | 'batch';
+	state: 'edit' | 'view';
 
 	/**
 	 * Allows to the grid user to control if cell or row can be edited or not.

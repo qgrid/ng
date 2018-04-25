@@ -1,17 +1,17 @@
-import { AppError } from '../infrastructure';
+import {AppError} from '../infrastructure';
 
 export class Visitor {
 	constructor() {
 	}
 
-	visit(item, depth = 0) {
+	visit(item, depth) {
 		switch (item.kind) {
 			case 'group':
-				return this.visitGroup(item, depth + 1);
+				return this.visitGroup(item, (depth || 0) + 1);
 			case 'condition':
-				return this.visitCondition(item, depth);
+				return this.visitCondition(item, depth || 0);
 			case 'function':
-				return this.visitFunction(item, depth);
+				return this.visitFunction(item, depth || 0);
 			default:
 				throw AppError(
 					'expression.visitor',

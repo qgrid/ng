@@ -14,14 +14,14 @@ describe('Expression Build', () => {
 		}
 	};
 
-	let etalon1 = {
+	let test3 = {
 		kind: 'group',
 		op: 'and',
 		left: 'expression',
 		right: null
 	};
 
-	let etalon2 = {
+	let test4 = {
 		kind: 'group',
 		op: 'and',
 		left: 'expression',
@@ -46,12 +46,12 @@ describe('Expression Build', () => {
 	describe('build', () => {
 		it('should built expression into root object', () => {
 			let root = ExpressionBuild.build(test1);
-			expect(JSON.stringify(root)).to.equal(JSON.stringify(etalon1));
+			expect(JSON.stringify(root)).to.equal(JSON.stringify(test3));
 		});
 
 		it('should check whether items were built into root object', () => {
 			let root = ExpressionBuild.build(test2);
-			expect(JSON.stringify(root)).to.equal(JSON.stringify(etalon2));
+			expect(JSON.stringify(root)).to.equal(JSON.stringify(test4));
 		});
 	});
 });

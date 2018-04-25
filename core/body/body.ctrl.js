@@ -64,11 +64,13 @@ export class BodyCtrl extends View {
 			const pathFinder = new PathService(this.bag.body);
 			const cell = pathFinder.cell(e.path);
 
+			const editMode = this.model.edit().mode;
 			if (selectionState.mode === 'range') {
-				this.rangeStartCell = cell;
-
-				if (this.rangeStartCell) {
-					this.view.selection.selectRange(this.rangeStartCell, null, 'body');
+				if (!editMode) {
+					this.rangeStartCell = cell;
+					if (this.rangeStartCell) {
+						this.view.selection.selectRange(this.rangeStartCell, null, 'body');
+					}
 				}
 			}
 		}
@@ -77,7 +79,6 @@ export class BodyCtrl extends View {
 	onMouseMove(e) {
 		const pathFinder = new PathService(this.bag.body);
 		const row = pathFinder.row(e.path);
-
 		if (row) {
 			const index = row.index;
 			const highlightRow = this.view.highlight.row;
@@ -112,30 +113,18 @@ export class BodyCtrl extends View {
 	}
 
 	onMouseUp(e) {
-		const mode = this.selection.mode;
-		const edit = this.model.edit;
-
 		if (e.which === MOUSE_LEFT_BUTTON) {
-			const pathFinder = new PathService(this.bag.body);
-			const cell = pathFinder.cell(e.path);
-
-			if (mode === 'range') {
+			if (this.selection.mode === 'range') {
 				this.rangeStartCell = null;
 			}
 
-			if (edit().state === 'startBatch') {
-				edit({ state: 'endBatch' });
-				return;
-			}
-
+			const pathFinder = new PathService(this.bag.body);
+			const cell = pathFinder.cell(e.path);
 			if (cell) {
 				this.select(cell);
 				this.navigate(cell);
 				if (cell.column.editorOptions.trigger === 'click' && this.view.edit.cell.enter.canExecute(cell)) {
-
-					if (this.selection.items.length <= 1) {
-						this.view.edit.cell.enter.execute(cell);
-					}
+					this.view.edit.cell.enter.execute(cell);
 				}
 			}
 		}
