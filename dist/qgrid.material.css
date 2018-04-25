@@ -455,16 +455,53 @@
     width: 100%; }
   .q-grid-column-filter.q-grid-menu .q-grid-column-filter-list {
     overflow-y: auto;
-    height: 300px;
-    margin-bottom: 14px; }
+    height: 255px; }
     .q-grid-column-filter.q-grid-menu .q-grid-column-filter-list ul {
       margin: 0; }
+  .q-grid-column-filter.q-grid-menu .q-grid-column-filter-by {
+    height: 57px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-bottom: 10px;
+    margin-top: -5px; }
+    .q-grid-column-filter.q-grid-menu .q-grid-column-filter-by-blank {
+      text-align: center;
+      color: #C8C8C8;
+      position: relative;
+      top: 20px; }
+    .q-grid-column-filter.q-grid-menu .q-grid-column-filter-by ul {
+      margin-top: 0; }
+    .q-grid-column-filter.q-grid-menu .q-grid-column-filter-by li {
+      display: inline; }
   .q-grid-column-filter.q-grid-menu .q-grid-column-filter-actions {
     padding: 7px 0; }
   .q-grid-column-filter.q-grid-menu .q-grid-checkbox {
     width: 100%;
     overflow: hidden;
     margin: 0 0 5px 0; }
+
+.q-grid-filter-by {
+  display: inline-flex;
+  background-color: #EBEBEB;
+  margin-right: 2px;
+  border-radius: 100px;
+  padding: 0 14px;
+  margin-bottom: 3px; }
+  .q-grid-filter-by-item {
+    font-size: 12px;
+    margin: 2px 7px 1px -4px; }
+  .q-grid-filter-by-remove {
+    width: 5px;
+    height: 5px;
+    position: relative;
+    cursor: pointer; }
+  .q-grid-filter-by .q-grid-icon {
+    top: 2px;
+    font-size: 14px;
+    width: 5px;
+    height: 5px;
+    position: absolute;
+    color: #C8C8C8; }
 
 .q-grid.q-grid-theme-material td.q-grid-sorted {
   background-color: #f5f5f5; }
@@ -597,6 +634,19 @@
   display: none; }
   .q-grid.q-grid-theme-material .q-grid-cell-handler.q-grid-active {
     display: block; }
+
+.q-grid.q-grid-theme-material .q-grid-marker {
+  display: none; }
+  .q-grid.q-grid-theme-material .q-grid-marker.q-grid-active {
+    display: block;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    bottom: 5px;
+    right: 5px;
+    font-size: 14px;
+    color: #C8C8C8;
+    cursor: move; }
 
 .q-grid.q-grid-theme-material td.q-grid-group button,
 .q-grid.q-grid-theme-material td.q-grid-row-expand button {
@@ -1281,6 +1331,8 @@
     padding-left: 20px; }
     .q-grid-persistence-panel .q-grid-persistence-blank .md-list-item-text {
       margin-right: 60px; }
+  .q-grid-persistence-panel .q-grid-persistence-group-title {
+    background-color: transparent; }
   .q-grid-persistence-panel md-list {
     height: 390px;
     overflow-y: auto; }

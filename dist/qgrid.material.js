@@ -61,7 +61,7 @@ var qgrid =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 712);
+/******/ 	return __webpack_require__(__webpack_require__.s = 714);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -69,7 +69,7 @@ var qgrid =
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utility__ = __webpack_require__(149);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utility__ = __webpack_require__(150);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__utility__["a"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__utility__["b"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_0__utility__["c"]; });
@@ -106,27 +106,27 @@ var qgrid =
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__cache__ = __webpack_require__(148);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__cache__ = __webpack_require__(149);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__cache__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__error__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__error__ = __webpack_require__(26);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__error__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__event__ = __webpack_require__(53);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_2__event__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__event_listener__ = __webpack_require__(295);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__event_listener__ = __webpack_require__(296);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "f", function() { return __WEBPACK_IMPORTED_MODULE_3__event_listener__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__fetch__ = __webpack_require__(296);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__fetch__ = __webpack_require__(297);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "h", function() { return __WEBPACK_IMPORTED_MODULE_4__fetch__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__guard__ = __webpack_require__(123);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "i", function() { return __WEBPACK_IMPORTED_MODULE_5__guard__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__log__ = __webpack_require__(54);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "j", function() { return __WEBPACK_IMPORTED_MODULE_6__log__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__model_bind__ = __webpack_require__(297);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__model_bind__ = __webpack_require__(298);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "l", function() { return __WEBPACK_IMPORTED_MODULE_7__model_bind__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__model__ = __webpack_require__(298);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__model__ = __webpack_require__(299);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "k", function() { return __WEBPACK_IMPORTED_MODULE_8__model__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__event_manager__ = __webpack_require__(299);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__event_manager__ = __webpack_require__(300);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_9__event_manager__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__range__ = __webpack_require__(300);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__range__ = __webpack_require__(301);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "m", function() { return __WEBPACK_IMPORTED_MODULE_10__range__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__composite__ = __webpack_require__(78);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_11__composite__["a"]; });
@@ -159,7 +159,7 @@ var qgrid =
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__command_manager__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__composite_command_manager__ = __webpack_require__(302);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_2__composite_command_manager__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__table_command_manager__ = __webpack_require__(138);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__table_command_manager__ = __webpack_require__(139);
 /* unused harmony namespace reexport */
 
 
@@ -324,9 +324,9 @@ module.exports = isObjectLike;
 /* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Symbol = __webpack_require__(26),
-    getRawTag = __webpack_require__(150),
-    objectToString = __webpack_require__(151);
+var Symbol = __webpack_require__(27),
+    getRawTag = __webpack_require__(151),
+    objectToString = __webpack_require__(152);
 
 /** `Object#toString` result references. */
 var nullTag = '[object Null]',
@@ -431,8 +431,8 @@ var GRID_PREFIX = 'q-grid';
 /* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseIsNative = __webpack_require__(164),
-    getValue = __webpack_require__(167);
+var baseIsNative = __webpack_require__(165),
+    getValue = __webpack_require__(168);
 
 /**
  * Gets the native function at `key` of `object`.
@@ -454,6 +454,42 @@ module.exports = getNative;
 /* 24 */,
 /* 25 */,
 /* 26 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppError; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utility__ = __webpack_require__(0);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+var AppError = function (_Error) {
+	_inherits(AppError, _Error);
+
+	function AppError(name, message) {
+		_classCallCheck(this, AppError);
+
+		var _this = _possibleConstructorReturn(this, (AppError.__proto__ || Object.getPrototypeOf(AppError)).call(this, message));
+
+		_this.name = _this.constructor.name;
+		_this.message = 'qgrid.' + name + ': ' + message;
+		if (Object(__WEBPACK_IMPORTED_MODULE_0__utility__["m" /* isFunction */])(Error.captureStackTrace)) {
+			Error.captureStackTrace(_this, _this.constructor);
+		} else {
+			_this.stack = new Error(message).stack;
+		}
+		return _this;
+	}
+
+	return AppError;
+}(Error);
+
+/***/ }),
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var root = __webpack_require__(12);
@@ -465,11 +501,11 @@ module.exports = Symbol;
 
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var arrayLikeKeys = __webpack_require__(93),
-    baseKeys = __webpack_require__(188),
+    baseKeys = __webpack_require__(189),
     isArrayLike = __webpack_require__(32);
 
 /**
@@ -508,7 +544,7 @@ module.exports = keys;
 
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var assignValue = __webpack_require__(101),
@@ -554,14 +590,14 @@ module.exports = copyObject;
 
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseMatches = __webpack_require__(266),
-    baseMatchesProperty = __webpack_require__(269),
+var baseMatches = __webpack_require__(267),
+    baseMatchesProperty = __webpack_require__(270),
     identity = __webpack_require__(70),
     isArray = __webpack_require__(5),
-    property = __webpack_require__(277);
+    property = __webpack_require__(278);
 
 /**
  * The base implementation of `_.iteratee`.
@@ -589,42 +625,6 @@ function baseIteratee(value) {
 
 module.exports = baseIteratee;
 
-
-/***/ }),
-/* 30 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppError; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utility__ = __webpack_require__(0);
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
-
-var AppError = function (_Error) {
-	_inherits(AppError, _Error);
-
-	function AppError(name, message) {
-		_classCallCheck(this, AppError);
-
-		var _this = _possibleConstructorReturn(this, (AppError.__proto__ || Object.getPrototypeOf(AppError)).call(this, message));
-
-		_this.name = _this.constructor.name;
-		_this.message = 'qgrid.' + name + ': ' + message;
-		if (Object(__WEBPACK_IMPORTED_MODULE_0__utility__["m" /* isFunction */])(Error.captureStackTrace)) {
-			Error.captureStackTrace(_this, _this.constructor);
-		} else {
-			_this.stack = new Error(message).stack;
-		}
-		return _this;
-	}
-
-	return AppError;
-}(Error);
 
 /***/ }),
 /* 31 */
@@ -824,11 +824,11 @@ module.exports = isFunction;
 /***/ (function(module, exports, __webpack_require__) {
 
 var ListCache = __webpack_require__(40),
-    stackClear = __webpack_require__(159),
-    stackDelete = __webpack_require__(160),
-    stackGet = __webpack_require__(161),
-    stackHas = __webpack_require__(162),
-    stackSet = __webpack_require__(163);
+    stackClear = __webpack_require__(160),
+    stackDelete = __webpack_require__(161),
+    stackGet = __webpack_require__(162),
+    stackHas = __webpack_require__(163),
+    stackSet = __webpack_require__(164);
 
 /**
  * Creates a stack cache object to store key-value pairs.
@@ -856,11 +856,11 @@ module.exports = Stack;
 /* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var listCacheClear = __webpack_require__(154),
-    listCacheDelete = __webpack_require__(155),
-    listCacheGet = __webpack_require__(156),
-    listCacheHas = __webpack_require__(157),
-    listCacheSet = __webpack_require__(158);
+var listCacheClear = __webpack_require__(155),
+    listCacheDelete = __webpack_require__(156),
+    listCacheGet = __webpack_require__(157),
+    listCacheHas = __webpack_require__(158),
+    listCacheSet = __webpack_require__(159);
 
 /**
  * Creates an list cache object.
@@ -933,7 +933,7 @@ module.exports = nativeCreate;
 /* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isKeyable = __webpack_require__(176);
+var isKeyable = __webpack_require__(177);
 
 /**
  * Gets the data for `map`.
@@ -981,7 +981,7 @@ module.exports = setToArray;
 /* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseIsArguments = __webpack_require__(185),
+var baseIsArguments = __webpack_require__(186),
     isObjectLike = __webpack_require__(13);
 
 /** Used for built-in method references. */
@@ -1024,7 +1024,7 @@ module.exports = isArguments;
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(12),
-    stubFalse = __webpack_require__(186);
+    stubFalse = __webpack_require__(187);
 
 /** Detect free variable `exports`. */
 var freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
@@ -1100,7 +1100,7 @@ module.exports = baseAssignValue;
 /***/ (function(module, exports, __webpack_require__) {
 
 var arrayLikeKeys = __webpack_require__(93),
-    baseKeysIn = __webpack_require__(202),
+    baseKeysIn = __webpack_require__(203),
     isArrayLike = __webpack_require__(32);
 
 /**
@@ -1137,7 +1137,7 @@ module.exports = keysIn;
 /* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseToString = __webpack_require__(243);
+var baseToString = __webpack_require__(244);
 
 /**
  * Converts `value` to a string. An empty string is returned for `null`
@@ -1204,7 +1204,7 @@ module.exports = toKey;
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__node__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_build__ = __webpack_require__(304);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_1__node_build__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_service__ = __webpack_require__(140);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_service__ = __webpack_require__(141);
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_2__node_service__["a"]; });
 
 
@@ -1337,7 +1337,7 @@ var Log = function () {
 /* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseIsEqualDeep = __webpack_require__(153),
+var baseIsEqualDeep = __webpack_require__(154),
     isObjectLike = __webpack_require__(13);
 
 /**
@@ -1384,11 +1384,11 @@ module.exports = Map;
 /* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var mapCacheClear = __webpack_require__(168),
-    mapCacheDelete = __webpack_require__(175),
-    mapCacheGet = __webpack_require__(177),
-    mapCacheHas = __webpack_require__(178),
-    mapCacheSet = __webpack_require__(179);
+var mapCacheClear = __webpack_require__(169),
+    mapCacheDelete = __webpack_require__(176),
+    mapCacheGet = __webpack_require__(178),
+    mapCacheHas = __webpack_require__(179),
+    mapCacheSet = __webpack_require__(180);
 
 /**
  * Creates a map cache object to store key-value pairs.
@@ -1540,7 +1540,7 @@ module.exports = isIndex;
 /* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseIsTypedArray = __webpack_require__(187),
+var baseIsTypedArray = __webpack_require__(188),
     baseUnary = __webpack_require__(95),
     nodeUtil = __webpack_require__(96);
 
@@ -2291,7 +2291,7 @@ var CommandManager = function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Shortcut; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__io__ = __webpack_require__(143);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__io__ = __webpack_require__(144);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2448,7 +2448,7 @@ module.exports = toSource;
 /***/ (function(module, exports, __webpack_require__) {
 
 var SetCache = __webpack_require__(85),
-    arraySome = __webpack_require__(182),
+    arraySome = __webpack_require__(183),
     cacheHas = __webpack_require__(86);
 
 /** Used to compose bitmasks for value comparisons. */
@@ -2537,8 +2537,8 @@ module.exports = equalArrays;
 /***/ (function(module, exports, __webpack_require__) {
 
 var MapCache = __webpack_require__(59),
-    setCacheAdd = __webpack_require__(180),
-    setCacheHas = __webpack_require__(181);
+    setCacheAdd = __webpack_require__(181),
+    setCacheHas = __webpack_require__(182);
 
 /**
  *
@@ -2626,7 +2626,7 @@ module.exports = mapToArray;
 
 var baseGetAllKeys = __webpack_require__(90),
     getSymbols = __webpack_require__(61),
-    keys = __webpack_require__(27);
+    keys = __webpack_require__(28);
 
 /**
  * Creates an array of own enumerable property names and symbols of `object`.
@@ -2883,11 +2883,11 @@ module.exports = overArg;
 /* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var DataView = __webpack_require__(190),
+var DataView = __webpack_require__(191),
     Map = __webpack_require__(58),
-    Promise = __webpack_require__(191),
+    Promise = __webpack_require__(192),
     Set = __webpack_require__(99),
-    WeakMap = __webpack_require__(192),
+    WeakMap = __webpack_require__(193),
     baseGetTag = __webpack_require__(16),
     toSource = __webpack_require__(83);
 
@@ -2961,24 +2961,24 @@ module.exports = Set;
 /***/ (function(module, exports, __webpack_require__) {
 
 var Stack = __webpack_require__(39),
-    arrayEach = __webpack_require__(199),
+    arrayEach = __webpack_require__(200),
     assignValue = __webpack_require__(101),
-    baseAssign = __webpack_require__(200),
-    baseAssignIn = __webpack_require__(201),
+    baseAssign = __webpack_require__(201),
+    baseAssignIn = __webpack_require__(202),
     cloneBuffer = __webpack_require__(103),
     copyArray = __webpack_require__(104),
-    copySymbols = __webpack_require__(204),
-    copySymbolsIn = __webpack_require__(205),
+    copySymbols = __webpack_require__(205),
+    copySymbolsIn = __webpack_require__(206),
     getAllKeys = __webpack_require__(89),
-    getAllKeysIn = __webpack_require__(206),
+    getAllKeysIn = __webpack_require__(207),
     getTag = __webpack_require__(98),
-    initCloneArray = __webpack_require__(207),
-    initCloneByTag = __webpack_require__(208),
+    initCloneArray = __webpack_require__(208),
+    initCloneByTag = __webpack_require__(209),
     initCloneObject = __webpack_require__(107),
     isArray = __webpack_require__(5),
     isBuffer = __webpack_require__(46),
     isObject = __webpack_require__(10),
-    keys = __webpack_require__(27);
+    keys = __webpack_require__(28);
 
 /** Used to compose bitmasks for cloning. */
 var CLONE_DEEP_FLAG = 1,
@@ -3291,7 +3291,7 @@ module.exports = cloneTypedArray;
 /* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseCreate = __webpack_require__(216),
+var baseCreate = __webpack_require__(217),
     getPrototype = __webpack_require__(67),
     isPrototype = __webpack_require__(66);
 
@@ -3341,7 +3341,7 @@ module.exports = assignMergeValue;
 /* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var createBaseFor = __webpack_require__(224);
+var createBaseFor = __webpack_require__(225);
 
 /**
  * The base implementation of `baseForOwn` which iterates over `object`
@@ -3403,7 +3403,7 @@ module.exports = isArrayLikeObject;
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseRest = __webpack_require__(112),
-    isIterateeCall = __webpack_require__(234);
+    isIterateeCall = __webpack_require__(235);
 
 /**
  * Creates a function like `_.assign`.
@@ -3446,8 +3446,8 @@ module.exports = createAssigner;
 /***/ (function(module, exports, __webpack_require__) {
 
 var identity = __webpack_require__(70),
-    overRest = __webpack_require__(228),
-    setToString = __webpack_require__(230);
+    overRest = __webpack_require__(229),
+    setToString = __webpack_require__(231);
 
 /**
  * The base implementation of `_.rest` which doesn't validate or coerce arguments.
@@ -3643,7 +3643,7 @@ module.exports = baseGet;
 
 var isArray = __webpack_require__(5),
     isKey = __webpack_require__(71),
-    stringToPath = __webpack_require__(271),
+    stringToPath = __webpack_require__(272),
     toString = __webpack_require__(49);
 
 /**
@@ -3760,7 +3760,7 @@ module.exports = baseWhile;
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Guard; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__error__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__error__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utility__ = __webpack_require__(0);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -4581,7 +4581,8 @@ var DeferPromise = function () {
 
 /***/ }),
 /* 137 */,
-/* 138 */
+/* 138 */,
+/* 139 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4631,8 +4632,8 @@ var TableCommandManager = function (_CommandManager) {
 }(__WEBPACK_IMPORTED_MODULE_0__command_manager__["a" /* CommandManager */]);
 
 /***/ }),
-/* 139 */,
-/* 140 */
+/* 140 */,
+/* 141 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4704,9 +4705,9 @@ function some(nodes, test) {
 }
 
 /***/ }),
-/* 141 */,
 /* 142 */,
-/* 143 */
+/* 143 */,
+/* 144 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4718,16 +4719,16 @@ function some(nodes, test) {
 
 
 /***/ }),
-/* 144 */,
 /* 145 */,
 /* 146 */,
 /* 147 */,
-/* 148 */
+/* 148 */,
+/* 149 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Cache; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__error__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__error__ = __webpack_require__(26);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -4792,7 +4793,7 @@ var Cache = function () {
 }();
 
 /***/ }),
-/* 149 */
+/* 150 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4812,47 +4813,47 @@ var Cache = function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash_isFunction___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash_isFunction__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash_isArray__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash_isArray___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_lodash_isArray__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_lodash_isEqual__ = __webpack_require__(152);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_lodash_isEqual__ = __webpack_require__(153);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_lodash_isEqual___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_lodash_isEqual__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lodash_isString__ = __webpack_require__(193);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lodash_isString__ = __webpack_require__(194);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lodash_isString___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_lodash_isString__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_lodash_isBoolean__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_lodash_isBoolean__ = __webpack_require__(195);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_lodash_isBoolean___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_lodash_isBoolean__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_lodash_isNumber__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_lodash_isNumber__ = __webpack_require__(196);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_lodash_isNumber___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_lodash_isNumber__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_lodash_isDate__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_lodash_isDate__ = __webpack_require__(197);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_lodash_isDate___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_lodash_isDate__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_lodash_clone__ = __webpack_require__(198);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_lodash_clone__ = __webpack_require__(199);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_lodash_clone___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_lodash_clone__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_lodash_cloneDeepWith__ = __webpack_require__(217);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_lodash_cloneDeepWith__ = __webpack_require__(218);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_lodash_cloneDeepWith___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_lodash_cloneDeepWith__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_lodash_isUndefined__ = __webpack_require__(218);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_lodash_isUndefined__ = __webpack_require__(219);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_lodash_isUndefined___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_lodash_isUndefined__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_lodash_debounce__ = __webpack_require__(219);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_lodash_debounce__ = __webpack_require__(220);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_lodash_debounce___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_lodash_debounce__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_lodash_merge__ = __webpack_require__(222);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_lodash_merge__ = __webpack_require__(223);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_lodash_merge___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12_lodash_merge__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_lodash_flatten__ = __webpack_require__(235);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_lodash_flatten__ = __webpack_require__(236);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_lodash_flatten___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13_lodash_flatten__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_lodash_startCase__ = __webpack_require__(238);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_lodash_startCase__ = __webpack_require__(239);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_lodash_startCase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14_lodash_startCase__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_lodash_assignWith__ = __webpack_require__(254);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_lodash_assignWith__ = __webpack_require__(255);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_lodash_assignWith___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15_lodash_assignWith__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_lodash_uniq__ = __webpack_require__(255);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_lodash_uniq__ = __webpack_require__(256);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_lodash_uniq___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16_lodash_uniq__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17_lodash_sumBy__ = __webpack_require__(265);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17_lodash_sumBy__ = __webpack_require__(266);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17_lodash_sumBy___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17_lodash_sumBy__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18_lodash_maxBy__ = __webpack_require__(280);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18_lodash_maxBy__ = __webpack_require__(281);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18_lodash_maxBy___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18_lodash_maxBy__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19_lodash_minBy__ = __webpack_require__(282);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19_lodash_minBy__ = __webpack_require__(283);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19_lodash_minBy___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_19_lodash_minBy__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20_lodash_zip__ = __webpack_require__(284);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20_lodash_zip__ = __webpack_require__(285);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20_lodash_zip___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_20_lodash_zip__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21_lodash_takeWhile__ = __webpack_require__(286);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21_lodash_takeWhile__ = __webpack_require__(287);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21_lodash_takeWhile___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_21_lodash_takeWhile__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22_lodash_dropWhile__ = __webpack_require__(287);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22_lodash_dropWhile__ = __webpack_require__(288);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22_lodash_dropWhile___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_22_lodash_dropWhile__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23_lodash_groupBy__ = __webpack_require__(288);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23_lodash_groupBy__ = __webpack_require__(289);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23_lodash_groupBy___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_23_lodash_groupBy__);
 /* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "o", function() { return __WEBPACK_IMPORTED_MODULE_0_lodash_isObject___default.a; });
 /* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "m", function() { return __WEBPACK_IMPORTED_MODULE_1_lodash_isFunction___default.a; });
@@ -5013,10 +5014,10 @@ function escapeRegexp(text) {
 
 
 /***/ }),
-/* 150 */
+/* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Symbol = __webpack_require__(26);
+var Symbol = __webpack_require__(27);
 
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
@@ -5065,7 +5066,7 @@ module.exports = getRawTag;
 
 
 /***/ }),
-/* 151 */
+/* 152 */
 /***/ (function(module, exports) {
 
 /** Used for built-in method references. */
@@ -5093,7 +5094,7 @@ module.exports = objectToString;
 
 
 /***/ }),
-/* 152 */
+/* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseIsEqual = __webpack_require__(57);
@@ -5134,13 +5135,13 @@ module.exports = isEqual;
 
 
 /***/ }),
-/* 153 */
+/* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Stack = __webpack_require__(39),
     equalArrays = __webpack_require__(84),
-    equalByTag = __webpack_require__(183),
-    equalObjects = __webpack_require__(184),
+    equalByTag = __webpack_require__(184),
+    equalObjects = __webpack_require__(185),
     getTag = __webpack_require__(98),
     isArray = __webpack_require__(5),
     isBuffer = __webpack_require__(46),
@@ -5223,7 +5224,7 @@ module.exports = baseIsEqualDeep;
 
 
 /***/ }),
-/* 154 */
+/* 155 */
 /***/ (function(module, exports) {
 
 /**
@@ -5242,7 +5243,7 @@ module.exports = listCacheClear;
 
 
 /***/ }),
-/* 155 */
+/* 156 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var assocIndexOf = __webpack_require__(41);
@@ -5283,7 +5284,7 @@ module.exports = listCacheDelete;
 
 
 /***/ }),
-/* 156 */
+/* 157 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var assocIndexOf = __webpack_require__(41);
@@ -5308,7 +5309,7 @@ module.exports = listCacheGet;
 
 
 /***/ }),
-/* 157 */
+/* 158 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var assocIndexOf = __webpack_require__(41);
@@ -5330,7 +5331,7 @@ module.exports = listCacheHas;
 
 
 /***/ }),
-/* 158 */
+/* 159 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var assocIndexOf = __webpack_require__(41);
@@ -5362,7 +5363,7 @@ module.exports = listCacheSet;
 
 
 /***/ }),
-/* 159 */
+/* 160 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var ListCache = __webpack_require__(40);
@@ -5383,7 +5384,7 @@ module.exports = stackClear;
 
 
 /***/ }),
-/* 160 */
+/* 161 */
 /***/ (function(module, exports) {
 
 /**
@@ -5407,7 +5408,7 @@ module.exports = stackDelete;
 
 
 /***/ }),
-/* 161 */
+/* 162 */
 /***/ (function(module, exports) {
 
 /**
@@ -5427,7 +5428,7 @@ module.exports = stackGet;
 
 
 /***/ }),
-/* 162 */
+/* 163 */
 /***/ (function(module, exports) {
 
 /**
@@ -5447,7 +5448,7 @@ module.exports = stackHas;
 
 
 /***/ }),
-/* 163 */
+/* 164 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var ListCache = __webpack_require__(40),
@@ -5487,11 +5488,11 @@ module.exports = stackSet;
 
 
 /***/ }),
-/* 164 */
+/* 165 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isFunction = __webpack_require__(38),
-    isMasked = __webpack_require__(165),
+    isMasked = __webpack_require__(166),
     isObject = __webpack_require__(10),
     toSource = __webpack_require__(83);
 
@@ -5540,10 +5541,10 @@ module.exports = baseIsNative;
 
 
 /***/ }),
-/* 165 */
+/* 166 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var coreJsData = __webpack_require__(166);
+var coreJsData = __webpack_require__(167);
 
 /** Used to detect methods masquerading as native. */
 var maskSrcKey = (function() {
@@ -5566,7 +5567,7 @@ module.exports = isMasked;
 
 
 /***/ }),
-/* 166 */
+/* 167 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var root = __webpack_require__(12);
@@ -5578,7 +5579,7 @@ module.exports = coreJsData;
 
 
 /***/ }),
-/* 167 */
+/* 168 */
 /***/ (function(module, exports) {
 
 /**
@@ -5597,10 +5598,10 @@ module.exports = getValue;
 
 
 /***/ }),
-/* 168 */
+/* 169 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Hash = __webpack_require__(169),
+var Hash = __webpack_require__(170),
     ListCache = __webpack_require__(40),
     Map = __webpack_require__(58);
 
@@ -5624,14 +5625,14 @@ module.exports = mapCacheClear;
 
 
 /***/ }),
-/* 169 */
+/* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var hashClear = __webpack_require__(170),
-    hashDelete = __webpack_require__(171),
-    hashGet = __webpack_require__(172),
-    hashHas = __webpack_require__(173),
-    hashSet = __webpack_require__(174);
+var hashClear = __webpack_require__(171),
+    hashDelete = __webpack_require__(172),
+    hashGet = __webpack_require__(173),
+    hashHas = __webpack_require__(174),
+    hashSet = __webpack_require__(175);
 
 /**
  * Creates a hash object.
@@ -5662,7 +5663,7 @@ module.exports = Hash;
 
 
 /***/ }),
-/* 170 */
+/* 171 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var nativeCreate = __webpack_require__(42);
@@ -5683,7 +5684,7 @@ module.exports = hashClear;
 
 
 /***/ }),
-/* 171 */
+/* 172 */
 /***/ (function(module, exports) {
 
 /**
@@ -5706,7 +5707,7 @@ module.exports = hashDelete;
 
 
 /***/ }),
-/* 172 */
+/* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var nativeCreate = __webpack_require__(42);
@@ -5742,7 +5743,7 @@ module.exports = hashGet;
 
 
 /***/ }),
-/* 173 */
+/* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var nativeCreate = __webpack_require__(42);
@@ -5771,7 +5772,7 @@ module.exports = hashHas;
 
 
 /***/ }),
-/* 174 */
+/* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var nativeCreate = __webpack_require__(42);
@@ -5800,7 +5801,7 @@ module.exports = hashSet;
 
 
 /***/ }),
-/* 175 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var getMapData = __webpack_require__(43);
@@ -5824,7 +5825,7 @@ module.exports = mapCacheDelete;
 
 
 /***/ }),
-/* 176 */
+/* 177 */
 /***/ (function(module, exports) {
 
 /**
@@ -5845,7 +5846,7 @@ module.exports = isKeyable;
 
 
 /***/ }),
-/* 177 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var getMapData = __webpack_require__(43);
@@ -5867,7 +5868,7 @@ module.exports = mapCacheGet;
 
 
 /***/ }),
-/* 178 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var getMapData = __webpack_require__(43);
@@ -5889,7 +5890,7 @@ module.exports = mapCacheHas;
 
 
 /***/ }),
-/* 179 */
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var getMapData = __webpack_require__(43);
@@ -5917,7 +5918,7 @@ module.exports = mapCacheSet;
 
 
 /***/ }),
-/* 180 */
+/* 181 */
 /***/ (function(module, exports) {
 
 /** Used to stand-in for `undefined` hash values. */
@@ -5942,7 +5943,7 @@ module.exports = setCacheAdd;
 
 
 /***/ }),
-/* 181 */
+/* 182 */
 /***/ (function(module, exports) {
 
 /**
@@ -5962,7 +5963,7 @@ module.exports = setCacheHas;
 
 
 /***/ }),
-/* 182 */
+/* 183 */
 /***/ (function(module, exports) {
 
 /**
@@ -5991,10 +5992,10 @@ module.exports = arraySome;
 
 
 /***/ }),
-/* 183 */
+/* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Symbol = __webpack_require__(26),
+var Symbol = __webpack_require__(27),
     Uint8Array = __webpack_require__(87),
     eq = __webpack_require__(31),
     equalArrays = __webpack_require__(84),
@@ -6109,7 +6110,7 @@ module.exports = equalByTag;
 
 
 /***/ }),
-/* 184 */
+/* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var getAllKeys = __webpack_require__(89);
@@ -6204,7 +6205,7 @@ module.exports = equalObjects;
 
 
 /***/ }),
-/* 185 */
+/* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseGetTag = __webpack_require__(16),
@@ -6228,7 +6229,7 @@ module.exports = baseIsArguments;
 
 
 /***/ }),
-/* 186 */
+/* 187 */
 /***/ (function(module, exports) {
 
 /**
@@ -6252,7 +6253,7 @@ module.exports = stubFalse;
 
 
 /***/ }),
-/* 187 */
+/* 188 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseGetTag = __webpack_require__(16),
@@ -6318,11 +6319,11 @@ module.exports = baseIsTypedArray;
 
 
 /***/ }),
-/* 188 */
+/* 189 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isPrototype = __webpack_require__(66),
-    nativeKeys = __webpack_require__(189);
+    nativeKeys = __webpack_require__(190);
 
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
@@ -6354,7 +6355,7 @@ module.exports = baseKeys;
 
 
 /***/ }),
-/* 189 */
+/* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var overArg = __webpack_require__(97);
@@ -6366,7 +6367,7 @@ module.exports = nativeKeys;
 
 
 /***/ }),
-/* 190 */
+/* 191 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var getNative = __webpack_require__(23),
@@ -6379,7 +6380,7 @@ module.exports = DataView;
 
 
 /***/ }),
-/* 191 */
+/* 192 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var getNative = __webpack_require__(23),
@@ -6392,7 +6393,7 @@ module.exports = Promise;
 
 
 /***/ }),
-/* 192 */
+/* 193 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var getNative = __webpack_require__(23),
@@ -6405,7 +6406,7 @@ module.exports = WeakMap;
 
 
 /***/ }),
-/* 193 */
+/* 194 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseGetTag = __webpack_require__(16),
@@ -6441,7 +6442,7 @@ module.exports = isString;
 
 
 /***/ }),
-/* 194 */
+/* 195 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseGetTag = __webpack_require__(16),
@@ -6476,7 +6477,7 @@ module.exports = isBoolean;
 
 
 /***/ }),
-/* 195 */
+/* 196 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseGetTag = __webpack_require__(16),
@@ -6520,10 +6521,10 @@ module.exports = isNumber;
 
 
 /***/ }),
-/* 196 */
+/* 197 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseIsDate = __webpack_require__(197),
+var baseIsDate = __webpack_require__(198),
     baseUnary = __webpack_require__(95),
     nodeUtil = __webpack_require__(96);
 
@@ -6553,7 +6554,7 @@ module.exports = isDate;
 
 
 /***/ }),
-/* 197 */
+/* 198 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseGetTag = __webpack_require__(16),
@@ -6577,7 +6578,7 @@ module.exports = baseIsDate;
 
 
 /***/ }),
-/* 198 */
+/* 199 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseClone = __webpack_require__(100);
@@ -6619,7 +6620,7 @@ module.exports = clone;
 
 
 /***/ }),
-/* 199 */
+/* 200 */
 /***/ (function(module, exports) {
 
 /**
@@ -6647,11 +6648,11 @@ module.exports = arrayEach;
 
 
 /***/ }),
-/* 200 */
+/* 201 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var copyObject = __webpack_require__(28),
-    keys = __webpack_require__(27);
+var copyObject = __webpack_require__(29),
+    keys = __webpack_require__(28);
 
 /**
  * The base implementation of `_.assign` without support for multiple sources
@@ -6670,10 +6671,10 @@ module.exports = baseAssign;
 
 
 /***/ }),
-/* 201 */
+/* 202 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var copyObject = __webpack_require__(28),
+var copyObject = __webpack_require__(29),
     keysIn = __webpack_require__(48);
 
 /**
@@ -6693,12 +6694,12 @@ module.exports = baseAssignIn;
 
 
 /***/ }),
-/* 202 */
+/* 203 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(10),
     isPrototype = __webpack_require__(66),
-    nativeKeysIn = __webpack_require__(203);
+    nativeKeysIn = __webpack_require__(204);
 
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
@@ -6732,7 +6733,7 @@ module.exports = baseKeysIn;
 
 
 /***/ }),
-/* 203 */
+/* 204 */
 /***/ (function(module, exports) {
 
 /**
@@ -6758,10 +6759,10 @@ module.exports = nativeKeysIn;
 
 
 /***/ }),
-/* 204 */
+/* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var copyObject = __webpack_require__(28),
+var copyObject = __webpack_require__(29),
     getSymbols = __webpack_require__(61);
 
 /**
@@ -6780,10 +6781,10 @@ module.exports = copySymbols;
 
 
 /***/ }),
-/* 205 */
+/* 206 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var copyObject = __webpack_require__(28),
+var copyObject = __webpack_require__(29),
     getSymbolsIn = __webpack_require__(105);
 
 /**
@@ -6802,7 +6803,7 @@ module.exports = copySymbolsIn;
 
 
 /***/ }),
-/* 206 */
+/* 207 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseGetAllKeys = __webpack_require__(90),
@@ -6825,7 +6826,7 @@ module.exports = getAllKeysIn;
 
 
 /***/ }),
-/* 207 */
+/* 208 */
 /***/ (function(module, exports) {
 
 /** Used for built-in method references. */
@@ -6857,15 +6858,15 @@ module.exports = initCloneArray;
 
 
 /***/ }),
-/* 208 */
+/* 209 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var cloneArrayBuffer = __webpack_require__(68),
-    cloneDataView = __webpack_require__(209),
-    cloneMap = __webpack_require__(210),
-    cloneRegExp = __webpack_require__(212),
-    cloneSet = __webpack_require__(213),
-    cloneSymbol = __webpack_require__(215),
+    cloneDataView = __webpack_require__(210),
+    cloneMap = __webpack_require__(211),
+    cloneRegExp = __webpack_require__(213),
+    cloneSet = __webpack_require__(214),
+    cloneSymbol = __webpack_require__(216),
     cloneTypedArray = __webpack_require__(106);
 
 /** `Object#toString` result references. */
@@ -6943,7 +6944,7 @@ module.exports = initCloneByTag;
 
 
 /***/ }),
-/* 209 */
+/* 210 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var cloneArrayBuffer = __webpack_require__(68);
@@ -6965,10 +6966,10 @@ module.exports = cloneDataView;
 
 
 /***/ }),
-/* 210 */
+/* 211 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var addMapEntry = __webpack_require__(211),
+var addMapEntry = __webpack_require__(212),
     arrayReduce = __webpack_require__(69),
     mapToArray = __webpack_require__(88);
 
@@ -6993,7 +6994,7 @@ module.exports = cloneMap;
 
 
 /***/ }),
-/* 211 */
+/* 212 */
 /***/ (function(module, exports) {
 
 /**
@@ -7014,7 +7015,7 @@ module.exports = addMapEntry;
 
 
 /***/ }),
-/* 212 */
+/* 213 */
 /***/ (function(module, exports) {
 
 /** Used to match `RegExp` flags from their coerced string values. */
@@ -7037,10 +7038,10 @@ module.exports = cloneRegExp;
 
 
 /***/ }),
-/* 213 */
+/* 214 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var addSetEntry = __webpack_require__(214),
+var addSetEntry = __webpack_require__(215),
     arrayReduce = __webpack_require__(69),
     setToArray = __webpack_require__(44);
 
@@ -7065,7 +7066,7 @@ module.exports = cloneSet;
 
 
 /***/ }),
-/* 214 */
+/* 215 */
 /***/ (function(module, exports) {
 
 /**
@@ -7086,10 +7087,10 @@ module.exports = addSetEntry;
 
 
 /***/ }),
-/* 215 */
+/* 216 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Symbol = __webpack_require__(26);
+var Symbol = __webpack_require__(27);
 
 /** Used to convert symbols to primitives and strings. */
 var symbolProto = Symbol ? Symbol.prototype : undefined,
@@ -7110,7 +7111,7 @@ module.exports = cloneSymbol;
 
 
 /***/ }),
-/* 216 */
+/* 217 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(10);
@@ -7146,7 +7147,7 @@ module.exports = baseCreate;
 
 
 /***/ }),
-/* 217 */
+/* 218 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseClone = __webpack_require__(100);
@@ -7192,7 +7193,7 @@ module.exports = cloneDeepWith;
 
 
 /***/ }),
-/* 218 */
+/* 219 */
 /***/ (function(module, exports) {
 
 /**
@@ -7220,12 +7221,12 @@ module.exports = isUndefined;
 
 
 /***/ }),
-/* 219 */
+/* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(10),
-    now = __webpack_require__(220),
-    toNumber = __webpack_require__(221);
+    now = __webpack_require__(221),
+    toNumber = __webpack_require__(222);
 
 /** Error message constants. */
 var FUNC_ERROR_TEXT = 'Expected a function';
@@ -7414,7 +7415,7 @@ module.exports = debounce;
 
 
 /***/ }),
-/* 220 */
+/* 221 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var root = __webpack_require__(12);
@@ -7443,7 +7444,7 @@ module.exports = now;
 
 
 /***/ }),
-/* 221 */
+/* 222 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(10),
@@ -7515,10 +7516,10 @@ module.exports = toNumber;
 
 
 /***/ }),
-/* 222 */
+/* 223 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseMerge = __webpack_require__(223),
+var baseMerge = __webpack_require__(224),
     createAssigner = __webpack_require__(111);
 
 /**
@@ -7560,13 +7561,13 @@ module.exports = merge;
 
 
 /***/ }),
-/* 223 */
+/* 224 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Stack = __webpack_require__(39),
     assignMergeValue = __webpack_require__(108),
     baseFor = __webpack_require__(109),
-    baseMergeDeep = __webpack_require__(225),
+    baseMergeDeep = __webpack_require__(226),
     isObject = __webpack_require__(10),
     keysIn = __webpack_require__(48);
 
@@ -7607,7 +7608,7 @@ module.exports = baseMerge;
 
 
 /***/ }),
-/* 224 */
+/* 225 */
 /***/ (function(module, exports) {
 
 /**
@@ -7638,7 +7639,7 @@ module.exports = createBaseFor;
 
 
 /***/ }),
-/* 225 */
+/* 226 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var assignMergeValue = __webpack_require__(108),
@@ -7652,9 +7653,9 @@ var assignMergeValue = __webpack_require__(108),
     isBuffer = __webpack_require__(46),
     isFunction = __webpack_require__(38),
     isObject = __webpack_require__(10),
-    isPlainObject = __webpack_require__(226),
+    isPlainObject = __webpack_require__(227),
     isTypedArray = __webpack_require__(64),
-    toPlainObject = __webpack_require__(227);
+    toPlainObject = __webpack_require__(228);
 
 /**
  * A specialized version of `baseMerge` for arrays and objects which performs
@@ -7737,7 +7738,7 @@ module.exports = baseMergeDeep;
 
 
 /***/ }),
-/* 226 */
+/* 227 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseGetTag = __webpack_require__(16),
@@ -7805,10 +7806,10 @@ module.exports = isPlainObject;
 
 
 /***/ }),
-/* 227 */
+/* 228 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var copyObject = __webpack_require__(28),
+var copyObject = __webpack_require__(29),
     keysIn = __webpack_require__(48);
 
 /**
@@ -7843,10 +7844,10 @@ module.exports = toPlainObject;
 
 
 /***/ }),
-/* 228 */
+/* 229 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var apply = __webpack_require__(229);
+var apply = __webpack_require__(230);
 
 /* Built-in method references for those with the same name as other `lodash` methods. */
 var nativeMax = Math.max;
@@ -7885,7 +7886,7 @@ module.exports = overRest;
 
 
 /***/ }),
-/* 229 */
+/* 230 */
 /***/ (function(module, exports) {
 
 /**
@@ -7912,11 +7913,11 @@ module.exports = apply;
 
 
 /***/ }),
-/* 230 */
+/* 231 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseSetToString = __webpack_require__(231),
-    shortOut = __webpack_require__(233);
+var baseSetToString = __webpack_require__(232),
+    shortOut = __webpack_require__(234);
 
 /**
  * Sets the `toString` method of `func` to return `string`.
@@ -7932,10 +7933,10 @@ module.exports = setToString;
 
 
 /***/ }),
-/* 231 */
+/* 232 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var constant = __webpack_require__(232),
+var constant = __webpack_require__(233),
     defineProperty = __webpack_require__(102),
     identity = __webpack_require__(70);
 
@@ -7960,7 +7961,7 @@ module.exports = baseSetToString;
 
 
 /***/ }),
-/* 232 */
+/* 233 */
 /***/ (function(module, exports) {
 
 /**
@@ -7992,7 +7993,7 @@ module.exports = constant;
 
 
 /***/ }),
-/* 233 */
+/* 234 */
 /***/ (function(module, exports) {
 
 /** Used to detect hot functions by number of calls within a span of milliseconds. */
@@ -8035,7 +8036,7 @@ module.exports = shortOut;
 
 
 /***/ }),
-/* 234 */
+/* 235 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var eq = __webpack_require__(31),
@@ -8071,10 +8072,10 @@ module.exports = isIterateeCall;
 
 
 /***/ }),
-/* 235 */
+/* 236 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseFlatten = __webpack_require__(236);
+var baseFlatten = __webpack_require__(237);
 
 /**
  * Flattens `array` a single level deep.
@@ -8099,11 +8100,11 @@ module.exports = flatten;
 
 
 /***/ }),
-/* 236 */
+/* 237 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var arrayPush = __webpack_require__(60),
-    isFlattenable = __webpack_require__(237);
+    isFlattenable = __webpack_require__(238);
 
 /**
  * The base implementation of `_.flatten` with support for restricting flattening.
@@ -8143,10 +8144,10 @@ module.exports = baseFlatten;
 
 
 /***/ }),
-/* 237 */
+/* 238 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Symbol = __webpack_require__(26),
+var Symbol = __webpack_require__(27),
     isArguments = __webpack_require__(45),
     isArray = __webpack_require__(5);
 
@@ -8169,11 +8170,11 @@ module.exports = isFlattenable;
 
 
 /***/ }),
-/* 238 */
+/* 239 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var createCompounder = __webpack_require__(239),
-    upperFirst = __webpack_require__(248);
+var createCompounder = __webpack_require__(240),
+    upperFirst = __webpack_require__(249);
 
 /**
  * Converts `string` to
@@ -8204,12 +8205,12 @@ module.exports = startCase;
 
 
 /***/ }),
-/* 239 */
+/* 240 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var arrayReduce = __webpack_require__(69),
-    deburr = __webpack_require__(240),
-    words = __webpack_require__(244);
+    deburr = __webpack_require__(241),
+    words = __webpack_require__(245);
 
 /** Used to compose unicode capture groups. */
 var rsApos = "['\u2019]";
@@ -8234,10 +8235,10 @@ module.exports = createCompounder;
 
 
 /***/ }),
-/* 240 */
+/* 241 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var deburrLetter = __webpack_require__(241),
+var deburrLetter = __webpack_require__(242),
     toString = __webpack_require__(49);
 
 /** Used to match Latin Unicode letters (excluding mathematical operators). */
@@ -8285,10 +8286,10 @@ module.exports = deburr;
 
 
 /***/ }),
-/* 241 */
+/* 242 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var basePropertyOf = __webpack_require__(242);
+var basePropertyOf = __webpack_require__(243);
 
 /** Used to map Latin Unicode letters to basic Latin letters. */
 var deburredLetters = {
@@ -8362,7 +8363,7 @@ module.exports = deburrLetter;
 
 
 /***/ }),
-/* 242 */
+/* 243 */
 /***/ (function(module, exports) {
 
 /**
@@ -8382,10 +8383,10 @@ module.exports = basePropertyOf;
 
 
 /***/ }),
-/* 243 */
+/* 244 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Symbol = __webpack_require__(26),
+var Symbol = __webpack_require__(27),
     arrayMap = __webpack_require__(113),
     isArray = __webpack_require__(5),
     isSymbol = __webpack_require__(33);
@@ -8425,13 +8426,13 @@ module.exports = baseToString;
 
 
 /***/ }),
-/* 244 */
+/* 245 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var asciiWords = __webpack_require__(245),
-    hasUnicodeWord = __webpack_require__(246),
+var asciiWords = __webpack_require__(246),
+    hasUnicodeWord = __webpack_require__(247),
     toString = __webpack_require__(49),
-    unicodeWords = __webpack_require__(247);
+    unicodeWords = __webpack_require__(248);
 
 /**
  * Splits `string` into an array of its words.
@@ -8466,7 +8467,7 @@ module.exports = words;
 
 
 /***/ }),
-/* 245 */
+/* 246 */
 /***/ (function(module, exports) {
 
 /** Used to match words composed of alphanumeric characters. */
@@ -8487,7 +8488,7 @@ module.exports = asciiWords;
 
 
 /***/ }),
-/* 246 */
+/* 247 */
 /***/ (function(module, exports) {
 
 /** Used to detect strings that need a more robust regexp to match words. */
@@ -8508,7 +8509,7 @@ module.exports = hasUnicodeWord;
 
 
 /***/ }),
-/* 247 */
+/* 248 */
 /***/ (function(module, exports) {
 
 /** Used to compose unicode character classes. */
@@ -8583,10 +8584,10 @@ module.exports = unicodeWords;
 
 
 /***/ }),
-/* 248 */
+/* 249 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var createCaseFirst = __webpack_require__(249);
+var createCaseFirst = __webpack_require__(250);
 
 /**
  * Converts the first character of `string` to upper case.
@@ -8611,12 +8612,12 @@ module.exports = upperFirst;
 
 
 /***/ }),
-/* 249 */
+/* 250 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var castSlice = __webpack_require__(250),
+var castSlice = __webpack_require__(251),
     hasUnicode = __webpack_require__(115),
-    stringToArray = __webpack_require__(251),
+    stringToArray = __webpack_require__(252),
     toString = __webpack_require__(49);
 
 /**
@@ -8650,7 +8651,7 @@ module.exports = createCaseFirst;
 
 
 /***/ }),
-/* 250 */
+/* 251 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseSlice = __webpack_require__(114);
@@ -8674,12 +8675,12 @@ module.exports = castSlice;
 
 
 /***/ }),
-/* 251 */
+/* 252 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var asciiToArray = __webpack_require__(252),
+var asciiToArray = __webpack_require__(253),
     hasUnicode = __webpack_require__(115),
-    unicodeToArray = __webpack_require__(253);
+    unicodeToArray = __webpack_require__(254);
 
 /**
  * Converts `string` to an array.
@@ -8698,7 +8699,7 @@ module.exports = stringToArray;
 
 
 /***/ }),
-/* 252 */
+/* 253 */
 /***/ (function(module, exports) {
 
 /**
@@ -8716,7 +8717,7 @@ module.exports = asciiToArray;
 
 
 /***/ }),
-/* 253 */
+/* 254 */
 /***/ (function(module, exports) {
 
 /** Used to compose unicode character classes. */
@@ -8762,12 +8763,12 @@ module.exports = unicodeToArray;
 
 
 /***/ }),
-/* 254 */
+/* 255 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var copyObject = __webpack_require__(28),
+var copyObject = __webpack_require__(29),
     createAssigner = __webpack_require__(111),
-    keys = __webpack_require__(27);
+    keys = __webpack_require__(28);
 
 /**
  * This method is like `_.assign` except that it accepts `customizer`
@@ -8805,10 +8806,10 @@ module.exports = assignWith;
 
 
 /***/ }),
-/* 255 */
+/* 256 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseUniq = __webpack_require__(256);
+var baseUniq = __webpack_require__(257);
 
 /**
  * Creates a duplicate-free version of an array, using
@@ -8836,14 +8837,14 @@ module.exports = uniq;
 
 
 /***/ }),
-/* 256 */
+/* 257 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var SetCache = __webpack_require__(85),
-    arrayIncludes = __webpack_require__(257),
-    arrayIncludesWith = __webpack_require__(262),
+    arrayIncludes = __webpack_require__(258),
+    arrayIncludesWith = __webpack_require__(263),
     cacheHas = __webpack_require__(86),
-    createSet = __webpack_require__(263),
+    createSet = __webpack_require__(264),
     setToArray = __webpack_require__(44);
 
 /** Used as the size to enable large array optimizations. */
@@ -8914,10 +8915,10 @@ module.exports = baseUniq;
 
 
 /***/ }),
-/* 257 */
+/* 258 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseIndexOf = __webpack_require__(258);
+var baseIndexOf = __webpack_require__(259);
 
 /**
  * A specialized version of `_.includes` for arrays without support for
@@ -8937,12 +8938,12 @@ module.exports = arrayIncludes;
 
 
 /***/ }),
-/* 258 */
+/* 259 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseFindIndex = __webpack_require__(259),
-    baseIsNaN = __webpack_require__(260),
-    strictIndexOf = __webpack_require__(261);
+var baseFindIndex = __webpack_require__(260),
+    baseIsNaN = __webpack_require__(261),
+    strictIndexOf = __webpack_require__(262);
 
 /**
  * The base implementation of `_.indexOf` without `fromIndex` bounds checks.
@@ -8963,7 +8964,7 @@ module.exports = baseIndexOf;
 
 
 /***/ }),
-/* 259 */
+/* 260 */
 /***/ (function(module, exports) {
 
 /**
@@ -8993,7 +8994,7 @@ module.exports = baseFindIndex;
 
 
 /***/ }),
-/* 260 */
+/* 261 */
 /***/ (function(module, exports) {
 
 /**
@@ -9011,7 +9012,7 @@ module.exports = baseIsNaN;
 
 
 /***/ }),
-/* 261 */
+/* 262 */
 /***/ (function(module, exports) {
 
 /**
@@ -9040,7 +9041,7 @@ module.exports = strictIndexOf;
 
 
 /***/ }),
-/* 262 */
+/* 263 */
 /***/ (function(module, exports) {
 
 /**
@@ -9068,11 +9069,11 @@ module.exports = arrayIncludesWith;
 
 
 /***/ }),
-/* 263 */
+/* 264 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Set = __webpack_require__(99),
-    noop = __webpack_require__(264),
+    noop = __webpack_require__(265),
     setToArray = __webpack_require__(44);
 
 /** Used as references for various `Number` constants. */
@@ -9093,7 +9094,7 @@ module.exports = createSet;
 
 
 /***/ }),
-/* 264 */
+/* 265 */
 /***/ (function(module, exports) {
 
 /**
@@ -9116,11 +9117,11 @@ module.exports = noop;
 
 
 /***/ }),
-/* 265 */
+/* 266 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseIteratee = __webpack_require__(29),
-    baseSum = __webpack_require__(279);
+var baseIteratee = __webpack_require__(30),
+    baseSum = __webpack_require__(280);
 
 /**
  * This method is like `_.sum` except that it accepts `iteratee` which is
@@ -9155,11 +9156,11 @@ module.exports = sumBy;
 
 
 /***/ }),
-/* 266 */
+/* 267 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseIsMatch = __webpack_require__(267),
-    getMatchData = __webpack_require__(268),
+var baseIsMatch = __webpack_require__(268),
+    getMatchData = __webpack_require__(269),
     matchesStrictComparable = __webpack_require__(117);
 
 /**
@@ -9183,7 +9184,7 @@ module.exports = baseMatches;
 
 
 /***/ }),
-/* 267 */
+/* 268 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Stack = __webpack_require__(39),
@@ -9251,11 +9252,11 @@ module.exports = baseIsMatch;
 
 
 /***/ }),
-/* 268 */
+/* 269 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isStrictComparable = __webpack_require__(116),
-    keys = __webpack_require__(27);
+    keys = __webpack_require__(28);
 
 /**
  * Gets the property names, values, and compare flags of `object`.
@@ -9281,12 +9282,12 @@ module.exports = getMatchData;
 
 
 /***/ }),
-/* 269 */
+/* 270 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseIsEqual = __webpack_require__(57),
-    get = __webpack_require__(270),
-    hasIn = __webpack_require__(274),
+    get = __webpack_require__(271),
+    hasIn = __webpack_require__(275),
     isKey = __webpack_require__(71),
     isStrictComparable = __webpack_require__(116),
     matchesStrictComparable = __webpack_require__(117),
@@ -9320,7 +9321,7 @@ module.exports = baseMatchesProperty;
 
 
 /***/ }),
-/* 270 */
+/* 271 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseGet = __webpack_require__(118);
@@ -9359,10 +9360,10 @@ module.exports = get;
 
 
 /***/ }),
-/* 271 */
+/* 272 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var memoizeCapped = __webpack_require__(272);
+var memoizeCapped = __webpack_require__(273);
 
 /** Used to match property names within property paths. */
 var reLeadingDot = /^\./,
@@ -9393,10 +9394,10 @@ module.exports = stringToPath;
 
 
 /***/ }),
-/* 272 */
+/* 273 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var memoize = __webpack_require__(273);
+var memoize = __webpack_require__(274);
 
 /** Used as the maximum memoize cache size. */
 var MAX_MEMOIZE_SIZE = 500;
@@ -9425,7 +9426,7 @@ module.exports = memoizeCapped;
 
 
 /***/ }),
-/* 273 */
+/* 274 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var MapCache = __webpack_require__(59);
@@ -9504,11 +9505,11 @@ module.exports = memoize;
 
 
 /***/ }),
-/* 274 */
+/* 275 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseHasIn = __webpack_require__(275),
-    hasPath = __webpack_require__(276);
+var baseHasIn = __webpack_require__(276),
+    hasPath = __webpack_require__(277);
 
 /**
  * Checks if `path` is a direct or inherited property of `object`.
@@ -9544,7 +9545,7 @@ module.exports = hasIn;
 
 
 /***/ }),
-/* 275 */
+/* 276 */
 /***/ (function(module, exports) {
 
 /**
@@ -9563,7 +9564,7 @@ module.exports = baseHasIn;
 
 
 /***/ }),
-/* 276 */
+/* 277 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var castPath = __webpack_require__(119),
@@ -9608,11 +9609,11 @@ module.exports = hasPath;
 
 
 /***/ }),
-/* 277 */
+/* 278 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseProperty = __webpack_require__(120),
-    basePropertyDeep = __webpack_require__(278),
+    basePropertyDeep = __webpack_require__(279),
     isKey = __webpack_require__(71),
     toKey = __webpack_require__(50);
 
@@ -9646,7 +9647,7 @@ module.exports = property;
 
 
 /***/ }),
-/* 278 */
+/* 279 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseGet = __webpack_require__(118);
@@ -9668,7 +9669,7 @@ module.exports = basePropertyDeep;
 
 
 /***/ }),
-/* 279 */
+/* 280 */
 /***/ (function(module, exports) {
 
 /**
@@ -9698,12 +9699,12 @@ module.exports = baseSum;
 
 
 /***/ }),
-/* 280 */
+/* 281 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseExtremum = __webpack_require__(121),
-    baseGt = __webpack_require__(281),
-    baseIteratee = __webpack_require__(29);
+    baseGt = __webpack_require__(282),
+    baseIteratee = __webpack_require__(30);
 
 /**
  * This method is like `_.max` except that it accepts `iteratee` which is
@@ -9738,7 +9739,7 @@ module.exports = maxBy;
 
 
 /***/ }),
-/* 281 */
+/* 282 */
 /***/ (function(module, exports) {
 
 /**
@@ -9758,12 +9759,12 @@ module.exports = baseGt;
 
 
 /***/ }),
-/* 282 */
+/* 283 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseExtremum = __webpack_require__(121),
-    baseIteratee = __webpack_require__(29),
-    baseLt = __webpack_require__(283);
+    baseIteratee = __webpack_require__(30),
+    baseLt = __webpack_require__(284);
 
 /**
  * This method is like `_.min` except that it accepts `iteratee` which is
@@ -9798,7 +9799,7 @@ module.exports = minBy;
 
 
 /***/ }),
-/* 283 */
+/* 284 */
 /***/ (function(module, exports) {
 
 /**
@@ -9818,11 +9819,11 @@ module.exports = baseLt;
 
 
 /***/ }),
-/* 284 */
+/* 285 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseRest = __webpack_require__(112),
-    unzip = __webpack_require__(285);
+    unzip = __webpack_require__(286);
 
 /**
  * Creates an array of grouped elements, the first of which contains the
@@ -9846,7 +9847,7 @@ module.exports = zip;
 
 
 /***/ }),
-/* 285 */
+/* 286 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var arrayFilter = __webpack_require__(91),
@@ -9897,10 +9898,10 @@ module.exports = unzip;
 
 
 /***/ }),
-/* 286 */
+/* 287 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseIteratee = __webpack_require__(29),
+var baseIteratee = __webpack_require__(30),
     baseWhile = __webpack_require__(122);
 
 /**
@@ -9948,10 +9949,10 @@ module.exports = takeWhile;
 
 
 /***/ }),
-/* 287 */
+/* 288 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseIteratee = __webpack_require__(29),
+var baseIteratee = __webpack_require__(30),
     baseWhile = __webpack_require__(122);
 
 /**
@@ -9999,11 +10000,11 @@ module.exports = dropWhile;
 
 
 /***/ }),
-/* 288 */
+/* 289 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseAssignValue = __webpack_require__(47),
-    createAggregator = __webpack_require__(289);
+    createAggregator = __webpack_require__(290);
 
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
@@ -10046,12 +10047,12 @@ module.exports = groupBy;
 
 
 /***/ }),
-/* 289 */
+/* 290 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayAggregator = __webpack_require__(290),
-    baseAggregator = __webpack_require__(291),
-    baseIteratee = __webpack_require__(29),
+var arrayAggregator = __webpack_require__(291),
+    baseAggregator = __webpack_require__(292),
+    baseIteratee = __webpack_require__(30),
     isArray = __webpack_require__(5);
 
 /**
@@ -10075,7 +10076,7 @@ module.exports = createAggregator;
 
 
 /***/ }),
-/* 290 */
+/* 291 */
 /***/ (function(module, exports) {
 
 /**
@@ -10103,10 +10104,10 @@ module.exports = arrayAggregator;
 
 
 /***/ }),
-/* 291 */
+/* 292 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseEach = __webpack_require__(292);
+var baseEach = __webpack_require__(293);
 
 /**
  * Aggregates elements of `collection` on `accumulator` with keys transformed
@@ -10130,11 +10131,11 @@ module.exports = baseAggregator;
 
 
 /***/ }),
-/* 292 */
+/* 293 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseForOwn = __webpack_require__(293),
-    createBaseEach = __webpack_require__(294);
+var baseForOwn = __webpack_require__(294),
+    createBaseEach = __webpack_require__(295);
 
 /**
  * The base implementation of `_.forEach` without support for iteratee shorthands.
@@ -10150,11 +10151,11 @@ module.exports = baseEach;
 
 
 /***/ }),
-/* 293 */
+/* 294 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseFor = __webpack_require__(109),
-    keys = __webpack_require__(27);
+    keys = __webpack_require__(28);
 
 /**
  * The base implementation of `_.forOwn` without support for iteratee shorthands.
@@ -10172,7 +10173,7 @@ module.exports = baseForOwn;
 
 
 /***/ }),
-/* 294 */
+/* 295 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isArrayLike = __webpack_require__(32);
@@ -10210,7 +10211,7 @@ module.exports = createBaseEach;
 
 
 /***/ }),
-/* 295 */
+/* 296 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10306,7 +10307,7 @@ var EventListener = function () {
 }();
 
 /***/ }),
-/* 296 */
+/* 297 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10398,7 +10399,7 @@ var Fetch = function () {
 }();
 
 /***/ }),
-/* 297 */
+/* 298 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10559,13 +10560,13 @@ var ModelBinder = function () {
 }();
 
 /***/ }),
-/* 298 */
+/* 299 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Model; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__event__ = __webpack_require__(53);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__error__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__error__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__guard__ = __webpack_require__(123);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__log__ = __webpack_require__(54);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utility__ = __webpack_require__(0);
@@ -10772,7 +10773,7 @@ var Model = function () {
 }();
 
 /***/ }),
-/* 299 */
+/* 300 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10814,7 +10815,7 @@ var EventManager = function () {
 }();
 
 /***/ }),
-/* 300 */
+/* 301 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10829,7 +10830,6 @@ var Range = function Range(start, end) {
 };
 
 /***/ }),
-/* 301 */,
 /* 302 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -11527,6 +11527,7 @@ var SelectionView = function (_View) {
 
 function selectionStateFactory(model, service) {
 	var mode = model.selection().mode;
+
 	switch (mode) {
 		case 'single':
 			return new __WEBPACK_IMPORTED_MODULE_1__single_selection_state__["a" /* SingleSelectionState */](model, service);
@@ -11834,37 +11835,37 @@ module.exports = "<q-grid:cell-editor class=\"q-grid-text q-grid-editor q-grid-p
 /* 366 */,
 /* 367 */,
 /* 368 */,
-/* 369 */
+/* 369 */,
+/* 370 */
 /***/ (function(module, exports) {
 
 module.exports = "<span q-grid:cell-value></span>"
 
 /***/ }),
-/* 370 */
+/* 371 */
 /***/ (function(module, exports) {
 
 module.exports = "<q-grid:cell-editor class=\"q-grid-editor q-grid-file q-grid-position\"\n                    on:close=\"$view.edit.cell.cancel.execute($cell)\"\n                    q-grid:position=\"td\">\n\t<div layout=\"column\"\n\t     flex>\n\t\t<div class=\"q-grid-file-upload-area\"\n\t\t     ng-class=\"{'q-grid-file-has-preview': $cell.column.hasPreview($view.edit.cell.label)}\">\n\t\t\t<div class=\"q-grid-file-upload-message\"\n\t\t\t     layout=\"column\"\n\t\t\t     ng-switch=\"!!$view.edit.cell.value\">\n\t\t\t\t<span class=\"q-grid-file-upload-filename\"\n\t\t\t\t      ng-switch-when=\"true\">{{$view.edit.cell.label}}</span>\n\t\t\t\t<div layout=\"row\"\n\t\t\t\t     layout-align=\"center center\">\n\t\t\t\t\t<md-icon class=\"q-grid-icon\">file_upload</md-icon>\n\t\t\t\t\t<span ng-switch-when=\"false\">Drag and drop a file here or click</span>\n\t\t\t\t\t<span ng-switch-when=\"true\">Drag and drop or click to replace </span>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<input q-grid:file-upload=\"$view.edit.cell.value\"\n\t\t\t       q-grid:file-upload-label=\"$view.edit.cell.label\"\n\t\t\t       q-grid:can-upload=\"cell.column.canUpload($event)\"\n\t\t\t       type=\"file\" />\n\t\t\t<div class=\"q-grid-file-preview\"\n\t\t\t     ng-if=\"$cell.column.hasPreview($view.edit.cell.label)\">\n\t\t\t\t<img ng-src=\"{{$view.edit.cell.value}}\" />\n\t\t\t</div>\n\t\t</div>\n\t\t<div class=\"flex-none q-grid-actions\">\n\t\t\t<md-button class=\"md-primary md-confirm-button\"\n\t\t\t           ng-click=\"$view.edit.cell.commit.execute($cell, $event)\">Save\n\t\t\t</md-button>\n\t\t\t<md-button ng-click=\"$view.edit.cell.clear.execute($cell)\">Clear</md-button>\n\t\t\t<md-button class=\"md-cancel-button\"\n\t\t\t           ng-click=\"$view.edit.cell.cancel.execute($cell, $event)\">Cancel</md-button>\n\t\t</div>\n\t</div>\n</q-grid:cell-editor>"
 
 /***/ }),
-/* 371 */
+/* 372 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"q-grid-text\">\n\t<md-input-container>\n\t\t<label ng-bind=\"$editor.title\"></label>\n\t\t<input type=\"text\"\n\t\t       md-maxlength=\"{{::$editor.column.maxLength}}\"\n\t\t       ng-model=\"$editor.value\" />\n\t</md-input-container>\n</div>"
 
 /***/ }),
-/* 372 */
+/* 373 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"q-grid-number\">\n\t<md-input-container>\n\t\t<label ng-bind=\"$editor.title\"></label>\n\t\t<input type=\"number\"\n\t\t       ng-model=\"$editor.value\" />\n\t</md-input-container>\n</div>"
 
 /***/ }),
-/* 373 */
+/* 374 */
 /***/ (function(module, exports) {
 
 module.exports = "<div ng-cloak\n     class=\"q-grid-file\">\n\t<h4 class=\"md-title\"\n\t    style=\"margin: 0 0 5px 0;\"\n\t    ng-bind=\"$editor.title\"></h4>\n\t<div layout=\"column\"\n\t     flex\n\t     ng-cloak\n\t     class=\"q-grid-edit-form-file\">\n\t\t<div class=\"q-grid-file-upload-area\"\n\t\t     ng-class=\"{'q-grid-file-has-preview': $editor.column.hasPreview($editor.label)}\">\n\t\t\t<div class=\"q-grid-file-upload-message\"\n\t\t\t     layout=\"column\"\n\t\t\t     ng-switch=\"!!$editor.value\">\n\t\t\t\t<span class=\"q-grid-file-upload-filename\"\n\t\t\t\t      ng-switch-when=\"true\">{{$editor.label}}</span>\n\t\t\t\t<div layout=\"row\"\n\t\t\t\t     layout-align=\"center center\">\n\t\t\t\t\t<md-icon class=\"q-grid-icon\">file_upload</md-icon>\n\t\t\t\t\t<span ng-switch-when=\"false\">Drag and drop a file here or click</span>\n\t\t\t\t\t<span ng-switch-when=\"true\">Drag and drop or click to replace </span>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<input q-grid:file-upload=\"$editor.value\"\n\t\t\t       q-grid:file-upload-label=\"$editor.label\"\n\t\t\t       q-grid:can-upload=\"$editor.column.canUpload($event)\"\n\t\t\t       type=\"file\" />\n\t\t\t<div class=\"q-grid-file-preview\"\n\t\t\t     ng-if=\"$editor.column.hasPreview($editor.label)\">\n\t\t\t\t<img ng-src=\"{{$editor.value}}\" />\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>"
 
 /***/ }),
-/* 374 */,
 /* 375 */,
 /* 376 */,
 /* 377 */,
@@ -12202,16 +12203,18 @@ module.exports = "<div ng-cloak\n     class=\"q-grid-file\">\n\t<h4 class=\"md-t
 /* 709 */,
 /* 710 */,
 /* 711 */,
-/* 712 */
+/* 712 */,
+/* 713 */,
+/* 714 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__templates_body_cell_reference_edit__ = __webpack_require__(714);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__templates_body_cell_bool_edit__ = __webpack_require__(715);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__templates_body_cell_array_edit__ = __webpack_require__(716);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__templates_body_cell_row_options_edit__ = __webpack_require__(717);
-__webpack_require__(713);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__templates_body_cell_reference_edit__ = __webpack_require__(716);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__templates_body_cell_bool_edit__ = __webpack_require__(717);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__templates_body_cell_array_edit__ = __webpack_require__(718);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__templates_body_cell_row_options_edit__ = __webpack_require__(719);
+__webpack_require__(715);
 
 
 
@@ -12238,121 +12241,121 @@ function Setup(qgridThemeProvider) {
 	};
 
 	qgridThemeProvider.register('material', function (theme) {
-		theme.put(component('toolbar.top'), __webpack_require__(718));
-		theme.put(component('toolbar.bottom'), __webpack_require__(719));
+		theme.put(component('toolbar.top'), __webpack_require__(720));
+		theme.put(component('toolbar.bottom'), __webpack_require__(721));
 		theme.put(component('toolbar.right'), EMPTY);
 		theme.put(component('toolbar.left'), EMPTY);
 
-		theme.put(plugin('progress'), __webpack_require__(720));
-		theme.put(plugin('export'), __webpack_require__(721));
-		theme.put(plugin('import'), __webpack_require__(722));
-		theme.put(plugin('column-chooser'), __webpack_require__(723));
-		theme.put(plugin('column-filter'), __webpack_require__(724));
-		theme.put(plugin('column-filter-panel'), __webpack_require__(725));
-		theme.put(plugin('edit-form'), __webpack_require__(726));
-		theme.put(plugin('edit-form-panel'), __webpack_require__(727));
-		theme.put(plugin('popup-panel'), __webpack_require__(728));
-		theme.put(plugin('group-bar'), __webpack_require__(729));
-		theme.put(plugin('action-bar-core'), __webpack_require__(730));
-		theme.put(plugin('action'), __webpack_require__(731));
-		theme.put(plugin('sort-bar'), __webpack_require__(732));
-		theme.put(plugin('pivot-bar'), __webpack_require__(733));
-		theme.put(plugin('selection-bar'), __webpack_require__(734));
-		theme.put(plugin('pager'), __webpack_require__(735));
-		theme.put(plugin('pager-target'), __webpack_require__(736));
-		theme.put(plugin('persistence-panel'), __webpack_require__(737));
-		theme.put(plugin('visibility'), __webpack_require__(738));
-		theme.put(plugin('title'), __webpack_require__(739));
-		theme.put(plugin('cell-editor'), __webpack_require__(740));
-		theme.put(plugin('column-sort'), __webpack_require__(741));
-		theme.put(plugin('backdrop'), __webpack_require__(742));
-		theme.put(plugin('tab-trap'), __webpack_require__(743));
-		theme.put(plugin('legend-core'), __webpack_require__(744));
-		theme.put(plugin('validator'), __webpack_require__(745));
+		theme.put(plugin('progress'), __webpack_require__(722));
+		theme.put(plugin('export'), __webpack_require__(723));
+		theme.put(plugin('import'), __webpack_require__(724));
+		theme.put(plugin('column-chooser'), __webpack_require__(725));
+		theme.put(plugin('column-filter'), __webpack_require__(726));
+		theme.put(plugin('column-filter-panel'), __webpack_require__(727));
+		theme.put(plugin('edit-form'), __webpack_require__(728));
+		theme.put(plugin('edit-form-panel'), __webpack_require__(729));
+		theme.put(plugin('popup-panel'), __webpack_require__(730));
+		theme.put(plugin('group-bar'), __webpack_require__(731));
+		theme.put(plugin('action-bar-core'), __webpack_require__(732));
+		theme.put(plugin('action'), __webpack_require__(733));
+		theme.put(plugin('sort-bar'), __webpack_require__(734));
+		theme.put(plugin('pivot-bar'), __webpack_require__(735));
+		theme.put(plugin('selection-bar'), __webpack_require__(736));
+		theme.put(plugin('pager'), __webpack_require__(737));
+		theme.put(plugin('pager-target'), __webpack_require__(738));
+		theme.put(plugin('persistence-panel'), __webpack_require__(739));
+		theme.put(plugin('visibility'), __webpack_require__(740));
+		theme.put(plugin('title'), __webpack_require__(741));
+		theme.put(plugin('cell-editor'), __webpack_require__(742));
+		theme.put(plugin('column-sort'), __webpack_require__(743));
+		theme.put(plugin('backdrop'), __webpack_require__(744));
+		theme.put(plugin('tab-trap'), __webpack_require__(745));
+		theme.put(plugin('legend-core'), __webpack_require__(746));
+		theme.put(plugin('validator'), __webpack_require__(747));
 
-		theme.put(plugin('expression-builder'), __webpack_require__(746));
-		theme.put(plugin('expression-builder.autocomplete'), __webpack_require__(747));
-		theme.put(plugin('expression-builder.button'), __webpack_require__(748));
-		theme.put(plugin('expression-builder.label'), __webpack_require__(749));
-		theme.put(plugin('expression-builder.multiselect'), __webpack_require__(750));
-		theme.put(plugin('expression-builder.icon.button'), __webpack_require__(751));
-		theme.put(plugin('expression-builder.input'), __webpack_require__(752));
-		theme.put(plugin('expression-builder.select'), __webpack_require__(753));
+		theme.put(plugin('expression-builder'), __webpack_require__(748));
+		theme.put(plugin('expression-builder.autocomplete'), __webpack_require__(749));
+		theme.put(plugin('expression-builder.button'), __webpack_require__(750));
+		theme.put(plugin('expression-builder.label'), __webpack_require__(751));
+		theme.put(plugin('expression-builder.multiselect'), __webpack_require__(752));
+		theme.put(plugin('expression-builder.icon.button'), __webpack_require__(753));
+		theme.put(plugin('expression-builder.input'), __webpack_require__(754));
+		theme.put(plugin('expression-builder.select'), __webpack_require__(755));
 
-		theme.put(cell('head', 'filter-row'), __webpack_require__(754));
+		theme.put(cell('head', 'filter-row'), __webpack_require__(756));
 
 		theme.put(cell('head', 'text'), __webpack_require__(18));
-		theme.put(cell('body', 'text'), __webpack_require__(369));
+		theme.put(cell('body', 'text'), __webpack_require__(370));
 		theme.put(cell('foot', 'text'), __webpack_require__(19));
 		theme.put(cell('body', 'text.edit'), __webpack_require__(325));
-		theme.put(cell('body', 'text-area.edit'), __webpack_require__(755));
+		theme.put(cell('body', 'text-area.edit'), __webpack_require__(757));
 
 		theme.put(cell('head', 'number'), __webpack_require__(18));
-		theme.put(cell('body', 'number'), __webpack_require__(756));
+		theme.put(cell('body', 'number'), __webpack_require__(758));
 		theme.put(cell('foot', 'number'), __webpack_require__(19));
-		theme.put(cell('body', 'number.edit'), __webpack_require__(757));
+		theme.put(cell('body', 'number.edit'), __webpack_require__(759));
 
 		theme.put(cell('head', 'bool'), __webpack_require__(18));
-		theme.put(cell('body', 'bool'), __webpack_require__(758));
+		theme.put(cell('body', 'bool'), __webpack_require__(760));
 		theme.put(cell('foot', 'bool'), __webpack_require__(19));
-		theme.put(cell('body', 'bool.edit'), __webpack_require__(759));
+		theme.put(cell('body', 'bool.edit'), __webpack_require__(761));
 
 		theme.put(cell('head', 'date'), __webpack_require__(18));
-		theme.put(cell('body', 'date'), __webpack_require__(760));
+		theme.put(cell('body', 'date'), __webpack_require__(762));
 		theme.put(cell('foot', 'date'), __webpack_require__(19));
-		theme.put(cell('body', 'date.edit'), __webpack_require__(761));
+		theme.put(cell('body', 'date.edit'), __webpack_require__(763));
 
 		theme.put(cell('head', 'password'), __webpack_require__(18));
-		theme.put(cell('body', 'password'), __webpack_require__(762));
+		theme.put(cell('body', 'password'), __webpack_require__(764));
 		theme.put(cell('foot', 'password'), __webpack_require__(19));
-		theme.put(cell('body', 'password.edit'), __webpack_require__(763));
+		theme.put(cell('body', 'password.edit'), __webpack_require__(765));
 
 		theme.put(cell('head', 'array'), __webpack_require__(18));
-		theme.put(cell('body', 'array'), __webpack_require__(764));
+		theme.put(cell('body', 'array'), __webpack_require__(766));
 		theme.put(cell('foot', 'array'), __webpack_require__(19));
-		theme.put(cell('body', 'array.edit'), __webpack_require__(765));
+		theme.put(cell('body', 'array.edit'), __webpack_require__(767));
 
 		theme.put(cell('head', 'email'), __webpack_require__(18));
-		theme.put(cell('body', 'email'), __webpack_require__(766));
+		theme.put(cell('body', 'email'), __webpack_require__(768));
 		theme.put(cell('foot', 'email'), __webpack_require__(19));
-		theme.put(cell('body', 'email.edit'), __webpack_require__(767));
+		theme.put(cell('body', 'email.edit'), __webpack_require__(769));
 
-		theme.put(cell('head', 'select'), __webpack_require__(768));
-		theme.put(cell('body', 'select'), __webpack_require__(769));
+		theme.put(cell('head', 'select'), __webpack_require__(770));
+		theme.put(cell('body', 'select'), __webpack_require__(771));
 		theme.put(cell('foot', 'select'), __webpack_require__(19));
 
 		theme.put(cell('head', 'group'), __webpack_require__(18));
-		theme.put(cell('body', 'group'), __webpack_require__(770));
+		theme.put(cell('body', 'group'), __webpack_require__(772));
 		theme.put(cell('foot', 'group'), __webpack_require__(19));
 		theme.put(cell('body', 'group.edit'), __webpack_require__(325));
 
-		theme.put(cell('head', 'pivot'), __webpack_require__(771));
-		theme.put(cell('body', 'pivot'), __webpack_require__(772));
+		theme.put(cell('head', 'pivot'), __webpack_require__(773));
+		theme.put(cell('body', 'pivot'), __webpack_require__(774));
 		theme.put(cell('foot', 'pivot'), __webpack_require__(19));
 		theme.put(cell('body', 'pivot.edit'), EMPTY);
 
 		theme.put(cell('head', 'row-number'), __webpack_require__(18));
-		theme.put(cell('body', 'row-number'), __webpack_require__(773));
+		theme.put(cell('body', 'row-number'), __webpack_require__(775));
 		theme.put(cell('foot', 'row-number'), __webpack_require__(19));
 		theme.put(cell('body', 'row-number.edit'), EMPTY);
 
 		theme.put(cell('head', 'row-indicator'), __webpack_require__(18));
-		theme.put(cell('body', 'row-indicator'), __webpack_require__(774));
+		theme.put(cell('body', 'row-indicator'), __webpack_require__(776));
 		theme.put(cell('foot', 'row-indicator'), __webpack_require__(19));
 		theme.put(cell('body', 'row-indicator.edit'), EMPTY);
 
 		theme.put(cell('head', 'row-options'), __webpack_require__(18));
-		theme.put(cell('body', 'row-options'), __webpack_require__(775));
+		theme.put(cell('body', 'row-options'), __webpack_require__(777));
 		theme.put(cell('foot', 'row-options'), __webpack_require__(19));
-		theme.put(cell('body', 'row-options.edit'), __webpack_require__(776));
+		theme.put(cell('body', 'row-options.edit'), __webpack_require__(778));
 
 		theme.put(cell('head', 'row-expand'), __webpack_require__(18));
-		theme.put(cell('body', 'row-expand'), __webpack_require__(777));
+		theme.put(cell('body', 'row-expand'), __webpack_require__(779));
 		theme.put(cell('foot', 'row-expand'), __webpack_require__(19));
 		theme.put(cell('body', 'row-expand.edit'), EMPTY);
 
 		theme.put(cell('head', 'row-details'), __webpack_require__(18));
-		theme.put(cell('body', 'row-details'), __webpack_require__(778));
+		theme.put(cell('body', 'row-details'), __webpack_require__(780));
 		theme.put(cell('foot', 'row-details'), __webpack_require__(19));
 		theme.put(cell('body', 'row-details.edit'), EMPTY);
 
@@ -12362,69 +12365,69 @@ function Setup(qgridThemeProvider) {
 		theme.put(cell('body', 'pad.edit'), EMPTY);
 
 		theme.put(cell('head', 'time'), __webpack_require__(18));
-		theme.put(cell('body', 'time'), __webpack_require__(779));
+		theme.put(cell('body', 'time'), __webpack_require__(781));
 		theme.put(cell('foot', 'time'), __webpack_require__(19));
-		theme.put(cell('body', 'time.edit'), __webpack_require__(780));
+		theme.put(cell('body', 'time.edit'), __webpack_require__(782));
 
 		theme.put(cell('head', 'url'), __webpack_require__(18));
-		theme.put(cell('body', 'url'), __webpack_require__(781));
+		theme.put(cell('body', 'url'), __webpack_require__(783));
 		theme.put(cell('foot', 'url'), __webpack_require__(19));
-		theme.put(cell('body', 'url.edit'), __webpack_require__(782));
+		theme.put(cell('body', 'url.edit'), __webpack_require__(784));
 
 		theme.put(cell('head', 'file'), __webpack_require__(18));
-		theme.put(cell('body', 'file'), __webpack_require__(783));
+		theme.put(cell('body', 'file'), __webpack_require__(785));
 		theme.put(cell('foot', 'file'), __webpack_require__(19));
-		theme.put(cell('body', 'file.edit'), __webpack_require__(370));
+		theme.put(cell('body', 'file.edit'), __webpack_require__(371));
 
 		theme.put(cell('head', 'image'), __webpack_require__(18));
-		theme.put(cell('body', 'image'), __webpack_require__(784));
+		theme.put(cell('body', 'image'), __webpack_require__(786));
 		theme.put(cell('foot', 'image'), __webpack_require__(19));
-		theme.put(cell('body', 'image.edit'), __webpack_require__(370));
+		theme.put(cell('body', 'image.edit'), __webpack_require__(371));
 
 		theme.put(cell('head', 'reference'), __webpack_require__(18));
-		theme.put(cell('body', 'reference'), __webpack_require__(785));
+		theme.put(cell('body', 'reference'), __webpack_require__(787));
 		theme.put(cell('foot', 'reference'), __webpack_require__(19));
-		theme.put(cell('body', 'reference.edit'), __webpack_require__(786));
+		theme.put(cell('body', 'reference.edit'), __webpack_require__(788));
 
 		theme.put(cell('head', 'currency'), __webpack_require__(18));
-		theme.put(cell('body', 'currency'), __webpack_require__(787));
-		theme.put(cell('foot', 'currency'), __webpack_require__(788));
-		theme.put(cell('body', 'currency.edit'), __webpack_require__(789));
+		theme.put(cell('body', 'currency'), __webpack_require__(789));
+		theme.put(cell('foot', 'currency'), __webpack_require__(790));
+		theme.put(cell('body', 'currency.edit'), __webpack_require__(791));
 
 		theme.put(cell('head', 'id'), __webpack_require__(18));
-		theme.put(cell('body', 'id'), __webpack_require__(369));
+		theme.put(cell('body', 'id'), __webpack_require__(370));
 		theme.put(cell('foot', 'id'), __webpack_require__(19));
 		theme.put(cell('body', 'id.edit'), __webpack_require__(325));
 
-		theme.put(cell('body', 'autocomplete.edit'), __webpack_require__(790));
-		theme.put(cell('body', 'dropdown.edit'), __webpack_require__(791));
+		theme.put(cell('body', 'autocomplete.edit'), __webpack_require__(792));
+		theme.put(cell('body', 'dropdown.edit'), __webpack_require__(793));
 
-		theme.put(form('text.edit'), __webpack_require__(371));
-		theme.put(form('number.edit'), __webpack_require__(372));
-		theme.put(form('currency.edit'), __webpack_require__(372));
-		theme.put(form('date.edit'), __webpack_require__(792));
-		theme.put(form('bool.edit'), __webpack_require__(793));
-		theme.put(form('reference.edit'), __webpack_require__(794));
-		theme.put(form('id.edit'), __webpack_require__(371));
-		theme.put(form('url.edit'), __webpack_require__(795));
-		theme.put(form('image.edit'), __webpack_require__(373));
-		theme.put(form('file.edit'), __webpack_require__(373));
-		theme.put(form('text-area.edit'), __webpack_require__(796));
-		theme.put(form('password.edit'), __webpack_require__(797));
-		theme.put(form('array.edit'), __webpack_require__(798));
-		theme.put(form('email.edit'), __webpack_require__(799));
-		theme.put(form('time.edit'), __webpack_require__(800));
+		theme.put(form('text.edit'), __webpack_require__(372));
+		theme.put(form('number.edit'), __webpack_require__(373));
+		theme.put(form('currency.edit'), __webpack_require__(373));
+		theme.put(form('date.edit'), __webpack_require__(794));
+		theme.put(form('bool.edit'), __webpack_require__(795));
+		theme.put(form('reference.edit'), __webpack_require__(796));
+		theme.put(form('id.edit'), __webpack_require__(372));
+		theme.put(form('url.edit'), __webpack_require__(797));
+		theme.put(form('image.edit'), __webpack_require__(374));
+		theme.put(form('file.edit'), __webpack_require__(374));
+		theme.put(form('text-area.edit'), __webpack_require__(798));
+		theme.put(form('password.edit'), __webpack_require__(799));
+		theme.put(form('array.edit'), __webpack_require__(800));
+		theme.put(form('email.edit'), __webpack_require__(801));
+		theme.put(form('time.edit'), __webpack_require__(802));
 	});
 }
 
 /***/ }),
-/* 713 */
+/* 715 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 714 */
+/* 716 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12559,7 +12562,7 @@ function ReferenceEdit($scope, qgrid, popupService) {
 }
 
 /***/ }),
-/* 715 */
+/* 717 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12605,7 +12608,7 @@ function BoolEdit($scope) {
 }
 
 /***/ }),
-/* 716 */
+/* 718 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12631,7 +12634,7 @@ function ArrayEdit() {
 }
 
 /***/ }),
-/* 717 */
+/* 719 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12647,499 +12650,499 @@ function RowOptionsEdit($scope, $timeout) {
 }
 
 /***/ }),
-/* 718 */
+/* 720 */
 /***/ (function(module, exports) {
 
 module.exports = "<div layout=\"row\">\n\t<div flex=\"100\"\n\t     layout=\"row\"\n\t     layout-align=\"start center\"\n\t     layout-align-xs=\"start start\"\n\t     layout-align-sm=\"start start\"\n\t     layout-xs=\"column\"\n\t     layout-sm=\"column\">\n\t\t<div flex=\"100\">\n\t\t\t<q-grid:title></q-grid:title>\n\t\t</div>\n\t\t<div class=\"q-grid-actions\"\n\t\t     flex=\"none\"\n\t\t     layout=\"row\"\n\t\t     layout-align=\"end center\">\n\t\t\t<div>\n\t\t\t\t<q-grid:action-bar-core></q-grid:action-bar-core>\n\t\t\t</div>\n\t\t\t<div>\n\t\t\t\t<md-menu q-grid-menu=\"$mdMenu\">\n\t\t\t\t\t<md-button ng-click=\"$mdMenu.open($event)\"\n\t\t\t\t\t           class=\"md-icon-button\"\n\t\t\t\t\t           tabindex=\"-1\">\n\t\t\t\t\t\t<md-icon class=\"q-grid-icon\">more_vert</md-icon>\n\t\t\t\t\t</md-button>\n\t\t\t\t\t<md-menu-content class=\"q-grid-menu q-grid-column-chooser\">\n\t\t\t\t\t\t<q-grid-core:box>\n\t\t\t\t\t\t\t<q-grid:column-chooser ng-if=\"$menu.isOpened\"\n\t\t\t\t\t\t\t                       on:cancel=\"$mdMenu.close()\"\n\t\t\t\t\t\t\t                       on:submit=\"$mdMenu.close()\">\n\t\t\t\t\t\t</q-grid-core:box>\n\t\t\t\t\t</md-menu-content>\n\t\t\t\t</md-menu>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>\n<div class=\"q-grid-progress\">\n\t<q-grid:progress>\n\t</q-grid:progress>\n</div>"
 
 /***/ }),
-/* 719 */
+/* 721 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"layout-row\">\n\t<div class=\"flex\">\n\t\t<q-grid:legend-core></q-grid:legend-core>\n\t</div>\n\t<div class=\"flex-none\">\n\t\t<q-grid:pager></q-grid:pager>\n\t</div>\n</div>"
 
 /***/ }),
-/* 720 */
+/* 722 */
 /***/ (function(module, exports) {
 
 module.exports = "<md-progress-linear ng-if=\"$progress.isBusy\"\n\t\t\t\t\tclass=\"q-grid-progress-linear\"\n\t\t\t\t\tmd-mode=\"indeterminate\">\n</md-progress-linear>"
 
 /***/ }),
-/* 721 */
+/* 723 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"q-grid-export\"\n     layout=\"row\"\n     layout-align=\"end center\">\n\t<md-button ng-if=\"$export[$export.type].canExecute()\"\n\t           ng-click=\"$export[$export.type].execute()\"\n\t           tabindex=\"-1\">\n\t\t<md-icon class=\"q-grid-icon\">file_download</md-icon>\n\t\tExport to {{$export.type}}\n\t</md-button>\n</div>"
 
 /***/ }),
-/* 722 */
+/* 724 */
 /***/ (function(module, exports) {
 
 module.exports = "<div layout=\"row\"\n     layout-align=\"end center\">\n\t<md-button ng-disabled=\"!$import.upload.canExecute()\"\n\t           ng-click=\"$import.upload.execute()\"\n\t           tabindex=\"-1\">\n\t\t<md-icon class=\"q-grid-icon\">file_upload</md-icon>\n\t\tUpload file\n\t</md-button>\n</div>"
 
 /***/ }),
-/* 723 */
+/* 725 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"q-grid-column-chooser-panel q-grid-popup-panel\"\n     layout=\"column\"\n     flex=\"100\">\n\t<md-card>\n\t\t<md-card-header>\n\t\t\t<md-card-title>\n\t\t\t\t<md-card-title-text>\n\t\t\t\t\t<span class=\"md-subhead\">Columns Filter</span>\n\t\t\t\t</md-card-title-text>\n\t\t\t\t<md-card-title-actions layout=\"row\"\n\t\t\t\t                       layout-align=\"end center\">\n\t\t\t\t</md-card-title-actions>\n\t\t\t</md-card-title>\n\t\t</md-card-header>\n\t\t<md-card-content>\n\t\t\t<div flex=\"none\"\n\t\t\t     layout=\"row\">\n\t\t\t\t<md-input-container class=\"q-grid-column-chooser-filter\"\n\t\t\t\t                    flex>\n\t\t\t\t\t<label>Search</label>\n\t\t\t\t\t<input type=\"text\"\n\t\t\t\t\t       ng-model=\"$columnChooser.filter\"\n\t\t\t\t\t       q-grid:focus\n\t\t\t\t\t       q-grid:focus-delay=\"500\" />\n\t\t\t\t</md-input-container>\n\t\t\t</div>\n\t\t\t<div flex\n\t\t\t     layout=\"column\">\n\t\t\t\t<ul>\n\t\t\t\t\t<li>\n\t\t\t\t\t\t<md-checkbox ng-click=\"$columnChooser.toggleAll.execute()\"\n\t\t\t\t\t\t             md-prevent-menu-close\n\t\t\t\t\t\t             ng-checked=\"$columnChooser.stateAll()\"\n\t\t\t\t\t\t             md-indeterminate=\"$columnChooser.isIndeterminate()\"\n\t\t\t\t\t\t             class=\"q-grid-checkbox\"\n\t\t\t\t\t\t             md-no-ink>\n\t\t\t\t\t\t\tSelect All\n\t\t\t\t\t\t</md-checkbox>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li>\n\t\t\t\t\t\t<md-checkbox ng-click=\"$columnChooser.defaults.execute()\"\n\t\t\t\t\t\t             md-prevent-menu-close\n\t\t\t\t\t\t             class=\"q-grid-checkbox\"\n\t\t\t\t\t\t             ng-checked=\"$columnChooser.stateDefault()\"\n\t\t\t\t\t\t             md-no-ink>\n\t\t\t\t\t\t\tSelect Defaults\n\t\t\t\t\t\t</md-checkbox>\n\t\t\t\t\t</li>\n\t\t\t\t</ul>\n\t\t\t\t<ul class=\"q-grid-column-chooser-list\">\n\t\t\t\t\t<li ng-repeat=\"column in $columnChooser.columns | filter: $columnChooser.filter\"\n\t\t\t\t\t    q-grid:drag=\"$columnChooser.transfer(column)\"\n\t\t\t\t\t    q-grid:drop=\"$columnChooser.transfer(column)\"\n\t\t\t\t\t    q-grid:on-drop=\"$columnChooser.drop.execute($event)\"\n\t\t\t\t\t    q-grid:can-drop=\"$columnChooser.drop.canExecute($event)\"\n\t\t\t\t\t    q-grid:can-drag=\"$columnChooser.drag.canExecute($event)\">\n\n\t\t\t\t\t\t<md-checkbox ng-checked=\"$columnChooser.state(column)\"\n\t\t\t\t\t\t             md-prevent-menu-close\n\t\t\t\t\t\t             ng-if=\"$columnChooser.toggle.canExecute(column)\"\n\t\t\t\t\t\t             ng-click=\"$columnChooser.toggle.execute(column)\"\n\t\t\t\t\t\t\t\t\t md-no-ink\n\t\t\t\t\t\t\t\t\t class=\"q-grid-checkbox\"\n\t\t\t\t\t\t             aria-label=\"Selection\">\n\t\t\t\t\t\t\t<span ng-bind-html=\"column.title | qgridHighlight : $columnChooser.filter\"> </span>\n\t\t\t\t\t\t</md-checkbox>\n\n\n\t\t\t\t\t\t<md-input-container ng-if=\"$columnChooser.canAggregate\">\n\t\t\t\t\t\t\t<md-select aria-label=\"Aggregation\"\n\t\t\t\t\t\t\t           ng-model=\"column.aggregation\"\n\t\t\t\t\t\t\t           ng-change=\"$columnChooser.toggleAggregation.execute(column)\">\n\t\t\t\t\t\t\t\t<md-option value=\"\">\n\t\t\t\t\t\t\t\t\t<em>Aggregation</em>\n\t\t\t\t\t\t\t\t</md-option>\n\t\t\t\t\t\t\t\t<md-option ng-repeat=\"aggregation in $columnChooser.aggregations\"\n\t\t\t\t\t\t\t\t           ng-value=\"aggregation\">\n\t\t\t\t\t\t\t\t\t{{::aggregation}}\n\t\t\t\t\t\t\t\t</md-option>\n\t\t\t\t\t\t\t</md-select>\n\t\t\t\t\t\t</md-input-container>\n\n\t\t\t\t\t</li>\n\t\t\t\t</ul>\n\t\t\t</div>\n\t\t\t<div class=\"q-grid-popup-actions flex-none\">\n\t\t\t\t<md-button ng-click=\"$columnChooser.cancel.execute()\"\n\t\t\t\t           md-prevent-menu-close>\n\t\t\t\t\tCancel\n\t\t\t\t</md-button>\n\t\t\t\t<md-button class=\"md-primary\"\n\t\t\t\t           ng-click=\"$columnChooser.submit.execute()\"\n\t\t\t\t           ng-disabled=\"!$columnChooser.submit.canExecute()\"\n\t\t\t\t           md-prevent-menu-close>\n\t\t\t\t\tApply\n\t\t\t\t</md-button>\n\t\t\t</div>\n\t\t</md-card-content>\n\t</md-card>\n</div>"
 
 /***/ }),
-/* 724 */
+/* 726 */
 /***/ (function(module, exports) {
 
 module.exports = "<md-menu q-grid-menu=\"$mdMenu\">\n\t<md-button ng-click=\"$mdMenu.open($event)\"\n\t\t\t   class=\"md-icon-button\"\n\t\t\t   tabindex=\"-1\">\n\t\t<md-icon class=\"q-grid-icon\">filter_list</md-icon>\n\t</md-button>\n\t<md-menu-content class=\"q-grid-menu q-grid-column-filter\">\n\t\t<q-grid-core:box>\n\t\t\t<q-grid:column-filter-panel key=\"$columnFilterPlugin.key\"\n\t\t\t\t\t\t\t\t\t\tng-if=\"$menu.isOpened\"\n\t\t\t\t\t\t\t\t\t\ton:submit=\"$mdMenu.close()\"\n\t\t\t\t\t\t\t\t\t\ton:cancel=\"$mdMenu.close()\">\n\t\t\t</q-grid:column-filter-panel>\n\t\t</q-grid-core:box>\n\t</md-menu-content>\n</md-menu>"
 
 /***/ }),
-/* 725 */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"q-grid-column-filter-panel q-grid-popup-panel\"\n     layout=\"column\"\n     flex=\"100\">\n\t<md-card>\n\t\t<md-card-header>\n\t\t\t<md-card-title>\n\t\t\t\t<md-card-title-text>\n\t\t\t\t\t<span class=\"md-subhead\">{{$columnFilterPanel.title}} Filter</span>\n\t\t\t\t</md-card-title-text>\n\t\t\t\t<md-card-title-actions layout=\"row\"\n\t\t\t\t                       layout-align=\"end center\">\n\t\t\t\t</md-card-title-actions>\n\t\t\t</md-card-title>\n\t\t</md-card-header>\n\t\t<md-card-content>\n\t\t\t<div flex=\"none\"\n\t\t\t     layout=\"row\">\n\t\t\t\t<md-input-container class=\"q-grid-column-filter-filter\">\n\t\t\t\t\t<label>Search</label>\n\t\t\t\t\t<input type=\"text\"\n\t\t\t\t\t       ng-change=\"$columnFilterPanelPlugin.reset()\"\n\t\t\t\t\t       ng-model=\"$columnFilterPanelPlugin.search\"\n\t\t\t\t\t       ng-model-options=\"{debounce: 500}\"\n\t\t\t\t\t       q-grid:focus\n\t\t\t\t\t       q-grid:focus-delay=\"500\" />\n\t\t\t\t</md-input-container>\n\t\t\t</div>\n\t\t\t<div class=\"flex\">\n\t\t\t\t<ul>\n\t\t\t\t\t<li>\n\t\t\t\t\t\t<md-checkbox ng-click=\"$columnFilterPanel.toggleAll.execute($columnFilterPanelPlugin.search)\"\n\t\t\t\t\t\t             md-prevent-menu-close\n\t\t\t\t\t\t             ng-checked=\"$columnFilterPanel.stateAll()\"\n\t\t\t\t\t\t             aria-label=\"Select all filter values\"\n\t\t\t\t\t\t             md-no-ink\n\t\t\t\t\t\t             class=\"q-grid-checkbox\"\n\t\t\t\t\t\t             md-indeterminate=\"$columnFilterPanel.isIndeterminate()\">\n\t\t\t\t\t\t\tSelect All\n\t\t\t\t\t\t</md-checkbox>\n\t\t\t\t\t</li>\n\t\t\t\t\t</li>\n\t\t\t\t</ul>\n\t\t\t\t<div class=\"q-grid-column-filter-list\"\n\t\t\t\t     vscroll>\n\t\t\t\t\t<ul vscroll-port-y=\"$columnFilterPanelPlugin.vscrollContext\">\n\t\t\t\t\t\t<li ng-repeat=\"item in $columnFilterPanel.items | vscroll: $columnFilterPanelPlugin.vscrollContext track by $index\"\n\t\t\t\t\t\t    vscroll-row=\"{{::$index}}\">\n\t\t\t\t\t\t\t<md-checkbox ng-checked=\"$columnFilterPanel.state(item)\"\n\t\t\t\t\t\t\t             md-prevent-menu-close\n\t\t\t\t\t\t\t             aria-label=\"Select filter value\"\n\t\t\t\t\t\t\t             md-no-ink\n\t\t\t\t\t\t\t             class=\"q-grid-checkbox\"\n\t\t\t\t\t\t\t             ng-click=\"$columnFilterPanel.toggle.execute(item)\">\n\t\t\t\t\t\t\t\t<span ng-bind-html=\"item | qgridHighlight : $columnFilterPanelPlugin.search\"> </span>\n\t\t\t\t\t\t\t</md-checkbox>\n\t\t\t\t\t\t</li>\n\t\t\t\t\t\t<li ng-if=\"$columnFilterPanel.hasBlanks\">\n\t\t\t\t\t\t\t<md-checkbox ng-model=\"$columnFilterPanel.byBlanks\"\n\t\t\t\t\t\t\t             md-prevent-menu-close\n\t\t\t\t\t\t\t             aria-label=\"Select blanks\"\n\t\t\t\t\t\t\t             md-no-ink\n\t\t\t\t\t\t\t             class=\"q-grid-checkbox\">\n\t\t\t\t\t\t\t\t<span ng-bind-html=\"'(Blanks)' | qgridHighlight : $columnFilterPanelPlugin.search\"> </span>\n\t\t\t\t\t\t\t</md-checkbox>\n\t\t\t\t\t\t</li>\n\t\t\t\t\t</ul>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class=\"q-grid-popup-actions flex-none\">\n\t\t\t\t<md-button ng-click=\"$columnFilterPanel.cancel.execute()\"\n\t\t\t\t           md-prevent-menu-close>\n\t\t\t\t\tCancel\n\t\t\t\t</md-button>\n\t\t\t\t<md-button ng-click=\"$columnFilterPanel.reset.execute()\"\n\t\t\t\t           md-prevent-menu-close>\n\t\t\t\t\tClear\n\t\t\t\t</md-button>\n\t\t\t\t<md-button class=\"md-primary\"\n\t\t\t\t           md-prevent-menu-close\n\t\t\t\t           ng-click=\"$columnFilterPanel.submit.execute()\"\n\t\t\t\t           ng-disabled=\"!$columnFilterPanel.submit.canExecute()\">\n\t\t\t\t\tApply\n\t\t\t\t</md-button>\n\t\t\t</div>\n\t\t</md-card-content>\n\t</md-card>\n</div>"
-
-/***/ }),
-/* 726 */
-/***/ (function(module, exports) {
-
-module.exports = "<q-grid:popup id=\"q-grid-edit-form-popup-{{::$editForm.key}}\"\n              class=\"q-grid-edit-form-popup\">\n\t<q-grid:template for=\"trigger\">\n\t\t<md-button class=\"md-icon-button\"\n\t\t           ng-click=\"$popup.open({width: 550, height: 450})\"\n\t\t           tabindex=\"-1\">\n\t\t\t<md-icon class=\"q-grid-icon\">edit</md-icon>\n\t\t</md-button>\n\t</q-grid:template>\n\t<q-grid:template for=\"body\"\n\t                 let=\"$editForm\">\n\t\t<q-grid:edit-form-panel key=\"$editForm.key\"\n\t\t                        row=\"$editForm.row\"\n\t\t                        shortcut=\"$popupBody.shortcut\"\n\t\t                        on:submit=\"$popupBody.close()\"\n\t\t                        on:cancel=\"$popupBody.close()\">\n\t\t</q-grid:edit-form-panel>\n\t</q-grid:template>\n\t<q-grid:template for=\"head\"\n\t                 let=\"$editForm\">\n\t\t<h2 class=\"md-title\">{{$editForm.title}}</h2>\n\t</q-grid:template>\n</q-grid:popup>"
-
-/***/ }),
 /* 727 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"q-grid-edit-form-panel\"\n     layout=\"column\">\n\t<div class=\"layout-column flex q-grid-edit-form-panel-body\">\n\t\t<div ng-repeat=\"editor in $editFormPanel.editor.editors\">\n\t\t\t<q-grid:edit-form-editor editor=\"editor\"></q-grid:edit-form-editor>\n\t\t</div>\n\t</div>\n\t<div class=\"flex-none q-grid-popup-actions\">\n\t\t<md-button ng-click=\"$editFormPanel.cancel.execute()\">\n\t\t\tCancel\n\t\t</md-button>\n\t\t<md-button class=\"md-primary\"\n\t\t           ng-click=\"$editFormPanel.submit.execute()\">\n\t\t\tSave\n\t\t</md-button>\n\t</div>\n</div>"
+module.exports = "<div class=\"q-grid-column-filter-panel q-grid-popup-panel\"\n     layout=\"column\"\n     flex=\"100\">\n\t<md-card>\n\t\t<md-card-header>\n\t\t\t<md-card-title>\n\t\t\t\t<md-card-title-text>\n\t\t\t\t\t<span class=\"md-subhead\">{{$columnFilterPanel.title}} Filter</span>\n\t\t\t\t</md-card-title-text>\n\t\t\t\t<md-card-title-actions layout=\"row\"\n\t\t\t\t                       layout-align=\"end center\">\n\t\t\t\t</md-card-title-actions>\n\t\t\t</md-card-title>\n\t\t</md-card-header>\n\t\t<md-card-content>\n\t\t\t<div flex=\"none\"\n\t\t\t     layout=\"row\">\n\t\t\t\t<md-input-container class=\"q-grid-column-filter-filter\">\n\t\t\t\t\t<label>Search</label>\n\t\t\t\t\t<input type=\"text\"\n\t\t\t\t\t       ng-change=\"$columnFilterPanelPlugin.reset()\"\n\t\t\t\t\t       ng-model=\"$columnFilterPanelPlugin.search\"\n\t\t\t\t\t       ng-model-options=\"{debounce: 500}\"\n\t\t\t\t\t       q-grid:focus\n\t\t\t\t\t       q-grid:focus-delay=\"500\" />\n\t\t\t\t</md-input-container>\n\t\t\t</div>\n\t\t\t<div class=\"flex\">\n\t\t\t\t<ul>\n\t\t\t\t\t<li>\n\t\t\t\t\t\t<md-checkbox ng-click=\"$columnFilterPanel.toggleAll.execute($columnFilterPanelPlugin.search)\"\n\t\t\t\t\t\t             md-prevent-menu-close\n\t\t\t\t\t\t             ng-checked=\"$columnFilterPanel.stateAll()\"\n\t\t\t\t\t\t             aria-label=\"Select all filter values\"\n\t\t\t\t\t\t             md-no-ink\n\t\t\t\t\t\t             class=\"q-grid-checkbox\"\n\t\t\t\t\t\t             md-indeterminate=\"$columnFilterPanel.isIndeterminate()\">\n\t\t\t\t\t\t\tSelect All\n\t\t\t\t\t\t</md-checkbox>\n\t\t\t\t\t</li>\n\t\t\t\t\t</li>\n\t\t\t\t</ul>\n\t\t\t\t<div ng-switch=\"$columnFilterPanel.isEmpty()\"\n\t\t\t\t     class=\"q-grid-column-filter-by\">\n\t\t\t\t\t<div ng-switch-when=\"true\"\n\t\t\t\t\t     class=\"q-grid-column-filter-by-blank\">\n\t\t\t\t\t\tNO SELECTED FILTERS\n\t\t\t\t\t</div>\n\t\t\t\t\t<ul ng-switch-when=\"false\">\n\t\t\t\t\t\t<li ng-repeat=\"item in $columnFilterPanel.byList track by $index\">\n\t\t\t\t\t\t\t<div class=\"q-grid-filter-by\">\n\t\t\t\t\t\t\t\t<div class=\"q-grid-filter-by-item\">\n\t\t\t\t\t\t\t\t\t{{item}}\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"q-grid-filter-by-remove\"\n\t\t\t\t\t\t\t\t\t md-prevent-menu-close\n\t\t\t\t\t\t\t\t\t tabindex=\"-1\"\n\t\t\t\t\t\t\t\t     ng-click=\"$columnFilterPanel.toggle.execute(item)\">\n\t\t\t\t\t\t\t\t\t<md-icon class=\"q-grid-icon\">clear</md-icon>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</li>\n\t\t\t\t\t</ul>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"q-grid-column-filter-list\"\n\t\t\t\t     vscroll>\n\t\t\t\t\t<ul vscroll-port-y=\"$columnFilterPanelPlugin.vscrollContext\">\n\t\t\t\t\t\t<li ng-repeat=\"item in $columnFilterPanel.items | vscroll: $columnFilterPanelPlugin.vscrollContext track by $index\"\n\t\t\t\t\t\t    vscroll-row=\"{{::$index}}\">\n\t\t\t\t\t\t\t<md-checkbox ng-checked=\"$columnFilterPanel.state(item)\"\n\t\t\t\t\t\t\t             md-prevent-menu-close\n\t\t\t\t\t\t\t             aria-label=\"Select filter value\"\n\t\t\t\t\t\t\t             md-no-ink\n\t\t\t\t\t\t\t             class=\"q-grid-checkbox\"\n\t\t\t\t\t\t\t             ng-click=\"$columnFilterPanel.toggle.execute(item)\">\n\t\t\t\t\t\t\t\t<span ng-bind-html=\"item | qgridHighlight : $columnFilterPanelPlugin.search\"> </span>\n\t\t\t\t\t\t\t</md-checkbox>\n\t\t\t\t\t\t</li>\n\t\t\t\t\t\t<li ng-if=\"$columnFilterPanel.hasBlanks\">\n\t\t\t\t\t\t\t<md-checkbox ng-model=\"$columnFilterPanel.byBlanks\"\n\t\t\t\t\t\t\t             md-prevent-menu-close\n\t\t\t\t\t\t\t             aria-label=\"Select blanks\"\n\t\t\t\t\t\t\t             md-no-ink\n\t\t\t\t\t\t\t             class=\"q-grid-checkbox\">\n\t\t\t\t\t\t\t\t<span ng-bind-html=\"'(Blanks)' | qgridHighlight : $columnFilterPanelPlugin.search\"> </span>\n\t\t\t\t\t\t\t</md-checkbox>\n\t\t\t\t\t\t</li>\n\t\t\t\t\t</ul>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class=\"q-grid-popup-actions flex-none\">\n\t\t\t\t<md-button ng-click=\"$columnFilterPanel.cancel.execute()\"\n\t\t\t\t           md-prevent-menu-close>\n\t\t\t\t\tCancel\n\t\t\t\t</md-button>\n\t\t\t\t<md-button ng-click=\"$columnFilterPanel.reset.execute()\"\n\t\t\t\t           md-prevent-menu-close>\n\t\t\t\t\tClear\n\t\t\t\t</md-button>\n\t\t\t\t<md-button class=\"md-primary\"\n\t\t\t\t           md-prevent-menu-close\n\t\t\t\t           ng-click=\"$columnFilterPanel.submit.execute()\"\n\t\t\t\t           ng-disabled=\"!$columnFilterPanel.submit.canExecute()\">\n\t\t\t\t\tApply\n\t\t\t\t</md-button>\n\t\t\t</div>\n\t\t</md-card-content>\n\t</md-card>\n</div>"
 
 /***/ }),
 /* 728 */
 /***/ (function(module, exports) {
 
-module.exports = "<q-grid-core:box model=\"$popup.model\"\n                 class=\"q-grid-popup-panel\">\n\t<md-card>\n\t\t<md-card-header>\n\t\t\t<md-card-title>\n\t\t\t\t<md-card-title-text>\n\t\t\t\t\t<q-grid:popup-head model=\"$popup.model\"\n\t\t\t\t\t                   id=\"$popup.id\"></q-grid:popup-head>\n\t\t\t\t</md-card-title-text>\n\t\t\t\t<md-card-title-actions layout=\"row\"\n\t\t\t\t                       layout-align=\"end center\">\n\t\t\t\t\t<md-button ng-if=\"popup.collapsible && !popup.expanded()\"\n\t\t\t\t\t           class=\"md-icon-button\"\n\t\t\t\t\t           aria-label=\"Expand\">\n\t\t\t\t\t\t<md-icon class=\"q-grid-icon\"\n\t\t\t\t\t\t         aria-hidden=\"true\">&#xE5D0;</md-icon>\n\t\t\t\t\t\t<md-tooltip md-direction=\"bottom\">\n\t\t\t\t\t\t\tExpand\n\t\t\t\t\t\t</md-tooltip>\n\t\t\t\t\t</md-button>\n\t\t\t\t\t<md-button ng-if=\"popup.collapsible && popup.expanded()\"\n\t\t\t\t\t           class=\"md-icon-button\"\n\t\t\t\t\t           aria-label=\"Collapse\">\n\t\t\t\t\t\t<md-icon class=\"q-grid-icon\"\n\t\t\t\t\t\t         aria-hidden=\"true\">&#xE5D1;</md-icon>\n\t\t\t\t\t\t<md-tooltip md-direction=\"bottom\">\n\t\t\t\t\t\t\tCollapse\n\t\t\t\t\t\t</md-tooltip>\n\t\t\t\t\t</md-button>\n\t\t\t\t\t<md-button class=\"md-icon-button md-action-close\"\n\t\t\t\t\t           aria-label=\"Close\"\n\t\t\t\t\t           ng-click=\"$popup.close()\">\n\t\t\t\t\t\t<md-icon class=\"q-grid-icon\"\n\t\t\t\t\t\t         aria-hidden=\"true\">&#xE5CD;</md-icon>\n\t\t\t\t\t\t<md-tooltip md-direction=\"bottom\">\n\t\t\t\t\t\t\tClose\n\t\t\t\t\t\t</md-tooltip>\n\t\t\t\t\t</md-button>\n\t\t\t\t</md-card-title-actions>\n\t\t\t</md-card-title>\n\t\t</md-card-header>\n\t\t<md-card-content>\n\t\t\t<q-grid:popup-body model=\"$popup.model\"\n\t\t\t                   id=\"$popup.id\"></q-grid:popup-body>\n\t\t</md-card-content>\n\t\t<div class=\"q-grid-popup-resizer\"\n\t\t     ng-if=\"popup.resizable\"></div>\n\t</md-card>\n</q-grid-core:box>"
+module.exports = "<q-grid:popup id=\"q-grid-edit-form-popup-{{::$editForm.key}}\"\n              class=\"q-grid-edit-form-popup\">\n\t<q-grid:template for=\"trigger\">\n\t\t<md-button class=\"md-icon-button\"\n\t\t           ng-click=\"$popup.open({width: 550, height: 450})\"\n\t\t           tabindex=\"-1\">\n\t\t\t<md-icon class=\"q-grid-icon\">edit</md-icon>\n\t\t</md-button>\n\t</q-grid:template>\n\t<q-grid:template for=\"body\"\n\t                 let=\"$editForm\">\n\t\t<q-grid:edit-form-panel key=\"$editForm.key\"\n\t\t                        row=\"$editForm.row\"\n\t\t                        shortcut=\"$popupBody.shortcut\"\n\t\t                        on:submit=\"$popupBody.close()\"\n\t\t                        on:cancel=\"$popupBody.close()\">\n\t\t</q-grid:edit-form-panel>\n\t</q-grid:template>\n\t<q-grid:template for=\"head\"\n\t                 let=\"$editForm\">\n\t\t<h2 class=\"md-title\">{{$editForm.title}}</h2>\n\t</q-grid:template>\n</q-grid:popup>"
 
 /***/ }),
 /* 729 */
 /***/ (function(module, exports) {
 
-module.exports = "<div layout=\"column\"\n     class=\"q-grid-group-bar\"\n     q-grid:drop\n     q-grid:on-drop=\"$groupBar.drop.execute($event)\"\n     q-grid:can-drop=\"$groupBar.drop.canExecute($event)\">\n\t<md-input-container>\n\t\t<label>Group By</label>\n\t\t<md-select ng-disabled=\"!$groupBar.replace.canExecute()\"\n\t\t           tabindex=\"-1\"\n\t\t           ng-model=\"$groupBar.selectedItems\"\n\t\t           ng-change=\"$groupBar.replace.execute($groupBar.selectedItems)\"\n\t\t           multiple>\n\t\t\t<md-option ng-value=\"column.key\"\n\t\t\t           ng-repeat=\"column in $groupBar.columns track by column.key\"\n\t\t\t           ng-bind=\"column.title\"></md-option>\n\t\t</md-select>\n\t</md-input-container>\n</div>"
+module.exports = "<div class=\"q-grid-edit-form-panel\"\n     layout=\"column\">\n\t<div class=\"layout-column flex q-grid-edit-form-panel-body\">\n\t\t<div ng-repeat=\"editor in $editFormPanel.editor.editors\">\n\t\t\t<q-grid:edit-form-editor editor=\"editor\"></q-grid:edit-form-editor>\n\t\t</div>\n\t</div>\n\t<div class=\"flex-none q-grid-popup-actions\">\n\t\t<md-button ng-click=\"$editFormPanel.cancel.execute()\">\n\t\t\tCancel\n\t\t</md-button>\n\t\t<md-button class=\"md-primary\"\n\t\t           ng-click=\"$editFormPanel.submit.execute()\">\n\t\t\tSave\n\t\t</md-button>\n\t</div>\n</div>"
 
 /***/ }),
 /* 730 */
 /***/ (function(module, exports) {
 
-module.exports = "<div layout=\"row\">\n\t<div flex=\"100\"\n\t     layout=\"row\"\n\t     layout-align=\"start center\"\n\t     layout-align-xs=\"start start\"\n\t     layout-align-sm=\"start start\"\n\t     layout-xs=\"column\"\n\t     layout-sm=\"column\">\n\t</div>\n\t<div class=\"q-grid-actions\"\n\t     flex=\"none\"\n\t     layout=\"row\"\n\t     layout-align=\"end center\">\n\t\t<q-grid:action-core ng-repeat=\"action in $actionBar.actions\"\n\t\t                    model=\"action\">\n\t\t</q-grid:action-core>\n\t</div>\n</div>"
+module.exports = "<q-grid-core:box model=\"$popup.model\"\n                 class=\"q-grid-popup-panel\">\n\t<md-card>\n\t\t<md-card-header>\n\t\t\t<md-card-title>\n\t\t\t\t<md-card-title-text>\n\t\t\t\t\t<q-grid:popup-head model=\"$popup.model\"\n\t\t\t\t\t                   id=\"$popup.id\"></q-grid:popup-head>\n\t\t\t\t</md-card-title-text>\n\t\t\t\t<md-card-title-actions layout=\"row\"\n\t\t\t\t                       layout-align=\"end center\">\n\t\t\t\t\t<md-button ng-if=\"popup.collapsible && !popup.expanded()\"\n\t\t\t\t\t           class=\"md-icon-button\"\n\t\t\t\t\t           aria-label=\"Expand\">\n\t\t\t\t\t\t<md-icon class=\"q-grid-icon\"\n\t\t\t\t\t\t         aria-hidden=\"true\">&#xE5D0;</md-icon>\n\t\t\t\t\t\t<md-tooltip md-direction=\"bottom\">\n\t\t\t\t\t\t\tExpand\n\t\t\t\t\t\t</md-tooltip>\n\t\t\t\t\t</md-button>\n\t\t\t\t\t<md-button ng-if=\"popup.collapsible && popup.expanded()\"\n\t\t\t\t\t           class=\"md-icon-button\"\n\t\t\t\t\t           aria-label=\"Collapse\">\n\t\t\t\t\t\t<md-icon class=\"q-grid-icon\"\n\t\t\t\t\t\t         aria-hidden=\"true\">&#xE5D1;</md-icon>\n\t\t\t\t\t\t<md-tooltip md-direction=\"bottom\">\n\t\t\t\t\t\t\tCollapse\n\t\t\t\t\t\t</md-tooltip>\n\t\t\t\t\t</md-button>\n\t\t\t\t\t<md-button class=\"md-icon-button md-action-close\"\n\t\t\t\t\t           aria-label=\"Close\"\n\t\t\t\t\t           ng-click=\"$popup.close()\">\n\t\t\t\t\t\t<md-icon class=\"q-grid-icon\"\n\t\t\t\t\t\t         aria-hidden=\"true\">&#xE5CD;</md-icon>\n\t\t\t\t\t\t<md-tooltip md-direction=\"bottom\">\n\t\t\t\t\t\t\tClose\n\t\t\t\t\t\t</md-tooltip>\n\t\t\t\t\t</md-button>\n\t\t\t\t</md-card-title-actions>\n\t\t\t</md-card-title>\n\t\t</md-card-header>\n\t\t<md-card-content>\n\t\t\t<q-grid:popup-body model=\"$popup.model\"\n\t\t\t                   id=\"$popup.id\"></q-grid:popup-body>\n\t\t</md-card-content>\n\t\t<div class=\"q-grid-popup-resizer\"\n\t\t     ng-if=\"popup.resizable\"></div>\n\t</md-card>\n</q-grid-core:box>"
 
 /***/ }),
 /* 731 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"q-grid-action\">\n\t<md-button class=\"md-icon-button\"\n\t           ng-click=\"$action.execute($event)\"\n\t           ng-disabled=\"!$action.canExecute($event)\"\n\t           tabindex=\"-1\">\n\t\t<md-icon class=\"q-grid-icon\">{{$action.icon}}</md-icon>\n\t\t<md-tooltip>\n\t\t\t<span>{{$action.title}}</span>\n\t\t\t<span ng-if=\"$action.shortcut\"> ({{$action.shortcut | uppercase}})</span>\n\t\t</md-tooltip>\n\t</md-button>\n</div>"
+module.exports = "<div layout=\"column\"\n     class=\"q-grid-group-bar\"\n     q-grid:drop\n     q-grid:on-drop=\"$groupBar.drop.execute($event)\"\n     q-grid:can-drop=\"$groupBar.drop.canExecute($event)\">\n\t<md-input-container>\n\t\t<label>Group By</label>\n\t\t<md-select ng-disabled=\"!$groupBar.replace.canExecute()\"\n\t\t           tabindex=\"-1\"\n\t\t           ng-model=\"$groupBar.selectedItems\"\n\t\t           ng-change=\"$groupBar.replace.execute($groupBar.selectedItems)\"\n\t\t           multiple>\n\t\t\t<md-option ng-value=\"column.key\"\n\t\t\t           ng-repeat=\"column in $groupBar.columns track by column.key\"\n\t\t\t           ng-bind=\"column.title\"></md-option>\n\t\t</md-select>\n\t</md-input-container>\n</div>"
 
 /***/ }),
 /* 732 */
 /***/ (function(module, exports) {
 
-module.exports = "<div layout=\"column\"\n     class=\"q-grid-sort-bar\"\n     q-grid:drop\n     q-grid:on-drop=\"$sortBar.drop.execute($event)\"\n     q-grid:can-drop=\"$sortBar.drop.canExecute($event)\">\n\t<md-input-container>\n\t\t<label>Sort By</label>\n\t\t<md-select ng-disabled=\"!$sortBar.replace.canExecute()\"\n\t\t           ng-model=\"$sortBar.selectedItems\"\n\t\t           ng-change=\"$sortBar.replace.execute($sortBar.selectedItems)\"\n\t\t           multiple\n\t\t           tabindex=\"-1\">\n\t\t\t<md-option ng-value=\"column.key\"\n\t\t\t           ng-repeat=\"column in $sortBar.columns track by column.key\"\n\t\t\t           ng-bind=\"column.title\"></md-option>\n\t\t</md-select>\n\t</md-input-container>\n</div>"
+module.exports = "<div layout=\"row\">\n\t<div flex=\"100\"\n\t     layout=\"row\"\n\t     layout-align=\"start center\"\n\t     layout-align-xs=\"start start\"\n\t     layout-align-sm=\"start start\"\n\t     layout-xs=\"column\"\n\t     layout-sm=\"column\">\n\t</div>\n\t<div class=\"q-grid-actions\"\n\t     flex=\"none\"\n\t     layout=\"row\"\n\t     layout-align=\"end center\">\n\t\t<q-grid:action-core ng-repeat=\"action in $actionBar.actions\"\n\t\t                    model=\"action\">\n\t\t</q-grid:action-core>\n\t</div>\n</div>"
 
 /***/ }),
 /* 733 */
 /***/ (function(module, exports) {
 
-module.exports = "<div layout=\"column\"\n     class=\"q-grid-pivot-bar\"\n     q-grid:drop\n     q-grid:on-drop=\"$pivotBar.drop.execute($event)\"\n     q-grid:can-drop=\"$pivotBar.drop.canExecute($event)\">\n\t<md-input-container>\n\t\t<label>Pivot By</label>\n\t\t<md-select ng-disabled=\"!$pivotBar.replace.canExecute()\"\n\t\t           tabindex=\"-1\"\n\t\t           ng-model=\"$pivotBar.selectedItems\"\n\t\t           ng-change=\"$pivotBar.replace.execute($pivotBar.selectedItems)\"\n\t\t           multiple>\n\t\t\t<md-option ng-value=\"column.key\"\n\t\t\t           ng-repeat=\"column in $pivotBar.columns track by column.key\"\n\t\t\t           ng-bind=\"column.title\"></md-option>\n\t\t</md-select>\n\t</md-input-container>\n</div>"
+module.exports = "<div class=\"q-grid-action\">\n\t<md-button class=\"md-icon-button\"\n\t           ng-click=\"$action.execute($event)\"\n\t           ng-disabled=\"!$action.canExecute($event)\"\n\t           tabindex=\"-1\">\n\t\t<md-icon class=\"q-grid-icon\">{{$action.icon}}</md-icon>\n\t\t<md-tooltip>\n\t\t\t<span>{{$action.title}}</span>\n\t\t\t<span ng-if=\"$action.shortcut\"> ({{$action.shortcut | uppercase}})</span>\n\t\t</md-tooltip>\n\t</md-button>\n</div>"
 
 /***/ }),
 /* 734 */
 /***/ (function(module, exports) {
 
-module.exports = "<div layout=\"row\"\n     class=\"q-grid-selection-bar\">\n\t<md-input-container>\n\t\t<label>Unit</label>\n\t\t<md-select ng-model=\"$selectionBar.unit\"\n\t\t           tabindex=\"-1\"\n\t\t           ng-change=\"$selectionBar.toggleUnit.execute($selectionBar.unit)\"\n\t\t           ng-disabled=\"!$selectionBar.toggleUnit.canExecute()\">\n\t\t\t<md-option ng-value=\"unit.key\"\n\t\t\t           ng-repeat=\"unit in $selectionBar.units\"\n\t\t\t           ng-bind=\"unit.title\"></md-option>\n\t\t</md-select>\n\t</md-input-container>\n\n\t<md-input-container>\n\t\t<label>Mode</label>\n\t\t<md-select ng-model=\"$selectionBar.mode\"\n\t\t           tabindex=\"-1\"\n\t\t           ng-change=\"$selectionBar.toggleMode.execute($selectionBar.mode)\"\n\t\t           ng-disabled=\"!$selectionBar.toggleMode.canExecute()\">\n\t\t\t<md-option ng-value=\"mode.key\"\n\t\t\t           ng-repeat=\"mode in $selectionBar.modes\"\n\t\t\t           ng-bind=\"mode.title\"></md-option>\n\t\t</md-select>\n\t</md-input-container>\n\n\t<md-input-container>\n\t\t<label>Selection Count</label>\n\t\t<input ng-model=\"$selectionBar.count\"\n\t\t       disabled>\n\t</md-input-container>\n</div>"
+module.exports = "<div layout=\"column\"\n     class=\"q-grid-sort-bar\"\n     q-grid:drop\n     q-grid:on-drop=\"$sortBar.drop.execute($event)\"\n     q-grid:can-drop=\"$sortBar.drop.canExecute($event)\">\n\t<md-input-container>\n\t\t<label>Sort By</label>\n\t\t<md-select ng-disabled=\"!$sortBar.replace.canExecute()\"\n\t\t           ng-model=\"$sortBar.selectedItems\"\n\t\t           ng-change=\"$sortBar.replace.execute($sortBar.selectedItems)\"\n\t\t           multiple\n\t\t           tabindex=\"-1\">\n\t\t\t<md-option ng-value=\"column.key\"\n\t\t\t           ng-repeat=\"column in $sortBar.columns track by column.key\"\n\t\t\t           ng-bind=\"column.title\"></md-option>\n\t\t</md-select>\n\t</md-input-container>\n</div>"
 
 /***/ }),
 /* 735 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"q-grid-pager\"\n     ng-switch=\"$pager.scroll.mode\">\n\t<div ng-switch-when=\"virtual\">\n\t\t<label class=\"q-grid-page\"\n\t\t       ng-switch=\"::$pager.mode\">\n\t\t\t<span ng-switch-when=\"row\">{{$pager.from}}-{{$pager.to}} of {{$pager.total}}</span>\n\t\t\t<span ng-switch-default>{{$pager.current + 1}} of {{$pager.totalPages}}</span>\n\t\t</label>\n\t</div>\n\t<div ng-switch-default>\n\t\t<label class=\"q-grid-page-size hide-xs\">Rows per page:</label>\n\t\t<md-select aria-label=\"Page Size List\"\n\t\t           tabindex=\"-1\"\n\t\t           class=\"hide-xs q-grid-page-size\"\n\t\t           ng-model=\"$pager.size\">\n\t\t\t<md-option ng-repeat=\"size in $pager.sizeList\"\n\t\t\t           ng-value=\"size\">{{size}}</md-option>\n\t\t</md-select>\n\t\t<label class=\"q-grid-page\"\n\t\t       ng-switch=\"::$pager.mode\">\n\t\t\t<span ng-switch-when=\"row\">{{$pager.from}}-{{$pager.to}} of {{$pager.total}}</span>\n\t\t\t<span ng-switch-default>{{$pager.current + 1}} of {{$pager.totalPages}}</span>\n\t\t</label>\n\t\t<md-button class=\"md-icon-button q-grid-prev-page\"\n\t\t           ng-disabled=\"!$pager.prev.canExecute()\"\n\t\t           ng-click=\"$pager.prev.execute();\"\n\t\t           tabindex=\"-1\">\n\t\t\t<md-icon class=\"q-grid-icon\">keyboard_arrow_left</md-icon>\n\t\t</md-button>\n\t\t<md-button class=\"md-icon-button q-grid-target-page\"\n\t\t           ng-click=\"$pagerPlugin.showTargetPanel($event)\"\n\t\t           tabindex=\"-1\">\n\t\t\t<md-icon class=\"q-grid-icon\">location_searching</md-icon>\n\t\t</md-button>\n\t\t<md-button class=\"md-icon-button q-grid-next-page\"\n\t\t           ng-disabled=\"!$pager.next.canExecute()\"\n\t\t           ng-click=\"$pager.next.execute();\"\n\t\t           tabindex=\"-1\">\n\t\t\t<md-icon class=\"q-grid-icon\">keyboard_arrow_right</md-icon>\n\t\t</md-button>\n\t</div>\n</div>"
+module.exports = "<div layout=\"column\"\n     class=\"q-grid-pivot-bar\"\n     q-grid:drop\n     q-grid:on-drop=\"$pivotBar.drop.execute($event)\"\n     q-grid:can-drop=\"$pivotBar.drop.canExecute($event)\">\n\t<md-input-container>\n\t\t<label>Pivot By</label>\n\t\t<md-select ng-disabled=\"!$pivotBar.replace.canExecute()\"\n\t\t           tabindex=\"-1\"\n\t\t           ng-model=\"$pivotBar.selectedItems\"\n\t\t           ng-change=\"$pivotBar.replace.execute($pivotBar.selectedItems)\"\n\t\t           multiple>\n\t\t\t<md-option ng-value=\"column.key\"\n\t\t\t           ng-repeat=\"column in $pivotBar.columns track by column.key\"\n\t\t\t           ng-bind=\"column.title\"></md-option>\n\t\t</md-select>\n\t</md-input-container>\n</div>"
 
 /***/ }),
 /* 736 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"q-grid-pager-target q-grid-popup-panel\"\n     layout=\"column\"\n     flex=\"100\">\n\t<md-card>\n\t\t<md-card-content>\n\t\t\t<md-input-container class=\"q-grid-input-container\">\n\t\t\t\t<input type=\"number\"\n\t\t\t\t       ng-keydown=\"$pagerTarget.keydown($event)\"\n\t\t\t\t       ng-model=\"$pagerTarget.value\"\n\t\t\t\t       q-grid:focus\n\t\t\t\t       min=\"1\"\n\t\t\t\t       max=\"{{$pager.totalPages}}\"\n\t\t\t\t       step=\"1\"\n\t\t\t\t       placeholder=\"Go to page:\" />\n\t\t\t</md-input-container>\n\t\t</md-card-content>\n\t</md-card>\n</div>"
+module.exports = "<div layout=\"row\"\n     class=\"q-grid-selection-bar\">\n\t<md-input-container>\n\t\t<label>Unit</label>\n\t\t<md-select ng-model=\"$selectionBar.unit\"\n\t\t           tabindex=\"-1\"\n\t\t           ng-change=\"$selectionBar.toggleUnit.execute($selectionBar.unit)\"\n\t\t           ng-disabled=\"!$selectionBar.toggleUnit.canExecute()\">\n\t\t\t<md-option ng-value=\"unit.key\"\n\t\t\t           ng-repeat=\"unit in $selectionBar.units\"\n\t\t\t           ng-bind=\"unit.title\"></md-option>\n\t\t</md-select>\n\t</md-input-container>\n\n\t<md-input-container>\n\t\t<label>Mode</label>\n\t\t<md-select ng-model=\"$selectionBar.mode\"\n\t\t           tabindex=\"-1\"\n\t\t           ng-change=\"$selectionBar.toggleMode.execute($selectionBar.mode)\"\n\t\t           ng-disabled=\"!$selectionBar.toggleMode.canExecute()\">\n\t\t\t<md-option ng-value=\"mode.key\"\n\t\t\t           ng-repeat=\"mode in $selectionBar.modes\"\n\t\t\t           ng-bind=\"mode.title\"></md-option>\n\t\t</md-select>\n\t</md-input-container>\n\n\t<md-input-container>\n\t\t<label>Selection Count</label>\n\t\t<input ng-model=\"$selectionBar.count\"\n\t\t       disabled>\n\t</md-input-container>\n</div>"
 
 /***/ }),
 /* 737 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"q-grid-persistence-panel q-grid-popup-panel\"\n     layout=\"column\"\n     flex=\"100\"\n     ng-keydown=\"$persistence.keyDown($event)\">\n\t<md-card>\n\t\t<md-card-header>\n\t\t\t<md-card-title>\n\t\t\t\t<md-card-title-text>\n\t\t\t\t\t<span class=\"md-subhead\">Save/Load</span>\n\t\t\t\t</md-card-title-text>\n\t\t\t\t<md-card-title-actions layout=\"row\"\n\t\t\t\t                       layout-align=\"end center\">\n\t\t\t\t</md-card-title-actions>\n\t\t\t</md-card-title>\n\t\t</md-card-header>\n\t\t<md-card-content>\n\t\t\t<div class=\"flex-none layout-row\">\n\t\t\t\t<div class=\"flex-100\">\n\t\t\t\t\t<md-input-container class=\"q-grid-persistence-title\">\n\t\t\t\t\t\t<label>Save As...</label>\n\t\t\t\t\t\t<input type=\"text\"\n\t\t\t\t\t\t       ng-model=\"$persistence.title\"\n\t\t\t\t\t\t       q-grid:focus\n\t\t\t\t\t\t       q-grid:focus-delay=\"400\" />\n\t\t\t\t\t</md-input-container>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"flex-none\">\n\t\t\t\t\t<md-button class=\"md-primary q-grid-persistence-save\"\n\t\t\t\t\t           md-prevent-menu-close\n\t\t\t\t\t           ng-click=\"$persistence.save.execute()\"\n\t\t\t\t\t           ng-disabled=\"!$persistence.save.canExecute()\">\n\t\t\t\t\t\tSave\n\t\t\t\t\t</md-button>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class=\"flex\">\n\t\t\t\t<md-list class=\"md-dense\"\n\t\t\t\t         ng-cloak>\n\t\t\t\t\t<md-list-item class=\"md-2-line q-grid-persistence-blank\"\n\t\t\t\t\t              ng-class=\"{'q-grid-persistence-selected': $persistence.isActive($persistence.blank)}\">\n\t\t\t\t\t\t<div class=\"md-list-item-text\">\n\t\t\t\t\t\t\t<md-button class=\"md-primary\"\n\t\t\t\t\t\t\t           ng-click=\"$persistence.load.execute($persistence.blank)\">\n\t\t\t\t\t\t\t\t<h3>{{::$persistence.blank.title}}</h3>\n\t\t\t\t\t\t\t\t<ul>\n\t\t\t\t\t\t\t\t\t<li>{{$persistence.blank.modified | date: 'yyyy/MM/dd h:mm a'}}</li>\n\t\t\t\t\t\t\t\t</ul>\n\t\t\t\t\t\t\t</md-button>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<md-tooltip class=\"q-grid-persistence-tooltip\">No settings</md-tooltip>\n\t\t\t\t\t</md-list-item>\n\t\t\t\t\t<md-list-item class=\"md-2-line\"\n\t\t\t\t\t              ng-repeat=\"item in $persistence.items | orderBy: '-modified' track by $index\"\n\t\t\t\t\t              ng-class=\"{'q-grid-persistence-selected': $persistence.isActive(item)}\">\n\t\t\t\t\t\t<div class=\"default-icon\">\n\t\t\t\t\t\t\t<md-icon class=\"q-grid-icon\"\n\t\t\t\t\t\t\t         ng-if=\"item.isDefault\">star</md-icon>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"md-list-item-text\">\n\t\t\t\t\t\t\t<md-button class=\"md-primary\"\n\t\t\t\t\t\t\t           ng-click=\"$persistence.load.execute(item)\"\n\t\t\t\t\t\t\t           ng-if=\"$persistence.state.editItem !== item\">\n\t\t\t\t\t\t\t\t<h3>{{item.title}}</h3>\n\t\t\t\t\t\t\t\t<ul>\n\t\t\t\t\t\t\t\t\t<li>{{item.modified | date: 'yyyy/MM/dd h:mm a'}}</li>\n\t\t\t\t\t\t\t\t</ul>\n\t\t\t\t\t\t\t</md-button>\n\t\t\t\t\t\t\t<md-input-container ng-if=\"$persistence.state.editItem === item\">\n\t\t\t\t\t\t\t\t<input ng-blur=\"$persistence.edit.commit.canExecute(item) && $persistence.edit.commit.execute(item)\"\n\t\t\t\t\t\t\t\t       ng-model=\"item.title\"\n\t\t\t\t\t\t\t\t       q-grid:focus/>\n\t\t\t\t\t\t\t</md-input-container>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<md-tooltip class=\"q-grid-persistence-tooltip\">{{::$persistence.stringify(item)}}</md-tooltip>\n\t\t\t\t\t\t<md-menu>\n\t\t\t\t\t\t\t<md-button class=\"md-icon-button q-grid-more\"\n\t\t\t\t\t\t\t           aria-label=\"More\"\n\t\t\t\t\t\t\t           ng-click=\"$mdOpenMenu($event)\">\n\t\t\t\t\t\t\t\t<md-icon class=\"q-grid-icon\">more_vert</md-icon>\n\t\t\t\t\t\t\t</md-button>\n\t\t\t\t\t\t\t<md-menu-content width=\"4\">\n\t\t\t\t\t\t\t\t<md-menu-item>\n\t\t\t\t\t\t\t\t\t<md-button ng-click=\"$persistence.setDefault.execute(item)\"\n\t\t\t\t\t\t\t\t\t           ng-disabled=\"!$persistence.setDefault.canExecute(item)\">\n\t\t\t\t\t\t\t\t\t\t<md-icon class=\"q-grid-icon\"\n\t\t\t\t\t\t\t\t\t\t         md-menu-align-target>star</md-icon>\n\t\t\t\t\t\t\t\t\t\tDefault\n\t\t\t\t\t\t\t\t\t</md-button>\n\t\t\t\t\t\t\t\t</md-menu-item>\n\t\t\t\t\t\t\t\t<md-menu-item>\n\t\t\t\t\t\t\t\t\t<md-button ng-click=\"$persistence.edit.enter.execute(item)\"\n\t\t\t\t\t\t\t\t\t           ng-disabled=\"!$persistence.edit.enter.canExecute(item)\">\n\t\t\t\t\t\t\t\t\t\t<md-icon class=\"q-grid-icon\"\n\t\t\t\t\t\t\t\t\t\t         md-menu-align-target>mode_edit</md-icon>\n\t\t\t\t\t\t\t\t\t\tEdit\n\t\t\t\t\t\t\t\t\t</md-button>\n\t\t\t\t\t\t\t\t</md-menu-item>\n\t\t\t\t\t\t\t\t<md-menu-item>\n\t\t\t\t\t\t\t\t\t<md-button ng-click=\"$persistence.remove.execute(item)\"\n\t\t\t\t\t\t\t\t\t           ng-disabled=\"!$persistence.remove.canExecute(item)\">\n\t\t\t\t\t\t\t\t\t\t<md-icon class=\"q-grid-icon\"\n\t\t\t\t\t\t\t\t\t\t         md-menu-align-target>close</md-icon>\n\t\t\t\t\t\t\t\t\t\tRemove\n\t\t\t\t\t\t\t\t\t</md-button>\n\t\t\t\t\t\t\t\t</md-menu-item>\n\t\t\t\t\t\t\t</md-menu-content>\n\t\t\t\t\t\t</md-menu>\n\t\t\t\t\t</md-list-item>\n\t\t\t\t</md-list>\n\t\t\t</div>\n\t\t</md-card-content>\n\t</md-card>\n</div>"
+module.exports = "<div class=\"q-grid-pager\"\n     ng-switch=\"$pager.scroll.mode\">\n\t<div ng-switch-when=\"virtual\">\n\t\t<label class=\"q-grid-page\"\n\t\t       ng-switch=\"::$pager.mode\">\n\t\t\t<span ng-switch-when=\"row\">{{$pager.from}}-{{$pager.to}} of {{$pager.total}}</span>\n\t\t\t<span ng-switch-default>{{$pager.current + 1}} of {{$pager.totalPages}}</span>\n\t\t</label>\n\t</div>\n\t<div ng-switch-default>\n\t\t<label class=\"q-grid-page-size hide-xs\">Rows per page:</label>\n\t\t<md-select aria-label=\"Page Size List\"\n\t\t           tabindex=\"-1\"\n\t\t           class=\"hide-xs q-grid-page-size\"\n\t\t           ng-model=\"$pager.size\">\n\t\t\t<md-option ng-repeat=\"size in $pager.sizeList\"\n\t\t\t           ng-value=\"size\">{{size}}</md-option>\n\t\t</md-select>\n\t\t<label class=\"q-grid-page\"\n\t\t       ng-switch=\"::$pager.mode\">\n\t\t\t<span ng-switch-when=\"row\">{{$pager.from}}-{{$pager.to}} of {{$pager.total}}</span>\n\t\t\t<span ng-switch-default>{{$pager.current + 1}} of {{$pager.totalPages}}</span>\n\t\t</label>\n\t\t<md-button class=\"md-icon-button q-grid-prev-page\"\n\t\t           ng-disabled=\"!$pager.prev.canExecute()\"\n\t\t           ng-click=\"$pager.prev.execute();\"\n\t\t           tabindex=\"-1\">\n\t\t\t<md-icon class=\"q-grid-icon\">keyboard_arrow_left</md-icon>\n\t\t</md-button>\n\t\t<md-button class=\"md-icon-button q-grid-target-page\"\n\t\t           ng-click=\"$pagerPlugin.showTargetPanel($event)\"\n\t\t           tabindex=\"-1\">\n\t\t\t<md-icon class=\"q-grid-icon\">location_searching</md-icon>\n\t\t</md-button>\n\t\t<md-button class=\"md-icon-button q-grid-next-page\"\n\t\t           ng-disabled=\"!$pager.next.canExecute()\"\n\t\t           ng-click=\"$pager.next.execute();\"\n\t\t           tabindex=\"-1\">\n\t\t\t<md-icon class=\"q-grid-icon\">keyboard_arrow_right</md-icon>\n\t\t</md-button>\n\t</div>\n</div>"
 
 /***/ }),
 /* 738 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"q-grid-visibility\">\n\t<label>Visibility:</label>\n\t<ul>\n\t\t<li ng-repeat=\"item in $visibility.items\">\n\t\t\t<label>\n\t\t\t\t<input type=\"checkbox\"\n\t\t\t\t       ng-checked=\"item.value\"\n\t\t\t\t       ng-if=\"$visibility.toggle.canExecute(item)\"\n\t\t\t\t       ng-click=\"$visibility.toggle.execute(item)\" /> {{item.key}}\n\t\t\t</label>\n\t\t\t<ul ng-if=\"item.children.length\">\n\t\t\t\t<li ng-repeat=\"child in item.children\">\n\t\t\t\t\t<label>\n\t\t\t\t\t\t<input type=\"checkbox\"\n\t\t\t\t\t\t       ng-if=\"$visibility.toggle.canExecute(child)\"\n\t\t\t\t\t\t       ng-checked=\"child.value\"\n\t\t\t\t\t\t       ng-click=\"$visibility.toggle.execute(child)\" /> {{child.key}}\n\t\t\t\t\t</label>\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t</li>\n\t</ul>\n</div>"
+module.exports = "<div class=\"q-grid-pager-target q-grid-popup-panel\"\n     layout=\"column\"\n     flex=\"100\">\n\t<md-card>\n\t\t<md-card-content>\n\t\t\t<md-input-container class=\"q-grid-input-container\">\n\t\t\t\t<input type=\"number\"\n\t\t\t\t       ng-keydown=\"$pagerTarget.keydown($event)\"\n\t\t\t\t       ng-model=\"$pagerTarget.value\"\n\t\t\t\t       q-grid:focus\n\t\t\t\t       min=\"1\"\n\t\t\t\t       max=\"{{$pager.totalPages}}\"\n\t\t\t\t       step=\"1\"\n\t\t\t\t       placeholder=\"Go to page:\" />\n\t\t\t</md-input-container>\n\t\t</md-card-content>\n\t</md-card>\n</div>"
 
 /***/ }),
 /* 739 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"q-grid-title\">\n\t<h2 class=\"md-title\">\n\t\t{{$title.value}}\n\t</h2>\n</div>"
+module.exports = "<div class=\"q-grid-persistence-panel q-grid-popup-panel\"\n layout=\"column\"\n flex=\"100\"\n ng-keydown=\"$persistence.keyDown($event)\">\n\t<md-card>\n\t\t<md-card-header>\n\t\t\t<md-card-title>\n\t\t\t\t<md-card-title-text>\n\t\t\t\t\t<span class=\"md-subhead\">Save/Load</span>\n\t\t\t\t</md-card-title-text>\n\t\t\t\t<md-card-title-actions layout=\"row\"\n\t\t\t\t layout-align=\"end center\">\n\t\t\t\t</md-card-title-actions>\n\t\t\t</md-card-title>\n\t\t</md-card-header>\n\t\t<md-card-content>\n\t\t\t<div class=\"flex-none layout-row\">\n\t\t\t\t<div class=\"flex-100\">\n\t\t\t\t\t<md-input-container class=\"q-grid-persistence-title\">\n\t\t\t\t\t\t<label>Save As...</label>\n\t\t\t\t\t\t<input type=\"text\"\n\t\t\t\t\t\t ng-model=\"$persistence.title\"\n\t\t\t\t\t\t q-grid:focus\n\t\t\t\t\t\t q-grid:focus-delay=\"400\" />\n\t\t\t\t\t</md-input-container>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"flex-none\">\n\t\t\t\t\t<md-button class=\"md-primary q-grid-persistence-save\"\n\t\t\t\t\t md-prevent-menu-close\n\t\t\t\t\t ng-click=\"$persistence.create.execute()\"\n\t\t\t\t\t ng-disabled=\"!$persistence.create.canExecute()\">\n\t\t\t\t\t\tSave\n\t\t\t\t\t</md-button>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class=\"flex\">\n\t\t\t\t<md-list class=\"md-dense\"\n\t\t\t\t ng-cloak>\n\t\t\t\t\t<md-list-item class=\"md-2-line q-grid-persistence-blank\"\n\t\t\t\t\t ng-class=\"{'q-grid-persistence-selected': $persistence.isActive($persistence.blank)}\">\n\t\t\t\t\t\t<div class=\"md-list-item-text\">\n\t\t\t\t\t\t\t<md-button class=\"md-primary\"\n\t\t\t\t\t\t\t ng-click=\"$persistence.load.execute($persistence.blank)\">\n\t\t\t\t\t\t\t\t<h3>{{::$persistence.blank.title}}</h3>\n\t\t\t\t\t\t\t\t<ul>\n\t\t\t\t\t\t\t\t\t<li>{{$persistence.blank.modified | date: 'yyyy/MM/dd h:mm a'}}</li>\n\t\t\t\t\t\t\t\t</ul>\n\t\t\t\t\t\t\t</md-button>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<md-tooltip class=\"q-grid-persistence-tooltip\">No settings</md-tooltip>\n\t\t\t\t\t</md-list-item>\n\t\t\t\t\t<div ng-repeat=\"group in $persistence.groups track by $index\">\n\t\t\t\t\t\t<md-subheader class=\"q-grid-persistence-group-title\">{{group.key}}</md-subheader>\n\t\t\t\t\t\t<md-list-item class=\"md-2-line\"\n\t\t\t\t\t\t ng-repeat=\"item in group.items | orderBy: '-modified' track by $index\"\n\t\t\t\t\t\t ng-class=\"{'q-grid-persistence-selected': $persistence.isActive(item)}\">\n\t\t\t\t\t\t\t<div class=\"default-icon\">\n\t\t\t\t\t\t\t\t<md-icon class=\"q-grid-icon\"\n\t\t\t\t\t\t\t\t ng-if=\"item.isDefault\">star</md-icon>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"md-list-item-text\">\n\t\t\t\t\t\t\t\t<md-button class=\"md-primary\"\n\t\t\t\t\t\t\t\t ng-click=\"$persistence.load.execute(item)\"\n\t\t\t\t\t\t\t\t ng-if=\"$persistence.state.editItem !== item\">\n\t\t\t\t\t\t\t\t\t<h3>{{item.title}}</h3>\n\t\t\t\t\t\t\t\t\t<ul>\n\t\t\t\t\t\t\t\t\t\t<li>{{item.modified | date: 'yyyy/MM/dd h:mm a'}}</li>\n\t\t\t\t\t\t\t\t\t</ul>\n\t\t\t\t\t\t\t\t</md-button>\n\t\t\t\t\t\t\t\t<md-input-container ng-if=\"$persistence.state.editItem === item\">\n\t\t\t\t\t\t\t\t\t<input ng-blur=\"$persistence.edit.commit.canExecute(item) && $persistence.edit.commit.execute(item)\"\n\t\t\t\t\t\t\t\t\t ng-model=\"item.title\"\n\t\t\t\t\t\t\t\t\t q-grid:focus/>\n\t\t\t\t\t\t\t\t</md-input-container>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<md-tooltip class=\"q-grid-persistence-tooltip\">{{::$persistence.stringify(item)}}</md-tooltip>\n\t\t\t\t\t\t\t<md-menu>\n\t\t\t\t\t\t\t\t<md-button class=\"md-icon-button q-grid-more\"\n\t\t\t\t\t\t\t\t aria-label=\"More\"\n\t\t\t\t\t\t\t\t ng-click=\"$mdOpenMenu($event)\">\n\t\t\t\t\t\t\t\t\t<md-icon class=\"q-grid-icon\">more_vert</md-icon>\n\t\t\t\t\t\t\t\t</md-button>\n\t\t\t\t\t\t\t\t<md-menu-content width=\"4\">\n\t\t\t\t\t\t\t\t\t<md-menu-item>\n\t\t\t\t\t\t\t\t\t\t<md-button ng-click=\"$persistence.setDefault.execute(item)\"\n\t\t\t\t\t\t\t\t\t\t ng-disabled=\"!$persistence.setDefault.canExecute(item)\">\n\t\t\t\t\t\t\t\t\t\t\t<md-icon class=\"q-grid-icon\"\n\t\t\t\t\t\t\t\t\t\t\t md-menu-align-target>star</md-icon>\n\t\t\t\t\t\t\t\t\t\t\tDefault\n\t\t\t\t\t\t\t\t\t\t</md-button>\n\t\t\t\t\t\t\t\t\t</md-menu-item>\n\t\t\t\t\t\t\t\t\t<md-menu-item>\n\t\t\t\t\t\t\t\t\t\t<md-button ng-click=\"$persistence.edit.enter.execute(item)\"\n\t\t\t\t\t\t\t\t\t\t ng-disabled=\"!$persistence.edit.enter.canExecute(item)\">\n\t\t\t\t\t\t\t\t\t\t\t<md-icon class=\"q-grid-icon\"\n\t\t\t\t\t\t\t\t\t\t\t md-menu-align-target>mode_edit</md-icon>\n\t\t\t\t\t\t\t\t\t\t\tEdit\n\t\t\t\t\t\t\t\t\t\t</md-button>\n\t\t\t\t\t\t\t\t\t</md-menu-item>\n\t\t\t\t\t\t\t\t\t<md-menu-item>\n\t\t\t\t\t\t\t\t\t\t<md-button ng-click=\"$persistence.remove.execute(item)\"\n\t\t\t\t\t\t\t\t\t\t ng-disabled=\"!$persistence.remove.canExecute(item)\">\n\t\t\t\t\t\t\t\t\t\t\t<md-icon class=\"q-grid-icon\"\n\t\t\t\t\t\t\t\t\t\t\t md-menu-align-target>close</md-icon>\n\t\t\t\t\t\t\t\t\t\t\tRemove\n\t\t\t\t\t\t\t\t\t\t</md-button>\n\t\t\t\t\t\t\t\t\t</md-menu-item>\n\t\t\t\t\t\t\t\t</md-menu-content>\n\t\t\t\t\t\t\t</md-menu>\n\t\t\t\t\t\t</md-list-item>\n\t\t\t\t\t</div>\n\t\t\t\t</md-list>\n\t\t\t</div>\n\t\t</md-card-content>\n\t</md-card>\n</div>"
 
 /***/ }),
 /* 740 */
 /***/ (function(module, exports) {
 
-module.exports = "<q-grid:backdrop on:close=\"$editor.close($event)\">\n</q-grid:backdrop>\n<div class=\"q-grid-editor-content\"\n     q-grid:stop-propagate=\"click\">\n\t<ng-transclude></ng-transclude>\n</div>"
+module.exports = "<div class=\"q-grid-visibility\">\n\t<label>Visibility:</label>\n\t<ul>\n\t\t<li ng-repeat=\"item in $visibility.items\">\n\t\t\t<label>\n\t\t\t\t<input type=\"checkbox\"\n\t\t\t\t       ng-checked=\"item.value\"\n\t\t\t\t       ng-if=\"$visibility.toggle.canExecute(item)\"\n\t\t\t\t       ng-click=\"$visibility.toggle.execute(item)\" /> {{item.key}}\n\t\t\t</label>\n\t\t\t<ul ng-if=\"item.children.length\">\n\t\t\t\t<li ng-repeat=\"child in item.children\">\n\t\t\t\t\t<label>\n\t\t\t\t\t\t<input type=\"checkbox\"\n\t\t\t\t\t\t       ng-if=\"$visibility.toggle.canExecute(child)\"\n\t\t\t\t\t\t       ng-checked=\"child.value\"\n\t\t\t\t\t\t       ng-click=\"$visibility.toggle.execute(child)\" /> {{child.key}}\n\t\t\t\t\t</label>\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t</li>\n\t</ul>\n</div>"
 
 /***/ }),
 /* 741 */
 /***/ (function(module, exports) {
 
-module.exports = "<md-icon class=\"q-grid-icon q-grid-asc\">arrow_upward</md-icon>\n<md-icon class=\"q-grid-icon q-grid-desc\">arrow_downward</md-icon>\n<ng-transclude></ng-transclude>\n"
+module.exports = "<div class=\"q-grid-title\">\n\t<h2 class=\"md-title\">\n\t\t{{$title.value}}\n\t</h2>\n</div>"
 
 /***/ }),
 /* 742 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"q-grid-backdrop\">\n\t<ng-transclude></ng-transclude>\n</div>"
+module.exports = "<q-grid:backdrop on:close=\"$editor.close($event)\">\n</q-grid:backdrop>\n<div class=\"q-grid-editor-content\"\n     q-grid:stop-propagate=\"click\">\n\t<ng-transclude></ng-transclude>\n</div>"
 
 /***/ }),
 /* 743 */
 /***/ (function(module, exports) {
 
-module.exports = "<div q-grid-tab-trap-in=\"start\"></div>\n<ng-transclude></ng-transclude>\n<div q-grid-tab-trap-in=\"end\"></div>"
+module.exports = "<md-icon class=\"q-grid-icon q-grid-asc\">arrow_upward</md-icon>\n<md-icon class=\"q-grid-icon q-grid-desc\">arrow_downward</md-icon>\n<ng-transclude></ng-transclude>\n"
 
 /***/ }),
 /* 744 */
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = "<div class=\"q-grid-backdrop\">\n\t<ng-transclude></ng-transclude>\n</div>"
 
 /***/ }),
 /* 745 */
 /***/ (function(module, exports) {
 
-module.exports = "<ul ng-if=\"$validator.errors\">\n\t<li ng-repeat=\"error in $validator.errors track by $index\"\n\t    ng-if=\"error\">\n\t\t<span>{{error | qgridPretty}}</span>\n\t\t<span ng-if=\"$validator.type === 'array'\">: \"{{$validator.value[$index]}}\"</span>\n\t</li>\n</ul>"
+module.exports = "<div q-grid-tab-trap-in=\"start\"></div>\n<ng-transclude></ng-transclude>\n<div q-grid-tab-trap-in=\"end\"></div>"
 
 /***/ }),
 /* 746 */
 /***/ (function(module, exports) {
 
-module.exports = "<div eb-node=\"$expressionBuilderPlugin.node\">\n</div>"
+module.exports = ""
 
 /***/ }),
 /* 747 */
 /***/ (function(module, exports) {
 
-module.exports = "<span>\n\t<md-autocomplete class=\"condition-builder-autocomplete\"\n\t                 eb-class=\"expression.classes\"\n\t                 eb-class-context=\"expression\"\n\t                 md-items=\"item in expression.options()\"\n\t                 md-selected-item=\"expression.selectedItem\"\n\t                 md-search-text=\"expression.value\"\n\t                 md-search-text-change=\"expression.change()\"\n\t                 md-selected-item-change=\"expression.change()\"\n\t                 md-no-cache=\"true\"\n\t                 md-min-length=\"0\"\n\t                 md-menu-class=\"condition-builder-autocomplete-popup\"\n\t                 md-no-asterisk=\"true\"\n\t                 md-select-on-focus\n\t                 ng-attr-placeholder=\"{{expression.placeholderText}}\"\n\t                 q-grid:autosize=\"input\"\n\t                 show-autocomplete-on-focus=\"expression.options\"\n\t                 ng-style=\"{'width' :  $autosize.width(expression.value) + 'px'}\">\n\t\t<md-item-template>\n\t\t\t<span md-highlight-text=\"expression.value.toString()\"\n\t\t\t      md-highlight-flags=\"^i\">{{ item }}</span>\n\t\t</md-item-template>\n\t</md-autocomplete>\n\t<md-tooltip md-direction=\"bottom\"\n\t            ng-if=\"!expression.isValid()\"\n\t            class=\"autocomplete-tooltip\"\n\t            md-delay=\"2000\">\n\t\t<div ng-switch=\"expression.state[0]\">\n\t\t\t<span ng-switch-when=\"required\">Value is required</span>\n\t\t\t<span ng-switch-when=\"number\">'{{ ::expression.value }}' is not a number</span>\n\t\t\t<span ng-switch-when=\"integer\">'{{ ::expression.value }}' is not a integer</span>\n\t\t\t<span ng-switch-when=\"datetime\">'{{ ::expression.value }}' is not a date</span>\n\t\t</div>\n\t</md-tooltip>\n</span>"
+module.exports = "<ul ng-if=\"$validator.errors\">\n\t<li ng-repeat=\"error in $validator.errors track by $index\"\n\t    ng-if=\"error\">\n\t\t<span>{{error | qgridPretty}}</span>\n\t\t<span ng-if=\"$validator.type === 'array'\">: \"{{$validator.value[$index]}}\"</span>\n\t</li>\n</ul>"
 
 /***/ }),
 /* 748 */
 /***/ (function(module, exports) {
 
-module.exports = "<md-button ng-if=\"expression.isVisible()\"\n           ng-click=\"expression.click($event)\"\n           class=\"condition-builder-button\"\n           ng-class=\"expression.classes\">\n\t{{expression.text}}\n</md-button>"
+module.exports = "<div eb-node=\"$expressionBuilderPlugin.node\">\n</div>"
 
 /***/ }),
 /* 749 */
 /***/ (function(module, exports) {
 
-module.exports = "<label class=\"condition-builder-label\"\n       ng-if=\"expression.isVisible()\"\n       eb-class=\"expression.classes\">\n\t{{expression.text}}\n</label>"
+module.exports = "<span>\n\t<md-autocomplete class=\"condition-builder-autocomplete\"\n\t                 eb-class=\"expression.classes\"\n\t                 eb-class-context=\"expression\"\n\t                 md-items=\"item in expression.options()\"\n\t                 md-selected-item=\"expression.selectedItem\"\n\t                 md-search-text=\"expression.value\"\n\t                 md-search-text-change=\"expression.change()\"\n\t                 md-selected-item-change=\"expression.change()\"\n\t                 md-no-cache=\"true\"\n\t                 md-min-length=\"0\"\n\t                 md-menu-class=\"condition-builder-autocomplete-popup\"\n\t                 md-no-asterisk=\"true\"\n\t                 md-select-on-focus\n\t                 ng-attr-placeholder=\"{{expression.placeholderText}}\"\n\t                 q-grid:autosize=\"input\"\n\t                 show-autocomplete-on-focus=\"expression.options\"\n\t                 ng-style=\"{'width' :  $autosize.width(expression.value) + 'px'}\">\n\t\t<md-item-template>\n\t\t\t<span md-highlight-text=\"expression.value.toString()\"\n\t\t\t      md-highlight-flags=\"^i\">{{ item }}</span>\n\t\t</md-item-template>\n\t</md-autocomplete>\n\t<md-tooltip md-direction=\"bottom\"\n\t            ng-if=\"!expression.isValid()\"\n\t            class=\"autocomplete-tooltip\"\n\t            md-delay=\"2000\">\n\t\t<div ng-switch=\"expression.state[0]\">\n\t\t\t<span ng-switch-when=\"required\">Value is required</span>\n\t\t\t<span ng-switch-when=\"number\">'{{ ::expression.value }}' is not a number</span>\n\t\t\t<span ng-switch-when=\"integer\">'{{ ::expression.value }}' is not a integer</span>\n\t\t\t<span ng-switch-when=\"datetime\">'{{ ::expression.value }}' is not a date</span>\n\t\t</div>\n\t</md-tooltip>\n</span>"
 
 /***/ }),
 /* 750 */
 /***/ (function(module, exports) {
 
-module.exports = "<span>\n    <md-chips class=\"condition-builder-multiselect\"\n              eb-class=\"expression.classes\"\n              eb-class-context=\"expression\"\n              ng-model=\"expression.values\"\n              md-require-match=\"false\">\n        <md-autocomplete md-items=\"item in expression.options()\"\n                         md-selected-item=\"expression.selectedItem\"\n                         md-search-text=\"expression.filter\"\n                         md-no-cache=\"true\"\n                         md-min-length=\"0\"\n                         md-item-text=\"item\"\n                         md-menu-class=\"condition-builder-autocomplete-popup\"\n                         placeholder=\"{{expression.placeholderText}}\">\n            <md-item-template>\n                <span md-highlight-text=\"expression.filter\"\n                      md-highlight-flags=\"^i\">{{ item }}</span>\n            </md-item-template>\n        </md-autocomplete>\n    </md-chips>\n    <md-tooltip ng-if=\"!expression.isValid()\"\n                md-direction=\"bottom\"\n                class=\"multiselect-tooltip\"\n                md-delay=\"2000\">\n        <div ng-switch=\"expression.state[0]\">\n            <span ng-switch-when=\"required\">At least 1 value is required</span>\n            <span ng-switch-when=\"number\">All values must be numbers</span>\n            <span ng-switch-when=\"integer\">All values must be integers</span>\n            <span ng-switch-when=\"datetime\">All values must be dates</span>\n        </div>\n    </md-tooltip>\n</span>"
+module.exports = "<md-button ng-if=\"expression.isVisible()\"\n           ng-click=\"expression.click($event)\"\n           class=\"condition-builder-button\"\n           ng-class=\"expression.classes\">\n\t{{expression.text}}\n</md-button>"
 
 /***/ }),
 /* 751 */
 /***/ (function(module, exports) {
 
-module.exports = "<md-button ng-if=\"expression.isVisible()\"\n           ng-click=\"expression.click($event)\"\n           class=\"condition-builder-button md-icon-button\">\n\t<md-icon>\n\t\t{{::expression.icon}}\n\t</md-icon>\n</md-button>"
+module.exports = "<label class=\"condition-builder-label\"\n       ng-if=\"expression.isVisible()\"\n       eb-class=\"expression.classes\">\n\t{{expression.text}}\n</label>"
 
 /***/ }),
 /* 752 */
 /***/ (function(module, exports) {
 
-module.exports = "<input class=\"condition-builder-input\"\n       ng-class=\"expression.classes\"\n       ng-model=\"expression.value\"\n       type=\"text\"\n       placeholder=\"{{expression.placeholderText}}\"\n       ng-change=\"expression.change()\"\n       ng-if=\"expression.isVisible()\">"
+module.exports = "<span>\n    <md-chips class=\"condition-builder-multiselect\"\n              eb-class=\"expression.classes\"\n              eb-class-context=\"expression\"\n              ng-model=\"expression.values\"\n              md-require-match=\"false\">\n        <md-autocomplete md-items=\"item in expression.options()\"\n                         md-selected-item=\"expression.selectedItem\"\n                         md-search-text=\"expression.filter\"\n                         md-no-cache=\"true\"\n                         md-min-length=\"0\"\n                         md-item-text=\"item\"\n                         md-menu-class=\"condition-builder-autocomplete-popup\"\n                         placeholder=\"{{expression.placeholderText}}\">\n            <md-item-template>\n                <span md-highlight-text=\"expression.filter\"\n                      md-highlight-flags=\"^i\">{{ item }}</span>\n            </md-item-template>\n        </md-autocomplete>\n    </md-chips>\n    <md-tooltip ng-if=\"!expression.isValid()\"\n                md-direction=\"bottom\"\n                class=\"multiselect-tooltip\"\n                md-delay=\"2000\">\n        <div ng-switch=\"expression.state[0]\">\n            <span ng-switch-when=\"required\">At least 1 value is required</span>\n            <span ng-switch-when=\"number\">All values must be numbers</span>\n            <span ng-switch-when=\"integer\">All values must be integers</span>\n            <span ng-switch-when=\"datetime\">All values must be dates</span>\n        </div>\n    </md-tooltip>\n</span>"
 
 /***/ }),
 /* 753 */
 /***/ (function(module, exports) {
 
-module.exports = "<md-select class=\"condition-builder-select\"\n           ng-class=\"expression.classes\"\n           ng-model=\"expression.value\"\n           ng-model-options=\"{ trackBy: 'expression.trackBy($value)' }\"\n           md-on-close=\"expression.change($event);\"\n           ng-if=\"expression.isVisible()\"\n           placeholder=\"{{ expression.placeholderText }}\"\n           md-on-open=\"expression.onOpen()\"\n           aria-label=\"Select\"\n           ng-switch=\"!!expression.trackBy\">\n\t<md-option ng-switch-when=\"true\"\n\t           class=\"condition-builder-option\"\n\t           ng-value=\"option\"\n\t           ng-repeat=\"option in (expression.options || expression.getOptions()) track by expression.trackBy(option)\">\n\t\t<md-icon ng-if=\"expression.getIcon\">{{::expression.getIcon(option)}}</md-icon>\n\t\t{{::((expression.getLabel && expression.getLabel(option)) || option)}}\n\t</md-option>\n\t<md-option ng-switch-default\n\t           class=\"condition-builder-option\"\n\t           ng-value=\"option\"\n\t           ng-repeat=\"option in (expression.options || expression.getOptions())\">\n\t\t<md-icon ng-if=\"expression.getIcon\">{{::expression.getIcon(option)}}</md-icon>\n\t\t{{::((expression.getLabel && expression.getLabel(option)) || option)}}\n\t</md-option>\n</md-select>"
+module.exports = "<md-button ng-if=\"expression.isVisible()\"\n           ng-click=\"expression.click($event)\"\n           class=\"condition-builder-button md-icon-button\">\n\t<md-icon>\n\t\t{{::expression.icon}}\n\t</md-icon>\n</md-button>"
 
 /***/ }),
 /* 754 */
 /***/ (function(module, exports) {
 
-module.exports = "<md-input-container ng-if=\"$cell.column.canFilter\"\n                    md-no-float\n                    class=\"md-block\">\n\t<input type=\"text\"\n\t       ng-init=\"search=''\"\n\t       ng-model=\"search\"\n\t       ng-change=\"$view.head.filter.execute($cell.column.model, search)\"\n\t       placeholder=\"Filter {{::$cell.column.title}}\" />\n</md-input-container>"
+module.exports = "<input class=\"condition-builder-input\"\n       ng-class=\"expression.classes\"\n       ng-model=\"expression.value\"\n       type=\"text\"\n       placeholder=\"{{expression.placeholderText}}\"\n       ng-change=\"expression.change()\"\n       ng-if=\"expression.isVisible()\">"
 
 /***/ }),
 /* 755 */
 /***/ (function(module, exports) {
 
-module.exports = "<q-grid:cell-editor class=\"q-grid-text-area q-grid-editor q-grid-position\"\n                    on:close=\"$view.edit.cell.exit.execute($cell)\"\n                    q-grid:position=\"td\">\n\t<md-input-container class=\"q-grid-input-container\">\n\t\t<textarea type=\"text\"\n\t\t          rows=\"8\"\n\t\t          cols=\"45\"\n\t\t          wrap=\"soft\"\n\t\t          q-grid:focus\n\t\t          md-maxlength=\"{{::$cell.column.maxLength}}\"\n\t\t          ng-model=\"$view.edit.cell.value\" />\n\t</md-input-container>\n</q-grid:cell-editor>"
+module.exports = "<md-select class=\"condition-builder-select\"\n           ng-class=\"expression.classes\"\n           ng-model=\"expression.value\"\n           ng-model-options=\"{ trackBy: 'expression.trackBy($value)' }\"\n           md-on-close=\"expression.change($event);\"\n           ng-if=\"expression.isVisible()\"\n           placeholder=\"{{ expression.placeholderText }}\"\n           md-on-open=\"expression.onOpen()\"\n           aria-label=\"Select\"\n           ng-switch=\"!!expression.trackBy\">\n\t<md-option ng-switch-when=\"true\"\n\t           class=\"condition-builder-option\"\n\t           ng-value=\"option\"\n\t           ng-repeat=\"option in (expression.options || expression.getOptions()) track by expression.trackBy(option)\">\n\t\t<md-icon ng-if=\"expression.getIcon\">{{::expression.getIcon(option)}}</md-icon>\n\t\t{{::((expression.getLabel && expression.getLabel(option)) || option)}}\n\t</md-option>\n\t<md-option ng-switch-default\n\t           class=\"condition-builder-option\"\n\t           ng-value=\"option\"\n\t           ng-repeat=\"option in (expression.options || expression.getOptions())\">\n\t\t<md-icon ng-if=\"expression.getIcon\">{{::expression.getIcon(option)}}</md-icon>\n\t\t{{::((expression.getLabel && expression.getLabel(option)) || option)}}\n\t</md-option>\n</md-select>"
 
 /***/ }),
 /* 756 */
 /***/ (function(module, exports) {
 
-module.exports = "{{$cell.label | number: $cell.column.format}}"
+module.exports = "<md-input-container ng-if=\"$cell.column.canFilter\"\n                    md-no-float\n                    class=\"md-block\">\n\t<input type=\"text\"\n\t       ng-init=\"search=''\"\n\t       ng-model=\"search\"\n\t       ng-change=\"$view.head.filter.execute($cell.column.model, search)\"\n\t       placeholder=\"Filter {{::$cell.column.title}}\" />\n</md-input-container>"
 
 /***/ }),
 /* 757 */
 /***/ (function(module, exports) {
 
-module.exports = "<q-grid:cell-editor class=\"q-grid-number q-grid-editor q-grid-position q-grid-text\"\n                    on:close=\"$view.edit.cell.exit.execute($cell)\"\n                    q-grid:position=\"td\">\n\t<md-input-container class=\"q-grid-input-container\">\n\t\t<input type=\"number\"\n\t\t       q-grid:focus\n\t\t       ng-model=\"$view.edit.cell.value\" />\n\t</md-input-container>\n\t<q-grid:validator class=\"q-grid-validator\"\n\t                  key=\"{{::$cell.column.key}}\"\n\t                  type=\"{{::$cell.column.type}}\"\n\t                  value=\"$view.edit.cell.value\">\n\t</q-grid:validator>\n</q-grid:cell-editor>"
+module.exports = "<q-grid:cell-editor class=\"q-grid-text-area q-grid-editor q-grid-position\"\n                    on:close=\"$view.edit.cell.exit.execute($cell)\"\n                    q-grid:position=\"td\">\n\t<md-input-container class=\"q-grid-input-container\">\n\t\t<textarea type=\"text\"\n\t\t          rows=\"8\"\n\t\t          cols=\"45\"\n\t\t          wrap=\"soft\"\n\t\t          q-grid:focus\n\t\t          md-maxlength=\"{{::$cell.column.maxLength}}\"\n\t\t          ng-model=\"$view.edit.cell.value\" />\n\t</md-input-container>\n</q-grid:cell-editor>"
 
 /***/ }),
 /* 758 */
 /***/ (function(module, exports) {
 
-module.exports = "<md-icon class=\"q-grid-icon\" ng-if=\"$cell.value === $cell.column.trueValue\">check</md-icon>\n<md-icon class=\"q-grid-icon\" ng-if=\"$cell.column.isIndeterminate($cell.value)\">remove</md-icon>"
+module.exports = "{{$cell.label | number: $cell.column.format}}"
 
 /***/ }),
 /* 759 */
 /***/ (function(module, exports) {
 
-module.exports = "<div ng-controller=\"Body.Cell.Bool.Edit.Controller as $boolEdit\">\n\t<md-checkbox aria-label=\"Bool cell edit\"\n\t\t\t\t class=\"md-primary q-grid-checkbox\"\n\t\t\t\t q-grid:focus\n\t\t\t\t ng-blur=\"$view.edit.cell.commit.execute($cell)\"\n\t\t\t\t md-indeterminate=\"$boolEdit.isIndeterminate()\"\n\t\t\t\t ng-checked=\"$boolEdit.isChecked()\"\n\t\t\t\t ng-true-value=\"{{::$boolEdit.trueValue()}}\"\n\t\t\t\t ng-false-value=\"{{::$boolEdit.falseValue()}}\"\n\t\t\t\t md-no-ink\n\t\t\t\t ng-model=\"$view.edit.cell.value\">\n\t</md-checkbox>\n</div>"
+module.exports = "<q-grid:cell-editor class=\"q-grid-number q-grid-editor q-grid-position q-grid-text\"\n                    on:close=\"$view.edit.cell.exit.execute($cell)\"\n                    q-grid:position=\"td\">\n\t<md-input-container class=\"q-grid-input-container\">\n\t\t<input type=\"number\"\n\t\t       q-grid:focus\n\t\t       ng-model=\"$view.edit.cell.value\" />\n\t</md-input-container>\n\t<q-grid:validator class=\"q-grid-validator\"\n\t                  key=\"{{::$cell.column.key}}\"\n\t                  type=\"{{::$cell.column.type}}\"\n\t                  value=\"$view.edit.cell.value\">\n\t</q-grid:validator>\n</q-grid:cell-editor>"
 
 /***/ }),
 /* 760 */
 /***/ (function(module, exports) {
 
-module.exports = "{{$cell.label | date: $cell.column.format || 'yyyy/MM/dd'}}"
+module.exports = "<md-icon class=\"q-grid-icon\" ng-if=\"$cell.value === $cell.column.trueValue\">check</md-icon>\n<md-icon class=\"q-grid-icon\" ng-if=\"$cell.column.isIndeterminate($cell.value)\">remove</md-icon>"
 
 /***/ }),
 /* 761 */
 /***/ (function(module, exports) {
 
-module.exports = "<q-grid:cell-editor class=\"q-grid-date q-grid-editor q-grid-position  q-grid-text\"\n\t\t\t\t\ton:close=\"$view.edit.cell.exit.execute($cell)\"\n\t\t\t\t\tq-grid:position=\"td\">\n\t<md-datepicker ng-model=\"$view.edit.cell.value\"\n\t\t\t\t   md-debounce-interval=\"0\"\n\t\t\t\t   q-grid:focus=\"input\">\n\t</md-datepicker>\n</q-grid:cell-editor>"
+module.exports = "<div ng-controller=\"Body.Cell.Bool.Edit.Controller as $boolEdit\">\n\t<md-checkbox aria-label=\"Bool cell edit\"\n\t\t\t\t class=\"md-primary q-grid-checkbox\"\n\t\t\t\t q-grid:focus\n\t\t\t\t ng-blur=\"$view.edit.cell.commit.execute($cell)\"\n\t\t\t\t md-indeterminate=\"$boolEdit.isIndeterminate()\"\n\t\t\t\t ng-checked=\"$boolEdit.isChecked()\"\n\t\t\t\t ng-true-value=\"{{::$boolEdit.trueValue()}}\"\n\t\t\t\t ng-false-value=\"{{::$boolEdit.falseValue()}}\"\n\t\t\t\t md-no-ink\n\t\t\t\t ng-model=\"$view.edit.cell.value\">\n\t</md-checkbox>\n</div>"
 
 /***/ }),
 /* 762 */
 /***/ (function(module, exports) {
 
-module.exports = "{{$cell.value ? '******' : ''}}"
+module.exports = "{{$cell.label | date: $cell.column.format || 'yyyy/MM/dd'}}"
 
 /***/ }),
 /* 763 */
 /***/ (function(module, exports) {
 
-module.exports = "<q-grid:cell-editor class=\"q-grid-password q-grid-editor q-grid-position q-grid-text\"\n                    on:close=\"$view.edit.cell.exit.execute($cell)\"\n                    q-grid:position=\"td\">\n\t<md-input-container class=\"q-grid-input-container\">\n\t\t<input type=\"password\"\n\t\t       q-grid:focus\n\t\t       ng-model=\"$view.edit.cell.value\" />\n\t</md-input-container>\n</q-grid:cell-editor>"
+module.exports = "<q-grid:cell-editor class=\"q-grid-date q-grid-editor q-grid-position  q-grid-text\"\n\t\t\t\t\ton:close=\"$view.edit.cell.exit.execute($cell)\"\n\t\t\t\t\tq-grid:position=\"td\">\n\t<md-datepicker ng-model=\"$view.edit.cell.value\"\n\t\t\t\t   md-debounce-interval=\"0\"\n\t\t\t\t   q-grid:focus=\"input\">\n\t</md-datepicker>\n</q-grid:cell-editor>"
 
 /***/ }),
 /* 764 */
 /***/ (function(module, exports) {
 
-module.exports = "<ul q-grid:animate=\"false\">\n\t<li ng-repeat=\"item in $cell.value track by $index\"\n\t\tng-bind=\"$cell.column.itemLabel(item)\"></li>\n</ul>"
+module.exports = "{{$cell.value ? '******' : ''}}"
 
 /***/ }),
 /* 765 */
 /***/ (function(module, exports) {
 
-module.exports = "<q-grid:cell-editor class=\"q-grid-array q-grid-editor q-grid-position\"\n\t\t\t\t\ton:close=\"$view.edit.cell.exit.execute($cell)\"\n\t\t\t\t\tq-grid:position=\"td\">\n\t<div class=\"q-grid-array-view\"\n\t\t ng-controller=\"Body.Cell.Array.Edit.Controller as $arrayEdit\">\n\t\t<md-chips ng-model=\"$view.edit.cell.value\"\n\t\t\t\t  md-removable=\"'true'\"\n\t\t\t\t  md-enable-chip-edit=\"'true'\"\n\t\t\t\t  q-grid:focus=\"input\">\n\t\t\t<input type=\"text\"\n\t\t\t\t   ng-model=\"$arrayEdit.text\"\n\t\t\t\t   ng-keydown=\"$arrayEdit.keyDown($event)\"\n\t\t\t\t   placeholder=\"Enter {{::$cell.column.title}}...\">\n\t\t</md-chips>\n\t</div>\n\t<q-grid:validator class=\"q-grid-validator\"\n\t\t\t\t\t  key=\"{{::$cell.column.key}}\"\n\t\t\t\t\t  type=\"{{::$cell.column.type}}\"\n\t\t\t\t\t  value=\"$view.edit.cell.value\">\n\t</q-grid:validator>\n</q-grid:cell-editor>"
+module.exports = "<q-grid:cell-editor class=\"q-grid-password q-grid-editor q-grid-position q-grid-text\"\n                    on:close=\"$view.edit.cell.exit.execute($cell)\"\n                    q-grid:position=\"td\">\n\t<md-input-container class=\"q-grid-input-container\">\n\t\t<input type=\"password\"\n\t\t       q-grid:focus\n\t\t       ng-model=\"$view.edit.cell.value\" />\n\t</md-input-container>\n</q-grid:cell-editor>"
 
 /***/ }),
 /* 766 */
 /***/ (function(module, exports) {
 
-module.exports = "<a tabindex=\"-1\"\n   ng-href=\"mailto:{{$cell.value}}\"\n   ng-bind=\"$cell.label || $cell.value\"></a>\n<md-button ng-if=\"$view.edit.cell.canEdit($cell)\"\n\t\t   class=\"md-icon-button q-grid-email-edit q-grid-edit-trigger\"\n\t\t   aria-label=\"email\"\n\t\t   ng-disabled=\"!$view.edit.cell.enter.canExecute($cell)\"\n\t\t   ng-click=\"$view.edit.cell.enter.execute($cell)\"\n\t\t   tabindex=\"-1\">\n\t<md-icon class=\"q-grid-icon\">edit</md-icon>\n\t<md-tooltip>Edit Email</md-tooltip>\n</md-button>"
+module.exports = "<ul q-grid:animate=\"false\">\n\t<li ng-repeat=\"item in $cell.value track by $index\"\n\t\tng-bind=\"$cell.column.itemLabel(item)\"></li>\n</ul>"
 
 /***/ }),
 /* 767 */
 /***/ (function(module, exports) {
 
-module.exports = "<q-grid:cell-editor class=\"q-grid-email q-grid-editor q-grid-position\"\n\t\t\t\t\ton:close=\"$view.edit.cell.exit.execute($cell)\"\n\t\t\t\t\tq-grid:position=\"td\">\n\t<q-grid:tab-trap>\n\t\t<div layout=\"column\"\n\t\t\t class=\"layout-column q-grid-email-fields\"\n\t\t\t flex>\n\t\t\t<md-input-container class=\"q-grid-input-container\"\n\t\t\t\t\t\t\t\tng-if=\"$cell.column.label !== null\">\n\t\t\t\t<label>Label</label>\n\t\t\t\t<input type=\"text\"\n\t\t\t\t\t   ng-model=\"$view.edit.cell.label\" />\n\t\t\t</md-input-container>\n\t\t\t<md-input-container class=\"q-grid-input-container\">\n\t\t\t\t<label>Email</label>\n\t\t\t\t<input type=\"email\"\n\t\t\t\t\t   q-grid:focus\n\t\t\t\t\t   ng-model=\"$view.edit.cell.value\" />\n\t\t\t</md-input-container>\n\t\t</div>\n\t</q-grid:tab-trap>\n\t<q-grid:validator class=\"q-grid-validator\"\n\t\t\t\t\t  key=\"{{::$cell.column.key}}\"\n\t\t\t\t\t  type=\"{{::$cell.column.type}}\"\n\t\t\t\t\t  value=\"$view.edit.cell.value\">\n\t</q-grid:validator>\n</q-grid:cell-editor>"
+module.exports = "<q-grid:cell-editor class=\"q-grid-array q-grid-editor q-grid-position\"\n\t\t\t\t\ton:close=\"$view.edit.cell.exit.execute($cell)\"\n\t\t\t\t\tq-grid:position=\"td\">\n\t<div class=\"q-grid-array-view\"\n\t\t ng-controller=\"Body.Cell.Array.Edit.Controller as $arrayEdit\">\n\t\t<md-chips ng-model=\"$view.edit.cell.value\"\n\t\t\t\t  md-removable=\"'true'\"\n\t\t\t\t  md-enable-chip-edit=\"'true'\"\n\t\t\t\t  q-grid:focus=\"input\">\n\t\t\t<input type=\"text\"\n\t\t\t\t   ng-model=\"$arrayEdit.text\"\n\t\t\t\t   ng-keydown=\"$arrayEdit.keyDown($event)\"\n\t\t\t\t   placeholder=\"Enter {{::$cell.column.title}}...\">\n\t\t</md-chips>\n\t</div>\n\t<q-grid:validator class=\"q-grid-validator\"\n\t\t\t\t\t  key=\"{{::$cell.column.key}}\"\n\t\t\t\t\t  type=\"{{::$cell.column.type}}\"\n\t\t\t\t\t  value=\"$view.edit.cell.value\">\n\t</q-grid:validator>\n</q-grid:cell-editor>"
 
 /***/ }),
 /* 768 */
 /***/ (function(module, exports) {
 
-module.exports = "<div ng-switch=\"$view.selection.mode\">\n\t<div ng-switch-when=\"single\"\n\t     ng-switch=\"!!$view.selection.items.length\">\n\t\t<md-icon class=\"q-grid-icon\"\n\t\t         ng-switch-when=\"true\">check</md-icon>\n\t\t<md-icon class=\"q-grid-icon\"\n\t\t         ng-switch-default>remove</md-icon>\n\t</div>\n\t<div ng-switch-default>\n\t\t<md-checkbox md-indeterminate=\"$view.selection.isIndeterminate()\"\n\t\t             ng-checked=\"$view.selection.state()\"\n\t\t             ng-click=\"$view.selection.toggleRow.execute()\"\n\t\t             tabindex=\"-1\"\n\t\t             q-grid:prevent-default=\"mousedown\"\n\t\t             md-no-ink\n\t\t             aria-label=\"Selection\"\n\t\t             class=\"q-grid-checkbox\">\n\t\t</md-checkbox>\n\t</div>\n</div>"
+module.exports = "<a tabindex=\"-1\"\n   ng-href=\"mailto:{{$cell.value}}\"\n   ng-bind=\"$cell.label || $cell.value\"></a>\n<md-button ng-if=\"$view.edit.cell.canEdit($cell)\"\n\t\t   class=\"md-icon-button q-grid-email-edit q-grid-edit-trigger\"\n\t\t   aria-label=\"email\"\n\t\t   ng-disabled=\"!$view.edit.cell.enter.canExecute($cell)\"\n\t\t   ng-click=\"$view.edit.cell.enter.execute($cell)\"\n\t\t   tabindex=\"-1\">\n\t<md-icon class=\"q-grid-icon\">edit</md-icon>\n\t<md-tooltip>Edit Email</md-tooltip>\n</md-button>"
 
 /***/ }),
 /* 769 */
 /***/ (function(module, exports) {
 
-module.exports = "<md-checkbox md-indeterminate=\"$view.selection.isIndeterminate($row)\"\n             ng-checked=\"$view.selection.state($row)\"\n             q-grid:prevent-default=\"mousedown\"\n             ng-click=\"$view.selection.toggleRow.execute($row)\"\n             tab-index=\"-1\"\n             aria-label=\"Selection\"\n             md-no-ink\n             class=\"q-grid-checkbox\">\n</md-checkbox>"
+module.exports = "<q-grid:cell-editor class=\"q-grid-email q-grid-editor q-grid-position\"\n\t\t\t\t\ton:close=\"$view.edit.cell.exit.execute($cell)\"\n\t\t\t\t\tq-grid:position=\"td\">\n\t<q-grid:tab-trap>\n\t\t<div layout=\"column\"\n\t\t\t class=\"layout-column q-grid-email-fields\"\n\t\t\t flex>\n\t\t\t<md-input-container class=\"q-grid-input-container\"\n\t\t\t\t\t\t\t\tng-if=\"$cell.column.label !== null\">\n\t\t\t\t<label>Label</label>\n\t\t\t\t<input type=\"text\"\n\t\t\t\t\t   ng-model=\"$view.edit.cell.label\" />\n\t\t\t</md-input-container>\n\t\t\t<md-input-container class=\"q-grid-input-container\">\n\t\t\t\t<label>Email</label>\n\t\t\t\t<input type=\"email\"\n\t\t\t\t\t   q-grid:focus\n\t\t\t\t\t   ng-model=\"$view.edit.cell.value\" />\n\t\t\t</md-input-container>\n\t\t</div>\n\t</q-grid:tab-trap>\n\t<q-grid:validator class=\"q-grid-validator\"\n\t\t\t\t\t  key=\"{{::$cell.column.key}}\"\n\t\t\t\t\t  type=\"{{::$cell.column.type}}\"\n\t\t\t\t\t  value=\"$view.edit.cell.value\">\n\t</q-grid:validator>\n</q-grid:cell-editor>"
 
 /***/ }),
 /* 770 */
 /***/ (function(module, exports) {
 
-module.exports = "<div ng-style=\"{'padding-left': $view.group.offset($cell.row) + 'px'}\">\n\t<md-button ng-mouseup=\"$view.group.toggleStatus.execute($cell.row)\"\n\t           ng-if=\"$view.group.toggleStatus.canExecute($cell.row)\"\n\t           ng-switch=\"$view.group.status($cell.row)\"\n\t           tabindex=\"-1\"\n\t           class=\"md-icon-button\">\n\t\t<span>\n\t\t\t<md-icon class=\"q-grid-icon\"\n\t\t\t         ng-switch-when=\"expand\">\n\t\t\t\tarrow_drop_down\n\t\t\t</md-icon>\n\t\t\t<md-icon class=\"q-grid-icon q-grid-arrow-right\"\n\t\t\t         ng-switch-when=\"collapse\">\n\t\t\t\tarrow_drop_up\n\t\t\t</md-icon>\n\t\t</span>\n\t</md-button>\n\t<span class=\"q-grid-group-label\">{{$view.group.value($cell.row)}}</span>\n\t<span class=\"q-grid-group-count\"\n\t      ng-if=\"$view.group.toggleStatus.canExecute($cell.row)\">\n\t\t({{$view.group.count($cell.row)}})\n\t</span>\n</div>"
+module.exports = "<div ng-switch=\"$view.selection.mode\">\n\t<div ng-switch-when=\"single\"\n\t     ng-switch=\"!!$view.selection.items.length\">\n\t\t<md-icon class=\"q-grid-icon\"\n\t\t         ng-switch-when=\"true\">check</md-icon>\n\t\t<md-icon class=\"q-grid-icon\"\n\t\t         ng-switch-default>remove</md-icon>\n\t</div>\n\t<div ng-switch-default>\n\t\t<md-checkbox md-indeterminate=\"$view.selection.isIndeterminate()\"\n\t\t             ng-checked=\"$view.selection.state()\"\n\t\t             ng-click=\"$view.selection.toggleRow.execute()\"\n\t\t             tabindex=\"-1\"\n\t\t             q-grid:prevent-default=\"mousedown\"\n\t\t             md-no-ink\n\t\t             aria-label=\"Selection\"\n\t\t             class=\"q-grid-checkbox\">\n\t\t</md-checkbox>\n\t</div>\n</div>"
 
 /***/ }),
 /* 771 */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n\t<md-tooltip md-delay=\"1000\">\n\t\t{{$cell.column.title}}\n\t</md-tooltip>\n\t{{$cell.column.title}}\n</div>"
+module.exports = "<md-checkbox md-indeterminate=\"$view.selection.isIndeterminate($row)\"\n             ng-checked=\"$view.selection.state($row)\"\n             q-grid:prevent-default=\"mousedown\"\n             ng-click=\"$view.selection.toggleRow.execute($row)\"\n             tab-index=\"-1\"\n             aria-label=\"Selection\"\n             md-no-ink\n             class=\"q-grid-checkbox\">\n</md-checkbox>"
 
 /***/ }),
 /* 772 */
 /***/ (function(module, exports) {
 
-module.exports = "{{$view.pivot.value($cell.rowIndex, $cell.columnIndex)}}"
+module.exports = "<div ng-style=\"{'padding-left': $view.group.offset($cell.row) + 'px'}\">\n\t<md-button ng-mouseup=\"$view.group.toggleStatus.execute($cell.row)\"\n\t           ng-if=\"$view.group.toggleStatus.canExecute($cell.row)\"\n\t           ng-switch=\"$view.group.status($cell.row)\"\n\t           tabindex=\"-1\"\n\t           class=\"md-icon-button\">\n\t\t<span>\n\t\t\t<md-icon class=\"q-grid-icon\"\n\t\t\t         ng-switch-when=\"expand\">\n\t\t\t\tarrow_drop_down\n\t\t\t</md-icon>\n\t\t\t<md-icon class=\"q-grid-icon q-grid-arrow-right\"\n\t\t\t         ng-switch-when=\"collapse\">\n\t\t\t\tarrow_drop_up\n\t\t\t</md-icon>\n\t\t</span>\n\t</md-button>\n\t<span class=\"q-grid-group-label\">{{$view.group.value($cell.row)}}</span>\n\t<span class=\"q-grid-group-count\"\n\t      ng-if=\"$view.group.toggleStatus.canExecute($cell.row)\">\n\t\t({{$view.group.count($cell.row)}})\n\t</span>\n</div>"
 
 /***/ }),
 /* 773 */
 /***/ (function(module, exports) {
 
-module.exports = "{{$cell.rowIndex + 1}}"
+module.exports = "<div>\n\t<md-tooltip md-delay=\"1000\">\n\t\t{{$cell.column.title}}\n\t</md-tooltip>\n\t{{$cell.column.title}}\n</div>"
 
 /***/ }),
 /* 774 */
 /***/ (function(module, exports) {
 
-module.exports = "<div ng-if=\"::$view.row.canDrag\"\n     q-grid:drag=\"$view.row.transfer($cell.rowIndex)\"\n     q-grid:drop=\"$view.row.transfer($cell.rowIndex)\"\n     q-grid:on-drop=\"$view.row.drop.execute($event)\"\n     q-grid:can-drop=\"$view.row.drop.canExecute\"\n     q-grid:can-drag=\"$view.row.drag.canExecute\"\n     class=\"q-grid-draggable\">\n    <md-icon class=\"q-grid-icon\">reorder</md-icon>\n</div>\n<div ng-if=\"::$view.row.canResize\"\n     q-grid:drag=\"$view.row.transfer($cell.row)\"\n     q-grid:resize=\"$cell.row\"\n     q-grid:resize-path=\"rows\"\n     q-grid:can-resize=\"$view.row.resize.canExecute\"\n     class=\"q-grid-resizable\">\n</div>"
+module.exports = "{{$view.pivot.value($cell.rowIndex, $cell.columnIndex)}}"
 
 /***/ }),
 /* 775 */
 /***/ (function(module, exports) {
 
-module.exports = "<md-icon class=\"q-grid-icon\">more_vert</md-icon>"
+module.exports = "{{$cell.rowIndex + 1}}"
 
 /***/ }),
 /* 776 */
 /***/ (function(module, exports) {
 
-module.exports = "<md-menu ng-controller=\"Body.Cell.Row.Options.Controller as $ctrl\">\n\t<md-button aria-label=\"Open row menu\"\n\t           class=\"md-icon-button\"\n\t           q-grid:raise=\"click\"\n\t           ng-click=\"$ctrl.openMenu($mdMenu, $event)\">\n\t\t<md-icon class=\"q-grid-icon\">more_vert</md-icon>\n\t</md-button>\n\t<md-menu-content width=\"4\">\n\t\t<md-menu-item ng-repeat=\"$action in $cell.column.editorOptions.actions\">\n\t\t\t<md-button ng-click=\"$action.command.execute($cell)\"\n\t\t\t           ng-disabled=\"!$action.command.canExecute($cell)\">\n\t\t\t\t<md-icon class=\"q-grid-icon\"\n\t\t\t\t         ng-bind=\"$action.icon\">\n\t\t\t\t</md-icon>\n\t\t\t\t{{$action.title}}\n\t\t\t</md-button>\n\t\t</md-menu-item>\n\t</md-menu-content>\n</md-menu>"
+module.exports = "<div ng-if=\"::$view.row.canDrag\"\n     q-grid:drag=\"$view.row.transfer($cell.rowIndex)\"\n     q-grid:drop=\"$view.row.transfer($cell.rowIndex)\"\n     q-grid:on-drop=\"$view.row.drop.execute($event)\"\n     q-grid:can-drop=\"$view.row.drop.canExecute\"\n     q-grid:can-drag=\"$view.row.drag.canExecute\"\n     class=\"q-grid-draggable\">\n    <md-icon class=\"q-grid-icon\">reorder</md-icon>\n</div>\n<div ng-if=\"::$view.row.canResize\"\n     q-grid:drag=\"$view.row.transfer($cell.row)\"\n     q-grid:resize=\"$cell.row\"\n     q-grid:resize-path=\"rows\"\n     q-grid:can-resize=\"$view.row.resize.canExecute\"\n     class=\"q-grid-resizable\">\n</div>"
 
 /***/ }),
 /* 777 */
 /***/ (function(module, exports) {
 
-module.exports = "<md-button ng-mouseup=\"$view.rowDetails.toggleStatus.execute($cell.row)\"\n           ng-if=\"$view.rowDetails.toggleStatus.canExecute($cell.row)\"\n           tabindex=\"-1\"\n\t\t   class=\"md-icon-button\"\n\t\t   aria-label=\"Expand\"\n           ng-switch=\"$view.rowDetails.status($cell.row)\">\n\t<span>\n\t\t<md-icon class=\"q-grid-icon\"\n\t\t         ng-switch-when=\"expand\">\n\t\t\tarrow_drop_down\n\t\t</md-icon>\n\t\t<md-icon class=\"q-grid-icon q-grid-arrow-right\"\n\t\t         ng-switch-when=\"collapse\">\n\t\t\tarrow_drop_up\n\t\t</md-icon>\n\t</span>\n</md-button>"
+module.exports = "<md-icon class=\"q-grid-icon\">more_vert</md-icon>"
 
 /***/ }),
 /* 778 */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n\t<ul>\n\t\t<li ng-repeat=\"column in $view.body.columns($cell.row.item, null) track by column.model.key\"\n\t\t    ng-if=\"column.model.class === 'data'\">\n\t\t\t{{column.model.title}}: {{$view.body.value($cell.row.item, column.model)}}\n\t\t</li>\n\t</ul>\n</div>"
+module.exports = "<md-menu ng-controller=\"Body.Cell.Row.Options.Controller as $ctrl\">\n\t<md-button aria-label=\"Open row menu\"\n\t           class=\"md-icon-button\"\n\t           q-grid:raise=\"click\"\n\t           ng-click=\"$ctrl.openMenu($mdMenu, $event)\">\n\t\t<md-icon class=\"q-grid-icon\">more_vert</md-icon>\n\t</md-button>\n\t<md-menu-content width=\"4\">\n\t\t<md-menu-item ng-repeat=\"$action in $cell.column.editorOptions.actions\">\n\t\t\t<md-button ng-click=\"$action.command.execute($cell)\"\n\t\t\t           ng-disabled=\"!$action.command.canExecute($cell)\">\n\t\t\t\t<md-icon class=\"q-grid-icon\"\n\t\t\t\t         ng-bind=\"$action.icon\">\n\t\t\t\t</md-icon>\n\t\t\t\t{{$action.title}}\n\t\t\t</md-button>\n\t\t</md-menu-item>\n\t</md-menu-content>\n</md-menu>"
 
 /***/ }),
 /* 779 */
 /***/ (function(module, exports) {
 
-module.exports = "{{$cell.label | date: $cell.column.format || 'h:mm a'}}"
+module.exports = "<md-button ng-mouseup=\"$view.rowDetails.toggleStatus.execute($cell.row)\"\n           ng-if=\"$view.rowDetails.toggleStatus.canExecute($cell.row)\"\n           tabindex=\"-1\"\n\t\t   class=\"md-icon-button\"\n\t\t   aria-label=\"Expand\"\n           ng-switch=\"$view.rowDetails.status($cell.row)\">\n\t<span>\n\t\t<md-icon class=\"q-grid-icon\"\n\t\t         ng-switch-when=\"expand\">\n\t\t\tarrow_drop_down\n\t\t</md-icon>\n\t\t<md-icon class=\"q-grid-icon q-grid-arrow-right\"\n\t\t         ng-switch-when=\"collapse\">\n\t\t\tarrow_drop_up\n\t\t</md-icon>\n\t</span>\n</md-button>"
 
 /***/ }),
 /* 780 */
 /***/ (function(module, exports) {
 
-module.exports = "<q-grid:cell-editor class=\"q-grid-time q-grid-editor q-grid-position q-grid-text\"\n                    on:close=\"$view.edit.cell.exit.execute($cell)\"\n                    q-grid:position=\"td\">\n\t<md-input-container class=\"q-grid-input-container\">\n\t\t<input type=\"time\"\n\t\t       q-grid:focus\n\t\t       ng-model=\"$view.edit.cell.value\" />\n\t</md-input-container>\n</q-grid:cell-editor>"
+module.exports = "<div>\n\t<ul>\n\t\t<li ng-repeat=\"column in $view.body.columns($cell.row.item, null) track by column.model.key\"\n\t\t    ng-if=\"column.model.class === 'data'\">\n\t\t\t{{column.model.title}}: {{$view.body.value($cell.row.item, column.model)}}\n\t\t</li>\n\t</ul>\n</div>"
 
 /***/ }),
 /* 781 */
 /***/ (function(module, exports) {
 
-module.exports = "<a tabindex=\"-1\"\n   ng-href=\"{{$cell.value}}\"\n   ng-bind=\"$cell.label || $cell.value\"></a>\n<md-button ng-if=\"$view.edit.cell.canEdit($cell)\"\n           class=\"md-icon-button q-grid-url-edit q-grid-edit-trigger\"\n           aria-label=\"url\"\n           ng-disabled=\"!$view.edit.cell.enter.canExecute($cell)\"\n           ng-click=\"$view.edit.cell.enter.execute($cell)\"\n           tabindex=\"-1\">\n\t<md-icon class=\"q-grid-icon\">edit</md-icon>\n\t<md-tooltip>Edit Url</md-tooltip>\n</md-button>"
+module.exports = "{{$cell.label | date: $cell.column.format || 'h:mm a'}}"
 
 /***/ }),
 /* 782 */
 /***/ (function(module, exports) {
 
-module.exports = "<q-grid:cell-editor class=\"q-grid-url q-grid-editor q-grid-position\"\n                    on:close=\"$view.edit.cell.exit.execute($cell)\"\n                    q-grid:position=\"td\">\n\t<q-grid:tab-trap>\n\t\t<div layout=\"column\"\n\t\t     class=\"q-grid-url-fields\"\n\t\t     flex>\n\t\t\t<md-input-container class=\"q-grid-input-container\"\n\t\t\t                    ng-if=\"$cell.column.label !== null\">\n\t\t\t\t<label>Label</label>\n\t\t\t\t<input type=\"text\"\n\t\t\t\t       q-grid:focus\n\t\t\t\t       ng-model=\"$view.edit.cell.label\" />\n\t\t\t</md-input-container>\n\t\t\t<md-input-container class=\"q-grid-input-container\">\n\t\t\t\t<label>Url</label>\n\t\t\t\t<input type=\"url\"\n\t\t\t\t       ng-model=\"$view.edit.cell.value\" />\n\t\t\t</md-input-container>\n\t\t</div>\n\t</q-grid:tab-trap>\n</q-grid:cell-editor>"
+module.exports = "<q-grid:cell-editor class=\"q-grid-time q-grid-editor q-grid-position q-grid-text\"\n                    on:close=\"$view.edit.cell.exit.execute($cell)\"\n                    q-grid:position=\"td\">\n\t<md-input-container class=\"q-grid-input-container\">\n\t\t<input type=\"time\"\n\t\t       q-grid:focus\n\t\t       ng-model=\"$view.edit.cell.value\" />\n\t</md-input-container>\n</q-grid:cell-editor>"
 
 /***/ }),
 /* 783 */
 /***/ (function(module, exports) {
 
-module.exports = "<a tabindex=\"-1\"\n   ng-href=\"{{$cell.value}}\"\n   ng-bind=\"$cell.label || $cell.value\"></a>\n<md-button ng-if=\"$view.edit.cell.canEdit($cell)\"\n           class=\"md-icon-button q-grid-file-edit q-grid-edit-trigger\"\n           aria-label=\"file-edit\"\n           ng-disabled=\"!$view.edit.cell.enter.canExecute($cell)\"\n           ng-click=\"$view.edit.cell.enter.execute($cell)\"\n           tabindex=\"-1\">\n\t<md-icon class=\"q-grid-icon\">file_upload</md-icon>\n\t<md-tooltip>Upload</md-tooltip>\n</md-button>"
+module.exports = "<a tabindex=\"-1\"\n   ng-href=\"{{$cell.value}}\"\n   ng-bind=\"$cell.label || $cell.value\"></a>\n<md-button ng-if=\"$view.edit.cell.canEdit($cell)\"\n           class=\"md-icon-button q-grid-url-edit q-grid-edit-trigger\"\n           aria-label=\"url\"\n           ng-disabled=\"!$view.edit.cell.enter.canExecute($cell)\"\n           ng-click=\"$view.edit.cell.enter.execute($cell)\"\n           tabindex=\"-1\">\n\t<md-icon class=\"q-grid-icon\">edit</md-icon>\n\t<md-tooltip>Edit Url</md-tooltip>\n</md-button>"
 
 /***/ }),
 /* 784 */
 /***/ (function(module, exports) {
 
-module.exports = "<img ng-if=\"$cell.value\" ng-src=\"{{$cell.value}}\"/>\n<md-icon class=\"q-grid-icon\" ng-if=\"!$cell.value\">account_circle</md-icon>"
+module.exports = "<q-grid:cell-editor class=\"q-grid-url q-grid-editor q-grid-position\"\n                    on:close=\"$view.edit.cell.exit.execute($cell)\"\n                    q-grid:position=\"td\">\n\t<q-grid:tab-trap>\n\t\t<div layout=\"column\"\n\t\t     class=\"q-grid-url-fields\"\n\t\t     flex>\n\t\t\t<md-input-container class=\"q-grid-input-container\"\n\t\t\t                    ng-if=\"$cell.column.label !== null\">\n\t\t\t\t<label>Label</label>\n\t\t\t\t<input type=\"text\"\n\t\t\t\t       q-grid:focus\n\t\t\t\t       ng-model=\"$view.edit.cell.label\" />\n\t\t\t</md-input-container>\n\t\t\t<md-input-container class=\"q-grid-input-container\">\n\t\t\t\t<label>Url</label>\n\t\t\t\t<input type=\"url\"\n\t\t\t\t       ng-model=\"$view.edit.cell.value\" />\n\t\t\t</md-input-container>\n\t\t</div>\n\t</q-grid:tab-trap>\n</q-grid:cell-editor>"
 
 /***/ }),
 /* 785 */
 /***/ (function(module, exports) {
 
-module.exports = "<span ng-bind=\"$cell.label\"></span>\n<md-button ng-if=\"$view.edit.cell.canEdit($cell)\"\n           class=\"md-icon-button q-grid-reference-edit q-grid-edit-trigger\"\n           aria-label=\"reference-edit\"\n           ng-disabled=\"!$view.edit.cell.enter.canExecute($cell)\"\n           ng-click=\"$view.edit.cell.enter.execute($cell)\"\n           tabindex=\"-1\">\n\t<md-icon class=\"q-grid-icon\">search</md-icon>\n\t<md-tooltip>Edit reference</md-tooltip>\n</md-button>"
+module.exports = "<a tabindex=\"-1\"\n   ng-href=\"{{$cell.value}}\"\n   ng-bind=\"$cell.label || $cell.value\"></a>\n<md-button ng-if=\"$view.edit.cell.canEdit($cell)\"\n           class=\"md-icon-button q-grid-file-edit q-grid-edit-trigger\"\n           aria-label=\"file-edit\"\n           ng-disabled=\"!$view.edit.cell.enter.canExecute($cell)\"\n           ng-click=\"$view.edit.cell.enter.execute($cell)\"\n           tabindex=\"-1\">\n\t<md-icon class=\"q-grid-icon\">file_upload</md-icon>\n\t<md-tooltip>Upload</md-tooltip>\n</md-button>"
 
 /***/ }),
 /* 786 */
 /***/ (function(module, exports) {
 
-module.exports = "<q-grid:cell-editor class=\"q-grid-reference q-grid-editor q-grid-position\"\n                    on:close=\"$view.edit.cell.cancel.execute($cell, $event)\"\n                    q-grid:position=\"td\">\n\t<div ng-cloak\n\t     class=\"layout-column q-grid-reference-content\"\n\t     ng-controller=\"Body.Cell.Reference.Edit.Controller as $referenceEdit\">\n\t\t<div class=\"flex\">\n\t\t\t<q-grid class=\"q-grid-embed\"\n\t\t\t        header=\"{{::$cell.column.title}}\"\n\t\t\t        model=\"$referenceEdit.gridModel\"\n\t\t\t        q-grid:autofocus>\n\t\t\t\t<q-grid:columns>\n\t\t\t\t\t<q-grid:column type=\"select\"\n\t\t\t\t\t               pin=\"left\">\n\t\t\t\t\t</q-grid:column>\n\t\t\t\t</q-grid:columns>\n\t\t\t\t<q-grid:toolbar>\n\t\t\t\t\t<q-grid:template for=\"top\">\n\t\t\t\t\t\t<q-grid:title></q-grid:title>\n\t\t\t\t\t\t<div class=\"q-grid-progress\">\n\t\t\t\t\t\t\t<q-grid:progress></q-grid:progress>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</q-grid:template>\n\t\t\t\t</q-grid:toolbar>\n\t\t\t</q-grid>\n\t\t</div>\n\t\t<div class=\"flex-none q-grid-editor-actions\">\n\t\t\t<md-button ng-click=\"$referenceEdit.cancel.execute($cell, $event)\">Cancel</md-button>\n\t\t\t<md-button class=\"md-primary\"\n\t\t\t           ng-click=\"$referenceEdit.commit.execute($cell, $event)\">Save</md-button>\n\t\t</div>\n\t</div>\n</q-grid:cell-editor>"
+module.exports = "<img ng-if=\"$cell.value\" ng-src=\"{{$cell.value}}\"/>\n<md-icon class=\"q-grid-icon\" ng-if=\"!$cell.value\">account_circle</md-icon>"
 
 /***/ }),
 /* 787 */
 /***/ (function(module, exports) {
 
-module.exports = "<span ng-bind=\"$cell.label | currency : $cell.column.symbol : 2\"></span>"
+module.exports = "<span ng-bind=\"$cell.label\"></span>\n<md-button ng-if=\"$view.edit.cell.canEdit($cell)\"\n           class=\"md-icon-button q-grid-reference-edit q-grid-edit-trigger\"\n           aria-label=\"reference-edit\"\n           ng-disabled=\"!$view.edit.cell.enter.canExecute($cell)\"\n           ng-click=\"$view.edit.cell.enter.execute($cell)\"\n           tabindex=\"-1\">\n\t<md-icon class=\"q-grid-icon\">search</md-icon>\n\t<md-tooltip>Edit reference</md-tooltip>\n</md-button>"
 
 /***/ }),
 /* 788 */
 /***/ (function(module, exports) {
 
-module.exports = "<span ng-if=\"$cell.column.aggregation\">{{$cell.column.title}}: </span>\n<span ng-bind=\"$cell.value | currency : $cell.column.symbol : 2\"></span>"
+module.exports = "<q-grid:cell-editor class=\"q-grid-reference q-grid-editor q-grid-position\"\n                    on:close=\"$view.edit.cell.cancel.execute($cell, $event)\"\n                    q-grid:position=\"td\">\n\t<div ng-cloak\n\t     class=\"layout-column q-grid-reference-content\"\n\t     ng-controller=\"Body.Cell.Reference.Edit.Controller as $referenceEdit\">\n\t\t<div class=\"flex\">\n\t\t\t<q-grid class=\"q-grid-embed\"\n\t\t\t        header=\"{{::$cell.column.title}}\"\n\t\t\t        model=\"$referenceEdit.gridModel\"\n\t\t\t        q-grid:autofocus>\n\t\t\t\t<q-grid:columns>\n\t\t\t\t\t<q-grid:column type=\"select\"\n\t\t\t\t\t               pin=\"left\">\n\t\t\t\t\t</q-grid:column>\n\t\t\t\t</q-grid:columns>\n\t\t\t\t<q-grid:toolbar>\n\t\t\t\t\t<q-grid:template for=\"top\">\n\t\t\t\t\t\t<q-grid:title></q-grid:title>\n\t\t\t\t\t\t<div class=\"q-grid-progress\">\n\t\t\t\t\t\t\t<q-grid:progress></q-grid:progress>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</q-grid:template>\n\t\t\t\t</q-grid:toolbar>\n\t\t\t</q-grid>\n\t\t</div>\n\t\t<div class=\"flex-none q-grid-editor-actions\">\n\t\t\t<md-button ng-click=\"$referenceEdit.cancel.execute($cell, $event)\">Cancel</md-button>\n\t\t\t<md-button class=\"md-primary\"\n\t\t\t           ng-click=\"$referenceEdit.commit.execute($cell, $event)\">Save</md-button>\n\t\t</div>\n\t</div>\n</q-grid:cell-editor>"
 
 /***/ }),
 /* 789 */
 /***/ (function(module, exports) {
 
-module.exports = "<q-grid:cell-editor class=\"q-grid-currency q-grid-editor q-grid-position q-grid-text\"\n\t\t\t\t\ton:close=\"$view.edit.cell.exit.execute($cell)\"\n\t\t\t\t\tq-grid:position=\"td\">\n\t<md-input-container class=\"q-grid-input-container\">\n\t\t<input type=\"number\"\n\t\t\t   q-grid:focus\n\t\t\t   ng-model=\"$view.edit.cell.value\" />\n\t</md-input-container>\n\t<q-grid:validator class=\"q-grid-validator\"\n\t\t\t\t\t  key=\"{{::$cell.column.key}}\"\n\t\t\t\t\t  type=\"{{::$cell.column.type}}\"\n\t\t\t\t\t  value=\"$view.edit.cell.value\">\n\t</q-grid:validator>\n</q-grid:cell-editor>"
+module.exports = "<span ng-bind=\"$cell.label | currency : $cell.column.symbol : 2\"></span>"
 
 /***/ }),
 /* 790 */
 /***/ (function(module, exports) {
 
-module.exports = "<q-grid:cell-editor class=\"q-grid-autocomplete q-grid-editor q-grid-position q-grid-text\"\n\t\t\t\t\ton:close=\"$view.edit.cell.exit.execute($cell)\"\n\t\t\t\t\tq-grid:position=\"td\">\n\t<md-autocomplete md-autofocus\n\t\t\t\t\t placeholder=\"Pick a {{::$cell.column.title}}\"\n\t\t\t\t\t q-grid:raise=\"focus\"\n\t\t\t\t\t md-selected-item=\"$view.edit.cell.value\"\n\t\t\t\t\t ng-model=\"$view.edit.cell.value\"\n\t\t\t\t\t md-search-text=\"searchText\"\n\t\t\t\t\t md-search-text-change=\"$view.edit.cell.fetch.run($cell.row, searchText)\"\n\t\t\t\t\t md-items=\"item in $view.edit.cell.fetch.busy\"\n\t\t\t\t\t md-item-text=\"item\"\n\t\t\t\t\t md-menu-class=\"q-grid-autocomplete-menu\"\n\t\t\t\t\t md-escape-options=\"none\"\n\t\t\t\t\t md-clear-button=\"false\">\n\t\t<md-item-template>\n\t\t\t<span md-highlight-text=\"searchText\">{{item}}</span>\n\t\t</md-item-template>\n\t</md-autocomplete>\n</q-grid:cell-editor>"
+module.exports = "<span ng-if=\"$cell.column.aggregation\">{{$cell.column.title}}: </span>\n<span ng-bind=\"$cell.value | currency : $cell.column.symbol : 2\"></span>"
 
 /***/ }),
 /* 791 */
 /***/ (function(module, exports) {
 
-module.exports = "<md-select q-grid:raise=\"click\"\n\t\t   ng-model=\"$view.edit.cell.value\"\n\t\t   placeholder=\"Select a value\"\n\t\t   md-on-open=\"$view.edit.cell.fetch.busy\"\n\t\t   md-on-close=\"$view.edit.cell.commit.execute($cell)\">\n\t<md-option ng-value=\"option\"\n\t\t\t   q-grid:raise=\"focus\"\n\t\t\t   ng-repeat=\"option in $view.edit.cell.fetch.result\">{{::$view.edit.cell.editor.getLabel(option)}}\n\t</md-option>\n</md-select>"
+module.exports = "<q-grid:cell-editor class=\"q-grid-currency q-grid-editor q-grid-position q-grid-text\"\n\t\t\t\t\ton:close=\"$view.edit.cell.exit.execute($cell)\"\n\t\t\t\t\tq-grid:position=\"td\">\n\t<md-input-container class=\"q-grid-input-container\">\n\t\t<input type=\"number\"\n\t\t\t   q-grid:focus\n\t\t\t   ng-model=\"$view.edit.cell.value\" />\n\t</md-input-container>\n\t<q-grid:validator class=\"q-grid-validator\"\n\t\t\t\t\t  key=\"{{::$cell.column.key}}\"\n\t\t\t\t\t  type=\"{{::$cell.column.type}}\"\n\t\t\t\t\t  value=\"$view.edit.cell.value\">\n\t</q-grid:validator>\n</q-grid:cell-editor>"
 
 /***/ }),
 /* 792 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"q-grid-date\">\n\t<md-input-container>\n\t\t<label ng-bind=\"$editor.title\"></label>\n\t\t<md-datepicker ng-model=\"$editor.value\"\n\t\t               md-placeholder=\"Enter date\"\n\t\t               md-hide-icons=\"calendar\">\n\t\t</md-datepicker>\n\t</md-input-container>\n</div>"
+module.exports = "<q-grid:cell-editor class=\"q-grid-autocomplete q-grid-editor q-grid-position q-grid-text\"\n\t\t\t\t\ton:close=\"$view.edit.cell.exit.execute($cell)\"\n\t\t\t\t\tq-grid:position=\"td\">\n\t<md-autocomplete md-autofocus\n\t\t\t\t\t placeholder=\"Pick a {{::$cell.column.title}}\"\n\t\t\t\t\t q-grid:raise=\"focus\"\n\t\t\t\t\t md-selected-item=\"$view.edit.cell.value\"\n\t\t\t\t\t ng-model=\"$view.edit.cell.value\"\n\t\t\t\t\t md-search-text=\"searchText\"\n\t\t\t\t\t md-search-text-change=\"$view.edit.cell.fetch.run($cell.row, searchText)\"\n\t\t\t\t\t md-items=\"item in $view.edit.cell.fetch.busy\"\n\t\t\t\t\t md-item-text=\"item\"\n\t\t\t\t\t md-menu-class=\"q-grid-autocomplete-menu\"\n\t\t\t\t\t md-escape-options=\"none\"\n\t\t\t\t\t md-clear-button=\"false\">\n\t\t<md-item-template>\n\t\t\t<span md-highlight-text=\"searchText\">{{item}}</span>\n\t\t</md-item-template>\n\t</md-autocomplete>\n</q-grid:cell-editor>"
 
 /***/ }),
 /* 793 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"q-grid-edit-form-bool\"\n     ng-controller=\"Body.Cell.Bool.Edit.Controller as $boolEdit\">\n\t<md-checkbox aria-label=\"Bool cell edit\"\n\t             class=\"md-primary\"\n\t             md-indeterminate=\"$boolEdit.isIndeterminate()\"\n\t             ng-checked=\"$boolEdit.isChecked()\"\n\t             ng-true-value=\"{{::$boolEdit.trueValue()}}\"\n\t             ng-false-value=\"{{::$boolEdit.falseValue()}}\"\n\t             md-no-ink\n\t             ng-model=\"$editor.value\">\n\t\t{{$editor.title}}\n\t</md-checkbox>\n</div>"
+module.exports = "<md-select q-grid:raise=\"click\"\n\t\t   ng-model=\"$view.edit.cell.value\"\n\t\t   placeholder=\"Select a value\"\n\t\t   md-on-open=\"$view.edit.cell.fetch.busy\"\n\t\t   md-on-close=\"$view.edit.cell.commit.execute($cell)\">\n\t<md-option ng-value=\"option\"\n\t\t\t   q-grid:raise=\"focus\"\n\t\t\t   ng-repeat=\"option in $view.edit.cell.fetch.result\">{{::$view.edit.cell.editor.getLabel(option)}}\n\t</md-option>\n</md-select>"
 
 /***/ }),
 /* 794 */
 /***/ (function(module, exports) {
 
-module.exports = "<h4 class=\"md-title\"\n    style=\"margin: 0\"\n    ng-bind=\"$editor.title\">\n</h4>\n<div ng-cloak\n     layout=\"column\"\n     class=\"q-grid-embed\"\n     ng-controller=\"Body.Cell.Reference.Edit.Controller as $ctrl\">\n\t<q-grid class=\"q-grid-edit-form-reference\"\n\t        model=\"$ctrl.gridModel\">\n\t\t<q-grid:columns>\n\t\t</q-grid:columns>\n\t\t<q-grid:toolbar>\n\t\t\t<q-grid:template for=\"top\">\n\t\t\t\t<div class=\"q-grid-progress\">\n\t\t\t\t\t<q-grid:progress></q-grid:progress>\n\t\t\t\t</div>\n\t\t\t</q-grid:template>\n\t\t</q-grid:toolbar>\n\t</q-grid>\n</div>"
+module.exports = "<div class=\"q-grid-date\">\n\t<md-input-container>\n\t\t<label ng-bind=\"$editor.title\"></label>\n\t\t<md-datepicker ng-model=\"$editor.value\"\n\t\t               md-placeholder=\"Enter date\"\n\t\t               md-hide-icons=\"calendar\">\n\t\t</md-datepicker>\n\t</md-input-container>\n</div>"
 
 /***/ }),
 /* 795 */
 /***/ (function(module, exports) {
 
-module.exports = "<div ng-cloak\n     class=\"q-grid-url\">\n\t<h4 class=\"md-title\"\n\t    style=\"margin: 0 0 15px 0;\"\n\t    ng-bind=\"$editor.title\"></h4>\n\t<div layout=\"column\"\n\t     class=\"q-grid-url-fields\"\n\t     flex>\n\t\t<md-input-container ng-if=\"$editor.label !== null\">\n\t\t\t<label>Label</label>\n\t\t\t<input type=\"text\"\n\t\t\t       ng-model=\"$editor.label\" />\n\t\t</md-input-container>\n\t\t<md-input-container>\n\t\t\t<label>Url</label>\n\t\t\t<input type=\"url\"\n\t\t\t       ng-model=\"$editor.value\" />\n\t\t</md-input-container>\n\t</div>\n</div>"
+module.exports = "<div class=\"q-grid-edit-form-bool\"\n     ng-controller=\"Body.Cell.Bool.Edit.Controller as $boolEdit\">\n\t<md-checkbox aria-label=\"Bool cell edit\"\n\t             class=\"md-primary\"\n\t             md-indeterminate=\"$boolEdit.isIndeterminate()\"\n\t             ng-checked=\"$boolEdit.isChecked()\"\n\t             ng-true-value=\"{{::$boolEdit.trueValue()}}\"\n\t             ng-false-value=\"{{::$boolEdit.falseValue()}}\"\n\t             md-no-ink\n\t             ng-model=\"$editor.value\">\n\t\t{{$editor.title}}\n\t</md-checkbox>\n</div>"
 
 /***/ }),
 /* 796 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"q-grid-text-area\">\n\t<label ng-bind=\"$editor.title\"></label>\n\t<md-input-container>\n\t\t<textarea type=\"text\"\n\t\t          rows=\"4\"\n\t\t          cols=\"45\"\n\t\t          wrap=\"soft\"\n\t\t          md-maxlength=\"{{::$editor.column.maxLength}}\"\n\t\t          ng-model=\"$editor.value\" />\n\t</md-input-container>\n</div>"
+module.exports = "<h4 class=\"md-title\"\n    style=\"margin: 0\"\n    ng-bind=\"$editor.title\">\n</h4>\n<div ng-cloak\n     layout=\"column\"\n     class=\"q-grid-embed\"\n     ng-controller=\"Body.Cell.Reference.Edit.Controller as $ctrl\">\n\t<q-grid class=\"q-grid-edit-form-reference\"\n\t        model=\"$ctrl.gridModel\">\n\t\t<q-grid:columns>\n\t\t</q-grid:columns>\n\t\t<q-grid:toolbar>\n\t\t\t<q-grid:template for=\"top\">\n\t\t\t\t<div class=\"q-grid-progress\">\n\t\t\t\t\t<q-grid:progress></q-grid:progress>\n\t\t\t\t</div>\n\t\t\t</q-grid:template>\n\t\t</q-grid:toolbar>\n\t</q-grid>\n</div>"
 
 /***/ }),
 /* 797 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"q-grid-text\">\n\t<md-input-container>\n\t\t<label ng-bind=\"$editor.title\"></label>\n\t\t<input type=\"password\"\n\t\t       md-maxlength=\"{{::$editor.column.maxLength}}\"\n\t\t       ng-model=\"$editor.value\" />\n\t</md-input-container>\n</div>"
+module.exports = "<div ng-cloak\n     class=\"q-grid-url\">\n\t<h4 class=\"md-title\"\n\t    style=\"margin: 0 0 15px 0;\"\n\t    ng-bind=\"$editor.title\"></h4>\n\t<div layout=\"column\"\n\t     class=\"q-grid-url-fields\"\n\t     flex>\n\t\t<md-input-container ng-if=\"$editor.label !== null\">\n\t\t\t<label>Label</label>\n\t\t\t<input type=\"text\"\n\t\t\t       ng-model=\"$editor.label\" />\n\t\t</md-input-container>\n\t\t<md-input-container>\n\t\t\t<label>Url</label>\n\t\t\t<input type=\"url\"\n\t\t\t       ng-model=\"$editor.value\" />\n\t\t</md-input-container>\n\t</div>\n</div>"
 
 /***/ }),
 /* 798 */
 /***/ (function(module, exports) {
 
-module.exports = "<div ng-cloak\n     class=\"q-grid-array\">\n\t<h2 class=\"md-title\"\n\t    style=\"margin: 0 0 5px 0;\">Edit {{::$editor.title}}</h2>\n\t<div class=\"q-grid-array-view q-grid-edit-form-array\">\n\t\t<md-chips ng-model=\"$editor.value\"\n\t\t          md-removable=\"'true'\"\n\t\t          md-enable-chip-edit=\"'true'\"\n\t\t          placeholder=\"Enter a {{::$editor.title}}...\">\n\t\t</md-chips>\n\t</div>\n</div>"
+module.exports = "<div class=\"q-grid-text-area\">\n\t<label ng-bind=\"$editor.title\"></label>\n\t<md-input-container>\n\t\t<textarea type=\"text\"\n\t\t          rows=\"4\"\n\t\t          cols=\"45\"\n\t\t          wrap=\"soft\"\n\t\t          md-maxlength=\"{{::$editor.column.maxLength}}\"\n\t\t          ng-model=\"$editor.value\" />\n\t</md-input-container>\n</div>"
 
 /***/ }),
 /* 799 */
 /***/ (function(module, exports) {
 
-module.exports = "<div ng-cloak\n     class=\"q-grid-email\">\n\t<h2 class=\"md-title\"\n\t    style=\"margin: 0 0 15px 0;\">Edit {{::$editor.title}}</h2>\n\t<div layout=\"column\"\n\t     class=\"q-grid-email-fields\"\n\t     flex>\n\t\t<md-input-container ng-if=\"$editor.label !== null\">\n\t\t\t<label>Label</label>\n\t\t\t<input type=\"text\"\n\t\t\t       ng-model=\"$editor.label\" />\n\t\t</md-input-container>\n\t\t<md-input-container>\n\t\t\t<label>Email</label>\n\t\t\t<input type=\"email\"\n\t\t\t       ng-model=\"$editor.value\" />\n\t\t</md-input-container>\n\t</div>\n</div>"
+module.exports = "<div class=\"q-grid-text\">\n\t<md-input-container>\n\t\t<label ng-bind=\"$editor.title\"></label>\n\t\t<input type=\"password\"\n\t\t       md-maxlength=\"{{::$editor.column.maxLength}}\"\n\t\t       ng-model=\"$editor.value\" />\n\t</md-input-container>\n</div>"
 
 /***/ }),
 /* 800 */
+/***/ (function(module, exports) {
+
+module.exports = "<div ng-cloak\n     class=\"q-grid-array\">\n\t<h2 class=\"md-title\"\n\t    style=\"margin: 0 0 5px 0;\">Edit {{::$editor.title}}</h2>\n\t<div class=\"q-grid-array-view q-grid-edit-form-array\">\n\t\t<md-chips ng-model=\"$editor.value\"\n\t\t          md-removable=\"'true'\"\n\t\t          md-enable-chip-edit=\"'true'\"\n\t\t          placeholder=\"Enter a {{::$editor.title}}...\">\n\t\t</md-chips>\n\t</div>\n</div>"
+
+/***/ }),
+/* 801 */
+/***/ (function(module, exports) {
+
+module.exports = "<div ng-cloak\n     class=\"q-grid-email\">\n\t<h2 class=\"md-title\"\n\t    style=\"margin: 0 0 15px 0;\">Edit {{::$editor.title}}</h2>\n\t<div layout=\"column\"\n\t     class=\"q-grid-email-fields\"\n\t     flex>\n\t\t<md-input-container ng-if=\"$editor.label !== null\">\n\t\t\t<label>Label</label>\n\t\t\t<input type=\"text\"\n\t\t\t       ng-model=\"$editor.label\" />\n\t\t</md-input-container>\n\t\t<md-input-container>\n\t\t\t<label>Email</label>\n\t\t\t<input type=\"email\"\n\t\t\t       ng-model=\"$editor.value\" />\n\t\t</md-input-container>\n\t</div>\n</div>"
+
+/***/ }),
+/* 802 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"q-grid-text\">\n\t<md-input-container>\n\t\t<label ng-bind=\"$editor.title\"></label>\n\t\t<input type=\"time\"\n\t\t       ng-model=\"$editor.value\" />\n\t</md-input-container>\n</div>"
