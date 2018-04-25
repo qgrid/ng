@@ -7,6 +7,10 @@ export function build(filterBy, op = 'and') {
 		}
 
 		const expressions = [];
+		if (filter.expression) {
+			expressions.push(filter.expression);
+		}
+
 		if (filter.items && filter.items.length) {
 			expressions.push(toInExpression(key, filter.items));
 		}
