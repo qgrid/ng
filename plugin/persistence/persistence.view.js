@@ -5,6 +5,7 @@ import {stringifyFactory} from '../../core/services/';
 import {Shortcut, ShortcutDispatcher} from '../../core/shortcut';
 import {clone} from '../../core/utility';
 import {Event} from '../../core/infrastructure';
+import {groupBy} from '../../core/utility/utility';
 
 export class PersistenceView extends PluginView {
 	constructor(model) {

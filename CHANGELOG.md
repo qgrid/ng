@@ -15,6 +15,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Expression builder plugin.
 - 107+ JIRA tasks :-)
 
+## [1.4.3] - 2018-04-25
+### Added
+- `Persistence` plugin - added groups.
+- Selected chips in `column filter` plugin.
+
 ## [1.4.2] - 2018-04-04
 ### Changed
 - Attach `fastdom` to `vscroll`.

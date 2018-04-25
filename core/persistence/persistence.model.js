@@ -1,5 +1,6 @@
 import { PersistenceStorage } from './persistence.storage';
 import { Command } from '../command';
+import { compare } from '../utility/utility';
 
 export class PersistenceModel {
 	constructor() {
@@ -12,7 +13,8 @@ export class PersistenceModel {
 			group: ['by'],
 			sort: ['by'],
 			pivot: ['by'],
-			filter: ['by']
+			filter: ['by'],
+			queryBuilder: ['node']
 		};
 	}
 }
