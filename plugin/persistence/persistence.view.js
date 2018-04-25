@@ -1,35 +1,32 @@
 import {PluginView} from '../plugin.view';
-import {PersistenceService} from '@grid/core/persistence/persistence.service';
-import {Command, CommandManager} from '@grid/core/command';
-import {stringifyFactory} from '@grid/core/services/';
-import {Shortcut, ShortcutDispatcher} from '@grid/core/shortcut';
-import {clone} from '@grid/core/utility';
-import {Event} from '@grid/core/infrastructure';
+import {PersistenceService} from '../../core/persistence/persistence.service';
+import {Command, CommandManager} from '../../core/command';
+import {stringifyFactory} from '../../core/services/';
+import {Shortcut, ShortcutDispatcher} from '../../core/shortcut';
+import {clone} from '../../core/utility';
+import {Event} from '../../core/infrastructure';
 
 export class PersistenceView extends PluginView {
 	constructor(model) {
 		super();
 
 		this.items = [];
-		this.title = '';
 		this.state = {
 			editItem: null,
 			oldValue: null
 		};
 		this.model = model;
-		this.storageKey = `q-grid:${model.grid().id}:${model.persistence().id}:persistence-list`;
-		this.persistenceService = new PersistenceService(model);
+		const persistence = model.persistence();
+		this.id = persistence.id;
+		this.service = new PersistenceService(model);
+		this.title = this.stringify();
 		this.closeEvent = new Event();
 
-		this.model.persistence()
-			.storage
-			.getItem(this.storageKey)
+		persistence.storage
+			.getItem(this.id)
 			.then(items => {
 				this.items = items || [];
-				const defaultItem = this.items.find(item => item.isDefault);
-				if (defaultItem) {
-					this.persistenceService.load(defaultItem.model);
-				}
+				this.groups = this.buildGroups(this.items);
 			});
 
 		this.using(this.model.gridChanged.watch(e => {
@@ -44,13 +41,13 @@ export class PersistenceView extends PluginView {
 				this.items.push({
 					title: this.title,
 					modified: Date.now(),
-					model: this.persistenceService.save(),
-					isDefault: false
+					model: this.service.save(),
+					isDefault: false,
+					group: persistence.defaultGroup,
+					canEdit: true
 				});
 
-				model.persistence()
-					.storage
-					.setItem(this.storageKey, this.items);
+				this.persist();
 
 				this.title = '';
 
@@ -67,25 +64,26 @@ export class PersistenceView extends PluginView {
 					if (!item) {
 						return false;
 					}
-					this.state.editItem = item;
-					this.state.oldValue = clone(item);
+					this.state = {
+						editItem: item,
+						oldValue: clone(item)
+					};
 					return true;
 				},
-				canExecute: () => this.state.editItem === null
+				canExecute: item => this.state.editItem === null && item.canEdit
 			}),
 			commit: new Command({
 				source: 'persistence.view',
 				shortcut: 'enter',
 				execute: item => {
 					item = item || this.state.editItem;
-					if (!this.title || !this.isUniqueTitle(item.title)) {
+					const title = item.title;
+					if (!title || !this.isUniqueTitle(title)) {
 						this.edit.cancel.execute();
 						return false;
 					}
 					item.modified = Date.now();
-					model.persistence()
-						.storage
-						.setItem(this.storageKey, this.items);
+					this.persist();
 					this.state.editItem = null;
 					return true;
 				},
@@ -110,7 +108,7 @@ export class PersistenceView extends PluginView {
 
 		this.load = new Command({
 			source: 'persistence.view',
-			execute: item => this.persistenceService.load(item.model)
+			execute: item => this.service.load(item.model)
 		});
 
 		this.remove = new Command({
@@ -120,13 +118,12 @@ export class PersistenceView extends PluginView {
 				if (index >= 0) {
 					this.items.splice(index, 1);
 
-					this.model.persistence()
-						.storage
-						.setItem(this.storageKey, this.items);
+					this.persist();
 					return true;
 				}
 				return false;
-			}
+			},
+			canExecute: item => item.canEdit
 		});
 
 		this.setDefault = new Command({
@@ -145,9 +142,7 @@ export class PersistenceView extends PluginView {
 				}
 				this.items.splice(index, 1, item);
 
-				this.model.persistence()
-					.storage
-					.setItem(this.storageKey, this.items);
+				this.persist();
 				return true;
 			}
 		});
@@ -164,16 +159,78 @@ export class PersistenceView extends PluginView {
 		]);
 	}
 
+	get blank() {
+		const gridModel = this.model;
+		const settings = gridModel.persistence().settings;
+
+		const model = {};
+		for (const key in settings) {
+			const target = {};
+			model[key] = target;
+			for (const p of settings[key]) {
+				switch (key) {
+					case 'filter':
+						target[p] = {};
+						break;
+					case 'queryBuilder':
+						target[p] = null;
+						break;
+					default:
+						target[p] = [];
+				}
+			}
+		}
+
+		return {
+			title: 'Blank',
+			modified: Date.now(),
+			model: model,
+			isDefault: false,
+			group: 'blank',
+			canEdit: false
+		};
+	}
+
+	get sortedItems() {
+		return this.items.sort((a, b) => b.modified - a.modified);
+	}
+
+	buildGroups(items) {
+		return items.reduce((memo, item) => {
+			const group = memo.find(m => m.key === item.group);
+			if (group) {
+				group.items.push(item);
+			} else {
+				memo.push({
+					key: item.group,
+					items: [item]
+				});
+			}
+			return memo;
+		}, []);
+	}
+
 	isActive(item) {
-		return JSON.stringify(item.model) === JSON.stringify(this.persistenceService.save()); // eslint-disable-line angular/json-functions
+		return JSON.stringify(item.model) === JSON.stringify(this.service.save()); // eslint-disable-line angular/json-functions
+	}
+
+	persist() {
+		this.model.persistence()
+			.storage
+			.setItem(this.id, this.items.filter(item => item.canEdit));
+
+		this.groups = this.buildGroups(this.items);
 	}
 
 	stringify(item) {
-		const model = item.model;
+		const model = item ? item.model : this.service.save();
 		const targets = [];
 		const settings = this.model.persistence().settings;
 
 		for (let key in settings) {
+			if (!model[key]) {
+				continue;
+			}
 			const stringify = stringifyFactory(key);
 			const target = stringify(model[key]);
 			if (target !== '') {
@@ -187,28 +244,7 @@ export class PersistenceView extends PluginView {
 	isUniqueTitle(title) {
 		return !this.items.some(item => {
 			return item !== this.state.editItem
-				&& item.title.toLowerCase() === title.toLowerCase();
+				&& item.title.toLowerCase() === title.trim().toLowerCase();
 		});
-	}
-
-	get blank() {
-		const gridModel = this.model;
-		const settings = gridModel.persistence().settings;
-
-		const model = {};
-		for (const key in settings) {
-			const target = {};
-			model[key] = target;
-			for (const p of settings[key]) {
-				target[p] = key === 'filter' ? {} : [];
-			}
-		}
-
-		return {
-			title: 'Blank',
-			modified: Date.now(),
-			model: model,
-			isDefault: false
-		};
 	}
 }

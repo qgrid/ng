@@ -2,6 +2,7 @@ import PluginComponent from '../plugin.component';
 import {Action} from '@grid/core/action';
 import {Command} from '@grid/core/command';
 import {Composite} from '@grid/core/infrastructure/composite';
+import {PersistenceService} from '@grid/core/persistence/persistence.service';
 import {PersistenceView} from '../../../plugin/persistence/persistence.view';
 
 const Plugin = PluginComponent('persistence', {
@@ -15,9 +16,24 @@ class Persistence extends Plugin {
 
 	onInit() {
 		const model = this.model;
-		const persistenceView = new PersistenceView(model);
 
-		const actions = [
+		const id = `q-grid:${model.grid().id}:persistence-list`;
+		model.persistence({id});
+		model.persistence().storage
+			.getItem(id)
+			.then(items => {
+				if (!items || items.length === 0) {
+					return [];
+				}
+				const defaultItem = items.find(item => item.isDefault);
+				if (defaultItem) {
+					const persistenceService = new PersistenceService(model);
+					persistenceService.load(defaultItem.model);
+				}
+				return items;
+			});
+
+		const action =
 			new Action(
 				new Command({
 					source: 'persistence',
@@ -33,6 +49,8 @@ class Persistence extends Plugin {
 							.relativeTo(e.target)
 							.addPanelPosition(mdPanel.xPosition.ALIGN_START, mdPanel.yPosition.ALIGN_TOPS);
 
+
+						const persistenceView = new PersistenceView(model);
 						const config = {
 							attachTo: angular.element(this.$document[0].body), // eslint-disable-line no-undef
 							controller: ['$scope', function ($scope) {
@@ -53,22 +71,19 @@ class Persistence extends Plugin {
 
 						mdPanel.open(config)
 							.then(mdPanelRef => {
-								persistenceView.title = persistenceView.stringify({model: persistenceView.persistenceService.save()});
 								const close = () => mdPanelRef.close();
 								this.using(persistenceView.closeEvent.on(close));
 							});
 					},
 					//	shortcut: 'ctrl+shift+h'
 				}),
-				'Load/Save',
+				'Save/Load',
 				'history'
-			)
-		];
+			);
 
-		persistenceView.model
-			.action({
-				items: Composite.list([actions, model.action().items])
-			});
+		this.model.action({
+			items: Composite.list([action], this.model.action().items)
+		});
 	}
 }
 
