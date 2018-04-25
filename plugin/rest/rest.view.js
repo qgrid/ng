@@ -10,12 +10,12 @@ export class RestView extends PluginView {
 		super(model);
 
 		const { method, url, serialize } = this.model.rest();
-		const fetch = this.fetchFactory(method, get, post);
-		const doSerialize = this.serializeFactory(method, serialize);
-
 		if (!url) {
 			throw new AppError('rest', 'REST endpoint URL is required');
 		}
+
+		const fetch = this.fetchFactory(method, get, post);
+		const doSerialize = this.serializeFactory(method, serialize);
 
 		model.data({
 			pipe: [

@@ -20,6 +20,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - `Persistence` plugin - added groups.
 - Selected chips in `column filter` plugin.
 
+### Fixed
+- `Persistence` plugin - call appropriate action commands.
+
+### Changed
+- `Rest` post/get request format.
+
 ## [1.4.2] - 2018-04-04
 ### Changed
 - Attach `fastdom` to `vscroll`.

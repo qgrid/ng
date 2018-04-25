@@ -13,7 +13,23 @@ export function serialize(model) {
 			.join(','),
 		filter: Object
 			.keys(filterState.by)
-			.map(field => `${field}=in:${filterState.by[field].items.join(',')}`)
+			.map(field => {
+				const state = filterState.by[field];
+				if(field === '$expression') {
+					return `$expression=where:${state}`;
+				}
+
+				if (state.items) {
+					return `${field}=in:${state.items.join(',')}`;
+				}
+
+				if (state.expression) {
+					return `${field}=where:${state.expression}`;
+				}
+
+				return '';
+			})
+			.filter(part => !!part)
 			.join(';'),
 		skip: paginationState.current * paginationState.size,
 		take: paginationState.size
