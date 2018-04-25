@@ -1,15 +1,15 @@
-import {isFunction} from 'ng2-qgrid/core/utility';
-import {AppError} from 'ng2-qgrid/core/infrastructure';
-import {PipeUnit} from 'ng2-qgrid/core/pipe/pipe.unit';
-import {PluginView} from '../plugin.view';
-import {serialize as serializeGet} from './get.serialize';
-import {serialize as serializePost} from './post.serialize';
+import { isFunction } from '../../core/utility';
+import { AppError } from '../../core/infrastructure/error';
+import { PipeUnit } from '../../core/pipe/pipe.unit';
+import { PluginView } from '../plugin.view';
+import { serialize as serializeGet } from './get.serialize';
+import { serialize as serializePost } from './post.serialize';
 
 export class Rest extends PluginView {
-	constructor(model, {get, post}) {
+	constructor(model, { get, post }) {
 		super(model);
 
-		const {method, url, serialize} = this.model.rest();
+		const { method, url, serialize } = this.model.rest();
 		const fetch = this.fetchFactory(method, get, post);
 		const doSerialize = this.serializeFactory(method, serialize);
 
