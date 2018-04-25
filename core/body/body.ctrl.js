@@ -124,7 +124,7 @@ export class BodyCtrl extends View {
 			}
 
 			if (edit().state === 'startBatch') {
-				edit({state: 'endBatch'});
+				edit({ state: 'endBatch' });
 				return;
 			}
 
@@ -133,11 +133,9 @@ export class BodyCtrl extends View {
 				this.navigate(cell);
 				if (cell.column.editorOptions.trigger === 'click' && this.view.edit.cell.enter.canExecute(cell)) {
 
-					if (this.selection.items.length > 1) {
-						return;
+					if (this.selection.items.length <= 1) {
+						this.view.edit.cell.enter.execute(cell);
 					}
-
-					this.view.edit.cell.enter.execute(cell);
 				}
 			}
 		}
