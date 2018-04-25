@@ -36,7 +36,7 @@ export class PersistenceView extends PluginView {
 			}
 		}));
 
-		this.save = new Command({
+		this.create = new Command({
 			source: 'persistence.view',
 			execute: () => {
 				const item = {
@@ -49,7 +49,7 @@ export class PersistenceView extends PluginView {
 				};
 
 				if (persistence().create.execute(item) !== false) {
-					this.items.push();
+					this.items.push(item);
 					this.persist();
 					this.title = '';
 					return true;
