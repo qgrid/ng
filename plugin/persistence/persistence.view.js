@@ -1,28 +1,29 @@
-import {PluginView} from '../plugin.view';
-import {PersistenceService} from '../../core/persistence/persistence.service';
-import {Command, CommandManager} from '../../core/command';
-import {stringifyFactory} from '../../core/services/';
-import {Shortcut, ShortcutDispatcher} from '../../core/shortcut';
-import {clone} from '../../core/utility';
-import {Event} from '../../core/infrastructure';
+import { PluginView } from '../plugin.view';
+import { PersistenceService } from '../../core/persistence/persistence.service';
+import { Command, CommandManager } from '../../core/command';
+import { stringifyFactory } from '../../core/services/';
+import { Shortcut, ShortcutDispatcher } from '../../core/shortcut';
+import { clone } from '../../core/utility';
+import { Event } from '../../core/infrastructure';
 
 export class PersistenceView extends PluginView {
 	constructor(model) {
 		super();
 
+		this.model = model;
+		this.service = new PersistenceService(model);
 		this.items = [];
 		this.state = {
 			editItem: null,
 			oldValue: null
 		};
-		this.model = model;
-		const persistence = model.persistence();
-		this.id = persistence.id;
-		this.service = new PersistenceService(model);
-		this.title = this.stringify();
 		this.closeEvent = new Event();
 
-		persistence.storage
+		const persistence = model.persistence;
+		this.id = persistence().id;
+		this.title = this.stringify();
+
+		persistence().storage
 			.getItem(this.id)
 			.then(items => {
 				this.items = items || [];
@@ -35,25 +36,42 @@ export class PersistenceView extends PluginView {
 			}
 		}));
 
-		this.save = new Command({
+		this.create = new Command({
 			source: 'persistence.view',
 			execute: () => {
-				this.items.push({
+				const item = {
 					title: this.title,
 					modified: Date.now(),
 					model: this.service.save(),
 					isDefault: false,
-					group: persistence.defaultGroup,
+					group: persistence().defaultGroup,
 					canEdit: true
-				});
+				};
 
-				this.persist();
-
-				this.title = '';
-
-				return true;
+				if (persistence().create.execute(item) !== false) {
+					this.items.push(item);
+					this.persist();
+					this.title = '';
+					return true;
+				}
+				return false;
 			},
-			canExecute: () => !!this.title && this.isUniqueTitle(this.title)
+			canExecute: () => {
+				if (!!this.title && this.isUniqueTitle(this.title)) {
+					const item = {
+						title: this.title,
+						modified: Date.now(),
+						model: this.service.save(),
+						isDefault: false,
+						group: persistence().defaultGroup,
+						canEdit: true
+					};
+
+					return persistence().create.canExecute(item);
+				}
+
+				return false;
+			}
 		});
 
 		this.edit = {
@@ -77,17 +95,20 @@ export class PersistenceView extends PluginView {
 				shortcut: 'enter',
 				execute: item => {
 					item = item || this.state.editItem;
-					const title = item.title;
-					if (!title || !this.isUniqueTitle(title)) {
-						this.edit.cancel.execute();
-						return false;
+					if (persistence().modify.execute(item) !== false) {
+						const title = item.title;
+						if (!title || !this.isUniqueTitle(title)) {
+							this.edit.cancel.execute();
+							return false;
+						}
+						item.modified = Date.now();
+						this.persist();
+						this.state.editItem = null;
+						return true;
 					}
-					item.modified = Date.now();
-					this.persist();
-					this.state.editItem = null;
-					return true;
+					return false;
 				},
-				canExecute: () => this.state.editItem !== null
+				canExecute: () => this.state.editItem !== null && persistence().modify.canExecute(this.state.editItem)
 			}),
 			cancel: new Command({
 				source: 'persistence.view',
@@ -108,7 +129,15 @@ export class PersistenceView extends PluginView {
 
 		this.load = new Command({
 			source: 'persistence.view',
-			execute: item => this.service.load(item.model)
+			canExecute: item => persistence().load.canExecute(item),
+			execute: item => {
+				if (persistence().load.execute(item) !== false) {
+					this.service.load(item.model);
+					return true;
+				}
+
+				return false;
+			}
 		});
 
 		this.remove = new Command({
@@ -116,34 +145,41 @@ export class PersistenceView extends PluginView {
 			execute: item => {
 				const index = this.items.indexOf(item);
 				if (index >= 0) {
-					this.items.splice(index, 1);
+					if (persistence().remove.execute(item) !== false) {
+						this.items.splice(index, 1);
 
-					this.persist();
-					return true;
+						this.persist();
+						return true;
+					}
 				}
 				return false;
 			},
-			canExecute: item => item.canEdit
+			canExecute: item => item.canEdit && persistence().remove.canExecute(item)
 		});
 
 		this.setDefault = new Command({
 			source: 'persistence.view',
+			canExecute: item => persistence().setDefault.canExecute(item),
 			execute: item => {
-				const index = this.items.indexOf(item);
-				if (index === -1) {
-					return false;
+				if (persistence().setDefault.execute(item) !== false) {
+					const index = this.items.indexOf(item);
+					if (index === -1) {
+						return false;
+					}
+
+					if (item.isDefault) {
+						item.isDefault = false;
+					} else {
+						this.items.forEach(i => i.isDefault = false);
+						item.isDefault = true;
+					}
+					this.items.splice(index, 1, item);
+
+					this.persist();
+					return true;
 				}
 
-				if (item.isDefault) {
-					item.isDefault = false;
-				} else {
-					this.items.forEach(i => i.isDefault = false);
-					item.isDefault = true;
-				}
-				this.items.splice(index, 1, item);
-
-				this.persist();
-				return true;
+				return false;
 			}
 		});
 

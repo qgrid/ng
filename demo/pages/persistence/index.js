@@ -23,7 +23,10 @@ export default function Controller($http, qgrid) {
 				});
 			},
 			setItem: storage.setItem.bind(storage)
-		}
+		},
+		load: new qgrid.Command({
+			execute: () => alert('load')
+		})
 	});
 
 	$http.get('data/people/100.json')

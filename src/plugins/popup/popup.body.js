@@ -1,9 +1,9 @@
 import Component from '@grid/view/components/component';
 import TemplateLink from '@grid/view/components/template/template.link';
 import * as def from '../definition';
-import {Shortcut, ShortcutDispatcher} from '@grid/core/shortcut';
-import {PopupCommandManager} from './popup.command.manager';
-import {EventListener, EventManager} from '@grid/core/infrastructure';
+import { Shortcut, ShortcutDispatcher } from '@grid/core/shortcut';
+import { PopupCommandManager } from './popup.command.manager';
+import { EventListener, EventManager } from '@grid/core/infrastructure';
 
 class PopupBody extends Component {
 	constructor($scope, $element, $compile, $templateCache, qGridPopupService) {
@@ -17,7 +17,7 @@ class PopupBody extends Component {
 		this.listener = new EventListener($element[0], new EventManager(this));
 		this.shortcutService = new Shortcut(new ShortcutDispatcher());
 		this.using(this.listener.on('keydown', e => {
-			if (this.shortcutService.keyDown(e)) {
+			if (this.shortcutService.keyDown(e).length) {
 				e.preventDefault();
 				e.stopPropagation();
 			}
