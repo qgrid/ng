@@ -2,10 +2,10 @@ import { isFunction } from '../../core/utility';
 import { AppError } from '../../core/infrastructure/error';
 import { PipeUnit } from '../../core/pipe/pipe.unit';
 import { PluginView } from '../plugin.view';
-import { serialize as serializeGet } from './get.serialize';
-import { serialize as serializePost } from './post.serialize';
+import { serialize as serializeGet } from '../../core/rest/get.serialize';
+import { serialize as serializePost } from '../../core/rest/post.serialize';
 
-export class Rest extends PluginView {
+export class RestView extends PluginView {
 	constructor(model, { get, post }) {
 		super(model);
 
