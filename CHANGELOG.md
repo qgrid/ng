@@ -294,7 +294,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Action bar plugin.
 - Data manipulation plugin.
 
-[Unreleased]: https://github.com/qgrid/ng/compare/v1.4.1...HEAD
+[Unreleased]: https://github.com/qgrid/ng/compare/v1.4.4...HEAD
+[1.4.4]: https://github.com/qgrid/ng/compare/v1.4.4...v1.4.3
+[1.4.3]: https://github.com/qgrid/ng/compare/v1.4.3...v1.4.1
 [1.4.1]: https://github.com/qgrid/ng/compare/v1.4.0...v1.4.1
 [1.4.0]: https://github.com/qgrid/ng/compare/v1.3.4...v1.4.0
 [1.3.4]: https://github.com/qgrid/ng/compare/v1.3.3...v1.3.4
