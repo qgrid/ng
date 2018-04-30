@@ -1,5 +1,5 @@
-import {map as getColumnMap} from '../column/column.service';
-import {nodeBuilder} from '../node';
+import { map as getColumnMap } from '../column/column.service';
+import { nodeBuilder } from '../node';
 
 export function groupPipe(memo, context, next) {
 	const model = context.model;
@@ -14,7 +14,14 @@ export function groupPipe(memo, context, next) {
 			context.valueFactory
 		);
 
-		memo.nodes = build(memo.rows);
+		const memoRows = memo.rows;
+		const dataRows = dataState.rows;
+		memo.nodes = build(memoRows, i => {
+			const row = memoRows[i];
+			const index = dataRows.indexOf(row);
+			return index < 0 ? i : index;
+		});
 	}
+	
 	next(memo);
 }

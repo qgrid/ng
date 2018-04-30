@@ -1,6 +1,6 @@
-import {ColumnView} from '../scene/view';
-import {ColumnModel} from './column.model';
-import {TemplatePath} from '../template';
+import { ColumnView } from '../scene/view';
+import { ColumnModel } from './column.model';
+import { TemplatePath } from '../template';
 
 TemplatePath.register('group-cell', (template, column) => {
 	return {
@@ -22,6 +22,7 @@ export class GroupColumnModel extends ColumnModel {
 
 		this.key = '$group';
 		this.path = 'key';
+		this.labelPath = 'key';
 
 		this.title = 'Group';
 		this.offset = 24;
@@ -29,6 +30,13 @@ export class GroupColumnModel extends ColumnModel {
 		this.canSort = false;
 		this.canFilter = false;
 		this.class = 'control';
+		this.label = function (node) {
+			if (node.type === 'row') {
+				return '';
+			}
+
+			return node[this.labelPath];
+		};
 	}
 }
 
