@@ -2,7 +2,8 @@
         model="$ctrl.gridModel"
         group-by="['contact.address.state', 'gender']">
 	<q-grid:columns generation="deep">
-		<q-grid-column type="group">
+		<q-grid-column type="group"
+		               label="$ctrl.groupLabel($row)">
 			<q-grid-template for="head"
 			                 let="$ctrl">
 				<button ng-click="$ctrl.toggleCollapse()">Collapse/Expand All</button>

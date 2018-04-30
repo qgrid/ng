@@ -7,7 +7,7 @@ export function traverse(nodes, visit) {
 			traverse(node.children, visit);
 		}
 	}
-};
+}
 
 export function flatView(nodes, result = []) {
 	for (let i = 0, nodesLength = nodes.length; i < nodesLength; i++) {

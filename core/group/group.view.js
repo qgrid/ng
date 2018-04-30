@@ -88,7 +88,8 @@ export class GroupView extends View {
 
 	value(node) {
 		const groupColumn = this.column;
-		return labelFactory(groupColumn)(node);
+		const getLabel = labelFactory(groupColumn);
+		return getLabel(node);
 	}
 
 	get column() {

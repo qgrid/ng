@@ -19,8 +19,10 @@ class ColumnList extends ModelComponent {
 		const $scope = this.$scope;
 
 		const canCopy = (key, source) =>
-			!(ng.isSystem(key) ||
-				isUndefined(source[key]));
+			!(ng.isSystem(key)
+				|| isUndefined(source[key])
+				|| key === 'value'
+				|| key === 'label');
 
 		const ngParseFactory = type => {
 			const parse = parseFactory(type);

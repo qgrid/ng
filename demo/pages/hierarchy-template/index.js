@@ -27,4 +27,12 @@ export default function Controller($http, qgrid) {
 		shouldExpand = !shouldExpand;
 		service.invalidate('app', {}, qgrid.pipeUnit.group);
 	};
+
+	this.groupLabel = node => {
+		if (node.type === 'group') {
+			return node.key;
+		}
+
+		return 'see -->';
+	};
 }
