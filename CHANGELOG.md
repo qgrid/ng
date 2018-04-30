@@ -15,6 +15,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Expression builder plugin.
 - 107+ JIRA tasks :-)
 
+## [1.4.4] - 2018-04-30
+### Added
+- `ToggleAll` command that can be override to intersect toggle all groups action.
+
+### Changed
+- Clicking on group header leads to collapse/expand of all nodes in the view.
+
+### Fixed
+- `Group pipe` index calculation - the root cause of invalid filtering.
+
 ## [1.4.3] - 2018-04-25
 ### Added
 - `Persistence` plugin - added groups.

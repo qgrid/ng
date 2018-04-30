@@ -107,7 +107,7 @@ function Setup(qgridThemeProvider) {
 		theme.put(cell('body', 'select'), require('./templates/body.cell.select.html'));
 		theme.put(cell('foot', 'select'), require('./templates/foot.cell.text.html'));
 
-		theme.put(cell('head', 'group'), require('./templates/head.cell.text.html'));
+		theme.put(cell('head', 'group'), require('./templates/head.cell.group.html'));
 		theme.put(cell('body', 'group'), require('./templates/body.cell.group.html'));
 		theme.put(cell('foot', 'group'), require('./templates/foot.cell.text.html'));
 		theme.put(cell('body', 'group.edit'), require('./templates/body.cell.text.edit.html'));
