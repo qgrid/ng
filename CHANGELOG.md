@@ -15,6 +15,27 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Expression builder plugin.
 - 107+ JIRA tasks :-)
 
+## [1.4.4] - 2018-04-30
+### Added
+- `ToggleAll` command that can be override to intersect toggle all groups action.
+
+### Changed
+- Clicking on group header leads to collapse/expand of all nodes in the view.
+
+### Fixed
+- `Group pipe` index calculation - the root cause of invalid filtering.
+
+## [1.4.3] - 2018-04-25
+### Added
+- `Persistence` plugin - added groups.
+- Selected chips in `column filter` plugin.
+
+### Fixed
+- `Persistence` plugin - call appropriate action commands.
+
+### Changed
+- `Rest` post/get request format.
+
 ## [1.4.2] - 2018-04-04
 ### Changed
 - Attach `fastdom` to `vscroll`.
@@ -273,7 +294,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Action bar plugin.
 - Data manipulation plugin.
 
-[Unreleased]: https://github.com/qgrid/ng/compare/v1.4.1...HEAD
+[Unreleased]: https://github.com/qgrid/ng/compare/v1.4.4...HEAD
+[1.4.4]: https://github.com/qgrid/ng/compare/v1.4.4...v1.4.3
+[1.4.3]: https://github.com/qgrid/ng/compare/v1.4.3...v1.4.1
 [1.4.1]: https://github.com/qgrid/ng/compare/v1.4.0...v1.4.1
 [1.4.0]: https://github.com/qgrid/ng/compare/v1.3.4...v1.4.0
 [1.3.4]: https://github.com/qgrid/ng/compare/v1.3.3...v1.3.4
