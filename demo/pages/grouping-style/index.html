@@ -1,0 +1,15 @@
+<q-grid header="{{::details.title}}"
+        model="$ctrl.gridModel"
+        group-by="['name.first']">
+	<q-grid:columns generation="deep">
+		<q-grid:column key="gender"
+		               aggregation="count">
+			<q-grid:template for="body"
+			                 let="$ctrl">
+				{{$ctrl.getGenderLabel($cell.row)}}
+			</q-grid:template>
+		</q-grid:column>
+	</q-grid:columns>
+
+	<q-grid:visibility foot="false"></q-grid:visibility>
+</q-grid>
