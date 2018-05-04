@@ -114,6 +114,10 @@
 		"title": "Grouping and Aggregates",
 		"items": [
 			{
+				"title": "Grouping Style",
+				"path": "grouping-style"
+			},
+			{
 				"title": "Grouping Model",
 				"path": "grouping-model"
 			},

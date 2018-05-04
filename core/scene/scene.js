@@ -1,13 +1,13 @@
-import {AppError} from '../infrastructure/index';
-import {lineView} from '../column/column.service';
-import {flatView as nodeFlatView, Node} from '../node';
+import { AppError } from '../infrastructure/index';
+import { lineView } from '../column/column.service';
+import { flatView as nodeFlatView, Node } from '../node';
 
 export class Scene {
 	constructor(model) {
 		this.model = model;
 	}
 
-	rows(memo) {
+	rows(memo) {		
 		const nodes = memo.nodes;
 		const rows = memo.rows;
 		if (nodes.length) {
@@ -23,7 +23,7 @@ export class Scene {
 		return items;
 	}
 
-	columnLine(items){
+	columnLine(items) {
 		return lineView(items);
 	}
 

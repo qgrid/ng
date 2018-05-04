@@ -1,7 +1,11 @@
-export function memoPipe(data, context, next) {
+import { Guard } from '../infrastructure/guard';
+
+export function memoPipe(memo, context, next) {
+	Guard.notNull(memo, 'memo');
+
 	next({
-		rows: data,
-		pivot: {heads: [], rows: []},
+		rows: memo,
+		pivot: { heads: [], rows: [] },
 		nodes: []
 	});
 }

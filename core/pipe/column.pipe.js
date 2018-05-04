@@ -1,13 +1,16 @@
-import {columnFactory} from '../column/column.factory';
+import { columnFactory } from '../column/column.factory';
 import * as columnService from '../column/column.service';
-import {noop} from '../utility';
-import {generateFactory, sortIndexFactory} from '../column-list';
+import { noop } from '../utility';
+import { generateFactory, sortIndexFactory } from '../column-list';
+import { Guard } from '../infrastructure/guard';
 
 export function columnPipe(memo, context, next) {
-	const model = context.model;
-	const pivot = memo.pivot;
-	const nodes = memo.nodes;
-	const heads = pivot.heads;
+	Guard.hasProperty(memo, 'pivot');
+	Guard.hasProperty(memo, 'nodes');
+
+	const { model } = context;
+	const { pivot, nodes } = memo;
+	const { heads } = pivot;
 	const dataColumns = [];
 	const addDataColumns = dataColumnsFactory(model);
 	const rowspan = Math.max(1, heads.length);
@@ -16,7 +19,7 @@ export function columnPipe(memo, context, next) {
 	 * We need to invoke addDataColumns earlier that others because it setups data.columns model property
 	 *
 	 */
-	addDataColumns(dataColumns, {rowspan: rowspan, row: 0});
+	addDataColumns(dataColumns, { rowspan: rowspan, row: 0 });
 
 	const addSelectColumn = selectColumnFactory(model);
 	const addGroupColumn = groupColumnFactory(model, nodes);
@@ -31,25 +34,25 @@ export function columnPipe(memo, context, next) {
 	 * if rows are draggable or resizable
 	 *
 	 */
-	addRowIndicatorColumn(columns, {rowspan: rowspan, row: 0});
-	
+	addRowIndicatorColumn(columns, { rowspan: rowspan, row: 0 });
+
 	/*
 	 * Add column with select boxes
 	 * if selection unit is row
 	 *
 	 */
-	addSelectColumn(columns, {rowspan: rowspan, row: 0});
+	addSelectColumn(columns, { rowspan: rowspan, row: 0 });
 
 	/*
 	 * Add group column with nodes
 	 *
 	 */
-	addGroupColumn(columns, {rowspan: rowspan, row: 0});
+	addGroupColumn(columns, { rowspan: rowspan, row: 0 });
 
 	/*
 	 * Add row expand column
 	 */
-	addRowExpandColumn(columns, {rowspan: rowspan, row: 0});
+	addRowExpandColumn(columns, { rowspan: rowspan, row: 0 });
 
 	/*
 	 *Add columns defined by user
@@ -73,7 +76,7 @@ export function columnPipe(memo, context, next) {
 		 * that fills remaining place (width = 100%)
 		 *
 		 */
-		addPadColumn(columns, {rowspan: rowspan, row: 0});
+		addPadColumn(columns, { rowspan: rowspan, row: 0 });
 		memo.columns = [columns];
 	}
 
@@ -246,7 +249,7 @@ function pivotColumnsFactory(model) {
 		 * that fills remaining place (width = 100%)
 		 *
 		 */
-		addPadColumn(firstRow, {rowspan: 1, row: 0});
+		addPadColumn(firstRow, { rowspan: 1, row: 0 });
 
 		/*
 		 * Next rows pivot columns
@@ -273,7 +276,7 @@ function pivotColumnsFactory(model) {
 			 * that fills remaining place (width = 100%)
 			 *
 			 */
-			addPadColumn(row, {rowspan: 1, row: 0});
+			addPadColumn(row, { rowspan: 1, row: 0 });
 			rows.push(row);
 		}
 

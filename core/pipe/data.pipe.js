@@ -1,15 +1,17 @@
-import {columnFactory} from '../column/column.factory';
-import {generateFactory} from '../column-list';
+import { columnFactory } from '../column/column.factory';
+import { generateFactory } from '../column-list';
 
-export function dataPipe(data, context, next) {
-	const model = context.model;
-	addDataRows(model, data);
+export function dataPipe(memo, context, next) {
+	const { model } = context;
+
+	addDataRows(model, memo);
 	addDataColumns(model);
-	next(data);
+	
+	next(memo);
 }
 
 function addDataRows(model, rows) {
-	model.data({rows}, {source: 'data.pipe', behavior: 'core'});
+	model.data({ rows }, { source: 'data.pipe', behavior: 'core' });
 }
 
 function addDataColumns(model) {
@@ -19,6 +21,6 @@ function addDataColumns(model) {
 	const columns = result.columns.map(columnBody => createColumn(columnBody.type || 'text', columnBody).model);
 
 	if (result.hasChanges) {
-		model.data({columns}, {source: 'data.pipe', behavior: 'core'});
+		model.data({ columns }, { source: 'data.pipe', behavior: 'core' });
 	}
 }

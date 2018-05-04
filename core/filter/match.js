@@ -1,9 +1,9 @@
-import {PredicateVisitor, build as buildExpression} from '../expression';
+import { PredicateVisitor, build as buildExpression } from '../expression';
 import * as columnService from '../column/column.service';
-import {yes} from '../utility';
+import { yes } from '../utility';
 
 export function match(context) {
-	const model = context.model;
+	const { model } = context;
 	const expression = buildExpression(model.filter().by);
 	if (expression !== null) {
 		const valueFactory = context.labelFactory;

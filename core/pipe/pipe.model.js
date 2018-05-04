@@ -1,6 +1,5 @@
-import {PipeUnit as PU} from '../pipe/pipe.unit';
-import {uniq} from '../utility';
-
+import { PipeUnit as PU } from '../pipe/pipe.unit';
+import { uniq } from '../utility';
 
 export class PipeModel {
 	constructor() {

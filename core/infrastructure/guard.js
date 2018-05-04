@@ -1,5 +1,8 @@
-import {AppError} from  './error';
-import {isUndefined, isFunction} from '../utility';
+import { AppError } from './error';
+import { isUndefined, isFunction } from '../utility';
+
+
+const hasOwnProperty = Object.prototype.hasOwnProperty;
 
 export class Guard {
 	/**
@@ -44,6 +47,13 @@ export class Guard {
 	static invokable(value, name) {
 		if (!isFunction(value)) {
 			throw new AppError('guard.invokable', name);
+		}
+	}
+
+	static hasProperty(instance, name) {
+		Guard.notNull(instance, 'instance');
+		if (!hasOwnProperty.call(instance, name)) {
+			throw new AppError('guard.hasProperty', name);
 		}
 	}
 }
