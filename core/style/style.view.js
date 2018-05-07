@@ -5,6 +5,8 @@ import { getFactory as valueFactory } from '../services/value';
 import { noop } from '../utility';
 import { VirtualRowStyle, VirtualCellStyle } from './style.virtual';
 import { Composite } from '../infrastructure';
+import { isFunction, isObject } from 'util';
+import { StyleService } from './style.service';
 
 export class StyleView extends View {
 	constructor(model, table) {
@@ -12,6 +14,7 @@ export class StyleView extends View {
 
 		this.table = table;
 		this.valueFactory = valueFactory;
+		this.service = new StyleService(model);
 		this.active = {
 			row: false,
 			cell: false
@@ -49,8 +52,8 @@ export class StyleView extends View {
 			return false;
 		}
 
-		const styleState = model.style();
 		const context = { model };
+		const styleState = model.style();
 		return styleState.invalidate.canExecute(context) && styleState.invalidate.execute(context) !== false;
 	}
 
@@ -74,19 +77,24 @@ export class StyleView extends View {
 			return getValue(row);
 		};
 
+		const columnList = table.data.columns();
+		const columnMap = columnService.map(columnList);
+
 		let isRowActive = active.row;
 		let isCellActive = active.cell;
-		let styleRow = Composite.func(styleState.rows.concat([styleState.row]));
-		let styleCell = Composite.func(styleState.cells.concat([styleState.cell]));
+
+		let styleRow;
+		let styleCell;
 		if (isVirtual) {
 			isRowActive = true;
 			isCellActive = true;
 			styleRow = new VirtualRowStyle(table).applyFactory();
 			styleCell = new VirtualCellStyle(table).applyFactory();
+		} else {
+			styleRow = this.service.row();
+			styleCell = this.service.cell();
 		}
 
-		const columns = table.data.columns();
-		const columnMap = columnService.map(columns);
 		const bodyRows = table.body.rows();
 
 		// for performance reason we make rowContext and cellContext the same reference for the all style calls
@@ -96,7 +104,7 @@ export class StyleView extends View {
 			value: null,
 			columns: {
 				map: columnMap,
-				list: columns
+				list: columnList
 			}
 		};
 

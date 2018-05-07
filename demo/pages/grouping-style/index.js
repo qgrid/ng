@@ -5,8 +5,8 @@ export default function Controller($http, qgrid) {
 	this.gridModel = model;
 
 	model.style({
-		cell: function (node, column, context) {
-			if (column.key === 'gender') {
+		for: {
+			gender: function (node, column, context) {
 				if (node.type === 'row') {
 					context.class('female', {
 						color: 'red'
@@ -27,9 +27,9 @@ export default function Controller($http, qgrid) {
 						memo[row.gender] = memo[row.gender] + 1;
 						return memo;
 					}, {
-						male: 0,
-						female: 0
-					});
+							male: 0,
+							female: 0
+						});
 
 				return 'male: ' + stat.male + ' female: ' + stat.female;
 			}
