@@ -2,13 +2,37 @@ import Component from '../../view/components/component';
 import {VALIDATION_NAME} from '../definition';
 
 const ruleBindings = {
+
+	// Common Rules
+	required: '@?',
+	not_empty_list: '@? notEmptyList',
+	any_object: '@? anyObject',
+
+	// String Rules
+	eq: '<? equal',
+	string: '@?',
 	length_between: '<? lengthBetween',
 	length_equal: '<? lengthEqual',
 	min_length: '<? minLength',
 	max_length: '<? maxLength',
 	one_of: '<? oneOf',
+	like: '<? pattern',
+
+	// Numeric Rules
+	integer: '@?',
 	positive_integer: '@? positiveInteger',
-	required: '@?'
+	decimal: '@?',
+	positive_decimal: '@? positiveDecimal',
+	max_number: '<? maxNumber',
+	min_number: '<? minNumber',
+	number_between: '<? numberBetween',
+
+	// Special Rules
+	email: '@?',
+	url: '@?',
+	iso_date: '@? isoDate',
+	equal_to_field: '<? equalToField',
+	list_of: '<? listOf'
 };
 const bindings = {
 	for: '@',

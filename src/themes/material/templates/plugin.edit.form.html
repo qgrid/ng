@@ -1,21 +1,23 @@
 <q-grid:popup id="q-grid-edit-form-popup-{{::$editForm.key}}"
-				  class="q-grid-edit-form-popup">
+              class="q-grid-edit-form-popup">
 	<q-grid:template for="trigger">
 		<md-button class="md-icon-button"
-					  ng-click="$popup.open({width: 550, height: 450})"
-					  tabindex="-1">
-			<md-icon>edit</md-icon>
+		           ng-click="$popup.open({width: 550, height: 450})"
+		           tabindex="-1">
+			<md-icon class="q-grid-icon">edit</md-icon>
 		</md-button>
 	</q-grid:template>
-	<q-grid:template for="body" let="$editForm">
+	<q-grid:template for="body"
+	                 let="$editForm">
 		<q-grid:edit-form-panel key="$editForm.key"
-										row="$editForm.row"
-										shortcut="$popupBody.shortcut"
-										on:submit="$popupBody.close()"
-										on:cancel="$popupBody.close()">
+		                        row="$editForm.row"
+		                        shortcut="$popupBody.shortcut"
+		                        on:submit="$popupBody.close()"
+		                        on:cancel="$popupBody.close()">
 		</q-grid:edit-form-panel>
 	</q-grid:template>
-	<q-grid:template for="head" let="$editForm">
+	<q-grid:template for="head"
+	                 let="$editForm">
 		<h2 class="md-title">{{$editForm.title}}</h2>
 	</q-grid:template>
 </q-grid:popup>

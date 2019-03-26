@@ -24,9 +24,10 @@ module.exports = function (config) {
 			resolve: {
 				alias: {
 					'@grid/src': path.resolve(__dirname, 'src'),
-					'@grid/core': path.resolve(__dirname, 'src/core'),
 					'@grid/view': path.resolve(__dirname, 'src/view'),
-					'@grid/themes': path.resolve(__dirname, 'src/themes')
+					'@grid/themes': path.resolve(__dirname, 'src/themes'),
+					'@grid/core': path.resolve(__dirname, 'core'),
+					'@grid/plugin': path.resolve(__dirname, 'plugin')
 				}
 			},
 			devtool: 'inline-source-map',
@@ -75,11 +76,11 @@ module.exports = function (config) {
 
 		// start these browsers
 		// available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-		browsers: ['Chrome'],
+		browsers: [process.env.TRAVIS ? 'ChromeTravis' : 'ChromeHeadless'],
 
 		customLaunchers: {
-			Chrome_travis_ci: {
-				base: 'Chrome',
+			ChromeTravis: {
+				base: 'ChromeHeadless',
 				flags: ['--no-sandbox']
 			}
 		},

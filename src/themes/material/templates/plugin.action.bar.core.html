@@ -7,7 +7,12 @@
 	     layout-xs="column"
 	     layout-sm="column">
 	</div>
-	<div class="q-grid-actions" flex="none" layout="row" layout-align="end center">
-		<q-grid:action-core ng-repeat="action in $actionBar.actions" model="action"></q-grid:action-core>
+	<div class="q-grid-actions"
+	     flex="none"
+	     layout="row"
+	     layout-align="end center">
+		<q-grid:action-core ng-repeat="action in $actionBar.actions"
+		                    model="action">
+		</q-grid:action-core>
 	</div>
 </div>

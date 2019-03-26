@@ -1,7 +1,8 @@
 import PluginComponent from '../plugin.component';
-import {PAGER_NAME} from '../definition';
-import {Command} from '@grid/core/command';
-import {TemplatePath} from '@grid/core/template';
+import { PAGER_NAME } from '../definition';
+import { TemplatePath } from '@grid/core/template';
+import { PagerView } from '@grid/plugin/pager/pager.view';
+import { Shortcut } from '@grid/core/shortcut/shortcut';
 
 TemplatePath
 	.register(PAGER_NAME, () => {
@@ -11,71 +12,120 @@ TemplatePath
 		};
 	});
 
-const Plugin = PluginComponent('pager', {models: ['pagination']});
+const Plugin = PluginComponent('pager', {
+	inject: ['$mdPanel', '$element', '$document']
+});
+
 class Pager extends Plugin {
 	constructor() {
 		super(...arguments);
+	}
 
-		const ctrl = this;
-		this.next = new Command({
-			execute: () => ctrl.current = ctrl.current + 1,
-			canExecute: () => (ctrl.current + 1) * ctrl.size < ctrl.total
-		});
+	onInit() {
+		this.$scope.$pager = new PagerView(this.model);
+	}
 
-		this.prev = new Command({
-			execute: () => ctrl.current = ctrl.current - 1,
-			canExecute: () => ctrl.current > 0
-		});
+	showTargetPanel(event) {
+		if (!event) {
+			event = {
+				target: this.$element[0]
+			};
+		}
+
+		const mdPanel = this.$mdPanel;
+		const position = mdPanel.newPanelPosition()
+			.relativeTo(event.target)
+			.addPanelPosition(mdPanel.xPosition.ALIGN_START, mdPanel.yPosition.ALIGN_TOPS);
+		const pagerView = this.$scope.$pager;
+		const onClose = mdPanelRef => mdPanelRef.destroy();
+
+		let panelRef;
+		const config = {
+			attachTo: angular.element(this.$document[0].body), // eslint-disable-line no-undef
+			controller: ['$scope', function ($scope) {
+				$scope.$pager = pagerView;
+				$scope.$pagerTarget = {
+					value: pagerView.current + 1,
+					keydown: e => {
+						if (!panelRef) {
+							return;
+						}
+
+						let code = Shortcut.translate(e);
+						if (code.startsWith('numpad')) {
+							code = code.slice(6);
+						}
+
+						const target = $scope.$pagerTarget;
+						const value = target.value || 0;
+
+						switch (code) {
+							case 'enter': {
+								panelRef.close();
+								if (value) {
+									pagerView.current = value - 1;
+								}
+								break;
+							}
+							case 'up': {
+								if (value < pagerView.total) {
+									target.value = value + 1;
+								}
+								break;
+							}
+							case 'down': {
+								if (value > 1) {
+									target.value = value - 1;
+								}
+								break;
+							}
+							case 'left':
+							case 'right':
+							case 'backspace': {
+								break;
+							}
+							default: {
+								const digit = Number.parseInt(code);
+								const page = Number.parseInt('' + value + digit);
+								const min = 1;
+								const max = pagerView.totalPages;
+								const isValid = page >= min && page <= max && !isNaN(digit);
+
+								if (!isValid) {
+									page > max ? target.value = max : target.value = min;
+									e.preventDefault();
+								}
+							}
+						}
+					}
+				};
+
+			}],
+			templateUrl: 'qgrid.plugin.pager-target.tpl.html',
+			panelClass: 'q-grid-pager-target',
+			position: position,
+			openFrom: event,
+			clickOutsideToClose: true,
+			escapeToClose: true,
+			onCloseSuccess: onClose,
+			focusOnOpen: false,
+			zIndex: 2
+		};
+
+		mdPanel.open(config)
+			.then(function (result) {
+				panelRef = result;
+			});
 	}
 
 	get resource() {
 		return this.model.pagination().resource;
 	}
-
-	get size() {
-		return this.model.pagination().size;
-	}
-
-	set size(value) {
-		this.model.pagination({size: value, current: 0});
-	}
-
-	get sizeList() {
-		return this.model.pagination().sizeList;
-	}
-
-	get current() {
-		return this.model.pagination().current;
-	}
-
-	set current(value) {
-		return this.model.pagination({current: value});
-	}
-
-	get from() {
-		return Math.min(this.total, this.current * this.size + 1);
-	}
-
-	get to() {
-		return Math.min(this.total, (this.current + 1) * this.size);
-	}
-
-	get total() {
-		return this.model.pagination().count;
-	}
-
-	get totalPages() {
-		return Math.max(1, Math.ceil(this.total / this.size));
-	}
-
-	get scroll() {
-		return this.model.scroll();
-	}
 }
 
 export default Pager.component({
 	controller: Pager,
-	controllerAs: '$pager',
+	controllerAs: '$pagerPlugin',
 	bindings: {
 		'paginationSize': '<size',
 		'paginationSizeList': '<sizeList',

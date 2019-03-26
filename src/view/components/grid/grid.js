@@ -1,13 +1,10 @@
 import RootComponent from '../root.component';
-import {Table, Bag} from '@grid/core/dom';
-import {LayerFactory} from '@grid/view/services';
-import {AppError} from '@grid/core/infrastructure';
-import {TableCommandManager} from '@grid/core/command';
-import {isUndefined} from '@grid/core/utility';
+import { LayerFactory } from '@grid/view/services';
+import { AppError } from '@grid/core/infrastructure';
+import { isUndefined } from '@grid/core/utility';
 import TemplateLink from '../template/template.link';
-import {EventListener, EventManager, Model} from '@grid/core/infrastructure';
-import {Shortcut} from '@grid/core/shortcut/shortcut';
-import {GRID_PREFIX} from '@grid/core/definition';
+import { EventListener, EventManager } from '@grid/core/infrastructure';
+import { GridCtrl } from '@grid/core/grid/grid.ctrl';
 
 export class Grid extends RootComponent {
 	constructor($rootScope, $scope, $element, $transclude, $document, $timeout, $templateCache, $compile, $window) {
@@ -18,73 +15,29 @@ export class Grid extends RootComponent {
 		this.$element = $element;
 		this.$transclude = $transclude;
 		this.$timeout = $timeout;
+		this.$window = $window;
 
 		this.template = new TemplateLink($compile, $templateCache);
-		this.markup = {
-			document: $document[0]
-		};
-
-		this.bag = {
-			head: new Bag(),
-			body: new Bag(),
-			foot: new Bag()
-		};
-
-		this.listener = new EventListener($element[0], new EventManager(this));
-
-		const windowListener = new EventListener($window, new EventManager(this));
-		this.using(windowListener.on('focusin', this.invalidateActive));
 	}
 
 	onInit() {
 		const model = this.model;
-		if (model.grid().status === 'bound') {
-			throw new AppError('grid', `Model is already used by grid "${model.grid().id}"`);
-		}
-
-		model.grid({
-			status: 'bound'
+		const element = this.$element[0];		
+		const ctrl = this.ctrl = new GridCtrl(model, {
+			layerFactory: markup => new LayerFactory(markup, this.template, model),
+			element
 		});
 
-		const bag = this.bag;
-		const layerFactory = new LayerFactory(this.markup, this.template);
-		const apply = this.applyFactory(null, 'sync');
-		const tableContext = {
-			layer: name => layerFactory.create(name),
-			bag: bag
-		};
-
-		this.table = new Table(model, this.markup, tableContext);
-		this.commandManager = new TableCommandManager(apply, this.table);
-		this.using(this.listener.on('keydown', this.keyDown.bind(this)));
-
-		if (!this.gridId) {
-			this.$element[0].id = model.grid().id;
-		}
+		this.table = ctrl.table;
+		this.bag = ctrl.bag;
+		this.markup = ctrl.markup;
 
 		this.compile();
-		this.using(this.model.sceneChanged.watch(e => {
-			if (e.hasChanges('column')) {
-				this.invalidateVisibility();
-			}
-		}));
-	}
 
-	keyDown(e, source = 'grid') {
-		const shortcut = this.model.action().shortcut;
-		if (shortcut.keyDown(e, source)) {
-			e.preventDefault();
-			e.stopPropagation();
-			return;
-		}
-
-		if (e.target.tagName === 'TBODY') {
-			const code = Shortcut.translate(e);
-			if (code === 'space' || code === 'shift+space') {
-				e.preventDefault();
-			}
-			return;
-		}
+		const listener = new EventListener(element, new EventManager(this));
+		const windowListener = new EventListener(this.$window, new EventManager(this));
+		this.using(windowListener.on('focusin', ctrl.invalidateActive.bind(ctrl)));
+		this.using(listener.on('keydown', ctrl.keyDown.bind(ctrl)));
 	}
 
 	compile() {
@@ -100,17 +53,6 @@ export class Grid extends RootComponent {
 
 		template.remove();
 		templateScope.$destroy();
-	}
-
-	invalidateVisibility() {
-		const area = this.model.scene().column.area;
-		const visibility = this.model.visibility;
-		visibility({
-			pin: {
-				left: area.left.length,
-				right: area.right.length
-			}
-		});
 	}
 
 	applyFactory(gf = null, mode = 'async') {
@@ -153,25 +95,10 @@ export class Grid extends RootComponent {
 		return this.model.visibility();
 	}
 
-	invalidateActive() {
-		const activeClassName = `${GRID_PREFIX}-active`;
-		const view = this.table.view;
-		if (view.isFocused()) {
-			view.addClass(activeClassName);
-		}
-		else {
-			view.removeClass(activeClassName);
-		}
-	}
-
 	onDestroy() {
 		super.onDestroy();
 
-		this.model.grid({
-			status: 'unbound'
-		});
-
-		Model.dispose(this.model, 'component');
+		this.ctrl.dispose();
 	}
 }
 

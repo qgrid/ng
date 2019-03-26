@@ -1,7 +1,8 @@
 import Directive from '@grid/view/directives/directive';
-import {TD_ALIGN_CORE_NAME} from '@grid/view/definition';
-import {GRID_PREFIX} from '@grid/core/definition';
-import * as css from '@grid/core/services/css';
+import { TD_ALIGN_CORE_NAME } from '@grid/view/definition';
+import {TdCtrl} from '@grid/core/cell/td.ctrl';
+
+const classify = TdCtrl.classify;
 
 class TdAlignCore extends Directive(TD_ALIGN_CORE_NAME) {
 	constructor($scope, $element) {
@@ -12,14 +13,7 @@ class TdAlignCore extends Directive(TD_ALIGN_CORE_NAME) {
 	}
 
 	onInit() {
-		const column = this.column;
-		const element = this.element;
-
-		element.classList.add(css.escapeAttr(`${GRID_PREFIX}-${column.key}`));
-		element.classList.add(css.escapeAttr(`${GRID_PREFIX}-${column.type}`));
-		if (column.editor) {
-			element.classList.add(css.escapeAttr(`${GRID_PREFIX}-${column.editor}`));
-		}
+		classify(this.element, this.column);
 	}
 
 	get column() {

@@ -61,6 +61,10 @@
 			{
 				"title": "Various Data Source",
 				"path": "data-sources"
+			},
+			{
+				"title": "Rest",
+				"path": "rest"
 			}
 		]
 	},
@@ -265,6 +269,10 @@
 				"path": "column-size"
 			},
 			{
+				"title": "Column View Size",
+				"path": "column-view-size"
+			},
+			{
 				"title": "Column Groups",
 				"path": "column-groups"
 			},
@@ -314,6 +322,10 @@
 				"path": "row-details"
 			},
 			{
+				"title": "Row Details Mode",
+				"path": "row-details-mode"
+			},
+			{
 				"title": "JSON Editor",
 				"path": "json-editor"
 			}
@@ -347,7 +359,7 @@
 				"path": "row-indicator"
 			},
 			{
-				"title": "Drag and Drop",
+				"title": "Drag and Drop + Row Resize",
 				"path": "drag-and-drop"
 			},
 			{
@@ -382,6 +394,10 @@
 			{
 				"title": "Dialog",
 				"path": "dialog"
+			},
+			{
+				"title": "Tab Control",
+				"path": "tab-control"
 			}
 		]
 	},
@@ -490,6 +506,20 @@
 	{
 		"title": "Context Menu",
 		"items": [
+		]
+	},
+	{
+		"title": "Themes",
+		"items": [
+			{
+				"title": "Embed",
+				"path": "theme-embed"
+			},
+			{
+				"title": "Dark",
+				"path": "theme-dark"
+			}
+
 		]
 	}
 ]

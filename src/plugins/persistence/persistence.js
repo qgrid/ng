@@ -2,8 +2,8 @@ import PluginComponent from '../plugin.component';
 import {Action} from '@grid/core/action';
 import {Command} from '@grid/core/command';
 import {Composite} from '@grid/core/infrastructure/composite';
-import {PersistencePanelController} from './persistence.panel';
 import {PersistenceService} from '@grid/core/persistence/persistence.service';
+import {PersistenceView} from '../../../plugin/persistence/persistence.view';
 
 const Plugin = PluginComponent('persistence', {
 	inject: ['qgrid', '$mdPanel', '$document']
@@ -16,39 +16,51 @@ class Persistence extends Plugin {
 
 	onInit() {
 		const model = this.model;
-		const storageKey = `q-grid:${model.grid().id}:${model.persistence().id}:persistence-list`;
 
-		model.persistence()
-			.storage
-			.getItem(storageKey)
+		const id = `q-grid:${model.grid().id}:persistence-list`;
+		model.persistence({id});
+		model.persistence().storage
+			.getItem(id)
 			.then(items => {
-				items = items || [];
+				if (!items || items.length === 0) {
+					return [];
+				}
 				const defaultItem = items.find(item => item.isDefault);
 				if (defaultItem) {
 					const persistenceService = new PersistenceService(model);
 					persistenceService.load(defaultItem.model);
 				}
+				return items;
 			});
 
-		const actions = [
+		const action =
 			new Action(
 				new Command({
-					execute: (e) => {
+					source: 'persistence',
+					execute: e => {
+						if (!e) {
+							e = {
+								target: this.$element[0]
+							};
+						}
+
 						const mdPanel = this.$mdPanel;
 						const position = mdPanel.newPanelPosition()
 							.relativeTo(e.target)
 							.addPanelPosition(mdPanel.xPosition.ALIGN_START, mdPanel.yPosition.ALIGN_TOPS);
 
+
+						const persistenceView = new PersistenceView(model);
 						const config = {
 							attachTo: angular.element(this.$document[0].body), // eslint-disable-line no-undef
-							controller: PersistencePanelController,
-							controllerAs: '$persistence',
+							controller: ['$scope', function ($scope) {
+								$scope.$persistence = persistenceView;
+							}],
 							templateUrl: 'qgrid.plugin.persistence-panel.tpl.html',
 							panelClass: 'q-grid-persistence-panel',
 							position: position,
 							locals: {
-								model: model,
-								storageKey: storageKey
+								view: persistenceView
 							},
 							openFrom: e,
 							clickOutsideToClose: true,
@@ -57,27 +69,25 @@ class Persistence extends Plugin {
 							zIndex: 2
 						};
 
-						mdPanel.open(config);
+						mdPanel.open(config)
+							.then(mdPanelRef => {
+								const close = () => mdPanelRef.close();
+								this.using(persistenceView.closeEvent.on(close));
+							});
 					},
-					shortcut: 'F4'
+					//	shortcut: 'ctrl+shift+h'
 				}),
-				'Load/Save',
+				'Save/Load',
 				'history'
-			)
-		];
+			);
 
-		model
-			.action({
-				items: Composite.list([actions, model.action().items])
-			});
+		this.model.action({
+			items: Composite.list([action], this.model.action().items)
+		});
 	}
 }
 
 export default Persistence.component({
 	controller: Persistence,
-	controllerAs: '$persistence',
-	bindings: {
-		'onSubmit': '&',
-		'onCancel': '&'
-	}
+	controllerAs: '$persistencePlugin'
 });

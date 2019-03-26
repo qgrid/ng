@@ -1,78 +1,13 @@
 import PluginComponent from '../plugin.component';
-import {Command} from '@grid/core/command';
-import {uniq, clone, noop, flatten} from '@grid/core/utility';
-import {getFactory as labelFactory} from '@grid/core/services/label';
-import * as columnService from '@grid/core/column/column.service';
+import { uniq, noop, flatten } from '@grid/core/utility';
+import { ColumnFilterView } from '@grid/plugin/column-filter/column.filter.view';
 
-const Plugin = PluginComponent('column-filter-panel', {inject: ['vscroll', '$filter', 'qgrid']});
+const Plugin = PluginComponent('column-filter-panel', { inject: ['$scope', 'vscroll', '$filter', 'qgrid'] });
 class ColumnFilterPanel extends Plugin {
 	constructor() {
 		super(...arguments);
 
-		this.by = new Set();
-		this.items = [];
-
-		this.toggle = new Command({
-			execute: (item) => {
-				if (this.by.has(item)) {
-					this.by.delete(item);
-				}
-				else {
-					this.by.add(item);
-				}
-			}
-		});
-
-		this.toggleAll = new Command({
-			execute: () => {
-				const state = !this.stateAll();
-				if (state) {
-					for (let item of this.items) {
-						this.by.add(item);
-					}
-				}
-				else {
-					this.by.clear();
-				}
-			}
-		});
-
-		this.submit = new Command({
-			execute: () => {
-				const filter = this.model.filter;
-				const by = clone(filter().by);
-				const items = Array.from(this.by);
-				if (items.length) {
-					by[this.key] = {items: items};
-				}
-				else {
-					delete by[this.key];
-				}
-
-				filter({by: by});
-
-				this.onSubmit();
-			}
-		});
-
-		this.cancel = new Command({
-			execute: () => this.onCancel()
-		});
-
-		this.reset = new Command({
-			execute: () => {
-				this.by = new Set([]);
-				this.onReset();
-			}
-		});
-
-		this.resetItems = new Command({
-			execute: () => {
-				this.items = [];
-				this.vscrollContext.container.reset();
-			}
-		});
-
+		this.search = '';
 		this.vscrollContext = this.vscroll({
 			fetch: (skip, take, d) => {
 				if (!this.isReady()) {
@@ -80,82 +15,91 @@ class ColumnFilterPanel extends Plugin {
 					return;
 				}
 
+				const columnFilter = this.columnFilter;
+				// We need to close `items` to make reset work properly
+				const items = columnFilter.items;
+
 				const model = this.model;
 				const filterState = model.filter();
 				const service = this.qgrid.service(model);
 				if (filterState.fetch !== noop) {
 					const cancelBusy = service.busy();
+
 					filterState
-						.fetch(this.key, {
-							value: this.getValue.bind(this),
-							skip: skip,
-							take: take,
-							filter: this.filter
+						.fetch(columnFilter.key, {
+							take,
+							skip,
+							value: columnFilter.getValue,
+							filter: this.search
 						})
-						.then(items => {
-							this.items.push(...items);
-							d.resolve(this.items.length + take);
+						.then(page => {
+							items.push(...page);
+							d.resolve(items.length + (page.length === take ? take : 0));
 							cancelBusy();
 						})
 						.catch(cancelBusy);
 				}
 				else {
 					const cancelBusy = service.busy();
+					const isBlank = model.filter().assertFactory().isNull;
 					try {
-						if (!this.items.length) {
+						if (!items.length) {
 							const source = model[model.columnFilter().source];
-							let items = source().rows.map(this.getValue.bind(this));
-							if(this.column.type === 'array') {
+							let items = source().rows.map(columnFilter.getValue);
+							if (columnFilter.column.type === 'array') {
 								items = flatten(items);
 							}
 
 							const uniqItems = uniq(items);
-							const filteredItems = this.$filter('filter')(uniqItems, this.filter);
-							filteredItems.sort();
-							this.items = filteredItems;
+							const notBlankItems = uniqItems.filter(x => !isBlank(x));
+							const filteredItems = this.$filter('filter')(notBlankItems, this.search);
+
+							filteredItems.sort(columnFilter.column.compare);
+							columnFilter.items = filteredItems;
+							columnFilter.hasBlanks =
+								notBlankItems.length !== uniqItems.length &&
+								(!this.search || 'blanks'.indexOf(this.search.toLowerCase()) >= 0);
 						}
 
-						d.resolve(this.items.length);
+						d.resolve(columnFilter.items.length);
 					}
 					finally {
 						cancelBusy();
 					}
 				}
-			}
+			},
+
 		});
 	}
 
 	onInit() {
-		this.column = columnService.find(this.model.data().columns, this.key);
-		this.title = this.column.title;
-		this.getValue = labelFactory(this.column);
+		const context = {
+			key: this.key
+		};
 
-		const filterBy = this.model.filter().by[this.key];
-		this.by = new Set((filterBy && filterBy.items) || []);
+		this.vscrollContext.threshold = this.model.columnFilter().threshold;
 
-		this.vscrollContext.settings.threshold = this.model.columnFilter().threshold;
-		this.resetItems.execute();
+		const columnFilter = new ColumnFilterView(this.model, context);
+		this.columnFilter = columnFilter;
+
+		this.using(columnFilter.submitEvent.on(this.onSubmit));
+		this.using(columnFilter.cancelEvent.on(this.onCancel));
+		this.using(columnFilter.resetEvent.on(this.reset.bind(this)));
+
+		this.$scope.$columnFilterPanel = columnFilter;
+
+		this.reset();
 	}
 
-	state(item) {
-		return this.by.has(item);
-	}
-
-	stateAll() {
-		return this.items.every(this.state.bind(this));
-	}
-
-	isIndeterminate() {
-		return !this.stateAll() && this.items.some(this.state.bind(this));
-	}
-
-	onReset() {
+	reset() {
+		this.columnFilter.items = [];
+		this.vscrollContext.container.reset();
 	}
 }
 
 export default ColumnFilterPanel.component({
 	controller: ColumnFilterPanel,
-	controllerAs: '$columnFilterPanel',
+	controllerAs: '$columnFilterPanelPlugin',
 	bindings: {
 		'onSubmit': '&',
 		'onCancel': '&',

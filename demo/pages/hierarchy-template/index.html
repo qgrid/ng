@@ -1,22 +1,17 @@
-<q-grid header="{{::$details.title}}" 
-		rows="$ctrl.rows"
-		group-by="['contact.address.state', 'gender']">
+<q-grid header="{{::$details.title}}"
+        model="$ctrl.gridModel"
+        group-by="['contact.address.state', 'gender']">
 	<q-grid:columns generation="deep">
-		<q-grid:column type="group" offset="20">
-			<q-grid:template for="head">
-				State+Gender
-			</q-grid:template>
-			<q-grid:template for="body">
-				<button ng-mouseup="$view.group.toggleStatus.execute($row)"
-						  style="font-size: 20px;"
-						  tabindex="-1"
-						  ng-disabled="!$view.group.toggleStatus.canExecute($row)">
-					<span ng-bind="$view.group.status($row) === 'expand' ? '&#x25BE' : '&#x25B8'"></span>
-				</button>
-				<span>{{$view.group.value($row)}}</span>
-			</q-grid:template>
+		<q-grid-column type="group"
+		               label="$ctrl.groupLabel($row)">
+			<q-grid-template for="head"
+			                 let="$ctrl">
+				<button ng-click="$ctrl.toggleCollapse()">Collapse/Expand All</button>
+			</q-grid-template>
+		</q-grid-column>
+		<q-grid:column key="contact.address.zip"
+		               aggregation="max">
 		</q-grid:column>
-		<q-grid:column key="contact.address.zip" aggregation="max"></q-grid:column>
 		<q-grid:column key="contact.address.state"></q-grid:column>
 		<q-grid:column key="gender"></q-grid:column>
 	</q-grid:columns>

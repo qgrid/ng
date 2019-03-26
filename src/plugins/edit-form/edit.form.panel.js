@@ -1,61 +1,21 @@
 import PluginComponent from '../plugin.component';
-import {Command} from '@grid/core/command';
-import {RowEditor} from '@grid/core/edit/edit.row.editor';
-import {noop, isUndefined} from '@grid/core/utility';
+import {EditFormPanelView} from '@grid/plugin/edit-form/edit.form.panel.view';
 
 const Plugin = PluginComponent('edit-form-panel', {inject: []});
 class EditFormPanel extends Plugin {
 	constructor() {
 		super(...arguments);
-
-
-		this.shortcutOff = noop;
 	}
 
 	onInit() {
-		this.editor = new RowEditor(this.row, this.model.data().columns);
+		const editFormPanel = new EditFormPanelView(this.model, this);
 
-		this.submit = this.commands.submit;
-		this.cancel = this.commands.cancel;
-		this.reset = this.commands.reset;
+		this.using(editFormPanel.submitEvent.on(this.onSubmit));
+		this.using(editFormPanel.cancelEvent.on(this.onCancel));
+		this.using(editFormPanel.resetEvent.on(this.onReset));
 
-		if (!isUndefined(this.shortcut)) {
-			this.shortcutOff = this.shortcut.register(new Map(
-				Object.entries(this.commands)
-			));
-		}
-	}
-
-	get commands() {
-		const commands = {
-			submit: new Command({
-				shortcut: this.shortcutFactory('commit'),
-				execute: () => {
-					this.editor.commit();
-					this.onSubmit();
-				}
-			}),
-			cancel: new Command({
-				shortcut: this.shortcutFactory('cancel'),
-				execute: () => this.onCancel()
-			}),
-			reset: new Command({
-				execute: () => {
-					this.editor.editors.forEach(e => e.reset());
-					this.onReset();
-				}
-			})
-		};
-
-		return commands;
-	}
-
-	shortcutFactory(type) {
-		const edit = this.model.edit;
-		return () => {
-			const shortcuts = edit()[type + 'Shortcuts'];
-			return shortcuts['form'] || shortcuts['$default'];
-		};
+		this.shortcutOff = editFormPanel.shortcutOff;
+		this.$scope.$editFormPanel = editFormPanel;
 	}
 
 	onDestroy() {
@@ -65,7 +25,7 @@ class EditFormPanel extends Plugin {
 
 export default EditFormPanel.component({
 	controller: EditFormPanel,
-	controllerAs: '$editFormPanel',
+	controllerAs: '$editFormPanelPlugin',
 	bindings: {
 		'onSubmit': '&',
 		'onCancel': '&',

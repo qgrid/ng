@@ -4,19 +4,152 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## [Unreleased]
-- Embed validation framework to cell edit workflow.
 - Shortcut keycode can be a sequence.
 - Fix navigation behavior for row groups.
-- Mouse wheel should work withing frozen columns.
-- Improve navigation performance.
-- Put plugin framework independent code under core.
-- Brand new documentation.
 - Edit form performance improvements.
 - Revisit drop-down editor.
-- Column filter for date types. 
-- Editors vs window resizing.
-- +104 JIRA tasks :-)
- 
+- Column filter for date types.
+- Data manipulation array marks as dirty when enter edit mode.
+- Menu panels should fit screen sizes.
+- Convert form editiing popup to menu.
+- Expression builder plugin.
+- 107+ JIRA tasks :-)
+
+## [1.4.5] - 2019-03-26
+### Fixed
+- Compatibility with Chrome implementation of flex box overflow since version 73.
+
+## [1.4.4] - 2018-04-30
+### Added
+- `ToggleAll` command that can be override to intersect toggle all groups action.
+
+### Changed
+- Clicking on group header leads to collapse/expand of all nodes in the view.
+
+### Fixed
+- `Group pipe` index calculation - the root cause of invalid filtering.
+
+## [1.4.3] - 2018-04-25
+### Added
+- `Persistence` plugin - added groups.
+- Selected chips in `column filter` plugin.
+
+### Fixed
+- `Persistence` plugin - call appropriate action commands.
+
+### Changed
+- `Rest` post/get request format.
+
+## [1.4.2] - 2018-04-04
+### Changed
+- Attach `fastdom` to `vscroll`.
+
+## [1.4.1] - 2018-04-03
+### Added
+- Start to use fastdom to increase rendering perfomance.
+- The latest version of vscroll is used.
+
+### Changed
+- `Row Number` column is resizable by default.
+
+### Fixed
+- Not allow to enter invalid page number in the `pager target` component.
+- Fixed `Toggle all` command behavior in the `column filter` plugin.
+
+## [1.4.0] - 2018-02-07
+### Added
+- Column [viewWidth](https://qgrid.github.io/ng/#!/column-view-size) property.
+- Filter `by` property `blanks` option support.
+- Layer for blank state.
+
+### Changed
+- Show (Blanks) checkbox in column filter if there is empty string, null or undefined in the list.
+- Explicitly set `display: inline` for label in column sort plugin.
+
+## [1.3.4] - 2018-02-02
+### Fixed
+- Explicitly set height for column chooser and column filter plugins so angular material can apply correct layout.
+- Correct binding handling in the root component. 
+
+### Changed
+- Change q-grid-embed styles.
+- Better layout of column filter and column sort icons.
+
+## [1.3.3] - 2018-01-26
+### Fixed
+- `isBusy` setup before digest is invoked.
+- Don't scroll page scroll if can't scroll grid further.
+- Fixed width of column chooser and column filter dialogs.
+
+## [1.3.2] - 2018-01-25
+### Fixed
+- Column filter and column chooser style enhancements.
+- Navigation fixes.
+- Persist row details state on grid invalidate.
+
+### Changed
+- Do focus cell only with keyboard when `selection unit` is `row` or `column`.
+
+## [1.3.1] - 2018-01-24
+### Added
+- Added comments to core d.ts files.
+- `Blank` button in persistence plugin to load empty configuration.
+- Possibility to choose page in the `pager`.
+- `Clear` button to the column filter plugin.
+- Micro animations for columns sort and cell navigation.
+- Added possibility to resize rows `<q-grid-row canResize="true">.
+- Added possibility to drag rows `<q-grid-row canDrag="true">.
+- Reducer property to `pipe.model`.
+- [Rest plugin](https://qgrid.github.io/ng/#!/rest).
+
+### Changed
+- Style name for the focused cell `q-grid-focus` -> `q-gird-focused`.
+- Refactor styles to the common format.
+- Move common functionality from framework specific components to core.
+- Put core under the root folder.
+- Remove global `ENV` variable.
+- Remove rgba from cell border styles, it works badly in `collapse` mode.
+
+### Fixed
+- Scroll top/left calculations on cell navigation.
+- View rect value.
+- Call digest on start invalidate.
+- `Select All` perfomance.
+
+## [1.2.0] - 2017-12-01
+### Added
+- Added `compare` property to the column [Sorting](https://qgrid.github.io/ng/#!/sorting-model).
+- Validation humane labels.
+- Validation array support.
+
+### Fixed
+- Mouse `wheel` is working on whole grid.
+- Fix infinite scrolling request new data time.
+
+### Changed
+- +20% speed to `virtual` scrolling.
+- +15% `style API` performance.
+- 70% of core plugins are reusable from other frameworks.  
+- Better mechanism to handle dom loaded event, `scene rounds`. 
+- Row model `height property` now default value is function.
+
+## [1.1.3] - 2017-11-24
+### Fixed
+- Editor position does not work when parent element applies transformations. 
+
+## [1.1.2] - 2017-11-24
+### Fixed
+- Scroll jumping when column sorting is applied.
+- Angular 1.5.8 as development base and appropriate code fixes.
+
+## [1.1.1] - 2017-11-22
+### Added
+- Github integration with travis. 
+
+### Fixed
+- Cell editor should follow the cell position on window resize.
+- Keyboard navigation performance.
+
 ## [1.1.0] - 2017-11-21
 ### Added
 - [Legend plugin](https://qgrid.github.io/ng/#!/legend). 
@@ -165,7 +298,20 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 - Action bar plugin.
 - Data manipulation plugin.
 
-[Unreleased]: https://github.com/qgrid/ng/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/qgrid/ng/compare/v1.4.5...HEAD
+[1.4.5]: https://github.com/qgrid/ng/compare/v1.4.5...v1.4.4
+[1.4.4]: https://github.com/qgrid/ng/compare/v1.4.4...v1.4.3
+[1.4.3]: https://github.com/qgrid/ng/compare/v1.4.3...v1.4.1
+[1.4.1]: https://github.com/qgrid/ng/compare/v1.4.0...v1.4.1
+[1.4.0]: https://github.com/qgrid/ng/compare/v1.3.4...v1.4.0
+[1.3.4]: https://github.com/qgrid/ng/compare/v1.3.3...v1.3.4
+[1.3.3]: https://github.com/qgrid/ng/compare/v1.3.2...v1.3.3
+[1.3.2]: https://github.com/qgrid/ng/compare/v1.3.1...v1.3.2
+[1.3.1]: https://github.com/qgrid/ng/compare/v1.2.0...v1.3.1
+[1.2.0]: https://github.com/qgrid/ng/compare/v1.1.3...v1.2.0
+[1.1.3]: https://github.com/qgrid/ng/compare/v1.1.2...v1.1.3
+[1.1.2]: https://github.com/qgrid/ng/compare/v1.1.1...v1.1.2
+[1.1.1]: https://github.com/qgrid/ng/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/qgrid/ng/compare/v1.0.65...v1.1.0
 [1.0.65]: https://github.com/qgrid/ng/compare/v1.0.64...v1.0.65
 [1.0.64]: https://github.com/qgrid/ng/compare/v1.0.63...v1.0.64

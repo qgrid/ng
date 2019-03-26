@@ -1,10 +1,8 @@
-import {EventListener, EventManager} from '@grid/core/infrastructure';
-import {Command} from '@grid/core/command';
-import {TemplatePath} from '@grid/core/template';
-import {upload} from '@grid/core/services/upload';
-import PluginComponent from '../plugin.component';
 import {IMPORT_NAME} from '../definition';
-import {readFile} from './read';
+import PluginComponent from '../plugin.component';
+import {TemplatePath} from '@grid/core/template';
+import {ImportView} from '@grid/plugin/import/import.view';
+import {EventListener, EventManager} from '@grid/core/infrastructure';
 
 TemplatePath
 	.register(IMPORT_NAME, () => {
@@ -15,41 +13,34 @@ TemplatePath
 	});
 
 const Plugin = PluginComponent('import');
+
 class Import extends Plugin {
 	constructor() {
 		super(...arguments);
-		const element = this.$element[0];
-		this.eventListener = new EventListener(element, new EventManager(this));
-		this.upload = new Command({
-			execute: () => upload(element)
-		});
 	}
 
-	load(e) {
-		const files = e.target.files;
+	onInit() {
+		const element = this.$element[0];
+		const eventListener = new EventListener(element, new EventManager(this));
+		const context = {
+			element,
+			options: this.options
+		};
+		const view = new ImportView(this.model, context);
 
-		for (let file of files) {
-			const reader = new FileReader();
-			reader.onload = e => {
-				readFile(e, file, this.model, this.importOptions);
-			};
-			reader.readAsBinaryString(file);
-		}
+		this.$scope.$import = view;
+		this.using(eventListener.on('change', view.load));
 	}
 
 	get resource() {
 		return this.model.import().resource;
 	}
-
-	onInit() {
-		this.using(this.eventListener.on('change', this.load));
-	}
 }
 
 export default Import.component({
 	controller: Import,
-	controllerAs: '$import',
+	controllerAs: '$importPlugin',
 	bindings: {
-		'importOptions': '='
+		'options': '='
 	}
 });

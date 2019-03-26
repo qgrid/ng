@@ -3,9 +3,10 @@
 		"target": "es6",
 		"paths": {
 			"@grid/src": ["./src"],
-			"@grid/core": ["./src/core"],
 			"@grid/view": ["./src/view"],
-			"@grid/themes": ["./src/themes"]
+			"@grid/themes": ["./src/themes"],
+			"@grid/core": ["./core"],
+			"@grid/plugin": ["./plugin"]
 		}
 	}
 }

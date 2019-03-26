@@ -1,12 +1,21 @@
 <q-grid:cell-editor class="q-grid-array q-grid-editor q-grid-position"
-						  on:close="$view.edit.cell.exit.execute($cell)"
-						  q-grid:position="td">
-	<div class="q-grid-array-view" ng-controller="Body.Cell.Array.Edit.Controller as $arrayEdit">
+					on:close="$view.edit.cell.exit.execute($cell)"
+					q-grid:position="td">
+	<div class="q-grid-array-view"
+		 ng-controller="Body.Cell.Array.Edit.Controller as $arrayEdit">
 		<md-chips ng-model="$view.edit.cell.value"
-					 md-removable="'true'"
-					 md-enable-chip-edit="'true'"
-					 q-grid:focus="input">
-				<input type="text" ng-model="$arrayEdit.text" ng-keydown="$arrayEdit.keyDown($event)" placeholder="Enter {{::$cell.column.title}}...">
+				  md-removable="'true'"
+				  md-enable-chip-edit="'true'"
+				  q-grid:focus="input">
+			<input type="text"
+				   ng-model="$arrayEdit.text"
+				   ng-keydown="$arrayEdit.keyDown($event)"
+				   placeholder="Enter {{::$cell.column.title}}...">
 		</md-chips>
 	</div>
+	<q-grid:validator class="q-grid-validator"
+					  key="{{::$cell.column.key}}"
+					  type="{{::$cell.column.type}}"
+					  value="$view.edit.cell.value">
+	</q-grid:validator>
 </q-grid:cell-editor>

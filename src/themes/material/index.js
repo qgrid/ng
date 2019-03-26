@@ -45,14 +45,25 @@ function Setup(qgridThemeProvider) {
 		theme.put(plugin('pivot-bar'), require('./templates/plugin.pivot.bar.html'));
 		theme.put(plugin('selection-bar'), require('./templates/plugin.selection.bar.html'));
 		theme.put(plugin('pager'), require('./templates/plugin.pager.html'));
+		theme.put(plugin('pager-target'), require('./templates/plugin.pager.target.html'));
 		theme.put(plugin('persistence-panel'), require('./templates/plugin.persistence.panel.html'));
 		theme.put(plugin('visibility'), require('./templates/plugin.visibility.html'));
 		theme.put(plugin('title'), require('./templates/plugin.title.html'));
 		theme.put(plugin('cell-editor'), require('./templates/plugin.cell.editor.html'));
+		theme.put(plugin('column-sort'), require('./templates/plugin.column.sort.html'));
 		theme.put(plugin('backdrop'), require('./templates/plugin.backdrop.html'));
 		theme.put(plugin('tab-trap'), require('./templates/plugin.tab.trap.html'));
 		theme.put(plugin('legend-core'), require('./templates/plugin.legend.core.html'));
 		theme.put(plugin('validator'), require('./templates/plugin.validator.html'));
+
+		theme.put(plugin('expression-builder'), require('./templates/plugin.expression.builder.html'));
+		theme.put(plugin('expression-builder.autocomplete'), require('./templates/plugin.expression.builder.autocomplete.html'));
+		theme.put(plugin('expression-builder.button'), require('./templates/plugin.expression.builder.button.html'));
+		theme.put(plugin('expression-builder.label'), require('./templates/plugin.expression.builder.label.html'));
+		theme.put(plugin('expression-builder.multiselect'), require('./templates/plugin.expression.builder.multiselect.html'));
+		theme.put(plugin('expression-builder.icon.button'), require('./templates/plugin.expression.builder.icon.button.html'));
+		theme.put(plugin('expression-builder.input'), require('./templates/plugin.expression.builder.input.html'));
+		theme.put(plugin('expression-builder.select'), require('./templates/plugin.expression.builder.select.html'));
 
 		theme.put(cell('head', 'filter-row'), require('./templates/head.cell.filter.row.html'));
 
@@ -96,7 +107,7 @@ function Setup(qgridThemeProvider) {
 		theme.put(cell('body', 'select'), require('./templates/body.cell.select.html'));
 		theme.put(cell('foot', 'select'), require('./templates/foot.cell.text.html'));
 
-		theme.put(cell('head', 'group'), require('./templates/head.cell.text.html'));
+		theme.put(cell('head', 'group'), require('./templates/head.cell.group.html'));
 		theme.put(cell('body', 'group'), require('./templates/body.cell.group.html'));
 		theme.put(cell('foot', 'group'), require('./templates/foot.cell.text.html'));
 		theme.put(cell('body', 'group.edit'), require('./templates/body.cell.text.edit.html'));
@@ -106,13 +117,13 @@ function Setup(qgridThemeProvider) {
 		theme.put(cell('foot', 'pivot'), require('./templates/foot.cell.text.html'));
 		theme.put(cell('body', 'pivot.edit'), EMPTY);
 
-		theme.put(cell('head', 'row-number'), require('./templates/head.cell.row.number.html'));
+		theme.put(cell('head', 'row-number'), require('./templates/head.cell.text.html'));
 		theme.put(cell('body', 'row-number'), require('./templates/body.cell.row.number.html'));
 		theme.put(cell('foot', 'row-number'), require('./templates/foot.cell.text.html'));
 		theme.put(cell('body', 'row-number.edit'), EMPTY);
 
 		theme.put(cell('head', 'row-indicator'), require('./templates/head.cell.text.html'));
-		theme.put(cell('body', 'row-indicator'), require('./templates/body.cell.text.html'));
+		theme.put(cell('body', 'row-indicator'), require('./templates/body.cell.row.indicator.html'));
 		theme.put(cell('foot', 'row-indicator'), require('./templates/foot.cell.text.html'));
 		theme.put(cell('body', 'row-indicator.edit'), EMPTY);
 

@@ -13,31 +13,50 @@
 	th.q-grid-currency label {
 		margin-right: 5px;
 	}
-
 </style>
 
-<q-grid header="{{::$details.title}}" 
-		rows="$ctrl.rows"
-		group-by="['invoiceNumber']"
-		edit-mode="cell"
-		group-mode="subhead"
-		style-row="$ctrl.rowStyle">
+<q-grid header="{{::$details.title}}"
+        rows="$ctrl.rows"
+        group-by="['invoiceNumber']"
+        edit-mode="cell"
+        group-mode="subhead"
+        style-row="$ctrl.rowStyle">
 
 	<q-grid:columns generation="deep">
-		<q-grid:column can-sort="false" can-filter="false"></q-grid:column>
+		<q-grid:column can-sort="false"
+		               can-filter="false"></q-grid:column>
 		<q-grid:column type="group"
-							title="Invoice Number"
-							label="$ctrl.getGroupLabel($row)">
+		               title="Invoice Number"
+		               label="$ctrl.getGroupLabel($row)">
 		</q-grid:column>
-		<q-grid:column key="product.productCode" title="Code"></q-grid:column>
-		<q-grid:column key="product.productDescription" title="Name" width="300"></q-grid:column>
-		<q-grid:column key="quantity" type="number" aggregation="sum"></q-grid:column>
-		<q-grid:column key="price" type="currency"></q-grid:column>
-		<q-grid:column key="total" type="currency" title="Total" value="$ctrl.getTotal($row)" aggregation="sum"
-							width="120"></q-grid:column>
+		<q-grid:column key="product.productCode"
+		               title="Code">
+			<q-grid-template for="head">
+				<label style="cursor: pointer;"
+				       ng-click="$view.group.toggleAllStatus.execute()"
+				       tabindex="-1">
+					<md-tooltip md-delay="1000">{{$cell.column.title}}</md-tooltip>
+					{{$cell.column.title}}
+				</label>
+			</q-grid-template>
+		</q-grid:column>
+		<q-grid:column key="product.productDescription"
+		               title="Name"
+		               width="300"></q-grid:column>
+		<q-grid:column key="quantity"
+		               type="number"
+		               aggregation="sum"></q-grid:column>
+		<q-grid:column key="price"
+		               type="currency"></q-grid:column>
+		<q-grid:column key="total"
+		               type="currency"
+		               title="Total"
+		               value="$ctrl.getTotal($row)"
+		               aggregation="sum"
+		               width="120"></q-grid:column>
 		<q-grid:column type="row-options"
-							key="rowOptions"
-							editor-options="$ctrl.rowOptions">
+		               key="rowOptions"
+		               editor-options="$ctrl.rowOptions">
 		</q-grid:column>
 	</q-grid:columns>
 

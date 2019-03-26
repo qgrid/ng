@@ -1,6 +1,7 @@
 /* eslint-disable indent */
 
 import PluginComponent from '../plugin.component';
+import {ActionBarCoreView} from '@grid/plugin/action-bar/action.bar.core.view';
 
 const Plugin = PluginComponent('action-bar-core', {models: ['action']});
 class ActionBarCore extends Plugin {
@@ -11,23 +12,10 @@ class ActionBarCore extends Plugin {
 	onInit() {
 		const root = this._root;
 		if (root) {
-			const shortcut = this.model.action().shortcut;
-			this.using(this.model.actionChanged.watch(e => {
-				if (e.hasChanges('items')) {
-					if (this.shortcutOff) {
-						this.shortcutOff();
-						this.shortcutOff = null;
-					}
-
-					const commands = e.state.items.map(act => act.command);
-					this.shortcutOff = shortcut.register(root.commandManager, commands);
-				}
-			}));
+			const actionBar = new ActionBarCoreView(this.model);
+			this.$scope.$actionBar = actionBar;
+			this.shortcutOff = actionBar.shortcutOff;
 		}
-	}
-
-	get actions() {
-		return this.model.action().items;
 	}
 
 	onDestroy() {
@@ -40,7 +28,7 @@ class ActionBarCore extends Plugin {
 
 export default ActionBarCore.component({
 	controller: ActionBarCore,
-	controllerAs: '$actionBar',
+	controllerAs: '$actionBarPlugin',
 });
 
 /* eslint-enable indent */

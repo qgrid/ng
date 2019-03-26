@@ -1,8 +1,13 @@
 import Directive from '@grid/view/directives/directive';
 import cellBuilder from '../cell/cell.build';
-import {VIEW_CORE_NAME, TH_CORE_NAME, TABLE_CORE_NAME, GRID_NAME} from '@grid/view/definition';
-import {GRID_PREFIX} from '@grid/core/definition';
+import { VIEW_CORE_NAME, TH_CORE_NAME, TABLE_CORE_NAME, GRID_NAME } from '@grid/view/definition';
+import { GRID_PREFIX } from '@grid/core/definition';
 import * as css from '@grid/core/services/css';
+import { TdCtrl } from '@grid/core/cell/td.ctrl';
+import { ThCtrl } from '@grid/core/cell/th.ctrl';
+
+const classifyTd = TdCtrl.classify;
+const classifyTh = ThCtrl.classify;
 
 class ThCore extends Directive(TH_CORE_NAME, {
 	view: `^^${VIEW_CORE_NAME}`,
@@ -22,51 +27,14 @@ class ThCore extends Directive(TH_CORE_NAME, {
 		const element = this.element;
 
 		this.root.bag.head.addCell(this);
-		element.classList.add(css.escapeAttr(`${GRID_PREFIX}-${column.key}`));
-		element.classList.add(css.escapeAttr(`${GRID_PREFIX}-${column.type}`));
+
+		classifyTd(element, column);
+		classifyTh(element, column);
+
 		if (column.type === 'filter-row') {
 			element.classList.add(css.escapeAttr(`${GRID_PREFIX}-${column.sourceKey}`));
 			element.classList.add(css.escapeAttr(`${GRID_PREFIX}-${column.sourceType}`));
 		}
-
-		if (column.editor) {
-			element.classList.add(css.escapeAttr(`${GRID_PREFIX}-${column.editor}`));
-		}
-
-		this.canEdit = true;
-		this.canResize = true;
-		this.canSort = true;
-		this.canMove = true;
-		this.canFilter = true;
-		this.canHighlight = true;
-		this.canFocus = true;
-
-		if(column.canEdit){
-			element.classList.add(css.escapeAttr(`${GRID_PREFIX}-can-edit`));
-		}
-
-		if(column.canResize){
-			element.classList.add(css.escapeAttr(`${GRID_PREFIX}-can-resize`));
-		}
-
-		if(column.canSort){
-			element.classList.add(css.escapeAttr(`${GRID_PREFIX}-can-sort`));
-		}
-
-		if(column.canMove){
-			element.classList.add(css.escapeAttr(`${GRID_PREFIX}-can-move`));
-		}
-
-		if(column.canFilter){
-			element.classList.add(css.escapeAttr(`${GRID_PREFIX}-can-filter`));
-		}
-
-		if(column.canHighlight){
-			element.classList.add(css.escapeAttr(`${GRID_PREFIX}-can-highlight`));
-		}
-
-
-
 
 		if (this.$attrs[TH_CORE_NAME] !== 'body') {
 			const model = this.view.model;
@@ -115,5 +83,6 @@ export default {
 	controllerAs: '$cell',
 	controller: ThCore,
 	require: ThCore.require,
-	link: ThCore.link
+	link: ThCore.link,
+	scope: false
 };

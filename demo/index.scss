@@ -52,7 +52,7 @@ md-sidenav {
 	background: #106CC8;
 
 	page-list {
-		height: calc(100% - 30px);
+		height: 100%;
 	}
 }
 
@@ -74,7 +74,6 @@ md-toolbar {
 		padding: 5px 10px !important;
 	}
 }
-
 
 .q-grid-highlight-part {
 	background-color: yellow;
@@ -99,5 +98,11 @@ md-toolbar {
 
 	md-dialog-content {
 		overflow: hidden;
+	}
+}
+
+.tab-control {
+	md-tabs {
+		height: calc(100% - 60px);
 	}
 }

@@ -1,3 +1,4 @@
+import ColumnSort from './column-sort/column.sort';
 import Pager from './pagination/pager';
 import SortBar from './sort-bar/sort.bar';
 import GroupBar from './group-bar/group.bar';
@@ -36,6 +37,9 @@ import LegendCore from './legend/legend.core';
 import Validation from './validation/validation';
 import Rule from './validation/rule';
 import Validator from './validation/validator';
+import Rest from './rest/rest';
+import ExpressionBuilder from './expression-builder/expression-builder';
+import ExpressionBuilderFactory from './expression-builder/expression-builder.factory';
 
 import * as def from './definition';
 
@@ -43,6 +47,7 @@ export default angular  // eslint-disable-line no-undef
 	.module(def.MODULE_NAME, [def.MODULE_CORE_NAME])
 	.directive(def.MENU_NAME, () => Menu)
 	.directive(def.TAB_TRAP_IN_NAME, () => TabTrapIn)
+	.component(def.COLUMN_SORT_NAME, ColumnSort)
 	.component(def.PAGER_NAME, Pager)
 	.component(def.SORT_BAR_NAME, SortBar)
 	.component(def.GROUP_BAR_NAME, GroupBar)
@@ -78,6 +83,9 @@ export default angular  // eslint-disable-line no-undef
 	.component(def.VALIDATION_NAME, Validation)
 	.component(def.RULE_NAME, Rule)
 	.component(def.VALIDATOR_NAME, Validator)
+	.component(def.REST_NAME, Rest)
+	.component(def.EXPRESSION_BUILDER_NAME, ExpressionBuilder)
+	.factory(def.EXPRESSION_BUILDER_FACTORY, ExpressionBuilderFactory)
 	.service(def.POPUP_SERVICE, PopupService)
 	.config(Setup)
 	.name;
