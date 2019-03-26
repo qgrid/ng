@@ -344,7 +344,8 @@
     display: none; }
   .q-grid-menu ::-webkit-scrollbar-corner {
     background-color: transparent; }
-  .q-grid-menu ::-webkit-scrollbar-track, .q-grid-menu ::-webkit-scrollbar-track-piece {
+  .q-grid-menu ::-webkit-scrollbar-track,
+  .q-grid-menu ::-webkit-scrollbar-track-piece {
     background-color: #f8f8f8; }
   .q-grid-menu > md-card {
     margin: 0; }
@@ -1059,7 +1060,8 @@
     display: none; }
   .q-grid-persistence-panel ::-webkit-scrollbar-corner {
     background-color: transparent; }
-  .q-grid-persistence-panel ::-webkit-scrollbar-track, .q-grid-persistence-panel ::-webkit-scrollbar-track-piece {
+  .q-grid-persistence-panel ::-webkit-scrollbar-track,
+  .q-grid-persistence-panel ::-webkit-scrollbar-track-piece {
     background-color: #f8f8f8; }
   .q-grid-persistence-panel md-radio-button {
     margin: 0; }
