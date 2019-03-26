@@ -150,6 +150,7 @@ $layout-gutter-width: ($baseline-grid * 2) !default;
 	}
 	.layout#{$name}-row {
 		flex-direction: row;
+		min-height: 0;
 	}
 }
 

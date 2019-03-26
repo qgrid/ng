@@ -190,13 +190,13 @@ function dataColumnsFactory(model) {
 			});
 		}
 
-		columns.push(...
-			result.columns
-				.map(columnBody => {
-					const dataColumn = createColumn(columnBody.type || 'text', columnBody);
-					dataColumn.rowspan = context.rowspan;
-					return dataColumn;
-				}));
+		columns.push(
+			...result.columns.map(columnBody => {
+				const dataColumn = createColumn(columnBody.type || 'text', columnBody);
+				dataColumn.rowspan = context.rowspan;
+				return dataColumn;
+			})
+		);
 
 		return result.columns;
 	};
