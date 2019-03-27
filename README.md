@@ -31,7 +31,7 @@ https://qgrid.github.io/ng/
 * `$ npm run test:debug` watch and debug tests
 
 ## release
-* `$ npm run release` release the code to separate branch and create tag with version number. You should be authorized as qgrid user to publish it to npm.
+* `$ npm run release` create release version with tag. You should be authorized as qgrid user to publish it to npm
 * `$ npm run publish` publish the code to github pages
 
 ## dependency diagram
