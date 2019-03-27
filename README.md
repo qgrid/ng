@@ -30,6 +30,10 @@ https://qgrid.github.io/ng/
 * `$ npm run test` run tests
 * `$ npm run test:debug` watch and debug tests
 
+## release
+* `$ npm run release` release the code to separate branch and create tag with version number. You should be authorized as qgrid user to publish it to npm.
+* `$ npm run publish` publish the code to github pages
+
 ## dependency diagram
 We are trying to encapsulate any ui framework(angular in our case) dependencies to the separate module. We believe that it will give us a chance to migrate
 `q-grid` to other environments without big efforts(in plans angular2, react and vuejs)
