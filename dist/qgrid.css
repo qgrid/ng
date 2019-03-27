@@ -1315,7 +1315,8 @@
   .q-grid .layout-column {
     flex-direction: column; }
   .q-grid .layout-row {
-    flex-direction: row; }
+    flex-direction: row;
+    min-height: 0; }
   .q-grid .layout-padding-sm > *,
   .q-grid .layout-padding > .flex-sm {
     padding: 4px; }
@@ -1387,7 +1388,8 @@
   .q-grid.q-grid-box {
     height: 100%;
     min-height: 100%;
-    max-height: 100%; }
+    max-height: 100%;
+    transform: translate3d(0, 0, 0); }
   .q-grid .q-grid-table table {
     border-spacing: 0;
     overflow: hidden;
@@ -1416,7 +1418,8 @@
       display: table-row;
       table-layout: fixed; }
       .q-grid .q-grid-table table tbody tr.q-grid-align {
-        height: 0 !important; }
+        height: 0 !important;
+        border: 0; }
   .q-grid .q-grid-table.q-grid-table-left thead, .q-grid .q-grid-table.q-grid-table-left tfoot {
     width: 100%; }
   .q-grid .q-grid-with-right-pin > .q-grid-view > .q-grid-table.q-grid-table-center > table > thead, .q-grid .q-grid-with-right-pin > .q-grid-view > .q-grid-table.q-grid-table-center > table > tfoot {
@@ -1438,6 +1441,8 @@
     .q-grid td.q-grid-pivot,
     .q-grid th.q-grid-pivot {
       text-align: center; }
+  .q-grid.q-grid-box:not(.q-grid-drag) td, .q-grid.q-grid-box:not(.q-grid-drag) th {
+    transition: min-width 0.3s, width 0.3s, max-width 0.3s; }
   .q-grid thead th > div {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1550,9 +1555,9 @@
     .q-grid tfoot th.q-grid-row-indicator,
     .q-grid tbody td.q-grid-row-indicator,
     .q-grid tbody th.q-grid-row-indicator {
-      width: 10px;
-      min-width: 10px;
-      max-width: 10px;
+      width: 16px;
+      min-width: 16px;
+      max-width: 16px;
       text-overflow: initial; }
     .q-grid thead td.q-grid-row-options,
     .q-grid thead th.q-grid-row-options,
@@ -1590,7 +1595,8 @@
     .q-grid tbody th.q-grid-select {
       width: 56px;
       min-width: 56px;
-      max-width: 56px; }
+      max-width: 56px;
+      text-overflow: initial; }
   .q-grid tbody td.q-grid-number, .q-grid tbody td.q-grid-currency,
   .q-grid tfoot td.q-grid-number,
   .q-grid tfoot td.q-grid-currency {
@@ -1616,7 +1622,20 @@
     user-select: none;
     -khtml-user-drag: element;
     -webkit-user-drag: element; }
-  .q-grid th .q-grid-divider {
+  .q-grid.q-grid-box .q-grid-row-indicator .q-grid-draggable {
+    cursor: move;
+    opacity: 0;
+    transition: 0.3s; }
+    .q-grid.q-grid-box .q-grid-row-indicator .q-grid-draggable .q-grid-icon {
+      width: 24px;
+      min-width: 24px;
+      min-height: 24px;
+      height: 24px;
+      font-size: 24px;
+      margin-left: 4px; }
+  .q-grid.q-grid-box tr.q-grid-highlighted .q-grid-row-indicator .q-grid-draggable {
+    opacity: 1; }
+  .q-grid th > .q-grid-divider {
     top: 20%;
     bottom: 20%;
     right: 0;
@@ -1625,16 +1644,32 @@
     z-index: 2;
     background: transparent;
     position: absolute;
-    border-right: 1px solid rgba(0, 0, 0, 0.12);
+    border-right: 1px solid #e0e0e0;
     cursor: col-resize;
-    visibility: hidden; }
+    opacity: 0; }
   .q-grid th:hover .q-grid-divider, .q-grid th.q-grid-highlighted-prev .q-grid-divider {
-    visibility: visible; }
+    opacity: 1; }
+  .q-grid td > .q-grid-resizable {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0; }
+    .q-grid td > .q-grid-resizable .q-grid-divider {
+      height: 2px;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+      width: 100vh;
+      position: absolute;
+      cursor: row-resize;
+      z-index: 2; }
   .q-grid .q-grid-toolbar-left, .q-grid .q-grid-toolbar-right {
     max-width: 250px;
     overflow: auto; }
   .q-grid .q-grid-view {
-    position: relative; }
+    position: relative;
+    overflow: hidden; }
     .q-grid .q-grid-view.q-grid-select-range thead td, .q-grid .q-grid-view.q-grid-select-range thead th, .q-grid .q-grid-view.q-grid-select-range tfoot td, .q-grid .q-grid-view.q-grid-select-range tfoot th, .q-grid .q-grid-view.q-grid-select-range tbody td, .q-grid .q-grid-view.q-grid-select-range tbody th {
       -webkit-user-select: none;
       -moz-user-select: none;
